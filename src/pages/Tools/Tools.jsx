@@ -13,7 +13,7 @@ export default function Tools() {
 
     return (
         <>
-            <PageMetaData PageMetaData={metaData.title} PageDescription={metaData.description} />
+            <PageMetaData PageTitle={metaData.title} PageDescription={metaData.description} />
             <Header title={"Tools"} description={metaData.description} />
             <Main />
             <Footer />
