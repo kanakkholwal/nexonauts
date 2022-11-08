@@ -1,0 +1,109 @@
+@use "../variables";
+@use "../buttons";
+
+.G_TabBar {
+    display: flex;
+    flex-direction: row;
+    margin-block: 0.75rem;
+
+    &.Vertical {
+        flex-direction: column;
+        margin-inline: 0.75rem;
+        margin-block: 0;
+    }
+
+    &.Fill {
+        .G_TabToggle {
+            flex: 1 1 auto;
+            text-align: center;
+        }
+    }
+
+    &.Justify {
+        .G_TabToggle {
+            flex-basis: 0;
+            flex-grow: 1;
+            text-align: center;
+        }
+    }
+
+    &.G_Tabs {
+        .G_TabToggle {
+            border-radius: 0.25rem;
+            border-style: solid;
+            border-width: 0.1875rem;
+            border-color: #0000;
+            background: none;
+            color: variables.$secondary;
+
+
+            &.isActive {
+                border-bottom-left-radius: 0;
+                border-bottom-right-radius: 0;
+                border-bottom-color: variables.$secondaryBg;
+                background: variables.$secondaryBg !important;
+            }
+
+
+        }
+    }
+
+    &.G_Pills {
+        .G_TabToggle {
+
+            margin: 0.25rem;
+            cursor: pointer;
+            border-radius: 0.25rem;
+            border-style: solid;
+            border-width: 0.1875rem;
+            border: 0.1875rem solid variables.$secondaryBg;
+            box-shadow: none;
+            background: none;
+            color: variables.$secondary;
+            transition: all 150ms ease-in-out;
+
+            &.isActive {
+                background: variables.$secondaryBg !important;
+                border-color: #0000;
+
+            }
+        }
+    }
+}
+
+.G_TabToggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 0.5rem;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0.25rem;
+    user-select: none;
+    padding: calc(.625rem - 0.1875rem) calc(1.5rem - 0.1875rem);
+
+}
+
+.G_TabContent {
+    display: none;
+
+    &.isOpen {
+        display: block;
+        animation: TabShow 250ms ease;
+    }
+}
+
+@keyframes TabShow {
+    from {
+        transform: translate3d(0, 10px, 0);
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    to {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+        visibility: visible;
+    }
+}

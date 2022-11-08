@@ -1,0 +1,150 @@
+.ShareBtn {
+    border-radius: 0.27rem;
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    font-size: 0.75em;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    color: #89b5f3;
+    stroke: #89b5f3;
+}
+
+.ShareBackDrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.155);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    position: fixed;
+
+    z-index: 999;
+    transition: all 0.1s ease;
+    width: 100%;
+    height: 100%;
+
+
+    .ShareArea {
+        width: 100%;
+        max-width: 680px;
+        max-height: calc(100% - 60px);
+        border-radius: 12px;
+        transition: inherit;
+        z-index: 3;
+        display: flex;
+        overflow: hidden;
+        position: relative;
+        margin: 0 auto;
+        box-shadow: 0 5px 30px 0 rgb(0 0 0 / 5%);
+
+        .ShareModal {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: calc(100% - 2rem);
+            margin: auto;
+            background-color: #151923;
+            border-radius: 0.5rem;
+
+            .ShareModalHeader {
+                display: flex;
+                background: inherit;
+                padding: 0 10px;
+                margin-bottom: 0.75rem;
+                border-bottom: 1px solid #303540;
+
+                &::before {
+                    content: attr(data-text);
+                    flex-grow: 1;
+                    padding: 16px 10px;
+                    font-size: 90%;
+                    opacity: .7;
+                }
+
+                .CloseBtn {
+                    padding: 0 10px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-end;
+                    position: relative;
+                    flex-shrink: 0;
+                    min-width: 40px;
+
+                    &:before {
+                        content: attr(aria-label);
+                        font-size: 11px;
+                        margin: 0 8px;
+                        opacity: .6;
+                    }
+
+                    &:after {
+                        content: '\2715';
+                        line-height: 18px;
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            .ShareModalBody {
+                position: relative;
+                width: 100%;
+                padding-bottom: 2rem;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                justify-content: center;
+                align-items: center;
+
+                &>div {
+                    text-align: center;
+                    min-width: 20%;
+                    position: relative;
+
+                    &:after {
+                        content: attr(data-text);
+                        font-size: 0.7em;
+                        opacity: .7;
+                        display: block;
+                        position: absolute;
+                        bottom: -1em;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: max-content;
+                    }
+
+                    a,
+                    span {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                        width: 65px;
+                        height: 65px;
+                        color: inherit;
+                        margin: 0 auto 5px;
+                        padding: 8px;
+                        border-radius: 26px;
+                        background: #303540;
+                        flex: 1 1 25%;
+
+
+                        svg {
+                            fill: #fffdfc;
+                            opacity: .8;
+                            width: 22px;
+                            height: 22px;
+
+                            &.feather-copy {
+                                fill: none;
+                                stroke: #fffdfc;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

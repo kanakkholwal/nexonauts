@@ -1,0 +1,20 @@
+@use "../variables";
+
+
+@mixin Collapse {
+    // overflow-x: hidden;
+    // @include variables.overFlowY;
+    overflow: hidden;
+    transition: height .5s ease;
+
+    &:not(.isOpen) {
+        display: none;
+        padding: 0 !important;
+    } 
+}
+.G_Collapse {
+    @include Collapse;
+    width: 100%;
+
+ 
+}

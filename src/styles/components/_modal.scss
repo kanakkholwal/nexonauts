@@ -1,0 +1,93 @@
+@use "../variables";
+
+.G_ModalBackdrop {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    background-color: #00000080;
+    -webkit-tap-highlight-color: #0000;
+    backdrop-filter: blur(2px);
+    z-index: 999;
+    display: none;
+    transition: all 300ms ease-in-out;
+
+    &.isOpen {
+        display: block;
+    }
+
+    .G_Modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, 150%) scale(.5);
+        z-index: 1001 !important;
+        background-color: #1f242e;
+        color: variables.$bodyText;
+        border-radius: calc(0.5rem - 1px);
+        overflow: hidden;
+transition: all 300ms ease-in-out;
+        @media screen and (max-width: variables.$sm) {
+            min-width: calc(100% - 2rem);
+            margin-inline: auto;
+        }
+        @media screen and (min-width: variables.$sm) {
+            min-width: calc(variables.$sm - 4rem);
+            margin-inline: auto;
+        }
+
+        &.isOpen {
+            position: fixed;
+            transform: translate(-50%, -50%) scale(1);
+
+        }
+
+        .G_Modal_Header {
+            width: calc(100% - 10px);
+            padding: 0.75rem;
+            margin-inline: auto;
+            border-bottom: 1px solid variables.$borderColor;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            vertical-align: middle;
+            column-gap: 0.5rem;
+
+            .G_Modal_Title {
+                font-weight: 600;
+                font-size: 1.7rem;
+            }
+
+            .ModalClose {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 0;
+                border-radius: 50% !important;
+                width: 2.3125rem;
+                height: 2.3125rem;
+                cursor: pointer;
+            }
+        }
+
+        .G_Modal_Body {
+            width: calc(100% - 10px);
+            padding: 1.75rem 0.75rem;
+        }
+
+        .G_Modal_Footer {
+            width: calc(100% - 10px);
+            padding: 0.75rem;
+            margin-inline: auto;
+            border-top: 1px solid variables.$borderColor;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            vertical-align: middle;
+            column-gap: 0.5rem;
+
+
+        }
+    }
+}

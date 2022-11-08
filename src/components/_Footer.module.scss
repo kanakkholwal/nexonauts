@@ -1,0 +1,71 @@
+$primary:#85ceff;
+$primaryBg:#0d3b4e;
+$secondary:#a4acff;
+$secondaryBg:#6b75db33;
+$danger: #ffb8a1;
+$dangerBg: #cc646433;
+$success: #86efac;
+$successBg: rgba(22, 101, 52, 0.2);
+$info:#69dbff;
+$infoBg:#149eca33;
+$warning: #fde047;
+$warningBg: rgba(250, 204, 21, 0.20);
+$dark:#89b5f3;
+$darkBg:#11182733;
+$light:#2b394d;
+$lightBg:#bbe1fa;
+$borderColor:#3741514f;
+
+$xs:0;
+$sm:576px;
+$md:768px;
+$lg:992px;
+$xl:1200px;
+$xxl:1400px;
+
+.Footer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    border-top: 1px solid $borderColor;
+    margin-top: 2rem;
+
+    .Social {
+        display: inline-flex;
+        justify-content: space-around;
+        flex: 1 1 100%;
+        flex-wrap: wrap;
+        max-width: $md;
+        margin-inline: auto;
+        gap: 0.75rem;
+        width: 100%;
+
+        .icon {
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            transition: all 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: $primary;
+
+            &:hover {
+                color: $secondary;
+                background-color: $secondaryBg;
+                transform: rotate(360deg) scale(1.25);
+            }
+        }
+
+        .Heading {
+            flex: 1 1 100%;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid #37415112;
+            padding: 0.5rem;
+            text-align: center;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+    }
+}

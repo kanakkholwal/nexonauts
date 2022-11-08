@@ -1,0 +1,76 @@
+@use "../variables";
+
+.G_Toast_Container {
+    position: fixed;
+    z-index: 9999;
+    top: 20px;
+    right: 20px;
+   left: auto;
+   bottom: auto;
+
+    &.topRight {
+        top: 20px;
+        right: 20px;
+        left: auto;
+        bottom: auto;
+    }
+
+    &.topLeft {
+        top: 20px;
+        left: 20px;
+        right: auto;
+   bottom: auto;
+    }
+
+    &.topRight,
+    &.bottomRight {
+        .G_Toast {
+            transform: translateX(calc(100% + 2rem));
+
+        }
+    }
+
+    &.bottomLeft {
+        bottom: 20px;
+        left: 20px;
+        right: auto;
+   top: auto;
+    }
+
+    &.topLeft,
+    &.bottomLeft {
+        .G_Toast {
+            transform: translateX(calc(-100% - 2rem));
+
+        }
+    }
+
+    &.bottomRight {
+        bottom: 20px;
+        right: 20px;
+        top: auto;
+        left: auto;
+    }
+
+    .G_Toast {
+        position: relative;
+        width: 100%;
+        max-width: 300px;
+        min-width: 280px;
+        background-color: variables.$transparent;
+        backdrop-filter: blur(30px);
+        border-radius: 5px;
+        padding: 1rem;
+        margin-bottom: 20px;
+        box-shadow: variables.$shadow;
+        transition: all 1s variables.$transition;
+        transform: translateX(calc(100% + 2rem));
+
+        &.isActive {
+            transform: translate(0);
+            transition: all 1s variables.$transition;
+        }
+
+
+    }
+}

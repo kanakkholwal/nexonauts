@@ -1,0 +1,401 @@
+@use "../variables";
+$sidenavBreakPoint :variables.$sidenavBreakPoint;
+
+.G_BodyContent {
+
+
+    position: relative;
+    width: 100%;
+    transition: all .8s ease-in-out;
+    padding: 0;
+    padding-left: variables.$sidenavWidth;
+
+    @media screen and (max-width: $sidenavBreakPoint) {
+
+        padding-left: 0;
+
+    }
+
+
+
+}
+
+.G_sidenav {
+
+    @media screen and (min-width: $sidenavBreakPoint) {
+        transform: translateX(0) !important;
+        max-width: 25%;
+
+
+        &.isOpen {
+            transform: translateX(0) !important;
+
+        }
+    }
+}
+
+
+
+.navToggle {
+    @include variables.Block;
+    background: none;
+    margin-bottom: -5px;
+    margin-right: 0.5rem;
+    color: variables.$muted;
+    font-size: 1rem;
+    cursor: pointer;
+
+    @media screen and (min-width: $sidenavBreakPoint) {
+        display: none;
+    }
+}
+
+
+.G_Sidenav {
+    width: variables.$sidenavWidth;
+    position: fixed;
+    top: 0;
+    font-family: variables.$fontSidenav;
+
+    @media screen and (max-width: $sidenavBreakPoint) {
+
+        transform: translateX(calc(variables.$sidenavWidth*-1));
+
+        &.isOpen {
+            transform: translateX(0);
+        }
+    }
+
+
+    height: 100% !important;
+    z-index: 2000;
+    transition: all .8s ease-in-out;
+    will-change: transform;
+    overflow-x: hidden;
+    overflow-anchor: none;
+    touch-action: auto;
+    z-index: 1001;
+
+
+
+    background: variables.$SidenavBg;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 20%),
+    0 2px 10px 0 rgb(0 0 0 / 10%);
+    overflow-x: hidden;
+    @include variables.overFlowY;
+
+    .SidenavHeader {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: auto;
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: variables.$link;
+        letter-spacing: 1px;
+        transition: all 500ms ease-in-out;
+        @include variables.Block;
+        padding: 0.5rem;
+        text-align: center;
+        cursor: pointer;
+        margin-bottom: 1rem;
+        background-color: variables.$bodyBg;
+        z-index: 2;
+
+        &:after {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            right: 0;
+            content: "";
+            transform: translateX(-50%) translateY(100%);
+            width: 90%;
+            display: block;
+            height: 1px;
+            color: inherit;
+            padding: 0;
+            line-height: 30px;
+            background-color: #374151;
+            border-width: 0;
+        }
+
+        &>span.Gradient {
+            background: linear-gradient(to right, #3282B8, #0059B2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: #0000;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            @include variables.noAction;
+
+        }
+    }
+
+    .SidenavBody {
+        position: relative;
+        z-index: 0;
+        width: 100%;
+        height: auto;
+        font-weight: 500;
+        font-size: 1rem;
+        color: variables.$muted !important;
+        overflow-x: hidden;
+        @include variables.overFlowY;
+        padding-right: .75rem;
+
+        div {
+            padding-left: 1.25rem;
+        }
+
+        a,
+        .collapseToggle {
+            border-top-right-radius: 0.5rem;
+            border-bottom-right-radius: 0.5rem;
+            font-size: .89rem;
+            padding: 1rem 1.5rem;
+            height: 3rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-align: left;
+            padding: .75rem;
+            padding-left: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 250ms ease-in-out;
+            color: variables.$dark;
+            opacity: 0.75;
+            width: 100%;
+            outline: 0;
+            background: inherit;
+            border: 0;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            &:hover {
+                color: variables.$primary;
+                opacity: 1;
+
+            }
+
+
+
+            &.isActive {
+
+                color: variables.$secondary;
+                background: variables.$secondaryBg;
+                opacity: 1;
+
+            }
+        }
+
+        .SidenavCollapse {
+            overflow-x: hidden;
+            @include variables.overFlowY;
+            height: auto;
+
+            .collapseToggle {
+                position: sticky;
+                cursor: pointer;
+                z-index: 1;
+                opacity: 1;
+                transition: all 500ms ease-in-out;
+                backdrop-filter: blur(100px);
+
+                &>.arrow {
+                    transition: all 500ms ease-in-out;
+                    transform: rotate(0deg);
+
+                }
+
+
+                &.isActive {
+                    opacity: 1;
+                    padding-left: 2rem;
+
+                    &>.arrow {
+                        transform: rotate(180deg);
+
+                    }
+
+                }
+            }
+
+            .collapseList {
+                overflow-x: hidden;
+                @include variables.overFlowY;
+
+                z-index: -1;
+                max-height: variables.$sidenavWidth;
+                margin-left: 0.75rem;
+                margin-bottom: 0.5rem;
+                border-left: 2px solid variables.$borderColor;
+                transition: height .5s ease;
+                padding-top: 0.1rem;
+                font-weight: 400;
+                letter-spacing: normal;
+
+                &:not(.isOpen) {
+                    display: none;
+                }
+
+                &>li {
+
+                    max-width: 100%;
+                    overflow: hidden;
+
+                    a {
+                        padding: 0.5rem;
+                        padding-left: 1.25rem;
+                        width: calc(100% - 0.5rem);
+                        border-top-right-radius: 0.75rem;
+                        border-bottom-right-radius: 0.75rem;
+                        font-size: .8rem;
+                        height: 2rem;
+                    }
+                }
+            }
+        }
+
+        ul {
+            width: 100%;
+
+        }
+    }
+
+    .SidenavFooter {
+        position: sticky;
+        bottom: 0;
+
+        gap: 0.75rem;
+        width: 100%;
+        height: auto;
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: variables.$link;
+        letter-spacing: 1px;
+        transition: all 500ms ease-in-out;
+        @include variables.Block;
+        padding: 0.5rem;
+        text-align: left;
+        cursor: pointer;
+        margin-top: 1rem;
+        background-color: variables.$bodyBg;
+        z-index: 2;
+        font-size: 0.825rem;
+        padding-left: 1.25rem;
+
+        &:before {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            right: 0;
+            content: "";
+            transform: translateX(-50%) translateY(100%);
+            width: 90%;
+            display: block;
+            height: 1px;
+            color: inherit;
+            padding: 0;
+            line-height: 30px;
+            background-color: #374151;
+            border-width: 0;
+        }
+
+        &>.social {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            gap: 0.5rem;
+            padding-block: 0.5rem;
+
+            a {
+                font-size: 0.825rem;
+                margin-inline: auto;
+                transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+                svg {
+                    max-height: 1.25rem;
+                }
+
+                &:is(:active, :hover, :focus) {
+                    transform: scale(1.25) translateY(-5px);
+                }
+            }
+        }
+    }
+}
+
+.G_Navbar {
+    box-shadow: 0 4px 12px 0 rgb(0 0 0 / 7%), 0 2px 4px rgb(0 0 0 / 5%);
+    padding-top: 0.5625rem;
+    position: fixed;
+    top: 0;
+    font-family: variables.$fontNavbar;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    padding-inline: 0.75rem;
+    padding-block: 0.5rem;
+    background: #374151;
+    color: variables.$light;
+    backdrop-filter: blur(30px);
+    border: 1px solid #c1b3b30f;
+    z-index: 999;
+
+    width: -webkit-fill-available !important;
+    max-width: 100%;
+
+
+
+    .Start {
+        @include variables.left;
+        @include variables.flex;
+        justify-content: center;
+    }
+
+    .End {
+        @include variables.right;
+        @include variables.flex;
+        justify-content: flex-end;
+        column-gap: 0.5rem;
+    }
+
+    .Center {
+        @include variables.center;
+        @include variables.flex;
+    }
+
+    .NavBrand {
+        font-weight: 700;
+        font-size: 1.5rem;
+        color: variables.$link;
+        letter-spacing: 1px;
+        transition: all 500ms ease-in-out;
+        font-family: variables.$fontLogo;
+
+        &:is(:hover, :focus, :active) {
+            color: variables.$link;
+            text-shadow: 1px 1px 2px #009aff4a;
+        }
+    }
+
+    .NavLink {
+        font-weight: 500;
+        font-size: 1rem;
+        letter-spacing: normal;
+        color: variables.$dark;
+        transition: all 250ms ease;
+
+        &:is(:hover, :focus, :active, .active, .isActive) {
+            color: variables.$link;
+            text-shadow: 1px 1px 2px #009aff4a;
+        }
+    }
+}

@@ -1,0 +1,547 @@
+@use "variables";
+
+@mixin PrimaryTextColor {
+    background: linear-gradient(to right, #3282B8, #0059B2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #0000;
+}
+
+@mixin active {
+    &:hover {
+        background: #032b3a;
+        color: #31c9c9;
+    }
+}
+
+@mixin darkGradient {
+    background: #525252;
+    background: linear-gradient(to bottom, rgba(82, 82, 82, 1),
+            rgba(52, 52, 52, 1));
+}
+
+
+// Text Alignment
+.text-center {
+    text-align: center !important;
+}
+
+.text-start {
+    text-align: left !important;
+}
+
+.text-end {
+    text-align: right !important;
+}
+
+.text-justify {
+    text-align: justify !important;
+}
+
+// text Hierarchy
+.text-muted {
+    color: variables.$TextMuted !important;
+}
+
+// Badge
+.btn:not(.Badge_positioned)>.Badge {
+    margin-inline: 0.5rem;
+}
+
+.Badge_positioned:has(>.Badge) {
+    position: relative;
+
+    &>.Badge {
+        position: absolute !important;
+        --displace: 0.65em;
+
+        &.TopLeft {
+            top: calc(var(--displace)*-1) !important;
+            left: calc(var(--displace)*-1) !important;
+
+        }
+
+        &.TopCenter {
+            top: calc(var(--displace)*-1) !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+        }
+
+        &.TopRight {
+            top: calc(var(--displace)*-1) !important;
+            right: calc(var(--displace)*-1) !important;
+        }
+
+        &.BottomLeft {
+            bottom: calc(var(--displace)*-1) !important;
+            left: calc(var(--displace)*-1) !important;
+        }
+
+        &.BottomCenter {
+            bottom: calc(var(--displace)*-1) !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+        }
+
+        &.BottomRight {
+            bottom: calc(var(--displace)*-1) !important;
+            right: calc(var(--displace)*-1) !important;
+        }
+
+        &.LeftCenter {
+            top: 50% !important;
+            left: calc(var(--displace)*-1) !important;
+            transform: translateY(-50%) !important;
+        }
+
+        &.RightCenter {
+            top: 50% !important;
+            right: calc(var(--displace)*-1) !important;
+            transform: translateY(-50%) !important;
+        }
+    }
+}
+
+.Badge {
+    border-radius: 0.27rem;
+    display: inline-block;
+    padding: 0.35em 0.65em;
+    font-size: .75em;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    text-transform: capitalize;
+    // background: linear-gradient(to right, #a4acff5c, #88a2b4b3);
+    // color: #fff;
+    letter-spacing: 1px;
+    background: variables.$secondaryBg;
+    color: variables.$secondary;
+    // box-shadow: variables.$shadow;
+    animation-fill-mode: both;
+
+    animation-iteration-count: infinite;
+
+    &.Badge_primary {
+        // background: linear-gradient(to right, #3282B8, #0059B2);
+        background: variables.$primaryBg;
+        color: variables.$primary;
+    }
+
+    &.Badge_danger {
+        // background: linear-gradient(to right, variables.$danger-hvr, variables.$danger);
+        background: variables.$dangerBg;
+        color: variables.$danger;
+    }
+
+    &.Badge_warning {
+        // background: linear-gradient(to right, variables.$warning-hvr, variables.$warning);
+        background: variables.$warningBg;
+        color: variables.$warning;
+    }
+
+    &.Badge_success {
+        // background: linear-gradient(to right, variables.$success-hvr, variables.$success);
+        background: variables.$successBg;
+        color: variables.$success;
+    }
+
+    &.Badge_dark {
+        // background: linear-gradient(to right, variables.$dark3, variables.$dark);
+        background: variables.$darkBg;
+        color: variables.$dark;
+    }
+
+    &.Badge_info {
+        // background: linear-gradient(to right, variables.$info-hvr, variables.$info);
+        background: variables.$infoBg;
+        color: variables.$info;
+    }
+
+    &.Badge_light {
+        // background: linear-gradient(to right, variables.$info-hvr, variables.$info);
+        background: variables.$lightBg;
+        color: variables.$light;
+    }
+
+    &.pilled {
+        border-radius: 50rem !important;
+    }
+
+    @keyframes bounce {
+
+        from,
+        20%,
+        53%,
+        to {
+            -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        40%,
+        43% {
+            -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+            animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+            -webkit-transform: translate3d(0, -30px, 0) scaleY(1.1);
+            transform: translate3d(0, -30px, 0) scaleY(1.1);
+        }
+
+        70% {
+            -webkit-animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+            animation-timing-function: cubic-bezier(0.755, 0.05, 0.855, 0.06);
+            -webkit-transform: translate3d(0, -15px, 0) scaleY(1.05);
+            transform: translate3d(0, -15px, 0) scaleY(1.05);
+        }
+
+        80% {
+            -webkit-transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+            -webkit-transform: translate3d(0, 0, 0) scaleY(0.95);
+            transform: translate3d(0, 0, 0) scaleY(0.95);
+        }
+
+        90% {
+            -webkit-transform: translate3d(0, -4px, 0) scaleY(1.02);
+            transform: translate3d(0, -4px, 0) scaleY(1.02);
+        }
+    }
+
+    &.animate_bounce {
+        -webkit-animation-name: bounce;
+        animation-name: bounce;
+        -webkit-transform-origin: center bottom;
+        transform-origin: center bottom;
+        animation-timing-function: variables.$transition;
+        animation-duration: 5s;
+    }
+
+    @keyframes flash {
+
+        from,
+        50%,
+        to {
+            opacity: 1;
+        }
+
+        25%,
+        75% {
+            opacity: 0;
+        }
+    }
+
+    &.animate_flash {
+        -webkit-animation-name: flash;
+        animation-name: flash;
+        animation-timing-function: variables.$transition;
+        animation-duration: 1.5s;
+    }
+
+    @keyframes pulse {
+        from {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+
+        50% {
+            -webkit-transform: scale3d(1.05, 1.05, 1.05);
+            transform: scale3d(1.05, 1.05, 1.05);
+        }
+
+        to {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+    }
+
+    &.animate_pulse {
+        -webkit-animation-name: pulse;
+        animation-name: pulse;
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        animation-duration: 1s;
+    }
+
+    @keyframes rubberBand {
+        from {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+
+        30% {
+            -webkit-transform: scale3d(1.25, 0.75, 1);
+            transform: scale3d(1.25, 0.75, 1);
+        }
+
+        40% {
+            -webkit-transform: scale3d(0.75, 1.25, 1);
+            transform: scale3d(0.75, 1.25, 1);
+        }
+
+        50% {
+            -webkit-transform: scale3d(1.15, 0.85, 1);
+            transform: scale3d(1.15, 0.85, 1);
+        }
+
+        65% {
+            -webkit-transform: scale3d(0.95, 1.05, 1);
+            transform: scale3d(0.95, 1.05, 1);
+        }
+
+        75% {
+            -webkit-transform: scale3d(1.05, 0.95, 1);
+            transform: scale3d(1.05, 0.95, 1);
+        }
+
+        to {
+            -webkit-transform: scale3d(1, 1, 1);
+            transform: scale3d(1, 1, 1);
+        }
+    }
+
+    &.animate_rubberBand {
+        -webkit-animation-name: rubberBand;
+        animation-name: rubberBand;
+        animation-timing-function: variables.$transition;
+        animation-duration: 2s;
+    }
+
+    @keyframes shakeX {
+
+        from,
+        to {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+            -webkit-transform: translate3d(-10px, 0, 0);
+            transform: translate3d(-10px, 0, 0);
+        }
+
+        20%,
+        40%,
+        60%,
+        80% {
+            -webkit-transform: translate3d(10px, 0, 0);
+            transform: translate3d(10px, 0, 0);
+        }
+    }
+
+    &.animate_shakeX {
+        -webkit-animation-name: shakeX;
+        animation-name: shakeX;
+        animation-timing-function: variables.$transition;
+        animation-duration: 8s;
+
+    }
+
+    @keyframes shakeY {
+
+        from,
+        to {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+            -webkit-transform: translate3d(0, -10px, 0);
+            transform: translate3d(0, -10px, 0);
+        }
+
+        20%,
+        40%,
+        60%,
+        80% {
+            -webkit-transform: translate3d(0, 10px, 0);
+            transform: translate3d(0, 10px, 0);
+        }
+    }
+
+    &.animate_shakeY {
+        -webkit-animation-name: shakeY;
+        animation-name: shakeY;
+        animation-timing-function: variables.$transition;
+        animation-duration: 8s;
+    }
+
+    @keyframes headShake {
+        0% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+
+        6.5% {
+            -webkit-transform: translateX(-6px) rotateY(-9deg);
+            transform: translateX(-6px) rotateY(-9deg);
+        }
+
+        18.5% {
+            -webkit-transform: translateX(5px) rotateY(7deg);
+            transform: translateX(5px) rotateY(7deg);
+        }
+
+        31.5% {
+            -webkit-transform: translateX(-3px) rotateY(-5deg);
+            transform: translateX(-3px) rotateY(-5deg);
+        }
+
+        43.5% {
+            -webkit-transform: translateX(2px) rotateY(3deg);
+            transform: translateX(2px) rotateY(3deg);
+        }
+
+        50% {
+            -webkit-transform: translateX(0);
+            transform: translateX(0);
+        }
+    }
+
+    &.animate_headShake {
+        -webkit-animation-timing-function: ease-in-out;
+        animation-timing-function: ease-in-out;
+        -webkit-animation-name: headShake;
+        animation-name: headShake;
+        animation-duration: 1.1s;
+    }
+
+    &.animate_ripple {
+        animation-timing-function: variables.$transition;
+        animation-duration: 1.25s;
+        animation-name: ripplePulse;
+    }
+
+    @keyframes ripplePulse {
+        0% {
+            box-shadow: 0 0 0 0 rgba(variables.$grey, 0.4);
+        }
+
+        70% {
+            box-shadow: 0 0 0 10px rgba(204, 169, 44, 0);
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 rgba(variables.$light, 0);
+        }
+    }
+}
+
+/* Note */
+.Note {
+    position: relative;
+    padding: 16px 20px 16px 50px;
+    background: variables.$secondaryBg;
+    color: variables.$secondary;
+    font-size: 0.85rem;
+    line-height: 1.4em;
+    letter-spacing: 1px;
+    border-radius: 10px;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-all;
+    width: calc(100% - 2rem);
+    max-width: 992px;
+    margin: 1rem auto;
+
+    &::before {
+        content: '';
+        width: 60px;
+        height: 60px;
+        background: variables.$primary;
+        display: block;
+        box-shadow: variables.$shadow;
+        border-radius: 50%;
+        position: absolute;
+        top: -12px;
+        left: -12px;
+        opacity: .25;
+    }
+
+    &::after {
+        content: '\002A';
+        position: absolute;
+        left: 18px;
+        top: 16px;
+        font-size: 20px;
+        min-width: 15px;
+        text-align: center
+    }
+
+    &.Note_primary {
+        // background: linear-gradient(to right, variables.$secondary, variables.$primary);
+        background: variables.$primaryBg;
+        color: variables.$primary;
+    }
+
+    &.Note_danger {
+        // background: linear-gradient(to right, variables.$danger-hvr, variables.$danger);
+        background: variables.$dangerBg;
+        color: variables.$danger;
+
+        &:before {
+            background-color: variables.$danger;
+        }
+    }
+
+    &.Note_warning {
+        // background: linear-gradient(to right, variables.$warning-hvr, variables.$warning);
+        background: variables.$warningBg;
+        color: variables.$warning;
+
+        &:before {
+            background-color: variables.$warning;
+        }
+    }
+
+    &.Note_success {
+        // background: linear-gradient(to right, variables.$success-hvr, variables.$success);
+        background: variables.$successBg;
+        color: variables.$success;
+
+        &:before {
+            background-color: variables.$success;
+        }
+    }
+
+    &.Note_dark {
+        // background: linear-gradient(to right, rgba(variables.$dark3, 0.9), variables.$dark);
+        // background-color: variables.$dark3 !important;
+        background: variables.$darkBg;
+        color: variables.$dark;
+
+        &:before {
+            background-color: variables.$dark;
+        }
+    }
+
+    &.Note_info {
+        // background: linear-gradient(to right, rgba(variables.$info-hvr, 0.4), rgba(variables.$info, 0.8));
+        // background-color: variables.$info-hvr !important;
+        background: variables.$infoBg;
+        color: variables.$info;
+
+        &:before {
+            background-color: variables.$info;
+        }
+    }
+
+    &.Note_light {
+        // background: linear-gradient(to right, rgba(variables.$info-hvr, 0.4), rgba(variables.$info, 0.8));
+        // background-color: variables.$info-hvr !important;
+        background: variables.$lightBg;
+        color: variables.$light;
+
+        &:before {
+            background-color: variables.$light;
+        }
+    }
+}

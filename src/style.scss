@@ -1,0 +1,44 @@
+@use "./styles/variables";
+
+:root {
+    --text-light: #8a8f98;
+    --text-lighter: #757783;
+    --bodyBg: #23272f;
+}
+
+@import "./styles/reset",
+"./styles/buttons",
+"./styles/flex",
+"./styles/forms",
+"./styles/layout",
+"./styles/position",
+"./styles/topography",
+"./styles/code",
+"./styles/ripple";
+
+@import "./styles/components/navbar";
+@import "./styles/components/header";
+@import "./styles/components/main";
+@import "./styles/components/footer";
+@import "./styles/components/collapse";
+@import "./styles/components/accordion";
+@import "./styles/components/modal";
+@import "./styles/components/tabs";
+@import "./styles/components/card";
+@import "./styles/components/slicedMenu";
+@import "./styles/components/listGroup";
+
+body {
+    background-color: variables.$bodyBg;
+    font-weight: 400;
+    font-size: 1.25rem;
+    line-height: normal;
+    color: variables.$bodyText;
+    overflow-x: hidden;
+    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
+    font-family: 'Public Sans', sans-serif;
+    font-family: variables.$fontBody;
+
+    -webkit-font-smoothing: antialiased;
+}

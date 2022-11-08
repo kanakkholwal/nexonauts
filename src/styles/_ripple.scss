@@ -1,0 +1,43 @@
+@use "variables";
+
+.ripple {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    --ripple-opacity: 0.45;
+    --ripple-duration: 1s;
+    --ripple-easing: cubic-bezier(0, 0, 0.15, 1);
+    --ripple-background: rgba(255, 255, 255, 0.5);
+
+    &:has(>.ripple-effect) {
+        overflow: hidden;
+
+    }
+
+    .ripple-effect {
+
+        user-select: none;
+        -webkit-user-drag: none;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        border-radius: 50%;
+        opacity: 0.5;
+        pointer-events: none;
+        position: absolute;
+        touch-action: none;
+        transition-property: transform, opacity;
+        display: inline-block;
+        vertical-align: bottom;
+        position: absolute;
+        pointer-events: none;
+        transform-origin: center;
+        top: calc(var(--y) * 1px);
+        left: calc(var(--x) * 1px);
+        width: calc(var(--d) * 1px);
+        height: calc(var(--d) * 1px);
+        background: var(--ripple-background, rgba(255, 255, 255, 0.5));
+        transform: translate(-50%, -50%) scale(var(--s, 1));
+        opacity: calc(var(--o, 1) * var(--ripple-opacity, 0.3));
+        transition: calc(var(--t, 0) * var(--ripple-duration, 1000ms)) var(--ripple-easing, cubic-bezier(0, 0, 0.15, 1));
+    }
+
+}

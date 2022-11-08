@@ -1,0 +1,85 @@
+.CodeBlock {
+    width: 100%;
+    height: auto;
+    margin: 0.5rem auto 0.75rem;
+
+    .CodeBlock_Header {
+        position: relative;
+
+        &::before {
+            content: attr(title);
+            box-sizing: border-box;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 1.25em;
+            font-weight: 500;
+            font-family: "Roboto";
+            border-radius: 4px 4px 0 0;
+            text-align: left;
+            color: #fff;
+            background-position: 12px center;
+            background-size: 20px 20px;
+            background-repeat: no-repeat;
+            background-color: #1b1f29;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            padding-left: calc(0.5rem + 36px);
+            z-index: 1;
+        }
+
+        &::after {
+            content: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='feather feather-code'%3e%3cpolyline points='16 18 22 12 16 6'%3e%3c/polyline%3e%3cpolyline points='8 6 2 12 8 18'%3e%3c/polyline%3e%3c/svg%3e");
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            transform: translateY(0.3125rem);
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            z-index: 2;
+        }
+
+
+        .Copy_Btn {
+
+            position: absolute;
+            top: 0.75rem;
+            right: 0.8125rem;
+            cursor: pointer;
+            z-index: 99;
+            border-radius: 0.27rem;
+            display: inline-block;
+            padding: 0.35em 0.65em;
+            font-size: .75em;
+            font-weight: 600;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            text-transform: capitalize;
+
+            background: #6b75db33;
+            color: #a4acff;
+        }
+    }
+
+    .CodeBlock_Body {
+        padding-top: calc(0.75rem + 20px);
+
+        pre[class*=language-] {
+            padding: 0;
+            margin: 0.5em 0;
+            overflow: auto;
+            padding-bottom: 0.75rem;
+            border: 2px solid #374151;
+        }
+    }
+
+}

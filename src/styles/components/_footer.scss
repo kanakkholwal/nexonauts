@@ -1,0 +1,173 @@
+@use "../variables";
+
+.G_Footer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    gap: 1rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin: 2rem auto 0;
+    transition: all 0.8s ease-in-out;
+    background-color: variables.$bodyDarkBg;
+    padding: 2rem;
+
+
+    @media (max-width: variables.$md) {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .Footer-section {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-direction: column;
+        flex: 1 1 30%;
+        width: 100%;
+
+        .title {
+            font-size: 1.5rem;
+        }
+
+        .heading {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        ul {
+            border-top: thin solid variables.$dark3;
+            padding-top: 0.25rem;
+
+            &.Footer-links {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                gap: 0.75rem;
+
+                width: 100%;
+                flex-wrap: wrap;
+                flex-direction: column;
+
+                li {
+
+                    &:not(:empty) {
+                        margin-bottom: 0.5rem;
+                        font-size: 1rem;
+
+                        border-left: 1px solid #0059B2;
+                        transition: all .5s variables.$transition;
+
+                        &:hover {
+                            border-left-width: 2px;
+                            padding-left: 0.25rem;
+
+                            .Footer-link {
+                                @include variables.PrimaryTextColor;
+                            }
+                        }
+
+                        &:first-child {
+                            margin-top: 0.75rem
+                        }
+                    }
+
+                    .Footer-link {
+                        &:not(:empty) {
+
+                            font-size: 1rem;
+                            border-radius: 0.5rem;
+                            padding: 0.25rem 0.5rem;
+                            color: variables.$secondary;
+                            text-decoration: none;
+                            transition: all 0.1s ease;
+                            font-weight: 500;
+                            font-size: inherit;
+
+                            background: -webkit-linear-gradient(#9e9e9e, #3282B8, #0F4C75);
+                            background-clip: text;
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    .Social {
+        @include inline-flex;
+        justify-content: space-around;
+        flex: 1 1 100%;
+        flex-wrap: wrap;
+        max-width: variables.$md;
+        margin-inline: auto;
+        gap: 0.75rem;
+
+        .icon {
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            transition: all 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: variables.$primary;
+
+            &:hover {
+                color: variables.$secondary;
+                background-color: variables.$secondaryBg;
+                transform: rotate(360deg) scale(1.25);
+            }
+        }
+
+        .Heading {
+            flex: 1 1 100%;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid variables.$borderColor;
+            padding: 0.5rem;
+            text-align: center;
+            letter-spacing: 2px;
+            font-weight: 600;
+            font-size: 1.25em;
+        }
+    }
+}
+
+footer {
+    width: 100%;
+    height: auto;
+    padding: 0.75rem;
+    @include variables.flex;
+    justify-content: space-around;
+    font-size: 0.9em;
+
+    .copyright {
+        flex: 0.8 0.5 auto;
+        font-size: 0.9rem;
+    }
+
+
+
+    .title {
+        font-weight: 600;
+        letter-spacing: 2px;
+        margin-inline: 0.5rem;
+    }
+
+    &.Center {
+        justify-content: center;
+        text-align: center;
+    }
+
+    &.Start {
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    &.End {
+        justify-content: flex-end;
+        text-align: right;
+    }
+}

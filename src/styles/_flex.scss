@@ -1,0 +1,167 @@
+@mixin flex {
+    display: flex;
+}
+
+@mixin inline-flex {
+    display: flex;
+}
+
+@mixin left {
+    margin-left: 0.25rem;
+    margin-right: auto;
+}
+
+@mixin center {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+@mixin right {
+    margin-right: 0.25rem;
+    margin-left: auto;
+}
+
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+$MarginPadding1 :0.25rem;
+$MarginPadding2 :0.5rem;
+$MarginPadding3 :0.75rem;
+$MarginPadding4 :1rem;
+$MarginPadding5 :1.25rem;
+$MarginPadding6 :1.5rem;
+
+.flex{
+    @include flex;
+}
+.inline-flex{
+    @include inline-flex;
+}
+.flex-center{
+    @include flex-center;
+}
+
+
+.justify-content-evenly{justify-content:space-evenly}
+.justify-content-between{justify-content:space-between}
+.justify-content-around{justify-content:space-around}
+.justify-content-center{justify-content:center}
+.justify-content-start{justify-content:flex-start}
+.justify-content-end{justify-content:flex-end}
+
+.align-items-center{align-items:center}
+.align-items-baseline{align-items:baseline}
+.align-items-start{align-items:flex-start}
+.align-items-end{align-items:flex-end}
+.align-items-stretch{align-items:stretch}
+
+.flex-wrap{flex-wrap:wrap}
+.flex-wrap-r{flex-wrap:wrap-reverse}
+.flex-nowrap{flex-wrap:nowrap}
+
+.flex-row{flex-direction: row;}
+.flex-row-r{flex-direction: row-reverse;}
+.flex-column{flex-direction: column;}
+.flex-column-r{flex-direction: column-reverse;}
+
+.start{
+    @include left;
+    
+}
+.end{
+    @include right;
+}
+.center{
+    @include center;
+}
+
+
+.m-1{margin:$MarginPadding1}
+.ms-1{margin-left:$MarginPadding1}
+.me-1{margin-right:$MarginPadding1}
+.mt-1{margin-top:$MarginPadding1}
+.mb-1{margin-bottom:$MarginPadding1}
+
+.p-1{padding:$MarginPadding1}
+.ps-1{padding-left:$MarginPadding1}
+.pe-1{padding-right:$MarginPadding1}
+.pt-1{padding-top:$MarginPadding1}
+.pb-1{padding-bottom:$MarginPadding1}
+
+
+
+.m-2{margin:$MarginPadding2}
+.ms-2{margin-left:$MarginPadding2}
+.me-2{margin-right:$MarginPadding2}
+.mt-2{margin-top:$MarginPadding2}
+.mb-2{margin-bottom:$MarginPadding2}
+
+.p-2{padding:$MarginPadding2}
+.ps-2{padding-left:$MarginPadding2}
+.pe-2{padding-right:$MarginPadding2}
+.pt-2{padding-top:$MarginPadding2}
+.pb-2{padding-bottom:$MarginPadding2}
+
+
+
+.m-3{margin:$MarginPadding3}
+.ms-3{margin-left:$MarginPadding3}
+.me-3{margin-right:$MarginPadding3}
+.mt-3{margin-top:$MarginPadding3}
+.mb-3{margin-bottom:$MarginPadding3}
+
+.p-3{padding:$MarginPadding3}
+.ps-3{padding-left:$MarginPadding3}
+.pe-3{padding-right:$MarginPadding3}
+.pt-3{padding-top:$MarginPadding3}
+.pb-3{padding-bottom:$MarginPadding3}
+
+
+
+.m-4{margin:$MarginPadding4}
+.ms-4{margin-left:$MarginPadding4}
+.me-4{margin-right:$MarginPadding4}
+.mt-4{margin-top:$MarginPadding4}
+.mb-4{margin-bottom:$MarginPadding4}
+
+.p-4{padding:$MarginPadding4}
+.ps-4{padding-left:$MarginPadding4}
+.pe-4{padding-right:$MarginPadding4}
+.pt-4{padding-top:$MarginPadding4}
+.pb-4{padding-bottom:$MarginPadding4}
+
+
+
+.m-5{margin:$MarginPadding5}
+.ms-5{margin-left:$MarginPadding5}
+.me-5{margin-right:$MarginPadding5}
+.mt-5{margin-top:$MarginPadding5}
+.mb-5{margin-bottom:$MarginPadding5}
+
+.p-5{padding:$MarginPadding5}
+.ps-5{padding-left:$MarginPadding5}
+.pe-5{padding-right:$MarginPadding5}
+.pt-5{padding-top:$MarginPadding5}
+.pb-5{padding-bottom:$MarginPadding5}
+
+
+
+.m-6{margin:$MarginPadding6}
+.ms-6{margin-left:$MarginPadding6}
+.me-6{margin-right:$MarginPadding6}
+.mt-6{margin-top:$MarginPadding6}
+.mb-6{margin-bottom:$MarginPadding6}
+
+.p-6{padding:$MarginPadding6}
+.ps-6{padding-left:$MarginPadding6}
+.pe-6{padding-right:$MarginPadding6}
+.pt-6{padding-top:$MarginPadding6}
+.pb-6{padding-bottom:$MarginPadding6}
+
+
+
+
+

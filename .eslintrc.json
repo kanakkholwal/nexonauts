@@ -1,0 +1,45 @@
+{
+  "extends": ["next/babel","next/core-web-vitals"],
+  "rules": {
+    "import/no-restricted-paths": [
+      "error",
+      {
+        "zones": [
+          {
+            "target": "./src/core",
+            "from": "./src/components"
+          },
+          {
+            "target": "./src/core",
+            "from": "./src/lib"
+          },
+          {
+            "target": "./src/core",
+            "from": "./pages"
+          },
+          {
+            "target": "./src/lib",
+            "from": "./src/pages"
+          },
+          {
+            "target": "./src/components",
+            "from": "./pages"
+          },
+          {
+            "target": "./src/components",
+            "from": "./src/pages/"
+          },
+          {
+            "target": "./src/*",
+            "from": "./pages/"
+          }
+          ,
+          {
+            "target": "./public/*",
+            "from": "./src/*"
+          }
+        ]
+      }
+    ]
+  }
+}

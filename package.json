@@ -1,0 +1,36 @@
+{
+  "name": "kkupgrader",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@svgr/webpack": "^6.5.1",
+    "aos": "^2.3.4",
+    "babel-plugin-inline-react-svg": "^2.0.1",
+    "eslint": "8.27.0",
+    "eslint-config-next": "13.0.2",
+    "next": "13.0.2",
+    "prismjs": "^1.29.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-helmet-async": "^1.3.0",
+    "sass": "^1.55.0",
+    "styled-components": "^5.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.9",
+    "@types/prismjs": "^1.26.0",
+    "@types/react": "18.0.25",
+    "prop-types": "^15.6.0",
+    "typescript": "4.8.4"
+  },
+  "peerDependencies": {
+    "prop-types": "^15.6.0"
+  }
+}
