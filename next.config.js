@@ -8,9 +8,12 @@ const nextConfig = {
   reactStrictMode: true,
   env: {
     ROOT: __dirname,
-  }
-
+  },
+  i18n: {
+    locales: ['en'],
+    defaultLocale: 'en',
+  },
 }
-module.exports = withPWA(nextConfig)
+export default withPWA(nextConfig)
 
 // module.exports = nextConfig
