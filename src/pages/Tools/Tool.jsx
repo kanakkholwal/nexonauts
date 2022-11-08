@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import { useRouter } from 'next/router'
-// import GetTool from "./getTool";
 import ToolList from "./ToolsList";
-
 import Loader from "../../components/Loader";
+
+import PageMetaData from "../../components/PageMetaData";
 
 const LoaderObj = {
     title: "Loading...",
@@ -32,7 +32,7 @@ function Tool() {
 
     return (
         <>
-
+            <PageMetaData PageTitle={component.title} PageDescription={component.description} />
             <Header title={component.title} description={component.description} />
             <main className="G_MainContent">
                 {component.Component}

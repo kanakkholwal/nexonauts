@@ -46,6 +46,7 @@ export default function PageMetaData({ PageTitle, SiteName, PageDescription, Pag
             <link href='https://fonts.cdnfonts.com' rel='preconnect' />
             <link crossOrigin='' href='https://fonts.gstatic.com' rel='preconnect' />
 
+            <meta content='width=device-width, initial-scale=1' name='viewport' />
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <link rel="icon" type="image/svg+xml" href="/kkupgrader.svg" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />

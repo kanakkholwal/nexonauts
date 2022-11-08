@@ -1,7 +1,7 @@
 import Header from './components/Header';
 import Main from './components/Main';
 import Footer from './components/Footer';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
+import PageMetaData from "../../components/PageMetaData";
 
 export default function Tools() {
 
@@ -13,12 +13,7 @@ export default function Tools() {
 
     return (
         <>
-            <HelmetProvider>
-                <Helmet>
-                    <title>{metaData.title}</title>
-                    <meta name="description" content={metaData.description} />
-                </Helmet>
-            </HelmetProvider>
+            <PageMetaData PageMetaData={metaData.title} PageDescription={metaData.description} />
             <Header title={"Tools"} description={metaData.description} />
             <Main />
             <Footer />
