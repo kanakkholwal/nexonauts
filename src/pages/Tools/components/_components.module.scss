@@ -4,218 +4,333 @@ $md: 768px;
 $lg: 992px;
 $xl: 1200px;
 $xxl: 1400px;
+@use "../../../styles/variables";
+
+.NavBar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background-color: #232d40;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+
+    .NavBrand {
+        font-size: 1.25rem;
+        font-weight: 700;
+
+        letter-spacing: 1px;
+        margin-left: 0.25rem;
+    }
+
+    .NavContent {
+        $color_1: inherit;
+        $background-color_1: transparent;
+        $background-color_2: #ccdce0;
+        $width: 2.5rem;
+        $height: 0.25rem;
+        position: relative;
+
+        .NavToggler {
+            @media (min-width: $md) {
+                display: none;
+
+            }
+
+
+
+
+            .hamburgerBurger {
+
+                display: inline-block;
+                cursor: pointer;
+                transition-property: opacity,
+                    filter;
+                transition-duration: 0.15s;
+                transition-timing-function: linear;
+                font: inherit;
+                color: $color_1;
+                text-transform: none;
+                background-color: $background-color_1;
+                border: 0;
+                margin: 0;
+                overflow: visible;
+                transition-duration: 0.22s;
+                transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+                &:hover {
+                    opacity: 0.7;
+                }
+
+
+
+                &::before {
+                    transition: top 0.1s 0.25s ease-in, opacity 0.1s ease-in;
+                }
+
+                &::after {
+                    transition: bottom 0.1s 0.25s ease-in, transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+                }
+
+                &:hover {
+                    opacity: 0.7;
+                }
+
+                .hamburgerBox {
+                    width: 40px;
+                    height: 24px;
+                    display: inline-block;
+                    position: relative;
+                }
+
+                .hamburgerInner {
+                    background-color: $background-color_2;
+                    display: block;
+                    top: 50%;
+                    margin-top: -2px;
+                    width: $width;
+                    height: $height;
+                    background-color: $background-color_2;
+                    border-radius: 4px;
+                    position: absolute;
+                    transition-property: transform;
+                    transition-duration: 0.15s;
+                    transition-timing-function: ease;
+
+                    &::before {
+                        width: $width;
+                        height: $height;
+                        background-color: $background-color_2;
+                        border-radius: 4px;
+                        position: absolute;
+                        transition-property: transform;
+                        transition-duration: 0.15s;
+                        transition-timing-function: ease;
+                        content: "";
+                        display: block;
+                        top: -10px;
+                    }
+
+                    &::after {
+                        width: $width;
+                        height: $height;
+                        background-color: $background-color_2;
+                        border-radius: 4px;
+                        position: absolute;
+                        transition-property: transform;
+                        transition-duration: 0.15s;
+                        transition-timing-function: ease;
+                        content: "";
+                        display: block;
+                        bottom: -10px;
+                    }
+
+                    &::before {
+                        background-color: $background-color_2;
+                    }
+
+                    &::after {
+                        background-color: $background-color_2;
+                    }
+                }
+
+
+                &.isActive {
+                    .hamburgerInner {
+                        transform: rotate(225deg);
+                        transition-delay: 0.12s;
+                        transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+                        &::before {
+                            top: 0;
+                            opacity: 0;
+                            transition: top 0.1s ease-out, opacity 0.1s 0.12s ease-out;
+                        }
+
+                        &::after {
+                            bottom: 0;
+                            transform: rotate(-90deg);
+                            transition: bottom 0.1s ease-out, transform 0.22s 0.12s cubic-bezier(0.215, 0.61, 0.355, 1);
+                        }
+                    }
+
+                }
+
+            }
+
+
+
+
+
+
+        }
+
+        .NavList {
+            margin-right: 0.25rem;
+            margin-left: auto;
+            justify-content: flex-end;
+            display: inline-flex;
+
+            justify-content: space-around;
+
+            @media (max-width: $md) {
+                position: absolute;
+                right: 0;
+                top: 3.25rem;
+
+                transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+                backdrop-filter: blur(30px);
+                border: 1px solid #c1b3b30f;
+
+                min-width: 15rem;
+                transform: translateX(calc(100% + 5rem));
+                height: auto;
+                background-color: #23272f;
+                width: 100%;
+                flex-direction: column;
+                justify-content: center;
+                align-items: flex-start;
+                border-radius: 0.5rem;
+
+                &.isOpen {
+                    transform: scale(1);
+
+                    display: flex;
+                    justify-content: center;
+                    text-align: center;
+                    column-gap: 0.25rem;
+
+                }
+
+            }
+
+            .NavItem {
+                position: relative;
+                margin-right: 0.75rem;
+                font-weight: 500;
+                opacity: 0.8;
+                cursor: pointer;
+                letter-spacing: 1px;
+
+                font-size: 1.1rem;
+
+
+
+                @media (max-width: $md) {
+
+                    padding: 0.25rem 1rem;
+                    color: #ffffffbf;
+                    cursor: pointer;
+                    height: 2.375rem;
+                    width: 100%;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    cursor: pointer;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: space-between;
+                    font-size: 1.1rem;
+                    font-weight: 500;
+                    border: 0;
+                    outline: 0;
+                    user-select: none;
+
+
+
+                    &:first-child {
+                        border-top-left-radius: 0.25rem;
+                        border-top-right-radius: 0.25rem;
+                    }
+
+                    &:hover {
+                        background-color: #404652;
+                    }
+
+                    .NavLink {
+                        opacity: 1;
+                        color: #6658d3;
+                    }
+
+                    &:is(:hover, :focus, :focus-visible, :active, .isActive) {
+
+                        .NavLink {
+                            opacity: 1;
+
+                            color: #d4cfff;
+
+
+                        }
+                    }
+                }
+
+
+            }
+
+        }
+
+    }
+}
+
 
 .Header {
     width: 100%;
-    height: auto;
-
-    .NavBar {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0.25rem 0.5rem;
-
-        .NavBrand {
-            font-size: 1.25rem;
-            font-weight: 700;
-
-            letter-spacing: 1px;
-            margin-left: 0.25rem;
-        }
-
-        .NavContent {
-            position: relative;
-
-            .NavToggler {
-                @media (min-width: $md) {
-                    display: none;
-
-                }
-
-                display: block;
-                border-radius:10px;
-                width: 30px;
-                height: 20px;
-                position: relative;
-                margin: 0.5rem;
-                -webkit-transform: rotate(0deg);
-                -moz-transform: rotate(0deg);
-                -o-transform: rotate(0deg);
-                transform: rotate(0deg);
-                -webkit-transition: .5s ease-in-out;
-                -moz-transition: .5s ease-in-out;
-                -o-transition: .5s ease-in-out;
-                transition: .5s ease-in-out;
-                cursor: pointer;
+    padding: 2rem;
+    text-align: center;
+    border-bottom: 1px solid variables.$borderColor;
+    margin-bottom: 2rem;
+    background-color: variables.$HeaderBg;
+    color: variables.$HeaderColor !important;
 
 
+    .title {
+        font-weight: 700;
+        letter-spacing: 2px;
+        line-height: 2.5rem;
+        margin-bottom: 1rem;
+        color: variables.$HeaderTitle !important;
+    }
 
-                span {
-                    display: block;
-
-                    position: absolute;
-                    height: 3px;
-                    width: 100%;
-                    border-radius: 9px;
-                    opacity: 1;
-                    left: 0;
-                    background-color: #fff;
-                    transform: rotate(0deg);
-
-                    transition: .25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-
-                    &:nth-child(1) {
-                        top: 0px;
-                    }
-
-                    &:nth-child(2) {
-                        top: 10px;
-                    }
-
-                    &:nth-child(3) {
-                        top: 20px;
-                    }
-
-
-                }
-
-                &.active {
-                    span {
-
-
-                        &:nth-child(1) {
-                            top: 11px;
-                            -webkit-transform: rotate(135deg);
-                            -moz-transform: rotate(135deg);
-                            -o-transform: rotate(135deg);
-                            transform: rotate(135deg);
-                        }
-
-                        &:nth-child(2) {
-                            opacity: 0;
-                            left: -60px;
-                        }
-
-                        &:nth-child(3) {
-                            top: 11px;
-                            -webkit-transform: rotate(-135deg);
-                            -moz-transform: rotate(-135deg);
-                            -o-transform: rotate(-135deg);
-                            transform: rotate(-135deg);
-                        }
-                    }
-                }
-            }
-
-            .NavList {
-                margin-right: 0.25rem;
-                margin-left: auto;
-                justify-content: flex-end;
-                display: inline-flex;
-
-                justify-content: space-around;
-
-                @media (max-width: $md) {
-                    flex-direction: column;
-                    position: absolute;
-                    right: 0;
-                    top: 3.25rem;
-                    transform: scale(0);
-                    transform-origin: 90% 0;
-                    transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-                    backdrop-filter: blur(30px);
-                    border: 1px solid #c1b3b30f;
-
-                    min-width: 8rem;
-                    height: auto;
-                    width: 100%;
-                    padding: 0.5rem;
-                    border-radius: 0.25rem;
-
-                    &.open {
-                        transform: scale(1);
-
-                        display: flex;
-                        justify-content: center;
-                        text-align: center;
-                        column-gap: 0.25rem;
-
-                    }
-
-                }
-
-                .NavItem {
-                    position: relative;
-                    margin-right: 0.75rem;
-                    font-weight: 500;
-                    opacity: 0.8;
-                    cursor: pointer;
-                    letter-spacing: 1px;
-
-                    &:hover,
-                    &.active {
-                        .nav-link {
-
-                            opacity: 1;
-                        }
-                    }
-
-                    &:after {
-                        content: '';
-                        position: absolute;
-                        width: 100%;
-                        transform: scaleX(0);
-                        height: 2px;
-                        bottom: 0;
-                        left: 0;
-                        transform-origin: bottom right;
-                        transition: transform 0.25s ease-in-out;
-
-                        @media (max-width: $md) {
-                            display: none;
-                        }
-                    }
-
-                    &:hover:after,
-                    &.active:after {
-                        transform: scaleX(1);
-                        transform-origin: bottom left;
-                    }
-
-                    @media (max-width: $md) {
-
-                        width: 100%;
-                        flex: 1 1 auto;
-                        cursor: pointer;
-                        transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-
-                        &:hover {
-
-                            transform: scale(110%);
-                        }
-                    }
-
-                    .nav-link {
-                        opacity: 1;
-                    }
-                }
-
-            }
-
-        }
+    .description {
+        color: variables.$HeaderDescription !important;
+        font-weight: 500;
+        letter-spacing: 1px;
+        margin-bottom: 2.5rem;
     }
 }
 
 .ToolCard {
     margin: 0.5rem;
     flex: 1 1 auto;
+    opacity: 0;
+    visibility: hidden;
     transition: all 250ms ease-in-out;
+    animation-name: pop;
+    animation-duration: 0.83s;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
 
     &:hover {
         transform: translateY(-10px);
+    }
+
+    @keyframes pop {
+        from {
+            transform: translateY(20px);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        to {
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+        }
     }
 
     @media (max-width: $sm) {

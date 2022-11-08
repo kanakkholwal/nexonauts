@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 import components from "./_components.module.scss";
-export default function Card({ title, description, path, category, online }) {
+export default function Card({ title, description, path, category, online, ...props }) {
 
     return (
-        <div className={"G_Card " + components.ToolCard}>
+        <div className={"G_Card " + components.ToolCard} {...props}>
             <div className={"G_Card-body " + components.CardBody}>
                 <div className={components.Info}>
 

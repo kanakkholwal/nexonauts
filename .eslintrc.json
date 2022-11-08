@@ -38,6 +38,11 @@
             "target": "./public/*",
             "from": "./src/*"
           }
+          ,
+          {
+            "target": "./src/*",
+            "from": "./pages/*"
+          }
         ]
       }
     ]
