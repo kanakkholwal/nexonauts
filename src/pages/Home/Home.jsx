@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import HomeClass from "./_Home.module.scss";
 import PageMetaData from "../../components/PageMetaData";
 import Logo from "../../components/Logo";
@@ -71,7 +72,7 @@ export default function HomePage() {
                 <main className={HomeClass.home}>
                     <section id="About">
                         <div className={HomeClass.sectionImg}>
-                            <img src='../../assets/svg-images/about-us.svg' alt="About Us" loading="lazy" width="auto" height="auto" />
+                            <Image src='../../assets/svg-images/about-us.svg' alt="About Us" loading="lazy" />
                         </div>
                         <div className={HomeClass.sectionContent}>
                             <h1>About Us</h1>
@@ -83,7 +84,7 @@ export default function HomePage() {
                     </section>
                     <section id="Tools">
                         <div className={HomeClass.sectionImg}>
-                            <img src="../../assets/svg-images/projects.svg" alt="Tools" loading="lazy" width="auto" height="auto" />
+                            <Image src="../../assets/svg-images/projects.svg" alt="Tools" loading="lazy" />
                         </div>
                         <div className={HomeClass.sectionContent}>
                             <h1>Tools</h1>
@@ -98,7 +99,7 @@ export default function HomePage() {
                     </section>
                     <section id="Blog">
                         <div className={HomeClass.sectionImg}>
-                            <img src='../../assets/svg-images/blogging.svg' alt="Blogging" loading='lazy' width="auto" height="auto" />
+                            <Image src='../../assets/svg-images/blogging.svg' alt="Blogging" loading='lazy' />
                         </div>
                         <div className={HomeClass.sectionContent}>
                             <h1>Blog</h1>
@@ -114,7 +115,7 @@ export default function HomePage() {
                     </section>
                     <section id="Projects">
                         <div className={HomeClass.sectionImg}>
-                            <img src="../../assets/svg-images/projects.svg" alt="Projects" loading="lazy" width="auto" height="auto" />
+                            <Image src="../../assets/svg-images/projects.svg" alt="Projects" loading="lazy" />
                         </div>
                         <div className={HomeClass.sectionContent}>
                             <h1>Projects</h1>
