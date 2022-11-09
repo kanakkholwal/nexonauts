@@ -14,11 +14,9 @@ const nextConfig = {
   },
   pwa: {
     dest: "public",
-    sw: "sw.js",
-    scope: "/",
-    runtimeCaching,
-    disable: process.env.NODE_ENV === "development",
-  }
+    register: true,
+    skipWaiting: true,
+  },
 }
 module.exports = withPWA(nextConfig)
 
