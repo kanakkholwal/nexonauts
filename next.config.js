@@ -15,7 +15,7 @@ const nextConfig = {
   pwa: {
     dest: "public",
     sw: "/sw.js",
-    swSrc: "service-worker.js",
+    swSrc: "./public/sw.js",
     register: true,
     skipWaiting: true,
     runtimeCaching,

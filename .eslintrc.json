@@ -1,5 +1,5 @@
 {
-  "extends": ["next/babel","next/core-web-vitals"],
+  "extends": ["next","next/babel","next/core-web-vitals"],
   "rules": {
     "import/no-restricted-paths": [
       "error",
