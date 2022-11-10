@@ -18,6 +18,8 @@ const nextConfig = {
     swSrc: "service-worker.js",
     register: true,
     skipWaiting: true,
+    runtimeCaching,
+
   },
 }
 module.exports = withPWA(nextConfig)

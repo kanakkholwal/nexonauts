@@ -7286,4 +7286,5 @@ body {
   font-family: "Public Sans", sans-serif;
   font-family: "Public Sans", sans-serif;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }/*# sourceMappingURL=style.css.map */

@@ -39,6 +39,6 @@ body {
     font-family: 'Inter', sans-serif;
     font-family: 'Public Sans', sans-serif;
     font-family: variables.$fontBody;
-
     -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
 }
