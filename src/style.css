@@ -656,7 +656,7 @@ svg {
 
 .Img-Thumbnail {
   padding: 0.25rem;
-  background-color: #1b1f29;
+  background-color: #1E2235;
   border: 1px solid #374151;
   border-radius: 0.25rem;
 }
@@ -1322,7 +1322,7 @@ html ::-webkit-scrollbar-track {
   top: 0;
   left: 0.25rem;
   z-index: 0;
-  background-color: #23272f;
+  background-color: #161826;
   transform: translateY(0.5rem);
   padding-inline: 0.5rem;
   transition: 0.25s ease;
@@ -1403,7 +1403,7 @@ html ::-webkit-scrollbar-track {
   border-radius: 0.25rem;
   padding: calc(0.33rem + 1px) calc(0.75rem + 1px);
   border: 2px solid #374151;
-  background: #23272f;
+  background: #161826;
   color: rgba(255, 255, 255, 0.7490196078);
   caret-color: #a4acff;
 }
@@ -1461,7 +1461,7 @@ html ::-webkit-scrollbar-track {
   border-radius: 0.25rem;
   padding: calc(0.33rem + 1px) calc(0.75rem + 1px);
   border: 2px solid #374151;
-  background: #23272f;
+  background: #161826;
   color: rgba(255, 255, 255, 0.7490196078);
   caret-color: #a4acff;
 }
@@ -1526,7 +1526,7 @@ html ::-webkit-scrollbar-track {
   padding: 0.25rem 1rem;
   border-radius: 0.25rem;
   border: 2px solid #374151;
-  background-color: #23272f;
+  background-color: #161826;
 }
 .G_Form-colorLabel span {
   user-select: none;
@@ -1560,7 +1560,7 @@ html ::-webkit-scrollbar-track {
   padding: 0.25rem 1rem;
   border-radius: 0.25rem;
   border: 2px solid #374151;
-  background-color: #23272f;
+  background-color: #161826;
 }
 .G_Form-rangeLabel .G_Form-range[type=range] {
   flex: 1 1 auto;
@@ -1610,7 +1610,7 @@ html ::-webkit-scrollbar-track {
   font-weight: 700;
   padding: calc(0.75rem + 1px) calc(0.5rem + 1px);
   border: 2px solid #374151;
-  background: #23272f;
+  background: #161826;
   color: rgba(255, 255, 255, 0.7490196078);
   transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
   position: relative;
@@ -1639,7 +1639,7 @@ html ::-webkit-scrollbar-track {
   padding: 0.65rem;
   width: 100%;
   font-weight: 700;
-  background: #23272f;
+  background: #161826;
   color: rgba(255, 255, 255, 0.7490196078);
   border: 2px solid #374151;
   transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -1697,7 +1697,7 @@ html ::-webkit-scrollbar-track {
   visibility: visible;
 }
 .G_Form-selectWrapper .G_SelectDropdown ul {
-  background-color: #23272f;
+  background-color: #161826;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -1726,13 +1726,13 @@ html ::-webkit-scrollbar-track {
   user-select: none;
 }
 .G_Form-selectWrapper .G_SelectDropdown ul li.G_SelectDropdown-item:is(:hover, :active) {
-  background-color: #404652;
+  background-color: #252a41;
 }
 .G_Form-selectWrapper .G_SelectDropdown ul li.G_SelectDropdown-item.isActive {
   color: #6658d3;
 }
 .G_Form-selectWrapper .G_SelectDropdown ul li.G_SelectDropdown-item.isActive:is(:hover, :active) {
-  background-color: #404652;
+  background-color: #252a41;
   color: #b4abff;
 }
 .G_Form-selectWrapper .G_SelectDropdown ul li.G_SelectDropdown-item:first-child {
@@ -5850,7 +5850,7 @@ span.inline-color {
   overflow-anchor: none;
   touch-action: auto;
   z-index: 1001;
-  background: #23272f;
+  background: #1e2235;
   backdrop-filter: blur(15px);
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1);
   overflow-x: hidden;
@@ -5892,7 +5892,7 @@ span.inline-color {
   text-align: center;
   cursor: pointer;
   margin-bottom: 1rem;
-  background-color: #23272f;
+  background-color: #161826;
   z-index: 2;
 }
 .G_Sidenav .SidenavHeader:is(:hover, :focus, :active) {
@@ -6083,7 +6083,7 @@ span.inline-color {
   text-align: left;
   cursor: pointer;
   margin-top: 1rem;
-  background-color: #23272f;
+  background-color: #161826;
   z-index: 2;
   font-size: 0.825rem;
   padding-left: 1.25rem;
@@ -6195,7 +6195,7 @@ span.inline-color {
   text-align: center;
   border-bottom: 1px solid #374151;
   margin-bottom: 2rem;
-  background-color: #1f242e;
+  background-color: #161826;
   color: #7b88ca !important;
 }
 .G_Header .title {
@@ -6206,7 +6206,7 @@ span.inline-color {
   color: #7b88ca !important;
 }
 .G_Header .description {
-  color: rgba(226, 231, 255, 0.7098039216) !important;
+  color: rgba(220, 222, 243, 0.5019607843) !important;
   font-weight: 500;
   letter-spacing: 1px;
   margin-bottom: 2.5rem;
@@ -6417,7 +6417,7 @@ span.inline-color {
   width: 100%;
   border-bottom: 1px solid #374151;
   margin-bottom: 0.75rem;
-  background-color: #23272f;
+  background-color: #161826;
   vertical-align: middle;
   z-index: 2;
   padding-left: 0.25rem;
@@ -6480,7 +6480,7 @@ span.inline-color {
   width: 100%;
   margin: 2rem auto 0;
   transition: all 0.8s ease-in-out;
-  background-color: #1b1f29;
+  background-color: #1E2235;
   padding: 2rem;
 }
 @media (max-width: 768px) {
@@ -6730,7 +6730,7 @@ footer.End {
   left: 50%;
   transform: translate(-50%, 150%) scale(0.5);
   z-index: 1001 !important;
-  background-color: #1f242e;
+  background-color: #252a41;
   color: #f6f7f9;
   border-radius: calc(0.5rem - 1px);
   overflow: hidden;
@@ -6791,6 +6791,7 @@ footer.End {
   align-items: center;
   vertical-align: middle;
   column-gap: 0.5rem;
+  background-color: #292e47;
 }
 
 .btn {
@@ -7050,7 +7051,7 @@ footer.End {
   display: flex;
   flex-direction: column;
   word-wrap: break-word;
-  background-color: #1b1f29;
+  background-color: #1E2235;
   background-clip: border-box;
   border-radius: 0.5rem;
   box-shadow: 0 15px 35px rgba(55, 65, 81, 0.1), 0 5px 15px rgba(55, 65, 81, 0.1);
@@ -7161,7 +7162,7 @@ footer.End {
   border: 1px solid #374151;
   border-radius: 0.5rem;
   text-align: center;
-  background-color: #23272f;
+  background-color: #161826;
   will-change: height;
   transition: height 0.8s ease-in-out;
 }
@@ -7275,7 +7276,7 @@ footer.End {
 }
 
 body {
-  background-color: #23272f;
+  background-color: #161826;
   font-weight: 400;
   font-size: 1.25rem;
   line-height: normal;

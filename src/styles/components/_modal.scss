@@ -23,15 +23,17 @@
         left: 50%;
         transform: translate(-50%, 150%) scale(.5);
         z-index: 1001 !important;
-        background-color: #1f242e;
+        background-color: #252a41;
         color: variables.$bodyText;
         border-radius: calc(0.5rem - 1px);
         overflow: hidden;
-transition: all 300ms ease-in-out;
+        transition: all 300ms ease-in-out;
+
         @media screen and (max-width: variables.$sm) {
             min-width: calc(100% - 2rem);
             margin-inline: auto;
         }
+
         @media screen and (min-width: variables.$sm) {
             min-width: calc(variables.$sm - 4rem);
             margin-inline: auto;
@@ -87,7 +89,7 @@ transition: all 300ms ease-in-out;
             vertical-align: middle;
             column-gap: 0.5rem;
 
-
+            background-color: #292e47;
         }
     }
 }
