@@ -638,7 +638,7 @@ ol.ol li::before {
   color: #a6b4c3;
   background: #1e2739;
   letter-spacing: 1px;
-  border: 1px dashed #374151;
+  border: 1px dashed #ABADC6;
   font-weight: 500;
   font-family: "Google Sans Mono", monospace;
 }
@@ -657,7 +657,7 @@ svg {
 .Img-Thumbnail {
   padding: 0.25rem;
   background-color: #1E2235;
-  border: 1px solid #374151;
+  border: 1px solid #ABADC6;
   border-radius: 0.25rem;
 }
 
@@ -1282,7 +1282,7 @@ html ::-webkit-scrollbar-track {
   z-index: 1;
   background-color: transparent;
   border: none;
-  border-bottom: 2px solid #374151;
+  border-bottom: 2px solid #ABADC6;
   font: inherit;
   font-size: 1.125rem;
   padding: 0.25rem 0;
@@ -1332,7 +1332,7 @@ html ::-webkit-scrollbar-track {
   z-index: 1;
   background-color: transparent;
   border: none;
-  border: 2px solid #374151;
+  border: 2px solid #ABADC6;
   font: inherit;
   font-size: 1.125rem;
   padding-top: 0.5rem;
@@ -1402,7 +1402,7 @@ html ::-webkit-scrollbar-track {
   transition: all 0.2s linear;
   border-radius: 0.25rem;
   padding: calc(0.33rem + 1px) calc(0.75rem + 1px);
-  border: 2px solid #374151;
+  border: 2px solid #ABADC6;
   background: #161826;
   color: rgba(255, 255, 255, 0.7490196078);
   caret-color: #a4acff;
@@ -1460,7 +1460,7 @@ html ::-webkit-scrollbar-track {
   transition: all 0.2s linear;
   border-radius: 0.25rem;
   padding: calc(0.33rem + 1px) calc(0.75rem + 1px);
-  border: 2px solid #374151;
+  border: 2px solid #ABADC6;
   background: #161826;
   color: rgba(255, 255, 255, 0.7490196078);
   caret-color: #a4acff;
@@ -1525,7 +1525,7 @@ html ::-webkit-scrollbar-track {
 .G_Form-colorLabel {
   padding: 0.25rem 1rem;
   border-radius: 0.25rem;
-  border: 2px solid #374151;
+  border: 2px solid #ABADC6;
   background-color: #161826;
 }
 .G_Form-colorLabel span {
@@ -1559,7 +1559,7 @@ html ::-webkit-scrollbar-track {
   align-items: center;
   padding: 0.25rem 1rem;
   border-radius: 0.25rem;
-  border: 2px solid #374151;
+  border: 2px solid #ABADC6;
   background-color: #161826;
 }
 .G_Form-rangeLabel .G_Form-range[type=range] {
@@ -1569,7 +1569,7 @@ html ::-webkit-scrollbar-track {
   height: 0.25rem;
   padding: 0;
   border-radius: 0.25rem;
-  background-color: #374151;
+  background-color: #ABADC6;
   appearance: none;
   -webkit-appearance: none;
   border: none;
@@ -1609,7 +1609,7 @@ html ::-webkit-scrollbar-track {
   width: 100%;
   font-weight: 700;
   padding: calc(0.75rem + 1px) calc(0.5rem + 1px);
-  border: 2px solid #374151;
+  border: 2px solid #ABADC6;
   background: #161826;
   color: rgba(255, 255, 255, 0.7490196078);
   transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
@@ -1641,7 +1641,7 @@ html ::-webkit-scrollbar-track {
   font-weight: 700;
   background: #161826;
   color: rgba(255, 255, 255, 0.7490196078);
-  border: 2px solid #374151;
+  border: 2px solid #ABADC6;
   transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
   cursor: pointer;
   user-select: none;
@@ -1759,7 +1759,7 @@ html ::-webkit-scrollbar-track {
   height: auto;
   max-width: 768px;
   background: linear-gradient(to left, #1b1f29 8%, #171c24 18%, #1b1f29 33%);
-  border: 2px solid #374151;
+  border: 2px solid #ABADC6;
   position: relative;
   cursor: pointer;
 }
@@ -1806,7 +1806,7 @@ html ::-webkit-scrollbar-track {
   content: "";
   flex: 1;
   height: 1px;
-  background: #374151;
+  background: #ABADC6;
 }
 
 .G_Form-submit {
@@ -6029,7 +6029,7 @@ span.inline-color {
   max-height: 15rem;
   margin-left: 0.75rem;
   margin-bottom: 0.5rem;
-  border-left: 2px solid #374151;
+  border-left: 2px solid #ABADC6;
   transition: height 0.5s ease;
   padding-top: 0.1rem;
   font-weight: 400;
@@ -6193,7 +6193,7 @@ span.inline-color {
   padding: 2rem;
   margin-top: 3.125rem;
   text-align: center;
-  border-bottom: 1px solid #374151;
+  border-bottom: 1px solid #ABADC6;
   margin-bottom: 2rem;
   background-color: #161826;
   color: #7b88ca !important;
@@ -6415,7 +6415,7 @@ span.inline-color {
   justify-content: space-between;
   padding: 0.5rem;
   width: 100%;
-  border-bottom: 1px solid #374151;
+  border-bottom: 1px solid #ABADC6;
   margin-bottom: 0.75rem;
   background-color: #161826;
   vertical-align: middle;
@@ -6574,7 +6574,7 @@ span.inline-color {
 .G_Footer .Social .Heading {
   flex: 1 1 100%;
   margin-bottom: 0.75rem;
-  border-bottom: 1px solid #374151;
+  border-bottom: 1px solid #ABADC6;
   padding: 0.5rem;
   text-align: center;
   letter-spacing: 2px;
@@ -6756,7 +6756,7 @@ footer.End {
   width: calc(100% - 10px);
   padding: 0.75rem;
   margin-inline: auto;
-  border-bottom: 1px solid #374151;
+  border-bottom: 1px solid #ABADC6;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -6785,7 +6785,7 @@ footer.End {
   width: calc(100% - 10px);
   padding: 0.75rem;
   margin-inline: auto;
-  border-top: 1px solid #374151;
+  border-top: 1px solid #ABADC6;
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -7064,7 +7064,7 @@ footer.End {
   padding: 0.75rem 1.5rem;
   margin-bottom: 0;
   background-color: inherit;
-  border-bottom: 1px solid #374151;
+  border-bottom: 1px solid #ABADC6;
 }
 .G_Card .G_Card-header:first-child {
   border-radius: calc(0.5rem - 1px) calc(0.5rem - 1px) 0 0;
@@ -7072,7 +7072,7 @@ footer.End {
 .G_Card .G_Card-footer {
   padding: 0.75rem 1.5rem;
   background-color: inherit;
-  border-top: 1px solid #374151;
+  border-top: 1px solid #ABADC6;
 }
 .G_Card .G_Card-footer:last-child {
   border-radius: 0 0 calc(0.5rem - 1px) calc(0.5rem - 1px);
@@ -7159,7 +7159,7 @@ footer.End {
   justify-content: flex-start;
   flex-wrap: nowrap;
   overflow: hidden;
-  border: 1px solid #374151;
+  border: 1px solid #ABADC6;
   border-radius: 0.5rem;
   text-align: center;
   background-color: #161826;
