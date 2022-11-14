@@ -42,6 +42,10 @@
           {
             "target": "./src/*",
             "from": "./pages/*"
+          },
+          {
+            "target": "./src/pages/*",
+            "from": "./pages/*"
           }
         ]
       }
