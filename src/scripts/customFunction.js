@@ -35,3 +35,8 @@ export function GenerateId(length) {
     }
     return result;
 }
+export function stringToHTML(str) {
+    var parser = new DOMParser();
+    var doc = parser.parseFromString(str, 'text/html');
+    return doc.body;
+};
