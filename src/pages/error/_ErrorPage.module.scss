@@ -99,7 +99,7 @@
             background: linear-gradient(-45deg, transparent 0%, rgba(0, 0, 0, 0.06) 50%, transparent 51%, transparent 100%),
                 linear-gradient(to top right, #99749D, #99749D, #B895AB, #CC9AA6, #D7969E, #ED8687, #ED8687);
             overflow: hidden;
-            animation: bgshadow 5s infinite, float 1s infinite ease-in-out alternate;
+            animation: bgshadow 5s infinite, float 1s infinite 0.25s ease-in-out alternate;
         }
 
         &>span.zero:before {

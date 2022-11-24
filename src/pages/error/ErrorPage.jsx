@@ -9,6 +9,7 @@ export default function ErrorPage() {
     return (
         <>
             <Head>
+                <title>404 | Page Not Found</title>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
                 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet" />
@@ -20,7 +21,7 @@ export default function ErrorPage() {
                     <span className={styles.zero}><span className={styles.screenReaderText}>0</span></span>
                     <span className={styles.four}><span className={styles.screenReaderText}>4</span></span>
                 </section >
-                <h1>404 Error Page</h1>
+                <h1>Page Not Found</h1>
                 <div className="d-flex justify-content-center " style={{ width: "100%" }}>
 
 
