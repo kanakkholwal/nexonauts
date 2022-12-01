@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Script from 'next/script'
 
 import "../src/style.css";
 export default function MyApp({ Component, pageProps }) {
@@ -17,8 +16,8 @@ export default function MyApp({ Component, pageProps }) {
             <link rel="manifest" href="/manifest.json" />
             <meta name="theme-color" content="#a4acff" />
             <link rel="apple-touch-icon" href="/favicon.ico" />
-            <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2329686175069611"
-                crossorigin="anonymous" strategy="lazyOnload"></Script>
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2329686175069611"
+                crossorigin="anonymous" strategy="lazyOnload"></script>
         </Head>
         <Component {...pageProps} />
     </>
