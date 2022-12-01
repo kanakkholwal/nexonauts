@@ -30,6 +30,10 @@
             "from": "./src/pages/"
           },
           {
+            "target": "./src/pages/**",
+            "from": "./src/pages/**"
+          },
+          {
             "target": "./src/*",
             "from": "./pages/"
           }

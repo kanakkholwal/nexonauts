@@ -26,5 +26,5 @@ export const useFetch = (url: string, options = {}) => {
         }
     }, [url, options]);
 
-    return { response, error, loading }
+    return [response, error, loading]
 }

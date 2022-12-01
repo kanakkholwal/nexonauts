@@ -1,36 +1,79 @@
+@mixin fullDivFlex {
+    width: 100%;
+    display: flex;
+    margin-inline: auto;
+}
+
+
+@mixin noAction {
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+}
+
+@mixin Block {
+    outline: none;
+    display: block;
+    border: 0;
+    text-decoration: none;
+
+    &:is(:hover, :focus, :active) {
+        outline: none;
+
+    }
+}
+
 @mixin flex {
     display: flex;
-    align-items: center;
 }
 
 @mixin inline-flex {
-    display: flex;
-    align-items: center;
+    display: inline-flex;
 }
 
 @mixin left {
     margin-left: 0.25rem;
     margin-right: auto;
-    justify-content: flex-start;
-
 }
 
 @mixin center {
     margin-right: auto;
     margin-left: auto;
-    justify-content: center;
 }
 
 @mixin right {
     margin-right: 0.25rem;
     margin-left: auto;
-    justify-content: flex-end;
 }
 
 @mixin flex-center {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@mixin overFlowY {
+
+    overflow-y: auto;
+
+    &::-webkit-scrollbar-track {
+        background-color: none;
+        background-clip: content-box;
+
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent
+    }
+
+    &:hover {
+        &::-webkit-scrollbar-thumb {
+
+            background-color: #969faf;
+
+        }
+    }
+
 }
 
 @mixin PrimaryTextColor {
@@ -151,6 +194,15 @@ $grey: #9e9e9e;
 $transition:cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
 
+
+
+
+$MarginPadding1 :0.25rem;
+$MarginPadding2 :0.5rem;
+$MarginPadding3 :0.75rem;
+$MarginPadding4 :1rem;
+$MarginPadding5 :1.25rem;
+$MarginPadding6 :1.5rem;
 
 
 
@@ -522,7 +574,7 @@ div.Home {
     }
 
 
-    main {
+    main:not([class]) {
         width: 100%;
         display: flex;
         justify-content: center;
@@ -616,43 +668,465 @@ div.Home {
         }
     }
 
+    .Header {
+        width: 100%;
+        height: auto;
+        padding-block: $MarginPadding2;
+        background: rgba(20, 81, 157, 1);
+        background: -moz-radial-gradient(circle, rgb(62, 136, 218) 0%, rgba(20, 81, 157, 1) 100%);
+        background: -webkit-radial-gradient(circle, rgb(62, 136, 218) 0%, rgba(20, 81, 157, 1) 100%);
+        background: radial-gradient(circle, rgb(62, 136, 218) 0%, rgba(20, 81, 157, 1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#14519d", endColorstr="#3e88da", GradientType=1);
+
+        .Navbar {
+            @include fullDivFlex;
+            padding: 0.75rem 1rem;
+            max-width: $lg;
+            align-items: center;
+            z-index: 9;
+
+            .NavBrand {
+                @include left;
+                font-weight: 700;
+                font-size: 1.5rem;
+                color: #fbfbfb;
+            }
+
+            .NavContent {
+                @include right;
+                position: relative;
+                z-index: 9;
+
+                .NavToggle {
+                    position: relative;
+                    width: 32px;
+                    height: 32px;
+                    background: none;
+                    cursor: pointer;
+
+                    span {
+                        position: absolute;
+                        width: 100%;
+                        height: 0.1875rem;
+                        background-color: #fbfbfb;
+                        border-radius: 1.5625rem;
+                        inset: 0;
+                        transform-origin: center center;
+                        transition: .25s cubic-bezier(.175, .885, .32, 1.275);
+
+
+                        &:nth-child(1) {
+                            transform: none;
+                            margin-top: 0;
+
+                        }
+
+                        &:nth-child(2) {
+                            margin-top: 0.5rem;
+                        }
+
+                        &:nth-child(3) {
+                            margin-top: 1rem;
+
+                        }
+
+                    }
+
+                    &.Active {
+                        span {
+                            &:nth-child(1) {
+                                margin-top: 0.56rem;
+                                transform: rotate(135deg);
+                            }
+
+                            &:nth-child(2) {
+                                opacity: 0;
+                                left: -60px;
+                            }
+
+                            &:nth-child(3) {
+                                margin-top: 0.56rem;
+                                transform: rotate(-135deg);
+                            }
+                        }
+                    }
+                }
+
+                .NavToggle {
+                    display: none;
+                }
+
+                .NavList {
+                    @include flex;
+
+                    .NavItem {
+                        padding: 0.5rem 0.25rem;
+                        list-style: none;
+
+                        .NavLink {
+                            font-size: 1rem;
+                            font-weight: 500;
+                            color: #fbfbfb;
+                            opacity: 0.758;
+                            transition: all 250ms ease;
+                            cursor: pointer;
+
+                            &:is(:hover, :active, :focus, :focus-within) {
+                                opacity: 1;
+                            }
+                        }
+                    }
+
+
+
+                }
+
+                @media screen and (max-width:$md) {
+                    .NavToggle {
+                        display: block;
+                    }
+
+                    .NavList {
+                        flex-direction: column;
+                        position: absolute;
+                        right: 0;
+                        top: 100%;
+                        left: auto;
+                        transform: translateX(calc(100% + 5rem));
+                        transition: all 500ms ease-in-out;
+                        width: min(12rem, 15rem);
+                        height: auto;
+                        box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a;
+
+                        &.Open {
+                            transform: translateX(0);
+                        }
+
+                        .NavItem {
+                            .NavLink {
+                                padding: 0.5rem 0.75rem;
+                            }
+                        }
+                    }
+
+
+
+                }
+            }
+
+
+            &.DarkMode {
+
+                background-color: #1d1d1d;
+
+                .NavLink {
+                    color: #9a9a9a;
+
+                    &:is(:hover, :active, :focus, :focus-within) {
+                        color: #fbfbfb;
+                    }
+                }
+            }
+        }
+
+        &[dark] {
+            background: rgb(68, 79, 93);
+
+        }
+
+        .HeaderContainer {
+            position: relative;
+            @include fullDivFlex;
+            @include flex;
+            max-width: $lg;
+            min-height: 80vh;
+
+            justify-content: center;
+            flex-wrap: wrap;
+            text-align: center;
+            padding: $MarginPadding3;
+            color: #fbfbfb;
+            z-index: 0;
+            overflow: hidden;
+
+            .Content {
+                flex: 1 1 15rem;
+                padding-top: calc($MarginPadding5 + 0.75rem);
+                text-align: left;
+                position: relative;
+                padding-left: 5%;
+                padding-top: 3rem;
+                backdrop-filter: blur(2px);
+                z-index: 3;
+
+                h1 {
+                    letter-spacing: 2px;
+                    font-size: 2rem;
+
+                }
+
+                h4 {
+                    font-size: 1.5rem;
+                    line-height: normal;
+                    opacity: 0.75;
+                    margin-top: $MarginPadding3;
+                    margin-bottom: $MarginPadding6;
+                }
+
+                .StartBtn {
+                    display: block;
+                    margin: 0.75rem 0.5rem 1.25rem;
+                    font-weight: 600;
+                    font-size: 1.25rem;
+                    color: #141414;
+                    background-color: #fbfbfbfb;
+                    border-radius: $MarginPadding2;
+                    padding: 0.5rem 0.75rem;
+                    max-width: 15rem;
+                    margin: 10% auto 1.8rem 0.25rem;
+                    text-align: center;
+                }
+            }
+
+            .Figures {
+                flex: 1 1 25rem;
+                position: relative;
+                z-index: 2;
+
+
+
+                .Float {
+                    animation: floating 1s ease-in-out infinite alternate;
+                    position: absolute;
+                    top: 0;
+                    left: 20%;
+                    z-index: 9;
+
+                    @keyframes floating {
+                        100% {
+                            transform: translateY(20px);
+                        }
+                    }
+                }
+            }
+
+            .FloatingBGCards {
+                background-color: #0000001a;
+                border-radius: 0.5rem;
+                backdrop-filter: blur(5px);
+                --size: 200px;
+                --V-pos: 50%;
+                --H-pos: 50%;
+                width: var(--size);
+                height: var(--size);
+                border-radius: 50px;
+                position: absolute;
+                top: var(--V-pos);
+                left: var(--H-pos);
+                z-index: 1;
+                transition: all 500ms ease-in-out;
+                transform-style: preserve-3d;
+                transform: translate(calc(-1* var(--V-pos)), calc(-1*var(--H-pos)));
+                animation: RandomRotate 8s ease-in-out infinite alternate, RandomFloat 1s ease-in-out infinite alternate;
+
+                @keyframes RandomRotate {
+                    0% {
+                        transform: translate(calc(-1* var(--V-pos)), calc(-1*var(--H-pos))) rotate(0deg);
+                        border-radius: 30% 70% 36% 64% / 70% 43% 57% 30%;
+
+                    }
+
+                    15% {
+                        transform: translate(calc(-1* var(--V-pos)), calc(-1*var(--H-pos))) rotate(60deg);
+                        border-radius: 47% 53% 53% 47% / 39% 58% 42% 61%;
+
+                    }
+
+                    25% {
+                        transform: translate(calc(-1* var(--V-pos)), calc(-1*var(--H-pos))) rotate(120deg);
+                        border-radius: 47% 53% 53% 47% / 85% 69% 31% 15%;
+
+                    }
+
+                    35% {
+                        transform: translate(calc(-1* var(--V-pos)), calc(-1*var(--H-pos))) rotate(180deg);
+                        border-radius: 45% 55% 46% 54% / 48% 27% 73% 52%;
+
+                    }
+
+                    48% {
+                        transform: translate(calc(-1* var(--V-pos)), calc(-1*var(--H-pos))) rotate(240deg);
+                        border-radius: 45% 55% 63% 37% / 39% 30% 70% 61%;
+
+                    }
+
+                    65% {
+                        transform: translate(calc(-1* var(--V-pos)), calc(-1*var(--H-pos))) rotate(360deg);
+                        border-radius: 72% 28% 69% 31% / 31% 64% 36% 69%;
+
+                    }
+
+                    80% {
+                        transform: translate(calc(-1* var(--V-pos)), calc(-1*var(--H-pos))) rotate(450deg);
+                        border-radius: 72% 28% 69% 31% / 71% 27% 73% 29%;
+
+                    }
+
+                    100% {
+                        transform: translate(calc(-1* var(--V-pos)), calc(-1*var(--H-pos))) rotate(540deg);
+                        border-radius: 100%;
+
+                    }
+                }
+
+
+            }
+        }
+    }
+
+
+    .Main {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        section {
+            flex: 1 1 auto;
+            align-self: center;
+            justify-self: center;
+            width: 100%;
+
+            .Title {
+                height: calc(100vh + 15rem);
+                width: 100%;
+                // background: radial-gradient(circle, #82B2CA 0%, #354A54 100%);
+                background: #0f4c75;
+                color: #fbfbfb;
+
+                @include flex-center;
+
+                h1 {
+                    padding: 40px 0;
+                    font-weight: 800;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5em;
+                    overflow: hidden;
+                    margin: auto;
+
+                    span {
+                        display: inline-block;
+                        line-height: 1em;
+                    }
+                }
+            }
+
+            .Content {
+                width: 100%;
+                height: auto;
+                min-height: 100vh;
+                background: radial-gradient(circle, #256ba3 0%, #0774cb 100%);
+
+                color: #fbfbfb;
+                padding: $MarginPadding3;
+                text-align: center;
+                @include flex;
+                justify-content: space-evenly;
+                align-items: center;
+                flex-wrap: wrap;
+
+                &:nth-of-type(even) {
+                    flex-direction: row-reverse;
+                }
+
+                &:nth-of-type(odd) {
+                    flex-direction: row;
+                }
+
+                .Info {
+
+
+                    .Card {
+                        margin: 2rem;
+                        flex: 1 1 auto;
+                        @include flex;
+                        backdrop-filter: blur(15px);
+                        box-shadow: 2px 7px 5px 0 rgba(0, 0, 0, 0.005);
+                        background-color: #e9c6c624;
+                        border-radius: 0.25rem;
+                        text-align: center;
+                        padding: 1.55rem 0.75rem;
+                        max-width: 31.25rem;
+
+                        p {
+                            margin: auto;
+                        }
+                    }
+
+                    .Button {
+                        padding: 2rem;
+                    }
+                }
+
+                .Image {
+                    margin: 2rem;
+                    flex: 1 1 auto;
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                        aspect-ratio: 16/9;
+                        max-width: 25rem;
+                    }
+                }
+
+                .SectionBtn {
+                    display: block;
+                    font-weight: 600;
+                    font-size: 1.25rem;
+                    color: #141414;
+                    background-color: #fbfbfbfb;
+                    border-radius: $MarginPadding2;
+                    padding: 0.5rem 0.75rem;
+                    max-width: 15rem;
+                    margin: auto;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
     footer {
         width: 100%;
         height: auto;
-        padding: 0.75rem;
+        padding: 5%;
         @include flex;
         justify-content: space-around;
+        flex-direction: column;
         border-top: thin solid $dark;
         margin-top: 1rem;
 
         .copyright {
-            flex: 0.8 0.5 auto;
+            flex: 1 1 auto;
+            text-align: center;
+            margin-bottom: 1.75rem;
 
-            @media (max-width: $md) {
-                font-size: 0.9em;
-
-            }
         }
 
         .social {
+            flex: 1 1 auto;
+
             @include inline-flex;
             justify-content: space-around;
             column-gap: 0.5rem;
-            flex: 0.5 0.3 auto;
-            flex-wrap: wrap;
-            // @media (max-width: $md) {
-            //     flex: 0.5 0.4 auto;
 
-            // }
 
             .icon {
                 color: $primary;
                 transition: all 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                box-shadow: $shadow;
 
                 &:hover {
                     color: $white;
-                    transform: rotateY(360deg);
+                    transform: rotateY(360deg) scale(1.2);
                 }
             }
         }
