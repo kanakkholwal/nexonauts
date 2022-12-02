@@ -17,7 +17,7 @@ export default function MyApp({ Component, pageProps }) {
             <meta name="theme-color" content="#a4acff" />
             <link rel="apple-touch-icon" href="/favicon.ico" />
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2329686175069611"
-                crossorigin="anonymous" strategy="lazyOnload"></script>
+                crossorigin="anonymous" ></script>
         </Head>
         <Component {...pageProps} />
     </>

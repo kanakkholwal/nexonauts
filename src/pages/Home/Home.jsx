@@ -75,7 +75,7 @@ export default function HomePage() {
     return (
         <>
             <PageMetaData />
-            <div className={HomeClass.Home}>
+            <div className={HomeClass.HomePage}>
 
                 <header className={HomeClass.Header}>
                     <NavBar title={"K K Dev"} NavLinks={NavLinks} />

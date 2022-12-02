@@ -107,7 +107,7 @@ video {
 a {
   text-decoration: none;
   cursor: pointer !important;
-  color: #18c1f6;
+  color: #3c4daf;
   transition: all 0.5s ease;
 }
 a:is(:hover, :focus, :active) {
@@ -126,7 +126,6 @@ h4,
 h5,
 h6 {
   font-weight: 700;
-  color: #f6f7f9;
   margin-bottom: 0.75rem;
   font-family: "Public Sans", sans-serif;
   margin-left: 0.25rem;
@@ -5879,7 +5878,7 @@ span.inline-color {
   height: auto;
   font-weight: 700;
   font-size: 1.5rem;
-  color: #18c1f6;
+  color: #3c4daf;
   letter-spacing: 1px;
   transition: all 500ms ease-in-out;
   outline: none;
@@ -5890,7 +5889,7 @@ span.inline-color {
   text-align: center;
   cursor: pointer;
   margin-bottom: 1rem;
-  background-color: #161826;
+  background-color: #fbfbfb;
   z-index: 2;
 }
 .G_Sidenav .SidenavHeader:is(:hover, :focus, :active) {
@@ -6070,7 +6069,7 @@ span.inline-color {
   height: auto;
   font-weight: 700;
   font-size: 1.5rem;
-  color: #18c1f6;
+  color: #3c4daf;
   letter-spacing: 1px;
   transition: all 500ms ease-in-out;
   outline: none;
@@ -6081,7 +6080,7 @@ span.inline-color {
   text-align: left;
   cursor: pointer;
   margin-top: 1rem;
-  background-color: #161826;
+  background-color: #fbfbfb;
   z-index: 2;
   font-size: 0.825rem;
   padding-left: 1.25rem;
@@ -6165,13 +6164,13 @@ span.inline-color {
 .G_Navbar .NavBrand {
   font-weight: 700;
   font-size: 1.5rem;
-  color: #18c1f6;
+  color: #3c4daf;
   letter-spacing: 1px;
   transition: all 500ms ease-in-out;
   font-family: "Inter", sans-serif;
 }
 .G_Navbar .NavBrand:is(:hover, :focus, :active) {
-  color: #18c1f6;
+  color: #3c4daf;
   text-shadow: 1px 1px 2px rgba(0, 154, 255, 0.2901960784);
 }
 .G_Navbar .NavLink {
@@ -6182,7 +6181,7 @@ span.inline-color {
   transition: all 250ms ease;
 }
 .G_Navbar .NavLink:is(:hover, :focus, :active, .active, .isActive) {
-  color: #18c1f6;
+  color: #3c4daf;
   text-shadow: 1px 1px 2px rgba(0, 154, 255, 0.2901960784);
 }
 
@@ -6415,7 +6414,7 @@ span.inline-color {
   width: 100%;
   border-bottom: 1px solid #ABADC6;
   margin-bottom: 0.75rem;
-  background-color: #161826;
+  background-color: #fbfbfb;
   vertical-align: middle;
   z-index: 2;
   padding-left: 0.25rem;
@@ -6729,7 +6728,7 @@ footer.End {
   transform: translate(-50%, 150%) scale(0.5);
   z-index: 1001 !important;
   background-color: #252a41;
-  color: #f6f7f9;
+  color: #262626;
   border-radius: calc(0.5rem - 1px);
   overflow: hidden;
   transition: all 300ms ease-in-out;
@@ -7159,7 +7158,7 @@ footer.End {
   border: 1px solid #ABADC6;
   border-radius: 0.5rem;
   text-align: center;
-  background-color: #161826;
+  background-color: #fbfbfb;
   will-change: height;
   transition: height 0.8s ease-in-out;
 }
@@ -7273,11 +7272,11 @@ footer.End {
 }
 
 body {
-  background-color: #161826;
+  background-color: #fbfbfb;
   font-weight: 400;
   font-size: 1.25rem;
   line-height: normal;
-  color: #f6f7f9;
+  color: #262626;
   overflow-x: hidden;
   font-family: "DM Sans", sans-serif;
   font-family: "Inter", sans-serif;
