@@ -1,113 +1,233 @@
-import { useEffect } from "react";
-import HomeClass from "./_Home.module.scss";
-import "aos/dist/aos.css";
-import Aos from "aos";
-
-import PageMetaData from "../../components/PageMetaData";
-import NavBar from "./components/Navbar";
-import HeaderAnimatable from "./components/Animatable";
+import Header from "./components/Header";
 import Main from "./components/Main";
-import ContactsSection from "./components/ContactSection";
 import Footer from "./components/Footer";
+import { createContext, useEffect, useState } from "react";
+import classes from "./components/_Home.module.scss"
+import PageMetaData from "../../components/PageMetaData";
+import Aos from "aos";
+import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 
-const NavLinks = [
-    {
-        name: "Home",
-        path: "/"
+const PageData = {
+    NavLinks: [
+
+        {
+            name: "About",
+            url: "#about"
+        },
+        {
+            name: "Projects",
+            url: "#projects"
+        },
+        {
+            name: "Blog",
+            url: "#blog"
+        }
+        , {
+            name: "Contact",
+            url: "#contact"
+        }
+
+    ],
+    MainContent: {
+        hero: {
+            title: "I'm Frontend Web  Developer & Web 3 Enthusiast.",
+            subtitle: "Hello! I'm Kanak, a FullStack Web Developer based in India. I’m very passionate  about the work that I do.",
+            image: "./assets/images/hero-banner.jpg",
+        },
+        sections: {
+            about: {
+                title: "What I Do?",
+                description: "Hey There, I am Kanak Kholwal and I am a Frontend Developer and I create beautiful Websites with mobile friendly and SEO optimized Designs . I also build Simple but useful Internet Tools and write Blog about Tech and Programming.",
+                skills: [
+                    {
+                        name: "HTML / CSS3 / SCSS",
+                        percentage: 90,
+                        color: "#8e34e7"
+                    },
+                    {
+                        name: "Javascript",
+                        percentage: 85,
+                        color: "#4574cb"
+                    },
+                    {
+                        name: "ReactJs / NextJs",
+                        percentage: 70,
+                        color: "#40b577"
+                    },
+                    {
+                        name: "Firebase",
+                        percentage: 75,
+                        color: "#db6281"
+                    },
+
+                ]
+            },
+            projects: {
+                title: "Latest Projects",
+                description: "Check out some of my latest projects with creative ideas.",
+                link: '/projects',
+                list:
+                    [
+                        {
+                            category: "ExpressJs,ReactJs ,SASS ,Firebase",
+                            title: "College Result Website",
+                            description: "To display college results across all majors and years with extended functionalities.",
+                            link: "https://nith-result.web.app/",
+                            image: "./assets/images/result-site.webp",
+                            theme: {
+                                color: {
+                                    light: "#a07cc5",
+                                    dark: "#f4e9ff"
+                                },
+                                bg: {
+                                    light: "#f8f5fb",
+                                    dark: "#6658d3"
+                                }
+                            }
+                        },
+                        {
+                            category: "SASS , VanillaJs",
+                            title: "Web UI Component Library ",
+                            description: "To develop an open-source web component library for quick development .",
+                            link: "https://genesis-ui.netlify.app/",
+                            image: "./assets/images/web-ui-component-library.gif",
+                            theme: {
+                                color: {
+                                    light: "#3f78e0",
+                                    dark: "#0a0e13"
+                                },
+                                bg: {
+                                    light: "#f1f5fd",
+                                    dark: "#3f78e0"
+                                }
+                            }
+                        },
+
+                        {
+                            category: "SASS , NextJs ,ReactJs",
+                            title: "Web Tools(beta)",
+                            description: "To develop web tools for websites for basic web development operations like SEO and image conversion,etc.",
+                            link: "https://kkupgrader.eu.org/tools",
+                            image: "./assets/images/web-tools.svg",
+                            theme: {
+                                color: {
+                                    light: "#d16b86",
+                                    dark: "#361c23"
+                                },
+                                bg: {
+                                    light: "#fcf4f6",
+                                    dark: "#d16b86"
+                                }
+                            }
+                        },
+                    ]
+            },
+            blog: {
+                title: "Blog",
+                blogName: "kkupgrader.blogspot.com",
+                link: "https://kkupgrader.blogspot.com",
+                image: "./assets/svg-images/blogging.svg",
+                description: "News , Information , Tech Tips and Tricks ,Blogger, Awesome Css and Java Codes and Much More..."
+            }
+        }
     },
-    {
-        name: "About Us",
-        path: "#about-us"
-    },
-    {
-        name: "PortFolio",
-        path: "#portfolio"
-    },
-    {
-        name: "Contact Us",
-        path: "#contact-us"
+    SocialMedia: [
+        {
+            name: "Github",
+            icon: <IoLogoGithub />,
+            url: "https://github.com/kkupgrader",
+        },
+        {
+            name: "Instagram",
+            icon: <IoLogoInstagram />,
+            url: "https://www.instagram.com/kanakkholwal/",
+        },
+        {
+            name: "LinkedIn",
+            icon: <IoLogoLinkedin />,
+            url: "https://www.linkedin.com/in/kanak-kholwal/",
+        },
+        {
+            name: "Twitter",
+            icon: <IoLogoTwitter />,
+            url: "https://twitter.com/KanakKholwal",
+        },
+    ]
+}
+export const ThemeContext = createContext(null);
+function Home() {
+    const [DarkMode, SetDarkMode] = useState(false);
+    const ToggleTheme = () => {
+        SetDarkMode(!DarkMode);
+        localStorage.setItem("kkupgrader_Mode", !DarkMode);
+
     }
-]
-const MainContent = [
-    {
-        title: "About Me",
-        content: "Hey There, I am Kanak Kholwal and I am a Frontend Developer and I share Web Development tips and tricks , Internet Tools and Blog Articles on this site.",
-        link: {
-            path: "/portfolio",
-            title: "Portfolio",
-        },
-        ImageUrl: "/assets/svg-images/about-us.svg"
-    },
-    {
-        title: "Tools",
-        content: "Free to Use Internet Tools for everyone. From Text to Handwriting ,Svg designing ,Css Generator to Meta Tag Generator ,JavaScript Beautifier & Minifier Tools and many More.",
-        link: {
-            path: "/tools",
-            title: "Use Tools",
-        },
-        ImageUrl: "/assets/svg-images/blogging.svg"
-    },
-    {
-        title: "Blog",
-        content: "News , Information , Tech Tips and Tricks ,Blogger, Awesome Css and Java Codes and Much More...",
-        link: {
-            path: "/blog",
-            title: "Read Blog",
-        },
-        ImageUrl: "/assets/svg-images/blogging.svg"
-    },
-    {
-        title: "Projects",
-        content: "Many Projects have been created by us from very basic like calculator and Webpage clone to major website and nowadays I am working on a personalized library framework like Bootstrap.",
-        link: {
-            path: "/projects",
-            title: "See Projects",
-        },
-        ImageUrl: "/assets/svg-images/projects.svg"
-    }
-]
-export default function HomePage() {
 
 
     useEffect(() => {
-        Aos.init();
+
+        if (DarkMode)
+            document.body.classList.add("DarkMode");
+        else
+            document.body.classList.remove("DarkMode");
+
+
+    }, [DarkMode])
+    useEffect(() => {
+
+
+        const addEventOnElements = function (elements, eventType, callback) {
+            for (let i = 0, len = elements.length; i < len; i++) {
+                elements[i].addEventListener(eventType, callback);
+            }
+        }
+        /**
+         * NAVBAR TOGGLE FOR MOBILE
+         */
+
+        const navbar = document.querySelector("[data-navbar]");
+        const navTogglers = document.querySelectorAll("[data-nav-toggler]");
+        const overlay = document.querySelector("[data-overlay]");
+
+        const toggleNavbar = function () {
+            navbar.classList.toggle(classes.active);
+            overlay.classList.toggle(classes.active);
+            document.body.classList.toggle("overlayActive");
+        }
+
+        addEventOnElements(navTogglers, "click", toggleNavbar);
+
+
+
+        Aos.init({
+            offset: 200,
+            duration: 750,
+            easing: 'ease-in-out',
+            delay: 100,
+        });
+
+
+        SetDarkMode(() => {
+
+            if (localStorage.getItem("kkupgrader_Mode") === "true")
+                return true;
+            else
+                return false
+        })
+
+
     }, [])
+
+
+
     return (
-        <>
+        <ThemeContext.Provider value={{ DarkMode, ToggleTheme }}>
             <PageMetaData />
-            <div className={HomeClass.HomePage}>
-
-                <header className={HomeClass.Header}>
-                    <NavBar title={"K K Dev"} NavLinks={NavLinks} />
-
-                    <div className={HomeClass.HeaderContainer}>
-                        <div className={HomeClass.Content}>
-                            <h1 data-aos="fade-up" data-aos-duration="500" data-aos-easing="ease-in-out" >
-                                Let's Dive into Tech with world of Internet.
-                            </h1>
-                            <h4 data-aos="fade-up" data-aos-duration="550" data-aos-easing="ease-in-out" >
-                                Wanna Know About Me ?
-                            </h4>
-                            <a href="#LetsStart" className={HomeClass.StartBtn} data-aos="fade-up" data-aos-duration="750" data-aos-easing="ease-in-out" >Get Started</a>
-                        </div>
-                        <div className={HomeClass.Figures} >
-                            <HeaderAnimatable />
-                        </div>
-
-                    </div>
-                </header>
-
-                <main className={HomeClass.Main}>
-                    <Main MainContent={MainContent} />
-                </main>
-
-                <div className={HomeClass.ContactsSection} hidden>
-                    <ContactsSection />
-
-                </div>
-
-                <Footer />
-            </div>
-        </>
+            <Header NavLinks={PageData.NavLinks} SocialMedia={PageData.SocialMedia} />
+            <Main data={PageData.MainContent} />
+            <Footer SocialMedia={PageData.SocialMedia} />
+        </ThemeContext.Provider>
     )
 }
+
+export default Home;

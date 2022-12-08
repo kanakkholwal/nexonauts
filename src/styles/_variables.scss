@@ -9,19 +9,16 @@ $xxl:1400px;
 
 
 
-$fontNavbar:'DM Sans',
+$fontNavbar:'Google Sans',
 sans-serif;
-$fontLogo:'Inter',
+
+$fontBody:'Google Sans',
 sans-serif;
-$fontSidenav:'Inter',
+$fontButton:'Manrope',
 sans-serif;
-$fontBody:'Public Sans',
+$fontHeading:'Google Sans',
 sans-serif;
-$fontButton:'Roboto',
-sans-serif;
-$fontHeading:'Public Sans',
-sans-serif;
-$fontPara:'Sofia Pro',
+$fontPara:'Google Sans',
 sans-serif;
 $fontCode:'Google Sans Mono',
 monospace;
@@ -100,6 +97,28 @@ $FormBorder:#ABADC6;
 $FormPlaceholder:#8597a3;
 $FormActive:#6658d3;
 $FormShadow:2px 2px 13px 5px #090c1040;
+
+
+
+$color_1: inherit;
+$color_2: var(--black-coral);
+$color_3: var(--charcoal);
+$color_4: var(--cinnamon-satin);
+$color_5: var(--white);
+$color_6: var(--gunmetal);
+$color_7: var(--manatee);
+$font-family_1: var(--ff-manrope);
+$background-color_1: var(--white);
+$background-color_2: hsl(0, 0%, 98%);
+$background-color_3: hsl(0, 0%, 80%);
+$background-color_4: hsl(0, 0%, 70%);
+$background-color_5: var(--cinnamon-satin);
+$background-color_6: var(--raisin-black);
+$background-color_7: var(--white_a8);
+$background-color_8: var(--white_a12);
+$background-color_9: var(--cultured);
+$background-color_10: var(--raisin-black_a6);
+$background-color_11: var(--snow);
 
 @mixin noAction {
     user-select: none;

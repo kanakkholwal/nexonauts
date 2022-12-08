@@ -1,7 +1,21 @@
 import Head from "next/head";
 
 import "../src/style.css";
+import "aos/dist/aos.css";
+import { useEffect } from "react";
+
 export default function MyApp({ Component, pageProps }) {
+
+
+
+    useEffect(() => {
+        if (localStorage.getItem("kkupgrader_Mode") === "true")
+            document.body.classList.add("DarkMode");
+        else
+            document.body.classList.remove("DarkMode");
+
+
+    }, [])
     return <>
         <Head>
             {/* <!-- Preload Cdns --> */}
@@ -16,8 +30,11 @@ export default function MyApp({ Component, pageProps }) {
             <link rel="manifest" href="/manifest.json" />
             <meta name="theme-color" content="#a4acff" />
             <link rel="apple-touch-icon" href="/favicon.ico" />
+            <link href='https://fonts.googleapis.com/css?family=Google%20Sans:300,400,500,700&display=swap' rel='stylesheet' />
+            <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700&display=swap" rel="stylesheet" />
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2329686175069611"
                 crossorigin="anonymous" ></script>
+
         </Head>
         <Component {...pageProps} />
     </>

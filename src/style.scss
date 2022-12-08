@@ -1,10 +1,6 @@
 @use "./styles/variables";
 
-:root {
 
-    --bodyBg: #23272f;
-
-}
 
 @import "./styles/reset",
 "./styles/buttons",
@@ -16,7 +12,6 @@
 "./styles/code",
 "./styles/ripple";
 
-@import "./styles/components/navbar";
 @import "./styles/components/header";
 @import "./styles/components/main";
 @import "./styles/components/footer";
@@ -28,7 +23,112 @@
 @import "./styles/components/slicedMenu";
 @import "./styles/components/listGroup";
 
+:root {
+    --white: hsla(0, 0%, 100%, 1);
+    --white_a8: hsla(0, 0%, 100%, 0.08);
+    --white_a12: hsla(0, 0%, 100%, 0.12);
+    --cultured: hsla(220, 20%, 97%, 1);
+    --snow: hsla(345, 57%, 97%, 1);
+    --manatee: hsla(219, 10%, 62%, 1);
+    --black-coral: hsla(220, 12%, 43%, 1);
+    --cadet-blue-crayola_a20: hsla(222, 23%, 71%, 0.2);
+    --cinnamon-satin: hsla(344, 53%, 62%, 1);
+    --raisin-black: hsla(216, 14%, 14%, 1);
+    --raisin-black_a6: hsla(216, 14%, 14%, 0.06);
+    --gunmetal: hsla(214, 15%, 21%, 1);
+    --charcoal: hsla(219, 22%, 26%, 1);
+    --ff-manrope: 'Manrope', sans-serif;
+    --fs-1: calc(2.7rem + 1.38vw);
+    --fs-2: calc(2.6rem + .66vw);
+    --fs-3: calc(2.6rem + .24vw);
+    --fs-4: 1.9rem;
+    --fs-5: 1.8rem;
+    --fs-6: 1.7rem;
+    --fs-7: 1.5rem;
+    --fs-8: 1.4rem;
+    --fw-700: 700;
+    --section-padding: 90px;
+    --shadow-1: 0 0 20px hsla(216, 14%, 14%, 0.05);
+    --shadow-2: 0 4px 28px hsla(216, 14%, 14%, 0.07);
+    --radius-circle: 50%;
+    --radius-pill: 100px;
+    --radius-8: 8px;
+    --radius-6: 6px;
+    --transition-1: 0.25s ease;
+    --transition-2: 0.5s ease;
+    --transition-3: 0.3s ease-in-out;
 
+    --link: hsla(344, 53%, 62%, 1);
+
+    --link-hover: hsla(344, 77%, 66%, 0.904);
+
+    @media (min-width:992px) {
+        --section-padding: 120px;
+
+    }
+}
+
+$color_1: inherit;
+$color_2: var(--black-coral);
+$color_3: var(--charcoal);
+$color_4: var(--cinnamon-satin);
+$color_5: var(--white);
+$color_6: var(--gunmetal);
+$color_7: var(--manatee);
+$font-family_1: var(--ff-manrope);
+$background-color_1: var(--white);
+$background-color_2: hsl(0, 0%, 98%);
+$background-color_3: hsl(0, 0%, 80%);
+$background-color_4: hsl(0, 0%, 70%);
+$background-color_5: var(--cinnamon-satin);
+$background-color_6: var(--raisin-black);
+$background-color_7: var(--white_a8);
+$background-color_8: var(--white_a12);
+$background-color_9: var(--cultured);
+$background-color_10: var(--raisin-black_a6);
+$background-color_11: var(--snow);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+    &::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    &::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+}
+
+html {
+    font-family: $font-family_1;
+    font-size: 10px;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: $background-color_2;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $background-color_3;
+
+        &:hover {
+            background-color: $background-color_4;
+        }
+    }
+
+
+}
 
 body {
     background-color: variables.$bodyBg;
@@ -36,6 +136,10 @@ body {
     font-size: 1.25rem;
     line-height: normal;
     color: variables.$bodyText;
+    background-color: $background-color_1;
+    color: $color_2;
+    font-size: 1.6rem;
+    line-height: 1.7;
     overflow-x: hidden;
     font-family: 'DM Sans', sans-serif;
     font-family: 'Inter', sans-serif;
@@ -43,4 +147,91 @@ body {
     font-family: variables.$fontBody;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+
+    &.DarkMode {
+        --white: #223350;
+        --white_a8: hsla(0, 0%, 100%, .08);
+        --white_a12: hsla(0, 0%, 100%, .12);
+        --cultured: #121f30;
+        --snow: #b63e59;
+        --manatee: #949ba8;
+        --black-coral: #fffcfc;
+        --cadet-blue-crayola_a20: rgba(164, 174, 198, .2);
+        --cinnamon-satin: #d16b86;
+        --raisin-black: #1f2329;
+        --raisin-black_a6: rgb(9 22 41 / 36%);
+        --gunmetal: #2e343e;
+        --charcoal: #fbfbfb;
+        --shadow-1: 0 0 20px hsl(233, 27%, 12%);
+        --shadow-2: 0 4px 28px rgba(31, 35, 41, .07);
+        --link: rgba(209, 107, 134, 0.836);
+
+        --link-hover: hsla(344, 77%, 66%, 0.932);
+    }
+}
+
+:focus-visible {
+    transform: translateY(-3px);
+    transform: translateY(-4px);
+    background-color: $background-color_5;
+    color: $color_5;
+    background-color: $background-color_8;
+    color: $color_4;
+    gap: 10px;
+}
+
+
+li[class] {
+    list-style: none;
+}
+
+img {
+    display: block;
+    height: auto;
+}
+
+.DarkMode {
+
+    svg {
+        color: hsl(0, 0%, 85%);
+    }
+}
+
+span {
+    display: block;
+}
+
+button {
+    display: block;
+    background: none;
+    border: none;
+    font: inherit;
+    cursor: pointer;
+}
+
+ion-icon {
+    display: block;
+    pointer-events: none;
+}
+
+input {
+    background: none;
+    border: none;
+    font: inherit;
+    width: 100%;
+}
+
+textarea {
+    background: none;
+    border: none;
+    font: inherit;
+    width: 100%;
+}
+
+a {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+
+
 }

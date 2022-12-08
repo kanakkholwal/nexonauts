@@ -202,7 +202,7 @@ div.HomePage {
         .Navbar {
             @include fullDivFlex;
             padding: 0.75rem 1rem;
-            max-width: $lg;
+            max-width: $xl;
             align-items: center;
             z-index: 9;
 
@@ -359,7 +359,7 @@ div.HomePage {
             position: relative;
             @include fullDivFlex;
             @include flex;
-            max-width: $lg;
+            max-width: $xl;
             min-height: 80vh;
 
             justify-content: center;
@@ -372,7 +372,6 @@ div.HomePage {
 
             .Content {
                 flex: 1 1 15rem;
-                padding-top: calc($MarginPadding5 + 0.75rem);
                 text-align: left;
                 position: relative;
                 padding-left: 5%;

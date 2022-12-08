@@ -54,19 +54,14 @@ function CodeBlock({ content, language, title, ...props }) {
         copyToClipboard(text)
             .then(() => {
                 e.target.innerText = "Copied !!!";
-
-                setTimeout(() => {
-                    e.target.innerText = "Copy";
-                }, 800);
-                console.log('text copied !')
             })
             .catch((error) => {
                 e.target.innerText = "Error !!!";
-
+                console.log('error', error)
+            }).finally(() => {
                 setTimeout(() => {
                     e.target.innerText = "Copy";
                 }, 800);
-                console.log('error', error)
             })
     }
 

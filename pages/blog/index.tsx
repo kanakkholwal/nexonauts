@@ -34,7 +34,7 @@ const useFetch = (url: string, options = {}) => {
 export default function BlogHomePage() {
 
     const { response, error, loading } = useFetch(getAllPosts_URL(50), {})
-    console.log(getAllPosts_URL(50))
+
     if (error)
         console.log(error)
 
