@@ -107,7 +107,7 @@ const PageData = {
                             category: "SASS , NextJs ,ReactJs",
                             title: "Web Tools(beta)",
                             description: "To develop web tools for websites for basic web development operations like SEO and image conversion,etc.",
-                            link: "https://kkupgrader.eu.org/tools",
+                            link: "/tools",
                             image: "./assets/images/web-tools.svg",
                             theme: {
                                 color: {
