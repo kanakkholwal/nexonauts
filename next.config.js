@@ -14,13 +14,17 @@ const withPWA = require("next-pwa")({
 const nextConfig = withPWA({
   reactStrictMode: true,
   swcMinify: true,
-  i18n: {
-    locales: ['en'],
-    defaultLocale: 'en',
-  },
   compiler: {}
 });
 
-module.exports = nextConfig
 
-// module.exports = nextConfig
+module.exports = {
+  ...nextConfig,
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      require('./scripts/generate-sitemap.js')
+    }
+
+    return config
+  },
+}

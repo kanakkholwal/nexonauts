@@ -1,5 +1,5 @@
 import Head from "next/head";
-
+// import { Html } from "next/document";
 import "../src/style.css";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
