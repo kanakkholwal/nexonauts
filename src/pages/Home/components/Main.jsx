@@ -5,6 +5,9 @@ import Image from "next/image";
 import { useContext } from "react";
 import { ThemeContext } from "../Home"
 
+const ImgLoader = ({ src, width, quality }) => {
+    return `${process.env.WEBSITE_URL || "http://localhost:3000"}/${src}?w=${width}&q=${quality || 75}`
+}
 
 export default function Main({ data }) {
 
@@ -17,8 +20,8 @@ export default function Main({ data }) {
                 <section className={classes.Section + " " + classes.Hero} id="home">
                     <div className={classes.Container}>
                         <figure className={classes.Hero_banner}>
-                            <img loading="lazy" src={data.hero.image} width={560} height={540} alt="Kanak Kholwal" className={classes.w_100} data-aos="fade-up" />
-                            {/* <img loading="lazy" src="./assets/images/hero-shape.svg" width={203} height={91} alt="250+ Projects Done" className={classes.shape} data-aos="fade-down" data-aos-delay="250" /> */}
+                            <Image loader={ImgLoader} loading="lazy" src={data.hero.image} width={560} height={540} alt="Kanak Kholwal" className={classes.w_100} data-aos="fade-up" />
+                            {/* <Image loader={ImgLoader} loading="lazy" src="./assets/images/hero-shape.svg" width={203} height={91} alt="250+ Projects Done" className={classes.shape} data-aos="fade-down" data-aos-delay="250" /> */}
                         </figure>
                         <div className={classes.Hero_content}>
                             <h1 className={classes.h1 + " " + classes.Hero_title} data-aos="fade-up" data-aos-delay="500">{data.hero.title}</h1>
@@ -65,7 +68,7 @@ export default function Main({ data }) {
                             <li data-aos="fade-bottom">
                                 <div className={classes.AboutCard}>
                                     <div className={classes.Card_icon}>
-                                        <img loading="lazy" src="./assets/images/icon-1.svg" width={52} height={52} loading="lazy" alt="web design icon" />
+                                        <Image loader={ImgLoader} loading="lazy" src="./assets/images/icon-1.svg" width={52} height={52} loading="lazy" alt="web design icon" />
                                     </div>
                                     <h3 className={classes.h4 + " " + classes.Card_title}>Web Design</h3>
                                     <p className={classes.Card_text}>
@@ -77,7 +80,7 @@ export default function Main({ data }) {
                             <li data-aos="fade-bottom" data-aos-delay="250">
                                 <div className={classes.AboutCard}>
                                     <div className={classes.Card_icon}>
-                                        <img loading="lazy" src="./assets/images/icon-2.svg" width={52} height={52} loading="lazy" alt="mobile design icon" />
+                                        <Image loader={ImgLoader} loading="lazy" src="./assets/images/icon-2.svg" width={52} height={52} loading="lazy" alt="mobile design icon" />
                                     </div>
                                     <h3 className={classes.h4 + " " + classes.Card_title}>Mobile Design</h3>
                                     <p className={classes.Card_text}>
@@ -89,7 +92,7 @@ export default function Main({ data }) {
                             <li data-aos="fade-bottom" data-aos-delay="500">
                                 <div className={classes.AboutCard}>
                                     <div className={classes.Card_icon}>
-                                        <img loading="lazy" src="./assets/images/icon-3.svg" width={52} height={52} loading="lazy" alt="web development icon" />
+                                        <Image loader={ImgLoader} loading="lazy" src="./assets/images/icon-3.svg" width={52} height={52} loading="lazy" alt="web development icon" />
                                     </div>
                                     <h3 className={classes.h4 + " " + classes.Card_title}>Development</h3>
                                     <p className={classes.Card_text}>
@@ -101,7 +104,7 @@ export default function Main({ data }) {
                             <li data-aos="fade-bottom" data-aos-delay="750">
                                 <div className={classes.AboutCard}>
                                     <div className={classes.Card_icon}>
-                                        <img loading="lazy" src="./assets/images/icon-4.svg" width={52} height={52} loading="lazy" alt="web seo icon" />
+                                        <Image loader={ImgLoader} loading="lazy" src="./assets/images/icon-4.svg" width={52} height={52} loading="lazy" alt="web seo icon" />
                                     </div>
                                     <h3 className={classes.h4 + " " + classes.Card_title}>SEO</h3>
                                     <p className={classes.Card_text}>
@@ -139,7 +142,7 @@ export default function Main({ data }) {
                                             </Link>
                                         </div>
                                         <figure className={classes.Card_banner} data-aos="fade-left">
-                                            <img loading="lazy" src={image} width={650} height={370} alt={category + " - " + title} className={classes.w_100} />
+                                            <Image loader={ImgLoader} loading="lazy" src={image} width={650} height={370} alt={category + " - " + title} className={classes.w_100} />
                                         </figure>
                                     </div>
                                 )
@@ -161,7 +164,7 @@ export default function Main({ data }) {
                                 </a>
                             </div>
                             <figure className={classes.Card_banner} data-aos="fade-left">
-                                <img src={data.sections.blog.image} width={650} height={370} loading="lazy" alt={"Blogging"} className={classes.w_100} />
+                                <Image loader={ImgLoader} src={data.sections.blog.image} width={650} height={370} loading="lazy" alt={"Blogging"} className={classes.w_100} />
                             </figure>
                         </div>
 
@@ -172,7 +175,7 @@ export default function Main({ data }) {
                         <div className={classes.Contact_card}>
                             <div className={classes.Contact_content} data-aos="fade-right">
                                 <div className={classes.Card_icon}>
-                                    <img src="./assets/images/icon-5.svg" width={44} height={44} loading="lazy" alt="envelop icon" />
+                                    <Image loader={ImgLoader} src="./assets/images/icon-5.svg" width={44} height={44} loading="lazy" alt="envelop icon" />
                                 </div>
                                 <h2 className={classes.h2 + " " + classes.Section_title}>If you like what you see, let's work together.</h2>
                                 <p className={classes.Section_text}>
