@@ -32,7 +32,7 @@ const PageData = {
         hero: {
             title: "I'm Frontend Web  Developer & Web 3 Enthusiast.",
             subtitle: "Hello! I'm Kanak, a FullStack Web Developer based in India. I’m very passionate  about the work that I do.",
-            image: "./assets/images/hero-banner.jpg",
+            image: "assets/images/hero-banner.jpg",
         },
         sections: {
             about: {
@@ -73,7 +73,7 @@ const PageData = {
                             title: "College Result Website",
                             description: "To display college results across all majors and years with extended functionalities.",
                             link: "https://nith-result.web.app/",
-                            image: "./assets/images/result-site.webp",
+                            image: "assets/images/result-site.webp",
                             theme: {
                                 color: {
                                     light: "#a07cc5",
@@ -90,7 +90,7 @@ const PageData = {
                             title: "Web UI Component Library ",
                             description: "To develop an open-source web component library for quick development .",
                             link: "https://genesis-ui.netlify.app/",
-                            image: "./assets/images/web-design.svg",
+                            image: "assets/images/web-design.svg",
                             theme: {
                                 color: {
                                     light: "#3f78e0",
@@ -108,7 +108,7 @@ const PageData = {
                             title: "Web Tools(beta)",
                             description: "To develop web tools for websites for basic web development operations like SEO and image conversion,etc.",
                             link: "/tools",
-                            image: "./assets/images/web-tools.svg",
+                            image: "assets/images/web-tools.svg",
                             theme: {
                                 color: {
                                     light: "#d16b86",
@@ -126,7 +126,7 @@ const PageData = {
                 title: "Blog",
                 blogName: "kkupgrader.blogspot.com",
                 link: "https://kkupgrader.blogspot.com",
-                image: "./assets/svg-images/blogging.svg",
+                image: "assets/svg-images/blogging.svg",
                 description: "News , Information , Tech Tips and Tricks ,Blogger, Awesome Css and Java Codes and Much More..."
             }
         }
