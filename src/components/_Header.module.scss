@@ -27,12 +27,23 @@ $background-color_4: hsl(0, 0%, 70%);
 
 .Container {
     padding-inline: 16px;
+
+    @media (min-width:$sm) {
+        max-width: 540px;
+        width: 100%;
+        margin-inline: auto;
+    }
+
+    @media (min-width:$lg) {
+        max-width: 960px;
+    }
 }
 
 .SocialList {
     display: flex;
     align-items: center;
     gap: 12px;
+
 }
 
 .SocialLink {
@@ -77,7 +88,7 @@ $background-color_4: hsl(0, 0%, 70%);
     position: fixed;
     top: 0;
     left: -300px;
-    background-color: var(--raisin-black);
+    background-color: hsl(250, 6%, 19%);
     color: var(--white);
     max-width: 300px;
     width: 100%;
@@ -91,7 +102,92 @@ $background-color_4: hsl(0, 0%, 70%);
     visibility: hidden;
     transition: var(--transition-3);
 
+    &.active {
+        visibility: visible;
+        transform: translateX(300px);
+    }
+
+    @media (min-width:$lg) {
+        padding-block: 10px;
+
+        .Wrapper {
+            display: none;
+        }
+
+        all: unset;
+        display: flex;
+        flex-grow: 1;
+
+        .SocialLink {
+            color: var(--charcoal);
+            font-size: 1.8rem;
+        }
+    }
+
+    .NavBar_list {
+
+        @media (max-width: $lg) {
+
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+
+
+            .NavBarItem {
+                .NavBar_link {
+                    color: #b9d1ff;
+                    transition: var(--transition-1);
+                    opacity: .85;
+                    display: flex;
+                    justify-content: space-between;
+                    padding-block: 0.5rem;
+                    padding-inline: 1.5rem 0.25rem;
+                    border-radius: 0.5rem;
+                    margin-bottom: 0.25rem;
+
+                    &:hover {
+                        color: #0096cc;
+                        opacity: 1;
+                        background-color: #353b46;
+                    }
+
+                }
+
+
+
+                &:has(>.NavBar_list) {
+
+                    &>.NavBar_list {
+                        padding-left: 0.75rem;
+                        transition: all 0.8s ease;
+                        overflow: hidden;
+                        height: 0;
+
+                        &.isActive {
+                            height: initial;
+                            border-left: #464242 1px solid;
+                        }
+                    }
+
+                    &>.NavBar_link {
+                        margin-left: -0.5rem;
+                        color: #0096cc;
+                        opacity: 1;
+                        transition-duration: 0s;
+                    }
+
+
+
+
+                }
+
+
+            }
+        }
+
+    }
 }
+
 
 .ThemeToggle {
     margin-inline: 1rem;
@@ -115,10 +211,7 @@ $background-color_4: hsl(0, 0%, 70%);
     margin-right: auto;
 }
 
-.NavBar.active {
-    visibility: visible;
-    transform: translateX(300px);
-}
+
 
 .NavBar_top {
     display: flex;
@@ -151,12 +244,132 @@ $background-color_4: hsl(0, 0%, 70%);
 
 .NavBar_list {
     margin-block-end: auto;
-}
+    --transition-timing: 400ms;
 
-.NavBar_link {
-    font-weight: var(--fw-700);
-    padding-block: 6px;
-    color: hsl(0, 0%, 85%);
+    .NavBar_link {
+        font-weight: var(--fw-700);
+        padding-block: 6px;
+
+    }
+
+    @media (min-width: $lg) {
+
+        display: flex;
+        gap: 36px;
+        margin-inline: auto;
+
+
+        .NavBarItem {
+            .NavBar_link {
+                color: var(--charcoal);
+                transition: var(--transition-1);
+                opacity: .85;
+
+                &:hover {
+                    color: var(--cinnamon-satin);
+                    opacity: 1;
+                }
+            }
+
+            &:has(>.NavBar_list) {
+                position: relative;
+                width: 100%;
+
+                &>.NavBar_link>svg {
+                    rotate: 90deg;
+                    transition: all var(--transition-timing) ease-in-out;
+                }
+
+
+
+                &>.NavBar_list {
+                    position: absolute;
+                    top: 160%;
+                    left: 50%;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    border-radius: 0.25rem;
+                    padding-block: 0.25rem;
+                    background: var(--drop-bg);
+                    width: auto;
+                    min-width: 16rem;
+                    box-shadow: var(--shadow-1);
+                    gap: 0;
+                    transition: all var(--transition-timing) ease-in-out;
+                    translate: -50% 50px;
+                    opacity: 0;
+                    visibility: hidden;
+
+
+                    & .NavBarItem {
+                        width: 100%;
+
+                        &>.NavBar_link {
+                            display: flex;
+                            justify-content: space-between;
+                            padding-block: 0.5rem;
+                            padding-inline: 1.5rem 0.25rem;
+                        }
+
+                        &:has(>.NavBar_list) {
+
+
+                            &>.NavBar_link>svg {
+                                margin-left: auto;
+                                margin-right: 0.25rem;
+                                color: inherit;
+                            }
+
+                            &>.NavBar_list {
+                                left: 100%;
+                                top: 0;
+                                translate: 5% 30px;
+                                opacity: 0;
+                                visibility: hidden;
+                            }
+
+                            &:hover,
+                            &:focus-within,
+                            &.isActive {
+                                &>.NavBar_list {
+                                    translate: 5% 0;
+                                    opacity: 1;
+                                    visibility: visible;
+                                }
+
+                                &>.NavBar_link>svg {
+                                    rotate: 0deg;
+
+                                }
+                            }
+                        }
+                    }
+                }
+
+
+
+
+                &:hover,
+                &:focus-within,
+                &.isActive {
+                    &>.NavBar_list {
+                        translate: -50% 0;
+                        opacity: 1;
+                        visibility: visible;
+                    }
+
+                    &>.NavBar_link>svg {
+                        rotate: -90deg;
+
+                    }
+                }
+            }
+
+        }
+    }
+
+
 }
 
 .ContactLink {
@@ -190,7 +403,7 @@ $background-color_4: hsl(0, 0%, 70%);
 
 .Hero {
     padding-block-start: calc(var(--section-padding) + 50px);
-    background-color: var(--cultured);
+    background: var(--dense-bg);
 
     .Container {
         display: grid;
@@ -209,20 +422,11 @@ $background-color_4: hsl(0, 0%, 70%);
     width: 100%;
 }
 
-@media (min-width:575px) {
-    .Container {
-        max-width: 540px;
-        width: 100%;
-        margin-inline: auto;
-    }
-}
+
 
 @media (min-width:$lg) {
 
 
-    .Container {
-        max-width: 960px;
-    }
 
     .NavOpen_btn {
         display: none;
@@ -234,22 +438,6 @@ $background-color_4: hsl(0, 0%, 70%);
         display: none;
     }
 
-    .NavBar {
-        padding-block: 10px;
-
-        .Wrapper {
-            display: none;
-        }
-
-        all: unset;
-        display: flex;
-        flex-grow: 1;
-
-        .SocialLink {
-            color: var(--charcoal);
-            font-size: 1.8rem;
-        }
-    }
 
     .overlay {
         display: none;
@@ -261,22 +449,6 @@ $background-color_4: hsl(0, 0%, 70%);
         flex-grow: 1;
     }
 
-    .NavBar_list {
-        display: flex;
-        gap: 36px;
-        margin-inline: auto;
-    }
-
-    .NavBar_link {
-        color: var(--charcoal);
-        transition: var(--transition-1);
-        opacity: 0.85;
-
-        &:hover {
-            color: var(--cinnamon-satin);
-            opacity: 1;
-        }
-    }
 
 
 

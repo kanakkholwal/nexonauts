@@ -13,8 +13,13 @@ export default function MyApp({ Component, pageProps }) {
             document.body.classList.add("DarkMode");
         else
             document.body.classList.remove("DarkMode");
-        Aos.init();
 
+        Aos.init({
+            offset: 200,
+            duration: 750,
+            easing: 'ease-in-out',
+            delay: 100,
+        });
     }, [])
     return <>
         <Head>

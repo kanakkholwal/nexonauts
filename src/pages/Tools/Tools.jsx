@@ -12,11 +12,22 @@ const NavLinks = [
 
     {
         name: "About",
-        url: "#about"
+        url: "#about",
+
     },
     {
         name: "Projects",
-        url: "#projects"
+        url: "/#projects",
+        children: [
+            {
+                name: "College Website",
+                url: "/#projects",
+            },
+            {
+                name: "UI Component Library",
+                url: "/#projects",
+            }
+        ]
     },
     {
         name: "Blog",
@@ -56,7 +67,7 @@ export default function Tools() {
     return (
         <>
             <PageMetaData PageTitle={metaData.title} PageDescription={metaData.description} />
-            <Header NavLinks={NavLinks} SocialMedia={SocialMedia} />
+            <Header NavLinks={NavLinks} SocialMedia={SocialMedia} title={metaData.title.split("|")[0]} description={metaData.description} />
             <Main />
             <Footer />
         </>

@@ -27,8 +27,23 @@
     --body-bg: hsla(0, 0%, 100%, 1);
     --dense-bg: hsla(220, 20%, 97%, 1);
     --card-bg: #fbfbfb;
-    --card-shadow: rgb(85 32 163 / 11%) 0px 15px 72px;
+    --card-shadow: rgb(85 32 163 / 11%) 17px 20px 72px, rgb(85 32 163 / 11%) -20px -1px 72px;
     --body-font: "ManRope", "Google Sans", san-serif;
+    --drop-bg: hsl(0, 0%, 97%);
+    --border-color: #8386972b;
+    --theme: hsl(196, 100%, 40%);
+
+    --success: hsl(143, 28%, 22%);
+    --successBg: hsla(143, 64%, 24%, 0.2);
+    --danger: hsl(0, 100%, 26%);
+    --dangerBg: hsl(0deg 98% 47% / 20%);
+    --info: hsl(194, 42%, 25%);
+    --infoBg: rgb(20 158 202 / 20%);
+    --warning: rgba(250, 204, 21, .2);
+    --warningBg: hsl(50deg 56% 23%);
+    --badge: hsl(235, 22%, 34%);
+    --badgeBg: rgb(107 117 219 / 20%);
+
 
     --white: hsla(0, 0%, 100%, 1);
     --white_a8: hsla(0, 0%, 100%, 0.08);
@@ -145,7 +160,6 @@ body {
     color: $color_2;
     font-size: 1.6rem;
     line-height: 1.7;
-    overflow-x: hidden;
 
     font-family: var(--body-font);
     -webkit-font-smoothing: antialiased;
@@ -155,6 +169,21 @@ body {
         --body-bg: hsla(252, 8%, 12%, 1);
         --dense-bg: hsl(255, 9%, 9%);
         --card-bg: hsla(252, 5%, 19%, 0.8);
+        --drop-bg: hsl(250, 6%, 19%);
+        --card-shadow: hsl(264deg 9% 8% / 28%) 0px 15px 72px;
+        --border-color: #8384892e;
+
+        --success: hsl(142deg 42% 60%);
+        --successBg: rgb(22 101 52 / 20%);
+        --danger: hsl(0, 100%, 79%);
+        --dangerBg: hsl(0deg 98% 47% / 20%);
+        --info: hsl(194deg 83% 66%);
+        --infoBg: rgba(20, 158, 202, .2);
+        --warning: hsl(50deg 86% 61%);
+        --warningBg: rgb(250 204 21 / 20%);
+        --badge: hsl(235, 100%, 85%);
+        --badgeBg: rgb(107 117 219 / 20%);
+
         --white: var(--body-bg);
         --cultured: var(--dense-bg);
         --white_a8: hsla(0, 0%, 100%, .08);

@@ -362,8 +362,44 @@ $background-color_11: var(--snow);
     }
 }
 
+.Main {
+    margin-inline: auto;
+    padding-block: 1.5rem;
+    display: grid;
+    gap: 1rem;
+
+
+    @media (min-width: $md) {
+        padding: 1.5rem;
+        grid-template-columns: repeat(2, 5fr);
+    }
+
+    @media (min-width: $lg) {
+        grid-template-columns: repeat(3, 3.3fr);
+    }
+
+    @media (min-width: $xxl) {
+        grid-template-columns: repeat(4, 2.5fr);
+    }
+
+
+
+
+}
+
+.Footer {
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    .FooterSection {
+        display: grid;
+    }
+
+}
+
 .ToolCard {
-    margin: 0.5rem;
     flex: 1 1 auto;
     opacity: 0;
     visibility: hidden;
@@ -373,7 +409,6 @@ $background-color_11: var(--snow);
     animation-direction: normal;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    background: var(--card-bg);
 
     &:hover {
         transform: translateY(-10px);
@@ -393,23 +428,7 @@ $background-color_11: var(--snow);
         }
     }
 
-    @media (max-width: $sm) {
-        width: 100%;
-    }
 
-    @media (min-width: $sm) and (max-width: $md) {
-        width: 40%;
-    }
-
-    @media (min-width: $md) and (max-width: $lg) {
-        width: 33%;
-        // max-width: 18rem;
-    }
-
-    @media (min-width: $lg) {
-        width: 25%;
-        // max-width: 22rem;
-    }
 
     .CardBody {
         display: flex;
@@ -423,7 +442,6 @@ $background-color_11: var(--snow);
     }
 
     .CardTitle {
-        font-size: 1.1rem;
 
         display: -webkit-box;
         -webkit-box-orient: vertical;
@@ -441,5 +459,36 @@ $background-color_11: var(--snow);
         -webkit-box-orient: vertical;
         overflow: hidden;
         -webkit-line-clamp: 3;
+    }
+}
+
+.footer {
+    padding-block: 40px;
+
+
+    .copyright {
+        margin-block-end: 12px;
+    }
+
+    a {
+        display: inline;
+        font-weight: 600;
+    }
+}
+
+
+@media (min-width:768px) {
+
+    .footer {
+        .Container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: auto;
+        }
+    }
+
+    .copyright {
+        margin-block-end: 0;
     }
 }

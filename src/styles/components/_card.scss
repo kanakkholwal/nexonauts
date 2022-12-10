@@ -1,25 +1,29 @@
 @use "../variables";
 
-.G_Card {
+.Fui_Card {
     position: relative;
     display: flex;
     flex-direction: column;
     word-wrap: break-word;
-    background-color: variables.$cardBg;
-    background-clip: border-box;
     border-radius: 0.5rem;
-    // box-shadow: 0 15px 35px rgb(55 65 81 / 10%), 0 5px 15px rgb(55 65 81 / 10%);
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
 
-    .G_Card-body {
+    &+.Fui_Card {
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .Fui_Card-body {
         flex: 1 1 auto;
         padding: 1.5rem;
     }
 
-    .G_Card-header {
+    .Fui_Card-header {
         padding: 0.75rem 1.5rem;
         margin-bottom: 0;
         background-color: inherit;
-        border-bottom: 1px solid variables.$borderColor;
+        border-bottom: 1px solid var(--border-color);
 
         &:first-child {
             border-radius: calc(0.5rem - 1px) calc(0.5rem - 1px) 0 0;
@@ -27,43 +31,43 @@
 
     }
 
-    .G_Card-footer {
+    .Fui_Card-footer {
         padding: 0.75rem 1.5rem;
         background-color: inherit;
-        border-top: 1px solid variables.$borderColor;
+        border-top: 1px solid var(--border-color);
 
         &:last-child {
             border-radius: 0 0 calc(0.5rem - 1px) calc(0.5rem - 1px);
         }
     }
 
-    .G_Card-title {
+    .Fui_Card-title {
         margin-bottom: 0.5rem;
-        font-size: 1.25rem;
+        font-size: 1.25em;
+
     }
 
-    .G_Card-subtitle {
+    .Fui_Card-subtitle {
         margin-top: -0.25rem;
-        font-size: 1rem;
         color: variables.$muted !important;
-        margin-bottom: 0.5rem
+        margin-bottom: 0.5rem;
+        font-size: 1em;
+
     }
 
-    .G_Card-text {
+    .Fui_Card-text {
         margin-top: 0;
         margin-bottom: 1rem;
     }
 
-    .G_Card-link {
-        font-weight: 400;
-        line-height: 1.6;
-        font-size: 1rem;
+    .Fui_Card-link {
+        font-weight: 600;
         color: variables.$primary;
         text-decoration: none;
         text-transform: capitalize;
         opacity: 0.9;
 
-        &:has(+ .G_Card-link) {
+        &:has(+ .Fui_Card-link) {
             margin-right: 1rem;
         }
 
@@ -83,14 +87,14 @@
         }
     }
 
-    .G-Card-Img,
-    .G_Card-ImgTop {
+    .Fui_Card-Img,
+    .Fui_Card-ImgTop {
         border-top-left-radius: calc(0.5rem - 1px);
         border-top-right-radius: calc(0.5rem - 1px);
     }
 
-    .G-Card-Img,
-    .G_Card-ImgBottom {
+    .Fui_Card-Img,
+    .Fui_Card-ImgBottom {
         border-bottom-left-radius: calc(0.5rem - 1px);
         border-bottom-right-radius: calc(0.5rem - 1px);
     }
@@ -101,9 +105,9 @@
     }
 
 
-    .G-Card-Img,
-    .G_Card-ImgBottom,
-    .G_Card-ImgTop {
+    .Fui_Card-Img,
+    .Fui_Card-ImgBottom,
+    .Fui_Card-ImgTop {
         width: 100%;
     }
 

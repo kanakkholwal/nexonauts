@@ -2,8 +2,9 @@ import { useEffect, useState } from "react"
 import { IoCloseOutline, IoMenuOutline, IoMoonOutline, IoMoon } from "react-icons/io5";
 import Link from "next/link";
 import classes from "./_Header.module.scss";
+import HeaderDropDown from "./HeaderDropDown";
 
-export default function Header({ NavLinks, SocialMedia }) {
+export default function Header({ NavLinks, SocialMedia, title, description }) {
     const [DarkMode, SetDarkMode] = useState(false);
     const ToggleTheme = () => {
         SetDarkMode(!DarkMode);
@@ -90,7 +91,7 @@ export default function Header({ NavLinks, SocialMedia }) {
                                 <IoCloseOutline />
                             </button>
                         </div>
-                        <ul className={classes.NavBar_list}>
+                        {/* <ul className={classes.NavBar_list}>
                             {
                                 NavLinks.map(({ name, url }, i) => {
 
@@ -103,8 +104,8 @@ export default function Header({ NavLinks, SocialMedia }) {
                                 })
                             }
 
-                        </ul>
-
+                        </ul> */}
+                        <HeaderDropDown NavLinks={NavLinks} />
                         <ul className={classes.SocialList}>
                             {
                                 SocialMedia.map(({ name, icon, url }) => {
@@ -130,8 +131,8 @@ export default function Header({ NavLinks, SocialMedia }) {
                 <div className={classes.Container}>
 
                     <div className={classes.Hero_content}>
-                        <h1 className={"h1"} data-aos="fade-up" data-aos-delay="500">Tools</h1>
-                        <p className={classes.Section_text} data-aos="fade-up" data-aos-delay="750"> "Description" </p>
+                        <h1 className={"h1"} data-aos="fade-up" data-aos-delay="100">{title}</h1>
+                        <p className={classes.Section_text} data-aos="fade-up" data-aos-delay="150"> {description} </p>
 
                     </div>
                 </div>

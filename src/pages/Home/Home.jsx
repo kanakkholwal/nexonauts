@@ -4,7 +4,6 @@ import Footer from "./components/Footer";
 import { createContext, useEffect, useState } from "react";
 import classes from "./components/_Home.module.scss"
 import PageMetaData from "../../components/PageMetaData";
-import Aos from "aos";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 
 const PageData = {
@@ -12,7 +11,8 @@ const PageData = {
 
         {
             name: "About",
-            url: "#about"
+            url: "#about",
+
         },
         {
             name: "Projects",
@@ -199,12 +199,7 @@ function Home() {
 
 
 
-        Aos.init({
-            offset: 200,
-            duration: 750,
-            easing: 'ease-in-out',
-            delay: 100,
-        });
+
 
 
         SetDarkMode(() => {
