@@ -31,7 +31,7 @@ export default function Footer() {
                         </li>
                     </ul>
 
-                    <div className="Social">
+                    <div className={component.Social}>
                         <div className="Heading">Follow Us on Social Media</div>
                         <a href="https://www.instagram.com/kanakkholwal/" target="_blank" className="icon" rel="noreferrer">
                             <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="feather feather-instagram">

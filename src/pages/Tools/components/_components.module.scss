@@ -391,10 +391,21 @@ $background-color_11: var(--snow);
     margin-inline: auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
+    padding-block: 1.5rem;
     gap: 20px;
+    justify-items: center;
+    background: var(--dense-bg);
+    border-radius: 0.5rem;
+    padding-block: 2rem 1.5rem;
 
     .FooterSection {
         display: grid;
+        grid-template-rows: 2fr 3fr;
+    }
+
+    .Social {
+        display: grid;
+        grid-template-columns: 100% repeat(4, 1fr);
     }
 
 }
