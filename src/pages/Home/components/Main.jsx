@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { ThemeContext } from "../Home"
 
 const ImgLoader = ({ src, width, quality }) => {
-    return `${process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.WEBSITE_URL}/${src}?w=${width}&q=${quality || 75}`
+    return `${process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.WEBSITE_URL ?? "https://kkupgrader.eu.org"}/${src}?w=${width}&q=${quality || 75}`
 }
 
 export default function Main({ data }) {
