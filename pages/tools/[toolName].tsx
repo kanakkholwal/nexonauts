@@ -1,4 +1,4 @@
-import { MetaData, HeaderArea, FooterArea, ToolListJSON } from "../../src/pages/Tools/Tool";
+import { MetaData, FooterArea, ToolListJSON } from "../../src/pages/Tools/Tool";
 import React from 'react';
 
 
@@ -35,7 +35,7 @@ export default function Tool({ componentPath }): JSX.Element {
     return (
         <>
             <MetaData PageTitle={ToolComponent.title} PageDescription={ToolComponent.description} SiteName={''} PageUrl={''} PreviewImage={''} PageType={''} PageLocale={''} />
-            <HeaderArea title={ToolComponent.title} description={ToolComponent.description} />
+            {/* <HeaderArea title={ToolComponent.title} description={ToolComponent.description} /> */}
             <main className="G_MainContent">
                 {ToolComponent.Component}
             </main>

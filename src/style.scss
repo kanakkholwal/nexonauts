@@ -24,20 +24,26 @@
 @import "./styles/components/listGroup";
 
 :root {
+    --body-bg: hsla(0, 0%, 100%, 1);
+    --dense-bg: hsla(220, 20%, 97%, 1);
+    --card-bg: #fbfbfb;
+    --card-shadow: rgb(85 32 163 / 11%) 0px 15px 72px;
+    --body-font: "ManRope", "Google Sans", san-serif;
+
     --white: hsla(0, 0%, 100%, 1);
     --white_a8: hsla(0, 0%, 100%, 0.08);
     --white_a12: hsla(0, 0%, 100%, 0.12);
-    --cultured: hsla(220, 20%, 97%, 1);
-    --snow: hsla(345, 57%, 97%, 1);
+    --cultured: var(--dense-bg);
+    --snow: hsla(196, 52%, 46%, 0.2);
     --manatee: hsla(219, 10%, 62%, 1);
     --black-coral: hsla(220, 12%, 43%, 1);
     --cadet-blue-crayola_a20: hsla(222, 23%, 71%, 0.2);
-    --cinnamon-satin: hsla(344, 53%, 62%, 1);
+    --cinnamon-satin: hsl(196, 100%, 40%);
     --raisin-black: hsla(216, 14%, 14%, 1);
     --raisin-black_a6: hsla(216, 14%, 14%, 0.06);
     --gunmetal: hsla(214, 15%, 21%, 1);
     --charcoal: hsla(219, 22%, 26%, 1);
-    --ff-manrope: 'Manrope', sans-serif;
+
     --fs-1: calc(2.7rem + 1.38vw);
     --fs-2: calc(2.6rem + .66vw);
     --fs-3: calc(2.6rem + .24vw);
@@ -48,8 +54,8 @@
     --fs-8: 1.4rem;
     --fw-700: 700;
     --section-padding: 90px;
-    --shadow-1: 0 0 20px hsla(216, 14%, 14%, 0.05);
-    --shadow-2: 0 4px 28px hsla(216, 14%, 14%, 0.07);
+    --shadow-1: hsla(264, 67%, 38%, 0.11) 0px 15px 72px;
+    --shadow-2: hsla(264, 67%, 38%, 0.20) 0px 15px 72px;
     --radius-circle: 50%;
     --radius-pill: 100px;
     --radius-8: 8px;
@@ -131,42 +137,42 @@ html {
 }
 
 body {
-    background-color: variables.$bodyBg;
     font-weight: 400;
     font-size: 1.25rem;
     line-height: normal;
     color: variables.$bodyText;
-    background-color: $background-color_1;
+    background-color: var(--body-bg);
     color: $color_2;
     font-size: 1.6rem;
     line-height: 1.7;
     overflow-x: hidden;
-    font-family: 'DM Sans', sans-serif;
-    font-family: 'Inter', sans-serif;
-    font-family: 'Public Sans', sans-serif;
-    font-family: variables.$fontBody;
+
+    font-family: var(--body-font);
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
 
     &.DarkMode {
-        --white: #223350;
+        --body-bg: hsla(252, 8%, 12%, 1);
+        --dense-bg: hsl(255, 9%, 9%);
+        --card-bg: hsla(252, 5%, 19%, 0.8);
+        --white: var(--body-bg);
+        --cultured: var(--dense-bg);
         --white_a8: hsla(0, 0%, 100%, .08);
         --white_a12: hsla(0, 0%, 100%, .12);
-        --cultured: #121f30;
-        --snow: #b63e59;
+        --snow: hsla(196, 52%, 46%, 1);
         --manatee: #949ba8;
         --black-coral: #fffcfc;
         --cadet-blue-crayola_a20: rgba(164, 174, 198, .2);
-        --cinnamon-satin: #d16b86;
+        --cinnamon-satin: #59c7f0;
         --raisin-black: #1f2329;
         --raisin-black_a6: rgb(9 22 41 / 36%);
         --gunmetal: #2e343e;
         --charcoal: #fbfbfb;
-        --shadow-1: 0 0 20px hsl(233, 27%, 12%);
-        --shadow-2: 0 4px 28px rgba(31, 35, 41, .07);
+        --shadow-1: rgb(0 0 0 / 16%) 0px 15px 72px;
+        --shadow-2: rgb(0 0 0 / 86%) 0px 15px 72px;
         --link: rgba(209, 107, 134, 0.836);
-
         --link-hover: hsla(344, 77%, 66%, 0.932);
+
     }
 }
 

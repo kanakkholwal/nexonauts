@@ -4,27 +4,12 @@ $md: 768px;
 $lg: 992px;
 $xl: 1200px;
 $xxl: 1400px;
-@use "../../../styles/variables";
 
-$color_1: inherit;
-$color_2: var(--black-coral);
-$color_3: var(--charcoal);
-$color_4: var(--cinnamon-satin);
-$color_5: var(--white);
-$color_6: var(--gunmetal);
-$color_7: var(--manatee);
-$font-family_1: var(--ff-manrope);
-$background-color_1: var(--white);
+
 $background-color_2: hsl(0, 0%, 98%);
 $background-color_3: hsl(0, 0%, 80%);
 $background-color_4: hsl(0, 0%, 70%);
-$background-color_5: var(--cinnamon-satin);
-$background-color_6: var(--raisin-black);
-$background-color_7: var(--white_a8);
-$background-color_8: var(--white_a12);
-$background-color_9: var(--cultured);
-$background-color_10: var(--raisin-black_a6);
-$background-color_11: var(--snow);
+
 
 @keyframes slideIn {
     0% {
@@ -65,7 +50,7 @@ $background-color_11: var(--snow);
     position: absolute;
     top: 0;
     left: 0;
-    background-color: $background-color_1;
+    background-color: var(--white);
     width: 100%;
     padding-block: 20px;
     box-shadow: var(--shadow-1);
@@ -85,15 +70,15 @@ $background-color_11: var(--snow);
 
 .NavOpen_btn {
     font-size: 3.5rem;
-    color: $color_6;
+    color: var(--gunmetal);
 }
 
 .NavBar {
     position: fixed;
     top: 0;
     left: -300px;
-    background-color: $background-color_6;
-    color: $color_5;
+    background-color: var(--raisin-black);
+    color: var(--white);
     max-width: 300px;
     width: 100%;
     height: 100vh;
@@ -147,8 +132,8 @@ $background-color_11: var(--snow);
 }
 
 .navCloseBtn {
-    background-color: $background-color_7;
-    color: $color_5;
+    background-color: var(--white_a8);
+    color: var(--white);
     font-size: 2rem;
     display: inline-flex;
     padding: 6px;
@@ -160,7 +145,7 @@ $background-color_11: var(--snow);
     }
 
     &:hover {
-        background-color: $background-color_8;
+        background-color: var(--white_a12);
     }
 }
 
@@ -178,7 +163,7 @@ $background-color_11: var(--snow);
     transition: var(--transition-1);
 
     &:hover {
-        color: $color_4;
+        color: var(--cinnamon-satin);
     }
 }
 
@@ -188,7 +173,7 @@ $background-color_11: var(--snow);
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: $background-color_6;
+    background-color: var(--raisin-black);
     pointer-events: none;
     opacity: 0;
     transition: var(--transition-1);
@@ -199,40 +184,40 @@ $background-color_11: var(--snow);
     opacity: 0.8;
 }
 
+.Section {
+    padding-block: var(--section-padding);
+}
+
 .Hero {
     padding-block-start: calc(var(--section-padding) + 50px);
-    background-color: $background-color_9;
+    background-color: var(--cultured);
 
     .Container {
         display: grid;
         gap: 50px;
     }
 
-    .shape {
-        position: absolute;
-        bottom: 10%;
-        right: 2%;
-        filter: drop-shadow(var(--shadow-2));
-    }
 
     .Section_text {
         margin-block: 24px 36px;
     }
 }
 
-.Hero_banner {
-    position: relative;
-    max-width: max-content;
-    margin-inline: auto;
-
-
-}
 
 .Hero_content {
     text-align: center;
+    width: 100%;
 }
 
-@media (min-width:992px) {
+@media (min-width:575px) {
+    .Container {
+        max-width: 540px;
+        width: 100%;
+        margin-inline: auto;
+    }
+}
+
+@media (min-width:$lg) {
 
 
     .Container {
@@ -261,7 +246,7 @@ $background-color_11: var(--snow);
         flex-grow: 1;
 
         .SocialLink {
-            color: $color_3;
+            color: var(--charcoal);
             font-size: 1.8rem;
         }
     }
@@ -283,12 +268,12 @@ $background-color_11: var(--snow);
     }
 
     .NavBar_link {
-        color: $color_3;
+        color: var(--charcoal);
         transition: var(--transition-1);
         opacity: 0.85;
 
         &:hover {
-            color: $color_4;
+            color: var(--cinnamon-satin);
             opacity: 1;
         }
     }
@@ -315,22 +300,16 @@ $background-color_11: var(--snow);
         padding-block-start: calc(var(--section-padding) + 80px);
 
         .Container {
-            grid-template-columns: 0.8fr 1fr;
             align-items: center;
-            gap: 100px;
         }
 
-        .btnWrapper {
-            justify-content: flex-start;
-        }
+
     }
 
-    .Hero_content {
-        text-align: left;
-    }
+
 }
 
-@media (min-width:1200px) {
+@media (min-width:$xl) {
     .Container {
         max-width: 1140px;
     }
@@ -342,7 +321,7 @@ $background-color_11: var(--snow);
 
 }
 
-@media (min-width:1400px) {
+@media (min-width:$xxl) {
     .Container {
         max-width: 1320px;
     }
@@ -352,94 +331,10 @@ $background-color_11: var(--snow);
     }
 
     .Hero {
-        .Container {
-            grid-template-columns: 1fr 0.8fr;
-        }
+
 
         .Section_text {
             --fs-5: 2.4rem;
         }
-    }
-}
-
-.ToolCard {
-    margin: 0.5rem;
-    flex: 1 1 auto;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 250ms ease-in-out;
-    animation-name: pop;
-    animation-duration: 0.83s;
-    animation-direction: normal;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    background: var(--card-bg);
-
-    &:hover {
-        transform: translateY(-10px);
-    }
-
-    @keyframes pop {
-        from {
-            transform: translateY(20px);
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        to {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
-        }
-    }
-
-    @media (max-width: $sm) {
-        width: 100%;
-    }
-
-    @media (min-width: $sm) and (max-width: $md) {
-        width: 40%;
-    }
-
-    @media (min-width: $md) and (max-width: $lg) {
-        width: 33%;
-        // max-width: 18rem;
-    }
-
-    @media (min-width: $lg) {
-        width: 25%;
-        // max-width: 22rem;
-    }
-
-    .CardBody {
-        display: flex;
-        justify-content: space-between;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .Info {
-        text-align: left;
-    }
-
-    .CardTitle {
-        font-size: 1.1rem;
-
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-transform: uppercase;
-        white-space: wrap;
-        letter-spacing: 2px;
-        --webkit-line-clamp: 2;
-    }
-
-    .CardDescription {
-
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        -webkit-line-clamp: 3;
     }
 }

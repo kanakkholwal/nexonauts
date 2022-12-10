@@ -3,7 +3,7 @@ import Head from "next/head";
 import "../src/style.css";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
-
+import Aos from "aos";
 export default function MyApp({ Component, pageProps }) {
 
 
@@ -13,7 +13,7 @@ export default function MyApp({ Component, pageProps }) {
             document.body.classList.add("DarkMode");
         else
             document.body.classList.remove("DarkMode");
-
+        Aos.init();
 
     }, [])
     return <>

@@ -725,22 +725,22 @@ textarea.inputField {
     }
 
     .Hero {
-        padding-block-start: calc(var(--section-padding) + 80px);
+    padding-block-start: calc(var(--section-padding) + 80px);
 
-        .Container {
-            grid-template-columns: 0.8fr 1fr;
-            align-items: center;
-            gap: 100px;
-        }
-
-        .btnWrapper {
-            justify-content: flex-start;
-        }
+    .Container {
+        grid-template-columns: 0.8fr 1fr;
+        align-items: center;
+        gap: 100px;
     }
 
-    .Hero_content {
-        text-align: left;
+    .btnWrapper {
+        justify-content: flex-start;
     }
+}
+
+.Hero_content {
+    text-align: left;
+}
 
     .about {
         .Wrapper {

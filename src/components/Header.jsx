@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { IoCloseOutline, IoMenuOutline, IoMoonOutline, IoMoon } from "react-icons/io5";
 import Link from "next/link";
-import classes from "./_components.module.scss";
+import classes from "./_Header.module.scss";
 
 export default function Header({ NavLinks, SocialMedia }) {
     const [DarkMode, SetDarkMode] = useState(false);
@@ -18,8 +18,6 @@ export default function Header({ NavLinks, SocialMedia }) {
             document.body.classList.add("DarkMode");
         else
             document.body.classList.remove("DarkMode");
-
-
     }, [DarkMode])
     useEffect(() => {
 
@@ -29,9 +27,7 @@ export default function Header({ NavLinks, SocialMedia }) {
                 elements[i].addEventListener(eventType, callback);
             }
         }
-        /**
-         * NAVBAR TOGGLE FOR MOBILE
-         */
+
 
         const navbar = document.querySelector("[data-navbar]");
         const navTogglers = document.querySelectorAll("[data-nav-toggler]");
@@ -130,13 +126,11 @@ export default function Header({ NavLinks, SocialMedia }) {
                     <div className={classes.overlay} data-nav-toggler data-overlay />
                 </div>
             </header>
-            <section className={classes.Section + " " + classes.Hero} id="home">
+            <section className={classes.Section + " " + classes.Hero} id="hero">
                 <div className={classes.Container}>
-                    <figure className={classes.Hero_banner}>
 
-                    </figure>
                     <div className={classes.Hero_content}>
-                        <h1 className={"h1" + " " + classes.Hero_title} data-aos="fade-up" data-aos-delay="500">Tools</h1>
+                        <h1 className={"h1"} data-aos="fade-up" data-aos-delay="500">Tools</h1>
                         <p className={classes.Section_text} data-aos="fade-up" data-aos-delay="750"> "Description" </p>
 
                     </div>
