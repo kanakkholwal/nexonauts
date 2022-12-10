@@ -6,7 +6,7 @@ import { useContext } from "react";
 import { ThemeContext } from "../Home"
 
 const ImgLoader = ({ src, width, quality }) => {
-    return `${process.env.NODE_ENV ? "http://localhost:3000" : process.env.WEBSITE_URL}/${src}?w=${width}&q=${quality || 75}`
+    return `${process.env.NODE_ENV === "development" ? "http://localhost:3000" : process.env.WEBSITE_URL}/${src}?w=${width}&q=${quality || 75}`
 }
 
 export default function Main({ data }) {
@@ -149,7 +149,8 @@ export default function Main({ data }) {
                             })}
                         </div>
                     </div >
-                </section >
+                </section>
+
                 <section className={classes.Section + " " + classes.Blog} id="blog">
                     <div className={classes.Container}>
                         <div className={classes.Projects_card}>
@@ -170,6 +171,7 @@ export default function Main({ data }) {
 
                     </div>
                 </section>
+
                 <section className={classes.Section + " " + classes.contact} id="contact">
                     <div className={classes.Container}>
                         <div className={classes.Contact_card}>
