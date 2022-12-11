@@ -254,10 +254,11 @@ $background-color_4: hsl(0, 0%, 70%);
 
     @media (min-width: $lg) {
 
-        display: flex;
+        display: grid;
         gap: 36px;
         margin-inline: auto;
 
+        grid-auto-flow: column;
 
         .NavBarItem {
             .NavBar_link {

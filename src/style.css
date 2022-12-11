@@ -6879,16 +6879,6 @@ body.DarkMode {
   --link-hover: hsla(344, 77%, 66%, 0.932);
 }
 
-:focus-visible {
-  transform: translateY(-3px);
-  transform: translateY(-4px);
-  background-color: var(--cinnamon-satin);
-  color: var(--white);
-  background-color: var(--white_a12);
-  color: var(--cinnamon-satin);
-  gap: 10px;
-}
-
 li[class] {
   list-style: none;
 }

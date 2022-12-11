@@ -205,15 +205,6 @@ body {
     }
 }
 
-:focus-visible {
-    transform: translateY(-3px);
-    transform: translateY(-4px);
-    background-color: $background-color_5;
-    color: $color_5;
-    background-color: $background-color_8;
-    color: $color_4;
-    gap: 10px;
-}
 
 
 li[class] {
