@@ -42,6 +42,12 @@ $background-color_11: var(--snow);
 
 .Container {
     padding-inline: 16px;
+    margin: auto;
+
+}
+
+.Section {
+    padding-block: var(--section-padding);
 }
 
 .SocialList {
@@ -203,20 +209,14 @@ $background-color_11: var(--snow);
     padding-block-start: calc(var(--section-padding) + 50px);
     background-color: $background-color_9;
 
-    .Container {
-        display: grid;
-        gap: 50px;
-    }
 
-    .shape {
-        position: absolute;
-        bottom: 10%;
-        right: 2%;
-        filter: drop-shadow(var(--shadow-2));
-    }
 
     .Section_text {
         margin-block: 24px 36px;
+    }
+
+    .Hero_title {
+        text-align: center;
     }
 }
 
@@ -314,20 +314,9 @@ $background-color_11: var(--snow);
     .Hero {
         padding-block-start: calc(var(--section-padding) + 80px);
 
-        .Container {
-            grid-template-columns: 0.8fr 1fr;
-            align-items: center;
-            gap: 100px;
-        }
-
-        .btnWrapper {
-            justify-content: flex-start;
-        }
     }
 
-    .Hero_content {
-        text-align: left;
-    }
+
 }
 
 @media (min-width:1200px) {
@@ -352,9 +341,7 @@ $background-color_11: var(--snow);
     }
 
     .Hero {
-        .Container {
-            grid-template-columns: 1fr 0.8fr;
-        }
+
 
         .Section_text {
             --fs-5: 2.4rem;
@@ -389,8 +376,12 @@ $background-color_11: var(--snow);
 
 .Footer {
     margin-inline: auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+
+    flex-wrap: nowrap;
+
     padding-block: 1.5rem;
     gap: 20px;
     justify-items: center;
@@ -399,15 +390,85 @@ $background-color_11: var(--snow);
     padding-block: 2rem 1.5rem;
 
     .FooterSection {
-        display: grid;
-        grid-template-rows: 2fr 3fr;
+        flex: 1 1 50%;
+        padding: 2rem 1rem;
+
+        .Heading {
+            margin-bottom: 1rem;
+        }
+
+        .LineBreak {
+            width: 90%;
+            position: relative;
+            height: 2px;
+            background-color: var(--border-color);
+
+            &::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                border-radius: inherit;
+                background: var(--theme);
+                width: 15%;
+            }
+        }
+
+        .FooterLink {
+            font-weight: 550;
+            transition: all 400ms ease-in-out;
+
+            svg {
+                margin-top: -0.25rem;
+            }
+
+            &:hover {
+                svg {
+                    margin-right: 0.25rem;
+                }
+            }
+        }
+
+
     }
 
     .Social {
         display: grid;
-        grid-template-columns: 100% repeat(4, 1fr);
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        margin-top: 1rem;
+        justify-items: center;
+
+        .SubHeading {
+            grid-column-start: 1;
+            grid-column-end: 5;
+            margin-bottom: 1rem;
+        }
+
+        a {
+            padding: 0.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            transition: all 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+            &:hover {
+                transform: scale(1.25) rotate(360deg);
+                box-shadow: var(--shadow-1);
+                background: var(--border-color);
+                color: var(--theme);
+
+            }
+
+            svg {
+                width: 2rem;
+                height: 2rem;
+            }
+        }
+
     }
 
+    @media (max-width:$lg) {
+        flex-wrap: wrap;
+    }
 }
 
 .ToolCard {

@@ -3,7 +3,7 @@ import { IoCloseOutline, IoMenuOutline, IoMoonOutline, IoMoon } from "react-icon
 import Link from "next/link";
 import classes from "./_components.module.scss";
 
-export default function Header({ NavLinks, SocialMedia }) {
+export default function Header({ NavLinks, SocialMedia, title, description }) {
     const [DarkMode, SetDarkMode] = useState(false);
     const ToggleTheme = () => {
         SetDarkMode(!DarkMode);
@@ -132,12 +132,9 @@ export default function Header({ NavLinks, SocialMedia }) {
             </header>
             <section className={classes.Section + " " + classes.Hero} id="home">
                 <div className={classes.Container}>
-                    <figure className={classes.Hero_banner}>
-
-                    </figure>
                     <div className={classes.Hero_content}>
-                        <h1 className={"h1" + " " + classes.Hero_title} data-aos="fade-up" data-aos-delay="500">Tools</h1>
-                        <p className={classes.Section_text} data-aos="fade-up" data-aos-delay="750"> "Description" </p>
+                        <h1 className={"h1" + " " + classes.Hero_title} data-aos="fade-up" data-aos-delay="500">{title}</h1>
+                        <p className={classes.Section_text} data-aos="fade-up" data-aos-delay="750"> {description} </p>
 
                     </div>
                 </div>

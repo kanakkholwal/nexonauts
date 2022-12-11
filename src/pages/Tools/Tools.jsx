@@ -61,6 +61,44 @@ const SocialMedia = [
         url: "https://twitter.com/KanakKholwal",
     },
 ]
+export const FooterData = {
+    Links: {
+        Heading: "Useful Links",
+        LinkList: [
+            {
+                name: "About",
+                url: "/about",
+            },
+            {
+                name: "Projects",
+                url: "/projects",
+            },
+            {
+                name: "Contact",
+                url: "/contact",
+            },
+
+        ]
+    },
+    About: {
+        title: "More From Us",
+        description: "",
+        LinkList: [
+            {
+                name: "Blog",
+                url: "https://kkupgrader.blogspot.com",
+            },
+            {
+                name: "Genesis UI",
+                url: "https://genesis-ui.netlify.app",
+            }
+        ],
+        Social: [
+            ...SocialMedia
+        ]
+    }
+
+}
 export default function Tools() {
 
 
@@ -69,7 +107,7 @@ export default function Tools() {
             <PageMetaData PageTitle={metaData.title} PageDescription={metaData.description} />
             <Header NavLinks={NavLinks} SocialMedia={SocialMedia} title={metaData.title.split("|")[0]} description={metaData.description} />
             <Main />
-            <Footer />
+            <Footer FooterData={FooterData} />
         </>
     )
 }
