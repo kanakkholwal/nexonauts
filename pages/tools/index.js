@@ -1,3 +1,3 @@
-import Tools from "../../src/pages/Tools/Tools";
+import Tools from "@/pages/Tools/Tools";
 
 export default Tools;

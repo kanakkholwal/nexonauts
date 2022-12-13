@@ -545,3 +545,18 @@
         }
     }
 }
+
+mark,
+kbd {
+    font-size: 90%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    position: relative;
+    color: var(--code-color);
+    font-weight: 500;
+    font-family: monospace;
+    background: var(--code-bg);
+    padding: 0.05rem 0.5rem 0.15rem;
+    border-radius: 22px;
+
+}

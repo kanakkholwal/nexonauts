@@ -7,30 +7,7 @@ export const breakpoints = {
     xxl: "1400px",
 }
 
-export const colors = {
-    primary: "#85ceff",
-    primaryBg: "#0d3b4e",
-    secondary: "#a4acff",
-    secondaryBg: "#6b75db33",
-    danger: "#ffb8a1",
-    dangerBg: "#cc646433",
-    success: "#86efac",
-    successBg: "rgba(22, 101, 52, 0.2)",
-    info: "#69dbff",
-    infoBg: "#149eca33",
-    warning: "#fde047",
-    warningBg: "rgba(250, 204, 21, 0.20)",
-    dark: "#89b5f3",
-    darkBg: "#11182733",
-    light: "#2b394d",
-    lightBg: "#bbe1fa",
-    dark2: "#001829",
-    dark3: "#212930",
-}
 
-export const fonts = {
-
-}
 export const form = {
     link: "#18c1f6",
     main: "#149eca",

@@ -12,8 +12,7 @@
 "./styles/code",
 "./styles/ripple";
 
-@import "./styles/components/header";
-@import "./styles/components/main";
+@import "./styles/components/core";
 @import "./styles/components/footer";
 @import "./styles/components/collapse";
 @import "./styles/components/accordion";
@@ -27,10 +26,12 @@
     --body-bg: hsla(0, 0%, 100%, 1);
     --dense-bg: hsla(220, 20%, 97%, 1);
     --card-bg: #fbfbfb;
-    --card-shadow: rgb(85 32 163 / 11%) 17px 20px 72px, rgb(85 32 163 / 11%) -20px -1px 72px;
+    --card-shadow: rgb(93 116 124 / 6%) 17px 20px 72px, rgba(85, 32, 163, .11) -20px -1px 72px;
     --body-font: "ManRope", "Google Sans", san-serif;
     --drop-bg: hsl(0, 0%, 97%);
     --border-color: #8386972b;
+    --code-color: #242424;
+    --code-bg: hsl(196, 100%, 40%);
     --theme: hsl(196, 100%, 40%);
 
     --success: hsl(143, 28%, 22%);
@@ -43,6 +44,60 @@
     --warningBg: hsl(50deg 56% 23%);
     --badge: hsl(235, 22%, 34%);
     --badgeBg: rgb(107 117 219 / 20%);
+    --cubic-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+    --form-border: rgba(155, 155, 155, 0);
+    --form-border-active: var(--theme);
+    --form-label: rgb(117, 118, 124);
+    --form-label-active: #eee;
+    --form-bg: rgba(155, 170, 175, 0.12);
+    --form-bg-active: #fbfbfb;
+    --form-color: rgb(44, 41, 41);
+    --form-color-active: #262626;
+    --form-caret: var(--theme);
+    --form-active: var(--theme);
+    --form-helper: rgb(173, 173, 177);
+
+    --btn-text: #fff;
+    --btn-bg: var(--theme);
+    --btn-box-shadow: var(--theme) 3px 0px 10px 0px;
+    --btn-border-radius: 0.25rem;
+    --btn-hover-color: #fff;
+    --btn-hover-bg: hsla(196, 100%, 40%, 0.897);
+
+    --btn-primary-text: #fff;
+    --btn-primary-bg: #3b71ca;
+    --btn-primary-box-shadow: 0 4px 9px -4px #3b71ca;
+    --btn-primary-hover-color: #fff;
+    --btn-primary-hover-bg: #386bc0;
+
+    --btn-success-text: #fff;
+    --btn-success-bg: #14a44d;
+    --btn-success-box-shadow: 0 4px 9px -4px #14a44d;
+    --btn-success-hover-color: #fff;
+    --btn-success-hover-bg: #139c49;
+
+
+    --btn-warning-text: #fff;
+    --btn-warning-bg: #e4a11b;
+    --btn-warning-box-shadow: 0 4px 9px -4px #e4a11b;
+    --btn-warning-hover-color: #fff;
+    --btn-warning-hover-bg: #d9991a;
+
+    --btn-info-text: #fff;
+    --btn-info-bg: #54b4d3;
+    --btn-info-box-shadow: 0 4px 9px -4px #54b4d3;
+    --btn-info-hover-color: #fff;
+    --btn-info-hover-bg: #50abc8;
+
+    --btn-danger-text: #fff;
+    --btn-danger-bg: #dc4c64;
+    --btn-danger-box-shadow: 0 4px 9px -4px #dc4c64;
+    --btn-danger-hover-color: #fff;
+    --btn-danger-hover-bg: #d1485f;
+
+
+
 
 
     --white: hsla(0, 0%, 100%, 1);
@@ -184,6 +239,21 @@ body {
         --badge: hsl(235, 100%, 85%);
         --badgeBg: rgb(107 117 219 / 20%);
 
+        --form-border: hsla(229, 13%, 33%, 0.671);
+        --form-border-active: var(--theme);
+        --form-label: hsl(229, 8%, 73%);
+        --form-label-active: #eee;
+        --form-bg: none;
+        --form-bg-active: none;
+        --form-color: #eee;
+        --form-color-active: #262626;
+        --form-caret: var(--theme);
+        --form-active: var(--theme);
+        --form-helper: hsl(240, 3%, 73%);
+
+        --btn-success: #22C55E;
+        --btn-success-bg: hsla(142, 71%, 45%, 0.75);
+
         --white: var(--body-bg);
         --cultured: var(--dense-bg);
         --white_a8: hsla(0, 0%, 100%, .08);
@@ -223,9 +293,7 @@ img {
     }
 }
 
-span {
-    display: block;
-}
+
 
 button {
     display: block;

@@ -1,6 +1,13 @@
 import classes from "./style/_metaTag.module.scss";
 import { useEffect, useState, useCallback } from "react";
-import CodeBlock from "../../../components/CodeBlock";
+import CodeBlock from "@/components/CodeBlock";
+import Input from "@/components/form-elements/Input";
+import TextArea from "@/components/form-elements/TextArea";
+import Label from "@/components/form-elements/Label";
+import FormElement from "@/components/form-elements/FormElement";
+import FormHelper from "@/components/form-elements/FormHelper";
+
+import Button from "@/components/buttons/Button";
 
 const defaultData = {
     google: {
@@ -80,221 +87,228 @@ export default function MetaTagGenerator() {
     const [codeString, SetCodeString] = useState(getString());
 
     useEffect(() => {
-
         SetCodeString(getString())
     }, [getString, Google_Description, Google_Title, Google_siteImage, OG_Description, OG_Title, OG_URL, OG_locale, OG_previewImage, OG_siteName, Twitter_Description, Twitter_Title, Twitter_previewImage])
 
-
+    const ResetData = () => {
+        SetGoogle_Title("");
+        SetGoogle_Description("");
+        SetGoogle_siteImage("");
+        SetOG_Title("");
+        SetOG_Description("");
+        SetOG_URL("");
+        SetOG_siteName("");
+        SetOG_previewImage("");
+        SetOG_locale("");
+        SetTwitter_Title("");
+        SetTwitter_Description("");
+        SetTwitter_previewImage("");
+    }
 
     return (
-        <>
-            <div>
+        <div className="Container">
 
-                <section id="section-introduction" className="mb-5 mt-4">
-                    <div className="G_Card mb-4">
-                        <div className="G_Card-body text-center">
-                            <p className="mb-2">
-                                <strong>Fill in the Forms with your data. Then scroll down and copy the  generated code. Next, paste at the top of the
-                                    <code>&lt;HEAD&gt;</code> section of your page.</strong>
-                            </p>
-                            <p className="mb-2"><strong>Note:</strong> The Forms are filled up with the dummy data to
-                                present you the proper way of how to to this.
-                            </p>
-                            <button type="button" className="btn btn-primary" >
-                                clear data
-                            </button>
-                        </div>
+            <section id="section-introduction" className="mb-5 mt-4">
+                <div className="Fui_Card mb-4">
+                    <div className="Fui_Card-body text-center">
+                        <p className="mb-2">
+                            <strong>Fill in the Forms with your data. Then scroll down and copy the  generated code. Next, paste at the top of the
+                                <mark>&lt;head&gt;</mark> section of your page.</strong>
+                        </p>
+                        <p className="mb-2"><strong>Note:</strong> The Forms are filled up with the dummy data to
+                            present you the proper way of how to to this.
+                        </p>
+                        <Button type="button" nature="danger" onClick={ResetData}>
+                            clear data
+                        </Button>
                     </div>
+                </div>
 
-                </section>
-                {/* Section: Google */}
-                <section id="section-google">
-                    <div className="row d-flex align-items-center">
-                        <div className="col-md-7 mb-4 mb-md-0">
-                            <p>
-                                <strong>Google search results:</strong>
+            </section>
+            {/* Section: Google */}
+            <section id="section-google">
+                <div className="row d-flex align-items-center">
+                    <div className="col-md-7 mb-4 mb-md-0">
+                        <p>
+                            <strong>Google search results:</strong>
+                        </p>
+                        {/* Section: Preview */}
+                        <section className={classes.GooglePreview + " bg-white p-4 mb-4"}>
+                            <p className={classes.pageBreadcrumbs}>
+                                kkupgrader.eu.org &gt; tools &gt; Advance Meta Tag
                             </p>
-                            {/* Section: Preview */}
-                            <section className={classes.GooglePreview + " bg-white p-4 mb-4"}>
-                                <p className={classes.pageBreadcrumbs}>
-                                    kkupgrader.eu.org &gt; tools &gt; Advance Meta Tag
-                                </p>
-                                <a target="_blank" href="#!" rel="noreferrer">
-                                    <h5 className={classes.pageTitle}> {Google_Title}</h5></a>
-                                <p className={classes.pageDescription + " mb-0"}> {Google_Description} </p>
+                            <a target="_blank" href="#!" rel="noreferrer">
+                                <h5 className={classes.pageTitle}> {Google_Title}</h5></a>
+                            <p className={classes.pageDescription + " mb-0"}> {Google_Description} </p>
 
-                            </section>
-                            {/* Section: Preview */}
-                        </div>
-                        <div className="col-md-5 mb-4 mb-md-0">
-                            {/* Section: Controls */}
-                            <section >
-                                <div className="G_Card mb-4">
-                                    <div className="G_Card-header py-3 mb-2">
-                                        <strong>Google</strong>
-                                    </div>
-                                    <div className="G_Card-body">
-                                        {/* Page title */}
-                                        <div className="G_Form-element Form_Floating">
-                                            <input
-                                                type="text"
-                                                id="G_FormPageTitleGoogle"
-                                                className="G_Form-input"
-                                                maxLength={60} value={Google_Title} onChange={(e) => SetGoogle_Title(e.target.value)} />
-                                            <label className="G_Form-label" htmlFor="G_FormPageTitleGoogle">Page title</label>
-                                        </div>
-                                        <div className="G_Form-text mb-3">60 characters maximum</div>
-                                        {/* Page description */}
-                                        <div className="G_Form-element Form_Floating">
-                                            <textarea className="G_Form-textarea" id="DescriptionGoogle" rows={4} maxLength={160} value={Google_Description} onChange={(e) => SetGoogle_Description(e.target.value)} />
-                                            <label className="G_Form-label" htmlFor="DescriptionGoogle">Page description</label>
-                                        </div>
-                                        <div className="G_Form-text mb-3">160 characters maximum</div>
-                                        {/* Site image */}
-                                        <div className="G_Form-element Form_Floating">
-                                            <input type="text" id="G_FormSiteImageGoogle" className="G_Form-input" value={Google_siteImage} onChange={(e) => SetGoogle_siteImage(e.target.value)} />
-                                            <label className="G_Form-label" htmlFor="G_FormSiteImageGoogle">Site image</label>
-                                        </div>
-                                        <div className="G_Form-text">
-                                            Valid URL address of the .jpg or .png image
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
-                            {/* Section: Controls */}
-                        </div>
+                        </section>
+                        {/* Section: Preview */}
                     </div>
-                </section>
-
-                {/* Section: Open Graph */}
-                <section id="section-open-graph" >
-                    <div className="row d-flex align-items-center">
-                        <div className="col-md-7 mb-4 mb-md-0">
-                            <p>
-                                <strong>Open graph
-                                    <small className="text-muted">(Facebook, Pinterest, LinkedIn)</small>:</strong>
-                            </p>
-                            {/* Section: Preview */}
-                            <section className="mb-4">
-                                <div className={classes.OGPreview}>
-                                    <div className={classes.OGPreview_imageWrapper + " bg-image rounded-top"} style={{ backgroundImage: 'url(' + OG_previewImage + ')' }} />
-                                    <div className={classes.OGPreview_dataWrapper}>
-                                        <p className={classes.OG_link + " text-truncate"}>{OG_URL}</p>
-                                        <p className={classes.OG_title + " text-truncate"}>{OG_Title}</p>
-                                        <p className={classes.OG_description + " text-truncate"}>{OG_Description}</p>
-                                    </div>
+                    <div className="col-md-5 mb-4 mb-md-0">
+                        {/* Section: Controls */}
+                        <section >
+                            <div className="Fui_Card mb-4">
+                                <div className="Fui_Card-header py-3 mb-2">
+                                    <strong>Google</strong>
                                 </div>
-                            </section>
-                            {/* Section: Preview */}
-                        </div>
-                        <div className="col-md-5 mb-4 mb-md-0">
-                            {/* Section: Controls */}
-                            <section>
-                                <div className="G_Card mb-4">
-                                    <div className="G_Card-header py-3 mb-2">
-                                        <strong>Open graph
-                                            <small className="text-muted">(Facebook, Pinterest, LinkedIn)</small></strong>
-                                    </div>
-                                    <div className="G_Card-body">
-                                        {/* Page title */}
-                                        <div className="G_Form-element Form_Floating">
-                                            <input type="text" id="formPageTitleOG" className="G_Form-input" maxLength={60} value={OG_Title} onChange={e => SetOG_Title(e.target.value)} />
-                                            <label className="G_Form-label" htmlFor="formPageTitleOG">Page title</label>
-                                        </div>
-                                        <div className="G_Form-text mb-3">60 characters maximum</div>
-                                        {/* Page description */}
-                                        <div className="G_Form-element Form_Floating">
-                                            <textarea className="G_Form-textarea" id="pageDescriptionOG" rows={2} maxLength={68} value={OG_Description} onChange={e => SetOG_Description(e.target.value)} />
-                                            <label className="G_Form-label" htmlFor="pageDescriptionOG">Page description</label>
-                                        </div>
-                                        <div className="G_Form-text mb-3">68 characters maximum</div>
-                                        {/* Preview image */}
-                                        <div className="G_Form-element Form_Floating">
-                                            <input type="text" id="formPreviewImageOG" className="G_Form-input" value={OG_previewImage} onChange={e => SetOG_previewImage(e.target.value)} />
-                                            <label className="G_Form-label" htmlFor="formPreviewImageOG">Preview image</label>
-                                        </div>
-                                        <div className="G_Form-text mb-3">1200x628 px recommended</div>
-                                        {/* URL */}
-                                        <div className="G_Form-element Form_Floating mb-3">
-                                            <input type="text" id="URL_OG" className="G_Form-input" value={OG_URL} onChange={e => SetOG_URL(e.target.value)} />
-                                            <label className="G_Form-label" htmlFor="URL_OG">URL</label>
-                                        </div>
-                                        {/* Site name */}
-                                        <div className="G_Form-element Form_Floating mb-3">
-                                            <input type="text" id="formSiteNameOG" className="G_Form-input" value={OG_siteName} onChange={e => SetOG_siteName(e.target.value)} />
-                                            <label className="G_Form-label" htmlFor="formSiteNameOG">Site name</label>
-                                        </div>
-                                        {/* Locale */}
-                                        <div className="G_Form-element Form_Floating">
-                                            <input type="text" id="formLocaleOG" className="G_Form-input" value={OG_locale} onChange={e => SetOG_locale(e.target.value)} />
-                                            <label className="G_Form-label" htmlFor="formLocaleOG">Locale</label>
-                                        </div>
-                                    </div>
+                                <div className="Fui_Card-body">
+                                    {/* Page title */}
+                                    <FormElement>
+                                        <Input outlined
+                                            type="text"
+                                            id="Fui_FormPageTitleGoogle"
+                                            className="Fui_Form-input"
+                                            maxLength={60} value={Google_Title} onChange={(e) => SetGoogle_Title(e.target.value)} />
+                                        <Label className="Fui_Form-Label" htmlFor="Fui_FormPageTitleGoogle">Page title</Label>
+                                        <FormHelper>60 characters maximum</FormHelper>
+                                    </FormElement>
+                                    {/* Page description */}
+                                    <FormElement>
+                                        <TextArea className="Fui_Form-textarea" id="DescriptionGoogle" rows={4} maxLength={160} value={Google_Description} onChange={(e) => SetGoogle_Description(e.target.value)} />
+                                        <Label className="Fui_Form-Label" htmlFor="DescriptionGoogle">Page description</Label>
+                                        <FormHelper>160 characters maximum</FormHelper>
+                                    </FormElement>
+                                    {/* Site image */}
+                                    <FormElement>
+                                        <Input type="text" id="Fui_FormSiteImageGoogle" className="Fui_Form-input" value={Google_siteImage} onChange={(e) => SetGoogle_siteImage(e.target.value)} />
+                                        <Label className="Fui_Form-Label" htmlFor="Fui_FormSiteImageGoogle">Site image</Label>
+                                        <FormHelper> Valid URL address of the .jpg or .png image</FormHelper>
+                                    </FormElement>
                                 </div>
-                            </section>
-                            {/* Section: Controls */}
-                        </div>
+                            </div>
+                        </section>
+                        {/* Section: Controls */}
                     </div>
-                </section>
-                {/* Section: Twitter */}
-                <section id="section-twitter" className="mb-5">
-                    <div className="row d-flex align-items-center">
-                        <div className="col-md-7 mb-4 mb-md-0">
-                            <p >
-                                <strong>Twitter:</strong>
-                            </p>
-                            {/* Section: Preview */}
-                            <section >
-                                <div className={classes.TwitterPreview}>
-                                    <div className={classes.TwitterPreview_imageWrapper + " bg-image rounded-top"} style={{ backgroundImage: 'url(' + Twitter_previewImage + ')' }} />
-                                    <div className={classes.TwitterPreview_dataWrapper}>
-                                        <p className={classes.twitter_title + "  text-truncate"}>{Twitter_Title}</p>
-                                        <p className={classes.twitter_description}>{Twitter_Description}</p>
-                                    </div>
+                </div>
+            </section>
+
+            {/* Section: Open Graph */}
+            <section id="section-open-graph" >
+                <div className="row d-flex align-items-center">
+                    <div className="col-md-7 mb-4 mb-md-0">
+                        <p>
+                            <strong>Open graph
+                                <small className="text-muted">(Facebook, Pinterest, LinkedIn)</small>:</strong>
+                        </p>
+                        {/* Section: Preview */}
+                        <section className="mb-4">
+                            <div className={classes.OGPreview}>
+                                <div className={classes.OGPreview_imageWrapper + " bg-image rounded-top"} style={{ backgroundImage: 'url(' + OG_previewImage + ')' }} />
+                                <div className={classes.OGPreview_dataWrapper}>
+                                    <p className={classes.OG_link + " text-truncate"}>{OG_URL}</p>
+                                    <p className={classes.OG_title + " text-truncate"}>{OG_Title}</p>
+                                    <p className={classes.OG_description + " text-truncate"}>{OG_Description}</p>
                                 </div>
-                            </section>
-                            {/* Section: Preview */}
-                        </div>
-                        <div className="col-md-5 mb-4 mb-md-0">
-                            {/* Section: Controls */}
-                            <section >
-                                <div className="G_Card">
-                                    <div className="G_Card-header py-3 mb-2">
-                                        <strong>Twitter</strong>
-                                    </div>
-                                    <div className="G_Card-body">
-                                        {/* Page title */}
-                                        <div className="G_Form-element Form_Floating">
-                                            <input type="text" id="formPageTitleTwitter" className="G_Form-input" maxLength={60} value={Twitter_Title} onChange={e => SetTwitter_Title(e.target.value)} />
-                                            <label className="G_Form-label" htmlFor="formPageTitleTwitter">Page title</label>
-                                        </div>
-                                        <div className="form-text mb-3">60 characters maximum</div>
-                                        {/* Page description */}
-                                        <div className="G_Form-element Form_Floating">
-                                            <textarea className="G_Form-textarea" id="pageDescriptionTwitter" value={Twitter_Description} onChange={e => SetTwitter_Description(e.target.value)} rows={4} maxLength={120} />
-                                            <label className="G_Form-label" htmlFor="pageDescriptionTwitter">Page description</label>
-                                        </div>
-                                        <div className="form-text mb-3">120 characters maximum</div>
-                                        {/* Site image */}
-                                        <div className="G_Form-element Form_Floating">
-                                            <input type="text" id="formSiteImageTwitter" className="G_Form-input" value={Twitter_previewImage} onChange={e => SetTwitter_previewImage(e.target.value)} />
-                                            <label className="G_Form-label" htmlFor="formSiteImageTwitter">Site image</label>
-                                        </div>
-                                        <div className="G_Form-text mb-3">Valid URL address of the image</div>
-                                    </div>
-                                </div>
-                            </section>
-                            {/* Section: Controls */}
-                        </div>
+                            </div>
+                        </section>
+                        {/* Section: Preview */}
                     </div>
-                </section >
+                    <div className="col-md-5 mb-4 mb-md-0">
+                        {/* Section: Controls */}
+                        <section>
+                            <div className="Fui_Card mb-4">
+                                <div className="Fui_Card-header py-3 mb-2">
+                                    <strong>Open graph
+                                        <small className="text-muted">(Facebook, Pinterest, LinkedIn)</small></strong>
+                                </div>
+                                <div className="Fui_Card-body">
+                                    {/* Page title */}
+                                    <FormElement>
+                                        <Input type="text" id="formPageTitleOG" className="Fui_Form-input" maxLength={60} value={OG_Title} onChange={e => SetOG_Title(e.target.value)} />
+                                        <Label className="Fui_Form-Label" htmlFor="formPageTitleOG">Page title</Label>
+                                        <FormHelper>60 characters maximum</FormHelper>
+                                    </FormElement>
+                                    {/* Page description */}
+                                    <FormElement>
+                                        <TextArea className="Fui_Form-textarea" id="pageDescriptionOG" rows={2} maxLength={68} value={OG_Description} onChange={e => SetOG_Description(e.target.value)} />
+                                        <Label className="Fui_Form-Label" htmlFor="pageDescriptionOG">Page description</Label>
+                                        <FormHelper>68 characters maximum</FormHelper>
+                                    </FormElement>
+                                    {/* Preview image */}
+                                    <FormElement>
+                                        <Input type="text" id="formPreviewImageOG" className="Fui_Form-input" value={OG_previewImage} onChange={e => SetOG_previewImage(e.target.value)} />
+                                        <Label className="Fui_Form-Label" htmlFor="formPreviewImageOG">Preview image</Label>
+                                        <FormHelper>1200x628 px recommended</FormHelper>
+                                    </FormElement>
+                                    {/* URL */}
+                                    <FormElement>
+                                        <Input type="text" id="URL_OG" className="Fui_Form-input" value={OG_URL} onChange={e => SetOG_URL(e.target.value)} />
+                                        <Label className="Fui_Form-Label" htmlFor="URL_OG">URL</Label>
+                                    </FormElement>
+                                    {/* Site name */}
+                                    <FormElement>
+                                        <Input type="text" id="formSiteNameOG" className="Fui_Form-input" value={OG_siteName} onChange={e => SetOG_siteName(e.target.value)} />
+                                        <Label className="Fui_Form-Label" htmlFor="formSiteNameOG">Site name</Label>
+                                    </FormElement>
+                                    {/* Locale */}
+                                    <FormElement>
+                                        <Input type="text" id="formLocaleOG" className="Fui_Form-input" value={OG_locale} onChange={e => SetOG_locale(e.target.value)} />
+                                        <Label className="Fui_Form-Label" htmlFor="formLocaleOG">Locale</Label>
+                                    </FormElement>
+                                </div>
+                            </div>
+                        </section>
+                        {/* Section: Controls */}
+                    </div>
+                </div>
+            </section>
+            {/* Section: Twitter */}
+            <section id="section-twitter" className="mb-5">
+                <div className="row d-flex align-items-center">
+                    <div className="col-md-7 mb-4 mb-md-0">
+                        <p >
+                            <strong>Twitter:</strong>
+                        </p>
+                        {/* Section: Preview */}
+                        <section >
+                            <div className={classes.TwitterPreview}>
+                                <div className={classes.TwitterPreview_imageWrapper + " bg-image rounded-top"} style={{ backgroundImage: 'url(' + Twitter_previewImage + ')' }} />
+                                <div className={classes.TwitterPreview_dataWrapper}>
+                                    <p className={classes.twitter_title + "  text-truncate"}>{Twitter_Title}</p>
+                                    <p className={classes.twitter_description}>{Twitter_Description}</p>
+                                </div>
+                            </div>
+                        </section>
+                        {/* Section: Preview */}
+                    </div>
+                    <div className="col-md-5 mb-4 mb-md-0">
+                        {/* Section: Controls */}
+                        <section >
+                            <div className="Fui_Card">
+                                <div className="Fui_Card-header py-3 mb-2">
+                                    <strong>Twitter</strong>
+                                </div>
+                                <div className="Fui_Card-body">
+                                    {/* Page title */}
+                                    <FormElement>
+                                        <Input type="text" id="formPageTitleTwitter" className="Fui_Form-input" maxLength={60} value={Twitter_Title} onChange={e => SetTwitter_Title(e.target.value)} />
+                                        <Label className="Fui_Form-Label" htmlFor="formPageTitleTwitter">Page title</Label>
+                                        <FormHelper>60 characters maximum</FormHelper>
+                                    </FormElement>
+                                    {/* Page description */}
+                                    <FormElement>
+                                        <TextArea className="Fui_Form-textarea" id="pageDescriptionTwitter" value={Twitter_Description} onChange={e => SetTwitter_Description(e.target.value)} rows={4} maxLength={120} />
+                                        <Label className="Fui_Form-Label" htmlFor="pageDescriptionTwitter">Page description</Label>
+                                        <FormHelper>120 characters maximum</FormHelper>
+                                    </FormElement>
+                                    {/* Site image */}
+                                    <FormElement>
+                                        <Input type="text" id="formSiteImageTwitter" className="Fui_Form-input" value={Twitter_previewImage} onChange={e => SetTwitter_previewImage(e.target.value)} />
+                                        <Label className="Fui_Form-Label" htmlFor="formSiteImageTwitter">Site image</Label>
+                                        <FormHelper>Valid URL address of the image</FormHelper>
+                                    </FormElement>
+                                </div>
+                            </div>
+                        </section>
+                        {/* Section: Controls */}
+                    </div>
+                </div>
+            </section >
 
-                <section className={classes.CodeArea}>
+            <section className={classes.CodeArea}>
 
-                    <CodeBlock language="html" content={codeString} title="CodeBlock" />
-                </section>
-            </div>
-
-        </>
+                <CodeBlock language="html" content={codeString} title="CodeBlock" />
+            </section>
+        </div>
     )
 }

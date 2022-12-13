@@ -1,4 +1,4 @@
-import { MetaData, FooterArea, ToolListJSON, HeaderArea } from "../../src/pages/Tools/Tool";
+import { MetaData, FooterArea, ToolListJSON, HeaderArea } from "@/pages/Tools/Tool";
 import React from 'react';
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 

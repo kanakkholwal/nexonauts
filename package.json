@@ -2,7 +2,6 @@
   "name": "kkupgrader",
   "version": "0.1.0",
   "private": true,
-
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -38,11 +37,11 @@
     "@types/node": "^18.11.9",
     "@types/prismjs": "^1.26.0",
     "@types/react": "18.0.25",
+    "@types/styled-components": "^5.1.26",
     "autoprefixer": "^10.4.13",
+    "globby": "^11.0.1",
     "prop-types": "^15.6.0",
-    "typescript": "4.8.4",
-    "globby": "^11.0.1"
-
+    "typescript": "4.8.4"
   },
   "peerDependencies": {
     "prop-types": "^15.6.0"

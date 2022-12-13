@@ -97,12 +97,14 @@ h4 {
     line-height: 1.3;
     font-size: var(--fs-4);
 }
+
 .h5,
 h5 {
     color: $color_3;
     line-height: 1.3;
     font-size: var(--fs-5);
 }
+
 .h6,
 h6 {
     color: $color_3;
@@ -756,7 +758,7 @@ html {
 }
 
 ::selection {
-    background: variables.$secondaryBg;
+    background: var(--theme);
     color: #fbfbfb;
     text-shadow: none
 }
