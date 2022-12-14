@@ -6642,8 +6642,10 @@ main.Container {
 }
 
 :root {
+  --body-color: hsla(220, 12%, 43%, 1);
   --body-bg: hsla(0, 0%, 100%, 1);
   --dense-bg: hsla(220, 20%, 97%, 1);
+  --text-muted: hsla(220, 12%, 43%, 0.8);
   --card-bg: #fbfbfb;
   --card-shadow: rgb(93 116 124 / 6%) 17px 20px 72px, rgba(85, 32, 163, .11) -20px -1px 72px;
   --body-font: "ManRope", "Google Sans", san-serif;
@@ -6803,7 +6805,7 @@ body {
   line-height: normal;
   color: #262626;
   background-color: var(--body-bg);
-  color: var(--black-coral);
+  color: var(--body-color);
   font-size: 1.6rem;
   line-height: 1.7;
   font-family: var(--body-font);
@@ -6811,8 +6813,10 @@ body {
   overflow-x: hidden;
 }
 body.DarkMode {
+  --body-color: hsl(0, 100%, 99%);
   --body-bg: hsla(252, 8%, 12%, 1);
   --dense-bg: hsl(255, 9%, 9%);
+  --text-muted: hsla(0, 100%, 99%, 0.8);
   --card-bg: hsla(252, 5%, 19%, 0.8);
   --drop-bg: hsl(250, 6%, 19%);
   --card-shadow: hsl(264deg 9% 8% / 28%) 0px 15px 72px;

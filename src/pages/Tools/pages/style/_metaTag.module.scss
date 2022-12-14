@@ -1,115 +1,111 @@
-     /* Google */
+/* Google */
 
-     .GooglePreview {
-         max-width: 600px;
-         background-color: var(--white);
-         border: 1px solid var(--border-color);
-         border-radius: 0.25rem;
+.GooglePreview {
+    max-width: 600px;
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
 
-         .pageBreadcrumbs {
-             font-size: 14px;
-             opacity: 0.6;
-             line-height: 1.3;
-             font-weight: normal;
-             margin-bottom: 4px;
-         }
+    .pageBreadcrumbs {
+        font-size: 14px;
+        color: var(--text-muted);
+        line-height: 1.3;
+        font-weight: normal;
+        margin-bottom: 4px;
+    }
 
-         .pageTitle {
-             font-size: 20px;
-             color: #2572ef;
-             line-height: 1.3;
-             font-weight: 400;
-             margin-bottom: 4px;
-         }
+    .pageTitle {
+        font-size: 20px;
+        color: var(--link);
+        line-height: 1.3;
+        font-weight: 600;
+        margin-bottom: 4px;
+    }
 
-         .pageDescription {
-             font-size: 14px;
-             line-height: 1.57;
-             font-weight: 400;
-         }
-     }
+    .pageDescription {
+        font-size: 14px;
+        line-height: 1.57;
+        font-weight: 400;
+    }
+}
 
-     /* Open graph */
+/* Open graph */
 
-     .OGPreview {
-         width: 100%;
-         background-color: var(--white);
-         border: 1px solid var(--border-color);
-         border-radius: 0.25rem;
+.OGPreview {
+    width: 100%;
+    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
 
-         .OGPreview_imageWrapper {
-             width: 100%;
-             height: 261px;
-             background-image: url("https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/pro/_main/assets/mdb5-pro.jpg");
-             border-bottom: 1px solid #374151;
-         }
+    .OGPreview_imageWrapper {
+        width: 100%;
+        height: 261px;
+        background-image: url("https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/pro/_main/assets/mdb5-pro.jpg");
+        border-bottom: 1px solid var(--border-color);
+    }
 
-         .OGPreview_dataWrapper {
-             //  background-color: #e9ebec;
-             padding: 5px 10px;
+    .OGPreview_dataWrapper {
+        //  background-color: #e9ebec;
+        padding: 5px 10px;
 
-             .OG_link {
-                 text-transform: uppercase;
-                 font-size: 14px;
-                 margin-bottom: 0;
-                 color: rgb(118, 113, 113);
-             }
+        .OG_link {
+            text-transform: uppercase;
+            font-size: 14px;
+            margin-bottom: 0;
+            color: var(--link);
+        }
 
-             .OG_title {
-                 color: rgba(254, 242, 242, 0.837);
-                 font-weight: 500;
-                 margin-bottom: 4px;
-             }
+        .OG_title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
 
-             .OG_description {
-                 font-size: 14px;
-                 margin-bottom: 0;
-                 color: rgb(171, 167, 167);
-             }
-         }
-     }
+        .OG_description {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+    }
+}
 
 
-     /* Twitter */
+/* Twitter */
 
-     .TwitterPreview {
-         width: 100%;
-         background-color: rgb(32, 33, 36);
-         border: 1px solid var(--border-color);
-         border-radius: 0.25rem;
+.TwitterPreview {
+    width: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: 0.25rem;
 
-         .TwitterPreview_imageWrapper {
-             width: 100%;
-             height: 220px;
-             background: no-repeat cover;
-             border-bottom: 1px solid var(--border-color);
-         }
+    .TwitterPreview_imageWrapper {
+        width: 100%;
+        height: 220px;
+        background: no-repeat cover;
+        border-bottom: 1px solid var(--border-color);
+    }
 
-         .TwitterPreview_dataWrapper {
-             padding: 5px 10px;
+    .TwitterPreview_dataWrapper {
+        padding: 5px 10px;
 
-             .twitter_title {
-                 color: rgba(228, 222, 222, 0.886);
-                 font-weight: 500;
-                 margin-bottom: 4px;
-             }
+        .twitter_title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
 
-             .twitter_description {
-                 font-size: 14px;
-                 margin-bottom: 0;
-                 color: rgba(236, 225, 225, 0.578);
-             }
+        .twitter_description {
+            font-size: 14px;
+            margin-bottom: 0;
+            color: var(--text-muted);
+        }
 
-             .twitter_link {
-                 font-size: 14px;
-                 margin-bottom: 0;
-                 color: #8899a6;
-             }
-         }
-     }
+        .twitter_link {
+            font-size: 14px;
+            margin-bottom: 0;
+            color: var(--link);
+        }
+    }
+}
 
-     .CodeArea {
-         width: 100%;
-         max-width: 980px;
-         margin: 0.75rem auto 2rem;
-     }
+.CodeArea {
+    width: 100%;
+    max-width: 980px;
+    margin: 0.75rem auto 2rem;
+}
