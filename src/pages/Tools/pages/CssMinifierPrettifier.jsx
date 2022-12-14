@@ -45,6 +45,6 @@ export default function CssMinifierPrettifier() {
             </div>
 
 
-        </>
+        </div>
     )
 }
