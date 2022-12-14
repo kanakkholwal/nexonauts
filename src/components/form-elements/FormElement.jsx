@@ -3,6 +3,7 @@ import FormHelper from "./FormHelper";
 import Input from "./Input";
 import TextArea from "./TextArea";
 import Checkbox from "./CheckBox";
+import { SelectWrapper } from "./Select";
 
 const FormElement = styled.div`
 
@@ -19,11 +20,13 @@ const FormElement = styled.div`
   
     label {
       order: 1;
+      display:flex;
     }
   
     input,
-    textarea {
+    textarea,select, ${SelectWrapper} {
       order: 2;
+      display:flex;
     }
   
   

@@ -1401,13 +1401,6 @@ html ::-webkit-scrollbar-track {
   border-radius: 0.2rem !important;
 }
 
-.G_Form-label {
-  margin-bottom: 0.25rem;
-  padding-left: 0.25rem;
-  color: #92a5b2;
-  opacity: 0.8;
-}
-
 .G_Form-colorLabel {
   padding: 0.25rem 1rem;
   border-radius: 0.25rem;
@@ -1724,81 +1717,6 @@ html ::-webkit-scrollbar-track {
   background: #1d5eff;
   color: white;
   transform: translateY(-0.1rem);
-}
-
-.form-check-input[type=checkbox] {
-  --checkbox-width: 1.125rem;
-  --checkbox-bg: white;
-  --checkbox-radius: 4px;
-  --checkbox-border-color: var(--secondary-color);
-  --checkbox-hover-border-color: var(--secondary-color-darker);
-  --checkbox-checked-bg: var(--primary-color);
-  --checkbox-disabled-bg: var(--secondary-color-lighter);
-  --checkbox-disabled-checked-bg: var(--secondary-color-darker);
-  width: var(--checkbox-width);
-  height: var(--checkbox-width);
-  position: relative;
-  background: var(--checkbox-checked-bg);
-  border: none;
-  border-radius: var(--checkbox-radius);
-  transition: 0.3s;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  margin: 0;
-  cursor: pointer;
-}
-
-.form-check-input[type=checkbox] ~ .form-check-label {
-  margin-left: 0.625rem;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.form-check-input[type=checkbox]::before {
-  position: absolute;
-  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18px' height='18px' fill='none' stroke-width='2px' stroke='white' stroke-linecap='round' viewBox='0 0 21 21'%3E%3Cpolyline points='5 10.75 8.5 14.25 16 6'%3E%3C/polyline%3E%3C/svg%3E");
-  transform: scale(0);
-}
-
-.form-check-input[type=checkbox]::after {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  content: "";
-  background: var(--checkbox-bg);
-  border-radius: inherit;
-  box-shadow: inset 0 0 0 1px var(--checkbox-border-color);
-  transition: 0.2s;
-}
-
-.form-check-input[type=checkbox]:hover {
-  --checkbox-border-color: var(--checkbox-hover-border-color) ;
-}
-
-.form-check-input[type=checkbox]:checked::before {
-  -webkit-animation: scale-in 0.1s 0.2s linear forwards;
-  animation: scale-in 0.1s 0.2s linear forwards;
-}
-
-.form-check-input[type=checkbox]:checked::after {
-  transform: scale(0);
-}
-
-.form-check-input[type=checkbox]:disabled {
-  --checkbox-bg: var(--checkbox-disabled-bg);
-  --checkbox-checked-bg: var(--checkbox-disabled-checked-bg);
-  cursor: not-allowed;
-}
-
-.form-check-input[type=checkbox]:disabled ~ .form-check-label {
-  cursor: not-allowed;
-}
-
-.form-check-input[type=checkbox]:indeterminate::after {
-  transform: scale(0.5);
 }
 
 .form-check-input[type=radio] {
@@ -6655,6 +6573,9 @@ main.Container {
   --code-color: #242424;
   --code-bg: hsl(196, 100%, 40%);
   --theme: hsl(196, 100%, 40%);
+  --open-transition: opacity .15s cubic-bezier(0, 0, .2, 1) 0ms, transform .15s cubic-bezier(0, 0, .2, 1) 0ms, -webkit-transform .15s cubic-bezier(0, 0, .2, 1) 0ms;
+  --drop-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+  --dropdown-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
   --success: hsl(143, 28%, 22%);
   --successBg: hsla(143, 64%, 24%, 0.2);
   --danger: hsl(0, 100%, 26%);
@@ -6680,6 +6601,7 @@ main.Container {
   --form-checkbox-bg: #fbfbfb;
   --form-checkbox-border: #ddd;
   --form-checkbox-shadow: hsla(196, 100%, 40%, 0.486);
+  --form-select-bg-active: #ddd;
   --btn-text: #fff;
   --btn-bg: var(--theme);
   --btn-hover-color: #fff;

@@ -36,7 +36,10 @@
     --code-color: #242424;
     --code-bg: hsl(196, 100%, 40%);
     --theme: hsl(196, 100%, 40%);
+    --open-transition: opacity .15s cubic-bezier(0, 0, .2, 1) 0ms, transform .15s cubic-bezier(0, 0, .2, 1) 0ms, -webkit-transform .15s cubic-bezier(0, 0, .2, 1) 0ms;
+    --drop-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
 
+    --dropdown-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
     --success: hsl(143, 28%, 22%);
     --successBg: hsla(143, 64%, 24%, 0.2);
     --danger: hsl(0, 100%, 26%);
@@ -63,7 +66,7 @@
     --form-checkbox-bg: #fbfbfb;
     --form-checkbox-border: #ddd;
     --form-checkbox-shadow: hsla(196, 100%, 40%, 0.486);
-
+    --form-select-bg-active: #ddd;
     --btn-text: #fff;
     --btn-bg: var(--theme);
     --btn-hover-color: #fff;
