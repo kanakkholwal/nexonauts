@@ -293,7 +293,7 @@ $background-color_4: hsl(0, 0%, 70%);
                     border-radius: 0.25rem;
                     padding-block: 0.25rem;
                     background: var(--drop-bg);
-                    width: auto;
+                    width: max-content;
                     min-width: 16rem;
                     box-shadow: var(--shadow-1);
                     gap: 0;
@@ -310,7 +310,7 @@ $background-color_4: hsl(0, 0%, 70%);
                             display: flex;
                             justify-content: space-between;
                             padding-block: 0.5rem;
-                            padding-inline: 1.5rem 0.25rem;
+                            padding-inline: 1.5rem;
                         }
 
                         &:has(>.NavBar_list) {
