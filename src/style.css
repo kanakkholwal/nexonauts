@@ -6906,4 +6906,8 @@ textarea {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+p {
+  font-weight: 500;
 }/*# sourceMappingURL=style.css.map */
