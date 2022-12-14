@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Image2Webp from "./pages/Image2Webp";
-import Text2Handwriting from "./pages/Text2Handwriting";
+import CssMinifierPrettifier from "./pages/CssMinifierPrettifier";
 import MetaTagGenerator from "./pages/MetaTagGenerator";
 import IframeGenerator from "./pages/IframeGenerator";
 
@@ -25,12 +25,12 @@ const ToolList: ToolProp[] = [
         online: false
     },
     {
-        title: "Text To Handwriting Tool",
-        description: "This Tool converts text to an image that looks like handwriting...",
-        category: "Web  Tools",
-        path: "/tools/text-to-handwriting",
-        Component: <Text2Handwriting />,
-        online: false
+        title: "Css Minifier and Prettifier Tool",
+        description: "  Online CSS Minifier takes any form of css code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Css to make it easy to read and edit. It reduces file size and optimizes css for your website.",
+        category: "Coding  Tools",
+        path: "/tools/css-minifier-and-prettifier",
+        Component: <CssMinifierPrettifier />,
+        online: true
     }
     ,
     {

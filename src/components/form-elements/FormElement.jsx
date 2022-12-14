@@ -2,11 +2,19 @@ import styled from 'styled-components';
 import FormHelper from "./FormHelper";
 import Input from "./Input";
 import TextArea from "./TextArea";
+import Checkbox from "./CheckBox";
+
 const FormElement = styled.div`
 
     display: flex;
     align-items: flex-start;
     flex-direction: column;
+    
+    &:has(>${Checkbox}){
+      flex-direction: row;
+      align-items: center;
+    }
+    
     margin: 0.25rem auto 1.25rem;
   
     label {

@@ -127,7 +127,7 @@ export default function Tool({ componentPath }): JSX.Element {
         <>
             <MetaData PageTitle={ToolComponent.title} PageDescription={ToolComponent.description} SiteName={''} PageUrl={''} PreviewImage={''} PageType={''} PageLocale={''} />
             <HeaderArea title={ToolComponent.title} description={ToolComponent.description} NavLinks={NavLinks} SocialMedia={SocialMedia} />
-            <main className="G_MainContent">
+            <main className="Container">
                 {ToolComponent.Component}
             </main>
             <FooterArea FooterData={FooterData} />

@@ -28,6 +28,7 @@
     --card-bg: #fbfbfb;
     --card-shadow: rgb(93 116 124 / 6%) 17px 20px 72px, rgba(85, 32, 163, .11) -20px -1px 72px;
     --body-font: "ManRope", "Google Sans", san-serif;
+    --code-font: "Google Sans Mono", "Source Code Pro", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     --drop-bg: hsl(0, 0%, 97%);
     --border-color: #8386972b;
     --code-color: #242424;
@@ -57,13 +58,34 @@
     --form-caret: var(--theme);
     --form-active: var(--theme);
     --form-helper: rgb(173, 173, 177);
+    --form-checkbox-bg: #fbfbfb;
+    --form-checkbox-border: #ddd;
+    --form-checkbox-shadow: hsla(196, 100%, 40%, 0.486);
 
     --btn-text: #fff;
     --btn-bg: var(--theme);
-    --btn-box-shadow: var(--theme) 3px 0px 10px 0px;
-    --btn-border-radius: 0.25rem;
     --btn-hover-color: #fff;
     --btn-hover-bg: hsla(196, 100%, 40%, 0.897);
+    --btn-box-shadow: var(--theme) 0 4px 9px -4px;
+    --btn-border-radius: 0.5rem;
+    --btn-line-height: 1.75;
+    --btn-padding-x: 1.5rem;
+    --btn-padding-y: 0.375rem;
+
+    --lg-btn-padding-top: 0.75rem;
+    --lg-btn-padding-bottom: 0.6875rem;
+    --lg-btn-padding-x: 1.6875rem;
+    --lg-btn-font-size: 0.875rem;
+    --lg-btn-line-height: 2.8;
+
+
+    --sm-btn-padding-top: 0.5rem;
+    --sm-btn-padding-bottom: 0.5rem;
+    --sm-btn-padding-x: 1rem;
+    --sm-btn-font-size: 0.75rem;
+    --sm-btn-line-height: 1.25;
+
+
 
     --btn-primary-text: #fff;
     --btn-primary-bg: #3b71ca;
@@ -134,9 +156,9 @@
     --transition-2: 0.5s ease;
     --transition-3: 0.3s ease-in-out;
 
-    --link: hsla(344, 53%, 62%, 1);
+    --link: hsla(196, 100%, 40%, 1);
 
-    --link-hover: hsla(344, 77%, 66%, 0.904);
+    --link-hover: hsla(196, 100%, 40%, 0.904);
 
     @media (min-width:992px) {
         --section-padding: 120px;
@@ -250,9 +272,9 @@ body {
         --form-caret: var(--theme);
         --form-active: var(--theme);
         --form-helper: hsl(240, 3%, 73%);
-
-        --btn-success: #22C55E;
-        --btn-success-bg: hsla(142, 71%, 45%, 0.75);
+        --form-checkbox-border: hsla(229, 13%, 33%, 0.671);
+        --form-checkbox-bg: none;
+        // --btn-success: #22C55E;// --btn-success-bg: hsla(142, 71%, 45%, 0.75);
 
         --white: var(--body-bg);
         --cultured: var(--dense-bg);
@@ -269,7 +291,7 @@ body {
         --charcoal: #fbfbfb;
         --shadow-1: rgb(0 0 0 / 16%) 0px 15px 72px;
         --shadow-2: rgb(30 27 27 / 35%) 1px -1px 16px 0px;
-        --link: rgba(209, 107, 134, 0.836);
+        --link: hsl(196, 83%, 65%);
         --link-hover: hsla(344, 77%, 66%, 0.932);
 
     }
@@ -323,9 +345,6 @@ textarea {
 }
 
 a {
-    display: block;
     color: inherit;
     text-decoration: none;
-
-
 }

@@ -62,7 +62,7 @@
 
     .Fui_Card-link {
         font-weight: 600;
-        color: variables.$primary;
+        color: var(--link);
         text-decoration: none;
         text-transform: capitalize;
         opacity: 0.9;
@@ -73,6 +73,8 @@
 
         &:hover {
             opacity: 1;
+            color: var(--link-hover);
+
         }
 
         svg,

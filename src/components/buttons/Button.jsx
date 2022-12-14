@@ -2,24 +2,27 @@ import styled from 'styled-components';
 
 const Button = styled.button`
    display:inline-flex;
+   align-items:center;
    user-select: none;
     border: 0;
-    padding: 0.625rem 1.5rem 0.5rem;
     margin: 0.25rem;
     transition: all .25s cubic-bezier(.075,.82,.165,1);
     font-family: var(--btn-font);
     font-weight: 600;
     letter-spacing:0.0825rem;
+    padding: ${props => props.size ? `var(--${props.size}-btn-padding-top) var(--${props.size}-btn-padding-x) var(--${props.size}-btn-padding-bottom)` : `var(--btn-padding-y) var(--btn-padding-x)`};
+   line-height: ${props => props.size ? `var(--${props.size}-btn-line-height)` : `var(--btn-line-height)`};
+  color:${props => props.outlined ? `var(--btn-bg)` : `var(--btn-text)`};
+   background:${props => props.outlined ? `none` : `var(--btn-bg)`};
+  box-shadow: var(--btn-box-shadow);
+   border-radius: ${props => props.rounded ? `10rem` : `var(--btn-border-radius)`};
+  border: 2px solid var(--btn-bg);
 
-    color:var(--btn-text);
-    background:var(--btn-bg); 
-    box-shadow: var(--btn-box-shadow);
-    border-radius: var(--btn-border-radius);
-   
     &:hover{
-      color:var(--btn-hover-color);
-      background:var(--btn-hover-bg);
-    }
+    color:${props => props.outlined ? `var(--btn-hover-bg)` : `var(--btn-hover-color)`};
+    background:${props => props.outlined ? `none` : `var(--btn-hover-bg)`};
+    border-color: var(--btn-hover-bg);
+   }
 
 
     ${props => props.nature ? `
@@ -28,11 +31,18 @@ const Button = styled.button`
     --btn-box-shadow:var(--btn${"-" + props.nature}-box-shadow);
     --btn-hover-color:var(--btn${"-" + props.nature}-hover-color);
     --btn-hover-bg:var(--btn${"-" + props.nature}-hover-bg);
-     ` : ""}
+     ` : ""
+  }
       
-   
-   
-      
+     &> svg{
+  margin-inline: 0.5rem;
+  font-size: inherit;
+  line-height: inherit;
+  color: currentColor;
+}
+
+
+
 
 `;
 export default Button;

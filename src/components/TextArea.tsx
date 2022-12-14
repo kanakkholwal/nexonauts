@@ -37,17 +37,17 @@ function TextArea({ children, ...props }): JSX.Element {
 
         if (textAreaElement.current) {
             textAreaElement.current.style.boxSizing = "border-box";
-            // var offset = textAreaElement.current.offsetHeight - textAreaElement.current.clientHeight;
+            var offset = textAreaElement.current.offsetHeight - textAreaElement.current.clientHeight;
 
-            // textAreaElement.current.addEventListener("input", (e) => {
-            //     const target = e.target as unknown as HTMLTextAreaElement;
-            //     // var offset = target.offsetHeight - target.clientHeight;
+            textAreaElement.current.addEventListener("input", (e) => {
+                const target = e.target as unknown as HTMLTextAreaElement;
+                // var offset = target.offsetHeight - target.clientHeight;
 
-            //     target.style.maxHeight = "auto";
-            //     target.style.height = 0 + "px";
-            //     target.style.height = target.scrollHeight + offset + "px";
+                target.style.maxHeight = "auto";
+                target.style.height = 0 + "px";
+                target.style.height = target.scrollHeight + offset + "px";
 
-            // });
+            });
             init(textAreaElement.current);
 
         }

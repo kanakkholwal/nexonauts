@@ -1,11 +1,11 @@
 import styled from 'styled-components';
+import * as React from "react";
 
 
-
-const TextArea = styled.textarea`
+const TextAreaStyled = styled.textarea`
 height: auto;
   overflow: hidden;
-  resize: none;
+  resize: vertical;
   letter-spacing: 0.1em;
   width: 100%;
   opacity: 0.95;
@@ -202,4 +202,61 @@ ${props => props.sm ? `  &~label {
       
           }` : ""}` : ""}
   `;
+
+function TextArea({ children, ...props }) {
+  const textAreaElement = React.useRef(null);
+
+  React.useEffect(() => {
+
+    var observe;
+
+    observe = function (element, event, handler) {
+      element.addEventListener(event, handler, false);
+    };
+
+    function init(item) {
+      function resize() {
+        item.style.height = 'auto';
+        item.style.height = item.scrollHeight + 'px';
+      }
+      /* 0-timeout to get the already changed text */
+      function delayedResize() {
+        window.setTimeout(resize, 0);
+      }
+      observe(item, 'change', resize);
+      observe(item, 'cut', delayedResize);
+      observe(item, 'paste', delayedResize);
+      observe(item, 'drop', delayedResize);
+      observe(item, 'keydown', delayedResize);
+
+
+
+      resize();
+    }
+
+    if (textAreaElement.current) {
+      textAreaElement.current.style.boxSizing = "border-box";
+      var offset = textAreaElement.current.offsetHeight - textAreaElement.current.clientHeight;
+
+      textAreaElement.current.addEventListener("input", (e) => {
+        const target = e.target;
+        // var offset = target.offsetHeight - target.clientHeight;
+
+        target.style.maxHeight = "auto";
+        target.style.height = 0 + "px";
+        target.style.height = target.scrollHeight + offset + "px";
+
+      });
+      init(textAreaElement.current);
+
+    }
+  }, [textAreaElement.current?.value])
+
+  return (
+    <TextAreaStyled {...props} ref={textAreaElement}>
+      {children}
+    </TextAreaStyled>
+  )
+}
+
 export default TextArea;
