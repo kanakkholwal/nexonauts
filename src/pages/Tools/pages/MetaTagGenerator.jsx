@@ -11,25 +11,22 @@ import Button from "@/components/buttons/Button";
 
 const defaultData = {
     google: {
-        pageTitle: "Bootstrap 5 & Material Design 2.0",
-        pageDescription:
-            "Material Design for Bootstrap 5. 500+ components, free templates, 1-min installation, extensive tutorial, huge community.",
-        siteImage: "https://mdbgo.io/ascensus/mdb-advanced/img/mdb.jpg",
+        pageTitle: "Meta Tag Generator",
+        pageDescription: "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide",
+        siteImage: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
     },
     OG: {
-        pageTitle: "Bootstrap 5 & Material Design 2.0",
-        pageDescription:
-            "500+ material UI components. Free for personal and commercial use.",
-        previewImage: "https://mdbgo.io/ascensus/mdb-advanced/img/mdb.jpg",
-        URL: "https://mdbootstrap.com/",
-        siteName: "Material Design for Bootstrap",
+        pageTitle: "Meta Tag Generator",
+        pageDescription: "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide.",
+        previewImage: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
+        URL: "https://kkupgrader.eu.org/",
+        siteName: "K K UPGRADER",
         locale: "en_US",
     },
     twitter: {
-        pageTitle: "Bootstrap 5 & Material Design 2.0",
-        pageDescription:
-            "Material Design for Bootstrap 5. 500+ components, free templates, 1-min installation, extensive tutorial, huge community",
-        previewImage: "https://mdbgo.io/ascensus/mdb-advanced/img/mdb.jpg",
+        pageTitle: "Meta Tag Generator",
+        pageDescription: "Material Design for Bootstrap 5. 500+ components, free templates, 1-min installation, extensive tutorial, huge community",
+        previewImage: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
     },
 
 }

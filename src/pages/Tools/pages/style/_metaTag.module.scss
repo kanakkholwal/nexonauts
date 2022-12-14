@@ -32,7 +32,7 @@
 /* Open graph */
 
 .OGPreview {
-    width: 100%;
+    width: max-content;
     background-color: var(--white);
     border: 1px solid var(--border-color);
     border-radius: 0.25rem;
@@ -40,8 +40,9 @@
     .OGPreview_imageWrapper {
         width: 100%;
         height: 261px;
-        background-image: url("https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/content/en/_mdb5/standard/pro/_main/assets/mdb5-pro.jpg");
+        background-image: url("https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg");
         border-bottom: 1px solid var(--border-color);
+        background-repeat: no-repeat;
     }
 
     .OGPreview_dataWrapper {
@@ -71,14 +72,15 @@
 /* Twitter */
 
 .TwitterPreview {
-    width: 100%;
+    width: max-content;
     border: 1px solid var(--border-color);
     border-radius: 0.25rem;
 
     .TwitterPreview_imageWrapper {
         width: 100%;
         height: 220px;
-        background: no-repeat cover;
+        background-image: url("https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg");
+        background-repeat: no-repeat;
         border-bottom: 1px solid var(--border-color);
     }
 
