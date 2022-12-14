@@ -4,6 +4,7 @@ import Image2Webp from "./pages/Image2Webp";
 import CssMinifierPrettifier from "./pages/CssMinifierPrettifier";
 import MetaTagGenerator from "./pages/MetaTagGenerator";
 import IframeGenerator from "./pages/IframeGenerator";
+import HtmlParser from "./pages/HtmlParser";
 
 interface ToolProp {
     title: string,
@@ -30,6 +31,15 @@ const ToolList: ToolProp[] = [
         category: "Coding  Tools",
         path: "/tools/css-minifier-and-prettifier",
         Component: <CssMinifierPrettifier />,
+        online: true
+    }
+    ,
+    {
+        title: "Html Parser Tool",
+        description: "  Online CSS Minifier takes any form of css code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Css to make it easy to read and edit. It reduces file size and optimizes css for your website.",
+        category: "Coding  Tools",
+        path: "/tools/html-parser-tool",
+        Component: <HtmlParser />,
         online: true
     }
     ,

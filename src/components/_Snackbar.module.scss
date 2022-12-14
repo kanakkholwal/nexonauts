@@ -1,0 +1,93 @@
+.SnackBarContainer {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-end;
+    position: fixed;
+    z-index: 999;
+    bottom: calc(3rem - 2px);
+    right: calc(1.5rem - 1px);
+    width: auto;
+    height: auto;
+    max-width: 45rem;
+
+    .SnackBar {
+        --type-color: var(--theme);
+        max-width: 42rem;
+        min-width: 21.5rem;
+
+        padding: 1rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        box-sizing: border-box;
+        transition: opacity .15s cubic-bezier(0, 0, .2, 1) 0ms, transform .15s cubic-bezier(0, 0, .2, 1) 0ms, -webkit-transform .15s cubic-bezier(0, 0, .2, 1) 0ms;
+        box-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+        border-radius: 4px;
+        transform: scale(.8);
+        opacity: 0;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        background-color: #333;
+        flex-wrap: wrap;
+        padding: 6px 16px;
+
+        &.Show {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .Message {
+            padding: 8px 0;
+            color: #fbfbfb;
+        }
+
+        .Actions {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            padding-left: 16px;
+            margin-right: -8px;
+
+            .Action {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                box-sizing: border-box;
+                -webkit-tap-highlight-color: transparent;
+                background-color: transparent;
+                outline: 0px;
+                border: 0px;
+                margin: 0px;
+                cursor: pointer;
+                user-select: none;
+                vertical-align: middle;
+                appearance: none;
+                text-decoration: none;
+                font-family: var(--button-font);
+                font-weight: 500;
+                line-height: 1.75;
+                letter-spacing: 0.02857em;
+                text-transform: uppercase;
+                min-width: 64px;
+                padding: 4px 5px;
+                border-radius: 4px;
+                transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                color: var(--type-color);
+            }
+
+            .Dismiss {
+                width: 36px;
+                height: 36px;
+                padding: 9px;
+                font-size: 18px;
+                display: flex;
+                justify-content: center;
+                align-content: center;
+                color: #fbfbfb;
+            }
+        }
+
+
+    }
+}
