@@ -11,12 +11,12 @@ import Button from "@/components/buttons/Button";
 
 const defaultData = {
     google: {
-        pageTitle: "Meta Tag Generator",
+        pageTitle: "Meta Tag Generator Tool",
         pageDescription: "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide",
         siteImage: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
     },
     OG: {
-        pageTitle: "Meta Tag Generator",
+        pageTitle: "Meta Tag Generator Tool",
         pageDescription: "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide.",
         previewImage: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
         URL: "https://kkupgrader.eu.org/",
@@ -24,8 +24,8 @@ const defaultData = {
         locale: "en_US",
     },
     twitter: {
-        pageTitle: "Meta Tag Generator",
-        pageDescription: "Material Design for Bootstrap 5. 500+ components, free templates, 1-min installation, extensive tutorial, huge community",
+        pageTitle: "Meta Tag Generator Tool",
+        pageDescription: "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide.",
         previewImage: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
     },
 
