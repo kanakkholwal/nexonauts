@@ -1,12 +1,13 @@
 import { useState, useCallback, useEffect } from "react";
 import isSvg from "is-svg";
 import TextArea from "@/components/form-elements/TextArea";
-import FormElement from "@/components/form-elements/Label";
+import FormElement from "@/components/form-elements/FormElement";
 import Label from "@/components/form-elements/Label";
 import CodeBlock from "@/components/CodeBlock";
 import HTMLtoJSX from '@erikwithuhk/html-to-jsx';
 import Button from "@/components/buttons/Button";
-import { MdDeleteOutline, MdContentCopy } from "react-icons/md";
+import { MdDeleteOutline, MdContentCopy, MdOutlineCode } from "react-icons/md";
+import { SlRefresh } from "react-icons/sl";
 
 const name = "HTML to JSX";
 
@@ -14,6 +15,14 @@ const name = "HTML to JSX";
 //     createClass: true,
 //     outputClassName: 'AwesomeComponent'
 // });
+const rawHtml = `
+<!-- Hello world -->
+<div class="awesome" style="border: 1px solid red">
+  <label for="name">Enter your name: </label>
+  <input type="text" id="name" />
+</div>
+<p>Enter your HTML here</p>
+`
 export default function HtmlToJsxTool() {
     const [settings, setSettings] = useState(name, {
         createFunction: false
@@ -47,25 +56,23 @@ export default function HtmlToJsxTool() {
 
 
 
-    return (<>
-        <FormElement>
-            <TextArea outlined value={state.rawData} name="rawData" onChange={(e) => setState({
-                ...state,
-                rawData: e.target.value
-            })} />
-            <Label for="rawData">Enter Raw HTML Here</Label>
-        </FormElement>
-        <div className="m-auto d-flex flex-wrap justify-content-center align-items-center">
-            <Button onClick={ConvertToJSX}> Convert</Button>
-            <Button nature="danger" onClick={() => setState({ ...state, convertedData: "", rawData: "" })}>
-                Clear <MdDeleteOutline />
-            </Button>
-            <Button nature="success" onClick={() => {
-                navigator.clipboard.writeText(state.convertedData)
-            }}>
-                Copy <MdContentCopy />
-            </Button>
-        </div>
-        <CodeBlock content={state.convertedData} title={"Converted Jsx"} language="html" />
-    </>)
+    return (
+        <div style={{ maxWidth: "720px", margin: "auto" }}>
+            <FormElement>
+                <TextArea outlined value={state.rawData} name="rawData" onChange={(e) => setState({
+                    ...state,
+                    rawData: e.target.value
+                })} />
+                <Label for="rawData">Enter Raw HTML Here</Label>
+            </FormElement>
+            <div className="m-auto d-flex flex-wrap justify-content-center align-items-center my-3">
+                <Button onClick={() => setState({ ...state, convertedData: "", rawData: rawHtml })}> RawData <MdOutlineCode /></Button>
+                <Button onClick={ConvertToJSX}> Convert <SlRefresh /></Button>
+                <Button nature="danger" onClick={() => setState({ ...state, convertedData: "", rawData: "" })}>
+                    Clear <MdDeleteOutline />
+                </Button>
+
+            </div>
+            <CodeBlock content={state.convertedData} title={"Converted Jsx"} language="html" />
+        </div>)
 }
