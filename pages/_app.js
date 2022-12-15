@@ -27,7 +27,7 @@ export default function MyApp({ Component, pageProps }) {
             <link href='https://fonts.googleapis.com' rel='preconnect' />
             <link href='https://fonts.cdnfonts.com' rel='preconnect' />
             <link crossOrigin='' href='https://fonts.gstatic.com' rel='preconnect' />
-
+            <meta name="googlebot" content="all" />
             <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
             <meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' />
             <link rel="icon" type="image/svg+xml" href="/kkupgrader.svg" />
