@@ -74,6 +74,6 @@ export default function HtmlToJsxTool() {
                 </Button>
 
             </div>
-            <CodeBlock content={state.convertedData} title={"Converted Jsx"} language="html" />
+            {state.convertedData && <CodeBlock content={state.convertedData} title={"Converted Jsx"} language="html" />}
         </div>)
 }
