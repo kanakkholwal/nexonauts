@@ -1,5 +1,5 @@
 :root {
-    --color-1: #000;
+    --code-color: #262626;
     --color-2: #708090;
 
     --color-5: #690;
@@ -7,14 +7,14 @@
     --color-8: #dd4a68;
 
 
-    --color-10: #7ec699;
-    --color-11: #67cdcc;
-    --color-12: green;
-    --color-13: inherit;
-    --color-14: #e50;
-    --color-15: #0b3;
-    --color-16: #26f;
-    --color-17: #e0e;
+    --code-color-0: #7ec699;
+    --code-color-1: #67cdcc;
+    --code-color-2: green;
+    --code-color-3: inherit;
+    --code-color-4: #e50;
+    --code-color-5: #0b3;
+    --code-color-6: #26f;
+    --code-color-7: #e0e;
 
     --border-color-1: rgba(255, 0, 0, 0);
     --border-top-color-1: #fff;
@@ -32,7 +32,6 @@
 }
 
 .DarkMode :root {
-    --color-1: #ccc;
     --color-2: #999;
 
     --color-5: #6196cc;
@@ -44,7 +43,7 @@
 
 
 code[class*=language-] {
-    color: var(--color-1);
+    color: var(--code-color);
     background: 0 0;
     font-family: var(--code-font);
     font-size: 0.95em;
@@ -75,7 +74,7 @@ code[class*=language-] {
 }
 
 pre[class*=language-] {
-    color: var(--color-1);
+    color: var(--code-color);
     background: 0 0;
     font-family: var(--code-font);
     font-size: 0.95em;
@@ -217,32 +216,32 @@ pre[class*=language-] {
 }
 
 .token.char {
-    color: var(--color-10);
+    color: var(--code-color-0);
 }
 
 .token.regex {
-    color: var(--color-10);
+    color: var(--code-color-0);
 }
 
 .token.string {
-    color: var(--color-10);
+    color: var(--code-color-0);
 }
 
 .token.variable {
-    color: var(--color-10);
+    color: var(--code-color-0);
 }
 
 .token.entity {
-    color: var(--color-11);
+    color: var(--code-color-1);
     cursor: help;
 }
 
 .token.operator {
-    color: var(--color-11);
+    color: var(--code-color-1);
 }
 
 .token.url {
-    color: var(--color-11);
+    color: var(--code-color-1);
 }
 
 .token.bold {
@@ -254,7 +253,7 @@ pre[class*=language-] {
 }
 
 .token.inserted {
-    color: var(--color-12);
+    color: var(--code-color-2);
 }
 
 pre[class*=language-].line-numbers {
@@ -302,7 +301,7 @@ pre[class*=language-].line-numbers {
 
 .token {
     a {
-        color: var(--color-13);
+        color: var(--code-color-3);
     }
 }
 
@@ -542,62 +541,62 @@ span.inline-color {
 
 .rainbow-braces {
     .token.punctuation.brace-level-1 {
-        color: var(--color-14);
+        color: var(--code-color-4);
         opacity: 1;
     }
 
     .token.punctuation.brace-level-5 {
-        color: var(--color-14);
+        color: var(--code-color-4);
         opacity: 1;
     }
 
     .token.punctuation.brace-level-9 {
-        color: var(--color-14);
+        color: var(--code-color-4);
         opacity: 1;
     }
 
     .token.punctuation.brace-level-10 {
-        color: var(--color-15);
+        color: var(--code-color-5);
         opacity: 1;
     }
 
     .token.punctuation.brace-level-2 {
-        color: var(--color-15);
+        color: var(--code-color-5);
         opacity: 1;
     }
 
     .token.punctuation.brace-level-6 {
-        color: var(--color-15);
+        color: var(--code-color-5);
         opacity: 1;
     }
 
     .token.punctuation.brace-level-11 {
-        color: var(--color-16);
+        color: var(--code-color-6);
         opacity: 1;
     }
 
     .token.punctuation.brace-level-3 {
-        color: var(--color-16);
+        color: var(--code-color-6);
         opacity: 1;
     }
 
     .token.punctuation.brace-level-7 {
-        color: var(--color-16);
+        color: var(--code-color-6);
         opacity: 1;
     }
 
     .token.punctuation.brace-level-12 {
-        color: var(--color-17);
+        color: var(--code-color-7);
         opacity: 1;
     }
 
     .token.punctuation.brace-level-4 {
-        color: var(--color-17);
+        color: var(--code-color-7);
         opacity: 1;
     }
 
     .token.punctuation.brace-level-8 {
-        color: var(--color-17);
+        color: var(--code-color-7);
         opacity: 1;
     }
 }

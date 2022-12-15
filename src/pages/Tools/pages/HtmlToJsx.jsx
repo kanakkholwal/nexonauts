@@ -28,8 +28,8 @@ export default function HtmlToJsxTool() {
         createFunction: false
     });
     const [state, setState] = useState({
-        convertedData: '',
-        rawData: '',
+        rawData: rawHtml,
+        convertedData: "",
         loading: false,
         copying: false,
         error: false,
@@ -53,6 +53,7 @@ export default function HtmlToJsxTool() {
 
         setState({ ...state, convertedData: result })
     }
+    useEffect(() => ConvertToJSX(), [])
 
 
 
