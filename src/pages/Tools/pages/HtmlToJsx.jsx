@@ -59,7 +59,7 @@ export default function HtmlToJsxTool() {
     return (
         <div style={{ maxWidth: "720px", margin: "auto" }}>
             <FormElement>
-                <TextArea outlined value={state.rawData} name="rawData" onChange={(e) => setState({
+                <TextArea outlined value={state.rawData} rows="8" name="rawData" onChange={(e) => setState({
                     ...state,
                     rawData: e.target.value
                 })} />

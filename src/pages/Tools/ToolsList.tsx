@@ -2,6 +2,7 @@ import React from 'react';
 
 import Image2Webp from "./pages/Image2Webp";
 import CssMinifierPrettifier from "./pages/CssMinifierPrettifier";
+import HtmlMinifierPrettifier from "./pages/HtmlMinifierPrettifier";
 import MetaTagGenerator from "./pages/MetaTagGenerator";
 import IframeGenerator from "./pages/IframeGenerator";
 import HtmlParser from "./pages/HtmlParser";
@@ -32,7 +33,7 @@ const ToolList: ToolProp[] = [
         category: "Coding Tools",
         path: "/tools/html-to-jsx-convertor",
         Component: <HtmlToJsxTool />,
-        online: false
+        online: true
     },
     {
         title: "Css Minifier and Prettifier Tool",
@@ -40,6 +41,15 @@ const ToolList: ToolProp[] = [
         category: "Coding  Tools",
         path: "/tools/css-minifier-and-prettifier",
         Component: <CssMinifierPrettifier />,
+        online: true
+    }
+    ,
+    {
+        title: "Html Minifier and Prettifier Tool",
+        description: " Online HTML Minifier takes any form of css code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Html to make it easy to read and edit. It reduces file size and optimizes css for your website.",
+        category: "Coding  Tools",
+        path: "/tools/html-minifier-and-prettifier",
+        Component: <HtmlMinifierPrettifier />,
         online: true
     }
     ,
