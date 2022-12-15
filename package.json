@@ -12,6 +12,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@erikwithuhk/html-to-jsx": "^1.0.6",
     "@next/font": "^13.0.6",
     "@svgr/webpack": "^6.5.1",
     "aos": "^2.3.4",
@@ -20,7 +21,9 @@
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.2",
     "glob": "^8.0.3",
+    "html-prettify": "^1.0.7",
     "interweave": "^13.0.0",
+    "is-svg": "^4.3.2",
     "next": "13.0.2",
     "next-pwa": "^5.6.0",
     "prismjs": "^1.29.0",
@@ -35,6 +38,7 @@
   "devDependencies": {
     "@types/cssbeautify": "^0.3.2",
     "@types/csso": "^5.0.0",
+    "@types/htmltojsx": "^0.0.30",
     "@types/node": "^18.11.9",
     "@types/prismjs": "^1.26.0",
     "@types/react": "18.0.25",

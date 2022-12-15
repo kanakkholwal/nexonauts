@@ -5,6 +5,7 @@ import CssMinifierPrettifier from "./pages/CssMinifierPrettifier";
 import MetaTagGenerator from "./pages/MetaTagGenerator";
 import IframeGenerator from "./pages/IframeGenerator";
 import HtmlParser from "./pages/HtmlParser";
+import HtmlToJsxTool from "./pages/HtmlToJsx";
 
 interface ToolProp {
     title: string,
@@ -23,6 +24,14 @@ const ToolList: ToolProp[] = [
         category: "Image Tools",
         path: "/tools/image-to-webp-convertor",
         Component: <Image2Webp />,
+        online: false
+    },
+    {
+        title: "HTML to JSX Convertor",
+        description: "This Tool helps you to convert Raw Html to JSX  format to use in your React.js and Next.js projects..",
+        category: "Coding Tools",
+        path: "/tools/html-to-jsx-convertor",
+        Component: <HtmlToJsxTool />,
         online: false
     },
     {
@@ -58,7 +67,7 @@ const ToolList: ToolProp[] = [
         category: "Web  Tools",
         path: "/tools/iframe-generator",
         Component: <IframeGenerator />,
-        online: false
+        online: true
     }
 ]
 

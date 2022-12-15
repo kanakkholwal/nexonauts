@@ -67,6 +67,8 @@
     --form-checkbox-border: #ddd;
     --form-checkbox-shadow: hsla(196, 100%, 40%, 0.486);
     --form-select-bg-active: #ddd;
+
+
     --btn-text: #fff;
     --btn-bg: var(--theme);
     --btn-hover-color: #fff;
@@ -123,8 +125,15 @@
     --btn-danger-hover-color: #fff;
     --btn-danger-hover-bg: #d1485f;
 
+    --codeblock-header-text: inherit;
+    --codeblock-header-bg: #e6e9f1;
+    --codeblock-body-bg: #f5f2f0;
 
-
+    --tag: #905;
+    --attr-name: #3c5a00;
+    --attr-value: #0072a3;
+    --property: #07a;
+    --punctuation: #515151;
 
 
     --white: hsla(0, 0%, 100%, 1);
@@ -282,6 +291,15 @@ body {
         --form-checkbox-border: hsla(229, 13%, 33%, 0.671);
         --form-checkbox-bg: none;
         // --btn-success: #22C55E;// --btn-success-bg: hsla(142, 71%, 45%, 0.75);
+
+        --codeblock-header-text: #fbfbfb;
+        --codeblock-header-bg: #242932;
+        --codeblock-body-bg: #131618;
+
+        --tag: #ff0a91;
+        --attr-name: #77b300;
+        --attr-value: #00b3ff;
+        --property: #f8c555;
 
         --white: var(--body-bg);
         --cultured: var(--dense-bg);

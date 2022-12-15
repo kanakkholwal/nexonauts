@@ -6,6 +6,7 @@
       "@/hooks/*": ["src/hooks/*"],
       "@/pages/*": ["src/pages/*"],
       "@/scripts/*": ["src/scripts/*"],
+      "@/project/*": ["./*"],
     },
     "target": "es5",
     "lib": [

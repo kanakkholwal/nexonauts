@@ -16,6 +16,7 @@ const nextConfig = withPWA({
   swcMinify: true,
   compiler: {},
   crossOrigin: 'anonymous',
+
 });
 
 

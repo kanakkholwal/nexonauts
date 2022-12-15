@@ -1,7 +1,69 @@
-import Prism from "prismjs"
-import { useEffect } from "react";
-import style from "./_CodeBlock.module.scss";
+import Prism from "prismjs";
 
+import { useEffect, useState } from "react";
+import styled, { keyframes } from 'styled-components';
+import { FiCodesandbox } from "react-icons/fi";
+import { MdContentCopy, MdDoneAll, MdErrorOutline } from "react-icons/md";
+import Button from '@/components/buttons/Button'
+const rotate = keyframes`
+from {
+    transform: rotateY(0deg) scale(1);
+  }
+
+  to {
+    transform: rotateY(360deg) scale(1.2);
+  }
+`
+
+const CodeBlockContainer = styled.div`
+width: 100%;
+height: auto;
+margin: 0.5rem auto 0.75rem;
+--radius:1rem;
+@media (max-width:576px) {
+    --size:0.75rem;
+}
+`;
+const CodeIcon = styled(FiCodesandbox)`
+font-size: var(--size);
+color: var(--codeblock-header-text);
+animation:${rotate} 3s cubic-bezier(0, 0, .2, 1) 0.25s infinite alternate;
+`
+
+const CodeBlockHeader = styled.div`
+position: relative;
+display: grid;
+align-items: center;
+margin-inline: auto;
+grid-auto-flow: column;
+grid-template-columns: 1fr 25fr auto;white-space: nowrap;
+overflow: hidden;
+border-radius: var(--radius) var(--radius) 0 0;
+text-align: left;
+color: var(--codeblock-header-text);
+background: var(--codeblock-header-bg);
+width: 100%;
+padding: 0.5rem 0.75rem;
+--size:1.75em;
+@media (max-width:576px) {
+    --size:1em;
+}
+`;
+const CodeBlockTitle = styled.h2`
+font-weight: 700;
+text-overflow: ellipsis;
+font-size: var(--size);
+`;
+const CopyButton = styled(Button)`
+margin-left:auto;
+`;
+const CodeBlockBody = styled.div`
+border-radius: 0 0 var(--radius) var(--radius);
+overflow:hidden;
+code{
+    padding:1em;
+}
+`;
 
 const ParseString = (string) => {
     var replaced;
@@ -18,12 +80,16 @@ const ParseString = (string) => {
 
     return replaced;
 }
+
 function CodeBlock({ content, language, title, ...props }) {
 
-
+    const [CopyState, SetCopyState] = useState("normal");
+    const [CodeBody, SetCodeBody] = useState(content);
     useEffect(() => {
+
         Prism.highlightAll();
-    }, [language, content])
+    }, [language, content]);
+
 
 
     function copyToClipboard(textToCopy) {
@@ -53,31 +119,47 @@ function CodeBlock({ content, language, title, ...props }) {
     const Copy = (e, text) => {
         copyToClipboard(text)
             .then(() => {
-                e.target.innerText = "Copied !!!";
+                SetCopyState("done")
             })
             .catch((error) => {
-                e.target.innerText = "Error !!!";
+                SetCopyState("error")
+
                 console.log('error', error)
             }).finally(() => {
                 setTimeout(() => {
-                    e.target.innerText = "Copy";
+                    SetCopyState("normal")
                 }, 800);
             })
     }
 
+    const HandleCopyState = ({ state }) => {
+
+        if (state == "error")
+            return (<>Error <MdErrorOutline /></>)
+        else if (state == "done")
+            return (<>Copied <MdDoneAll /> </>)
+        else if (state == "normal")
+            return (<>Copy <MdContentCopy /> </>)
+    }
+
     return (
-        <div className={style.CodeBlock}>
-            <div className={style.CodeBlock_Header} title={title ? title : "CodeBlock"}>
-                <button className={style.Copy_Btn} type="button" onClick={(e) => Copy(e, content.toString())}>Copy</button>
-            </div>
-            <div className={style.CodeBlock_Body}>
+        <CodeBlockContainer>
+            <CodeBlockHeader>
+                <CodeIcon />
+                <CodeBlockTitle title={title ? title : "CodeBlock"}>
+                    {title ? title : "CodeBlock"}
+                </CodeBlockTitle>
+                <CopyButton type="button" size="sm" onClick={(e) => Copy(e, content.toString())}><HandleCopyState state={CopyState} />
+                </CopyButton>
+            </CodeBlockHeader>
+            <CodeBlockBody>
                 <pre {...props}>
                     <code className={"language-" + language} >
                         {content}
                     </code>
                 </pre>
-            </div>
-        </div>
+            </CodeBlockBody>
+        </CodeBlockContainer>
     )
 }
 
