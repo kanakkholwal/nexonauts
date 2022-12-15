@@ -3,7 +3,7 @@ import Main from './components/Main';
 import Footer from './components/Footer';
 import PageMetaData from "../../components/PageMetaData";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
-
+import Head from 'next/head';
 const metaData = {
     title: "Tools | K K UPGRADER",
     description: "Collection of Web Tools , Design Tools , Editing and Coding Tools"
@@ -104,6 +104,13 @@ export default function Tools() {
 
     return (
         <>
+            <Head>
+                <link
+                    rel="canonical"
+                    href={process.env.WEBSITE_URL || 'https://kkupgrader.eu.org' + "/tools"}
+                    key="canonical"
+                />
+            </Head>
             <PageMetaData PageTitle={metaData.title} PageDescription={metaData.description} />
             <Header NavLinks={NavLinks} SocialMedia={SocialMedia} title={metaData.title.split("|")[0]} description={metaData.description} />
             <Main />

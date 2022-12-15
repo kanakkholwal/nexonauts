@@ -1,7 +1,7 @@
 import { MetaData, FooterArea, ToolListJSON, HeaderArea } from "@/pages/Tools/Tool";
 import React from 'react';
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
-
+import Head from "next/head";
 
 const NavLinks = [
 
@@ -125,6 +125,13 @@ export default function Tool({ componentPath }): JSX.Element {
 
     return (
         <>
+            <Head>
+                <link
+                    rel="canonical"
+                    href={process.env.WEBSITE_URL || 'https://kkupgrader.eu.org' + "/tools" + componentPath}
+                    key="canonical"
+                />
+            </Head>
             <MetaData PageTitle={ToolComponent.title} PageDescription={ToolComponent.description} SiteName={''} PageUrl={''} PreviewImage={''} PageType={''} PageLocale={''} />
             <HeaderArea title={ToolComponent.title} description={ToolComponent.description} NavLinks={NavLinks} SocialMedia={SocialMedia} />
             <main className="Container">
