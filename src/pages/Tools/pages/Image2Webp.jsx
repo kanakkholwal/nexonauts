@@ -221,7 +221,7 @@ export default function Image2Webp() {
                         <p>Drag 'n' drop some files here, or click to select files :</p>
                 }</span>
                 <div>
-                    <FileInput accept="image/*" ref={InputRef} multiple={true} {...getInputProps()} />
+                    <FileInput accept="image/*" ref={InputRef} isChild={true} multiple={true} {...getInputProps()} />
                 </div>
             </UploadLabel>
 

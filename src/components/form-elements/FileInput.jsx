@@ -61,7 +61,7 @@ ${Icon}{
 
 
 
-export default function FileInput({ multiple, accept, style, ...props }) {
+export default function FileInput({ multiple, accept, style, isChild, ...props }) {
     const [files, SetFiles] = useState(null);
     const [fileNames, SetFileNames] = useState('No files chosen...');
     const InputRef = useRef(null);
@@ -82,7 +82,9 @@ export default function FileInput({ multiple, accept, style, ...props }) {
     }, [files])
 
     return (
-        <InputContainer style={style}>
+        <InputContainer style={style} onClick={(e) => {
+            isChild && e.stopPropagation();
+        }}>
             <InputFile ref={InputRef} accept={accept} multiple={multiple}  {...props} onChange={(e) => SetFiles(e.target.files)} />
             <Input placeholder='No files chosen...' value={fileNames} readOnly onClick={handleClick} />
             <Icon><MdFileUpload /></Icon>
