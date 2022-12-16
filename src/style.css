@@ -1629,16 +1629,15 @@ html ::-webkit-scrollbar-track {
 .G_Form-element:has(.G_Form-File) input[type=file].G_Form-File {
   display: block;
   padding: 0.375rem 0.75rem;
-  font-size: 1rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.6;
   appearance: none;
   border-radius: 0.25rem;
   width: 100%;
   height: auto;
   max-width: 768px;
-  background: linear-gradient(to left, #1b1f29 8%, #171c24 18%, #1b1f29 33%);
-  border: 2px solid #ABADC6;
+  background: var(--form-bg);
+  border: 2px solid var(--border-color);
   position: relative;
   cursor: pointer;
 }
@@ -1646,11 +1645,11 @@ html ::-webkit-scrollbar-track {
   background-color: transparent;
   border: none;
   pointer-events: none;
-  color: #6658d3;
+  color: var(--form-caret);
   padding-inline-end: 0.5rem;
   margin-inline-end: 0.75rem;
   overflow: hidden;
-  border-radius: 1px solid #6658d3;
+  border-radius: 1px solid var(--form-border-active);
 }
 .G_Form-element:has(.G_Form-File) input[type=file].G_Form-File::after {
   pointer-events: none;
@@ -1662,14 +1661,13 @@ html ::-webkit-scrollbar-track {
   height: 2rem;
   content: "";
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' stroke='%236658d3' fill='white' width='32' height='32' viewBox='0 0 32 32'%3e%3cpath d='M26.052 15.998c-.086 0-.17 0-.252.002.132-.658.2-1.33.2-2 0-5.514-4.486-10-10-10-5.51 0-10 4.442-10.006 9.898l.016.202C2.584 14.59 0 17.556 0 21c0 3.492 2.516 6.496 6 7h5a1 1 0 0 0 0-2l-4.854.01C3.822 25.668 2 23.466 2 21c0-2.456 1.844-4.57 4.292-4.92l.86-.124a1 1 0 0 0 .858-.99l-.016-1.064C8 9.544 11.59 6 16 6c4.412 0 8 3.588 8 8 0 .542-.054 1.088-.164 1.618l-.264 1.272c-.066.318.028.646.248.884.22.236.536.358.864.308.022-.002.648-.084 1.368-.084C28.23 17.998 30 19.792 30 22c0 2.206-1.794 4-4 4h-7c-2.8 0-2.99-1.678-3-2v-6.636l2.366 2.364a1 1 0 0 0 1.414-1.414l-4.024-4.022a1.002 1.002 0 0 0-.712-.292c-.016 0-.028-.008-.044-.008a.987.987 0 0 0-.724.318l-4.028 4.024a1 1 0 0 0 1.414 1.414L14 17.412V24c0 1.382 1.044 4 5 4h7c3.308 0 6-2.692 6-6s-2.668-6.002-5.948-6.002z'/%3e%3c/svg%3e");
-  background-color: #1b1f29;
   display: block;
   margin: 0 auto;
   background-size: 100%;
   background-repeat: no-repeat;
 }
 .G_Form-element:has(.G_Form-File) input[type=file].G_Form-File:focus {
-  border-color: #6658d3;
+  border-color: var(--form-border-active);
 }
 .G_Form-element:has(.G_Form-File) input[type=file].G_Form-File:focus::after {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%236658d3' stroke='%236658d3' width='32' height='32' viewBox='0 0 32 32'%3e%3cpath d='M26.052 15.998c-.086 0-.17 0-.252.002.132-.658.2-1.33.2-2 0-5.514-4.486-10-10-10-5.51 0-10 4.442-10.006 9.898l.016.202C2.584 14.59 0 17.556 0 21c0 3.492 2.516 6.496 6 7h5a1 1 0 0 0 0-2l-4.854.01C3.822 25.668 2 23.466 2 21c0-2.456 1.844-4.57 4.292-4.92l.86-.124a1 1 0 0 0 .858-.99l-.016-1.064C8 9.544 11.59 6 16 6c4.412 0 8 3.588 8 8 0 .542-.054 1.088-.164 1.618l-.264 1.272c-.066.318.028.646.248.884.22.236.536.358.864.308.022-.002.648-.084 1.368-.084C28.23 17.998 30 19.792 30 22c0 2.206-1.794 4-4 4h-7c-2.8 0-2.99-1.678-3-2v-6.636l2.366 2.364a1 1 0 0 0 1.414-1.414l-4.024-4.022a1.002 1.002 0 0 0-.712-.292c-.016 0-.028-.008-.044-.008a.987.987 0 0 0-.724.318l-4.028 4.024a1 1 0 0 0 1.414 1.414L14 17.412V24c0 1.382 1.044 4 5 4h7c3.308 0 6-2.692 6-6s-2.668-6.002-5.948-6.002z'/%3e%3c/svg%3e");
@@ -1685,38 +1683,7 @@ html ::-webkit-scrollbar-track {
   content: "";
   flex: 1;
   height: 1px;
-  background: #ABADC6;
-}
-
-.G_Form-submit {
-  display: inline-flex;
-  color: #fff;
-  background: #1d5eff;
-  font-weight: 700;
-  backdrop-filter: blur(2px);
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.1019607843);
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  cursor: pointer;
-  user-select: none;
-  border: 0;
-  padding: 0.625rem 1.5rem 0.5rem;
-  margin: 0.25rem;
-  border-radius: 0.5rem;
-  transition: all 250ms cubic-bezier(0.075, 0.82, 0.165, 1);
-  min-width: 12rem;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  letter-spacing: 2px;
-  opacity: 0.9;
-}
-.G_Form-submit:hover, .G_Form-submit.active {
-  opacity: 1;
-  background: #1d5eff;
-  color: white;
-  transform: translateY(-0.1rem);
+  background: var(--form-border);
 }
 
 .form-check-input[type=radio] {
@@ -6863,7 +6830,7 @@ body.DarkMode {
   --shadow-1: rgb(0 0 0 / 16%) 0px 15px 72px;
   --shadow-2: rgb(30 27 27 / 35%) 1px -1px 16px 0px;
   --link: hsl(196, 83%, 65%);
-  --link-hover: hsla(344, 77%, 66%, 0.932);
+  --link-hover: hsla(196, 52%, 46%, 1);
 }
 
 li[class] {
