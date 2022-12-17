@@ -26,7 +26,7 @@ const FormElement = styled.div`
     }
   
     ${Input},
-    ${TextArea},select,${InputWithIcon}. ${SelectWrapper} {
+  textarea,select,${InputWithIcon}. ${SelectWrapper} {
       order: 2;
       display:flex;
     }
@@ -36,7 +36,7 @@ const FormElement = styled.div`
       order: 3;    
     }
     &:has(${FormHelper}){
-      &> ${Input},&>${TextArea}{
+      &> ${Input},&>textarea{
 margin-bottom:0
       }
     }
