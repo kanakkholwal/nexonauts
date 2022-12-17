@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
-import { IoCloseOutline, IoMenuOutline, IoMoonOutline, IoMoon } from "react-icons/io5";
+import { IoCloseOutline, IoMenuOutline, IoMoonOutline, IoMoon, IoSearchSharp } from "react-icons/io5";
 import Link from "next/link";
 import classes from "./_Header.module.scss";
 import HeaderDropDown from "./HeaderDropDown";
+import InputWithIcon from "@/components/form-elements/InputWithIcon";
 
-export default function Header({ NavLinks, SocialMedia, title, description }) {
+export default function Header({ NavLinks, SocialMedia, title, description, Search }) {
     const [DarkMode, SetDarkMode] = useState(false);
     const ToggleTheme = () => {
         SetDarkMode(!DarkMode);
@@ -91,20 +92,7 @@ export default function Header({ NavLinks, SocialMedia, title, description }) {
                                 <IoCloseOutline />
                             </button>
                         </div>
-                        {/* <ul className={classes.NavBar_list}>
-                            {
-                                NavLinks.map(({ name, url }, i) => {
 
-                                    return (
-                                        <li key={i}>
-                                            <a href={url} className={classes.NavBar_link}>{name}</a>
-                                        </li>
-                                    )
-
-                                })
-                            }
-
-                        </ul> */}
                         <HeaderDropDown NavLinks={NavLinks} />
                         <ul className={classes.SocialList}>
                             {
@@ -134,6 +122,7 @@ export default function Header({ NavLinks, SocialMedia, title, description }) {
                         <h1 className={"h1"} data-aos="fade-up" data-aos-delay="100">{title}</h1>
                         <p className={classes.Section_text} data-aos="fade-up" data-aos-delay="150"> {description} </p>
 
+                        {Search && <InputWithIcon type="search" outlined icon={<IoSearchSharp />} />}
                     </div>
                 </div>
             </section>

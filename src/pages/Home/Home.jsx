@@ -162,9 +162,17 @@ function Home() {
         localStorage.setItem("kkupgrader_Mode", !DarkMode);
 
     }
-
+    useEffect(() => {
+        if (localStorage.getItem("kkupgrader_Mode") === "true" || window.matchMedia('(prefers-color-scheme: dark)')) {
+            localStorage.setItem("kkupgrader_Mode", true);
+            SetDarkMode(true);
+        }
+    }, [])
 
     useEffect(() => {
+
+
+
 
         if (DarkMode)
             document.body.classList.add("DarkMode");

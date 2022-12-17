@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { getAllPosts_URL } from "../../src/blog/getAPIs"
+import { getAllPosts_URL } from "@/src/content/api/getAPIs"
 import { Markup } from 'interweave';
 
 const useFetch = (url: string, options = {}) => {

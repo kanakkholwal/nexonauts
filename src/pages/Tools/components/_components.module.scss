@@ -349,24 +349,24 @@ $background-color_11: var(--snow);
 }
 
 .Main {
-    margin-inline: auto;
     padding-block: 1.5rem;
-    display: grid;
-    gap: 1rem;
+    margin-inline: auto;
+display: grid;
+gap: 1rem;
 
 
-    @media (min-width: $md) {
-        padding: 1.5rem;
-        grid-template-columns: repeat(2, 5fr);
-    }
+@media (min-width: $md) {
+    padding: 1.5rem;
+    grid-template-columns: repeat(2, 5fr);
+}
 
-    @media (min-width: $lg) {
-        grid-template-columns: repeat(3, 3.3fr);
-    }
+@media (min-width: $lg) {
+    grid-template-columns: repeat(3, 3.3fr);
+}
 
-    @media (min-width: $xxl) {
-        grid-template-columns: repeat(4, 2.5fr);
-    }
+@media (min-width: $xxl) {
+    grid-template-columns: repeat(4, 2.5fr);
+}
 
 
 

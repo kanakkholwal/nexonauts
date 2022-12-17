@@ -3,6 +3,7 @@ import React from 'react';
 import Image2Webp from "./pages/Image2Webp";
 import CssMinifierPrettifier from "./pages/CssMinifierPrettifier";
 import HtmlMinifierPrettifier from "./pages/HtmlMinifierPrettifier";
+import JsonMinifierPrettifier from "./pages/JsonMinifierPrettifier";
 import MetaTagGenerator from "./pages/MetaTagGenerator";
 import IframeGenerator from "./pages/IframeGenerator";
 import HtmlParser from "./pages/HtmlParser";
@@ -45,8 +46,18 @@ const ToolList: ToolProp[] = [
     }
     ,
     {
+        title: "JSON Minifier Tool",
+        description: "Online JSON Minifier takes any form of json code and make it minified,compressed by removing white spaces, newlines, indentation ,etc. It reduces file size and optimizes json for your request.",
+        category: "Coding  Tools",
+        path: "/tools/json-minifier-tool",
+        Component: <JsonMinifierPrettifier />,
+
+        online: true
+    }
+    ,
+    {
         title: "Html Minifier and Prettifier Tool",
-        description: " Online HTML Minifier takes any form of css code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Html to make it easy to read and edit. It reduces file size and optimizes css for your website.",
+        description: " Online HTML Minifier takes any form of HTML code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Html to make it easy to read and edit. It reduces file size and optimizes css for your website.",
         category: "Coding  Tools",
         path: "/tools/html-minifier-and-prettifier",
         Component: <HtmlMinifierPrettifier />,

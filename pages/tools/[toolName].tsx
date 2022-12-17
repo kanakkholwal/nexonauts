@@ -133,7 +133,7 @@ export default function Tool({ componentPath }): JSX.Element {
                 />
             </Head>
             <MetaData PageTitle={ToolComponent.title} PageDescription={ToolComponent.description} SiteName={''} PageUrl={''} PreviewImage={''} PageType={''} PageLocale={''} />
-            <HeaderArea title={ToolComponent.title} description={ToolComponent.description} NavLinks={NavLinks} SocialMedia={SocialMedia} />
+            <HeaderArea title={ToolComponent.title} description={ToolComponent.description} NavLinks={NavLinks} SocialMedia={SocialMedia} Search={ToolListJSON} />
             <main className="Container">
                 {ToolComponent.Component}
             </main>

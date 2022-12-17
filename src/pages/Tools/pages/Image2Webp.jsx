@@ -2,27 +2,27 @@ import { useEffect, useState, useCallback, useRef } from "react";
 
 import { useDropzone } from 'react-dropzone'
 import FileInput from "@/components/form-elements/FileInput"
-import classes from "./style/_image.module.scss";
+import FormElement from "@/components/form-elements/FormElement"
+import FormHelper from "@/components/form-elements/FormHelper"
 import styled from "styled-components";
 import { FiUpload } from "react-icons/fi";
 
-const UploadLabel = styled.label`
+
+const UploadLabel = styled.div`
 margin: auto;
-display: grid;
+display: grid!important;
 align-items: center;
 border: 2px solid var(--form-border);
 border-radius: 0.25rem;
 aspect-ratio: 16/9;
-margin-inline: auto;
-max-width: 35rem;
 background:var(--form-bg);
 padding-top: 1rem;
-
+max-width:${props => props.size ? props.size : "100%"};
 svg{
     margin:2rem auto;
     font-size: 2em;
 }
-&:is(:focus, :active) {
+&:is(:focus, :active,:hover,:focus-within) {
     border-color: var(--form-border-active);
     svg{
         color: var(--form-caret);
@@ -35,24 +35,78 @@ span{
     padding:2rem;
 }
 `
+const ProgressCardWrapper = styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    border-radius: 0.5rem;
+    background: var(--card-bg);
+    box-shadow: var(--card-shadow);
+    max-width: 45rem;
+    margin-inline:auto;
+    margin-block:1rem 2rem;
+    &>div{
+        flex:1 1 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+`;
+const ProgressCardTitle = styled.h4`
+flex:1 1 auto;
+padding: 0.5rem 0.75rem;
+text-overflow: ellipsis;
+line-height: 2;
+`
+const ProgressCardDetails = styled.div`
+padding: 1.25rem 0.75rem;
+text-align: center;
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+gap: 0.5rem;
+`
+const ProgressBar = styled.div`
+width:100%;
+height:3px;
+position: relative;
+overflow: hidden;
+transition: all 0.2s linear;
+border-radius: 0.25rem;
+`
+const ProgressMeter = styled.div`
+border-radius:inherit;
+width:auto;
+position:absolute;
+inset:0;
+background:var(--progress);
+`
+const PreviewArea = styled.div`
+margin-inline: auto;
+    display: flex;;
+    flex-wrap:wrap
+    gap: 1rem;
+
+`
 
 
 const ProgressCard = ({ progress, file, url }) => {
-    const [type, SetType] = useState("var(--primary)");
+    const [type, SetType] = useState("#6658d3");
 
     const CurrentValue = progress.toFixed(2);
     useEffect(() => {
         if (CurrentValue >= 60 && CurrentValue <= 90) {
-            SetType("var(--warning)")
+            SetType("#d7c814")
         }
         else if (CurrentValue >= 90) {
-            SetType("var(--success)")
+            SetType("#6ec48e")
         }
         else if (CurrentValue <= 60 && CurrentValue >= 25) {
-            SetType("var(--primary)")
+            SetType("#1082b9")
         }
         else {
-            SetType("var(--primary-hvr)")
+            SetType("#6658d3")
         }
     }, [CurrentValue]);
 
@@ -60,36 +114,27 @@ const ProgressCard = ({ progress, file, url }) => {
     const FileSize = (() => {
         let size = file.size;
         if (file.size / 1024 > 1024)
-            size = (file.size / (1024 * 1024)).toFixed(3).toString() + "M.B."
+            size = (file.size / (1024 * 1024)).toFixed(3).toString() + " M.B."
         else
-            size = (file.size / 1024).toFixed(3).toString() + "K.B."
+            size = (file.size / 1024).toFixed(3).toString() + " K.B."
 
         return size;
     })();
 
     return (
         <>
-
-            <div className={"G_Card " + classes.ProgressCard} >
-                <img class="G_Card-imgTop" src={url} />
-
-                <div className={classes.Details}>
-                    <div className={classes.Info}>
-                        <span className={classes.Name}>
-                            {file.name ? file.name.substring(0, 18) + "... " : " "}
-                        </span>
-                        <span className={classes.Size}>
-                            {FileSize}
-                        </span>
-
-                    </div>
-                    <div className={classes.ProgressMeter}>{CurrentValue + "%"}</div>
+            <ProgressCardWrapper>
+                <div>
+                    <ProgressCardTitle>{file.name ?? "Your File"}</ProgressCardTitle>
+                    <ProgressCardDetails>
+                        <span className="Badge Badge_info">{FileSize}</span>
+                        <span className="Badge Badge_success">{CurrentValue + " %"}</span>
+                    </ProgressCardDetails>
                 </div>
-                <div className={classes.Progress}>
-                    <div className={classes.ProgressBar} style={{ width: `${CurrentValue}%`, background: type }}></div>
-                </div>
-
-            </div>
+                <ProgressBar>
+                    <ProgressMeter style={{ width: `${CurrentValue}%`, background: type }} />
+                </ProgressBar>
+            </ProgressCardWrapper>
         </>)
 }
 
@@ -177,16 +222,18 @@ export default function Image2Webp() {
                                 let fileName = file.name;
                                 if (fileName.length >= 12) {
                                     let splitName = fileName.split('.');
-                                    fileName = splitName[0].substring(0, 13) + "...";
+                                    fileName = splitName[0];
                                 }
                                 const imageCard = `
-                        <div class="G_Card ${classes.imageCard}">
-                           <img class="G_Card-imgTop" src="${data.imageURL}"/>
-                          <div class="G_Card-footer ${classes.Footer}">
-                          <span title="${file.name.split(".")[0]}.webp">
+                        <div class="Fui_Card" style="max-width:30rem;">
+                        <div class="Fui_Card-body">
+                           <img class="Fui_Card-ImgTop" src="${data.imageURL}"/>
+                           </div>
+                          <div class="Fui_Card-footer" style="display: flex;justify-content: space-between;align-items:center">
+                          <span title="${fileName}.webp" style="text-overflow: ellipsis;word-break:nowrap;overflow:hidden ">
                           ${fileName}
                           </span>
-                           <a href="${data.imageURL}" class="Badge" download="${file.name.split(".")[0]}.[Converted by kkupgrader.eu.org].webp" title="Download Image in WEBP Format">
+                           <a href="${data.imageURL}" class="Badge" style="color: var(--btn-text);background: var(--btn-bg);box-shadow: var(--btn-box-shadow);border-radius: var(--btn-border-radius);border: 2px solid var(--btn-bg);" download="${fileName}.[Converted by kkupgrader.eu.org].webp" title="Download Image in WEBP Format">
                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                            </a>
                           </div>
@@ -209,33 +256,32 @@ export default function Image2Webp() {
 
 
     return (
-        <>
+        <div style={{ maxWidth: "720px", marginInline: "auto" }}>
+
+            <FormElement style={{ alignItems: "center" }}>
+                <UploadLabel {...getRootProps()} size="45rem">
+                    <FiUpload />
+                    <span> {
+                        isDragActive ?
+                            <p>Drop the files here ...</p> :
+                            <p>Drag 'n' drop some files here, or click to select files :</p>
+                    }</span>
+                    <div>
+                        <FileInput accept="image/*" ref={InputRef} isChild multiple={true} {...getInputProps()} />
+                    </div>
+                </UploadLabel>
+                <FormHelper>Upload Your Image Here</FormHelper>
+            </FormElement>
 
 
-
-            <UploadLabel {...getRootProps()}>
-                <FiUpload />
-                <span> {
-                    isDragActive ?
-                        <p>Drop the files here ...</p> :
-                        <p>Drag 'n' drop some files here, or click to select files :</p>
-                }</span>
-                <div>
-                    <FileInput accept="image/*" ref={InputRef} isChild={true} multiple={true} {...getInputProps()} />
-                </div>
-            </UploadLabel>
+            {file && <ProgressCard progress={progress} file={file} url={fileUrl} />}
 
 
-            {file && <div className={classes.ProgressArea}>
-                <ProgressCard progress={progress} file={file} url={fileUrl} />
-            </div>}
+            <PreviewArea id="preview">
+
+            </PreviewArea>
 
 
-            <div className={classes.imageArea} id="preview">
-
-            </div>
-
-
-        </>
+        </div>
     )
 }

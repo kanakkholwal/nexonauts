@@ -12,6 +12,8 @@
 # next.js
 /.next/
 /out/
+/prisma/
+/database.mongodb
 # PWA files
 **/public/sw.js
 **/public/workbox-*.js

@@ -1,6 +1,5 @@
 import Head from "next/head";
-import { NextScript } from 'next/document';
-import "../src/style.css";
+import "@/src/global.css";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import Aos from "aos";
@@ -9,7 +8,8 @@ export default function MyApp({ Component, pageProps }) {
 
 
     useEffect(() => {
-        if (localStorage.getItem("kkupgrader_Mode") === "true")
+
+        if (localStorage.getItem("kkupgrader_Mode") === "true" || window.matchMedia('(prefers-color-scheme: dark)'))
             document.body.classList.add("DarkMode");
         else
             document.body.classList.remove("DarkMode");

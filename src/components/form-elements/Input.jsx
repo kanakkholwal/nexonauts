@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 
 const Input = styled.input.attrs(props => ({
-  type: 'text' || 'email' || 'number',
+  type: 'text' || 'email' || 'number' || 'search',
 }))`
   letter-spacing: 0.1em;
   width: 100%;

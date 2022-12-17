@@ -32,7 +32,7 @@ const Button = styled.button`
     --btn-hover-color:var(--btn${"-" + props.nature}-hover-color);
     --btn-hover-bg:var(--btn${"-" + props.nature}-hover-bg);
      ` : ""
-  }
+   }
       
      &> svg{
   margin-inline: 0.5rem;
@@ -41,6 +41,9 @@ const Button = styled.button`
   color: currentColor;
 }
 
+opacity:${props => props.disabled ? "0.5" : "1"}
+pointer-events:${props => props.disabled ? "none" : "all"}
+cursor:${props => props.disabled ? "not-allowed" : "pointer"}
 
 
 

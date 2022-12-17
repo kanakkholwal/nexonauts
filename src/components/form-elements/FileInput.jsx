@@ -83,7 +83,7 @@ export default function FileInput({ multiple, accept, style, isChild, ...props }
 
     return (
         <InputContainer style={style} onClick={(e) => {
-            isChild && e.stopPropagation();
+            if (isChild) e.stopPropagation();
         }}>
             <InputFile ref={InputRef} accept={accept} multiple={multiple}  {...props} onChange={(e) => SetFiles(e.target.files)} />
             <Input placeholder='No files chosen...' value={fileNames} readOnly onClick={handleClick} />

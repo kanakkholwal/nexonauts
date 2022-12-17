@@ -6449,6 +6449,7 @@ main.Container {
 .Fui_Card .Fui_Card-ImgBottom,
 .Fui_Card .Fui_Card-ImgTop {
   width: 100%;
+  height: auto;
 }
 .Fui_Card .listGroup {
   border-top: inherit;
@@ -6720,6 +6721,12 @@ main.Container {
   --transition-3: 0.3s ease-in-out;
   --link: hsla(196, 100%, 40%, 1);
   --link-hover: hsla(196, 100%, 40%, 0.904);
+  --xs: 0;
+  --sm: 576px;
+  --md: 768px;
+  --lg: 992px;
+  --xl: 1200px;
+  --xxl: 1400px;
 }
 @media (min-width: 992px) {
   :root {
@@ -6880,4 +6887,4 @@ a {
 
 p {
   font-weight: 500;
-}/*# sourceMappingURL=style.css.map */
+}/*# sourceMappingURL=global.css.map */

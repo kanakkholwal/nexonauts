@@ -84,7 +84,8 @@ const ParseString = (string) => {
 function CodeBlock({ content, language, title, ...props }) {
 
     const [CopyState, SetCopyState] = useState("normal");
-    const [CodeBody, SetCodeBody] = useState(content);
+
+
     useEffect(() => {
 
         Prism.highlightAll();

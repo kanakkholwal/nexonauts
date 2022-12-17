@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import FormHelper from "./FormHelper";
 import Input from "./Input";
+import Label from "./Label";
 import TextArea from "./TextArea";
 import Checkbox from "./CheckBox";
+import InputWithIcon from "./InputWithIcon";
 import { SelectWrapper } from "./Select";
 
 const FormElement = styled.div`
@@ -18,13 +20,13 @@ const FormElement = styled.div`
     
     margin: 0.25rem auto 1.25rem;
   
-    label {
+    ${Label} {
       order: 1;
       display:flex;
     }
   
-    input,
-    textarea,select, ${SelectWrapper} {
+    ${Input},
+    ${TextArea},select,${InputWithIcon}. ${SelectWrapper} {
       order: 2;
       display:flex;
     }
