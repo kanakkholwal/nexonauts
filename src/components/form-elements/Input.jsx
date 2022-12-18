@@ -2,9 +2,7 @@ import styled from 'styled-components';
 
 
 
-const Input = styled.input.attrs(props => ({
-  type: 'text' || 'email' || 'number' || 'search',
-}))`
+const Input = styled.input`
   letter-spacing: 0.1em;
   width: 100%;
   opacity: 0.95;
@@ -15,7 +13,7 @@ const Input = styled.input.attrs(props => ({
   border-radius: 0.5rem;
   padding: calc(0.33rem + 1px) calc(0.75rem + 1px);
   
-  border: ${props => props.outlined ? "2px" : "1px"} solid var(--form-border);
+  border: ${props => props.outlined ? "2px" : "1px"} solid  var(--form-border);
   background: var(--form-bg);
   color: var(--form-color);
   caret-color: var(--form-caret);

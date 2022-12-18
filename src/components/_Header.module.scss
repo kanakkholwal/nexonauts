@@ -43,6 +43,9 @@ $background-color_4: hsl(0, 0%, 70%);
     align-items: center;
     gap: 12px;
 
+    @media (min-width:$lg) {
+        display: none;
+    }
 
 }
 
@@ -71,12 +74,62 @@ $background-color_4: hsl(0, 0%, 70%);
         display: flex;
         justify-content: space-between;
         align-items: center;
+
+        .NavOpen_btn {
+            order: 1;
+        }
+
+        .Logo {
+            order: 2;
+        }
+
+        .NavBar,
+        .NavSearch {
+            order: 3;
+        }
+
+        .NavCTA {
+            order: 4;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
     }
 
     &.active {
         position: fixed;
         animation: slideIn 0.5s ease forwards;
     }
+}
+
+.NavSearch {
+    width: 100%;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    max-width: 728px;
+    left: 50%;
+    top: 50%;
+    translate: -50% -50%;
+    transform: translateY(-20px) scale(0);
+    opacity: 0;
+
+    transition: opacity .15s cubic-bezier(0, 0, .2, 1) 0ms, transform .15s cubic-bezier(0, 0, .2, 1) 0ms, scale .15s cubic-bezier(0, 0, .2, 1) 0ms;
+    z-index: 3;
+
+    input {
+        margin-inline: 0.5rem;
+        margin-block: 0;
+        height: 100%;
+    }
+
+    &.IsOpen {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+
 }
 
 .NavOpen_btn {
@@ -105,7 +158,9 @@ $background-color_4: hsl(0, 0%, 70%);
     gap: 30px;
     z-index: 2;
     visibility: hidden;
-    transition: var(--transition-3);
+    will-change: opacity, transform;
+    transition: all .15s cubic-bezier(0, 0, .2, 1) 0ms;
+    opacity: 1;
 
     &.active {
         visibility: visible;
@@ -171,12 +226,12 @@ $background-color_4: hsl(0, 0%, 70%);
 
                         &.isActive {
                             height: initial;
-                            border-left: #464242 1px solid;
+                            border-left: 1px solid var(--border-color);
                         }
                     }
 
                     &>.NavBar_link {
-                        color: #0096cc;
+                        color: var(--sidebar-link);
                         opacity: 1;
                         transition-duration: 0s;
                     }
@@ -194,16 +249,21 @@ $background-color_4: hsl(0, 0%, 70%);
 }
 
 
-.ThemeToggle {
+.ThemeToggle,
+.SearchToggle {
     margin-inline: 1rem;
     margin-block: auto;
     font-size: 1.8rem;
-    background-color: var(--white_a8);
+    background-color: var(--icon-bg);
     position: relative;
     padding: 18px;
     height: 24px;
     width: 24px;
     border-radius: 50%;
+
+    &+& {
+        margin-left: 0.5rem;
+    }
 
     svg {
         top: 50%;
@@ -399,7 +459,7 @@ $background-color_4: hsl(0, 0%, 70%);
 
 .overlay.active {
     pointer-events: all;
-    opacity: 0.8;
+    opacity: 0.975;
 }
 
 .Section {
@@ -444,9 +504,7 @@ $background-color_4: hsl(0, 0%, 70%);
     }
 
 
-    .overlay {
-        display: none;
-    }
+
 
     .NavBar.active {
         all: unset;

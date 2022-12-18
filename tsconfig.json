@@ -8,6 +8,8 @@
       "@/scripts/*": ["src/scripts/*"],
       "@/src/*": ["src/*"],
       "@/project/*": ["./*"],
+      "@/firebase/*": ["src/firebase/*"],
+      "@/lib/*": ["src/lib/*"],
       "@/*": ["./*"],
     },
     "target": "es5",

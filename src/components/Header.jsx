@@ -1,16 +1,66 @@
-import { useEffect, useState } from "react"
-import { IoCloseOutline, IoMenuOutline, IoMoonOutline, IoMoon, IoSearchSharp } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import ViewCounter from "@/components/ViewCounter"
+import { IoCloseOutline, IoMenuOutline, IoMoonOutline, IoMoon } from "react-icons/io5";
+import { HiOutlineSearch } from "react-icons/hi";
 import Link from "next/link";
 import classes from "./_Header.module.scss";
 import HeaderDropDown from "./HeaderDropDown";
-import InputWithIcon from "@/components/form-elements/InputWithIcon";
+import styled from "styled-components";
+import Input from "@/components/form-elements/Input";
 
-export default function Header({ NavLinks, SocialMedia, title, description, Search }) {
+
+
+const SearchContainer = styled.div`
+position:relative;
+margin-inline: inherit;
+display: inherit;
+align-items: inherit;
+justify-content:inherit;
+width: inherit;
+height: inherit;
+`
+const SearchDropDown = styled.div`
+position:absolute;
+top:100%;
+left:0;
+right:0;
+width:100%;
+padding: 1rem;
+`
+const SearchDropDownList = styled.ul`
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+gap:2em;
+`
+const SearchDropDownItem = styled.li`
+display:grid;
+`
+const SearchInput = styled(Input)`
+transition: all 0.35s var(--open-transition);
+padding-left:38px;
+`
+const SearchIcon = styled.div`
+display: flex;
+padding: 0.75rem;
+align-items: center;
+justify-content: center;
+padding: 18px;
+margin-right:-50px;
+z-index: 3;
+`
+
+
+
+
+
+export default function Header({ NavLinks, SocialMedia, title, description, Search, pageId = null }) {
     const [DarkMode, SetDarkMode] = useState(false);
+
     const ToggleTheme = () => {
         SetDarkMode(!DarkMode);
         localStorage.setItem("kkupgrader_Mode", !DarkMode);
-
     }
 
 
@@ -33,15 +83,33 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
 
         const navbar = document.querySelector("[data-navbar]");
         const navTogglers = document.querySelectorAll("[data-nav-toggler]");
+        const navClose = document.querySelectorAll("[data-nav-close]");
         const overlay = document.querySelector("[data-overlay]");
+        const SearchBar = document.querySelector("[data-search]");
+        const SearchTogglers = document.querySelectorAll("[data-search-toggler]");
+        const SearchClose = document.querySelectorAll("[data-search-close]");
 
         const toggleNavbar = function () {
             navbar.classList.toggle(classes.active);
             overlay.classList.toggle(classes.active);
-            document.body.classList.toggle("overlayActive");
+        }
+        const toggleSearch = function () {
+            SearchBar.classList.toggle(classes.IsOpen);
+            overlay.classList.toggle(classes.active);
+        }
+        const closeNavbar = function () {
+            navbar.classList.remove(classes.active);
+            overlay.classList.remove(classes.active);
+        }
+        const closeSearch = function () {
+            SearchBar.classList.remove(classes.IsOpen);
+            overlay.classList.remove(classes.active);
         }
 
         addEventOnElements(navTogglers, "click", toggleNavbar);
+        addEventOnElements(SearchTogglers, "click", toggleSearch);
+        addEventOnElements(navClose, "click", closeNavbar);
+        addEventOnElements(SearchClose, "click", closeSearch);
 
         SetDarkMode(() => {
 
@@ -52,9 +120,6 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
         })
 
 
-    }, [])
-
-    useEffect(() => {
         const header = document.querySelector("[data-header]");
         window.addEventListener("scroll", function () {
             if (window.scrollY > 100) {
@@ -70,6 +135,7 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
 
             <header className={classes.Header} data-header>
                 <div className={classes.Container}>
+
                     <button className={classes.NavOpen_btn} aria-label="open menu" data-nav-toggler>
                         <IoMenuOutline />
                     </button>
@@ -78,12 +144,19 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                             K K UPGRADER
                         </strong>
                     </Link>
-                    <button className={classes.ThemeToggle} onClick={ToggleTheme}>
-                        {
-                            DarkMode ? <IoMoon /> : <IoMoonOutline />
-                        }
+                    <div className={classes.NavCTA}>
+                        <button className={classes.ThemeToggle} onClick={ToggleTheme}>
+                            {
+                                DarkMode ? <IoMoon /> : <IoMoonOutline />
+                            }
+                        </button>
+                        {Search && <>
+                            <button className={classes.SearchToggle} aria-label="Search on Site" data-search-toggler>
+                                <HiOutlineSearch />
+                            </button>
+                        </>}
+                    </div>
 
-                    </button>
                     <nav className={classes.NavBar} data-navbar>
                         <div className={classes.NavBar_top}>
                             <Link href="/" >
@@ -94,6 +167,7 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                             <button className={classes.navCloseBtn} aria-label="close menu" data-nav-toggler>
                                 <IoCloseOutline />
                             </button>
+
                         </div>
 
                         <HeaderDropDown NavLinks={NavLinks} />
@@ -112,18 +186,34 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                             }
                         </ul>
                     </nav>
-
-                    <div className={classes.overlay} data-nav-toggler data-overlay />
-                </div>
+                    <div className={classes.NavSearch} data-search >
+                        <SearchContainer>
+                            <SearchIcon><HiOutlineSearch /></SearchIcon>
+                            <SearchInput type="search" outlined />
+                            <SearchDropDown>
+                                <SearchDropDownList>
+                                    {Search?.map((item, index) => <SearchDropDownItem key={index}>{item.title}</SearchDropDownItem>)}
+                                </SearchDropDownList>
+                            </SearchDropDown>
+                        </SearchContainer>
+                    </div>
+                </div >
             </header>
+            <div className={classes.overlay} data-nav-close data-overlay data-search-close />
+
             <section className={classes.Section + " " + classes.Hero} id="hero">
                 <div className={classes.Container}>
 
                     <div className={classes.Hero_content}>
                         <h1 className={"h1"} data-aos="fade-up" data-aos-delay="100">{title}</h1>
                         <p className={classes.Section_text} data-aos="fade-up" data-aos-delay="150"> {description} </p>
+                        {pageId && <>
+                            <div class="m-auto d-flex">
+                                <ViewCounter slug={pageId} />
+                            </div>
+                        </>
 
-                        {Search && <InputWithIcon type="search" outlined icon={<IoSearchSharp />} />}
+                        }
                     </div>
                 </div>
             </section>

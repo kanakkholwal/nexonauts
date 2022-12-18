@@ -128,12 +128,12 @@ export default function Tool({ componentPath }): JSX.Element {
             <Head>
                 <link
                     rel="canonical"
-                    href={process.env.WEBSITE_URL || 'https://kkupgrader.eu.org' + "/tools" + componentPath}
+                    href={process.env.WEBSITE_URL || 'https://kkupgrader.eu.org' + componentPath}
                     key="canonical"
                 />
             </Head>
             <MetaData PageTitle={ToolComponent.title} PageDescription={ToolComponent.description} SiteName={''} PageUrl={''} PreviewImage={''} PageType={''} PageLocale={''} />
-            <HeaderArea title={ToolComponent.title} description={ToolComponent.description} NavLinks={NavLinks} SocialMedia={SocialMedia} Search={ToolListJSON} />
+            <HeaderArea title={ToolComponent.title} description={ToolComponent.description} NavLinks={NavLinks} SocialMedia={SocialMedia} Search={ToolListJSON} pageId={componentPath} />
             <main className="Container">
                 {ToolComponent.Component}
             </main>

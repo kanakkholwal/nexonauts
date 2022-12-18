@@ -1,7 +1,9 @@
-import Header from '@/components/Header';
+import Header from "@/components/Header";
+
 import Main from './components/Main';
 import Footer from './components/Footer';
 import PageMetaData from "../../components/PageMetaData";
+import ToolList from './ToolsList';
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import Head from 'next/head';
 const metaData = {
@@ -112,7 +114,7 @@ export default function Tools() {
                 />
             </Head>
             <PageMetaData PageTitle={metaData.title} PageDescription={metaData.description} />
-            <Header NavLinks={NavLinks} SocialMedia={SocialMedia} title={metaData.title.split("|")[0]} description={metaData.description} />
+            <Header NavLinks={NavLinks} SocialMedia={SocialMedia} title={metaData.title.split("|")[0]} description={metaData.description} Search={ToolList} />
             <Main />
             <Footer FooterData={FooterData} />
         </>
