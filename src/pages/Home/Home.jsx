@@ -212,7 +212,9 @@ function Home() {
 
         SetDarkMode(() => {
 
-            if (localStorage.getItem("kkupgrader_Mode") === "true")
+            if (localStorage.getItem("kkupgrader_Mode") === "false")
+                return false
+            else if (localStorage.getItem("kkupgrader_Mode") === "true" || window.matchMedia('(prefers-color-scheme: dark)'))
                 return true;
             else
                 return false

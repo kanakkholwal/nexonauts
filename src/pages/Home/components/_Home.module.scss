@@ -155,6 +155,11 @@ body.nav-active {
 .NavOpen_btn {
     font-size: 3.5rem;
     color: $color_6;
+    margin-right: 0.5rem;
+
+    svg {
+        margin-top: -0.75rem;
+    }
 }
 
 .NavBar {
@@ -183,7 +188,7 @@ body.nav-active {
     font-size: 1.8rem;
     background-color: var(--white_a8);
     position: relative;
-    padding: 1px 8px;
+    padding: 18px;
     height: 24px;
     width: 24px;
     border-radius: 50%;
@@ -578,7 +583,6 @@ textarea.inputField {
 
 @media (min-width:575px) {
     .Container {
-        max-width: 540px;
         width: 100%;
         margin-inline: auto;
     }
@@ -714,7 +718,7 @@ textarea.inputField {
         left: 50%;
         transform: translateX(-50%);
         padding-inline: 16px;
-        border-radius: var(--radius-8);
+        border-radius: 50px;
     }
 
     .Header.active {
@@ -725,22 +729,22 @@ textarea.inputField {
     }
 
     .Hero {
-    padding-block-start: calc(var(--section-padding) + 80px);
+        padding-block-start: calc(var(--section-padding) + 80px);
 
-    .Container {
-        grid-template-columns: 0.8fr 1fr;
-        align-items: center;
-        gap: 100px;
+        .Container {
+            grid-template-columns: 0.8fr 1fr;
+            align-items: center;
+            gap: 100px;
+        }
+
+        .btnWrapper {
+            justify-content: flex-start;
+        }
     }
 
-    .btnWrapper {
-        justify-content: flex-start;
+    .Hero_content {
+        text-align: left;
     }
-}
-
-.Hero_content {
-    text-align: left;
-}
 
     .about {
         .Wrapper {

@@ -353,6 +353,7 @@ function Select({ options, value, onChange, ...props }) {
           readOnly={true}
           onClick={() => SetOpen(!open)}
           value={SelectedOption.label ? SelectedOption.label : SelectedOption.value.toString()}
+          invert={!open}
         />
         <MdOutlineUnfoldMore onClick={() => SetOpen(!open)} />
         <SelectDropdownWrapper className={(open ? " isOpen" : "")}>

@@ -6714,7 +6714,7 @@ main.Container {
   --shadow-2: hsla(264, 67%, 38%, 0.20) 0px 15px 72px;
   --radius-circle: 50%;
   --radius-pill: 100px;
-  --radius-8: 8px;
+  --radius-8: 30px;
   --radius-6: 6px;
   --transition-1: 0.25s ease;
   --transition-2: 0.5s ease;

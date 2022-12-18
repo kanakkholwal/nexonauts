@@ -21,6 +21,9 @@ export default function Header({ NavLinks, SocialMedia }) {
     return (
         <header className={classes.Header} data-header>
             <div className={classes.Container}>
+                <button className={classes.NavOpen_btn} aria-label="open menu" data-nav-toggler>
+                    <IoMenuOutline />
+                </button>
                 <Link href="/" className={classes.Logo}>
                     <strong>
                         K K UPGRADER
@@ -73,9 +76,7 @@ export default function Header({ NavLinks, SocialMedia }) {
                         }
                     </ul>
                 </nav>
-                <button className={classes.NavOpen_btn} aria-label="open menu" data-nav-toggler>
-                    <IoMenuOutline />
-                </button>
+
                 <div className={classes.overlay} data-nav-toggler data-overlay />
             </div>
         </header>
