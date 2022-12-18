@@ -42,19 +42,7 @@ export default function MyApp({ Component, pageProps }) {
             <link rel="apple-touch-icon" href="/favicon.ico" />
 
         </Head>
-        <Script
-            src={"https://www.googletagmanager.com/gtag/js?id=" + (process.env.GOOGLE_ANALYTICS_ID || 'GTM-KSK95ML')}
-            strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-            {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){window.dataLayer.push(arguments);}
-          gtag('js', new Date());
 
-          gtag('config', ${process.env.GOOGLE_ANALYTICS_ID || 'GTM-KSK95ML'});
-        `}
-        </Script>
         <Component {...pageProps} />
     </>
 }
