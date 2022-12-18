@@ -96,8 +96,10 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
         }
         const toggleSearch = function () {
             SearchBar.classList.toggle(classes.IsOpen);
-            header.classList.add(classes.active);
             Array.from(overlay).map((item) => item.classList.toggle(classes.active));
+            if (window.scrollY < 100)
+                header.classList.toggle(classes.active);
+
         }
         const closeNavbar = function () {
             navbar.classList.remove(classes.active);
@@ -106,6 +108,8 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
         const closeSearch = function () {
             SearchBar.classList.remove(classes.IsOpen);
             Array.from(overlay).map((item) => item.classList.remove(classes.active));
+            if (window.scrollY < 100)
+                header.classList.remove(classes.active);
         }
 
         addEventOnElements(navTogglers, "click", toggleNavbar);
