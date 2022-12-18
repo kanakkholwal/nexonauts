@@ -96,6 +96,7 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
         }
         const toggleSearch = function () {
             SearchBar.classList.toggle(classes.IsOpen);
+            header.classList.add(classes.active);
             Array.from(overlay).map((item) => item.classList.toggle(classes.active));
         }
         const closeNavbar = function () {
