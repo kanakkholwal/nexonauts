@@ -137,6 +137,14 @@
     --punctuation: #515151;
 
 
+    --sidebar-bg: #fdfdfd;
+    --sidebar-color: #414346;
+    --sidebar-link: inherit;
+    --sidebar-link-bg: inherit;
+    --sidebar-link-hover: #005574;
+    --sidebar-link-bg-hover: #eee;
+
+
     --white: hsla(0, 0%, 100%, 1);
     --white_a8: hsla(0, 0%, 100%, 0.08);
     --white_a12: hsla(0, 0%, 100%, 0.12);
@@ -308,6 +316,14 @@ body {
         --attr-name: #77b300;
         --attr-value: #00b3ff;
         --property: #f8c555;
+
+
+        --sidebar-bg: #2c2e30;
+        --sidebar-color: #92969b;
+        --sidebar-link: inherit;
+        --sidebar-link-bg: inherit;
+        --sidebar-link-hover: #5bd4ff;
+        --sidebar-link-bg-hover: #33363a;
 
         --white: var(--body-bg);
         --cultured: var(--dense-bg);
