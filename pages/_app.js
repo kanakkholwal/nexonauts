@@ -3,6 +3,9 @@ import "@/src/global.css";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import Aos from "aos";
+import Script from 'next/script';
+
+
 export default function MyApp({ Component, pageProps }) {
 
 
@@ -35,10 +38,23 @@ export default function MyApp({ Component, pageProps }) {
             <link rel="icon" type="image/svg+xml" href="/kkupgrader.svg" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <link rel="manifest" href="/manifest.json" />
-            <meta name="theme-color" content="#a4acff" />
+            <meta name="theme-color" content="#11a6d3" />
             <link rel="apple-touch-icon" href="/favicon.ico" />
 
         </Head>
+        <Script
+            src={"https://www.googletagmanager.com/gtag/js?id=" + (process.env.GOOGLE_ANALYTICS_ID || 'GTM-KSK95ML')}
+            strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+            {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', ${process.env.GOOGLE_ANALYTICS_ID || 'GTM-KSK95ML'});
+        `}
+        </Script>
         <Component {...pageProps} />
     </>
 }
