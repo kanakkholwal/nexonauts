@@ -26,7 +26,9 @@ export default function ErrorPage() {
 
 
                     <div className={styles.linkContainer}>
-                        <a className={styles.moreLink + " p-2 px-3"} onClick={() => history.go(-1)} title="Go Back"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></a>
+                        <a className={styles.moreLink + " p-2 px-3"} onClick={() => history.go(-1)} title="Go Back">
+                            <svg xmlns="http://www.w3.org/2000/svg" width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokelinejoin="round" className="feather feather-arrow-left"><line x1={19} y1={12} x2={5} y2={12} /><polyline points="12 19 5 12 12 5" /></svg>
+                        </a>
                         <Link href="/" className={styles.moreLink} title="Go to HomePage">Go the HomePage</Link>
                     </div>
                 </div>

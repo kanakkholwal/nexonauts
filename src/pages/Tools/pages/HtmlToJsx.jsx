@@ -40,20 +40,23 @@ export default function HtmlToJsxTool() {
     if (_isSvg)
         console.log("it is a svg")
 
-    const ConvertToJSX = async () => {
 
-        setSvg(isSvg(state.rawData));
-        const converter = new HTMLtoJSX({
-            createClass: false
-        });
-        let result = converter.convert(state.rawData);
-        if (settings.createFunction) {
-            result = `export const Foo = () => (${result})`;
+    useEffect(() => {
+        const ConvertToJSX = async () => {
+
+            setSvg(isSvg(state.rawData));
+            const converter = new HTMLtoJSX({
+                createClass: false
+            });
+            let result = converter.convert(state.rawData);
+            if (settings.createFunction) {
+                result = `export const Foo = () => (${result})`;
+            }
+
+            setState({ ...state, convertedData: result })
         }
-
-        setState({ ...state, convertedData: result })
-    }
-    useEffect(() => ConvertToJSX(), [])
+        ConvertToJSX()
+    }, [state.rawData])
 
 
 
@@ -64,11 +67,11 @@ export default function HtmlToJsxTool() {
                     ...state,
                     rawData: e.target.value
                 })} />
-                <Label for="rawData">Enter Raw HTML Here</Label>
+                <Label htmlFor="rawData">Enter Raw HTML Here</Label>
             </FormElement>
             <div className="m-auto d-flex flex-wrap justify-content-center align-items-center my-3">
                 <Button onClick={() => setState({ ...state, convertedData: "", rawData: rawHtml })}> RawData <MdOutlineCode /></Button>
-                <Button onClick={ConvertToJSX}> Convert <SlRefresh /></Button>
+                {/* <Button onClick={ConvertToJSX}> Convert <SlRefresh /></Button> */}
                 <Button nature="danger" onClick={() => setState({ ...state, convertedData: "", rawData: "" })}>
                     Clear <MdDeleteOutline />
                 </Button>
