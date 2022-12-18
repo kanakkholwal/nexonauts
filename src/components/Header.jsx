@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import ViewCounter from "@/components/ViewCounter"
 import { IoCloseOutline, IoMenuOutline, IoMoonOutline, IoMoon } from "react-icons/io5";
 import { HiOutlineSearch } from "react-icons/hi";
+import { RiEyeLine } from "react-icons/ri";
+
 import Link from "next/link";
 import classes from "./_Header.module.scss";
 import HeaderDropDown from "./HeaderDropDown";
@@ -208,8 +210,8 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                         <h1 className={"h1"} data-aos="fade-up" data-aos-delay="100">{title}</h1>
                         <p className={classes.Section_text} data-aos="fade-up" data-aos-delay="150"> {description} </p>
                         {pageId && <>
-                            <div className="m-auto d-flex">
-                                <ViewCounter slug={pageId} />
+                            <div className="m-auto">
+                                <span className="Badge Badge_info"><RiEyeLine /> <ViewCounter slug={pageId} /></span>
                             </div>
                         </>
 
