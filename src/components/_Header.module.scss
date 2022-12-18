@@ -68,7 +68,6 @@ $background-color_4: hsl(0, 0%, 70%);
     width: 100%;
     padding-block: 20px;
     box-shadow: var(--shadow-1);
-    z-index: 4;
 
     .Container {
         display: flex;
@@ -116,7 +115,7 @@ $background-color_4: hsl(0, 0%, 70%);
     opacity: 0;
 
     transition: opacity .15s cubic-bezier(0, 0, .2, 1) 0ms, transform .15s cubic-bezier(0, 0, .2, 1) 0ms, scale .15s cubic-bezier(0, 0, .2, 1) 0ms;
-    z-index: 3;
+    z-index: 9;
 
     input {
         margin-inline: 0.5rem;
@@ -455,6 +454,8 @@ $background-color_4: hsl(0, 0%, 70%);
     pointer-events: none;
     opacity: 0;
     transition: var(--transition-1);
+    z-index: 8;
+
 }
 
 .overlay.active {
@@ -488,6 +489,13 @@ $background-color_4: hsl(0, 0%, 70%);
 }
 
 
+@media (max-width:$lg) {
+
+    .NavBar.active {
+        z-index: 10;
+    }
+
+}
 
 @media (min-width:$lg) {
 
