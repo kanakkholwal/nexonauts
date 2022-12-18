@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import React from "react";
 
 
-const TextAreaStyled = styled.textarea`
+export const TextAreaStyled = styled.textarea`
 height: auto;
   overflow: hidden;
   resize: vertical;

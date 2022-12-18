@@ -15,10 +15,9 @@ position:relative;
 margin-inline: inherit;
 display: inherit;
 align-items: inherit;
-justify-content:inherit;
 width: inherit;
 height: inherit;
-`
+`;
 const SearchDropDown = styled.div`
 position:absolute;
 top:100%;
@@ -26,21 +25,21 @@ left:0;
 right:0;
 width:100%;
 padding: 1rem;
-`
+`;
 const SearchDropDownList = styled.ul`
 display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
 gap:2em;
-`
+`;
 const SearchDropDownItem = styled.li`
 display:grid;
-`
+`;
 const SearchInput = styled(Input)`
 transition: all 0.35s var(--open-transition);
 padding-left:38px;
-`
+`;
 const SearchIcon = styled.div`
 display: flex;
 padding: 0.75rem;
@@ -49,7 +48,7 @@ justify-content: center;
 padding: 18px;
 margin-right:-50px;
 z-index: 3;
-`
+`;
 
 
 
@@ -84,26 +83,26 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
         const navbar = document.querySelector("[data-navbar]");
         const navTogglers = document.querySelectorAll("[data-nav-toggler]");
         const navClose = document.querySelectorAll("[data-nav-close]");
-        const overlay = document.querySelector("[data-overlay]");
+        const overlay = document.querySelectorAll("[data-overlay]");
         const SearchBar = document.querySelector("[data-search]");
         const SearchTogglers = document.querySelectorAll("[data-search-toggler]");
         const SearchClose = document.querySelectorAll("[data-search-close]");
 
         const toggleNavbar = function () {
             navbar.classList.toggle(classes.active);
-            overlay.classList.toggle(classes.active);
+            Array.from(overlay).map((item) => item.classList.toggle(classes.active));
         }
         const toggleSearch = function () {
             SearchBar.classList.toggle(classes.IsOpen);
-            overlay.classList.toggle(classes.active);
+            Array.from(overlay).map((item) => item.classList.toggle(classes.active));
         }
         const closeNavbar = function () {
             navbar.classList.remove(classes.active);
-            overlay.classList.remove(classes.active);
+            Array.from(overlay).map((item) => item.classList.remove(classes.active));
         }
         const closeSearch = function () {
             SearchBar.classList.remove(classes.IsOpen);
-            overlay.classList.remove(classes.active);
+            Array.from(overlay).map((item) => item.classList.remove(classes.active));
         }
 
         addEventOnElements(navTogglers, "click", toggleNavbar);
@@ -198,8 +197,9 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                         </SearchContainer>
                     </div>
                 </div >
+                <div className={classes.overlay} data-nav-close data-overlay data-search-close />
+
             </header>
-            <div className={classes.overlay} data-nav-close data-overlay data-search-close />
 
             <section className={classes.Section + " " + classes.Hero} id="hero">
                 <div className={classes.Container}>
@@ -208,7 +208,7 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                         <h1 className={"h1"} data-aos="fade-up" data-aos-delay="100">{title}</h1>
                         <p className={classes.Section_text} data-aos="fade-up" data-aos-delay="150"> {description} </p>
                         {pageId && <>
-                            <div class="m-auto d-flex">
+                            <div className="m-auto d-flex">
                                 <ViewCounter slug={pageId} />
                             </div>
                         </>

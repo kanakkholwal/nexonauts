@@ -68,6 +68,7 @@ $background-color_4: hsl(0, 0%, 70%);
     width: 100%;
     padding-block: 20px;
     box-shadow: var(--shadow-1);
+    z-index: 4;
 
     .Container {
         display: flex;
@@ -109,13 +110,13 @@ $background-color_4: hsl(0, 0%, 70%);
     position: absolute;
     max-width: 728px;
     left: 50%;
-    top: 50%;
+    top: 200%;
     translate: -50% -50%;
     transform: translateY(-20px) scale(0);
     opacity: 0;
 
     transition: opacity .15s cubic-bezier(0, 0, .2, 1) 0ms, transform .15s cubic-bezier(0, 0, .2, 1) 0ms, scale .15s cubic-bezier(0, 0, .2, 1) 0ms;
-    z-index: 9;
+    z-index: 3;
 
     input {
         margin-inline: 0.5rem;
@@ -159,7 +160,7 @@ $background-color_4: hsl(0, 0%, 70%);
     visibility: hidden;
     will-change: opacity, transform;
     transition: all .15s cubic-bezier(0, 0, .2, 1) 0ms;
-    opacity: 1;
+    opacity: 3;
 
     &.active {
         visibility: visible;
@@ -450,22 +451,25 @@ $background-color_4: hsl(0, 0%, 70%);
     left: 0;
     width: 100%;
     height: 100vh;
-    background-color: var(--raisin-black);
+    background-color: var(--overlay-bg);
+    backdrop-filter: blur(20px);
     pointer-events: none;
     opacity: 0;
     transition: var(--transition-1);
-    z-index: 8;
 
+    &.active {
+        pointer-events: all;
+        opacity: 0.85;
+    }
 }
 
-.overlay.active {
-    pointer-events: all;
-    opacity: 0.975;
-}
+
 
 .Section {
     padding-block: var(--section-padding);
 }
+
+
 
 .Hero {
     padding-block-start: calc(var(--section-padding) + 50px);
@@ -489,13 +493,6 @@ $background-color_4: hsl(0, 0%, 70%);
 }
 
 
-@media (max-width:$lg) {
-
-    .NavBar.active {
-        z-index: 10;
-    }
-
-}
 
 @media (min-width:$lg) {
 
@@ -530,6 +527,15 @@ $background-color_4: hsl(0, 0%, 70%);
         transform: translateX(-50%);
         padding-inline: 16px;
         border-radius: 50px;
+
+        &:not(.active) {
+            .overlay {
+                top: -50px;
+                left: -28px;
+                width: calc(100% + 70px);
+                height: calc(100vh + 70px);
+            }
+        }
     }
 
     .Header.active {

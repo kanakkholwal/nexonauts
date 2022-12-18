@@ -21,7 +21,6 @@
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.2",
     "firebase-admin": "^11.4.0",
-    "glob": "^8.0.3",
     "interweave": "^13.0.0",
     "is-svg": "^4.3.2",
     "next": "13.0.2",
