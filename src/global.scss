@@ -28,7 +28,7 @@
     --dense-bg: hsla(220, 20%, 97%, 1);
     --text-muted: hsla(220, 12%, 43%, 0.8);
     --card-bg: #fbfbfb;
-    --card-shadow: rgb(93 116 124 / 6%) 17px 20px 72px, rgba(85, 32, 163, .11) -20px -1px 72px;
+    --card-shadow: rgb(93 116 124 / 6%) 0px -5px 20px 1px, rgb(85 32 163 / 11%) 0px 5px 20px 1px;
     --body-font: "ManRope", "Google Sans", san-serif;
     --code-font: "Google Sans Mono", "Source Code Pro", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     --drop-bg: hsl(0, 0%, 97%);
@@ -262,7 +262,6 @@ body {
     font-weight: 400;
     font-size: 1.25rem;
     line-height: normal;
-    color: variables.$bodyText;
     background-color: var(--body-bg);
     color: var(--body-color);
     font-size: 1.6rem;
@@ -280,7 +279,7 @@ body {
         --card-bg: hsla(252, 5%, 19%, 0.8);
         --drop-bg: hsl(250, 6%, 19%);
         --icon-bg: #8384892e;
-        --card-shadow: hsl(264deg 9% 8% / 28%) 0px 15px 72px;
+        --card-shadow: hsl(264deg 9% 8% / 28%) 0px -5px 20px 1px, hsl(264deg 9% 8% / 28%) 0px 5px 20px 1px;
         --border-color: #8384892e;
 
         --success: hsl(142deg 42% 60%);

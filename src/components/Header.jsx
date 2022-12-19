@@ -151,13 +151,13 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                         </strong>
                     </Link>
                     <div className={classes.NavCTA}>
-                        <button className={classes.ThemeToggle} onClick={ToggleTheme}>
+                        <button className={classes.ThemeToggle} onClick={ToggleTheme} aria-label="Dark Mode Toggle" type="button">
                             {
                                 DarkMode ? <IoMoon /> : <IoMoonOutline />
                             }
                         </button>
                         {Search && <>
-                            <button className={classes.SearchToggle} aria-label="Search on Site" data-search-toggler>
+                            <button className={classes.SearchToggle} aria-label="Search on Site" data-search-toggler type="button">
                                 <HiOutlineSearch />
                             </button>
                         </>}
