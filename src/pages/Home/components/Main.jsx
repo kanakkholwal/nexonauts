@@ -185,7 +185,7 @@ export default function Main({ data }) {
                                     this contact form and I will get back to you shortly.
                                 </p>
                             </div>
-                            <form action className={classes.contactForm} data-aos="fade-left">
+                            <form action="true" className={classes.contactForm} data-aos="fade-left">
                                 <div className={classes.inputWrapper}>
                                     <input type="text" name="name" placeholder="Name *" required className={classes.inputField} />
                                     <input type="email" name="email_address" placeholder="Email *" required className={classes.inputField} />

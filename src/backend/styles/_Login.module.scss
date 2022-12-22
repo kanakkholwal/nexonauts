@@ -1,0 +1,146 @@
+$breakpoint:900px;
+$breakpoint-sm:600px;
+
+.LoginPage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    .Greeting {
+        display: none;
+        position: relative;
+
+        @media (min-width: $breakpoint) {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        h3 {
+
+            margin: 0px 0px 80px;
+            font-weight: 700;
+            line-height: 1.5;
+            font-size: 1.5rem;
+            max-width: 480px;
+            text-align: center;
+
+            @media (min-width: $breakpoint-sm) {
+                font-size: 1.875rem;
+            }
+
+            @media (min-width: $breakpoint-sm) {
+                font-size: 1.625rem;
+            }
+        }
+
+        .illustrationContainer {
+            line-height: 1;
+            display: block;
+            overflow: hidden;
+            position: relative;
+            max-width: 720px;
+
+            .Wrapper {
+                width: 100%;
+                height: 100%;
+                background-size: cover !important;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        }
+
+        .mask {
+            top: 0px;
+            left: 0px;
+            z-index: -1;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transform: scaleX(-1);
+            // background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)) center center / cover no-repeat, url(var(--image));
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+    }
+
+    .LoginArea {
+
+        width: 480px;
+        margin: auto;
+        display: flex;
+        min-height: 100vh;
+        justify-content: center;
+        padding: 120px 16px;
+
+        @media (min-width: $breakpoint) {
+            flex-shrink: 0;
+            padding: 240px 64px 0px;
+        }
+
+        .Inner {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .Header {
+
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 40px;
+            position: relative;
+
+            h4 {
+                margin: 0px;
+                font-weight: 700;
+                line-height: 1.5;
+
+                @media (min-width: $breakpoint) {
+                    font-size: 1.5rem;
+                }
+
+                @media (min-width: $breakpoint-sm) {
+                    font-size: 1.25rem;
+                }
+            }
+
+            svg {
+                height: 32px;
+            }
+        }
+    }
+
+
+}
+
+
+
+.customShapeDivider {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.customShapeDivider svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.3px);
+    height: 150px;
+    transform: rotateY(180deg);
+}
+
+.customShapeDivider .shapeFill {
+    fill: #FFA309;
+}

@@ -10,7 +10,8 @@
 "./styles/position",
 "./styles/topography",
 "./styles/code",
-"./styles/ripple";
+"./styles/ripple",
+"./styles/custom";
 
 @import "./styles/components/core";
 @import "./styles/components/footer";
@@ -28,7 +29,7 @@
     --dense-bg: hsla(220, 20%, 97%, 1);
     --text-muted: hsla(220, 12%, 43%, 0.8);
     --card-bg: #fbfbfb;
-    --card-shadow: rgb(93 116 124 / 6%) 0px -5px 20px 1px, rgb(85 32 163 / 11%) 0px 5px 20px 1px;
+    --card-shadow: rgb(145 158 171 / 20%) 6px -7px 14px 0px, rgb(145 158 171 / 12%) -7px 7px 24px 6px;
     --body-font: "ManRope", "Google Sans", san-serif;
     --code-font: "Google Sans Mono", "Source Code Pro", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     --drop-bg: hsl(0, 0%, 97%);
@@ -174,7 +175,7 @@
     --shadow-2: hsla(264, 67%, 38%, 0.20) 0px 15px 72px;
     --radius-circle: 50%;
     --radius-pill: 100px;
-    --radius-8: 30px;
+    --radius-8: 20px;
     --radius-6: 6px;
     --transition-1: 0.25s ease;
     --transition-2: 0.5s ease;
@@ -273,13 +274,13 @@ body {
 
     &.DarkMode {
         --body-color: hsl(0, 100%, 99%);
-        --body-bg: hsla(252, 8%, 12%, 1);
-        --dense-bg: hsl(255, 9%, 9%);
-        --text-muted: hsla(0, 100%, 99%, 0.8);
-        --card-bg: hsla(252, 5%, 19%, 0.8);
-        --drop-bg: hsl(250, 6%, 19%);
+        --body-bg: #21272f;
+        --dense-bg: rgb(22, 28, 36);
+        --text-muted: hsla(0, 100%, 99%, .8);
+        --card-bg: #343b44;
+        --drop-bg: #343b44;
         --icon-bg: #8384892e;
-        --card-shadow: hsl(264deg 9% 8% / 28%) 0px -5px 20px 1px, hsl(264deg 9% 8% / 28%) 0px 5px 20px 1px;
+        --card-shadow: rgb(0 0 0 / 20%) 0px 0px 2px 0px, rgb(0 0 0 / 12%) 0px 12px 24px -4px;
         --border-color: #8384892e;
 
         --success: hsl(142deg 42% 60%);
@@ -293,7 +294,7 @@ body {
         --badge: hsl(235, 100%, 85%);
         --badgeBg: rgb(107 117 219 / 20%);
 
-        --form-border: hsla(229, 13%, 33%, 0.671);
+        --form-border: rgba(145, 158, 171, 0.32);
         --form-border-active: var(--theme);
         --form-label: hsl(229, 8%, 73%);
         --form-label-active: #eee;
@@ -319,12 +320,12 @@ body {
         --property: #f8c555;
 
 
-        --sidebar-bg: #2c2e30;
+        --sidebar-bg: rgb(22, 28, 36);
         --sidebar-color: #e3eefb;
         --sidebar-link: inherit;
         --sidebar-link-bg: inherit;
-        --sidebar-link-hover: #5bd4ff;
-        --sidebar-link-bg-hover: #33363a;
+        --sidebar-link-hover: rgb(28, 156, 234);
+        --sidebar-link-bg-hover: rgba(145, 158, 171, 0.08);
 
         --white: var(--body-bg);
         --cultured: var(--dense-bg);
@@ -334,7 +335,7 @@ body {
         --manatee: #949ba8;
         --black-coral: #fffcfc;
         --cadet-blue-crayola_a20: rgba(164, 174, 198, .2);
-        --cinnamon-satin: #59c7f0;
+        --cinnamon-satin: rgb(28, 156, 234);
         --raisin-black: #1f2329;
         --raisin-black_a6: rgb(9 22 41 / 36%);
         --gunmetal: #2e343e;

@@ -111,12 +111,12 @@ const PageData = {
                             image: "assets/images/web-tools.svg",
                             theme: {
                                 color: {
-                                    light: "#d16b86",
-                                    dark: "#361c23"
+                                    light: "rgb(0, 82, 73)",
+                                    dark: "rgb(0, 82, 73)"
                                 },
                                 bg: {
-                                    light: "#fcf4f6",
-                                    dark: "#d16b86"
+                                    light: "#d4f3e1",
+                                    dark: "#d5f4e2"
                                 }
                             }
                         },

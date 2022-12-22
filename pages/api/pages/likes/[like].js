@@ -4,14 +4,14 @@ import db from "../../../../src/libs/firebase";
 export default async (req, res) => {
     // increment the like
     if (req.method === 'POST') {
-        const ref = db.ref('pages/likes').child(req.query.view)
-        const { snapshot } = await ref.transaction((currentLike) => {
-            if (currentLike === null || currentLike === 0) {
+        const ref = db.ref('pages/likes').child(req.query.like)
+        const { snapshot } = await ref.transaction((currentLikes) => {
+            if (currentLikes === null || currentLikes === 0) {
                 return 1
             }
 
 
-            return currentLike + 1
+            return currentLikes + 1
         })
 
 
@@ -21,13 +21,13 @@ export default async (req, res) => {
     }
     if (req.method === 'DELETE') {
         const ref = db.ref('pages/likes').child(req.query.view)
-        const { snapshot } = await ref.transaction((currentLike) => {
-            if (currentLike === null || currentLike === 0) {
+        const { snapshot } = await ref.transaction((currentLikes) => {
+            if (currentLikes === null || currentLikes === 0) {
                 return 0
             }
 
 
-            return currentLike - 1
+            return currentLikes - 1
         })
 
 
@@ -37,7 +37,7 @@ export default async (req, res) => {
     }
     // fetch the like
     if (req.method === 'GET') {
-        const snapshot = await db.ref('pages/likes').child(req.query.view).once('value')
+        const snapshot = await db.ref('pages/likes').child(req.query.like).once('value')
         const like = snapshot.val()
         return res.status(200).json({ total: like })
     }

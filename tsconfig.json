@@ -10,6 +10,7 @@
       "@/project/*": ["./*"],
       "@/firebase/*": ["src/firebase/*"],
       "@/lib/*": ["src/lib/*"],
+      "@backend/*": ["src/backend/*"],
       "@/*": ["./*"],
     },
     "target": "es5",
