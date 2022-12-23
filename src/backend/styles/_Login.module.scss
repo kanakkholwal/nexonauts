@@ -24,16 +24,16 @@ $breakpoint-sm:600px;
             margin: 0px 0px 80px;
             font-weight: 700;
             line-height: 1.5;
-            font-size: 1.5rem;
+            font-size: 1.5em;
             max-width: 480px;
             text-align: center;
 
             @media (min-width: $breakpoint-sm) {
-                font-size: 1.875rem;
+                font-size: 1.875em;
             }
 
             @media (min-width: $breakpoint-sm) {
-                font-size: 1.625rem;
+                font-size: 1.625em;
             }
         }
 
@@ -94,7 +94,8 @@ $breakpoint-sm:600px;
         .Header {
 
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
             margin-bottom: 40px;
             position: relative;
 
@@ -104,17 +105,22 @@ $breakpoint-sm:600px;
                 line-height: 1.5;
 
                 @media (min-width: $breakpoint) {
-                    font-size: 1.5rem;
+                    font-size: 1.5em;
                 }
 
                 @media (min-width: $breakpoint-sm) {
-                    font-size: 1.25rem;
+                    font-size: 1.25em;
                 }
             }
 
             svg {
                 height: 32px;
             }
+        }
+
+        .Body {
+            display: flex;
+            flex-direction: column;
         }
     }
 

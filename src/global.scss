@@ -27,6 +27,7 @@
     --body-color: hsla(220, 12%, 43%, 1);
     --body-bg: hsla(0, 0%, 100%, 1);
     --dense-bg: hsla(220, 20%, 97%, 1);
+    --hover-bg: rgba(145, 158, 171, 0.08);
     --text-muted: hsla(220, 12%, 43%, 0.8);
     --card-bg: #fbfbfb;
     --card-shadow: rgb(145 158 171 / 20%) 6px -7px 14px 0px, rgb(145 158 171 / 12%) -7px 7px 24px 6px;
@@ -276,6 +277,7 @@ body {
         --body-color: hsl(0, 100%, 99%);
         --body-bg: #21272f;
         --dense-bg: rgb(22, 28, 36);
+        --hover-bg: rgba(145, 158, 171, 0.08);
         --text-muted: hsla(0, 100%, 99%, .8);
         --card-bg: #343b44;
         --drop-bg: #343b44;

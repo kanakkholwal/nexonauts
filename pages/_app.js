@@ -12,10 +12,16 @@ export default function MyApp({ Component, pageProps }) {
 
     useEffect(() => {
 
-        if (localStorage.getItem("kkupgrader_Mode") === "false")
-            document.body.classList.remove("DarkMode");
-        else if (localStorage.getItem("kkupgrader_Mode") === "true" || window.matchMedia('(prefers-color-scheme: dark)'))
+        if (window.matchMedia('(prefers-color-scheme: dark)')) {
+            if (localStorage.getItem("kkupgrader_Mode") && localStorage.getItem("kkupgrader_Mode") === "false")
+                document.body.classList.remove("DarkMode");
+            else
+                document.body.classList.remove("DarkMode");
+        }
+        else if (localStorage.getItem("kkupgrader_Mode") === "true")
             document.body.classList.add("DarkMode");
+        else if (localStorage.getItem("kkupgrader_Mode") === "false")
+            document.body.classList.remove("DarkMode");
         else
             document.body.classList.remove("DarkMode");
 

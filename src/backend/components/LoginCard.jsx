@@ -1,5 +1,6 @@
 import Input from "@/components/form-elements/Input";
 import Button from "@/components/buttons";
+import classes from "@backend/styles/_Login.module.scss";
 import { FormElement, Label } from "@/components/form-elements";
 
 export default function LoginCard({ ...props }) {
@@ -9,21 +10,21 @@ export default function LoginCard({ ...props }) {
         console.log(e.target)
     }
 
-    return (<form onSubmit={handleSubmit} {...props}>
+    return (
+        <div className={classes.body}>
+            <div>
+                <form onSubmit={handleSubmit} >
+                    <FormElement>
+                        <Input type="email" placeholder="Enter your Email" outlined />
+                        <Label>Enter Your Email</Label>
+                    </FormElement>
+                    <FormElement>
+                        <Input type="password" placeholder="Enter your Password" outlined />
+                        <Label>Enter Your Password</Label>
+                    </FormElement>
+                    <div className="d-flex justify-content-center align-items-center"><Button type="submit" nature="primary" >Login as Admin</Button></div>
 
-        <div className="Fui_Card">
-            <div className="Fui_Card-body">
-                <FormElement>
-                    <Input type="email" placeholder="Enter your Email" outlined />
-                    <Label>Enter Your Email</Label>
-                </FormElement>
-                <FormElement>
-                    <Input type="password" placeholder="Enter your Password" outlined />
-                    <Label>Enter Your Password</Label>
-                </FormElement>
-
-                <Button type="submit">Login as Admin</Button>
+                </form>
             </div>
-        </div>
-    </form>)
+        </div>)
 }
