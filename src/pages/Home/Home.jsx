@@ -116,7 +116,7 @@ const PageData = {
                                 },
                                 bg: {
                                     light: "#d4f3e1",
-                                    dark: "#d5f4e2"
+                                    dark: "rgb(47 188 106)"
                                 }
                             }
                         },
