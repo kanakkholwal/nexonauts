@@ -40,7 +40,7 @@
     --icon-bg: #8386972b;
     --theme: hsl(196, 100%, 40%);
     --open-transition: opacity .15s cubic-bezier(0, 0, .2, 1) 0ms, transform .15s cubic-bezier(0, 0, .2, 1) 0ms, -webkit-transform .15s cubic-bezier(0, 0, .2, 1) 0ms;
-    --drop-shadow: 0 3px 5px -1px rgb(0 0 0 / 20%), 0 6px 10px 0 rgb(0 0 0 / 14%), 0 1px 18px 0 rgb(0 0 0 / 12%);
+    --drop-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) -20px 20px 40px -4px;
 
     --dropdown-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
     --success: hsl(143, 28%, 22%);
@@ -280,8 +280,9 @@ body {
         --hover-bg: rgba(145, 158, 171, 0.08);
         --text-muted: hsla(0, 100%, 99%, .8);
         --card-bg: #343b44;
-        --drop-bg: #343b44;
         --icon-bg: #8384892e;
+        --drop-bg: rgb(33, 43, 54);
+        --drop-shadow: rgb(0 0 0 / 24%) 0px 0px 2px 0px, rgb(0 0 0 / 24%) -20px 20px 40px -4px;
         --card-shadow: rgb(0 0 0 / 20%) 0px 0px 2px 0px, rgb(0 0 0 / 12%) 0px 12px 24px -4px;
         --border-color: #8384892e;
 

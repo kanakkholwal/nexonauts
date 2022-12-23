@@ -28,7 +28,7 @@ $breakpoint-sm:600px;
             max-width: 480px;
             text-align: center;
 
-            @media (min-width: $breakpoint-sm) {
+            @media (min-width: $breakpoint) {
                 font-size: 1.875em;
             }
 
