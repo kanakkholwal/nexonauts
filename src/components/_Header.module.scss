@@ -333,6 +333,7 @@ $background-color_4: hsl(0, 0%, 70%);
                 &:hover {
                     color: var(--cinnamon-satin);
                     opacity: 1;
+
                 }
             }
 
@@ -361,7 +362,7 @@ $background-color_4: hsl(0, 0%, 70%);
                     min-width: 16rem;
                     box-shadow: var(--drop-shadow);
                     gap: 0.375rem;
-                    transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+                    transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
                     translate: -50% 50px;
                     opacity: 0;
                     visibility: hidden;
@@ -375,6 +376,11 @@ $background-color_4: hsl(0, 0%, 70%);
                             justify-content: space-between;
                             padding-block: 0.5rem;
                             padding-inline: 1.5rem;
+
+                            &:hover {
+                                background: var(--hover-bg);
+                                border-radius: 0.75rem;
+                            }
                         }
 
                         &:has(>.NavBar_list) {
