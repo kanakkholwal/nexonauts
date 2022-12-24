@@ -144,6 +144,7 @@ body.nav-active {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: relative;
     }
 
     &.active {

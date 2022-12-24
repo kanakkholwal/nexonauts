@@ -23,11 +23,20 @@ height: inherit;
 `;
 const SearchDropDown = styled.div`
 position:absolute;
-top:100%;
+top: calc(100% + 20px);
 left:0;
 right:0;
-width:100%;
+width: calc(100% - 30px);
+margin: auto;
 padding: 1rem;
+backdrop-filter: blur(4px);
+background: #ffffffd6;
+box-shadow: var(--drop-shadow);
+border-radius: 8px;
+transition:all .15s cubic-bezier(0,0,.2,1) 150ms;
+@media (max-width: 992px){
+    top: calc(100% + 40px);
+}
 `;
 const SearchDropDownList = styled.ul`
 display:flex;
@@ -49,7 +58,7 @@ padding: 0.75rem;
 align-items: center;
 justify-content: center;
 padding: 18px;
-margin-right:-50px;
+margin-right:-55px;
 z-index: 3;
 `;
 
@@ -90,6 +99,7 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
         const SearchBar = document.querySelector("[data-search]");
         const SearchTogglers = document.querySelectorAll("[data-search-toggler]");
         const SearchClose = document.querySelectorAll("[data-search-close]");
+        const header = document.querySelector("[data-header]");
 
         const toggleNavbar = function () {
             navbar.classList.toggle(classes.active);
@@ -97,20 +107,20 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
         }
         const toggleSearch = function () {
             SearchBar.classList.toggle(classes.IsOpen);
-            Array.from(overlay).map((item) => item.classList.toggle(classes.active));
-            if (window.scrollY < 100)
-                header.classList.toggle(classes.active);
-
+            SearchBar.inert = !SearchBar.inert;
         }
+        document.addEventListener("mouseup", (e) => {
+            if (!header.contains(e.target))
+                closeSearch()
+        })
         const closeNavbar = function () {
             navbar.classList.remove(classes.active);
             Array.from(overlay).map((item) => item.classList.remove(classes.active));
         }
         const closeSearch = function () {
             SearchBar.classList.remove(classes.IsOpen);
-            Array.from(overlay).map((item) => item.classList.remove(classes.active));
-            if (window.scrollY < 100)
-                header.classList.remove(classes.active);
+            SearchBar.inert = true;
+
         }
 
         addEventOnElements(navTogglers, "click", toggleNavbar);
@@ -127,7 +137,6 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
         })
 
 
-        const header = document.querySelector("[data-header]");
         window.addEventListener("scroll", function () {
             if (window.scrollY > 100) {
                 header.classList.add(classes.active);
@@ -193,7 +202,7 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                             }
                         </ul>
                     </nav>
-                    <div className={classes.NavSearch} data-search >
+                    <div className={classes.NavSearch} data-search inert="true">
                         <SearchContainer>
                             <SearchIcon><HiOutlineSearch /></SearchIcon>
                             <SearchInput type="search" outlined />
