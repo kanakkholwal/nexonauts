@@ -30,7 +30,7 @@ width: calc(100% - 30px);
 margin: auto;
 padding: 1rem;
 backdrop-filter: blur(4px);
-background: #ffffffd6;
+background: var(--drop-bg);
 box-shadow: var(--drop-shadow);
 border-radius: 8px;
 transition:all .15s cubic-bezier(0,0,.2,1) 150ms;
@@ -206,7 +206,7 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                         <SearchContainer>
                             <SearchIcon><HiOutlineSearch /></SearchIcon>
                             <SearchInput type="search" outlined />
-                            <SearchDropDown>
+                            <SearchDropDown className={classes.NavSearchDropDown}>
                                 <SearchDropDownList>
                                     {Search?.map((item, index) => <SearchDropDownItem key={index}>{item.title}</SearchDropDownItem>)}
                                 </SearchDropDownList>
