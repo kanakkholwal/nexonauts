@@ -35,6 +35,9 @@ export function GenerateId(length) {
     }
     return result;
 }
+export function randomIntFromInterval(min, max) { // min and max included 
+    return Math.floor(Math.random() * (max - min + 1) + min)
+}
 export function stringToHTML(str) {
     var parser = new DOMParser();
     var doc = parser.parseFromString(str, 'text/html');

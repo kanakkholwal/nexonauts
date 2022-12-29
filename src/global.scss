@@ -59,7 +59,7 @@
     --form-border-active: var(--theme);
     --form-label: rgb(117, 118, 124);
     --form-label-active: #eee;
-    --form-bg: rgba(155, 170, 175, 0.12);
+    --form-bg: #f2f3f7;
     --form-bg-active: #fbfbfb;
     --form-color: rgb(44, 41, 41);
     --form-color-active: #262626;
@@ -359,7 +359,11 @@ li[class] {
 
 img {
     display: block;
+    max-width: 100%;
     height: auto;
+    width: auto;
+    user-select: none;
+    -webkit-user-drag: none;
 }
 
 .DarkMode {

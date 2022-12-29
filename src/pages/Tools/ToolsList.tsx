@@ -4,6 +4,7 @@ import Image2Webp from "./pages/Image2Webp";
 import CssMinifierPrettifier from "./pages/CssMinifierPrettifier";
 import HtmlMinifierPrettifier from "./pages/HtmlMinifierPrettifier";
 import JsonMinifierPrettifier from "./pages/JsonMinifierPrettifier";
+import YouTubeDownloader from "./pages/YouTubeDownloader";
 import MetaTagGenerator from "./pages/MetaTagGenerator";
 import IframeGenerator from "./pages/IframeGenerator";
 import HtmlParser from "./pages/HtmlParser";
@@ -21,12 +22,20 @@ interface ToolProp {
 const ToolList: ToolProp[] = [
 
     {
+        title: "Youtube Downloader",
+        description: "This Tool helps you to download YouTube Videos in multiple formats",
+        category: "Downloader",
+        path: "/tools/youtube-downloader",
+        Component: <YouTubeDownloader />,
+        online: true
+    },
+    {
         title: "Image to Webp Convertor",
         description: "This Tool helps you to convert Any Image Format to Webp Format to boost your WebPage Speed..",
         category: "Image Tools",
         path: "/tools/image-to-webp-convertor",
         Component: <Image2Webp />,
-        online: false
+        online: true
     },
     {
         title: "HTML to JSX Convertor",

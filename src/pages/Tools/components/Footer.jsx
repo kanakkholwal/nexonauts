@@ -24,29 +24,12 @@ export default function Footer({ FooterData }) {
                 </div>
 
                 <div className={component.FooterSection}>
-                    <h3 className={component.Heading}>{FooterData.About.title}</h3>
-                    {
-                        FooterData.About.description && (<p>{FooterData.About.description}</p>)
-                    }
-                    <hr className={component.LineBreak} />
-                    {FooterData.About.LinkList && (<ul>
-                        {
-                            FooterData.About.LinkList?.map(({ name, url }, index) => {
-                                return (
-                                    <li key={index}>
-                                        <Link href={url} className={component.FooterLink}><RxChevronRight /> {name}</Link>
-                                    </li>
-                                )
-                            })
-                        }
-                    </ul>)}
-
                     <div className={component.Social}>
-                        <h4 className={component.SubHeading}>Follow Us on Social Media</h4>
+                        <h2 className={component.SubHeading}>Follow Us on Social Media</h2>
                         {
 
                             FooterData.About.Social?.map(({ name, icon, url }, index) => {
-                                return (<Link href={url} target="_blank" className="icon" rel="noreferrer" key={index} title={name}>{icon}</Link>)
+                                return (<Link href={url} target="_blank" className="icon" rel="noreferrer" key={index} title={name}>{icon} {name}</Link>)
                             })
                         }
 

@@ -335,6 +335,7 @@ $background-color_11: var(--snow);
     .Container {
         max-width: 1320px;
     }
+
     .Header {
         max-width: 1320px;
     }
@@ -351,22 +352,22 @@ $background-color_11: var(--snow);
 .Main {
     padding-block: 1.5rem;
     margin-inline: auto;
-display: grid;
-gap: 1rem;
+    display: grid;
+    gap: 1rem;
 
 
-@media (min-width: $md) {
-    padding: 1.5rem;
-    grid-template-columns: repeat(2, 5fr);
-}
+    @media (min-width: $md) {
+        padding: 1.5rem;
+        grid-template-columns: repeat(2, 5fr);
+    }
 
-@media (min-width: $lg) {
-    grid-template-columns: repeat(3, 3.3fr);
-}
+    @media (min-width: $lg) {
+        grid-template-columns: repeat(3, 3.3fr);
+    }
 
-@media (min-width: $xxl) {
-    grid-template-columns: repeat(4, 2.5fr);
-}
+    @media (min-width: $xxl) {
+        grid-template-columns: repeat(4, 2.5fr);
+    }
 
 
 
@@ -390,7 +391,7 @@ gap: 1rem;
 
     .FooterSection {
         flex: 1 1 50%;
-        padding: 2rem 1rem;
+        padding: 8rem 4rem;
 
         .Heading {
             margin-bottom: 1rem;
@@ -431,35 +432,43 @@ gap: 1rem;
     }
 
     .Social {
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
+        display: flex;
         margin-top: 1rem;
         justify-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
 
         .SubHeading {
-            grid-column-start: 1;
-            grid-column-end: 5;
+            width: 100%;
             margin-bottom: 1rem;
         }
 
         a {
-            padding: 0.5rem;
-            border-radius: 50%;
+            border-radius: 10px;
+            padding: 1rem 1.5rem;
             display: flex;
+            gap: 1rem;
+            font-weight: 600;
             align-items: center;
-            transition: all 750ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid transparent;
+            transition: all 300ms ease-in-out;
 
             &:hover {
-                transform: scale(1.25) rotate(360deg);
-                box-shadow: var(--shadow-1);
-                background: var(--border-color);
                 color: var(--theme);
+                border: 1px solid var(--border-color);
+                border-radius: 10px;
+                transform: scale(1.05);
 
+                &>svg {
+                    transform: rotate(360deg)
+                }
             }
 
             svg {
                 width: 2rem;
                 height: 2rem;
+                transform: none;
+                color: inherit;
             }
         }
 

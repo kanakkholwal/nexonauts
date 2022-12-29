@@ -17,7 +17,9 @@ const nextConfig = withPWA({
   swcMinify: true,
   compiler: { styledComponents: { ssr: true } },
   crossOrigin: 'anonymous',
-
+  images: {
+    domains: ['i.ytimg.com', "blogspot.com"],
+  },
 });
 
 

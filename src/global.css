@@ -4870,6 +4870,7 @@ html ::-webkit-scrollbar-track {
   letter-spacing: 1px;
   background: var(--badgeBg);
   color: var(--badge);
+  margin-left: 0.25rem;
   animation-fill-mode: both;
   animation-iteration-count: infinite;
 }
@@ -6448,6 +6449,7 @@ main.Container {
 .Fui_Card .Fui_Card-link i,
 .Fui_Card .Fui_Card-link img {
   line-height: inherit;
+  color: inherit !important;
   width: 16px;
   height: 16px;
   vertical-align: middle;
@@ -6648,7 +6650,7 @@ main.Container {
   --form-border-active: var(--theme);
   --form-label: rgb(117, 118, 124);
   --form-label-active: #eee;
-  --form-bg: rgba(155, 170, 175, 0.12);
+  --form-bg: #f2f3f7;
   --form-bg-active: #fbfbfb;
   --form-color: rgb(44, 41, 41);
   --form-color-active: #262626;
@@ -6886,7 +6888,11 @@ li[class] {
 
 img {
   display: block;
+  max-width: 100%;
   height: auto;
+  width: auto;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .DarkMode svg {

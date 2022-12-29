@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import ViewCounter from "@/components/ViewCounter"
 // import ShareCounter from "@/components/ShareCounter"
-import { IoCloseOutline, IoMenuOutline, IoMoonOutline, IoMoon } from "react-icons/io5";
-import { HiOutlineSearch } from "react-icons/hi";
+import { IoCloseOutline, IoMenuOutline } from "react-icons/io5";
+import { HiOutlineSearch, HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
 import { RiEyeLine, RiShareForward2Fill } from "react-icons/ri";
 
 import Link from "next/link";
@@ -163,7 +163,7 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                     <div className={classes.NavCTA}>
                         <button className={classes.ThemeToggle} onClick={ToggleTheme} aria-label="Dark Mode Toggle" type="button">
                             {
-                                DarkMode ? <IoMoon /> : <IoMoonOutline />
+                                DarkMode ? <HiOutlineSun /> : <HiOutlineMoon />
                             }
                         </button>
                         {Search && <>
