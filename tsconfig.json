@@ -11,6 +11,8 @@
       "@/firebase/*": ["src/firebase/*"],
       "@/lib/*": ["src/lib/*"],
       "@backend/*": ["src/backend/*"],
+      "@models/*": ["src/models/*"],
+      "@middleware/*": ["src/middleware/*"],
       "@/*": ["./*"],
     },
     "target": "es5",
