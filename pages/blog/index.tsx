@@ -31,6 +31,21 @@ const useFetch = (url: string, options = {}) => {
 
     return { response, error, loading }
 }
+
+export async function getServerSideProps() {
+    let res = await fetch("/api/content/posts", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+    let allPosts = await res.json();
+
+    return {
+        props: { allPosts },
+    };
+}
+
 export default function BlogHomePage() {
 
     const { response, error, loading } = useFetch(getAllPosts_URL(50), {})

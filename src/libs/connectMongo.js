@@ -17,6 +17,19 @@ if (!MONGODB_DB) {
     )
 }
 
-const connectMongo = async (db) => mongoose.connect(MONGODB_URI + "/" + db ?? MONGODB_DB);
+const connectMongo = async (db) => mongoose.connect(MONGODB_URI + "/" + db ?? MONGODB_DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+})
+    .then(() => {
+        console.log("Successfully connected to database");
+    })
+    .catch((error) => {
+        console.log("database connection failed. exiting now...");
+        console.error(error);
+        process.exit(1);
+    });
 
 export default connectMongo;
