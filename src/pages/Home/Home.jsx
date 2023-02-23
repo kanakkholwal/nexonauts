@@ -32,7 +32,7 @@ const PageData = {
         hero: {
             title: "I'm Frontend Web  Developer & Web 3 Enthusiast.",
             subtitle: "Hello! I'm Kanak, a FullStack Web Developer based in India. I’m very passionate  about the work that I do.",
-            image: "me.png",
+            image: "assets/images/me.png",
         },
         sections: {
             about: {

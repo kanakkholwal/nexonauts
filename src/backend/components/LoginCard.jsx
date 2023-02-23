@@ -3,8 +3,8 @@ import Button from "@/components/buttons";
 import classes from "@backend/styles/_Login.module.scss";
 import { FormElement, Label } from "@/components/form-elements";
 import { useRef } from "react";
-import { getProviders, getSession, signIn } from "next-auth/react"
-import { authOptions } from "../../../pages/api/auth/[...nextauth]"
+// import { getProviders, getSession, signIn } from "next-auth/react"
+// import { authOptions } from "../../../pages/api/auth/[...nextauth]"
 
 
 export default function LoginCard({ providers }) {
@@ -39,18 +39,18 @@ export default function LoginCard({ providers }) {
             </div>
         </div>)
 }
-export async function getServerSideProps(context) {
-    const { req } = context;
-    const session = await getSession(req, res, authOptions);
-    const providers = await getProviders()
-    if (session) {
-        return {
-            redirect: { destination: "/auth/dashboard" },
-        };
-    }
-    return {
-        props: {
-            providers,
-        },
-    }
-}
+// export async function getServerSideProps(context) {
+//     const { req } = context;
+//     const session = await getSession(req, res, authOptions);
+//     const providers = await getProviders()
+//     if (session) {
+//         return {
+//             redirect: { destination: "/auth/dashboard" },
+//         };
+//     }
+//     return {
+//         props: {
+//             providers,
+//         },
+//     }
+// }
