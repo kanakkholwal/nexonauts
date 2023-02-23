@@ -3,10 +3,10 @@ import "@/src/global.css";
 import "aos/dist/aos.css";
 import { useEffect } from "react";
 import Aos from "aos";
-import Script from 'next/script';
+import { SessionProvider } from "next-auth/react"
 
 
-export default function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps: { session, ...pageProps }, }) {
 
 
 
@@ -49,6 +49,8 @@ export default function MyApp({ Component, pageProps }) {
 
         </Head>
 
-        <Component {...pageProps} />
+        <SessionProvider session={session}>
+            <Component {...pageProps} />
+        </SessionProvider>
     </>
 }

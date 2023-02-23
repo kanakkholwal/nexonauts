@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { version } from "@/project/package.json";
+import { version } from "@/package.json";
 
 const prefix = `version:${version}:`;
 

@@ -20,7 +20,7 @@ const ImgLoader = ({ src, width, quality }) => {
     return `${origin}/${src}?w=${width}&q=${quality || 75}`
 }
 
-export default function LocalImage({ src, width, props }) {
+export default function LocalImage({ src, width, ...props }) {
 
 
     return (<Image loader={ImgLoader} src={src} width={width} {...props} />)

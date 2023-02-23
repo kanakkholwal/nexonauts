@@ -1,45 +1,47 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/components/*": ["src/components/*"],
-      "@/hooks/*": ["src/hooks/*"],
-      "@/pages/*": ["src/pages/*"],
-      "@/scripts/*": ["src/scripts/*"],
-      "@/src/*": ["src/*"],
-      "@/project/*": ["./*"],
-      "@/firebase/*": ["src/firebase/*"],
-      "@/lib/*": ["src/lib/*"],
-      "@backend/*": ["src/backend/*"],
-      "@models/*": ["src/models/*"],
-      "@middleware/*": ["src/middleware/*"],
-      "@/*": ["./*"],
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "@/components/*": ["src/components/*"],
+        "@hooks/*": ["src/hooks/*"],
+        "helper/*": ["src/helpers/*"],
+        "@/pages/*": ["src/pages/*"],
+        "@/scripts/*": ["src/scripts/*"],
+        "@/src/*": ["src/*"],
+        "@/firebase/*": ["src/firebase/*"],
+        "@libs/*": ["src/libs/*"],
+        "@utils/*": ["src/utils/*"],
+        "@backend/*": ["src/backend/*"],
+        "@models/*": ["src/models/*"],
+        "@middleware/*": ["src/middleware/*"],
+        "@/*": ["./*"],
+      },
+      "target": "es5",
+      "lib": [
+        "dom",
+        "dom.iterable",
+        "esnext"
+      ],
+      "allowJs": true,
+      "skipLibCheck": true,
+      "strict": false,
+      "forceConsistentCasingInFileNames": true,
+      "noEmit": true,
+      "incremental": true,
+      "esModuleInterop": true,
+      "module": "esnext",
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "jsx": "preserve"
     },
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "incremental": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve"
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-, "pages/api/images/[image].js"  ],
-  "exclude": [
-    "node_modules"
-  ]
-}
+    "include": [
+      "next-env.d.ts",
+      "**/*.ts",
+      "**/*.tsx"
+  , "pages/api/images/[image].js", "src/middleware/auth.js", "pages/contact.js", "pages/api/chat/socket_io.js"  ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
+  

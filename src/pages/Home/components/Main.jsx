@@ -20,7 +20,7 @@ export default function Main({ data }) {
                 <section className={classes.Section + " " + classes.Hero} id="home">
                     <div className={classes.Container}>
                         <figure className={classes.Hero_banner}>
-                            <Image loader={ImgLoader} loading="lazy" src={data.hero.image} width={560} height={540} alt="Kanak Kholwal" className={classes.w_100} data-aos="fade-up" />
+                            <Image loader={ImgLoader} loading="lazy" src={data.hero.image} style={{ borderRadius: "10px" }} width={560} height={540} alt="Kanak Kholwal" className={classes.w_100} data-aos="fade-up" />
                             {/* <Image loader={ImgLoader} loading="lazy" src="./assets/images/hero-shape.svg" width={203} height={91} alt="250+ Projects Done" className={classes.shape} data-aos="fade-down" data-aos-delay="250" /> */}
                         </figure>
                         <div className={classes.Hero_content}>
