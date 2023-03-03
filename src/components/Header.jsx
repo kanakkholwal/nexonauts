@@ -6,6 +6,7 @@ import { HiOutlineSearch, HiOutlineMoon, HiOutlineSun } from "react-icons/hi";
 import { RiEyeLine, RiShareForward2Fill } from "react-icons/ri";
 
 import Link from "next/link";
+import { useRouter } from 'next/router'
 import classes from "./_Header.module.scss";
 import HeaderDropDown from "./HeaderDropDown";
 import styled, { keyframes } from "styled-components";
@@ -137,6 +138,7 @@ z-index: 3;
 export default function Header({ NavLinks, SocialMedia, title, description, Search, pageId = null }) {
     const [DarkMode, SetDarkMode] = useState(false);
     const [SearchArray, SetSearchArray] = useState("");
+    const router = useRouter()
 
     const ToggleTheme = () => {
         SetDarkMode(!DarkMode);
@@ -218,11 +220,18 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                 header.classList.remove(classes.active);
             }
         });
+        const handleRouteChange = (url, { shallow }) => {
+            closeSearch()
+        }
+        router.events.on('routeChangeComplete', handleRouteChange)
+
         return () => {
             removeEventOnElements(navTogglers, "click", toggleNavbar);
             removeEventOnElements(SearchTogglers, "click", toggleSearch);
             removeEventOnElements(navClose, "click", closeNavbar);
             removeEventOnElements(SearchClose, "click", closeSearch);
+            router.events.off('routeChangeComplete', handleRouteChange)
+
         }
     }, [])
 
