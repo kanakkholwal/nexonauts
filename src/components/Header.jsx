@@ -8,9 +8,23 @@ import { RiEyeLine, RiShareForward2Fill } from "react-icons/ri";
 import Link from "next/link";
 import classes from "./_Header.module.scss";
 import HeaderDropDown from "./HeaderDropDown";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import Input from "@/components/form-elements/Input";
 
+const pop = keyframes`
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+    visibility: hidden;
+   }
+    
+  to {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+ }
+
+`
 
 
 const SearchContainer = styled.div`
@@ -35,18 +49,72 @@ box-shadow: var(--drop-shadow);
 border-radius: 8px;
 transition:all .15s cubic-bezier(0,0,.2,1) 150ms;
 @media (max-width: 992px){
-    top: calc(100% + 40px);
+top: calc(100% + 40px);
 }
 `;
 const SearchDropDownList = styled.ul`
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-gap:2em;
+padding-block: 1.5rem;
+margin-inline: auto;
+display: grid;
+grid-gap: 1rem;
+
+@media (min-width: 768px) {
+padding: 1.5rem;
+grid-template-columns: repeat(2, 5fr);
+}
+
+@media (min-width: 992px) {
+grid-template-columns: repeat(3, 3.3fr);
+}
+
+@media (min-width: 1400px) {
+grid-template-columns: repeat(4, 2.5fr);
+}
 `;
 const SearchDropDownItem = styled.li`
-display:grid;
+flex: 1 1 auto;
+opacity: 0;
+visibility: hidden;
+transition: all 250ms ease-in-out;
+animation-name: ${pop};
+animation-duration: 0.83s;
+animation-direction: normal;
+animation-iteration-count: 1;
+animation-fill-mode: forwards;
+`;
+const Item = styled.a`
+display: flex;
+justify-content: space-between;
+flex-direction: column;
+gap: 0.5rem;
+padding:0.75rem;
+background: var(--card-bg);
+box-shadow: var(--card-shadow);
+border-radius: var(--border-radius,.5rem);
+`;
+const ItemHeading = styled.h4`
+display: -webkit-box;
+-webkit-box-orient: vertical;
+overflow: hidden;
+text-overflow: ellipsis;
+text-transform: uppercase;
+white-space: normal;
+word-break: break-all;
+letter-spacing: 2px;
+--webkit-line-clamp: 2;
+`;
+const ItemDescription = styled.p`
+display: -webkit-box;
+-webkit-box-orient: vertical;
+overflow: hidden;
+-webkit-line-clamp: 3;
+`;
+const CategoryList = styled.p`
+display: flex;
+flex-wrap:wrap;
+gap:0.25rem;
+justify-content:flex-start;
+align-items:center;
 `;
 const SearchInput = styled(Input)`
 transition: all 0.35s var(--open-transition);
@@ -68,6 +136,7 @@ z-index: 3;
 
 export default function Header({ NavLinks, SocialMedia, title, description, Search, pageId = null }) {
     const [DarkMode, SetDarkMode] = useState(false);
+    const [SearchArray, SetSearchArray] = useState("");
 
     const ToggleTheme = () => {
         SetDarkMode(!DarkMode);
@@ -88,6 +157,12 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
         const addEventOnElements = function (elements, eventType, callback) {
             for (let i = 0, len = elements.length; i < len; i++) {
                 elements[i].addEventListener(eventType, callback);
+            }
+        }
+
+        const removeEventOnElements = function (elements, eventType, callback) {
+            for (let i = 0, len = elements.length; i < len; i++) {
+                elements[i].removeEventListener(eventType, callback);
             }
         }
 
@@ -120,7 +195,6 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
         const closeSearch = function () {
             SearchBar.classList.remove(classes.IsOpen);
             SearchBar.inert = true;
-
         }
 
         addEventOnElements(navTogglers, "click", toggleNavbar);
@@ -144,11 +218,16 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                 header.classList.remove(classes.active);
             }
         });
+        return () => {
+            removeEventOnElements(navTogglers, "click", toggleNavbar);
+            removeEventOnElements(SearchTogglers, "click", toggleSearch);
+            removeEventOnElements(navClose, "click", closeNavbar);
+            removeEventOnElements(SearchClose, "click", closeSearch);
+        }
     }, [])
 
     return (
         <>
-
             <header className={classes.Header} data-header>
                 <div className={classes.Container}>
 
@@ -205,10 +284,34 @@ export default function Header({ NavLinks, SocialMedia, title, description, Sear
                     <div className={classes.NavSearch} data-search inert="true">
                         <SearchContainer>
                             <SearchIcon><HiOutlineSearch /></SearchIcon>
-                            <SearchInput type="search" outlined />
+                            <SearchInput type="search" outlined onChange={(e) => {
+                                SetSearchArray(Search?.
+                                    filter((item) => item.title.toLowerCase().includes(e.target.value.toLowerCase()) || item.description.toLowerCase().includes(e.target.value.toLowerCase()))
+                                )
+
+                            }} spellCheck={false} />
                             <SearchDropDown className={classes.NavSearchDropDown}>
                                 <SearchDropDownList>
-                                    {Search?.map((item, index) => <SearchDropDownItem key={index}>{item.title}</SearchDropDownItem>)}
+                                    {
+                                        SearchArray.length > 0 ?
+                                            SearchArray.map((item, index) => {
+
+                                                return (<SearchDropDownItem key={index}>
+                                                    <Item as={Link} href={item.path}>
+
+                                                        <ItemHeading>{item.title}</ItemHeading>
+                                                        <CategoryList>
+                                                            <span className=" Badge  mb-2 ">{item.category}</span>
+                                                            <span className={"Badge  mb-2 ms-2 " + (item.online ? "Badge_success" : "Badge_danger")} title={item.online ? " Tool is working Fine :)" : "Tool has Some Issues ;)"}>{item.online ? "On" : "Off"}</span>
+                                                        </CategoryList>
+                                                        <ItemDescription>{item.description}</ItemDescription>
+                                                    </Item>
+                                                </SearchDropDownItem>)
+                                            })
+                                            : <>
+                                                No Result
+                                            </>
+                                    }
                                 </SearchDropDownList>
                             </SearchDropDown>
                         </SearchContainer>
