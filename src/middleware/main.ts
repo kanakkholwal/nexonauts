@@ -1,4 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
+
+
 // import Cors from 'cors'
 
 // Initializing the cors middleware
@@ -24,7 +27,12 @@ export function runMiddleware(
         })
     })
 }
-
+export const middleware = async (request: NextRequest) => {
+    if (request.nextUrl.pathname.startsWith('/admin')) {
+        const authCookie = request.cookies.get('kkupgrader-admin-token');
+        if (!authCookie) return NextResponse.redirect(new URL('/', request.url));
+    }
+};
 
 
 export default async function handler(

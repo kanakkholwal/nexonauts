@@ -4,6 +4,7 @@ import Input from "./Input";
 import Label from "./Label";
 import Checkbox from "./CheckBox";
 import { SelectWrapper } from "./Select";
+import { PasswordWrapper } from "./PasswordInput";
 import { TextAreaStyled } from "./TextArea";
 
 const FormElement = styled.div`
@@ -11,8 +12,8 @@ const FormElement = styled.div`
     display: flex;
     align-items: flex-start;
     flex-direction: column;
-    margin: 0.25rem auto 1.25rem;
-    
+    margin: 0.25rem 0.5rem 1.25rem;
+    flex:auto;
     &:has(>${Checkbox}){
       flex-direction: row;
       align-items: center;
@@ -25,7 +26,7 @@ const FormElement = styled.div`
     }
   
     ${Input},${TextAreaStyled},
-  textarea,input,select,${SelectWrapper} {
+  textarea,input,select,${SelectWrapper},${PasswordWrapper} {
       order: 2;
       display:flex;
     }

@@ -1,7 +1,7 @@
 import Login from "@backend/components/LoginCard";
 import Head from "next/head";
 import classes from "@backend/styles/_Login.module.scss";
-import LocalImage from "@/components/LocalImage";
+import LocalImage from "components/LocalImage";
 import blur from '../../../public/assets/backgrounds/dashboard.jpg';
 
 

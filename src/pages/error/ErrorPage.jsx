@@ -12,8 +12,8 @@ export default function ErrorPage() {
                 <title>404 | Page Not Found</title>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-                <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet" />
-                <link href="https://fonts.googleapis.com/css?family=Catamaran:400,800" rel="stylesheet" />
+                {/* <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet" />
+                <link href="https://fonts.googleapis.com/css?family=Catamaran:400,800" rel="stylesheet" /> */}
             </Head>
             <div className={styles.ErrorPage}>
                 <section className={styles.errorContainer}>

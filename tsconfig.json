@@ -9,12 +9,22 @@
         "@/scripts/*": ["src/scripts/*"],
         "@/src/*": ["src/*"],
         "@/firebase/*": ["src/firebase/*"],
-        "@libs/*": ["src/libs/*"],
+        "libs/*": ["src/libs/*"],
         "@utils/*": ["src/utils/*"],
         "@backend/*": ["src/backend/*"],
         "@models/*": ["src/models/*"],
         "@middleware/*": ["src/middleware/*"],
         "@/*": ["./*"],
+        "src/*": ["./src/*"],
+        "backend/*": ["src/backend/*"],
+        "components/*": ["./src/components/*"],
+        "middleware/*": ["./src/middleware/*"],
+        "pages/*": ["./src/pages/*"],
+        "hooks/*": ["./src/hooks/*"],
+        "store/*": ["./src/store/*"],
+        "assets/*": ["./src/assets/*"],
+        "lib/*": ["./src/lib/*"],
+        "models/*": ["./src/models/*"]
       },
       "target": "es5",
       "lib": [
@@ -39,7 +49,7 @@
       "next-env.d.ts",
       "**/*.ts",
       "**/*.tsx"
-  , "pages/api/images/[image].js", "src/middleware/auth.js", "pages/contact.js", "pages/api/chat/socket_io.js"  ],
+  , "pages/api/images/[image].js", "src/middleware/auth.js", "pages/contact.jsx", "pages/api/chat/socket_io.js"  ],
     "exclude": [
       "node_modules"
     ]
