@@ -4,6 +4,7 @@ import { signOut, useSession } from "next-auth/react"
 export default function Dashboard() {
     const { data: session } = useSession()
     const user = session?.user;
+
     if (!user) {
         return (
             <section className="grid h-screen place-items-center">

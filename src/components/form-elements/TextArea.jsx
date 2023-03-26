@@ -3,24 +3,22 @@ import React from "react";
 
 
 export const TextAreaStyled = styled.textarea`
-height: auto;
+  height: auto;
+  min-height: 86px;
   overflow: hidden;
   resize: vertical;
-  letter-spacing: 0.1em;
-  width: 100%;
-  opacity: 0.95;
-  margin-bottom: 1.5rem;
+  letter-spacing: 0.0065em;
   font-weight: 600;
-  
-  transition: all .2s linear;
+  transition: all .3s ease-in-out;
   border-radius: 0.5rem;
-  padding: calc(0.33rem + 1px) calc(0.75rem + 1px);
+  padding: 0.75rem 1rem;
   
-  border: ${props => props.outlined ? "2px" : "1px"} solid var(--form-border);
+  border: 2px solid var(--form-border);
   background: var(--form-bg);
   color: var(--form-color);
   caret-color: var(--form-caret);
-  
+  outline: none;
+  width: 100%;
   &::placeholder {
     color: inherit;
     opacity: 0.75;
@@ -29,7 +27,6 @@ height: auto;
   
   &:focus {
     border-color: var(--form-active);
-    opacity: 1;
     background: var(--form-bg-active);
 
   
@@ -37,7 +34,6 @@ height: auto;
         opacity: 1;
     }
   }
-  
   &.checkValid:invalid,
   &.isInvalid {
     border-color: var(--danger)!important;

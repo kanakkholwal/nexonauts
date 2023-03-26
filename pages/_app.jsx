@@ -1,13 +1,36 @@
 import Head from "next/head";
 import "@/src/global.css";
 import "aos/dist/aos.css";
-import { useEffect } from "react";
+import Progress from 'components/progress';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import Aos from "aos";
 import { SessionProvider } from "next-auth/react"
 
 
 export default function MyApp({ Component, pageProps: { session, ...pageProps }, }) {
 
+    const [isAnimating, setIsAnimating] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        const handleStart = () => {
+            setIsAnimating(true);
+        };
+        const handleStop = () => {
+            setIsAnimating(false);
+        };
+
+        router.events.on('routeChangeStart', handleStart);
+        router.events.on('routeChangeComplete', handleStop);
+        router.events.on('routeChangeError', handleStop);
+
+        return () => {
+            router.events.off('routeChangeStart', handleStart);
+            router.events.off('routeChangeComplete', handleStop);
+            router.events.off('routeChangeError', handleStop);
+        };
+    }, [router]);
 
 
     useEffect(() => {
@@ -48,6 +71,7 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps },
             <link rel="apple-touch-icon" href="/favicon.ico" />
 
         </Head>
+        <Progress isAnimating={isAnimating} />
 
         <SessionProvider session={session}>
             <Component {...pageProps} />

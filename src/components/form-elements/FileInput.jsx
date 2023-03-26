@@ -1,28 +1,22 @@
 import styled from 'styled-components'
-import { MdFileUpload } from "react-icons/md";
+import { FiUpload } from "react-icons/fi";
 import { useEffect, useRef, useState } from 'react';
-
+import Input from './Input';
 
 
 const Icon = styled.div`
 width:auto;
 border-left:0;
-padding:0.5rem 0.75rem;
-
-`
+padding:0.5rem 1.75rem;
+`;
 const InputFile = styled.input.attrs({ type: 'file' })`
 visibility: hidden;
-display:none;
-`
-const Input = styled.input.attrs({ type: 'text' })`
-border-right:0;
-background:var(--form-bg);
-font-weight: 600;
-padding: calc(0.33rem + 1px) calc(0.75rem + 1px);
-position:relative;
-color:inherit;
-cursor:pointer;
-
+display:none!important;
+`;
+const ReadOnlyInput = styled(Input)`
+user-select: none;
+pointer-events: none;
+border-radius:0;
 &:before{
     background:none;
 -webkit-user-select: none;
@@ -36,32 +30,22 @@ inset:0;
 
 const InputContainer = styled.label`
 position:relative;
-display:grid;
-margin-inline: auto;
-grid-auto-flow: column;
-grid-template-columns: 1fr auto;
-transition: all .2s linear;
+display:flex;
+transition: all .3s ease-in-out;
 overflow:hidden;
 border-radius: 0.5rem;
 border:2px solid var(--border-color);
 cursor:pointer;
-&:focus-within ,&:focus{ 
-    border-color: var(--form-border-active);
-
-    ${Input}{
-    background:var(--form-border)
-}
-${Icon}{
-    background:var(--form-bg)
-}
-
-
+width: max-content;
+max-width: 100%!important;
+&:focus-within,&:hover,&:focus{ 
+    border-color: var(--theme);
 }
 `
 
 
 
-export default function FileInput({ multiple, accept, style, isChild, ...props }) {
+export default function FileInput({ multiple = false, accept = "image/*", style = null, id, ...props }) {
     const [files, SetFiles] = useState(null);
     const [fileNames, SetFileNames] = useState('No files chosen...');
     const InputRef = useRef(null);
@@ -83,11 +67,12 @@ export default function FileInput({ multiple, accept, style, isChild, ...props }
 
     return (
         <InputContainer style={style} onClick={(e) => {
-            if (isChild) e.stopPropagation();
-        }}>
-            <InputFile ref={InputRef} accept={accept} multiple={multiple}  {...props} onChange={(e) => SetFiles(e.target.files)} />
-            <Input placeholder='No files chosen...' value={fileNames} readOnly onClick={handleClick} />
-            <Icon><MdFileUpload /></Icon>
+            e.stopPropagation();
+        }}
+            {...props}>
+            <InputFile ref={InputRef} id={id} accept={accept} multiple={multiple} onChange={(e) => SetFiles(e.target.files)} />
+            <Icon><FiUpload /></Icon>
+            <ReadOnlyInput placeholder='No files chosen...' value={fileNames} readOnly onClick={handleClick} />
         </InputContainer>
     )
 
