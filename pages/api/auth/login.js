@@ -1,7 +1,7 @@
 import dbConnect from "lib/dbConnect";
 import User from "models/user";
 import jwt from "jsonwebtoken";
-
+import bcrypt from "bcrypt";
 
 export default async function handler(req, res) {
 
