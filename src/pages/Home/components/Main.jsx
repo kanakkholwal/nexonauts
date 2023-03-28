@@ -22,7 +22,6 @@ export default function Main({ data }) {
                     <div className={classes.Container}>
                         <figure className={classes.Hero_banner}>
                             <Image loader={ImgLoader} loading="lazy" src={data.hero.image} style={{ borderRadius: "10px" }} width={560} height={540} alt="Kanak Kholwal" className={classes.w_100} data-aos="fade-up" />
-                            {/* <Image loader={ImgLoader} loading="lazy" src="./assets/images/hero-shape.svg" width={203} height={91} alt="250+ Projects Done" className={classes.shape} data-aos="fade-down" data-aos-delay="250" /> */}
                         </figure>
                         <div className={classes.Hero_content}>
                             <h1 className={classes.h1 + " " + classes.Hero_title} data-aos="fade-up" data-aos-delay="500">{data.hero.title}</h1>
