@@ -1,5 +1,6 @@
 import classes from "./_Home.module.scss";
 import { IoArrowForwardOutline } from "react-icons/io5";
+import { FiExternalLink } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
 import { useContext } from "react";
@@ -28,7 +29,7 @@ export default function Main({ data }) {
                             <p className={classes.Section_text} data-aos="fade-up" data-aos-delay="750"> {data.hero.subtitle} </p>
                             <div className={classes.btnWrapper} data-aos="fade-up" data-aos-delay="1000">
                                 <a href="#projects" className={classes.btn + " " + classes.btnPrimary}>See My Works</a>
-                                <a href="#contact" className={classes.btn + " " + classes.btnSecondary}>Contact Me</a>
+                                <a href="https://drive.google.com/file/d/1eDCwqX_0UnY_wwKR2N5ODrpsb5ub6VP5/view?usp=sharing" className={classes.btn + " " + classes.btnSecondary}>Resume <FiExternalLink /></a>
                             </div>
                         </div>
                     </div>
