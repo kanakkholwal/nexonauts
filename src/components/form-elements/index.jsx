@@ -9,7 +9,7 @@ import fileInput from "./FileInput";
 import passwordInput from "./PasswordInput";
 import inputWithIcon from "./InputWithIcon";
 import styled from "styled-components";
-
+import formAlert from "./FormAlert";
 export const FormGroup = styled.div`
 width: 100%;
 display: flex;
@@ -21,6 +21,7 @@ flex-wrap: wrap;
 
 export const FormElement = formElement;
 export const FormHelper = formHelper;
+export const FormAlert = formAlert;
 export const Label = label;
 
 export const Input = input;

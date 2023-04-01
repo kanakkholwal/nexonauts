@@ -86,10 +86,15 @@ export const metadata = {
     url: "/login"
 }
 
-export default function Login({ }) {
+export default function signup({ }) {
     const { status } = useSession();
     const router = useRouter();
     const [state, setState] = useState({
+        name: {
+            value: "",
+            error: false,
+            errorMessage: ""
+        },
         email: {
             value: "",
             error: false,
@@ -157,6 +162,7 @@ export default function Login({ }) {
     async function submitHandler(event) {
         event.preventDefault();
 
+        const enteredName = state.name.value;
         const enteredEmail = state.email.value;
         const enteredPassword = state.password.value;
 
@@ -187,16 +193,25 @@ export default function Login({ }) {
 
 
         // optional: Add validation here
-        console.log("Submitting form", enteredEmail, enteredPassword)
-
-        await signIn('credentials', {
-            redirect: '/dashboard',
-            email: enteredEmail,
-            password: enteredPassword,
-        }).then((data) => console.log(data))
-            .catch((error) => console.log(error));
 
 
+        await axios.post('/api/auth/signup',
+            {
+                email: enteredEmail,
+                password: enteredPassword,
+                name: enteredName,
+            }).then((response) => {
+                console.log(response);
+
+
+            }).catch((error) => {
+                console.log(error);
+                setState({
+                    ...state,
+                    state: "error",
+                    errorMessage: error.message || "Something went wrong"
+                })
+            })
 
 
 
@@ -213,8 +228,26 @@ export default function Login({ }) {
             <FormWrapper>
 
                 <Form onSubmit={submitHandler}>
-                    <h2>Welcome back !!</h2>
-                    <p>Sign in to your account to continue</p>
+
+                    <h2>Sign Up </h2>
+                    <p>Create an account to get started </p>
+                    <FormElement>
+                        <Input type="name" placeholder="Enter your Name" outlined value={state.name.value}
+                            id="name" required onChange={(e) => {
+                                setState({
+                                    ...state,
+                                    name: {
+                                        value: e.target.value,
+                                        error: false,
+                                        errorMessage: "Please enter a name"
+                                    }
+                                })
+                            }}
+                            className={state.email.error ? "isInvalid" : ""}
+                        />
+                        <Label>Enter Your Name</Label>
+                        {state.name.error && <FormAlert nature="danger">{state.name.errorMessage}</FormAlert>}
+                    </FormElement>
                     <FormElement>
                         <Input type="email" placeholder="Enter your Email" outlined value={state.email.value}
                             id="email" required onChange={(e) => {
@@ -238,31 +271,39 @@ export default function Login({ }) {
                             value={state.password.value}
                             className={state.password.error ? "isInvalid" : ""}
                             onChange={(e) => {
-                                setState({
-                                    ...state,
-                                    password: {
-                                        value: e.target.value,
-                                        error: false,
-                                        errorMessage: ""
-                                    }
-                                })
+                                if (e.target.value.length < 6) {
+                                    setState({
+                                        ...state,
+                                        password: {
+                                            value: e.target.value,
+                                            error: true,
+                                            errorMessage: "Password must be atleast 6 characters long"
+                                        }
+                                    })
+                                } else {
+                                    setState({
+                                        ...state,
+                                        password: {
+                                            value: e.target.value,
+                                            error: false,
+                                            errorMessage: ""
+                                        }
+                                    })
+                                }
                             }}
                         />
                         {state.password.error && <FormAlert nature="danger">{state.password.errorMessage}</FormAlert>}
                         <Label>Enter Your Password</Label>
-
                     </FormElement>
-                    <p><Link href="/forgot-password">Forgot Password? </Link></p>
-
-                    <FormElement align="center">
+                    <FormElement>
                         <ReCAPTCHA
                             sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                             onChange={handleCaptcha}
                         />
                         {state.recaptcha.error && <FormAlert nature="danger">{state.recaptcha.errorMessage}</FormAlert>}
                     </FormElement>
-                    <Button type="submit" onClick={submitHandler}>Login </Button>
-                    <p>Don't have an account? <Link href="/signup">Sign Up</Link></p>
+                    <Button type="submit" onClick={submitHandler}>SignUp </Button>
+                    <p>Already have an account? <Link href="/login">Login</Link></p>
                 </Form>
 
 
