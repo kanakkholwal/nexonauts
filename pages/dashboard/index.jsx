@@ -1,13 +1,19 @@
-import { signOut, useSession } from "next-auth/react"
-import { useRouter } from "next/router";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from 'next/router';
+// import { hasToken } from 'lib/checkUser'
 
 
 export default function Dashboard() {
-    const { data: session } = useSession()
+    const { data: session } = useSession();
     const user = session?.user;
     const router = useRouter();
-    if (!user)
-        router.push('/login');
+    useEffect(() => {
+
+        if (!user)
+            router.push('/login')
+
+
+    }, [router])
 
     return (
         <section className="grid h-screen place-items-center">
@@ -24,3 +30,19 @@ export default function Dashboard() {
         </section>
     )
 }
+
+// export async function getServerSideProps(context) {
+
+//     const token = await hasToken(context.req)
+
+//     if (!token) {
+//         return {
+//             redirect: {
+//                 destination: '/login',
+//                 permanent: false
+//             }
+//         }
+//     }
+
+//     return { props: {} }
+// }

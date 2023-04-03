@@ -6,7 +6,6 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 // Components 
-// import Login from "@backend/components/LoginCard";
 import PasswordInput from "components/form-elements/PasswordInput";
 import Button from "components/buttons";
 import { FormElement, Label, FormAlert, Input } from "components/form-elements";
@@ -50,6 +49,7 @@ img {
     z-index: -1;
 }
 `;
+
 const FormWrapper = styled.div`
 display: flex;
 align-items: center;
@@ -61,6 +61,8 @@ padding: 2rem 1.5rem;
 gap: 1rem;
 text-align: left;
 `;
+
+
 const Form = styled.form`
 display: flex;
 flex-direction: column;
