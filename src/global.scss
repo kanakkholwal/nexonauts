@@ -29,7 +29,8 @@
     --body-bg: rgba(var(--body-bg-rgb), 1);
     --dense-bg: rgb(246, 247, 249);
     --hover-bg: rgba(145, 158, 171, 0.08);
-    --text-muted: rgba(96, 105, 123, 0.8);
+    --muted-rgb: 163 174 208;
+    --text-muted: rgba(var(--muted-rgb), 1);
     --card-bg-rgb: 226, 232, 240;
     --card-bg: rgba(var(--card-bg-rgb), 1);
     --card-shadow: rgb(145 158 171 / 20%) 6px -7px 14px 0px, rgb(145 158 171 / 12%) -7px 7px 24px 6px;
@@ -56,7 +57,7 @@
     --badge: hsl(235, 22%, 34%);
     --badgeBg: rgb(107 117 219 / 20%);
     --cubic-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    --max-width: 1100px;
+    --max-width: 1400px;
     --border-radius: 12px;
     --font-mono: 'Fira Code', ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
         'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
@@ -98,7 +99,7 @@
     --btn-padding-y: 0.5rem;
 
     --lg-btn-padding-y: 1rem;
-    --lg-btn-padding-x: 1.6875rem;
+    --lg-btn-padding-x: 2rem;
     --lg-btn-font-size: 0.875rem;
     --lg-btn-line-height: 2;
 
@@ -285,6 +286,7 @@ body {
         --hover-bg: rgba(145, 158, 171, 0.08);
         --text-muted: hsla(0, 100%, 99%, .8);
         --card-bg: #343b44;
+        --text-rgb: 233, 237, 242;
         --icon-bg: #8384892e;
         --drop-bg: rgb(33, 43, 54);
         --drop-shadow: rgb(0 0 0 / 24%) 0px 0px 2px 0px, rgb(0 0 0 / 24%) -20px 20px 40px -4px;
