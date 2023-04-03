@@ -22,16 +22,22 @@ const NavBarWrapper = styled.div`
     border-color: rgb(255 255 255 / 10%);
     display: flex;
     min-height: 75px;
+    max-width: var(--max-width);
     margin-inline: auto;
     margin-top: 0px;
     padding-bottom: 8px;
     right: 12px;
     padding-top: 8px;
+    padding-inline: 12px;
     top: 12px;
     width: calc(100vw - 6%);
     align-items: center;
     justify-content: ${({ align }) => align ? align : 'space-between'};
     font-size: 16px;
+    // box-shadow: 0 0 3rem rgb(0 0 0 / 21%);
+    a>img{
+        margin-top:-12px;
+    }
 `;
 const MenuList = styled.div`
     display: flex;
@@ -106,12 +112,18 @@ const ErrorWrapper = styled.div`
     justify-content: space-around;
     gap: 1.5rem;
     flex-wrap: wrap;
-    margin-top: 100px;
+    margin-top: 200px;
     width: 100%;
-    height: 100vh;
+    // height: 100vh;
+    max-width: var(--max-width);
+    margin-inline: auto;
 
+    &>*{
+        flex: auto;
+    }
     img{
         max-width: 480px;
+        filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
     }
     div{
         display: flex;
@@ -121,6 +133,8 @@ const ErrorWrapper = styled.div`
         gap: 1.5rem;
         text-align: right;
         padding: 1rem;
+        width: 100%;
+        max-width: 480px;
         h2{
             font-size: 10rem;
             font-weight: 600;
@@ -154,6 +168,47 @@ const ErrorWrapper = styled.div`
     }
 `;
 
+const FooterWrapper = styled.footer`
+width: 100%;
+max-width: var(--max-width);
+margin-inline: auto;
+margin-top: 200px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 1.5rem;
+color: rgba(var(--text-rgb), 0.5);
+padding: 1rem;
+flex-wrap: wrap;
+span{
+    font-size: 1.7rem;
+    font-weight: 600;
+    display: inline-block;
+}
+ul{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    list-style: none;
+    margin-inline-start:auto;
+
+}
+a{
+    color: rgba(var(--text-rgb), 0.5);
+    font-size: 1.7rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    &:hover {
+        color: rgba(var(--text-muted), 1)!important;
+    }
+}
+@media (max-width: 768px) {
+flex-direction: column;
+text-align: center;
+}
+`;
 
 export default function Page() {
     const [open, setOpen] = useState(false);
@@ -194,10 +249,33 @@ export default function Page() {
                     <h3>Page Not Found</h3>
                     <p >This page doesn't exist or was removed!<br />
                         We suggest you back to home </p>
-                    <Button level="true" size="lg" as={Link} href="/">Back to Home</Button>
-
+                    <Button size="lg" as={Link} href="/">Back to Home</Button>
                 </div>
             </ErrorWrapper>
-
+            <FooterWrapper>
+                <span>
+                    &copy; {new Date().getFullYear()} <Link href="/">K K UPGRADER</Link>. All Rights Reserved.
+                </span>
+                <ul>
+                    <li>
+                        <Link href="/privacy">Privacy Policy</Link>
+                    </li>
+                    <li>
+                        <Link href="/terms">Terms of Service</Link>
+                    </li>
+                    <li>
+                        <Link href="/contact">Contact Us</Link>
+                    </li>
+                    <li>
+                        <Link href="/faq">FAQ</Link>
+                    </li>
+                    <li>
+                        <Link href="/about">About Us</Link>
+                    </li>
+                    <li>
+                        <Link href="/pricing">Pricing</Link>
+                    </li>
+                </ul>
+            </FooterWrapper>
         </>)
 }
