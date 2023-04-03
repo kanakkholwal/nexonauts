@@ -7,7 +7,7 @@ import { HiBars3 } from "react-icons/hi2";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { NavBarWrapper, MenuList, AuthButtonWrapper, NavToggle } from "components/navbar";
-import { Footer } from "components/footer";
+import Footer from "components/footer";
 
 
 
@@ -111,13 +111,13 @@ export default function Page() {
                 <Image src="/404.svg" alt="404" width={500} height={500} />
                 <div>
                     <h2> 404 </h2>
-                    <h3>Ooops!</h3>
+                    <h3>Oops!</h3>
                     <h3>Page Not Found</h3>
                     <p >This page doesn't exist or was removed!<br />
                         We suggest you back to home </p>
                     <Button size="lg" as={Link} href="/">Back to Home</Button>
                 </div>
             </ErrorWrapper>
-            <Footer />
+            <Footer only="true" />
         </>)
 }

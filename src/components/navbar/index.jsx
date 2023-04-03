@@ -22,13 +22,13 @@ export const NavBarWrapper = styled.div`
     padding-bottom: 8px;
     right: 12px;
     padding-top: 8px;
-    padding-inline: 12px;
+    padding-inline: 15px 12px;
     top: 12px;
     width: calc(100vw - 6%);
     align-items: center;
     justify-content: ${({ align }) => align ? align : 'space-between'};
     font-size: 16px;
-    // box-shadow: 0 0 3rem rgb(0 0 0 / 21%);
+    box-shadow: 1px 1px 3rem 3px #6658d31c;
     a>img{
         margin-top:-12px;
     }
@@ -97,5 +97,16 @@ svg{
 @media (min-width: 920px) {
     display: none;
 }
+`;
 
-`
+export const Logo = styled.div`
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: rgba(var(--text-color), 0.5);
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    &:hover {
+        color: rgba(var(--text-color), 0.8);
+    }
+`;
+

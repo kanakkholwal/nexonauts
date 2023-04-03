@@ -270,7 +270,7 @@ body {
     font-weight: 400;
     font-size: 1.25rem;
     line-height: normal;
-    background-color: var(--body-bg);
+    background: var(--body-bg);
     color: var(--body-color);
     font-size: 1.6rem;
     line-height: 1.7;
@@ -410,10 +410,42 @@ textarea {
 }
 
 a {
-    color: var(--theme);
+    color: var(--theme, inherit);
     text-decoration: none;
+    font-weight: 500;
 }
 
 p {
     font-weight: 500;
+}
+
+@keyframes rubberBand {
+    0% {
+        transform: scale3d(1, 1, 1);
+    }
+
+    30% {
+        transform: scale3d(1.25, 0.75, 1);
+    }
+
+    40% {
+        transform: scale3d(0.75, 1.25, 1);
+    }
+
+    50% {
+        transform: scale3d(1.15, 0.85, 1);
+    }
+
+    65% {
+        transform: scale3d(.95, 1.05, 1);
+    }
+
+    75% {
+        transform: scale3d(1.05, .95, 1);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
 }

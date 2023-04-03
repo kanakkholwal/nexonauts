@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import Link from "next/link";
+
 export const FooterWrapper = styled.footer`
 width: 100%;
 max-width: var(--max-width);
 margin-inline: auto;
-margin-top: 200px;
+margin-block: ${({ only }) => only === "true" ? "200px" : "4.5rem"} 2rem;
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -12,6 +13,7 @@ gap: 1.5rem;
 color: rgba(var(--text-rgb), 0.5);
 padding: 1rem;
 flex-wrap: wrap;
+
 span{
     font-size: 1.7rem;
     font-weight: 600;
@@ -21,6 +23,7 @@ ul{
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    flex-wrap: wrap;
     gap: 1.5rem;
     list-style: none;
     margin-inline-start:auto;
@@ -46,26 +49,29 @@ text-align: center;
 }
 `;
 
-export const Footer = () => (<FooterWrapper>
-    <span>
-        &copy; {new Date().getFullYear()} <Link href="/">K K UPGRADER</Link>. All Rights Reserved.
-    </span>
-    <ul>
-        <li>
-            <Link href="/privacy">Privacy Policy</Link>
-        </li>
-        <li>
-            <Link href="/terms">Terms of Service</Link>
-        </li>
-        <li>
-            <Link href="/contact">Contact Us</Link>
-        </li>
-        <li>
-            <Link href="/about">About Us</Link>
-        </li>
-        <li>
-            <Link href="/pricing">Pricing</Link>
-        </li>
-    </ul>
-</FooterWrapper>)
-
+const Footer = ({ only = "false" }) => {
+    return (
+        <FooterWrapper only={only}>
+            <span>
+                &copy; {new Date().getFullYear()} <Link href="/">K K UPGRADER</Link>. All Rights Reserved.
+            </span>
+            <ul>
+                <li>
+                    <Link href="/privacy">Privacy Policy</Link>
+                </li>
+                <li>
+                    <Link href="/terms">Terms of Service</Link>
+                </li>
+                <li>
+                    <Link href="/contact">Contact Us</Link>
+                </li>
+                <li>
+                    <Link href="/about">About Us</Link>
+                </li>
+                <li>
+                    <Link href="/pricing">Pricing</Link>
+                </li>
+            </ul>
+        </FooterWrapper>)
+}
+export default Footer;
