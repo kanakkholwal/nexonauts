@@ -15,5 +15,6 @@
         "spdl",
         "styleflux",
         "ytimg"
-    ]
+    ],
+    "svg.preview.background": "transparent"
 }

@@ -1,19 +1,14 @@
 import { signOut, useSession } from "next-auth/react"
+import { useRouter } from "next/router";
 
 
 export default function Dashboard() {
     const { data: session } = useSession()
     const user = session?.user;
+    const router = useRouter();
+    if (!user)
+        router.push('/login');
 
-    if (!user) {
-        return (
-            <section className="grid h-screen place-items-center">
-                <div className="w-25">
-                    <p>You do not have permission to view this page!</p>
-                </div>
-            </section>
-        );
-    }
     return (
         <section className="grid h-screen place-items-center">
             <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

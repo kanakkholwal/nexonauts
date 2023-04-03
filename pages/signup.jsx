@@ -134,7 +134,7 @@ export default function signup({ }) {
         await axios.post("/api/recaptcha", {
             token: value
         }).then((response) => {
-            console.log(response);
+            // console.log(response);
             setState({
                 ...state,
                 recaptcha: {

@@ -129,7 +129,7 @@ export default function Login({ }) {
         await axios.post("/api/recaptcha", {
             token: value
         }).then((response) => {
-            console.log(response);
+            // console.log(response);
             setState({
                 ...state,
                 recaptcha: {
@@ -187,7 +187,6 @@ export default function Login({ }) {
 
 
         // optional: Add validation here
-        console.log("Submitting form", enteredEmail, enteredPassword)
 
         await signIn('credentials', {
             redirect: '/dashboard',

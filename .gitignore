@@ -11,6 +11,8 @@
 /.env
 .env
 .env.local
+.env.prod
+.env.dev
 # next.js
 /.next/
 /out/
