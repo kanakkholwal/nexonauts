@@ -1,27 +1,18 @@
-import { signOut, useSession } from "next-auth/react";
-import { useRouter } from 'next/router';
-import { useEffect } from "react";
-// import { hasToken } from 'lib/checkUser'
+import { signOut } from "next-auth/react";
+import { hasToken, getUser } from 'lib/checkUser'
+
+// import { hasToken } from 'lib/checkUser';
 
 
-export default function Dashboard() {
-    const { data: session } = useSession();
-    const user = session?.user;
-    const router = useRouter();
-
-    useEffect(() => {
-
-        if (!user)
-            router.push('/login')
+export default function Dashboard({ user }) {
 
 
-    }, [router])
 
     return (
         <section className="grid h-screen place-items-center">
             <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Hello {session?.user?.name}</h2><br />
-                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">You are an admin user currently signed in as {session?.user?.email}.</p>
+                <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Hello {user?.name}</h2><br />
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">You are an {user?.role} user currently signed in as {user?.email}.</p>
                 <button
                     type="button"
                     onClick={() => signOut()}
@@ -33,18 +24,24 @@ export default function Dashboard() {
     )
 }
 
-// export async function getServerSideProps(context) {
+export async function getServerSideProps(context) {
 
-//     const token = await hasToken(context.req)
 
-//     if (!token) {
-//         return {
-//             redirect: {
-//                 destination: '/login',
-//                 permanent: false
-//             }
-//         }
-//     }
+    const token = await hasToken(context.req);
 
-//     return { props: {} }
-// }
+    const user = await getUser(context.req);
+    if (!token) {
+        return {
+            redirect: {
+                destination: '/login',
+                permanent: false
+            }
+        }
+    }
+
+    return {
+        props: {
+            user
+        }
+    }
+}

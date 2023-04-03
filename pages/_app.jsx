@@ -1,5 +1,5 @@
 import Head from "next/head";
-import "@/src/global.css";
+import "src/global.css";
 import "aos/dist/aos.css";
 import Progress from 'components/progress';
 import { useRouter } from 'next/router';
