@@ -1,11 +1,12 @@
 import Header from "@/components/Header";
-
+import ToolPage from "components/tool-page";
 import Main from './components/Main';
 import Footer from './components/Footer';
 import PageMetaData from "../../components/PageMetaData";
 import ToolList from './ToolsList';
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import Head from 'next/head';
+import { useSession } from "next-auth/react";
 const metaData = {
     title: "Tools | K K UPGRADER",
     description: "Collection of Web Tools , Design Tools , Editing and Coding Tools"
@@ -103,6 +104,7 @@ export const FooterData = {
 }
 export default function Tools() {
 
+    const { data: session } = useSession();
 
     return (
         <>
@@ -113,10 +115,13 @@ export default function Tools() {
                     key="canonical"
                 />
             </Head>
+            <ToolPage session={session || null}>
+                <Main />
+            </ToolPage>
             <PageMetaData PageTitle={metaData.title} PageDescription={metaData.description} />
-            <Header NavLinks={NavLinks} SocialMedia={SocialMedia} title={metaData.title.split("|")[0]} description={metaData.description} Search={ToolList} />
-            <Main />
-            <Footer FooterData={FooterData} />
+            {/* <Header NavLinks={NavLinks} SocialMedia={SocialMedia} title={metaData.title.split("|")[0]} description={metaData.description} Search={ToolList} /> */}
+            {/* <Main />
+            <Footer FooterData={FooterData} /> */}
         </>
     )
 }

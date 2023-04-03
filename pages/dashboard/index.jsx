@@ -1,10 +1,13 @@
-import { signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import { hasToken, getUser } from 'lib/checkUser'
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 // import { hasToken } from 'lib/checkUser';
 
 
 export default function Dashboard({ user }) {
+
 
 
 
@@ -24,12 +27,11 @@ export default function Dashboard({ user }) {
     )
 }
 
-export async function getServerSideProps(context) {
 
+export async function getServerSideProps(context) {
 
     const token = await hasToken(context.req);
 
-    const user = await getUser(context.req);
     if (!token) {
         return {
             redirect: {
@@ -38,10 +40,13 @@ export async function getServerSideProps(context) {
             }
         }
     }
+    const user = await getUser(context.req);
+
+
+
 
     return {
-        props: {
-            user
-        }
+        props: { user },
+
     }
 }

@@ -8,7 +8,7 @@ import Button from "components/buttons";
 
 import { HiBars3 } from "react-icons/hi2";
 import { NavBarWrapper, MenuList, AuthButtonWrapper, NavToggle } from "components/navbar";
-import { Footer } from "components/footer";
+import Footer from "components/footer";
 import { FormAlert, FormGroup, FormElement, Input, Label, TextArea, Select } from "components/form-elements";
 
 
@@ -147,7 +147,7 @@ export default function Contact() {
                 </div>
             </ContactWrapper>
 
-            <Footer />
+            <Footer only="true" />
         </>
     )
 }
