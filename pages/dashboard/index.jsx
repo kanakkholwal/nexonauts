@@ -1,5 +1,6 @@
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from 'next/router';
+import { useEffect } from "react";
 // import { hasToken } from 'lib/checkUser'
 
 
@@ -7,6 +8,7 @@ export default function Dashboard() {
     const { data: session } = useSession();
     const user = session?.user;
     const router = useRouter();
+
     useEffect(() => {
 
         if (!user)
