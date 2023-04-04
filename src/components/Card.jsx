@@ -21,9 +21,9 @@ export const Card = styled.div`
     animation-direction: normal;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    &:hover {
-        translate:  0 -10px;
-    }
+    // &:hover {
+    //     translate:  0 -10px;
+    // }
 `;
 export const CardBody = styled.div`
 flex: 1 1 auto;

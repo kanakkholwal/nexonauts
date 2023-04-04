@@ -8,6 +8,9 @@ const Icon = styled.div`
 width:auto;
 border-left:0;
 padding:0.5rem 1.75rem;
+display:flex;
+align-items:center;
+justify-content:center;
 `;
 const InputFile = styled.input.attrs({ type: 'file' })`
 visibility: hidden;

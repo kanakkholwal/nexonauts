@@ -110,3 +110,56 @@ export const Logo = styled.div`
     }
 `;
 
+export const ProfileWrapper = styled.div`
+position: relative;
+margin-inline:auto 1rem;
+`;
+export const Profile = styled.div`
+display: flex;
+align-items: center;
+justify-content: center;
+border-radius: 50%;
+width: 40px;
+height: 40px;
+border: 1px solid rgba(var(--text-rgb), 0.1);
+img{
+    border-radius: 50%;
+    width: 100%;
+    height: 100%;
+}`;
+export const ProfileDropDown = styled.div`
+position: absolute;
+top: calc(100% + 2rem);
+right: 0;
+width: 200px;
+background-color: rgb(244 247 254 / 72%);
+border-radius: 8px;
+backdrop-filter: blur(20px);
+box-shadow: 0 0 0.5rem 0.1rem rgba(0,0,0,0.1);
+padding: 1rem;
+z-index: 999;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 1rem;
+transform-origin: top right;
+transform: ${({ open }) => open ? 'scale(1)' : 'scale(0)'};
+opacity: ${({ open }) => open ? '1' : '0'};
+visibility: ${({ open }) => open ? 'visible' : 'hidden'};
+transition: all 0.3s ease-in-out;
+`;
+export const ProfileDropDownItem = styled.a`
+font-size: 1.7rem;
+font-weight: 600;
+text-decoration: none;
+transition: all 0.3s ease;
+width: 100%;
+padding:0.5rem 1rem;
+border-radius: 8px;
+color: rgba(var(--text-rgb), 0.5);
+&:hover {
+    color: rgba(var(--text-rgb), 0.8);
+    background: rgba(var(--text-rgb), 0.1);
+}
+`;

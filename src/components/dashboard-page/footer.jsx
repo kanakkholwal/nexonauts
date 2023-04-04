@@ -53,14 +53,14 @@ const FooterWrapper = styled.div`
 export default function FooterComponent({ socialMedia }) {
     return (
         <>
-            <FooterWrapper>
+            {/* <FooterWrapper>
                 <h2>Follow Us on Social Media</h2>
                 <div>
                     {socialMedia.map(({ name, icon, url }, index) => {
                         return (<Link href={url} target="_blank" className="icon" rel="noreferrer" key={index} title={name}>{icon} {name}</Link>)
                     })}
                 </div>
-            </FooterWrapper>
+            </FooterWrapper> */}
             <Footer />
         </>
     )

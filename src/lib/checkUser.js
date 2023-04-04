@@ -1,4 +1,4 @@
-import { getToken } from "next-auth/jwt"
+import { getToken, decode } from "next-auth/jwt"
 
 const secret = process.env.NEXT_AUTH_SECRET;
 
@@ -25,6 +25,15 @@ export const getUser = async (req) => {
         return null
     }
     return token.user
+}
+export const getUserFromRequest = async (req) => {
+    const token = await getToken({ req, secret })
+
+    const decoded = await decode({
+        token,
+        secret,
+    })
+    return decoded
 }
 
 // API MIDDLEWARE
