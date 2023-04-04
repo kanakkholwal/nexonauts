@@ -3,10 +3,8 @@ import { signOut } from 'next-auth/react';
 import Button from 'components/buttons';
 import NavLink from 'components/navLink';
 import { GrClose } from "react-icons/gr";
-import { FiHome } from "react-icons/fi";
 import { MdLogout } from "react-icons/md";
 import { useRef } from "react";
-import HomeLink from 'next/link';
 
 const SideNavWrapper = styled.div`
 position: fixed;
@@ -76,7 +74,8 @@ align-items:center;
 `;
 const Link = styled.a`
 display:flex;
-gap:0.25rem;
+gap:0.5rem;
+font-weight: 600;
 align-items:center;
 justify-content:flex-start;
 width:100%;
@@ -115,7 +114,6 @@ export default function SideNav({ links }) {
                     K K UPGRADER
                 </SectionTitle>
             </SideNavHeader>
-            <Link as={HomeLink} href="/">  <FiHome />Home</Link>
             {links?.length > 0 ? <RecursiveLinkList links={links} /> : null}
             <LogoutButton as={Button} level="true" onClick={() => signOut()}>Sign Out <MdLogout /> </LogoutButton>
         </SideNavWrapper>

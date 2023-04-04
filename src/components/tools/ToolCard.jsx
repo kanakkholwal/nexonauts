@@ -1,26 +1,23 @@
-import Link from "next/link";
+import { Card, CardBody, CardTitle, CardDescription } from "components/Card";
 import { RiShareCircleFill } from "react-icons/ri";
+import Link from "next/link";
 
-import components from "./_components.module.scss";
-export default function Card({ title, description, path, category, online, ...props }) {
+export default function ToolCard({ title, description, path, category, online, ...props }) {
 
     return (
-        <div className={"Fui_Card " + components.ToolCard}  {...props}>
-
-            <div className={"Fui_Card-body "}>
-                <h4 className={"Fui_Card-title " + components.CardTitle}>{title}</h4>
+        <Card  {...props}>
+            <CardBody>
+                <CardTitle>{title}</CardTitle>
                 <span className=" Badge  mb-2 ">{category}</span>
                 <span className={"Badge  mb-2 ms-2 " + (online ? "Badge_success" : "Badge_danger")} title={online ? " Tool is working Fine :)" : "Tool has Some Issues ;)"}>{online ? "On" : "Off"}</span>
-                <p className={"Fui_Card-text " + components.CardDescription}>
+                <CardDescription>
                     {description}
-                </p>
+                </CardDescription>
                 <Link href={path} className="Fui_Card-link">
                     Try this Tool
                     <RiShareCircleFill />
                 </Link>
-            </div>
-
-
-        </div>
+            </CardBody>
+        </Card>
     )
 }

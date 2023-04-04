@@ -39,6 +39,7 @@ margin-block: 5rem 2rem;
             &:hover {
                 color: var(--theme);
                 border: 1px solid var(--border-color);
+                background:var(--card-bg);
 
                 &>svg {
                     animation: rubberBand 1.2s ease;

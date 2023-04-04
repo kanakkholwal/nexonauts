@@ -1,65 +1,70 @@
-import ToolsList from "src/pages/Tools/ToolsList";
+import { ToolList } from "pages/tools/ToolsList";
 import React from 'react';
 import ToolPage from "components/tool-page";
 import { useSession } from "next-auth/react";
 import PageMetaData from "components/PageMetaData";
-import Card from "src/pages/Tools/components/Card";
-import Head from "next/head";
-
+import {
+    ToolCard,
+    CardContainer
+} from "components/tools"; import Head from "next/head";
 
 
 export async function getStaticPaths() {
-    // Return a list of possible value for toolName
-    const paths = ToolsList.map(({ category }) => {
+    const Categories = ToolList.map(({ category }) => {
+
         return {
             params: {
-                category: category.toLocaleLowerCase().split(" ").join("-")
+                category: category.toLocaleLowerCase().split(" ").join("-"),
+                categoryName: category
             }
-        };
+        }
     });
+
     return {
-        paths,
-        fallback: false,
-    };
+        paths: Categories,
+        fallback: true,
+    }
 }
 
 export async function getStaticProps({ params }) {
 
-    const ToolsInThisCategory = ToolsList.filter(({ category }) => category.toLocaleLowerCase().split(" ").join("-") === params.category);
 
 
-    return { props: { slug: ToolsInThisCategory } }
+    return { props: { params } }
 }
 
 
 
-export default function Tool({ slug }): JSX.Element {
+export default function Tool({ params }): JSX.Element {
     const { data: session } = useSession();
 
-    const ToolComponent = ToolsList.find(({ path }) => path === slug);
+    const ToolsInThisCategory = ToolList.filter(({ category }) => category.toLocaleLowerCase().split(" ").join("-") === params.category);
 
     return (
         <>
             <Head>
                 <link
                     rel="canonical"
-                    href={process.env.WEBSITE_URL || 'https://kkupgrader.eu.org' + slug}
+                    href={process.env.WEBSITE_URL || 'https://kkupgrader.eu.org' + "/tools/category" + params.category}
                     key="canonical"
                 />
             </Head>
             <ToolPage headerChildren={null} session={session || null} metadata={{
-                title: ToolComponent.title,
-                description: ToolComponent.description
+                title: params.categoryName,
+                description: ""
             }}>
-                {
-                    ToolList.map(({ title, description, path, category, online }, index) => {
-                        return <Card path={path} key={index} title={title} description={description} category={category} online={online} style={{ animationDelay: (0.1 * index) + "s" }} />
+                <CardContainer>
 
-                    })
-                }
+                    {
+                        ToolsInThisCategory.map(({ title, description, path, category, online }, index) => {
+                            return <ToolCard path={path} key={index} title={title} description={description} category={category} online={online} style={{ animationDelay: (0.1 * index) + "s" }} />
 
+                        })
+                    }
+
+                </CardContainer>
             </ToolPage>
-            <PageMetaData PageTitle={ToolComponent.title} PageDescription={ToolComponent.description} SiteName={''} PageUrl={''} PreviewImage={''} PageType={''} PageLocale={''} />
+            <PageMetaData PageTitle={params.categoryName} PageDescription={"  "} SiteName={''} PageUrl={''} PreviewImage={''} PageType={''} PageLocale={''} />
         </>
     )
 }

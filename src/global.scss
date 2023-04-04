@@ -24,6 +24,12 @@
 @import "./styles/components/listGroup";
 
 :root {
+    --size-xs: 0;
+    --size-sm: 576px;
+    --size-md: 768px;
+    --size-lg: 992px;
+    --size-xl: 1200px;
+    --size-xxl: 1400px;
     --body-color: rgb(96, 105, 123);
     --body-bg-rgb: 244, 247, 254;
     --body-bg: rgba(var(--body-bg-rgb), 1);
@@ -33,7 +39,7 @@
     --text-muted: rgba(var(--muted-rgb), 1);
     --card-bg-rgb: 255, 255, 255;
     --card-bg: rgba(var(--card-bg-rgb), 1);
-    --card-shadow: rgb(145 158 171 / 20%) 6px -7px 14px 0px, rgb(145 158 171 / 12%) -7px 7px 24px 6px;
+    --card-shadow: none;
     --body-font: "ManRope", "Google Sans", san-serif;
     --code-font: "Google Sans Mono", "Source Code Pro", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     --drop-bg: hsl(0, 0%, 97%);
@@ -281,6 +287,7 @@ body {
     overflow-x: hidden;
 
     &.DarkMode {
+        --theme-rgb: 192, 188, 255;
         --body-color: hsl(0, 100%, 99%);
         --body-bg: #21272f;
         --dense-bg: rgb(22, 28, 36);
@@ -411,7 +418,7 @@ textarea {
 }
 
 a {
-    color: var(--theme, inherit);
+    color: rgba(var(--theme-rgb), 1);
     text-decoration: none;
     font-weight: 500;
 }

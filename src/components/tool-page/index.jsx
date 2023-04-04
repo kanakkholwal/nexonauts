@@ -4,6 +4,7 @@ import { MainWrapper, ContentWrapper, Hero } from "components/tool-page/wrapper"
 import SideNav from "components/tool-page/sidenav";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import Link from "next/link";
+import { CategoryList } from "pages/tools/ToolsList";
 
 const SocialMedia = [
     {
@@ -27,40 +28,13 @@ const SocialMedia = [
         url: "https://twitter.com/KanakKholwal",
     },
 ]
-const links = [
-    {
-        title: "Dashboard",
-        path: "/dashboard",
-        // icon: <DashboardIcon />,
-    },
-    {
-        title: "Profile",
-        path: "/admin/profile",
-        // icon: <UserIcon />,
-    },
-    {
-        title: "Projects",
-        path: "/projects",
-        // icon: <ProjectIcon />,
-    },
-    {
-        title: "Work",
-        path: "/works",
-        // icon: <WorkIcon />,
-    },
-    {
-        title: "Education",
-        path: "/education",
-        // icon: <EducationIcon />,
-    }
 
-]
 export default function ToolPage({ headerChildren, children, session, metadata }) {
 
 
     return (
         <>
-            <SideNav links={links} />
+            <SideNav links={CategoryList} />
             <MainWrapper id="main_wrapper" className="isSidenavOpen">
                 <Header session={session}>
                     {headerChildren ? headerChildren : <>
@@ -72,10 +46,10 @@ export default function ToolPage({ headerChildren, children, session, metadata }
                 <ContentWrapper>
                     <Hero>
                         <h1>
-                            {metadata.title}
+                            {metadata?.title}
                         </h1>
                         <h5>
-                            {metadata.description}
+                            {metadata?.description}
                         </h5>
                     </Hero>
                     {children}
