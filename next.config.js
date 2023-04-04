@@ -18,7 +18,7 @@ const nextConfig = withPWA({
   compiler: { styledComponents: { ssr: true } },
   crossOrigin: 'anonymous',
   images: {
-    domains: ['i.ytimg.com', "blogspot.com"],
+    domains: ['i.ytimg.com', "blogspot.com", "res.cloudinary.com"],
   },
 });
 

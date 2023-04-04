@@ -101,7 +101,7 @@ const RecursiveLinkList = ({ links }) => {
     return (<LinkList>{links?.map((item, index) => (<Link as={NavLink} key={index} href={item.path}>{item?.icon}{item.title}{item.children?.length > 0 ? <RecursiveLinkList links={item.children} /> : null}</Link>))}</LinkList>)
 }
 
-export default function SideNav({ links, session }) {
+export default function SideNav({ links, user }) {
 
 
     const sidenavRef = useRef(null);
@@ -115,7 +115,7 @@ export default function SideNav({ links, session }) {
                 </SectionTitle>
             </SideNavHeader>
             {links?.length > 0 ? <RecursiveLinkList links={links} /> : null}
-            {session ? <LogoutButton as={Button} level="true" onClick={() => signOut()}>Sign Out <MdLogout /> </LogoutButton> : null}
+            {user ? <LogoutButton as={Button} level="true" onClick={() => signOut()}>Sign Out <MdLogout /> </LogoutButton> : null}
         </SideNavWrapper>
     )
 }
