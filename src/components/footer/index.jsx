@@ -59,18 +59,18 @@ const Footer = ({ only = "false" }) => {
                 <li>
                     <Link href="/privacy">Privacy Policy</Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link href="/terms">Terms of Service</Link>
-                </li>
+                </li> */}
                 <li>
                     <Link href="/contact">Contact Us</Link>
                 </li>
-                <li>
+                {/* <li>
                     <Link href="/about">About Us</Link>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                     <Link href="/pricing">Pricing</Link>
-                </li>
+                </li> */}
             </ul>
         </FooterWrapper>)
 }

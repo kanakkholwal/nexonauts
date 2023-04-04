@@ -3,17 +3,17 @@ import React from 'react';
 import ToolPage from "components/tool-page";
 import { useSession } from "next-auth/react";
 import PageMetaData from "components/PageMetaData";
-
+import Card from "src/pages/Tools/components/Card";
 import Head from "next/head";
 
 
 
 export async function getStaticPaths() {
     // Return a list of possible value for toolName
-    const paths = ToolsList.map(({ path }) => {
+    const paths = ToolsList.map(({ category }) => {
         return {
             params: {
-                toolName: path.split("/").pop()
+                category: category.toLocaleLowerCase().split(" ").join("-")
             }
         };
     });
@@ -25,10 +25,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-    const componentPath: string = ToolsList.find(({ path }) => path.split("/").pop() === params.toolName).path;
+    const ToolsInThisCategory = ToolsList.filter(({ category }) => category.toLocaleLowerCase().split(" ").join("-") === params.category);
 
 
-    return { props: { slug: componentPath } }
+    return { props: { slug: ToolsInThisCategory } }
 }
 
 
@@ -51,7 +51,12 @@ export default function Tool({ slug }): JSX.Element {
                 title: ToolComponent.title,
                 description: ToolComponent.description
             }}>
-                {ToolComponent.Component}
+                {
+                    ToolList.map(({ title, description, path, category, online }, index) => {
+                        return <Card path={path} key={index} title={title} description={description} category={category} online={online} style={{ animationDelay: (0.1 * index) + "s" }} />
+
+                    })
+                }
 
             </ToolPage>
             <PageMetaData PageTitle={ToolComponent.title} PageDescription={ToolComponent.description} SiteName={''} PageUrl={''} PreviewImage={''} PageType={''} PageLocale={''} />
