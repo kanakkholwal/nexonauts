@@ -127,7 +127,7 @@ const Categories = [
         path: "/tools/category/seo-tools",
         icon: <AiOutlineFileSearch />
 
-    },
+    }
     //  {
     //     title: "Social Media Tools",
     //     path: "/tools/category/social-media-tools"
