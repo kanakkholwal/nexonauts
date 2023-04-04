@@ -31,7 +31,7 @@
     --hover-bg: rgba(145, 158, 171, 0.08);
     --muted-rgb: 163 174 208;
     --text-muted: rgba(var(--muted-rgb), 1);
-    --card-bg-rgb: 226, 232, 240;
+    --card-bg-rgb: 255, 255, 255;
     --card-bg: rgba(var(--card-bg-rgb), 1);
     --card-shadow: rgb(145 158 171 / 20%) 6px -7px 14px 0px, rgb(145 158 171 / 12%) -7px 7px 24px 6px;
     --body-font: "ManRope", "Google Sans", san-serif;
@@ -58,6 +58,7 @@
     --badgeBg: rgb(107 117 219 / 20%);
     --cubic-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
     --max-width: 1400px;
+    --sidenav-width: 25rem;
     --border-radius: 12px;
     --font-mono: 'Fira Code', ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
         'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
@@ -447,5 +448,19 @@ p {
     100% {
         -webkit-transform: scale3d(1, 1, 1);
         transform: scale3d(1, 1, 1);
+    }
+}
+
+@keyframes pop {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
     }
 }

@@ -115,7 +115,10 @@ export default function Tools() {
                     key="canonical"
                 />
             </Head>
-            <ToolPage session={session || null}>
+            <ToolPage session={session || null} metadata={{
+                title: 'Tools',
+                description: 'Collection of Web Tools , Design Tools , Editing and Coding Tools'
+            }}>
                 <Main />
             </ToolPage>
             <PageMetaData PageTitle={metaData.title} PageDescription={metaData.description} />

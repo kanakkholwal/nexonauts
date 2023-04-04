@@ -28,7 +28,7 @@ export const NavBarWrapper = styled.div`
     align-items: center;
     justify-content: ${({ align }) => align ? align : 'space-between'};
     font-size: 16px;
-    box-shadow: 1px 1px 3rem 3px #6658d31c;
+    box-shadow:  0px 0px 9rem 0px #6658d31c;
     a>img{
         margin-top:-12px;
     }
