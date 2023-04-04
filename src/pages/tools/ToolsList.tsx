@@ -1,5 +1,11 @@
 import React from 'react';
-
+//Icons
+import { HiOutlineFolderDownload } from "react-icons/hi";
+import { IoImageOutline } from "react-icons/io5";
+import { BiCodeAlt } from "react-icons/bi";
+import { AiOutlineFileSearch } from "react-icons/ai";
+import { TbTools } from "react-icons/tb";
+//Tools
 import Image2Webp from "./pages/Image2Webp";
 import CssMinifierPrettifier from "./pages/CssMinifierPrettifier";
 import HtmlMinifierPrettifier from "./pages/HtmlMinifierPrettifier";
@@ -19,7 +25,7 @@ interface ToolProp {
     online: boolean
 }
 
-const ToolList: ToolProp[] = [
+export const ToolList: ToolProp[] = [
 
     {
         title: "Youtube Downloader",
@@ -48,7 +54,7 @@ const ToolList: ToolProp[] = [
     {
         title: "Css Minifier and Prettifier Tool",
         description: "  Online CSS Minifier takes any form of css code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Css to make it easy to read and edit. It reduces file size and optimizes css for your website.",
-        category: "Coding  Tools",
+        category: "Coding Tools",
         path: "/tools/css-minifier-and-prettifier",
         Component: <CssMinifierPrettifier />,
         online: true
@@ -57,7 +63,7 @@ const ToolList: ToolProp[] = [
     {
         title: "JSON Minifier Tool",
         description: "Online JSON Minifier takes any form of json code and make it minified,compressed by removing white spaces, newlines, indentation ,etc. It reduces file size and optimizes json for your request.",
-        category: "Coding  Tools",
+        category: "Coding Tools",
         path: "/tools/json-minifier-tool",
         Component: <JsonMinifierPrettifier />,
 
@@ -68,7 +74,7 @@ const ToolList: ToolProp[] = [
     {
         title: "Html Minifier and Prettifier Tool",
         description: " Online HTML Minifier takes any form of HTML code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Html to make it easy to read and edit. It reduces file size and optimizes css for your website.",
-        category: "Coding  Tools",
+        category: "Coding Tools",
         path: "/tools/html-minifier-and-prettifier",
         Component: <HtmlMinifierPrettifier />,
         online: true
@@ -77,7 +83,7 @@ const ToolList: ToolProp[] = [
     {
         title: "Html Parser Tool",
         description: "  Online CSS Minifier takes any form of css code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Css to make it easy to read and edit. It reduces file size and optimizes css for your website.",
-        category: "Coding  Tools",
+        category: "Coding Tools",
         path: "/tools/html-parser-tool",
         Component: <HtmlParser />,
         online: true
@@ -86,7 +92,7 @@ const ToolList: ToolProp[] = [
     {
         title: "Meta Tag Generator",
         description: "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide",
-        category: "Web  Tools",
+        category: "SEO Tools",
         path: "/tools/meta-tag-generator",
         Component: <MetaTagGenerator />,
         online: true
@@ -95,12 +101,49 @@ const ToolList: ToolProp[] = [
     {
         title: "iFrame Embed Code Generator",
         description: "With the help of this tool, you can generate your iframe codes easily with just a click of a button.",
-        category: "Web  Tools",
+        category: "Other Tools",
         path: "/tools/iframe-generator",
         Component: <IframeGenerator />,
         online: true
     }
 ]
+const Categories = [
+    {
+        title: "Image Tools",
+        path: "/tools/category/image-tools",
+        icon: <IoImageOutline />
+    }
+    , {
+        title: "Downloader",
+        path: "/tools/category/downloader",
+        icon: <HiOutlineFolderDownload />
+    }
+    , {
+        title: "Coding Tools",
+        path: "/tools/category/coding-tools",
+        icon: <BiCodeAlt />
+    }, {
+        title: "SEO Tools",
+        path: "/tools/category/seo-tools",
+        icon: <AiOutlineFileSearch />
 
-// Object.freeze(ToolList)
-export default ToolList;
+    },
+    //  {
+    //     title: "Social Media Tools",
+    //     path: "/tools/category/social-media-tools"
+    // }, {
+    //     title: "Video Tools",
+    //     path: "/tools/category/video-tools"
+    // }, {
+    //     title: "Audio Tools",
+    //     path: "/tools/category/audio-tools"
+    // },
+    ,
+    {
+        title: "Other Tools",
+        path: "/tools/category/other-tools",
+        icon: <TbTools />
+    }
+]
+
+export const CategoryList = Categories
