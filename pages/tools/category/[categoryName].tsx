@@ -1,4 +1,4 @@
-import { ToolList } from "pages/tools/ToolsList";
+import { ToolList, CategoryList } from "pages/tools/ToolsList";
 import React from 'react';
 import ToolPage from "components/tool-page";
 import { useSession } from "next-auth/react";
@@ -9,48 +9,51 @@ import {
 } from "components/tools"; import Head from "next/head";
 
 
-export async function getStaticPaths() {
-    const Categories = ToolList.map(({ category }) => {
 
+
+export async function getStaticPaths() {
+    // Return a list of possible value for toolName
+    const paths = CategoryList.map(({ path }) => {
         return {
             params: {
-                category: category.toLocaleLowerCase().split(" ").join("-"),
-                categoryName: category
+                categoryName: path.split("/").pop()
             }
-        }
+        };
     });
-
     return {
-        paths: Categories,
-        fallback: true,
-    }
+        paths,
+        fallback: false,
+    };
 }
 
 export async function getStaticProps({ params }) {
 
+    const path = CategoryList.find(({ path }) => path.split("/").pop() === params.categoryName).path;
 
-
-    return { props: { params } }
+    return { props: { path } }
 }
 
 
 
-export default function Tool({ params }): JSX.Element {
+
+
+export default function Tool({ path }): JSX.Element {
     const { data: session } = useSession();
 
-    const ToolsInThisCategory = ToolList.filter(({ category }) => category.toLocaleLowerCase().split(" ").join("-") === params.category);
+    const Category = CategoryList.find(({ path }) => path === path);
+    const ToolsInThisCategory = ToolList.filter(({ category }) => category === Category.title);
 
     return (
         <>
             <Head>
                 <link
                     rel="canonical"
-                    href={process.env.WEBSITE_URL || 'https://kkupgrader.eu.org' + "/tools/category" + params.category}
+                    href={process.env.WEBSITE_URL || 'https://kkupgrader.eu.org' + "/tools/category" + Category.path.split("/").pop()}
                     key="canonical"
                 />
             </Head>
             <ToolPage headerChildren={null} session={session || null} metadata={{
-                title: params.categoryName,
+                title: Category.title,
                 description: ""
             }}>
                 <CardContainer>
@@ -64,7 +67,7 @@ export default function Tool({ params }): JSX.Element {
 
                 </CardContainer>
             </ToolPage>
-            <PageMetaData PageTitle={params.categoryName} PageDescription={"  "} SiteName={''} PageUrl={''} PreviewImage={''} PageType={''} PageLocale={''} />
+            <PageMetaData PageTitle={Category.title} PageDescription={"  "} SiteName={''} PageUrl={''} PreviewImage={''} PageType={''} PageLocale={''} />
         </>
     )
 }
