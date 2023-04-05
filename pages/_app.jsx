@@ -1,5 +1,5 @@
 import Head from "next/head";
-import * as gtag from "../lib/gtag"
+import * as gtag from "lib/gtag"
 import Script from 'next/script'
 import "src/global.css";
 import "aos/dist/aos.css";
