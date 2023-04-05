@@ -19,7 +19,7 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps },
         const handleStart = () => {
             setIsAnimating(true);
         };
-        const handleStop = () => {
+        const handleStop = (url) => {
             gtag.pageview(url);
             setIsAnimating(false);
         };
