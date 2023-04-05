@@ -1,5 +1,4 @@
 import Head from "next/head";
-import * as gtag from "lib/gtag"
 import Script from 'next/script'
 import "src/global.css";
 import "aos/dist/aos.css";
@@ -19,8 +18,7 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps },
         const handleStart = () => {
             setIsAnimating(true);
         };
-        const handleStop = (url) => {
-            gtag.pageview(url);
+        const handleStop = () => {
             setIsAnimating(false);
         };
 
