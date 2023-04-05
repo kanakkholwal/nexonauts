@@ -40,7 +40,7 @@ export async function getStaticProps({ params }) {
 export default function Tool({ path }): JSX.Element {
     const { data: session } = useSession();
 
-    const Category = CategoryList.find(({ path }) => path === path);
+    const Category = CategoryList.find((category) => category.path === path);
     const ToolsInThisCategory = ToolList.filter(({ category }) => category === Category.title);
 
     return (

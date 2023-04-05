@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useRouter } from 'next/router';
-import { useSession, signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { hasToken } from 'lib/checkUser';
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 import Image from "next/image";
@@ -9,6 +10,7 @@ import Link from "next/link";
 // import Login from "@backend/components/LoginCard";
 import PasswordInput from "components/form-elements/PasswordInput";
 import Button from "components/buttons";
+import { IndeterminateLinearLoader } from "components/Loader";
 import { FormElement, Label, FormAlert, Input } from "components/form-elements";
 import styled from "styled-components";
 import illustration from "assets/images/login-illustration.webp";
@@ -110,7 +112,10 @@ export default function signup({ }) {
             error: false,
             errorMessage: ""
         },
-        state: "initial" || "error" || "success" || "loading"
+        state: {
+            state: "initial" || "error" || "success" || "loading",
+            message: ""
+        }
     });
 
 
@@ -203,114 +208,151 @@ export default function signup({ }) {
             }).then((response) => {
                 console.log(response);
 
-
-            }).catch((error) => {
-                console.log(error);
                 setState({
                     ...state,
-                    state: "error",
-                    errorMessage: error.message || "Something went wrong"
+                    state: {
+                        state: "success",
+                        message: "Login Successful"
+                    }
                 })
-            })
+            }).catch((error) => {
+                console.log(error)
+                setState({
+                    ...state,
+                    state: {
+                        state: "error",
+                        message: error.message || "Something went wrong"
+                    }
+                })
+            });
+
 
 
 
     }
     return (
 
+        <>
+            <Head>
+                Login
+            </Head>
 
-        <PageWrapper>
-            <Illustration>
-                <h2>Hi,Welcome Back</h2>
-                <Image src={illustration} width="600" height="600" alt="Dashboard Illustration" priority={true} />
+            <PageWrapper>
+                <Illustration>
+                    <h2>Hi,Welcome Back</h2>
+                    <Image src={illustration} width="600" height="600" alt="Dashboard Illustration" priority={true} />
 
-            </Illustration>
-            <FormWrapper>
+                </Illustration>
+                <FormWrapper>
 
-                <Form onSubmit={submitHandler}>
+                    <Form onSubmit={submitHandler}>
 
-                    <h2>Sign Up </h2>
-                    <p>Create an account to get started </p>
-                    <FormElement>
-                        <Input type="name" placeholder="Enter your Name" outlined value={state.name.value}
-                            id="name" required onChange={(e) => {
-                                setState({
-                                    ...state,
-                                    name: {
-                                        value: e.target.value,
-                                        error: false,
-                                        errorMessage: "Please enter a name"
-                                    }
-                                })
-                            }}
-                            className={state.email.error ? "isInvalid" : ""}
-                        />
-                        <Label>Enter Your Name</Label>
-                        {state.name.error && <FormAlert nature="danger">{state.name.errorMessage}</FormAlert>}
-                    </FormElement>
-                    <FormElement>
-                        <Input type="email" placeholder="Enter your Email" outlined value={state.email.value}
-                            id="email" required onChange={(e) => {
-                                setState({
-                                    ...state,
-                                    email: {
-                                        value: e.target.value,
-                                        error: !isEmail(e.target.value),
-                                        errorMessage: "Please enter a valid email"
-                                    }
-                                })
-                            }}
-                            className={state.email.error ? "isInvalid" : ""}
-                        />
-                        <Label>Enter Your Email</Label>
-                        {state.email.error && <FormAlert nature="danger">{state.email.errorMessage}</FormAlert>}
-                    </FormElement>
-                    <FormElement>
-                        <PasswordInput placeholder="Enter your Password" outlined
-                            id="password" required
-                            value={state.password.value}
-                            className={state.password.error ? "isInvalid" : ""}
-                            onChange={(e) => {
-                                if (e.target.value.length < 6) {
+                        <h2>Sign Up </h2>
+                        <p>Create an account to get started </p>
+                        <FormElement>
+                            <Input type="name" placeholder="Enter your Name" outlined value={state.name.value}
+                                id="name" required onChange={(e) => {
                                     setState({
                                         ...state,
-                                        password: {
-                                            value: e.target.value,
-                                            error: true,
-                                            errorMessage: "Password must be atleast 6 characters long"
-                                        }
-                                    })
-                                } else {
-                                    setState({
-                                        ...state,
-                                        password: {
+                                        name: {
                                             value: e.target.value,
                                             error: false,
-                                            errorMessage: ""
+                                            errorMessage: "Please enter a name"
                                         }
                                     })
-                                }
-                            }}
-                        />
-                        {state.password.error && <FormAlert nature="danger">{state.password.errorMessage}</FormAlert>}
-                        <Label>Enter Your Password</Label>
-                    </FormElement>
-                    <FormElement>
-                        <ReCAPTCHA
-                            sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                            onChange={handleCaptcha}
-                        />
-                        {state.recaptcha.error && <FormAlert nature="danger">{state.recaptcha.errorMessage}</FormAlert>}
-                    </FormElement>
-                    <Button type="submit" onClick={submitHandler}>SignUp </Button>
-                    <p>Already have an account? <Link href="/login">Login</Link></p>
-                </Form>
+                                }}
+                                className={state.email.error ? "isInvalid" : ""}
+                            />
+                            <Label>Enter Your Name</Label>
+                            {state.name.error && <FormAlert nature="danger">{state.name.errorMessage}</FormAlert>}
+                        </FormElement>
+                        <FormElement>
+                            <Input type="email" placeholder="Enter your Email" outlined value={state.email.value}
+                                id="email" required onChange={(e) => {
+                                    setState({
+                                        ...state,
+                                        email: {
+                                            value: e.target.value,
+                                            error: !isEmail(e.target.value),
+                                            errorMessage: "Please enter a valid email"
+                                        }
+                                    })
+                                }}
+                                className={state.email.error ? "isInvalid" : ""}
+                            />
+                            <Label>Enter Your Email</Label>
+                            {state.email.error && <FormAlert nature="danger">{state.email.errorMessage}</FormAlert>}
+                        </FormElement>
+                        <FormElement>
+                            <PasswordInput placeholder="Enter your Password" outlined
+                                id="password" required
+                                value={state.password.value}
+                                className={state.password.error ? "isInvalid" : ""}
+                                onChange={(e) => {
+                                    if (e.target.value.length < 6) {
+                                        setState({
+                                            ...state,
+                                            password: {
+                                                value: e.target.value,
+                                                error: true,
+                                                errorMessage: "Password must be atleast 6 characters long"
+                                            }
+                                        })
+                                    } else {
+                                        setState({
+                                            ...state,
+                                            password: {
+                                                value: e.target.value,
+                                                error: false,
+                                                errorMessage: ""
+                                            }
+                                        })
+                                    }
+                                }}
+                            />
+                            {state.password.error && <FormAlert nature="danger">{state.password.errorMessage}</FormAlert>}
+                            <Label>Enter Your Password</Label>
+                        </FormElement>
+                        <FormElement>
+                            <ReCAPTCHA
+                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                                onChange={handleCaptcha}
+                            />
+                            {state.recaptcha.error && <FormAlert nature="danger">{state.recaptcha.errorMessage}</FormAlert>}
+                        </FormElement>
+                        {state.state.state === "error" && <FormAlert nature="danger">{state.state.message}</FormAlert>}
+                        {state.state.state === "success" && <FormAlert nature="success">{state.state.message}</FormAlert>}
+                        {state.state.state === "loading" && <IndeterminateLinearLoader />}
+                        <Button type="submit" onClick={submitHandler}>SignUp </Button>
+                        <p>Already have an account? <Link href="/login">Login</Link></p>
+                    </Form>
 
 
-            </FormWrapper>
+                </FormWrapper>
 
 
-        </PageWrapper >
-    )
+            </PageWrapper >
+        </>)
 }
 
+export async function getServerSideProps(context) {
+
+    const token = await hasToken(context.req);
+
+    if (token) {
+        return {
+            redirect: {
+                destination: '/dashboard',
+                permanent: false
+            }
+        }
+    }
+
+    return {
+        props: {
+
+        },
+
+    }
+
+}
