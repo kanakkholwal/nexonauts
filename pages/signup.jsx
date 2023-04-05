@@ -6,6 +6,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import Head from "next/head":
 // Components 
 // import Login from "@backend/components/LoginCard";
 import PasswordInput from "components/form-elements/PasswordInput";
