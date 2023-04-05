@@ -1,4 +1,6 @@
 import Head from "next/head";
+import * as gtag from "../lib/gtag"
+import Script from 'next/script'
 import "src/global.css";
 import "aos/dist/aos.css";
 import Progress from 'components/progress';
@@ -18,6 +20,7 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps },
             setIsAnimating(true);
         };
         const handleStop = () => {
+            gtag.pageview(url);
             setIsAnimating(false);
         };
 
@@ -72,7 +75,19 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps },
 
         </Head>
         <Progress isAnimating={isAnimating} />
+        <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-BCVK6GWZ0E" />
 
+        <Script id='google-analytics'
+            strategy="afterInteractive" >
+            {`
+        window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-BCVK6GWZ0E', {
+            page_path: window.location.pathname,
+         });
+        `}
+        </Script>
         <SessionProvider session={session}>
             <Component {...pageProps} />
         </SessionProvider>
