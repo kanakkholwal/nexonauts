@@ -5,7 +5,7 @@ import Button from 'components/buttons';
 import Alert from 'components/alert';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Loader } from 'components/Loader';
+import { IndeterminateLinearLoader as Loader } from 'components/Loader';
 import { Card } from 'components/Card';
 import axios from 'axios';
 import { useState } from 'react';

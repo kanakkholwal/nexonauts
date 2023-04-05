@@ -1,21 +1,39 @@
 import styles from "./_Loader.module.scss";
 import styled from "styled-components";
 
-
-
-export const Loader = styled.div`
-
-    position: relative;
+export const IndeterminateLinearLoader = styled.div`
+margin: auto;
+height: ${({ size }) => size || '4px'};
+background-color: rgba(var(--theme-rgb), 0.2);
+width: 100%;
+overflow: hidden;
+position: relative;
+border-radius: 4px;
+&:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto;
-  
-  
-  &:after {
+    height: 100%;
+    background-color: rgba(var(--theme-rgb), 1);
+    animation: indeterminate 1.5s infinite;
+    border-radius: 4px;
+}
+
+
+`;
+
+export const IndeterminateCircularLoader = styled.div`
+position: relative;
+width: 100%;
+height: auto;
+overflow: hidden;
+display: flex;
+align-items: center;
+justify-content: center;
+margin: auto;
+&:after {
     content: '';
     display: block;
     width: ${({ size }) => size || '48px'};
@@ -28,32 +46,88 @@ export const Loader = styled.div`
     border-radius: 100%;
     animation: spinner .45s infinite linear;
     transform-origin: center;
-  }
-  
-  @-webkit-keyframes spinner {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
-  
-    to {
-      -webkit-transform: rotate(1turn);
-      transform: rotate(1turn);
-    }
-  }
-  
-  @keyframes spinner {
-    0% {
-      -webkit-transform: rotate(0deg);
-      transform: rotate(0deg);
-    }
-  
-    to {
-      -webkit-transform: rotate(1turn);
-      transform: rotate(1turn);
-    }
-  }
+}
+&:before {
+    content: '';
+    display: block;
+    width: ${({ size }) => size || '48px'};
+    height: ${({ size }) => size || '48px'};
+    box-sizing: border-box;
+    margin: 0;
+    border: 2px solid var(--theme);
+    border-right-color: transparent;
+    border-left-color: transparent;
+    border-radius: 100%;
+    animation: spinner .45s infinite linear;
+    transform-origin: center;
+    transform: rotate(90deg);
+}
 `;
+
+export const ProgressLinearLoader = styled.div`
+    margin: auto;
+    height: ${({ size }) => size || '4px'};
+    background-color: rgba(var(--theme-rgb), 0.2);
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    border-radius: 4px;
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: ${({ value }) => value || '0'}%;
+        height: 100%;
+        background-color: rgba(var(--theme-rgb), 1);
+        border-radius: 4px;
+    }
+`;
+const Svg = styled.svg`
+display: inline-flex;
+vertical-align: bottom;
+margin: auto;
+`;
+const Circle = styled.circle`
+stroke: rgba(var(--theme-rgb), 0.25);
+stroke-width: ${({ strokeWidth }) => strokeWidth || '4px'};
+stroke-dasharray: 0;
+fill: none;
+`;
+const Path = styled.path`
+stroke-width: ${({ strokeWidth }) => `calc(${strokeWidth} + 1px)` || '5px'};
+stroke: rgba(var(--theme-rgb), 1);
+fill: none;
+transition: stroke-dashoffset 1s cubic-bezier(0.43, 0.41, 0.22, 0.91);
+transform-origin: center center;
+transform: rotate(-90deg) scaleX(-1);
+`;
+const Text = styled.text`
+fill: rgba(var(--theme-rgb), 1);
+font-weight: bold;
+`;
+
+export function ProgressCircularLoader({ size, strokeWidth, value }) {
+    const length = 282.78302001953125;
+    return (
+        <Svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" data-value={value}>
+            <Circle r={45} cx={size} cy={size} strokeWidth={strokeWidth ?? "4px"} />
+            {/* 282.78302001953125 is auto-calculated by path.getTotalLength() */}
+            <Path d="M5,50a45,45 0 1,0 90,0a45,45 0 1,0 -90,0"
+                strokeLinecap="round" strokeLinejoin="round"
+                strokeDashoffset={Math.max(0, length * ((100 - value) / 100))}
+                strokeDasharray={length} />
+            {/* Value automatically updates based on data-value set above */}
+            <Text x={size} y={size} textAnchor="middle" dominantBaseline="central" fontSize={20} >
+                {value}%
+            </Text>
+        </Svg>
+
+    )
+}
+
+
+
 export const PageFullLoader = styled.div`
     transform: rotateZ(45deg);
     perspective: 1000px;

@@ -2,7 +2,7 @@ import { hasToken, getUser } from 'lib/checkUser'
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
 
-export default function Blog({ user }) {
+export default function Settings({ user }) {
 
 
 
@@ -10,10 +10,11 @@ export default function Blog({ user }) {
     return (
         <>
             <Head>
-                <title>Blog</title>
+                <title>Settings</title>
             </Head>
             <DashboardPage user={user}>
-                Blog
+                Setting
+
             </DashboardPage>
         </>
     )
