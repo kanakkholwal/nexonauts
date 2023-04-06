@@ -1,6 +1,5 @@
-import DashboardPage from "components/dashboard-page";
+import DashboardPage, { Header } from "components/dashboard-page";
 import Head from 'next/head';
-import styled from 'styled-components';
 import Button from 'components/buttons';
 import Alert from 'components/alert';
 import Image from 'next/image';
@@ -13,15 +12,7 @@ import { hasToken, getUser } from 'lib/checkUser'
 
 import { FileInput, FormElement, Label, Input, FormGroup } from 'components/form-elements';
 
-const Header = styled.div`
-padding: 1rem;
-border-radius: 0.625rem;
-background: #fff;
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 1rem;
-`;
+
 
 export default function ProfilePage({ user: CurrentUser }) {
 
@@ -131,7 +122,7 @@ export default function ProfilePage({ user: CurrentUser }) {
     }
 
     return (
-        <DashboardPage user={user}>
+        <DashboardPage user={CurrentUser}>
             <Head>
                 <title>Edit Profile</title>
             </Head>

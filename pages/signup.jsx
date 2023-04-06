@@ -235,7 +235,7 @@ export default function signup({ }) {
 
         <>
             <Head>
-                Login
+                Sign Up
             </Head>
 
             <PageWrapper>

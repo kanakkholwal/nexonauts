@@ -7,6 +7,8 @@ import { BsFillJournalBookmarkFill } from "react-icons/bs";
 import { RxDashboard } from "react-icons/rx";
 import { TbTools } from "react-icons/tb";
 
+export { Header } from "./elements";
+
 const SocialMedia = [
     {
         name: "Github",
@@ -29,7 +31,6 @@ const SocialMedia = [
         url: "https://twitter.com/KanakKholwal",
     },
 ]
-
 export default function DashboardPage({ headerChildren, children, user }) {
 
 

@@ -11,8 +11,7 @@ font-weight: 600;
 font-size: 100%;
 letter-spacing:0.0625rem;
 background:${props => props.nature ? `rgba(var(--${props.nature}-rgb),0.2);` : `rgba(var(--theme-rgb),0.2)`};
-border: 2px solid ${props => props.nature ? `rgba(var(--${props.nature}-rgb),0.2);` : `rgba(var(--theme-rgb),0.2)`};
-color:${props => props.nature ? `rgba(var(--${props.nature}-rgb),0.2);` : `rgba(var(--theme-rgb),0.9)`};
+color:${props => props.nature ? `rgba(var(--${props.nature}-rgb),1);` : `rgba(var(--theme-rgb),1)`};
 ${props => props.open ? `
     opacity:1;
     transform:scale(1);

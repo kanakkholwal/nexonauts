@@ -1,6 +1,8 @@
 import { hasToken, getUser } from 'lib/checkUser'
-import DashboardPage from "components/dashboard-page";
+import DashboardPage, { Header } from "components/dashboard-page";
+import Button from "components/buttons";
 import Head from "next/head";
+import Link from 'next/link';
 
 export default function Blog({ user }) {
 
@@ -13,6 +15,12 @@ export default function Blog({ user }) {
                 <title>Blog</title>
             </Head>
             <DashboardPage user={user}>
+                <Header>
+                    <h4>All Posts</h4>
+                    <Button as={Link} href="/dashboard/blog/new">
+                        New Post
+                    </Button>
+                </Header>
                 Blog
             </DashboardPage>
         </>
