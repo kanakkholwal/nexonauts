@@ -1,10 +1,10 @@
 import User from 'models/user';
 import dbConnect from 'lib/dbConnect';
 import handler from 'lib/handler';
+import nextConnect from 'next-connect';
 
 
-handler
-    .use(hasTokenMiddleware)
+export default nextConnect(handler).use(hasTokenMiddleware)
     .put(async (req, res) => {
         const { user } = req.body;
 
@@ -42,4 +42,3 @@ handler
 
     })
 
-export default handler

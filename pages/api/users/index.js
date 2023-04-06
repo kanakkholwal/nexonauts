@@ -2,9 +2,10 @@ import handler from 'lib/handler';
 import User from "models/user";
 import dbConnect from "lib/dbConnect";
 import { isAdminMiddleware } from 'middleware/checkUser';
+import nextConnect from 'next-connect';
 
 
-export default handler.use(isAdminMiddleware)
+export default nextConnect(handler).use(isAdminMiddleware)
     .get(async (req, res) => {
         try {
             await dbConnect();

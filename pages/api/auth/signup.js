@@ -1,9 +1,10 @@
 import User from 'models/user';
 import dbConnect from 'lib/dbConnect';
 import handler from 'lib/handler';
+import nextConnect from 'next-connect';
 
 
-handler
+export default nextConnect(handler)
     .post(createUser)
 
 async function createUser(req, res) {
@@ -54,4 +55,3 @@ async function createUser(req, res) {
 
 }
 
-export default handler;

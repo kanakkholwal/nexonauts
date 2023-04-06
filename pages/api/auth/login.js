@@ -2,14 +2,13 @@ import dbConnect from "lib/dbConnect";
 import User from "models/user";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-
 import handler from 'lib/handler';
+import nextConnect from 'next-connect';
 
 
-handler
-    .post(checkUser)
+export default nextConnect(handler).post(checkUser)
 
-export default async function checkUser(req, res) {
+async function checkUser(req, res) {
 
 
 
