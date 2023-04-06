@@ -3,10 +3,10 @@ import { isAdminMiddleware } from 'middleware/checkUser';
 import Notification from "models/notification";
 import dbConnect from "lib/dbConnect";
 
+import nextConnect from 'next-connect';
 
 
-handler
-    .use(isAdminMiddleware)
+export default nextConnect(handler).use(isAdminMiddleware)
     .get(getNotifications)
 
 async function getNotifications(req, res, next) {
@@ -30,4 +30,3 @@ async function getNotifications(req, res, next) {
 
 }
 
-export default handler

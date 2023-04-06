@@ -1,7 +1,10 @@
-import handler from 'lib/handler';
 import axios from 'axios';
 
-export default handler.post(async (req, res) => {
+import handler from 'lib/handler';
+import nextConnect from 'next-connect';
+
+
+export default nextConnect(handler).post(async (req, res) => {
 
     try {
         const { token } = req.body;
