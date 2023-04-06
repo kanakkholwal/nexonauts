@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import Label from './Label';
 
 
 const Input = styled.input`
@@ -62,19 +62,16 @@ const Input = styled.input`
   border-radius: 0.2rem !important;`: ""}
   
   ${props => props.underlined ? `
-  border: 0;
-  border-radius: 0;
+  border-radius-left-bottom: 0;
+  border-radius-right-bottom: 0;
   z-index: 1;
-  background-color: transparent;
+  background-color: none;
   border: none;
-  border-bottom: 2px solid  var(--form-border);
-  font: inherit;
-  font-size: 1.125rem;
-  padding: .25rem 0;
+  border-bottom: 2px solid var(--form-border);
 
   &::placeholder {
-    visibility: hidden;
-    transition: all 0.25 ease;
+    // visibility: hidden;
+    transition: all 0.25 ease-in-out;
   }
 
   &:focus {
@@ -84,13 +81,6 @@ const Input = styled.input`
       visibility: visible;
     }
 
-    &~label {
-      z-index: 2;
-      color:  var(--form-color);
-      transform: translateY(-1.5rem);
-      font-size: calc(100% - 0.25rem);
-
-    }
   }
 
   &:not(:placeholder-shown) {

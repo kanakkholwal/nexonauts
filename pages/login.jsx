@@ -40,8 +40,9 @@ background-color: rgba(var(--theme-rgb), 0.1);
     display: none;
 }
 position: relative;
-h2{
+.h1{
     margin-top: 100px;
+    font-weight:600;
 }
 img {
     position: absolute;
@@ -240,14 +241,13 @@ export default function Login({ }) {
 
             <PageWrapper>
                 <Illustration>
-                    <h2>Hi,Welcome Back</h2>
+                    <Link href="/" className="h1">K K UPGRADER</Link>
                     <Image src={illustration} width="600" height="600" alt="Dashboard Illustration" priority={true} />
 
                 </Illustration>
                 <FormWrapper>
-                    <h2>K K UPGRADER</h2>
                     <Form onSubmit={submitHandler}>
-                        <h2>Welcome back !!</h2>
+                        <h2>Hi, Welcome back !!</h2>
                         <p>Sign in to your account to continue</p>
                         <FormElement>
                             <Input type="email" placeholder="Enter your Email" outlined value={state.email.value}

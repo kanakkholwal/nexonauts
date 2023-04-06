@@ -796,47 +796,47 @@ html ::-webkit-scrollbar-track {
 }
 
 .justify-content-evenly {
-  justify-content: space-evenly;
+  justify-content: space-evenly !important;
 }
 
 .justify-content-between {
-  justify-content: space-between;
+  justify-content: space-between !important;
 }
 
 .justify-content-around {
-  justify-content: space-around;
+  justify-content: space-around !important;
 }
 
 .justify-content-center {
-  justify-content: center;
+  justify-content: center !important;
 }
 
 .justify-content-start {
-  justify-content: flex-start;
+  justify-content: flex-start !important;
 }
 
 .justify-content-end {
-  justify-content: flex-end;
+  justify-content: flex-end !important;
 }
 
 .align-items-center {
-  align-items: center;
+  align-items: center !important;
 }
 
 .align-items-baseline {
-  align-items: baseline;
+  align-items: baseline !important;
 }
 
 .align-items-start {
-  align-items: flex-start;
+  align-items: flex-start !important;
 }
 
 .align-items-end {
-  align-items: flex-end;
+  align-items: flex-end !important;
 }
 
 .align-items-stretch {
-  align-items: stretch;
+  align-items: stretch !important;
 }
 
 .flex-wrap {
@@ -852,19 +852,19 @@ html ::-webkit-scrollbar-track {
 }
 
 .flex-row {
-  flex-direction: row;
+  flex-direction: row !important;
 }
 
 .flex-row-r {
-  flex-direction: row-reverse;
+  flex-direction: row-reverse !important;
 }
 
 .flex-column {
-  flex-direction: column;
+  flex-direction: column !important;
 }
 
 .flex-column-r {
-  flex-direction: column-reverse;
+  flex-direction: column-reverse !important;
 }
 
 .start {
@@ -1120,6 +1120,66 @@ html ::-webkit-scrollbar-track {
 
 .pb-6 {
   padding-bottom: 1.5rem;
+}
+
+.g-0,
+.gx-0 {
+  row-gap: 0;
+}
+
+.g-0,
+.gy-0 {
+  column-gap: 0;
+}
+
+.g-1,
+.gx-1 {
+  row-gap: 0.25rem;
+}
+
+.g-1,
+.gy-1 {
+  column-gap: 0.25rem;
+}
+
+.g-2,
+.gx-2 {
+  row-gap: 0.5rem;
+}
+
+.g-2,
+.gy-2 {
+  column-gap: 0.5rem;
+}
+
+.g-3,
+.gx-3 {
+  row-gap: 1rem;
+}
+
+.g-3,
+.gy-3 {
+  column-gap: 1rem;
+}
+
+.g-4,
+.gx-4 {
+  row-gap: 1.5rem;
+}
+
+.g-4,
+.gy-4 {
+  column-gap: 1.5rem;
+}
+
+.g-5,
+.gx-5 {
+  row-gap: 3rem;
+}
+
+.g-5,
+.gy-5 {
+  column-gap: 3rem;
 }
 
 .G_Form-element {
