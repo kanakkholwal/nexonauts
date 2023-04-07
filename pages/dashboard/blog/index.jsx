@@ -3,12 +3,27 @@ import DashboardPage, { Header } from "components/dashboard-page";
 import Button from "components/buttons";
 import Head from "next/head";
 import Link from 'next/link';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Card, CardHeader, CardBody } from "components/Card";
 
 export default function Blog({ user }) {
 
+    const [posts, setPosts] = useState([])
 
+    useEffect(() => {
+        const FetchPosts = async () => {
+            await axios.get("/api/users/" + user.id + "/posts/all")
+                .then(res => {
+                    setPosts(res.data.posts)
+                })
+                .catch(err => {
+                    console.log(err);
+                })
 
-
+        }
+        FetchPosts()
+    }, [])
     return (
         <>
             <Head>
@@ -21,7 +36,22 @@ export default function Blog({ user }) {
                         New Post
                     </Button>
                 </Header>
-                Blog
+                <div className="d-flex g-3 flex-nowrap overflow-auto">
+                    {
+                        posts?.map(post => (
+                            <Card as={Link} href={"/dashboard/blog/posts/" + post._id + "/edit"} key={post._id}>
+                                <CardHeader>
+                                    <h4>{post.title}</h4>
+                                </CardHeader>
+                                <CardBody>
+                                    <p>{post.description}</p>
+                                </CardBody>
+                            </Card>))
+                    }
+
+                </div>
+
+
             </DashboardPage>
         </>
     )

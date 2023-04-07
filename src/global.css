@@ -6,7 +6,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  list-style: none;
   text-decoration: none;
   border: 0;
 }
@@ -6962,10 +6961,6 @@ body.DarkMode {
   --shadow-2: rgb(30 27 27 / 35%) 1px -1px 16px 0px;
   --link: hsl(196, 83%, 65%);
   --link-hover: hsla(196, 52%, 46%, 1);
-}
-
-li[class] {
-  list-style: none;
 }
 
 img {
