@@ -67,12 +67,8 @@ export const TextAreaStyled = styled.textarea`
   border: 0;
   border-radius: 0;
   z-index: 1;
-  background-color: transparent;
   border: none;
   border-bottom: 2px solid  var(--form-border);
-  font: inherit;
-  font-size: 1.125rem;
-  padding: .25rem 0;
 
   &::placeholder {
     visibility: hidden;

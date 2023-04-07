@@ -15,16 +15,26 @@ const FormElement = styled.div`
     flex-direction: column;
     margin: 0.25rem 0.5rem 1.25rem;
     flex:auto;
-    &:has(>${Checkbox}){
-      flex-direction: row;
-      align-items: center;
-    }
-    
-  
     ${Label},label {
       order: 1;
       display:flex;
     }
+  
+    &:has(>${Checkbox}){
+      flex-direction: row;
+      align-items: center;
+      ${Checkbox} {
+        margin-right: 0.5rem;
+        order: 1;
+    }
+  }
+  
+    ${Input},${TextAreaStyled},
+    textarea,input,select,${SelectWrapper},${PasswordWrapper} {
+      order: 2;
+      display:flex;
+    }
+
   
     ${Input},${TextAreaStyled},
   textarea,input,select,${SelectWrapper},${PasswordWrapper} {

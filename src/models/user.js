@@ -43,7 +43,7 @@ const UserSchema = new mongoose.Schema({
     },
     posts: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Post',
+        ref: 'post',
     }]
 
 });
@@ -59,6 +59,9 @@ UserSchema.pre('save', async function (next) {
 
 UserSchema.methods.comparePassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password)
+}
+UserSchema.methods.getPosts = async function () {
+    return await this.populate('posts')
 }
 
 
