@@ -321,9 +321,14 @@ export default function signup({ }) {
                             />
                             {state.recaptcha.error && <FormAlert nature="danger">{state.recaptcha.errorMessage}</FormAlert>}
                         </FormElement>
-                        {state.state.state === "error" && <FormAlert nature="danger">{state.state.message}</FormAlert>}
-                        {state.state.state === "success" && <FormAlert nature="success">{state.state.message}</FormAlert>}
-                        {state.state.state === "loading" && <IndeterminateLinearLoader />}
+                        <h5>
+                            {state.state.state === "error" && <FormAlert nature="danger">{state.state.message}</FormAlert>}
+                            {state.state.state === "success" && <FormAlert nature="success">{state.state.message}</FormAlert>}
+                            {state.state.state === "loading" && <IndeterminateLinearLoader />}
+                        </h5>
+                        <h6>
+                            By signing up, you agree to our <Link href="/terms">Terms of Service</Link> and <Link href="/privacy">Privacy Policy</Link>
+                        </h6>
                         <Button type="submit" onClick={submitHandler}>SignUp </Button>
                         <p>Already have an account? <Link href="/login">Login</Link></p>
                     </Form>
