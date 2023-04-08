@@ -40,7 +40,6 @@ const postSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        maxLength: 150
     },
     content: {
         type: mongoose.Schema.Types.Mixed,

@@ -426,6 +426,14 @@ p {
 
 .x-mandatory {
     scroll-snap-type: x mandatory;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    justify-content: flex-start;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
 }
 
 @keyframes rubberBand {

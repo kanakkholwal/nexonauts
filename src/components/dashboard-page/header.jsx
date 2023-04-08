@@ -38,6 +38,17 @@ export default function Header({ user, children }) {
         let sidenavPanel = document.body.querySelector("#sidenav_panel");
         let MainPanel = document.body.querySelector("#main_wrapper");
 
+        if (!window.matchMedia("(min-width: 1024px)").matches) {
+            sidenavPanel.classList.remove('isOpen');
+            MainPanel.classList.remove('isSidenavOpen');
+        }
+
+
+    }, []);
+    useEffect(() => {
+        let sidenavPanel = document.body.querySelector("#sidenav_panel");
+        let MainPanel = document.body.querySelector("#main_wrapper");
+
         if (!sidenavPanel.classList.contains('isOpen')) {
             sidenavPanel.classList.add('isOpen');
             MainPanel.classList.add('isSidenavOpen')

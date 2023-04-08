@@ -47,8 +47,8 @@ export default nextConnect(handler).use(hasTokenMiddleware)
             if (!existingPost)
                 return res.status(404).json({ message: 'Post not found!' });
 
-            if (!(existingUser.posts.includes(existingPost.id) && existingPost.author === existingUser.id))
-                return res.status(403).json({ message: 'You are not authorized to edit this post!' })
+            // if (!(existingUser.posts.includes(existingPost._id) && existingPost.author.toString() === existingUser._id.toString()))
+            //     return res.status(403).json({ message: 'You are not authorized to edit this post!' })
 
 
             await Post.findOneAndUpdate(
@@ -63,11 +63,11 @@ export default nextConnect(handler).use(hasTokenMiddleware)
                     state: post.state,
                     slug: post.slug,
                     updatedAt: Date.now(),
-                    comments: Date.now(),
-                    publishedAt: () => {
-                        if (post.state === 'published')
-                            return Date.now()
-                    }
+                    comments: {
+                        ...existingPost.comments,
+                        enabled: post.comments
+                    },
+                    publishedAt: post.state === 'published' ? Date.now() : null
 
                 }
             }).exec(function (err, post) {

@@ -3,14 +3,14 @@ import DashboardPage, { Header } from "components/dashboard-page";
 import Button from "components/buttons";
 import State from "components/state";
 import { Card, CardHeader, CardBody } from "components/Card";
-import { Input, FormElement, Label, TextArea, CheckBox } from "components/form-elements";
+import { Input, FormElement, Label, TextArea, CheckBox, FileInput } from "components/form-elements";
 import Head from "next/head";
 import Link from 'next/link';
 import { useEffect, useState } from "react";
 import dynamic from 'next/dynamic'
 import styled from 'styled-components';
 import axios from 'axios';
-
+import Image from 'next/image';
 const SettingPanel = styled(Card)`
     max-width:300px;
     position:sticky;
@@ -43,7 +43,19 @@ export default function NewPost({ user }) {
         blocks: [],
     });
     const [image, setImage] = useState("");
-    const [postState, setPostState] = useState("draft");
+    const [imageState, setImageState] = useState({
+        loader: {
+            type: "indeterminate",
+            shape: "linear",
+            show: false,
+        },
+        alert: {
+            open: false,
+            message: "Fetching post data...",
+            nature: "info",
+        }
+
+    }); const [postState, setPostState] = useState("draft");
     const [labels, setLabel] = useState([]);
     const [comments, setComments] = useState(true);
     const [slug, setSlug] = useState(title?.toLocaleLowerCase().split(" ").join("-"));
@@ -110,6 +122,93 @@ export default function NewPost({ user }) {
 
 
     }
+    const handleFiles = async (files) => {
+        setImageState({
+            ...imageState,
+            loader: {
+                ...imageState.loader,
+                show: true,
+            },
+            alert: {
+                ...imageState.alert,
+                open: true,
+                message: "Uploading the image...",
+                nature: "info",
+            }
+        })
+
+        const formData = new FormData();
+        formData.append('file', files[0]);
+        formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
+        formData.append('folder', process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER);
+
+
+        // upload image to cloudinary and get url
+        await axios(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+            method: 'POST',
+            data: formData
+        }).then(res => {
+            const file = res.data;
+            // console.log(file);
+            setImage(file.secure_url)
+            setImageState({
+                ...imageState,
+                loader: {
+                    ...imageState.loader,
+                    show: false,
+                },
+                alert: {
+                    ...imageState.alert,
+                    open: true,
+                    message: "Image Uploaded Successfully",
+                    nature: "success",
+                }
+            })
+
+        }).catch(err => {
+            console.log(err);
+            setImageState({
+                ...imageState,
+                loader: {
+                    ...imageState.loader,
+                    show: false,
+                },
+                alert: {
+                    ...imageState.alert,
+                    open: true,
+                    message: "Error Uploading Image",
+                    nature: "danger",
+                }
+
+            })
+
+        }).finally(() => {
+            setTimeout(() => {
+                setImageState({
+                    ...imageState,
+                    alert: {
+                        ...imageState.alert,
+                        open: false,
+                    }
+                })
+            }, 2000);
+        })
+
+
+
+
+
+    }
+
+
+    const handleChange = async (event) => {
+        const { files } = event.target;
+
+        if (files && files.length) {
+            console.log(files);
+            handleFiles(files);
+        }
+    }
 
     return (
         <>
@@ -167,9 +266,9 @@ export default function NewPost({ user }) {
                             <CheckBox
                                 checked={postState === "published"}
                                 onChange={(e) => {
-                                    if (e.target.checked)
-                                        setPostState("published");
-                                    else
+                                    (e.target.checked) ?
+                                        setPostState("published")
+                                        :
                                         setPostState("draft");
                                 }}
                                 id="publish"
@@ -178,12 +277,30 @@ export default function NewPost({ user }) {
                                 Publish
                             </Label>
                         </FormElement>
+                        <FormElement className="mt-2">
+                            <FileInput
+                                accept="image/*"
+                                placeholder="Upload a cover image for the post..."
+                                underlined
+                                value={image}
+                                onChange={handleChange}
+                                id="imageUrl"
+                            />
+                            <Label htmlFor="imageUrl">
+                                Upload an Image
+                            </Label>
+                            {image.length > 3 ? <Image src={image} alt={title ?? "Post Title"} height={120} width={220} className="img-fluid mt-2" /> : null}
+                            <State  {...imageState} />
+                            <Input value={image} onChange={(e) => {
+                                setImage(e.target.value);
+                            }} />
+                        </FormElement>
                         <FormElement>
                             <Label>Label</Label>
                             <Input type="text" placeholder="Add label to the Post..." underlined value={labels.join(",")}
                                 onChange={
                                     (e) => {
-                                        setLabel(e.target.value.split(","));
+                                        setLabel(e.target.value.trim().split(","));
                                     }
                                 }
                             />
