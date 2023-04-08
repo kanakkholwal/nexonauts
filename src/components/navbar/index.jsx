@@ -132,7 +132,7 @@ position: absolute;
 top: calc(100% + 2rem);
 right: 0;
 width: 200px;
-background-color: rgb(244 247 254 / 90%);
+background-color: rgb(255 255 255 / 90%);
 border-radius: 8px;
 backdrop-filter: blur(20px);
 box-shadow: 0 0 0.5rem 0.1rem rgba(0,0,0,0.1);

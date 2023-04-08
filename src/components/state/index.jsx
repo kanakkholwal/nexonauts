@@ -21,6 +21,6 @@ export default function _State({ loader, alert }) {
                 </>
                 : null}
         </> : null}
-        <Alert nature={nature} open={open}>{message}</Alert>
+        <Alert nature={nature} open={open} className={"my-2"}>{message}</Alert>
     </>)
 }

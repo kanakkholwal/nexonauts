@@ -47,21 +47,7 @@ margin: auto;
     animation: spinner .45s infinite linear;
     transform-origin: center;
 }
-&:before {
-    content: '';
-    display: block;
-    width: ${({ size }) => size || '48px'};
-    height: ${({ size }) => size || '48px'};
-    box-sizing: border-box;
-    margin: 0;
-    border: 2px solid var(--theme);
-    border-right-color: transparent;
-    border-left-color: transparent;
-    border-radius: 100%;
-    animation: spinner .45s infinite linear;
-    transform-origin: center;
-    transform: rotate(90deg);
-}
+
 `;
 
 export const ProgressLinearLoader = styled.div`
