@@ -6900,11 +6900,15 @@ body.DarkMode {
   --hover-bg: rgba(145, 158, 171, 0.08);
   --text-muted: hsla(0, 100%, 99%, .8);
   --card-bg: #343b44;
-  --text-rgb: 233, 237, 242;
+  --text-rgb: 233,
+      237,
+      242;
   --icon-bg: #8384892e;
   --drop-bg: rgb(33, 43, 54);
-  --drop-shadow: rgb(0 0 0 / 24%) 0px 0px 2px 0px, rgb(0 0 0 / 24%) -20px 20px 40px -4px;
-  --card-shadow: rgb(0 0 0 / 20%) 0px 0px 2px 0px, rgb(0 0 0 / 12%) 0px 12px 24px -4px;
+  --drop-shadow: rgb(0 0 0 / 24%) 0px 0px 2px 0px,
+      rgb(0 0 0 / 24%) -20px 20px 40px -4px;
+  --card-shadow: rgb(0 0 0 / 20%) 0px 0px 2px 0px,
+      rgb(0 0 0 / 12%) 0px 12px 24px -4px;
   --border-color: #8384892e;
   --text-color: rgb(193 197 219);
   --success: hsl(142deg 42% 60%);
@@ -7014,8 +7018,7 @@ p {
 }
 
 li {
-  margin-left: 3em;
-  font-weight: 500;
+  list-style: none;
 }
 
 .x-mandatory {

@@ -10,6 +10,7 @@ type ArticleEditorProps = {
   placeholder?: string;
   readOnly?: boolean;
   minHeight?: number;
+  id: string;
   enableReInitialize?: boolean;
   onReady: () => void;
   onSave: (data: OutputData) => void;
@@ -21,6 +22,7 @@ const ArticleEditor = ({
   value,
   placeholder,
   readOnly,
+  id,
   minHeight,
   enableReInitialize,
   onReady,
@@ -28,7 +30,6 @@ const ArticleEditor = ({
   onSave,
   ...props
 }: ArticleEditorProps) => {
-  const id = useId();
   const editorJS = useRef<EditorJS | null>(null);
   const [triggered, setTriggered] = useState<Boolean>(false);
   // const [currentArticle, setCurrentArticle] = useState<OutputData | null>(defaultValue);
@@ -39,7 +40,7 @@ const ArticleEditor = ({
         placeholder,
         readOnly,
         minHeight,
-        holder: id ? id : "editorjs",
+        holder: "editorjs_" + id ? id : Math.random().toString(8),
         data: enableReInitialize ? value : defaultValue,
         i18n,
         tools: EditorTools,
@@ -66,13 +67,14 @@ const ArticleEditor = ({
   useEffect(() => {
     if (editorJS.current === null)
       return
-    if (value && enableReInitialize && triggered === false)
-
+    if (value && enableReInitialize)
       editorJS.current?.isReady
         .then(() => {
-          editorJS.current.render(value);
-          console.log("rerendered...")
-          setTriggered(true)
+          if (triggered === false) {
+            editorJS.current.render(value);
+            console.log("rerendered...");
+            setTriggered(true);
+          }
           /** Do anything you need after editor initialization */
         })
         .catch((reason) => {
@@ -91,6 +93,8 @@ ArticleEditor.defaultProps = {
   placeholder: "Let's write an awesome story! ✨",
   readOnly: false,
   minHeight: 0,
+  enableReInitialize: false,
+
 };
 
 export default ArticleEditor;

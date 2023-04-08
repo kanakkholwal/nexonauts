@@ -6,7 +6,7 @@ import { Card, CardHeader, CardBody } from "components/Card";
 import { Input, FormElement, Label, TextArea, CheckBox, FileInput } from "components/form-elements";
 import Head from "next/head";
 import Link from 'next/link';
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import dynamic from 'next/dynamic'
 import styled from 'styled-components';
 import axios from 'axios';
@@ -42,6 +42,7 @@ export default function NewPost({ user }) {
 
     });
     const [title, setTitle] = useState("Loading...");
+    const id = useId();
     const [description, setDescription] = useState("Loading...");
     const [content, setContent] = useState({
         time: 1635603431943,
@@ -290,8 +291,7 @@ export default function NewPost({ user }) {
                                     value={content}
                                     minHeight={200}
                                     enableReInitialize={true}
-
-
+                                    id={id}
                                     onChange={(api, event) => console.log("sample")}
                                     onReady={() => console.log("ready")}
                                     onSave={(data) => {

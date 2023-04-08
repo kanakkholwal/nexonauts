@@ -97,8 +97,12 @@ text-align:center;
 
 
 const RecursiveLinkList = ({ links }) => {
-
-    return (<LinkList>{links?.map((item, index) => (<Link as={NavLink} key={index} href={item.path}>{item?.icon}{item.title}{item.children?.length > 0 ? <RecursiveLinkList links={item.children} /> : null}</Link>))}</LinkList>)
+    return (
+        <LinkList>
+            {links?.map((item, index) => (<Link as={NavLink} key={index} href={item.path}>
+                {item?.icon}{item.title}{item.children?.length > 0 ? <RecursiveLinkList links={item.children} /> : null}
+            </Link>))}
+        </LinkList>)
 }
 
 export default function SideNav({ links, user }) {

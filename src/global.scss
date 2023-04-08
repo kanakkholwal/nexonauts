@@ -294,11 +294,15 @@ body {
         --hover-bg: rgba(145, 158, 171, 0.08);
         --text-muted: hsla(0, 100%, 99%, .8);
         --card-bg: #343b44;
-        --text-rgb: 233, 237, 242;
+        --text-rgb: 233,
+            237,
+            242;
         --icon-bg: #8384892e;
         --drop-bg: rgb(33, 43, 54);
-        --drop-shadow: rgb(0 0 0 / 24%) 0px 0px 2px 0px, rgb(0 0 0 / 24%) -20px 20px 40px -4px;
-        --card-shadow: rgb(0 0 0 / 20%) 0px 0px 2px 0px, rgb(0 0 0 / 12%) 0px 12px 24px -4px;
+        --drop-shadow: rgb(0 0 0 / 24%) 0px 0px 2px 0px,
+            rgb(0 0 0 / 24%) -20px 20px 40px -4px;
+        --card-shadow: rgb(0 0 0 / 20%) 0px 0px 2px 0px,
+            rgb(0 0 0 / 12%) 0px 12px 24px -4px;
         --border-color: #8384892e;
         --text-color: rgb(193 197 219);
         --success: hsl(142deg 42% 60%);
@@ -311,7 +315,6 @@ body {
         --warningBg: rgb(250 204 21 / 20%);
         --badge: hsl(235, 100%, 85%);
         --badgeBg: rgb(107 117 219 / 20%);
-
         --form-border: rgba(145, 158, 171, 0.32);
         --form-border-active: var(--theme);
         --form-label: hsl(229, 8%, 73%);
@@ -425,9 +428,82 @@ p {
 }
 
 li {
-    margin-left: 3em;
-    font-weight: 500;
+    list-style: none;
 }
+
+// h1 {
+//     font-size: 2.5rem;
+//     line-height: 1.2;
+// }
+
+// h2 {
+//     font-size: 2rem;
+//     line-height: 1.2;
+// }
+
+// h3 {
+//     font-size: 1.75rem;
+//     line-height: 1.2;
+// }
+
+// h4 {
+//     font-size: 1.5rem;
+//     line-height: 1.2;
+// }
+
+// h5 {
+//     font-size: 1.25rem;
+//     line-height: 1.2;
+// }
+
+// h6 {
+//     font-size: 1rem;
+//     line-height: 1.2;
+// }
+
+// p {
+//     font-size: 1rem;
+//     line-height: 1.5;
+// }
+
+// /* Set font size in rem */
+// h1,
+// h2,
+// h3,
+// h4,
+// h5,
+// h6,
+// p {
+//     font-size: 1rem;
+// }
+
+// /* Responsive typography with rem */
+// @media (min-width: 768px) {
+//     h1 {
+//         font-size: 3rem;
+//     }
+
+//     h2 {
+//         font-size: 2.5rem;
+//     }
+
+//     h3 {
+//         font-size: 2rem;
+//     }
+
+//     h4 {
+//         font-size: 1.75rem;
+//     }
+
+//     h5 {
+//         font-size: 1.5rem;
+//     }
+
+//     p {
+//         font-size: 1.125rem;
+//     }
+// }
+
 
 .x-mandatory {
     scroll-snap-type: x mandatory;

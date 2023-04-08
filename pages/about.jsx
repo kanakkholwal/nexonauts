@@ -22,6 +22,12 @@ const PageWrapper = styled.div`
     h1{
         text-align:center;
     }
+    li{
+        margin:1rem 0;
+        margin-left: 3em;
+        font-weight: 500;
+        list-style:disc
+    }
 
 `;
 
