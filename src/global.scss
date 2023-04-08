@@ -424,6 +424,10 @@ p {
     font-weight: 500;
 }
 
+.x-mandatory {
+    scroll-snap-type: x mandatory;
+}
+
 @keyframes rubberBand {
     0% {
         transform: scale3d(1, 1, 1);
