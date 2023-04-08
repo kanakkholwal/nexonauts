@@ -6,14 +6,17 @@ export default function ToolCard({ title, description, path, category, online, .
 
     return (
         <Card  {...props}>
-            <CardBody>
+            <CardBody className="d-flex flex-column justify-content-start">
                 <CardTitle>{title}</CardTitle>
-                <span className=" Badge  mb-2 ">{category}</span>
-                <span className={"Badge  mb-2 ms-2 " + (online ? "Badge_success" : "Badge_danger")} title={online ? " Tool is working Fine :)" : "Tool has Some Issues ;)"}>{online ? "On" : "Off"}</span>
+                <div>
+                    <span className=" Badge  mb-2 ">{category}</span>
+                    <span className={"Badge  mb-2 ms-2 " + (online ? "Badge_success" : "Badge_danger")} title={online ? " Tool is working Fine :)" : "Tool has Some Issues ;)"}>{online ? "On" : "Off"}</span>
+
+                </div>
                 <CardDescription>
                     {description}
                 </CardDescription>
-                <Link href={path} className="Fui_Card-link">
+                <Link href={path} className="mt-auto">
                     Try this Tool
                     <RiShareCircleFill />
                 </Link>

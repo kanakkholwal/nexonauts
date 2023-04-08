@@ -2,6 +2,7 @@ import styled from "styled-components";
 import Image from 'next/image';
 import Link from "next/link";
 import Button from "components/buttons";
+import { Card, CardBody, CardHeader } from "components/Card";
 import Head from "next/head";
 import { HiBars3 } from "react-icons/hi2";
 import { useState } from "react";
@@ -13,17 +14,11 @@ import Footer from "components/footer";
 
 
 const PageWrapper = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    gap: 1.5rem;
-    flex-wrap: wrap;
     margin-top: 200px;
     width: 100%;
     max-width: var(--max-width);
     margin-inline: auto;
     padding: 1rem;
-    background:var(--card-bg);
     h1{
         text-align:center;
     }
@@ -40,7 +35,7 @@ export default function Page() {
     return (
         <>
             <Head>
-                <title>Privacy Policy - K K UPGRADER</title>
+                <title>About - K K UPGRADER</title>
             </Head>
             <NavBarWrapper>
                 <Link href="/">
@@ -64,9 +59,53 @@ export default function Page() {
                 </AuthButtonWrapper>
             </NavBarWrapper>
             <PageWrapper>
-                <h1>Privacy Policy for K K UPGRADER</h1>
+                <h1>
+                    Our Pricing
+                </h1>
+                <div className="d-flex align-items-center justify-content-evenly g-3 flex-wrap">
+                    <Card>
+                        <CardHeader>
+                            <h3>Free</h3>
+                        </CardHeader>
+                        <CardBody>
 
-                <p>At K K UPGRADER, accessible from https://kkupgrader.com, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by K K UPGRADER and how we use it.</p>
+                            <ul>
+                                <li>Up to 5 pro actions per day</li>
+                                <li>Basic analytics</li>
+                                <li>Email support</li>
+                            </ul>
+                            {session ? <Button as={Link} href="/dashboard">Go to Dashboard</Button> :
+                                <Button as={Link} href="/signup">SignUp</Button>}
+
+                        </CardBody>
+                    </Card>
+                    <Card>
+                        <CardHeader>
+                            <h3>
+                                Pro
+                            </h3>
+                        </CardHeader>
+                        <CardBody>
+
+                            <ul>
+                                <li>Unlimited actions</li>
+                                <li>Advanced analytics</li>
+                                <li>Prioritized email support</li>
+                                <li>API access</li>
+                            </ul>
+                            <div>
+                                {
+                                    session ? <Button as={Link} href="/pro/upgrade">Upgrade to Pro</Button> :
+                                        <Button as={Link} href="/signup">Sign Up Now</Button>}
+
+                            </div>
+                        </CardBody>
+                    </Card>
+
+                </div>
+
+
+
             </PageWrapper>
             <Footer only="true" />
         </>
