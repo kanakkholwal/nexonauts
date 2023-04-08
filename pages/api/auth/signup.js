@@ -43,7 +43,11 @@ async function createUser(req, res) {
         // if (req.body.role.includes("admin") && !isAdminMiddleware(req, res)) {
         //     return res.status(401).json({ message: 'Not authorized' });
         // }
-        const newUser = await User.create({ name, email, password, role: "user" });
+        const newUser = await User.create({
+            name, email, password,
+            role: "user",
+            account_type: "free"
+        });
 
         res.status(201).json({ message: 'Created user!', user: newUser });
 
