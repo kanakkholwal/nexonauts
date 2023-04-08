@@ -36,17 +36,16 @@ export default function Blog({ user }) {
                         New Post
                     </Button>
                 </Header>
-                <div className="d-flex g-3 flex-nowrap overflow-auto">
-                    {
-                        posts?.map(post => (
-                            <Card as={Link} href={"/dashboard/blog/posts/" + post._id + "/edit"} key={post._id}>
-                                <CardHeader>
-                                    <h4>{post.title}</h4>
-                                </CardHeader>
-                                <CardBody>
-                                    <p>{post.description}</p>
-                                </CardBody>
-                            </Card>))
+                <div className="d-flex g-3 flex-nowrap overflow-auto x-mandatory">
+                    {posts?.map(post => (
+                        <Card as={Link} href={"/dashboard/blog/posts/" + post._id + "/edit"} key={post._id}>
+                            <CardHeader>
+                                <h4>{post.title}</h4>
+                            </CardHeader>
+                            <CardBody>
+                                <p>{post.description}</p>
+                            </CardBody>
+                        </Card>))
                     }
 
                 </div>

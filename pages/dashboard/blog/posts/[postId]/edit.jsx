@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import dynamic from 'next/dynamic'
 import styled from 'styled-components';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const SettingPanel = styled(Card)`
     max-width:300px;
@@ -23,32 +24,36 @@ const EditorJs = dynamic(() => import("components/editor"), {
 
 export default function NewPost({ user }) {
 
+    const router = useRouter();
+    const { postId } = router.query;
+
     const [state, setState] = useState({
         loader: {
             type: "indeterminate",
             shape: "linear",
-            show: false,
+            show: true,
         },
         alert: {
             open: false,
-            message: "",
-            nature: "success",
+            message: "Fetching post data...",
+            nature: "info",
         }
 
     });
-    const [title, setTitle] = useState("Add a title to the post");
-    const [description, setDescription] = useState("Post Description");
+    const [title, setTitle] = useState("Loading...");
+    const [description, setDescription] = useState("Loading...");
     const [content, setContent] = useState({
         time: 1635603431943,
         blocks: [],
+
     });
     const [image, setImage] = useState("");
     const [postState, setPostState] = useState("draft");
     const [labels, setLabel] = useState([]);
-    const [comments, setComments] = useState(true);
+    const [comments, setComments] = useState(false);
     const [slug, setSlug] = useState(title?.toLocaleLowerCase().split(" ").join("-"));
 
-    const uploadPost = async () => {
+    const updatePost = async () => {
         const post = {
             title,
             labels,
@@ -70,7 +75,7 @@ export default function NewPost({ user }) {
             }
 
         })
-        await axios.post("/api/posts/create", {
+        await axios.put("/api/posts/" + postId, {
             userId: user.id,
             post
         }).then(res => {
@@ -85,7 +90,7 @@ export default function NewPost({ user }) {
                 alert: {
                     ...state.alert,
                     open: true,
-                    message: "Post Created Successfully",
+                    message: "Post Updated Successfully",
                     nature: "success",
                 }
             })
@@ -110,11 +115,44 @@ export default function NewPost({ user }) {
 
 
     }
+    const FetchPost = async (postId) => {
+        await axios.post("/api/posts/" + postId)
+            .then(({ data }) => {
+                const post = data?.post;
+                setTitle(post.title);
+                setDescription(post.description);
+                setImage(post.image);
+                setLabel(post.labels);
+                setComments(post.comments.enabled);
+                setPostState(post.state);
+                setSlug(post.slug);
+                setState({
+                    ...state,
+                    loader: {
+                        ...state.loader,
+                        show: false,
+                    },
+                })
+                setContent(post.content);
+
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+    useEffect(() => {
+
+
+        if (postId) {
+            FetchPost(postId);
+        }
+    }, []);
 
     return (
         <>
             <Head>
-                <title>New Post</title>
+                <title>Editing Post</title>
             </Head>
             <DashboardPage user={user}>
                 <Header>
@@ -130,9 +168,9 @@ export default function NewPost({ user }) {
                     </FormElement>
 
                     <Button
-                        onClick={uploadPost}
+                        onClick={updatePost}
                     >
-                        Create
+                        Update
                     </Button>
                 </Card>
                 <div className="d-flex align-items-start justify-content-between g-3 mt-3">
@@ -148,12 +186,17 @@ export default function NewPost({ user }) {
                             {
                                 EditorJs ? <EditorJs
                                     defaultValue={content}
+                                    value={content}
                                     minHeight={200}
+                                    enableReInitialize={true}
+
+
                                     onChange={(api, event) => console.log("sample")}
                                     onReady={() => console.log("ready")}
                                     onSave={(data) => {
                                         console.log("SAVED", data);
                                         setContent(data);
+
                                     }}
 
                                 /> : null
