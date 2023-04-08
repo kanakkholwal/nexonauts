@@ -148,20 +148,24 @@ export default function ProfilePage({ user: CurrentUser }) {
                         })} />
                     </FormElement>
                 </FormGroup>
-                <FormElement>
-                    <Label htmlFor="name">Your Name</Label>
-                    <Input placeholder="Enter your name." id="name" value={user?.name} onChange={(e) => setUser({
-                        ...user,
-                        name: e.target.value
-                    })} />
-                </FormElement>
-                <FormElement>
-                    <Label htmlFor="profile-pic-url">Your Name</Label>
-                    <Input placeholder="email" type="email" id="email" value={user?.email} onChange={(e) => setUser({
-                        ...user,
-                        email: e.target.value
-                    })} />
-                </FormElement>
+                <FormGroup>
+                    <FormElement>
+                        <Label htmlFor="name">Your Name</Label>
+                        <Input placeholder="Enter your name." id="name" value={user?.name} onChange={(e) => setUser({
+                            ...user,
+                            name: e.target.value
+                        })} />
+                    </FormElement>
+                    <FormElement>
+                        <Label htmlFor="profile-pic-url">Your Email</Label>
+                        <Input placeholder="email" type="email" id="email" value={user?.email} onChange={(e) => setUser({
+                            ...user,
+                            email: e.target.value
+                        })} />
+                    </FormElement>
+                </FormGroup>
+
+
 
                 <FormGroup>
                     <Alert nature={state.alert.type} open={state.alert.open}>{state.alert.message}</Alert>

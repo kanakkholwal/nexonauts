@@ -6,7 +6,7 @@ import { Card, CardHeader, CardBody } from "components/Card";
 import { Input, FormElement, Label, TextArea, CheckBox, FileInput } from "components/form-elements";
 import Head from "next/head";
 import Link from 'next/link';
-import { useEffect, useState } from "react";
+import { useId, useState } from "react";
 import dynamic from 'next/dynamic'
 import styled from 'styled-components';
 import axios from 'axios';
@@ -36,6 +36,7 @@ export default function NewPost({ user }) {
         }
 
     });
+    const id = useId();
     const [title, setTitle] = useState("Add a title to the post");
     const [description, setDescription] = useState("Post Description");
     const [content, setContent] = useState({
@@ -244,19 +245,18 @@ export default function NewPost({ user }) {
                         }
                         <CardBody>
 
-                            {
-                                EditorJs ? <EditorJs
-                                    defaultValue={content}
-                                    minHeight={200}
-                                    onChange={(api, event) => console.log("sample")}
-                                    onReady={() => console.log("ready")}
-                                    onSave={(data) => {
-                                        console.log("SAVED", data);
-                                        setContent(data);
-                                    }}
+                            {EditorJs ? <EditorJs
+                                defaultValue={content}
+                                minHeight={200}
+                                id={id}
+                                onChange={(api, event) => console.log("sample")}
+                                onReady={() => console.log("ready")}
+                                onSave={(data) => {
+                                    console.log("SAVED", data);
+                                    setContent(data);
+                                }}
 
-                                /> : null
-                            }
+                            /> : null}
                         </CardBody>
 
                     </Card>
