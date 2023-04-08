@@ -88,7 +88,10 @@ export default function Tools() {
                     key="canonical"
                 />
             </Head>
-            <ToolPage session={session || null} metadata={metadata}>
+            <ToolPage session={session || null} metadata={{
+                title: metadata.title.split("|")[0],
+                description: metadata.description
+            }}>
                 <CardContainer>
                     {ToolList.map(({ title, description, path, category, online }, index) => {
                         return <ToolCard path={path} key={index} title={title} description={description} category={category} online={online} style={{ animationDelay: (0.1 * index) + "s" }} />
