@@ -7013,6 +7013,11 @@ p {
   font-weight: 500;
 }
 
+li {
+  margin-left: 3em;
+  font-weight: 500;
+}
+
 .x-mandatory {
   scroll-snap-type: x mandatory;
   overflow-x: auto;

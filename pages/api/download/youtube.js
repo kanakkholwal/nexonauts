@@ -13,7 +13,9 @@ export default async function YouTubeDownloader(req, res) {
                 Downloadable: output.formats.sort((a, b) => a.mimeType < b.mimeType)
             })
         else
-            res.status(404).end("Error occurred");
+            res.status(404).json({
+                message: "Error occurred"
+            });
     }
     else
         return res.status(404);

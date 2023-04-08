@@ -5,6 +5,9 @@ import { signOut } from 'next-auth/react';
 import Button from "components/buttons";
 import { useState, useEffect } from "react";
 import { RiMenuUnfoldLine } from "react-icons/ri";
+import { IoSettingsOutline } from "react-icons/io5";
+import { FaRegUser } from "react-icons/fa";
+import { MdOutlineAdminPanelSettings, MdLogout } from "react-icons/md";
 import Image from "next/image";
 
 const NavBarWrapper = styled(Wrapper)`
@@ -76,12 +79,30 @@ export default function Header({ user, children }) {
                         <Image src={user.profileURl ?? "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} height={40} width={40} alt={user?.name ?? "User Profile"} />
                     </Profile>
                     <ProfileDropDown open={open}>
-                        <ProfileDropDownItem as={Link} href="/dashboard/profile">Profile</ProfileDropDownItem>
-                        <ProfileDropDownItem as={Link} href="/dashboard/settings">Settings</ProfileDropDownItem>
+                        <ProfileDropDownItem className="flex-wrap">
+                            <h5 className="d-flex justify-content-between align-items-center">
+                                {user?.name ?? "User Name"}
+                            </h5>
+                            <p>
+                                {user?.email ?? "User Email"}
+                            </p>
+                        </ProfileDropDownItem>
+                        {
+                            user?.role === "admin" && <ProfileDropDownItem as={Link} href="/dashboard/admin">
+                                <MdOutlineAdminPanelSettings /> Admin</ProfileDropDownItem>
+                        }
+                        <ProfileDropDownItem as={Link} href="/dashboard/profile">
+                            <FaRegUser />
+                            Profile</ProfileDropDownItem>
+                        <ProfileDropDownItem as={Link} href="/dashboard/settings">
+                            <IoSettingsOutline />
+                            Settings</ProfileDropDownItem>
                         <ProfileDropDownItem as={"button"} onClick={(e) => {
                             e.preventDefault();
                             signOut();
-                        }}>Log Out</ProfileDropDownItem>
+                        }}>Log Out
+                            <MdLogout />
+                        </ProfileDropDownItem>
                     </ProfileDropDown>
                 </ProfileWrapper>
             </NavBarWrapper>

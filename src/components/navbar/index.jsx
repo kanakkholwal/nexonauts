@@ -131,7 +131,8 @@ export const ProfileDropDown = styled.div`
 position: absolute;
 top: calc(100% + 2rem);
 right: 0;
-width: 200px;
+min-width: 200px;
+width: fit-content;
 background-color: rgb(255 255 255 / 90%);
 border-radius: 8px;
 backdrop-filter: blur(20px);
@@ -157,7 +158,11 @@ transition: all 0.3s ease;
 width: 100%;
 padding:0.5rem 1rem;
 border-radius: 8px;
-color: rgba(var(--text-rgb), 0.5);
+color: rgba(var(--text-rgb), 0.9);
+display:flex;
+align-items:center;
+justify-content:flex-start;
+gap:10px;
 &:hover {
     color: rgba(var(--text-rgb), 0.8);
     background: rgba(var(--text-rgb), 0.1);
