@@ -6677,109 +6677,158 @@ main.Container {
 
 :root {
   --size-xs: 0;
-  --size-sm: 576px;
-  --size-md: 768px;
-  --size-lg: 992px;
-  --size-xl: 1200px;
-  --size-xxl: 1400px;
-  --body-color: rgb(96, 105, 123);
-  --body-bg-rgb: 244, 247, 254;
-  --body-bg: rgba(var(--body-bg-rgb), 1);
-  --dense-bg: rgb(246, 247, 249);
-  --hover-bg: rgba(145, 158, 171, 0.08);
-  --muted-rgb: 163 174 208;
-  --text-muted: rgba(var(--muted-rgb), 1);
-  --card-bg-rgb: 255, 255, 255;
-  --card-bg: rgba(var(--card-bg-rgb), 1);
-  --card-shadow: none;
-  --body-font: "ManRope", "Google Sans", san-serif;
-  --code-font: "Google Sans Mono", "Source Code Pro", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
-  --drop-bg: hsl(0, 0%, 97%);
-  --border-color: #8386972b;
-  --code-color: #242424;
-  --code-bg: hsl(196, 100%, 40%);
-  --icon-bg: #8386972b;
-  --theme: hsl(196, 100%, 40%);
-  --open-transition: opacity .15s cubic-bezier(0, 0, .2, 1) 0ms, transform .15s cubic-bezier(0, 0, .2, 1) 0ms, -webkit-transform .15s cubic-bezier(0, 0, .2, 1) 0ms;
-  --drop-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) -20px 20px 40px -4px;
-  --dropdown-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
-  --success: hsl(143, 28%, 22%);
-  --successBg: hsla(143, 64%, 24%, 0.2);
-  --danger: hsl(0, 100%, 26%);
-  --dangerBg: hsl(0deg 98% 47% / 20%);
-  --info: hsl(194, 42%, 25%);
-  --infoBg: rgb(20 158 202 / 20%);
-  --warning: rgba(250, 204, 21, .2);
-  --warningBg: hsl(50deg 56% 23%);
-  --badge: hsl(235, 22%, 34%);
-  --badgeBg: rgb(107 117 219 / 20%);
-  --cubic-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  --max-width: 1400px;
-  --sidenav-width: 25rem;
-  --border-radius: 12px;
-  --font-mono: "Fira Code", ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
-      "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
-      "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-  --font-body: "Euclid Circular A", "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --shadow: 0 0 .5rem rgb(0 0 0 / 10%);
-  --theme-opacity: 1;
-  --theme-rgb: 94, 88, 215;
-  --theme: rgba(var(--theme-rgb), var(--theme-opacity));
-  --primary-rgb: 59, 113, 202;
-  --primary: rgba(var(--primary-rgb), var(--theme-opacity));
-  --secondary-rgb: 94, 88, 215;
-  --secondary: rgba(var(--secondary-rgb), var(--theme-opacity));
-  --success-rgb: 20, 164, 77;
-  --success: rgba(var(--success-rgb), var(--theme-opacity));
-  --danger-rgb: 220, 76, 100;
-  --danger: rgba(var(--danger-rgb), var(--theme-opacity));
-  --info-rgb: 84, 180, 211;
-  --info: rgba(var(--info-rgb), var(--theme-opacity));
-  --warning-rgb: 228, 161, 27;
-  --warning: rgba(var(--warning-rgb), var(--theme-opacity));
-  --text-opacity: 1;
-  --text-rgb: 36, 47, 101;
-  --text-color: rgba(var(--text-rgb), var(--theme-opacity));
-  --muted-color: rgb(var(--text-rgb), 0.8);
-  --badge-text: #fbfbfb;
-  --border-color: #eee;
-  --btn-text: #fff;
-  --btn-bg: rgba(var(--theme-rgb), 1);
-  --btn-hover-color: #fff;
-  --btn-hover-bg: rgba(var(--theme-rgb), 0.9);
-  --btn-box-shadow: var(--theme) 0 4px 9px -4px;
-  --btn-border-radius: 0.5rem;
-  --btn-line-height: 1.75;
-  --btn-padding-x: 1.25rem;
-  --btn-padding-y: 0.5rem;
-  --lg-btn-padding-y: 1rem;
-  --lg-btn-padding-x: 2rem;
-  --lg-btn-font-size: 0.875rem;
-  --lg-btn-line-height: 2;
-  --sm-btn-padding-y: 0.5rem;
-  --sm-btn-padding-x: 1rem;
-  --sm-btn-font-size: 0.75rem;
-  --sm-btn-line-height: 1.25;
-  --btn-link-text: rgba(var(--theme-rgb), 0.85);
-  --btn-link-bg: #e0dcf1;
-  --btn-link-box-shadow: none;
-  --btn-link-hover-color: rgba(var(--theme-rgb), 1);
-  --btn-link-hover-bg: #e0dcf1;
-  --form-border: transparent;
-  --form-border-active: rgba(var(--theme-rgb), 0.7);
-  --form-label: rgba(0, 0, 0, 0.75);
-  --form-label-active: rgba(var(--theme-rgb), 0.7);
-  --form-bg: #e4eaef;
-  --form-bg-active: #e4eaef;
-  --form-color: rgba(0, 0, 0, 0.8);
-  --form-color-active: rgba(var(--theme-rgb), 0.7);
-  --form-caret: var(--theme);
-  --form-active: var(--theme);
-  --form-helper: #adadb1;
-  --form-checkbox-bg: #fbfbfb;
-  --form-checkbox-border: #ddd;
-  --form-checkbox-shadow: rgba(0, 150, 204, .486);
-  --form-select-bg-active: #ddd;
+ --size-sm: 576px;
+ --size-md: 768px;
+ --size-lg: 992px;
+ --size-xl: 1200px;
+ --size-xxl: 1400px;
+ --body-color: rgb(96, 105, 123);
+ --body-bg-rgb: 244,
+ 247,
+ 254;
+ --body-bg: rgba(var(--body-bg-rgb), 1);
+ --dense-bg: rgb(246, 247, 249);
+ --hover-bg: rgba(145, 158, 171, 0.08);
+ --muted-rgb: 163 174 208;
+ --text-muted: rgba(var(--muted-rgb), 1);
+ --card-bg-rgb: 255,
+ 255,
+ 255;
+ --card-bg: rgba(var(--card-bg-rgb), 1);
+ --card-shadow: none;
+ --body-font: "ManRope",
+ "Google Sans",
+ san-serif;
+ --code-font: "Google Sans Mono",
+ "Source Code Pro",
+ Consolas,
+ Monaco,
+ "Andale Mono",
+ "Ubuntu Mono",
+ monospace;
+ --drop-bg: hsl(0, 0%, 97%);
+ --border-color: #8386972b;
+ --code-color: #242424;
+ --code-bg: hsl(196, 100%, 40%);
+ --icon-bg: #8386972b;
+ --theme: hsl(196, 100%, 40%);
+ --open-transition: opacity .15s cubic-bezier(0, 0, .2, 1) 0ms,
+ transform .15s cubic-bezier(0, 0, .2, 1) 0ms,
+ -webkit-transform .15s cubic-bezier(0, 0, .2, 1) 0ms;
+ --drop-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px,
+ rgb(145 158 171 / 24%) -20px 20px 40px -4px;
+ --dropdown-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2),
+ 0 6px 10px 0 rgba(0, 0, 0, 0.14),
+ 0 1px 18px 0 rgba(0, 0, 0, 0.12);
+ --success: hsl(143, 28%, 22%);
+ --successBg: hsla(143, 64%, 24%, 0.2);
+ --danger: hsl(0, 100%, 26%);
+ --dangerBg: hsl(0deg 98% 47% / 20%);
+ --info: hsl(194, 42%, 25%);
+ --infoBg: rgb(20 158 202 / 20%);
+ --warning: rgba(250, 204, 21, .2);
+ --warningBg: hsl(50deg 56% 23%);
+ --badge: hsl(235, 22%, 34%);
+ --badgeBg: rgb(107 117 219 / 20%);
+ --cubic-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+ --max-width: 1400px;
+ --sidenav-width: 25rem;
+ --border-radius: 12px;
+ --font-mono: "Fira Code",
+ ui-monospace,
+ Menlo,
+ Monaco,
+ "Cascadia Mono",
+ "Segoe UI Mono",
+ "Roboto Mono",
+ "Oxygen Mono",
+ "Ubuntu Monospace",
+ "Source Code Pro",
+ "Fira Mono",
+ "Droid Sans Mono",
+ "Courier New",
+ monospace;
+ --font-body: "Euclid Circular A",
+ "Inter",
+ "Helvetica Neue",
+ Helvetica,
+ Arial,
+ sans-serif;
+ --shadow: 0 0 .5rem rgb(0 0 0 / 10%);
+ --theme-opacity: 1;
+ --theme-rgb: 94,
+ 88,
+ 215;
+ --theme: rgba(var(--theme-rgb), var(--theme-opacity));
+ --primary-rgb: 59,
+ 113,
+ 202;
+ --primary: rgba(var(--primary-rgb), var(--theme-opacity));
+ --secondary-rgb: 94,
+ 88,
+ 215;
+ --secondary: rgba(var(--secondary-rgb), var(--theme-opacity));
+ --success-rgb: 20,
+ 164,
+ 77;
+ --success: rgba(var(--success-rgb), var(--theme-opacity));
+ --danger-rgb: 220,
+ 76,
+ 100;
+ --danger: rgba(var(--danger-rgb), var(--theme-opacity));
+ --info-rgb: 84,
+ 180,
+ 211;
+ --info: rgba(var(--info-rgb), var(--theme-opacity));
+ --warning-rgb: 228,
+ 161,
+ 27;
+ --warning: rgba(var(--warning-rgb), var(--theme-opacity));
+ --text-opacity: 1;
+ --text-rgb: 36,
+ 47,
+ 101;
+ --text-color: rgba(var(--text-rgb), var(--theme-opacity));
+ --muted-color: rgb(var(--text-rgb), 0.8);
+ --badge-text: #fbfbfb;
+ --border-color: #eee;
+ --btn-text: #fff;
+ --btn-bg: rgba(var(--theme-rgb), 1);
+ --btn-hover-color: #fff;
+ --btn-hover-bg: rgba(var(--theme-rgb), 0.9);
+ --btn-box-shadow: var(--theme) 0 4px 9px -4px;
+ --btn-border-radius: 0.5rem;
+ --btn-line-height: 1.75;
+ --btn-padding-x: 1.25rem;
+ --btn-padding-y: 0.5rem;
+ --lg-btn-padding-y: 1rem;
+ --lg-btn-padding-x: 2rem;
+ --lg-btn-font-size: 0.875rem;
+ --lg-btn-line-height: 2;
+ --sm-btn-padding-y: 0.5rem;
+ --sm-btn-padding-x: 1rem;
+ --sm-btn-font-size: 0.75rem;
+ --sm-btn-line-height: 1.25;
+ --btn-link-text: rgba(var(--theme-rgb), 0.85);
+ --btn-link-bg: #e0dcf1;
+ --btn-link-box-shadow: none;
+ --btn-link-hover-color: rgba(var(--theme-rgb), 1);
+ --btn-link-hover-bg: #e0dcf1;
+ --form-border: transparent;
+ --form-border-active: rgba(var(--theme-rgb), 0.7);
+ --form-label: rgba(0, 0, 0, 0.75);
+ --form-label-active: rgba(var(--theme-rgb), 0.7);
+ --form-bg: #e4eaef;
+ --form-bg-active: #e4eaef;
+ --form-color: rgba(0, 0, 0, 0.8);
+ --form-color-active: rgba(var(--theme-rgb), 0.7);
+ --form-caret: var(--theme);
+ --form-active: var(--theme);
+ --form-helper: #adadb1;
+ --form-checkbox-bg: #fbfbfb;
+ --form-checkbox-border: #ddd;
+ --form-checkbox-shadow: rgba(0, 150, 204, .486);
+ --form-select-bg-active: #ddd;
   --codeblock-header-text: inherit;
   --codeblock-header-bg: #e6e9f1;
   --codeblock-body-bg: #f5f2f0;

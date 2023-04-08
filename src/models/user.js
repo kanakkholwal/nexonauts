@@ -37,6 +37,17 @@ const UserSchema = new mongoose.Schema({
             ],
         }
     },
+    account_type: {
+        type: String,
+        default: 'free',
+        enum: {
+            values: [
+                'free',
+                'premium'
+            ],
+        }
+
+    },
     createdAt: {
         type: Date,
         default: () => Date.now()
