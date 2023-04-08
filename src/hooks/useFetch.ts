@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 
 export const useFetch = (url: string, options = {}) => {
+
     const [response, setResponse] = useState(null);
     const [error, setError] = useState(null);
     const [loading, SetLoading] = useState(false);

@@ -11,9 +11,8 @@ export const hasToken = async (req) => {
     }
     return true
 }
-
 export const isAdmin = async (req) => {
-    const token = await getToken({ req, secret })
+    const token = await getToken({ req, secret });
     if (!token || token.user.role !== 'admin') {
         return false
     }
