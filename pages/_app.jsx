@@ -60,7 +60,6 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps },
         <Head>
             {/* <!-- Preload Cdns --> */}
             <link href='https://fonts.googleapis.com' rel='preconnect' />
-            <link href='https://fonts.cdnfonts.com' rel='preconnect' />
             <link crossOrigin='' href='https://fonts.gstatic.com' rel='preconnect' />
             <meta name="googlebot" content="all" />
             <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
