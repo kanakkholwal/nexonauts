@@ -69,8 +69,31 @@ UserSchema.pre('save', async function (next) {
 })
 
 UserSchema.methods.comparePassword = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password)
+    // return await bcrypt.compare(enteredPassword, this.password)
+    // let output = false;
+    bcrypt.compare(enteredPassword, this.password, (err, result) => {
+        if (err) {
+            throw err;
+        }
+
+        if (result)
+            output = result;
+    });
+    return output;
+    // return  bcrypt.compare(enteredPassword, this.password)
+
+
 }
+    // bcrypt.compare(password, team.password, (err, data) => {
+    //     //if error than throw error
+    //     if (err) throw err
+
+    //     //if both match than you can do anything
+    //     if (!data)
+    //     return false
+   
+
+    
 UserSchema.methods.getPosts = async function () {
     return await this.populate('posts')
 }
