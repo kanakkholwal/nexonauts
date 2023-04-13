@@ -53,6 +53,7 @@ img {
     z-index: -1;
 }
 `;
+
 const FormWrapper = styled.div`
 display: flex;
 align-items: center;

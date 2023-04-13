@@ -1,6 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"
 
+import bcrypt from 'bcrypt';
 import User from "models/user";
 import Notification from "models/notification";
 import dbConnect from "lib/dbConnect";
@@ -34,19 +35,30 @@ export const authOptions = {
                 // Use the comparePassword method we defined in our user.js Model file to authenticate
                 const pwValid = await user.comparePassword(credentials.password)
 
-                if (!pwValid) { throw new Error("Your password is invalid") }
+                
+                if (pwValid !== true) { throw new Error("Your password is invalid") }
 
                 await Notification.create({
                     message: "User logged in by email : " + credentials.email + " and name : " + user.name + "",
                     user: user._id
                 });
 
-
+                console.log(user)
+                
                 // If we get this far, we have a valid user and password
+                // bcrypt.compare(credentials.password, user.password, (err, data) => {
+                //     //if error than throw error
+                //     if (err) 
+                //     { throw new Error(err ?? "Your password is invalid") }
+    
+                //     //if both match than you can do anything
+                //     if (data) 
+                //            return user
+                   
+                // })
                 return user
+
             }
-
-
         })
     ],
     // All of this is just to add user information to be accessible for our app in the token/session

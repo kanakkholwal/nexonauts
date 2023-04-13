@@ -49,7 +49,7 @@
       "next-env.d.ts",
       "**/*.ts",
       "**/*.tsx"
-  , "pages/api/images/[image].js", "src/middleware/auth.js", "pages/contact.jsx", "pages/api/chat/socket_io.js"  ],
+  ,   ],
     "exclude": [
       "node_modules"
     ]
