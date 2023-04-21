@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useId } from "react";
-
+// import Undo from 'editorjs-undo';
 import EditorJS, { API, OutputData } from "@editorjs/editorjs";
 
 import { EditorTools, i18n } from "./config";
@@ -32,7 +32,7 @@ const ArticleEditor = ({
 }: ArticleEditorProps) => {
   const editorJS = useRef<EditorJS | null>(null);
   const [triggered, setTriggered] = useState<Boolean>(false);
-  // const [currentArticle, setCurrentArticle] = useState<OutputData | null>(defaultValue);
+  const [currentArticle, setCurrentArticle] = useState<OutputData | null>(defaultValue);
 
   useEffect(() => {
     if (editorJS.current === null) {
@@ -40,18 +40,20 @@ const ArticleEditor = ({
         placeholder,
         readOnly,
         minHeight,
-        holder: "editorjs_" + id ? id : Math.random().toString(8),
-        data: enableReInitialize ? value : defaultValue,
+        holder: "editorJs_" + id ? id : Math.random().toString(8),
+        data: enableReInitialize ? value : defaultValue || currentArticle,
         i18n,
         tools: EditorTools,
         onChange(api: API, event: CustomEvent) {
           editorJS.current?.save().then((res) => {
-            // setCurrentArticle(res);
+            setCurrentArticle(res);
             onSave(res);
           });
           onChange(api, event);
         },
         onReady() {
+          // new Undo({ editorJS });
+
           onReady();
         },
       });

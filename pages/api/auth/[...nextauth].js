@@ -45,17 +45,6 @@ export const authOptions = {
 
                 console.log(user)
                 
-                // If we get this far, we have a valid user and password
-                // bcrypt.compare(credentials.password, user.password, (err, data) => {
-                //     //if error than throw error
-                //     if (err) 
-                //     { throw new Error(err ?? "Your password is invalid") }
-    
-                //     //if both match than you can do anything
-                //     if (data) 
-                //            return user
-                   
-                // })
                 return user
 
             }
