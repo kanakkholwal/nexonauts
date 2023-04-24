@@ -34,6 +34,15 @@ gap:1rem;
 padding-bottom:1rem;
 border-bottom:1px solid #eee;
 `;
+export const CardFooter = styled.div`
+flex: 1 1 auto;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap:1rem;
+padding-top:1rem;
+border-top:1px solid #eee;
+`;
 export const CardBody = styled.div`
 flex: 1 1 auto;
 `;

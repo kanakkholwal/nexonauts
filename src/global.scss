@@ -19,7 +19,6 @@
 @import "./styles/components/accordion";
 @import "./styles/components/modal";
 @import "./styles/components/tabs";
-@import "./styles/components/card";
 @import "./styles/components/slicedMenu";
 @import "./styles/components/listGroup";
 
@@ -72,7 +71,12 @@
     --font-body: 'Euclid Circular A', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --shadow: 0 0 .5rem rgb(0 0 0 / 10%);
     --theme-opacity: 1;
-    --theme-rgb: 94, 88, 215;
+    // --accent-1-rgb: 65, 180, 161;
+    // --accent-1-rgb: 153, 225, 158;
+    // --accent-2-rgb: 13, 22, 27;
+    // --accent-2-rgb: 38, 41, 51;
+    // --accent-3-rgb: 236, 242, 249;
+    --theme-rgb: 59, 113, 202;
     --theme: rgba(var(--theme-rgb), var(--theme-opacity));
     --primary-rgb: 59, 113, 202;
     --primary: rgba(var(--primary-rgb), var(--theme-opacity));
