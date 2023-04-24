@@ -85,13 +85,13 @@ ${Button} {
 }
 `;
 
-export const metadata = {
-    title: "Login",
-    description: "Login to your account",
-    keywords: "Login, Account, Dashboard",
-    // image: "/assets/images/illustration_dashboard.webp",
-    url: "/login"
-}
+// export const metadata = {
+//     title: "Login",
+//     description: "Login to your account",
+//     keywords: "Login, Account, Dashboard",
+//     // image: "/assets/images/illustration_dashboard.webp",
+//     url: "/login"
+// }
 
 export default function Login({ }) {
     const { status } = useSession();
@@ -314,6 +314,7 @@ export default function Login({ }) {
             </PageWrapper >
         </>)
 }
+
 export async function getServerSideProps(context) {
 
     const token = await hasToken(context.req);
