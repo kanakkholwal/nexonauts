@@ -209,7 +209,7 @@ export default function Login({ }) {
             email: enteredEmail,
             password: enteredPassword,
         }).then((data) => {
-            console.log(data)
+            // console.log(data)
             setState({
                 ...state,
                 state: {
