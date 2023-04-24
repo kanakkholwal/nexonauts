@@ -70,17 +70,17 @@ UserSchema.pre('save', async function (next) {
 
 UserSchema.methods.comparePassword = async function (enteredPassword) {
     // return await bcrypt.compare(enteredPassword, this.password)
-    let output = false;
-    bcrypt.compare(enteredPassword, this.password, (err, result) => {
-        if (err) {
-            throw err;
-        }
+    // let output = false;
+    // bcrypt.compare(enteredPassword, this.password, (err, result) => {
+    //     if (err) {
+    //         throw err;
+    //     }
 
-        if (result)
-            output = result;
-    });
-    return output;
-    // return  bcrypt.compare(enteredPassword, this.password)
+    //     if (result)
+    //         output = result;
+    // });
+    // return output;
+    return  bcrypt.compare(enteredPassword, this.password)
 
 
 }
