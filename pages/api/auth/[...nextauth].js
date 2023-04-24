@@ -36,7 +36,7 @@ export const authOptions = {
                 const pwValid = await user.comparePassword(credentials.password)
 
                 
-                if (pwValid === false) { throw new Error("Your password is invalid") }
+                if (pwValid === true) { throw new Error("Your password is invalid") }
 
                 await Notification.create({
                     message: "User logged in by email : " + credentials.email + " and name : " + user.name + "",
