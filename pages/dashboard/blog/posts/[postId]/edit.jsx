@@ -45,7 +45,7 @@ export default function NewPost({ user }) {
     const id = useId();
     const [description, setDescription] = useState("Loading...");
     const [content, setContent] = useState({
-        time: 1635603431943,
+        time:  new Date().getTime(),
         blocks: [],
 
     });
@@ -291,7 +291,7 @@ export default function NewPost({ user }) {
                                     value={content}
                                     minHeight={200}
                                     enableReInitialize={true}
-                                    id={id}
+                                    id={"editorJs"}
                                     onChange={(api, event) => console.log("sample")}
                                     onReady={() => console.log("ready")}
                                     onSave={(data) => {

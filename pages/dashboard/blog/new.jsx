@@ -40,7 +40,7 @@ export default function NewPost({ user }) {
     const [title, setTitle] = useState("Add a title to the post");
     const [description, setDescription] = useState("Post Description");
     const [content, setContent] = useState({
-        time: 1635603431943,
+        time:  new Date().getTime(),
         blocks: [],
     });
     const [image, setImage] = useState("");

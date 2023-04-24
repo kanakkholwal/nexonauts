@@ -1,10 +1,10 @@
 import { ToolList } from "pages/tools/ToolsList";
 import React from 'react';
 import ToolPage from "components/tool-page";
+import SimilarTools from "pages/tools/components/SimilarTools";
 import { ToolContainer } from "components/tools";
 import { useSession } from "next-auth/react";
 import PageMetaData from "components/PageMetaData";
-
 import Head from "next/head";
 
 
@@ -55,6 +55,8 @@ export default function Tool({ slug }): JSX.Element {
                 <ToolContainer>
                     {ToolComponent.Component}
                 </ToolContainer>
+                <SimilarTools category={ToolComponent.category} />
+
             </ToolPage>
             <PageMetaData PageTitle={ToolComponent.title} PageDescription={ToolComponent.description} SiteName={''} PageUrl={''} PreviewImage={''} PageType={''} PageLocale={''} />
         </>
