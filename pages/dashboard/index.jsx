@@ -1,4 +1,4 @@
-import { getUser } from "/lib/checkUser";
+import { getUser } from "lib/checkUser";
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
 

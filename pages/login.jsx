@@ -1,7 +1,7 @@
 import {  useState } from "react";
 import { useRouter } from 'next/router';
 import { useSession, signIn } from 'next-auth/react';
-import { getUser } from "/lib/checkUser";
+import { getUser } from "lib/checkUser";
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 import Image from "next/image";
