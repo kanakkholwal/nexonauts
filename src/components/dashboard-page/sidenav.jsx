@@ -74,7 +74,8 @@ align-items:center;
 `;
 const Link = styled.a`
 display:flex;
-gap:0.5rem;
+gap:0.625rem;
+font-size: 1.7rem;
 font-weight: 600;
 align-items:center;
 justify-content:flex-start;
@@ -83,9 +84,10 @@ transition: all 0.3s ease-in-out;
 padding: 0.75rem 1.5rem;
 border-radius: 5px;
 margin-bottom:0.25rem;
-
+color: rgba(var(--text-rgb), 0.8);
 &:hover,&.active{
-    background-color: rgba(var(--theme-rgb), 0.2);
+    color: rgba(var(--theme-rgb), 0.8);
+    background: rgba(var(--theme-rgb), 0.1);
 }
 `;
 const LogoutButton = styled.button`

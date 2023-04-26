@@ -1,7 +1,7 @@
-import SnackBar from "@/components/SnackBar";
-import Button from "@/components/buttons/Button";
-import { Input, FormElement, Label } from "@/components/form-elements";
-import Loader from "@/components/Loader";
+import SnackBar from "components/SnackBar";
+import Button from "components/buttons";
+import { Input, FormElement, Label } from "components/form-elements";
+import Loader from "components/Loader";
 import { FiDownload } from "react-icons/fi";
 import { HiVolumeUp, HiVolumeOff, HiOutlineFolderDownload } from "react-icons/hi";
 import { HiOutlineVideoCameraSlash, HiOutlineVideoCamera, HiOutlineEye } from "react-icons/hi2";

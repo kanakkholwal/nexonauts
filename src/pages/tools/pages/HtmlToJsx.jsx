@@ -1,11 +1,11 @@
 import { useState, useCallback, useEffect } from "react";
 import isSvg from "is-svg";
-import TextArea from "@/components/form-elements/TextArea";
-import FormElement from "@/components/form-elements/FormElement";
-import Label from "@/components/form-elements/Label";
-import CodeBlock from "@/components/CodeBlock";
+import TextArea from "components/form-elements/TextArea";
+import FormElement from "components/form-elements/FormElement";
+import Label from "components/form-elements/Label";
+import CodeBlock from "components/CodeBlock";
 import HTMLtoJSX from '@erikwithuhk/html-to-jsx';
-import Button from "@/components/buttons/Button";
+import Button from "components/buttons";
 import { MdDeleteOutline, MdContentCopy, MdOutlineCode } from "react-icons/md";
 import { SlRefresh } from "react-icons/sl";
 
