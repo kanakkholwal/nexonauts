@@ -225,12 +225,6 @@ export default function signup({ }) {
 
 
     }
-    if (status === "loading") {
-        return "Loading...";
-    }
-    else if (status === "authenticated") {
-        router.push("/dashboard");
-    }
 
 
     return (
