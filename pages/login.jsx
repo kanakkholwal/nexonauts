@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useRouter } from 'next/router';
 import { useSession, signIn } from 'next-auth/react';
-import { authOptions } from 'pages/api/auth/[...nextauth]';
-import { getServerSession } from "next-auth/next"
-
+import { getUser } from "/lib/checkUser";
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 import Image from "next/image";
@@ -317,7 +315,7 @@ export default function Login({ }) {
 
 export async function getServerSideProps(context) {
 
-    const session = await getServerSession(context.req, context.res, authOptions)
+    const session = await getUser(context)
 
     if (!session) {
         return {
