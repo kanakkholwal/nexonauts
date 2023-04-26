@@ -1,4 +1,6 @@
-import { getUser } from 'lib/checkUser'
+import { getUser } from 'lib/checkUser';
+import { getSession } from "next-auth/react"
+
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
 
@@ -24,9 +26,9 @@ export default function Dashboard({ user }) {
 export async function getServerSideProps(context) {
 
 
-    const user = await getUser(context.req);
+    const session = await getSession(context);
 
-    if (!user)
+    if (!session)
         return {
             redirect: {
                 destination: '/login',
@@ -37,7 +39,7 @@ export async function getServerSideProps(context) {
 
 
     return {
-        props: { user },
+        props: { user :session.user},
 
     }
 }
