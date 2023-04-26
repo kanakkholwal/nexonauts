@@ -1,5 +1,6 @@
 import { hasToken, getUser } from 'lib/checkUser'
 import DashboardPage from "components/dashboard-page";
+import {Card,CardHeader,CardBody,CardTitle} from "components/Card";
 import Head from "next/head";
 
 export default function Settings({ user }) {
@@ -13,7 +14,18 @@ export default function Settings({ user }) {
                 <title>Settings</title>
             </Head>
             <DashboardPage user={user}>
-                Setting
+                
+                <Card>
+                    <CardHeader>
+                    <CardTitle>Settings</CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                        Dark Mode,
+                        Push Notifications,
+                        
+
+                    </CardBody>
+                </Card>
 
             </DashboardPage>
         </>

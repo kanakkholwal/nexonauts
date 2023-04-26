@@ -34,13 +34,13 @@ ul{
 
 }
 a{
-    color: rgba(var(--text-rgb), 0.5);
+    color: rgba(var(--text-rgb), 0.7);
     font-size: 1.7rem;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
     &:hover {
-        color:var(--text-muted)!important;
+        color:rgba(var(--text-rgb), 0.9)!important;
     }
 }
 @media (max-width: 768px) {
