@@ -87,7 +87,8 @@ export default function Header({ user, children }) {
                 <ProfileWrapper>
                     <Profile onClick={(e) => {
                         e.preventDefault();
-                        setOpen(!open)                        
+                        e.stopPropagation();
+                                             setOpen(!open)                        
                     }} role="button" tabIndex="0">
                         <Image src={user.profileURl ?? "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} height={40} width={40} alt={user?.name ?? "User Profile"} />
                     </Profile>
