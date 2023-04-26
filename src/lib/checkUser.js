@@ -21,11 +21,22 @@ export const isAdmin = async (req) => {
     return true
 }
 export const getUser = async (req) => {
+    
+
     const token = await getToken({ req, secret })
-    if (!token || !token.user) {
-        return null
-    }
-    return token.user
+if (!token)
+    return false
+    
+    const decoded = await decode({
+
+        token,
+
+        secret,
+
+    })
+
+    return decoded.user
+    
 }
 // export const getSession = async (context) => {
 //     const session = await getServerSession(
