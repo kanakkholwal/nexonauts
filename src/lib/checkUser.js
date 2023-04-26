@@ -31,9 +31,7 @@ export const getUser = async (req) => {
 
 
 }
-export async function getAuthSession(ctx) {
-    return ctx.req.session.get("user");
-  }
+
 // export const getSession = async (context) => {
 //     const session = await getServerSession(
 //         context.req,
