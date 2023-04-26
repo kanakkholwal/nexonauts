@@ -1,4 +1,6 @@
-import { getServerSession,useSession, signIn } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
+import { getServerSession } from "next-auth/next"
+
 import { authOptions } from 'pages/api/auth/[...nextauth]';
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
