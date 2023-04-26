@@ -1,10 +1,10 @@
 import { useState } from "react"
-import Select from '@/components/form-elements/Select';
-import CodeBlock from "@/components/CodeBlock";
-import FormElement from "@/components/form-elements/FormElement";
-import Input from "@/components/form-elements/Input";
-import Label from "@/components/form-elements/Label";
-import Button from "@/components/buttons/Button";
+import Select from 'components/form-elements/Select';
+import CodeBlock from "components/CodeBlock";
+import FormElement from "components/form-elements/FormElement";
+import Input from "components/form-elements/Input";
+import Label from "components/form-elements/Label";
+import Button from "components/buttons";
 
 export default function IframeGenerator() {
     const SizeType = [

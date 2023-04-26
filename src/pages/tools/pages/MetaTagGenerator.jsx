@@ -1,13 +1,13 @@
 import classes from "./style/_metaTag.module.scss";
 import { useEffect, useState, useCallback } from "react";
-import CodeBlock from "@/components/CodeBlock";
-import Input from "@/components/form-elements/Input";
-import TextArea from "@/components/form-elements/TextArea";
-import Label from "@/components/form-elements/Label";
-import FormElement from "@/components/form-elements/FormElement";
-import FormHelper from "@/components/form-elements/FormHelper";
+import CodeBlock from "components/CodeBlock";
+import Input from "components/form-elements/Input";
+import TextArea from "components/form-elements/TextArea";
+import Label from "components/form-elements/Label";
+import FormElement from "components/form-elements/FormElement";
+import FormHelper from "components/form-elements/FormHelper";
 
-import Button from "@/components/buttons/Button";
+import Button from "components/buttons";
 
 const defaultData = {
     google: {

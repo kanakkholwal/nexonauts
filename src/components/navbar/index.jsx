@@ -182,7 +182,7 @@ align-items:center;
 justify-content:flex-start;
 gap:10px;
 &:hover {
-    color: rgba(var(--text-rgb), 0.8);
-    background: rgba(var(--text-rgb), 0.1);
+    color: rgba(var(--theme-rgb), 0.8);
+    background: rgba(var(--theme-rgb), 0.1);
 }
 `;

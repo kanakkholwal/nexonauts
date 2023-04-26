@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import styled, { keyframes } from 'styled-components';
 import { FiCodesandbox } from "react-icons/fi";
 import { MdContentCopy, MdDoneAll, MdErrorOutline } from "react-icons/md";
-import Button from '@/components/buttons/Button'
+import Button from 'components/buttons'
 const rotate = keyframes`
 from {
     transform: rotateY(0deg) scale(1);
