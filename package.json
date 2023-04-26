@@ -42,7 +42,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.3",
     "next": "^13.3.0",
-    "next-auth": "^4.22.0",
+    "next-auth": "^4.22.1",
     "next-connect": "^0.13.0",
     "next-pwa": "^5.6.0",
     "next-sitemap": "^3.1.42",
