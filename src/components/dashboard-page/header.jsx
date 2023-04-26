@@ -85,7 +85,10 @@ export default function Header({ user, children }) {
                     {children}
                 </Children>
                 <ProfileWrapper>
-                    <Profile onClick={() => setOpen(!open)} role="button" tabIndex="0">
+                    <Profile onClick={(e) => {
+                        e.preventDefault();
+                        setOpen(!open)                        
+                    }} role="button" tabIndex="0">
                         <Image src={user.profileURl ?? "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} height={40} width={40} alt={user?.name ?? "User Profile"} />
                     </Profile>
                     <ProfileDropDown open={open} ref={ProfileRef}>
