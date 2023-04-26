@@ -1,4 +1,4 @@
-import { getUser } from 'lib/checkUser'
+import { getAuthSession } from 'lib/checkUser'
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
 
@@ -24,7 +24,7 @@ export default function Dashboard({ user }) {
 export async function getServerSideProps(context) {
 
 
-    const user = await getUser(context.req);
+    const user = await getAuthSession(context);
 
     if (!user)
         return {
