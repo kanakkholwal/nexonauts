@@ -219,18 +219,18 @@ export default function Login({ }) {
 
 
     }
-    useEffect(() => {
-        if (status === "authenticated") {
-            router.push('/dashboard');
-        }
+    // useEffect(() => {
+    //     if (status === "authenticated") {
+    //         router.push('/dashboard');
+    //     }
 
-    }, [status]);
+    // }, [status]);
 
-    useEffect(() => {
-        if (state.formState.state === "success") {
-            router.push("/dashboard");
-        }
-    }, [state.formState.state]);
+    // useEffect(() => {
+    //     if (state.formState.state === "success") {
+    //         router.push("/dashboard");
+    //     }
+    // }, [state.formState.state]);
     if (status === "loading") {
         return "Loading...";
     }
@@ -316,24 +316,24 @@ export default function Login({ }) {
         </>)
 }
 
-// export async function getServerSideProps(context) {
+export async function getServerSideProps(context) {
 
-//     const token = await hasToken(context.req);
+    const token = await hasToken(context.req);
 
-//     if (token) {
-//         return {
-//             redirect: {
-//                 destination: '/dashboard',
-//                 permanent: false
-//             }
-//         }
-//     }
+    if (token) {
+        return {
+            redirect: {
+                destination: '/dashboard',
+                permanent: false
+            }
+        }
+    }
 
-//     return {
-//         props: {
+    return {
+        props: {
 
-//         },
+        },
 
-//     }
+    }
 
-// }
+}
