@@ -121,14 +121,7 @@ export default function signup({ }) {
     });
 
 
-    if (status === "loading") {
-        return "Loading...";
-    }
-
-    if (status === "authenticated") {
-        router.push('/dashboard');
-    }
-
+  
 
     const isEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -232,6 +225,14 @@ export default function signup({ }) {
 
 
     }
+    if (status === "loading") {
+        return "Loading...";
+    }
+
+    if (status === "authenticated") {
+        router.push('/dashboard');
+    }
+
     return (
 
         <>
