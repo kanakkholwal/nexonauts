@@ -1,4 +1,5 @@
-import { hasToken, isAdmin, getUser } from 'lib/checkUser'
+import { isAdmin } from 'lib/checkUser'
+import { getSession } from "next-auth/react";
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
 
@@ -23,16 +24,17 @@ export default function Dashboard({ user }) {
 
 export async function getServerSideProps(context) {
 
-    const token = await hasToken(context.req);
+    
+    const session = await getSession(context);
 
-    if (!token) {
+    if (!session)
         return {
             redirect: {
                 destination: '/login',
                 permanent: false
             }
         }
-    }
+
     const admin = await isAdmin(context.req);
     if (!admin) {
         console.log("You are not admin");
@@ -44,9 +46,8 @@ export async function getServerSideProps(context) {
         }
     }
 
-    const user = await getUser(context.req);
 
     return {
-        props: { user },
+        props: { user:session.user },
     }
 }

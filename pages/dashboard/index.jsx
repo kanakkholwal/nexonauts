@@ -1,4 +1,3 @@
-import { getUser } from 'lib/checkUser';
 import { getSession } from "next-auth/react"
 
 import DashboardPage from "components/dashboard-page";

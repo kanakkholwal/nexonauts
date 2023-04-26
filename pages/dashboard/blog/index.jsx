@@ -1,4 +1,4 @@
-import { hasToken, getUser } from 'lib/checkUser'
+import { getSession } from "next-auth/react"
 import DashboardPage, { Header } from "components/dashboard-page";
 import Button from "components/buttons";
 import Head from "next/head";
@@ -105,23 +105,21 @@ export default function Blog({ user }) {
 
 export async function getServerSideProps(context) {
 
-    const token = await hasToken(context.req);
 
-    if (!token) {
+    const session = await getSession(context);
+
+    if (!session)
         return {
             redirect: {
                 destination: '/login',
                 permanent: false
             }
         }
-    }
-    const user = await getUser(context.req);
-
 
 
 
     return {
-        props: { user },
+        props: { user :session.user},
 
     }
 }
