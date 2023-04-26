@@ -46,7 +46,7 @@ export const getUserFromRequest = async (req) => {
 // API MIDDLEWARE
 export const hasTokenMiddleware = async (req, res, next) => {
     // const token = await getToken({ req, secret })
-    const session = await getSession({ req })
+    const session = await getToken({ req })
 
     if (!session) {
         return next(new Error('Not Allowed - Not logged in'))
@@ -55,7 +55,7 @@ export const hasTokenMiddleware = async (req, res, next) => {
 }
 export const isAdminMiddleware = async (req, res, next) => {
     // const token = await getToken({ req, secret })
-    const session = await getSession({ req })
+    const session = await getToken({ req })
 
     
     if (!session) {
@@ -67,7 +67,7 @@ export const isAdminMiddleware = async (req, res, next) => {
     next()
 }
 export const isProMiddleware = async (req, res, next) => {
-    const session = await getSession({ req })
+    const session = await getToken({ req })
     if (!session) {
         return next(new Error('Not Allowed - Not logged in'))
     }
