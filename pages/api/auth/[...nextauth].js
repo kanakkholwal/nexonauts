@@ -1,7 +1,5 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"
-
-import bcrypt from 'bcrypt';
 import User from "models/user";
 import Notification from "models/notification";
 import dbConnect from "lib/dbConnect";
@@ -45,7 +43,7 @@ export const authOptions = {
                     user: user._id
                 });
 
-                console.log(user)
+                // console.log(user)
                 
                 return user
 
@@ -77,7 +75,8 @@ export const authOptions = {
             return session
         }
     },
-    site: process.env.NEXTAUTH_URL || "http://localhost:3000/",
+    site: process.env.NEXTAUTH_URL,
+
     pages: {
         // Here you can define your own custom pages for login, recover password, etc.
         signIn: '/login', // Displays sign in buttons
