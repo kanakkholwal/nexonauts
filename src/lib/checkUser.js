@@ -7,7 +7,7 @@ const secret = process.env.NEXT_AUTH_SECRET;
 export const hasToken = async (req) => {
 
     const token = await getToken({ req, secret })
-    
+
     if (!token) {
         return false
     }
@@ -21,22 +21,14 @@ export const isAdmin = async (req) => {
     return true
 }
 export const getUser = async (req) => {
-    
+
 
     const token = await getToken({ req, secret })
-if (!token)
-    return false
-    
-    const decoded = await decode({
+    if (!token)
+        return false
 
-        token,
+    return token.user
 
-        secret,
-
-    })
-
-    return decoded.user
-    
 }
 // export const getSession = async (context) => {
 //     const session = await getServerSession(
