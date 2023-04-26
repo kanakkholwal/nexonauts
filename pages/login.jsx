@@ -86,7 +86,7 @@ ${Button} {
 `;
 
 export default function Login({ }) {
-    const { session,status } = useSession();
+    const { session, status } = useSession();
     const router = useRouter();
     const [state, setState] = useState({
         email: {
@@ -219,23 +219,15 @@ export default function Login({ }) {
 
 
     }
-    useEffect(() => {
-        if (status === "authenticated") {
-            router.push('/dashboard');
-        }
 
-    }, []);
-
-    // useEffect(() => {
-    //     if (state.formState.state === "success") {
-    //         router.push("/dashboard");
-    //     }
-    // }, [state.formState.state]);
     if (status === "loading") {
         return "Loading...";
     }
+    else if (status === "authenticated") {
+        router.push("/dashboard");
+    }
 
-  
+
 
     return (
         <>
