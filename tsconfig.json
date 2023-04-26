@@ -5,7 +5,7 @@
         "@/components/*": ["src/components/*"],
         "@hooks/*": ["src/hooks/*"],
         "helper/*": ["src/helpers/*"],
-        "@/pages/*": ["src/pages/*"],
+        "@pages/*": ["./pages/*"],
         "@/scripts/*": ["src/scripts/*"],
         "@/src/*": ["src/*"],
         "@/firebase/*": ["src/firebase/*"],

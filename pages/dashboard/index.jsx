@@ -1,7 +1,4 @@
-import { useSession, signIn } from 'next-auth/react';
-import { getServerSession } from "next-auth/next"
-
-import { authOptions } from 'pages/api/auth/[...nextauth]';
+import { getUser } from "/lib/checkUser";
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
 
@@ -26,7 +23,7 @@ export default function Dashboard({ user }) {
 
 export async function getServerSideProps(context) {
 
-    const session = await getServerSession(context.req, context.res, authOptions)
+    const session = await getUser(context)
 
     if (!session) {
         return {
