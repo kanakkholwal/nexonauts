@@ -202,6 +202,7 @@ export default function Login({ }) {
                     message: "Login Successful"
                 }
             })
+            // router.push("/dashboard");
         }).catch((error) => {
             console.log(error)
             setState({
