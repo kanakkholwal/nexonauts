@@ -15,21 +15,25 @@ export const hasToken = async (req) => {
 }
 export const isAdmin = async (req) => {
     const token = await getToken({ req, secret });
+    
     if (!token || token.user.role !== 'admin') {
         return false
     }
     return true
 }
 export const getUser = async (req) => {
-
-
     const token = await getToken({ req, secret })
     if (!token)
-        return false
+        return null // No token, no user
 
-    return token.user
+    return token.user // Return the user
+
+
 
 }
+export async function getAuthSession(ctx) {
+    return ctx.req.session.get("user");
+  }
 // export const getSession = async (context) => {
 //     const session = await getServerSession(
 //         context.req,
