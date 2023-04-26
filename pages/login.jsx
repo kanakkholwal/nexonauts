@@ -220,12 +220,13 @@ export default function Login({ }) {
 
     }
 
-    if (status === "loading") {
-        return "Loading...";
-    }
-    else if (status === "authenticated") {
-        router.push("/dashboard");
-    }
+    // if (status === "loading") {
+    //     return "Loading...";
+    // }
+    // else if (status === "authenticated") {
+    //     router.push("/dashboard");
+    //     return "Redirecting...";
+    // }
 
 
 

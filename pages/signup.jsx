@@ -230,7 +230,6 @@ export default function signup({ }) {
     }
     else if (status === "authenticated") {
         router.push("/dashboard");
-        return "Redirecting...";
     }
 
 
