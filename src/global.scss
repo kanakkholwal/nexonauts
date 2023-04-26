@@ -76,20 +76,22 @@
     // --accent-2-rgb: 13, 22, 27;
     // --accent-2-rgb: 38, 41, 51;
     // --accent-3-rgb: 236, 242, 249;
-    --theme-rgb: 59, 113, 202;
+    --theme-rgb: 7, 141, 238;
     --theme: rgba(var(--theme-rgb), var(--theme-opacity));
     --primary-rgb: 59, 113, 202;
     --primary: rgba(var(--primary-rgb), var(--theme-opacity));
-    --secondary-rgb: 94, 88, 215;
+    --secondary-rgb: 118, 53, 220;
     --secondary: rgba(var(--secondary-rgb), var(--theme-opacity));
-    --success-rgb: 20, 164, 77;
+    --success-rgb: 0, 171, 85;
     --success: rgba(var(--success-rgb), var(--theme-opacity));
-    --danger-rgb: 220, 76, 100;
+    --danger-rgb: 255, 48, 48;
     --danger: rgba(var(--danger-rgb), var(--theme-opacity));
-    --info-rgb: 84, 180, 211;
+    --info-rgb: 0, 184, 217;
     --info: rgba(var(--info-rgb), var(--theme-opacity));
-    --warning-rgb: 228, 161, 27;
+    --warning-rgb: 253, 169, 45;
     --warning: rgba(var(--warning-rgb), var(--theme-opacity));
+    --dark-rgb: 42, 44, 50;
+    --dark: rgba(var(--dark-rgb), var(--theme-opacity));
 
     --text-opacity: 1;
     --text-rgb: 36, 47, 101;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 import { useSession, signIn } from 'next-auth/react';
 import { hasToken } from 'lib/checkUser';
@@ -85,14 +85,6 @@ ${Button} {
 }
 `;
 
-// export const metadata = {
-//     title: "Login",
-//     description: "Login to your account",
-//     keywords: "Login, Account, Dashboard",
-//     // image: "/assets/images/illustration_dashboard.webp",
-//     url: "/login"
-// }
-
 export default function Login({ }) {
     const { status } = useSession();
     const router = useRouter();
@@ -112,20 +104,14 @@ export default function Login({ }) {
             error: false,
             errorMessage: ""
         },
-        state: {
+        formState: {
             state: "initial" || "error" || "success" || "loading",
             message: ""
         }
     });
 
 
-    if (status === "loading") {
-        return "Loading...";
-    }
 
-    if (status === "authenticated") {
-        router.push('/dashboard');
-    }
 
 
     const isEmail = (email) => {
@@ -199,7 +185,7 @@ export default function Login({ }) {
         // optional: Add validation here
         setState({
             ...state,
-            state: {
+            formState: {
                 state: "loading",
                 message: "Logging in..."
             }
@@ -212,7 +198,7 @@ export default function Login({ }) {
             // console.log(data)
             setState({
                 ...state,
-                state: {
+                formState: {
                     state: "success",
                     message: "Login Successful"
                 }
@@ -221,7 +207,7 @@ export default function Login({ }) {
             console.log(error)
             setState({
                 ...state,
-                state: {
+                formState: {
                     state: "error",
                     message: error.message || "Something went wrong"
                 }
@@ -232,6 +218,21 @@ export default function Login({ }) {
 
 
 
+    }
+    useEffect(() => {
+        if (status === "authenticated") {
+            router.push('/dashboard');
+        }
+
+    }, [status]);
+
+    useEffect(() => {
+        if (state.formState.state === "success") {
+            router.push("/dashboard");
+        }
+    }, [state.formState.state]);
+    if (status === "loading") {
+        return "Loading...";
     }
     return (
         <>
@@ -302,9 +303,9 @@ export default function Login({ }) {
                             
                         }
                     /> */}
-                        {state.state.state === "error" && <FormAlert nature="danger">{state.state.message}</FormAlert>}
-                        {state.state.state === "success" && <FormAlert nature="success">{state.state.message}</FormAlert>}
-                        {state.state.state === "loading" && <IndeterminateLinearLoader />}
+                        {state.formState.state === "error" && <FormAlert nature="danger">{state.formState.message}</FormAlert>}
+                        {state.formState.state === "success" && <FormAlert nature="success">{state.formState.message}</FormAlert>}
+                        {state.formState.state === "loading" && <IndeterminateLinearLoader />}
                         <Button type="submit" onClick={submitHandler}>Login </Button>
                         <p>Don't have an account? <Link href="/signup">Sign Up</Link></p>
                     </Form>
@@ -315,24 +316,24 @@ export default function Login({ }) {
         </>)
 }
 
-export async function getServerSideProps(context) {
+// export async function getServerSideProps(context) {
 
-    const token = await hasToken(context.req);
+//     const token = await hasToken(context.req);
 
-    if (token) {
-        return {
-            redirect: {
-                destination: '/dashboard',
-                permanent: false
-            }
-        }
-    }
+//     if (token) {
+//         return {
+//             redirect: {
+//                 destination: '/dashboard',
+//                 permanent: false
+//             }
+//         }
+//     }
 
-    return {
-        props: {
+//     return {
+//         props: {
 
-        },
+//         },
 
-    }
+//     }
 
-}
+// }
