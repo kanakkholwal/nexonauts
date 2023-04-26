@@ -5,7 +5,9 @@ const secret = process.env.NEXT_AUTH_SECRET;
 
 // CHECKING FUNCTIONS
 export const hasToken = async (req) => {
+
     const token = await getToken({ req, secret })
+    
     if (!token) {
         return false
     }
@@ -25,6 +27,17 @@ export const getUser = async (req) => {
     }
     return token.user
 }
+// export const getSession = async (context) => {
+//     const session = await getServerSession(
+//         context.req,
+//         context.res,
+//         authOptions
+//     );
+//     if (!session || !session.user) {
+//         return null
+//     }
+//     return session.user
+// }
 export const getUserFromRequest = async (req) => {
     const token = await getToken({ req, secret })
 
