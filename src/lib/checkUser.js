@@ -1,4 +1,5 @@
 import { getToken, decode } from "next-auth/jwt"
+import { getSession } from "next-auth/react"
 
 const secret = process.env.NEXT_AUTH_SECRET;
 
@@ -44,28 +45,33 @@ export const getUserFromRequest = async (req) => {
 
 // API MIDDLEWARE
 export const hasTokenMiddleware = async (req, res, next) => {
-    const token = await getToken({ req, secret })
-    if (!token) {
+    // const token = await getToken({ req, secret })
+    const session = await getSession({ req })
+
+    if (!session) {
         return next(new Error('Not Allowed - Not logged in'))
     }
     next()
 }
 export const isAdminMiddleware = async (req, res, next) => {
-    const token = await getToken({ req, secret })
-    if (!token) {
+    // const token = await getToken({ req, secret })
+    const session = await getSession({ req })
+
+    
+    if (!session) {
         return next(new Error('Not Allowed - Not logged in'))
     }
-    if (token.user.role !== 'admin') {
+    if (session.user.role !== 'admin') {
         return next(new Error('Not Allowed - Not admin'))
     }
     next()
 }
 export const isProMiddleware = async (req, res, next) => {
-    const token = await getToken({ req, secret })
-    if (!token) {
+    const session = await getSession({ req })
+    if (!session) {
         return next(new Error('Not Allowed - Not logged in'))
     }
-    if (token.user.account_type !== 'premium') {
+    if (session.user.account_type !== 'premium') {
         return next(new Error('Not Allowed - Not Pro'))
     }
     next()
