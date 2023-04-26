@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { version } from "@/package.json";
 
-const prefix = `version:${version}:`;
+const prefix = `version:0.1.0:`;
 
-export function useLocalStorage(key: string, initialValue: any) {
+export default function useLocalStorage(key: string, initialValue: any) {
     // State to store our value
     // Pass initial state function to useState so logic is only executed once
     const IN_BROWSER = !!window

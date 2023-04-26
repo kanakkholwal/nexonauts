@@ -37,14 +37,15 @@ color:rgba(var(--theme-rgb),0.9);
 background:rgba(var(--theme-rgb),0.1);
 text-align: center;
 cursor: pointer;
+border-radius: 0.375rem;
+max-width: max-content;
 
-  ${
-    props =>
+  ${props =>
         props.active &&
-        `color:rgba(var(--theme-rgb),0.9);
+        `color:rgba(var(--theme-rgb),1);
         background:rgba(var(--theme-rgb),0.3);
     `
-  }
+    }
 `;
 const TabBody = styled.div`
 display:block;
@@ -66,35 +67,35 @@ export default function Tabs({ TabList }) {
     return (
         <>
             {TabList?.length > 0 ?
-                    <>
-                        <TabHeader>
-                            {TabList.map(({ title }, index) => {
-                                return (
-                                    <TabToggle key={index}
-                                        onClick={
-                                            () => {
-                                                setSelectedIndex(index);
-                                            }
+                <>
+                    <TabHeader>
+                        {TabList.map(({ title }, index) => {
+                            return (
+                                <TabToggle key={index}
+                                    onClick={
+                                        () => {
+                                            setSelectedIndex(index);
                                         }
-                                        active={selectedIndex === index ? true : false}>
-                                        {title}
-                                    </TabToggle>
-                                )
-                            })}
-=                        </TabHeader>
-                        <TabBody>
-                            {TabList.map(({ content }, index) => {
-                                return (
-                                    <TabContent key={index}
-                                        open={selectedIndex === index ? true : false}
-                                    >
-                                        {content}
-                                    </TabContent>
-                                )
-                            })}
-                        </TabBody>
-                    </>
-                    : null}
+                                    }
+                                    active={selectedIndex === index ? true : false}>
+                                    {title}
+                                </TabToggle>
+                            )
+                        })}
+                    </TabHeader>
+                    <TabBody>
+                        {TabList.map(({ content }, index) => {
+                            return (
+                                <TabContent key={index}
+                                    open={selectedIndex === index ? true : false}
+                                >
+                                    {content}
+                                </TabContent>
+                            )
+                        })}
+                    </TabBody>
+                </>
+                : null}
         </>
     )
 }

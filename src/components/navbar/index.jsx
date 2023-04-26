@@ -150,6 +150,24 @@ opacity: ${({ open }) => open ? '1' : '0'};
 visibility: ${({ open }) => open ? 'visible' : 'hidden'};
 transition: all 0.3s ease-in-out;
 `;
+export const ProfileDropDownInfo = styled.div`
+font-size: 1.7rem;
+font-weight: 600;
+text-decoration: none;
+transition: all 0.3s ease;
+width: 100%;
+padding:0.5rem 1rem;
+border-radius: 8px;
+color: rgba(var(--text-rgb), 0.9);
+display:flex;
+align-items:center;
+justify-content:flex-start;
+flex-wrap:wrap;
+gap:10px;
+&:not(:last-child){
+    border-bottom: 1px solid rgba(var(--text-rgb), 0.1);
+}
+`;
 export const ProfileDropDownItem = styled.a`
 font-size: 1.7rem;
 font-weight: 600;
