@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
-import { getServerSession,useSession, signIn } from 'next-auth/react';
+import { useSession, signIn } from 'next-auth/react';
 import { authOptions } from 'pages/api/auth/[...nextauth]';
+import { getServerSession } from "next-auth/next"
 
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
