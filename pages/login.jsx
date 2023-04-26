@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
-import { useSession, getSession,signIn } from 'next-auth/react';
-// import { getSession } from 'lib/checkUser';
+import { useSession, signIn } from 'next-auth/react';
+import { getUser } from 'lib/checkUser';
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 import Image from "next/image";
@@ -224,7 +224,7 @@ export default function Login({ }) {
     if (status === "loading") {
         return "Loading...";
     }
-    else if (status === "authenticated") {
+    else if (session && status === "authenticated") {
         router.push("/dashboard");
         return "Redirecting...";
     }
@@ -315,7 +315,7 @@ export default function Login({ }) {
 
 export async function getServerSideProps(context) {
 
-    const session = await getSession(context);
+    const session = await getUser(context);
 
     if (session) {
         return {
