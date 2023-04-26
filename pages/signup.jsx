@@ -1,7 +1,6 @@
 import {useEffect, useState } from "react";
 import { useRouter } from 'next/router';
-import { useSession } from 'next-auth/react';
-import { hasToken } from 'lib/checkUser';
+import { useSession,  getSession } from 'next-auth/react';
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 import Image from "next/image";
@@ -350,22 +349,24 @@ export default function signup({ }) {
 
 export async function getServerSideProps(context) {
 
-    const token = await hasToken(context.req);
 
-    if (token) {
+    const session = await getSession(context);
+
+    if (session)
+
         return {
             redirect: {
                 destination: '/dashboard',
                 permanent: false
             }
         }
-    }
 
     return {
-        props: {
-
+        props: { 
+            
         },
 
     }
+
 
 }
