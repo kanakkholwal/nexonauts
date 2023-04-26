@@ -63,6 +63,7 @@ export const authOptions = {
                     email: user.email,
                     name: user.name,
                     role: user.role,
+                    account_type: user.account_type,
                     profileURl: user.profileURl,
                 }
             }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import { hasToken } from 'lib/checkUser';
@@ -225,6 +225,17 @@ export default function signup({ }) {
 
 
     }
+    useEffect(() => {
+        console.log(session,status);
+        if (session || status === "authenticated") {
+            router.push("/dashboard");
+        }
+    }, [session,status])
+
+    if (status === "loading") {
+        return "Loading...";
+    }
+
 
 
     return (

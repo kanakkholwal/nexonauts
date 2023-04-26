@@ -202,7 +202,6 @@ export default function Login({ }) {
                     message: "Login Successful"
                 }
             })
-            router.push("/dashboard");
         }).catch((error) => {
             console.log(error)
             setState({
@@ -220,13 +219,14 @@ export default function Login({ }) {
 
     }
 
+    useEffect(() => {
+        if (session || status === "authenticated") {
+            router.push("/dashboard");
+        }
+    }, [session,status])
 
     if (status === "loading") {
         return "Loading...";
-    }
-    else if (session && status === "authenticated") {
-        router.push("/dashboard");
-        return "Redirecting...";
     }
 
 

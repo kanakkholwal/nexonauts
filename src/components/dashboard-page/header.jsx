@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import { signOut } from 'next-auth/react';
 import Button from "components/buttons";
+import Badge from "components/topography/badge";
 import { useState, useEffect,useRef } from "react";
 import { BiHomeAlt2 } from "react-icons/bi";
 import { RiMenuUnfoldLine } from "react-icons/ri";
@@ -88,7 +89,7 @@ export default function Header({ user, children }) {
                     <Profile onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                                             setOpen(!open)                        
+                        setOpen(!open)                        
                     }} role="button" tabIndex="0">
                         <Image src={user.profileURl ?? "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} height={40} width={40} alt={user?.name ?? "User Profile"} />
                     </Profile>
@@ -96,6 +97,8 @@ export default function Header({ user, children }) {
                         <ProfileDropDownInfo>
                             <h5 className="d-flex justify-content-between align-items-center">
                                 {user?.name ?? "User Name"}
+                                <Badge nature="secondary">{user?.account_type}</Badge>
+                                
                             </h5>
                             <p>
                                 {user?.email ?? "User Email"}
