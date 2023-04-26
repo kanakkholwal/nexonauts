@@ -219,12 +219,12 @@ export default function Login({ }) {
 
 
     }
-    // useEffect(() => {
-    //     if (status === "authenticated") {
-    //         router.push('/dashboard');
-    //     }
+    useEffect(() => {
+        if (status === "authenticated") {
+            router.push('/dashboard');
+        }
 
-    // }, [session]);
+    }, []);
 
     // useEffect(() => {
     //     if (state.formState.state === "success") {
@@ -235,9 +235,7 @@ export default function Login({ }) {
         return "Loading...";
     }
 
-    if (status === "authenticated") {
-        router.push('/dashboard');
-    }
+  
 
     return (
         <>
