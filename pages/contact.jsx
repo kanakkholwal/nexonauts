@@ -5,11 +5,13 @@ import styled from "styled-components";
 import Image from 'next/image';
 import Link from "next/link";
 import Button from "components/buttons";
+import State from "components/state";
 
 import { HiBars3 } from "react-icons/hi2";
 import { NavBarWrapper, MenuList, AuthButtonWrapper, NavToggle } from "components/navbar";
 import Footer from "components/footer";
 import { FormAlert, FormGroup, FormElement, Input, Label, TextArea, Select } from "components/form-elements";
+import axios from "axios";
 
 
 const ContactWrapper = styled.div`
@@ -52,19 +54,106 @@ img{
     max-width: 640px;
 }
 `;
-
+const isEmail = (email) => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+}
 export default function Contact() {
+    const { data: session } = useSession();
     const [open, setOpen] = useState(false);
-    const [state, setState] = useState({
-        selectedOption: null,
 
+    const [state, setState] = useState({
+        loader: {
+            type: "indeterminate",
+            shape: "linear",
+            show: false,
+        },
+        alert: {
+            open: false,
+            message: "",
+            nature: "success",
+        }
 
     });
-    const { data: session, status } = useSession();
+    const [formState, setFormState] = useState({
+        name: {
+            value: "",
+            isValid: false,
+            touched: false,
+        },
+        message: {
+            value: "",
+            isValid: false,
+            touched: false,
+        },
+        email: {
+            value: "",
+            isValid: false,
+            touched: false,
+        },
+        category: "Select one",
+        companyName: "",
+        phoneNumber: ""
+    })
 
     const handleChange = (selectedOption) => {
-        setState({ selectedOption: selectedOption.value });
+        setFormState({ ...formState, category: selectedOption.value });
     }
+    const sendMessage = async (e) => {
+        // validate the inputs first before sending the request
+        e.preventDefault();
+        if (!formState.name.value || !formState.message.value || !isEmail(formState.email.value) || !formState.name.value) {
+            setFormState({ ...formState, name: { value: "", isValid: false, touched: false }, message: { value: "", isValid: false, touched: false }, email: { value: "", isValid: false, touched: false }, category: "Select one", companyName: "", phoneNumber: "" });
+            return;
+        }
+        // loading 
+        setState({ ...state, loader: { ...state.loader, show: true } });
+
+
+        await axios.post("/api/messages", {
+                name: formState.name.value,
+                message: formState.message.value,
+                email: formState.email.value,
+                category: formState.category,
+                companyName: formState.companyName,
+                phoneNumber: formState.phoneNumber
+            }
+        ).then((res) => {
+            setFormState({ ...formState, name: { value: "", isValid: false, touched: false }, message: { value: "", isValid: false, touched: false }, email: { value: "", isValid: false, touched: false }, category: "Select one", companyName: "", phoneNumber: "" });
+            setState({
+                alert: {
+                    open: true,
+                    message: "Message sent successfully",
+                    nature: "success"
+                }, loader: { type: "indeterminate", shape: "linear", show: true }
+            });
+
+
+        }).catch((err) => {
+            console.log(err);
+            setState({
+                alert: {
+                    open: true,
+                    message: err.message ?? "Something went wrong",
+                    nature: "danger",
+                }, loader: { type: "indeterminate", shape: "linear", show: true }
+            });
+        }).finally(() => {
+            setTimeout(() => {
+                setState({
+                    alert: {
+                        open: false,
+                        message: "",
+                        nature: "success",
+                    }, loader: { type: "indeterminate", shape: "linear", show: false }
+                });
+            }, 2000);
+        })
+
+
+
+    }
+
     return (
         <>
             <Head>
@@ -100,21 +189,37 @@ export default function Contact() {
                     <FormGroup>
                         <FormElement>
                             <Label htmlFor="name">Name</Label>
-                            <Input type="text" id="name" name="name" placeholder="John Doe" />
+                            <Input type="text" id="name" name="name" placeholder="John Doe"
+                                value={formState.name.value}
+                                onChange={e => setFormState({ ...formState, name: { ...formState.name, value: e.target.value, isValid: e.target.value.length > 3, touched: true } })}
+                            />
+                            {formState.name.touched && !formState.name.isValid && <FormAlert>Name must be between 1 and 100 characters</FormAlert>}
+
                         </FormElement>
                         <FormElement>
                             <Label htmlFor="email">Email</Label>
-                            <Input type="email" id="email" name="email" placeholder="user@example.com" />
+                            <Input type="email" id="email" name="email" placeholder="user@example.com"
+                                value={formState.email.value}
+                                onChange={e => setFormState({ ...formState, email: { ...formState.email, value: e.target.value, isValid: isEmail(e.target.value), touched: true } })}
+                            />
+                            {formState.email.touched && !formState.email.isValid && <FormAlert>Please enter a valid email address</FormAlert>}
                         </FormElement>
                     </FormGroup>
                     <FormGroup>
                         <FormElement>
                             <Label htmlFor="company_name">Company Name</Label>
-                            <Input type="text" id="company_name" name="company_name" placeholder="Fancy Army" />
+                            <Input type="text" id="company_name" name="company_name" placeholder="Fancy Army"
+                                value={formState.companyName}
+                                onChange={(e) => setFormState({ ...formState, companyName: e.target.value })} />
+
+
                         </FormElement>
                         <FormElement>
                             <Label htmlFor="Phone">Phone</Label>
-                            <Input type="tel" id="Phone" name="Phone" placeholder="888 888 888 8" />
+                            <Input type="tel" id="Phone" name="Phone" placeholder="888 888 888 8"
+                                value={formState.phoneNumber}
+                                onChange={(e) => setFormState({ ...formState, phoneNumber: e.target.value })} />
+
                         </FormElement>
                     </FormGroup>
                     <FormGroup>
@@ -128,6 +233,11 @@ export default function Contact() {
                                 { value: "Design / UX&UI", label: "Design / UX&UI" },
                                 { value: "Other", label: "Other" },
                             ]} onChange={handleChange} />
+                            {
+                                formState.category === "Select one" &&
+                                <FormAlert>Please select a category</FormAlert>
+                            }
+
                         </FormElement>
                     </FormGroup>
                     <FormElement>
@@ -135,9 +245,11 @@ export default function Contact() {
                         <TextArea id="message" name="message" placeholder="Enter your message"
                             cols={60}
                             rows={10}
-
+                            value={formState.message}
+                            onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                         />
                     </FormElement>
+                    <State  {...state} />
                     <FormElement>
                         <Button type="submit" size="lg" >Send Message</Button>
                     </FormElement>
