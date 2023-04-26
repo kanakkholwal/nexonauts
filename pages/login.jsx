@@ -1,7 +1,7 @@
-import {  useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 import { useSession, signIn } from 'next-auth/react';
-import { getUser } from "lib/checkUser";
+import { hasToken } from 'lib/checkUser';
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 import Image from "next/image";
@@ -10,7 +10,6 @@ import Head from "next/head";
 // Components 
 import PasswordInput from "components/form-elements/PasswordInput";
 import Button from "components/buttons";
-import State from "components/state";
 import { IndeterminateLinearLoader } from "components/Loader";
 import { FormElement, Label, FormAlert, Input } from "components/form-elements";
 import styled from "styled-components";
@@ -203,6 +202,7 @@ export default function Login({ }) {
                     message: "Login Successful"
                 }
             })
+            router.push("/dashboard");
         }).catch((error) => {
             console.log(error)
             setState({
@@ -221,9 +221,9 @@ export default function Login({ }) {
     }
 
 
-    // if (status === "loading") {
-    //     return "Loading...";
-    // }
+    if (status === "loading") {
+        return "Loading...";
+    }
     // else if (status === "authenticated") {
     //     router.push("/dashboard");
     //     return "Redirecting...";
@@ -315,9 +315,9 @@ export default function Login({ }) {
 
 export async function getServerSideProps(context) {
 
-    const session = await getUser(context)
+    const token = await hasToken(context.req);
 
-    if (!session) {
+    if (token) {
         return {
             redirect: {
                 destination: '/dashboard',
