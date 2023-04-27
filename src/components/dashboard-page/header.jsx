@@ -38,7 +38,7 @@ margin-inline-end:0.75rem;
 export default function Header({ user, children }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [open, setOpen] = useState(false);
-    let ProfileRef = useRef(null);
+    let NavRef = useRef(null);
 
     useEffect(() => {
         let sidenavPanel = document.body.querySelector("#sidenav_panel");
@@ -52,7 +52,7 @@ export default function Header({ user, children }) {
             if (e.target.id === "sidenav_panel" || e.target.id === "main_wrapper") {
                 setIsSidebarOpen(false);
             }
-            if(ProfileRef.current && !ProfileRef.current.contains(e.target)){
+            if(NavRef.current && !NavRef.current.contains(e.target)){
                 setOpen(false);
             }
         })
@@ -79,7 +79,7 @@ export default function Header({ user, children }) {
 
     return (
         <>
-            <NavBarWrapper>
+            <NavBarWrapper ref={NavRef}>
                 <Toggler level="true"
                     onClick={() => setIsSidebarOpen((state) => !state)}><RiMenuUnfoldLine /></Toggler>
                 <Children>
@@ -93,7 +93,7 @@ export default function Header({ user, children }) {
                     }} role="button" tabIndex="0">
                         <Image src={user.profileURl ?? "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} height={40} width={40} alt={user?.name ?? "User Profile"} />
                     </Profile>
-                    <ProfileDropDown open={open} ref={ProfileRef}>
+                    <ProfileDropDown open={open} >
                         <ProfileDropDownInfo>
                             <h5 className="d-flex justify-content-between align-items-center">
                                 {user?.name ?? "User Name"}
