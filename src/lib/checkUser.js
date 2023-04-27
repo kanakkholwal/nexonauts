@@ -45,8 +45,8 @@ export const getUserFromRequest = async (req) => {
 
 // API MIDDLEWARE
 export const hasTokenMiddleware = async (req, res, next) => {
-    const token = await getToken({ req, secret })
-    // const session = await getToken({ req })
+    // const token = await getToken({ req, secret })
+    const token = await getSession({ req })
 
     if (!token) {
         return next(new Error('Not Allowed - Not logged in'))
