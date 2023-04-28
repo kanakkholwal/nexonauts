@@ -8,9 +8,10 @@ import { getToken } from "next-auth/jwt"
 
 
 export default nextConnect(handler)
-    .use(hasTokenMiddleware)
+    // .use(hasTokenMiddleware)
     .get(async (req, res) => {
 
+        await hasTokenMiddleware(req, res)
         try {
             await dbConnect();
 

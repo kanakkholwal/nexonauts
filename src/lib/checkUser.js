@@ -45,7 +45,7 @@ export const getUserFromRequest = async (req) => {
 }
 
 // API MIDDLEWARE
-export const hasTokenMiddleware = async (req, res, next) => {
+export const hasTokenMiddleware = async (req, res) => {
     // const token = await getToken({ req, secret })
     const session = await getServerSession(req, res, authOptions)
 
@@ -53,7 +53,7 @@ export const hasTokenMiddleware = async (req, res, next) => {
         return res.status(403).json({ error: 'Not Allowed - Not logged in' })
         // return next(new Error('Not Allowed - Not logged in'))
     }
-    next()
+    // next()
 }
 export const isAdminMiddleware = async (req, res, next) => {
     // const token = await getToken({ req, secret })
