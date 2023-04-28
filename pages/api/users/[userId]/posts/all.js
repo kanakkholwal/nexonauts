@@ -2,16 +2,24 @@ import handler from 'lib/handler';
 import User from "models/user";
 import Post from "models/post";
 import dbConnect from "lib/dbConnect";
-import { hasTokenMiddleware } from 'middleware/checkUser';
+// import { hasTokenMiddleware } from 'middleware/checkUser';
 import nextConnect from 'next-connect';
 import { getToken } from "next-auth/jwt"
-
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@pages/api/auth/[...nextauth]"
 
 export default nextConnect(handler)
     // .use(hasTokenMiddleware)
     .get(async (req, res) => {
 
-        await hasTokenMiddleware(req, res)
+        // await hasTokenMiddleware(req, res)
+        const session = await getServerSession(req, res, authOptions)
+
+        if (!session) {
+            return res.status(401).json({
+                message: 'You are not logged in to access this resource',
+            });
+        }
         try {
             await dbConnect();
 
