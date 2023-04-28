@@ -50,7 +50,8 @@ export const hasTokenMiddleware = async (req, res, next) => {
     const session = await getServerSession(req, res, authOptions)
 
     if (!session) {
-        return next(new Error('Not Allowed - Not logged in'))
+        return res.status(403).json({ error: 'Not Allowed - Not logged in' })
+        // return next(new Error('Not Allowed - Not logged in'))
     }
     next()
 }
@@ -60,20 +61,22 @@ export const isAdminMiddleware = async (req, res, next) => {
 
     
     if (!session) {
-        return next(new Error('Not Allowed - Not logged in'))
+        return res.status(403).json({ error: 'Not Allowed - Not logged in' })
     }
     if (session.user.role !== 'admin') {
-        return next(new Error('Not Allowed - Not admin'))
+        return res.status(403).json({ error: 'Not Allowed - Not admin' })
     }
     next()
 }
 export const isProMiddleware = async (req, res, next) => {
     const session = await getServerSession(req, res, authOptions)
     if (!session) {
-        return next(new Error('Not Allowed - Not logged in'))
+        return res.status(403).json({ error: 'Not Allowed - Not logged in' })
+        // return next(new Error('Not Allowed - Not logged in'))
     }
     if (session.user.account_type !== 'premium') {
-        return next(new Error('Not Allowed - Not Pro'))
+        return res.status(403).json({ error: 'Not Allowed - Not Pro' })
+        // return next(new Error('Not Allowed - Not Pro'))
     }
     next()
 }
