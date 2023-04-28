@@ -49,6 +49,7 @@ export const hasTokenMiddleware = async (req, res) => {
     // const token = await getToken({ req, secret })
     const session = await getServerSession(req, res, authOptions)
 
+    console.log(session)
     if (!session) {
         return res.status(403).json({ error: 'Not Allowed - Not logged in' })
         // return next(new Error('Not Allowed - Not logged in'))
