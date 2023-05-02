@@ -1,6 +1,6 @@
 import { getToken ,decode} from "next-auth/jwt"
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@pages/api/auth/[...nextauth]";
+// import { getServerSession } from "next-auth/next"
+// import { authOptions } from "@pages/api/auth/[...nextauth]";
 import cookie from 'cookie';
 
 const secret = process.env.NEXT_AUTH_SECRET;
