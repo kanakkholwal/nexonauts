@@ -7,6 +7,7 @@ import nextConnect from 'next-connect';
 import { getToken ,decode} from "next-auth/jwt"
 // import { getServerSession } from "next-auth/next"
 // import { authOptions } from "@pages/api/auth/[...nextauth]"
+const secret = process.env.NEXT_AUTH_SECRET;
 
 export default nextConnect(handler)
     .use(hasTokenMiddleware)
