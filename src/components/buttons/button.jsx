@@ -17,7 +17,7 @@ const Button = styled.button`
   color:var(--btn-text,#fbfbfb);
   background:var(--btn-bg,var(--theme));
   box-shadow:var(--btn-box-shadow,0 4px 9px -4px rgba(var(--theme-rgb), 0.8));
-  border-radius: ${props => props.rounded ? `10rem` : `var(--btn-border-radius,0.5rem)`};
+  border-radius: var(--btn-border-radius,0.5rem);
   border: 2px solid var(--btn-border,var(--theme));
   text-align: center;
   
@@ -27,6 +27,12 @@ const Button = styled.button`
     background:var(--btn-bg,var(--theme));
     border-color:var(--btn-border-hover,var(--theme));
   }
+  ${props => props.rounded ? `
+  --btn-border-radius:2rem;
+  ` : ``}
+  ${props => props.pill ? `
+  --btn-border-radius:10rem;
+  ` : ``}
   ${props => props.nature ? `
     --btn-bg:rgba(var(--${props.nature}-rgb), 1);
     --btn-box-shadow: 0 4px 9px -4px rgba(var(--${props.nature}-rgb), 0.8);

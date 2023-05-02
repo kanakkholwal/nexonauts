@@ -41,8 +41,8 @@ left: 5px;
 top: 5px;
 cursor: pointer;
 border-radius: 50%;
-height: 2.5rem;
-width: 2.5rem;
+height: 3.5rem;
+width: 3.5rem;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -62,6 +62,9 @@ padding: 1rem 0.5rem;
 text-align: center;
 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 margin-bottom: 1rem;
+@media (max-width: 1024px) {
+    margin-top:4rem;
+}
 `;
 const SectionTitle = styled.h3`
 padding: 0.5rem 0;
@@ -82,7 +85,7 @@ justify-content:flex-start;
 width:100%;
 transition: all 0.3s ease-in-out;
 padding: 0.75rem 1.5rem;
-border-radius: 5px;
+border-radius: 2rem;
 margin-bottom:0.25rem;
 color: rgba(var(--text-rgb), 0.8);
 &:hover,&.active{
