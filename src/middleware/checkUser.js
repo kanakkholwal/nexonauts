@@ -1,5 +1,6 @@
 import { getToken } from "next-auth/jwt"
-import jwt from "jsonwebtoken";
+import { getServerSession } from "next-auth/next"
+import { authOptions } from "@pages/api/auth/[...nextauth]";
 
 const secret = process.env.NEXT_AUTH_SECRET;
 
@@ -40,18 +41,21 @@ export const getUser = async (req) => {
 
 // API MIDDLEWARE
 export const hasTokenMiddleware = async (req, res, next) => {
-    const token = await getToken({ req, secret, raw: true })
-    if (!token) {
+    // const token = await getToken({ req, secret, raw: true })
+    const session = await getServerSession(req, res, authOptions)
+
+    if (!session) {
         return next(new Error('Not Allowed - Not logged in'))
     }
     next()
 }
 export const isAdminMiddleware = async (req, res, next) => {
-    const token = await getToken({ req, secret, raw: true })
-    if (!token) {
+    const session = await getServerSession(req, res, authOptions)
+
+    if (!session) {
         return next(new Error('Not Allowed - Not logged in'))
     }
-    if (token.user.role !== 'admin') {
+    if (session.user.role !== 'admin') {
         return next(new Error('Not Allowed - Not admin'))
     }
     next()
