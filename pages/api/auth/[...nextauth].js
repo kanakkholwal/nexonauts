@@ -8,6 +8,7 @@ export const authOptions = {
     // Enable JSON Web Tokens since we will not store sessions in our DB
     session: {
         jwt: true,
+        strategy: "jwt",
     },
     secret: process.env.NEXT_AUTH_SECRET,
 
