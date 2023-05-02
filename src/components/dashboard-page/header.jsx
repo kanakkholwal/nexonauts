@@ -124,8 +124,9 @@ export default function Header({ user, children }) {
                         <ProfileDropDownItem as={"button"} onClick={(e) => {
                             e.preventDefault();
                             signOut();
-                        }}>Log Out
+                        }}>
                             <MdLogout />
+                            Log Out
                         </ProfileDropDownItem>
                     </ProfileDropDown>
                 </ProfileWrapper>
