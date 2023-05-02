@@ -4,7 +4,7 @@ import Post from "models/post";
 import dbConnect from "lib/dbConnect";
 import { hasTokenMiddleware } from 'middleware/checkUser';
 import nextConnect from 'next-connect';
-import { getToken } from "next-auth/jwt"
+import { getToken ,decode} from "next-auth/jwt"
 // import { getServerSession } from "next-auth/next"
 // import { authOptions } from "@pages/api/auth/[...nextauth]"
 
@@ -29,7 +29,11 @@ export default nextConnect(handler)
             if (!existingUser) {
                 return res.status(404).json({ message: 'User not found!' })
             }
-            const token = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET })
+            const rawToken = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET });
+            let token = await decode({
+                token:rawToken,
+                secret,
+            })
 
             if (!(token.user.id === userId && token.user.id === existingUser._id.toString()))
                 return res.status(401).json({
