@@ -81,6 +81,7 @@ export default function Header({ user, children }) {
         <>
             <NavBarWrapper ref={NavRef}>
                 <Toggler level="true"
+                rounded
                     onClick={() => setIsSidebarOpen((state) => !state)}><RiMenuUnfoldLine /></Toggler>
                 <Children>
                     {children}

@@ -81,7 +81,7 @@ justify-content:flex-start;
 width:100%;
 transition: all 0.3s ease-in-out;
 padding: 0.75rem 1.5rem;
-border-radius: 5px;
+border-radius: 2rem;
 margin-bottom:0.25rem;
 
 &:hover,&.active{

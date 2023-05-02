@@ -55,6 +55,7 @@ export default function Header({ session, children }) {
         <>
             <NavBarWrapper>
                 <Toggler level="true"
+                rounded
                     onClick={() => setIsSidebarOpen((state) => !state)}><RiMenuUnfoldLine /></Toggler>
 
                 <Logo as={Link} href="/">
