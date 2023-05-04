@@ -53,7 +53,8 @@ export const hasTokenMiddleware = async (req, res, next) => {
     const cookies = cookie.parse(req.headers.cookie || '')
     const token = process.env.NODE_ENV == 'development'
     ? cookies['next-auth.session-token']
-    : cookies['__Secure-next-auth.session-token']
+    : cookies['__Secure-next-auth.session-token'];
+    
 
 
 

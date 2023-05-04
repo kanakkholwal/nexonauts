@@ -1,83 +1,78 @@
-import { getToken, decode } from "next-auth/jwt"
-import { getServerSession } from "next-auth/next"
-import { authOptions } from "@pages/api/auth/[...nextauth]"
+import { decode } from "next-auth/jwt"
+import cookie from 'cookie';
 
 const secret = process.env.NEXT_AUTH_SECRET;
 
 
-// CHECKING FUNCTIONS
-export const hasToken = async (req) => {
-    const token = await getToken({ req, secret })
-    if (!token) {
-        return false
-    }
-    return true
-}
-export const isAdmin = async (req) => {
-    const token = await getToken({ req, secret });
-    if (!token || token.user.role !== 'admin') {
-        return false
-    }
-    return true
-}
-export const isPro = async (req) => {
-    const token = await getToken({ req, secret });
-    if (!token || token.user.account_type !== 'premium') {
-        return false
-    }
-    return true
-}
-export const getUser = async (req) => {
-    const token = await getToken({ req, secret })
-    if (!token || !token.user) {
-        return null
-    }
-    return token.user
-}
-export const getUserFromRequest = async (req) => {
-    const token = await getToken({ req, secret })
+// validate on backend
+export const checkUser = async (req, user) => {
+    const cookies = cookie.parse(req.headers.cookie || '')
+    const token = process.env.NODE_ENV == 'development'
+        ? cookies['next-auth.session-token']
+        : cookies['__Secure-next-auth.session-token'];
 
-    const decoded = await decode({
+    let output = {
+        isAdmin: false,
+        isUser: false,
+        isPro: false,
+        verified: false,
+        message: "User not Verified"
+    }
+    if (!token)
+        return output
+
+    let decoded = await decode({
         token,
         secret,
-    })
-    return decoded
-}
+    });
+    if (decoded.user.email.id)
+        output = { ...output, isUser: true }
+    if (decoded.user.role === "admin")
+        output = { ...output, isAdmin: true, isPro: true }
 
-// API MIDDLEWARE
-export const hasTokenMiddleware = async (req, res) => {
-    // const token = await getToken({ req, secret })
-    const session = await getServerSession(req, res, authOptions)
+    if (decoded.user.account_type === "premium")
+        output = { ...output, isPro: true }
 
-    console.log(session)
-    if (!session) {
-        return res.status(403).json({ error: 'Not Allowed - Not logged in' })
-        // return next(new Error('Not Allowed - Not logged in'))
-    }
-    // next()
-}
-export const isAdminMiddleware = async (req, res, next) => {
-    // const token = await getToken({ req, secret })
-    const session = await getServerSession(req, res, authOptions)
+    const _output = verifyUser(decoded, user);
 
-    
-    if (!session) {
-        return res.status(403).json({ error: 'Not Allowed - Not logged in' })
+    return {
+        ...output,
+        ..._output,
     }
-    if (session.user.role !== 'admin') {
-        return res.status(403).json({ error: 'Not Allowed - Not admin' })
-    }
-    next()
+
+
+
+
 }
-export const isProMiddleware = async (req, res, next) => {
-    const session = await getServerSession(req, res, authOptions)
-    if (!session) {
-        return res.status(403).json({ error: 'Not Allowed - Not logged in' })
-        // return next(new Error('Not Allowed - Not logged in'))
+function verifyUser(tokenUser, DbUser) {
+
+    if (tokenUser.user.id !== DbUser._id.toString())
+        return {
+            verified: false,
+            message: "User Id doesn't match with DB"
+        }
+    if (tokenUser.user.email !== DbUser.email)
+        return {
+            verified: false,
+            message: "User Email doesn't match with DB"
+        }
+    if (tokenUser.user.account_type !== DbUser.account_type)
+        return {
+            verified: false,
+            message: "User Account Type doesn't match with DB"
+        }
+    if (tokenUser.user.role !== DbUser.role)
+        return {
+            verified: false,
+            message: "User Role doesn't match with DB"
+        }
+
+
+
+    return {
+        verified: true,
+        message: "User Verified with DB"
     }
-    if (session.user.account_type !== 'premium') {
-        return res.status(403).json({ error: 'Not Allowed - Not Pro' })
-        // return next(new Error('Not Allowed - Not Pro'))
-    }
-    next()
+
+
 }
