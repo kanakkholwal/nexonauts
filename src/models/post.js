@@ -44,6 +44,7 @@ const postSchema = new mongoose.Schema({
     content: {
         type: mongoose.Schema.Types.Mixed,
         required: true,
+        select:false
     },
     slug: {
         type: String,
@@ -91,6 +92,7 @@ const postSchema = new mongoose.Schema({
         default: () => Date.now()
     },
     comments: {
+        select: false,
         enabled: {
             type: Boolean,
             default: true,

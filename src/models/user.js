@@ -84,14 +84,6 @@ UserSchema.methods.comparePassword = async function (enteredPassword) {
 
 
 }
-    // bcrypt.compare(password, team.password, (err, data) => {
-    //     //if error than throw error
-    //     if (err) throw err
-
-    //     //if both match than you can do anything
-    //     if (!data)
-    //     return false
-   
 
     
 UserSchema.methods.getPosts = async function () {

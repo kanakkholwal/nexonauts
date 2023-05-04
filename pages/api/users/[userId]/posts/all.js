@@ -3,24 +3,14 @@ import User from "models/user";
 import Post from "models/post";
 import dbConnect from "lib/dbConnect";
 import { hasTokenMiddleware } from 'middleware/checkUser';
+import { checkUser } from 'lib/checkUser';
 import nextConnect from 'next-connect';
-import { getToken ,decode} from "next-auth/jwt"
-// import { getServerSession } from "next-auth/next"
-// import { authOptions } from "@pages/api/auth/[...nextauth]"
-const secret = process.env.NEXT_AUTH_SECRET;
 
 export default nextConnect(handler)
     .use(hasTokenMiddleware)
     .get(async (req, res) => {
 
-        // // await hasTokenMiddleware(req, res)
-        // const session = await getServerSession(req, res, authOptions)
 
-        // if (!session) {
-        //     return res.status(401).json({
-        //         message: 'You are not logged in to access this resource',
-        //     });
-        // }
         try {
             await dbConnect();
 
@@ -30,16 +20,13 @@ export default nextConnect(handler)
             if (!existingUser) {
                 return res.status(404).json({ message: 'User not found!' })
             }
-            const rawToken = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET });
-            let token = await decode({
-                token:rawToken,
-                secret,
-            })
+            const result = checkUser(req, existingUser);
 
-            // if (!(token.user.id === userId && token.user.id === existingUser._id.toString()))
-            //     return res.status(401).json({
-            //         message: 'You are not authorized to access this resource',
-            //     });
+            if (result.verified === false)
+                return res.status(404).json({ verified: result.verified, message: result.message })
+
+
+
             let posts = []
 
             for await (const element of existingUser.posts) {
