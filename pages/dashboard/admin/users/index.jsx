@@ -1,4 +1,3 @@
-import { isAdmin } from 'lib/checkUser'
 import { getSession } from "next-auth/react";
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
@@ -31,8 +30,7 @@ export async function getServerSideProps(context) {
             }
         }
 
-    const admin = await isAdmin(context.req);
-    if (!admin) {
+    if (session.user.role !== 'admin') {
         console.log("You are not admin");
         return {
             redirect: {
