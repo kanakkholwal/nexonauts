@@ -36,10 +36,10 @@ export default nextConnect(handler)
                 secret,
             })
 
-            if (!(token.user.id === userId && token.user.id === existingUser._id.toString()))
-                return res.status(401).json({
-                    message: 'You are not authorized to access this resource',
-                });
+            // if (!(token.user.id === userId && token.user.id === existingUser._id.toString()))
+            //     return res.status(401).json({
+            //         message: 'You are not authorized to access this resource',
+            //     });
             let posts = []
 
             for await (const element of existingUser.posts) {
