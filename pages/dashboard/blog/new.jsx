@@ -62,7 +62,8 @@ export default function NewPost({ user }) {
             nature: "info",
         }
 
-    }); const [postState, setPostState] = useState("draft");
+    }); 
+    const [postState, setPostState] = useState("draft");
     const [labels, setLabel] = useState([]);
     const [IsCommentEnabled, setIsCommentEnabled] = useState(true);
     const [slug, setSlug] = useState(title?.toLocaleLowerCase().split(" ").join("-"));
@@ -256,7 +257,7 @@ export default function NewPost({ user }) {
                             <Label htmlFor="description">Post Description</Label>
                             <TextArea
                                 type="text"
-                                id="description" 
+                                id="description" slug
                                 placeholder="Post Description"
                                 underlined
                                 value={description}

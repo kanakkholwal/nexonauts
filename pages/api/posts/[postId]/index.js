@@ -6,21 +6,22 @@ import { hasTokenMiddleware } from 'middleware/checkUser';
 import nextConnect from 'next-connect';
 
 
-export default nextConnect(handler).use(hasTokenMiddleware)
-    .post(async (req, res) => {
-
+export default nextConnect(handler)
+    .get(async (req, res) =>{
         try {
             await dbConnect();
 
-            const { postId } = req.query;
+        
+            const { postSlug } = req.query;
 
-            const existingPost = await Post.findById(postId).select('+content')
+            const existingPost = await Post.findOne({slug:postSlug}).select('+content').populate('author.user', 'name profileURl')
             if (!existingPost)
                 return res.status(404).json({ message: 'Post not found!' })
+            if(existingPost.state !== "published")
+                return res.status(404).json({ message: 'Post not found!' })
+
 
             return res.status(200).json({ message: 'Post Fetched Successfully!', post: existingPost })
-
-
         }
         catch (err) {
             console.log(err);
@@ -30,63 +31,87 @@ export default nextConnect(handler).use(hasTokenMiddleware)
         }
 
     })
-    .put(async (req, res) => {
+    // .use(hasTokenMiddleware)
+    // .post(async (req, res) => {
 
-        try {
-            await dbConnect();
+    //     try {
+    //         await dbConnect();
 
-            const { postId } = req.query;
-            const { userId, post } = req.body;
+    //         const { postId } = req.query;
 
+    //         const existingPost = await Post.findById(postId).select('+content')
+    //         if (!existingPost)
+    //             return res.status(404).json({ message: 'Post not found!' })
 
-            const existingUser = await User.findById(userId);
-            if (!existingUser) {
-                return res.status(404).json({ message: 'User not found!' })
-            }
-            const existingPost = await Post.findById(postId);
-            if (!existingPost)
-                return res.status(404).json({ message: 'Post not found!' });
-
-            // if (!(existingUser.posts.includes(existingPost._id) && existingPost.author.toString() === existingUser._id.toString()))
-            //     return res.status(403).json({ message: 'You are not authorized to edit this post!' })
+    //         return res.status(200).json({ message: 'Post Fetched Successfully!', post: existingPost })
 
 
-            await Post.findOneAndUpdate(
-                {
-                    _id: postId
-                }, {
-                $set: {
-                    title: post.title,
-                    content: post.content,
-                    labels: post.labels,
-                    image: post.image,
-                    state: post.state,
-                    slug: post.slug,
-                    updatedAt: Date.now(),
-                    comments: {
-                        ...existingPost.comments,
-                        enabled: post.comments
-                    },
-                    publishedAt: post.state === 'published' ? Date.now() : null
+    //     }
+    //     catch (err) {
+    //         console.log(err);
+    //         return res.status(500).json({
+    //             message: err.message || " Something went wrong",
+    //         })
+    //     }
 
-                }
-            }).exec(function (err, post) {
-                if (err) {
-                    console.log(err);
-                    return res.status(500).json({
-                        message: err.message || " Something went wrong",
-                    })
-                }
-                console.log(post);
-                return res.status(200).json({ message: 'Post Updated Successfully!', post })
+    // })
+    // .put(async (req, res) => {
 
-            });
-        }
-        catch (err) {
-            console.log(err);
-            return res.status(500).json({
-                message: err.message || " Something went wrong",
-            })
-        }
+    //     try {
+    //         await dbConnect();
 
-    })
+    //         const { postId } = req.query;
+    //         const { userId, post } = req.body;
+
+
+    //         const existingUser = await User.findById(userId);
+    //         if (!existingUser) {
+    //             return res.status(404).json({ message: 'User not found!' })
+    //         }
+    //         const existingPost = await Post.findById(postId);
+    //         if (!existingPost)
+    //             return res.status(404).json({ message: 'Post not found!' });
+
+    //         // if (!(existingUser.posts.includes(existingPost._id) && existingPost.author.toString() === existingUser._id.toString()))
+    //         //     return res.status(403).json({ message: 'You are not authorized to edit this post!' })
+
+
+    //         await Post.findOneAndUpdate(
+    //             {
+    //                 _id: postId
+    //             }, {
+    //             $set: {
+    //                 title: post.title,
+    //                 content: post.content,
+    //                 labels: post.labels,
+    //                 image: post.image,
+    //                 state: post.state,
+    //                 slug: post.slug,
+    //                 updatedAt: Date.now(),
+    //                 comments: {
+    //                     ...existingPost.comments,
+    //                     enabled: post.comments
+    //                 },
+    //                 publishedAt: post.state === 'published' ? Date.now() : null
+
+    //             }
+    //         }).exec(function (err, post) {
+    //             if (err) {
+    //                 console.log(err);
+    //                 return res.status(500).json({
+    //                     message: err.message || " Something went wrong",
+    //                 })
+    //             }
+    //             console.log(post);
+    //             return res.status(200).json({ message: 'Post Updated Successfully!', post })
+
+    //         });
+    //     }
+    //     catch (err) {
+    //         console.log(err);
+    //         return res.status(500).json({
+    //             message: err.message || " Something went wrong",
+    //         })
+    //     }
+
+    // })

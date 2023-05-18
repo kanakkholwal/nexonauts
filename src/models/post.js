@@ -128,7 +128,7 @@ const postSchema = new mongoose.Schema({
         },
         items: {
             type: [commentSchema],
-
+            select: false
         }
     }
 

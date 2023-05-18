@@ -3,7 +3,7 @@ import DashboardPage, { Header } from "components/dashboard-page";
 import Button from "components/buttons";
 import State from "components/state";
 import { Card, CardHeader, CardBody } from "components/Card";
-import { Input, FormElement, Label, TextArea, CheckBox, FileInput } from "components/form-elements";
+import { Input, FormElement, Label, TextArea, FormHelper,Switch, FileInput } from "components/form-elements";
 import Head from "next/head";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from "react";
@@ -13,36 +13,46 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
+import { BiEditAlt } from "react-icons/bi"
+import { AiOutlineLink } from "react-icons/ai"
+import { CiHashtag } from "react-icons/ci"
+import { TbFileDescription } from "react-icons/tb";
+
 const SettingPanel = styled(Card)`
-    max-width:300px;
+@media (min-width: 600px){
     position:sticky;
     top:0;
+    max-width: max-content;
+}
+svg{
+    margin-inline:0.5rem;
+}
 `;
 
 
-
 export default function NewPost({ user }) {
-    const editor = useRef(null);
-
+    
     const router = useRouter();
     const { postId } = router.query;
+    
+    const editor = useRef(null);
 
     const [state, setState] = useState({
         loader: {
             type: "indeterminate",
             shape: "linear",
-            show: true,
+            show: false,
         },
         alert: {
             open: false,
-            message: "Fetching post data...",
-            nature: "info",
+            message: "",
+            nature: "success",
         }
 
     });
     const [title, setTitle] = useState("Loading...");
     const [description, setDescription] = useState("Loading...");
-    const [content, setContent] = useState(``);
+    const [content, setContent] = useState(`Loading...`);
     const [image, setImage] = useState("");
     const [imageState, setImageState] = useState({
         loader: {
@@ -56,23 +66,23 @@ export default function NewPost({ user }) {
             nature: "info",
         }
 
-    });
+    }); 
     const [postState, setPostState] = useState("draft");
     const [labels, setLabel] = useState([]);
-    const [comments, setComments] = useState(false);
+    const [IsCommentEnabled, setIsCommentEnabled] = useState(true);
     const [slug, setSlug] = useState(title?.toLocaleLowerCase().split(" ").join("-"));
 
     const updatePost = async () => {
         const post = {
-            title,
-            labels,
-            slug,
-            content,
-            description,
+            title:title || "Untitled",
+            labels:labels||[],
+            slug:slug,
+            content:content,
+            description:description,
             state: postState,
-            image,
+            image:image,
             comments: {
-                enabled: comments,
+                enabled: IsCommentEnabled,
                 items: []
             }
         }
@@ -84,7 +94,7 @@ export default function NewPost({ user }) {
             }
 
         })
-        await axios.put("/api/posts/" + postId, {
+        await axios.put("/api/users/"+user?.id+ "/posts/" + postId, {
             userId: user.id,
             post
         }).then(res => {
@@ -124,6 +134,61 @@ export default function NewPost({ user }) {
 
 
     }
+    const deletePost = async () =>{
+        
+        if(!confirm("Are you sure want to delete this Post"))
+        return;
+        setState({
+            ...state,
+            loader: {
+                ...state.loader,
+                show: true,
+            }
+
+        })
+        await axios.delete("/api/users/"+user?.id+ "/posts/" + postId, {
+            userId: user.id,
+            post
+        }).then(res => {
+            console.log(res);
+
+            setState({
+                ...state,
+                loader: {
+                    ...state.loader,
+                    show: false,
+                },
+                alert: {
+                    ...state.alert,
+                    open: true,
+                    message: "Post Deleted Successfully",
+                    nature: "success",
+                }
+            })
+            router.push("/dashboard/blog")
+            
+        })
+        .catch(err => {
+            console.log(err);
+            setState({
+                ...state,
+                loader: {
+                    ...state.loader,
+                    show: false,
+                },
+                alert: {
+                    ...state.alert,
+                    open: true,
+                    message: "Error Deleting Post",
+                    nature: "danger",
+                }
+            })
+
+        })
+
+
+
+    }
     const FetchPost = async (postId) => {
         await axios.post("/api/posts/" + postId)
             .then(({ data }) => {
@@ -156,6 +221,10 @@ export default function NewPost({ user }) {
             FetchPost(postId);
         }
     }, []);
+    useEffect(() =>{
+        setSlug(title?.toLocaleLowerCase().split(" ").join("-"));
+
+    },[title])
     const handleFiles = async (files) => {
         setImageState({
             ...imageState,
@@ -257,105 +326,21 @@ export default function NewPost({ user }) {
                         Go Back
                     </Button>
                 </Header>
-                <Card className="flex-row">
-                    <FormElement className="mb-0">
-                        <Input type="text" placeholder="Write a post title..." underlined value={title}
-
-                            onChange={(e) => setTitle(e.target.value)} />
-                    </FormElement>
-
-                    <Button
-                        onClick={updatePost}
-                    >
-                        Update
-                    </Button>
-                </Card>
                 <div className="d-flex align-items-start justify-content-between g-3 mt-3">
                     <Card>
-                        <CardHeader>
-                            <h4>Content</h4>
-                        </CardHeader>
-                        {
-                            <State  {...state} />
-                        }
-                        <CardBody>
-                        <JoditEditor ref={editor} value={content} onChange={setContent} />
-
-                        </CardBody>
-
-                    </Card>
-                    <SettingPanel>
-                        <h5>Post Settings</h5>
-                        <FormElement className="mt-2">
-                            <CheckBox
-                                checked={postState === "published"}
-                                onChange={(e) => {
-                                    if (e.target.checked)
-                                        setPostState("published");
-                                    else
-                                        setPostState("draft");
-                                }}
-                                id="publish"
-                            />
-                            <Label htmlFor="publish">
-                                Publish
-                            </Label>
-                        </FormElement>
-                        <FormElement className="mt-2">
-                            <FileInput
-                                accept="image/*"
-                                placeholder="Upload a cover image for the post..."
-                                underlined
-                                value={image}
-                                onChange={handleChange}
-                                id="imageUrl"
-                            />
-                            <Label htmlFor="imageUrl">
-                                Upload an Image
-                            </Label>
-                            {image.toString().length > 3 ? <Image src={image} alt={title ?? "Post Title"} height={120} width={220} className="img-fluid mt-2" /> : null}
-                            <State  {...imageState} />
-                            <Input value={image} onChange={(e) => {
-                                setImage(e.target.value);
-                            }} />
-                        </FormElement>
-
                         <FormElement>
-                            <Label>Label</Label>
-                            <Input type="text" placeholder="Add label to the Post..." underlined value={labels.join(",")}
-                                onChange={
-                                    (e) => {
-                                        setLabel(e.target.value.split(","));
-                                    }
-                                }
-                            />
+                        <Label htmlFor="title">
+                                Post Title
+                        </Label>
+                            <Input type="text" id="title" placeholder="Write a post title..." underlined value={title}
+                                onChange={(e) => setTitle(e.target.value)} />
                         </FormElement>
                         <FormElement>
-                            <h6>Permalink</h6>
-                            <p>
-                                {"https//kkupgrader.eu.org/blog/" + slug}
-                            </p>
-                            <Label>Edit Slug</Label>
-                            <Input
-                                type="text"
-                                placeholder="Edit the slug for the post"
-                                underlined
-                                value={slug}
-                                onChange={
-                                    (e) => {
-                                        if (e.target.value === "")
-                                            setSlug(title?.toLocaleLowerCase().split(" ").join("-"));
-                                        else
-                                            setSlug(e.target.value);
-                                    }
-                                }
-                            />
-                        </FormElement>
-                        <FormElement>
-                            <Label>Search Description</Label>
+                            <Label htmlFor="description">Post Description</Label>
                             <TextArea
                                 type="text"
-                                placeholder="For SEO"
+                                id="description" 
+                                placeholder="Post Description"
                                 underlined
                                 value={description}
 
@@ -368,17 +353,137 @@ export default function NewPost({ user }) {
                             />
                         </FormElement>
                         <FormElement>
-                            <CheckBox
-                                checked={comments}
+                            <h6>Post Content</h6>
+                            <JoditEditor ref={editor} value={content} onChange={setContent} />
+
+                        </FormElement>
+                       
+                        <FormElement className="mt-2">
+                            <FileInput
+                                accept="image/*"
+                                placeholder="Upload a cover image for the post..."
+                                underlined
+                                value={image}
+                                onChange={handleChange}
+                                id="imageUrl"
+                            />
+                            <Label htmlFor="imageUrl">
+                                Upload an Image
+                            </Label>
+                            {image.length > 3 ? <Image src={image} alt={title ?? "Post Title"} height={120} width={220} className="img-fluid mt-2" /> : null}
+                            <State  {...imageState} />
+                            <Input value={image} onChange={(e) => {
+                                setImage(e.target.value);
+                            }} />
+                        </FormElement>
+                       
+
+                    </Card>
+                    <SettingPanel>
+                        <h5>Post Settings</h5>
+                        <hr/>
+                        <FormElement className="mt-2">
+                            <Switch
+                                checked={postState === "published"}
                                 onChange={(e) => {
-                                    setComments(e.target.checked);
+                            setPostState(e.target.checked ? "published" : "draft");
+                                    
+                                }}
+                                id="publish"
+                                label={"Publish"}
+                                width="100%"
+                            />
+                
+                        </FormElement>
+                        <FormElement className="mt-2">
+                            <Switch
+                                checked={IsCommentEnabled}
+                                onChange={(e) => {
+                                    setIsCommentEnabled(e.target.checked);
                                 }}
                                 id="comments"
-
+                                label={"Comments"}
+                                width="100%"
                             />
-                            <Label htmlFor="comments">Comments</Label>
+                
                         </FormElement>
+                        <FormElement>
+                            <Label><CiHashtag/>Label</Label>
+                            <Input type="text" placeholder="Add label to the Post..." underlined value={labels.join(",")}
+                                onChange={
+                                    (e) => {
+                                        setLabel(e.target.value?.trim().split(",").map((item) => item.trim()));
+                                    }
+                                }
+                            />
+                            <FormHelper>
+                                Tags or Categories the post will be included
+                            </FormHelper>
+                        </FormElement> 
+                        <FormElement>
+                            <Label htmlFor="slug">   <AiOutlineLink />Edit Slug</Label>
+                           
+                            <Input
+                                type="text"
+                                placeholder="Edit the slug for the post"
+                                underlined
+                                id="slug"
+                                value={slug}
+                                onChange={
+                                    (e) => {
+                                        if (e.target.value === "")
+                                            setSlug(title?.toLocaleLowerCase().split(" ").join("-"));
+                                        else
+                                            setSlug(e.target.value);
+                                    }
+                                }
+                            />
+                             <FormHelper>
+                                <strong>
+                                 
+                                    Permalink :  {" "}
+                                </strong>
+                                <span>
+                                     { "https//kkupgrader.eu.org/blog/" + slug}
+                                </span>
+                            </FormHelper>
+                        </FormElement>
+                        <FormElement>
+                            <Label><TbFileDescription/>Meta Description</Label>
+                            <TextArea
+                                type="text"
+                                placeholder="Meta Description"
+                                underlined
+                                value={description}
 
+                                maxLength={150}
+                                onChange={
+                                    (e) => {
+                                        setDescription(e.target.value);
+                                    }
+                                }
+                            />
+                              <FormHelper>
+                                Short Description visible in search results
+                            </FormHelper>
+                        </FormElement>
+                        <div className="d-flex align-items-start justify-content-between g-3 mt-3 children-fill">
+                            <Button nature="danger" low="true"
+                              
+                              onClick={deletePost}
+
+                            >
+                                Delete
+                            </Button>
+                            <Button low="true"
+                                onClick={updatePost}
+                            >
+                                Update
+                            </Button>
+
+                        </div>
+                        
+                       
                     </SettingPanel>
                 </div>
             </DashboardPage>
