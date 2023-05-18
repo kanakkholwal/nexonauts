@@ -1,57 +1,56 @@
 {
-    "compilerOptions": {
-      "baseUrl": ".",
-      "paths": {
-        "@/components/*": ["src/components/*"],
-        "@hooks/*": ["src/hooks/*"],
-        "helper/*": ["src/helpers/*"],
-        "@pages/*": ["./pages/*"],
-        "@/scripts/*": ["src/scripts/*"],
-        "@/src/*": ["src/*"],
-        "@/firebase/*": ["src/firebase/*"],
-        "libs/*": ["src/libs/*"],
-        "@utils/*": ["src/utils/*"],
-        "@backend/*": ["src/backend/*"],
-        "@models/*": ["src/models/*"],
-        "@middleware/*": ["src/middleware/*"],
-        "@/*": ["./*"],
-        "src/*": ["./src/*"],
-        "backend/*": ["src/backend/*"],
-        "components/*": ["./src/components/*"],
-        "middleware/*": ["./src/middleware/*"],
-        "pages/*": ["./src/pages/*"],
-        "hooks/*": ["./src/hooks/*"],
-        "store/*": ["./src/store/*"],
-        "assets/*": ["./src/assets/*"],
-        "lib/*": ["./src/lib/*"],
-        "models/*": ["./src/models/*"]
-      },
-      "target": "es5",
-      "lib": [
-        "dom",
-        "dom.iterable",
-        "esnext"
-      ],
-      "allowJs": true,
-      "skipLibCheck": true,
-      "strict": false,
-      "forceConsistentCasingInFileNames": true,
-      "noEmit": true,
-      "incremental": true,
-      "esModuleInterop": true,
-      "module": "esnext",
-      "moduleResolution": "node",
-      "resolveJsonModule": true,
-      "isolatedModules": true,
-      "jsx": "preserve"
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["src/components/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "helper/*": ["src/helpers/*"],
+      "@pages/*": ["./pages/*"],
+      "@/scripts/*": ["src/scripts/*"],
+      "@/src/*": ["src/*"],
+      "@/firebase/*": ["src/firebase/*"],
+      "libs/*": ["src/libs/*"],
+      "@utils/*": ["src/utils/*"],
+      "@backend/*": ["src/backend/*"],
+      "@models/*": ["src/models/*"],
+      "@middleware/*": ["src/middleware/*"],
+      "@/*": ["./*"],
+      "src/*": ["./src/*"],
+      "backend/*": ["src/backend/*"],
+      "components/*": ["./src/components/*"],
+      "middleware/*": ["./src/middleware/*"],
+      "pages/*": ["./src/pages/*"],
+      "hooks/*": ["./src/hooks/*"],
+      "store/*": ["./src/store/*"],
+      "assets/*": ["./src/assets/*"],
+      "lib/*": ["./src/lib/*"],
+      "models/*": ["./src/models/*"]
     },
-    "include": [
-      "next-env.d.ts",
-      "**/*.ts",
-      "**/*.tsx"
-  ,   ],
-    "exclude": [
-      "node_modules"
-    ]
-  }
-  
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve"
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+,   ],
+  "exclude": [
+    "node_modules"
+  ]
+}

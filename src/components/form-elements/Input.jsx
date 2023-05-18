@@ -62,8 +62,8 @@ const Input = styled.input`
   border-radius: 0.2rem !important;`: ""}
   
   ${props => props.underlined ? `
-  border-radius-left-bottom: 0;
-  border-radius-right-bottom: 0;
+  border-bottom-left-radius: 0!important;
+  border-bottom-right-radius: 0!important;
   z-index: 1;
   background-color: none;
   border: none;

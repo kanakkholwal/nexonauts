@@ -41,11 +41,11 @@ const Button = styled.button`
     --btn-border-hover:rgba(var(--${props.nature}-rgb), 0.95);
   ` : ``}
   ${props => props.outlined ? `
-    --btn-text:rgba(var(--${props.nature}-rgb), 1);
+    --btn-text:rgba(var(--${props.nature || "theme"}-rgb), 1);
     --btn-hover-text:var(--btn-text,#fbfbfb);
     --btn-bg:none;
     --btn-box-shadow: none;
-    --btn-hover-bg:rgba(var(--${props.nature}-rgb), 1);
+    --btn-hover-bg:rgba(var(--${props.nature || "theme"}-rgb), 1);
     --btn-hover-box-shadow:none;
   ` : ``}
   ${props => props.level ? `
@@ -65,6 +65,11 @@ const Button = styled.button`
   --btn-padding-x:var(--${props.size || "normal"}-btn-padding-x,1.5rem);
   --btn-line-height:var(--${props.size || "normal"}-btn-line-height,1.75);
   --btn-border-radius:var(--${props.size || "normal"}-btn-border-radius,0.5rem);
+  ` : ``
+  }
+  ${props => props.low ? `
+  --btn-box-shadow: none;
+  --btn-hover-box-shadow: none;
   ` : ``
   }
   

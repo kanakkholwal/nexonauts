@@ -3,25 +3,35 @@ import DashboardPage, { Header } from "components/dashboard-page";
 import Button from "components/buttons";
 import State from "components/state";
 import { Card, CardHeader, CardBody } from "components/Card";
-import { Input, FormElement, Label, TextArea, CheckBox, FileInput } from "components/form-elements";
+import { Input, FormElement, Label, TextArea, FormHelper,Switch, FileInput } from "components/form-elements";
 import Head from "next/head";
 import Link from 'next/link';
-import { useId, useState } from "react";
-import dynamic from 'next/dynamic'
+import {  useRef, useState } from "react";
 import styled from 'styled-components';
 import axios from 'axios';
 import Image from 'next/image';
+import JoditEditor from "components/editor/jodit";
+
+import { BiEditAlt } from "react-icons/bi"
+import { AiOutlineLink } from "react-icons/ai"
+import { CiHashtag } from "react-icons/ci"
+import { TbFileDescription } from "react-icons/tb";
+
+
 const SettingPanel = styled(Card)`
-    max-width:300px;
+@media (min-width: 600px){
     position:sticky;
     top:0;
+    max-width: max-content;
+}
+svg{
+    margin-inline:0.5rem;
+}
 `;
 
-const EditorJs = dynamic(() => import("components/editor"), {
-    ssr: false,
-});
 
 export default function NewPost({ user }) {
+    const editor = useRef(null);
 
     const [state, setState] = useState({
         loader: {
@@ -36,13 +46,9 @@ export default function NewPost({ user }) {
         }
 
     });
-    const id = useId();
-    const [title, setTitle] = useState("Add a title to the post");
-    const [description, setDescription] = useState("Post Description");
-    const [content, setContent] = useState({
-        time:  new Date().getTime(),
-        blocks: [],
-    });
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [content, setContent] = useState(``);
     const [image, setImage] = useState("");
     const [imageState, setImageState] = useState({
         loader: {
@@ -58,20 +64,20 @@ export default function NewPost({ user }) {
 
     }); const [postState, setPostState] = useState("draft");
     const [labels, setLabel] = useState([]);
-    const [comments, setComments] = useState(true);
+    const [IsCommentEnabled, setIsCommentEnabled] = useState(true);
     const [slug, setSlug] = useState(title?.toLocaleLowerCase().split(" ").join("-"));
 
     const uploadPost = async () => {
         const post = {
-            title,
-            labels,
+            title:title || "Untitled",
+            labels:labels||[],
             slug,
             content,
             description,
             state: postState,
             image,
             comments: {
-                enabled: comments,
+                enabled: IsCommentEnabled,
                 items: []
             }
         }
@@ -218,65 +224,57 @@ export default function NewPost({ user }) {
             </Head>
             <DashboardPage user={user}>
                 <Header>
+                    <h4>
+                    <BiEditAlt/>
+                        Create a New Post
+                    </h4>
                     <Button as={Link} level="true" href="/dashboard/blog">
                         Go Back
                     </Button>
                 </Header>
-                <Card className="flex-row">
-                    <FormElement className="mb-0">
-                        <Input type="text" placeholder="Write a post title..." underlined value={title}
-
-                            onChange={(e) => setTitle(e.target.value)} />
-                    </FormElement>
+                {/* <Card className="flex-row">
+                   
 
                     <Button
                         onClick={uploadPost}
                     >
                         Create
                     </Button>
-                </Card>
+                </Card> */}
+                <State  {...state} />
+
                 <div className="d-flex align-items-start justify-content-between g-3 mt-3">
                     <Card>
-                        <CardHeader>
-                            <h4>Content</h4>
-                        </CardHeader>
-                        {
-                            <State  {...state} />
-                        }
-                        <CardBody>
-
-                            {EditorJs ? <EditorJs
-                                defaultValue={content}
-                                minHeight={200}
-                                id={id}
-                                onChange={(api, event) => console.log("sample")}
-                                onReady={() => console.log("ready")}
-                                onSave={(data) => {
-                                    console.log("SAVED", data);
-                                    setContent(data);
-                                }}
-
-                            /> : null}
-                        </CardBody>
-
-                    </Card>
-                    <SettingPanel>
-                        <h5>Post Settings</h5>
-                        <FormElement className="mt-2">
-                            <CheckBox
-                                checked={postState === "published"}
-                                onChange={(e) => {
-                                    (e.target.checked) ?
-                                        setPostState("published")
-                                        :
-                                        setPostState("draft");
-                                }}
-                                id="publish"
-                            />
-                            <Label htmlFor="publish">
-                                Publish
-                            </Label>
+                        <FormElement>
+                        <Label htmlFor="title">
+                                Post Title
+                        </Label>
+                            <Input type="text" id="title" placeholder="Write a post title..." underlined value={title}
+                                onChange={(e) => setTitle(e.target.value)} />
                         </FormElement>
+                        <FormElement>
+                            <Label htmlFor="description">Post Description</Label>
+                            <TextArea
+                                type="text"
+                                id="description" 
+                                placeholder="Post Description"
+                                underlined
+                                value={description}
+
+                                maxLength={150}
+                                onChange={
+                                    (e) => {
+                                        setDescription(e.target.value);
+                                    }
+                                }
+                            />
+                        </FormElement>
+                        <FormElement>
+                            <h6>Post Content</h6>
+                            <JoditEditor ref={editor} value={content} onChange={setContent} />
+
+                        </FormElement>
+                       
                         <FormElement className="mt-2">
                             <FileInput
                                 accept="image/*"
@@ -295,26 +293,60 @@ export default function NewPost({ user }) {
                                 setImage(e.target.value);
                             }} />
                         </FormElement>
+                       
+
+                    </Card>
+                    <SettingPanel>
+                        <h5>Post Settings</h5>
+                        <hr/>
+                        <FormElement className="mt-2">
+                            <Switch
+                                checked={postState === "published"}
+                                onChange={(e) => {
+                                    (e.target.checked) ?
+                                        setPostState("published")
+                                        :
+                                        setPostState("draft");
+                                }}
+                                id="publish"
+                                label={"Publish"}
+                                width="100%"
+                            />
+                
+                        </FormElement>
+                        <FormElement className="mt-2">
+                            <Switch
+                                checked={IsCommentEnabled}
+                                onChange={(e) => {
+                                    setIsCommentEnabled(e.target.checked);
+                                }}
+                                id="comments"
+                                label={"Comments"}
+                                width="100%"
+                            />
+                
+                        </FormElement>
                         <FormElement>
-                            <Label>Label</Label>
+                            <Label><CiHashtag/>Label</Label>
                             <Input type="text" placeholder="Add label to the Post..." underlined value={labels.join(",")}
                                 onChange={
                                     (e) => {
-                                        setLabel(e.target.value.trim().split(","));
+                                        setLabel(e.target.value?.trim().split(",").map((item) => item.trim()));
                                     }
                                 }
                             />
-                        </FormElement>
+                            <FormHelper>
+                                Tags or Categories the post will be included
+                            </FormHelper>
+                        </FormElement> 
                         <FormElement>
-                            <h6>Permalink</h6>
-                            <p>
-                                {"https//kkupgrader.eu.org/blog/" + slug}
-                            </p>
-                            <Label>Edit Slug</Label>
+                            <Label htmlFor="slug">   <AiOutlineLink />Edit Slug</Label>
+                           
                             <Input
                                 type="text"
                                 placeholder="Edit the slug for the post"
                                 underlined
+                                id="slug"
                                 value={slug}
                                 onChange={
                                     (e) => {
@@ -325,12 +357,21 @@ export default function NewPost({ user }) {
                                     }
                                 }
                             />
+                             <FormHelper>
+                                <strong>
+                                 
+                                    Permalink :  {" "}
+                                </strong>
+                                <span>
+                                     { "https//kkupgrader.eu.org/blog/" + slug}
+                                </span>
+                            </FormHelper>
                         </FormElement>
                         <FormElement>
-                            <Label>Search Description</Label>
+                            <Label><TbFileDescription/>Meta Description</Label>
                             <TextArea
                                 type="text"
-                                placeholder="For SEO"
+                                placeholder="Meta Description"
                                 underlined
                                 value={description}
 
@@ -341,19 +382,21 @@ export default function NewPost({ user }) {
                                     }
                                 }
                             />
+                              <FormHelper>
+                                Short Description visible in search results
+                            </FormHelper>
                         </FormElement>
-                        <FormElement>
-                            <CheckBox
-                                checked={comments}
-                                onChange={(e) => {
-                                    setComments(e.target.checked);
-                                }}
-                                id="comments"
+                        <div className="d-flex align-items-start justify-content-between g-3 mt-3 children-fill">
+                        <Button nature="danger" low>
+                            Delete
+                        </Button>
+                        <Button low>
+                            Post
+                        </Button>
 
-                            />
-                            <Label htmlFor="comments">Comments</Label>
-                        </FormElement>
-
+                        </div>
+                        
+                       
                     </SettingPanel>
                 </div>
             </DashboardPage>

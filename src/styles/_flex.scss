@@ -118,6 +118,11 @@ $MarginPadding6 :1.5rem;
 .flex-column-r {
     flex-direction: column-reverse !important;
 }
+.children-fill {
+   &>*{
+    flex:1 1 auto
+   } 
+}
 
 .start {
     @include left;

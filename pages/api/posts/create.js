@@ -30,7 +30,11 @@ export default nextConnect(handler).use(hasTokenMiddleware)
                 labels: post.labels,
                 image: post.image,
                 state: post.state,
-                author: existingUser.id,
+                author: {
+                    name: existingUser.name,
+                    profileURl: existingUser.profileURl,
+                    user: existingUser.id
+                },
                 comments: post.comments
             });
             if (!newPost) {
