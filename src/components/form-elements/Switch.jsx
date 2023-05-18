@@ -28,19 +28,19 @@ const SwitchSlider = styled.span`
   cursor: pointer;
   width: ${({ size }) => size * 2}px;
   height: ${({ size }) => size}px;
-  border-radius: ${({ size }) => size / 2}px;
+  border-radius: ${({ size }) => size}px;
   background-color: #cad0d7;
   transition: background-color 250ms ease-in-out;
 &:before{
     content: '';
     position: absolute;
-    inset-block: calc(${({ size }) => size }px * 0.1);
-    left: calc(${({ size }) => size }px * 0.1);
+    inset-block: ${({ size }) => size * 0.1 /16}rem ;
+    left: ${({ size }) => size * 0.1 / 16}rem ;
     right: auto;
-    width: calc(${({ size }) => size }px * 0.85);
-    height: calc(${({ size }) => size }px * 0.85);
+    width: ${({ size }) => size * 0.85}px ;
+    height: ${({ size }) => size * 0.85}px ;
     background-color: #fff;
-    border-radius: calc(${({ size }) => size }px * 0.9);
+    border-radius: ${({ size }) => size * 0.9}px ;
     transition: all 250ms ease-in-out;
     
   ${SwitchToggle}:hover & {
@@ -62,7 +62,7 @@ height: 0;
     background: rgba(var(--theme-rgb),0.9);
      &::before {
         left:100%;
-         transform: translateX(calc(${({ size }) => size }px * -.95));
+         transform: translateX(${({ size }) => size * -.95}px );
      }
   }
 `;

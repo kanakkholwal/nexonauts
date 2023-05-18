@@ -6,9 +6,8 @@ import Button from "components/buttons";
 import Badge from "components/topography/badge";
 import { useState, useEffect,useRef } from "react";
 import { BiHomeAlt2 } from "react-icons/bi";
-import { RiMenuUnfoldLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
-import { TbTools } from "react-icons/tb";
+import { TbTools,TbLayoutSidebarRightCollapse ,TbLayoutSidebarRightExpand} from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import { MdOutlineAdminPanelSettings, MdLogout } from "react-icons/md";
 import Image from "next/image";
@@ -31,8 +30,10 @@ const Children = styled.div`
 `;
 
 const Toggler = styled(Button)`
-padding:0.75rem;
+padding:0.5rem;
 margin-inline-end:0.75rem;
+border-radius:0.5rem;
+font-size:24px
 `;
 
 export default function Header({ user, children }) {
@@ -82,7 +83,9 @@ export default function Header({ user, children }) {
             <NavBarWrapper ref={NavRef}>
                 <Toggler level="true"
                 rounded
-                    onClick={() => setIsSidebarOpen((state) => !state)}><RiMenuUnfoldLine /></Toggler>
+                    onClick={() => setIsSidebarOpen((state) => !state)}>
+                    {isSidebarOpen? <TbLayoutSidebarRightExpand />:<TbLayoutSidebarRightCollapse/>}
+                    </Toggler>
                 <Children>
                     {children}
                 </Children>

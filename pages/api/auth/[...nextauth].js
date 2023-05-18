@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"
 import User from "models/user";
-import Notification from "models/notification";
+// import Notification from "models/notification";
 import dbConnect from "lib/dbConnect";
 
 export const authOptions = {
@@ -25,10 +25,16 @@ export const authOptions = {
 
                 await dbConnect();
 
+                
                 // Try to find the user and also return the password field
                 const user = await User.findOne({ email: credentials.email }).select('+password')
 
-                if (!user) { throw new Error('No user with a matching email was found.') }
+                if (!user) { 
+                    return {
+                        status: 401,
+                        
+                    }
+                }
 
                 // Use the comparePassword method we defined in our user.js Model file to authenticate
                 const pwValid = await user.comparePassword(credentials.password)
@@ -36,10 +42,10 @@ export const authOptions = {
                 
                 if (!pwValid) { throw new Error("Your password is invalid") }
 
-                await Notification.create({
-                    message: "User logged in by email : " + credentials.email + " and name : " + user.name + "",
-                    user: user._id
-                });
+                // await Notification.create({
+                //     message: "User logged in by email : " + credentials.email + " and name : " + user.name + "",
+                //     user: user._id
+                // });
 
                 // console.log(user)
                 
