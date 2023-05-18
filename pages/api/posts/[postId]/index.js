@@ -14,7 +14,7 @@ export default nextConnect(handler).use(hasTokenMiddleware)
 
             const { postId } = req.query;
 
-            const existingPost = await Post.findById(postId);
+            const existingPost = await Post.findById(postId).select('+content')
             if (!existingPost)
                 return res.status(404).json({ message: 'Post not found!' })
 

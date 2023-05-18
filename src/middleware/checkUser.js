@@ -35,16 +35,7 @@ export const getUser = async (req) => {
     }
     return token.user
 }
-// export const getUserFromRequest = async (req) => {
-//     const token = await getToken({ req, secret,raw: true })
 
-//     console.log(token)
-//     const decoded = await decode({
-//         token,
-//         secret,
-//     })
-//     return decoded
-// }
 
 // API MIDDLEWARE
 export const hasTokenMiddleware = async (req, res, next) => {

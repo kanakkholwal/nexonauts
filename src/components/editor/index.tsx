@@ -1,7 +1,5 @@
-import { useEffect, useRef, useState, useId } from "react";
-// import Undo from 'editorjs-undo';
+import { useEffect, useRef, useState } from "react";
 import EditorJS, { API, OutputData } from "@editorjs/editorjs";
-
 import { EditorTools, i18n } from "./config";
 
 type ArticleEditorProps = {
@@ -17,6 +15,8 @@ type ArticleEditorProps = {
   onChange?: (api: API, event: CustomEvent) => void;
 };
 
+// ... previous imports and type declarations
+
 const ArticleEditor = ({
   defaultValue,
   value,
@@ -28,75 +28,70 @@ const ArticleEditor = ({
   onReady,
   onChange,
   onSave,
-  ...props
 }: ArticleEditorProps) => {
   const editorJS = useRef<EditorJS | null>(null);
-  const [triggered, setTriggered] = useState<Boolean>(false);
-  const [currentArticle, setCurrentArticle] = useState<OutputData | null>(defaultValue);
+  const editorHolderId = `editorJs_${id}`;
+  const [isInitialRender, setIsInitialRender] = useState(true);
 
   useEffect(() => {
-    if (editorJS.current === null) {
-      editorJS.current = new EditorJS({
-        placeholder,
-        readOnly,
-        minHeight,
-        holder: "editorJs_" + id ? id : Math.random().toString(8),
-        data: enableReInitialize ? value : defaultValue || currentArticle,
-        i18n,
-        tools: EditorTools,
-        onChange(api: API, event: CustomEvent) {
-          editorJS.current?.save().then((res) => {
-            setCurrentArticle(res);
-            onSave(res);
-          });
-          onChange(api, event);
-        },
-        onReady() {
-          // new Undo({ editorJS });
-
-          onReady();
-        },
-      });
+    if (!id) {
+      console.error("Error: 'id' prop is required for ArticleEditor component.");
+      return;
     }
 
-    // return () => {
-    //   editorJS.current = null
+    if (editorJS.current) {
+      // editorJS.current.destroy();
+      editorJS.current = null;
+    }
 
-    // }
+    editorJS.current = new EditorJS({
+      holder: editorHolderId,
+      placeholder: placeholder || "Let's write an awesome story! ✨",
+      readOnly: readOnly || false,
+      minHeight: minHeight || 0,
+      data: enableReInitialize ? value || defaultValue : defaultValue,
+      i18n: i18n || {},
+      tools: EditorTools || {},
+      onChange: (api: API, event: CustomEvent) => {
+        // Trigger onChange event only after the initial render
+        if (!isInitialRender) {
+          editorJS.current?.save().then((res) => {
+            onSave(res);
+          });
+          if (onChange) {
+            onChange(api, event);
+          }
+        }
+      },
+      onReady: () => {
+        setIsInitialRender(false);
+        onReady();
+      },
+    });
 
-  }, []);
+    // Cleanup logic if needed
+    return () => {
+      if (editorJS.current) {
+        // editorJS.current.destroy();
+        editorJS.current = null;
+      }
+    };
+
+  }, [id]);
 
   useEffect(() => {
-    if (editorJS.current === null)
-      return
-    if (value && enableReInitialize)
-      editorJS.current?.isReady
+    if (editorJS.current !== null && (value || enableReInitialize)) {
+      editorJS.current.isReady
         .then(() => {
-          if (triggered === false) {
-            editorJS.current.render(value);
-            console.log("rerendered...");
-            setTriggered(true);
-          }
-          /** Do anything you need after editor initialization */
+          editorJS.current.render(value || defaultValue);
         })
         .catch((reason) => {
-          console.log(`Editor.js initialization failed because of ${reason}`)
+          console.log(`Editor.js initialization failed because of ${reason}`);
         });
+    }
+  }, [value, enableReInitialize]);
 
-
-
-
-  }, [value]);
-
-  return <div id={id} {...props} />;
-};
-
-ArticleEditor.defaultProps = {
-  placeholder: "Let's write an awesome story! ✨",
-  readOnly: false,
-  minHeight: 0,
-  enableReInitialize: false,
-
+  return <div id={editorHolderId} />;
 };
 
 export default ArticleEditor;

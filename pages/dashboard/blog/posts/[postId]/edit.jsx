@@ -6,8 +6,8 @@ import { Card, CardHeader, CardBody } from "components/Card";
 import { Input, FormElement, Label, TextArea, CheckBox, FileInput } from "components/form-elements";
 import Head from "next/head";
 import Link from 'next/link';
-import { useEffect, useId, useState } from "react";
-import dynamic from 'next/dynamic'
+import { useEffect, useRef, useState } from "react";
+import JoditEditor from "components/editor/jodit";
 import styled from 'styled-components';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -19,11 +19,10 @@ const SettingPanel = styled(Card)`
     top:0;
 `;
 
-const EditorJs = dynamic(() => import("components/editor"), {
-    ssr: false,
-});
+
 
 export default function NewPost({ user }) {
+    const editor = useRef(null);
 
     const router = useRouter();
     const { postId } = router.query;
@@ -42,13 +41,8 @@ export default function NewPost({ user }) {
 
     });
     const [title, setTitle] = useState("Loading...");
-    const id = useId();
     const [description, setDescription] = useState("Loading...");
-    const [content, setContent] = useState({
-        time:  new Date().getTime(),
-        blocks: [],
-
-    });
+    const [content, setContent] = useState(``);
     const [image, setImage] = useState("");
     const [imageState, setImageState] = useState({
         loader: {
@@ -148,6 +142,7 @@ export default function NewPost({ user }) {
                         show: false,
                     },
                 })
+                console.log(post)
                 setContent(post.content);
 
 
@@ -284,24 +279,8 @@ export default function NewPost({ user }) {
                             <State  {...state} />
                         }
                         <CardBody>
+                        <JoditEditor ref={editor} value={content} onChange={setContent} />
 
-                            {
-                                EditorJs ? <EditorJs
-                                    defaultValue={content}
-                                    value={content}
-                                    minHeight={200}
-                                    enableReInitialize={true}
-                                    id={"editorJs"}
-                                    onChange={(api, event) => console.log("sample")}
-                                    onReady={() => console.log("ready")}
-                                    onSave={(data) => {
-                                        console.log("SAVED", data);
-                                        setContent(data);
-
-                                    }}
-
-                                /> : null
-                            }
                         </CardBody>
 
                     </Card>
@@ -334,7 +313,7 @@ export default function NewPost({ user }) {
                             <Label htmlFor="imageUrl">
                                 Upload an Image
                             </Label>
-                            {image.length > 3 ? <Image src={image} alt={title ?? "Post Title"} height={120} width={220} className="img-fluid mt-2" /> : null}
+                            {image.toString().length > 3 ? <Image src={image} alt={title ?? "Post Title"} height={120} width={220} className="img-fluid mt-2" /> : null}
                             <State  {...imageState} />
                             <Input value={image} onChange={(e) => {
                                 setImage(e.target.value);

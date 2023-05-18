@@ -21,7 +21,6 @@ export const TextAreaStyled = styled.textarea`
   width: 100%;
   &::placeholder {
     color: inherit;
-    opacity: 0.75;
   }
   
   
@@ -30,9 +29,7 @@ export const TextAreaStyled = styled.textarea`
     background: var(--form-bg-active);
 
   
-    &::placeholder {
-        opacity: 1;
-    }
+   
   }
   &.checkValid:invalid,
   &.isInvalid {
@@ -71,7 +68,7 @@ export const TextAreaStyled = styled.textarea`
   border-bottom: 2px solid  var(--form-border);
 
   &::placeholder {
-    visibility: hidden;
+    ${'' /* visibility: hidden; */}
     transition: all 0.25 ease;
   }
 

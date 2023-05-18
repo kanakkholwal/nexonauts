@@ -19,6 +19,7 @@ gap: 1rem;
 flex-wrap: wrap;
 `;
 
+export {Switch} from "./Switch";
 export const FormElement = formElement;
 export const FormHelper = formHelper;
 export const FormAlert = formAlert;
