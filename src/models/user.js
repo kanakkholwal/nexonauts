@@ -73,28 +73,28 @@ const UserSchema = new mongoose.Schema(
 
 // Middleware to hash password before saving
 UserSchema.pre('save', async function (next) {
-    if (!this.isModified('password')) {
-      return next();
-    }
-  
-    const saltRounds = 10;
-    try {
-      const hash = await bcrypt.hash(this.password, saltRounds);
-      this.password = hash;
-      next();
-    } catch (err) {
-      return next(err);
-    }
-  });
-  
-  // Method to compare password
-  UserSchema.methods.comparePassword = async function (password) {
-    try {
-      return await bcrypt.compare(password, this.password);
-    } catch (err) {
-      throw new Error(err);
-    }
-  };
+  if (!this.isModified('password')) {
+    return next();
+  }
+
+  const saltRounds = 10;
+  try {
+    const hash = await bcrypt.hash(this.password, saltRounds);
+    this.password = hash;
+    next();
+  } catch (err) {
+    return next(err);
+  }
+});
+
+// Method to compare password
+UserSchema.methods.comparePassword = async function (password) {
+  try {
+    return await bcrypt.compare(password, this.password);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
 
 
 export default mongoose.models.User || mongoose.model('User', UserSchema)
