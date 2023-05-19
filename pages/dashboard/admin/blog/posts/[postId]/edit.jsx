@@ -320,7 +320,7 @@ export default function NewPost({ user }) {
             </Head>
             <DashboardPage user={user}>
                 <Header>
-                    <Button as={Link} level="true" href="/dashboard/blog">
+                    <Button as={Link} level="true" href="/dashboard/admin/blog">
                         Go Back
                     </Button>
                 </Header>
@@ -441,9 +441,9 @@ export default function NewPost({ user }) {
                                  
                                     Permalink :  {" "}
                                 </strong>
-                                <span>
-                                     { "https//kkupgrader.eu.org/blog/" + slug}
-                                </span>
+                                <Link href={"https://kkupgrader.eu.org/blog/posts/" + slug} target="_blank">
+                                     {"https://kkupgrader.eu.org/blog/posts/" + slug}
+                                </Link>
                             </FormHelper>
                         </FormElement>
                         <FormElement>

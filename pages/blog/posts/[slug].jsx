@@ -18,7 +18,7 @@ export default function Blog({ post }) {
   // It may be called again, on a serverless function, if
   // the path has not been generated.
   export async function getStaticPaths() {
-    const {data} = await axios.post(checkEnvironment().concat("/api/posts/all"));
+    const {data} = await axios.post("https//kkupgrader.eu.org/api/posts/all");
     
    
    
@@ -41,8 +41,8 @@ export default function Blog({ post }) {
     // params contains the post `id`.
     // If the route is like /posts/1, then params.id is 1
     
-    const {data} = await axios.get(checkEnvironment().concat("/api/posts/"+params.slug));
-   
+    const {data} = await axios.get("https//kkupgrader.eu.org/api/posts/"+params.slug);
+
     // Pass post data to the page via props
     if (!data.post) {
       return {
