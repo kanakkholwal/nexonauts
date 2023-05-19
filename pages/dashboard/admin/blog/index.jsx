@@ -88,7 +88,7 @@ export default function Blog({ user }) {
                     }
                 })
 
-                router.push("/dashboard/blog/posts/" + res.data.post._id + "/edit")
+                router.push("/dashboard/admin/blog/posts/" + res.data.post._id + "/edit")
             })
             .catch(err => {
                 console.log(err);
@@ -136,7 +136,7 @@ export default function Blog({ user }) {
                     {isLoading?
                         <Loader /> :
                         data.posts.length > 0 ? data.posts?.map((post, index) => (
-                            <PostCard as={Link} href={"/dashboard/blog/posts/" + post?._id + "/edit"} key={post?._id} style={{
+                            <PostCard as={Link} href={"/dashboard/admin/blog/posts/" + post?._id + "/edit"} key={post?._id} style={{
                                 animationDelay: 0.01 * index + "s"
                             }}>
                                 <Image src={post.image} alt={post.title} height={480} width={640} />
