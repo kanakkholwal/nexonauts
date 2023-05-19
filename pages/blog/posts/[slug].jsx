@@ -34,7 +34,7 @@ export default function Post({ post }) {
   return (
     <div className="BlogPost">
       <p>{post?.slug}</p>
-      <Interweave content={post.content}/>
+      <Interweave content={post?.content}/>
     </div>
   );
 }
