@@ -52,22 +52,23 @@ const UserSchema = new mongoose.Schema(
         ref: 'Post',
       },
     ],
-  },
-  {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   }
+  // ,
+  // {
+  //   toJSON: { virtuals: true },
+  //   toObject: { virtuals: true },
+  // }
 )
 
-UserSchema.virtual('userPosts', {
-  ref: 'Post',
-  localField: '_id',
-  foreignField: 'author.user',
-});
+// UserSchema.virtual('userPosts', {
+//   ref: 'Post',
+//   localField: '_id',
+//   foreignField: 'author.user',
+// });
 
-UserSchema.methods.getUserPosts = function () {
-  return this.populate('posts');
-};
+// UserSchema.methods.getUserPosts = function () {
+//   return this.populate('posts');
+// };
 
 
 // Middleware to hash password before saving

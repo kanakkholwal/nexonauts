@@ -1,4 +1,5 @@
 import handler from 'lib/handler';
+import User from "models/user";
 import Post from "models/post";
 import dbConnect from "lib/dbConnect";
 import nextConnect from 'next-connect';
