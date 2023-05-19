@@ -10,7 +10,8 @@ width:100%;
 border-radius:0.75rem;
 border:1px solid #eee;
 `;
-const MyEditor = forwardRef((props, ref) => {
+const MyEditor = forwardRef(({onChange,value}, ref) => {
+
     const editorConfig = {
         uploader: {
             insertImageAsBase64URI: true
@@ -37,7 +38,8 @@ const MyEditor = forwardRef((props, ref) => {
             config={editorConfig}
             className="Post_Editor"
             ref={ref}
-            {...props}
+            value={value}            
+            onChange={onChange}            
         />
         </Wrapper>
     );

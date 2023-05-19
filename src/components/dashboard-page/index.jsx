@@ -43,8 +43,39 @@ export default function DashboardPage({ headerChildren, children, user }) {
                     icon: <RxDashboard />,
                 },
                 {
+                    title: "Tools",
+                    path: "/dashboard/tools",
+                    icon: <TbTools />,
+                },
+
+            ]} user={user} />
+            <MainWrapper id="main_wrapper" className="isSidenavOpen">
+                <Header user={user}>
+                    {headerChildren ? headerChildren : null}
+                </Header>
+                <ContentWrapper>
+                    {children}
+                </ContentWrapper>
+                <Footer socialMedia={SocialMedia} />
+
+            </MainWrapper>
+        </>
+    )
+}
+export function AdminDashboard({ headerChildren, children, user }) {
+
+
+    return (
+        <>
+            <SideNav links={[
+                {
+                    title: "Dashboard",
+                    path: "/dashboard",
+                    icon: <RxDashboard />,
+                },
+                {
                     title: "Blog",
-                    path: "/dashboard/blog",
+                    path: "/dashboard/admin/blog",
                     icon: <BsFillJournalBookmarkFill />,
                 },
                 {
