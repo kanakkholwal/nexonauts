@@ -66,13 +66,13 @@ height: 0;
      }
   }
 `;
-export function Switch({checked,size = 24,id,label,...props}) {
+export function Switch({checked,size = 24,id,label,onChange,width,className}) {
     const randomId = useId()
 
 
-    return (<SwitchToggle htmlFor={id} {...props}>
+    return (<SwitchToggle htmlFor={id}  className={className} width={width}>
              {label}
-            <SwitchInput size={size}  id={id} ariaLabelledBy={randomId}  checked={checked}  {...props}/>
+            <SwitchInput size={size}  id={id} ariaLabelledBy={randomId}  checked={checked} onChange={onChange}/>
             <SwitchSlider size={size} id={randomId} role="label"/>
         </SwitchToggle>)
 }

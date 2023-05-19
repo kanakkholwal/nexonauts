@@ -13,38 +13,27 @@ export default nextConnect(handler)
 
         try {
             await dbConnect();
-
+          
             const { userId } = req.query;
-
+          
             const existingUser = await User.findById(userId);
             if (!existingUser) {
-                return res.status(404).json({ message: 'User not found!' })
+              return res.status(402).json({ message: 'User not found!' });
             }
-            const result = checkUser(req, existingUser);
-
-            if (result.verified === false)
-                return res.status(404).json({ verified: result.verified, message: result.message })
-
-
-
-            let posts = []
-
-            for await (const element of existingUser.posts) {
-                let post = await Post.findById(element)
-                posts.push(post)
+            
+            const result = await checkUser(req, existingUser);
+            if (!result.verified) {
+              return res.status(402).json({ verified: result.verified, message: result.message });
             }
-
-
-
-            return res.status(200).json({ message: 'Posts Fetched Successfully!', posts })
-
-
-        }
-        catch (err) {
-            console.log(err);
-            return res.status(500).json({
-                message: err.message || " Something went wrong",
-            })
-        }
+          
+            const {posts} = await existingUser.populate('posts');
+            console.log(posts)
+          
+            return res.status(200).json({ message: 'Posts fetched successfully!', posts });
+          } catch (err) {
+            console.error(err);
+            return res.status(500).json({ message: err.message || 'Something went wrong' });
+          }
+          
 
     })

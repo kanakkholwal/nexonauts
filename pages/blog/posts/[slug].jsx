@@ -1,11 +1,12 @@
 import {checkEnvironment} from "lib/scripts";
-import axios from "axios"
+import axios from "axios";
+
 export default function Blog({ post }) {
-  console.log(post)
+  // console.log(post)
     return (
       <ul>
         {/* {posts.map((post) => ( */}
-          <p>{post.content}</p>
+          <p>{post.title}</p>
           <p>{post.description}</p>
         {/* ))} */}
       </ul>

@@ -6,23 +6,23 @@ import { Card, CardHeader, CardBody } from "components/Card";
 import { Input, FormElement, Label, TextArea, FormHelper,Switch, FileInput } from "components/form-elements";
 import Head from "next/head";
 import Link from 'next/link';
-import {  useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import JoditEditor from "components/editor/jodit";
 import styled from 'styled-components';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
-import JoditEditor from "components/editor/jodit";
 
 import { BiEditAlt } from "react-icons/bi"
 import { AiOutlineLink } from "react-icons/ai"
 import { CiHashtag } from "react-icons/ci"
 import { TbFileDescription } from "react-icons/tb";
 
-
 const SettingPanel = styled(Card)`
 @media (min-width: 600px){
     position:sticky;
     top:0;
-    max-width: max-content;
+    max-width: 400px;
 }
 svg{
     margin-inline:0.5rem;
@@ -31,6 +31,10 @@ svg{
 
 
 export default function NewPost({ user }) {
+    
+    const router = useRouter();
+    const { postId } = router.query;
+    
     const editor = useRef(null);
 
     const [state, setState] = useState({
@@ -46,9 +50,9 @@ export default function NewPost({ user }) {
         }
 
     });
-    const [title, setTitle] = useState("");
-    const [description, setDescription] = useState("");
-    const [content, setContent] = useState(``);
+    const [title, setTitle] = useState("Loading...");
+    const [description, setDescription] = useState("Loading...");
+    const [content, setContent] = useState(`Loading...`);
     const [image, setImage] = useState("");
     const [imageState, setImageState] = useState({
         loader: {
@@ -68,20 +72,8 @@ export default function NewPost({ user }) {
     const [IsCommentEnabled, setIsCommentEnabled] = useState(true);
     const [slug, setSlug] = useState(title?.toLocaleLowerCase().split(" ").join("-"));
 
-    const uploadPost = async () => {
-        const post = {
-            title:title || "Untitled",
-            labels:labels||[],
-            slug,
-            content,
-            description,
-            state: postState,
-            image,
-            comments: {
-                enabled: IsCommentEnabled,
-                items: []
-            }
-        }
+    const updatePost = async () => {
+    
         setState({
             ...state,
             loader: {
@@ -90,9 +82,21 @@ export default function NewPost({ user }) {
             }
 
         })
-        await axios.post("/api/posts/create", {
-            userId: user.id,
-            post
+        await axios.put("/api/users/"+user.id+ "/posts/" + postId, {
+            post:
+            {
+                title:title || "Untitled",
+                labels:labels||[],
+                slug:slug,
+                content:content,
+                description:description,
+                state: postState,
+                image:image,
+                comments: {
+                    enabled: IsCommentEnabled,
+                    items: []
+                }
+            }
         }).then(res => {
             console.log(res);
 
@@ -105,7 +109,7 @@ export default function NewPost({ user }) {
                 alert: {
                     ...state.alert,
                     open: true,
-                    message: "Post Created Successfully",
+                    message: "Post Updated Successfully",
                     nature: "success",
                 }
             })
@@ -130,6 +134,95 @@ export default function NewPost({ user }) {
 
 
     }
+    const deletePost = async () =>{
+        
+        if(!confirm("Are you sure want to delete this Post"))
+        return;
+        setState({
+            ...state,
+            loader: {
+                ...state.loader,
+                show: true,
+            }
+
+        })
+        await axios.delete("/api/users/"+user?.id+ "/posts/" + postId + "/delete", {
+            userId: user.id,
+        }).then(res => {
+            console.log(res);
+
+            setState({
+                ...state,
+                loader: {
+                    ...state.loader,
+                    show: false,
+                },
+                alert: {
+                    ...state.alert,
+                    open: true,
+                    message: "Post Deleted Successfully",
+                    nature: "success",
+                }
+            })
+            router.push("/dashboard/blog")
+            
+        })
+        .catch(err => {
+            console.log(err);
+            setState({
+                ...state,
+                loader: {
+                    ...state.loader,
+                    show: false,
+                },
+                alert: {
+                    ...state.alert,
+                    open: true,
+                    message: "Error Deleting Post",
+                    nature: "danger",
+                }
+            })
+
+        })
+
+
+
+    }
+    const FetchPost = async (postId) => {
+        await axios.post("/api/users/"+user.id+"/posts/" + postId)
+            .then(({ data }) => {
+                const post = data?.post;
+                setTitle(post.title);
+                setDescription(post.description);
+                setImage(post.image);
+                setLabel(post.labels);
+                setIsCommentEnabled(post.comments.enabled);
+                setPostState(post.state);
+                setSlug(post.slug);
+                setState({
+                    ...state,
+                    loader: {
+                        ...state.loader,
+                        show: false,
+                    },
+                })
+                setContent(post.content);
+
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+    useEffect(() => {
+        if (postId) {
+            FetchPost(postId);
+        }
+    }, []);
+    useEffect(() =>{
+        setSlug(title?.toLocaleLowerCase().split(" ").join("-"));
+
+    },[title])
     const handleFiles = async (files) => {
         setImageState({
             ...imageState,
@@ -218,32 +311,19 @@ export default function NewPost({ user }) {
         }
     }
 
+
+
     return (
         <>
             <Head>
-                <title>New Post</title>
+                <title>Editing Post</title>
             </Head>
             <DashboardPage user={user}>
                 <Header>
-                    <h4>
-                    <BiEditAlt/>
-                        Create a New Post
-                    </h4>
                     <Button as={Link} level="true" href="/dashboard/blog">
                         Go Back
                     </Button>
                 </Header>
-                {/* <Card className="flex-row">
-                   
-
-                    <Button
-                        onClick={uploadPost}
-                    >
-                        Create
-                    </Button>
-                </Card> */}
-                <State  {...state} />
-
                 <div className="d-flex align-items-start justify-content-between g-3 mt-3">
                     <Card>
                         <FormElement>
@@ -257,7 +337,7 @@ export default function NewPost({ user }) {
                             <Label htmlFor="description">Post Description</Label>
                             <TextArea
                                 type="text"
-                                id="description" slug
+                                id="description" 
                                 placeholder="Post Description"
                                 underlined
                                 value={description}
@@ -272,7 +352,7 @@ export default function NewPost({ user }) {
                         </FormElement>
                         <FormElement>
                             <h6>Post Content</h6>
-                            <JoditEditor ref={editor} value={content} onChange={setContent} />
+                            <JoditEditor ref={editor} value={content} onChange={(value) => setContent(value)} />
 
                         </FormElement>
                        
@@ -304,10 +384,8 @@ export default function NewPost({ user }) {
                             <Switch
                                 checked={postState === "published"}
                                 onChange={(e) => {
-                                    (e.target.checked) ?
-                                        setPostState("published")
-                                        :
-                                        setPostState("draft");
+                            setPostState(e.target.checked ? "published" : "draft");
+                                    
                                 }}
                                 id="publish"
                                 label={"Publish"}
@@ -388,12 +466,18 @@ export default function NewPost({ user }) {
                             </FormHelper>
                         </FormElement>
                         <div className="d-flex align-items-start justify-content-between g-3 mt-3 children-fill">
-                        <Button nature="danger" low>
-                            Delete
-                        </Button>
-                        <Button low>
-                            Post
-                        </Button>
+                            <Button nature="danger" low="true"
+                              
+                              onClick={deletePost}
+
+                            >
+                                Delete
+                            </Button>
+                            <Button low="true"
+                                onClick={updatePost}
+                            >
+                                Update
+                            </Button>
 
                         </div>
                         
@@ -407,7 +491,7 @@ export default function NewPost({ user }) {
 
 export async function getServerSideProps(context) {
 
-
+    
     const session = await getSession(context);
 
     if (!session)
@@ -418,10 +502,18 @@ export async function getServerSideProps(context) {
             }
         }
 
+    if (session.user.role !== 'admin') {
+        console.log("You are not admin");
+        return {
+            redirect: {
+                destination: '/dashboard',
+                permanent: false
+            }
+        }
+    }
 
 
     return {
-        props: { user :session.user},
-
+        props: { user:session.user },
     }
 }
