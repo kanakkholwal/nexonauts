@@ -5,7 +5,7 @@ import nextConnect from 'next-connect';
 
 
 export default nextConnect(handler)
-    .get(async (req, res) =>{
+    .post(async (req, res) =>{
         try {
             await dbConnect();
 
