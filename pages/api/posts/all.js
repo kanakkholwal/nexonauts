@@ -1,4 +1,5 @@
 import handler from 'lib/handler';
+import User from "models/user";
 import Post from "models/post";
 import dbConnect from "lib/dbConnect";
 import nextConnect from 'next-connect';
@@ -12,6 +13,7 @@ export default nextConnect(handler)
         .sort({ createdAt: -1 })
         .populate('author.user', 'name profileURl')
         .select('title description slug labels image author createdAt publishedAt comments');
+        // console.log(posts)
 
       return res.status(200).json({
         message: 'Posts Fetched Successfully!',

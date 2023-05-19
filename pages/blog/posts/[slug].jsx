@@ -1,15 +1,16 @@
 import {checkEnvironment} from "lib/scripts";
 import axios from "axios";
 
-export default function Blog({ post }) {
-  // console.log(post)
+export default function Post({ post }) {
+  console.log(post)
     return (
-      <ul>
-        {/* {posts.map((post) => ( */}
-          <p>{post.title}</p>
-          <p>{post.description}</p>
-        {/* ))} */}
-      </ul>
+      <div>
+        
+          {/* <p>{post?.title}</p>
+          <p>{post?.description}</p> */}
+          <p>{post?.slug}</p>
+  
+      </div>
     );
   }
 
@@ -18,12 +19,12 @@ export default function Blog({ post }) {
   // It may be called again, on a serverless function, if
   // the path has not been generated.
   export async function getStaticPaths() {
-    const {data} = await axios.post(checkEnvironment().concat("/api/posts/all"));
+    const response = await axios.post((process.env.NEXT_PUBLIC_WEBSITE_URL).concat("/api/posts/all"));
     
    
    
     // Get the paths we want to pre-render based on posts
-    const paths = data.posts.map((post) => {
+    const paths = response?.data?.posts?.map((post) => {
      
         return {
             params: { 
@@ -41,10 +42,10 @@ export default function Blog({ post }) {
     // params contains the post `id`.
     // If the route is like /posts/1, then params.id is 1
     
-    const {data} = await axios.post(checkEnvironment().concat("/api/posts/"+params.slug));
+    const response = await axios.post((process.env.NEXT_PUBLIC_WEBSITE_URL).concat("/api/posts/"+params.slug));
 
     // Pass post data to the page via props
-    if (!data.post) {
+    if (!response?.data?.post) {
       return {
         notFound: true,
       };
