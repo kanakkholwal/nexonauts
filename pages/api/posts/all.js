@@ -13,7 +13,7 @@ export default nextConnect(handler)
         .sort({ createdAt: -1 })
         .populate('author.user', 'name profileURl')
         .select('title description slug labels image author createdAt publishedAt comments');
-        // console.log(posts)
+      // console.log(posts)
 
       return res.status(200).json({
         message: 'Posts Fetched Successfully!',

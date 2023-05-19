@@ -6,18 +6,19 @@ import nextConnect from 'next-connect';
 
 
 export default nextConnect(handler)
-    .post(async (req, res) =>{
+    .post(async (req, res) => {
         try {
             await dbConnect();
 
-        
-            const { postSlug } = req.query;
 
-            const existingPost = await Post.findOne({slug:postSlug}).select('+content').populate('author.user', 'name profileURl')
+            const { slug } = req.query;
+
+            const existingPost = await Post.findOne({ slug: slug }).select('+content').populate('author.user', 'name profileURl')
             if (!existingPost)
                 return res.status(404).json({ message: 'Post not found!' })
-            if(existingPost.state !== "published")
-                return res.status(404).json({ message: 'Post not found!' })
+            if (existingPost.state !== "published") {
+                return res.status(404).json({ message: 'Post not published!' })
+            }
 
 
             return res.status(200).json({ message: 'Post Fetched Successfully!', post: existingPost })
