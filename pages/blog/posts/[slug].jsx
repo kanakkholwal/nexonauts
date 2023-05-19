@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Interweave } from 'interweave';
 
 export async function getStaticPaths() {
   const response = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/all`);
@@ -31,8 +32,9 @@ export async function getStaticProps({ params }) {
 
 export default function Post({ post }) {
   return (
-    <div>
+    <div className="BlogPost">
       <p>{post?.slug}</p>
+      <Interweave content={post.content}/>
     </div>
   );
 }
