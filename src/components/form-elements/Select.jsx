@@ -88,10 +88,18 @@ const SelectDropdownWrapper = styled.div`
    width: max-content;
    min-width: 100%;
    transition: opacity .15s cubic-bezier(0, 0, .2, 1) 0ms, transform .15s cubic-bezier(0, 0, .2, 1) 0ms, -webkit-transform .15s cubic-bezier(0, 0, .2, 1) 0ms;
-   box-shadow: 0 0 0.5rem rgba(0, 0, 0, 0.1);
-   transform: scale(.8);
+   overflow: hidden auto;
+    min-height: 16px;
+    max-width: calc(100% - 32px);
+    outline: 0px;
+    box-shadow: rgba(145, 158, 171, 0.24) 0px 0px 2px 0px, rgba(145, 158, 171, 0.24) -20px 20px 40px -4px;
+    border-radius: 12px;
+    max-height: 260px;
+       transform: scale(.8);
    opacity: 0;
    pointer-events:none;
+border-radius: 0.25rem;
+background: #fbfbfb;
       
    &.isOpen {
           transform: scale(1);
@@ -105,49 +113,48 @@ const SelectDropdown = styled.ul`
 display: flex;
 flex-direction: column;
 align-items: center;
-border-radius: 0.25rem;
-padding-block: 0.25rem;
-background: #fbfbfb;
 width: max-content;
 min-width: 100%;
 gap: 0;
-border-radius:0.5rem;
-
 `;
 
 const SelectDropdownItem = styled.li`
-display: flex;
+    display: flex;
     justify-content: space-between;
     padding-block: 0.5rem;
     padding-inline: 1.5rem;
     color: rgba(0, 0, 0, 0.87);
     transition: all 0.25s ease-in-out;
     opacity: 0.85;
-    font-weight:600;
-width: 100%;
-white-space: nowrap;
-text-overflow: ellipsis;
-overflow: hidden;
-cursor: pointer;
+    box-sizing: border-box;
+    white-space: nowrap;
+    border-radius: 6px;
+    line-height: 1.57143;
+    font-size: 0.875rem;
+    text-transform: capitalize;
+    width: 100%;
+    cursor: pointer;
+    margin: 0px 8px;
+    
+    &:is(:hover, :active ) {
+      opacity:1;
+      background:rgba(0,0,0,0.05);
+    }
 
-&:is(:hover, :active ) {
-opacity:1;
-background:rgba(0,0,0,0.05);
-}
-&.isActive{
-    color:var(--theme)
-}
+    &.isActive{
+      color:var(--theme)
+    }
 
 
-&:first-child {
-  border-top-left-radius: 0.25rem;
-  border-top-right-radius: 0.25rem;
-}
+    &:first-child {
+      border-top-left-radius: 0.25rem;
+      border-top-right-radius: 0.25rem;
+    }
 
-&:last-child {
-  border-bottom-left-radius: 0.25rem;
-  border-bottom-right-radius: 0.25rem;
-}
+    &:last-child {
+      border-bottom-left-radius: 0.25rem;
+      border-bottom-right-radius: 0.25rem;
+    }
 `;
 
 
