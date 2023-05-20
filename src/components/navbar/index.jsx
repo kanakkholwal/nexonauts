@@ -111,7 +111,7 @@ export const Logo = styled.div`
 
 export const ProfileWrapper = styled.div`
 position: relative;
-margin-inline:auto 1rem;
+margin-inline:0.75rem;
 `;
 export const Profile = styled.div`
 display: flex;

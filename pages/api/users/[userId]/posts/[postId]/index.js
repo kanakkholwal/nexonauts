@@ -60,12 +60,13 @@ export default nextConnect(handler)
       }
 
       const existingPostWithSlug = await Post.findOne({ slug: post.slug });
-      if (existingPostWithSlug) {
-        return res.status(409).json({ message: 'Post with this slug already exists!' });
+      const existingPostWithId = await Post.findById(postId);
+      if (!(existingPostWithSlug._id.toString() === existingPostWithId._id.toString())) {
+        return res.status(402).json({ message: 'Post with this slug already exists!' });
       }
-
-      const updatedPost = await Post.findOneAndUpdate(
-        { _id: postId },
+      const updatedPost = await Post.findOneAndUpdate({
+          _id: postId
+      },
         {
           $set: {
             title: post.title,
@@ -84,7 +85,10 @@ export default nextConnect(handler)
             publishedAt: post.state === 'published' ? Date.now() : null
           }
         },
-        { new: true }
+        {
+           new: true 
+          
+        }
       ).select("+content");
 
       if (!updatedPost) {
