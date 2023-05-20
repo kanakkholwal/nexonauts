@@ -7087,14 +7087,14 @@ main.Container {
   --raisin-black_a6: hsla(216, 14%, 14%, 0.06);
   --gunmetal: hsla(214, 15%, 21%, 1);
   --charcoal: hsla(219, 22%, 26%, 1);
-  --fs-1: calc(2.7rem + 1.38vw);
-  --fs-2: calc(2.6rem + .66vw);
-  --fs-3: calc(2.6rem + .24vw);
-  --fs-4: 1.9rem;
-  --fs-5: 1.8rem;
-  --fs-6: 1.7rem;
-  --fs-7: 1.5rem;
-  --fs-8: 1.4rem;
+  --fs-1: calc(1.9rem + 1.38vw);
+  --fs-2: calc(1.8rem + .66vw);
+  --fs-3: calc(1.7rem + .24vw);
+  --fs-4: 1.6rem;
+  --fs-5: 1.4rem;
+  --fs-6: 1.2rem;
+  --fs-7: 1rem;
+  --fs-8: 0.8rem;
   --fw-700: 700;
   --section-padding: 90px;
   --shadow-1: hsla(264, 67%, 38%, 0.11) 0px 15px 72px;
@@ -7144,8 +7144,6 @@ main.Container {
 }
 
 html {
-  font-family: var(--ff-manrope);
-  font-size: 10px;
   scroll-behavior: smooth;
 }
 html::-webkit-scrollbar {
@@ -7163,89 +7161,13 @@ html::-webkit-scrollbar-thumb:hover {
 
 body {
   font-weight: 400;
-  font-size: 1.25rem;
-  line-height: normal;
+  font-size: 16px;
+  line-height: 1.6;
   background: var(--body-bg);
   color: var(--body-color);
-  font-size: 1.6rem;
-  line-height: 1.7;
   font-family: var(--body-font);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-}
-body.DarkMode {
-  --theme-rgb: 192, 188, 255;
-  --body-color: hsl(0, 100%, 99%);
-  --body-bg: #21272f;
-  --dense-bg: rgb(22, 28, 36);
-  --hover-bg: rgba(145, 158, 171, 0.08);
-  --text-muted: hsla(0, 100%, 99%, .8);
-  --card-bg: #343b44;
-  --text-rgb: 233,
-      237,
-      242;
-  --icon-bg: #8384892e;
-  --drop-bg: rgb(33, 43, 54);
-  --drop-shadow: rgb(0 0 0 / 24%) 0px 0px 2px 0px,
-      rgb(0 0 0 / 24%) -20px 20px 40px -4px;
-  --card-shadow: rgb(0 0 0 / 20%) 0px 0px 2px 0px,
-      rgb(0 0 0 / 12%) 0px 12px 24px -4px;
-  --border-color: #8384892e;
-  --text-color: rgb(193 197 219);
-  --success: hsl(142deg 42% 60%);
-  --successBg: rgb(22 101 52 / 20%);
-  --danger: hsl(0, 100%, 79%);
-  --dangerBg: hsl(0deg 98% 47% / 20%);
-  --info: hsl(194deg 83% 66%);
-  --infoBg: rgba(20, 158, 202, .2);
-  --warning: hsl(50deg 86% 61%);
-  --warningBg: rgb(250 204 21 / 20%);
-  --badge: hsl(235, 100%, 85%);
-  --badgeBg: rgb(107 117 219 / 20%);
-  --form-border: rgba(145, 158, 171, 0.32);
-  --form-border-active: var(--theme);
-  --form-label: hsl(229, 8%, 73%);
-  --form-label-active: #eee;
-  --form-bg: none;
-  --form-bg-active: none;
-  --form-color: #eee;
-  --form-color-active: #262626;
-  --form-caret: var(--theme);
-  --form-active: var(--theme);
-  --form-helper: hsl(240, 3%, 73%);
-  --form-checkbox-border: hsla(229, 13%, 33%, 0.671);
-  --form-checkbox-bg: none;
-  --codeblock-header-text: #fbfbfb;
-  --codeblock-header-bg: #242932;
-  --codeblock-body-bg: #131618;
-  --code-color: #eee;
-  --tag: #ff0a91;
-  --attr-name: #77b300;
-  --attr-value: #00b3ff;
-  --property: #f8c555;
-  --sidebar-bg: rgb(22, 28, 36);
-  --sidebar-color: #e3eefb;
-  --sidebar-link: inherit;
-  --sidebar-link-bg: inherit;
-  --sidebar-link-hover: rgb(28, 156, 234);
-  --sidebar-link-bg-hover: rgba(145, 158, 171, 0.08);
-  --white: var(--body-bg);
-  --cultured: var(--dense-bg);
-  --white_a8: hsla(0, 0%, 100%, .08);
-  --white_a12: hsla(0, 0%, 100%, .12);
-  --snow: hsla(196, 52%, 46%, 1);
-  --manatee: #949ba8;
-  --black-coral: #fffcfc;
-  --cadet-blue-crayola_a20: rgba(164, 174, 198, .2);
-  --cinnamon-satin: rgb(28, 156, 234);
-  --raisin-black: #1f2329;
-  --raisin-black_a6: rgb(9 22 41 / 36%);
-  --gunmetal: #2e343e;
-  --charcoal: #fbfbfb;
-  --shadow-1: rgb(0 0 0 / 16%) 0px 15px 72px;
-  --shadow-2: rgb(30 27 27 / 35%) 1px -1px 16px 0px;
-  --link: hsl(196, 83%, 65%);
-  --link-hover: hsla(196, 52%, 46%, 1);
 }
 
 img {
@@ -7257,10 +7179,6 @@ img {
      -moz-user-select: none;
           user-select: none;
   -webkit-user-drag: none;
-}
-
-.DarkMode svg {
-  color: hsl(0, 0%, 85%);
 }
 
 button {
@@ -7373,9 +7291,9 @@ li {
 }
 @keyframes skeleton-loading {
   0% {
-    background-color: hsl(200, 20%, 70%);
+    background-color: #a3b8c2;
   }
   100% {
-    background-color: hsl(200, 20%, 95%);
+    background-color: #f0f3f5;
   }
 }/*# sourceMappingURL=global.css.map */
