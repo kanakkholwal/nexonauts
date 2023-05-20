@@ -46,6 +46,30 @@ aspect-ratio: 1;
 height: 40px;
 font-size:1.25rem;
 `;
+const NoSearchResult = styled.div`
+width:100%;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+margin:3rem auto;
+text-align:center;
+h6{
+    font-size:1.25rem;
+    font-weight:700;
+    color:rgba(var(--text-rgb),1);
+    margin-bottom:0.75rem;
+
+}
+p{
+    font-size:1rem;
+    font-weight:500;
+    color:rgba(var(--text-rgb),0.6);
+    strong{
+        color:rgba(var(--text-rgb),1);
+    }
+}
+`;
 const SearchResultItem = styled(Link)`
 width:100%;
 display:flex;
@@ -86,7 +110,6 @@ border-radius: 0.5rem;
 backdrop-filter: blur(20px);
 box-shadow:rgba(145, 158, 171, 0.24) 0px 0px 2px 0px, rgba(145, 158, 171, 0.24) -20px 20px 40px -4px;
 padding: 0.75rem 0.5rem;
-z-index: 999;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -209,17 +232,32 @@ export default function Header({ user, routes, children }) {
                 </Children>
                 <SearchWrapper open={isSearchOpen}>
                     <CgSearch />
-                    <SearchInput type="text" placeholder="Search" value={searchPath} onChange={(e) => setSearchPath(e.target.value)}  onClick={() => setSearchResults((state) => !state)}/>
-                    <CgClose  onClick={() => setIsSearchOpen(false)} />
-                    <SearchDropDown open={searchResults}>
-                        {routes?.filter((route) => route.path.includes(searchPath)).map((route) => (
-                            <SearchResultItem href={route.path} key={route.path}>
-                                               <h6>{route.title}</h6>
-                                               <p>{route.path}</p>
-                            </SearchResultItem>
-                        ))}
-                    </SearchDropDown>
+                    <SearchInput type="text" placeholder="Search" value={searchPath} onChange={(e) => setSearchPath(e.target.value)} onClick={() => setSearchResults(true)} />
+                    <CgClose onClick={() => {
+                        setIsSearchOpen(false);
+                        setSearchResults(false);
+                    }} />
+                    {
+                        searchResults ?
+                            <SearchDropDown open={searchResults}>
+                                {
+                                    routes?.filter((route) => route.path.includes(searchPath)).length > 0 ?
+
+                                        routes?.filter((route) => route.path.includes(searchPath)).map((route) => (
+                                            <SearchResultItem href={route.path} key={route.path}>
+                                                <h6>{route.title}</h6>
+                                                <p>{route.path}</p>
+                                            </SearchResultItem>
+                                        )) : <NoSearchResult>
+                                            <h6>Not Found </h6>
+                                            <p>No results found for <strong>{`"${searchPath}"`}</strong>.</p>
+                                            <p>Try Checking for Typos or use complete words.</p>
+
+                                        </NoSearchResult>}
+                            </SearchDropDown> : null
+                    }
                 </SearchWrapper>
+
 
                 <SearchToggler level="true" low="true"
                     rounded onClick={() => setIsSearchOpen((state) => !state)}>
