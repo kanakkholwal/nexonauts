@@ -31,7 +31,7 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 gap:1rem;
-padding-bottom:1rem;
+padding-bottom:0.75rem;
 border-bottom:1px solid #eee;
 `;
 export const CardFooter = styled.div`
@@ -46,7 +46,7 @@ border-top:1px solid #eee;
 export const CardBody = styled.div`
 flex: 1 1 auto;
 `;
-export const CardTitle = styled.h4`
+export const CardTitle = styled.h5`
 display: -webkit-box;
 -webkit-box-orient: vertical;
 overflow: hidden;
