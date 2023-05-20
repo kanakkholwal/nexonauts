@@ -19,7 +19,7 @@ backdrop-filter: blur(20px);
 box-shadow: 0px 0px 9rem 0px #6658d31c;
 padding: 1.25rem;
 font-weight: 600;
-font-size: 1.7rem;
+font-size: 1rem;
 transition: all 0.3s ease-in-out;
 transform: translateX(-100%);
 z-index: 1000;
