@@ -189,6 +189,14 @@ export default function NewPost({ user }) {
 
     }
     const FetchPost = async (postId) => {
+        setState({
+            ...state,
+            loader: {
+                ...state.loader,
+                show: true,
+            }
+
+        })
         await axios.post("/api/users/"+user.id+"/posts/" + postId)
             .then(({ data }) => {
                 const post = data?.post;
