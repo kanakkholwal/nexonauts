@@ -3,12 +3,11 @@ import Footer from "./footer";
 import { MainWrapper, ContentWrapper, Hero } from "./wrapper";
 import SideNav from "./sidenav";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
-import { BsFillJournalBookmarkFill } from "react-icons/bs";
 import { BiBell } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
 import { RxDashboard } from "react-icons/rx";
-import { TbTools,TbMessageDots } from "react-icons/tb";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import { TbTools,TbMessageDots,TbBrandBlogger } from "react-icons/tb";
+import { RiAdminLine } from "react-icons/ri";
 
 export { Header } from "./elements";
 
@@ -53,12 +52,12 @@ const routes = (userRole) => {
         {
             title: "Dashboard",
             path: "/dashboard/admin",
-            icon: <MdOutlineAdminPanelSettings />,
+            icon: <RiAdminLine />,
         },
         {
             title: "Blog",
             path: "/dashboard/admin/blog",
-            icon: <BsFillJournalBookmarkFill />,
+            icon: <TbBrandBlogger />,
         },
         {
             title: "Users",

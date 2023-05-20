@@ -10,7 +10,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { TbTools, TbLayoutSidebarRightCollapse, TbLayoutSidebarRightExpand } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import { CgSearch, CgClose } from "react-icons/cg";
-import { MdOutlineAdminPanelSettings, MdLogout } from "react-icons/md";
+import {  MdLogout } from "react-icons/md";
 import Image from "next/image";
 
 export const NavBarWrapper = styled(Wrapper)`

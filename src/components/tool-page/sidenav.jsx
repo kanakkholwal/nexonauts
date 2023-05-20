@@ -14,7 +14,7 @@ width: var(--sidenav-width);
 height: 100%;
 display: flex;
 flex-direction: column;
-background-color: rgb(244 247 254 / 20%);
+background-color: rgb(255 255 255 / 80%);
 backdrop-filter: blur(20px);
 box-shadow: 0px 0px 9rem 0px #6658d31c;
 padding: 1.25rem;
@@ -37,12 +37,12 @@ z-index: 1000;
 `;
 const CloseButton = styled.button`
 position: absolute;
-left: 5px;
-top: 5px;
+left: 15px;
+top: 15px;
 cursor: pointer;
 border-radius: 50%;
-height: 2.5rem;
-width: 2.5rem;
+height: 1.5rem;
+width: 1.5rem;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -62,8 +62,11 @@ padding: 1rem 0.5rem;
 text-align: center;
 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 margin-bottom: 1rem;
+@media (max-width: 1024px) {
+    margin-top:1.5rem;
+}
 `;
-const SectionTitle = styled.h3`
+const SectionTitle = styled.h5`
 padding: 0.5rem 0;
 `;
 
@@ -72,36 +75,66 @@ display:flex;
 flex-direction:column;
 align-items:center;
 `;
+const Icon = styled.span`
+border-radius:inherit;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-right:0.5rem;
+aspect-ratio:1;
+padding: 0.75rem;
+border-radius: 2rem;
+transition: all 0.3s ease-in-out;
+color: rgba(var(--text-rgb), 0.8);
+background: rgba(var(--theme-rgb), 0.1);
+
+`;
+const Title = styled.span`
+font-size: 1rem;
+font-weight: 600;
+`;
 const Link = styled.a`
 display:flex;
-gap:0.5rem;
-font-weight: 600;
+gap:0.625rem;
+padding:2px;
 align-items:center;
 justify-content:flex-start;
 width:100%;
 transition: all 0.3s ease-in-out;
-padding: 0.75rem 1.5rem;
 border-radius: 2rem;
 margin-bottom:0.25rem;
+color: rgba(var(--text-rgb), 0.8);
+background: rgba(var(--theme-rgb), 0.08);
 
 &:hover,&.active{
-    background-color: rgba(var(--theme-rgb), 0.2);
+
+    &>${Icon}{
+        ${'' /* color: rgba(var(--theme-rgb), 0.8); */}
+        background: rgba(var(--theme-rgb), 0.2);
+        scale:1.1;
+    }
+    ${'' /* color: rgba(var(--theme-rgb), 0.8); */}
+    background: rgba(var(--theme-rgb), 0.1);
 }
 `;
 const LogoutButton = styled.button`
 margin-top:auto;
 width:100%;
-font-size:1.2rem;
+font-size:1rem;
 text-align:center;
 `;
 
 
-const RecursiveLinkList = ({ links }) => {
-
-    return (<LinkList>{links?.map((item, index) => (<Link as={NavLink} key={index} href={item.path}>{item?.icon}{item.title}{item.children?.length > 0 ? <RecursiveLinkList links={item.children} /> : null}</Link>))}</LinkList>)
+const RecursiveLinkList = ({ routes }) => {
+    return (
+        <LinkList>
+            {routes?.map((item, index) => (<Link as={NavLink} key={index} href={item.path}>
+                {item?.icon ? <Icon>{item?.icon}</Icon>:null}<Title>{item.title}</Title>{item.children?.length > 0 ? <RecursiveLinkList routes={item.children} /> : null}
+            </Link>))}
+        </LinkList>)
 }
 
-export default function SideNav({ links, session }) {
+export default function SideNav({ routes, user }) {
 
 
     const sidenavRef = useRef(null);
@@ -114,8 +147,8 @@ export default function SideNav({ links, session }) {
                     K K UPGRADER
                 </SectionTitle>
             </SideNavHeader>
-            {links?.length > 0 ? <RecursiveLinkList links={links} /> : null}
-            {session ? <LogoutButton as={Button} level="true" onClick={() => signOut()}>Sign Out <MdLogout /> </LogoutButton> : null}
+            {routes?.length > 0 ? <RecursiveLinkList routes={routes} /> : null}
+            {user ? <LogoutButton as={Button} level="true" onClick={() => signOut()}>Sign Out <MdLogout /> </LogoutButton> : null}
         </SideNavWrapper>
     )
 }

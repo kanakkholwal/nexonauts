@@ -42,21 +42,21 @@ const ErrorWrapper = styled.div`
         width: 100%;
         max-width: 480px;
         h2{
-            font-size: 10rem;
-            font-weight: 600;
+            ${'' /* font-size: 10rem; */}
+            ${'' /* font-weight: 600; */}
             color: rgba(var(--text-rgb),0.8);
         }
         h3{
-            font-size: 3rem;
-            font-weight: 600;
+            ${'' /* font-size: 3rem; */}
+            ${'' /* font-weight: 600; */}
             color: rgba(var(--text-rgb), 0.7);
         }
         p{
-            font-size: 1.7rem;
-            font-weight: 600;
+            ${'' /* font-size: 1.7rem; */}
+            ${'' /* font-weight: 600; */}
             color: rgba(var(--text-rgb), 0.5);
         }
-        a{
+        ${'' /* a{
             font-size: 1.7rem;
         }
         @media (max-width: 768px) {
@@ -69,9 +69,9 @@ const ErrorWrapper = styled.div`
             }
             p{
                 font-size: 1.5rem;
-            }
+            } */}
 
-    }
+    ${'' /* } */}
 `;
 
 
@@ -110,9 +110,9 @@ export default function Page() {
             <ErrorWrapper>
                 <Image src="/404.svg" alt="404" width={500} height={500} />
                 <div>
-                    <h2> 404 </h2>
-                    <h3>Oops!</h3>
-                    <h3>Page Not Found</h3>
+                    <h1> 404 </h1>
+                    <h4>Oops!</h4>
+                    <h4>Page Not Found</h4>
                     <p >This page doesn't exist or was removed!<br />
                         We suggest you back to home </p>
                     <Button size="lg" as={Link} href="/">Back to Home</Button>

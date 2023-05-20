@@ -4,7 +4,7 @@ import { MainWrapper, ContentWrapper, Hero } from "components/tool-page/wrapper"
 import SideNav from "components/tool-page/sidenav";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import Link from "next/link";
-import { CategoryList } from "pages/tools/ToolsList";
+import { CategoryList,ToolList } from "pages/tools/ToolsList";
 
 const SocialMedia = [
     {
@@ -34,9 +34,9 @@ export default function ToolPage({ headerChildren, children, session, metadata }
 
     return (
         <>
-            <SideNav links={CategoryList} />
+            <SideNav routes={CategoryList} />
             <MainWrapper id="main_wrapper" className="isSidenavOpen">
-                <Header session={session}>
+                <Header session={session} routes={[...ToolList]} >
                     {headerChildren ? headerChildren : <>
                         <Link href="/tools">Tools</Link>
                         <Link href="/about">About</Link>

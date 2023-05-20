@@ -14,6 +14,11 @@ const contactMailSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    type:{
+        type: String,
+        required: true,
+        default:"normal"
+    },
     category: {
         type: String,
         required: true
