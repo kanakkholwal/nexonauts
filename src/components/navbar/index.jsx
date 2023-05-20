@@ -27,7 +27,6 @@ export const NavBarWrapper = styled.div`
     width: calc(100vw - 6%);
     align-items: center;
     justify-content: ${({ align }) => align ? align : 'space-between'};
-    font-size: 16px;
     box-shadow:  0px 0px 9rem 0px #6658d31c;
     a>img{
         margin-top:-12px;
@@ -46,7 +45,7 @@ export const MenuList = styled.div`
     max-width: 380px;
         a {
             color: rgba(var(--text-color), 0.5);
-            font-size: 1.7rem;
+            font-size: 1rem;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
@@ -100,7 +99,7 @@ svg{
 `;
 
 export const Logo = styled.div`
-    font-size: 1.7rem;
+    font-size: 1rem;
     font-weight: 600;
     color: rgba(var(--text-color), 0.5);
     transition: all 0.3s ease;
@@ -143,7 +142,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
-gap: 1rem;
+gap: 0.2rem;
 transform-origin: top right;
 transform: ${({ open }) => open ? 'scale(1)' : 'scale(0)'};
 opacity: ${({ open }) => open ? '1' : '0'};
@@ -151,7 +150,7 @@ visibility: ${({ open }) => open ? 'visible' : 'hidden'};
 transition: all 0.3s ease-in-out;
 `;
 export const ProfileDropDownInfo = styled.div`
-font-size: 1.7rem;
+font-size: 1rem;
 font-weight: 600;
 text-decoration: none;
 transition: all 0.3s ease;
@@ -163,19 +162,22 @@ display:flex;
 align-items:center;
 justify-content:flex-start;
 flex-wrap:wrap;
-gap:10px;
+gap:5px;
 &:not(:last-child){
     border-bottom: 1px solid rgba(var(--text-rgb), 0.1);
 }
+h5{
+    font-size:1.125rem
+}
 `;
 export const ProfileDropDownItem = styled.a`
-font-size: 1.7rem;
+font-size: 1rem;
 font-weight: 600;
 text-decoration: none;
 transition: all 0.3s ease;
 width: 100%;
 padding:0.5rem 1rem;
-border-radius: 2rem;
+border-radius: 10px;
 color: rgba(var(--text-rgb), 0.9);
 display:flex;
 align-items:center;

@@ -14,8 +14,8 @@ const FooterWrapper = styled.div`
     max-width: var(--max-width);
     margin-inline: auto;
     h2{
-        font-size: 3rem;
-        font-weight: 600;
+        ${'' /* font-size: 3rem;
+        font-weight: 600; */}
         color: rgba(var(--text-rgb), 0.9);
     }
     &>div{

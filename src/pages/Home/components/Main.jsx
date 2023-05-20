@@ -3,16 +3,16 @@ import { IoArrowForwardOutline } from "react-icons/io5";
 import { FiExternalLink } from "react-icons/fi";
 import Link from "next/link";
 import Image from "next/image";
-import { useContext } from "react";
-import { ThemeContext } from "../Home"
+// import { useContext } from "react";
+// import { ThemeContext } from "../Home"
 
 const ImgLoader = ({ src, width, quality }) => {
     return `${process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://kkupgrader.eu.org"}/${src}?w=${width}&q=${quality || 75}`
 }
-
+const DarkMode = false
 export default function Main({ data }) {
 
-    const { DarkMode } = useContext(ThemeContext);
+    // const { DarkMode } = useContext(ThemeContext);
 
     return (
         <main>
