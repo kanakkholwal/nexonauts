@@ -26,15 +26,21 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 
-    const componentPath: string = ToolList.find(({ path }) => path.split("/").pop() === params.toolName).path;
+    const componentPath = ToolList.find(({ path }) => path.split("/").pop() === params.toolName).path;
 
+    if(!componentPath)
+    {
+        return {
+            notFound: true
+        }
+    }
 
     return { props: { slug: componentPath } }
 }
 
 
 
-export default function Tool({ slug }): JSX.Element {
+export default function Tool({ slug }) {
     const { data: session } = useSession();
 
     const ToolComponent = ToolList.find(({ path }) => path === slug);

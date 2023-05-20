@@ -30,6 +30,12 @@ export async function getStaticProps({ params }) {
 
     const path = CategoryList.find(({ path }) => path.split("/").pop() === params.categoryName).path;
 
+    if(!path)
+    {
+        return {
+            notFound: true
+        }
+    }
     return { props: { path } }
 }
 
@@ -37,7 +43,7 @@ export async function getStaticProps({ params }) {
 
 
 
-export default function Tool({ path }): JSX.Element {
+export default function Tool({ path }){
     const { data: session } = useSession();
 
     const Category = CategoryList.find((category) => category.path === path);
