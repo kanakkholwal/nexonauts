@@ -6991,7 +6991,7 @@ main.Container {
   --badgeBg: rgb(107 117 219 / 20%);
   --cubic-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --max-width: 1400px;
-  --sidenav-width: 28rem;
+  --sidenav-width: 300px;
   --border-radius: 12px;
   --font-mono: "Fira Code", ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
       "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
