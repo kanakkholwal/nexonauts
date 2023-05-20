@@ -14,7 +14,7 @@ width: var(--sidenav-width);
 height: 100%;
 display: flex;
 flex-direction: column;
-background-color: rgb(244 247 254 / 20%);
+background-color: rgb(255 255 255 / 80%);
 backdrop-filter: blur(20px);
 box-shadow: 0px 0px 9rem 0px #6658d31c;
 padding: 1.25rem;
