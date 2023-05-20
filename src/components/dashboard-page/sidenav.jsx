@@ -19,7 +19,7 @@ backdrop-filter: blur(20px);
 box-shadow: 0px 0px 9rem 0px #6658d31c;
 padding: 1.25rem;
 font-weight: 600;
-font-size: 1.7rem;
+font-size: 1rem;
 transition: all 0.3s ease-in-out;
 transform: translateX(-100%);
 z-index: 1000;
@@ -37,12 +37,12 @@ z-index: 1000;
 `;
 const CloseButton = styled.button`
 position: absolute;
-left: 5px;
-top: 5px;
+left: 15px;
+top: 15px;
 cursor: pointer;
 border-radius: 50%;
-height: 3.5rem;
-width: 3.5rem;
+height: 1.5rem;
+width: 1.5rem;
 display: flex;
 align-items: center;
 justify-content: center;
@@ -63,7 +63,7 @@ text-align: center;
 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 margin-bottom: 1rem;
 @media (max-width: 1024px) {
-    margin-top:4rem;
+    margin-top:1.5rem;
 }
 `;
 const SectionTitle = styled.h3`
@@ -75,20 +75,43 @@ display:flex;
 flex-direction:column;
 align-items:center;
 `;
+const Icon = styled.span`
+border-radius:inherit;
+display:flex;
+align-items:center;
+justify-content:center;
+margin-right:0.5rem;
+aspect-ratio:1;
+padding: 0.75rem;
+border-radius: 2rem;
+transition: all 0.3s ease-in-out;
+color: rgba(var(--text-rgb), 0.8);
+background: rgba(var(--theme-rgb), 0.1);
+
+`;
+const Title = styled.span`
+font-size: 1rem;
+font-weight: 600;
+`;
 const Link = styled.a`
 display:flex;
 gap:0.625rem;
-font-size: 1.7rem;
-font-weight: 600;
+padding:2px;
 align-items:center;
 justify-content:flex-start;
 width:100%;
 transition: all 0.3s ease-in-out;
-padding: 0.75rem 1.5rem;
 border-radius: 2rem;
 margin-bottom:0.25rem;
 color: rgba(var(--text-rgb), 0.8);
+background: rgba(var(--theme-rgb), 0.08);
+
 &:hover,&.active{
+
+    &>${Icon}{
+        color: rgba(var(--theme-rgb), 0.8);
+        background: rgba(var(--theme-rgb), 0.2);
+    }
     color: rgba(var(--theme-rgb), 0.8);
     background: rgba(var(--theme-rgb), 0.1);
 }
@@ -96,7 +119,7 @@ color: rgba(var(--text-rgb), 0.8);
 const LogoutButton = styled.button`
 margin-top:auto;
 width:100%;
-font-size:1.2rem;
+font-size:1rem;
 text-align:center;
 `;
 
@@ -105,7 +128,7 @@ const RecursiveLinkList = ({ links }) => {
     return (
         <LinkList>
             {links?.map((item, index) => (<Link as={NavLink} key={index} href={item.path}>
-                {item?.icon}{item.title}{item.children?.length > 0 ? <RecursiveLinkList links={item.children} /> : null}
+                {item?.icon ? <Icon>{item?.icon}</Icon>:null}<Title>{item.title}</Title>{item.children?.length > 0 ? <RecursiveLinkList links={item.children} /> : null}
             </Link>))}
         </LinkList>)
 }

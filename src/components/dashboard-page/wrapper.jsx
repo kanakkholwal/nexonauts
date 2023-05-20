@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {NavBarWrapper} from "./header";
 
 export const MainWrapper = styled.div`
 width: 100%;
@@ -10,6 +11,9 @@ padding-inline: 0;
 position: relative;
 @media (min-width: var(--max-width)) {
     &.isSidenavOpen:has(~.isOpen){
+        padding-left:var(--sidenav-width);
+    }
+    &.isSidenavOpen:has(~.isOpen) ${NavBarWrapper}{
         padding-left:var(--sidenav-width);
     }
 }

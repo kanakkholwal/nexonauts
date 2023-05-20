@@ -15,7 +15,7 @@ padding: 1rem;
 flex-wrap: wrap;
 
 span{
-    font-size: 1.7rem;
+    font-size: 1rem;
     font-weight: 600;
     display: inline-block;
 }
@@ -35,7 +35,7 @@ ul{
 }
 a{
     color: rgba(var(--text-rgb), 0.7);
-    font-size: 1.7rem;
+    font-size: 1rem;
     font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;

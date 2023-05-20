@@ -12,7 +12,7 @@ import { FaRegUser } from "react-icons/fa";
 import { MdOutlineAdminPanelSettings, MdLogout } from "react-icons/md";
 import Image from "next/image";
 
-const NavBarWrapper = styled(Wrapper)`
+export const NavBarWrapper = styled(Wrapper)`
 max-width: 100%;
 width: 100%;
 position: sticky;

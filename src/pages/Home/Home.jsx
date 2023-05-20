@@ -157,31 +157,31 @@ const PageData = {
 }
 export const ThemeContext = createContext(null);
 function Home() {
-    const [DarkMode, SetDarkMode] = useState(false);
-    const ToggleTheme = () => {
-        SetDarkMode(!DarkMode);
-        localStorage.setItem("kkupgrader_Mode", !DarkMode);
+    // const [DarkMode, SetDarkMode] = useState(false);
+    // const ToggleTheme = () => {
+    //     SetDarkMode(!DarkMode);
+    //     localStorage.setItem("kkupgrader_Mode", !DarkMode);
 
-    }
-    useEffect(() => {
-        if (localStorage.getItem("kkupgrader_Mode") === "true" || window.matchMedia('(prefers-color-scheme: dark)')) {
-            localStorage.setItem("kkupgrader_Mode", true);
-            SetDarkMode(true);
-        }
-    }, [])
+    // }
+    // useEffect(() => {
+    //     if (localStorage.getItem("kkupgrader_Mode") === "true" || window.matchMedia('(prefers-color-scheme: dark)')) {
+    //         localStorage.setItem("kkupgrader_Mode", true);
+    //         SetDarkMode(true);
+    //     }
+    // }, [])
 
-    useEffect(() => {
-
-
+    // useEffect(() => {
 
 
-        if (DarkMode)
-            document.body.classList.add("DarkMode");
-        else
-            document.body.classList.remove("DarkMode");
 
 
-    }, [DarkMode])
+    //     if (DarkMode)
+    //         document.body.classList.add("DarkMode");
+    //     else
+    //         document.body.classList.remove("DarkMode");
+
+
+    // }, [DarkMode])
     useEffect(() => {
 
 
@@ -211,15 +211,15 @@ function Home() {
 
 
 
-        SetDarkMode(() => {
+        // SetDarkMode(() => {
 
-            if (localStorage.getItem("kkupgrader_Mode") === "false")
-                return false
-            else if (localStorage.getItem("kkupgrader_Mode") === "true" || window.matchMedia('(prefers-color-scheme: dark)'))
-                return true;
-            else
-                return false
-        })
+        //     if (localStorage.getItem("kkupgrader_Mode") === "false")
+        //         return false
+        //     else if (localStorage.getItem("kkupgrader_Mode") === "true" || window.matchMedia('(prefers-color-scheme: dark)'))
+        //         return true;
+        //     else
+        //         return false
+        // })
 
 
     }, [])
@@ -227,12 +227,12 @@ function Home() {
 
 
     return (
-        <ThemeContext.Provider value={{ DarkMode, ToggleTheme }}>
+        <>
             <PageMetaData />
             <Header NavLinks={PageData.NavLinks} SocialMedia={PageData.SocialMedia} />
             <Main data={PageData.MainContent} />
             <Footer SocialMedia={PageData.SocialMedia} />
-        </ThemeContext.Provider>
+        </>
     )
 }
 

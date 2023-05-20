@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ThemeContext } from "../Home"
 
 export default function Header({ NavLinks, SocialMedia }) {
-    const { DarkMode, ToggleTheme } = useContext(ThemeContext);
+    // const { DarkMode, ToggleTheme } = useContext(ThemeContext);
 
     useEffect(() => {
         const header = document.querySelector("[data-header]");
@@ -29,12 +29,12 @@ export default function Header({ NavLinks, SocialMedia }) {
                         K K UPGRADER
                     </strong>
                 </Link>
-                <button className={classes.ThemeToggle} onClick={ToggleTheme}>
+                {/* <button className={classes.ThemeToggle} onClick={ToggleTheme}>
                     {
                         DarkMode ? <IoMoon /> : <IoMoonOutline />
                     }
 
-                </button>
+                </button> */}
                 <nav className={classes.NavBar} data-navbar>
                     <div className={classes.NavBar_top}>
                         <Link href="/" >

@@ -48,7 +48,7 @@ body.nav-active {
 }
 
 .SocialLink {
-    font-size: 2rem;
+    // font-size: 2rem;
     transition: var(--transition-1);
 
     &:hover {
@@ -65,33 +65,9 @@ body.nav-active {
     width: 100%;
 }
 
-.h1 {
-    color: $color_3;
-    line-height: 1.3;
-    font-size: var(--fs-1);
-}
-
-.h2 {
-    color: $color_3;
-    line-height: 1.3;
-    font-size: var(--fs-2);
-}
-
-.h3 {
-    color: $color_3;
-    line-height: 1.3;
-    font-size: var(--fs-3);
-}
-
-.h4 {
-    color: $color_3;
-    line-height: 1.3;
-    font-size: var(--fs-4);
-}
-
 .btn {
     color: $color_4;
-    font-size: var(--fs-6);
+    font-size: 1.25rem;
     font-weight: var(--fw-700);
     border: 2px solid var(--cinnamon-satin);
     max-width: max-content;
@@ -118,7 +94,7 @@ body.nav-active {
 }
 
 .Section_text {
-    font-size: var(--fs-5);
+    font-size: 1rem;
 }
 
 .Section_title {
@@ -154,12 +130,12 @@ body.nav-active {
 }
 
 .NavOpen_btn {
-    font-size: 3.5rem;
+    font-size: 1.25rem;
     color: $color_6;
-    margin-right: 0.5rem;
+    margin-right: 0.25rem;
 
     svg {
-        margin-top: -0.75rem;
+        margin-top: -0.5rem;
     }
 }
 
@@ -186,7 +162,7 @@ body.nav-active {
 .ThemeToggle {
     margin-inline: 1rem;
     margin-block: auto;
-    font-size: 1.8rem;
+    font-size: 1rem;
     background-color: var(--white_a8);
     position: relative;
     padding: 18px;
@@ -216,7 +192,7 @@ body.nav-active {
     align-items: center;
 
     a {
-        font-size: var(--fs-4);
+        // font-size: var(--fs-4);
         color: hsl(0, 0%, 85%);
     }
 }
@@ -224,7 +200,7 @@ body.nav-active {
 .navCloseBtn {
     background-color: $background-color_7;
     color: $color_5;
-    font-size: 2rem;
+    font-size: 1.25rem;
     display: inline-flex;
     padding: 6px;
     border-radius: var(--radius-circle);
@@ -552,7 +528,7 @@ body.nav-active {
 .inputField {
     background-color: $background-color_1;
     color: $color_2;
-    font-size: var(--fs-7);
+    font-size:0.895rem;
     padding: 14px 18px;
     border-radius: var(--radius-6);
     outline: none;
@@ -680,7 +656,7 @@ textarea.inputField {
 
         .SocialLink {
             color: $color_3;
-            font-size: 1.8rem;
+            font-size: 1rem;
         }
     }
 
@@ -698,6 +674,10 @@ textarea.inputField {
         display: flex;
         gap: 36px;
         margin-inline: auto;
+        align-items: center;
+        li{
+            margin-block: 0;
+        }
     }
 
     .NavBar_link {
