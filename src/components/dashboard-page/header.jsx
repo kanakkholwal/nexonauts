@@ -4,11 +4,12 @@ import Link from "next/link";
 import { signOut } from 'next-auth/react';
 import Button from "components/buttons";
 import Badge from "components/topography/badge";
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BiHomeAlt2 } from "react-icons/bi";
 import { IoSettingsOutline } from "react-icons/io5";
-import { TbTools,TbLayoutSidebarRightCollapse ,TbLayoutSidebarRightExpand} from "react-icons/tb";
+import { TbTools, TbLayoutSidebarRightCollapse, TbLayoutSidebarRightExpand } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
+import { CgSearch, CgClose } from "react-icons/cg";
 import { MdOutlineAdminPanelSettings, MdLogout } from "react-icons/md";
 import Image from "next/image";
 
@@ -30,14 +31,131 @@ const Children = styled.div`
 `;
 
 const Toggler = styled(Button)`
-padding:0.5rem;
-margin-inline-end:0.75rem;
+padding: 0;
+margin-inline-end: 0.75rem;
+border-radius: 0.5rem;
+aspect-ratio: 1;
+height: 40px;
+font-size:1.25rem;
+`;
+const SearchToggler = styled(Button)`
+padding: 0;
+margin-inline-end: 0.75rem;
+border-radius: 0.5rem;
+aspect-ratio: 1;
+height: 40px;
+font-size:1.25rem;
+`;
+const SearchResultItem = styled(Link)`
+width:100%;
+display:flex;
+align-items:flex-start;
+flex-direction:column;
+gap:0.5rem;
+border:1px dashed transparent;
 border-radius:0.5rem;
-font-size:24px
+padding:0.5rem;
+h6{
+    font-size:0.875rem;
+    font-weight:600;
+    color:rgba(var(--text-rgb),0.8);
+}
+p{
+    font-size:0.75rem;
+    font-weight:500;
+    color:rgba(var(--text-rgb),0.5);
+}
+&:hover{
+    background-color:rgba(var(--theme-rgb),0.1);
+    cursor:pointer;
+    border-color:rgba(var(--theme-rgb),0.9);
+}
+
+`;
+const SearchDropDown = styled.div`
+position: absolute;
+top: calc(100% + 1rem);
+inset-inline: 0;
+margin-inline: auto;
+min-width: 200px;
+width: 100%;
+max-width: calc(100% - 10px);
+min-height:80px;
+background-color: rgb(255 255 255 / 90%);
+border-radius: 0.5rem;
+backdrop-filter: blur(20px);
+box-shadow:rgba(145, 158, 171, 0.24) 0px 0px 2px 0px, rgba(145, 158, 171, 0.24) -20px 20px 40px -4px;
+padding: 0.75rem 0.5rem;
+z-index: 999;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 0.5rem;
+transform-origin: center top;
+transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+transform: ${({ open }) => open ? 'scaleY(1)' : 'scaleY(0)'};
+opacity: ${({ open }) => open ? '1' : '0'};
+visibility: ${({ open }) => open ? 'visible' : 'hidden'};
+`;
+const SearchInput = styled.input`
+border:none;
+outline:none;
+background-color:transparent;
+color:rgba(var(--text-rgb),0.8);
+font-size:1rem;
+font-weight:500;
+
+&::placeholder{
+    color:rgba(var(--text-rgb),0.5);
+    font-size:1rem;
+    font-family:inherit;
+}
+    `;
+
+const SearchWrapper = styled.div`
+display:flex;
+align-items:center;
+justify-content:space-between;
+width:100%;
+gap:0.75rem;
+padding:0.75rem;
+border-radius:inherit;
+position:absolute;
+inset:0;
+background:var(--card-bg);
+z-index:15;
+transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+${({open}) =>{
+    if(open){
+        return `
+        transform:translateY(0);
+        opacity:1;
+        `
+    }else{
+        return `
+        transform:translateY(-100%);
+        opacity:0;
+        `
+    }
+}}
+&>svg{
+    cursor:pointer;
+    color:rgba(var(--text-rgb),0.8);
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius:50%;
+    font-size:1.5rem;
+    &:hover{
+        color:rgba(var(--text-rgb),1);
+    }
+}
 `;
 
-export default function Header({ user, children }) {
+export default function Header({ user, routes, children }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const [searchPath, setSearchPath] = useState("");
+    const [searchResults, setSearchResults] = useState(false);
     const [open, setOpen] = useState(false);
     let NavRef = useRef(null);
 
@@ -49,11 +167,11 @@ export default function Header({ user, children }) {
             sidenavPanel.classList.remove('isOpen');
             MainPanel.classList.remove('isSidenavOpen');
         }
-        document.addEventListener("mousedown",(e) =>{
+        document.addEventListener("mousedown", (e) => {
             if (e.target.id === "sidenav_panel" || e.target.id === "main_wrapper") {
                 setIsSidebarOpen(false);
             }
-            if(NavRef.current && !NavRef.current.contains(e.target)){
+            if (NavRef.current && !NavRef.current.contains(e.target)) {
                 setOpen(false);
             }
         })
@@ -82,18 +200,36 @@ export default function Header({ user, children }) {
         <>
             <NavBarWrapper ref={NavRef}>
                 <Toggler level="true"
-                rounded
+                    rounded
                     onClick={() => setIsSidebarOpen((state) => !state)}>
-                    {isSidebarOpen? <TbLayoutSidebarRightExpand />:<TbLayoutSidebarRightCollapse/>}
-                    </Toggler>
+                    {isSidebarOpen ? <TbLayoutSidebarRightExpand /> : <TbLayoutSidebarRightCollapse />}
+                </Toggler>
                 <Children>
                     {children}
                 </Children>
+                <SearchWrapper open={isSearchOpen}>
+                    <CgSearch />
+                    <SearchInput type="text" placeholder="Search" value={searchPath} onChange={(e) => setSearchPath(e.target.value)}  onClick={() => setSearchResults((state) => !state)}/>
+                    <CgClose  onClick={() => setIsSearchOpen(false)} />
+                    <SearchDropDown open={searchResults}>
+                        {routes?.filter((route) => route.path.includes(searchPath)).map((route) => (
+                            <SearchResultItem href={route.path} key={route.path}>
+                                               <h6>{route.title}</h6>
+                                               <p>{route.path}</p>
+                            </SearchResultItem>
+                        ))}
+                    </SearchDropDown>
+                </SearchWrapper>
+
+                <SearchToggler level="true" low="true"
+                    rounded onClick={() => setIsSearchOpen((state) => !state)}>
+                    <CgSearch />
+                </SearchToggler>
                 <ProfileWrapper>
                     <Profile onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        setOpen(!open)                        
+                        setOpen(!open)
                     }} role="button" tabIndex="0">
                         <Image src={user.profileURL ?? "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} height={40} width={40} alt={user?.name ?? "User Profile"} />
                     </Profile>
@@ -102,16 +238,12 @@ export default function Header({ user, children }) {
                             <h5 className="d-flex justify-content-between align-items-center">
                                 {user?.name ?? "User Name"}
                                 <Badge nature="secondary">{user?.account_type}</Badge>
-                                
+
                             </h5>
                             <p>
                                 {user?.email ?? "User Email"}
                             </p>
                         </ProfileDropDownInfo>
-                        {
-                            user?.role === "admin" && <ProfileDropDownItem as={Link} href="/dashboard/admin">
-                                <MdOutlineAdminPanelSettings /> Admin</ProfileDropDownItem>
-                        }
                         <ProfileDropDownItem as={Link} href="/">
                             <BiHomeAlt2 />
                             Home</ProfileDropDownItem>

@@ -4,8 +4,11 @@ import { MainWrapper, ContentWrapper, Hero } from "./wrapper";
 import SideNav from "./sidenav";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import { BsFillJournalBookmarkFill } from "react-icons/bs";
+import { BiBell } from "react-icons/bi";
+import { FiUsers } from "react-icons/fi";
 import { RxDashboard } from "react-icons/rx";
-import { TbTools } from "react-icons/tb";
+import { TbTools,TbMessageDots } from "react-icons/tb";
+import { MdOutlineAdminPanelSettings } from "react-icons/md";
 
 export { Header } from "./elements";
 
@@ -31,26 +34,66 @@ const SocialMedia = [
         url: "https://twitter.com/KanakKholwal",
     },
 ]
+const userRoutes = [
+    {
+        title: "Dashboard",
+        path: "/dashboard",
+        icon: <RxDashboard />,
+    },
+    {
+        title: "Tools",
+        path: "/dashboard/tools",
+        icon: <TbTools />,
+    },
+
+]
+const routes = (userRole) => {
+    if(userRole === "admin")
+    return [
+        {
+            title: "Dashboard",
+            path: "/dashboard/admin",
+            icon: <MdOutlineAdminPanelSettings />,
+        },
+        {
+            title: "Blog",
+            path: "/dashboard/admin/blog",
+            icon: <BsFillJournalBookmarkFill />,
+        },
+        {
+            title: "Users",
+            path: "/dashboard/admin/users",
+            icon: <FiUsers />,
+        },
+        {
+            title: "Messages",
+            path: "/dashboard/admin/messages",
+            icon: <TbMessageDots />,
+            
+        },
+        {
+            title: "Notifications",
+            path: "/dashboard/admin/notifications",
+            icon: <BiBell />,
+        },
+        ...userRoutes
+    ].filter((value, index, self) => {
+        return self.indexOf(value) === index;
+      });
+    else 
+    { 
+        // return unique from array 
+        return [...userRoutes]
+    }
+}
 export default function DashboardPage({ headerChildren, children, user }) {
 
 
     return (
         <>
-            <SideNav links={[
-                {
-                    title: "Dashboard",
-                    path: "/dashboard",
-                    icon: <RxDashboard />,
-                },
-                {
-                    title: "Tools",
-                    path: "/dashboard/tools",
-                    icon: <TbTools />,
-                },
-
-            ]} user={user} />
+            <SideNav routes={routes(user.role)}  user={user} />
             <MainWrapper id="main_wrapper" className="isSidenavOpen">
-                <Header user={user}>
+                <Header user={user} routes={routes(user.role)}>
                     {headerChildren ? headerChildren : null}
                 </Header>
                 <ContentWrapper>
@@ -67,26 +110,9 @@ export function AdminDashboard({ headerChildren, children, user }) {
 
     return (
         <>
-            <SideNav links={[
-                {
-                    title: "Dashboard",
-                    path: "/dashboard",
-                    icon: <RxDashboard />,
-                },
-                {
-                    title: "Blog",
-                    path: "/dashboard/admin/blog",
-                    icon: <BsFillJournalBookmarkFill />,
-                },
-                {
-                    title: "Tools",
-                    path: "/dashboard/tools",
-                    icon: <TbTools />,
-                },
-
-            ]} user={user} />
+            <SideNav routes={routes(user.role)} user={user} />
             <MainWrapper id="main_wrapper" className="isSidenavOpen">
-                <Header user={user}>
+                <Header user={user} routes={routes(user.role)}>
                     {headerChildren ? headerChildren : null}
                 </Header>
                 <ContentWrapper>

@@ -66,7 +66,7 @@ margin-bottom: 1rem;
     margin-top:1.5rem;
 }
 `;
-const SectionTitle = styled.h3`
+const SectionTitle = styled.h5`
 padding: 0.5rem 0;
 `;
 
@@ -109,10 +109,11 @@ background: rgba(var(--theme-rgb), 0.08);
 &:hover,&.active{
 
     &>${Icon}{
-        color: rgba(var(--theme-rgb), 0.8);
+        ${'' /* color: rgba(var(--theme-rgb), 0.8); */}
         background: rgba(var(--theme-rgb), 0.2);
+        scale:1.1;
     }
-    color: rgba(var(--theme-rgb), 0.8);
+    ${'' /* color: rgba(var(--theme-rgb), 0.8); */}
     background: rgba(var(--theme-rgb), 0.1);
 }
 `;
@@ -124,16 +125,16 @@ text-align:center;
 `;
 
 
-const RecursiveLinkList = ({ links }) => {
+const RecursiveLinkList = ({ routes }) => {
     return (
         <LinkList>
-            {links?.map((item, index) => (<Link as={NavLink} key={index} href={item.path}>
-                {item?.icon ? <Icon>{item?.icon}</Icon>:null}<Title>{item.title}</Title>{item.children?.length > 0 ? <RecursiveLinkList links={item.children} /> : null}
+            {routes?.map((item, index) => (<Link as={NavLink} key={index} href={item.path}>
+                {item?.icon ? <Icon>{item?.icon}</Icon>:null}<Title>{item.title}</Title>{item.children?.length > 0 ? <RecursiveLinkList routes={item.children} /> : null}
             </Link>))}
         </LinkList>)
 }
 
-export default function SideNav({ links, user }) {
+export default function SideNav({ routes, user }) {
 
 
     const sidenavRef = useRef(null);
@@ -146,7 +147,7 @@ export default function SideNav({ links, user }) {
                     K K UPGRADER
                 </SectionTitle>
             </SideNavHeader>
-            {links?.length > 0 ? <RecursiveLinkList links={links} /> : null}
+            {routes?.length > 0 ? <RecursiveLinkList routes={routes} /> : null}
             {user ? <LogoutButton as={Button} level="true" onClick={() => signOut()}>Sign Out <MdLogout /> </LogoutButton> : null}
         </SideNavWrapper>
     )
