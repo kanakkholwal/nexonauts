@@ -25,24 +25,31 @@ export const authOptions = {
 
                 await dbConnect();
 
-                
+
                 // Try to find the user and also return the password field
                 const user = await User.findOne({ email: credentials.email }).select('+password')
 
-             
+
                 // Use the comparePassword method we defined in our user.js Model file to authenticate
                 const pwValid = await user.comparePassword(credentials.password)
 
-                
-                if (!pwValid) { throw new Error("Your password is invalid") }
 
-                // await Notification.create({
-                //     message: "User logged in by email : " + credentials.email + " and name : " + user.name + "",
-                //     user: user._id
-                // });
+                if (!pwValid) {
+                    await Notification.create({
+                        message: "User attempted to login with wrong Password",
+                        user: user._id
+                    });
+
+                    throw new Error("Your password is invalid")
+                }
+
+                await Notification.create({
+                    message: "User logged in using Email and Password",
+                    user: user._id
+                });
 
                 // console.log(user)
-                
+
                 return user
 
             }

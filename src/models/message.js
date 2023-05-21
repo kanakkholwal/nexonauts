@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 
-const contactMailSchema = new mongoose.Schema({
+const messageSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -17,7 +17,7 @@ const contactMailSchema = new mongoose.Schema({
     type:{
         type: String,
         required: true,
-        default:"normal"
+        default:"NORMAL"
     },
     category: {
         type: String,
@@ -40,4 +40,4 @@ const contactMailSchema = new mongoose.Schema({
 });
 
 
-export default mongoose.models.ContactMail || mongoose.model('ContactMail', contactMailSchema)
+export default mongoose.models.Message || mongoose.model('Message', messageSchema)
