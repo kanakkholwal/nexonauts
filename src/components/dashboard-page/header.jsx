@@ -190,16 +190,19 @@ export default function Header({ user, routes, children }) {
             sidenavPanel.classList.remove('isOpen');
             MainPanel.classList.remove('isSidenavOpen');
         }
-        document.addEventListener("mousedown", (e) => {
+        const HandleOutSide = (e) =>{
             if (e.target.id === "sidenav_panel" || e.target.id === "main_wrapper") {
                 setIsSidebarOpen(false);
             }
             if (NavRef.current && !NavRef.current.contains(e.target)) {
                 setOpen(false);
             }
-        })
+        }
+        document.addEventListener("mousedown", HandleOutSide)
 
-
+        return () => {
+            document.removeEventListener("mousedown", HandleOutSide)
+        }
     }, []);
     useEffect(() => {
         let sidenavPanel = document.body.querySelector("#sidenav_panel");
