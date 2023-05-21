@@ -1,10 +1,12 @@
 import styled from "styled-components";
 import { NavBarWrapper as Wrapper, Logo, AuthButtonWrapper } from "components/navbar";
 import Link from "next/link";
-import Button from "components/buttons";
+import Button,{ResponsiveButton} from "components/buttons";
 import { useState, useEffect } from "react";
 import { TbLayoutSidebarRightCollapse, TbLayoutSidebarRightExpand } from "react-icons/tb";
 import { CgSearch, CgClose } from "react-icons/cg";
+import { RxDashboard } from "react-icons/rx";
+import { useRouter } from "next/router";
 
 
 const NavBarWrapper = styled(Wrapper)`
@@ -100,7 +102,7 @@ width: 100%;
 max-width: calc(100% - 10px);
 min-height:80px;
 height:auto;
-max-height:450px;
+${'' /* max-height:450px; */}
 background-color: rgb(255 255 255 / 90%);
 border-radius: 0.5rem;
 backdrop-filter: blur(20px);
@@ -116,6 +118,7 @@ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 transform: ${({ open }) => open ? 'scaleY(1)' : 'scaleY(0)'};
 opacity: ${({ open }) => open ? '1' : '0'};
 visibility: ${({ open }) => open ? 'visible' : 'hidden'};
+
 `;
 const SearchInput = styled.input`
 border:none;
@@ -175,6 +178,7 @@ export default function Header({ session,routes, children }) {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [searchPath, setSearchPath] = useState("");
     const [searchResults, setSearchResults] = useState(false);
+    const router = useRouter()
 
     useEffect(() => {
         let sidenavPanel = document.body.querySelector("#sidenav_panel");
@@ -191,6 +195,30 @@ export default function Header({ session,routes, children }) {
 
 
     }, [isSidebarOpen]);
+    useEffect(() => {
+        let sidenavPanel = document.body.querySelector("#sidenav_panel");
+        let MainPanel = document.body.querySelector("#main_wrapper");
+
+        if (!window.matchMedia("(min-width: 1024px)").matches) {
+            sidenavPanel.classList.remove('isOpen');
+            MainPanel.classList.remove('isSidenavOpen');
+        }
+        const HandleOutSide = (e) =>{
+            if (e.target.id === "sidenav_panel" || e.target.id === "main_wrapper") {
+                setIsSidebarOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", HandleOutSide)
+
+        return () => {
+            document.removeEventListener("mousedown", HandleOutSide)
+        }
+    }, []);
+    useEffect(() => {
+        setIsSearchOpen(false);
+        setSearchResults(false);
+        setSearchPath("");
+    }, [router]);
 
 
     return (
@@ -241,7 +269,7 @@ export default function Header({ session,routes, children }) {
                     <CgSearch />
                 </SearchToggler>
                 <AuthButtonWrapper>
-                    {session ? <Button level="true" size="sm" as={Link} href="/dashboard">Go to Dashboard</Button> :
+                    {session ? <ResponsiveButton level="true" size="sm" as={Link} href="/dashboard" icon={<RxDashboard/>}>Go to Dashboard</ResponsiveButton> :
                         <>
                             <Button level="true" size="sm" as={Link} href="/login">Log In</Button>
                             <Button as={Link} size="sm" href="/signup">Sign Up</Button>

@@ -21,25 +21,16 @@ width:100%;
 display:flex;
 align-items:center;
 justify-content:space-between;
+background:var(--card-bg);
+padding:0.5rem;
+border-radius:0.5rem;
 `;
-const Title = styled.h3`
+const Title = styled.h5`
 font-weight:bold;
 `
-const Body = styled.div`
-width:100%;
-padding-top:1.25rem;
-gap:0.75rem;
-display:flex;
-align-items:center;
-flex-direction:row;
-scroll-snap-type: x mandatory;
-overflow-x: auto;
-scroll-behavior: smooth;
-justify-content: flex-start;
+const Body = styled(CardContainer)`
+padding:1rem 0;
 
-&::-webkit-scrollbar {
-    display: none;
-}
 `;
 
 export default function SimilarTools({category}) {
@@ -47,13 +38,13 @@ export default function SimilarTools({category}) {
     return (<Container>
         <Header>
             <Title>More Like this  ...</Title>
-            <Button as={Link} href="/tools/">Use Them All</Button>
+            <Button size="sm" low="true" as={Link} href="/tools/">Use Them All</Button>
         </Header>
-        <CardContainer>
+        <Body>
             {ToolList.filter((tool) => tool.category === category).map((tool, index) => {
                 return <ToolCard key={index} {...tool}/>
             })}
-        </CardContainer>
+        </Body>
 
     </Container>)
 }

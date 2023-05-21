@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { signOut } from 'next-auth/react';
-import Button from 'components/buttons';
 import NavLink from 'components/navLink';
 import { GrClose } from "react-icons/gr";
 import { MdLogout } from "react-icons/md";
@@ -117,11 +116,8 @@ background: rgba(var(--theme-rgb), 0.08);
     background: rgba(var(--theme-rgb), 0.1);
 }
 `;
-const LogoutButton = styled.button`
+const LogoutButton = styled(Link)`
 margin-top:auto;
-width:100%;
-font-size:1rem;
-text-align:center;
 `;
 
 
@@ -148,7 +144,11 @@ export default function SideNav({ routes, user }) {
                 </SectionTitle>
             </SideNavHeader>
             {routes?.length > 0 ? <RecursiveLinkList routes={routes} /> : null}
-            {user ? <LogoutButton as={Button} level="true" onClick={() => signOut()}>Sign Out <MdLogout /> </LogoutButton> : null}
-        </SideNavWrapper>
+            {user ? <LogoutButton as={"button"}  onClick={() => signOut()}>
+            <Icon><MdLogout /></Icon>
+            <Title> Sign Out </Title>
+               
+            </LogoutButton> : null}
+                    </SideNavWrapper>
     )
 }

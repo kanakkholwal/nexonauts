@@ -86,7 +86,41 @@ pointer-events:${props => props.disabled ? "none" : "all"};
 cursor:${props => props.disabled ? "not-allowed" : "pointer"};
 
 `;
+const ButtonWithIcon = styled(Button) 
+`
+padding-inline:0.5rem;
+user-select: none;
+&>svg{
+  font-size: inherit;
+  line-height: inherit;
+  color: currentColor;
+}
+${({direction}) =>{
+  direction ? `
+  flex-direction:row;`
+  :
+  `
+  flex-direction:row-reverse;
+  `
+}}
+@media (max-width:${({breakpoint}) => breakpoint ? breakpoint : "768px"}){
+  &>span{
+    display:none;
+  }
+}
 
+`;
+export const ResponsiveButton = ({icon,direction, children,...props }) => {
+  return (
+    <ButtonWithIcon direction={direction} {...props}>
+      {icon}
+      <span>
+        {children}
+      </span>
+    </ButtonWithIcon>
+    )
+
+}
 
 
 export default Button;

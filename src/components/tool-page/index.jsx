@@ -30,27 +30,24 @@ const SocialMedia = [
 ]
 
 export default function ToolPage({ headerChildren, children, session, metadata }) {
+    
 
 
     return (
         <>
-            <SideNav routes={CategoryList} />
+            <SideNav routes={CategoryList} user={session?.user}/>
             <MainWrapper id="main_wrapper" className="isSidenavOpen">
                 <Header session={session} routes={[...ToolList]} >
-                    {headerChildren ? headerChildren : <>
-                        <Link href="/tools">Tools</Link>
-                        <Link href="/about">About</Link>
-                        <Link href="/pricing">Pricing</Link>
-                    </>}
+                    {headerChildren ? headerChildren : null}
                 </Header>
                 <ContentWrapper>
                     <Hero>
                         <h1>
                             {metadata?.title}
                         </h1>
-                        <h5>
+                        <p>
                             {metadata?.description}
-                        </h5>
+                        </p>
                     </Hero>
                     {children}
                 </ContentWrapper>
