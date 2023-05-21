@@ -58,13 +58,13 @@ transition: all 0.3s ease-in-out;
 `;
 
 const SideNavHeader = styled.div`
-padding: 1rem 0.5rem;
+padding: 0 0.5rem;
 text-align: center;
 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 margin-bottom: 1rem;
-@media (max-width: 1024px) {
+${'' /* @media (max-width: 1024px) {
     margin-top:1.5rem;
-}
+} */}
 `;
 const SectionTitle = styled.h5`
 padding: 0.5rem 0;
@@ -117,11 +117,8 @@ background: rgba(var(--theme-rgb), 0.08);
     background: rgba(var(--theme-rgb), 0.1);
 }
 `;
-const LogoutButton = styled.button`
+const LogoutButton = styled(Link)`
 margin-top:auto;
-width:100%;
-font-size:1rem;
-text-align:center;
 `;
 
 
@@ -148,7 +145,11 @@ export default function SideNav({ routes, user }) {
                 </SectionTitle>
             </SideNavHeader>
             {routes?.length > 0 ? <RecursiveLinkList routes={routes} /> : null}
-            {user ? <LogoutButton as={Button} level="true" onClick={() => signOut()}>Sign Out <MdLogout /> </LogoutButton> : null}
+            {user ? <LogoutButton as={"button"}  onClick={() => signOut()}>
+            <Icon><MdLogout /></Icon>
+            <Title> Sign Out </Title>
+               
+            </LogoutButton> : null}
         </SideNavWrapper>
     )
 }
