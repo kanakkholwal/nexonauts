@@ -1,5 +1,6 @@
 import User from 'models/user';
 import dbConnect from 'lib/dbConnect';
+// import nodemailer from "nodemailer";
 import handler from 'lib/handler';
 import nextConnect from 'next-connect';
 
@@ -43,13 +44,37 @@ async function createUser(req, res) {
         // if (req.body.role.includes("admin") && !isAdminMiddleware(req, res)) {
         //     return res.status(401).json({ message: 'Not authorized' });
         // }
-        const newUser = await User.create({
+        const verificationToken = Math.random().toString(36).substring(7);
+
+        const newUser = await User.create({ 
             name, email, password,
             role: "user",
-            account_type: "free"
+            account_type: "free",
+            verificationToken: verificationToken,
         });
+        // const transporter = nodemailer.createTransport({
+        //     host: 'smtp-relay.sendinblue.com',
+        //     port: 587,
+        //     auth: {
+        //       user: 'your-smtp-username',
+        //       pass: 'your-smtp-password',
+        //     },
+        //   });
+      
+        //   await transporter.sendMail({
+        //     from: 'no_reply@kkupgrader.eu.org',
+        //     to: user.email,
+        //     subject: 'Verify Your Account',
+        //     html: `
+        //       <p>Hello ${user.name},</p>
+        //       <p>Please verify your account by clicking the following link:</p>
+        //       <a href="https://kkupgrader.eu.org/verify-user?token=${verificationToken}">
+        //         Verify Account
+        //       </a>
+        //     `,
+        //   });
 
-        res.status(201).json({ message: 'Created user!', user: newUser });
+        res.status(201).json({ message: 'Created user Successfully, Please verify your Email Now!!!', user: newUser });
 
     }
     catch (error) {

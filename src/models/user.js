@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt'
 import validator from 'validator';
 
 
-
 const UserSchema = new mongoose.Schema(
   {
     name: {
@@ -52,23 +51,18 @@ const UserSchema = new mongoose.Schema(
         ref: 'Post',
       },
     ],
+    verificationToken: {
+      type: String,
+      default: null,
+    },
+    verified: {
+      type: Boolean,
+      default: false,
+    },
   }
-  // ,
-  // {
-  //   toJSON: { virtuals: true },
-  //   toObject: { virtuals: true },
-  // }
-)
+);
 
-// UserSchema.virtual('userPosts', {
-//   ref: 'Post',
-//   localField: '_id',
-//   foreignField: 'author.user',
-// });
-
-// UserSchema.methods.getUserPosts = function () {
-//   return this.populate('posts');
-// };
+module.exports = mongoose.model('User', UserSchema);
 
 
 // Middleware to hash password before saving
