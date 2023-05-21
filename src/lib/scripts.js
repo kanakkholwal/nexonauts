@@ -12,6 +12,29 @@ export function calculateReadTime(articleContent, averageReadingSpeed  = 200) {
   var readTimeMinutes = Math.ceil(wordCount / averageReadingSpeed);
   return readTimeMinutes;
 }
+export function timeAgo(date) {
+  const seconds = Math.floor((new Date() - date) / 1000);
+
+  const intervals = {
+    year: 31536000,
+    month: 2592000,
+    week: 604800,
+    day: 86400,
+    hour: 3600,
+    minute: 60,
+    second: 1
+  };
+
+  for (const interval in intervals) {
+    const count = Math.floor(seconds / intervals[interval]);
+
+    if (count >= 1) {
+      return count === 1 ? `${count} ${interval} ago` : `${count} ${interval}s ago`;
+    }
+  }
+
+  return "Just now";
+}
 
 
 export const checkEnvironment = () => {

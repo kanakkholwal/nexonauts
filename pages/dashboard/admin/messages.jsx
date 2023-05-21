@@ -2,19 +2,167 @@ import { getSession } from "next-auth/react"
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
 import State from 'components/state';
-
+import { timeAgo } from 'lib/scripts';
 import { Card } from 'components/Card';
+import { MdLabelImportantOutline, MdLabelImportant } from 'react-icons/md';
+import { HiOutlineChevronUp } from 'react-icons/hi';
+import { BiCheck, BiCheckDouble } from 'react-icons/bi';
 import useSWR from 'swr'
 import axios from 'axios';
+import styled from "styled-components";
+import { useEffect, useState } from "react";
+
+const Header = styled.div`
+padding:0.5rem 0.75rem;
+transition:all 0.25s ease;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:0.25rem;
+&>div{
+    display:flex;
+    align-items:center;
+    gap:0.25rem;
+}
+span{
+    font-size:1rem;
+    font-weight:600;
+}
+span[email]{
+    opacity:0.9;
+    font-weight:500;
+}
+span[class]{
+    cursor:pointer;
+    padding:0.25rem;
+    height:28px;
+    aspect-ratio:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    transition:all 0.25s ease-in-out;
+    &:hover{
+        background:rgba(var(--theme-rgb),0.1);
+        scale:1.1;
+    }
+}
+span.IMPORTANT{
+
+    ${({ type }) => type === "IMPORTANT" ? `
+     color:rgba(var(--warning-rgb),1);
+    `: `
+     color:rgba(var(--theme-rgb),0.8);
+    `}
+}
+span.READ{
+    ${({ read }) => read === true ? `
+     color:rgba(var(--success-rgb),1);
+    `: `
+     color:rgba(var(--theme-rgb),0.8);
+    `}
+}
+span.TOGGLE{
+    background:rgba(var(--theme-rgb),0.1);
+    transition:500ms cubic-bezier(0.4, 0, 0.2, 1);
+    &:hover{
+        background:rgba(var(--theme-rgb),0.2);
+    }
+    ${({ open }) => open === true ? `
+     color:rgba(var(--success-rgb),1);
+     transform:rotate(180deg);
+     
+    `: `
+     color:rgba(var(--theme-rgb),0.8);
+     transform:rotate(0deg);
+    `}
+    
+}
+`;
+const Body = styled.div`
+overflow: hidden;
+box-sizing: border-box;
+transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+height:0;
+&.open{
+    transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    height:auto;
+}
+&>div{
+margin:0 0.75rem;
+    border-top:1px solid rgba(var(--text-rgb),0.22);
+flex-grow: 1;
+height: 100%;
+overflow: hidden;
+}
+`;
+const MessageCard = styled.div`
+border-bottom:1px solid rgba(var(--text-rgb),0.22);
+${({ read }) => {
+        if (!read) {
+            return `
+        background:rgba(var(--body-bg-rgb),0.8);
+        `
+        }
+        else {
+            return `
+        background:#fbfbfb;
+        `
+        }
+    }}
+`;
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
-export default function Dashboard({ user }) {
-    
-    const { data:messages, error,isLoading } = useSWR('/api/admin/messages', fetcher)
+export default function Messages({ user }) {
+
+    const { data, error, isLoading } = useSWR('/api/admin/messages', fetcher)
+
+    const [messages, setMessages] = useState(data?.messages);
+    const [openIndex, setOpenIndex] = useState(-1);
+
+    console.log(data);
+    const messageRead = (index,read) =>{
+        setMessages((messages) =>{
+            const newMessages = [...messages];
+            newMessages[index].read = !read;
+            return newMessages;
+        })
+    }
+    const messageType = (index,type) =>{
+        setMessages((messages) =>{
+            const newMessages = [...messages];
+            newMessages[index].type = type === "IMPORTANT" ? "NORMAL" : "IMPORTANT";
+            return newMessages;
+        })
+    }
+    const updateMessage = async (data) => {
+        const {messageId} = data;
+
+        if (!messageId)
+            return;
+      
+        const {read,type} = data;
+        
+
+        await axios.put("/api/admin/messages", { messageId,read :read ?? true,type })
+        .then(({data}) =>{
+            console.log(data);
+        })
+        .catch(err =>{
+            console.log(err);
+        })
 
 
+    }
 
+    useEffect(() => {
+        if (data) {
+            if (data.messages !== messages)
+                setMessages(data.messages);
+        }
+
+    }, [data])
 
 
     return (
@@ -23,32 +171,54 @@ export default function Dashboard({ user }) {
                 <title>All Messages</title>
             </Head>
             <DashboardPage user={user}>
-                <Card>
-                    <State loader={ {type:"indeterminate", show:isLoading, } } alert={{
-                        type:error ? "danger" : "success",
-                        message:error ? error.message : "Messages loaded successfully",
-                        show:error ? true : false
-                    }} />
-                    {
-                        messages && messages.length > 0 ? messages.map((message, index) => {
+                <State loader={{ type: "indeterminate", show: isLoading, }} alert={{
+                    type: error ? "danger" : "success",
+                    message: error ? error.message : "Messages loaded successfully",
+                    show: error ? true : false
+                }} />
+                <Card style={{
+                    opacity: isLoading ? 0.5 : 1,
+                    pointerEvents: isLoading ? "none" : "auto",
+                    padding: "0.5rem"
+                }}>
+                    {data && data.messages.length > 0 ? messages?.sort((a, b) => {
+                            return new Date(b.createdAt) - new Date(a.createdAt);
+                        }).map(({ name, email, type, message, read, createdAt, _id },index) => {
                             return (
-                                <div key={index}>
-                                    <Card>
-                                        <Card.Body>
-                                            <Card.Title>{message.title}</Card.Title>
-                                            <Card.Text>
-                                                {message.content}
-                                            </Card.Text>
-                                            <Card.Text>
-                                                <small className="text-muted">{message.createdAt}</small>
-                                            </Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
-                            )
-                        }): "No Messages"
+                                <MessageCard key={_id} read={read} open={openIndex === index}>
+                                    <Header type={type} read={read} open={openIndex === index}>
+                                        <div>
+                                            <span className="IMPORTANT" onClick={(e) => {
+                                                e.stopPropagation();
+                                                messageType(index, type)
+                                                updateMessage({ messageId: _id, type: type === "IMPORTANT" ? "NORMAL" : "IMPORTANT" });
+                                            }}>{type === "IMPORTANT" ? <MdLabelImportant /> : <MdLabelImportantOutline />}</span>
+                                            <span>{name}</span>
+                                            <span email="true"> : {email}</span>
+                                        </div>
+                                        <div>
 
-                    }
+                                            <span className="READ" onClick={(e) => {
+                                                e.stopPropagation();
+                                                messageRead(index, read)
+                                                updateMessage({ messageId: _id, read: !read });
+                                            }}>{read === true ? <BiCheckDouble /> : <BiCheck />}</span>
+                                            <span>{timeAgo(new Date(createdAt))}</span>
+                                            <span className="TOGGLE"  onClick={(e) =>{
+                                                e.stopPropagation();
+                                                setOpenIndex(openIndex === index ? -1 : index);
+                                            }}><HiOutlineChevronUp /></span>
+                                        </div>
+                                    </Header>
+                                    <Body className={openIndex === index ? "open":""}>
+                                        <div>
+                                            <p>{message}</p>
+
+                                        </div>
+                                    </Body>
+                                </MessageCard>
+                            )
+                        }) : "No Messages yet"}
                 </Card>
 
             </DashboardPage>
@@ -59,7 +229,7 @@ export default function Dashboard({ user }) {
 
 export async function getServerSideProps(context) {
 
-    
+
     const session = await getSession(context);
 
     if (!session)
@@ -82,6 +252,6 @@ export async function getServerSideProps(context) {
 
 
     return {
-        props: { user:session.user },
+        props: { user: session.user },
     }
 }

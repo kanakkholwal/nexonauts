@@ -21,9 +21,7 @@ export const Card = styled.div`
     animation-direction: normal;
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
-    // &:hover {
-    //     translate:  0 -10px;
-    // }
+
 `;
 export const CardHeader = styled.div`
 flex: 1 1 auto;
@@ -45,6 +43,7 @@ border-top:1px solid #eee;
 `;
 export const CardBody = styled.div`
 flex: 1 1 auto;
+padding:0.75rem 0;
 `;
 export const CardTitle = styled.h5`
 display: -webkit-box;
