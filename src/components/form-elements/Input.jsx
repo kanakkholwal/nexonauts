@@ -7,7 +7,7 @@ const Input = styled.input`
   font-weight: 600;
   transition: all .3s ease-in-out;
   border-radius: 0.5rem;
-  padding: 1rem 1.25rem;
+  padding:0.875rem 1.0313rem ;
   
   border: 2px solid var(--form-border);
   background: var(--form-bg);

@@ -130,6 +130,7 @@ const SelectDropdownItem = styled.li`
     white-space: nowrap;
     border-radius: 6px;
     line-height: 1.57143;
+    font-weight: 500;
     font-size: 0.875rem;
     text-transform: capitalize;
     width: 100%;

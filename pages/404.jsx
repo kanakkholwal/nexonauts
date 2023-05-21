@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import Image from 'next/image';
 import Link from "next/link";
-import Button from "components/buttons";
+import Button,{ResponsiveButton} from "components/buttons";
 import Head from "next/head";
 import { HiBars3 } from "react-icons/hi2";
+import { RxDashboard } from "react-icons/rx";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { NavBarWrapper, MenuList, AuthButtonWrapper, NavToggle } from "components/navbar";
@@ -20,7 +21,6 @@ const ErrorWrapper = styled.div`
     flex-wrap: wrap;
     margin-top: 200px;
     width: 100%;
-    // height: 100vh;
     max-width: var(--max-width);
     margin-inline: auto;
 
@@ -42,36 +42,15 @@ const ErrorWrapper = styled.div`
         width: 100%;
         max-width: 480px;
         h2{
-            ${'' /* font-size: 10rem; */}
-            ${'' /* font-weight: 600; */}
             color: rgba(var(--text-rgb),0.8);
         }
         h3{
-            ${'' /* font-size: 3rem; */}
-            ${'' /* font-weight: 600; */}
             color: rgba(var(--text-rgb), 0.7);
         }
         p{
-            ${'' /* font-size: 1.7rem; */}
-            ${'' /* font-weight: 600; */}
             color: rgba(var(--text-rgb), 0.5);
         }
-        ${'' /* a{
-            font-size: 1.7rem;
-        }
-        @media (max-width: 768px) {
-            text-align: center;
-            h2{
-                font-size: 8rem;
-            }
-            h3{
-                font-size: 2.5rem;
-            }
-            p{
-                font-size: 1.5rem;
-            } */}
-
-    ${'' /* } */}
+        
 `;
 
 
@@ -97,10 +76,10 @@ export default function Page() {
                     <Link href="/pricing">Pricing</Link>
                 </MenuList>
                 <AuthButtonWrapper>
-                    {session ? <Button as={Link} href="/dashboard">Go to Dashboard</Button> :
+                {session ? <ResponsiveButton level="true" size="sm" as={Link} href="/dashboard" icon={<RxDashboard/>}>Go to Dashboard</ResponsiveButton> :
                         <>
-                            <Button level="true" as={Link} href="/login">Log In</Button>
-                            <Button as={Link} href="/signup">Sign Up</Button>
+                            <Button level="true" size="sm" as={Link} href="/login">Log In</Button>
+                            <Button as={Link} size="sm" href="/signup">Sign Up</Button>
                         </>}
                     <NavToggle onClick={() => setOpen(!open)} level="true">
                         <HiBars3 />
@@ -115,7 +94,7 @@ export default function Page() {
                     <h4>Page Not Found</h4>
                     <p >This page doesn't exist or was removed!<br />
                         We suggest you back to home </p>
-                    <Button size="lg" as={Link} href="/">Back to Home</Button>
+                    <Button  as={Link} href="/">Back to Home</Button>
                 </div>
             </ErrorWrapper>
             <Footer only="true" />
