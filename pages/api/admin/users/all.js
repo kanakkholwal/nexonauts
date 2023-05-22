@@ -15,15 +15,15 @@ export default nextConnect(handler)
             const user = await User.findById(adminId);
 
             if (!user) {
-                return res.status(404).json({ message: 'User not found in Database!' })
+                return res.status(402).json({ message: 'User not found in Database!' })
             }
             if (!(user.role === "admin"))
                 return res.status(401).json({
                     message: 'You are not admin',
                 });
 
-            const allUsers = await User.find({});
-            return res.status(200).json({ message: 'All Users fetched Successfully!', users: allUsers })
+            const allUsers = await User.find({})
+            return res.status(200).json({ message: 'All Users fetched Successfully!', users: allUsers})
 
 
         }

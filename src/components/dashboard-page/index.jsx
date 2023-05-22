@@ -1,6 +1,7 @@
 import Header from "./header";
 import Footer from "./footer";
-import { MainWrapper, ContentWrapper, Hero } from "./wrapper";
+import {BreadCrumb} from "components/breadcrumb";
+import { MainWrapper, ContentWrapper, } from "./wrapper";
 import SideNav from "./sidenav";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import { BiBell } from "react-icons/bi";
@@ -96,6 +97,7 @@ export default function DashboardPage({ headerChildren, children, user }) {
                     {headerChildren ? headerChildren : null}
                 </Header>
                 <ContentWrapper>
+                <BreadCrumb/>
                     {children}
                 </ContentWrapper>
                 <Footer socialMedia={SocialMedia} />

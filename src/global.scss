@@ -92,11 +92,12 @@
     --warning: rgba(var(--warning-rgb), var(--theme-opacity));
     --dark-rgb: 42, 44, 50;
     --dark: rgba(var(--dark-rgb), var(--theme-opacity));
-
+    --mute-bg-rgb:244, 246, 248;
+    --mute-rgb:99, 115, 129;
     --text-opacity: 1;
-    --text-rgb: 36, 47, 101;
+    --text-rgb: 33, 43, 54;
     --text-color: rgba(var(--text-rgb), var(--theme-opacity));
-    --muted-color: rgb(var(--text-rgb), 0.8);
+    --muted-color: rgb(var(--mute-rgb), 0.8);
     --badge-text: #fbfbfb;
     --border-color: #eee;
 

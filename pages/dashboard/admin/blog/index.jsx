@@ -4,7 +4,8 @@ import Button from "components/buttons";
 import Head from "next/head";
 import Link from 'next/link';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
+import {  RiAddLine } from 'react-icons/ri';
 import { Card, CardHeader, CardBody, CardTitle, CardDescription } from "components/Card";
 import { IndeterminateCircularLoader as Loader } from "components/Loader";
 import styled from 'styled-components';
@@ -126,9 +127,9 @@ export default function Blog({ user }) {
             </Head>
             <DashboardPage user={user}>
                 <Header>
-                    <h4>All Posts</h4>
-                    <Button onClick={() => createPost()}>
-                        New Post
+                    <h6>All Posts</h6>
+                    <Button low="true" size="sm" onClick={() => createPost()} className="m-0 g-0">
+                        New Post <RiAddLine/>
                     </Button>
                 </Header>
                 <State {...state} />
