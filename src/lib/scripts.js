@@ -35,7 +35,13 @@ export function timeAgo(date) {
 
   return "Just now";
 }
-
+export function removeStringAfterWord(str, word) {
+  const wordIndex = str.indexOf(word);
+  if (wordIndex !== -1) {
+    return str.slice(0, wordIndex + word.length);
+  }
+  return str;
+}
 
 export const checkEnvironment = () => {
   let base_url =

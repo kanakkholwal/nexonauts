@@ -61,9 +61,6 @@ padding: 1rem 0.5rem;
 text-align: center;
 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 margin-bottom: 1rem;
-@media (max-width: 1024px) {
-    margin-top:1.5rem;
-}
 `;
 const SectionTitle = styled.h5`
 padding: 0.5rem 0;

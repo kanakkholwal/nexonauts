@@ -2,18 +2,26 @@ import { getSession } from "next-auth/react";
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
 import Link from 'next/link';
-import { Card ,CardTitle,CardDescription} from "components/Card"
+import { Card, CardTitle, CardDescription } from "components/Card"
 import styled from "styled-components";
 import { FaRegUser } from "react-icons/fa";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
+import useSWR from "swr";
+import axios from "axios";
 
 const DashCard = styled(Card)`
 max-width:350px;
 flex:1 1 auto;
-display:inline-flex;
+display:flex;
 align-items:center;
 flex-direction:row;
 gap:0.75rem;
+span{
+    font-size:1.25rem;
+    font-weight:600;
+    margin:0;
+    color:rgba(var(--text-rgb),0.6);
+}
 `;
 const Icon = styled.div`
 flex:1 1 auto;
@@ -25,17 +33,23 @@ background:rgba(var(--theme-rgb),0.1);
 border-radius:0.5rem;
 padding:0.5rem;
 aspect-ratio:1;
-max-width:200px;
-max-height:120px;
+max-width:120px;
+max-height:80px;
 svg{
     font-size:48px;
     margin:auto;
     aspect-ratio:1;
 }
 `;
+const fetchData = async (url, data) => {
+    const response = await axios.post(url, data);
+    return response.data;
+};
 export default function Dashboard({ user }) {
-
-
+  
+    const { data:UserData, error, isLoading } = useSWR(['/api/admin/users/all', { adminId: user.id }], ([url, data]) => fetchData(url, data))
+  
+  
 
 
     return (
@@ -44,25 +58,17 @@ export default function Dashboard({ user }) {
                 <title>Admin Dashboard</title>
             </Head>
             <DashboardPage user={user}>
-            <div className="d-flex justify-content-start g-3 align-items-center my-2 flex-wrap">
-            <DashCard as={Link} href="/dashboard/admin/users">
+                <div className="d-flex justify-content-start g-3 align-items-center my-2 flex-wrap">
+                    <DashCard as={Link} href="/dashboard/admin/users">
                         <Icon>
                             <FaRegUser />
                         </Icon>
                         <div>
-                            <h6>Update User</h6>
-                            <p>Update any user information</p>
+                            <span>Total Users</span>
+                            <h2>{UserData?.users?.length}</h2>
                         </div>
                     </DashCard>
-            </div>
-                Admin Dashboard
-                <Link href="/dashboard/admin/users">
-                    Users
-                </Link>
-                <Link href="/dashboard/admin/messages">
-                    Users
-                </Link>
-
+                </div>
             </DashboardPage>
         </>
     )
@@ -71,7 +77,7 @@ export default function Dashboard({ user }) {
 
 export async function getServerSideProps(context) {
 
-    
+
     const session = await getSession(context);
 
     if (!session)
@@ -94,6 +100,6 @@ export async function getServerSideProps(context) {
 
 
     return {
-        props: { user:session.user },
+        props: { user: session.user },
     }
 }

@@ -2,7 +2,7 @@ import { getSession } from "next-auth/react"
 import DashboardPage, { Header } from "components/dashboard-page";
 import Button from "components/buttons";
 import State from "components/state";
-import { Card, CardHeader, CardBody } from "components/Card";
+import { Card,  } from "components/Card";
 import { Input, FormElement, Label, TextArea, FormHelper,Switch, FileInput } from "components/form-elements";
 import Head from "next/head";
 import Link from 'next/link';
