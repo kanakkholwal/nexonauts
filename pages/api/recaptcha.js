@@ -18,7 +18,7 @@ export default nextConnect(handler).post(async (req, res) => {
 
 
         if (data.success) {
-            return res.status(200).json({ message: "Success", verified: data.success });
+            return res.status(200).json({ message: "Success", verified: data.success,...data });
         } else {
             return res.status(400).json({ message: "Failed", verified: data.success });
         }

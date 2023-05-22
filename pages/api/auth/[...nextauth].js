@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"
 import User from "models/user";
-// import Notification from "models/notification";
+import Notification from "models/notification";
 import dbConnect from "lib/dbConnect";
 
 export const authOptions = {
