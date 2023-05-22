@@ -61,8 +61,7 @@ export function BreadCrumb(){
 
     return (
         <BreadcrumbList>
-        {
-            pathArray.map((item,index,list)=>{
+        {pathArray.map((item,index,list)=>{
                 if (index === 0) {
                     return <ItemListElement key={index}>
                         <Item href="/">
@@ -80,8 +79,7 @@ export function BreadCrumb(){
                         </ItemListElement>
                     </React.Fragment>
                 )
-            })
-        }
+            })}
         </BreadcrumbList>
     )
 }
