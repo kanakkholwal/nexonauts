@@ -6,8 +6,11 @@ export const Wrapper = styled.main`
     justify-content:center;
     gap:1rem;
     width:100%;
-    max-width:var(--max-width);
     margin-inline:auto;
+    max-width:var(--max-width);
+    @media (max-width:1000px){
+        flex-direction:column;
+    }
 `;
 export { NavBar } from "./navbar";
 export { PostPageHero } from "./hero";
