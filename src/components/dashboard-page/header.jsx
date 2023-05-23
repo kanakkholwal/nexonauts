@@ -186,7 +186,7 @@ export default function Header({ user, routes, children }) {
         let sidenavPanel = document.body.querySelector("#sidenav_panel");
         let MainPanel = document.body.querySelector("#main_wrapper");
 
-        if (!window.matchMedia("(min-width: 1024px)").matches) {
+        if (window.matchMedia("(max-width: 1024px)").matches) {
             sidenavPanel.classList.remove('isOpen');
             MainPanel.classList.remove('isSidenavOpen');
         }

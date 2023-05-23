@@ -75,7 +75,6 @@ const Button = styled.button`
   
       
   &> svg{
-  margin-inline: 0.5rem;
   font-size: inherit;
   line-height: inherit;
   color: currentColor;
