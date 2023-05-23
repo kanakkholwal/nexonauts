@@ -328,7 +328,7 @@ export default function NewPost({ user }) {
             </Head>
             <DashboardPage user={user}>
                 <Header>
-                    <Button as={Link} level="true" href="/dashboard/admin/blog">
+                    <Button as={Link} low="true" size="sm" level="true" href="/dashboard/admin/blog">
                         Go Back
                     </Button>
                 </Header>

@@ -17,7 +17,8 @@ const ArticleWrapper = styled.article`
     height:auto;
     padding:1rem;
     text-align:center;
-    max-width:var(--max-width);
+    width:100%;
+    max-width:max-width:calc(var(--max-width) * 0.72);
     margin-inline:auto;
     background:var(--card-bg);
     .Article{
