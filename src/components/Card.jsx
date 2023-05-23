@@ -11,7 +11,7 @@ export const Card = styled.div`
     --border-radius: 0.5rem;
     border-radius: var(--border-radius,.5rem);
     flex: 1 1 auto;
-    padding: 1.5rem;
+    padding:0.75rem 1.5rem;
     background:var(--card-bg);
     opacity: 0;
     visibility: hidden;

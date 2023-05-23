@@ -10,7 +10,7 @@ export function countWords(articleContent) {
 export function calculateReadTime(articleContent, averageReadingSpeed  = 200) {
   var wordCount = countWords(articleContent);
   var readTimeMinutes = Math.ceil(wordCount / averageReadingSpeed);
-  return readTimeMinutes;
+  return readTimeMinutes === 1 ?readTimeMinutes +  " min" :readTimeMinutes +  " mins";
 }
 export function timeAgo(date) {
   const seconds = Math.floor((new Date() - date) / 1000);

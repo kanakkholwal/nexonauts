@@ -59,6 +59,9 @@
       "hooks/*": [
         "./src/hooks/*"
       ],
+      "layouts/*": [
+        "./src/layouts/*"
+      ],
       "store/*": [
         "./src/store/*"
       ],
