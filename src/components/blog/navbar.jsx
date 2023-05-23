@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   margin-inline:auto;
   margin-top:1rem;
-  max-width:1320px;
+  max-width:var(--max-width);
   `;
 
 const NavWrapper = styled.nav`

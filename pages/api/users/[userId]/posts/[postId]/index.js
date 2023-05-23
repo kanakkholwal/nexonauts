@@ -44,25 +44,28 @@ export default nextConnect(handler)
       const { postId ,userId} = req.query;
       const { post } = req.body;
           
-      const existingUser = await User.findById(userId);
+      const existingUser = await User.findById(userId); // Find the user
       if (!existingUser) {
         return res.status(404).json({ message: 'User not found!' });
       }
     
-      const result = await checkUser(req, existingUser);
+      const result = await checkUser(req, existingUser);// Verify user with cookies
       if (!result.verified) {
         return res.status(404).json({ verified: result.verified, message: result.message });
       }
     
-      const existingPost = await Post.findById(postId);
+      const existingPost = await Post.findById(postId);// Find the post with postId
       if (!existingPost) {
         return res.status(404).json({ message: 'Post not found!' });
       }
 
-      const existingPostWithSlug = await Post.findOne({ slug: post.slug });
-      const existingPostWithId = await Post.findById(postId);
-      if (!(existingPostWithSlug._id.toString() === existingPostWithId._id.toString())) {
-        return res.status(402).json({ message: 'Post with this slug already exists!' });
+      const existingPostWithSlug = await Post.findOne({ slug: post.slug });// Find a post with same slug
+      if (existingPostWithSlug) {
+        // if found the post with same slug
+        if ((existingPostWithSlug && existingPostWithSlug._id.toString() === existingPost._id.toString()))
+          console.log("updating the same post")
+        else
+          return res.status(402).json({ message: 'Post with this slug already exists!' });
       }
       const updatedPost = await Post.findOneAndUpdate({
           _id: postId

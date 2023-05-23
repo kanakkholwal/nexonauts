@@ -5,6 +5,9 @@ export const Wrapper = styled.main`
     align-items:flex-start;
     justify-content:center;
     gap:1rem;
+    width:100%;
+    max-width:var(--max-width);
+    margin-inline:auto;
 `;
 export { NavBar } from "./navbar";
 export { PostPageHero } from "./hero";

@@ -29,6 +29,18 @@ const ArticleWrapper = styled.article`
         display:block;
     }
 `;
+const ArticleThumbnail = styled.div`
+margin-block:5px;
+border-radius:10px;
+overflow:hidden;
+width:100%;
+img{
+    object-fit:cover;
+    width:100%;
+    height:100%;
+    
+}
+`;
 const ArticleTitle = styled.div`
 margin-block:5px;
 text-align:left;
@@ -97,6 +109,9 @@ export function Article({ post }) {
     return (
         <ArticleWrapper>
             <BlogBreadCrumb slug={post.slug} title={post.title} category={post.labels[0]} />
+            <ArticleThumbnail>
+                <Image src={post.image} height={400} width={600} alt={post.title} />
+            </ArticleThumbnail>
             <ArticleTitle>
                 <h5>{post.title}</h5>
             </ArticleTitle>

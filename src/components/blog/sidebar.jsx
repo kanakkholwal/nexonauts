@@ -42,13 +42,14 @@ export function SideBar({ post }) {
     }
 
     useEffect(() => {
-        getPopularPosts()
+        getPopularPosts();
+        getRecentPosts()
     }, [])
 
     return (
         <SidebarWrapper>
 
-                        <h3>Popular Posts</h3>
+                        <h5>Popular Posts</h5>
             {
               
                     <div>
@@ -64,7 +65,7 @@ export function SideBar({ post }) {
                     </div>
                 
             }
-                        <h3>Recent Posts</h3>
+                        <h5>Recent Posts</h5>
             {
                
                     <div>
