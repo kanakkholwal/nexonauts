@@ -11,7 +11,7 @@ const pageSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    enum: ['article', 'page', 'category', 'tag', 'author', 'search', 'home', '404'],
+    enum: ['article','tool', 'page', 'category', 'tag', 'author', 'search', 'home', '404'],
   },
   views: {
     type: Number,
