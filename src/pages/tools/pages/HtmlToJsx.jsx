@@ -1,30 +1,24 @@
-import { useState, useCallback, useEffect } from "react";
-import isSvg from "is-svg";
+import React, { useState, useCallback, useEffect } from "react";
 import TextArea from "components/form-elements/TextArea";
 import FormElement from "components/form-elements/FormElement";
 import Label from "components/form-elements/Label";
 import CodeBlock from "components/CodeBlock";
-import HTMLtoJSX from '@erikwithuhk/html-to-jsx';
 import Button from "components/buttons";
 import { MdDeleteOutline, MdContentCopy, MdOutlineCode } from "react-icons/md";
-import { SlRefresh } from "react-icons/sl";
+import HTMLtoJSX from 'html-2-jsx';
 
-const name = "HTML to JSX";
 
-// var converter = new HTMLtoJSX({
-//     createClass: true,
-//     outputClassName: 'AwesomeComponent'
-// });
 const rawHtml = `
+
 <!-- Hello world -->
 <div class="awesome" style="border: 1px solid red">
   <label for="name">Enter your name: </label>
   <input type="text" id="name" />
 </div>
 <p>Enter your HTML here</p>
-`
+`;
 export default function HtmlToJsxTool() {
-    const [settings, setSettings] = useState(name, {
+    const [settings, setSettings] = useState({
         createFunction: false
     });
     const [state, setState] = useState({
@@ -35,48 +29,38 @@ export default function HtmlToJsxTool() {
         error: false,
         output: false
     });
-    const [_isSvg, setSvg] = useState(false);
-
-    if (_isSvg)
-        console.log("it is a svg")
-
 
     useEffect(() => {
-        const ConvertToJSX = async () => {
+        const convertToJSX = async () => {
 
-            setSvg(isSvg(state.rawData));
-            const converter = new HTMLtoJSX({
-                createClass: false
-            });
-            let result = converter.convert(state.rawData);
-            if (settings.createFunction) {
-                result = `export const Foo = () => (${result})`;
-            }
+            const options = {
+                createClass: false,
+                indent: '\t'
+            };
 
-            setState({ ...state, convertedData: result })
-        }
-        ConvertToJSX()
-    }, [state.rawData])
+            const convertor = new HTMLtoJSX(options);
 
+            setState({ ...state, convertedData: convertor.convert(state.rawData) });
+        };
 
+        convertToJSX();
+    }, [state.rawData]);
 
     return (
         <div style={{ maxWidth: "720px", margin: "auto" }}>
             <FormElement>
-                <TextArea outlined value={state.rawData} rows="8" name="rawData" onChange={(e) => setState({
-                    ...state,
-                    rawData: e.target.value
-                })} />
+                <TextArea outlined value={state.rawData} rows="8" name="rawData" onChange={(e) => setState({ ...state, rawData: e.target.value })} />
                 <Label htmlFor="rawData">Enter Raw HTML Here</Label>
             </FormElement>
             <div className="m-auto d-flex flex-wrap justify-content-center align-items-center my-3">
-                <Button onClick={() => setState({ ...state, convertedData: "", rawData: rawHtml })}> RawData <MdOutlineCode /></Button>
-                {/* <Button onClick={ConvertToJSX}> Convert <SlRefresh /></Button> */}
-                <Button nature="danger" onClick={() => setState({ ...state, convertedData: "", rawData: "" })}>
+                <Button onClick={() => setState({ ...state, convertedData: "", rawData: rawHtml })} size="sm" low="true" >
+                    Reset Raw Data <MdOutlineCode />
+                </Button>
+                <Button nature="danger" onClick={() => setState({ ...state, convertedData: "", rawData: "" })} size="sm" low="true">
                     Clear <MdDeleteOutline />
                 </Button>
-
             </div>
-            {state.convertedData && <CodeBlock content={state.convertedData} title={"Converted Jsx"} language="html" />}
-        </div>)
+            {state.convertedData && <CodeBlock content={state.convertedData} title={"Converted JSX"} language="html" />}
+        </div>
+    );
 }
