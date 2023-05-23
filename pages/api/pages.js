@@ -24,7 +24,7 @@ export default nextConnect(handler)
 
             await page.save();
 
-            return res.status(200).json({ message: "View added successfully", page });
+            return res.status(200).json({ message: "View updated successfully", page });
 
         } catch (error) {
             console.log(error);
