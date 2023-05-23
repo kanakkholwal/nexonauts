@@ -7,20 +7,22 @@ import { MdOutlineDateRange } from 'react-icons/md';
 import { AiOutlineFieldTime } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
 import Image from "next/image";
+import Comments from "./comments";
 
 const ArticleWrapper = styled.article`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    width: 100%;
-    height:auto;
     padding:1rem;
     text-align:center;
     width:100%;
-    max-width:max-width:calc(var(--max-width) * 0.72);
     margin-inline:auto;
+    flex:1;
     background:var(--card-bg);
+    @media (min-width:1000px){
+        max-width:calc(var(--max-width) * 0.75);
+    }
     .Article{
         text-align:initial;
         width:100%;
@@ -59,7 +61,7 @@ span{
     font-weight:500;
 }
 svg{
-    margin-linline:3px;
+    margin-inline:3px;
 }
 `;
 const Author = styled.div`
@@ -137,8 +139,8 @@ export function Article({ post }) {
                     </span>
                 </div>
             </MetaData>
-            <Interweave content={post?.content} tagName="div" className="Article"/>
-
+            {/* <Interweave content={post?.content} tagName="div" className="Article"/> */}
+            <Comments post={post}/>
         </ArticleWrapper>
     )
 }

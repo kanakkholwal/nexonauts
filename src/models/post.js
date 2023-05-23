@@ -139,5 +139,5 @@ postSchema.pre('save', async function (next) {
     this.metadata.image = this.image;
     next();
 });
-
-export default mongoose.models.Post || mongoose.model('Post', postSchema)
+export const Comment = mongoose.models.Comment || mongoose.model('Comment', commentSchema);
+export default mongoose.models.Post || mongoose.model('Post', postSchema);
