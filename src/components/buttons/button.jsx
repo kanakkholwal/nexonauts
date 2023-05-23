@@ -4,7 +4,7 @@ const Button = styled.button`
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  gap:0.5rem;
+  gap:0.25rem;
   user-select: none;
   border: 0;
   margin: 0.25rem;
