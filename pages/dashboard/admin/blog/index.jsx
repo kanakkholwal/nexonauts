@@ -142,7 +142,7 @@ export default function Blog({ user }) {
                             }}>
                                 <Image src={post.image} alt={post.title} height={480} width={640} />
                                 <CardHeader>
-                                    <CardTitle>{post?.title}</CardTitle>
+                                    <CardTitle as="h6">{post?.title}</CardTitle>
                                 </CardHeader>
                                 <CardBody>
                                     <CardDescription>{post?.description}</CardDescription>

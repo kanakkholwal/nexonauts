@@ -35,7 +35,7 @@ export default function Post({ post }) {
   useEffect(() =>{
     const addView = async() =>{
       await axios.post("/api/pages",{
-        slug:post.slug,
+        slug:"/blog/posts/"+post.slug,
         type:"article",
         name:post.title,
         increase:["view"]
