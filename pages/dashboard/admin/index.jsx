@@ -77,7 +77,7 @@ export default function Dashboard({ user }) {
                         </Icon>
                         <div>
                             <span>Total Activities</span>
-                            <h2>{pageData?.pages?.analytics?.length}</h2>
+                            <h2>{pageData?.pages?.length}</h2>
                         </div>
                     </DashCard>
                 </div>

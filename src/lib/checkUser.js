@@ -3,7 +3,26 @@ import cookie from 'cookie';
 
 const secret = process.env.NEXT_AUTH_SECRET;
 
+// get user session
+export const getUser = async (req) => {
+    const cookies = cookie.parse(req.headers.cookie || '')
+    const token = process.env.NODE_ENV == 'development'
+        ? cookies['next-auth.session-token']
+        : cookies['__Secure-next-auth.session-token'];
 
+
+    if (!token)
+        return {
+            user:null
+        }
+
+    let decoded = await decode({
+            token,
+            secret,
+        });
+    return decoded
+
+}
 // validate on backend
 export const checkUser = async (req, user) => {
     const cookies = cookie.parse(req.headers.cookie || '')

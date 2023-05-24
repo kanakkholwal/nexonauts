@@ -15,7 +15,7 @@ export default nextConnect(handler)
         // post.comments.numberOfComments = 0;
         // await post.save();
         // res.status(200).json({ message: 'Comment deleted' });
-        // await Page.deleteMany({});
+        await Page.deleteMany({});
         res.status(200).json({ message: 'All pages deleted' });
      
     } catch (err) {
