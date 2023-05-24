@@ -40,7 +40,7 @@ text-decoration:none;
 color:rgba(var(--muted-rgb),0.5);
 text-transform:capitalize;
 ${({active}) =>{
-    if(active === true){
+    if(active === "true"){
         return `
         color:rgba(var(--muted-rgb),1);
         `
@@ -73,7 +73,7 @@ export function BreadCrumb(){
                     <React.Fragment key={index}>
                         <GrFormNext/>
                         <ItemListElement key={index}>
-                            <Item href={`${removeStringAfterWord(path,item)}`} active={index === (list.length - 1) ? true : false}>    
+                            <Item href={`${removeStringAfterWord(path,item)}`} active={index === (list.length - 1) ? "true" : "false"}>    
                                 <ItemName>{item}</ItemName>
                             </Item>
                         </ItemListElement>

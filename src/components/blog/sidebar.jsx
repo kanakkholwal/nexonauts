@@ -103,7 +103,7 @@ export function SideBar({ post }) {
     }
 
     useEffect(() => {
-        getPopularPosts();
+        // getPopularPosts();
         // getRecentPosts()
     }, [])
 
