@@ -35,6 +35,45 @@ export function timeAgo(date) {
 
   return "Just now";
 }
+export function getDateTime(dateString) {
+  // Create a new Date object using the date string
+  const date = new Date(dateString);
+
+  // Options for formatting the date
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true
+  };
+
+  // Convert the date to the desired format
+  const customFormat = date.toLocaleString('en-US', options);
+
+  return customFormat;
+}
+export function getInitials(str) {
+  // Remove leading and trailing whitespace
+  str = str.trim();
+
+  // Split the string into words
+  const words = str.split(' ');
+
+  // Check if there are at least two words
+  if (words.length >= 2) {
+    // Return the first letter of the first two words
+    return words[0][0].toUpperCase() + words[1][0].toUpperCase();
+  } else if (words.length === 1) {
+    // Return the uppercase of the first letter of the only word
+    return words[0][0].toUpperCase();
+  } else {
+    // No words in the string
+    return '';
+  }
+}
+ 
 export function removeStringAfterWord(str, word) {
   const wordIndex = str.indexOf(word);
   if (wordIndex !== -1) {

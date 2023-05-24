@@ -1,4 +1,5 @@
 import axios from "axios";
+import Head from "next/head";
 import { NavBar, PostPageHero, Article, Wrapper, SideBar } from "components/blog";
 import { useEffect } from "react";
 export async function getStaticPaths() {
@@ -51,6 +52,33 @@ export default function Post({ post }) {
   },[])
   return (
     <>
+      <Head>
+        {/* COMMON TAGS */}
+        <meta charSet="utf-8" />
+        <title>{post.title}</title>
+        {/* Search Engine */}
+        <meta name="description" content={post.description} />
+        <meta name="image" content={post.image} />
+        {/* Schema.org for Google */}
+        <meta itemProp="name" content={post.title} />
+        <meta itemProp="description" content={post.description} />
+        <meta itemProp="image" content={post.image} />
+        {/* Open Graph general (Facebook, Pinterest & LinkedIn) */}
+        <meta property="og:title" content={post.title} />
+        <meta property="og:description" content={post.description} />
+        <meta property="og:image" content={post.image} />
+        <meta property="og:url" content={"https://kkupgrader.eu.org/blog/posts/" + post.slug} />
+        <meta property="og:site_name" content="K K UPGRADER" />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:type" content="website" />
+        {/* Twitter */}
+        <meta property="twitter:card" content="summary" />
+        <meta property="twitter:title" content={post.title} />
+        <meta property="twitter:description" content={post.description} />
+        <meta property="twitter:image:src" content={post.image} />
+
+
+      </Head>
       <NavBar />
       <PostPageHero title={post.title} description={post.description} />
       <Wrapper>
