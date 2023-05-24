@@ -140,7 +140,7 @@ export function Article({ post }) {
                 </div>
             </MetaData>
             <Interweave content={post?.content} tagName="div" className="Article"/>
-            <Comments post={post}/>
+            <Comments post={post} />
         </ArticleWrapper>
     )
 }

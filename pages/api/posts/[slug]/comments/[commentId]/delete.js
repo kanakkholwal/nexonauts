@@ -4,16 +4,16 @@ import Post, { Comment } from "models/post";
 import dbConnect from "lib/dbConnect";
 import nextConnect from 'next-connect';
 
-export default nextConnect(handler)
-    .post(async (req, res) => {
+export default
+    nextConnect(handler).post(async (req, res) => {
         try {
-            
+
             await dbConnect();
-            const { slug:postId,commentId } = req.query;
+            const { slug: postId, commentId } = req.query;
             const { userId } = req.body;
-            console.log("post",postId)
-            console.log("comment",commentId)
-            console.log("user",userId)
+            console.log("post", postId)
+            console.log("comment", commentId)
+            console.log("user", userId)
 
             const existingUser = await User.findById(userId);
             if (!existingUser) {
@@ -47,7 +47,7 @@ export default nextConnect(handler)
                 return res.status(404).json({ message: 'Comment not found' });
             }
             console.log("Comment Found")
-            if (!(existingComment.post.toString() === existingPost._id.toString())){
+            if (!(existingComment.post.toString() === existingPost._id.toString())) {
                 return res.status(404).json({ message: 'Comment not found in the post' });
             }
             console.log("Comment found in the post")
@@ -68,7 +68,7 @@ export default nextConnect(handler)
                 }
             };
 
-       
+
             await deleteReplies(existingComment);
             console.log("All replies deleted")
 
