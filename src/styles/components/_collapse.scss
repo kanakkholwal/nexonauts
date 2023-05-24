@@ -2,19 +2,18 @@
 
 
 @mixin Collapse {
-    // overflow-x: hidden;
-    // @include variables.overFlowY;
     overflow: hidden;
-    transition: height .5s ease;
-
-    &:not(.isOpen) {
-        display: none;
-        padding: 0 !important;
-    } 
+    position: relative;
+    height: 0;
+    transition: height .5s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.G_Collapse {
-    @include Collapse;
+.Collapse {
+    overflow: hidden;
+    position: relative;
+    height: 0;
+    transition: height .5s cubic-bezier(0.4, 0, 0.2, 1);
     width: 100%;
-
- 
+    &.isOpen{
+            height: auto;
+    } 
 }
