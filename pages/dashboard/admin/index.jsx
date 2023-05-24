@@ -45,10 +45,13 @@ const fetchData = async (url, data) => {
     const response = await axios.post(url, data);
     return response.data;
 };
+const fetcher = url => axios.get(url).then(res => res.data)
+
 export default function Dashboard({ user }) {
   
-    const { data:UserData, error, isLoading } = useSWR(['/api/admin/users/all', { adminId: user.id }], ([url, data]) => fetchData(url, data))
-  
+    const { data:UserData, error:userListError, isLoading :userListLoading} = useSWR(['/api/admin/users/all', { adminId: user.id }], ([url, data]) => fetchData(url, data))
+    const { data:pageData, error:pageError, isLoading:pageLoading} = useSWR('/api/admin/pages', fetcher)
+
   
 
 
@@ -66,6 +69,15 @@ export default function Dashboard({ user }) {
                         <div>
                             <span>Total Users</span>
                             <h2>{UserData?.users?.length}</h2>
+                        </div>
+                    </DashCard>
+                    <DashCard as={Link} href="/dashboard/admin/stats">
+                        <Icon>
+                            <TbBrandGoogleAnalytics />
+                        </Icon>
+                        <div>
+                            <span>Total Activities</span>
+                            <h2>{pageData?.pages?.analytics?.length}</h2>
                         </div>
                     </DashCard>
                 </div>

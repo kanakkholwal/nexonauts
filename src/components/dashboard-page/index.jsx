@@ -9,6 +9,7 @@ import { FiUsers } from "react-icons/fi";
 import { RxDashboard } from "react-icons/rx";
 import { TbTools, TbMessageDots, TbBrandBlogger } from "react-icons/tb";
 import { RiAdminLine } from "react-icons/ri";
+import { TbBrandGoogleAnalytics } from "react-icons/tb";
 
 export { Header } from "./elements";
 
@@ -54,6 +55,11 @@ const routes = (userRole) => {
                 title: "Dashboard",
                 path: "/dashboard/admin",
                 icon: <RiAdminLine />,
+            },
+            {
+                title: "Stats",
+                path: "/dashboard/stats",
+                icon: <TbBrandGoogleAnalytics />,
             },
             {
                 title: "Blog",

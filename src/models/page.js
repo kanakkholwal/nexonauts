@@ -1,5 +1,27 @@
 import mongoose from 'mongoose';
 
+const analyticsSchema = new mongoose.Schema({
+  sessionId: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  },
+  action: {
+    type: String,
+    required: true,
+    trim: true,
+    enum: ['view', 'share'],
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+});
+
 const pageSchema = new mongoose.Schema({
   slug: {
     type: String,
@@ -11,16 +33,9 @@ const pageSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    enum: ['article','tool', 'page', 'category', 'tag', 'author', 'search', 'home', '404'],
+    enum: ['article', 'tool', 'page', 'category', 'tag', 'author', 'search', 'home', '404'],
   },
-  views: {
-    type: Number,
-    default: 0,
-  },
-  shares: {
-    type: Number,
-    default: 0,
-  },
+  analytics: [analyticsSchema],
 });
 
 export default mongoose.models.Page || mongoose.model('Page', pageSchema);
