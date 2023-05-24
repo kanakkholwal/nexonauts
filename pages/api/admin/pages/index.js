@@ -6,7 +6,20 @@ import nextConnect from 'next-connect';
 
 
 export default nextConnect(handler).use(isAdminMiddleware)
-    .post(async (req, res, next) => {
+.get(async (req, res, next) => {
+    try {
+        await dbConnect();
+        // get all pages from db in paginated way and sorted by type
+     
+        const pages = await Page.find({});
+        
+        return res.status(200).json({message:"Pages fetched successFully",pages});
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ error: "Internal server error", message: error.message });
+    }
+}).post(async (req, res, next) => {
         try {
             await dbConnect();
             // get all pages from db in paginated way and sorted by type
