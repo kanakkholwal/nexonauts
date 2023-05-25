@@ -10,14 +10,14 @@ export default nextConnect(handler)
     .post(async (req, res, next) => {
         try {
             await dbConnect();
-            const { slug, name, type, increase } = req.body;
+            const { slug, title, type, increase } = req.body;
             if (!slug || !type) {
                 return res.status(400).json({ error: "Missing slug or type" });
             }
 
             let page = await Page.findOne({ slug, type });
             if (!page) {
-                page = new Page({ slug, name, type });
+                page = new Page({ slug, title, type });
             }
             const session = await getUser(req);
             // Loop through the increase array and update views and shares
