@@ -4,4 +4,5 @@ module.exports = {
     generateRobotsTxt: true,
     generateIndexSitemap: false,
     sitemapSize: 7000,
+    exclude:["/dashboard/*","/404","/verify-user"]
 }
