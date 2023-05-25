@@ -1,11 +1,12 @@
 import { getSession } from "next-auth/react"
 import DashboardPage, { Header } from "components/dashboard-page";
-import Button from "components/buttons";
+import Button,{ResponsiveButton} from "components/buttons";
 import Head from "next/head";
 import Link from 'next/link';
 import axios from 'axios';
 import {  useState } from 'react';
 import {  RiAddLine } from 'react-icons/ri';
+import {  HiOutlineExternalLink } from 'react-icons/hi';
 import { Card, CardHeader, CardBody, CardTitle, CardDescription } from "components/Card";
 import { IndeterminateCircularLoader as Loader } from "components/Loader";
 import styled from 'styled-components';
@@ -128,9 +129,12 @@ export default function Blog({ user }) {
             <DashboardPage user={user}>
                 <Header>
                     <h6>All Posts</h6>
-                    <Button low="true" size="sm" onClick={() => createPost()} className="m-0 g-0">
-                        New Post <RiAddLine/>
-                    </Button>
+                    <ResponsiveButton as={Link} icon={<HiOutlineExternalLink/>} direction={"true"} low="true" level="true" size="sm" target="_blank" href="/blog" className="ms-auto me-2">
+                        Check out 
+                    </ResponsiveButton>
+                    <ResponsiveButton  icon={<RiAddLine/>} low="true" size="sm" onClick={() => createPost()} className="m-0 g-0">
+                        New Post
+                    </ResponsiveButton>
                 </Header>
                 <State {...state} />
                 <div className="d-flex g-3 flex-nowrap overflow-auto x-mandatory">

@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const analyticsSchema = new mongoose.Schema({
   sessionId: {
     type: String,
-    required: true,
     trim: true,
   },
   user: {

@@ -71,7 +71,7 @@ export default function Dashboard({ user }) {
                             <h2>{UserData?.users?.length}</h2>
                         </div>
                     </DashCard>
-                    <DashCard as={Link} href="/dashboard/admin/stats">
+                    <DashCard as={Link} href="/dashboard/admin/analytics">
                         <Icon>
                             <TbBrandGoogleAnalytics />
                         </Icon>

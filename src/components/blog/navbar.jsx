@@ -128,10 +128,10 @@ export function NavBar() {
                 </NavLogo>
                 <NavMenu active={isMenuOpen}>
                     <NavItem>
-                        <NavLink href="#">Home</NavLink>
+                        <NavLink href="/blog">Blog</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="#">About</NavLink>
+                        <NavLink href="/tools">Tools</NavLink>
                     </NavItem>
                     <NavItem>
                         <NavLink href="/contact">Contact</NavLink>

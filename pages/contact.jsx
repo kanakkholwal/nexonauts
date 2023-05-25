@@ -93,13 +93,17 @@ export default function Contact() {
             isValid: false,
             touched: false,
         },
-        category: "Select one",
+        category: {
+            value: "Select one",
+            isValid: false,
+            touched: false,
+        },
         companyName: "",
         phoneNumber: ""
     })
 
     const handleChange = (selectedOption) => {
-        setFormState({ ...formState, category: selectedOption.value });
+        setFormState({ ...formState, category: {...formState.category,value:selectedOption.value,touched:true} });
     }
     const sendMessage = async (e) => {
         // validate the inputs first before sending the request
@@ -116,7 +120,7 @@ export default function Contact() {
                 name: formState.name.value,
                 message: formState.message.value,
                 email: formState.email.value,
-                category: formState.category,
+                category: formState.category.value,
                 companyName: formState.companyName,
                 phoneNumber: formState.phoneNumber
             }
@@ -249,9 +253,13 @@ export default function Contact() {
                         <TextArea id="message" name="message" placeholder="Enter your message"
                             cols={60}
                             rows={10}
-                            value={formState.message}
-                            onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                            value={formState.message.value}
+                            onChange={(e) => {
+                                setFormState({ ...formState, message: {...formState.message,value:e.target.value,touched:true,isValid:e.target.value.length > 30} })
+                            }}
                         />
+                        {formState.message.touched && !formState.message.isValid && <FormAlert>Message should be atleast 30 characters long</FormAlert>}
+
                     </FormElement>
                     <State  {...state} />
                     <FormElement>

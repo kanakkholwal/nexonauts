@@ -228,7 +228,8 @@ export default function NewPost({ user }) {
         }
     }, []);
     useEffect(() =>{
-        setSlug(title?.toLocaleLowerCase().split(" ").join("-"));
+        if(!slug)
+         setSlug(title?.toLocaleLowerCase().split(" ").join("-"));
 
     },[title])
     const handleFiles = async (files) => {

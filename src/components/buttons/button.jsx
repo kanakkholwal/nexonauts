@@ -96,10 +96,10 @@ user-select: none;
 }
 ${({direction}) =>{
   direction ? `
-  flex-direction:row;`
+  flex-direction:row-reverse;`
   :
   `
-  flex-direction:row-reverse;
+  flex-direction:row;
   `
 }}
 @media (max-width:${({breakpoint}) => breakpoint ? breakpoint : "768px"}){

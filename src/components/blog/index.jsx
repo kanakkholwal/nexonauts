@@ -13,7 +13,8 @@ export const Wrapper = styled.main`
     }
 `;
 export { NavBar } from "./navbar";
-export { PostPageHero } from "./hero";
+export { AllArticles } from "./main";
+export { PostPageHero,HomePageHero } from "./hero";
 export { SideBar } from "./sidebar";
 export { Article } from "./article";
 export { PostCard } from "./postCard";

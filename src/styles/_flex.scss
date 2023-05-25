@@ -137,6 +137,32 @@ $MarginPadding6 :1.5rem;
     @include center;
 }
 
+.ms-auto{
+    margin-left: auto!important;
+}
+.me-auto{
+    margin-right: auto!important;
+}
+.mx-auto{
+    margin-inline: auto!important;
+}
+.my-auto{
+    margin-block: auto!important;
+}
+.mt-auto{
+    margin-top: auto!important;
+}
+.mb-auto{
+    margin-bottom: auto!important;
+}
+
+.flex-grow {
+    flex-grow: 1!important
+}
+
+.flex-shrink {
+    flex-shrink: 1!important
+}
 
 .m-1 {
     margin: $MarginPadding1

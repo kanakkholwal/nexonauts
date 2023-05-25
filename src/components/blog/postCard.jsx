@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import LazyImage from "components/image";
+import Link from "next/link";
 
 
 const Image = styled(LazyImage).attrs({
@@ -14,10 +15,12 @@ const Heading = styled.h3.attrs({
 })`
 text-transform:capitalize;
 font-size:1.4rem;
+text-align:initial;
 `;
 const Description = styled.p.attrs({
     itemProp: "headline",
 })`
+text-align:initial;
 &:first-letter{
     text-transform:capitalize;
 }
@@ -48,13 +51,17 @@ background:var(--card-bg);
 box-shadow:rgba(84,32,162,.11) 0px 8px 15px;
 `;
 
-export function PostCard({ imageSrc, title, description }) {
+export function PostCard({ imageSrc, title, description ,slug}) {
     return (
         <Card>
-            <Image src={imageSrc} alt={title} width={600} height={400} />
+            <Link title={title} href={"/blog/posts/" + slug}>
+                <Image src={imageSrc} alt={title} width={600} height={400} />
+            </Link>
             <Content>
                 <Heading title={title}>
+                <Link title={title} href={"/blog/posts/"+slug}>
                     {title}
+                </Link>
                 </Heading>
                 <Description>
                     {description}
