@@ -14,6 +14,7 @@ import { IndeterminateLinearLoader } from "components/Loader";
 import { FormElement, Label, FormAlert, Input } from "components/form-elements";
 import styled from "styled-components";
 import illustration from "assets/images/login-illustration.webp";
+import { registerView } from "lib/analytics";
 
 const PageWrapper = styled.div`
 display: flex;
@@ -90,7 +91,7 @@ export const metadata = {
 }
 
 export default function signup({ }) {
-    const { status } = useSession();
+    const { session,status } = useSession();
     const router = useRouter();
     const [state, setState] = useState({
         name: {
@@ -231,6 +232,9 @@ export default function signup({ }) {
         }
     }, [session,status])
 
+    useEffect(() =>{
+        registerView({ title: "Sign Up", type: "page", slug: "/signup" })
+    },[])
     if (status === "loading") {
         return "Loading...";
     }
@@ -246,7 +250,7 @@ export default function signup({ }) {
 
             <PageWrapper>
                 <Illustration>
-                    <h2>Hi,Welcome Back</h2>
+                    <h2>Get Started</h2>
                     <Image src={illustration} width="600" height="600" alt="Dashboard Illustration" priority={true} />
 
                 </Illustration>
@@ -332,9 +336,9 @@ export default function signup({ }) {
                             {state.state.state === "success" && <FormAlert nature="success">{state.state.message}</FormAlert>}
                             {state.state.state === "loading" && <IndeterminateLinearLoader />}
                         </h5>
-                        <h6>
+                        <p>
                             By signing up, you agree to our <Link href="/terms">Terms of Service</Link> and <Link href="/privacy">Privacy Policy</Link>
-                        </h6>
+                        </p>
                         <Button type="submit" onClick={submitHandler}>SignUp </Button>
                         <p>Already have an account? <Link href="/login">Login</Link></p>
                     </Form>

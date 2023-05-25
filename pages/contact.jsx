@@ -12,6 +12,8 @@ import { NavBarWrapper, MenuList, AuthButtonWrapper, NavToggle } from "component
 import Footer from "components/footer";
 import { FormAlert, FormGroup, FormElement, Input, Label, TextArea, Select } from "components/form-elements";
 import axios from "axios";
+import { registerView } from "lib/analytics";
+import { useEffect } from "react";
 
 
 const ContactWrapper = styled.div`
@@ -153,7 +155,9 @@ export default function Contact() {
 
 
     }
-
+    useEffect(() =>{
+        registerView({ title: "Contact", type: "page", slug: "/contact" })
+    },[])
     return (
         <>
             <Head>
@@ -251,7 +255,7 @@ export default function Contact() {
                     </FormElement>
                     <State  {...state} />
                     <FormElement>
-                        <Button type="submit" size="lg" >Send Message</Button>
+                        <Button type="submit" size="lg" onClick={sendMessage} >Send Message</Button>
                     </FormElement>
                 </div>
                 <div>

@@ -7224,6 +7224,26 @@ li {
   list-style: none;
 }
 
+.apexcharts-tooltip span {
+  color: #ffffff;
+  font-family: var(--font-body);
+}
+
+.apexcharts-canvas {
+  margin: 0.75rem auto;
+  font-family: var(--font-body) !important;
+}
+
+.apexcharts-menu-item {
+  font-family: inherit;
+  font-family: var(--font-body) !important;
+}
+
+[class^=apexcharts-legend-], [class^=apexcharts-], .apexcharts-text tspan {
+  font-family: var(--font-body) !important;
+  text-transform: capitalize;
+}
+
 .x-mandatory {
   scroll-snap-type: x mandatory;
   overflow-x: auto;

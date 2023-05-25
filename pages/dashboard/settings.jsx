@@ -2,11 +2,16 @@ import { getSession } from "next-auth/react"
 import DashboardPage from "components/dashboard-page";
 import {Card,CardHeader,CardBody,CardTitle} from "components/Card";
 import Head from "next/head";
+import { registerView } from "lib/analytics";
+import { useEffect } from "react";
 
 export default function Settings({ user }) {
 
 
 
+    useEffect(() =>{
+        registerView({ title: "Settings", type: "dashboard", slug: "/dashboard/settings" })
+    },[])
 
     return (
         <>

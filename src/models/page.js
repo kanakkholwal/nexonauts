@@ -23,6 +23,11 @@ const analyticsSchema = new mongoose.Schema({
 });
 
 const pageSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   slug: {
     type: String,
     required: true,
@@ -33,7 +38,7 @@ const pageSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    enum: ['article', 'tool', 'page', 'category', 'tag', 'author', 'search', 'home', '404'],
+    enum: ['article', 'tool', 'page', 'category', 'tag', 'author', 'search', 'home', '404', 'dashboard'],
   },
   analytics: [analyticsSchema],
 });

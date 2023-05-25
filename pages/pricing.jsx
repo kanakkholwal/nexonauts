@@ -9,6 +9,8 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { NavBarWrapper, MenuList, AuthButtonWrapper, NavToggle } from "components/navbar";
 import Footer from "components/footer";
+import { registerView } from "lib/analytics";
+import { useEffect } from "react";
 
 
 
@@ -31,7 +33,9 @@ export default function Page() {
     const [open, setOpen] = useState(false);
 
     const { data: session } = useSession()
-
+    useEffect(() =>{
+        registerView({ title: "Pricing", type: "page", slug: "/pricing" })
+    },[])
     return (
         <>
             <Head>

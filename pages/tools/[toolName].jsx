@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 import PageMetaData from "components/PageMetaData";
 import Head from "next/head";
 
+import { registerView } from "lib/analytics";
+import { useEffect } from "react";
 
 
 export async function getStaticPaths() {
@@ -44,7 +46,9 @@ export default function Tool({ slug }) {
     const { data: session } = useSession();
 
     const ToolComponent = ToolList.find(({ path }) => path === slug);
-
+    useEffect(() =>{
+        registerView({ title: ToolComponent.title, type: "tool", slug: "/tools/"+path })
+    },[])
     return (
         <>
             <Head>
