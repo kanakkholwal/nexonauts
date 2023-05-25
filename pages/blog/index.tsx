@@ -1,9 +1,14 @@
 import { NavBar } from "components/blog";
 import { PostCard } from "components/blog";
+import { registerView } from "lib/analytics";
+import { useEffect } from "react";
 
 
 export default function BlogHomePage() {
 
+    useEffect(() =>{
+        registerView({ title: "K K UPGRADER BLOG", type: "page", slug: "/blog" })
+    },[])
 
     return (<>
         <NavBar />

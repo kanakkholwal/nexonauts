@@ -57,8 +57,8 @@ const routes = (userRole) => {
                 icon: <RiAdminLine />,
             },
             {
-                title: "Stats",
-                path: "/dashboard/stats",
+                title: "Analytics",
+                path: "/dashboard/admin/analytics",
                 icon: <TbBrandGoogleAnalytics />,
             },
             {

@@ -433,7 +433,23 @@ p {
 li {
     list-style: none;
 }
+.apexcharts-tooltip span {
+    color: #ffffff;
+    font-family: var(--font-body);
+}
+.apexcharts-canvas{
+    margin:0.75rem auto;
+    font-family: var(--font-body)!important;
 
+}
+.apexcharts-menu-item{
+    font-family: inherit;
+    font-family: var(--font-body)!important;
+}
+[class^="apexcharts-legend-"],[class^="apexcharts-"],.apexcharts-text tspan {
+    font-family: var(--font-body)!important;
+    text-transform: capitalize;
+  }
 // h1 {
 //     font-size: 2.5rem;
 //     line-height: 1.2;

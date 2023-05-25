@@ -12,6 +12,9 @@ import { useState } from 'react';
 import { getSession } from "next-auth/react"
 
 import { FileInput, FormElement, Label, Input, FormGroup } from 'components/form-elements';
+import { registerView } from "lib/analytics";
+import { useEffect } from "react";
+
 
 
 const EditProfile = ({user: CurrentUser }) =>{
@@ -118,6 +121,11 @@ const EditProfile = ({user: CurrentUser }) =>{
             });
         }
     }
+    useEffect(() =>{
+        registerView({ title: "Profile", type: "dashboard", slug: "/dashboard/profile" })
+    },[])
+
+
     return (<Card>
 
         <FormGroup style={{ justifyContent: "flex-start" }}>

@@ -13,6 +13,7 @@ import { IndeterminateLinearLoader } from "components/Loader";
 import { FormElement, Label, FormAlert, Input } from "components/form-elements";
 import styled from "styled-components";
 import illustration from "assets/images/login-illustration.webp";
+import { registerView } from "lib/analytics";
 
 const PageWrapper = styled.div`
 display: flex;
@@ -224,11 +225,14 @@ export default function Login({ }) {
             router.push("/dashboard");
         }
     }, [session, status])
+    useEffect(() => {
+        registerView({ title: "Login", type: "page", slug: "/login" })
+    }, [])
 
     if (status === "loading") {
         return "Loading...";
-    }
-
+    } 
+   
 
 
     return (

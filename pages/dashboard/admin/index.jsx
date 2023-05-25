@@ -50,7 +50,7 @@ const fetcher = url => axios.get(url).then(res => res.data)
 export default function Dashboard({ user }) {
   
     const { data:UserData, error:userListError, isLoading :userListLoading} = useSWR(['/api/admin/users/all', { adminId: user.id }], ([url, data]) => fetchData(url, data))
-    const { data:pageData, error:pageError, isLoading:pageLoading} = useSWR('/api/admin/pages', fetcher)
+    const { data:pageData, error:pageError, isLoading:pageLoading} = useSWR('/api/admin/analytics', fetcher)
 
   
 

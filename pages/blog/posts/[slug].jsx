@@ -2,6 +2,7 @@ import axios from "axios";
 import Head from "next/head";
 import { NavBar, PostPageHero, Article, Wrapper, SideBar } from "components/blog";
 import { useEffect } from "react";
+import { registerView } from "lib/analytics";
 export async function getStaticPaths() {
   const response = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/all`);
 
@@ -32,24 +33,9 @@ export async function getStaticProps({ params }) {
 }
 
 export default function Post({ post }) {
-  useEffect(() =>{
-    const addView = async() =>{
-      await axios.post("/api/pages",{
-        slug:"/blog/posts/"+post.slug,
-        type:"article",
-        name:post.title,
-        increase:["view"]
-        })
-        .then(({data}) =>{
-          console.log(data.message);
-        })
-        .catch((error) =>{
-          console.log(error);
-        })
-    }
-    addView()
-
-  },[])
+  useEffect(() => {
+    registerView({ title: post.title, type: "article", slug: "/blog/posts/" + post.slug })
+  }, [])
   return (
     <>
       <Head>

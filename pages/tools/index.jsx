@@ -8,6 +8,8 @@ import {
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import Head from 'next/head';
 import { useSession } from "next-auth/react";
+import { registerView } from "lib/analytics";
+import { useEffect } from "react";
 
 
 const metadata = {
@@ -78,6 +80,9 @@ export const FooterData = {
 export default function Tools() {
 
     const { data: session } = useSession();
+    useEffect(() =>{
+        registerView({ title: "All Tools", type: "page", slug: "/tools" })
+    },[])
 
     return (
         <>

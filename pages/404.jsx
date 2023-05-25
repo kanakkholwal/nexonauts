@@ -9,6 +9,8 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { NavBarWrapper, MenuList, AuthButtonWrapper, NavToggle } from "components/navbar";
 import Footer from "components/footer";
+import { registerView } from "lib/analytics";
+import { useEffect } from "react";
 
 
 
@@ -50,7 +52,7 @@ const ErrorWrapper = styled.div`
         p{
             color: rgba(var(--text-rgb), 0.5);
         }
-        
+    }   
 `;
 
 
@@ -59,7 +61,9 @@ export default function Page() {
     const [open, setOpen] = useState(false);
 
     const { data: session } = useSession()
-
+    useEffect(() =>{
+        registerView({ title: "Not Found", type: "404", slug: "/404" })
+    },[])
     return (
         <>
             <Head>
