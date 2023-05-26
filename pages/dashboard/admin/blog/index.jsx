@@ -5,8 +5,8 @@ import Head from "next/head";
 import Link from 'next/link';
 import axios from 'axios';
 import {  useState } from 'react';
-import {  RiAddLine } from 'react-icons/ri';
-import {  HiOutlineExternalLink } from 'react-icons/hi';
+import {  RiAddLine,RiArticleLine } from 'react-icons/ri';
+import {  HiOutlineExternalLink,HiOutlineEye } from 'react-icons/hi';
 import { Card, CardHeader, CardBody, CardTitle, CardDescription } from "components/Card";
 import { IndeterminateCircularLoader as Loader } from "components/Loader";
 import styled from 'styled-components';
@@ -14,6 +14,7 @@ import Image from 'next/image';
 import { useRouter } from "next/router";
 import State from "components/state";
 import useSWR from "swr";
+
 
 const PostCard = styled(Card)`
 min-width:320px;
@@ -127,8 +128,11 @@ export default function Blog({ user }) {
                 <title>Blog</title>
             </Head>
             <DashboardPage user={user}>
+  
                 <Header>
-                    <h6>All Posts</h6>
+                    <h6> 
+                        <RiArticleLine /> All Posts ({data?.posts?.length > 0 ? data?.posts?.length : 0})
+                    </h6>
                     <ResponsiveButton as={Link} icon={<HiOutlineExternalLink/>} direction={"true"} low="true" level="true" size="sm" target="_blank" href="/blog" className="ms-auto me-2">
                         Check out 
                     </ResponsiveButton>

@@ -450,6 +450,28 @@ li {
     font-family: var(--font-body)!important;
     text-transform: capitalize;
   }
+//   .Collapse {
+//     overflow: hidden;
+//     position: relative;
+//     height: 0;
+//     transition: height .5s cubic-bezier(0.4, 0, 0.2, 1);
+//     width: 100%;
+//     &.isOpen{
+//             height: auto;
+//     } 
+// }
+.Collapse {
+    width: 100%;
+    display: grid;
+    grid-template-rows: auto 0;
+    transition: grid-template-rows 0.3s ease-in-out;
+    &.isOpen{
+        grid-template-rows: auto 1fr;
+
+    }
+}
+
+
 // h1 {
 //     font-size: 2.5rem;
 //     line-height: 1.2;

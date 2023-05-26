@@ -244,9 +244,9 @@ export default function Header({ user, routes, children }) {
                         searchResults ?
                             <SearchDropDown open={searchResults}>
                                 {
-                                    routes?.filter((route) => route.path.includes(searchPath)).length > 0 ?
+                                    routes?.filter((route) => route.path.toLowerCase().includes(searchPath.toLowerCase())).length > 0 ?
 
-                                        routes?.filter((route) => route.path.includes(searchPath)).map((route) => (
+                                        routes?.filter((route) => route.path.toLowerCase().includes(searchPath.toLowerCase())).map((route) => (
                                             <SearchResultItem href={route.path} key={route.path}>
                                                 <h6>{route.title}</h6>
                                                 <p>{route.path}</p>

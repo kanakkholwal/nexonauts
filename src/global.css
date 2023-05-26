@@ -7276,6 +7276,16 @@ li {
   text-transform: capitalize;
 }
 
+.Collapse {
+  width: 100%;
+  display: grid;
+  grid-template-rows: auto 0;
+  transition: grid-template-rows 0.3s ease-in-out;
+}
+.Collapse.isOpen {
+  grid-template-rows: auto 1fr;
+}
+
 .x-mandatory {
   scroll-snap-type: x mandatory;
   overflow-x: auto;
