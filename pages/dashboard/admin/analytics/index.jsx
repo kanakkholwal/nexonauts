@@ -84,7 +84,9 @@ function HandlePieChart({ data }) {
           breakpoint: 480,
           options: {
             chart: {
-              width: 200,
+              width: 400,
+              height: 450
+
             },
             legend: {
               position: 'bottom',

@@ -138,10 +138,9 @@ const postSchema = new mongoose.Schema(
 );
 
 postSchema.pre('save', async function (next) {
-  if (!this.isModified('comments.rootItems') && !this.isModified('image')) {
+  if (!this.isModified('image')) {
     return next();
   }
-  this.comments.numberOfComments = this.comments.rootItems.length;
   this.metadata.image = this.image;
   next();
 });

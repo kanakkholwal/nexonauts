@@ -10,7 +10,8 @@ import { BiCheck, BiCheckDouble } from 'react-icons/bi';
 import useSWR from 'swr'
 import axios from 'axios';
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect,  useState } from "react";
+import { CSSTransition } from 'react-transition-group';
 
 const Header = styled.div`
 padding:0.5rem 0.75rem;
@@ -80,33 +81,24 @@ span.TOGGLE{
 }
 `;
 const Body = styled.div`
-overflow: hidden;
-box-sizing: border-box;
-transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
-height:0;
-&.open{
-    transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
-    height:auto;
-}
-&>div{
 margin:0 0.75rem;
-    border-top:1px solid rgba(var(--text-rgb),0.22);
+border-top:1px solid rgba(var(--muted-rgb),0.22);
 flex-grow: 1;
 height: 100%;
 overflow: hidden;
-}
+
 `;
 const MessageCard = styled.div`
-border-bottom:1px solid rgba(var(--text-rgb),0.22);
+border-bottom:1px solid rgba(var(--muted-rgb),0.1);
 ${({ read }) => {
         if (!read) {
             return `
-        background:rgba(var(--body-bg-rgb),0.8);
+        background:rgba(var(--theme-rgb),0.1);
         `
         }
         else {
             return `
-        background:#fbfbfb;
+            background:rgba(var(--light-rgb),0.8);
         `
         }
     }}
@@ -119,9 +111,7 @@ export default function Messages({ user }) {
     const { data, error, isLoading } = useSWR('/api/admin/messages', fetcher)
 
     const [messages, setMessages] = useState(data?.messages);
-    const [openIndex, setOpenIndex] = useState(-1);
 
-    console.log(data);
     const messageRead = (index,read) =>{
         setMessages((messages) =>{
             const newMessages = [...messages];
@@ -183,41 +173,10 @@ export default function Messages({ user }) {
                 }}>
                     {data && data.messages.length > 0 ? messages?.sort((a, b) => {
                             return new Date(b.createdAt) - new Date(a.createdAt);
-                        }).map(({ name, email, type, message, read, createdAt, _id },index) => {
-                            return (
-                                <MessageCard key={_id} read={read} open={openIndex === index}>
-                                    <Header type={type} read={read} open={openIndex === index}>
-                                        <div>
-                                            <span className="IMPORTANT" onClick={(e) => {
-                                                e.stopPropagation();
-                                                messageType(index, type)
-                                                updateMessage({ messageId: _id, type: type === "IMPORTANT" ? "NORMAL" : "IMPORTANT" });
-                                            }}>{type === "IMPORTANT" ? <MdLabelImportant /> : <MdLabelImportantOutline />}</span>
-                                            <span>{name}</span>
-                                            <span email="true"> : {email}</span>
-                                        </div>
-                                        <div>
+                        }).map((message,index) => {
+           
 
-                                            <span className="READ" onClick={(e) => {
-                                                e.stopPropagation();
-                                                messageRead(index, read)
-                                                updateMessage({ messageId: _id, read: !read });
-                                            }}>{read === true ? <BiCheckDouble /> : <BiCheck />}</span>
-                                            <span>{timeAgo(new Date(createdAt))}</span>
-                                            <span className="TOGGLE"  onClick={(e) =>{
-                                                e.stopPropagation();
-                                                setOpenIndex(openIndex === index ? -1 : index);
-                                            }}><HiOutlineChevronUp /></span>
-                                        </div>
-                                    </Header>
-                                    <Body className={openIndex === index ? "open":""}>
-                                        <div>
-                                            <p>{message}</p>
-
-                                        </div>
-                                    </Body>
-                                </MessageCard>
-                            )
+                            return <Message key={index}  {...message} index={index}  messageRead={messageRead} messageType={messageType} updateMessage={updateMessage}/>
                         }) : "No Messages yet"}
                 </Card>
 
@@ -226,6 +185,42 @@ export default function Messages({ user }) {
     )
 }
 
+function Message({ name, email, type, message, read, createdAt,index, _id,updateMessage,messageRead,messageType}){
+    const [open, setOpen] = useState(false);
+
+    return (
+        <MessageCard  read={read} open={open}>
+            <Header type={type} read={read} open={open}>
+                <div>
+                    <span className="IMPORTANT" onClick={(e) => {
+                        e.stopPropagation();
+                        messageType(index, type)
+                        updateMessage({ messageId: _id, type: type === "IMPORTANT" ? "NORMAL" : "IMPORTANT" });
+                    }}>{type === "IMPORTANT" ? <MdLabelImportant /> : <MdLabelImportantOutline />}</span>
+                    <span>{name}</span>
+                    <span email="true"> : {email}</span>
+                </div>
+                <div>
+
+                    <span className="READ" onClick={(e) => {
+                        e.stopPropagation();
+                        messageRead(index, read)
+                        updateMessage({ messageId: _id, read: !read });
+                    }}>{read === true ? <BiCheckDouble /> : <BiCheck />}</span>
+                    <span>{timeAgo(new Date(createdAt))}</span>
+                    <span className="TOGGLE"  onClick={(e) =>{
+                        e.stopPropagation();
+                        setOpen(!open);
+                    }}><HiOutlineChevronUp /></span>
+                </div>
+            </Header>
+
+            <Body className={`Collapse ${open ? " isOpen" :""}`}>
+                    <p>{message}</p>
+            </Body>
+        </MessageCard>
+    )
+}
 
 export async function getServerSideProps(context) {
 
