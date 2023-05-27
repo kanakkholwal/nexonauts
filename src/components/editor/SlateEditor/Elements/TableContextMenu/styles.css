@@ -1,0 +1,18 @@
+.contextMenu{
+    width: fit-content;
+    height: fit-content;
+    position: fixed;
+    background: white;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    padding: 0.5%;
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.menuOption {
+    display: flex;
+    gap:15px;
+}

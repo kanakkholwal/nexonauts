@@ -1,0 +1,14 @@
+.embed{
+    width: fit-content;
+    position: relative;
+    margin-right: 20px;
+}
+.embed img,.embed iframe{
+    width: 100%;
+    height:100%;
+}
+.embed button{
+    position: absolute;
+    bottom: -6px;
+    right: 0;
+}
