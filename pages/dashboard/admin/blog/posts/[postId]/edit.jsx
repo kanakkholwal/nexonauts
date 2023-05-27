@@ -7,7 +7,8 @@ import { Input, FormElement, Label, TextArea, FormHelper,Switch, FileInput } fro
 import Head from "next/head";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from "react";
-import JoditEditor from "components/editor/jodit";
+// import JoditEditor from "components/editor/jodit";
+import Editor from "components/editor/SlateEditor";
 import styled from 'styled-components';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -52,7 +53,12 @@ export default function NewPost({ user }) {
     });
     const [title, setTitle] = useState("Loading...");
     const [description, setDescription] = useState("Loading...");
-    const [content, setContent] = useState(`Loading...`);
+    const [content, setContent] = useState([
+        {
+          type: 'paragraph',
+          children: [{ text: 'Enter your blog post content here...' }],
+        },
+      ]);
     const [image, setImage] = useState("");
     const [imageState, setImageState] = useState({
         loader: {
@@ -361,7 +367,8 @@ export default function NewPost({ user }) {
                         </FormElement>
                         <FormElement>
                             <h6>Post Content</h6>
-                            <JoditEditor ref={editor} value={content} onChange={(value) => setContent(value)} />
+                            {/* <JoditEditor ref={editor} value={content} onChange={(value) => setContent(value)} /> */}
+                            <Editor  initialValue={content} onChange={(value) => setContent(value)} />
 
                         </FormElement>
                        
