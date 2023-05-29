@@ -1,0 +1,10 @@
+.videoInput input{
+    border:1px solid lightgray;
+    padding: 1%;
+    margin: 2% 0;
+}
+.videoInput{
+    display: flex;
+    flex-direction: column;
+    gap:2%
+}

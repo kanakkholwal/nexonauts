@@ -11,7 +11,6 @@ import useSWR from 'swr'
 import axios from 'axios';
 import styled from "styled-components";
 import { useEffect,  useState } from "react";
-import { CSSTransition } from 'react-transition-group';
 
 const Header = styled.div`
 padding:0.5rem 0.75rem;

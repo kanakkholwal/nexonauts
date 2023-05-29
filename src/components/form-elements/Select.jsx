@@ -24,9 +24,9 @@ const SelectToggle = styled.input.attrs(props => ({
     border-radius: 0.5rem;
     padding: 0.75rem 1.25rem;
     user-select:none;
-    border: ${props => props.outlined ? "2px" : "1px"} solid #eee;
-    background:rgb(0 0 0 / 5%);
-    color: rgba(0,0,0,0.8);
+    border: ${props => props.outlined ? "2px" : "1px"} solid rgba(var(--muted-rgb),1);
+    background:rgba(var(--theme-rgb),0.1);
+    color:var(--text-color);
     caret-color: var(--theme);
     
     &::placeholder {
@@ -36,7 +36,7 @@ const SelectToggle = styled.input.attrs(props => ({
     
     
     &:focus {
-      border-color: var(--theme);
+      border-color: rgba(var(--theme-rgb),0.9);
       opacity: 1;
   
     
@@ -63,19 +63,18 @@ const SelectToggle = styled.input.attrs(props => ({
       animation-duration: 500ms;
       animation-fill-mode: both;
     }
-    ${props => props.lg ? `font-size: 1rem !important;
+    ${props => props.size === "lg" ? `font-size: 1rem !important;
     line-height: 2.15 !important;
     padding-left: 0.75em !important;
     padding-right: 0.75em !important;
     border-radius: 0.5rem !important;`: ""}
     
-    ${props => props.sm ? `padding: 0.43em 0.99em 0.35em !important;
+    ${props => props.size === "sm" ? `padding: 0.43em 0.99em 0.35em !important;
     font-size: .775rem !important;
     line-height: 1.6 !important;
     border-radius: 0.2rem !important;`: ""}
     
   `;
-
 
 
 
@@ -130,7 +129,7 @@ const SelectDropdownItem = styled.li`
     white-space: nowrap;
     border-radius: 6px;
     line-height: 1.57143;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.875rem;
     text-transform: capitalize;
     width: 100%;
@@ -156,15 +155,27 @@ const SelectDropdownItem = styled.li`
       border-bottom-left-radius: 0.25rem;
       border-bottom-right-radius: 0.25rem;
     }
+    ${props => props.size === "sm" ? 
+    `padding-block: 0.25rem;
+    padding-inline: 0.75rem;
+    font-size: 0.775rem;
+    line-height: 1.6;
+    `: ""}
 `;
 
 
-function Select({ options, value, onChange, ...props }) {
+function Select({ options, value, onChange, size,...props }) {
   const selectRef = React.useRef(null);
 
   // const [usingOptions, SetUsingOptions] = React.useState(options);
 
-  const usingOptions = options;
+  const usingOptions = options.map((option) =>{
+    return {
+      value: option.value,
+      label: option.label,
+      option: option.value === value,
+    }
+  });
   const [open, SetOpen] = React.useState(false);
   const [SelectedOption, SetSelectedOption] = React.useState(usingOptions.find(({ option }) => option === true) || usingOptions[0]);
 
@@ -189,14 +200,18 @@ function Select({ options, value, onChange, ...props }) {
       SetOpen(false)
     }
   }
+  const Close = (e) =>{
+    if (selectRef.current) {
+      if (!selectRef.current.contains(e.target))
+        SetOpen(false)
+    }
+  }
 
   React.useEffect(() => {
-    document.addEventListener("mouseup", (e) => {
-      if (selectRef.current) {
-        if (!selectRef.current.contains(e.target))
-          SetOpen(false)
-      }
-    });
+    document.addEventListener("mouseup", Close);
+    return () => {
+      document.removeEventListener("mouseup", Close);
+    }
   }, []);
 
   React.useEffect(() => {
@@ -231,12 +246,13 @@ function Select({ options, value, onChange, ...props }) {
           onClick={() => SetOpen(!open)}
           value={SelectedOption.label ? SelectedOption.label : SelectedOption.value.toString()}
           invert={!open}
+          size={size}
         />
         <MdOutlineUnfoldMore onClick={() => SetOpen(!open)} />
         <SelectDropdownWrapper className={(open ? " isOpen" : "")}>
           <SelectDropdown>
             {usingOptions.map((Option, index) => {
-              return <SelectDropdownItem className={Option.value === SelectedOption.value ? " isActive" : " "} onClick={(e) => UpdateOption(e)} value={Option.value.toString()} key={index}>{Option.label ? Option.label.toString() : Option.value.toString()}</SelectDropdownItem>
+              return <SelectDropdownItem size={size} className={Option.value === SelectedOption.value ? " isActive" : " "} onClick={(e) => UpdateOption(e)} value={Option.value.toString()} key={index}>{Option.label ? Option.label.toString() : Option.value.toString()}</SelectDropdownItem>
             })}
           </SelectDropdown>
 
