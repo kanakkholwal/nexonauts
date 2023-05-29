@@ -49,6 +49,7 @@
     --theme: hsl(196, 100%, 40%);
     --open-transition: opacity .15s cubic-bezier(0, 0, .2, 1) 0ms, transform .15s cubic-bezier(0, 0, .2, 1) 0ms, -webkit-transform .15s cubic-bezier(0, 0, .2, 1) 0ms;
     --drop-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) -20px 20px 40px -4px;
+    --drop-shadow-hover: rgba(130, 163, 196, 0.24) 0px 0px 2px 0px, rgba(142, 165, 189, 0.24) -20px 20px 40px -4px;
 
     --dropdown-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
     --success: hsl(143, 28%, 22%);
@@ -92,13 +93,15 @@
     --warning: rgba(var(--warning-rgb), var(--theme-opacity));
     --dark-rgb: 42, 44, 50;
     --dark: rgba(var(--dark-rgb), var(--theme-opacity));
+    --light-rgb: 251, 251, 251;
+    --light: rgba(var(--dark-rgb), var(--theme-opacity));
     --mute-bg-rgb:244, 246, 248;
     --mute-rgb:99, 115, 129;
     --text-opacity: 1;
     --text-rgb: 33, 43, 54;
     --text-color: rgba(var(--text-rgb), var(--theme-opacity));
     --muted-color: rgb(var(--mute-rgb), 0.8);
-    --badge-text: #fbfbfb;
+    --badge-text: rgb(251, 251, 251);
     --border-color: #eee;
 
     --btn-text: #fff;
@@ -430,9 +433,9 @@ p {
     font-weight: 500;
 }
 
-li {
-    list-style: none;
-}
+// li {
+//     list-style: none;
+// }
 .apexcharts-tooltip span {
     color: #ffffff;
     font-family: var(--font-body);

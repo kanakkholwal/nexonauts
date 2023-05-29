@@ -16,9 +16,9 @@ const Button = styled.button`
   line-height:var(--btn-line-height,1.75);
   color:var(--btn-text,#fbfbfb);
   background:var(--btn-bg,var(--theme));
+  border: 2px solid var(--btn-border,var(--theme));
   box-shadow:var(--btn-box-shadow,0 4px 9px -4px rgba(var(--theme-rgb), 0.8));
   border-radius: var(--btn-border-radius,0.5rem);
-  border: 2px solid var(--btn-border,var(--theme));
   text-align: center;
   
   &:hover{

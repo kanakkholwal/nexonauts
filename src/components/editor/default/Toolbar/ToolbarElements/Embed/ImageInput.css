@@ -1,0 +1,61 @@
+.imageInput {
+  /* background-color: red; */
+  white-space: nowrap;
+  width: 300px;
+}
+.imageInputWrapper {
+  width: 85%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.imageInputWrapper ul {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+.imageInputWrapper li {
+  width: 40%;
+  padding: 5px;
+  text-align: center;
+  border-bottom: 4px solid lightgray;
+}
+.dragArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 3px dashed #000;
+  padding: 5px 10px;
+}
+#browseButton {
+  opacity: 1;
+  background: #3f7bd6;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #fff;
+}
+.imageInputWrapper input {
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 5px;
+}
+.uploadFooter {
+  display: flex;
+  justify-content: space-evenly;
+}
+.imageInputWrapper .uploadFooter button {
+  opacity: 1;
+  padding: 5px 25px;
+  color: #fff;
+  border-radius: 5px;
+}
+#add {
+  background-color: #44c767;
+}
+#cancel {
+  background-color: lightgray;
+}

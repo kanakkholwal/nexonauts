@@ -46,6 +46,18 @@ border-collapse: collapse;
 border-spacing: 0px;
 min-width: 800px;
 box-sizing: border-box;
+${({bordered}) =>{
+    if(bordered === "true"){
+        return `
+        & ${Td},& ${Th},& td,& th{
+        border: 1px solid rgba(var(--mute-rgb),0.5);
+        padding: 0.25rem 0.5rem;
+        display: table-cell;
+vertical-align: inherit;
+        }
+        `
+    }
+}}
 `;
 export const TableContainer = styled.div`
 overflow:auto;
@@ -59,8 +71,8 @@ flex: 1 1 auto;
 padding: .5rem;
 overflow-x:auto;
 -webkit-overflow-scrolling: touch;
-scroll-snap-type: x mandatory;
-overflow-x: auto;
+ scroll-snap-type: x mandatory; 
+ overflow-x: auto; 
 scroll-behavior: smooth;
 
 &::-webkit-scrollbar {

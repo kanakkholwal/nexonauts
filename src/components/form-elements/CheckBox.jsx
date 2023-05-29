@@ -9,7 +9,7 @@ to{
 }`
 
 const Checkbox = styled.input.attrs({ type: 'checkbox' })`
---checkbox-width: ${({ size }) => size ?? "1.75rem"};
+--checkbox-width: ${({ size }) => size ? size: "1.75rem"};
 width: var(--checkbox-width,1.75rem);
 height: var(--checkbox-width,1.75rem);
 position: relative;

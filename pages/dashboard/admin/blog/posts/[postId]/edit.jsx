@@ -53,12 +53,13 @@ export default function NewPost({ user }) {
     });
     const [title, setTitle] = useState("Loading...");
     const [description, setDescription] = useState("Loading...");
-    const [content, setContent] = useState([
+    const [initialContent, setInitialContent] = useState([
         {
           type: 'paragraph',
           children: [{ text: 'Enter your blog post content here...' }],
         },
       ]);
+    const [content, setContent] = useState("");
     const [image, setImage] = useState("");
     const [imageState, setImageState] = useState({
         loader: {
@@ -220,7 +221,7 @@ export default function NewPost({ user }) {
                         show: false,
                     },
                 })
-                setContent(post.content);
+                // setContent(post.content);
 
 
             })
@@ -368,7 +369,7 @@ export default function NewPost({ user }) {
                         <FormElement>
                             <h6>Post Content</h6>
                             {/* <JoditEditor ref={editor} value={content} onChange={(value) => setContent(value)} /> */}
-                            <Editor  initialValue={content} onChange={(value) => setContent(value)} />
+                            <Editor  initialValue={initialContent} onChange={(value) => setContent(value)} />
 
                         </FormElement>
                        

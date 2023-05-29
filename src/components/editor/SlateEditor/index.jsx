@@ -1,75 +1,55 @@
-import React, { useCallback, useMemo, useState } from 'react';
+// ./slate/index.jsx
+import React, { useCallback, useMemo } from 'react'
+import isHotkey from 'is-hotkey'
+import { Editable, withReact, Slate } from 'slate-react';
 import { createEditor } from 'slate';
-import { withHistory } from "slate-history";
-import {Slate, Editable, withReact, } from 'slate-react';
-import Toolbar from './Toolbar/Toolbar'
-import { getMarked, getBlock } from './utils/SlateUtilityFunctions.js'
-import withLinks from './plugins/withLinks.js'
-import withTables from './plugins/withTable.js'
-import withEmbeds from './plugins/withEmbeds.js'
-// import withEquation from './plugins/withEquation.js'
-// import './Editor.css'
-import CodeToText from './Elements/CodeToText/CodeToText'
-import { serialize } from './utils/serializer';
+import { withHistory } from 'slate-history';
 
+import {
+  toggleMark,
+  Element,
+  Leaf,
+} from "./toolbar/helper"
 
-const Element = (props) =>{
-    return getBlock(props);
-}
-const Leaf = ({ attributes, children, leaf }) => {
-    children = getMarked(leaf,children);
-    return <span {...attributes}>{children}</span>
-}
-const SlateEditor = ({ initialValue, onChange })=>{
-    const editor = useMemo(() => (withHistory(withEmbeds(withTables(withLinks(withReact(createEditor())))))), []);
-    const [value,setValue] = useState(initialValue);
+import Toolbar from './toolbar';
+import withLinks from './toolbar/plugins/withLinks';
+import withEmbeds from './toolbar/plugins/withEmbeds';
+import withTable from './toolbar/plugins/withTable';
 
-    const handleEditorChange = useCallback((newValue) => {
-        setValue(newValue);
-        onChange(newValue);
-      }, [onChange]);
-
-    
-
-
-    const renderElement = useCallback(props => <Element {...props}/>,[])
-
-    const renderLeaf = useCallback(props => {
-        return <Leaf {...props} />
-    }, [])
-
-
-    const [htmlAction,setHtmlAction] = useState({
-        showInput:false,
-        html:'',
-        action:'',
-        location:'',
-    })
-    const handleCodeToText = (partialState)=>{
-        setHtmlAction(prev => ({
-            ...prev,
-            ...partialState,
-        }))
-    }
-    
-    return (
-        <Slate editor={editor} value ={value} onChange ={handleEditorChange} >
-                <Toolbar handleCodeToText={handleCodeToText}  />
-                <div className="editor-wrapper" style={{border:'1px solid #f3f3f3',padding:'0 10px'}}>
-                    <Editable
-                        placeholder='Enter your blog post content here...'
-                        renderElement={renderElement} 
-                        renderLeaf={renderLeaf}
-                    />
-                </div>
-                {
-                    htmlAction.showInput && 
-                    <CodeToText {...htmlAction} handleCodeToText={handleCodeToText}/>
-                }
-                
-        </Slate>
-        
-    )
+const HOTKEYS = {
+  'mod+b': 'bold',
+  'mod+i': 'italic',
+  'mod+u': 'underline',
+  'mod+`': 'code',
 }
 
-export default SlateEditor
+
+const RichTextExample = ({ initialValue, onChange }) => {
+  const renderElement = useCallback(props => <Element {...props} />, [])
+  const renderLeaf = useCallback(props => <Leaf {...props} />, [])
+  const editor = useMemo(() => withTable(withEmbeds(withLinks(withHistory(withReact(createEditor()))))), [])
+
+  return (
+    <Slate editor={editor} value={initialValue} onChange={onChange}>
+      <Toolbar/>
+      <Editable
+        renderElement={renderElement}
+        renderLeaf={renderLeaf}
+        placeholder="Enter some rich text…"
+        spellCheck
+        autoFocus
+        onKeyDown={event => {
+          for (const hotkey in HOTKEYS) {
+            if (isHotkey(hotkey, event)) {
+              event.preventDefault()
+              const mark = HOTKEYS[hotkey]
+              toggleMark(editor, mark)
+            }
+          }
+        }}
+      />
+    </Slate>
+  )
+}
+
+export default RichTextExample
