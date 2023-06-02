@@ -6,15 +6,15 @@ import { ContextMenuWrapper, ContextMenuItem } from '../components';
 
 const HtmlContextMenu = (props) => {
   const { editor, handleCodeToText } = props;
-  const [selection, setSelection] = useState();
+  const [selection, setSelection] = useState(null);
   const [showMenu, { top, left }] = useContextMenu(
     editor,
     'htmlCode',
     setSelection
   );
   const handleEditHtml = () => {
-    Transforms.select(editor, selection);
-    const parentPath = Path.parent(selection.focus.path);
+    Transforms.select(editor, selection ?? editor.selection);
+    const parentPath = Path.parent(selection.focus.path ?? editor.selection.focus.path);
     const htmlNode = Node.get(editor, parentPath);
     handleCodeToText({
       showInput: true,

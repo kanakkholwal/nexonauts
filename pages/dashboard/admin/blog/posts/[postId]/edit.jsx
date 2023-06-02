@@ -8,7 +8,13 @@ import Head from "next/head";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from "react";
 // import JoditEditor from "components/editor/jodit";
-import Editor from "components/editor/SlateEditor";
+// import Editor from "components/editor/SlateEditor";
+// import Editor from "components/editor/default";
+// import convertToHTML from "components/editor/SlateEditor/helper";
+import dynamic from "next/dynamic";
+const Editor = dynamic(() => import('components/editor/default'), {
+    ssr: false,
+  });
 import styled from 'styled-components';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -53,13 +59,8 @@ export default function NewPost({ user }) {
     });
     const [title, setTitle] = useState("Loading...");
     const [description, setDescription] = useState("Loading...");
-    const [initialContent, setInitialContent] = useState([
-        {
-          type: 'paragraph',
-          children: [{ text: 'Enter your blog post content here...' }],
-        },
-      ]);
-    const [content, setContent] = useState("");
+    const [initialContent, setInitialContent] = useState(``);
+    const [content, setContent] = useState(initialContent);
     const [image, setImage] = useState("");
     const [imageState, setImageState] = useState({
         loader: {
@@ -221,7 +222,7 @@ export default function NewPost({ user }) {
                         show: false,
                     },
                 })
-                // setContent(post.content);
+                setInitialContent(post.content);
 
 
             })
@@ -369,7 +370,11 @@ export default function NewPost({ user }) {
                         <FormElement>
                             <h6>Post Content</h6>
                             {/* <JoditEditor ref={editor} value={content} onChange={(value) => setContent(value)} /> */}
-                            <Editor  initialValue={initialContent} onChange={(value) => setContent(value)} />
+                            <Editor  
+                            initialValue={initialContent} onChange={(value) => {
+                                    setContent(value)
+                                }} 
+                             />
 
                         </FormElement>
                        

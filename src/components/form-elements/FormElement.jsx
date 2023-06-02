@@ -15,7 +15,7 @@ const FormElement = styled.div`
     flex-direction: column;
     margin: 0.25rem 0.5rem 1.25rem;
     flex:auto;
-    ${Label},label {
+    &>${Label}, &>label {
       order: 1;
       display:flex;
     }
@@ -28,25 +28,25 @@ const FormElement = styled.div`
         order: 1;
     }
   }
-  
-    ${Input},${TextAreaStyled},
-    textarea,input,select,${SelectWrapper},${PasswordWrapper} {
+ 
+  &>${Input}, &>${TextAreaStyled},
+  &>textarea, &>input, &>select, &>${SelectWrapper}, &>${PasswordWrapper} {
       order: 2;
       display:flex;
     }
 
   
-    ${Input},${TextAreaStyled},
-  textarea,input,select,${SelectWrapper},${PasswordWrapper} {
+    &>${Input}, &>${TextAreaStyled},
+    &>textarea, &>input, &>select, &>${SelectWrapper}, &>${PasswordWrapper} {
       order: 2;
       display:flex;
     }
   
   
-    ${FormAlert} {
+    &>${FormAlert} {
       order: 3;    
     }
-    ${FormHelper} {
+    &>${FormHelper} {
       order: 3;    
       &:has(~${FormAlert})~${FormAlert} {
           margin-top:0.5rem;

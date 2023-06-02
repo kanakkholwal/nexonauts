@@ -65,7 +65,7 @@ const TableSelector = ({ editor }) => {
           <strong>
             <i>{`Insert a ${tableData.row >= 1 ? `${tableData.row} x ${tableData.column}` : 'X x Y'} table`}</i>
           </strong>
-          <table>
+          <div>
             <TableInput>
               {tableInput.map((grp, rowIndex) => (
                 <div key={rowIndex}>
@@ -83,7 +83,7 @@ const TableSelector = ({ editor }) => {
                 </div>
               ))}
             </TableInput>
-          </table>
+          </div>
         </PopUp>
       )}
     </PopUpWrapper>

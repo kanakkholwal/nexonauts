@@ -13,7 +13,7 @@ const withPWA = require("next-pwa")({
 });
 
 const nextConfig = withPWA({
-  reactStrictMode: true,
+  // reactStrictMode: true,
   swcMinify: true,
   compiler: { styledComponents: { ssr: true } },
   crossOrigin: 'anonymous',

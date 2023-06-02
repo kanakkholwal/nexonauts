@@ -165,7 +165,9 @@ strong,.strong{
 }
 
 
-
+ul{
+    margin-left: 1rem;
+}
 abbr[title] {
     text-decoration: underline;
     -webkit-text-decoration: underline dotted;
@@ -243,7 +245,12 @@ pre,
 samp {
     font-size: 1em;
     direction: ltr;
-    unicode-bidi: bidi-override
+    unicode-bidi: bidi-override;
+    font-family: var(--font-mono,'monospace');
+    font-size: var(--font-size-sm,.875rem);
+    font-weight: 400;
+    color: var(--text-color);
+    background-color: var(--code-bg);
 }
 
 
@@ -698,12 +705,8 @@ ol.ol li::before {
     font-size: 0.875rem;
     border-radius: 3px;
     line-height: inherit;
-    color: #a6b4c3;
-    background: #1e2739;
     letter-spacing: 1px;
-    border: 1px dashed variables.$borderColor;
     font-weight: 500;
-    font-family: variables.$fontCode
 }
 
 img,

@@ -4,6 +4,7 @@ import isHotkey from 'is-hotkey'
 import { Editable, withReact, Slate } from 'slate-react';
 import { createEditor } from 'slate';
 import { withHistory } from 'slate-history';
+import { EditableArea,EditorWrapper } from './toolbar/components';
 
 import {
   toggleMark,
@@ -15,7 +16,11 @@ import Toolbar from './toolbar';
 import withLinks from './toolbar/plugins/withLinks';
 import withEmbeds from './toolbar/plugins/withEmbeds';
 import withTable from './toolbar/plugins/withTable';
+// import { serializeHtml } from '@udecode/plate';
 
+const html = serializeHtml(editor, {
+  nodes: editor.children,
+});
 const HOTKEYS = {
   'mod+b': 'bold',
   'mod+i': 'italic',
@@ -30,14 +35,16 @@ const RichTextExample = ({ initialValue, onChange }) => {
   const editor = useMemo(() => withTable(withEmbeds(withLinks(withHistory(withReact(createEditor()))))), [])
 
   return (
-    <Slate editor={editor} value={initialValue} onChange={onChange}>
+    <EditorWrapper>
+        <Slate editor={editor} value={initialValue} onChange={onChange}>
       <Toolbar/>
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
-        placeholder="Enter some rich text…"
+        placeholder="Write Something Awesome..."
         spellCheck
         autoFocus
+        as={EditableArea}
         onKeyDown={event => {
           for (const hotkey in HOTKEYS) {
             if (isHotkey(hotkey, event)) {
@@ -49,6 +56,8 @@ const RichTextExample = ({ initialValue, onChange }) => {
         }}
       />
     </Slate>
+    </EditorWrapper>
+  
   )
 }
 

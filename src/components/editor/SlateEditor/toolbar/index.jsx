@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSlate } from 'slate-react';
 import {
   toggleBlock,
@@ -13,15 +14,14 @@ import { Select } from "components/form-elements";
 import Button from "./button";
 import Icon from "./icons";
 import LinkButton from "./elements/LinkButton";
-import CodeToTextButton from "./elements/code2text";
 import Id from "./elements/Id";
 import ColorPicker from "./elements/color-picker";
 import ImageInput from "./elements/image";
-// import VideoInput from "./elements/video";
+import VideoInput from "./elements/videoInput";
 import TableInput from "./elements/table";
 import TableContextMenu from "./elements/tableContextMenu";
-import HtmlContextMenu from "./elements/htmlContextMenu";
-import { useState } from 'react';
+// import CodeToTextButton from "./elements/code2text";
+// import HtmlContextMenu from "./elements/htmlContextMenu";
 
 export default function Toolbar() {
   const editor = useSlate();
@@ -96,6 +96,8 @@ export default function Toolbar() {
                 return <LinkButton key={element.id} editor={editor} />;
               case 'id':
                 return <Id key={element.id} editor={editor} />;
+                {/* case 'dropdown':
+                return <Dropdown key={element.id} {...element} />; */}
               case 'color-picker':
                 return (
                   <ColorPicker
@@ -111,23 +113,19 @@ export default function Toolbar() {
                     editor={editor}
                   />
                 );
-              case 'embed':
-                switch (element.format) {
+          
                   case 'image':
                     return <ImageInput key={element.id} editor={editor} />;
-                  {/* case 'video':
-                    return <VideoInput key={element.id} editor={editor} />; */}
-                  default:
-                    return null;
-
-                }
-                case 'codeToText':
+                 case 'video':
+                    return <VideoInput key={element.id} editor={editor} />; 
+           
+                {/* case 'codeToText':
                 return (
                   <CodeToTextButton
                     key={element.id}
                     handleButtonClick={handleCodeToText}
                   />
-                );
+                ); */}
               default:
                 return null;
             }
@@ -135,7 +133,7 @@ export default function Toolbar() {
         </Span>
       ))}
      <TableContextMenu editor={editor} />
-      <HtmlContextMenu editor={editor} handleCodeToText={handleCodeToText} />
+      {/* <HtmlContextMenu editor={editor} handleCodeToText={handleCodeToText} /> */}
      {/*   <EditableHtmlContextMenu
         editor={editor}
         handleCodeToText={handleCodeToText}

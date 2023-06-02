@@ -13,13 +13,13 @@ export const getUser = async (req) => {
 
     if (!token)
         return {
-            user:null
+            user: null
         }
 
     let decoded = await decode({
-            token,
-            secret,
-        });
+        token,
+        secret,
+    });
     return decoded
 
 }

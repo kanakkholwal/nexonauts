@@ -107,19 +107,23 @@ max-width: calc(100% - 10px);
 min-height:80px;
 background-color: rgb(255 255 255 / 90%);
 border-radius: 0.5rem;
+max-height: 500px;
+overflow-y: auto;
 backdrop-filter: blur(20px);
 box-shadow:rgba(145, 158, 171, 0.24) 0px 0px 2px 0px, rgba(145, 158, 171, 0.24) -20px 20px 40px -4px;
 padding: 0.75rem 0.5rem;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 0.5rem;
 transform-origin: center top;
 transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 transform: ${({ open }) => open ? 'scaleY(1)' : 'scaleY(0)'};
 opacity: ${({ open }) => open ? '1' : '0'};
 visibility: ${({ open }) => open ? 'visible' : 'hidden'};
+`;
+const SearchDropDownList = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 0.5rem;
 `;
 const SearchInput = styled.input`
 border:none;
@@ -243,20 +247,24 @@ export default function Header({ user, routes, children }) {
                     {
                         searchResults ?
                             <SearchDropDown open={searchResults}>
-                                {
-                                    routes?.filter((route) => route.path.toLowerCase().includes(searchPath.toLowerCase())).length > 0 ?
+                                <SearchDropDownList>
 
-                                        routes?.filter((route) => route.path.toLowerCase().includes(searchPath.toLowerCase())).map((route) => (
-                                            <SearchResultItem href={route.path} key={route.path}>
-                                                <h6>{route.title}</h6>
-                                                <p>{route.path}</p>
-                                            </SearchResultItem>
-                                        )) : <NoSearchResult>
-                                            <h6>Not Found </h6>
-                                            <p>No results found for <strong>{`"${searchPath}"`}</strong>.</p>
-                                            <p>Try Checking for Typos or use complete words.</p>
+                                    {
+                                        routes?.filter((route) => route.path.toLowerCase().includes(searchPath.toLowerCase())).length > 0 ?
 
-                                        </NoSearchResult>}
+                                            routes?.filter((route) => route.path.toLowerCase().includes(searchPath.toLowerCase())).map((route) => (
+                                                <SearchResultItem href={route.path} key={route.path}>
+                                                    <h6>{route.title}</h6>
+                                                    <p>{route.path}</p>
+                                                </SearchResultItem>
+                                            )) : <NoSearchResult>
+                                                <h6>Not Found </h6>
+                                                <p>No results found for <strong>{`"${searchPath}"`}</strong>.</p>
+                                                <p>Try Checking for Typos or use complete words.</p>
+
+                                            </NoSearchResult>}
+                                </SearchDropDownList>
+
                             </SearchDropDown> : null
                     }
                 </SearchWrapper>
@@ -272,7 +280,7 @@ export default function Header({ user, routes, children }) {
                         e.stopPropagation();
                         setOpen(!open)
                     }} role="button" tabIndex="0">
-                        <Image src={user.profileURL ?? "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} height={40} width={40} alt={user?.name ?? "User Profile"} />
+                        <Image src={user.profileURL ? user.profileURL : "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} height={40} width={40} alt={user?.name ?? "User Profile"} />
                     </Profile>
                     <ProfileDropDown open={open} >
                         <ProfileDropDownInfo>
