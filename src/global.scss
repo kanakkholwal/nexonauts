@@ -37,7 +37,8 @@
     --text-muted: rgba(var(--muted-rgb), 1);
     --card-bg-rgb: 255, 255, 255;
     --card-bg: rgba(var(--card-bg-rgb), 1);
-    --card-shadow: none;
+    --card-shadow-single: rgba(130, 163, 196, 0.24) 3px 3px 12px 0px;
+    --card-shadow: rgba(130, 163, 196, 0.24) 3px -3px 12px 0px, rgb(142 165 189 / 10%) -5px 5px 10px 0px;
     --body-font: "ManRope", "Google Sans", san-serif;
     --code-font: "Fira Code","Google Sans Mono", "Source Code Pro", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     --drop-bg: hsl(0, 0%, 97%);
