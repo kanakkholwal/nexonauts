@@ -186,11 +186,26 @@ export default function Header({ user, routes, children }) {
     const [open, setOpen] = useState(false);
     let NavRef = useRef(null);
 
+   
     useEffect(() => {
         let sidenavPanel = document.body.querySelector("#sidenav_panel");
         let MainPanel = document.body.querySelector("#main_wrapper");
 
-        if (window.matchMedia("(max-width: 1024px)").matches) {
+        if (!sidenavPanel.classList.contains('isOpen')) {
+            sidenavPanel.classList.add('isOpen');
+            MainPanel.classList.add('isSidenavOpen')
+        }
+        else {
+            sidenavPanel.classList.remove('isOpen');
+            MainPanel.classList.remove('isSidenavOpen')
+        }
+
+    }, [isSidebarOpen]);
+ useEffect(() => {
+        let sidenavPanel = document.body.querySelector("#sidenav_panel");
+        let MainPanel = document.body.querySelector("#main_wrapper");
+
+        if (!window.matchMedia("(min-width: 1024px)").matches) {
             sidenavPanel.classList.remove('isOpen');
             MainPanel.classList.remove('isSidenavOpen');
         }
@@ -208,21 +223,6 @@ export default function Header({ user, routes, children }) {
             document.removeEventListener("mousedown", HandleOutSide)
         }
     }, []);
-    useEffect(() => {
-        let sidenavPanel = document.body.querySelector("#sidenav_panel");
-        let MainPanel = document.body.querySelector("#main_wrapper");
-
-        if (!sidenavPanel.classList.contains('isOpen')) {
-            sidenavPanel.classList.add('isOpen');
-            MainPanel.classList.add('isSidenavOpen')
-        }
-        else {
-            sidenavPanel.classList.remove('isOpen');
-            MainPanel.classList.remove('isSidenavOpen')
-        }
-
-    }, [isSidebarOpen]);
-
 
 
 

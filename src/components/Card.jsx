@@ -7,7 +7,7 @@ export const Card = styled.div`
     flex-direction: column;
     word-wrap: break-word;
     background: var(--card-bg);
-    box-shadow: var(--card-shadow);
+    ${'' /* box-shadow: var(--card-shadow); */}
     --border-radius: 0.5rem;
     border-radius: var(--border-radius,.5rem);
     flex: 1 1 auto;
