@@ -1,35 +1,32 @@
 import styled from "styled-components";
 
-export const EditorWrapper = styled.div`
-overflow: hidden;
-position: relative;
-border-radius: 8px;
-border: 1px solid rgba(145, 158, 171, 0.32);
-width:100%;
-height:100%;
-`;
-export const EditableArea = styled.div`
-display:block;
-width:100%;
-height:100%;
-overflow-x:hidden;
-min-height:100%;
-word-wrap: break-word;
-box-sizing: border-box;
-line-height: 1.42;
-outline: none;
-overflow-y: auto;
-padding: 12px 15px;
-tab-size: 4;
--moz-tab-size: 4;
-text-align: left;
-white-space: pre-wrap;
-min-height:200px;
-[data-slate-placeholder]{
-  color:rgba(var(--text-rgb),.5);
-  top:10px;
-  left:15px;
-}
+
+export const Button = styled.button`
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  color: rgb(33, 43, 54);
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  height: 24px;
+  width: 28px;
+  margin: 0 2px;
+  opacity: 0.8;
+  &:hover,
+  &.isActive {
+    opacity: 1;
+    color: rgba(var(--${({nature}) => nature? nature : "theme"}-rgb), 0.9);
+    background: rgba(var(--${({nature}) => nature? nature : "theme"}-rgb), 0.1);
+  }
+  &:active,
+  &.isClicked {
+    opacity: 1;
+    color: rgba(var(--${({nature}) => nature? nature : "theme"}-rgb), 0.9);
+  }
 `;
 
 export const ToolBarWrapper = styled.div`

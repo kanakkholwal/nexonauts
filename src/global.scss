@@ -10,7 +10,6 @@
 "./styles/position",
 "./styles/topography",
 "./styles/code",
-"./styles/editor",
 "./styles/custom";
 
 @import "./styles/components/core";
@@ -44,7 +43,7 @@
     --drop-bg: hsl(0, 0%, 97%);
     --border-color: #8386972b;
     --code-color: #242424;
-    --code-bg: hsl(196, 100%, 40%);
+    --code-bg: #e4eaef;
     --icon-bg: #8386972b;
     --theme: hsl(196, 100%, 40%);
     --open-transition: opacity .15s cubic-bezier(0, 0, .2, 1) 0ms, transform .15s cubic-bezier(0, 0, .2, 1) 0ms, -webkit-transform .15s cubic-bezier(0, 0, .2, 1) 0ms;

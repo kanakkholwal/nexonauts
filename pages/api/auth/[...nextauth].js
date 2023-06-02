@@ -29,6 +29,9 @@ export const authOptions = {
                 // Try to find the user and also return the password field
                 const user = await User.findOne({ email: credentials.email }).select('+password')
 
+                if(!user){
+                    throw new Error("User not found")
+                }
 
                 // Use the comparePassword method we defined in our user.js Model file to authenticate
                 const pwValid = await user.comparePassword(credentials.password)
@@ -65,9 +68,9 @@ export const authOptions = {
                     id: user._id,
                     email: user.email,
                     name: user.name,
+                    profileURL: user.profileURL,
                     role: user.role,
                     account_type: user.account_type,
-                    profileURL: user.profileURL,
                 }
             }
             return token

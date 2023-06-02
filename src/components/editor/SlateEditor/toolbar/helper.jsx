@@ -5,6 +5,7 @@ import Link from "./elements/unLinkButton";
 // import Video from "./elements/videoRender";
 import TableComponent from "./elements/tableRender";
 import HtmlCode from "./elements/html2code";
+import Video from "./elements/video";
 import Button from "./button"
 import Icon from "./icons";
 import Image from "next/image";
@@ -107,7 +108,9 @@ export const isMarkActive = (editor, format) => {
   const marks = Editor.marks(editor)
   return marks ? marks[format] === true : false
 }
-
+export const Element = (props) => {
+  return getBlock(props);
+};
 export const getBlock = (props) => {
   const { element, children } = props;
 
@@ -315,9 +318,7 @@ export const getBlock = (props) => {
       );
   }
 } 
-export const Element = (props) => {
-  return getBlock(props);
-};
+
 export const getMarked = (leaf, children) => {
   if (leaf.bold) {
     children = <strong data-slate-type="bold">{children}</strong>;
