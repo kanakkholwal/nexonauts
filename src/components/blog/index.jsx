@@ -1,13 +1,12 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.main`
-    display:flex;
-    align-items:flex-start;
-    justify-content:center;
-    gap:1rem;
     width:100%;
-    margin-inline:auto;
     max-width:var(--max-width);
+    margin-inline:auto;
+
+    padding: 2rem 1rem;
+
     @media (max-width:1000px){
         flex-direction:column;
     }

@@ -2,9 +2,11 @@ import Link from "next/link";
 import styled from "styled-components";
 import { CgMenu, CgSearch, CgClose } from "react-icons/cg";
 import { useState } from "react";
+import { ProfileDropDownInfo, ProfileWrapper, Profile, ProfileDropDown, ProfileDropDownItem } from "components/navbar";
+import Button from "components/buttons";
 
 const Wrapper = styled.div`
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -12,34 +14,25 @@ const Wrapper = styled.div`
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   box-sizing: border-box;
   margin-inline:auto;
-  margin-top:1rem;
-  max-width:var(--max-width);
+  padding-block:1rem;
+background:rgba(var(--light-rgb),0.4);
+backdrop-filter:blur(10px);
   `;
 
-const NavWrapper = styled.nav`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem;
-  height: 72px;
-  background-color: #fff;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  position: relative;
-  border-radius:8px;
-  box-shadow:rgba(84,32,162,.11) 0px 8px 15px;
-  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  `;
 
 
 const NavLogo = styled(Link)`
 display:inline-flex;
 align-items:center;
-margin-inline:0.5rem auto;
-font-size: 1.125rem;
+justify-content:flex-start;
+margin-inline-start:0.5rem;
+font-size: 1.5rem;
 font-weight: 700;
 line-height: 1.7;
 letter-spacing:1px;
+min-width: 8.875rem;
 color:rgba(var(--text-color),1);
+text-decoration:none;
 `;
 const NavItem = styled.li`
   display: inline-block;
@@ -47,22 +40,26 @@ const NavItem = styled.li`
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   `;
 
-const NavLink = styled.a`
+const NavLink = styled(Link)`
   display: inline-block;
   padding: 0.5rem 1rem;
-  font-size: 0.9375rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 500;
   text-align: center;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   text-decoration: none;
+  color:rgba(var(--grey-rgb),1);
+        &:hover{
+        color:rgba(var(--text-color),0.8);
+        }  
 `;
 const NavMenu = styled.ul`
   display: flex;
-  align-items: center;
-  list-style: none;
-  flex-direction:row;
-  margin-inline: auto 1rem;
-  padding: 0;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 0.625rem;
+margin-inline:1.75rem 0.75rem;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   @media (max-width: 992px){
     flex-direction:column;
@@ -117,8 +114,22 @@ aspect-ratio:1;
     display:none;
 }
 `;
+
+const NavWrapper = styled.nav`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px 32px;
+  height: 2.75rem;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  max-width:var(--max-width);
+    margin-inline:auto;
+  
+`;
+
 export function NavBar() {
-    const [isMenuOpen,setMenuOpen] = useState(false);
+    const [isMenuOpen, setMenuOpen] = useState(false);
 
     return (
         <Wrapper>
@@ -127,6 +138,9 @@ export function NavBar() {
                     K K UPGRADER
                 </NavLogo>
                 <NavMenu active={isMenuOpen}>
+                    <NavItem>
+                        <NavLink href="/">Home</NavLink>
+                    </NavItem>
                     <NavItem>
                         <NavLink href="/blog">Blog</NavLink>
                     </NavItem>
@@ -137,7 +151,14 @@ export function NavBar() {
                         <NavLink href="/contact">Contact</NavLink>
                     </NavItem>
                 </NavMenu>
-                <NavBarSearch />
+                <ProfileWrapper className="ms-auto">
+                    <NavLink href="/login">
+                        Login
+                    </NavLink>
+                    <Button as={Link} href="/signup" nature="secondary" size="sm"  low="true">
+                        Sign Up
+                    </Button>
+                </ProfileWrapper>
                 <MenuToggle onClick={() => setMenuOpen(!isMenuOpen)}>
                     <CgMenu />
                 </MenuToggle>
@@ -386,7 +407,7 @@ export default function NavBarSearch() {
                 setSearchActive(!isSearchActive);
                 setDropOpen(false);
             }} active={isSearchActive} type="reset">
-                {isSearchActive ? <CgClose />: <CgSearch />}
+                {isSearchActive ? <CgClose /> : <CgSearch />}
             </Toggle>
 
             <DropDownWrapper open={isDropOpen}>
