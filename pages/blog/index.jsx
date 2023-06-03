@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { NavBar, AllArticles, HomePageHero, Article, Wrapper, SideBar } from "components/blog";
+import { NavBar, AllArticles, HomePageHero} from "components/blog";
 import axios from "axios";
+import {registerView} from "lib/analytics";
 import Footer from "components/footer";
 import Button from "components/buttons";
-import {IndeterminateCircularLoader} from "components/Loader";
 import { BiDownArrowAlt } from "react-icons/bi";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { Inter } from "next/font/google";
