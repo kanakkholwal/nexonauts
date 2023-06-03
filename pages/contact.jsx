@@ -102,9 +102,7 @@ export default function Contact() {
         phoneNumber: ""
     })
 
-    const handleChange = (selectedOption) => {
-        setFormState({ ...formState, category: {...formState.category,value:selectedOption.value,touched:true} });
-    }
+
     const sendMessage = async (e) => {
         // validate the inputs first before sending the request
         e.preventDefault();
@@ -240,7 +238,10 @@ export default function Contact() {
                                 { value: "Development", label: "Development" },
                                 { value: "Design / UX&UI", label: "Design / UX&UI" },
                                 { value: "Other", label: "Other" },
-                            ]} onChange={handleChange} />
+                            ]} onChange={(option) =>{
+                                setFormState({ ...formState, category: {...formState.category,value:option.value,touched:true} });
+
+                            }} />
                             {
                                 formState.category === "Select one" &&
                                 <FormAlert>Please select a category</FormAlert>

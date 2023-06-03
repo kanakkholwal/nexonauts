@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { CgMenu, CgSearch, CgClose } from "react-icons/cg";
 import { useState } from "react";
 import { ProfileDropDownInfo, ProfileWrapper, Profile, ProfileDropDown, ProfileDropDownItem } from "components/navbar";
-import Button from "components/buttons";
 
 const Wrapper = styled.div`
   position: sticky;
@@ -17,6 +16,7 @@ const Wrapper = styled.div`
   padding-block:1rem;
 background:rgba(var(--light-rgb),0.4);
 backdrop-filter:blur(10px);
+
   `;
 
 
@@ -64,15 +64,12 @@ margin-inline:1.75rem 0.75rem;
   @media (max-width: 992px){
     flex-direction:column;
     position:absolute;
-    top:calc(100% + 10px);
-    left:0;
+    top:calc(100% + 1.75em);
     right:0;
     background:#fbfbfb;
     border-radius:0.5rem;
-    padding:1rem;
+    padding:0.75rem;
     box-shadow:rgba(84,32,162,.11) 0px 8px 15px;
-    transform-origin:top center;
-    transform:scaleY(0);
     transition:all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     overflow:hidden;
     max-width:300px;
@@ -89,11 +86,12 @@ margin-inline:1.75rem 0.75rem;
     ${({ active }) => {
         if (active) {
             return `
-            transform:scaleY(1);
+            translate:0 0;
             `
         } else {
             return `
-            transform:scaleY(0);
+            translate:calc(100% + 2rem) 0;
+
             `
         }
     }}
@@ -124,7 +122,11 @@ const NavWrapper = styled.nav`
   position: relative;
   transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   max-width:var(--max-width);
-    margin-inline:auto;
+  margin-inline:auto;
+  position:relative;
+  @media (max-width: 468px){
+    padding: 0px 1rem;
+  }
   
 `;
 
@@ -155,9 +157,6 @@ export function NavBar() {
                     <NavLink href="/login">
                         Login
                     </NavLink>
-                    <Button as={Link} href="/signup" nature="secondary" size="sm"  low="true">
-                        Sign Up
-                    </Button>
                 </ProfileWrapper>
                 <MenuToggle onClick={() => setMenuOpen(!isMenuOpen)}>
                     <CgMenu />

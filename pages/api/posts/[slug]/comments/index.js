@@ -9,7 +9,7 @@ export default nextConnect(handler).post(async (req, res) => {
     await dbConnect();
 
     const { slug: postId } = req.query;
-    const { name, email, comment } = req.body;
+    const { name, email, comment ,user} = req.body;
 
     // Find the post by ID
     const post = await Post.findById(postId)
@@ -24,6 +24,7 @@ export default nextConnect(handler).post(async (req, res) => {
       email,
       comment,
       post: postId,
+      user:user ? user : null
     });
 
     // Save the comment

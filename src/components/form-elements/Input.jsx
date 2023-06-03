@@ -12,6 +12,7 @@ const Input = styled.input`
   background: var(--form-bg);
   color: var(--form-color);
   caret-color: var(--form-caret);
+  transition: all .3s ease-in-out;
   outline: none;
   width: 100%;
   &::placeholder {

@@ -62,10 +62,11 @@ const Card = styled.article.attrs({
 display:flex;
 flex-direction:column;
 margin-bottom:10px;
-padding:0.75rem 0.5rem;
-margin-inline:auto;
-max-width:400px;
-border-radius:0.5rem;
+padding:0.75rem 1rem;
+max-width:480px;
+width:100%;
+text-align:initial;
+
 `;
 
 export function PostCard({ imageSrc,post}) {

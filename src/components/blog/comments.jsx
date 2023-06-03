@@ -18,6 +18,39 @@ const CommentSection = styled.section`
   padding-top: 20px;
   border-top: 1px solid rgba(var(--mute-rgb), 0.25);
 `;
+const InsertReply = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding:0.5rem 0.75rem;
+  border-radius:0.75rem;
+  cursor:pointer;
+  background:rgba(var(--secondary-rgb),0.071);
+  &:hover{
+    background:rgba(var(--secondary-rgb),0.091);
+  }
+  span{
+    margin-left:0.5rem;
+    font-size:1rem;
+    font-weight:500;
+  }
+`;
+const CommentForm = styled.form`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding:0.75rem;
+  border-radius:0.75rem;
+  background:rgba(var(--secondary-rgb),0.051);
+  span{
+    margin-left:0.5rem;
+    font-size:1rem;
+    font-weight:500;
+  }
+  .elements{
+    width:100%;
+  }
+`;
 const AddReplyButton = styled(Button)`
 font-size:0.75rem;
 padding: 0.25rem 0.5rem;
@@ -72,14 +105,14 @@ span{
     background-color:rgba(var(--mute-rgb), 0.05);
   }
 }
-${({open}) =>{
-  if(open === "true"){
-    return `transform:scale(1);`
-  }
-  return `
+${({ open }) => {
+    if (open === "true") {
+      return `transform:scale(1);`
+    }
+    return `
     transform:scale(0);
     `
-}}
+  }}
 `;
 
 const CommentCard = styled.div`
@@ -101,11 +134,12 @@ const CommenterProfile = styled.div`
   width:50px;
   overflow:hidden;
   text-align:center;
-  background:rgba(var(--theme-rgb),0.1);    
+  mix-blend-mode: multiply;
+  background:rgba(var(--${({nature}) => nature ? nature :"theme"}-rgb),0.1);
+  color:rgba(var(--${({nature}) => nature ? nature :"theme"}-rgb),1);   
   img{
     object-fit:cover;
     width:100%;
-    height:100%;
   }
  
 `;
@@ -174,8 +208,12 @@ const fetchData = async (url, data) => {
 export default function Comments({ post }) {
   const { comments, author } = post;
   const { data: session } = useSession();
-  const { data, error, isLoading } = useSWR([`/api/posts/${post._id}/comments/all`, {}], ([url, data]) => fetchData(url, data));
+  const { data, error, isLoading } = useSWR([`/api/posts/${post._id}/comments/all`, {}], ([url, data]) => fetchData(url, data), {
+    refreshInterval: 1000,
+    revalidate: true,
+  });
   const [allComments, setAllComments] = useState([]);
+  const [canComment, setCanComment] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [comment, setComment] = useState('');
@@ -183,9 +221,10 @@ export default function Comments({ post }) {
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
     const newComment = {
-      name: name,
-      email: email,
+      name:session?.user?.name ? session?.user?.name: name,
+      email: session?.user?.email ? session?.user?.email: email,
       comment: comment,
+      user: session?.user?.id || null,
     };
 
     try {
@@ -214,55 +253,17 @@ export default function Comments({ post }) {
       {comments.enabled === false ? <h5>Comments are disabled for this post</h5> : <h5>Comments</h5>}
       {isLoading ? <h6>Loading...</h6> : null}
       {error ? <h6>Something went wrong</h6> : null}
-
+      {comments.enabled === true ? (<CommentFormComponent canComment={canComment} setCanComment={setCanComment} handleCommentSubmit={handleCommentSubmit} session={session} name={name} email={email} setEmail={setEmail} setName={setName}  comment={comment} setComment={setComment}/>) : null}
+      
       {allComments && allComments?.map((comment, index) => {
-        return <Comment key={comment._id} comment={comment} author={author} postId={post._id} user={session?.user} />;
+        return <Comment key={comment._id} comment={comment} author={author} postId={post._id} user={session?.user} index={index} />;
       })}
-      {comments.enabled === true ? (
-        <>
-          <h5>Leave a comment</h5>
-          <form onSubmit={handleCommentSubmit}>
-            <FormGroup>
-              <FormElement>
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  type="text"
-                  placeholder="Name"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                />
-              </FormElement>
-              <FormElement>
-                <Label htmlFor="name">Email</Label>
-                <Input
-                  type="email"
-                  placeholder="Email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </FormElement>
-            </FormGroup>
 
-            <FormElement>
-              <Label htmlFor="name">Your comment</Label>
-              <TextArea
-                placeholder="Your comment"
-                required
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-              />
-            </FormElement>
-            <Button type="submit">Submit Comment</Button>
-          </form>
-        </>
-      ) : null}
     </CommentSection>
   );
 }
 
-function Comment({ comment, postId, author, user }) {
+function Comment({ index,comment, postId, author, user }) {
   const [replyName, setReplyName] = useState('');
   const [replyEmail, setReplyEmail] = useState('');
   const [replyComment, setReplyComment] = useState('');
@@ -320,11 +321,11 @@ function Comment({ comment, postId, author, user }) {
     <>
       <CommentCard id={comment._id} ariaLabelledBy={comment.parentComment ? comment.parentComment : "none"}>
         <CommentHeader>
-          <CommenterProfile>
+          <CommenterProfile nature={["success","theme","warning","info","secondary","dark"][index % 6]}>
             {getInitials(comment.name)}
           </CommenterProfile>
           <div>
-            <h6>{comment.name}</h6>
+            <h6>{comment.name}            </h6>
             <small>{getDateTime(comment.createdAt)}</small>
           </div>
           <div className="d-flex align-items-center justify-content-end">
@@ -334,7 +335,7 @@ function Comment({ comment, postId, author, user }) {
               <MoreOptionCommentUl onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-              }}  open={showOptions ? "true" :"false"}>
+              }} open={showOptions ? "true" : "false"}>
                 <span>
                   Report
                 </span>
@@ -442,4 +443,90 @@ function Comment({ comment, postId, author, user }) {
 
     </>
   );
+}
+function CommentFormComponent({
+  canComment,
+  setCanComment,
+  handleCommentSubmit,
+  session,
+  name,
+  setName,
+  email,
+  setEmail,
+  comment,
+  setComment,
+
+}){
+  return (<>
+
+  {!canComment
+    ?
+    <InsertReply onClick={() => setCanComment(!canComment)}>
+      <CommenterProfile nature={["success","theme","warning","info","secondary","dark"][69 % 6]}>
+        {session?.user ?
+          session?.user?.profileURL ?
+            <Image src={session?.user?.profileURL} alt={session?.user?.name} width={46} height={46} /> : getInitials(session?.user?.name)
+          : "A"
+        }
+      </CommenterProfile>
+      <span>
+        Leave a comment {session?.user ? <>as <strong>{session?.user?.name}</strong></> : null}
+      </span>
+    </InsertReply> :
+    <CommentForm onSubmit={handleCommentSubmit}>
+      <CommenterProfile nature={["success","theme","warning","info","secondary","dark"][69 % 6]}>
+        {session?.user ?
+          session?.user?.profileURL ?
+            <Image src={session?.user?.profileURL} alt={session?.user?.name} width={46} height={46} /> : getInitials(session?.user?.name)
+          : "A"
+        }
+      </CommenterProfile>
+      <div className="elements">
+        {session?.user ? null :
+          <FormGroup>
+
+            <FormElement>
+              <Label htmlFor="name">Name</Label>
+              <Input
+                type="text"
+                id="name"
+                placeholder="Enter your name"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </FormElement>
+
+            <FormElement>
+              <Label htmlFor="email">Email</Label>
+              <Input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </FormElement>
+
+
+
+          </FormGroup>
+        }
+        <FormElement>
+          <Label htmlFor="message" hidden>Your comment</Label>
+          <TextArea
+            id="message"
+            placeholder="Leave a comment"
+            required
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          />
+        </FormElement>
+        <Button type="submit" low="true" nature="secondary">Submit Comment</Button>
+      </div>
+    </CommentForm>
+  }
+  </>)
+
 }

@@ -3,24 +3,33 @@ import {PostCard} from "./postCard";
 
 
 const MainWrapper = styled.div`
-    display:grid;
-    grid-gap:0.75rem;
-    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
-    max-width:var(--max-width);
+    display:flex;
+    gap:0.75rem;
     align-items:flex-start;
-    justify-content:center;
+    justify-content:flex-start;
+    flex-wrap:wrap;
+    max-width:var(--max-width);
     padding:1rem;
-    text-align:center;
     width:100%;
     margin-inline:auto;
     flex:1;
-    .ArticleCard{
-        text-align:initial;
-        width:100%;
-        max-width:var(--max-width);
+    display: grid;
+  @media screen and (width > 1024px) {
+  grid-template-columns: repeat(3, 1fr);
+  }
+  @media screen and (728px <= width <= 1024px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media screen and (576px <= width <= 728px) {
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+  @media screen and (width <= 576px) {
+    grid-template-columns: 1fr;
+    &>article{
         margin-inline:auto;
-        display:block;
     }
+  }
 `;
 export function AllArticles({ posts }) {
     return (
