@@ -14,14 +14,14 @@ export default nextConnect(handler)
 
       const skip = (page - 1) * limit;
 
-      const postsPromise = Post.find({ state: 'published' })
-        .sort({ createdAt: -1 })
-        .populate('author.user', 'name profileURl')
-        .select('title description slug labels image author createdAt publishedAt comments')
-        .skip(skip)
-        .limit(limit);
+      const postsPromise = await Post.find({ state: 'published' })
+      .populate('author.user', 'name profileURl')
+      .select('title description slug labels image author createdAt publishedAt comments')
+      .skip(skip)
+      .limit(limit);
+      // .sort({ createdAt: -1 }) // Sort posts by creation date (descending)
 
-      const countPromise = Post.countDocuments({ state: 'published' });
+      const countPromise = await Post.countDocuments({ state: 'published' });
 
       const [posts, count] = await Promise.all([postsPromise, countPromise]);
 

@@ -1,8 +1,15 @@
 import axios from "axios";
-import Head from "next/head";
 import { NavBar, PostPageHero, Article, Wrapper, SideBar } from "components/blog";
 import { useEffect } from "react";
 import { registerView } from "lib/analytics";
+import { Inter } from "next/font/google";
+import Head from "next/head";
+
+const inter = Inter({
+  display: "swap",
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+});
 export async function getStaticPaths() {
   const response = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/all`);
 
@@ -37,7 +44,7 @@ export default function Post({ post }) {
     registerView({ title: post.title, type: "article", slug: "/blog/posts/" + post.slug })
   }, [])
   return (
-    <>
+    <div className={inter.className}>
       <Head>
         {/* COMMON TAGS */}
         <meta charSet="utf-8" />
@@ -71,6 +78,6 @@ export default function Post({ post }) {
         <Article post={post} />
         <SideBar post={post} />
       </Wrapper>
-    </>
+    </div>
   );
 }

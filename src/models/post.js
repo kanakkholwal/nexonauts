@@ -10,6 +10,11 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  user:{
+    type: mongoose.Schema.Types.Mixed,
+    ref: 'Post',
+    default: null,
+  },
   comment: {
     type: String,
     required: true,

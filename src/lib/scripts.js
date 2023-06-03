@@ -56,7 +56,7 @@ export function getDateTime(dateString) {
 }
 export function getInitials(str) {
   // Remove leading and trailing whitespace
-  str = str.trim();
+  str = str?.trim();
 
   // Split the string into words
   const words = str.split(' ');

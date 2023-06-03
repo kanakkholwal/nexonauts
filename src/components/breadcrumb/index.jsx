@@ -94,13 +94,13 @@ export function BlogBreadCrumb({category,slug,title}){
             </ItemListElement>
             <GrFormNext />
             <ItemListElement>
-                <Item href={`/blog/labels/category`} active={false}>
+                <Item href={`/blog/labels/category`} active={"false"}>
                     <ItemName>{category}</ItemName>
                 </Item>
             </ItemListElement>
             <GrFormNext />
             <ItemListElement>
-                <Item href={`/blog/posts/${slug}`} active={true}>
+                <Item href={`/blog/posts/${slug}`} active={"true"}>
                     <ItemName>{title}</ItemName>
                 </Item>
             </ItemListElement>
