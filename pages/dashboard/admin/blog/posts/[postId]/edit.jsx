@@ -59,7 +59,7 @@ export default function NewPost({ user }) {
     });
     const [title, setTitle] = useState("Loading...");
     const [description, setDescription] = useState("Loading...");
-    const [initialContent, setInitialContent] = useState(``);
+    const [initialContent, setInitialContent] = useState("<p> Write something awesome </p>");
     const [content, setContent] = useState(initialContent);
     const [image, setImage] = useState("");
     const [imageState, setImageState] = useState({
@@ -222,7 +222,7 @@ export default function NewPost({ user }) {
                         show: false,
                     },
                 })
-                setInitialContent(post.content);
+                setInitialContent(post.content.toString());
 
 
             })

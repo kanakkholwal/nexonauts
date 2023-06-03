@@ -40,7 +40,7 @@ margin: auto;
     height: ${({ size }) => size || '48px'};
     box-sizing: border-box;
     margin: 0;
-    border: 2px solid var(--theme);
+    border: 2px solid var(--${({nature}) => nature ? nature : 'theme'});
     border-right-color: #eee;
     border-left-color: #eee;
     border-radius: 100%;

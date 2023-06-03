@@ -9,15 +9,28 @@ export default nextConnect(handler)
     try {
       await dbConnect();
 
-      const posts = await Post.find({ state: 'published' })
+      const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
+      const limit = parseInt(req.query.limit) || 10; // Default to 10 posts per page
+
+      const skip = (page - 1) * limit;
+
+      const postsPromise = Post.find({ state: 'published' })
         .sort({ createdAt: -1 })
         .populate('author.user', 'name profileURl')
-        .select('title description slug labels image author createdAt publishedAt comments');
-      // console.log(posts)
+        .select('title description slug labels image author createdAt publishedAt comments')
+        .skip(skip)
+        .limit(limit);
+
+      const countPromise = Post.countDocuments({ state: 'published' });
+
+      const [posts, count] = await Promise.all([postsPromise, countPromise]);
+
+      const totalPages = Math.ceil(count / limit);
 
       return res.status(200).json({
         message: 'Posts Fetched Successfully!',
-        noOfPosts: posts.length,
+        currentPage: page,
+        totalPages: totalPages,
         posts: posts,
       });
     } catch (err) {

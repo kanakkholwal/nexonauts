@@ -78,21 +78,21 @@ const Badge = styled.span`
   border: 0;
   margin: 0.25rem;
   transition: all .25s cubic-bezier(.075,.82,.165,1);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 90%;
   text-transform: capitalize;
-  padding:0.25rem 0.75rem;
-  color:var(--badge-text,#fbfbfb);
-  background:var(--badge-bg,var(--theme));
+  padding: 2px 10px;
+  mix-blend-mode: multiply;
+  background:var(--badge-bg,rgba(var(--theme-rgb),0.1));
+  color:var(--badge-text,rgba(var(--theme-rgb),1));
+  border: 1px solid var(--badge-border,rgba(var(--theme-rgb),0.6));
   border-radius: ${props => props.pill ? `50px` : `0.25rem`};
   text-align: center;
 
   ${props => props.nature ? `
-    --badge-bg:rgba(var(--${props.nature}-rgb), 1);
-    --badge-box-shadow: 0 4px 9px -4px rgba(var(--${props.nature}-rgb), 0.8);
-    --badge-hover-bg:rgba(var(--${props.nature}-rgb), 0.95);
-    --badge-border:rgba(var(--${props.nature}-rgb), 0.95);
-    --badge-border-hover:rgba(var(--${props.nature}-rgb), 0.95);
+    --badge-bg:rgba(var(--${props.nature}-rgb), .1);
+    --badge-border:rgba(var(--${props.nature}-rgb), 0.6);
+    --badge-text:rgba(var(--${props.nature}-rgb), 1);
   ` : ``}
  
   ${props => props.dot ? `

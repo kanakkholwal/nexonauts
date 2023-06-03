@@ -12,7 +12,7 @@ const Button = styled.button`
   font-family: var(--btn-font,inherit);
   font-weight: 600;
   letter-spacing:0.0625rem;
-  padding:var(--btn-padding-y,0.5rem) var(--btn-padding-x,1.25rem);
+  padding:var(--btn-padding-y,0.5rem) var(--btn-padding-x,1rem);
   line-height:var(--btn-line-height,1.75);
   color:var(--btn-text,#fbfbfb);
   background:var(--btn-bg,var(--theme));
@@ -87,7 +87,6 @@ cursor:${props => props.disabled ? "not-allowed" : "pointer"};
 `;
 const ButtonWithIcon = styled(Button) 
 `
-padding-inline:0.5rem;
 user-select: none;
 &>svg{
   font-size: inherit;
@@ -103,6 +102,8 @@ ${({direction}) =>{
   `
 }}
 @media (max-width:${({breakpoint}) => breakpoint ? breakpoint : "768px"}){
+  padding:0.75rem;
+
   &>span{
     display:none;
   }

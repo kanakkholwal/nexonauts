@@ -3,12 +3,11 @@ import Label from './Label';
 
 
 const Input = styled.input`
-  letter-spacing: 0.0065em;
-  font-weight: 600;
+  letter-spacing: 0.065em;
+  font-weight: 500;
   transition: all .3s ease-in-out;
   border-radius: 0.5rem;
-  padding:0.875rem 1.0313rem ;
-  
+  padding:0.75rem 0.875rem ;
   border: 2px solid var(--form-border);
   background: var(--form-bg);
   color: var(--form-color);
@@ -49,17 +48,21 @@ const Input = styled.input`
     animation-duration: 500ms;
     animation-fill-mode: both;
   }
-  ${props => props.lg ? `
+  ${props => props.size === "lg" ? `
   font-size: 1rem !important;
   line-height: 2.15 !important;
   padding-left: 0.75em !important;
   padding-right: 0.75em !important;
   border-radius: 0.5rem !important;`: ""}
   
-  ${props => props.sm ? `padding: 0.43em 0.99em 0.35em !important;
+  ${props => props.size === "sm" ? `padding: 0.43em 0.99em 0.35em !important;
   font-size: .775rem !important;
   line-height: 1.6 !important;
   border-radius: 0.2rem !important;`: ""}
+  
+  ${props => props.noBorder === "true" ? `
+  border: none!important;
+  `: ""}
   
   ${props => props.underlined ? `
   border-bottom-left-radius: 0!important;

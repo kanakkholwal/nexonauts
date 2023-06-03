@@ -3,19 +3,17 @@ import {PostCard} from "./postCard";
 
 
 const MainWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
+    display:grid;
+    grid-gap:0.75rem;
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+    max-width:var(--max-width);
+    align-items:flex-start;
+    justify-content:center;
     padding:1rem;
     text-align:center;
     width:100%;
     margin-inline:auto;
     flex:1;
-    background:var(--card-bg);
-    @media (min-width:1000px){
-        max-width:calc(var(--max-width) * 0.75);
-    }
     .ArticleCard{
         text-align:initial;
         width:100%;
@@ -30,7 +28,7 @@ export function AllArticles({ posts }) {
         {
             posts.map((post) => {
                 return (
-                    <PostCard key={post.slug} imageSrc={post.image} {...post} />
+                    <PostCard key={post.slug} imageSrc={post.image} post={post} />
                 )
             })
         }
