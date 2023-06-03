@@ -53,7 +53,7 @@
 
     --dropdown-shadow: 0 3px 5px -1px rgba(0, 0, 0, 0.2), 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12);
     --badge: hsl(235, 22%, 34%);
-    --badge-text: #363F72;
+    --badge-text: rgb(85, 85, 85,1);
     --badge-bg: #F8F9FC;
     --badge-border: #D5D9EB;
     --cubic-transition: cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -97,7 +97,7 @@
     --text-rgb: 33, 43, 54;
     --text-color: rgba(var(--text-rgb), var(--theme-opacity));
     --muted-color: rgb(var(--mute-rgb), 0.8);
-    --badge-text: rgb(251, 251, 251);
+
     --border-color: #eee;
 
     --btn-text: #fff;
