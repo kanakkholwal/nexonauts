@@ -57,6 +57,12 @@ const Footer = ({ only = "false" }) => {
             </span>
             <ul>
                 <li>
+                    <Link href="/blog">Blog</Link>
+                </li>
+                <li>
+                    <Link href="/tools">Tools</Link>
+                </li>
+                <li>
                     <Link href="/privacy">Privacy Policy</Link>
                 </li>
                 {/* <li>
