@@ -94,6 +94,16 @@ const Badge = styled.span`
     --badge-border:rgba(var(--${props.nature}-rgb), 0.6);
     --badge-text:rgba(var(--${props.nature}-rgb), 1);
   ` : ``}
+  ${props => props.noBorder ? `
+    --badge-bg:rgba(var(--${props.nature}-rgb), .1);
+    --badge-border:rgba(var(--${props.nature}-rgb), 0.1);
+    --badge-text:rgba(var(--${props.nature}-rgb), 1);
+  ` : ``}
+  ${props => props.asButton ? `
+    --badge-bg:rgba(var(--${props.nature}-rgb), .85);
+    --badge-border:rgba(var(--${props.nature}-rgb), 0.85);
+    --badge-text:#ffffff;
+  ` : ``}
  
   ${props => props.dot ? `
   border-radius: 50%;

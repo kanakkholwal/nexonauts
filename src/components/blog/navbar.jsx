@@ -14,7 +14,7 @@ const Wrapper = styled.div`
   box-sizing: border-box;
   margin-inline:auto;
   padding-block:1rem;
-background:rgba(var(--light-rgb),0.4);
+background:rgba(var(--light-rgb),0.8);
 backdrop-filter:blur(10px);
 
   `;

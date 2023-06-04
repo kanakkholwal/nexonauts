@@ -3,7 +3,6 @@
 
 
 @import "./styles/reset",
-"./styles/buttons",
 "./styles/flex",
 "./styles/forms",
 "./styles/layout",
@@ -13,13 +12,7 @@
 "./styles/custom";
 
 @import "./styles/components/core";
-// @import "./styles/components/footer";
-// @import "./styles/components/collapse";
-// @import "./styles/components/accordion";
-// @import "./styles/components/modal";
-// @import "./styles/components/tabs";
-// @import "./styles/components/slicedMenu";
-// @import "./styles/components/listGroup";
+
 
 :root {
     --size-xs: 0;
@@ -376,6 +369,8 @@ body {
     color: var(--dark);
     transition: all .2s ease-in-out;
     min-height: 100vh;
+    width:100%;
+    overflow-x: hidden;
     font-family: 'Inter', 'Euclid Circular A' sans-serif;
 }
 

@@ -7,18 +7,26 @@ export const TextAreaStyled = styled.textarea`
   min-height: 86px;
   overflow: hidden;
   resize: vertical;
-  letter-spacing: 0.0065em;
-  font-weight: 600;
+  letter-spacing: 0.065em;
+  font-weight: 500;
   transition: all .3s ease-in-out;
   border-radius: 0.5rem;
-  padding: 0.75rem 1rem;
-  
+  padding:0.75rem 0.875rem ;
   border: 2px solid var(--form-border);
   background: var(--form-bg);
   color: var(--form-color);
   caret-color: var(--form-caret);
+  transition: all .3s ease-in-out;
   outline: none;
   width: 100%;
+  ${({nature}) =>{
+    if(nature)
+    return`
+    --form-border: rgba(var(--${nature}-rgb),0.25);
+    --form-active: rgba(var(--${nature}-rgb),0.5);
+    `
+
+  }}
   &::placeholder {
     color: inherit;
   }

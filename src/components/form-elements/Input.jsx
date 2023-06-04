@@ -15,6 +15,14 @@ const Input = styled.input`
   transition: all .3s ease-in-out;
   outline: none;
   width: 100%;
+  ${({nature}) =>{
+    if(nature)
+    return`
+    --form-border: rgba(var(--${nature}-rgb),0.25);
+    --form-active: rgba(var(--${nature}-rgb),0.5);
+    `
+
+  }}
   &::placeholder {
     color: inherit;
     opacity: 0.75;

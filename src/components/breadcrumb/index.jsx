@@ -16,8 +16,12 @@ gap:0.25rem;
 overflow:hidden;
 white-space:nowrap;
 text-overflow:ellipsis;
-padding:10px;
+padding:10px 15px;
 margin-bottom:20px;
+width:100%;
+span,svg{
+    flex:0 0 auto;
+}
 `;
 const ItemListElement = styled.span.attrs({
         itemProp:'itemListElement',
