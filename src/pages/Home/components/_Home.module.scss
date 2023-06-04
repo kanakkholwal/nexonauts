@@ -31,20 +31,25 @@ $background-color_11: var(--snow);
 
 
 
-
 body.nav-active {
+    list-style: none !important;
     overflow: hidden;
+    
 }
 
 
 .Container {
     padding-inline: 16px;
+    list-style: none !important;
+
 }
 
 .SocialList {
     display: flex;
     align-items: center;
     gap: 12px;
+    list-style: none !important;
+
 }
 
 .SocialLink {
@@ -87,6 +92,7 @@ body.nav-active {
 }
 
 .btnSecondary {
+    margin-block: 1rem;
     &:hover {
         background-color: $background-color_5;
         color: $color_5;
@@ -156,6 +162,7 @@ body.nav-active {
     z-index: 2;
     visibility: hidden;
     transition: var(--transition-3);
+    list-style: none !important;
 
 }
 
@@ -217,6 +224,8 @@ body.nav-active {
 
 .NavBar_list {
     margin-block-end: auto;
+    list-style: none !important;
+
 }
 
 .NavBar_link {
@@ -311,6 +320,8 @@ body.nav-active {
 }
 
 .Progress_list {
+    list-style: none !important;
+
     .LabelWrapper {
         display: flex;
         justify-content: space-between;
@@ -380,6 +391,8 @@ body.nav-active {
 
     .TitleWrapper {
         margin-block-end: 40px;
+        display: flex;
+    flex-wrap: wrap;
     }
 
     .btn {

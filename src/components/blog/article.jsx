@@ -1,13 +1,15 @@
 import styled from "styled-components";
 import { BlogBreadCrumb } from "components/breadcrumb";
+import Badge from "components/topography/badge";
 import { calculateReadTime } from "lib/scripts";
 import { Interweave } from 'interweave';
 import { GrValidate } from 'react-icons/gr';
-import { MdOutlineDateRange } from 'react-icons/md';
+import { MdOutlineDateRange, MdOutlineLabel } from 'react-icons/md';
 import { AiOutlineFieldTime } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
 import Image from "next/image";
 import Comments from "./comments";
+import RelatedPosts from "./RelatedPosts";
 
 const ArticleWrapper = styled.article`
     display: flex;
@@ -19,7 +21,10 @@ const ArticleWrapper = styled.article`
     width:100%;
     margin-inline:auto;
     flex:1;
-    background:var(--card-bg);
+    border-radius: 10px;
+    background: var(--card-bg);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
+    0px 1px 1px rgba(0, 0, 0, 0.08);
     @media (min-width:1000px){
         max-width:calc(var(--max-width) * 0.75);
     }
@@ -135,12 +140,31 @@ export function Article({ post }) {
                 </Author>
                 <div>
                     <span>
-                       {post.comments.numberOfComments} <BiCommentDetail />
+                        {post.comments.numberOfComments} <BiCommentDetail />
                     </span>
                 </div>
             </MetaData>
-            <Interweave content={post?.content} tagName="div" className="Article"/>
+            <Interweave content={post?.content} tagName="div" className="Article" />
+            <div className="d-flex align-items-center flex-wrap gy-2 ">
+                <Badge className="px-0 py-2" as="strong"><MdOutlineLabel /></Badge>
+
+                {post.labels.map((label, index) => (
+                    <Badge key={index} nature={["success", "theme", "warning", "info", "secondary"][index > 6 ? parseInt(index % 6) + 1 : index]}>{label}</Badge>
+                ))}
+            </div>
+            {/* <div>
+                <h5>Share Post</h5>
+                <div>
+                    <Badge>Copy Link</Badge>
+                    <Badge nature="info" noBorder>Facebook</Badge>
+                    <Badge nature="theme" noBorder>Twitter</Badge>
+                    <Badge nature="success" asButton>Whatsapp</Badge>
+                    <Badge nature="info" asButton>Telegram</Badge>
+
+                </div>
+            </div> */}
             <Comments post={post} />
+            <RelatedPosts postId={post._id} />
         </ArticleWrapper>
     )
 }

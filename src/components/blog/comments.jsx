@@ -102,7 +102,8 @@ span{
   font-weight:500;
   cursor:pointer;
   &:hover,&:active{
-    background-color:rgba(var(--mute-rgb), 0.05);
+    background-color:rgba(var(--secondary-rgb), 0.05);
+    color:rgba(var(--secondary-rgb), 1);
   }
 }
 ${({ open }) => {
@@ -135,8 +136,8 @@ const CommenterProfile = styled.div`
   overflow:hidden;
   text-align:center;
   mix-blend-mode: multiply;
-  background:rgba(var(--${({nature}) => nature ? nature :"theme"}-rgb),0.1);
-  color:rgba(var(--${({nature}) => nature ? nature :"theme"}-rgb),1);   
+  background:rgba(var(--${({ nature }) => nature ? nature : "theme"}-rgb),0.1);
+  color:rgba(var(--${({ nature }) => nature ? nature : "theme"}-rgb),1);   
   img{
     object-fit:cover;
     width:100%;
@@ -158,10 +159,31 @@ const CommentHeader = styled.div`
 `;
 const CommentBody = styled.p`
   width: 100%;
+  max-width:calc(100% - 1.5rem);
+  margin-inline:auto;
   padding:0.75rem 0.5rem;
   text-align: initial;
-  background:#f3f3f3;
+  background:rgba(var(--grey-rgb),0.075);
   border-radius:0.5rem;
+`;
+const CommentFooter = styled.div`
+  width: 100%;
+  display: flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap: 0.5rem;
+  padding:0 0.75rem;
+  &>span{
+    font-size:0.825rem;
+    font-weight:500;
+    color:rgba(var(--grey-rgb),1);
+    &.info{
+      border-left:1px solid rgba(var(--grey-rgb),0.25);
+      padding-left:0.5rem;
+      margin-left:0.5rem;
+
+    }
+  }
 `;
 const RepliesWrapper = styled.div`
   display: flex;
@@ -174,7 +196,6 @@ const RepliesWrapper = styled.div`
   max-width:calc(100% - 0.5rem);
   
     position: relative;
-    height: 0;
     transition: all .5s cubic-bezier(0.4, 0, 0.2, 1);
     width: 100%;
     max-height:100%;
@@ -221,8 +242,8 @@ export default function Comments({ post }) {
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
     const newComment = {
-      name:session?.user?.name ? session?.user?.name: name,
-      email: session?.user?.email ? session?.user?.email: email,
+      name: session?.user?.name ? session?.user?.name : name,
+      email: session?.user?.email ? session?.user?.email : email,
       comment: comment,
       user: session?.user?.id || null,
     };
@@ -253,31 +274,31 @@ export default function Comments({ post }) {
       {comments.enabled === false ? <h5>Comments are disabled for this post</h5> : <h5>Comments</h5>}
       {isLoading ? <h6>Loading...</h6> : null}
       {error ? <h6>Something went wrong</h6> : null}
-      {comments.enabled === true ? (<CommentFormComponent canComment={canComment} setCanComment={setCanComment} handleCommentSubmit={handleCommentSubmit} session={session} name={name} email={email} setEmail={setEmail} setName={setName}  comment={comment} setComment={setComment}/>) : null}
-      
+      {comments.enabled === true ? (<CommentFormComponent placeholder={<>Leave a comment {session?.user ? <>as <strong>{session?.user?.name}</strong></> : null}</>} canComment={canComment} setCanComment={setCanComment} handleCommentSubmit={handleCommentSubmit} session={session} name={name} email={email} setEmail={setEmail} setName={setName} comment={comment} setComment={setComment} />) : null}
+
       {allComments && allComments?.map((comment, index) => {
-        return <Comment key={comment._id} comment={comment} author={author} postId={post._id} user={session?.user} index={index} />;
+        return <Comment key={comment._id} comment={comment} author={author} postId={post._id} session={session} index={index} />;
       })}
 
     </CommentSection>
   );
 }
 
-function Comment({ index,comment, postId, author, user }) {
+function Comment({ index, comment, postId, author, session }) {
+  const user = session?.user;
   const [replyName, setReplyName] = useState('');
   const [replyEmail, setReplyEmail] = useState('');
   const [replyComment, setReplyComment] = useState('');
   const [showReplyForm, setShowReplyForm] = useState(false);
-  const [showReply, setShowReply] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
-  const repliesRef = useRef(null);
-  const replyFormRef = useRef(null);
+
   const handleReply = async (event, commentId) => {
     event.preventDefault();
     const nestedComment = {
-      name: replyName,
-      email: replyEmail,
+      name: session?.user?.name ? session?.user?.name :replyName,
+      email:session?.user?.email ? session?.user?.email : replyEmail,
       comment: replyComment,
+      user: session?.user?.id || null,
     };
 
     try {
@@ -321,15 +342,14 @@ function Comment({ index,comment, postId, author, user }) {
     <>
       <CommentCard id={comment._id} ariaLabelledBy={comment.parentComment ? comment.parentComment : "none"}>
         <CommentHeader>
-          <CommenterProfile nature={["success","theme","warning","info","secondary","dark"][index % 6]}>
+          <CommenterProfile nature={["success", "theme", "warning", "info", "secondary", "dark"][index % 6]}>
             {getInitials(comment.name)}
           </CommenterProfile>
           <div>
-            <h6>{comment.name}            </h6>
+            <h6>{comment.name}</h6>
             <small>{getDateTime(comment.createdAt)}</small>
           </div>
           <div className="d-flex align-items-center justify-content-end">
-            <span>{timeAgo(new Date(comment.createdAt))}</span>
             <MoreOptionCommentDiv onClick={() => setShowOptions(!showOptions)}>
               <FiMoreVertical />
               <MoreOptionCommentUl onClick={(e) => {
@@ -351,91 +371,23 @@ function Comment({ index,comment, postId, author, user }) {
 
               </MoreOptionCommentUl>
             </MoreOptionCommentDiv>
-
-          </div>
+            </div>
         </CommentHeader>
-        <CommentBody>{comment.comment}
+        <CommentBody>{comment.comment}</CommentBody>
 
-        </CommentBody>
+        <CommentFooter>
+          <span className="ms-auto">{timeAgo(new Date(comment.createdAt))}</span>
+          {comment.replies.length > 0 ? (<span className="info">{comment.replies.length} Replies
+            </span>) : <span className="info">No reply</span>}
 
-        <div className="d-flex align-items-center justify-content-start g-3">
-          <AddReplyButton size="sm" level="true" onClick={() => setShowReplyForm(!showReplyForm)}>
-            Reply
-          </AddReplyButton>
-          {comment.replies.length > 0 ? (
-            <ToggleReplyButton size="sm" level="true" onClick={() => setShowReply(!showReply)}>
-              {showReply ? 'Hide Replies' : `Show ${comment.replies.length} Replies`}
-            </ToggleReplyButton>
-          ) : null}
+        </CommentFooter>
 
-        </div>
-        <ReplyForm ariaLabelledBy={comment._id} onSubmit={(event) => handleReply(event, comment._id)}
-          ref={replyFormRef}
-          className={`Collapse ${showReplyForm ? "isOpen" : ""}`}
-          style={
-            showReplyForm
-              ? {
-                minHeight: replyFormRef.current?.scrollHeight + "px",
-                height: repliesRef.current?.scrollHeight + "px",
-              }
-              : {
-                height: "0px",
-                minHeight: "0px",
-              }
-          }>
-          <FormGroup>
-            <FormElement>
-              <Label htmlFor="name">Name</Label>
-              <Input
-                type="text"
-                placeholder="Name"
-                value={replyName}
-                onChange={(e) => setReplyName(e.target.value)}
-                required
-              />
-            </FormElement>
-            <FormElement>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                type="email"
-                placeholder="Email"
-                value={replyEmail}
-                onChange={(e) => setReplyEmail(e.target.value)}
-                required
-              />
-            </FormElement>
-          </FormGroup>
-
-          <FormElement>
-            <Label htmlFor="name">Your Reply</Label>
-            <TextArea
-              placeholder="Your Reply"
-              value={replyComment}
-              onChange={(e) => setReplyComment(e.target.value)}
-              required
-            ></TextArea>
-          </FormElement>
-
-          <Button type="submit">Submit Reply</Button>
-        </ReplyForm>
-
-        <RepliesWrapper
-          ref={repliesRef}
-
-          className={`Collapse ${showReply ? "isOpen" : ""}`}
-          style={
-            showReply
-              ? {
-                minHeight: repliesRef.current?.scrollHeight + "px",
-                height: repliesRef.current?.scrollHeight + "px"
-              }
-              : {
-                //  height: "0px",
-                minHeight: "0px",
-              }
-          }>
+        <RepliesWrapper ariaLabelledBy={comment._id} >
+        <CommentFormComponent canComment={showReplyForm} setCanComment={setShowReplyForm} placeholder={<>Add a reply {session?.user ? <>as <strong>{session?.user?.name}</strong></> : null}</>}
+          handleCommentSubmit={(event) => handleReply(event, comment._id)} session={session}
+          name={replyName} email={replyEmail} setEmail={setReplyEmail} setName={setReplyName} comment={replyComment} setComment={setReplyComment} />
           {comment.replies.map((reply) => (
-            <Comment key={reply._id} comment={reply} postId={postId} />
+            <Comment key={reply._id} comment={reply} author={author} postId={postId} session={session} index={index}/>
           ))}
         </RepliesWrapper>
       </CommentCard>
@@ -455,78 +407,84 @@ function CommentFormComponent({
   setEmail,
   comment,
   setComment,
-
-}){
+  placeholder
+}) {
   return (<>
 
-  {!canComment
-    ?
-    <InsertReply onClick={() => setCanComment(!canComment)}>
-      <CommenterProfile nature={["success","theme","warning","info","secondary","dark"][69 % 6]}>
-        {session?.user ?
-          session?.user?.profileURL ?
-            <Image src={session?.user?.profileURL} alt={session?.user?.name} width={46} height={46} /> : getInitials(session?.user?.name)
-          : "A"
-        }
-      </CommenterProfile>
-      <span>
-        Leave a comment {session?.user ? <>as <strong>{session?.user?.name}</strong></> : null}
-      </span>
-    </InsertReply> :
-    <CommentForm onSubmit={handleCommentSubmit}>
-      <CommenterProfile nature={["success","theme","warning","info","secondary","dark"][69 % 6]}>
-        {session?.user ?
-          session?.user?.profileURL ?
-            <Image src={session?.user?.profileURL} alt={session?.user?.name} width={46} height={46} /> : getInitials(session?.user?.name)
-          : "A"
-        }
-      </CommenterProfile>
-      <div className="elements">
-        {session?.user ? null :
-          <FormGroup>
+    {!canComment
+      ?
+      <InsertReply onClick={() => setCanComment(!canComment)}>
+        <CommenterProfile nature={["success", "theme", "warning", "info", "secondary", "dark"][69 % 6]}>
+          {session?.user ?
+            session?.user?.profileURL ?
+              <Image src={session?.user?.profileURL} alt={session?.user?.name} width={46} height={46} /> : getInitials(session?.user?.name)
+            : "A"
+          }
+        </CommenterProfile>
+        <span> {placeholder ? placeholder : "Leave a comment"}</span>
+      </InsertReply> :
+      <CommentForm onSubmit={handleCommentSubmit}>
+        <CommenterProfile nature={["success", "theme", "warning", "info", "secondary", "dark"][69 % 6]}>
+          {session?.user ?
+            session?.user?.profileURL ?
+              <Image src={session?.user?.profileURL} alt={session?.user?.name} width={46} height={46} /> : getInitials(session?.user?.name)
+            : "A"
+          }
+        </CommenterProfile>
+        <div className="elements">
+          {session?.user ? null :
+            <FormGroup>
 
-            <FormElement>
-              <Label htmlFor="name">Name</Label>
-              <Input
-                type="text"
-                id="name"
-                placeholder="Enter your name"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </FormElement>
+              <FormElement>
+                <Label htmlFor="name">Name</Label>
+                <Input
+                  type="text"
+                  id="name"
+                  placeholder="Enter your name"
+                  required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  nature="secondary"
 
-            <FormElement>
-              <Label htmlFor="email">Email</Label>
-              <Input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </FormElement>
+                />
+              </FormElement>
+
+              <FormElement>
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  type="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  nature="secondary"
+
+                />
+              </FormElement>
 
 
 
-          </FormGroup>
-        }
-        <FormElement>
-          <Label htmlFor="message" hidden>Your comment</Label>
-          <TextArea
-            id="message"
-            placeholder="Leave a comment"
-            required
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-        </FormElement>
-        <Button type="submit" low="true" nature="secondary">Submit Comment</Button>
-      </div>
-    </CommentForm>
-  }
+            </FormGroup>
+          }
+          <FormElement>
+            <Label htmlFor="message" hidden>Your comment</Label>
+            <TextArea
+              id="message"
+              placeholder="Leave a comment"
+              required
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              nature="secondary"
+            />
+          </FormElement>
+          <div className="d-flex justify-content-start align-items-center g-2">
+          <Button type="submit" low="true"  size="sm" nature="secondary">Submit Comment</Button>
+          <Button type="reset" low="true"  size="sm"   nature="secondary" onClick={() =>setCanComment(false)} level="true">Cancel</Button>
+          </div>
+        </div>
+      </CommentForm>
+    }
   </>)
 
 }
