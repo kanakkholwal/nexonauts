@@ -1,5 +1,6 @@
 import handler from 'lib/handler';
 import Post from "models/post";
+import Page from "models/page";
 import User from "models/user";
 import dbConnect from "lib/dbConnect";
 import { hasTokenMiddleware } from 'middleware/checkUser';
@@ -64,10 +65,10 @@ export default nextConnect(handler)
       const existingPostWithSlug = await Post.findOne({ slug: post.slug });// Find a post with same slug
       if (existingPostWithSlug) {
         // if found the post with same slug
-        if ((existingPostWithSlug && existingPostWithSlug._id.toString() === existingPost._id.toString()))
-          console.log("updating the same post")
+        if (!(existingPostWithSlug && existingPostWithSlug._id.toString() === existingPost._id.toString()))
+        return res.status(402).json({ message: 'Post with this slug already exists!' });
         else
-          return res.status(402).json({ message: 'Post with this slug already exists!' });
+        console.log("updating the same post")
       }
       const updatedPost = await Post.findOneAndUpdate({
           _id: postId
@@ -95,6 +96,19 @@ export default nextConnect(handler)
           
         }
       ).select("+content");
+      await Page.findOneAndUpdate({
+        slug: existingPost.slug
+      },
+        {
+          $set: {
+            title: post.title,
+            slug: post.slug,
+          }
+        },
+        {
+          new: true
+        }
+      );
 
       if (!updatedPost) {
         return res.status(500).json({ message: 'Unable to update the post!' });

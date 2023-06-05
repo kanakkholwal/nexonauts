@@ -3,7 +3,8 @@ import DashboardPage, { Header } from "components/dashboard-page";
 import Button from "components/buttons";
 import State from "components/state";
 import { Card, } from "components/Card";
-import { Input, FormElement, Label, TextArea, FormHelper, Switch, FileInput } from "components/form-elements";
+import { Input, FormElement, Label, TextArea, FormHelper, Switch } from "components/form-elements";
+import  FileUploader  from "components/form-elements/FileUploader";
 import Head from "next/head";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from "react";
@@ -19,14 +20,14 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 
 import { BiEditAlt } from "react-icons/bi"
-import { AiOutlineLink } from "react-icons/ai"
+import { AiOutlineLink,AiOutlineArrowUp } from "react-icons/ai"
 import { CiHashtag } from "react-icons/ci"
 import { TbFileDescription } from "react-icons/tb";
 
 const SettingPanel = styled(Card)`
 @media (min-width: 600px){
     position:sticky;
-    top:0;
+    top:95px;
     max-width: 400px;
 }
 svg{
@@ -312,7 +313,7 @@ export default function NewPost({ user }) {
                         </FormElement>
 
                         <FormElement className="mt-2">
-                            <FileInput
+                            {/* <FileInput
                                 accept="image/*"
                                 placeholder="Upload a cover image for the post..."
 
@@ -327,7 +328,8 @@ export default function NewPost({ user }) {
                             <State  {...imageState} />
                             <Input value={image} onChange={(e) => {
                                 setImage(e.target.value);
-                            }} />
+                            }} /> */}
+                            <FileUploader/>
                         </FormElement>
 
 
@@ -443,6 +445,9 @@ export default function NewPost({ user }) {
                             </Button>
 
                         </div>
+                        <Button as={Link} href="#main_wrapper" level="true" low="true" rounded>
+                                Back to Top <AiOutlineArrowUp />
+                        </Button>
 
 
                     </SettingPanel>

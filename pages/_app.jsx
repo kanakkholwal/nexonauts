@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Script from 'next/script'
-import "src/global.css";
+import "src/global.scss";
 import "aos/dist/aos.css";
 
 import Progress from 'components/progress';
