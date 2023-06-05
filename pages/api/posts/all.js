@@ -18,9 +18,11 @@ export default nextConnect(handler)
       const postsPromise = await Post.find({ state: 'published' })
       .populate('author.user', 'name profileURl')
       .select('title description slug labels image author createdAt publishedAt comments')
-      .populate('author.user', 'name profileURl','analytics')
+      .populate('author.user', 'name profileURl')
+      .populate('analytics').exec()
       .skip(skip)
-      .limit(limit);
+      .limit(limit)
+
       // .sort({ createdAt: -1 }) // Sort posts by creation date (descending)
 
       const countPromise = await Post.countDocuments({ state: 'published' });
@@ -48,8 +50,9 @@ export default nextConnect(handler)
 
       const posts = await Post.find({ state: 'published' })
         .sort({ createdAt: -1 })
-        .populate('author.user', 'name profileURl','analytics')
-        .select('content title description slug labels image author createdAt publishedAt comments');
+        .populate('author.user', 'name profileURl')
+        .select('content title description slug labels image author createdAt publishedAt comments')
+        .populate('analytics').exec();
 
       return res.status(200).json({
         message: 'Posts Fetched Successfully!',
