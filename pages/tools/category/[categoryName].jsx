@@ -6,7 +6,8 @@ import PageMetaData from "components/PageMetaData";
 import {
     ToolCard,
     CardContainer
-} from "components/tools"; import Head from "next/head";
+} from "components/tools";
+ import Head from "next/head";
 
 
 import { registerView } from "lib/analytics";
@@ -70,7 +71,7 @@ export default function Tool({ path }){
 
                     {
                         ToolsInThisCategory.map(({ title, description, path, category, online }, index) => {
-                            return <ToolCard path={path} key={index} title={title} description={description} category={category} online={online} style={{ animationDelay: (0.1 * index) + "s" }} />
+                            return <ToolCard path={path} key={index} title={title} description={description} index={index} category={category} online={online} style={{ animationDelay: (0.1 * index) + "s" }} />
 
                         })
                     }

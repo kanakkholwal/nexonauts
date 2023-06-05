@@ -99,7 +99,7 @@ export default function Tools() {
             }}>
                 <CardContainer>
                     {ToolList.map(({ title, description, path, category, online }, index) => {
-                        return <ToolCard path={path} key={index} title={title} description={description} category={category} online={online} style={{ animationDelay: (0.1 * index) + "s" }} />
+                        return <ToolCard path={path} key={index} title={title} description={description} category={category} online={online} index={index} style={{ animationDelay: (0.1 * index) + "s" }} />
                     })}
                 </CardContainer>
             </ToolPage>
