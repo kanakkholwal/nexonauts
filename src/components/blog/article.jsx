@@ -3,6 +3,12 @@ import { BlogBreadCrumb } from "components/breadcrumb";
 import Badge from "components/topography/badge";
 import { calculateReadTime } from "lib/scripts";
 import { Interweave } from 'interweave';
+import dynamic from 'next/dynamic';
+
+const Output = dynamic(
+  async () => (await import('editorjs-react-renderer')).default,
+  { ssr: false }
+);
 import { GrValidate } from 'react-icons/gr';
 import { MdOutlineDateRange, MdOutlineLabel } from 'react-icons/md';
 import { AiOutlineFieldTime } from 'react-icons/ai';
@@ -132,7 +138,7 @@ export function Article({ post }) {
                                 <MdOutlineDateRange />{new Date(post.createdAt).toLocaleDateString()}
                             </span>
                             <span>
-                                <AiOutlineFieldTime />{calculateReadTime(post?.content) + " read"}
+                                {/* <AiOutlineFieldTime />{calculateReadTime(post?.content) + " read"} */}
                             </span>
 
                         </p>
@@ -144,7 +150,7 @@ export function Article({ post }) {
                     </span>
                 </div>
             </MetaData>
-            <Interweave content={post?.content} tagName="div" className="Article" />
+            <Output data={post?.content} />
             <div className="d-flex align-items-center flex-wrap gy-2 ">
                 <Badge className="px-0 py-2" as="strong"><MdOutlineLabel /></Badge>
 
