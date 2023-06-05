@@ -2,19 +2,17 @@ import { getSession } from "next-auth/react"
 import DashboardPage, { Header } from "components/dashboard-page";
 import Button from "components/buttons";
 import State from "components/state";
-import { Card,  } from "components/Card";
-import { Input, FormElement, Label, TextArea, FormHelper,Switch, FileInput } from "components/form-elements";
+import { Card, } from "components/Card";
+import { Input, FormElement, Label, TextArea, FormHelper, Switch, FileInput } from "components/form-elements";
 import Head from "next/head";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from "react";
-// import JoditEditor from "components/editor/jodit";
-// import Editor from "components/editor/SlateEditor";
-// import Editor from "components/editor/default";
-// import convertToHTML from "components/editor/SlateEditor/helper";
+import toast, { Toaster } from 'react-hot-toast';
+
 import dynamic from "next/dynamic";
-const Editor = dynamic(() => import('components/editor/default'), {
+const Editor = dynamic(() => import("components/editor/editorjs"), {
     ssr: false,
-  });
+});
 import styled from 'styled-components';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -38,11 +36,9 @@ svg{
 
 
 export default function NewPost({ user }) {
-    
+
     const router = useRouter();
     const { postId } = router.query;
-    
-    const editor = useRef(null);
 
     const [state, setState] = useState({
         loader: {
@@ -59,7 +55,7 @@ export default function NewPost({ user }) {
     });
     const [title, setTitle] = useState("Loading...");
     const [description, setDescription] = useState("Loading...");
-    const [initialContent, setInitialContent] = useState("<p> Write something awesome </p>");
+    const [initialContent, setInitialContent] = useState(null);
     const [content, setContent] = useState(initialContent);
     const [image, setImage] = useState("");
     const [imageState, setImageState] = useState({
@@ -74,32 +70,23 @@ export default function NewPost({ user }) {
             nature: "info",
         }
 
-    }); 
+    });
     const [postState, setPostState] = useState("draft");
     const [labels, setLabel] = useState([]);
     const [IsCommentEnabled, setIsCommentEnabled] = useState(true);
     const [slug, setSlug] = useState(title?.toLocaleLowerCase().split(" ").join("-"));
 
     const updatePost = async () => {
-    
-        setState({
-            ...state,
-            loader: {
-                ...state.loader,
-                show: true,
-            }
-
-        })
-        await axios.put("/api/users/"+user.id+ "/posts/" + postId, {
+        await axios.put("/api/users/" + user.id + "/posts/" + postId, {
             post:
             {
-                title:title || "Untitled",
-                labels:labels||[],
-                slug:slug,
-                content:content,
-                description:description,
+                title: title || "Untitled",
+                labels: labels || [],
+                slug: slug,
+                content: content,
+                description: description,
                 state: postState,
-                image:image,
+                image: image,
                 comments: {
                     enabled: IsCommentEnabled,
                     items: []
@@ -107,105 +94,24 @@ export default function NewPost({ user }) {
             }
         }).then(res => {
             console.log(res);
-
-            setState({
-                ...state,
-                loader: {
-                    ...state.loader,
-                    show: false,
-                },
-                alert: {
-                    ...state.alert,
-                    open: true,
-                    message: "Post Updated Successfully",
-                    nature: "success",
-                }
-            })
-
         }).catch(err => {
             console.log(err);
-            setState({
-                ...state,
-                loader: {
-                    ...state.loader,
-                    show: false,
-                },
-                alert: {
-                    ...state.alert,
-                    open: true,
-                    message: "Error Creating Post",
-                    nature: "danger",
-                }
-            })
-
         })
-
-
     }
-    const deletePost = async () =>{
-        
-        if(!confirm("Are you sure want to delete this Post"))
-        return;
-        setState({
-            ...state,
-            loader: {
-                ...state.loader,
-                show: true,
-            }
-
-        })
-        await axios.delete("/api/users/"+user?.id+ "/posts/" + postId + "/delete", {
+    const deletePost = async () => {
+        if (!confirm("Are you sure want to delete this Post"))
+            return;
+        await axios.delete("/api/users/" + user?.id + "/posts/" + postId + "/delete", {
             userId: user.id,
         }).then(res => {
             console.log(res);
-
-            setState({
-                ...state,
-                loader: {
-                    ...state.loader,
-                    show: false,
-                },
-                alert: {
-                    ...state.alert,
-                    open: true,
-                    message: "Post Deleted Successfully",
-                    nature: "success",
-                }
-            })
             router.push("/dashboard/blog")
-            
-        })
-        .catch(err => {
+        }).catch(err => {
             console.log(err);
-            setState({
-                ...state,
-                loader: {
-                    ...state.loader,
-                    show: false,
-                },
-                alert: {
-                    ...state.alert,
-                    open: true,
-                    message: "Error Deleting Post",
-                    nature: "danger",
-                }
-            })
-
         })
-
-
-
     }
     const FetchPost = async (postId) => {
-        setState({
-            ...state,
-            loader: {
-                ...state.loader,
-                show: true,
-            }
-
-        })
-        await axios.post("/api/users/"+user.id+"/posts/" + postId)
+        await axios.post("/api/users/" + user.id + "/posts/" + postId)
             .then(({ data }) => {
                 const post = data?.post;
                 setTitle(post.title);
@@ -222,24 +128,46 @@ export default function NewPost({ user }) {
                         show: false,
                     },
                 })
-                setInitialContent(post.content.toString());
 
-
+                post.content !== null ? setInitialContent(post.content) : setInitialContent({
+                    time: new Date().getTime(),
+                    blocks: [
+                        {
+                            type: "paragraph",
+                            data: {
+                                text: "Start writing your post here..."
+                            }
+                        }
+                    ]
+                });
+               
+                console.log(initialContent);
             })
             .catch(err => {
-                console.log(err);
+                if (err.response.status === 404) {
+                    console.log(err.response.data);
+
+                    router.push("/dashboard/admin/blog");
+                    return
+
+                }
+                console.log(err.response.status);
             })
     }
     useEffect(() => {
         if (postId) {
-            FetchPost(postId);
+            toast.promise(FetchPost(postId), {
+                loading: 'Getting the data',
+                success: 'Got the data',
+                error: 'Error when fetching',
+              });
         }
     }, []);
-    useEffect(() =>{
-        if(!slug)
-         setSlug(title?.toLocaleLowerCase().split(" ").join("-"));
+    useEffect(() => {
+        if (!slug)
+            setSlug(title?.toLocaleLowerCase().split(" ").join("-"));
 
-    },[title])
+    }, [title])
     const handleFiles = async (files) => {
         setImageState({
             ...imageState,
@@ -344,19 +272,19 @@ export default function NewPost({ user }) {
                 <div className="d-flex align-items-start justify-content-between g-3 mt-3">
                     <Card>
                         <FormElement>
-                        <Label htmlFor="title">
+                            <Label htmlFor="title">
                                 Post Title
-                        </Label>
-                            <Input type="text" id="title" placeholder="Write a post title..." underlined value={title}
+                            </Label>
+                            <Input type="text" id="title" placeholder="Write a post title..." value={title}
                                 onChange={(e) => setTitle(e.target.value)} />
                         </FormElement>
                         <FormElement>
                             <Label htmlFor="description">Post Description</Label>
                             <TextArea
                                 type="text"
-                                id="description" 
+                                id="description"
                                 placeholder="Post Description"
-                                underlined
+
                                 value={description}
 
                                 maxLength={150}
@@ -369,20 +297,25 @@ export default function NewPost({ user }) {
                         </FormElement>
                         <FormElement>
                             <h6>Post Content</h6>
-                            {/* <JoditEditor ref={editor} value={content} onChange={(value) => setContent(value)} /> */}
-                            <Editor  
-                            initialValue={initialContent} onChange={(value) => {
-                                    setContent(value)
-                                }} 
-                             />
+                            {
+                                initialContent !== null ?
+                                    <Editor
+                                        defaultValue={initialContent}
+
+                                        onSave={(value) => {
+                                            setContent(value)
+                                        }}
+                                    /> : "Loading..."
+                            }
+
 
                         </FormElement>
-                       
+
                         <FormElement className="mt-2">
                             <FileInput
                                 accept="image/*"
                                 placeholder="Upload a cover image for the post..."
-                                underlined
+
                                 value={image}
                                 onChange={handleChange}
                                 id="imageUrl"
@@ -396,24 +329,24 @@ export default function NewPost({ user }) {
                                 setImage(e.target.value);
                             }} />
                         </FormElement>
-                       
+
 
                     </Card>
                     <SettingPanel>
                         <h5>Post Settings</h5>
-                        <hr/>
+                        <hr />
                         <FormElement className="mt-2">
                             <Switch
                                 checked={postState === "published"}
                                 onChange={(e) => {
-                            setPostState(e.target.checked ? "published" : "draft");
-                                    
+                                    setPostState(e.target.checked ? "published" : "draft");
+
                                 }}
                                 id="publish"
                                 label={"Publish"}
                                 width="100%"
                             />
-                
+
                         </FormElement>
                         <FormElement className="mt-2">
                             <Switch
@@ -425,11 +358,11 @@ export default function NewPost({ user }) {
                                 label={"Comments"}
                                 width="100%"
                             />
-                
+
                         </FormElement>
                         <FormElement>
-                            <Label><CiHashtag/>Label</Label>
-                            <Input type="text" placeholder="Add label to the Post..." underlined value={labels.join(",")}
+                            <Label><CiHashtag />Label</Label>
+                            <Input type="text" placeholder="Add label to the Post..." value={labels.join(",")}
                                 onChange={
                                     (e) => {
                                         setLabel(e.target.value?.trim().split(",").map((item) => item.trim()));
@@ -439,14 +372,14 @@ export default function NewPost({ user }) {
                             <FormHelper>
                                 Tags or Categories the post will be included
                             </FormHelper>
-                        </FormElement> 
+                        </FormElement>
                         <FormElement>
                             <Label htmlFor="slug">   <AiOutlineLink />Edit Slug</Label>
-                           
+
                             <Input
                                 type="text"
                                 placeholder="Edit the slug for the post"
-                                underlined
+
                                 id="slug"
                                 value={slug}
                                 onChange={
@@ -458,22 +391,22 @@ export default function NewPost({ user }) {
                                     }
                                 }
                             />
-                             <FormHelper>
+                            <FormHelper>
                                 <strong>
-                                 
+
                                     Permalink :  {" "}
                                 </strong>
                                 <Link href={"https://kkupgrader.eu.org/blog/posts/" + slug} target="_blank">
-                                     {"https://kkupgrader.eu.org/blog/posts/" + slug}
+                                    {"https://kkupgrader.eu.org/blog/posts/" + slug}
                                 </Link>
                             </FormHelper>
                         </FormElement>
                         <FormElement>
-                            <Label><TbFileDescription/>Meta Description</Label>
+                            <Label><TbFileDescription />Meta Description</Label>
                             <TextArea
                                 type="text"
                                 placeholder="Meta Description"
-                                underlined
+
                                 value={description}
 
                                 maxLength={150}
@@ -483,37 +416,49 @@ export default function NewPost({ user }) {
                                     }
                                 }
                             />
-                              <FormHelper>
+                            <FormHelper>
                                 Short Description visible in search results
                             </FormHelper>
                         </FormElement>
                         <div className="d-flex align-items-start justify-content-between g-3 mt-3 children-fill">
                             <Button nature="danger" low="true"
-                              
-                              onClick={deletePost}
+
+                                onClick={() => toast.promise(deletePost(), {
+                                    loading: 'Deleting...',
+                                    success: "Post Deleted Successfully",
+                                    error: "Error Deleting the post!!",
+                                })}
 
                             >
                                 Delete
                             </Button>
                             <Button low="true"
-                                onClick={updatePost}
+                                onClick={() => toast.promise(updatePost(), {
+                                    loading: 'Updating...',
+                                    success: "Post Updated Successfully",
+                                    error: "Error updating the post!!",
+                                })}
                             >
                                 Update
                             </Button>
 
                         </div>
-                        
-                       
+
+
                     </SettingPanel>
                 </div>
             </DashboardPage>
+            <Toaster
+                position="top-center"
+                reverseOrder={true}
+            />
         </>
     )
 }
 
 export async function getServerSideProps(context) {
 
-    
+
     const session = await getSession(context);
 
     if (!session)
@@ -536,6 +481,6 @@ export async function getServerSideProps(context) {
 
 
     return {
-        props: { user:session.user },
+        props: { user: session.user },
     }
 }

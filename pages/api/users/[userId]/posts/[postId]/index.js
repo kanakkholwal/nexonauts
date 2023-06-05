@@ -13,7 +13,7 @@ export default nextConnect(handler)
       await dbConnect();
 
       const { postId ,userId} = req.query;
-          
+      
       const existingUser = await User.findById(userId);
       if (!existingUser) {
         return res.status(404).json({ message: 'User not found!' });
@@ -23,7 +23,9 @@ export default nextConnect(handler)
       if (!result.verified) {
         return res.status(404).json({ verified: result.verified, message: result.message });
       }
-    
+      if(!postId)
+        return res.status(404).json({ message: 'Post not found!' });
+        
       const existingPost = await Post.findById(postId).select('+content');
       if (!existingPost) {
         return res.status(404).json({ message: 'Post not found!' });
