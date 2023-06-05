@@ -47,7 +47,7 @@ export default function Tool({ slug }) {
 
     const ToolComponent = ToolList.find(({ path }) => path === slug);
     useEffect(() =>{
-        registerView({ title: ToolComponent.title, type: "tool", slug: "/tools/"+slug })
+        registerView({ title: ToolComponent.title, type: "tool", slug:slug })
     },[])
     return (
         <>

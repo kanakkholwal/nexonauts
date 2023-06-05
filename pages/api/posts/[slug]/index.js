@@ -1,5 +1,6 @@
 import handler from 'lib/handler';
 import User from "models/user";
+import Page from "models/page";
 import Post from "models/post";
 import dbConnect from "lib/dbConnect";
 import nextConnect from 'next-connect';
@@ -13,7 +14,7 @@ export default nextConnect(handler)
 
             const { slug } = req.query;
 
-            const existingPost = await Post.findOne({ slug: slug }).select('+content').populate('author.user', 'name profileURl')
+            const existingPost = await Post.findOne({ slug: slug }).select('+content').populate('author.user', 'name profileURl','analytics')
             if (!existingPost)
                 return res.status(404).json({ message: 'Post not found!' })
             if (existingPost.state !== "published") {

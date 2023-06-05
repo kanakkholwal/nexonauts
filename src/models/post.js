@@ -128,17 +128,16 @@ const postSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
+    analytics: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Page',
+      default: null,
+    },
     comments: {
       enabled: {
         type: Boolean,
         default: true,
       },
-      // rootItems: {
-      //   type: [mongoose.Schema.Types.ObjectId],
-      //   ref: 'Comment',
-      //   default: [],
-      //   select: false,
-      // }
 
     },
   },

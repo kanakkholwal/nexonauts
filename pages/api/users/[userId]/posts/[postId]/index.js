@@ -27,10 +27,11 @@ export default nextConnect(handler)
       if(!postId)
         return res.status(404).json({ message: 'Post not found!' });
         
-      const existingPost = await Post.findById(postId).select('+content');
+      const existingPost = await Post.findById(postId).select('+content').populate('analytics').exec();
       if (!existingPost) {
         return res.status(404).json({ message: 'Post not found!' });
       }
+      console.log(existingPost)
 
       return res.status(200).json({ message: 'Post Fetched Successfully!', post: existingPost });
     } catch (err) {
@@ -95,24 +96,28 @@ export default nextConnect(handler)
            new: true 
           
         }
-      ).select("+content");
-      await Page.findOneAndUpdate({
-        slug: existingPost.slug
+      ).select("+content").populate('analytics');
+      if (!updatedPost) {
+        return res.status(500).json({ message: 'Unable to update the post!' });
+      }
+
+     const analyticsPage = await Page.findOneAndUpdate({
+       _id: updatedPost.analytics._id,
       },
         {
           $set: {
-            title: post.title,
-            slug: post.slug,
+            title: updatedPost.title,
+            slug: updatedPost.slug,
           }
         },
         {
           new: true
         }
       );
-
-      if (!updatedPost) {
-        return res.status(500).json({ message: 'Unable to update the post!' });
+      if (!analyticsPage) {
+        return res.status(500).json({ message: 'Unable to update the page!' });
       }
+
 
       return res.status(200).json({ message: 'Post Updated Successfully!', post: updatedPost });
     } catch (err) {
