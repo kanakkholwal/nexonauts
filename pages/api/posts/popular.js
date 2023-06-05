@@ -1,5 +1,6 @@
 import handler from 'lib/handler';
 import Page from "models/page";
+import User from "models/user";
 import Post from "models/post";
 import dbConnect from "lib/dbConnect";
 import nextConnect from 'next-connect';
@@ -19,8 +20,8 @@ export default nextConnect(handler)
         if (data) {
           return {
             ...post._doc,
-            views: data.views,
-            shares: data.shares
+            views: data.analytics.filter((item) => item.type === 'view').length,
+            shares: data.analytics.filter((item) => item.type === 'share').length
           }
         }
         else {

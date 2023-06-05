@@ -12,7 +12,7 @@ type ArticleEditorProps = {
   minHeight?: number;
   onReady?: () => void;
   onSave?: (data: OutputData) => void;
-  onChange: (api: API, event: CustomEvent) => void;
+  onChange?: (api: API, event: CustomEvent) => void;
 };
 
 const ArticleEditor = ({
