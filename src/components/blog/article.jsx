@@ -6,8 +6,8 @@ import { Interweave } from 'interweave';
 import dynamic from 'next/dynamic';
 
 const Output = dynamic(
-  async () => (await import('editorjs-react-renderer')).default,
-  { ssr: false }
+    async () => (await import('editorjs-react-renderer')).default,
+    { ssr: false }
 );
 import { GrValidate } from 'react-icons/gr';
 import { MdOutlineDateRange, MdOutlineLabel } from 'react-icons/md';
@@ -150,7 +150,20 @@ export function Article({ post }) {
                     </span>
                 </div>
             </MetaData>
-            <Output data={post?.content} />
+            <Output data={post?.content} style={{
+                table: {
+                    table: {
+                        style: {
+                            width: "100%",
+                        }
+                    },
+                    tr: {
+                        style: {}
+                    },
+                    th: { style: {} },
+                    td: { style: {} },
+                }
+            }} />
             <div className="d-flex align-items-center flex-wrap gy-2 ">
                 <Badge className="px-0 py-2" as="strong"><MdOutlineLabel /></Badge>
 
@@ -174,3 +187,59 @@ export function Article({ post }) {
         </ArticleWrapper>
     )
 }
+
+const style = {
+    header: {
+        h1: {
+            color: 'lightseagreen',
+            fontFamily: 'cursive'
+        },
+    },
+    image: {
+        img: {},
+        figure: {},
+        figcaption: {}
+    },
+    paragraph: {
+        textAlign: 'justify',
+        margin: '8px 0',
+        fontSize: '18px',
+        lineHeight: '1.7',
+        fontWeight: 200,
+    },
+    list: {},
+    table: {
+        table: {},
+        tr: {},
+        th: {},
+        td: {},
+    },
+    quote: {
+        container: {},
+        content: {},
+        author: {},
+        message: {}
+    },
+    codebox: {
+        code: { lineHeight: '22px' },
+    },
+    warning: {
+        icon: {
+            width: '28px',
+        },
+        title: {
+            marginRight: '10px'
+        },
+        message: {
+            textAlign: 'left'
+        },
+    },
+    avatar: {
+        height: '40px',
+        width: '40px',
+        borderRadius: '20px',
+        margin: '8px',
+        boxShadow: '0 0 4px 0 rgba(0,0,0,0.5)',
+        backgroundColor: '#1e242a'
+    }
+};

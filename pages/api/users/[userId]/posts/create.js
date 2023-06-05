@@ -1,5 +1,6 @@
 import handler from 'lib/handler';
 import Post from "models/post";
+import Page from "models/page";
 import User from "models/user";
 import dbConnect from "lib/dbConnect";
 import { hasTokenMiddleware } from 'middleware/checkUser';
@@ -41,6 +42,15 @@ export default nextConnect(handler).use(hasTokenMiddleware)
             if (!newPost) {
               return res.status(500).json({ message: 'Unable to create a new post!' });
             }
+            const newPage = await Page.create({
+              title: newPost.title,
+              slug: newPost.slug,
+              type: 'article',
+            });
+            if(!newPage){
+              return res.status(500).json({ message: 'Unable to create a new page!' });
+            }
+            await newPost.updateOne({ analytics: newPage._id });
           
             existingUser.posts.push(newPost.id);
             await existingUser.save();

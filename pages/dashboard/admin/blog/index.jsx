@@ -1,10 +1,9 @@
 import { getSession } from "next-auth/react"
 import DashboardPage, { Header } from "components/dashboard-page";
-import Button,{ResponsiveButton} from "components/buttons";
+import {ResponsiveButton} from "components/buttons";
 import Head from "next/head";
 import Link from 'next/link';
 import axios from 'axios';
-import {  useState } from 'react';
 import {  RiAddLine,RiArticleLine } from 'react-icons/ri';
 import {  HiOutlineExternalLink,HiOutlineEye } from 'react-icons/hi';
 import { Card, CardHeader, CardBody, CardTitle, CardDescription } from "components/Card";
@@ -12,8 +11,8 @@ import { IndeterminateCircularLoader as Loader } from "components/Loader";
 import styled from 'styled-components';
 import Image from 'next/image';
 import { useRouter } from "next/router";
-import State from "components/state";
 import useSWR from "swr";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const PostCard = styled(Card)`
@@ -52,73 +51,18 @@ export default function Blog({ user }) {
 
     const { data, error, isLoading } = useSWR("/api/users/" + user.id + "/posts/all", fetcher)
 
-    const [state, setState] = useState({
-        loader: {
-            type: "indeterminate",
-            shape: "linear",
-            show: false,
-        },
-        alert: {
-            open: false,
-            message: "",
-            nature: "success",
-        }
-
-    });
     const router = useRouter();
 
     const createPost = async () => {
-        setState({
-            ...state,
-            loader: {
-                ...state.loader,
-                show: true
-            }
-        })
 
         await axios.post("/api/users/" + user.id + "/posts/create")
             .then(res => {
                 console.log(res.data);
-                setState({
-                    loader: {
-                        ...state.loader,
-                        show: false
-                    },
-                    alert: {
-                        open: true,
-                        message: "Post created successfully",
-                        nature: "success"
-                    }
-                })
-
                 router.push("/dashboard/admin/blog/posts/" + res.data.post._id + "/edit")
             })
             .catch(err => {
                 console.log(err);
-                setState({
-                    loader: {
-                        ...state.loader,
-                        show: false
-                    },
-                    alert: {
-                        open: true,
-                        message: "Post creation failed",
-                        nature: "error"
-                    }
-                })
-
-            })
-            .finally(() => {
-                setTimeout(() => {
-                    setState({
-                        ...state,
-                        alert: {
-                            ...state.alert,
-                            open: false
-                        }
-                    })
-                }, 5000)
-            })
+            });
     }
 
 
@@ -136,11 +80,16 @@ export default function Blog({ user }) {
                     <ResponsiveButton as={Link} icon={<HiOutlineExternalLink/>} direction={"true"} low="true" level="true" size="sm" target="_blank" href="/blog" className="ms-auto me-2">
                         Check out 
                     </ResponsiveButton>
-                    <ResponsiveButton  icon={<RiAddLine/>} low="true" size="sm" onClick={() => createPost()} className="m-0 g-0">
+                    <ResponsiveButton  icon={<RiAddLine/>} low="true" size="sm" 
+                    o       onClick={() => toast.promise(createPost(), {
+                                    loading: 'Creating new post...',
+                                    success: "Post created Successfully",
+                                    error: "Error creating the post!!",
+                                })}
+                     className="m-0 g-0">
                         New Post
                     </ResponsiveButton>
                 </Header>
-                <State {...state} />
                 <div className="d-flex g-3 flex-nowrap overflow-auto x-mandatory">
                     {isLoading?
                         <Loader /> :
@@ -163,6 +112,10 @@ export default function Blog({ user }) {
 
 
             </DashboardPage>
+            <Toaster
+                position="top-center"
+                reverseOrder={true}
+            />
         </>
     )
 }

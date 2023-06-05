@@ -3,7 +3,7 @@ import DashboardPage, { Header } from "components/dashboard-page";
 import Button from "components/buttons";
 import State from "components/state";
 import { Card, } from "components/Card";
-import { Input, FormElement, Label, TextArea, FormHelper, Switch } from "components/form-elements";
+import { Input, FormElement, Label, TextArea, FormHelper, Switch ,FileInput} from "components/form-elements";
 import  FileUploader  from "components/form-elements/FileUploader";
 import Head from "next/head";
 import Link from 'next/link';
@@ -106,7 +106,7 @@ export default function NewPost({ user }) {
             userId: user.id,
         }).then(res => {
             console.log(res);
-            router.push("/dashboard/blog")
+            router.push("/dashboard/admin/blog")
         }).catch(err => {
             console.log(err);
         })
@@ -313,7 +313,7 @@ export default function NewPost({ user }) {
                         </FormElement>
 
                         <FormElement className="mt-2">
-                            {/* <FileInput
+                            <FileInput
                                 accept="image/*"
                                 placeholder="Upload a cover image for the post..."
 
@@ -328,7 +328,7 @@ export default function NewPost({ user }) {
                             <State  {...imageState} />
                             <Input value={image} onChange={(e) => {
                                 setImage(e.target.value);
-                            }} /> */}
+                            }} />
                             <FileUploader/>
                         </FormElement>
 

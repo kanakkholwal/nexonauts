@@ -26,8 +26,8 @@ export default nextConnect(handler)
               return res.status(402).json({ verified: result.verified, message: result.message });
             }
           
-            const {posts} = await existingUser.populate('posts');
-            console.log(posts)
+            const {posts} = await existingUser.populate('posts')
+            console.log(posts);
           
             return res.status(200).json({ message: 'Posts fetched successfully!', posts });
           } catch (err) {

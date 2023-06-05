@@ -52,7 +52,7 @@ export default function Tool({ path }){
     const Category = CategoryList.find((category) => category.path === path);
     const ToolsInThisCategory = ToolList.filter(({ category }) => category === Category.title);
     useEffect(() =>{
-        registerView({ title: "Tools Category" + Category.title, type: "page", slug: "/tools/category/"+path })
+        registerView({ title: "Tools Category : " + Category.title, type: "page", slug: path })
     },[])
     return (
         <>
