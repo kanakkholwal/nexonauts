@@ -4,6 +4,7 @@ import { NavBar, PostPageHero, Article, Wrapper, SideBar } from 'components/blog
 import { registerView } from 'lib/analytics';
 import { Inter } from 'next/font/google';
 import { NextSeo } from 'next-seo';
+import { Post } from 'types/post';
 
 const inter = Inter({
   display: 'swap',
@@ -14,7 +15,7 @@ const inter = Inter({
 export async function getStaticPaths() {
   try {
     const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/all`);
-    const paths = data.posts?.map((post) => ({
+    const paths = data.posts?.map((post :Post) => ({
       params: {
         slug: post.slug,
       },
@@ -22,14 +23,14 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: true,
+      fallback: 'blocking', // Use 'blocking' to ensure that unmatched paths are rendered using SSR
     };
   } catch (error) {
     console.log("Error during path generation:", error);
 
     return {
       paths: [],
-      fallback: true,
+      fallback: 'blocking', // Use 'blocking' to ensure that unmatched paths are rendered using SSR
     };
   }
 }
@@ -38,7 +39,8 @@ export async function getStaticProps({ params }) {
   try {
     const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/${params.slug}`);
 
-    if (!data.post) {
+    const post : Post = data.post;
+    if (!(post && post.title && post.description && post.image && post.content && post.slug)) {
       return {
         notFound: true,
       };
@@ -46,7 +48,7 @@ export async function getStaticProps({ params }) {
 
     return {
       props: {
-        post: data.post,
+        post: post,
       },
       revalidate: 10, // Revalidate the page every 10 seconds
     };
@@ -60,32 +62,32 @@ export async function getStaticProps({ params }) {
 
 export default function Post({ post }) {
   useEffect(() => {
-    registerView({ title: post.title, type: 'article', slug: '/blog/posts/' + post.slug });
+    registerView({ title: post?.title, type: 'article', slug: '/blog/posts/' + post?.slug });
   }, []);
 
   return (
     <div className={inter.className}>
       <NextSeo
-        title={post.title}
-        description={post.description}
-        canonical={process.env.NEXT_PUBLIC_WEBSITE_URL + '/blog/posts/' + post.slug}
+        title={post?.title}
+        description={post?.description}
+        canonical={process.env.NEXT_PUBLIC_WEBSITE_URL + '/blog/posts/' + post?.slug}
         openGraph={{
-          url: process.env.NEXT_PUBLIC_WEBSITE_URL + '/blog/posts/' + post.slug,
-          title: post.title,
-          description: post.description,
+          url: process.env.NEXT_PUBLIC_WEBSITE_URL + '/blog/posts/' + post?.slug,
+          title: post?.title,
+          description: post?.description,
           images: [
             {
-              url: post.image,
+              url: post?.image,
               width: 800,
               height: 600,
-              alt: post.title,
+              alt: post?.title,
               type: 'image/png',
             },
             {
-              url: post.image,
+              url: post?.image,
               width: 900,
               height: 800,
-              alt: post.title,
+              alt: post?.title,
               type: 'image/png',
             },
           ],
@@ -98,10 +100,10 @@ export default function Post({ post }) {
         }}
       />
       <NavBar />
-      <PostPageHero title={post.title} description={post.description} />
+      <PostPageHero title={post?.title} description={post?.description} />
       <Wrapper>
         <Article post={post} />
-        <SideBar post={post} />
+        <SideBar />
       </Wrapper>
     </div>
   );

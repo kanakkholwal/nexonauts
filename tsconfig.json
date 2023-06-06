@@ -68,6 +68,9 @@
       "assets/*": [
         "./src/assets/*"
       ],
+      "types/*": [
+        "./src/types/*"
+      ],
       "lib/*": [
         "./src/lib/*"
       ],

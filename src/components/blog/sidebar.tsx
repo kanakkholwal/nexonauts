@@ -43,7 +43,7 @@ export function SideBar() {
       error: false,
     });
   
-    const getPosts = async (endpoint) => {
+    const getPosts = async (endpoint :string) => {
       try {
         const { data } = await axios.post(endpoint, {
           noOfPost: 5,
