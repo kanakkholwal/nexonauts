@@ -8,6 +8,7 @@ import Image from "next/image";
 import useSWR from "swr";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import toast, { Toaster } from 'react-hot-toast';
 
 const CommentSection = styled.section`
   display: flex;
@@ -267,7 +268,7 @@ export default function Comments({ post }) {
         setAllComments(data);
       }
   }, [data]);
-
+ 
 
   return (
     <CommentSection id="comments">
@@ -364,7 +365,11 @@ function Comment({ index, comment, postId, author, session }) {
                   <span onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    handleDelete(comment._id)
+                    toast.promise(handleDelete(comment._id), {
+                                    loading: 'Deleting comment to the post...',
+                                    success: "Comment deleted Successfully",
+                                    error: "Error deleting the Comment!!",
+                                })
                   }}>
                     Delete
                   </span> : null}
@@ -374,7 +379,10 @@ function Comment({ index, comment, postId, author, session }) {
             </div>
         </CommentHeader>
         <CommentBody>{comment.comment}</CommentBody>
-
+        <Toaster
+                position="bottom-center"
+                reverseOrder={true}
+            />
         <CommentFooter>
           <span className="ms-auto">{timeAgo(new Date(comment.createdAt))}</span>
           {comment.replies.length > 0 ? (<span className="info">{comment.replies.length} Replies
@@ -423,7 +431,11 @@ function CommentFormComponent({
         </CommenterProfile>
         <span> {placeholder ? placeholder : "Leave a comment"}</span>
       </InsertReply> :
-      <CommentForm onSubmit={handleCommentSubmit}>
+      <CommentForm onSubmit={(event) => toast.promise(handleCommentSubmit(event), {
+                                    loading: 'Adding comment to the post...',
+                                    success: "Comment added Successfully",
+                                    error: "Error creating the Comment!!",
+                                })}>
         <CommenterProfile nature={["success", "theme", "warning", "info", "secondary", "dark"][69 % 6]}>
           {session?.user ?
             session?.user?.profileURL ?
@@ -485,6 +497,10 @@ function CommentFormComponent({
         </div>
       </CommentForm>
     }
+    <Toaster
+                position="bottom-center"
+                reverseOrder={true}
+            />
   </>)
 
 }

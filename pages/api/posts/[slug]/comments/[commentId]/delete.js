@@ -1,4 +1,5 @@
 import handler from 'lib/handler';
+import {checkUser} from 'lib/checkUser';
 import User from "models/user";
 import Post, { Comment } from "models/post";
 import dbConnect from "lib/dbConnect";
