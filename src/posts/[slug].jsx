@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { NavBar, PostPageHero, Article, Wrapper, SideBar } from 'components/blog';
 import { registerView } from 'lib/analytics';
 import { Inter } from 'next/font/google';
-import Head from 'next/head';
+import { NextSeo } from 'next-seo';
 
 const inter = Inter({
   display: 'swap',
@@ -13,9 +13,8 @@ const inter = Inter({
 
 export async function getStaticPaths() {
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/all`);
-
-    const paths = response?.data?.posts?.map((post) => ({
+    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/all`);
+    const paths = data.posts?.map((post) => ({
       params: {
         slug: post.slug,
       },
@@ -26,7 +25,8 @@ export async function getStaticPaths() {
       fallback: true,
     };
   } catch (error) {
-    console.log(error);
+    console.log("Error during path generation:", error);
+
     return {
       paths: [],
       fallback: true,
@@ -36,9 +36,9 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/${params.slug}`);
+    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/${params.slug}`);
 
-    if (!response?.data?.post) {
+    if (!data.post) {
       return {
         notFound: true,
       };
@@ -46,12 +46,12 @@ export async function getStaticProps({ params }) {
 
     return {
       props: {
-        post: response?.data?.post,
+        post: data.post,
       },
       revalidate: 10, // Revalidate the page every 10 seconds
     };
   } catch (error) {
-    console.log(error);
+    console.log("Error during page generation using slug:", error);
     return {
       notFound: true,
     };
@@ -65,31 +65,38 @@ export default function Post({ post }) {
 
   return (
     <div className={inter.className}>
-      <Head>
-        {/* COMMON TAGS */}
-        <meta charSet="utf-8" />
-        <title>{post.title}</title>
-        {/* Search Engine */}
-        <meta name="description" content={post.description} />
-        <meta name="image" content={post.image} />
-        {/* Schema.org for Google */}
-        <meta itemProp="name" content={post.title} />
-        <meta itemProp="description" content={post.description} />
-        <meta itemProp="image" content={post.image} />
-        {/* Open Graph general (Facebook, Pinterest & LinkedIn) */}
-        <meta property="og:title" content={post.title} />
-        <meta property="og:description" content={post.description} />
-        <meta property="og:image" content={post.image} />
-        <meta property="og:url" content={'https://kkupgrader.eu.org/blog/posts/' + post.slug} />
-        <meta property="og:site_name" content="K K UPGRADER" />
-        <meta property="og:locale" content="en_US" />
-        <meta property="og:type" content="website" />
-        {/* Twitter */}
-        <meta property="twitter:card" content="summary" />
-        <meta property="twitter:title" content={post.title} />
-        <meta property="twitter:description" content={post.description} />
-        <meta property="twitter:image:src" content={post.image} />
-      </Head>
+      <NextSeo
+        title={post.title}
+        description={post.description}
+        canonical={process.env.NEXT_PUBLIC_WEBSITE_URL + '/blog/posts/' + post.slug}
+        openGraph={{
+          url: process.env.NEXT_PUBLIC_WEBSITE_URL + '/blog/posts/' + post.slug,
+          title: post.title,
+          description: post.description,
+          images: [
+            {
+              url: post.image,
+              width: 800,
+              height: 600,
+              alt: post.title,
+              type: 'image/png',
+            },
+            {
+              url: post.image,
+              width: 900,
+              height: 800,
+              alt: post.title,
+              type: 'image/png',
+            },
+          ],
+          siteName: process.env.NEXT_PUBLIC_WEBSITE_NAME,
+        }}
+        twitter={{
+          handle: '@kanakkholwal',
+          site: '@site',
+          cardType: 'summary_large_image',
+        }}
+      />
       <NavBar />
       <PostPageHero title={post.title} description={post.description} />
       <Wrapper>
