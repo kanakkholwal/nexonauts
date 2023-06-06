@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { BlogBreadCrumb } from "components/breadcrumb";
 import Badge from "components/topography/badge";
 import { calculateReadTime } from "lib/scripts";
-import { Interweave } from 'interweave';
+// import { Interweave } from 'interweave';
 import dynamic from 'next/dynamic';
 
 const Output = dynamic(
@@ -138,7 +138,7 @@ export function Article({ post }) {
                                 <MdOutlineDateRange />{new Date(post.createdAt).toLocaleDateString()}
                             </span>
                             <span>
-                                {/* <AiOutlineFieldTime />{calculateReadTime(post?.content) + " read"} */}
+                                <AiOutlineFieldTime />{calculateReadTime(JSON.stringify(post?.content)) + " read"}
                             </span>
 
                         </p>
@@ -164,7 +164,9 @@ export function Article({ post }) {
                     td: { style: {} },
                 }
             }} />
-            <div className="d-flex align-items-center flex-wrap gy-2 ">
+            <div className="d-flex align-items-center flex-wrap gy-2  mt-2 pt-3" style={{
+                borderTop: "1px solid rgba(var(--mute-rgb),0.25)",
+            }}>
                 <Badge className="px-0 py-2" as="strong"><MdOutlineLabel /></Badge>
 
                 {post.labels.map((label, index) => (
