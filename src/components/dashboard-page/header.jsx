@@ -268,7 +268,7 @@ export default function Header({ user, routes, children }) {
                             </SearchDropDown> : null
                     }
                 </SearchWrapper>
-
+ 
 
                 <SearchToggler level="true" low="true"
                     rounded onClick={() => setIsSearchOpen((state) => !state)}>

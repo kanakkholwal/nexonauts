@@ -13,8 +13,9 @@ const FooterWrapper = styled.div`
     width: 100%;
     max-width: var(--max-width);
     margin-inline: auto;
+    padding:1rem;
     h2{
-      
+        text-align: center;      
         color: rgba(var(--text-rgb), 0.9);
     }
     &>div{

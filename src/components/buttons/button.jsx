@@ -17,12 +17,12 @@ const Button = styled.button`
   color:var(--btn-text,#fbfbfb);
   background:var(--btn-bg,var(--theme));
   border: 2px solid var(--btn-border,var(--theme));
-  box-shadow:var(--btn-box-shadow,0 4px 9px -4px rgba(var(--theme-rgb), 0.8));
+  box-shadow:var(--btn-box-shadow,0px 1px 3px rgba(var(--theme-rgb), 0.8));
   border-radius: var(--btn-border-radius,0.5rem);
   text-align: center;
   
   &:hover{
-    box-shadow: var(--btn-hover-box-shadow,0 4px 9px -4px rgba(var(--theme-rgb), 0.8));
+    box-shadow: var(--btn-hover-box-shadow,0px 1px 3px rgba(var(--theme-rgb), 0.8));
     color:var(--btn-hover-text,var(--btn-text));
     background:var(--btn-bg,var(--theme));
     border-color:var(--btn-border-hover,var(--theme));
@@ -35,7 +35,7 @@ const Button = styled.button`
   ` : ``}
   ${props => props.nature ? `
     --btn-bg:rgba(var(--${props.nature}-rgb), 1);
-    --btn-box-shadow: 0 4px 9px -4px rgba(var(--${props.nature}-rgb), 0.8);
+    --btn-box-shadow: 0px 1px 3px rgba(var(--${props.nature}-rgb), 0.8);
     --btn-hover-bg:rgba(var(--${props.nature}-rgb), 0.95);
     --btn-border:rgba(var(--${props.nature}-rgb), 0.95);
     --btn-border-hover:rgba(var(--${props.nature}-rgb), 0.95);

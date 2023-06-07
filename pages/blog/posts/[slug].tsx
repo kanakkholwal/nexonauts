@@ -2,15 +2,11 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { NavBar, PostPageHero, Article, Wrapper, SideBar } from 'components/blog';
 import { registerView } from 'lib/analytics';
-import { Inter } from 'next/font/google';
 import { NextSeo } from 'next-seo';
 import { Post } from 'types/post';
 
-const inter = Inter({
-  display: 'swap',
-  weight: ['400', '500', '600', '700'],
-  subsets: ['latin'],
-});
+
+  
 
 export async function getStaticPaths() {
   try {
@@ -66,7 +62,7 @@ export default function Post({ post }) {
   }, []);
 
   return (
-    <div className={inter.className}>
+    <div >
       <NextSeo
         title={post?.title}
         description={post?.description}

@@ -1,8 +1,17 @@
 import Link from "next/link";
+import Image from "next/image";
 import styled from "styled-components";
 import { CgMenu, CgSearch, CgClose } from "react-icons/cg";
+import { BiHomeAlt2 } from "react-icons/bi";
+import { IoSettingsOutline } from "react-icons/io5";
+import { TbTools } from "react-icons/tb";
+import { FaRegUser } from "react-icons/fa";
+import {  MdLogout } from "react-icons/md";
+
 import { useState } from "react";
 import { ProfileDropDownInfo, ProfileWrapper, Profile, ProfileDropDown, ProfileDropDownItem } from "components/navbar";
+import Badge from "components/topography/badge";
+import { useSession } from "next-auth/react";
 
 const Wrapper = styled.div`
   position: sticky;
@@ -132,6 +141,8 @@ const NavWrapper = styled.nav`
 
 export function NavBar() {
     const [isMenuOpen, setMenuOpen] = useState(false);
+    const [open, setOpen] = useState(false);
+    const { data: session } = useSession();
 
     return (
         <Wrapper>
@@ -154,9 +165,50 @@ export function NavBar() {
                     </NavItem>
                 </NavMenu>
                 <ProfileWrapper className="ms-auto">
-                    <NavLink href="/login">
-                        Login
-                    </NavLink>
+                    {!(session?.user) ? (
+                        <NavLink href="/login">
+                            Login
+                        </NavLink>) : (
+                        <>
+                            <Profile onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setOpen(!open)
+                            }} role="button" tabIndex="0">
+                                <Image src={session?.user?.profileURL ? session?.user?.profileURL : "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} height={40} width={40} alt={session?.user?.name ?? "User Profile"} />
+                            </Profile>
+                            <ProfileDropDown open={open} >
+                                <ProfileDropDownInfo>
+                                    <h5 className="d-flex justify-content-between align-items-center">
+                                        {session?.user?.name ?? "User Name"}
+                                        <Badge nature="secondary">{session?.user?.account_type}</Badge>
+
+                                    </h5>
+                                    <p>
+                                        {session?.user?.email ?? "User Email"}
+                                    </p>
+                                </ProfileDropDownInfo>
+                                <ProfileDropDownItem as={Link} href="/">
+                                    <BiHomeAlt2 />
+                                    Home</ProfileDropDownItem>
+                                <ProfileDropDownItem as={Link} href="/tools">
+                                    <TbTools />
+                                    Tools</ProfileDropDownItem>
+                                <ProfileDropDownItem as={Link} href="/dashboard/profile">
+                                    <FaRegUser />
+                                    Profile</ProfileDropDownItem>
+                                <ProfileDropDownItem as={Link} href="/dashboard/settings">
+                                    <IoSettingsOutline />
+                                    Settings</ProfileDropDownItem>
+                                <ProfileDropDownItem as={"button"} onClick={(e) => {
+                                    e.preventDefault();
+                                    signOut();
+                                }}>
+                                    <MdLogout />
+                                    Log Out
+                                </ProfileDropDownItem>
+                            </ProfileDropDown>
+                        </>)}
                 </ProfileWrapper>
                 <MenuToggle onClick={() => setMenuOpen(!isMenuOpen)}>
                     <CgMenu />

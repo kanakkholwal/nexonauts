@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { LuMail } from "react-icons/lu";
 import {Input,FormGroup ,FormHelper, FormElement} from "components/form-elements";
 import {ResponsiveButton} from "components/buttons";
+import toast ,{Toaster} from "react-hot-toast";
 
 export const Wrapper = styled.div`
     display: flex;
@@ -45,7 +46,9 @@ export function HomePageHero(){
                 flexWrap:"nowrap",
             }}>
                 <Input placeholder="Enter your email ..." noBorder="true"/>
-                <ResponsiveButton icon={<LuMail/>} nature="secondary" low="true">
+                <ResponsiveButton icon={<LuMail/>} nature="secondary" low="true" onClick={() =>{
+                    toast.success("Will be Available Soon");
+                }}>
                     Subscribe
                 </ResponsiveButton>
             </FormGroup>
@@ -53,6 +56,9 @@ export function HomePageHero(){
                     We respect your privacy. Unsubscribe at any time.
                 </FormHelper>
             </FormElement>
+            <Toaster 
+        position="top-center"
+        />
         </Wrapper>
         )
 

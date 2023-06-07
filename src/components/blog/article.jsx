@@ -28,6 +28,28 @@ const ArticleWrapper = styled.article`
     margin-inline:auto;
     flex:1;
     border-radius: 10px;
+    @media (min-width:1000px){
+        max-width:calc(var(--max-width) * 0.75);
+    }
+    .Article{
+        text-align:initial;
+        width:100%;
+        max-width:var(--max-width);
+        margin-inline:auto;
+        display:block;
+    }
+`;
+const ArticleBody = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding:1rem;
+    text-align:center;
+    width:100%;
+    margin-inline:auto;
+    flex:1;
+    border-radius: 10px;
     background: var(--card-bg);
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
     0px 1px 1px rgba(0, 0, 0, 0.08);
@@ -121,59 +143,59 @@ gap:0.5rem;
 export function Article({ post }) {
     return (
         <ArticleWrapper>
-            <BlogBreadCrumb slug={post.slug} title={post.title} category={post.labels[0]} />
-            <ArticleThumbnail>
-                <Image src={post.image} height={400} width={600} alt={post.title} />
-            </ArticleThumbnail>
-            <ArticleTitle>
-                <h5>{post.title}</h5>
-            </ArticleTitle>
-            <MetaData>
-                <Author>
-                    <Image src={post.author.profileURL} height={36} width={36} alt={post.author.name} />
+            <ArticleBody>
+
+
+                <BlogBreadCrumb slug={post.slug} title={post.title} category={post.labels[0]} />
+                <ArticleThumbnail>
+                    <Image src={post.image} height={400} width={600} alt={post.title} />
+                </ArticleThumbnail>
+                <ArticleTitle>
+                    <h5>{post.title}</h5>
+                </ArticleTitle>
+                <MetaData>
+                    <Author>
+                        <Image src={post.author.profileURL} height={36} width={36} alt={post.author.name} />
+                        <div>
+                            <span className="authorName">{post.author.user.name} <GrValidate /></span>
+                            <p className="postDetail">
+                                <span>
+                                    <MdOutlineDateRange />{new Date(post.createdAt).toLocaleDateString()}
+                                </span>
+                                <span>
+                                    <AiOutlineFieldTime />{calculateReadTime(JSON.stringify(post?.content)) + " read"}
+                                </span>
+
+                            </p>
+                        </div>
+                    </Author>
                     <div>
-                        <span className="authorName">{post.author.user.name} <GrValidate /></span>
-                        <p className="postDetail">
-                            <span>
-                                <MdOutlineDateRange />{new Date(post.createdAt).toLocaleDateString()}
-                            </span>
-                            <span>
-                                <AiOutlineFieldTime />{calculateReadTime(JSON.stringify(post?.content)) + " read"}
-                            </span>
-
-                        </p>
+                        <span>
+                            {post.comments.numberOfComments} <BiCommentDetail />
+                        </span>
                     </div>
-                </Author>
-                <div>
-                    <span>
-                        {post.comments.numberOfComments} <BiCommentDetail />
-                    </span>
-                </div>
-            </MetaData>
-            <Output data={post?.content} style={{
-                table: {
+                </MetaData>
+                <Output data={post?.content} style={{
                     table: {
-                        style: {
-                            width: "100%",
-                        }
-                    },
-                    tr: {
-                        style: {}
-                    },
-                    th: { style: {} },
-                    td: { style: {} },
-                }
-            }} />
-            <div className="d-flex align-items-center flex-wrap gy-2  mt-2 pt-3" style={{
-                borderTop: "1px solid rgba(var(--mute-rgb),0.25)",
-            }}>
-                <Badge className="px-0 py-2" as="strong"><MdOutlineLabel /></Badge>
-
-                {post.labels.map((label, index) => (
-                    <Badge key={index} nature={["success", "theme", "warning", "info", "secondary"][index > 6 ? parseInt(index % 6) + 1 : index]}>{label}</Badge>
-                ))}
-            </div>
-            {/* <div>
+                        table: {
+                            style: {
+                                width: "100%",
+                            }
+                        },
+                        tr: {
+                            style: {}
+                        },
+                        th: { style: {} },
+                        td: { style: {} },
+                    }
+                }} />
+                <div className="d-flex align-items-center flex-wrap gy-2  mt-2 pt-3" >
+                    <Badge className="px-0 py-2" as="strong"><MdOutlineLabel /></Badge>
+                    {post.labels.map((label, index) => (
+                        <Badge key={index} nature={["success", "theme", "warning", "info", "secondary"][index > 6 ? parseInt(index % 6) + 1 : index]}>{label}</Badge>
+                    ))}
+                </div>
+                {/* <div>
                 <h5>Share Post</h5>
                 <div>
                     <Badge>Copy Link</Badge>
@@ -184,6 +206,7 @@ export function Article({ post }) {
 
                 </div>
             </div> */}
+            </ArticleBody>
             <Comments post={post} />
             <RelatedPosts postId={post._id} />
         </ArticleWrapper>

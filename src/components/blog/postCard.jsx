@@ -66,10 +66,14 @@ padding:0.75rem 1rem;
 max-width:480px;
 width:100%;
 text-align:initial;
+background-color:rgba(var(--light-rgb),1);
+border-radius:0.5rem;
+box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
+    0px 1px 1px rgba(0, 0, 0, 0.08);
 
 `;
 
-export function PostCard({ imageSrc,post}) {
+export function PostCard({ post}) {
     return (
         <Card>
             <Link title={post.title} href={"/blog/posts/" + post.slug}>
@@ -94,7 +98,7 @@ export function PostCard({ imageSrc,post}) {
                             if(index > 2) return null;
                             
                             return (
-                                <Badge key={tag} title={tag} nature={["success","theme","warning","info","secondary"][Math.floor(Math.random() * 5)]} pill>{tag}</Badge>
+                                <Badge key={tag} title={tag} nature={["success","theme","warning","info","secondary"][Math.round(5 % Math.floor(Math.random() * 5))]} pill>{tag}</Badge>
                             )
                         })
                     }
