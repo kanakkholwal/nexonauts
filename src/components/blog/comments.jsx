@@ -15,9 +15,12 @@ const CommentSection = styled.section`
   flex-direction: column;
   gap: 1rem;
   width: 100%;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(var(--mute-rgb), 0.25);
+  margin-block: 20px;
+  padding: 20px 10px;
+  border-radius: 10px;
+    background: var(--card-bg);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
+    0px 1px 1px rgba(0, 0, 0, 0.08);
 `;
 const InsertReply = styled.div`
   display: flex;
@@ -195,7 +198,7 @@ const RepliesWrapper = styled.div`
   margin-left:1rem;
   padding-inline:0.5rem;
   max-width:calc(100% - 0.5rem);
-  
+  border-left: 1px solid rgba(var(--grey-rgb),0.2);
     position: relative;
     transition: all .5s cubic-bezier(0.4, 0, 0.2, 1);
     width: 100%;

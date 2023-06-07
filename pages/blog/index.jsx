@@ -8,7 +8,6 @@ import { BiDownArrowAlt } from "react-icons/bi";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { Inter } from "next/font/google";
 import Head from "next/head";
-
 const inter = Inter({
   display: "swap",
   weight: ['400', '500', '600', '700'],
@@ -42,7 +41,7 @@ export default function BlogHomePage({ initialPosts }) {
   }, []);
 
   return (
-    <div className={"Blog " + inter.className}>
+    <div className={inter.className}>
       <Head>
         <title>K K UPGRADER BLOG</title>
       </Head>
@@ -58,6 +57,7 @@ export default function BlogHomePage({ initialPosts }) {
         </Button>}
         </div>
       <Footer only="true" />
+   
     </div>
   );
 }
