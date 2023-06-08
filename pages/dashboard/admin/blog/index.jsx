@@ -18,13 +18,17 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
 import toast, { Toaster } from 'react-hot-toast';
-
+import { Inter } from "next/font/google";
+const inter = Inter({
+  display: "swap",
+  weight: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+});
 
 const PostCard = styled(Card)`
 min-width:320px;
-${'' /* max-width:370px; */}
 flex-direction:row;
-width:100%;
+padding-inline:0.75rem;
 img{
     object-fit:cover;
     border-radius:5px;
@@ -36,16 +40,33 @@ img{
     opacity:0.9;
 }
 }
-@media (max-width:566px){
+@media (width < 968px){
     flex-direction:column;
+    width:100%;
 }
-@media (max-width:968px){
-    flex-direction:column;
+@media (566px < width){
+    max-width:100%;
+}
+@media (566px < width < 968px){
+    max-width:calc(50% - 1rem);
 }
 ${CardBody}{
     padding:0 1rem;
     display:flex;
     flex-direction:column;
+    .meta{
+        display:flex;
+        flex-direction:row;
+        align-items:center;
+        justify-content:flex-start;
+        gap:0.5rem;
+        margin-top:0.5rem;
+        margin-bottom:0.5rem;
+            color: rgba(var(--theme-rgb),1);
+            font-size: 0.875rem;
+            font-weight: 500;
+        
+    }
     ${CardHeader}{
         border:none;
 
@@ -120,7 +141,7 @@ export default function Blog({ user }) {
 
 
     return (
-        <>
+        <div className={inter.className}>
             <Head>
                 <title>Blog</title>
             </Head>
@@ -147,7 +168,7 @@ export default function Blog({ user }) {
                         New Post
                     </ResponsiveButton>
                 </Header>
-                <div className="d-flex g-3 flex-nowrap flex-column align-content-start">
+                <div className="d-flex g-3 flex-wrap align-content-start">
                     {isLoading?
                         <Loader /> :
                         posts?.length > 0 ? posts?.map((post, index) => (
@@ -156,14 +177,17 @@ export default function Blog({ user }) {
                             }}>
                                 <Image src={post.image} alt={post.title} height={240} width={320} href={"/dashboard/admin/blog/posts/" + post?._id + "/edit"}/>
                                 <CardBody>
+                                <p className="meta">
+                                <span>{post?.author.name}</span>
+                                • <span title={"Created at "+ new Date(post?.createdAt).toDateString()} >{new Date(post.createdAt).toDateString()}</span>
+                                </p>
                                 <CardHeader>
                                     <CardTitle className="h6" as={Link} href={"/dashboard/admin/blog/posts/" + post?._id + "/edit"}>{post?.title}</CardTitle>
                                 </CardHeader>
                                     <CardDescription>{post?.description}</CardDescription>
                                     <CardFooter>
                                         <Badge nature={(post.state === "draft") ? 'warning':'success'} className={"postState " + ((post.state === "draft") ? ' text-warning':'  text-success')}>{post?.state}</Badge>
-                                        <Badge title={"Created at "+ new Date(post?.createdAt).toDateString()}>{new Date(post.createdAt).toDateString()}</Badge>
-                                        <Button rounded className="p-1" level="true" as={Link} title="View Post" href={"/blog/posts/"+post.slug} target="_blank"><AiOutlineEye/></Button>
+                                        <Button  rounded="true" className="p-1" level="true" as={Link} title="View Post" href={"/blog/posts/"+post.slug} target="_blank"><AiOutlineEye/></Button>
                                         <Badge title={post?.noOfComments + " comments"}>{post?.noOfComments}<BiCommentDetail/></Badge>
                                         <Badge>{post?.analytics?.analytics.length}<TbBrandGoogleAnalytics/></Badge>
                                     </CardFooter>
@@ -180,7 +204,7 @@ export default function Blog({ user }) {
                 position="top-center"
                 reverseOrder={true}
             />
-        </>
+        </div>
     )
 }
 
