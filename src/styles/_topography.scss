@@ -41,6 +41,35 @@
 .text-muted {
     color: rgba(var(--mute-rgb),1)!important;
 }
+.text-warning{
+    color: rgba(var(--warning-rgb),1)!important;
+}
+.text-danger{
+    color: rgba(var(--danger-rgb),1)!important;
+}
+.text-success{
+    color: rgba(var(--success-rgb),1)!important;
+}
+.text-info{
+    color: rgba(var(--info-rgb),1)!important;
+}
+.text-primary {
+    color: rgba(var(--primary-rgb),1)!important;
+}
+.text-secondary {
+    color: rgba(var(--secondary-rgb),1)!important;
+}
+.text-dark {
+    color: rgba(var(--dark-rgb),1)!important;
+}
+.text-light {
+    color: rgba(var(--light-rgb),1)!important;
+}
+.text-white {
+    color: rgba(var(--white-rgb),1)!important;
+}
+
+
 
 // Badge
 .btn:not(.Badge_positioned)>.Badge {

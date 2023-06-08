@@ -1,14 +1,16 @@
 import { getSession } from "next-auth/react"
 import DashboardPage, { Header } from "components/dashboard-page";
-import {ResponsiveButton} from "components/buttons";
+import Button,{ResponsiveButton} from "components/buttons";
+import Badge from "components/topography/badge";
 import Head from "next/head";
 import Link from 'next/link';
 import axios from 'axios';
 import {  RiAddLine,RiArticleLine } from 'react-icons/ri';
 import {  HiOutlineExternalLink } from 'react-icons/hi';
 import {  BiCommentDetail } from 'react-icons/bi';
+import {  AiOutlineEye } from 'react-icons/ai';
 import {  TbBrandGoogleAnalytics } from 'react-icons/tb';
-import { Card, CardHeader, CardBody, CardTitle, CardDescription } from "components/Card";
+import { Card, CardHeader, CardBody, CardTitle, CardDescription ,CardFooter} from "components/Card";
 import { IndeterminateCircularLoader as Loader } from "components/Loader";
 import styled from 'styled-components';
 import Image from 'next/image';
@@ -34,20 +36,54 @@ img{
     opacity:0.9;
 }
 }
-
+@media (max-width:566px){
+    flex-direction:column;
+}
+@media (max-width:968px){
+    flex-direction:column;
+}
 ${CardBody}{
-    padding:1rem;
-${CardHeader}{
-border:none;
+    padding:0 1rem;
+    display:flex;
+    flex-direction:column;
+    ${CardHeader}{
+        border:none;
+
+    }
+
 }
-}
+    ${CardFooter}{
+        display:flex;
+        flex-direction:row;
+        align-items:center;
+        justify-content:flex-end;
+        gap:0.25rem;
+        margin-top:0.25rem;
+        padding-top:0.25rem;
+        border:none;
+        span{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:0.25rem;
+            font-size:0.9rem;
+            font-weight:500;
+            color:rgba(var(--text-rgb),0.8);
+            &.postState{
+                color:rgba(var(--text-rgb),1);
+                font-weight:600;
+                text-transform:capitalize;
+                margin-right:auto;
+            }
+        }
+    }
 
 ${CardTitle}{
     font-weight:600;
     color:rgba(var(--text-rgb),1);
 
     text-transform:none;
-    margin-top:0.75rem;
+    margin-top:0;
 }
 ${CardDescription}{
     font-weight:500;
@@ -102,7 +138,7 @@ export default function Blog({ user }) {
                         Check out 
                     </ResponsiveButton>
                     <ResponsiveButton  icon={<RiAddLine/>} low="true" size="sm" 
-                    o       onClick={() => toast.promise(createPost(), {
+                          onClick={() => toast.promise(createPost(), {
                                     loading: 'Creating new post...',
                                     success: "Post created Successfully",
                                     error: "Error creating the post!!",
@@ -124,12 +160,13 @@ export default function Blog({ user }) {
                                     <CardTitle className="h6" as={Link} href={"/dashboard/admin/blog/posts/" + post?._id + "/edit"}>{post?.title}</CardTitle>
                                 </CardHeader>
                                     <CardDescription>{post?.description}</CardDescription>
-                                    <div className="d-flex g-1 flex-nowrap align-content-center ">
-                                        <span>{post?.state}</span>
-                                        <span>{new Date(post.createdAt).toDateString()}</span>
-                                        <span>{post?.noOfComments}<BiCommentDetail/></span>
-                                        <span>{post?.analytics?.analytics.length}<TbBrandGoogleAnalytics/></span>
-                                    </div>
+                                    <CardFooter>
+                                        <Badge nature={(post.state === "draft") ? 'warning':'success'} className={"postState " + ((post.state === "draft") ? ' text-warning':'  text-success')}>{post?.state}</Badge>
+                                        <Badge title={"Created at "+ new Date(post?.createdAt).toDateString()}>{new Date(post.createdAt).toDateString()}</Badge>
+                                        <Button rounded className="p-1" level="true" as={Link} title="View Post" href={"/blog/posts/"+post.slug} target="_blank"><AiOutlineEye/></Button>
+                                        <Badge title={post?.noOfComments + " comments"}>{post?.noOfComments}<BiCommentDetail/></Badge>
+                                        <Badge>{post?.analytics?.analytics.length}<TbBrandGoogleAnalytics/></Badge>
+                                    </CardFooter>
                                 </CardBody>
                             </PostCard>)) : error ? error:"no posts"
                     }

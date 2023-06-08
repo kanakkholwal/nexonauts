@@ -52,6 +52,7 @@ export default nextConnect(handler)
     
     return {
             _id:post._id,
+            slug:post.slug,
             title:post.title,
             description:post.description,
             image:post.image,
