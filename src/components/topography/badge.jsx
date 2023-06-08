@@ -109,6 +109,9 @@ const Badge = styled.span`
   border-radius: 50%;
   padding:0.5rem;
   ` : ``}
+  ${props => props.rounded ? `
+  border-radius: 50px;
+  ` : ``}
   ${props => props.notification ? `
   position: absolute;
   ${getPosition(props.position)};

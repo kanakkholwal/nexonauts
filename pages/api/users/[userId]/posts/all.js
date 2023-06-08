@@ -57,6 +57,7 @@ export default nextConnect(handler)
             description:post.description,
             image:post.image,
             createdAt:post.createdAt,
+            author:post.author,
             analytics:post.analytics,
             comments:post.comments,
             state:post.state,

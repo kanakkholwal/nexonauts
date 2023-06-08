@@ -109,11 +109,7 @@ export default nextConnect(handler)
             title: updatedPost.title,
             slug: updatedPost.slug,
           }
-        },
-        {
-          new: true
-        }
-      );
+        });
       if (!analyticsPage) {
         return res.status(500).json({ message: 'Unable to update the page!' });
       }
