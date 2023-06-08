@@ -69,13 +69,13 @@ export default nextConnect(handler)
 
       const token = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET });
 
-      if (!(token.user.id === userId && token.user.id === currentUser.id && token.user.id === user.id)) {
+      if (!(token.user.id === userId && token.user.id === currentUser._id.toString() && token.user.id === user.id)) {
         return res.status(401).json({
           message: 'You are not authorized to access this resource',
         });
       }
 
-      currentUser.profileURl = user.profileURl;
+      currentUser.profileURL = user.profileURL;
       currentUser.name = user.name;
       await currentUser.save();
 

@@ -10,6 +10,7 @@ import { Card } from 'components/Card';
 import axios from 'axios';
 import { useState } from 'react';
 import { getSession } from "next-auth/react"
+import toast ,{ Toaster } from "react-hot-toast";
 
 import { FileInput, FormElement, Label, Input, FormGroup } from 'components/form-elements';
 import { registerView } from "lib/analytics";
@@ -19,18 +20,8 @@ import { useEffect } from "react";
 
 const EditProfile = ({user: CurrentUser }) =>{
     const [user, setUser] = useState(CurrentUser);
-    const [state, setState] = useState({
-        loading: false,
 
-        alert: {
-            open: false,
-            message: "",
-            type: ""
-        }
-    });
     const handleFiles = async (files) => {
-        setState({ ...state, loading: true });
-
         const formData = new FormData();
         formData.append('file', files[0]);
         formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
@@ -44,24 +35,9 @@ const EditProfile = ({user: CurrentUser }) =>{
         }).then(res => {
             const file = res.data;
             // console.log(file);
-            setUser({ ...user, profileURl: file.secure_url });
-            setState({
-                alert: {
-                    open: true,
-                    message: "Image uploaded successfully",
-                    type: "success"
-                }, loading: false
-            });
+            setUser({ ...user, profileURL: file.secure_url });
         }).catch(err => {
             console.log(err);
-            setState({
-                alert: {
-                    open: true,
-                    message: err?.message || "Something went wrong",
-                    type: "danger"
-                }, loading: false
-            });
-
         })
 
 
@@ -76,7 +52,12 @@ const EditProfile = ({user: CurrentUser }) =>{
 
         if (files && files.length) {
             console.log(files);
-            handleFiles(files);
+
+            toast.promise(handleFiles(files), {
+                loading: 'Uploading..',
+                success: 'Image uploaded successfully',
+                error: 'Something went wrong',
+            })
         }
     }
     const handleSubmit = async (event) => {
@@ -84,41 +65,16 @@ const EditProfile = ({user: CurrentUser }) =>{
 
         console.log(user);
 
-        setState({ ...state, loading: true });
         try {
             await axios.put('/api/users/' + user.id, { user })
                 .then(res => {
                     console.log(res);
-                    if (res.data.success) {
-                        setState({
-                            alert: {
-                                open: true,
-                                message: "User updated successfully",
-                                type: "success"
-                            }, loading: false
-                        });
-                    }
                 }).catch(err => {
                     console.log(err);
-                    setState({
-                        alert: {
-                            open: true,
-                            message: err?.message || "Something went wrong",
-                            type: "danger"
-                        }, loading: false
-                    });
-
                 })
         }
         catch (err) {
             console.log(err);
-            setState({
-                alert: {
-                    open: true,
-                    message: err?.message || "Something went wrong",
-                    type: "danger"
-                }, loading: false
-            });
         }
     }
     useEffect(() =>{
@@ -126,83 +82,72 @@ const EditProfile = ({user: CurrentUser }) =>{
     },[])
 
 
-    return (<Card>
+    return (<Card className="d-flex align-items-center justify-content-around">
 
-        <FormGroup style={{ justifyContent: "flex-start" }}>
+        <div>
+            <FormGroup style={{ justifyContent: "flex-start" }}>
 
-            <FormElement>
-                <div>
-                    {user?.profileURl ? <Image width={150} height={150} alt={user.title || "user profile image"} src={user.profileURl ?? "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} style={{ maxHeight: "400px", }} /> : null}
-                </div>
-            </FormElement>
-            <FormElement>
-                <Label htmlFor="profile-pic">Upload a Picture</Label>
-                <FileInput accept="image/*" id="profile-pic" onChange={handleChange} />
-                <Label htmlFor="profile-pic-url">or Enter a url</Label>
-                <Input placeholder="Enter or paste picture url from external source..." id="profile-pic-url" value={user.profileURl ?? "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} onChange={(e) => setUser({
-                    ...user,
-                    profileURl: e.target.value
-                })} />
-            </FormElement>
-        </FormGroup>
-        <FormGroup>
-            <FormElement>
-                <Label htmlFor="name">Your Name</Label>
-                <Input placeholder="Enter your name." id="name" value={user?.name} onChange={(e) => setUser({
-                    ...user,
-                    name: e.target.value
-                })} />
-            </FormElement>
-            <FormElement>
-                <Label htmlFor="profile-pic-url">Your Email</Label>
-                <Input placeholder="email" type="email" id="email" value={user?.email} onChange={(e) => setUser({
-                    ...user,
-                    email: e.target.value
-                })} />
-            </FormElement>
-        </FormGroup>
-        <FormGroup>
-            <Alert nature={state.alert.type} open={state.alert.open}>{state.alert.message}</Alert>
-            {state.loading ? <Loader /> : null}
-            <Button size="sm" nature="primary" onClick={handleSubmit}>Save Profile</Button>
-            <Button size="sm" nature="danger" as={Link} href="/dashboard">Cancel</Button>
+                <FormElement>
+                    <div>
+                        {user?.profileURL ? <Image width={150} height={150} alt={user.title || "user profile image"} src={user.profileURL ?? "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} style={{ maxHeight: "400px", }} /> : null}
+                    </div>
+                </FormElement>
+                <FormElement>
+                    <Label htmlFor="profile-pic">Upload a Picture</Label>
+                    <FileInput accept="image/*" id="profile-pic" onChange={handleChange} />
+                    <Label htmlFor="profile-pic-url">or Enter a url</Label>
+                    <Input placeholder="Enter or paste picture url from external source..." id="profile-pic-url" value={user.profileURL ?? "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} onChange={(e) => setUser({
+                        ...user,
+                        profileURL: e.target.value
+                    })} />
+                </FormElement>
+            </FormGroup>
+        </div>
+        <div>
+            <FormGroup>
+                <FormElement>
+                    <Label htmlFor="name">Your Name</Label>
+                    <Input placeholder="Enter your name." id="name" value={user?.name} onChange={(e) => setUser({
+                        ...user,
+                        name: e.target.value
+                    })} />
+                </FormElement>
+                <FormElement>
+                    <Label htmlFor="profile-pic-url">Your Email</Label>
+                    <Input placeholder="email" type="email" id="email" value={user?.email} onChange={(e) => setUser({
+                        ...user,
+                        email: e.target.value
+                    })} />
+                </FormElement>
+            </FormGroup>    <FormGroup>
 
-        </FormGroup>
+                <Button size="sm" nature="primary" onClick={(event) => {
+                    toast.promise(handleSubmit(event), {
+                        loading: 'Updating..',
+                        success: 'User updated successfully',
+                        error: 'Something went wrong',
+                    })
+                }}>Save Profile</Button>
+                <Button size="sm" nature="danger" as={Link} href="/dashboard">Cancel</Button>
+                <Toaster
+                    position="top-center"
+                />
+            </FormGroup>
+        </div>
+
+
+
     </Card>)
 }
-const ChangePassword = ({user: CurrentUser }) =>{
+const ChangePassword = ({user }) =>{
    
-    
-    const [state, setState] = useState({
-        loading: false,
 
-        alert: {
-            open: false,
-            message: "",
-            type: ""
-        }
-    });
         const [currentPassword,setCurrentPassword] = useState("");
         const [password,setPassword] = useState("");
         const [confirmPassword,setConfirmPassword] = useState("");
             
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        if(confirmPassword !== password) 
-        {
-            setState({
-                alert: {
-                    open: true,
-                    message: err?.message || "New Password and Confirm Password must be the same",
-                    type: "danger"
-                }, loading: false
-            });
-            return 
-        }
-
-
-        setState({ ...state, loading: true });
         try {
             await axios.put('/api/users/' + user.id+"/change-password", {
                  currentPassword,
@@ -210,36 +155,12 @@ const ChangePassword = ({user: CurrentUser }) =>{
                  })
                 .then(res => {
                     console.log(res);
-                    if (res.data.user) {
-                        setState({
-                            alert: {
-                                open: true,
-                                message: res.data.message,
-                                type: "success"
-                            }, loading: false
-                        });
-                    }
                 }).catch(err => {
                     console.log(err);
-                    setState({
-                        alert: {
-                            open: true,
-                            message: err?.message || "Something went wrong",
-                            type: "danger"
-                        }, loading: false
-                    });
-
                 })
         }
         catch (err) {
             console.log(err);
-            setState({
-                alert: {
-                    open: true,
-                    message: err?.message || "Something went wrong",
-                    type: "danger"
-                }, loading: false
-            });
         }
     }
     return (<Card>
@@ -265,11 +186,23 @@ const ChangePassword = ({user: CurrentUser }) =>{
             </FormElement>
         </FormGroup>
         <FormGroup>
-            <Alert nature={state.alert.type} open={state.alert.open}>{state.alert.message}</Alert>
-            {state.loading ? <Loader /> : null}
-            <Button size="sm" nature="primary" onClick={handleSubmit}>Change Password</Button>
+            <Button size="sm" nature="primary" onClick={(event) =>{
+                if(confirmPassword !== password)
+                {
+                    toast.error("Passwords do not match");
+                    return
+                }
+                toast.promise(handleSubmit(event), {
+                    loading: 'Updating..',
+                    success: 'User updated successfully',
+                    error: 'Something went wrong',
+                })
+            }}>Change Password</Button>
             <Button size="sm" nature="danger" as={Link} href="/dashboard">Cancel</Button>
         </FormGroup>
+        <Toaster
+                    position="top-center"
+                />
     </Card>)
 }
 
@@ -284,20 +217,18 @@ export default function ProfilePage({ user: CurrentUser }) {
                 <title>Edit Profile</title>
             </Head>
 
-            <Tabs 
+            <Tabs
+                TabList={[
+                    {
+                        title: "Edit Profile",
+                        content: <EditProfile user={CurrentUser} />
+                    },
+                    {
+                        title: "Change Password",
+                        content: <ChangePassword user={CurrentUser} />
+                    }
+                ]}
 
-            TabList={[
-                {
-                    title:"Edit Profile",
-                    content:<EditProfile user={CurrentUser} />
-                },
-                {
-                    title:"Change Password",
-                    content:<ChangePassword user={CurrentUser} />
-                }
-
-            ]}
-            
             />
             
         </DashboardPage>)
