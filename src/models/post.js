@@ -12,7 +12,7 @@ const commentSchema = new mongoose.Schema({
   },
   user:{
     type: mongoose.Schema.Types.Mixed,
-    ref: 'Post',
+    ref: 'User',
     default: null,
   },
   comment: {
