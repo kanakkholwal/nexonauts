@@ -179,6 +179,22 @@ strong,.strong{
 ul{
     margin-left: 1rem;
 }
+ol{
+    margin-left: 1rem;
+}
+.ArticleBody{
+    text-align: initial;
+    ul,ol{
+    padding-left: 1rem;
+    }
+    pre{
+        padding: 1rem;
+    border-radius: 0.25rem;
+    margin-block: 1rem;
+
+    }
+
+}
 abbr[title] {
     text-decoration: underline;
     -webkit-text-decoration: underline dotted;
