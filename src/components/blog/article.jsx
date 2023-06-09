@@ -2,13 +2,8 @@ import styled from "styled-components";
 import { BlogBreadCrumb } from "components/breadcrumb";
 import Badge from "components/topography/badge";
 import { calculateReadTime } from "lib/scripts";
-// import { Interweave } from 'interweave';
-import dynamic from 'next/dynamic';
 
-const Output = dynamic(
-    async () => (await import('editorjs-react-renderer')).default,
-    { ssr: false }
-);
+import Blocks from 'editorjs-blocks-react-renderer';
 import { GrValidate } from 'react-icons/gr';
 import { MdOutlineDateRange, MdOutlineLabel } from 'react-icons/md';
 import { AiOutlineFieldTime } from 'react-icons/ai';
@@ -175,20 +170,26 @@ export function Article({ post }) {
                         </span>
                     </div>
                 </MetaData>
-                <Output data={post?.content} style={{
-                    table: {
+                <div className="ArticleBody">
+               
+                <Blocks data={post?.content} style={{
                         table: {
-                            style: {
-                                width: "100%",
-                            }
+                            table: {
+                                style: {
+                                    width: "100%",
+                                }
+                            },
+                            tr: {
+                                style: {}
+                            },
+                            th: { style: {} },
+                            td: { style: {} },
                         },
-                        tr: {
-                            style: {}
+                        code: {
+                            className: "language-js"
                         },
-                        th: { style: {} },
-                        td: { style: {} },
-                    }
                 }} />
+                </div>
                 <div className="d-flex align-items-center flex-wrap gy-2  mt-2 pt-3" >
                     <Badge className="px-0 py-2" as="strong"><MdOutlineLabel /></Badge>
                     {post.labels.map((label, index) => (
@@ -212,7 +213,22 @@ export function Article({ post }) {
         </ArticleWrapper>
     )
 }
-
+const Checklist = ({
+    data, className = ""
+  })=> {
+  
+    return (
+      <>
+        {data?.items.map((item, i) => (
+          <p key={i} className={className}>
+            <label>
+              <input type="checkbox" /> {HTMLReactParser(item)}
+            </label>
+          </p>
+        ))}
+      </>
+    )
+  }
 const style = {
     header: {
         h1: {
