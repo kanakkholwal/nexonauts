@@ -1,4 +1,4 @@
-import React, { useRef, useReducer, useEffect, useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { MdOutlineUnfoldMore } from "react-icons/md";
 
@@ -108,20 +108,22 @@ background: #fbfbfb;
   }
  
 `;
-const SelectDropdown = styled.ul`
+const SelectDropdown = styled.div`
 display: flex;
 flex-direction: column;
 align-items: center;
 width: max-content;
 min-width: 100%;
 gap: 0;
+margin-left: 0;
+padding-block:0.25rem;
 `;
 
-const SelectDropdownItem = styled.li`
+const SelectDropdownItem = styled.div`
     display: flex;
     justify-content: space-between;
     padding-block: 0.5rem;
-    padding-inline: 1.5rem;
+    padding-inline: 1rem;
     color: rgba(0, 0, 0, 0.87);
     transition: all 0.25s ease-in-out;
     opacity: 0.85;
@@ -164,130 +166,103 @@ const SelectDropdownItem = styled.li`
 `;
 
 
-
-const initialState = {
-  usingOptions: [],
-  open: false,
-  selectedOption: null,
-};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'SET_OPTIONS':
-      return {
-        ...state,
-        usingOptions: action.payload,
-        selectedOption: action.payload.find((option) => option.option === true) || action.payload[0],
-      };
-    case 'SET_SELECTED_OPTION':
-      return {
-        ...state,
-        selectedOption: action.payload,
-        open: false,
-      };
-    case 'SET_OPEN':
-      return {
-        ...state,
-        open: action.payload,
-      };
-    default:
-      return state;
-  }
-}
-
 function Select({ options, value, onChange, size, ...props }) {
-  const selectRef = useRef(null);
+  const selectRef = React.useRef(null);
 
-  const [state, dispatch] = useReducer(reducer, initialState);
+  // const [usingOptions, SetUsingOptions] = React.useState(options);
 
-  const updateOption = useCallback(
-    (e) => {
-      const target = e.target;
-      const selectedOption = state.usingOptions.find((option) => option.value.toString() === target.getAttribute('value'));
-
-      const updatedOptions = state.usingOptions.map((option) => ({
-        ...option,
-        option: option === selectedOption,
-      }));
-
-      dispatch({ type: 'SET_SELECTED_OPTION', payload: selectedOption });
-      dispatch({ type: 'SET_OPTIONS', payload: updatedOptions });
-    },
-    [state.usingOptions]
-  );
-
-  const close = useCallback(
-    (e) => {
-      if (selectRef.current && !selectRef.current.contains(e.target)) {
-        dispatch({ type: 'SET_OPEN', payload: false });
-      }
-    },
-    []
-  );
-
-  useEffect(() => {
-    document.addEventListener('mouseup', close);
-    return () => {
-      document.removeEventListener('mouseup', close);
-    };
-  }, [close]);
-
-  useEffect(() => {
-    onChange(state.selectedOption);
-  }, [state.selectedOption, onChange]);
-
-  useEffect(() => {
-    const usingOptions = options.map((option) => ({
+  const usingOptions = options.map((option) => {
+    return {
       value: option.value,
       label: option.label,
       option: option.value === value,
-    }));
+    }
+  });
+  const [open, SetOpen] = React.useState(false);
+  const [SelectedOption, SetSelectedOption] = React.useState(usingOptions.find(({ option }) => option === true) || usingOptions[0]);
 
-    dispatch({ type: 'SET_OPTIONS', payload: usingOptions });
-  }, [options, value]);
+  const UpdateOption = (e) => {
+    const target = e.target;
 
-  const { usingOptions, open, selectedOption } = state;
+    const SelectedOption = usingOptions.find((Option) => Option.value.toString() === target.getAttribute("value"));
+
+
+    const Updated = usingOptions?.map((option) => {
+      if (option === SelectedOption)
+        option.option = true;
+      else
+        option.option = false;
+
+      return option
+    });
+    if (typeof Updated !== void [] && Updated !== undefined && Updated !== null) {
+
+      SetSelectedOption(Updated.find((option) => option === SelectedOption));
+
+      SetOpen(false)
+    }
+  }
+  const Close = (e) => {
+    if (selectRef.current) {
+      if (!selectRef.current.contains(e.target))
+        SetOpen(false)
+    }
+  }
+
+  React.useEffect(() => {
+    document.addEventListener("mouseup", Close);
+    return () => {
+      document.removeEventListener("mouseup", Close);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    onChange(SelectedOption);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [SelectedOption]);
+
 
   return (
     <>
-      <select value={selectedOption?.value.toString()} onChange={() => {}} hidden style={{ display: 'none!important' }}>
+      <select
+        value={SelectedOption?.value.toString()}
+        onChange={(e) => SetSelectedOption(usingOptions.map((option) => {
+          if (option === SelectedOption)
+            option.option = true;
+          else
+            option.option = false;
+
+          return option
+        }).find(({ value }) => value === e.target.value))} hidden={true} style={{ display: "none!important" }}>
         {options.map((option, index) => (
-          <option key={index} value={option.value.toString()}>
-            {option.label}
-          </option>
+          <option key={index} value={option.value.toString()}>{option.label}</option>
         ))}
       </select>
       <SelectWrapper {...props} ref={selectRef}>
         <SelectToggle
           type="text"
           outlined
-          className={open ? 'isActive' : ''}
+          className={(open ? " isActive" : "")}
           role="listbox"
-          readOnly
-          onClick={() => dispatch({ type: 'SET_OPEN', payload: !open })}
-          value={selectedOption ? selectedOption.label || selectedOption.value.toString() : ''}
+          readOnly={true}
+          onClick={() => SetOpen(!open)}
+          value={SelectedOption.label ? SelectedOption.label : SelectedOption.value.toString()}
           invert={!open}
           size={size}
         />
-        <MdOutlineUnfoldMore onClick={() => dispatch({ type: 'SET_OPEN', payload: !open })} />
-        <SelectDropdownWrapper className={open ? 'isOpen' : ''}>
+        <MdOutlineUnfoldMore onClick={() => SetOpen(!open)} />
+        <SelectDropdownWrapper className={(open ? " isOpen" : "")}>
           <SelectDropdown>
-            {usingOptions.map((Option, index) => (
-              <SelectDropdownItem
-                size={size}
-                className={Option.value === selectedOption.value ? 'isActive' : ''}
-                onClick={updateOption}
-                value={Option.value.toString()}
-                key={index}
-              >
-                {Option.label ? Option.label.toString() : Option.value.toString()}
-              </SelectDropdownItem>
-            ))}
+            {usingOptions.map((Option, index) => {
+              return <SelectDropdownItem size={size} className={Option.value === SelectedOption.value ? " isActive" : " "} onClick={(e) => UpdateOption(e)} value={Option.value.toString()} key={index}>{Option.label ? Option.label.toString() : Option.value.toString()}</SelectDropdownItem>
+            })}
           </SelectDropdown>
-        </SelectDropdownWrapper>
-      </SelectWrapper>
-    </>
-  );
-}
 
+        </SelectDropdownWrapper>
+
+      </SelectWrapper>
+
+    </>
+  )
+}
 export default Select;

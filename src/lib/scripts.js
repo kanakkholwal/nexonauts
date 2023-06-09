@@ -12,6 +12,25 @@ export function calculateReadTime(articleContent, averageReadingSpeed  = 200) {
   var readTimeMinutes = Math.ceil(wordCount / averageReadingSpeed);
   return readTimeMinutes === 1 ?readTimeMinutes +  " min" :readTimeMinutes +  " mins";
 }
+export function createSlug(title) {
+    // Convert the title to lowercase
+    let slug = title.toLowerCase();
+  
+    // Remove non-alphanumeric characters
+    slug = slug.replace(/[^a-z0-9\s-]/g, '');
+  
+    // Replace whitespace with hyphens
+    slug = slug.replace(/\s+/g, '-');
+  
+    // Remove duplicate hyphens
+    slug = slug.replace(/-{2,}/g, '-');
+  
+    // Remove leading and trailing hyphens
+    slug = slug.replace(/^-+|-+$/g, '');
+  
+    return slug;
+  }
+  
 export function timeAgo(date) {
   const seconds = Math.floor((new Date() - date) / 1000);
 

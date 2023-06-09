@@ -1,10 +1,10 @@
 import { getSession } from "next-auth/react"
 import DashboardPage, { Header } from "components/dashboard-page";
 import Button from "components/buttons";
-import State from "components/state";
+import { createSlug } from "lib/scripts";
 import { Card, } from "components/Card";
-import { Input, FormElement, Label, TextArea, FormHelper, Switch ,FileInput} from "components/form-elements";
-import  FileUploader  from "components/form-elements/FileUploader";
+import { Input, FormElement, FormGroup,Label, TextArea, FormHelper, Switch ,FileInput} from "components/form-elements";
+
 import Head from "next/head";
 import Link from 'next/link';
 import { useEffect, useRef, useState } from "react";
@@ -19,7 +19,7 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 
-import { BiEditAlt } from "react-icons/bi"
+import { FiUploadCloud } from "react-icons/fi"
 import { AiOutlineLink,AiOutlineArrowUp } from "react-icons/ai"
 import { CiHashtag } from "react-icons/ci"
 import { TbFileDescription } from "react-icons/tb";
@@ -34,7 +34,59 @@ svg{
     margin-inline:0.5rem;
 }
 `;
+const FileUploader = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-width: 640px;
+    aspect-ratio: 16/9;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    background: rgba(var(--light-rgb),1);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-inline:auto;
+    label{
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 0.125rem;
+        font-size: 1em;
+        font-weight: 500;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        background: rgba(var(--light-rgb),0.05);
+        color: rgba(var(--dark-rgb),1);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease-in-out;
+        svg{
+            font-size: 1.5em;
+        }
+    }
+    &:hover {
+        label{
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+    img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
 
+    }
+`;
 
 export default function NewPost({ user }) {
 
@@ -75,7 +127,7 @@ export default function NewPost({ user }) {
     const [postState, setPostState] = useState("draft");
     const [labels, setLabel] = useState([]);
     const [IsCommentEnabled, setIsCommentEnabled] = useState(true);
-    const [slug, setSlug] = useState(title?.toLocaleLowerCase().split(" ").join("-"));
+    const [slug, setSlug] = useState(createSlug(title));
 
     const updatePost = async () => {
         await axios.put("/api/users/" + user.id + "/posts/" + postId, {
@@ -165,83 +217,34 @@ export default function NewPost({ user }) {
         }
     }, []);
     useEffect(() => {
-        if (!slug)
-            setSlug(title?.toLocaleLowerCase().split(" ").join("-"));
+        if (slug.length < 1) 
+            setSlug(createSlug(title));
 
     }, [title])
     const handleFiles = async (files) => {
-        setImageState({
-            ...imageState,
-            loader: {
-                ...imageState.loader,
-                show: true,
-            },
-            alert: {
-                ...imageState.alert,
-                open: true,
-                message: "Uploading the image...",
-                nature: "info",
-            }
-        })
 
-        const formData = new FormData();
-        formData.append('file', files[0]);
-        formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
-        formData.append('folder', process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER);
+        try {
+            const formData = new FormData();
+            formData.append('file', files[0]);
+            formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
+            formData.append('folder', process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER);
 
 
-        // upload image to cloudinary and get url
-        await axios(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
-            method: 'POST',
-            data: formData
-        }).then(res => {
-            const file = res.data;
-            // console.log(file);
-            setImage(file.secure_url)
-            setImageState({
-                ...imageState,
-                loader: {
-                    ...imageState.loader,
-                    show: false,
-                },
-                alert: {
-                    ...imageState.alert,
-                    open: true,
-                    message: "Image Uploaded Successfully",
-                    nature: "success",
-                }
+            // upload image to cloudinary and get url
+            await axios(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+                method: 'POST',
+                data: formData
+            }).then(res => {
+                const file = res.data;
+                // console.log(file);
+                setImage(file.secure_url)
+            }).catch(err => {
+                console.log(err);
             })
-
-        }).catch(err => {
+        }
+        catch (err) {
             console.log(err);
-            setImageState({
-                ...imageState,
-                loader: {
-                    ...imageState.loader,
-                    show: false,
-                },
-                alert: {
-                    ...imageState.alert,
-                    open: true,
-                    message: "Error Uploading Image",
-                    nature: "danger",
-                }
-
-            })
-
-        }).finally(() => {
-            setTimeout(() => {
-                setImageState({
-                    ...imageState,
-                    alert: {
-                        ...imageState.alert,
-                        open: false,
-                    }
-                })
-            }, 2000);
-        })
-
-
+        }
 
 
 
@@ -254,6 +257,11 @@ export default function NewPost({ user }) {
         if (files && files.length) {
             console.log(files);
             handleFiles(files);
+            toast.promise(handleFiles(files), {
+                loading: 'Uploading the image',
+                success: 'Image Uploaded',
+                error: 'Error when uploading',
+            })
         }
     }
 
@@ -312,25 +320,30 @@ export default function NewPost({ user }) {
 
                         </FormElement>
 
-                        <FormElement className="mt-2">
-                            <FileInput
-                                accept="image/*"
-                                placeholder="Upload a cover image for the post..."
-
-                                value={image}
-                                onChange={handleChange}
-                                id="imageUrl"
-                            />
-                            <Label htmlFor="imageUrl">
-                                Upload an Image
-                            </Label>
-                            {image.length > 3 ? <Image src={image} alt={title ?? "Post Title"} height={120} width={220} className="img-fluid mt-2" /> : null}
-                            <State  {...imageState} />
-                            <Input value={image} onChange={(e) => {
-                                setImage(e.target.value);
-                            }} />
-                            <FileUploader/>
+                        <FormGroup className="mt-2">
+                        <FileUploader>
+                            {image ?
+                                <Image height={120} width={220}
+                                    alt={title} src={image}
+                                /> : <Image height={120} width={220}
+                                    alt={"Cover image"} src={"https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp"} />}
+                            <label htmlFor="imageUpload">
+                                <FiUploadCloud/>
+                                <span>Cover Image</span>
+                                <input type="file" hidden accept="image/*" id="imageUpload" onChange={handleChange} />
+                            </label>
+                        </FileUploader>
+                        <FormHelper>
+                            <p>Upload a cover image for your post. It will be displayed on the top of your post.</p>
+                        </FormHelper>
+                        <FormElement className="align-items-center">
+                        <Label htmlFor="imageUrl" >or</Label>
+                        <Input id="imageUrl" type="text" placeholder="Paste a Image URL here..." value={image} onChange={(e) =>{
+                            setImage(e.target.value);
+                        }}/>
                         </FormElement>
+
+                        </FormGroup>
 
 
                     </Card>
@@ -445,7 +458,7 @@ export default function NewPost({ user }) {
                             </Button>
 
                         </div>
-                        <Button as={Link} href="#main_wrapper" level="true" low="true" rounded>
+                        <Button as={Link} href="#main_wrapper" level="true" low="true" rounded="true">
                                 Back to Top <AiOutlineArrowUp />
                         </Button>
 

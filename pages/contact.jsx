@@ -238,7 +238,9 @@ export default function Contact() {
                                 { value: "Development", label: "Development" },
                                 { value: "Design / UX&UI", label: "Design / UX&UI" },
                                 { value: "Other", label: "Other" },
-                            ]} onChange={(option) =>{
+                            ]} 
+                            value={"Select one"}
+                            onChange={(option) =>{
                                 setFormState({ ...formState, category: {...formState.category,value:option.value,touched:true} });
 
                             }} />

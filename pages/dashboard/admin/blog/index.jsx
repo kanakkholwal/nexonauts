@@ -29,6 +29,7 @@ const PostCard = styled(Card)`
 min-width:320px;
 flex-direction:row;
 padding-inline:0.75rem;
+box-shadow: 0px 1px 3px rgba(0,0,0,0.1), 0px 2px 1px rgba(0,0,0,0.06), 0px 1px 1px rgba(0,0,0,0.08);
 img{
     object-fit:cover;
     border-radius:5px;
@@ -40,16 +41,7 @@ img{
     opacity:0.9;
 }
 }
-@media (width < 968px){
-    flex-direction:column;
-    width:100%;
-}
-@media (566px < width){
-    max-width:100%;
-}
-@media (566px < width < 968px){
-    max-width:calc(50% - 1rem);
-}
+
 ${CardBody}{
     padding:0 1rem;
     display:flex;
@@ -61,7 +53,6 @@ ${CardBody}{
         justify-content:flex-start;
         gap:0.5rem;
         margin-top:0.5rem;
-        margin-bottom:0.5rem;
             color: rgba(var(--theme-rgb),1);
             font-size: 0.875rem;
             font-weight: 500;
@@ -69,7 +60,7 @@ ${CardBody}{
     }
     ${CardHeader}{
         border:none;
-
+        padding:0;
     }
 
 }
@@ -100,17 +91,27 @@ ${CardBody}{
     }
 
 ${CardTitle}{
-    font-weight:600;
     color:rgba(var(--text-rgb),1);
 
     text-transform:none;
     margin-top:0;
 }
 ${CardDescription}{
-    font-weight:500;
     color:rgba(var(--text-rgb),0.8)
 }
-
+@media (width < 968px){
+    flex-direction:column;
+    width:100%;
+    ${CardBody}{
+        padding:0.5rem 1rem;
+    }
+}
+@media (width < 728px){
+    max-width:100%;
+}
+@media (728px < width < 968px){
+    max-width:calc(50% - 1rem);
+}
 `;
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 

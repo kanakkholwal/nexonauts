@@ -56,7 +56,7 @@ margin:3rem auto;
 text-align:center;
 h6{
     font-size:1.25rem;
-    font-weight:700;
+    font-weight:600;
     color:rgba(var(--text-rgb),1);
     margin-bottom:0.75rem;
 

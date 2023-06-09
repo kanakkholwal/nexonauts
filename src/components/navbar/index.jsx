@@ -46,7 +46,6 @@ export const MenuList = styled.div`
         a {
             color: rgba(var(--text-color), 0.5);
             font-size: 1rem;
-            font-weight: 600;
             text-decoration: none;
             transition: all 0.3s ease;
             &:hover {
@@ -100,7 +99,6 @@ svg{
 
 export const Logo = styled.div`
     font-size: 1rem;
-    font-weight: 600;
     color: rgba(var(--text-color), 0.5);
     transition: all 0.3s ease;
     letter-spacing: 1px;
@@ -151,7 +149,6 @@ transition: all 0.3s ease-in-out;
 `;
 export const ProfileDropDownInfo = styled.div`
 font-size: 1rem;
-font-weight: 600;
 text-decoration: none;
 transition: all 0.3s ease;
 width: 100%;
@@ -172,7 +169,6 @@ h5{
 `;
 export const ProfileDropDownItem = styled.a`
 font-size: 1rem;
-font-weight: 600;
 text-decoration: none;
 transition: all 0.3s ease;
 width: 100%;

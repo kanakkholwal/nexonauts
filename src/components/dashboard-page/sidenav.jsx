@@ -17,7 +17,7 @@ background-color: rgb(255 255 255 / 80%);
 backdrop-filter: blur(20px);
 box-shadow: 0px 0px 9rem 0px #6658d31c;
 padding: 1.25rem;
-font-weight: 600;
+font-weight: 500;
 font-size: 1rem;
 transition: all 0.3s ease-in-out;
 transform: translateX(-100%);
@@ -87,7 +87,6 @@ background: rgba(var(--theme-rgb), 0.1);
 `;
 const Title = styled.span`
 font-size: 1rem;
-font-weight: 600;
 `;
 const Link = styled.a`
 display:flex;
