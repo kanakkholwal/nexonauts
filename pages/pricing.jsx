@@ -64,9 +64,9 @@ export default function Page() {
             </NavBarWrapper>
             <PageWrapper>
                 <h1>
-                    Our Pricing
+                     Coming Soon...
                 </h1>
-                <div className="d-flex align-items-center justify-content-evenly g-3 flex-wrap">
+                {/* <div className="d-flex align-items-center justify-content-evenly g-3 flex-wrap">
                     <Card>
                         <CardHeader>
                             <h3>Free</h3>
@@ -106,7 +106,7 @@ export default function Page() {
                         </CardBody>
                     </Card>
 
-                </div>
+                </div> */}
 
 
 

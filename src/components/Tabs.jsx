@@ -34,16 +34,17 @@ letter-spacing:0.0625rem;
 padding:var(--btn-padding-y,0.5rem) var(--btn-padding-x,1.25rem);
 line-height:var(--btn-line-height,1.75);
 color:rgba(var(--theme-rgb),0.9);
-background:rgba(var(--theme-rgb),0.1);
+border-bottom:2px solid rgba(var(--theme-rgb),0.1);
 text-align: center;
 cursor: pointer;
-border-radius: 0.375rem;
+border-radius: 0.375rem 0.375rem 0 0;
 max-width: max-content;
 
   ${props =>
         props.active &&
-        `color:rgba(var(--theme-rgb),1);
-        background:rgba(var(--theme-rgb),0.3);
+        `
+        color:rgba(var(--theme-rgb),1);
+        border-bottom-color:rgba(var(--theme-rgb),1);
     `
     }
 `;

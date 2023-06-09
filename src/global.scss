@@ -32,7 +32,7 @@
     --card-bg: rgba(var(--card-bg-rgb), 1);
     --card-shadow-single: rgba(130, 163, 196, 0.24) 3px 3px 12px 0px;
     --card-shadow: rgba(130, 163, 196, 0.24) 3px -3px 12px 0px, rgb(142 165 189 / 10%) -5px 5px 10px 0px;
-    --body-font: "ManRope", "Google Sans", san-serif;
+    --body-font: 'Inter',"ManRope", "Google Sans", san-serif;
     --code-font: "Fira Code","Google Sans Mono", "Source Code Pro", Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     --drop-bg: hsl(0, 0%, 97%);
     --border-color: #8386972b;
@@ -426,9 +426,7 @@ a {
     font-weight: 500;
 }
 
-p {
-    font-weight: 500;
-}
+
 
 // li {
 //     list-style: none;

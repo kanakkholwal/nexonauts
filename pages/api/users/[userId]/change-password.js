@@ -17,7 +17,7 @@ export default nextConnect(handler)
             if (!user) {
                 throw new Error('No user with a matching email was found.');
             }
-            const result = await checkUser(req, existingUser);
+            const result = await checkUser(req, user);
             if (!result.verified) {
                 return res.status(404).json({ verified: result.verified, message: result.message });
             }

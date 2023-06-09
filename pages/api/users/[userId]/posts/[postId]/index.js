@@ -31,7 +31,7 @@ export default nextConnect(handler)
       if (!existingPost) {
         return res.status(404).json({ message: 'Post not found!' });
       }
-      console.log(existingPost)
+    //   console.log(existingPost)
 
       return res.status(200).json({ message: 'Post Fetched Successfully!', post: existingPost });
     } catch (err) {
