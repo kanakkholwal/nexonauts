@@ -19,21 +19,22 @@ export async function getStaticPaths() {
 
     return {
       paths,
-      fallback: 'blocking', // Use 'blocking' to ensure that unmatched paths are rendered using SSR
+      fallback: true, // Use 'blocking' to ensure that unmatched paths are rendered using SSR
+    //   fallback: 'blocking', // Use 'blocking' to ensure that unmatched paths are rendered using SSR
     };
   } catch (error) {
     console.log("Error during path generation:", error);
 
     return {
       paths: [],
-      fallback: 'blocking', // Use 'blocking' to ensure that unmatched paths are rendered using SSR
+      fallback: true, // Use 'blocking' to ensure that unmatched paths are rendered using SSR
     };
   }
 }
 
 export async function getStaticProps({ params }) {
   try {
-    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/${params.slug}`);
+    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/${params.slug ?? ""}`);
 
     const post : Post = data.post;
     if (!(post && post.title && post.description && post.image && post.content && post.slug)) {
@@ -60,6 +61,8 @@ export default function Post({ post }) {
   useEffect(() => {
     registerView({ title: post?.title, type: 'article', slug: '/blog/posts/' + post?.slug });
   }, []);
+  if(!post) return null
+
 
   return (
     <div >
