@@ -5,6 +5,8 @@ import Head from "next/head";
 import Link from 'next/link';
 import { FaRegUser } from "react-icons/fa";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
+import { RiArticleLine } from 'react-icons/ri';
+
 import useSWR from "swr";
 import axios from "axios";
 import { getAnalytics } from 'lib/analytics';
@@ -20,7 +22,12 @@ export default function Dashboard({ user }) {
   
     const { data:UserData, error:userListError, isLoading :userListLoading} = useSWR(['/api/admin/users/all', { adminId: user.id }], ([url, data]) => fetchData(url, data))
     const { data:pageData, error:pageError, isLoading:pageLoading} = useSWR('/api/admin/analytics', fetcher)
+    const { data:noOfPosts, error:postError, isLoading:postLoading} = useSWR('/api/admin/blog/get', fetcher)
 
+    if(pageError)
+        console.log(pageError);
+    if(userListError)
+        console.log(userListError);
   
 
 
@@ -35,10 +42,20 @@ export default function Dashboard({ user }) {
                         <div>
                             <span>Total Users</span>
                             <h2>{UserData? UserData.users?.length :0}</h2>
-                            <span> Registered yet</span>
+                            {/* <span> Registered yet</span> */}
                         </div>
                         <Icon>
                             <FaRegUser />
+                        </Icon>
+                    </DashCard>
+                    <DashCard as={Link} href="/dashboard/admin/blog">
+                        <div>
+                            <span>Total Posts</span>
+                            <h2>{noOfPosts? noOfPosts :0}</h2>
+                            {/* <span> Created yet</span> */}
+                        </div>
+                        <Icon>
+                            <RiArticleLine />
                         </Icon>
                     </DashCard>
                     <DashCard as={Link} href="/dashboard/admin/analytics">

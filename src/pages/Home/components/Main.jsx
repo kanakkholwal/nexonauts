@@ -191,7 +191,7 @@ export default function Main({ data }) {
                                     <input type="email" name="email_address" placeholder="Email *" required className={classes.inputField} />
                                 </div>
                                 <textarea name="message" placeholder="Message *" required className={classes.inputField} defaultValue={""} />
-                                <button type="submit" className={classes.btn + " " + classes.btnSecondary}>Send message</button>
+                                <Link target="_blank" href="/contact" className={classes.btn + " " + classes.btnSecondary}>Send message</Link>
                             </form>
                         </div>
                     </div>
