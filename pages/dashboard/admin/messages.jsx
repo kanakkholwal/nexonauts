@@ -1,5 +1,6 @@
 import { getSession } from "next-auth/react"
 import DashboardPage from "components/dashboard-page";
+import Collapse from "components/collapse";
 import Head from "next/head";
 import State from 'components/state';
 import { timeAgo } from 'lib/scripts';
@@ -83,9 +84,6 @@ const Body = styled.div`
 margin:0 0.75rem;
 border-top:1px solid rgba(var(--muted-rgb),0.22);
 flex-grow: 1;
-height: 100%;
-overflow: hidden;
-
 `;
 const MessageCard = styled.div`
 border-bottom:1px solid rgba(var(--muted-rgb),0.1);
@@ -213,10 +211,11 @@ function Message({ name, email, type, message, read, createdAt,index, _id,update
                     }}><HiOutlineChevronUp /></span>
                 </div>
             </Header>
-
-            <Body className={`Collapse ${open ? " isOpen" :""}`}>
+            <Collapse visible={open}>
+            <Body>
                     <p>{message}</p>
             </Body>
+            </Collapse>
         </MessageCard>
     )
 }

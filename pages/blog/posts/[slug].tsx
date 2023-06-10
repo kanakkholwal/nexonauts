@@ -70,7 +70,7 @@ export default function Post(
     if (!post) return null;
 
     return (
-        <div>
+        <div className='Blog'>
             <NextSeo
                 title={post?.title}
                 description={post?.description}

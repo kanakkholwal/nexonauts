@@ -2,6 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { AiOutlinePlus } from "react-icons/ai";
 import React from "react";
+import Collapse from "components/collapse";
 import HTMLReactParser from 'html-react-parser';
 
 
@@ -19,6 +20,7 @@ const StyledTOC = styled.div`
     background-color: rgba(var(--light-rgb), 0.5);
     backdrop-filter: blur(10px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align:left;
     .Toc_Header{
         display: flex;
         justify-content: space-between;
@@ -57,7 +59,7 @@ const StyledTOC = styled.div`
     
 
 `;
-const StyledButton = styled.button`
+const StyledButton = styled.button<{open: boolean}>`
     padding: 0.5rem;
     display: flex;
     justify-content: center;
@@ -66,13 +68,20 @@ const StyledButton = styled.button`
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.3s ease-in-out;
     background-color: rgba(var(--secondary-rgb), 0.2);
     cursor: pointer;
     &:hover{
         background-color: rgba(var(--secondary-rgb), 0.3);
         scale: 1.1;
     }
+    ${({open}) => {
+        if(open === true){
+            return `
+                transform: rotate(45deg);
+            `
+        }
+    }}
 
 `;
 type Block = {
@@ -97,11 +106,13 @@ export default function TOC({ blocks }: {
         <StyledTOC>
             <div className="Toc_Header">
                 <h4>Table of Contents</h4>
-                <StyledButton onClick={() => setOpen(!open)}><AiOutlinePlus /></StyledButton>
+                <StyledButton open={open} onClick={() => setOpen(!open)}><AiOutlinePlus /></StyledButton>
             </div>
-            {open && <><div className="Toc_Body">
-                <TOCList blocks={remapBlocks(blocks)} />
-            </div></>}
+            <Collapse visible={open}>
+                <div className="Toc_Body">
+                    <TOCList blocks={remapBlocks(blocks)} />
+                </div>
+            </Collapse>
 
         </StyledTOC>
     )
