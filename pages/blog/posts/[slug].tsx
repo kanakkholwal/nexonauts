@@ -49,6 +49,10 @@ export async function getStaticProps({ params }) {
         console.log("Error during page generation using slug:", error);
         return {
             notFound: true,
+            props: {
+                post: null,
+              },
+            revalidate: 60,
         };
     }
 }

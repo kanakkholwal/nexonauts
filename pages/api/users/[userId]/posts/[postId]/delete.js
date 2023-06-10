@@ -31,7 +31,7 @@ export default nextConnect(handler)
         return res.status(404).json({ message: 'Post not found!' });
       }
 
-      await existingUser.posts.pull(existingPost.id);
+      await existingUser.posts.pull(existingPost._id);
       await existingUser.save();
       await Page.findByIdAndDelete(existingPost.analytics._id);
       // delete comments from this post 

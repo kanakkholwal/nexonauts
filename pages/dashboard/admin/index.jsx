@@ -22,12 +22,15 @@ export default function Dashboard({ user }) {
   
     const { data:UserData, error:userListError, isLoading :userListLoading} = useSWR(['/api/admin/users/all', { adminId: user.id }], ([url, data]) => fetchData(url, data))
     const { data:pageData, error:pageError, isLoading:pageLoading} = useSWR('/api/admin/analytics', fetcher)
-    const { data:noOfPosts, error:postError, isLoading:postLoading} = useSWR('/api/admin/blog/get', fetcher)
+    const { data:postData, error:postError, isLoading:postLoading} = useSWR('/api/admin/blog/get', fetcher)
 
     if(pageError)
         console.log(pageError);
     if(userListError)
         console.log(userListError);
+    if(postError)
+        console.log(postError);
+
   
 
 
@@ -51,7 +54,7 @@ export default function Dashboard({ user }) {
                     <DashCard as={Link} href="/dashboard/admin/blog">
                         <div>
                             <span>Total Posts</span>
-                            <h2>{noOfPosts? noOfPosts :0}</h2>
+                            <h2>{postData? postData?.noOfPosts :0}</h2>
                             {/* <span> Created yet</span> */}
                         </div>
                         <Icon>
