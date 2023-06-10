@@ -48,6 +48,7 @@
     "editorjs-undo": "^2.0.22",
     "eslint-config-next": "^13.3.0",
     "html-2-jsx": "^0.5.1-dev",
+    "html-react-parser": "^4.0.0",
     "html-to-draftjs": "^1.5.0",
     "immutable": "^3.3.0",
     "interweave": "^13.1.0",
