@@ -14,18 +14,23 @@ import Comments from "./comments";
 import RelatedPosts from "./RelatedPosts";
 import TOC ,{HeaderRenderer} from "./toc";
 
+const Tag = styled(Badge)`
+    font-size:0.75rem;
+    padding:0.25rem 0.5rem;
+    border-radius: 4px;
+`;
 const ArticleWrapper = styled.article`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding:1rem;
     text-align:center;
     width:100%;
     margin-inline:auto;
     flex:1;
     border-radius: 10px;
     @media (min-width:1000px){
+        padding:1rem;
         max-width:calc(var(--max-width) * 0.75);
     }
     .Article{
@@ -41,7 +46,7 @@ const ArticleBody = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    padding:1rem;
+    padding:0.75rem;
     text-align:center;
     width:100%;
     margin-inline:auto;
@@ -175,8 +180,8 @@ export function Article({ post }) {
                         </span>
                     </div>
                 </MetaData>
-                <div className="ArticleBody">
                 <TOC blocks={post?.content?.blocks.filter((block) => block.type === "header")} />
+                <div className="ArticleBody">
                
                 <Blocks data={post?.content} style={{
                         table: {
@@ -206,7 +211,7 @@ export function Article({ post }) {
                 <div className="d-flex align-items-center flex-wrap gy-2  mt-2 pt-3" >
                     <Badge className="px-0 py-2" as="strong"><MdOutlineLabel /></Badge>
                     {post.labels.map((label, index) => (
-                        <Badge key={index} nature={["success", "theme", "warning", "info", "secondary"][index > 6 ? parseInt(index % 6) + 1 : index]}>{label}</Badge>
+                        <Tag key={index} nature={["success", "theme", "warning", "info", "secondary"][index > 6 ? parseInt(index % 6) + 1 : index]}>{label}</Tag>
                     ))}
                 </div>
                 {/* <div>

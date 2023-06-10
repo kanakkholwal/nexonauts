@@ -132,16 +132,17 @@ export default function RelatedPosts({ postId }) {
 
     return (
         <Wrapper>
-            <h4 className="my-2 text-center">Related Posts</h4>
             {related.loading ? (
                 "Loading..."
             ) : related.error ? (
                 "Error occurred while fetching related posts."
-            ) : (<CardWrapper>
+            ) : (<>
+          {related.posts.length > 0? ( <h4 className="my-2 text-center">Related Posts</h4>):null}
+           <CardWrapper>
                 {related.posts.map((post, index) => (
                     <RelatedPostsCard key={index} post={post} />
                 ))}</CardWrapper>
-            )}
+             </>)}
         </Wrapper>
     );
 }

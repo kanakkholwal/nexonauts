@@ -7,9 +7,7 @@ const getPosition = (position) => {
         top:0;
         right:0;
         transform:translate(50%,-50%);
-        z-index:1;
-      
-      `
+        z-index:1;`
       break;
     case "top-left":
       return `

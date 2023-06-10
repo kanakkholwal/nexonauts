@@ -41,7 +41,7 @@ export default function BlogHomePage({ initialPosts }) {
   }, []);
 
   return (
-    <div className={inter.className}>
+    <div className={inter.className + " Blog"}>
       <Head>
         <title>K K UPGRADER BLOG</title>
       </Head>

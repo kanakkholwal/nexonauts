@@ -78,6 +78,7 @@
     "react-is": "^18.2.0",
     "react-katex": "^3.0.1",
     "react-syntax-highlighter": "^15.5.0",
+    "react-transition-group": "^4.4.5",
     "sass": "^1.55.0",
     "sharp": "^0.31.2",
     "slate": "^0.94.1",
