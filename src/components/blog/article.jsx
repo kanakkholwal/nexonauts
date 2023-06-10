@@ -2,8 +2,9 @@ import styled from "styled-components";
 import { BlogBreadCrumb } from "components/breadcrumb";
 import Badge from "components/topography/badge";
 import { calculateReadTime } from "lib/scripts";
-
 import Blocks from 'editorjs-blocks-react-renderer';
+import CodeRenderer from './codeRender';
+
 import { GrValidate } from 'react-icons/gr';
 import { MdOutlineDateRange, MdOutlineLabel } from 'react-icons/md';
 import { AiOutlineFieldTime } from 'react-icons/ai';
@@ -11,6 +12,7 @@ import { BiCommentDetail } from 'react-icons/bi';
 import Image from "next/image";
 import Comments from "./comments";
 import RelatedPosts from "./RelatedPosts";
+import TOC ,{HeaderRenderer} from "./toc";
 
 const ArticleWrapper = styled.article`
     display: flex;
@@ -136,6 +138,9 @@ gap:0.5rem;
 }
 `;
 export function Article({ post }) {
+
+  
+
     return (
         <ArticleWrapper>
             <ArticleBody>
@@ -171,6 +176,7 @@ export function Article({ post }) {
                     </div>
                 </MetaData>
                 <div className="ArticleBody">
+                <TOC blocks={post?.content?.blocks.filter((block) => block.type === "header")} />
                
                 <Blocks data={post?.content} style={{
                         table: {
@@ -188,7 +194,14 @@ export function Article({ post }) {
                         code: {
                             className: "language-js"
                         },
-                }} />
+                }} 
+                renderers={{
+                    code: CodeRenderer,
+                    header:HeaderRenderer,
+                }}
+
+
+                />
                 </div>
                 <div className="d-flex align-items-center flex-wrap gy-2  mt-2 pt-3" >
                     <Badge className="px-0 py-2" as="strong"><MdOutlineLabel /></Badge>
@@ -213,22 +226,7 @@ export function Article({ post }) {
         </ArticleWrapper>
     )
 }
-const Checklist = ({
-    data, className = ""
-  })=> {
-  
-    return (
-      <>
-        {data?.items.map((item, i) => (
-          <p key={i} className={className}>
-            <label>
-              <input type="checkbox" /> {HTMLReactParser(item)}
-            </label>
-          </p>
-        ))}
-      </>
-    )
-  }
+
 const style = {
     header: {
         h1: {
