@@ -64,7 +64,7 @@ export default function Post(
         }
 ) {
     useEffect(() => {
-        registerView({ title: post?.title, type: 'article', slug: `/blog/posts/${post?.slug}` });
+        registerView({ title: post?.title, type: 'article', slug: `/blog/posts/${post?.slug}` ,postId: post?._id});
     }, []);
 
     if (!post) return null;

@@ -18,8 +18,9 @@ const Widget = styled.div`
   padding: 1rem;
   border-radius: 0.5rem;
   background: var(--card-bg);
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
-    0px 1px 1px rgba(0, 0, 0, 0.08);
+//   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
+//     0px 1px 1px rgba(0, 0, 0, 0.08);
+box-shadow: var(--card-shadow);
 `;
 
 export const SidebarWrapper = styled.aside`
@@ -29,10 +30,7 @@ export const SidebarWrapper = styled.aside`
   align-items: flex-start;
   gap: 1rem;
   width: 100%;
-  flex: 1 1 auto;
-  @media (min-width: 1000px) {
-    max-width: calc(var(--max-width) * 0.25);
-  }
+
 `;
 
 export function SideBar() {

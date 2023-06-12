@@ -1,11 +1,12 @@
 import axios from "axios";
 
 // for browser
-export const registerView = async ({ title, slug, type }) => {
+export const registerView = async ({ title, slug, type,postId }) => {
     await axios.post("/api/pages", {
         slug: slug,
         type: type,
         title: title,
+        postId: postId,
         increase: ["view"]
     }).then(({ data }) => {
         console.log(data.message);
