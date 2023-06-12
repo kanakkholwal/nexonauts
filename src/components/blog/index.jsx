@@ -7,21 +7,46 @@ export { PostCard } from "./postCard";
 
 import styled from "styled-components";
 import { SidebarWrapper  } from "./sidebar";
+import { ArticleWrapper  } from "./article";
 
 export const Wrapper = styled.main`
     width:100%;
     max-width:var(--max-width);
     margin-inline:auto;
-
     padding: 2rem 1rem;
+    display:flex;
+    gap:1rem;
+    flex-direction:row;
 
-    @media (max-width:1000px){
-        flex-direction:column;
+   
+
+ 
+    @media (1440px <= width){
+        & > ${ArticleWrapper}{
+            width:73%;
+        }
+      
+      & > ${SidebarWrapper}{
+        width:27%;
+        }
     }
-    &:has(> ${SidebarWrapper}){
-        display:flex;
-        justify-content:space-between;
-        align-items:flex-start;
-        gap:1rem
+    @media (1024px <= width <= 1440px){
+        & > ${ArticleWrapper}{
+            width:70%;
+        }
+      
+      & > ${SidebarWrapper}{
+        width:30%;
+        }
+    }
+    @media (width <= 1024px){
+        flex-wrap:wrap;
+        & > ${ArticleWrapper}{
+            width:100%;
+        }
+      
+      & > ${SidebarWrapper}{
+        width:100%;
+        }
     }
 `;

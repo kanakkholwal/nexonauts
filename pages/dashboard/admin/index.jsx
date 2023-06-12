@@ -1,11 +1,13 @@
 import { getSession } from "next-auth/react";
 import DashboardPage from "components/dashboard-page";
-import {DashCard,Icon} from "components/dashboard-page/elements";
+import Badge from "components/topography/badge";
 import Head from "next/head";
 import Link from 'next/link';
 import { FaRegUser } from "react-icons/fa";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { RiArticleLine } from 'react-icons/ri';
+import { MdArrowUpward,MdArrowDownward } from 'react-icons/md';
+import {DashCard,Icon,TrendingPages,TrendingPagesListItem} from "components/dashboard-page/elements";
 
 import useSWR from "swr";
 import axios from "axios";
@@ -71,11 +73,54 @@ export default function Dashboard({ user }) {
                         </Icon>
                     </DashCard>
                 </div>
+                <div className="d-flex align-items-center justify-content-between g-2 flex-wrap">
+
+                   <Trending/>
+                </div>
             </DashboardPage>
         </>
     )
 }
+const Trending = () => {
+    const { data, error, isLoading} = useSWR(['/api/admin/trending-pages', { limit: 15,period:"daily" }], ([url, data]) => fetchData(url, data))
 
+    return ( <TrendingPages>
+        <div className="Header">
+            <h5>Trending Pages  </h5>
+            <Badge nature="theme" as={Link} href="/dashboard/admin/pages">View All</Badge>
+        </div>
+            <div className="d-flex flex-column Body">
+            {error? error :null}
+            {isLoading? "Loading..." :null}
+            {
+                data && data.trendingPages.length > 0 ?
+                data.trendingPages.map((page,index) => {
+                    return (
+                        <TrendingPagesListItem key={index}>
+                            <div className="metadata">
+                            <p>
+                                <Link href={`/dashboard/analytics/pages/${page._id}`} className="title">{page.title}</Link>
+
+                                <Badge nature="secondary" rounded="true" className="type">
+                                    {page.type}
+                                </Badge>
+                            </p>
+                                <Link className="slug" href={page.slug} target="_blank">{page.slug}</Link>
+                            </div>
+                            <Badge rounded="true" nature={page.actionCountDiff > 0 ?"success":"danger"} className="ms-auto">
+                                {/* {page.actionCountDiff > 0 ? <MdArrowUpward/>: <MdArrowDownward/>} */}
+                                {page.actionCount}
+                            </Badge>
+
+
+                        </TrendingPagesListItem>
+                    )
+
+                }) :"No Data found..."}
+              
+              </div>
+        </TrendingPages>  )
+}
 
 export async function getServerSideProps(context) {
 

@@ -11,6 +11,7 @@ import { AiOutlineFieldTime } from 'react-icons/ai';
 import { BiCommentDetail } from 'react-icons/bi';
 import Image from "next/image";
 import Comments from "./comments";
+import ShareUI from "./share";
 import RelatedPosts from "./RelatedPosts";
 import TOC ,{HeaderRenderer} from "./toc";
 
@@ -19,27 +20,14 @@ const Tag = styled(Badge)`
     padding:0.25rem 0.5rem;
     border-radius: 4px;
 `;
-const ArticleWrapper = styled.article`
+export const ArticleWrapper = styled.article`
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     text-align:center;
     width:100%;
-    margin-inline:auto;
-    flex:1;
-    border-radius: 10px;
-    @media (min-width:1000px){
-        padding:1rem;
-        max-width:calc(var(--max-width) * 0.75);
-    }
-    .Article{
-        text-align:initial;
-        width:100%;
-        max-width:var(--max-width);
-        margin-inline:auto;
-        display:block;
-    }
+
 `;
 const ArticleBody = styled.div`
     display: flex;
@@ -50,14 +38,12 @@ const ArticleBody = styled.div`
     text-align:center;
     width:100%;
     margin-inline:auto;
-    flex:1;
     border-radius: 10px;
     background: var(--card-bg);
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
-    0px 1px 1px rgba(0, 0, 0, 0.08);
-    @media (min-width:1000px){
-        max-width:calc(var(--max-width) * 0.75);
-    }
+    ${'' /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
+    0px 1px 1px rgba(0, 0, 0, 0.08); */}
+    box-shadow: var(--card-shadow);
+ 
     .Article{
         text-align:initial;
         width:100%;
@@ -214,18 +200,8 @@ export function Article({ post }) {
                         <Tag key={index} nature={["success", "theme", "warning", "info", "secondary"][index > 6 ? parseInt(index % 6) + 1 : index]}>{label}</Tag>
                     ))}
                 </div>
-                {/* <div>
-                <h5>Share Post</h5>
-                <div>
-                    <Badge>Copy Link</Badge>
-                    <Badge nature="info" noBorder>Facebook</Badge>
-                    <Badge nature="theme" noBorder>Twitter</Badge>
-                    <Badge nature="success" asButton>Whatsapp</Badge>
-                    <Badge nature="info" asButton>Telegram</Badge>
-
-                </div>
-            </div> */}
             </ArticleBody>
+            <ShareUI post={post} />
             <Comments post={post} />
             <RelatedPosts postId={post._id} />
         </ArticleWrapper>

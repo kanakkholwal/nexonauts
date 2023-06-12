@@ -20,17 +20,18 @@ export default nextConnect(handler)
                 return res.status(404).json({ error: 'Post not found' });
             }
 
-            // Fetch related posts based on labels
             const relatedPosts = await Post.find({
-                _id: { $ne: postId }, // Exclude the current post
-                labels: { $in: post.labels }, // Find posts with overlapping labels
-                state: 'published', // Fetch only published posts
+                _id: { $ne: postId },
+                labels: {
+                    $in: post.labels.map(label => new RegExp(label, 'i'))
+                },
+                state: 'published',
             })
-                .populate('analytics') // Select only the title and slug
-                .limit(5) // Limit the number of related posts
-                .sort({ createdAt: -1 }) // Sort by creation date in descending order
+                .populate('analytics', 'title slug')
+                .limit(5)
+                .sort({ createdAt: -1 })
                 .exec();
-
+            
             res.json(relatedPosts);
         }
         catch (err) {

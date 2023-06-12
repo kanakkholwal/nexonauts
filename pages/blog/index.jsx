@@ -6,13 +6,8 @@ import Footer from "components/footer";
 import Button from "components/buttons";
 import { BiDownArrowAlt } from "react-icons/bi";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { Inter } from "next/font/google";
 import Head from "next/head";
-const inter = Inter({
-  display: "swap",
-  weight: ['400', '500', '600', '700'],
-  subsets: ['latin'],
-});
+
 
 export default function BlogHomePage({ initialPosts }) {
   const [posts, setPosts] = useState(initialPosts);
@@ -41,9 +36,13 @@ export default function BlogHomePage({ initialPosts }) {
   }, []);
 
   return (
-    <div className={inter.className + " Blog"}>
+    <div className={" Blog"}>
       <Head>
         <title>K K UPGRADER BLOG</title>
+        <meta name="description" content="K K UPGRADER BLOG" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/blog`} />
+
       </Head>
       <NavBar />
       <HomePageHero />

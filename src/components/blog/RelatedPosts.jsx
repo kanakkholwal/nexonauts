@@ -27,8 +27,15 @@ const Card = styled.div`
   background-color: var(--card-bg);
   box-shadow: var(--card-shadow);
   border-radius: 8px;
-  flex: 0 1 30%;
+  min-width:30%;
+  flex: 0 1 33%;
 
+  @media (576px <= width <= 928px){
+    flex: 0 1 49%;
+    }
+  @media (width <= 576px){
+    flex: 0 1 100%;
+    }
   .Thumbnail {
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;

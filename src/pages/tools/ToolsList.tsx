@@ -1,6 +1,6 @@
 import React from 'react';
 //Icons
-import { HiOutlineFolderDownload } from "react-icons/hi";
+// import { HiOutlineFolderDownload } from "react-icons/hi";
 import { IoImageOutline } from "react-icons/io5";
 import { BiCodeAlt } from "react-icons/bi";
 import { AiOutlineFileSearch } from "react-icons/ai";
@@ -10,7 +10,7 @@ import Image2Webp from "./pages/Image2Webp";
 import CssMinifierPrettifier from "./pages/CssMinifierPrettifier";
 import HtmlMinifierPrettifier from "./pages/HtmlMinifierPrettifier";
 import JsonMinifierPrettifier from "./pages/JsonMinifierPrettifier";
-import YouTubeDownloader from "./pages/YouTubeDownloader";
+// import YouTubeDownloader from "./pages/YouTubeDownloader";
 import MetaTagGenerator from "./pages/MetaTagGenerator";
 import IframeGenerator from "./pages/IframeGenerator";
 import HtmlParser from "./pages/HtmlParser";
@@ -27,14 +27,14 @@ interface ToolProp {
 
 export const ToolList: ToolProp[] = [
 
-    {
-        title: "Youtube Downloader",
-        description: "This Tool helps you to download YouTube Videos in multiple formats",
-        category: "Downloader",
-        path: "/tools/youtube-downloader",
-        Component: <YouTubeDownloader />,
-        online: true
-    },
+    // {
+    //     title: "Youtube Downloader",
+    //     description: "This Tool helps you to download YouTube Videos in multiple formats",
+    //     category: "Downloader",
+    //     path: "/tools/youtube-downloader",
+    //     Component: <YouTubeDownloader />,
+    //     online: true
+    // },
     {
         title: "Image to Webp Convertor",
         description: "This Tool helps you to convert Any Image Format to Webp Format to boost your WebPage Speed..",
@@ -113,11 +113,11 @@ const Categories = [
         path: "/tools/category/image-tools",
         icon: <IoImageOutline />
     }
-    , {
-        title: "Downloader",
-        path: "/tools/category/downloader",
-        icon: <HiOutlineFolderDownload />
-    }
+    // , {
+    //     title: "Downloader",
+    //     path: "/tools/category/downloader",
+    //     icon: <HiOutlineFolderDownload />
+    // }
     , {
         title: "Coding Tools",
         path: "/tools/category/coding-tools",

@@ -19,8 +19,9 @@ const CommentSection = styled.section`
   padding: 20px 10px;
   border-radius: 10px;
     background: var(--card-bg);
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
-    0px 1px 1px rgba(0, 0, 0, 0.08);
+    ${'' /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
+    0px 1px 1px rgba(0, 0, 0, 0.08); */}
+    box-shadow: var(--card-shadow);
 `;
 const InsertReply = styled.div`
   display: flex;
@@ -493,7 +494,7 @@ function CommentFormComponent({
               nature="secondary"
             />
           </FormElement>
-          <div className="d-flex justify-content-start align-items-center g-2">
+          <div className="d-flex justify-content-start align-items-center g-2 flex-wrap">
           <Button type="submit" low="true"  size="sm" nature="secondary">Submit Comment</Button>
           <Button type="reset" low="true"  size="sm"   nature="secondary" onClick={() =>setCanComment(false)} level="true">Cancel</Button>
           </div>
