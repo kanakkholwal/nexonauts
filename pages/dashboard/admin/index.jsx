@@ -87,7 +87,7 @@ const Trending = () => {
     return ( <TrendingPages>
         <div className="Header">
             <h5>Trending Pages  </h5>
-            <Badge nature="theme" as={Link} href="/dashboard/admin/pages">View All</Badge>
+            <Badge as={Link} nature="theme" href="/dashboard/admin/analytics/pages">View All</Badge>
         </div>
             <div className="d-flex flex-column Body">
             {error? error :null}

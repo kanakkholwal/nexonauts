@@ -23,6 +23,9 @@ padding: 16px;
 border-bottom: none;
 color: rgb(99, 115, 129);
 background-color: rgb(244, 246, 248);
+&:has(svg){
+    cursor: pointer;
+}
 `;
 export const Td = styled.td`
 line-height: 1.57143;
