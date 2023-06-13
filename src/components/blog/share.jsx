@@ -101,7 +101,7 @@ export default function ShareUI({post}){
 
 
     return (<>
-        <Wrapper>
+        <Wrapper id="share_wrapper">
             <h4>Share this post</h4>
             <div className="shareIcons">
                 {
