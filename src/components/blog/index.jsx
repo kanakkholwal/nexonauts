@@ -4,6 +4,7 @@ export { PostPageHero,HomePageHero } from "./hero";
 export { SideBar  } from "./sidebar";
 export { Article } from "./article";
 export { PostCard } from "./postCard";
+export { FloatingMenu } from "./floatingMenu";
 
 import styled from "styled-components";
 import { SidebarWrapper  } from "./sidebar";

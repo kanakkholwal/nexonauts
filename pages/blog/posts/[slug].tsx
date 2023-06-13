@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect,useState } from 'react';
-import { NavBar, PostPageHero, Article, Wrapper, SideBar } from 'components/blog';
+import { NavBar, PostPageHero, Article, Wrapper, SideBar ,FloatingMenu} from 'components/blog';
 import { registerView } from 'lib/analytics';
 import { NextSeo } from 'next-seo';
 import { Post } from 'types/post';
@@ -66,7 +66,12 @@ export default function Post(
     const  [isClapped, setIsClapped] = useState(false);
     const clapThePost = async () => {
         try {
-            await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/${post?._id}/clap`);
+            await axios.post(`/api/posts/${post?._id}/clap`);
+            setIsClapped(true);
+            const clappedPosts = JSON.parse(localStorage.getItem('clappedPosts') ?? '[]');
+            clappedPosts.push(post?._id);
+            localStorage.setItem('clappedPosts', JSON.stringify(clappedPosts));
+            console.log("Clapped")
         } catch (error) {
             console.log("Error during clapping the post:", error);
         }
@@ -79,29 +84,13 @@ export default function Post(
         if (clappedPosts.includes(post?._id)) {
             setIsClapped(true);
         }
-        if (!isClapped) {
-            clapThePost();
-            setIsClapped(true);
-            const clappedPosts = JSON.parse(localStorage.getItem('clappedPosts') ?? '[]');
-            clappedPosts.push(post?._id);
-            localStorage.setItem('clappedPosts', JSON.stringify(clappedPosts));
+        else {
+            console.log("Already clapped")
         }
         
     }, []);
-    const isFallback = !post;
-    if (isFallback) {
-        return (
-            <div className='Blog'>
-                <NavBar />
-                <PostPageHero title='Loading...' description='Loading...' />
-                <Wrapper>
-                    <Article post={post} />
-                    <SideBar />
-                </Wrapper>
-            </div>
-        );
-
-    }
+    
+    if(!post) return null;
     return (
         <div className='Blog'>
             <NextSeo
@@ -142,6 +131,21 @@ export default function Post(
                 <Article post={post} />
                 <SideBar />
             </Wrapper>
+            <FloatingMenu>
+                <div className="clap-container">
+                    <button className="clap-btn" onClick={() =>{
+                        if (!isClapped) {
+                            clapThePost();
+                        }
+                        else
+                            console.log("Already clapped")
+                    }}>
+                        <span className="clap-icon" />
+                        Claps
+                        {/* <span className="clap-count">{post?.claps}</span> */}
+                    </button>
+                </div>
+            </FloatingMenu>
         </div>
     );
 }
