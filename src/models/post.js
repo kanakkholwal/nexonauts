@@ -133,6 +133,10 @@ const postSchema = new mongoose.Schema(
       ref: 'Page',
       default: null,
     },
+    claps:{
+        type: Number,
+        default: 0,
+    },
     comments: {
       enabled: {
         type: Boolean,

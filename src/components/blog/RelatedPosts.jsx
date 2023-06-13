@@ -14,8 +14,8 @@ width:100%;
 max-width:var(--max-width);
 margin-inline:auto;
 display:flex;
-justify-content:flex-start;
-align-items:center;
+justify-content:space-around;
+align-items:flex-start;
 flex-wrap:wrap;
 gap:0.5rem;
 `;
@@ -28,7 +28,8 @@ const Card = styled.div`
   box-shadow: var(--card-shadow);
   border-radius: 8px;
   min-width:30%;
-  flex: 0 1 33%;
+  flex: 0 1 31%;
+  margin-right:auto;
 
   @media (576px <= width <= 928px){
     flex: 0 1 49%;

@@ -8,9 +8,7 @@ import styled from "styled-components";
 import dynamic from "next/dynamic";
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
-
-import { Input, Select } from "components/form-elements";
-import Button from "components/buttons";
+import {  Select } from "components/form-elements";
 import Badge from "components/topography/badge";
 import { Card } from "components/Card";
 import Link from "next/link";
@@ -29,10 +27,38 @@ const StyledHeader = styled.div`
         font-size:1.5rem;
         font-weight:600;
     }
-    h5{
+    a{
         font-size:1rem;
         font-weight:400;
         color:var(--text-muted);
+    }
+`;
+const StyledInfo = styled.div`
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:1rem;
+    margin-bottom:1rem;
+    background:var(--card-bg);
+    padding:1rem;
+    h2{
+        font-size:1.5rem;
+        font-weight:600;
+    }
+    h5{
+        font-size:1rem;
+        font-weight:500;
+        color:var(--text-muted);
+    }
+    &>span{
+        flex:1 1 18%;
+        min-width:100px;
+        padding:0.5rem;
+        text-align:left;
+        &:not(:last-child){
+            border-right:1px solid rgba(var(--grey-rgb),0.2);
+        }
     }
 `;
 
@@ -40,11 +66,20 @@ export default function Pages({ user }) {
     const router = useRouter();
     const { pageId } = router.query;
     const [page, setPage] = useState({});
+    const [pageInfo, setPageInfo] = useState(calculateStats(page?.analytics) || {
+        today: 0,
+        yesterday: 0,
+        current_month: 0,
+        last_month: 0,
+        all_time: 0,
+    });
+    const [type, setSelectedType] = useState('daily');
 
     const FetchPage = async (pageId) => {
         try {
             const response = await axios.get('/api/admin/analytics/' + pageId);
             setPage(response.data.page);
+            setPageInfo(calculateStats(response.data.page.analytics));
         }
         catch (error) {
             console.log(error);
@@ -60,6 +95,7 @@ export default function Pages({ user }) {
         }
     }, []);
 
+      
 
 
     return (
@@ -78,23 +114,59 @@ export default function Pages({ user }) {
                 <StyledHeader>
                     <div>
                         <h2>
-                            {page.title}
+                            {page?.title}
                         </h2>
-                        <h5>
-                            {page.slug}
-                        </h5>
+                        <Link href={page?.slug ? page?.slug : '#'} target="_blank">{page.slug}</Link>
 
                     </div>
-                    <div>
+                    <div className="d-flex flex-column align-items-end">
 
                         <Badge nature="info">
                             {page.type}
                         </Badge>
+                        <Select 
+                        options={[
+                            {label:'Daily',value:'daily'},
+                            {label:'Weekly',value:'weekly'},
+                            {label:'Monthly',value:'monthly'},
+                            {label:'3 Months',value:'3months'},
+                            {label:'6 Months',value:'6months'},
+                            {label:'Yearly',value:'yearly'},
+                        ]}
+                        onChange={(option)=>setSelectedType(option.value)}
+
+                        />
                     </div>
                 </StyledHeader>
+                
+                <StyledInfo>
+                    <span>
+                        <h5>All Time</h5>
+                        <h2>{pageInfo.all_time}</h2>
+                    </span>
+                    <span>
+                        <h5>Today</h5>
+                        <h2>{pageInfo.today}</h2>
+                    </span>
+                    <span>
+                        <h5>Yesterday</h5>
+                        <h2>{pageInfo.yesterday}</h2>
+                    </span>
+                    <span>
+                        <h5>This Month</h5>
+                        <h2>{pageInfo.current_month}</h2>
+                    </span>
+                    <span>
+                        <h5>Last Month</h5>
+                        <h2>{pageInfo.last_month}</h2>
+
+                    </span>
+
+                </StyledInfo>
 
                 <Card>
-                   {page && <Stats data={page} />}
+                   {page && <Stats data={page} type={type}/>}
+                   <p className="text-center text-muted">{page?.analytics ? "Page Created on " +new Date(page?.analytics[0]?.timestamp).toLocaleTimeString('en-US',{ day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' }) : null}</p>
                 </Card>
             </DashboardPage>
             <Toaster
@@ -104,134 +176,103 @@ export default function Pages({ user }) {
         </>
     );
 }
-function Stats({ data }) {
+function Stats({ data ,type = 'daily'}) {
     const [state, setState] = useState(null);
   
     useEffect(() => {
       if (data && data.analytics) {
-        console.log(data);
         const processedData = processData(data.analytics);
         setState(processedData);
       }
-    }, [data]);
+    }, [data,type]);
   
     const processData = (analytics) => {
-        // sample  = { 
-        //     "sessionId": "60a5b1b3-0b7a-4f1a-8f0a-0b0a0b0a0b0a",
-        //     "user": "60a5b1b3-0b7a-4f1a-8f0a-0b0a0b0a0b0a",
-        //     "action": "view",
-        //     "timestamp": "2021-05-20T15:00:00.000Z"
-        // }
-        // get daily views
-        const dailyViews = analytics.reduce((acc, curr) => {
-            const date = new Date(curr.timestamp);
-            const day = date.getDate();
-            const month = date.getMonth();
-            const year = date.getFullYear();
-            const key = `${day}-${month}-${year}`;
-            if (acc[key]) {
-                acc[key] += 1;
-            } else {
-                acc[key] = 1;
-            }
-            return acc;
-        }, {});
-        // weekly views
-        // const weeklyViews = analytics.reduce((acc, curr) => {
-        //     const date = new Date(curr.timestamp);
-        //     const week = date.getWeek();
-        //     const year = date.getFullYear();
-        //     const key = `${week}-${year}`;
-        //     if (acc[key]) {
-        //         acc[key] += 1;
-        //     } else {
-        //         acc[key] = 1;
-        //     }
-        //     return acc;
-        // }, {});
-        // monthly views
-        const monthlyViews = analytics.reduce((acc, curr) => {
-            const date = new Date(curr.timestamp);
-            const month = date.getMonth();
-            const year = date.getFullYear();
-            const key = `${month}-${year}`;
-            if (acc[key]) {
-                acc[key] += 1;
-            } else {
-                acc[key] = 1;
-            }
-            return acc;
-        }, {});
-        // yearly views
-        const yearlyViews = analytics.reduce((acc, curr) => {
-            const date = new Date(curr.timestamp);
-            const year = date.getFullYear();
-            const key = `${year}`;
-            if (acc[key]) {
-                acc[key] += 1;
-            } else {
-                acc[key] = 1;
-            }
-            return acc;
-        }, {});
-        console.log(dailyViews);
-        const series = Object.values(dailyViews);
-        const labels = Object.keys(dailyViews);
-
-        
-
-
-      const data = { series, labels };
-      console.log(data);
-  
-      return {
-        series: [{
-            name: 'Views',
-            data: data.series
-        }],
+        const dailyViews = {};
+        const monthlyViews = {};
+        const yearlyViews = {};
+    
+        analytics.forEach((entry) => {
+          const date = new Date(entry.timestamp);
+          const day = date.getDate();
+          const month = date.getMonth();
+          const year = date.getFullYear();
+          const dayKey = `${day}-${month}-${year}`;
+          const monthKey = `${month}-${year}`;
+          const yearKey = `${year}`;
+    
+          dailyViews[dayKey] = (dailyViews[dayKey] || 0) + 1;
+          monthlyViews[monthKey] = (monthlyViews[monthKey] || 0) + 1;
+          yearlyViews[yearKey] = (yearlyViews[yearKey] || 0) + 1;
+        });
+    
+        const series = () => {
+          if (type === 'daily') return Object.values(dailyViews);
+          if (type === 'weekly') return Object.values(dailyViews).slice(-7);
+          if (type === 'monthly') return Object.values(monthlyViews);
+          if (type === '3months') return Object.values(monthlyViews).slice(-3);
+          if (type === '6months') return Object.values(monthlyViews).slice(-6);
+          if (type === 'yearly') return Object.values(yearlyViews);
+          return Object.values(dailyViews);
+        };
+    
+        const labels = () => {
+          if (type === 'daily') return Object.keys(dailyViews);
+          if (type === 'weekly') return Object.keys(dailyViews).slice(-7);
+          if (type === 'monthly') return Object.keys(monthlyViews);
+          if (type === '3months') return Object.keys(monthlyViews).slice(-3);
+          if (type === '6months') return Object.keys(monthlyViews).slice(-6);
+          if (type === 'yearly') return Object.keys(yearlyViews);
+          return Object.keys(dailyViews);
+        };
+    
+        const chartData = {
+          series: [
+            {
+              name: 'Views',
+              data: series(),
+            },
+          ],
           options: {
-              chart: {
-                height: 350,
-                type: 'line',
-                zoom: {
-                  enabled: false
-                },
-                  fontSize: 12, // Ensure this property is defined
+            chart: {
+              height: 350,
+              type: 'line',
+              zoom: {
+                enabled: false,
               },
-               dataLabels: {
-                enabled: false
+              fontSize: 12,
+            },
+            dataLabels: {
+              enabled: false,
+            },
+            stroke: {
+              width: 5,
+              curve: 'smooth',
+            },
+            xaxis: {
+              type: 'category',
+              categories: labels(),
+            },
+            fill: {
+              type: 'gradient',
+              gradient: {
+                shade: 'dark',
+                gradientToColors: ['#FDD835'],
+                shadeIntensity: 1,
+                type: 'horizontal',
+                opacityFrom: 1,
+                opacityTo: 1,
+                stops: [0, 100, 100, 100],
               },
-        
-              stroke: {
-                  width: 5,
-                  curve: 'smooth'
-              },
-              xaxis: {
-                type: 'date',
-                // categories: data.labels,
-                // tickAmount: 10,
-                labels: data.labels
-              },
-              fill: {
-                type: 'gradient',
-                gradient: {
-                  shade: 'dark',
-                  gradientToColors: [ '#FDD835'],
-                  shadeIntensity: 1,
-                  type: 'horizontal',
-                  opacityFrom: 1,
-                  opacityTo: 1,
-                  stops: [0, 100, 100, 100]
-                },
-              },
-            
-              yaxis: {
-                min: -10,
-                max: 40
-              }
+            },
+            yaxis: {
+              min: 0,
+              max: Math.max(...series()) + 10,
+            },
           },
+        };
+    
+        return chartData;
       };
-    };
   
     return (
       <>
@@ -239,10 +280,57 @@ function Stats({ data }) {
           <Chart
             options={state.options}
             series={state.series}
+            type="line"
+            height={350}
           />
         )}
       </>
     );
+  }
+
+  function calculateStats(analytics) {
+    const stats = {};
+  
+    // Calculate the stats based on the analytics data
+    const currentDate = new Date();
+    const today = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate());
+    const yesterday = new Date(today);
+    yesterday.setDate(yesterday.getDate() - 1);
+  
+    // Filter the analytics data for today
+    const todayData = analytics?.filter(entry => {
+      const entryDate = new Date(entry.timestamp);
+      return entryDate >= today;
+    }) || [];
+    stats['today'] = todayData.length;
+  
+    // Filter the analytics data for yesterday
+    const yesterdayData = analytics?.filter(entry => {
+      const entryDate = new Date(entry.timestamp);
+      return entryDate >= yesterday && entryDate < today;
+    }) || [];
+    stats['yesterday'] = yesterdayData.length;
+  
+    // Filter the analytics data for this month
+    const thisMonthData = analytics?.filter(entry => {
+      const entryDate = new Date(entry.timestamp);
+      return entryDate.getMonth() === currentDate.getMonth() && entryDate.getFullYear() === currentDate.getFullYear();
+    }) || [];
+    stats['current_month'] = thisMonthData.length;
+  
+    // Filter the analytics data for last month
+    const lastMonthData = analytics?.filter(entry => {
+      const entryDate = new Date(entry.timestamp);
+      const lastMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1);
+      const thisMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+      return entryDate >= lastMonth && entryDate < thisMonth;
+    }) || [];
+    stats['last_month'] = lastMonthData.length;
+  
+    // Calculate the total count for all time
+    stats['all_time'] = analytics?.length || 0;
+  
+    return stats;
   }
 export async function getServerSideProps(context) {
     const session = await getSession(context);

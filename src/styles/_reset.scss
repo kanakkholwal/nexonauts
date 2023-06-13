@@ -187,6 +187,23 @@ ol{
     width: 100%;
     ul,ol{
     padding-left: 1rem;
+    & + ul,& + ol{
+        margin-top: 1rem;
+    }
+    & + h1,& + h2,
+    & + h3,& + h4,
+    & + h5,& + h6
+    {
+        margin-top: 1rem;
+    }
+}
+    p{
+        & + h1,& + h2,
+        & + h3,& + h4,
+        & + h5,& + h6
+        {
+            margin-top: 1rem;
+        }
     }
     pre{
         padding: 1rem;
@@ -509,7 +526,8 @@ legend+* {
 
 [type=search] {
     outline-offset: -2px;
-    -webkit-appearance: textfield
+    -webkit-appearance: textfield;
+    appearance: textfield;
 }
 
 ::-webkit-search-decoration {

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import { NavBar, PostPageHero, Article, Wrapper, SideBar } from 'components/blog';
 import { registerView } from 'lib/analytics';
 import { NextSeo } from 'next-seo';
@@ -63,12 +63,45 @@ export default function Post(
             post: Post
         }
 ) {
+    const  [isClapped, setIsClapped] = useState(false);
+    const clapThePost = async () => {
+        try {
+            await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/${post?._id}/clap`);
+        } catch (error) {
+            console.log("Error during clapping the post:", error);
+        }
+    }
+
     useEffect(() => {
         registerView({ title: post?.title, type: 'article', slug: `/blog/posts/${post?.slug}` ,postId: post?._id});
+    
+        const clappedPosts = JSON.parse(localStorage.getItem('clappedPosts') ?? '[]');
+        if (clappedPosts.includes(post?._id)) {
+            setIsClapped(true);
+        }
+        if (!isClapped) {
+            clapThePost();
+            setIsClapped(true);
+            const clappedPosts = JSON.parse(localStorage.getItem('clappedPosts') ?? '[]');
+            clappedPosts.push(post?._id);
+            localStorage.setItem('clappedPosts', JSON.stringify(clappedPosts));
+        }
+        
     }, []);
+    const isFallback = !post;
+    if (isFallback) {
+        return (
+            <div className='Blog'>
+                <NavBar />
+                <PostPageHero title='Loading...' description='Loading...' />
+                <Wrapper>
+                    <Article post={post} />
+                    <SideBar />
+                </Wrapper>
+            </div>
+        );
 
-    if (!post) return null;
-
+    }
     return (
         <div className='Blog'>
             <NextSeo
