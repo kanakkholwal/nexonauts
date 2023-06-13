@@ -26,6 +26,7 @@ export type Post = {
     labels: string[];
     image: string;
     state: string;
+    claps?: Number;
     analytics: {
       _id: string;
       title: string;

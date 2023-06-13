@@ -11,14 +11,15 @@ const Button = styled.button`
   transition: all .25s cubic-bezier(.075,.82,.165,1);
   font-family: var(--btn-font,inherit);
   font-weight: 600;
-  letter-spacing:0.0625rem;
-  padding:var(--btn-padding-y,0.5rem) var(--btn-padding-x,1rem);
+  letter-spacing:var(--btn-letter-spacing,0.02846rem);
+  font-size: var(--btn-font-size,0.875rem);
+  padding:var(--btn-padding-y,0.25rem) var(--btn-padding-x,1rem);
   line-height:var(--btn-line-height,1.75);
   color:var(--btn-text,#fbfbfb);
   background:var(--btn-bg,var(--theme));
   border: 2px solid var(--btn-border,var(--theme));
   box-shadow:var(--btn-box-shadow,0px 1px 3px rgba(var(--theme-rgb), 0.8));
-  border-radius: var(--btn-border-radius,0.5rem);
+  border-radius: var(--btn-border-radius,0.25rem);
   text-align: center;
   
   &:hover{
@@ -61,23 +62,27 @@ const Button = styled.button`
   }
   
   ${props => props.size ? `
-  --btn-padding-y:var(--${props.size || "normal"}-btn-padding-y,0.75rem);
-  --btn-padding-x:var(--${props.size || "normal"}-btn-padding-x,1.5rem);
+  --btn-padding-y:var(--${props.size || "normal"}-btn-padding-y,0.375rem);
+  --btn-padding-x:var(--${props.size || "normal"}-btn-padding-x,1rem);
   --btn-line-height:var(--${props.size || "normal"}-btn-line-height,1.75);
-  --btn-border-radius:var(--${props.size || "normal"}-btn-border-radius,0.5rem);
+  --btn-border-radius:var(--${props.size || "normal"}-btn-border-radius,0.25rem);
+  --btn-font-size:var(--${props.size || "normal"}-btn-font-size,0.875rem);
+  --btn-letter-spacing:var(--${props.size || "normal"}-btn-letter-spacing,.02846rem);
   ` : ``
+  
   }
   ${props => props.low ? `
   --btn-box-shadow: none;
   --btn-hover-box-shadow: none;
   ` : ``
   }
-  
+  ${'' /* 0.375rem 1rem */}
       
   &> svg{
   font-size: inherit;
   line-height: inherit;
   color: currentColor;
+  margin-inline:0!important;
 }
 
 opacity:${props => props.disabled ? "0.5" : "1"};
@@ -109,6 +114,21 @@ ${({direction}) =>{
   }
 }
 
+`;
+export const IconButton = styled(Button)`
+padding:0.5rem;
+border-radius:50%;
+background-color: transparent;
+color:rgba(0, 0, 0, 0.54);
+&:hover{
+    background-color: rgba(0, 0, 0, 0.04);
+}
+${props => props.nature ? `
+   color:rgba(var(--${props.nature}-rgb), 1);
+    &:hover{
+        background-color: rgba(var(--${props.nature}-rgb), 0.04);
+    }
+  ` : ``}
 `;
 export const ResponsiveButton = ({icon,direction, children,...props }) => {
   return (

@@ -99,13 +99,13 @@ const Trending = () => {
                         <TrendingPagesListItem key={index}>
                             <div className="metadata">
                             <p>
-                                <Link href={`/dashboard/analytics/pages/${page._id}`} className="title">{page.title}</Link>
+                                <Link href={`/dashboard/admin/analytics/pages/${page._id}`} className="title">{page.title}</Link>
 
                                 <Badge nature="secondary" rounded="true" className="type">
                                     {page.type}
                                 </Badge>
                             </p>
-                                <Link className="slug" href={page.slug} target="_blank">{page.slug}</Link>
+                                <Link className="slug" href={process.env.NEXT_PUBLIC_WEBSITE_URL+page.slug} target="_blank">{page.slug}</Link>
                             </div>
                             <Badge rounded="true" nature={page.actionCountDiff > 0 ?"success":"danger"} className="ms-auto">
                                 {/* {page.actionCountDiff > 0 ? <MdArrowUpward/>: <MdArrowDownward/>} */}

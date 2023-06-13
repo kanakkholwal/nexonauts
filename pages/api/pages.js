@@ -24,6 +24,7 @@ export default nextConnect(handler)
                 }
                 const page = await Page.findById(post.analytics);
 
+                page.slug = '/blog/posts/'+ slug;
                 // Loop through the increase array and update views and shares
                 increase.forEach((action) => {
                     page.analytics.push({

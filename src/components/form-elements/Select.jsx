@@ -16,7 +16,8 @@ const SelectToggle = styled.input.attrs(props => ({
   type: 'text',
 }))`
     letter-spacing: 0.1em;
-    width: 100%;
+    width: fit-content;
+    min-width: 140px;
     opacity: 0.95;
     font-weight: 600;
     cursor:pointer;
@@ -24,20 +25,22 @@ const SelectToggle = styled.input.attrs(props => ({
     border-radius: 0.5rem;
     padding: 0.5rem 1rem;
     user-select:none;
-    border: ${props => props.outlined ? "2px" : "1px"} solid rgba(var(--muted-rgb),1);
-    background:rgba(var(--theme-rgb),0.1);
-    color:var(--text-color);
+    border: ${props => props.outlined ? "2px" : "1px"} solid rgba(var(--grey-rgb),0.1);
+    background: rgba(var(--light-rgb),1);
+    color: var(--text-color);
     caret-color: var(--theme);
     
     &::placeholder {
       color: inherit;
       opacity: 0.75;
+      user-select:none;
     }
     
     
     &:focus {
-      border-color: rgba(var(--theme-rgb),0.9);
+      border-color: rgba(var(--theme-rgb),0.75);
       opacity: 1;
+      box-shadow: 0 0 0 0 rgba(0,0,0,0.1);
   
     
       &::placeholder {

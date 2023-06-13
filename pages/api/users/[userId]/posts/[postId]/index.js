@@ -83,6 +83,7 @@ export default nextConnect(handler)
             labels: post.labels.map((item) => item.trim()),
             image: post.image,
             state: post.state,
+            claps: existingPost.claps ? existingPost.claps : 0,
             author: {
               name: existingUser.name,
               profileURL: existingUser.profileURL,
