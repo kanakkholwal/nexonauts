@@ -22,7 +22,7 @@ inset-inline: 0;
 border-radius: 0;
 `;
 const Children = styled.div`
-    margin-inline: auto;
+    margin-inline: 0.5rem auto;
     display: flex;
     align-items: center;
     justify-content: center;

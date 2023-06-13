@@ -125,7 +125,7 @@ const TOCList = ({ blocks }) => {
             blocks.map((block: Block, i: number) => {
                 return (
                     <li key={i}>
-                        <Link href={`#${block.data.text?.toString().replace(/\s/g, "_").toLowerCase()}`}>{block.data.text.replace(/\d+\.\s/, '')}</Link>
+                        <Link href={`#${block.data.text?.toString().replace(/\s/g, "_").toLowerCase()}`}>{block.data.text && HTMLReactParser(block.data.text.replace(/\d+\.\s/, ''))}</Link>
                         {block.children && <TOCList blocks={block.children} />}
                     </li>
                 )

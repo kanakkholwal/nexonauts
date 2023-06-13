@@ -1,9 +1,12 @@
 import styled from 'styled-components';
 import { signOut } from 'next-auth/react';
 import NavLink from 'components/navLink';
+import Collapse from 'components/collapse';
 import { GrClose } from "react-icons/gr";
 import { MdLogout } from "react-icons/md";
-import { useRef } from "react";
+import { HiOutlineChevronDown } from "react-icons/hi";
+import { VscCircle } from "react-icons/vsc";
+import { useRef ,useState} from "react";
 
 const SideNavWrapper = styled.div`
 position: fixed;
@@ -66,11 +69,7 @@ const SectionTitle = styled.h5`
 padding: 0.5rem 0;
 `;
 
-const LinkList = styled.div`
-display:flex;
-flex-direction:column;
-align-items:center;
-`;
+
 const Icon = styled.span`
 border-radius:inherit;
 display:flex;
@@ -83,6 +82,10 @@ border-radius: 2rem;
 transition: all 0.3s ease-in-out;
 color: rgba(var(--text-rgb), 0.8);
 background: rgba(var(--theme-rgb), 0.1);
+`;
+const DropdownIcon = styled(Icon)`
+margin-left:auto;
+margin-right:0.25rem;
 
 `;
 const Title = styled.span`
@@ -108,21 +111,78 @@ background: rgba(var(--theme-rgb), 0.08);
         background: rgba(var(--theme-rgb), 0.2);
         scale:1.1;
     }
+    &>${DropdownIcon}{
+        ${'' /* color: rgba(var(--theme-rgb), 0.8); */}
+        background: rgba(var(--theme-rgb), 0.2);
+        scale:1;
+    }
     ${'' /* color: rgba(var(--theme-rgb), 0.8); */}
     background: rgba(var(--theme-rgb), 0.1);
 }
+
 `;
 const LogoutButton = styled(Link)`
 margin-top:auto;
 `;
+const LinkList = styled.div`
+display:flex;
+flex-direction:column;
+align-items:stretch;
+&  &{
+    margin-block:0 0.75rem;
+    padding-left:0.75rem;
+    ${Link}{
+        gap:0.25rem;
+        background:none;
+        box-sizing: border-box;
+       text-align: left;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    padding: 4px 8px 4px 12px;
+    border-radius: 8px;
+    min-height: 36px;
+    color: rgb(99, 115, 129);
+        ${Title}{
+            line-height: 1.57143;
+             font-size: 0.875rem;
+             font-weight: 500;
+        }
+        ${Icon}{
+            background:none;
+            padding:0.5rem;
+            font-size: 0.875rem;
+            margin:0;
+        }
+        &:hover,&.active{
+            ${Icon}{
+                scale:1;
+            }
+            text-decoration: none;
+    background-color: rgba(145, 158, 171, 0.08);
+        }
+        
+    }
+}
+`;
 
-
-const RecursiveLinkList = ({ routes }) => {
+const RecursiveLinkList = ({ routes,nested = false }) => {
+    const [open, setOpen] = useState(false);
     return (
         <LinkList>
-            {routes?.map((item, index) => (<Link as={NavLink} key={index} href={item.path}>
-                {item?.icon ? <Icon>{item?.icon}</Icon>:null}<Title>{item.title}</Title>{item.children?.length > 0 ? <RecursiveLinkList routes={item.children} /> : null}
-            </Link>))}
+            {routes?.map((item, index) => (
+                <div key={index}>
+                <Link as={NavLink}  href={item.path}>
+                {item?.icon ? <Icon>{nested === false ? item?.icon :<VscCircle/>}</Icon>:null}<Title>{item.title}</Title>
+                {item.children?.length > 0 ? <DropdownIcon onClick={(e) =>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setOpen(!open);
+                }} style={{
+                    transform: open ? 'rotate(-180deg)' : 'rotate(0deg)'
+                }}> <HiOutlineChevronDown/></DropdownIcon> : null}
+            </Link>
+                {item.children?.length > 0 ? <Collapse visible={open}><RecursiveLinkList routes={item.children} nested={true}/></Collapse>  : null}
+            </div>))
+            }
         </LinkList>)
 }
 

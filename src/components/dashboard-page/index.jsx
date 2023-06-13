@@ -60,6 +60,14 @@ const routes = (userRole) => {
                 title: "Analytics",
                 path: "/dashboard/admin/analytics",
                 icon: <TbBrandGoogleAnalytics />,
+                children:[
+                    {
+                        title: "Pages",
+                        path: "/dashboard/admin/analytics/pages",
+                        icon: <RiPagesLine />,
+        
+                    },
+                ]
             },
             {
                 title: "Blog",
@@ -76,12 +84,7 @@ const routes = (userRole) => {
                 path: "/dashboard/admin/messages",
                 icon: <TbMessageDots />,
             },
-            {
-                title: "Pages",
-                path: "/dashboard/admin/pages",
-                icon: <RiPagesLine />,
-
-            },
+          
             {
                 title: "Notifications",
                 path: "/dashboard/admin/notifications",

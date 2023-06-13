@@ -22,7 +22,7 @@ const SelectToggle = styled.input.attrs(props => ({
     cursor:pointer;
     transition: all .2s linear;
     border-radius: 0.5rem;
-    padding: 0.75rem 1.25rem;
+    padding: 0.5rem 1rem;
     user-select:none;
     border: ${props => props.outlined ? "2px" : "1px"} solid rgba(var(--muted-rgb),1);
     background:rgba(var(--theme-rgb),0.1);
@@ -266,3 +266,4 @@ function Select({ options, value, onChange, size, ...props }) {
   )
 }
 export default Select;
+
