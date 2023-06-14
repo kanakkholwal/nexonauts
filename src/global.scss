@@ -127,7 +127,7 @@
     --form-border-active: rgba(var(--theme-rgb), 0.7);
     --form-label: rgba(0, 0, 0, 0.75);
     --form-label-active: rgba(var(--theme-rgb), 0.7);
-    --form-bg: rgba(145, 158, 171, 0.08);
+    --form-bg: rgba(248, 250, 253, 0.08);
     --form-bg-active:  rgba(var(--light-rgb), 1);
     --form-color: rgba(0, 0, 0, 0.8);
     --form-color-active: rgba(var(--theme-rgb), 0.7);
@@ -284,50 +284,7 @@ body {
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
 
-    // &.DarkMode {
-    //     --theme-rgb: 192, 188, 255;
-    //     --body-color: hsl(0, 100%, 99%);
-    //     --body-bg: #21272f;
-    //     --dense-bg: rgb(22, 28, 36);
-    //     --hover-bg: rgba(145, 158, 171, 0.08);
-    //     --text-muted: hsla(0, 100%, 99%, .8);
-    //     --card-bg: #343b44;
-    //     --text-rgb: 233,
-    //         237,
-    //         242;
-    //     --icon-bg: #8384892e;
-    //     --drop-bg: rgb(33, 43, 54);
-    //     --drop-shadow: rgb(0 0 0 / 24%) 0px 0px 2px 0px,
-    //         rgb(0 0 0 / 24%) -20px 20px 40px -4px;
-    //     --card-shadow: rgb(0 0 0 / 20%) 0px 0px 2px 0px,
-    //         rgb(0 0 0 / 12%) 0px 12px 24px -4px;
-    //     --border-color: #8384892e;
-    //     --text-color: rgb(193 197 219);
-    //     --success: hsl(142deg 42% 60%);
-    //     --successBg: rgb(22 101 52 / 20%);
-    //     --danger: hsl(0, 100%, 79%);
-    //     --dangerBg: hsl(0deg 98% 47% / 20%);
-    //     --info: hsl(194deg 83% 66%);
-    //     --infoBg: rgba(20, 158, 202, .2);
-    //     --warning: hsl(50deg 86% 61%);
-    //     --warningBg: rgb(250 204 21 / 20%);
-    //     --badge: hsl(235, 100%, 85%);
-    //     --badgeBg: rgb(107 117 219 / 20%);
-    //     --form-border: rgba(145, 158, 171, 0.32);
-    //     --form-border-active: var(--theme);
-    //     --form-label: hsl(229, 8%, 73%);
-    //     --form-label-active: #eee;
-    //     --form-bg: none;
-    //     --form-bg-active: none;
-    //     --form-color: #eee;
-    //     --form-color-active: #262626;
-    //     --form-caret: var(--theme);
-    //     --form-active: var(--theme);
-    //     --form-helper: hsl(240, 3%, 73%);
-    //     --form-checkbox-border: hsla(229, 13%, 33%, 0.671);
-    //     --form-checkbox-bg: none;
-    //     // --btn-success: #22C55E;// --btn-success-bg: hsla(142, 71%, 45%, 0.75);
-
+    
     //     --codeblock-header-text: #fbfbfb;
     //     --codeblock-header-bg: #242932;
     //     --codeblock-body-bg: #131618;

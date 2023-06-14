@@ -2,12 +2,13 @@ import styled from 'styled-components';
 import Label from './Label';
 
 
+
 const Input = styled.input`
   letter-spacing: 0.065em;
   font-weight: 500;
   transition: all .3s ease-in-out;
   border-radius: 0.5rem;
-  padding:0.75rem 0.875rem ;
+  padding:0.75rem 0.875rem;
   border: 2px solid var(--form-border);
   background: var(--form-bg);
   color: var(--form-color);

@@ -10,10 +10,10 @@ export default nextConnect(handler)
     try {
         await dbConnect();
         //  add new tool and add new category 
-        const {name,description,link,categories,coverImage} = req.body;
+        const {name,slug,description,link,categories,coverImage,state} = req.body;
         // make sure categories are unique in Tool and Category collection
 
-        const tool = await PublicTool.create({name,description,link,coverImage,categories});
+        const tool = await PublicTool.create({name,slug,description,link,coverImage,categories,state});
 
         return res.status(200).json({ message: "Tool added successfully" ,tool});
       
