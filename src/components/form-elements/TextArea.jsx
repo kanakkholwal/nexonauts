@@ -19,6 +19,14 @@ export const TextAreaStyled = styled.textarea`
   transition: all .3s ease-in-out;
   outline: none;
   width: 100%;
+  text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: break-all;
+    word-wrap: inherit;
+    line-height: 1.25;
+    tab-size: 4;
+    hyphens: none;
   ${({nature}) =>{
     if(nature)
     return`

@@ -6,6 +6,7 @@ import { GrClose } from "react-icons/gr";
 import { MdLogout } from "react-icons/md";
 import { HiOutlineChevronDown } from "react-icons/hi";
 import { VscCircle } from "react-icons/vsc";
+import { BiChevronRight } from "react-icons/bi";
 import { useRef ,useState} from "react";
 
 const SideNavWrapper = styled.div`
@@ -114,6 +115,9 @@ background: rgba(var(--grey-rgb), 0);
 const LogoutButton = styled(Link)`
 margin-top:auto;
 --text-rgb:var(--danger-rgb);
+&:hover,&.active{
+    --text-rgb:var(--danger-rgb);
+}
 `;
 const LinkList = styled.div`
 display:flex;
@@ -127,6 +131,17 @@ align-items:stretch;
         font-size: 0.75rem; 
         font-weight: 500;      
         height:32px; 
+        ${Icon}{
+            padding:0.5rem;
+            font-size: 0.75rem;
+            svg{
+                font-size: 1rem;
+            }
+        }
+        ${Title}{
+            padding:0.5rem;
+            font-size: 0.75rem;
+        }
     }
 }
 `;
@@ -138,7 +153,7 @@ const RecursiveLinkList = ({ routes,nested = false }) => {
             {routes?.map((item, index) => (
                 <div key={index}>
                 <Link as={NavLink}  href={item.path} className={openIndex === index ? 'active':''}>
-                {item?.icon ? <Icon>{nested === false ? item?.icon :<VscCircle/>}</Icon>:null}<Title>{item.title}</Title>
+                {item?.icon ? <Icon>{nested === false ? item?.icon :<BiChevronRight/>}</Icon>:null}<Title>{item.title}</Title>
                 {item.children?.length > 0 ? <DropdownIcon onClick={(e) =>{
                     e.preventDefault();
                     e.stopPropagation();

@@ -56,7 +56,7 @@ export default function FooterComponent({ socialMedia }) {
             <FooterWrapper>
                 <h2>Follow Us on Social Media</h2>
                 <div>
-                    {socialMedia.map(({ name, icon, url }, index) => {
+                    {socialMedia?.map(({ name, icon, url }, index) => {
                         return (<Link href={url} target="_blank" className="icon" rel="noreferrer" key={index} title={name}>{icon} {name}</Link>)
                     })}
                 </div>

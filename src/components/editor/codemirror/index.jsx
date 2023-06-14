@@ -1,8 +1,12 @@
 import { useEffect, useRef } from 'react';
 // import 'codemirror/lib/codemirror.css';
 // import 'codemirror/theme/material.css';
-import * as CodeMirror from 'codemirror';
+import dynamic from "next/dynamic";
 
+const CodeMirror = dynamic(() => import("codemirror"), {
+    ssr: false
+}
+)
 // // Import additional CodeMirror modes and addons if needed
 // import 'codemirror/mode/javascript/javascript';
 
