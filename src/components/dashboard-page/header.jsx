@@ -185,7 +185,7 @@ export default function Header({ user, routes, children }) {
     const [searchResults, setSearchResults] = useState(false);
     const [open, setOpen] = useState(false);
     let NavRef = useRef(null);
-
+ 
    
     useEffect(() => {
         let sidenavPanel = document.body.querySelector("#sidenav_panel");

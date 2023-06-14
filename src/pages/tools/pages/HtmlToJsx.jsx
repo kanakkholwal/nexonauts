@@ -9,7 +9,6 @@ import HTMLtoJSX from 'html-2-jsx';
 
 
 const rawHtml = `
-
 <!-- Hello world -->
 <div class="awesome" style="border: 1px solid red">
   <label for="name">Enter your name: </label>

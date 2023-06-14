@@ -1,15 +1,12 @@
+// import { registerView } from "lib/analytics";
 import Head from "next/head";
-import { registerView } from "lib/analytics";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
 
 
 export default function AiDirectory() {
 
 
-    // useEffect(() =>{
-    //     registerView({ title: "Dashboard", type: "dashboard", slug: "/dashboard" })
-    // },[])
-
+  
 
     return (
         <>

@@ -4,10 +4,35 @@ import { NavBar, PostPageHero, Article, Wrapper, SideBar ,FloatingMenu} from 'co
 import { registerView } from 'lib/analytics';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import useSmoothScroll from 'hooks/useSmoothScroll';
 import { Post } from 'types/post';
 import { BiShareAlt } from 'react-icons/bi';
 import { BiCommentDetail } from 'react-icons/bi';
+import Footer from "components/tool-page/footer";
+import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 
+const SocialMedia = [
+    {
+        name: "Github",
+        icon: <IoLogoGithub />,
+        url: "https://github.com/kkupgrader",
+    },
+    {
+        name: "Instagram",
+        icon: <IoLogoInstagram />,
+        url: "https://www.instagram.com/kanakkholwal/",
+    },
+    {
+        name: "LinkedIn",
+        icon: <IoLogoLinkedin />,
+        url: "https://www.linkedin.com/in/kanak-kholwal/",
+    },
+    {
+        name: "Twitter",
+        icon: <IoLogoTwitter />,
+        url: "https://twitter.com/KanakKholwal",
+    },
+]
 export async function getStaticPaths() {
     try {
         const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/all`);
@@ -66,6 +91,7 @@ export default function Post(
             post: Post
         }
 ) {
+    useSmoothScroll();
     const  [isClapped, setIsClapped] = useState(false);
     const [claps, setClaps] = useState(post?.claps ?? 0);
     const clapThePost = async () => {
@@ -88,8 +114,6 @@ export default function Post(
         const clappedPosts = JSON.parse(localStorage.getItem('clappedPosts') ?? '[]');
         if (clappedPosts.includes(post?._id)) {
             setIsClapped(true);
-        }
-        else {
             console.log("Already clapped")
         }
         
@@ -195,6 +219,8 @@ export default function Post(
                         <span>Comments</span>
                     </Link>
             </FloatingMenu>
+            <Footer socialMedia={SocialMedia} />
+
         </div>
     );
 }

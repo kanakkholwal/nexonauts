@@ -2,9 +2,9 @@ import Header from "components/tool-page/header";
 import Footer from "components/tool-page/footer";
 import { MainWrapper, ContentWrapper, Hero } from "components/tool-page/wrapper";
 import SideNav from "components/tool-page/sidenav";
-import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import Link from "next/link";
 import { CategoryList,ToolList } from "pages/tools/ToolsList";
+import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 
 const SocialMedia = [
     {
