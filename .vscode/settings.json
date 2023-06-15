@@ -16,5 +16,6 @@
         "styleflux",
         "ytimg"
     ],
-    "svg.preview.background": "transparent"
+    "svg.preview.background": "transparent",
+    "postman.telemetry.enabled": false
 }
