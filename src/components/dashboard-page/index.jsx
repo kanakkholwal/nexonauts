@@ -65,7 +65,11 @@ const routes = (userRole) => {
                         title: "Pages",
                         path: "/dashboard/admin/analytics/pages",
                         icon: <RiPagesLine />,
-        
+                    },
+                    {
+                        title: "Remove",
+                        path: "/dashboard/admin/analytics/remove-unnecessary",
+                        icon: <RiPagesLine />,
                     },
                 ]
             },

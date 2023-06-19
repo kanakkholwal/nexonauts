@@ -65,7 +65,10 @@ const StyledInfo = styled.div`
 export default function Pages({ user }) {
     const router = useRouter();
     const { pageId } = router.query;
-    const [page, setPage] = useState({});
+    const [page, setPage] = useState({
+        title: '',
+        analytics: [],
+    });
     const [pageInfo, setPageInfo] = useState(calculateStats(page?.analytics) || {
         today: 0,
         yesterday: 0,
@@ -80,9 +83,16 @@ export default function Pages({ user }) {
             const response = await axios.get('/api/admin/analytics/' + pageId);
             setPage(response.data.page);
             setPageInfo(calculateStats(response.data.page.analytics));
+            if(!response.data.page)
+            {
+                toast.error('Page not found');
+                router.push('/dashboard/admin/analytics/pages');
+            }
         }
         catch (error) {
             console.log(error);
+            toast.error('Page not found');
+            router.push('/dashboard/admin/analytics/pages');
         }
     }
     useEffect(() => {
@@ -101,7 +111,7 @@ export default function Pages({ user }) {
     return (
         <>
             <Head>
-                <title>All Pages</title>
+                <title>{page.title ? page.title + " || " : null} Page Stats</title>
             </Head>
             <DashboardPage
                 user={user}

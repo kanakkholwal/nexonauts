@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react";
 import DashboardPage from "components/dashboard-page";
-import { Input, Select } from "components/form-elements";
+import { Input,CheckBox, Select } from "components/form-elements";
 import Button from "components/buttons";
 import { Card } from "components/Card";
 import Head from "next/head";
@@ -18,6 +18,7 @@ const fetcher = url => axios.get(url).then(res => res.data);
 export default function Pages({ user }) {
     const { data, error, isLoading } = useSWR('/api/admin/analytics', fetcher);
     const [pages, setPages] = useState(data?.pages || []);
+    const [selectedPages, setSelectedPages] = useState([]);
     const [sortedPages, setSortedPages] = useState(data?.pages || []);
     const [sortBy, setSortBy] = useState(null);
     const [sortOrder, setSortOrder] = useState(null);
@@ -60,6 +61,19 @@ export default function Pages({ user }) {
         setSortedPages(sortedPages)
     }, [pages, sortBy, sortOrder]);
 
+    const AddToUnnecessaryPages = async (IDS) => {
+        try{
+
+            const res = await axios.post('/api/admin/analytics/unnecessary',{
+                    IDS:IDS
+            });
+            console.log(res.data);
+        }
+        catch(error)
+        {
+            console.log(error);
+        }
+    }
 
 
     const handleSearch = (e) => {
@@ -118,6 +132,26 @@ export default function Pages({ user }) {
                             padding:"0"
                         }
                     }>
+                        {
+                            selectedPages.length > 0 && (<>
+                                <div className="d-flex justify-content-between items-align-center mb-4">
+                                    {/* <div className="d-flex items-align-center"> */}
+                                        <span className="me-2">Selected {selectedPages.length} pages</span>
+                                        <Button
+                                            nature="danger"
+                                            size="sm"
+                                            onClick={() => {
+                                                AddToUnnecessaryPages(selectedPages);
+                                                setSelectedPages([]);
+                                            }}
+                                        >
+                                            Delete
+                                        </Button>
+                                    {/* </div> */}
+                                </div>
+
+                            </>)
+                        }
                         {data && currentItems.length > 0 ? (<Table
                             style={{
                                 padding: "0.5rem",
@@ -125,8 +159,22 @@ export default function Pages({ user }) {
                                 background: "var(--card-bg)"
                             }}
                         >
+                       
                             <Thead>
                                 <Tr>
+                                    <Th >
+                                        <input type="checkbox"
+                                            onChange={(e) => {
+                                                if (e.target.checked) {
+                                                    setSelectedPages(currentItems.map(page => page._id));
+                                                } else {
+                                                    setSelectedPages([]);
+                                                }
+                                            }}
+
+                                        
+                                         />
+                                    </Th>
                                     <Th onClick={() => sortPages('title')}>
                                         Name {sortBy === 'title' && sortOrder === 'asc' && <HiArrowUp />}
                                         {sortBy === 'title' && sortOrder === 'desc' && <HiArrowUp style={{ transform: 'rotate(180deg)' }} />}
@@ -148,6 +196,18 @@ export default function Pages({ user }) {
                             <Tbody>
                                 {currentItems.map((page, index) => (
                                     <Tr key={page._id}>
+                                        <Td>
+                                            <input type="checkbox"
+                                                checked={selectedPages.includes(page._id)}
+                                                onChange={(e) => {
+                                                    if (e.target.checked) {
+                                                        setSelectedPages([...selectedPages, page._id]);
+                                                    } else {
+                                                        setSelectedPages(selectedPages.filter((id) => id !== page._id));
+                                                    }
+                                                }}
+                                                />
+                                        </Td>
                                         <Td>
                                             <Link href={`/dashboard/admin/analytics/pages/${page._id}`}>
                                                 {page.title}

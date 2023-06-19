@@ -55,6 +55,7 @@ export default function AutoComplete({
   onChange,
   onAdd,
   async = false,
+  placeholder
 }) {
   const initialState = {
     isOpen: false,
@@ -86,31 +87,26 @@ export default function AutoComplete({
     event.preventDefault();
     event.stopPropagation();
 
-    let updatedSelected;
-    if (multiple) {
-      updatedSelected = [...selected, option];
-    } else {
-      updatedSelected = [option];
-    }
+        if (multiple) {
+            dispatch({ type: 'SET_SELECTED', payload: [...selected, option] });
+        } else {
+            dispatch({ type: 'SET_SELECTED', payload: [option] });
+        }
 
-    dispatch({ type: 'SET_SELECTED', payload: updatedSelected });
-    // dispatch({ type: 'SET_USING_OPTIONS', payload: usingOptions.filter((item) => item !== option) });
+        if (newOption === true) {
 
+            if (async && onAdd) {
+                console.log("async");
+                await onAdd(option);
+            } else {
+                onAdd && onAdd(option);
+            }
+            console.log("newOption", option);
+            dispatch({ type: 'SET_USING_OPTIONS', payload: [...usingOptions, option] });
+        }
 
-      if (newOption === true) {
-
-          if (async && onAdd) {
-              console.log("async");
-              await onAdd(option);
-          } else {
-              onAdd && onAdd(option);
-          }
-          console.log("newOption");
-          dispatch({ type: 'SET_USING_OPTIONS', payload: [...usingOptions, option] });
-      }
-
-    dispatch({ type: 'SET_INPUT_VALUE', payload: '' });
-  };
+        dispatch({ type: 'SET_INPUT_VALUE', payload: '' });
+    };
 
   useEffect(() => {
     onChange && onChange(selected);
@@ -168,6 +164,7 @@ export default function AutoComplete({
       <StyledInput
         type="text"
         value={inputValue}
+        placeholder={placeholder}
         onChange={(event) =>
           dispatch({ type: 'SET_INPUT_VALUE', payload: event.target.value })
         }
@@ -176,7 +173,7 @@ export default function AutoComplete({
       <DropdownWrapper className={isOpen ? 'isOpen' : ''}>
         <Dropdown>
                   {usingOptions.length > 0 ? (
-                      usingOptions.filter((option) => !selected.includes(option)).map((option, index) => (
+                      usingOptions.filter((option) => selected.every((item) => item.value !== option.value)).map((option, index) => (
                           <DropdownItem
                               key={index}
                               id={option.value || (Math.random() * 100).toString()}
@@ -219,6 +216,7 @@ AutoComplete.propTypes = {
     onChange: PropTypes.func,
     onAdd: PropTypes.func,
     async: PropTypes.bool,
+    placeholder: PropTypes.string,
   };
 
 

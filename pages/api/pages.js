@@ -22,9 +22,16 @@ export default nextConnect(handler)
                 if (!post) {
                     return res.status(400).json({ error: "Post not found" });
                 }
-                const page = await Page.findById(post.analytics);
+                console.log(post.analytics.toString());
+                const page = await Page.findById(post.analytics.toString());
+                if (!page) {
+                    return res.status(400).json({ error: "Page not found" });
+                }
 
                 page.slug = slug;
+                page.title = title;
+                page.type = 'article';
+
                 // Loop through the increase array and update views and shares
                 increase.forEach((action) => {
                     page.analytics.push({

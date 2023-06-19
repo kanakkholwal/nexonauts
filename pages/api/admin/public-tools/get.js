@@ -20,8 +20,7 @@ export default nextConnect(handler)
         console.log(error);
         return res.status(500).json({ message: error.message || "Something went wrong" });
     }
-})
-    .post(async (req, res) => {
+}).post(async (req, res) => {
     try {
         await dbConnect();
         const tools = await PublicTool.find({state:'published'}).populate("category");

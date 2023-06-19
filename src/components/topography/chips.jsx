@@ -17,6 +17,8 @@ padding: 0px;
 vertical-align: middle;
 box-sizing: border-box;
 background-color: transparent;
+font-family: inherit;
+font-weight: 500;
 span{
     display: flex;
     align-items: center;
