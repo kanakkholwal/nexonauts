@@ -37,7 +37,7 @@ const pageSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    enum: ['article', 'tool', 'page', 'category', 'tag', 'author', 'search', 'home', '404', 'dashboard'],
+    enum: ['article', 'tool', 'page', 'category', 'tag', 'author', 'search', 'home', '404', 'dashboard','unnecessary'],
   },
   analytics: [analyticsSchema],
 });

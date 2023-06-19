@@ -234,10 +234,7 @@ const fetchData = async (url, data) => {
 export default function Comments({ post }) {
   const { comments, author } = post;
   const { data: session } = useSession();
-  const { data, error, isLoading } = useSWR([`/api/posts/${post._id}/comments/all`, {}], ([url, data]) => fetchData(url, data), {
-    refreshInterval: 1000,
-    revalidate: true,
-  });
+  const { data, error, isLoading ,mutate} = useSWR([`/api/posts/${post._id}/comments/all`, {}], ([url, data]) => fetchData(url, data));
   const [allComments, setAllComments] = useState([]);
   const [canComment, setCanComment] = useState(false);
   const [name, setName] = useState('');
@@ -256,7 +253,7 @@ export default function Comments({ post }) {
     try {
       const response = await axios.post(`/api/posts/${post._id}/comments`, newComment);
       console.log(response.data);
-
+      mutate()
       // Reset the form fields
       setName('');
       setEmail('');
@@ -282,7 +279,7 @@ export default function Comments({ post }) {
       {comments.enabled === true ? (<CommentFormComponent placeholder={<>Leave a comment {session?.user ? <>as <strong>{session?.user?.name}</strong></> : null}</>} canComment={canComment} setCanComment={setCanComment} handleCommentSubmit={handleCommentSubmit} session={session} name={name} email={email} setEmail={setEmail} setName={setName} comment={comment} setComment={setComment} />) : null}
 
       {allComments && allComments?.map((comment, index) => {
-        return <Comment key={comment._id} comment={comment} author={author} postId={post._id} session={session} index={index} />;
+        return <Comment key={comment._id} comment={comment} author={author} postId={post._id} session={session} index={index} handleUpdate={mutate} />;
       })}
 
     </CommentSection>
@@ -309,7 +306,7 @@ function Comment({ index, comment, postId, author, session }) {
     try {
       const response = await axios.post(`/api/posts/${postId}/comments/${commentId}/replies`, nestedComment);
       console.log(response.data);
-
+      mutate()
       // Reset the form fields
       setReplyName('');
       setReplyEmail('');
@@ -331,7 +328,7 @@ function Comment({ index, comment, postId, author, session }) {
         userId: user?.id
       });
       console.log(response.data);
-
+      mutate()
       // Reset the form fields
       setReplyName('');
       setReplyEmail('');

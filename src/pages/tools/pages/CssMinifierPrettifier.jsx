@@ -2,8 +2,7 @@ import { useState } from "react"
 import TextArea from "components/form-elements/TextArea";
 import FormElement from "components/form-elements/FormElement";
 import Label from "components/form-elements/Label";
-// import CodeEditor from "components/codeEditor";
-// import CodeMirror from "components/editor/codemirror";
+
 import Button from "components/buttons";
 import { FaCompressArrowsAlt, FaExpandArrowsAlt } from "react-icons/fa";
 import { MdDeleteOutline, MdContentCopy } from "react-icons/md";
@@ -21,11 +20,6 @@ export default function CssMinifierPrettifier() {
                 <TextArea outlined id="cssField" name="CssValue" rows={10} value={value} onChange={(e) => SetValue(e.target.value)} style={{ fontFamily: "var(--code-font)" }} />
                 <Label htmlFor="CssValue">Enter Css Code Here</Label>
             </FormElement>
-            {/* <CodeEditor language="css" data={value} /> */}
-            {/* <CodeMirror language="css" value={value} onChange={(value) =>{
-                console.log(value)
-            }}/> */}
-
 
             <div className="m-auto d-flex flex-wrap justify-content-center align-items-center">
                 <Button id="minify" onClick={() => {

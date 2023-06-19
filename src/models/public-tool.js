@@ -33,13 +33,12 @@ const publicToolSchema = new mongoose.Schema({
         default: "https://via.placeholder.com/150"
     },
     description:{
-        type: String,
+        type: mongoose.Schema.Types.Mixed,
         required: true
     },
     categories: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category',
-        required: true
+        name:String,
+        slug:String
     }],
     link:{
         type: String,
