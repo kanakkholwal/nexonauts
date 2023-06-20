@@ -12,7 +12,7 @@ export default nextConnect(handler).post(async (req, res) => {
 
     const posts = await Post.find({ state: 'published' })
       .sort({ createdAt: -1 })
-      .populate('author.user', 'name profileURL')
+      .populate('author')
       .select('title description slug labels image author createdAt publishedAt comments')
       .populate('analytics').exec();
 

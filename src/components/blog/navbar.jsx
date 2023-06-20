@@ -88,7 +88,7 @@ margin-inline:1.75rem 0.75rem;
     ${NavLink}{
         border-radius:5px;
      &:hover{
-        background:rgba(var(--theme-rgb),0.1);
+        background:rgba(var(--blog-theme-rgb),0.1);
 
      }   
     }
@@ -113,7 +113,7 @@ const MenuToggle = styled.button`
 border:0;
 outline:0;
 padding:0.5rem 0.75rem;
-background:rgba(var(--theme-rgb),0.1);
+background:rgba(var(--blog-theme-rgb),0.1);
 border-radius:0.5rem;
 cursor:pointer;
 aspect-ratio:1;
@@ -181,7 +181,7 @@ export function NavBar() {
                                 <ProfileDropDownInfo>
                                     <h5 className="d-flex justify-content-between align-items-center">
                                         {session?.user?.name ?? "User Name"}
-                                        <Badge nature="secondary">{session?.user?.account_type}</Badge>
+                                        <Badge nature="blog-theme">{session?.user?.account_type}</Badge>
 
                                     </h5>
                                     <p>

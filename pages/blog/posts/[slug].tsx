@@ -98,10 +98,10 @@ export default function Post(
         try {
             await axios.post(`/api/posts/${post?._id}/clap`);
             setIsClapped(true);
-            setClaps(post?.claps ? Number(post.claps) + 1 : 0);
             const clappedPosts = JSON.parse(localStorage.getItem('clappedPosts') ?? '[]');
             !clappedPosts.includes(post?._id) && clappedPosts.push(post?._id);
             localStorage.setItem('clappedPosts', JSON.stringify(clappedPosts));
+            setClaps(post?.claps ? Number(post.claps) + 1 : 0);
             console.log("Clapped")
         } catch (error) {
             console.log("Error during clapping the post:", error);

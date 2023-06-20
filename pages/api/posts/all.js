@@ -15,7 +15,7 @@ export default nextConnect(handler).get(async (req, res) => {
 
     const [posts, count] = await Promise.all([
       Post.find({ state: 'published' })
-        .populate('author.user', 'name profileURL')
+        .populate('author')
         .select('title description slug labels image author createdAt publishedAt comments')
         .populate('analytics')
         .skip(skip)

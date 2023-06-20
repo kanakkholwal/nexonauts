@@ -52,7 +52,7 @@ const Button = styled.button`
   ${props => props.level ? `
     --btn-text:rgba(var(--${props.nature || "theme"}-rgb), 1);
     --btn-hover-text:rgba(var(--${props.nature || "theme"}-rgb), 1);
-    --btn-bg:rgba(var(--${props.nature || "theme"}-rgb), 0.25);
+    --btn-bg:rgba(var(--${props.nature || "theme"}-rgb), 0.12);
     --btn-box-shadow: none;
     --btn-hover-box-shadow: none;
     --btn-hover-bg:rgba(var(--${props.nature || "theme"}-rgb), 0.3);

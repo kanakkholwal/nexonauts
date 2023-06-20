@@ -21,7 +21,7 @@ const CommentSection = styled.section`
     background: var(--card-bg);
     ${'' /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
     0px 1px 1px rgba(0, 0, 0, 0.08); */}
-    box-shadow: var(--card-shadow);
+    ${'' /* box-shadow: var(--card-shadow); */}
 `;
 const InsertReply = styled.div`
   display: flex;
@@ -30,9 +30,9 @@ const InsertReply = styled.div`
   padding:0.5rem 0.75rem;
   border-radius:0.75rem;
   cursor:pointer;
-  background:rgba(var(--secondary-rgb),0.071);
+  background:rgba(var(--blog-theme-rgb),0.071);
   &:hover{
-    background:rgba(var(--secondary-rgb),0.091);
+    background:rgba(var(--blog-theme-rgb),0.091);
   }
   span{
     margin-left:0.5rem;
@@ -46,7 +46,7 @@ const CommentForm = styled.form`
   justify-content: flex-start;
   padding:0.75rem;
   border-radius:0.75rem;
-  background:rgba(var(--secondary-rgb),0.051);
+  background:rgba(var(--blog-theme-rgb),0.051);
   span{
     margin-left:0.5rem;
     font-size:1rem;
@@ -107,8 +107,8 @@ span{
   font-weight:500;
   cursor:pointer;
   &:hover,&:active{
-    background-color:rgba(var(--secondary-rgb), 0.05);
-    color:rgba(var(--secondary-rgb), 1);
+    background-color:rgba(var(--blog-theme-rgb), 0.05);
+    color:rgba(var(--blog-theme-rgb), 1);
   }
 }
 ${({ open }) => {
@@ -344,7 +344,7 @@ function Comment({ index, comment, postId, author, session }) {
     <>
       <CommentCard id={comment._id} ariaLabelledBy={comment.parentComment ? comment.parentComment : "none"}>
         <CommentHeader>
-          <CommenterProfile nature={["success", "theme", "warning", "info", "secondary", "dark"][index % 6]}>
+          <CommenterProfile nature={["success", "theme", "warning", "info", "blog-theme", "dark"][index % 6]}>
             {getInitials(comment.name)}
           </CommenterProfile>
           <div>
@@ -423,7 +423,7 @@ function CommentFormComponent({
     {!canComment
       ?
       <InsertReply onClick={() => setCanComment(!canComment)}>
-        <CommenterProfile nature={["success", "theme", "warning", "info", "secondary", "dark"][69 % 6]}>
+        <CommenterProfile nature={["success", "theme", "warning", "info", "blog-theme", "dark"][69 % 6]}>
           {session?.user ?
             session?.user?.profileURL ?
               <Image src={session?.user?.profileURL} alt={session?.user?.name} width={46} height={46} /> : getInitials(session?.user?.name)
@@ -437,7 +437,7 @@ function CommentFormComponent({
                                     success: "Comment added Successfully",
                                     error: "Error creating the Comment!!",
                                 })}>
-        <CommenterProfile nature={["success", "theme", "warning", "info", "secondary", "dark"][69 % 6]}>
+        <CommenterProfile nature={["success", "theme", "warning", "info", "blog-theme", "dark"][69 % 6]}>
           {session?.user ?
             session?.user?.profileURL ?
               <Image src={session?.user?.profileURL} alt={session?.user?.name} width={46} height={46} /> : getInitials(session?.user?.name)
@@ -457,7 +457,7 @@ function CommentFormComponent({
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  nature="secondary"
+                  nature="blog-theme"
 
                 />
               </FormElement>
@@ -471,7 +471,7 @@ function CommentFormComponent({
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  nature="secondary"
+                  nature="blog-theme"
 
                 />
               </FormElement>
@@ -488,12 +488,12 @@ function CommentFormComponent({
               required
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              nature="secondary"
+              nature="blog-theme"
             />
           </FormElement>
           <div className="d-flex justify-content-start align-items-center g-2 flex-wrap">
-          <Button type="submit" low="true"  size="sm" nature="secondary">Submit Comment</Button>
-          <Button type="reset" low="true"  size="sm"   nature="secondary" onClick={() =>setCanComment(false)} level="true">Cancel</Button>
+          <Button type="submit" low="true"  size="sm" nature="blog-theme">Submit Comment</Button>
+          <Button type="reset" low="true"  size="sm"   nature="blog-theme" onClick={() =>setCanComment(false)} level="true">Cancel</Button>
           </div>
         </div>
       </CommentForm>

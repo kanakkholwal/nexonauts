@@ -61,28 +61,22 @@
     --font-body: 'Euclid Circular A', 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --shadow: 0 0 .5rem rgb(0 0 0 / 10%);
     --theme-opacity: 1;
-    // --accent-1-rgb: 65, 180, 161;
-    // --accent-1-rgb: 153, 225, 158;
-    // --accent-2-rgb: 13, 22, 27;
-    // --accent-2-rgb: 38, 41, 51;
-    // --accent-3-rgb: 236, 242, 249;
-
     --grey-rgb: 102, 112, 133;
     --theme-rgb: 11, 165, 236;
     --theme: rgba(var(--theme-rgb), var(--theme-opacity));
-    --primary-rgb: 6, 174, 212;
+    --primary-rgb: 0, 150 ,204;
     --primary: rgba(var(--primary-rgb), var(--theme-opacity));
-    --secondary-rgb: 158, 119, 237;
+    --secondary-rgb: 122, 90, 248;
     --secondary: rgba(var(--secondary-rgb), var(--theme-opacity));
-    --success-rgb: 23, 178, 106;
+    --success-rgb: 15, 153, 24;
     --success: rgba(var(--success-rgb), var(--theme-opacity));
-    --danger-rgb: 240, 68, 56;
+    --danger-rgb: 229, 69, 69;
     --danger: rgba(var(--danger-rgb), var(--theme-opacity));
-    --info-rgb: 0, 184, 217;
+    --info-rgb: 46, 144, 250;
     --info: rgba(var(--info-rgb), var(--theme-opacity));
-    --warning-rgb: 247, 144, 9;
+    --warning-rgb: 255, 136, 0;
     --warning: rgba(var(--warning-rgb), var(--theme-opacity));
-    --dark-rgb: 12, 17, 29;
+    --dark-rgb: 40, 40, 40;
     --dark: rgba(var(--dark-rgb), var(--theme-opacity));
     --light-rgb: 251, 251, 251;
     --light: rgba(var(--light-rgb), var(--theme-opacity));
@@ -104,16 +98,16 @@
 
     --btn-line-height: 1.75;
     --btn-font-size: 0.875rem;
-    --btn-padding-x: 1.25rem;
-    --btn-padding-y: 0.5rem;
-    
-    --lg-btn-padding-y: 0.5rem;
-    --lg-btn-padding-x: 1.375rem;
+    --btn-padding-x: calc(0.5rem  * 2);
+    --btn-padding-y: calc(0.1875rem  * 2);
+    // 0.1875rem 0.5rem calc(0.1875rem  * 2);
+    --lg-btn-padding-y: calc(0.1875rem  * 3);
+    --lg-btn-padding-x:calc(0.5rem  * 3);
     --lg-btn-line-height: 1.75;
     --lg-btn-font-size: 0.9375rem;
 
-    --sm-btn-padding-y: 0.25rem;
-    --sm-btn-padding-x: 0.625rem;
+    --sm-btn-padding-y: calc(0.1875rem  * 1);
+    --sm-btn-padding-x: calc(0.5rem  * 1);
     --sm-btn-font-size: 0.8125rem;
     --sm-btn-line-height: 1.75;
 
@@ -127,7 +121,7 @@
     --form-border-active: rgba(var(--theme-rgb), 0.7);
     --form-label: rgba(0, 0, 0, 0.75);
     --form-label-active: rgba(var(--theme-rgb), 0.7);
-    --form-bg: rgba(248, 250, 253, 0.08);
+    --form-bg: rgba(248, 250, 253, 1);
     --form-bg-active:  rgba(var(--light-rgb), 1);
     --form-color: rgba(0, 0, 0, 0.8);
     --form-color-active: rgba(var(--theme-rgb), 0.7);
@@ -327,6 +321,7 @@ body {
 .Blog{
     // background: var(--light);
     // color: var(--dark);
+    --blog-theme-rgb:var(--secondary-rgb);
     transition: all .3s ease-in-out;
     min-height: 100vh;
     width:100%;

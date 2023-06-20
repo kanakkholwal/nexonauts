@@ -43,7 +43,7 @@ gap:0.5rem;
 margin-block:0.75rem 0.25rem;
 padding-left:0.5rem;
 span{
-    color:rgba(var(--secondary-rgb),1);
+    color:rgba(var(--blog-theme-rgb),1);
     font-size:0.875rem;
     font-weight:500;
 }
@@ -98,7 +98,7 @@ export function PostCard({ post}) {
                             if(index > 2) return null;
                             
                             return (
-                                <Badge key={tag} title={tag} nature={["success","theme","warning","info","secondary"][Math.round(5 % Math.floor(Math.random() * 5))]} pill>{tag}</Badge>
+                                <Badge key={tag} title={tag} nature={["success","theme","warning","info","blog-theme"][Math.round(5 % Math.floor(Math.random() * 5))]} pill>{tag}</Badge>
                             )
                         })
                     }

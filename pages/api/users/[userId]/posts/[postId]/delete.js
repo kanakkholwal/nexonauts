@@ -35,7 +35,7 @@ export default nextConnect(handler)
       await existingUser.save();
       await Page.findByIdAndDelete(existingPost.analytics._id);
       // delete comments from this post 
-      await Comment.deleteMany({ post: existingPost.id });
+      await Comment.deleteMany({ post: existingPost._id });
       await existingPost.deleteOne();
 
       return res.status(200).json({ message: 'Post Deleted Successfully!' });

@@ -10,16 +10,16 @@ import HTMLReactParser from 'html-react-parser';
 
 
 const StyledTOC = styled.div`
-    position: sticky;
-    top: 80px;
-    z-index: 99;
+    // position: sticky;
+    // top: 80px;
+    // z-index: 99;
     padding: 1rem;
     margin: 1rem 0;
     border: 1px solid #eee;
     border-radius: 0.75rem;
     background-color: rgba(var(--light-rgb), 0.5);
     backdrop-filter: blur(10px);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align:left;
     .Toc_Header{
         display: flex;
@@ -33,10 +33,10 @@ const StyledTOC = styled.div`
         border-top: 1px solid rgba(var(--grey-rgb), 0.2);
         a{
             text-decoration:none;
-            color: rgba(var(--secondary-rgb), 0.9);
+            color: rgba(var(--blog-theme-rgb), 0.9);
             font-weight: 500;
             &:hover{
-                color: rgba(var(--secondary-rgb),1);
+                color: rgba(var(--blog-theme-rgb),1);
                 text-decoration:underline;
             }
         }
@@ -69,10 +69,10 @@ const StyledButton = styled.button<{open: boolean}>`
     height: 32px;
     border-radius: 50%;
     transition: all 0.3s ease-in-out;
-    background-color: rgba(var(--secondary-rgb), 0.2);
+    background-color: rgba(var(--blog-theme-rgb), 0.2);
     cursor: pointer;
     &:hover{
-        background-color: rgba(var(--secondary-rgb), 0.3);
+        background-color: rgba(var(--blog-theme-rgb), 0.3);
         scale: 1.1;
     }
     ${({open}) => {
@@ -105,7 +105,7 @@ export default function TOC({ blocks }: {
     return (
         <StyledTOC>
             <div className="Toc_Header">
-                <h4>Table of Contents</h4>
+                <h5>Table of Contents</h5>
                 <StyledButton open={open} onClick={() => setOpen(!open)}><AiOutlinePlus /></StyledButton>
             </div>
             <Collapse visible={open}>

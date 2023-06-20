@@ -15,7 +15,7 @@ export const Wrapper = styled.div`
     padding-block:4rem;
     text-align:center;
     margin-inline:auto;
-    background-color:rgba(var(--secondary-rgb),0.05);
+    background-color:rgba(var(--blog-theme-rgb),0.05);
 `;
 
 
@@ -46,7 +46,7 @@ export function HomePageHero(){
                 flexWrap:"nowrap",
             }}>
                 <Input placeholder="Enter your email ..." noBorder="true"/>
-                <ResponsiveButton icon={<LuMail/>} nature="secondary" low="true" onClick={() =>{
+                <ResponsiveButton icon={<LuMail/>} nature="blog-theme" low="true" onClick={() =>{
                     toast.success("Will be Available Soon");
                 }}>
                     Subscribe

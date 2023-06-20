@@ -40,7 +40,7 @@ export const EditorTools = {
       * @param {File} file - The selected image file
       * @returns {Promise<{success: number, file: {url: string}}>} - Promise containing the uploaded file URL
       */
-                uploadByFile(file) {
+                uploadByFile(file: File): Promise<{ success: number; file: { url: string } }> {
                     return new Promise((resolve) => {
                         const reader = new FileReader();
 
