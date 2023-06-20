@@ -68,7 +68,7 @@
     --primary: rgba(var(--primary-rgb), var(--theme-opacity));
     --secondary-rgb: 122, 90, 248;
     --secondary: rgba(var(--secondary-rgb), var(--theme-opacity));
-    --success-rgb: 15, 153, 24;
+    --success-rgb: 23, 178, 106;
     --success: rgba(var(--success-rgb), var(--theme-opacity));
     --danger-rgb: 229, 69, 69;
     --danger: rgba(var(--danger-rgb), var(--theme-opacity));
@@ -92,7 +92,7 @@
     --btn-text: #fff;
     --btn-bg: rgba(var(--theme-rgb), 1);
     --btn-hover-color: #fff;
-    --btn-hover-bg: rgba(var(--theme-rgb), 0.9);
+    --btn-hover-bg: rgba(var(--theme-rgb), 0.95);
     --btn-box-shadow: var(--theme) 0 4px 9px -4px;
     --btn-border-radius: 0.5rem;
 

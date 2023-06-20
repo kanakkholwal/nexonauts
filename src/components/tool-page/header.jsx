@@ -273,10 +273,10 @@ export default function Header({ session,routes, children }) {
                     <CgSearch />
                 </SearchToggler>
                 <AuthButtonWrapper>
-                    {session ? <ResponsiveButton level="true" size="sm" as={Link} href="/dashboard" icon={<RxDashboard/>}>Go to Dashboard</ResponsiveButton> :
+                    {session ? <ResponsiveButton level="true"  as={Link} href="/dashboard" icon={<RxDashboard/>}>Go to Dashboard</ResponsiveButton> :
                         <>
-                            <Button level="true" size="sm" as={Link} href="/login">Log In</Button>
-                            <Button as={Link} size="sm" href="/signup">Sign Up</Button>
+                            <Button level="true" as={Link} href="/login">Log In</Button>
+                            <Button as={Link} href="/signup">Sign Up</Button>
                         </>}
                 </AuthButtonWrapper>
             </NavBarWrapper>

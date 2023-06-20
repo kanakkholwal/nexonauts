@@ -15,6 +15,7 @@ import MetaTagGenerator from "./pages/MetaTagGenerator";
 import IframeGenerator from "./pages/IframeGenerator";
 import HtmlParser from "./pages/HtmlParser";
 import HtmlToJsxTool from "./pages/HtmlToJsx";
+import SchemaMarkUpGenerator from "./pages/schemaMarkUpGenerator";
 
 interface ToolProp {
     title: string,
@@ -95,6 +96,15 @@ export const ToolList: ToolProp[] = [
         category: "SEO Tools",
         path: "/tools/meta-tag-generator",
         Component: <MetaTagGenerator />,
+        online: true
+    }
+    ,
+    {
+        title: "Schema MarkUp Generator",
+        description: "A Schema Markup Generator is a tool that helps users create structured data markup for their website. Structured data markup is a type of code that provides search engines with additional information about the content on a website, making it easier for search engines to understand and display the content in search results.",
+        category: "SEO Tools",
+        path: "/tools/schema-markup-generator",
+        Component: <SchemaMarkUpGenerator />,
         online: true
     }
     ,

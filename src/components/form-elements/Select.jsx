@@ -4,6 +4,8 @@ import { MdOutlineUnfoldMore } from "react-icons/md";
 
 export const SelectWrapper = styled.div`
 position: relative;
+width: max-content;
+
 svg {
     position: absolute;
     height: 20px;
