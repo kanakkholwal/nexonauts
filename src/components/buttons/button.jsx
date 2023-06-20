@@ -18,14 +18,12 @@ const Button = styled.button`
   color:var(--btn-text,#fbfbfb);
   background:var(--btn-bg,var(--theme));
   border: 2px solid var(--btn-border,var(--theme));
-  box-shadow:var(--btn-box-shadow,0px 1px 3px rgba(var(--theme-rgb), 0.8));
   border-radius: var(--btn-border-radius,0.25rem);
   text-align: center;
   
   &:hover{
-    box-shadow: var(--btn-hover-box-shadow,0px 1px 3px rgba(var(--theme-rgb), 0.8));
-    color:var(--btn-hover-text,var(--btn-text));
-    background:var(--btn-bg,var(--theme));
+    color:var(--btn-hover-color,var(--btn-text));
+    background:var(--btn-hover-bg,var(--theme));
     border-color:var(--btn-border-hover,var(--theme));
   }
   ${props => props.rounded ? `
@@ -43,7 +41,7 @@ const Button = styled.button`
   ` : ``}
   ${props => props.outlined ? `
     --btn-text:rgba(var(--${props.nature || "theme"}-rgb), 1);
-    --btn-hover-text:var(--btn-text,#fbfbfb);
+    --btn-hover-color:var(--btn-text,#fbfbfb);
     --btn-bg:none;
     --btn-box-shadow: none;
     --btn-hover-bg:rgba(var(--${props.nature || "theme"}-rgb), 1);
@@ -51,13 +49,22 @@ const Button = styled.button`
   ` : ``}
   ${props => props.level ? `
     --btn-text:rgba(var(--${props.nature || "theme"}-rgb), 1);
-    --btn-hover-text:rgba(var(--${props.nature || "theme"}-rgb), 1);
+    --btn-hover-color:rgba(var(--${props.nature || "theme"}-rgb), 1);
     --btn-bg:rgba(var(--${props.nature || "theme"}-rgb), 0.12);
     --btn-box-shadow: none;
     --btn-hover-box-shadow: none;
-    --btn-hover-bg:rgba(var(--${props.nature || "theme"}-rgb), 0.3);
+    --btn-hover-bg:rgba(var(--${props.nature || "theme"}-rgb), 0.12);
     --btn-border:transparent;
     --btn-border-hover:transparent;
+  ` : ``
+  }
+  ${props => props.fill ? `
+    --btn-text:rgba(var(--${props.nature || "theme"}-rgb), 1);
+    --btn-hover-color:#fbfbfb;
+    --btn-bg:none;
+    --btn-hover-bg:rgba(var(--${props.nature || "theme"}-rgb), 1);
+    --btn-border:rgba(var(--${props.nature || "theme"}-rgb), 1);
+    --btn-border-hover:rgba(var(--${props.nature || "theme"}-rgb), 1);
   ` : ``
   }
   
@@ -71,12 +78,7 @@ const Button = styled.button`
   ` : ``
   
   }
-  ${props => props.low ? `
-  --btn-box-shadow: none;
-  --btn-hover-box-shadow: none;
-  ` : ``
-  }
-  ${'' /* 0.375rem 1rem */}
+
       
   &> svg{
   font-size: inherit;
@@ -118,15 +120,17 @@ ${({direction}) =>{
 export const IconButton = styled(Button)`
 padding:0.5rem;
 border-radius:50%;
-background-color: transparent;
+background: transparent;
 color:rgba(0, 0, 0, 0.54);
+border:none;
 &:hover{
-    background-color: rgba(0, 0, 0, 0.04);
+    background: rgba(0, 0, 0, 0.04);
 }
 ${props => props.nature ? `
    color:rgba(var(--${props.nature}-rgb), 1);
     &:hover{
-        background-color: rgba(var(--${props.nature}-rgb), 0.04);
+        color:rgba(var(--${props.nature}-rgb), 1);
+        background: rgba(var(--${props.nature}-rgb), 0.04);
     }
   ` : ``}
 `;

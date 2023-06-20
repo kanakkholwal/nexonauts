@@ -38,7 +38,7 @@ export default function SimilarTools({category}) {
     return (<Container>
         <Header>
             <Title>More Like this  ...</Title>
-            <Button size="sm" low="true" as={Link} href="/tools/">Use Them All</Button>
+            <Button nature="info" as={Link} href="/tools/">Use Them All</Button>
         </Header>
         <Body>
             {ToolList.filter((tool) => tool.category === category).map((tool, index) => {

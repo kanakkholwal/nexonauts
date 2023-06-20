@@ -6,7 +6,7 @@ margin-bottom: 0.25rem;
 padding-left: 0.25rem;
 color: var(--form-label);
 align-items: center;
-font-weight:600;
+font-weight:500;
 &:has(>${Checkbox}){
     display: inline-flex;
     align-items: center;

@@ -28,12 +28,6 @@ const FormElement = styled.div`
         order: 1;
     }
   }
- 
-  &>${Input}, &>${TextAreaStyled},
-  &>textarea, &>input, &>select, &>${SelectWrapper}, &>${PasswordWrapper} {
-      order: 2;
-      display:flex;
-    }
 
   
     &>${Input}, &>${TextAreaStyled},
