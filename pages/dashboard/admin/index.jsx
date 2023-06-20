@@ -1,5 +1,6 @@
 import { getSession } from "next-auth/react";
 import DashboardPage from "components/dashboard-page";
+import Button from "components/buttons";
 import Badge from "components/topography/badge";
 import Head from "next/head";
 import Link from 'next/link';
@@ -87,7 +88,7 @@ const Trending = () => {
     return ( <TrendingPages>
         <div className="Header">
             <h5>Trending Pages  </h5>
-            <Badge as={Link} nature="theme" href="/dashboard/admin/analytics/pages">View All</Badge>
+            <Button size="sm" low="true" level="true" as={Link} nature="theme" href="/dashboard/admin/analytics/pages">View All</Button>
         </div>
             <div className="d-flex flex-column Body">
             {error? error :null}
