@@ -42,7 +42,7 @@ const ArticleBody = styled.div`
     background: var(--card-bg);
     ${'' /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
     0px 1px 1px rgba(0, 0, 0, 0.08); */}
-    box-shadow: var(--card-shadow);
+    ${'' /* box-shadow: var(--card-shadow); */}
  
     .Article{
         text-align:initial;
@@ -148,7 +148,7 @@ export function Article({ post }) {
                     <Author>
                         <Image src={post.author.profileURL} height={36} width={36} alt={post.author.name} />
                         <div>
-                            <span className="authorName">{post.author.user.name} <GrValidate /></span>
+                            <span className="authorName">{post.author.name} <GrValidate /></span>
                             <p className="postDetail">
                                 <span>
                                     <MdOutlineDateRange />{new Date(post.createdAt).toLocaleDateString()}

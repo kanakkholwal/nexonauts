@@ -14,7 +14,7 @@ width:100%;
 max-width:var(--max-width);
 margin-inline:auto;
 display:flex;
-justify-content:space-around;
+justify-content:space-evenly;
 align-items:flex-start;
 flex-wrap:wrap;
 gap:0.5rem;
@@ -25,17 +25,19 @@ const Card = styled.div`
   justify-content: space-around;
   align-items: flex-start;
   background-color: var(--card-bg);
-  box-shadow: var(--card-shadow);
+  ${'' /* box-shadow: var(--card-shadow); */}
   border-radius: 8px;
   min-width:30%;
   flex: 0 1 31%;
-  margin-right:auto;
+  ${'' /* margin-right:auto; */}
 
   @media (576px <= width <= 928px){
     flex: 0 1 49%;
+    max-width: 49%;
     }
   @media (width <= 576px){
     flex: 0 1 100%;
+    max-width: 100%;
     }
   .Thumbnail {
     border-top-right-radius: 8px;
@@ -79,7 +81,7 @@ const Body = styled.div`
     a {
       color: var(--text-color);
       &:hover {
-        color: rgba(var(--secondary-rgb), 1);
+        color: rgba(var(--blog-theme-rgb), 1);
       }
     }
   }
@@ -92,7 +94,7 @@ const Body = styled.div`
         font-weight: 600;
     font-size: 0.8125rem;
     line-height: 1.25rem;
-    color: rgba(var(--secondary-rgb), 0.85);
+    color: rgba(var(--blog-theme-rgb), 0.85);
     }
   }
   .metadata{

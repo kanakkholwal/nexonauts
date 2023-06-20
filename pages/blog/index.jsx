@@ -49,7 +49,7 @@ export default function BlogHomePage({ initialPosts }) {
       <AllArticles posts={posts} />
       <div className="d-flex justify-content-around align-items-center">
         {currentPage === totalPages ? <>No More Posts !!!</>
-        :<Button nature="secondary" low="true" onClick={fetchMorePosts}>
+        :<Button nature="blog-theme" low="true" onClick={fetchMorePosts}>
           {loading ? <> <CgSpinnerTwo style={{
             animation: "spinner 1s linear infinite",
           }}/> Loading...</> : <><BiDownArrowAlt /> Load More </>}

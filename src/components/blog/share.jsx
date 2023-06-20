@@ -16,7 +16,7 @@ const Wrapper = styled.div`
     padding: 20px 10px;
     border-radius: 10px;
     background: var(--card-bg);
-    box-shadow: var(--card-shadow);
+    ${'' /* box-shadow: var(--card-shadow); */}
     .shareIcons{
         display: flex;
         justify-content: center;
@@ -32,7 +32,7 @@ const Wrapper = styled.div`
         gap: 0.5rem;
         padding: 0.5rem;
         border-radius: 0.5rem;
-        --color-rgb: var(--secondary-rgb);
+        --color-rgb: var(--blog-theme-rgb);
         background: rgba(var(--color-rgb), 1);
         box-shadow: var(--shadow-position-1) rgba(var(--color-rgb), 0.1);
         transition: all 0.2s ease-in-out;

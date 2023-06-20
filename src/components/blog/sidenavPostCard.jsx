@@ -36,7 +36,7 @@ img{
     font-weight: 500;
 font-size: 0.8125rem;
 line-height: 1.25rem;
-    color:rgba(var(--secondary-rgb),0.85);
+    color:rgba(var(--blog-theme-rgb),0.85);
 }
 `;
 const Body = styled.div`
@@ -51,7 +51,7 @@ h6{
     a{
         color:var(--text-color);
         &:hover{
-            color:rgba(var(--secondary-rgb),1);
+            color:rgba(var(--blog-theme-rgb),1);
         }
     }
 }

@@ -84,11 +84,7 @@ export default nextConnect(handler)
             image: post.image,
             state: post.state,
             claps: existingPost.claps ? existingPost.claps : 0,
-            author: {
-              name: existingUser.name,
-              profileURL: existingUser.profileURL,
-              user: existingUser.id
-            },
+            author: existingUser._id,
             comments: post.comments,
             publishedAt: post.state === 'published' ? Date.now() : null
           }

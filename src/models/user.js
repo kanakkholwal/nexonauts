@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import bcrypt from 'bcrypt'
 import validator from 'validator';
+import { v4 as UuID4 } from 'uuid';
 
 
 const UserSchema = new mongoose.Schema(
@@ -9,6 +10,14 @@ const UserSchema = new mongoose.Schema(
       type: String,
       trim: true,
       required: true,
+    },
+    username:{
+        type: String,
+        trim: true,
+        // required: true,
+        unique: [true, "Username already exists"],
+       default: () => UuID4(),
+        
     },
     email: {
       type: String,

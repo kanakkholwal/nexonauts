@@ -13,7 +13,7 @@ export default nextConnect(handler).post(async (req, res) => {
 
     const existingPost = await Post.findOne({ slug: slug })
       .select('+content')
-      .populate('author.user', 'name profileURL')
+      .populate('author')
       .populate('analytics')
       .exec();
 
