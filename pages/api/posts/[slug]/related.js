@@ -28,6 +28,7 @@ export default nextConnect(handler)
                 state: 'published',
             })
                 .populate('analytics', 'title slug')
+                .populate('author')
                 .limit(5)
                 .sort({ createdAt: -1 })
                 .exec();

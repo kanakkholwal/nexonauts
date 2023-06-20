@@ -122,7 +122,7 @@ export default function Dashboard({ user }) {
                             </Tr>
                         </Thead>
                         <Tbody>
-                            {data && data.users.length > 0 ? users?.sort((a, b) => {
+                            {data && data.users.length > 0 && users?.sort((a, b) => {
                                 return new Date(b.createdAt) - new Date(a.createdAt);
                             }).map(({ name, email, role, account_type, createdAt, verified, _id }, index) => {
                                 return (
@@ -140,9 +140,10 @@ export default function Dashboard({ user }) {
                                     </Tr>
 
                                 )
-                            }) : "No Users Yet"}
+                            })}
                         </Tbody>
                     </Table>
+                    {!(data && data.users.length > 0) && "No Users Yet"}
             </TableContainer>
                  
             </DashboardPage>

@@ -1,4 +1,5 @@
 // pages/api/auth/verify.js
+import handler from 'lib/handler';
 
 import dbConnect from "lib/dbConnect";
 import User from "models/user";

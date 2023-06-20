@@ -108,7 +108,7 @@ background: rgba(var(--grey-rgb), 0);
 
 &:hover,&.active{
     color: rgba(var(--text-rgb),1);
-    background: rgba(var(--grey-rgb), 0.05);
+    background: rgba(var(--grey-rgb), 0.08);
 }
 
 `;

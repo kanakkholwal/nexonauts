@@ -1,9 +1,10 @@
 import User from 'models/user';
 import dbConnect from 'lib/dbConnect';
-// import nodemailer from "nodemailer";
+import nodemailer from "nodemailer";
 import handler from 'lib/handler';
 import nextConnect from 'next-connect';
 
+// import { SibApiV3Sdk, SendSmtpEmail }  from 'sib-api-v3-sdk'
 
 export default nextConnect(handler)
     .post(createUser)
@@ -28,8 +29,6 @@ async function createUser(req, res) {
 
         const user = await User.findOne({ email: email });
 
-
-
         if (user) {
             return res.status(400).json({ message: 'User already exists' });
         }
@@ -46,39 +45,50 @@ async function createUser(req, res) {
         // }
         const verificationToken = Math.random().toString(36).substring(7);
 
-        const newUser = await User.create({ 
-            name, email, password,
+        const newUser = new User({ 
+            name,
+            email,
+            password,
             role: "user",
             account_type: "free",
             verificationToken: verificationToken,
         });
-        // const transporter = nodemailer.createTransport({
-        //     host: 'smtp-relay.sendinblue.com',
-        //     port: 587,
-        //     auth: {
-        //       user: 'your-smtp-username',
-        //       pass: 'your-smtp-password',
-        //     },
-        //   });
+        console.log({
+            email: process.env.MAIL_EMAIL,
+            password: process.env.MAIL_PASSWORD
+        });
+        const transporter = nodemailer.createTransport({
+            host: "smtp-relay.sendinblue.com",
+            port: 587,
+            // secure: true,
+            auth: {
+                user: process.env.MAIL_EMAIL,
+                pass: process.env.MAIL_PASSWORD
+            }
+        })
       
-        //   await transporter.sendMail({
-        //     from: 'no_reply@kkupgrader.eu.org',
-        //     to: user.email,
-        //     subject: 'Verify Your Account',
-        //     html: `
-        //       <p>Hello ${user.name},</p>
-        //       <p>Please verify your account by clicking the following link:</p>
-        //       <a href="https://kkupgrader.eu.org/verify-user?token=${verificationToken}">
-        //         Verify Account
-        //       </a>
-        //     `,
-        //   });
+        console.log("Transporter created");
+
+          await transporter.sendMail({
+            from: 'no_reply@kkupgrader.eu.org',
+            to: newUser.email,
+            subject: 'Verify Your Account',
+            html: `
+              <p>Hello ${newUser.name},</p>
+              <p>Please verify your account by clicking the following link:</p>
+              <a href="https://kkupgrader.eu.org/verify-user?token=${verificationToken}">
+                Verify Account
+              </a>
+            `,
+          });
+            console.log("Mail sent");
+        await newUser.save();
 
         res.status(201).json({ message: 'Created user Successfully, Please verify your Email Now!!!', user: newUser });
 
     }
     catch (error) {
-        res.status(500).json({ message: 'Something went wrong' });
+        res.status(500).json({ message: error.message || 'Something went wrong' });
     }
 
 
