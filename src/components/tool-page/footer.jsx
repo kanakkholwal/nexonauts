@@ -7,13 +7,14 @@ const FooterWrapper = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-block: 5rem 2rem;
+    padding-block: 5rem;
+    background: rgba(var(--theme-rgb), 0.05);
+    border-radius: 10px;
     gap: 1rem;
     flex-wrap: wrap;
     width: 100%;
     max-width: var(--max-width);
     margin-inline: auto;
-    padding:1rem;
     h2{
         text-align: center;      
         color: rgba(var(--text-rgb), 0.9);
@@ -35,11 +36,12 @@ const FooterWrapper = styled.div`
             align-items: center;
             border: 1px solid transparent;
             transition: all 300ms ease-in-out;
+            background: rgba(var(--theme-rgb), 0.08);
 
             &:hover {
-                color: var(--theme);
+                color: rgba(var(--light-rgb), 1);
                 border: 1px solid var(--border-color);
-                background:var(--card-bg);
+                background: rgba(var(--theme-rgb), 1);
 
                 &>svg {
                     animation: rubberBand 1.2s ease;

@@ -16,6 +16,8 @@ const Input = styled.input`
   transition: all .3s ease-in-out;
   outline: none;
   width: 100%;
+  font-size: 1rem;
+
   ${({nature}) =>{
     if(nature)
     return`

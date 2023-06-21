@@ -5,7 +5,7 @@ export const FooterWrapper = styled.footer`
 width: 100%;
 max-width: var(--max-width);
 margin-inline: auto;
-margin-block: ${({ only }) => only === "true" ? "200px" : "4.5rem"} 2rem;
+margin-block: ${({ only }) => only === "true" ? "200px" : "2.5rem"} 2rem;
 display: flex;
 align-items: center;
 justify-content: space-between;

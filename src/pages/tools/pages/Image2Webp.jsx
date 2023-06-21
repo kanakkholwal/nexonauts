@@ -4,8 +4,13 @@ import { useDropzone } from 'react-dropzone'
 import FileInput from "@/components/form-elements/FileInput"
 import FormElement from "@/components/form-elements/FormElement"
 import FormHelper from "@/components/form-elements/FormHelper"
+import {IconButton} from "components/buttons"
+import {Card,CardBody, CardFooter} from "components/Card"
 import styled from "styled-components";
 import { FiUpload } from "react-icons/fi";
+import { CgFileDocument } from "react-icons/cg";
+import { HiDownload } from "react-icons/hi";
+import Image from "next/image";
 
 
 const UploadLabel = styled.div`
@@ -42,10 +47,12 @@ const ProgressCardWrapper = styled.div`
     word-wrap: break-word;
     border-radius: 0.5rem;
     background: var(--card-bg);
-    box-shadow: var(--card-shadow);
-    max-width: 45rem;
-    margin-inline:auto;
-    margin-block:1rem 2rem;
+    max-width: 29rem;
+    margin-inline: auto;
+    padding:0.75rem 1rem;
+    margin-bottom:0.75rem;
+    border: 1px solid rgba(var(--grey-rgb), 0.25);
+    border-radius: 7px;
     &>div{
         flex:1 1 auto;
         display: flex;
@@ -53,27 +60,40 @@ const ProgressCardWrapper = styled.div`
         justify-content: space-between;
     }
 `;
-const ProgressCardTitle = styled.h4`
-flex:1 1 auto;
-padding: 0.5rem 0.75rem;
-text-overflow: ellipsis;
-line-height: 2;
-`
+
 const ProgressCardDetails = styled.div`
 padding: 1.25rem 0.75rem;
 text-align: center;
 display: flex;
-flex-direction: column;
-align-items: flex-end;
+align-items: center;
+justify-content: space-between;
 gap: 0.5rem;
+width:100%;
+.fileSize{
+    font-weight: 400;
+font-size: 0.875rem;
+line-height: 1.25rem;
+svg{
+    font-size: 1.25rem;
+    margin-inline: 0.5rem;
+    margin-top: -0.25rem;
+}
+}
+.fileProgress{
+    font-weight: 500;
+font-size: 1rem;
+line-height: 1.5rem;
+color:var(--text-color);
+}
 `
 const ProgressBar = styled.div`
 width:100%;
-height:3px;
+height:8px;
 position: relative;
 overflow: hidden;
 transition: all 0.2s linear;
 border-radius: 0.25rem;
+margin-bottom:1rem;
 `
 const ProgressMeter = styled.div`
 border-radius:inherit;
@@ -84,31 +104,34 @@ background:var(--progress);
 `
 const PreviewArea = styled.div`
 margin-inline: auto;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-evenly;
-        gap: 1rem;
+display: flex;
+flex-wrap: wrap;
+align-items: stretch;
+justify-content: space-evenly;
+gap: 1rem;
 
 `
 
 
 const ProgressCard = ({ progress, file, url }) => {
-    const [type, SetType] = useState("#6658d3");
+    const [type, SetType] = useState("var(--theme)");
 
     const CurrentValue = progress.toFixed(2);
     useEffect(() => {
-        if (CurrentValue >= 60 && CurrentValue <= 90) {
-            SetType("#d7c814")
+        if (CurrentValue >= 98) {
+            SetType("var(--success)")
+        }
+        else if (CurrentValue >= 60 && CurrentValue <= 90) {
+            SetType("var(--warning)")
         }
         else if (CurrentValue >= 90) {
-            SetType("#6ec48e")
-        }
+            SetType("var(--info)")
+        } 
         else if (CurrentValue <= 60 && CurrentValue >= 25) {
-            SetType("#1082b9")
+            SetType("var(--secondary)")
         }
         else {
-            SetType("#6658d3")
+            SetType("var(--theme)")
         }
     }, [CurrentValue]);
 
@@ -127,10 +150,9 @@ const ProgressCard = ({ progress, file, url }) => {
         <>
             <ProgressCardWrapper>
                 <div>
-                    <ProgressCardTitle>{file.name ?? "Your File"}</ProgressCardTitle>
                     <ProgressCardDetails>
-                        <span className="Badge Badge_info">{FileSize}</span>
-                        <span className="Badge Badge_success">{CurrentValue + " %"}</span>
+                        <span className="fileProgress">{CurrentValue + " %"} Completed</span>
+                        <span className="fileSize"><CgFileDocument/>{FileSize}</span>
                     </ProgressCardDetails>
                 </div>
                 <ProgressBar>
@@ -141,149 +163,123 @@ const ProgressCard = ({ progress, file, url }) => {
 }
 
 export default function Image2Webp() {
-    const [progress, SetProgress] = useState(0);
-    const [file, SetFile] = useState(null);
-    const [fileUrl, SetFileUrl] = useState("");
-
-    const InputRef = useRef(null);
-
-    function addImageBox(container) {
-        return container;
-    }
-
-
-
+    const [progress, setProgress] = useState(0);
+    const [file, setFile] = useState(null);
+    const [fileUrl, setFileUrl] = useState("");
+    const [scaledImg, setScaledImg] = useState([]);
+  
+    const inputRef = useRef(null);
+  
+    
+  
     const onDrop = useCallback((acceptedFiles) => {
-
-        acceptedFiles.forEach(async (file) => {
-            if (!file) {
-                throw new Error(file + "was not a file");
+      acceptedFiles.forEach((file) => {
+        if (!file) {
+          throw new Error(`${file} was not a file`);
+        }
+  
+        setFile(file);
+        setFileUrl(URL.createObjectURL(file));
+  
+        const reader = new FileReader();
+  
+        reader.readAsDataURL(file);
+        reader.addEventListener('progress', async(event) => {
+          if (event.loaded && event.total) {
+            const percent = (event.loaded / event.total) * 100;
+            setProgress(percent);
+            if (percent === 100) {
+              console.log("complete");
+  
+              const { name } = file;
+              let fileName = name;
+              if (fileName.length >= 12) {
+                const splitName = fileName.split('.');
+                fileName = splitName[0];
+              }
+  
+              const processImage = async () => {
+                const rawImage = new window.Image();
+                return new Promise((resolve, reject) => {
+                  rawImage.addEventListener("load", () => {
+                    resolve(rawImage);
+                  });
+                  rawImage.src = URL.createObjectURL(file);
+                })
+                  .then((rawImage) => {
+                    return new Promise((resolve, reject) => {
+                      const canvas = document.createElement('canvas');
+                      const ctx = canvas.getContext("2d");
+              
+                      canvas.width = rawImage.width;
+                      canvas.height = rawImage.height;
+                      ctx.drawImage(rawImage, 0, 0);
+              
+                      canvas.toBlob((blob) => {
+                        resolve(URL.createObjectURL(blob));
+                      }, "image/webp");
+                    });
+                  })
+                  .then((imageURL) => {
+                    setScaledImg((prev) => [
+                      ...prev,
+                      {
+                        image: imageURL,
+                        fileName: fileName,
+                      },
+                    ]);
+                  });
+              };
+              
+             await processImage();
             }
+          }
+        });
+      });
 
-            console.log(file);
-            SetFile(file);
-            SetFileUrl(URL.createObjectURL(file));
-            const imageBox = addImageBox(document.getElementById("preview"));
-
-            const reader = new FileReader();
-
-            reader.readAsDataURL(file);
-            reader.addEventListener('progress', async (event) => {
-                if (event.loaded && event.total) {
-                    const percent = (event.loaded / event.total) * 100;
-                    SetProgress(percent)
-                    if (percent === 100) {
-                        console.log("complete")
-
-                        // Load the data into an image
-                        await new Promise(function (resolve, reject) {
-                            const rawImage = new Image();
-
-                            rawImage.addEventListener("load", function () {
-                                resolve(rawImage);
-                            });
-
-                            rawImage.src = URL.createObjectURL(file);
-                        })
-                            .then(function (rawImage) {
-                                // Convert image to webp ObjectURL via a canvas blob
-                                return new Promise(function (resolve, reject) {
-                                    let canvas = document.createElement('canvas');
-                                    let ctx = canvas.getContext("2d");
-
-                                    canvas.width = rawImage.width;
-                                    canvas.height = rawImage.height;
-                                    ctx.drawImage(rawImage, 0, 0);
-
-                                    canvas.toBlob(function (blob) {
-                                        resolve(URL.createObjectURL(blob));
-                                    }, "image/webp");
-                                });
-                            })
-                            .then(function (imageURL) {
-                                // Load image for display on the page
-                                return new Promise(function (resolve, reject) {
-                                    let scaledImg = new Image();
-
-                                    scaledImg.addEventListener("load", function () {
-                                        resolve({ imageURL, scaledImg });
-                                    });
-
-                                    scaledImg.setAttribute("src", imageURL);
-                                });
-                            })
-                            .then(function (data) {
-                                // Inject into the DOM
-                                // const imageCard = document.createElement("a");
-                                // imageCard.setAttribute("href", data.imageURL);
-                                // imageCard.setAttribute('download', `${file.name.split(".")[0]}.[Converted by kkupgrader.eu.org].webp`);
-                                // imageCard.appendChild(data.scaledImg);
-
-                                // imageBox.innerHTML = "";
-                                // console.log(imageCard)
-                                let fileName = file.name;
-                                if (fileName.length >= 12) {
-                                    let splitName = fileName.split('.');
-                                    fileName = splitName[0];
-                                }
-                                const imageCard = `
-                        <div class="Fui_Card" style="max-width:30rem;">
-                        <div class="Fui_Card-body">
-                           <img class="Fui_Card-ImgTop" src="${data.imageURL}"/>
-                           </div>
-                          <div class="Fui_Card-footer" style="display: flex;justify-content: space-between;align-items:center">
-                          <span title="${fileName}.webp" style="text-overflow: ellipsis;word-break:nowrap;overflow:hidden ">
-                          ${fileName}
-                          </span>
-                           <a href="${data.imageURL}" class="Badge" style="color: var(--btn-text);background: var(--btn-bg);box-shadow: var(--btn-box-shadow);border-radius: var(--btn-border-radius);border: 2px solid var(--btn-bg);" download="${fileName}.[Converted by kkupgrader.eu.org].webp" title="Download Image in WEBP Format">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                           </a>
-                          </div>
-                        
-                     </div>  `
-                                imageBox.insertAdjacentHTML("beforeend", imageCard)
-                            });
-                    }
-                }
-            });
-        })
-        console.log(InputRef?.current)
-    }, [])
-
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
-
-
-
-
-
-
+    }, []);
+  
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+  
     return (
-        <div style={{ maxWidth: "720px", marginInline: "auto" }}>
+      <div className="p-2">
+        <FormElement style={{ alignItems: "center",maxWidth: "720px", marginInline: "auto" }}>
+          <UploadLabel {...getRootProps()} size="45rem">
+            <FiUpload />
+            <span>
+              {isDragActive ? <p>Drop the files here ...</p> : <p>Drag 'n' drop some files here, or click to select files :</p>}
+            </span>
+            <div>
+              <FileInput accept="image/*" ref={inputRef} isChild multiple={true} {...getInputProps()} />
+            </div>
+          </UploadLabel>
+          <FormHelper>Upload Your Image Here</FormHelper>
+        </FormElement>
+  
+        {file && <ProgressCard progress={progress} file={file} url={fileUrl} />}
+  
+        <PreviewArea>
+            {scaledImg.map(({image,fileName}, index) => {
+                return (
+                    <Card key={index}  style={{ maxWidth: "30rem",border:"1px solid rgba(var(--grey-rgb),0.25)",padding:"1rem" }}>
+                        <CardBody>
+                            <Image  alt={fileName} width={480} height={320} src={image} />
+                        </CardBody>
+                        <CardFooter style={{
+                            margin:"0",
+                        }}>
+                        <span>
+                            {fileName}
+                        </span>
+                            <IconButton nature="success" as="a" href={image} download={`${fileName}.[Converted by kkupgrader.eu.org].webp`} title="Download Image in WEBP Format">
+                            <HiDownload/>
+                            </IconButton>
 
-            <FormElement style={{ alignItems: "center" }}>
-                <UploadLabel {...getRootProps()} size="45rem">
-                    <FiUpload />
-                    <span> {
-                        isDragActive ?
-                            <p>Drop the files here ...</p> :
-                            <p>Drag 'n' drop some files here, or click to select files :</p>
-                    }</span>
-                    <div>
-                        <FileInput accept="image/*" ref={InputRef} isChild multiple={true} {...getInputProps()} />
-                    </div>
-                </UploadLabel>
-                <FormHelper>Upload Your Image Here</FormHelper>
-            </FormElement>
-
-
-            {file && <ProgressCard progress={progress} file={file} url={fileUrl} />}
-
-
-            <PreviewArea id="preview">
-
-            </PreviewArea>
-
-
-        </div>
-    )
-}
+                        </CardFooter>
+                </Card>)
+            } )}
+        </PreviewArea>
+      </div>
+    );
+  }
+  

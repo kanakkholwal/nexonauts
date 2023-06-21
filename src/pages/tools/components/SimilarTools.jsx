@@ -27,6 +27,8 @@ border-radius:0.5rem;
 `;
 const Title = styled.h5`
 font-weight:bold;
+font-size:1.25rem;
+margin-left:0.5rem;
 `
 const Body = styled(CardContainer)`
 padding:1rem 0;

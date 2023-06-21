@@ -25,38 +25,29 @@ export default function IframeGenerator() {
 
     const [url, setUrl] = useState("");
     const [name, setName] = useState("");
-    const [width, setWidth] = useState("");
-    const [height, setHeight] = useState("");
-    const [sizeType, setSizeType] = useState("");
+    const [width, setWidth] = useState("640");
+    const [height, setHeight] = useState("480");
+    const [sizeType, setSizeType] = useState("px");
     const [isBorder, setBorder] = useState(false);
-    const [borderType, setBorderType] = useState("");
-    const [borderColor, SetBorderColor] = useState("");
-    const [borderSize, SetBorderSize] = useState("");
+    const [borderType, setBorderType] = useState("hidden");
+    const [borderColor, SetBorderColor] = useState("#eee");
+    const [borderSize, SetBorderSize] = useState("1");
 
     const [Code, SetCode] = useState("");
 
 
-    const handleSizeType = (Input) => {
-        setSizeType(Input)
-    }
-    const handleIsBorder = (Input) => {
-        setBorder(Input.value)
-    }
-    const handleBorderType = (Input) => {
-        setBorderType(Input)
-    }
 
 
     const GenerateIframe = () => {
         SetCode(`
-        <iframe 
-          src="${url}"  
-           ${isBorder && `style="${isBorder && `border:${borderSize + "px"} ${borderColor} ${borderType.value ?? "solid"};`}"`} 
-          name="${name}" 
-          height="${height + (sizeType.value ?? "px")}" 
-          width="${width + (sizeType.value ?? "px")}"
-         allowfullscreen></iframe>
-        `)
+<iframe 
+      src="${url}"  
+ ${isBorder && `     style="${isBorder && `border:${borderSize + "px"} ${borderColor} ${borderType ?? "solid"};`}"`} 
+      name="${name}" 
+      height="${height + (sizeType ?? "px")}" 
+      width="${width + (sizeType ?? "px")}"
+      allowfullscreen>
+    </iframe>`)
     }
 
     return (
@@ -89,13 +80,17 @@ export default function IframeGenerator() {
             </div>
             <div className="col-sm-4 col-12">
                 <FormElement>
-                    <Select options={SizeType} onChange={handleSizeType} name="sizeType" />
+                    <Select options={SizeType} onChange={(option) =>{
+                        setSizeType(option.value) 
+                    }} name="sizeType" />
                     <Label htmlFor="sizeType" >Size Type</Label>
                 </FormElement>
             </div>
             <div className="col-sm-4 col-12">
                 <FormElement>
-                    <Select options={Border} onChange={handleIsBorder} name="Border" />
+                    <Select options={Border} onChange={(option =>{
+                        setBorder(option.value)
+                    })} name="Border" />
                     <Label htmlFor="Border" >Border</Label>
                 </FormElement>
             </div>
@@ -103,7 +98,9 @@ export default function IframeGenerator() {
                 isBorder && (<>
                     <div className="col-sm-4 col-12">
                         <FormElement>
-                            <Select options={BorderType} onChange={handleBorderType} name="BorderType" />
+                            <Select options={BorderType} onChange={option =>{
+                                setBorderType(option.value)
+                            }} name="BorderType" />
                             <Label htmlFor="BorderType" >BorderType</Label>
                         </FormElement>
                     </div>

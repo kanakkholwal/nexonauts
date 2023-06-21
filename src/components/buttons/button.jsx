@@ -124,6 +124,7 @@ background: transparent;
 color:rgba(0, 0, 0, 0.54);
 border:none;
 &:hover{
+    color:rgba(0, 0, 0, 0.75);
     background: rgba(0, 0, 0, 0.04);
 }
 ${props => props.nature ? `
