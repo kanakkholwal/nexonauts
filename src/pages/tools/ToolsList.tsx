@@ -38,7 +38,7 @@ export const ToolList: ToolProp[] = [
     // },
     {
         title: "Image to Webp Convertor",
-        description: "This Tool helps you to convert Any Image Format to Webp Format to boost your WebPage Speed..",
+        description: "Image to WebP converter is an online tool that converts images from one format to WebP. WebP is a modern image format developed by Google that offers better compression than other image formats, such as JPEG and PNG. This can lead to smaller file sizes, which can improve the performance of websites and web apps.",
         category: "Image Tools",
         path: "/tools/image-to-webp-convertor",
         Component: <Image2Webp />,
@@ -46,7 +46,7 @@ export const ToolList: ToolProp[] = [
     },
     {
         title: "HTML to JSX Convertor",
-        description: "This Tool helps you to convert Raw Html to JSX  format to use in your React.js and Next.js projects..",
+        description: "The HTML to JSX Converter is a helpful tool that enables developers to seamlessly convert HTML code into JSX (JavaScript XML) syntax, commonly used in React applications. With an HTML to JSX Converter, developers can efficiently transform HTML code into JSX, ensuring the compatibility and efficiency of their React projects.",
         category: "Coding Tools",
         path: "/tools/html-to-jsx-convertor",
         Component: <HtmlToJsxTool />,

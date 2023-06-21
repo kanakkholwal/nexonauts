@@ -21,9 +21,11 @@ const fadeOutAnimation = keyframes`
 const ModalDialog = styled.dialog`
   inset: 0px;
   margin: auto;
-  padding: 1rem;
+  padding:2rem 1rem ;
   border-radius: 0.5rem;
   outline: none;
+  overflow: unset;
+  height: fit-content;
   max-width: ${({maxWidth}) => maxWidth || "720px"};
   transition: all 0.5s cubic-bezier(0.5, -0.5, 0.1, 1.5);
   --animation-in-settings: 500ms cubic-bezier(0.25, 0, 0.3, 1) normal;

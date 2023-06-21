@@ -1,4 +1,5 @@
 import Prism from "prismjs";
+import dynamic from "next/dynamic";
 
 import { useEffect, useState } from "react";
 import styled, { keyframes } from 'styled-components';
@@ -60,6 +61,9 @@ margin-left:auto;
 const CodeBlockBody = styled.div`
 border-radius: 0 0 var(--radius) var(--radius);
 overflow:hidden;
+pre{
+    margin-block:0;
+}
 code{
     padding:1em;
 }
@@ -142,6 +146,17 @@ function CodeBlock({ content, language, title, ...props }) {
         else if (state == "normal")
             return (<>Copy <MdContentCopy /> </>)
     }
+    useEffect(() => {
+        //create an async function to load the languages using import
+        async function highlight() {
+          if (typeof window !== "undefined") {
+            //import the language dynamically using import statement
+             dynamic(() => import(`prismjs/components/prism-${language}`));
+            Prism.highlightAll();
+          }
+        }
+        highlight();
+      }, [language, content]);
 
     return (
         <CodeBlockContainer>
@@ -150,11 +165,11 @@ function CodeBlock({ content, language, title, ...props }) {
                 <CodeBlockTitle title={title ? title : "CodeBlock"}>
                     {title ? title : "CodeBlock"}
                 </CodeBlockTitle>
-                <CopyButton type="button" size="sm" onClick={(e) => Copy(e, content.toString())}><HandleCopyState state={CopyState} />
+                <CopyButton type="button" level="true" size="sm" onClick={(e) => Copy(e, content.toString())}><HandleCopyState state={CopyState} />
                 </CopyButton>
             </CodeBlockHeader>
             <CodeBlockBody>
-                <pre {...props}>
+                <pre {...props} tabIndex={0}>
                     <code className={"language-" + language} >
                         {content}
                     </code>

@@ -11,7 +11,7 @@ export const TextAreaStyled = styled.textarea`
   font-weight: 500;
   transition: all .3s ease-in-out;
   border-radius: 0.5rem;
-  padding:0.75rem 0.875rem ;
+  padding:0.75rem 0.875rem;
   border: 2px solid var(--form-border);
   background: var(--form-bg);
   color: var(--form-color);
@@ -19,7 +19,9 @@ export const TextAreaStyled = styled.textarea`
   transition: all .3s ease-in-out;
   outline: none;
   width: 100%;
-  text-align: left;
+    font-size: 1rem;
+
+    text-align: left;
     white-space: pre;
     word-spacing: normal;
     word-break: break-all;
@@ -37,6 +39,7 @@ export const TextAreaStyled = styled.textarea`
   }}
   &::placeholder {
     color: inherit;
+    opacity: 0.75;
   }
   
   
@@ -45,7 +48,9 @@ export const TextAreaStyled = styled.textarea`
     background: var(--form-bg-active);
 
   
-   
+    &::placeholder {
+        opacity: 1;
+    }
   }
   &.checkValid:invalid,
   &.isInvalid {
