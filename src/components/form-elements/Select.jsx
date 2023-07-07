@@ -13,6 +13,28 @@ svg {
     right: 0.65rem;
     transform: translateY(-50%);
   }
+  &:focus, &:has(select:focus), &:has(select:active), &:focus-within {
+    border-color: rgba(var(--theme-rgb),0.75);
+      opacity: 1;
+      box-shadow: 0 0 0 0 rgba(0,0,0,0.1);
+  
+    
+      &::placeholder {
+          opacity: 1;
+      }
+    input[type="text"] {
+        border-color: rgba(var(--theme-rgb),0.75);
+      opacity: 1;
+      box-shadow: 0 0 0 0 rgba(0,0,0,0.1);
+  
+    
+      &::placeholder {
+          opacity: 1;
+      }
+    }
+} 
+
+
 `;
 const SelectToggle = styled.input.attrs(props => ({
   type: 'text',
@@ -49,7 +71,7 @@ const SelectToggle = styled.input.attrs(props => ({
           opacity: 1;
       }
     }
-    
+   
     &.checkValid:invalid,
     &.isInvalid {
       border-color: var(--danger)!important;
@@ -79,6 +101,8 @@ const SelectToggle = styled.input.attrs(props => ({
     line-height: 1.6 !important;
     border-radius: 0.2rem !important;`: ""}
     
+
+   
   `;
 
 
@@ -231,6 +255,7 @@ function Select({ options, value, onChange, size, ...props }) {
     <>
       <select
         value={SelectedOption?.value.toString()}
+        id={props.id}
         onChange={(e) => SetSelectedOption(usingOptions.map((option) => {
           if (option === SelectedOption)
             option.option = true;

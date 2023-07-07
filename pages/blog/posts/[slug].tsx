@@ -219,7 +219,9 @@ export default function Post(
                         <span>Comments</span>
                     </Link>
             </FloatingMenu>
-            <Footer socialMedia={SocialMedia} />
+            <Footer socialMedia={SocialMedia} style={{
+                "--theme-rgb":"var(--blog-theme-rgb)",
+            }}/>
 
         </div>
     );

@@ -5,7 +5,7 @@ width: 100%;
 height: 100%;
 padding-inline-start: var(--sidenav-width);
 transition: all 0.3s ease-in-out;
-padding-inline: 0;
+${'' /* padding-inline: 0; */}
 // max-width: var(--max-width);
 position: relative;
 @media (min-width: var(--max-width)) {

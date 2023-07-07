@@ -6,7 +6,8 @@ const TabHeader = styled.div`
     position:relative;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: ${({justified}) => justified ? "space-between" : "flex-start"};
+    flex-wrap: ${({justified}) => justified ? "wrap" : "nowrap"};
     align-items: center;
     width: 100%;
     scroll-snap-type: x mandatory;
@@ -27,7 +28,7 @@ gap:0.5rem;
 user-select: none;
 border: 0;
 margin: 0.25rem;
-flex: 1 0 auto;
+flex: 1 ${({justified}) => justified ? "1" : "0"} auto;
 transition: all .3s cubic-bezier(.075,.82,.165,1);
 font-weight: 600;
 letter-spacing:0.0625rem;
@@ -62,14 +63,14 @@ ${({ open }) => open ?
     }
 `;
 
-export default function Tabs({ TabList }) {
-    const [selectedIndex, setSelectedIndex] = useState(0);
+export default function Tabs({ TabList,justified,activeIndex = 0 }) {
+    const [selectedIndex, setSelectedIndex] = useState(activeIndex);
 
     return (
         <>
             {TabList?.length > 0 ?
                 <>
-                    <TabHeader>
+                    <TabHeader justified={justified}>
                         {TabList.map(({ title }, index) => {
                             return (
                                 <TabToggle key={index}
@@ -78,7 +79,9 @@ export default function Tabs({ TabList }) {
                                             setSelectedIndex(index);
                                         }
                                     }
-                                    active={selectedIndex === index ? true : false}>
+                                    justified={justified}
+                                    active={selectedIndex === index ? true : false}
+                                    >
                                     {title}
                                 </TabToggle>
                             )

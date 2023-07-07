@@ -9,7 +9,7 @@ export default nextConnect(handler).use(isAdminMiddleware)
     .get(async (req, res, next) => {
         try {
             await dbConnect();
-            const notifications = await Notification.find({}).populate('user');
+            const notifications = await Notification.find({}).populate('user').exec
             return res.status(200).json({message:"Notification fetched SuccessFully",notifications});
 
         } catch (error) {

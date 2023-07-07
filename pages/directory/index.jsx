@@ -1,6 +1,6 @@
 // import { registerView } from "lib/analytics";
 import Head from "next/head";
-import { useEffect,useState } from "react";
+// import { useEffect,useState } from "react";
 
 
 export default function AiDirectory() {

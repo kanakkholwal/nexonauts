@@ -37,6 +37,9 @@ border-radius: 0.5rem;
 aspect-ratio: 1;
 height: 40px;
 font-size:1.25rem;
+@media (width >= 1024px) {
+    display:none;
+}
 `;
 const SearchToggler = styled(Button)`
 padding: 0;
@@ -202,13 +205,7 @@ export default function Header({ user, routes, children }) {
 
     }, [isSidebarOpen]);
  useEffect(() => {
-        let sidenavPanel = document.body.querySelector("#sidenav_panel");
-        let MainPanel = document.body.querySelector("#main_wrapper");
-
-        if (!window.matchMedia("(min-width: 1024px)").matches) {
-            sidenavPanel.classList.remove('isOpen');
-            MainPanel.classList.remove('isSidenavOpen');
-        }
+    
         const HandleOutSide = (e) =>{
             if (e.target.id === "sidenav_panel" || e.target.id === "main_wrapper") {
                 setIsSidebarOpen(false);
