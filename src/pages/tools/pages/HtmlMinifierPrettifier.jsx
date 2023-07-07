@@ -37,7 +37,7 @@ export default function HtmlMinifierPrettifier() {
                 }}>
                     Minify <FaCompressArrowsAlt />
                 </Button>
-                <Button nature="primary" onClick={() => {
+                <Button nature="secondary" onClick={() => {
                     SetValue(pretty(value, { ocd: true }))
                     SetSnackObj({
                         ...SnackBar,

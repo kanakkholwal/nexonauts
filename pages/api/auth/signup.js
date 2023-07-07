@@ -53,10 +53,10 @@ async function createUser(req, res) {
             account_type: "free",
             verificationToken: verificationToken,
         });
-        console.log({
-            email: process.env.MAIL_EMAIL,
-            password: process.env.MAIL_PASSWORD
-        });
+        // console.log({
+        //     email: process.env.MAIL_EMAIL,
+        //     password: process.env.MAIL_PASSWORD
+        // });
         const transporter = nodemailer.createTransport({
             host: "smtp-relay.sendinblue.com",
             port: 587,

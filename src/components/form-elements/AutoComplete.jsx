@@ -2,6 +2,9 @@ import Chip from "components/topography/chips";
 import { useEffect,useReducer ,useRef} from "react";
 import styled from "styled-components";
 import PropTypes from 'prop-types';
+import {MdOutlineClear} from "react-icons/md";
+import {IoIosArrowDown} from "react-icons/io";
+import {AiOutlineLoading} from "react-icons/ai";
 
 
 const StyledWrapper = styled.div`
@@ -22,10 +25,10 @@ const StyledWrapper = styled.div`
     outline: none;
     order:2;
 
-    &:focus {
+    &:focus, &:has(input:focus), &:has(input:active), &:focus-within {
     border-color: var(--form-active);
     background: var(--form-bg-active);
-    }  
+    } 
 
 `;
 const SelectedWrapper = styled.div`
@@ -49,16 +52,37 @@ flex:1 1 auto;
 }
 
 `;
+const Controls = styled.div`
+display:flex;
+align-items: center;
+justify-content: flex-end;
+gap:0.5rem;
+flex:1 1 auto;
+position:absolute;
+right:0.5rem;
+top:50%;
+translate:0 -50%;
+svg{
+    cursor:pointer;
+    transition: all .3s ease-in-out;
+    &:hover{
+        scale:1.1;
+    }
+
+}
+`;
 export default function AutoComplete({
   multiple = false,
   options,
   onChange,
   onAdd,
   async = false,
-  placeholder
+  placeholder,
+  id,
 }) {
   const initialState = {
     isOpen: false,
+    state: 'IDLE'|'PENDING'|'RESOLVED'|'REJECTED',
     usingOptions: options,
     selected: [],
     inputValue: '',
@@ -72,6 +96,10 @@ export default function AutoComplete({
         return { ...state, usingOptions: action.payload };
       case 'SET_SELECTED':
         return { ...state, selected: action.payload };
+      case 'RESET_SELECTED':
+        return { ...state, selected: []};
+     case 'REMOVE_SELECTED':
+        return { ...state, selected: state.selected.filter((item) => item.value !== action.payload.value)};
       case 'SET_INPUT_VALUE':
         return { ...state, inputValue: action.payload };
       default:
@@ -81,7 +109,7 @@ export default function AutoComplete({
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const wrapperRef = useRef(null);
-  const { isOpen, usingOptions, selected, inputValue } = state;
+  const { isOpen, usingOptions, selected, inputValue ,componentState} = state;
 
   const handleClick = async (event, option, newOption = false) => {
     event.preventDefault();
@@ -97,7 +125,9 @@ export default function AutoComplete({
 
             if (async && onAdd) {
                 console.log("async");
+                dispatch({ type: 'SET_STATE', payload: 'PENDING' });
                 await onAdd(option);
+                dispatch({ type: 'SET_STATE', payload: 'RESOLVED' });
             } else {
                 onAdd && onAdd(option);
             }
@@ -152,10 +182,7 @@ export default function AutoComplete({
             key={index}
             label={option.label}
             onEndIconClick={() => {
-              dispatch({
-                type: 'SET_SELECTED',
-                payload: selected.filter((item) => item.value !== option.value),
-              });
+                dispatch({ type: 'REMOVE_SELECTED', payload: option });
 
             }}
           />
@@ -165,11 +192,43 @@ export default function AutoComplete({
         type="text"
         value={inputValue}
         placeholder={placeholder}
+        id={id}
         onChange={(event) =>
           dispatch({ type: 'SET_INPUT_VALUE', payload: event.target.value })
         }
         onFocus={() => dispatch({ type: 'SET_IS_OPEN', payload: true })}
       />
+          <Controls>
+              <MdOutlineClear
+                  size={16}
+                  onClick={() => {
+                      dispatch({ type: 'RESET_SELECTED' });
+                  }}
+                  style={{
+                        opacity: selected.length > 0 ? 1 : 0,
+                        display: selected.length > 0 && state.state !== 'PENDING' ? 'block' : 'none',
+                    
+                  }}
+              />
+                <AiOutlineLoading 
+                    size={16}
+                    style={{
+                        animation: state.state === 'PENDING' ? 'spin 1s linear infinite' : 'none',
+                        opacity: state.state === 'PENDING' ? 1 : 0,
+                        display: state.state === 'PENDING' ? 'block' : 'none',
+                    }}
+                />
+              <IoIosArrowDown
+                  size={16}
+                  onClick={() => {
+                        dispatch({ type: 'SET_IS_OPEN', payload: !isOpen });
+                  }}
+                  style={{
+                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                  }}
+              />
+
+          </Controls>
       <DropdownWrapper className={isOpen ? 'isOpen' : ''}>
         <Dropdown>
                   {usingOptions.length > 0 ? (
@@ -194,7 +253,8 @@ export default function AutoComplete({
                                       handleClick(event, { label: inputValue, value: inputValue }, true)
                                   }
                               >
-                                  Add " <strong>{inputValue}</strong> "
+                              <span>Add </span> <strong>{inputValue}</strong> 
+                              <span>as a new option </span> 
                               </DropdownItem>
 
                           )}
@@ -217,6 +277,7 @@ AutoComplete.propTypes = {
     onAdd: PropTypes.func,
     async: PropTypes.bool,
     placeholder: PropTypes.string,
+    id: PropTypes.string,
   };
 
 

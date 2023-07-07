@@ -29,7 +29,7 @@ const SocialMedia = [
     },
 ]
 
-export default function ToolPage({ headerChildren, children, session, metadata }) {
+export default function ToolPage({ headerChildren, children, session, metadata ,...props}) {
     
 
 

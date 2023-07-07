@@ -42,10 +42,12 @@ export default nextConnect(handler)
 
     })
 
-   async function getMoreFromPost(postId){
+async function getMoreFromPost(postId){
 
     const post  = await Post.findOne({ _id: postId })
     .populate('analytics')
+    .populate('author')
+    .populate('comments')
     .exec();
     const _comments = await Comment.find({ post: postId });
  

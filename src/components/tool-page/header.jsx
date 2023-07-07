@@ -33,6 +33,9 @@ border-radius: 0.5rem;
 aspect-ratio: 1;
 height: 40px;
 font-size:1.25rem;
+@media (width >= 1024px) {
+    display:none;
+}
 `;
 const SearchToggler = styled(Button)`
 padding: 0;

@@ -52,10 +52,10 @@ const FooterWrapper = styled.div`
 `;
 
 
-export default function FooterComponent({ socialMedia }) {
+export default function FooterComponent({ socialMedia ,...props}) {
     return (
         <>
-            <FooterWrapper>
+            <FooterWrapper {...props}>
                 <h2>Follow Us on Social Media</h2>
                 <div>
                     {socialMedia?.map(({ name, icon, url }, index) => {

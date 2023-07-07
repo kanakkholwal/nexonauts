@@ -19,7 +19,7 @@ export default nextConnect(handler)
             }
             const result = await checkUser(req, user);
             if (!result.verified) {
-                return res.status(404).json({ verified: result.verified, message: result.message });
+                return res.status(402).json({ verified: result.verified, message: result.message });
             }
 
             // Use the comparePassword method we defined in our User model to authenticate

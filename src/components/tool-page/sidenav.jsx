@@ -24,15 +24,21 @@ padding: 1.25rem;
 font-weight: 500;
 font-size: 1rem;
 transition: all 0.3s ease-in-out;
-transform: translateX(-100%);
 z-index: 1000;
-&.isOpen{
-    transform: translateX(0);
+& ~ .isSidenavOpen{
+     padding-left:var(--sidenav-width);
 }
 
-@media (min-width: 1024px) {
-    &.isOpen ~ .isSidenavOpen{
-        padding-left:var(--sidenav-width);
+
+@media (max-width: 1024px) {
+    transform: translateX(0);
+    
+    transform: translateX(-100%);
+    &.isOpen{
+        transform: translateX(0);
+    }
+    & ~ .isSidenavOpen{
+     padding-left:0;
     }
 }
 
@@ -108,7 +114,7 @@ background: rgba(var(--grey-rgb), 0);
 
 &:hover,&.active{
     color: rgba(var(--text-rgb),1);
-    background: rgba(var(--grey-rgb), 0.05);
+    background: rgba(var(--grey-rgb), 0.08);
 }
 
 `;
