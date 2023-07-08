@@ -8,6 +8,7 @@ import formHelper from "./FormHelper";
 import fileInput from "./FileInput";
 import passwordInput from "./PasswordInput";
 import inputWithIcon from "./InputWithIcon";
+import autoComplete from "./AutoComplete";
 import styled from "styled-components";
 import formAlert from "./FormAlert";
 export const FormGroup = styled.div`
@@ -29,6 +30,7 @@ export const Input = input;
 export const CheckBox = checkbox;
 
 export const PasswordInput = passwordInput;
+export const AutoComplete = autoComplete;
 export const TextArea = textarea;
 export const Select = select;
 export const FileInput = fileInput;

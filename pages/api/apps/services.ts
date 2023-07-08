@@ -35,9 +35,9 @@ export default nextConnect(handler)
                 return res.status(404).json({ message: 'App not found!' });
             }
             // check if app is enabled
-            if(!appData.enabled){
-                return res.status(404).json({ message: 'App is not enabled!' });
-            }
+            // if(!appData.enabled){
+            //     return res.status(404).json({ message: 'App is not enabled!' });
+            // }
         
             // check if app is enabled for user
             // if(!existingUser.apps. (appData.appId)){
@@ -47,7 +47,7 @@ export default nextConnect(handler)
             // execute app with App Data 
             const resultData = await app.execute(appData);
             // update usage
-            return res.status(200).json({ success: true, result: resultData,message:"Output generated successfully" });
+            return res.status(200).json({ result:resultData,message:"Output generated successfully" });
 
 
         }
