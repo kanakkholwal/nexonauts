@@ -51,6 +51,11 @@ const appSchema = new mongoose.Schema({
     },
     usage: [usageSchema],
     reviews: [reviewSchema],
+    enabled:{
+        type: Boolean,
+        required: true,
+        default: false,
+    },
     name: {
         type: String,
         required: true,
@@ -85,8 +90,9 @@ const appSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed,
         required: true,
         default :{
-            name: "K K UPGRADER DEVELOPERS",
-            website: process.env.WEBSITE_URL,
+            name: "K K UPGRADER",
+            username: "kkupgrader",
+            userId:null,
         }
     },
     path:{

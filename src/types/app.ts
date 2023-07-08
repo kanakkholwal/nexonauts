@@ -1,6 +1,8 @@
 
-interface App {
+type App = {
+    _id:string | any;
     appId: string;
+    enabled:Boolean;
     name: string;
     shortDescription: string;
     description: string;
@@ -56,12 +58,14 @@ interface AppReview {
     rating: Number;
     review: string;
     createdAt: string;
+    _id:string | any;
 }
 interface AppUsage{
     appId: string;
     userId: string;
     usage: any;
     createdAt: string;
+    _id:string | any;
 }
-
-export type { App, AppReview, AppUsage };
+type newApp = Omit<App ,"_id">
+export type { App,newApp, AppReview, AppUsage };
