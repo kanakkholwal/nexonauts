@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
-import type { TextCompletionResponse } from "types/openai";
+// import type { TextCompletionResponse } from "types/openai";
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
 });

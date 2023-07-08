@@ -22,7 +22,7 @@ type App = {
     formFlow:{
         menuType: "text_input_to_text_output" | "chatbot"| "text_input_to_image_output" | "text_input_to_video_output" | "text_input_to_audio_output" | "text_input_to_file_output"  |  "text_input_to_code_output" ,
         inputs:Input[],
-        outputs:Input[],
+        outputs:any[],
         controls:Controls[]
     }
 }
@@ -32,7 +32,6 @@ interface Controls {
     text: string;
     icon: string;
     action: string;
-    actionType: string;
     variant: string;
 }
 // Also change mongo schema
