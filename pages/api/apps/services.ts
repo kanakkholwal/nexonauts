@@ -23,12 +23,12 @@ export default nextConnect(handler)
             }
             // user is verified
             // check for account type and if it is free then check for usage
-            if(existingUser.accountType === "free"){
-                // check for usage
-                if(existingUser.usage.apps >= 5){
-                    return res.status(404).json({ message: 'You have reached your limit for free account. Please upgrade your account to use more apps.' });
-                }
-            }
+            // if(existingUser.accountType === "free"){
+            //     // check for usage
+            //     if(existingUser.usage.apps >= 5){
+            //         return res.status(404).json({ message: 'You have reached your limit for free account. Please upgrade your account to use more apps.' });
+            //     }
+            // }
             // check if app exists
             const app = Apps.find(app => app.appId === appData.appId);
             if(!app){

@@ -28,7 +28,7 @@ const reviewSchema = new mongoose.Schema({
         ref: 'User',
     },
     rating: {
-        type: Float32Array,
+        type: Number,
         required: true,
     },
     review: {
@@ -115,7 +115,7 @@ const appSchema = new mongoose.Schema({
         default: Date.now,
     },
     averageRating:{
-        type: Float32Array,
+        type: Number,
         required: true,
         default: 0,
     },
