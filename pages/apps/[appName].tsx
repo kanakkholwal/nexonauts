@@ -1,9 +1,9 @@
 import React from 'react';
+import { NextSeo } from 'next-seo';
 import axios from 'axios';
 import { useSession } from "next-auth/react";
 import AppPage from 'layouts/app-page';
 import TextInputToTextOutput from 'layouts/text_input_to_text_output';
-
 const componentPath = {
     grammar_check: () => {
         return <div>Grammar Check</div>
@@ -83,6 +83,24 @@ export default function App({ app, hardCoded }) {
 
     return (
         <AppPage user={session?.user} headerChildren={<span className='h6'>{app.name}</span>}>
+            <NextSeo
+                title={app.name}
+                description={app.shortDescription}
+                canonical={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/apps/${app.appId.replaceAll("_", "-")}`}
+                openGraph={{
+                    url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/apps/${app.appId.replaceAll("_", "-")}`,
+                    title: app.name,
+                    description: app.shortDescription,
+                    images: [
+                        {
+                            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/images/logo.png`,
+                            width: 800,
+                            height: 600,
+                            alt: app.name,
+                        },
+                    ],
+                }}
+            />
             {hardCoded ?
                 <div>
                     {ToolComponent && <div>Not ready for Hard Coded Apps</div>}
