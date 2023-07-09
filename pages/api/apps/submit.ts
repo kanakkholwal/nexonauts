@@ -5,6 +5,8 @@ import nextConnect from 'next-connect';
 import { checkUser } from 'lib/checkUser';
 import User from "models/user";
 import App from "models/app";
+import AllApps from 'lib/apps';
+
 import type {newApp } from "types/app";
 
 export default nextConnect(handler)
@@ -32,7 +34,7 @@ export default nextConnect(handler)
                 name: appData.name,
                 description: appData.description,
                 shortDescription: appData.description,
-                enabled: appData.enabled,
+                enabled: AllApps.findIndex(app => app.appId === appData.appId) > -1 ? true : false,
                 appId: appData.appId,
                 type: appData.type,
                 path: appData.path,

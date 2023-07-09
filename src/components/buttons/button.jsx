@@ -10,8 +10,8 @@ const Button = styled.button`
   margin: 0.25rem;
   transition: all .25s cubic-bezier(.075,.82,.165,1);
   font-family: var(--btn-font,inherit);
-  font-weight: 600;
-  letter-spacing:var(--btn-letter-spacing,0.02846rem);
+  font-weight: 500;
+  letter-spacing:var(--btn-letter-spacing,0.0625rem);
   font-size: var(--btn-font-size,0.875rem);
   padding:var(--btn-padding-y,0.25rem) var(--btn-padding-x,1rem);
   line-height:var(--btn-line-height,1.75);
@@ -80,16 +80,21 @@ const Button = styled.button`
   }
 
       
-  &> svg{
-  font-size: inherit;
-  line-height: inherit;
-  color: currentColor;
-  margin-inline:0!important;
-}
+     &> svg{
+         font-size: inherit;
+         line-height: inherit;
+         color: currentColor;
+        margin-inline:0!important;
+    }
 
 opacity:${props => props.disabled ? "0.5" : "1"};
 pointer-events:${props => props.disabled ? "none" : "all"};
 cursor:${props => props.disabled ? "not-allowed" : "pointer"};
+${props => props.loading === true ? `
+user-select: none;
+cursor: wait!important;
+animation : opaque 1250ms linear infinite alternate;
+` : ``}
 
 `;
 const ButtonWithIcon = styled(Button) 

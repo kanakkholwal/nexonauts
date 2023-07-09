@@ -1,139 +1,237 @@
-import {useState} from "react"
+import { useState } from "react"
 import axios from "axios";
-import { Input, FormElement, Label, CheckBox, FormHelper, Switch, TextArea, Select, AutoComplete, InputWithIcon } from "components/form-elements"
+import { Input, FormElement, FormGroup, Label, CheckBox, FormHelper, Switch, TextArea, Select, AutoComplete, InputWithIcon } from "components/form-elements"
 import Button, { IconButton } from "components/buttons";
-import {Table,TableContainer,Tbody,Thead,Td,Tr,Th} from "components/table";
+import { Table, TableContainer, Tbody, Thead, Td, Tr, Th } from "components/table";
 import CodeBlock from "components/code-block";
+import styled from "styled-components";
 
 
-
-export default function TextInputToTextOutput({ app,user }) {
-
-
+export default function TextInputToTextOutput({ app, user }) {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const [output, setOutput] = useState("");
+    const [output, setOutput] = useState(null);
     const [value, handleChange] = useForm(makeInitialObject(app.formFlow.inputs));
 
     const apiCall = async () => {
         setLoading(true);
+        setOutput(null);
         try {
             const response = await axios.post("/api/apps/services", {
-                "userId": user.id,
-                "appData": {
-                    "appId": app.appId,
+                userId: user.id,
+                appId: app.appId,
+                appData: {
                     ...value
                 }
             });
-            setOutput(response.data);
-
+            setOutput(response.data.result);
+            console.log(response.data.result);
         } catch (error) {
             console.log(error);
             setError(error.message);
-        }
-        finally {
+        } finally {
             setLoading(false);
         }
-    }
+    };
 
     return (
-        <>
-            {app.name}
-            {app.shortDescription}
-            <hr />
-
+        <AppWrapper>
 
             {/* Inputs */}
+            <FormGroup>
+                {app.formFlow.inputs?.map((input, index) => {
+                    const { inputType, inputOptions, inputPlaceholder, ...rest } = input;
+                    if (inputType === "text_input" || inputType === "number_input")
+                        return (<FormElement>
+                            <Label htmlFor={input.inputId}>{input.inputLabel}</Label>
+                            <Input
+                                {...rest}
+                                key={"input_" + index}
+                                id={input.inputId}
+                                name={input.inputName}
+                                type={inputType === "text_input" ? "text" : "number"}
+                                value={value[input.inputId]}
+                                placeholder={inputPlaceholder}
+                                onChange={(event) => handleChange(input.inputId, event.target.value)}
 
+                            />
+                        </FormElement>);
+                    else if (inputType === "text_multiline")
+                        return (<FormElement>
+                            <Label htmlFor={input.inputId}>{input.inputLabel}</Label>
+                            <TextArea
+                                {...rest}
+                                key={"input_" + index}
+                                id={input.inputId}
+                                name={input.inputName}
+                                placeholder={inputPlaceholder}
+                                value={value[input.inputId]}
+                                onChange={(event) => handleChange(input.inputId, event.target.value)}
+                            />
+                        </FormElement>);
+                    else if (inputType === "dropdown")
+                        return (<FormElement>
+                            <Label htmlFor={input.inputId}>{input.inputLabel}</Label>
+                            <Select
+                                {...rest}
+                                key={"input_" + index}
+                                placeholder={inputPlaceholder}
+                                id={input.inputId}
+                                name={input.inputName}
+                                value={value[input.inputId]}
+                                onChange={(option) => handleChange(input.inputId, option.value)}
+                                options={inputOptions.map((option) => ({ value: option.value, label: option.label ? option.label : option.value }))}
+                            />
+                        </FormElement>);
 
-            {app.formFlow.inputs.map((input:any, index:number) => {
+                    else if (inputType === "autoComplete")
+                        return (<FormElement>
+                            <Label htmlFor={input.inputId}>{input.inputLabel}</Label>
+                            <AutoComplete
+                                {...rest}
+                                key={"input_" + index}
+                                id={input.inputId}
+                                name={input.inputName}
+                                placeholder={inputPlaceholder}
+                                value={value[input.inputId]}
+                                onChange={(options) => handleChange(input.inputId, options[0]?.value ?? "")}
+                                options={inputOptions.map((option) => ({ value: option.value, label: option.label ? option.label : option.value }))}
+                            />
+                        </FormElement>);
 
-                if (input.inputType === "text_input" || input.inputType === "number_input")
-                    return <Input {...input} key={"input_" + index} type={input.inputType === "text_input"? "text":"number"} value={value} onChange={handleChange} />
-                else if (input.inputType === "text_multiline")
-                    return <TextArea {...input} key={"input_" + index} value={value} onChange={handleChange} />
-                else if (input.inputType === "dropdown")
-                    return <Select {...input} key={"input_" + index} value={value} onChange={(option:any) => handleChange(option.value)} options={input.inputOptions} />
-                else if (input.inputType == "autoComplete")
-                    return <AutoComplete {...input} key={"input_" + index} value={value} onChange={(option:any) => handleChange(option.value)} options={input.inputOptions} />
-            })}
-
-
+                    return null;
+                })}
+            </FormGroup>
             {/* Controls */}
-
-
-            {app.formFlow.controls.map((control: any) => {
-                if (control.action === "get_output")
-                    return <Button {...control} key={"control_" + control.id} 
-                    onClick={() => {
-                        !loading && apiCall()
-                    }}
-                    className={loading ? "loading" : ""}
-                    theme={control.variant}
-                    >{control.text} {control.icon && control.icon}</Button>
-                else if (control.action == "refresh")
-                    return <IconButton {...control} key={"control_" + control.id}
-                    onClick={() => {
-                       !loading && console.log("clicked")
-                    }}
-                    className={loading ? "loading" : ""}
-                    >{control.icon}</IconButton>
-            })}
-
-
+            <div className="d-flex justify-content-center align-items-center g-2 my-2 flex-wrap">
+                {app.formFlow.controls?.map((control) => {
+                    if (control.action === "get_output")
+                        return (
+                            <Button
+                                {...control}
+                                key={"control_" + control.id}
+                                onClick={() => {
+                                    !loading && apiCall();
+                                }}
+                                loading={loading}
+                                theme={control.variant}
+                            >
+                                {control.text} {control.icon && control.icon}
+                            </Button>
+                        );
+                    else if (control.action === "refresh")
+                        return (
+                            <IconButton
+                                {...control}
+                                key={"control_" + control.id}
+                                onClick={() => {
+                                    !loading && console.log("clicked");
+                                }}
+                                className={loading ? "loading" : ""}
+                            >
+                                {control.icon}
+                            </IconButton>
+                        );
+                    return null;
+                })}
+            </div>
+            {loading ? <> </> : null}
             {/* Output */}
+            {output ? <RenderOutput output={output} /> : output === null ? null : <p>No output</p>}
 
-
-             {app.formFlow.outputs.map((output: any, index: number) => {
-                if (output.type == "ordered_list")
-                    return <ol key={"output_" + index}>{output.data.map((item:string,index:number) => <li key={index}>{item}</li>)}</ol>
-                else if (output.type == "unordered_list")
-                    return <ul key={"output_" + index}>{output.data.map((item:string,index:number) => <li key={index}>{item}</li>)}</ul>
-                else if  (output.type == "table")
-                    return <TableContainer key={"output_" + index}>
+        </AppWrapper>
+    );
+}
+function RenderOutput({ output }) {
+    return (<OutputContainer>
+        {output?.map((output, index) => {
+            const { outputType, data, subtype, ...rest } = output;
+            if (outputType === "ordered_list")
+                return (
+                    <ol key={"output_" + index}>
+                        {data.map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ol>
+                );
+            else if (outputType === "unordered_list")
+                return (
+                    <ul key={"output_" + index}>
+                        {data.map((item, index) => (
+                            <li key={index}>{item}</li>
+                        ))}
+                    </ul>
+                );
+            else if (outputType === "table")
+                return (
+                    <TableContainer key={"output_" + index}>
                         <Table>
                             <Thead>
                                 <Tr>
-                                    {output.data.columns.map((column:string, index:number) => <Th key={index}>{column}</Th>)}
+                                    {data.columns.map((column, index) => (
+                                        <Th key={index}>{column}</Th>
+                                    ))}
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                {output.data.rows.map((row:any, index:number) => <Tr key={index}>
-                                    {row.map((column:string, index:number) => <Td key={index}>{column}</Td>)}
-                                </Tr>)}
+                                {data.rows.map((row, index) => (
+                                    <Tr key={index}>
+                                        {row.map((column, index) => (
+                                            <Td key={index}>{column}</Td>
+                                        ))}
+                                    </Tr>
+                                ))}
                             </Tbody>
                         </Table>
                     </TableContainer>
-                else if (output.type == "plaintext")
-                    return <p key={"output_" + index}>{output.data}</p>
-                else if (output.type == "code" && output.subtype)
-                    return <CodeBlock key={"output_" + index} data={output.data} language={output.subtype}/>
-                
-            })} 
-        </>
-    )
+                );
+            else if (outputType === "plaintext")
+                return <p key={"output_" + index}>{data}</p>;
+            else if (outputType === "code" && subtype)
+                return (
+                    <CodeBlock key={"output_" + index} data={data} language={subtype} />
+                );
+            else if (outputType === "heading" && subtype)
+                return (<span className={subtype} key={"output_" + index}>{data}</span>);
+            return <>
+                <p>Output Type: {outputType}</p>
+                <p>Data: {data}</p>
+            </>;
+        })}
+    </OutputContainer>)
 }
-
 function makeInitialObject(inputs: any[]) {
-    let obj = {};
-    inputs.forEach(input => {
-        obj["name"] = input.inputName;
-        obj["defaultValue"] = input.defaultValue;
-        obj["id"] = input.inputId;
-        obj["placeholder"] = input.inputPlaceholder;
-        obj["required"] = input.inputRequired;
+    const obj = {};
+    inputs.forEach((input: any) => {
+        obj[input.inputId] = input.defaultValue || "";
     });
     return obj;
 }
-const useForm = (initialValues: any) => {
+
+const useForm = (initialValues) => {
     const [values, setValues] = useState(initialValues);
-    return [
-        values,
-        (e: any) => {
-            setValues({
-                ...values,
-                [e.target.name]: e.target.value
-            });
-        }
-    ];
-}
+
+    function handleChange(name, value) {
+        setValues((prevFormData) => {
+            return {
+                ...prevFormData,
+                [name]: value
+            };
+        });
+    }
+
+    return [values, handleChange];
+};
+
+//  Styled Components
+const AppWrapper = styled.div`
+margin: 1rem auto;
+padding: 1rem;
+max-width: 920px;
+`
+const OutputContainer = styled.div`
+margin: 1rem auto;
+padding: 1rem;
+border-radius: 0.5rem;
+background-color: var(--card-bg);
+`

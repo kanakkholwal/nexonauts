@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const usageSchema = new mongoose.Schema({
-    appId:{
+    appId: {
         type: String,
         required: true,
     },
@@ -13,13 +13,13 @@ const usageSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    usage:{
+    usage: {
         type: mongoose.Schema.Types.Mixed,
         required: true,
     }
 });
 const reviewSchema = new mongoose.Schema({
-    appId:{
+    appId: {
         type: String,
         required: true,
     },
@@ -51,7 +51,7 @@ const appSchema = new mongoose.Schema({
     },
     usage: [usageSchema],
     reviews: [reviewSchema],
-    enabled:{
+    enabled: {
         type: Boolean,
         required: true,
         default: false,
@@ -61,72 +61,72 @@ const appSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    shortDescription:{
+    shortDescription: {
         type: String,
         required: true,
         trim: true,
     },
-    description:{
+    description: {
         type: String,
         required: true,
         trim: true,
     },
-    type:{
+    type: {
         type: String,
         required: true,
         trim: true,
     },
-    category:{
+    category: {
         type: String,
         required: true,
         trim: true,
     },
-    tags:{
+    tags: {
         type: [String],
         required: true,
         trim: true,
     },
-    author:{
+    author: {
         type: mongoose.Schema.Types.Mixed,
         required: true,
-        default :{
+        default: {
             name: "K K UPGRADER",
             username: "kkupgrader",
-            userId:null,
+            userId: null,
         }
     },
-    path:{
+    path: {
         type: String,
         required: true,
         trim: true,
         unique: true,
     },
-    coverImage:{
+    coverImage: {
         type: String,
         trim: true,
     },
-    recommended:{
+    recommended: {
         type: Boolean,
         required: true,
         default: false,
-   },
+    },
     createdAt: {
         type: Date,
         default: Date.now,
     },
-    averageRating:{
+    averageRating: {
         type: Number,
         required: true,
         default: 0,
     },
-    formFlow:{
-        menuType:{
+    formFlow: {
+        menuType: {
             type: String,
             required: true,
             trim: true,
             default: "text_input_to_text_output",
         },
-        inputs:[{
+        inputs: [{
             inputType: String,
             inputName: String,
             inputLabel: String,
@@ -140,10 +140,29 @@ const appSchema = new mongoose.Schema({
                     label: String,
                     value: String,
                 }],
-                default:null
+                default: null
             },
-            constraints:{}    
-        }]      
+            constraints: {}
+        }],
+        controls: {
+            type:[{
+                controlType: String,
+                id: String,
+                text: String,
+                icon: String,
+                action: String,
+                variant: String
+            }],
+            default: []
+        },
+        outputs: [{
+            outputType: String,
+            id: String,
+            data:{
+                type: mongoose.Schema.Types.Mixed,
+                default: null,
+            }
+        }]
     }
 });
 // Also change TYPES schema

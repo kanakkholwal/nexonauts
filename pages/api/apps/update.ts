@@ -8,7 +8,7 @@ import App from "models/app";
 import type {App as AppType } from "types/app";
 
 export default nextConnect(handler)
-    .use(isAdminMiddleware)
+    // .use(isAdminMiddleware)
     .post(async (req, res) => {
         try {
             await dbConnect();
@@ -18,32 +18,26 @@ export default nextConnect(handler)
               return res.status(404).json({ message: 'User not found!' });
             }
           
-            const result = await checkUser(req, existingUser);
-            if (!result.verified) {
-              return res.status(403).json({ verified: result.verified, message: result.message });
-            }
-            // check if user is admin of not 
-            if(result.isAdmin !== true)
-            {
-                return res.status(403).json({ message: 'You are not authorized to create app!' });
-            }
+            // const result = await checkUser(req, existingUser);
+            // if (!result.verified) {
+            //   return res.status(403).json({ verified: result.verified, message: result.message });
+            // }
+            // // check if user is admin of not 
+            // if(result.isAdmin !== true)
+            // {
+            //     return res.status(403).json({ message: 'You are not authorized to create app!' });
+            // }
             
             // user is verified
-            const isExistingApp  = (await App.findOne({appId:appData.appId})) as AppType | null;
-            if(!isExistingApp){
+            const existingApp  = await App.findOne({appId:appData.appId})
+            if(!existingApp){
                 return res.status(403).json({ message: `App doesn't  exist!` });
             }
-            const newAppData:AppType = {
-                ...isExistingApp,
-                ...appData,
-            }
-            const newApp = await App.findByIdAndUpdate(isExistingApp._id,newAppData);
-            if(!newApp){
-                return res.status(403).json({ message: `App doesn't  exist!` });
-            }        
-      
+            // update existingApp with appData with only those fields which are present in appData
+           const updatedApp =  await App.updateOne({appId:appData.appId},appData)
+
             // return application
-            return res.status(200).json({ message:"App updated successfully" });
+            return res.status(200).json({ message:"App updated successfully" ,app:updatedApp});
 
 
         }

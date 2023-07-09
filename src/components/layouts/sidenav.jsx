@@ -19,7 +19,7 @@ display: flex;
 flex-direction: column;
 background-color: rgb(255 255 255 / 80%);
 backdrop-filter: blur(20px);
-box-shadow: 0px 0px 9rem 0px #6658d31c;
+box-shadow: 0px 0px 1rem 0px #6658d31c;
 padding: 1.25rem;
 font-weight: 500;
 font-size: 1rem;
@@ -30,7 +30,7 @@ z-index: 1000;
 }
 
 
-@media (max-width: 1024px) {
+@media (max-width: 1400px) {
     
     transform: translateX(-100%);
     &.isOpen{
@@ -193,6 +193,6 @@ export default function SideNav({ routes, user }) {
             <Title> Sign Out </Title>
                
             </LogoutButton> : null}
-                    </SideNavWrapper>
+        </SideNavWrapper>
     )
 }

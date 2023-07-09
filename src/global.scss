@@ -595,6 +595,14 @@ a {
         right: -90%;
     }
 }
+@keyframes opaque{
+    0% {
+        opacity: 0.75;
+    }
+    100% {
+        opacity: 1;
+    }
+  }
 @keyframes skeleton-loading {
     0% {
       background-color: #a3b8c2;
@@ -602,5 +610,13 @@ a {
   
     100% {
       background-color: #f0f3f5;
+    }
+  }
+  @keyframes skeleton-bg {
+    0%{
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(-1.75rem);
     }
   }
