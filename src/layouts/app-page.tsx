@@ -2,15 +2,12 @@ import Header from "components/layouts/header";
 import Footer from "components/layouts/footer";
 import { BreadCrumb } from "components/breadcrumb";
 import { MainWrapper, ContentWrapper, } from "components/layouts/wrapper";
+import styled from "styled-components";
 import SideNav from "components/layouts/sidenav";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
-import { BiBell } from "react-icons/bi";
-import { FiUsers } from "react-icons/fi";
-import { RxDashboard } from "react-icons/rx";
-import { TbTools, TbMessageDots, TbBrandBlogger } from "react-icons/tb";
-import { RiAdminLine,RiPagesLine } from "react-icons/ri";
-import { TbBrandGoogleAnalytics } from "react-icons/tb";
 
+import { RiAppsLine } from "react-icons/ri";
+import { TbTools ,TbSmartHome} from "react-icons/tb";
 
 const SocialMedia = [
     {
@@ -39,8 +36,18 @@ const routes = (userRole :string ) => {
         return [
             {
                 title: "Home",
-                icon: <RxDashboard />,
+                icon: <TbSmartHome size={16}/>,
                 path: "/",
+            },
+            {
+                title: "Apps",
+                icon: <RiAppsLine size={16} />,
+                path: "/apps",
+            },
+            {
+                title: "Tools",
+                icon: <TbTools  size={16}/>,
+                path: "/tools",
             }
         ]
 }
@@ -68,3 +75,36 @@ export default function AppPage({ headerChildren , children, user } :{
         </>
     )
 }
+export const AppContainer = styled.div`
+padding-block: 1.5rem;
+margin-inline: auto;
+display: grid;
+gap: 1rem;
+
+@media (min-width:576px) {
+    padding: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(540px, 1fr));
+}
+@media (min-width:768px) {
+    padding: 1.5rem;
+    grid-template-columns: repeat(2, 5fr);
+}
+@media (min-width:992px) {
+    grid-template-columns: repeat(3, 3.3fr);
+}
+
+@media (min-width: 1400px) {
+    grid-template-columns: repeat(3, 2.5fr);
+}
+`;
+export const Card = styled.div`
+    background:var(--card-bg);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0 0 0.5rem rgba(0,0,0,0.1);
+    transition: all 0.3s ease-in-out;
+    &:hover {
+        box-shadow: 0 0 0.5rem rgba(var(--theme-rgb),0.1);
+    }
+
+`

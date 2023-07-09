@@ -234,7 +234,7 @@ export default function Header({ user, routes, children }) {
                 <Children>
                     {children}
                 </Children>
-                <SearchWrapper open={isSearchOpen}>
+                {routes && routes.length > 0 ? <SearchWrapper open={isSearchOpen}>
                     <CgSearch />
                     <SearchInput type="text" placeholder="Search" value={searchPath} onChange={(e) => setSearchPath(e.target.value)} onClick={() => setSearchResults(true)} />
                     <CgClose onClick={() => {
@@ -264,7 +264,7 @@ export default function Header({ user, routes, children }) {
 
                             </SearchDropDown> : null
                     }
-                </SearchWrapper>
+                </SearchWrapper> : null}
  
 
                 <SearchToggler level="true" low="true"

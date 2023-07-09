@@ -31,7 +31,6 @@ const FooterWrapper = styled.div`
             padding: 1rem 1.5rem;
             display: flex;
             gap: 1rem;
-            font-weight: 600;
             align-items: center;
             border: 1px solid transparent;
             transition: all 300ms ease-in-out;
