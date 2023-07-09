@@ -4,14 +4,16 @@ import dbConnect from "lib/dbConnect";
 import { hasTokenMiddleware } from 'middleware/checkUser';
 import nextConnect from 'next-connect';
 import { checkUser } from 'lib/checkUser';
-import Apps from 'lib/openai';
+import Apps from 'lib/apps';
+import { Configuration, OpenAIApi } from "openai";
+// import type { TextCompletionResponse } from "types/openai";
 
 export default nextConnect(handler)
     .use(hasTokenMiddleware)
     .post(async (req, res) => {
         try {
             await dbConnect();
-            const { userId ,appData} = req.body;
+            const { userId ,appId,appData} = req.body;
             const existingUser = await User.findById(userId);
             if (!existingUser) {
               return res.status(404).json({ message: 'User not found!' });
@@ -24,13 +26,13 @@ export default nextConnect(handler)
             // user is verified
             // check for account type and if it is free then check for usage
             // if(existingUser.accountType === "free"){
-            //     // check for usage
+               // // check for usage
             //     if(existingUser.usage.apps >= 5){
             //         return res.status(404).json({ message: 'You have reached your limit for free account. Please upgrade your account to use more apps.' });
             //     }
             // }
             // check if app exists
-            const app = Apps.find(app => app.appId === appData.appId);
+            const app = Apps.find(app => app.appId === appId);
             if(!app){
                 return res.status(404).json({ message: 'App not found!' });
             }
@@ -45,7 +47,11 @@ export default nextConnect(handler)
             // }
             
             // execute app with App Data 
-            const resultData = await app.execute(appData);
+            const configuration = new Configuration({
+                apiKey: process.env.OPENAI_API_KEY,
+            });
+            const openai = new OpenAIApi(configuration);
+            const resultData = await app.execute(appData,openai);
             // update usage
             return res.status(200).json({ result:resultData,message:"Output generated successfully" });
 

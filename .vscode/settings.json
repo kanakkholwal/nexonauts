@@ -1,10 +1,4 @@
 {
-    "favorites.resources": [
-        {
-            "filePath": "",
-            "group": "Default"
-        }
-    ],
     "cSpell.words": [
         "autosemicolon",
         "cloudinary",
@@ -16,6 +10,4 @@
         "styleflux",
         "ytimg"
     ],
-    "svg.preview.background": "transparent",
-    "postman.telemetry.enabled": false
 }

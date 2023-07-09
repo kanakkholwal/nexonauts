@@ -1,8 +1,8 @@
-import Header from "./header";
-import Footer from "./footer";
+import Header from "components/layouts/header";
+import Footer from "components/layouts/footer";
 import { BreadCrumb } from "components/breadcrumb";
-import { MainWrapper, ContentWrapper, } from "./wrapper";
-import SideNav from "./sidenav";
+import { MainWrapper, ContentWrapper, } from "components/layouts/wrapper";
+import SideNav from "components/layouts/sidenav";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import { BiBell } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";

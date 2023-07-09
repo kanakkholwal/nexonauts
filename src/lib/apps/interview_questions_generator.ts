@@ -1,18 +1,13 @@
-import { Configuration, OpenAIApi } from "openai";
-// import type { TextCompletionResponse } from "types/openai";
-const configuration = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
 
-export default async function InterviewQuestionsGenerator(data: any) {
+
+export default async function InterviewQuestionsGenerator(data: any,openai) {
 
     const { numQuestions, roleType, difficultyLevel, companyName } = data;
 
 
     return new Promise(async (resolve, reject) => {
 
-        const prompt = `As an interviewer for ${companyName ?? `[Company Name]`}, you are conducting an interview for the role of ${roleType}. Please generate ${parseInt(numQuestions)} interview questions based on the following criteria:\n\nDifficulty/Seniority Level: ${difficultyLevel}\n\n`;
+        const prompt = `As an interviewer for ${companyName ?? `a Company`}, you are conducting an interview for the role of ${roleType}. Please generate ${parseInt(numQuestions)} interview questions based on the following criteria:\n\nDifficulty/Seniority Level: ${difficultyLevel}\n\n`;
 
         try {
             const completion = await openai.createCompletion({
@@ -33,8 +28,11 @@ export default async function InterviewQuestionsGenerator(data: any) {
             const questions = splitString(response.choices[0].text);
             console.log(questions);
 
-            const output : any[] = [{
-                type: "ordered_list",
+            const output: Output[] = [{
+                outputType: "plaintext",
+                data: `Here are ${questions.length} interview questions for the role of ${roleType} at ${companyName ?? `a Company`}:\n\n`
+            }, {
+                outputType: "ordered_list",
                 data: questions
             }];
             return resolve(output);
@@ -57,4 +55,10 @@ function splitString(string: string | undefined) {
     const splitted = string.split(pattern);
     const filtered = splitted.filter((s) => s.trim() !== "").map((s) => s.trim());
     return filtered;
+}
+
+type Output = {
+    outputType: string,
+    data: any,
+    subtype?: string,
 }

@@ -11,9 +11,10 @@ const StyledWrapper = styled.div`
     position: relative;
     display: flex;
     flex-wrap: wrap;
-    width: 100%;
     letter-spacing: 0.065em;
     font-weight: 500;
+    width:min-content;
+    gap:2px;
     transition: all .3s ease-in-out;
     border-radius: 0.5rem;
     padding:0.75rem 0.875rem;

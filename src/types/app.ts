@@ -27,10 +27,10 @@ type App = {
     }
 }
 interface Controls {
-    type: string;
+    controlType: string;
     id: string;
     text: string;
-    icon: string;
+    icon?: string;
     action: string;
     variant: string;
 }

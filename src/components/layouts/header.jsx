@@ -37,7 +37,7 @@ border-radius: 0.5rem;
 aspect-ratio: 1;
 height: 40px;
 font-size:1.25rem;
-@media (width >= 1024px) {
+@media (width >= 1400px) {
     display:none;
 }
 `;
@@ -271,7 +271,7 @@ export default function Header({ user, routes, children }) {
                     rounded onClick={() => setIsSearchOpen((state) => !state)}>
                     <CgSearch />
                 </SearchToggler>
-                <ProfileWrapper>
+                {user && <ProfileWrapper>
                     <Profile onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
@@ -310,7 +310,7 @@ export default function Header({ user, routes, children }) {
                             Log Out
                         </ProfileDropDownItem>
                     </ProfileDropDown>
-                </ProfileWrapper>
+                </ProfileWrapper>}
             </NavBarWrapper>
 
         </>
