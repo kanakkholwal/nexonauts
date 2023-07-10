@@ -7,7 +7,7 @@ import SideNav from "components/layouts/sidenav";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 
 import { RiAppsLine } from "react-icons/ri";
-import { TbTools ,TbSmartHome} from "react-icons/tb";
+import { TbTools ,TbSmartHome,TbBrandBlogger,TbDashboard} from "react-icons/tb";
 
 const SocialMedia = [
     {
@@ -40,6 +40,11 @@ const routes = (userRole :string ) => {
                 path: "/",
             },
             {
+                title: "Dashboard",
+                icon: <TbDashboard size={16}/>,
+                path: "/dashboard",
+            },
+            {
                 title: "Apps",
                 icon: <RiAppsLine size={16} />,
                 path: "/apps",
@@ -48,6 +53,11 @@ const routes = (userRole :string ) => {
                 title: "Tools",
                 icon: <TbTools  size={16}/>,
                 path: "/tools",
+            },
+            {
+                title: "Blog",
+                icon: <TbBrandBlogger  size={16}/>,
+                path: "/blog",
             }
         ]
 }

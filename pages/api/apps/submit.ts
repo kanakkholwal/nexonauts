@@ -22,12 +22,12 @@ export default nextConnect(handler)
           
             const result = await checkUser(req, existingUser);
             if (!result.verified) {
-              return res.status(403).json({ verified: result.verified, message: result.message });
+              return res.status(401).json({ verified: result.verified, message: result.message });
             }
             // check if user is admin of not 
             if(result.isAdmin !== true)
             {
-                return res.status(403).json({ message: 'You are not authorized to create app!' });
+                return res.status(401).json({ message: 'You are not authorized to create app!' });
             }
             // user is verified
             const newAppData:newApp = {
@@ -61,7 +61,7 @@ export default nextConnect(handler)
             }
             const newApp = await App.create(newAppData);
             if(!newApp){
-                return res.status(403).json({ message: 'App creation failed!' });
+                return res.status(400).json({ message: 'App creation failed!' });
             }
             // return application
             return res.status(200).json({ result:newApp,message:"App created successfully" });

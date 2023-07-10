@@ -36,7 +36,20 @@ export default function TextInputToTextOutput({ app, user }) {
 
     return (
         <AppWrapper>
-
+            {/* Meta Data */}
+            <h2>{app.name}</h2>
+            <h6>{app.shortDescription}</h6>
+            <p>{app.description}</p>
+            <p>By {app.author.name}</p>
+            <p>Version {app.version}</p>
+            <p>Category: {app.category}</p>
+            <p>Tags: {app.tags.join(", ")}</p>
+            <p>Membership: {app.membership}</p>
+            <p>Recommended: {app.recommended ? "Yes" : "No"}</p>
+            <p>Created At: {app.createdAt.toString()}</p>
+            <p>App Id: {app.appId}</p>
+            <p>Path: {app.path}</p>
+            
             {/* Inputs */}
             <FormGroup>
                 {app.formFlow.inputs?.map((input, index) => {
@@ -53,8 +66,8 @@ export default function TextInputToTextOutput({ app, user }) {
                                 value={value[input.inputId]}
                                 placeholder={inputPlaceholder}
                                 onChange={(event) => handleChange(input.inputId, event.target.value)}
-
                             />
+                            {input.inputHelper && <FormHelper>{input.inputHelper}</FormHelper>}
                         </FormElement>);
                     else if (inputType === "text_multiline")
                         return (<FormElement>
@@ -68,6 +81,7 @@ export default function TextInputToTextOutput({ app, user }) {
                                 value={value[input.inputId]}
                                 onChange={(event) => handleChange(input.inputId, event.target.value)}
                             />
+                             {input.inputHelper && <FormHelper>{input.inputHelper}</FormHelper>}
                         </FormElement>);
                     else if (inputType === "dropdown")
                         return (<FormElement>
@@ -82,6 +96,7 @@ export default function TextInputToTextOutput({ app, user }) {
                                 onChange={(option) => handleChange(input.inputId, option.value)}
                                 options={inputOptions.map((option) => ({ value: option.value, label: option.label ? option.label : option.value }))}
                             />
+                          {input.inputHelper && <FormHelper>{input.inputHelper}</FormHelper>}
                         </FormElement>);
 
                     else if (inputType === "autoComplete")
@@ -97,6 +112,7 @@ export default function TextInputToTextOutput({ app, user }) {
                                 onChange={(options) => handleChange(input.inputId, options[0]?.value ?? "")}
                                 options={inputOptions.map((option) => ({ value: option.value, label: option.label ? option.label : option.value }))}
                             />
+                             {input.inputHelper && <FormHelper>{input.inputHelper}</FormHelper>}
                         </FormElement>);
 
                     return null;

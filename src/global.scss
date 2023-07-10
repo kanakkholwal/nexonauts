@@ -379,6 +379,12 @@ a {
     color: rgba(var(--theme-rgb), 1);
     text-decoration: none;
     font-weight: 500;
+    &.underline{
+        text-decoration: none;
+        &:hover{
+            text-decoration: underline;
+        }
+    }
 }
 .collapse {
     

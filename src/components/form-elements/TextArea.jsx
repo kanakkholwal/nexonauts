@@ -213,7 +213,7 @@ ${props => props.sm ? `  &~label {
           }` : ""}` : ""}
   `;
 
-function TextArea({ children, ...props }) {
+function TextArea({ ...props }) {
   const textAreaElement = React.useRef(null);
 
   React.useEffect(() => {
@@ -264,7 +264,6 @@ function TextArea({ children, ...props }) {
 
   return (
     <TextAreaStyled {...props} ref={textAreaElement}>
-      {children}
     </TextAreaStyled>
   )
 }
