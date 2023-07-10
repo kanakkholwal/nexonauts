@@ -9,7 +9,7 @@ import { Configuration, OpenAIApi } from "openai";
 // import type { TextCompletionResponse } from "types/openai";
 
 export default nextConnect(handler)
-    .use(hasTokenMiddleware)
+    // .use(hasTokenMiddleware)
     .post(async (req, res) => {
         try {
             await dbConnect();
@@ -19,10 +19,10 @@ export default nextConnect(handler)
               return res.status(404).json({ message: 'User not found!' });
             }
           
-            const result = await checkUser(req, existingUser);
-            if (!result.verified) {
-              return res.status(404).json({ verified: result.verified, message: result.message });
-            }
+            // const result = await checkUser(req, existingUser);
+            // if (!result.verified) {
+            //   return res.status(404).json({ verified: result.verified, message: result.message });
+            // }
             // user is verified
             // check for account type and if it is free then check for usage
             // if(existingUser.accountType === "free"){
@@ -40,11 +40,7 @@ export default nextConnect(handler)
             // if(!appData.enabled){
             //     return res.status(404).json({ message: 'App is not enabled!' });
             // }
-        
-            // check if app is enabled for user
-            // if(!existingUser.apps. (appData.appId)){
-            //     return res.status(404).json({ message: 'App is not enabled for you!' });
-            // }
+         
             
             // execute app with App Data 
             const configuration = new Configuration({

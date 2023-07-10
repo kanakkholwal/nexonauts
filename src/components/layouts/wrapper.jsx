@@ -8,6 +8,8 @@ transition: all 0.3s ease-in-out;
 ${'' /* padding-inline: 0; */}
 // max-width: var(--max-width);
 position: relative;
+container-type: inline-size;
+
 @media (min-width: 1400px) {
     padding-inline-start: var(--sidenav-width);
     &.isSidenavOpen:has(~.isOpen){
@@ -17,12 +19,15 @@ position: relative;
         padding-left:var(--sidenav-width);
     }
 }
+
 `;
 export const ContentWrapper = styled.div`
 width: 100%;
 height: 100%;
 padding: 2rem 1rem;
 margin-inline: auto;
+container-type: inline-size;
+
 `;
 export const Hero = styled.div`
 width: 100%;

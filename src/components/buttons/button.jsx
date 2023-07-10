@@ -20,6 +20,7 @@ const Button = styled.button`
   border: 2px solid var(--btn-border,var(--theme));
   border-radius: var(--btn-border-radius,0.25rem);
   text-align: center;
+  text-transform: capitalize;
   
   &:hover{
     color:var(--btn-hover-color,var(--btn-text));

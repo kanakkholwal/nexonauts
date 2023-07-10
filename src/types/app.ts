@@ -6,21 +6,22 @@ type App = {
     name: string;
     shortDescription: string;
     description: string;
-    type: string;
+    type: TypesOfApp;
     membership: string;
     category: string;
     tags: string[];
     author: any;
     path: string;
-    coverImage: string;
+    version?: string;
+    coverImage?: string;
     recommended: Boolean,
     createdAt:Date,
-    average_rating: Number,
+    average_rating?: Number | null | undefined,
     ratings: Number[],
     reviews: AppReview[],
     usage: string[] | AppUsage[],
     formFlow:{
-        menuType: "text_input_to_text_output" | "chatbot"| "text_input_to_image_output" | "text_input_to_video_output" | "text_input_to_audio_output" | "text_input_to_file_output"  |  "text_input_to_code_output" ,
+        menuType: TypesOfApp ,
         inputs:Input[],
         outputs:any[],
         controls:Controls[]
@@ -43,6 +44,7 @@ interface Input {
     inputValue: string;
     inputPlaceholder: string;
     inputRequired:Boolean;
+    inputHelper?: string;
     constraints:any;
     inputOptions: Options[];    
 }
@@ -50,6 +52,8 @@ type Options = {
     label: string;
     value: string;
 }
+type TypesOfApp = "text_input_to_text_output" | "chatbot"| "text_input_to_image_output" | "text_input_to_video_output" | "text_input_to_audio_output" | "text_input_to_file_output"  |  "text_input_to_code_output";
+
 
 interface AppReview {
     appId: string;

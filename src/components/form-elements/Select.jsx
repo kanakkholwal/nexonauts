@@ -195,7 +195,7 @@ const SelectDropdownItem = styled.div`
 `;
 
 
-function Select({ options, value, onChange, size, ...props }) {
+function Select({ options, value, onChange, size = "md", ...props }) {
   const selectRef = React.useRef(null);
 
   // const [usingOptions, SetUsingOptions] = React.useState(options);

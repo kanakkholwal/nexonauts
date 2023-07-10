@@ -8,6 +8,7 @@ import { HiOutlineChevronDown } from "react-icons/hi";
 import { VscCircle } from "react-icons/vsc";
 import { BiChevronRight } from "react-icons/bi";
 import { useRef ,useState} from "react";
+import Logo from 'components/Logo';
 
 const SideNavWrapper = styled.div`
 position: fixed;
@@ -60,13 +61,13 @@ transition: all 0.3s ease-in-out;
 &:hover{
     background-color: rgba(0, 0, 0, 0.1);
 }
-@media (min-width: 1024px) {
+@media (min-width: 1400px) {
     display: none;
 }
 `;
 
 const SideNavHeader = styled.div`
-padding: 1rem 0.5rem;
+padding:0.5rem;
 text-align: center;
 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 margin-bottom: 1rem;
@@ -183,9 +184,10 @@ export default function SideNav({ routes, user }) {
         <SideNavWrapper id="sidenav_panel" ref={sidenavRef} className='isOpen'>
             <CloseButton onClick={() => sidenavRef.current.classList.toggle('isOpen')}><GrClose /></CloseButton>
             <SideNavHeader>
-                <SectionTitle>
+                {/* <SectionTitle>
                     K K UPGRADER
-                </SectionTitle>
+                </SectionTitle> */}
+                <Logo />    
             </SideNavHeader>
             {routes?.length > 0 ? <RecursiveLinkList routes={routes} /> : null}
             {user ? <LogoutButton as={"button"}  onClick={() => signOut()}>

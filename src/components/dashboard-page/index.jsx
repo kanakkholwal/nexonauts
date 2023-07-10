@@ -6,10 +6,10 @@ import SideNav from "components/layouts/sidenav";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import { BiBell } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
-import { RxDashboard } from "react-icons/rx";
-import { TbTools, TbMessageDots, TbBrandBlogger } from "react-icons/tb";
+import { TbTools, TbMessageDots, TbBrandBlogger ,TbDashboard} from "react-icons/tb";
 import { RiAdminLine,RiPagesLine } from "react-icons/ri";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
+import { RiAppsLine } from "react-icons/ri";
 
 export { Header } from "./elements";
 
@@ -39,7 +39,7 @@ const userRoutes = [
     {
         title: "Dashboard",
         path: "/dashboard",
-        icon: <RxDashboard />,
+        icon: <TbDashboard />,
     },
     {
         title: "Tools",
@@ -82,6 +82,11 @@ const routes = (userRole) => {
                 title: "Users",
                 path: "/dashboard/admin/users",
                 icon: <FiUsers />,
+            },
+            {
+                title: "Apps",
+                path: "/dashboard/admin/apps",
+                icon: <RiAppsLine />,
             },
             {
                 title: "Messages",
