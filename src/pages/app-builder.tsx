@@ -306,8 +306,96 @@ function InputFlowTab({ app, dispatch }) {
 }
 function ControlFlowTab({ app,dispatch }) {
 
+    const [newControl, setNewControl] = useState({
+            controlType: "button",
+            id: "generate",
+            text: "Generate",
+            icon: "",
+            action: "get_output",
+            variant: "secondary",
+
+    })
    
-    return <FormGroup>
+    return <FormGroup className='g-0'>
+        
+        <FormElement>
+            <Label sm={true} htmlFor="ControlType">Control Type</Label>
+            <Select sm={true} value={newControl.controlType} id='ControlType' 
+           
+                 options={[
+                   { label: 'Button', value: 'button' },
+                   { label: 'Icon Button', value: 'icon_button' },
+                 ]}
+                   onChange={(option :{
+                    label: string;
+                    value: string;
+                   }) => setNewControl({ ...newControl, controlType: option.value })}
+            />
+        </FormElement>
+
+        <FormElement>
+            <Label sm={true} htmlFor="ControlId">Control Id</Label>
+            <Input sm={true} value={newControl.id} id='ControlId' onChange={(e) => setNewControl({ ...newControl, id: e.target.value })} />
+        </FormElement>
+        <FormElement>
+            <Label sm={true} htmlFor="ControlText">Control Text</Label>
+            <Input sm={true} value={newControl.text} id='ControlText' onChange={(e) => setNewControl({ ...newControl, text: e.target.value })} />
+        </FormElement>
+        <FormElement>
+            <Label sm={true} htmlFor="ControlIcon">Control Icon</Label>
+            <Input sm={true} value={newControl.icon} id='ControlIcon' onChange={(e) => setNewControl({ ...newControl, icon: e.target.value })} />
+        </FormElement>
+        <FormElement>
+            <Label sm={true} htmlFor="ControlAction">Control Action</Label>
+            <Select 
+             value={newControl.action} id='ControlAction' 
+              options={[
+                { label: 'Get Output', value: 'get_output' },
+                { label: 'Refresh', value: 'refresh' },
+              ]}
+                onChange={(option) => setNewControl({ ...newControl, action: option.value })}
+                />
+        </FormElement>
+        <FormElement>
+            <Label sm={true} htmlFor="ControlVariant">Control Variant</Label>
+            <Select
+                value={newControl.variant} id='ControlVariant'
+                options={[
+                    { label: 'Primary', value: 'primary' },
+                    { label: 'Secondary', value: 'secondary' },
+                    { label: 'Success', value: 'success' },
+                    { label: 'Warning', value: 'warning' },
+                    { label: 'Danger', value: 'danger' },
+                    { label: 'Info', value: 'info' },
+                    { label: 'Light', value: 'light' },
+                    { label: 'Dark', value: 'dark' },
+                ]}
+                onChange={(option) => setNewControl({ ...newControl, variant: option.value })}
+            />
+        </FormElement>
+        <Button
+            onClick={() => {
+                if (app.formFlow.controls.length === 0) {
+                    dispatch({ type: 'setAppFormFlowControl', payload: [newControl] })
+                }
+                else {
+                    dispatch({ type: 'setAppFormFlowControl', payload: [...app.formFlow.controls, newControl] })
+                }
+                setNewControl({
+                    controlType: "button",
+                    id: "generate",
+                    text: "Generate",
+                    icon: "",
+                    action: "get_output",
+                    variant: "secondary",
+                })
+            }
+            }
+            type='button'
+            nature="info"
+            level={true}
+        >Add Control</Button>
+        
         
     </FormGroup>
 }
