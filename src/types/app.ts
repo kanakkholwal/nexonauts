@@ -71,4 +71,4 @@ interface AppUsage{
     _id:string | any;
 }
 type newApp = Omit<App ,"_id">
-export type { App,newApp, AppReview, AppUsage };
+export type { App,newApp, AppReview, AppUsage ,Input,Controls,Options,TypesOfApp};

@@ -9,7 +9,22 @@ to{
 }`
 
 const Checkbox = styled.input.attrs({ type: 'checkbox' })`
---checkbox-width: ${({ size }) => size ? size: "1.75rem"};
+--checkbox-width: ${({ size }) => {
+    switch (size) {
+        case 'sm':
+            return '1rem'
+        case 'md':
+            return '1.25rem'
+        case 'lg':
+            return '1.5rem'
+        case 'xl':
+            return '1.75rem'
+        case 'xs':
+            return '0.875rem'
+        default:
+            return '1.25rem'
+    }
+}};
 width: var(--checkbox-width,1.75rem);
 height: var(--checkbox-width,1.75rem);
 position: relative;
@@ -21,6 +36,7 @@ transition: .3s;
 -moz-appearance: none;
 appearance: none;
 margin: 0;
+aspect-ratio: 1;
 cursor: pointer;
 box-shadow: inset 0 0 0 2px var(--form-checkbox-border);
 margin-inline:0.5rem;

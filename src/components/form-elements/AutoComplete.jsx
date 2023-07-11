@@ -13,7 +13,8 @@ const StyledWrapper = styled.div`
     flex-wrap: wrap;
     letter-spacing: 0.065em;
     font-weight: 500;
-    width:min-content;
+     max-width: 100%;
+    min-width: 140px;
     gap:2px;
     transition: all .3s ease-in-out;
     border-radius: 0.5rem;
@@ -29,8 +30,16 @@ const StyledWrapper = styled.div`
     &:focus, &:has(input:focus), &:has(input:active), &:focus-within {
     border-color: var(--form-active);
     background: var(--form-bg-active);
+ 
     } 
-
+    ${props => props.size === "sm" ? 
+    `
+        font-size: 0.875rem !important;
+        line-height: 1rem!important;
+        padding: 8px 24px 8px 8px!important;
+        border-radius: 0.5rem !important;
+        border-width: 1px !important;
+    `: ""}
 `;
 const SelectedWrapper = styled.div`
 transition: all .3s ease-in-out;
@@ -45,7 +54,7 @@ transition: all .3s ease-in-out;
 background:none;
 border:none;
 outline:none;
-width:max-content;
+
 margin-inline:0.5rem;
 flex:1 1 auto;
 &:focus{
@@ -80,6 +89,7 @@ export default function AutoComplete({
   async = false,
   placeholder,
   id,
+   size = "md",
 }) {
   const initialState = {
     isOpen: false,
@@ -175,8 +185,11 @@ export default function AutoComplete({
   return (
     <StyledWrapper      
        ref={wrapperRef}
+       size={size}
     >
-    <SelectedWrapper>
+    <SelectedWrapper 
+  
+    >
       {multiple ?
         selected.map((option, index) => (
           <Chip
@@ -236,6 +249,7 @@ export default function AutoComplete({
                       usingOptions.filter((option) => selected.every((item) => item.value !== option.value)).map((option, index) => (
                           <DropdownItem
                               key={index}
+                              size={size}
                               id={option.value || (Math.random() * 100).toString()}
                               onClick={(event) => handleClick(event, option)}
                           >
@@ -362,5 +376,12 @@ const DropdownItem = styled.div`
       border-bottom-left-radius: 0.25rem;
       border-bottom-right-radius: 0.25rem;
     }
+     ${props => props.size === "sm" ? 
+    `
+        font-size: 0.875rem !important;
+        line-height: 1rem!important;
+        padding: 8px 24px 8px 8px!important;
+        border-radius: 0.25rem !important;
+    `: ""}
 
 `;

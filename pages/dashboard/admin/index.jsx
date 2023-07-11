@@ -5,9 +5,8 @@ import Badge from "components/topography/badge";
 import Head from "next/head";
 import Link from 'next/link';
 import { FaRegUser } from "react-icons/fa";
-import { TbBrandGoogleAnalytics } from "react-icons/tb";
-import { RiArticleLine } from 'react-icons/ri';
-import { MdArrowUpward,MdArrowDownward } from 'react-icons/md';
+import {TbTools, TbBrandGoogleAnalytics } from "react-icons/tb";
+import { RiArticleLine ,RiAppsLine} from 'react-icons/ri';
 import {DashCard,Icon,TrendingPages,TrendingPagesListItem} from "components/dashboard-page/elements";
 
 import useSWR from "swr";
@@ -23,18 +22,10 @@ const fetcher = url => axios.get(url).then(res => res.data)
 
 export default function Dashboard({ user }) {
   
-    const { data:UserData, error:userListError, isLoading :userListLoading} = useSWR(['/api/admin/users/all', { adminId: user.id }], ([url, data]) => fetchData(url, data))
-    const { data:pageData, error:pageError, isLoading:pageLoading} = useSWR('/api/admin/analytics', fetcher)
-    const { data:postData, error:postError, isLoading:postLoading} = useSWR('/api/admin/blog/get', fetcher)
+    const { data, error, isLoading} = useSWR('/api/admin/dashboard/stats', fetcher)
 
-    if(pageError)
-        console.log(pageError);
-    if(userListError)
-        console.log(userListError);
-    if(postError)
-        console.log(postError);
-
-  
+    if(error)
+        console.log(pageError); 
 
 
     return (
@@ -47,7 +38,7 @@ export default function Dashboard({ user }) {
                     <DashCard as={Link} href="/dashboard/admin/users">
                         <div>
                             <span>Total Users</span>
-                            <h2>{UserData? UserData.users?.length :0}</h2>
+                            <h2>{data ? data.stats?.users :0}</h2>
                             {/* <span> Registered yet</span> */}
                         </div>
                         <Icon>
@@ -57,17 +48,37 @@ export default function Dashboard({ user }) {
                     <DashCard as={Link} href="/dashboard/admin/blog">
                         <div>
                             <span>Total Posts</span>
-                            <h2>{postData? postData?.noOfPosts :0}</h2>
+                            <h2>{data ? data?.stats?.posts :0}</h2>
                             {/* <span> Created yet</span> */}
                         </div>
                         <Icon>
                             <RiArticleLine />
                         </Icon>
                     </DashCard>
+                    <DashCard as={Link} href="/dashboard/admin/apps">
+                        <div>
+                            <span>Total Apps</span>
+                            <h2>{data ? data?.stats?.apps :0}</h2>
+                            {/* <span> Created yet</span> */}
+                        </div>
+                        <Icon>
+                            <RiAppsLine />
+                        </Icon>
+                    </DashCard>
+                    <DashCard as={Link} href="/dashboard/admin/tools">
+                        <div>
+                            <span>Total Tools</span>
+                            <h2>{data ? data?.stats?.tools :0}</h2>
+                            {/* <span> Created yet</span> */}
+                        </div>
+                        <Icon>
+                            <TbTools />
+                        </Icon>
+                    </DashCard>
                     <DashCard as={Link} href="/dashboard/admin/analytics">
                         <div>
                             <span>Total Activities</span>
-                            <h2>{pageData? getAnalytics(pageData.pages)?.length:0}</h2>
+                            <h2>{data ? data?.stats?.pages:0}</h2>
                         </div>
                         <Icon>
                             <TbBrandGoogleAnalytics />

@@ -1,9 +1,15 @@
 import styled from 'styled-components';
-import Label from './Label';
 
 
 
-const Input = styled.input`
+const Input = styled.input<{
+    nature?: string;
+    noBorder?: string;
+    underlined?: string;
+    floating?: string;
+    lg?: boolean;
+    sm?: boolean;
+}>`
   letter-spacing: 0.065em;
   font-weight: 500;
   transition: all .3s ease-in-out;
@@ -32,6 +38,9 @@ const Input = styled.input`
   }
   
   
+  &:hover:not(:disabled):not(:placeholder-shown) {
+    border-color: var(--form-active);
+  }
   &:focus {
     border-color: var(--form-active);
     background: var(--form-bg-active);
@@ -60,17 +69,20 @@ const Input = styled.input`
     animation-duration: 500ms;
     animation-fill-mode: both;
   }
-  ${props => props.size === "lg" ? `
+  ${props => props.lg ? `
   font-size: 1rem !important;
   line-height: 2.15 !important;
   padding-left: 0.75em !important;
   padding-right: 0.75em !important;
   border-radius: 0.5rem !important;`: ""}
   
-  ${props => props.size === "sm" ? `padding: 0.43em 0.99em 0.35em !important;
-  font-size: .775rem !important;
-  line-height: 1.6 !important;
-  border-radius: 0.2rem !important;`: ""}
+  ${props => props.sm ? `
+  font-size: 0.875rem !important;
+  line-height: 1rem!important;
+  padding: 8px 24px 8px 8px!important;
+  border-radius: 0.5rem !important;
+  border-width: 1px !important;`: ""}
+
   
   ${props => props.noBorder === "true" ? `
   border: none!important;

@@ -1,6 +1,19 @@
 import styled from 'styled-components';
 
-const Button = styled.button`
+const Button = styled.button<{
+    rounded?: boolean;
+    pill?: boolean;
+    nature?: string;
+    outlined?: boolean;
+    level?: boolean;
+    fill?: boolean;
+    size?: string;
+    loading?: boolean;
+    disabled?: boolean;
+    breakpoint?: string;
+    direction?: Boolean;
+    icon?: boolean;
+}>`
   display:inline-flex;
   align-items:center;
   justify-content:center;
@@ -98,7 +111,7 @@ animation : opaque 1250ms linear infinite alternate;
 ` : ``}
 
 `;
-const ButtonWithIcon = styled(Button) 
+const ButtonWithIcon = styled(Button)
 `
 user-select: none;
 &>svg{
@@ -106,14 +119,7 @@ user-select: none;
   line-height: inherit;
   color: currentColor;
 }
-${({direction}) =>{
-  direction ? `
-  flex-direction:row-reverse;`
-  :
-  `
-  flex-direction:row;
-  `
-}}
+
 @media (max-width:${({breakpoint}) => breakpoint ? breakpoint : "768px"}){
   padding:0.75rem;
 
@@ -121,7 +127,7 @@ ${({direction}) =>{
     display:none;
   }
 }
-
+${(props) =>  props.direction ? `flex-direction:row-reverse;`:`flex-direction:row;`}
 `;
 export const IconButton = styled(Button)`
 padding:0.5rem;

@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 import { useState, useEffect, forwardRef } from "react";
-
+import PropTypes from "prop-types";
 const slideInAnimation = keyframes`
   from {
     opacity: 0;
@@ -104,7 +104,7 @@ export const useModal = (ref) => {
         e.clientY < dialogDimensions.top ||
         e.clientY > dialogDimensions.bottom
       ) {
-
+        if(ref.current.contains(e.target)) return;
         
         close();
       }
@@ -121,19 +121,21 @@ export const useModal = (ref) => {
 
   return {
      show, 
+     isShowing: show, 
      toggle, 
      open,
-      close,
+    close,
 
      };
 };
 
 export const Modal = forwardRef((props, ref) => {
   return (
-    <>
       <ModalDialog ref={ref} {...props}>
         {props.children}
       </ModalDialog>
-    </>
   );
 });
+PropTypes.Modal = {
+    children: PropTypes.node.isRequired,
+}
