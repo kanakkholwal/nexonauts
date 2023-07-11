@@ -5,7 +5,7 @@ import { newApp, } from 'types/app';
 // utilities
 import { useEffect, useReducer, useState } from 'react';
 import axios from 'axios';
-import type {Input as InputType,Options} from "types/app"
+import type { Input as InputType, Options } from "types/app"
 // Components
 import styled from 'styled-components';
 import Tabs from 'components/Tabs';
@@ -14,17 +14,17 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Input, FormElement, FormGroup, Label, CheckBox, FormHelper, Switch, TextArea, Select, AutoComplete, InputWithIcon } from "components/form-elements"
 
 // Icons 
-import { TbCircleMinus,TbCirclePlus } from 'react-icons/tb';
+import { TbCircleMinus, TbCirclePlus } from 'react-icons/tb';
 
 
 
-export default function AppBuilder({ user ,app : defaultApp,type = "submit"}:{
+export default function AppBuilder({ user, app: defaultApp, type = "submit" }: {
     user: any,
     app?: newApp,
     type?: "submit" | "update",
 }) {
     const initialState = {
-        app: defaultApp ? defaultApp :{
+        app: defaultApp ? defaultApp : {
             appId: "",
             enabled: false,
             name: "",
@@ -120,15 +120,15 @@ export default function AppBuilder({ user ,app : defaultApp,type = "submit"}:{
                         { title: "General", id: "general", content: <GeneralTab app={app} dispatch={dispatch} /> },
                         { title: "Inputs", id: "input-flow", content: <InputFlowTab app={app} dispatch={dispatch} /> },
                         { title: "Controls ", id: "control-flow", content: <ControlFlowTab app={app} dispatch={dispatch} /> },
-                        { title: "Final", id: "final", content: <FinalTab app={app} user={user}  type={type}/> },
+                        { title: "Final", id: "final", content: <FinalTab app={app} user={user} type={type} /> },
                     ]}
 
-                    align={"space-evenly"} 
+                    align={"space-evenly"}
                     filled={true}
                     variant={"dark"}
                     sm={true}
-                    
-                    />
+
+                />
             </EditorWrapper>
 
         </PageWrapper>)
@@ -137,18 +137,18 @@ export default function AppBuilder({ user ,app : defaultApp,type = "submit"}:{
 function InputFlowTab({ app, dispatch }) {
 
     const [newInput, setNewInput] = useState<InputType>({
-    inputType: "",
-    inputName: "",
-    inputId: "",
-    inputLabel:"",
-    inputValue: "",
-    inputPlaceholder: "",
-    inputRequired:false,
-    inputHelper: "",
-    constraints:{},
-    inputOptions: [],
+        inputType: "",
+        inputName: "",
+        inputId: "",
+        inputLabel: "",
+        inputValue: "",
+        inputPlaceholder: "",
+        inputRequired: false,
+        inputHelper: "",
+        constraints: {},
+        inputOptions: [],
     });
-   
+
 
     return (<>
         {/* new Input */}
@@ -173,21 +173,21 @@ function InputFlowTab({ app, dispatch }) {
             <FormGroup className='g-0'>
                 <FormElement>
                     <Label sm={true} htmlFor="InputName">Name</Label>
-                    <Input sm={true} value={newInput.inputName}  id='InputName' placeholder='Enter the name' onChange={(e) => setNewInput({ ...newInput, inputName: e.target.value })} />
+                    <Input sm={true} value={newInput.inputName} id='InputName' placeholder='Enter the name' onChange={(e) => setNewInput({ ...newInput, inputName: e.target.value })} />
                 </FormElement>
                 <FormElement>
                     <Label sm={true} htmlFor="InputId">Id</Label>
-                    <Input sm={true} value={newInput.inputId} id='InputId'  placeholder='@variable' required onChange={(e) => setNewInput({ ...newInput, inputId: e.target.value })} />
+                    <Input sm={true} value={newInput.inputId} id='InputId' placeholder='@variable' required onChange={(e) => setNewInput({ ...newInput, inputId: e.target.value })} />
                 </FormElement>
                 <FormElement>
                     <Label sm={true} htmlFor="InputLabel">Label</Label>
-                    <Input sm={true} value={newInput.inputLabel} id='InputLabel'  placeholder='Enter the label' onChange={(e) => setNewInput({ ...newInput, inputLabel: e.target.value })} />
+                    <Input sm={true} value={newInput.inputLabel} id='InputLabel' placeholder='Enter the label' onChange={(e) => setNewInput({ ...newInput, inputLabel: e.target.value })} />
                 </FormElement>
                 <FormElement>
                     <Label sm={true} htmlFor="InputValue">Value</Label>
-                    <Input sm={true} value={newInput.inputValue} id='InputValue' 
-                    placeholder='Enter the value'
-                    onChange={(e) => setNewInput({ ...newInput, inputValue: e.target.value })} />
+                    <Input sm={true} value={newInput.inputValue} id='InputValue'
+                        placeholder='Enter the value'
+                        onChange={(e) => setNewInput({ ...newInput, inputValue: e.target.value })} />
                 </FormElement>
                 {(newInput.inputType === "dropdown" || newInput.inputType === "autoComplete" || newInput.inputType === "radio") && <div>
                     <Label>Options </Label>
@@ -242,35 +242,35 @@ function InputFlowTab({ app, dispatch }) {
                     >Add New <TbCirclePlus size={16} /></Button>
 
                 </div>}
-              {(newInput.inputType === "text_input" || newInput.inputType === "number_input"  || newInput.inputType === "text_multiline" || newInput.inputType === "autoComplete")&& <FormElement>
+                {(newInput.inputType === "text_input" || newInput.inputType === "number_input" || newInput.inputType === "text_multiline" || newInput.inputType === "autoComplete") && <FormElement>
                     <Label sm={true} htmlFor="InputPlaceholder">Placeholder</Label>
                     <Input sm={true} value={newInput.inputPlaceholder} id='InputPlaceholder'
-                    placeholder='Enter the placeholder'
-                    onChange={(e) => setNewInput({ ...newInput, inputPlaceholder: e.target.value })} />
+                        placeholder='Enter the placeholder'
+                        onChange={(e) => setNewInput({ ...newInput, inputPlaceholder: e.target.value })} />
                 </FormElement>}
                 <FormElement>
                     <Label sm={true} htmlFor="InputRequired">Required Input ? </Label>
                     <CheckBox
-                      id='InputRequired'
-                      checked={!newInput.inputRequired}
-                      onChange={(e) => {
-                          if (e.target.checked) setNewInput({ ...newInput, inputRequired: false })
-                          else setNewInput({ ...newInput, inputRequired: true })
-                      }}
-                     />
+                        id='InputRequired'
+                        checked={!newInput.inputRequired}
+                        onChange={(e) => {
+                            if (e.target.checked) setNewInput({ ...newInput, inputRequired: false })
+                            else setNewInput({ ...newInput, inputRequired: true })
+                        }}
+                    />
                 </FormElement>
                 <FormElement>
                     <Label sm={true} htmlFor="InputHelper">Helper Text</Label>
-                    <Input sm={true} value={newInput.inputHelper} id='InputHelper' 
-                    placeholder='Enter the helper'
-                    onChange={(e) => setNewInput({ ...newInput, inputHelper: e.target.value })} />
+                    <Input sm={true} value={newInput.inputHelper} id='InputHelper'
+                        placeholder='Enter the helper'
+                        onChange={(e) => setNewInput({ ...newInput, inputHelper: e.target.value })} />
                 </FormElement>
             </FormGroup>
 
         </>}
-        <Button 
+        <Button
             onClick={() => {
-                if(ValidateNewInput(newInput)?.isValid === false) {
+                if (ValidateNewInput(newInput)?.isValid === false) {
                     alert(ValidateNewInput(newInput)?.message)
                     return;
                 }
@@ -279,7 +279,7 @@ function InputFlowTab({ app, dispatch }) {
                     dispatch({ type: 'setAppFormFlowInput', payload: [newInput] })
                 }
                 else {
-                    dispatch({ type: 'setAppFormFlowInput', payload: [...app.formFlow.inputs, newInput]})
+                    dispatch({ type: 'setAppFormFlowInput', payload: [...app.formFlow.inputs, newInput] })
                 }
                 setNewInput({
                     inputType: "",
@@ -294,9 +294,9 @@ function InputFlowTab({ app, dispatch }) {
                     inputOptions: [],
                 })
             }}
-        type='button'
-        nature="info"
-        level={true}
+            type='button'
+            nature="info"
+            level={true}
         >Add Field</Button>
 
 
@@ -304,36 +304,37 @@ function InputFlowTab({ app, dispatch }) {
     </>)
 
 }
-function ControlFlowTab({ app,dispatch }) {
+function ControlFlowTab({ app, dispatch }) {
 
     const [newControl, setNewControl] = useState({
-            controlType: "button",
-            id: "generate",
-            text: "Generate",
-            icon: "",
-            action: "get_output",
-            variant: "secondary",
+        controlType: "button",
+        id: "generate",
+        text: "Generate",
+        icon: "",
+        action: "get_output",
+        variant: "secondary",
 
     })
-   
+
     return <FormGroup className='g-0'>
-        
-        <FormElement>
+
+        <FormElement size="sm">
             <Label sm={true} htmlFor="ControlType">Control Type</Label>
-            <Select sm={true} value={newControl.controlType} id='ControlType' 
-           
-                 options={[
-                   { label: 'Button', value: 'button' },
-                   { label: 'Icon Button', value: 'icon_button' },
-                 ]}
-                   onChange={(option :{
+            <Select size='sm'
+                value={newControl.controlType} id='ControlType'
+
+                options={[
+                    { label: 'Button', value: 'button' },
+                    { label: 'Icon Button', value: 'icon_button' },
+                ]}
+                onChange={(option: {
                     label: string;
                     value: string;
-                   }) => setNewControl({ ...newControl, controlType: option.value })}
+                }) => setNewControl({ ...newControl, controlType: option.value })}
             />
         </FormElement>
 
-        <FormElement>
+        <FormElement size="sm">
             <Label sm={true} htmlFor="ControlId">Control Id</Label>
             <Input sm={true} value={newControl.id} id='ControlId' onChange={(e) => setNewControl({ ...newControl, id: e.target.value })} />
         </FormElement>
@@ -341,22 +342,23 @@ function ControlFlowTab({ app,dispatch }) {
             <Label sm={true} htmlFor="ControlText">Control Text</Label>
             <Input sm={true} value={newControl.text} id='ControlText' onChange={(e) => setNewControl({ ...newControl, text: e.target.value })} />
         </FormElement>
-        <FormElement>
+        <FormElement size="sm">
             <Label sm={true} htmlFor="ControlIcon">Control Icon</Label>
             <Input sm={true} value={newControl.icon} id='ControlIcon' onChange={(e) => setNewControl({ ...newControl, icon: e.target.value })} />
         </FormElement>
-        <FormElement>
+        <FormElement size="sm">
             <Label sm={true} htmlFor="ControlAction">Control Action</Label>
-            <Select 
-             value={newControl.action} id='ControlAction' 
-              options={[
-                { label: 'Get Output', value: 'get_output' },
-                { label: 'Refresh', value: 'refresh' },
-              ]}
+            <Select
+                value={newControl.action} id='ControlAction'
+                options={[
+                    { label: 'Get Output', value: 'get_output' },
+                    { label: 'Refresh', value: 'refresh' },
+                ]}
+                size='sm'
                 onChange={(option) => setNewControl({ ...newControl, action: option.value })}
-                />
+            />
         </FormElement>
-        <FormElement>
+        <FormElement size="sm">
             <Label sm={true} htmlFor="ControlVariant">Control Variant</Label>
             <Select
                 value={newControl.variant} id='ControlVariant'
@@ -369,7 +371,8 @@ function ControlFlowTab({ app,dispatch }) {
                     { label: 'Info', value: 'info' },
                     { label: 'Light', value: 'light' },
                     { label: 'Dark', value: 'dark' },
-                ]}
+                ]} size='sm'
+
                 onChange={(option) => setNewControl({ ...newControl, variant: option.value })}
             />
         </FormElement>
@@ -395,14 +398,14 @@ function ControlFlowTab({ app,dispatch }) {
             nature="info"
             level={true}
         >Add Control</Button>
-        
-        
+
+
     </FormGroup>
 }
 function GeneralTab({ app, dispatch }) {
 
     return <FormGroup>
-        <FormElement  size="sm">
+        <FormElement size="sm">
             <Label sm={true} htmlFor="appName">App Name</Label>
             <Input sm={true} value={app.name} id='appName' onChange={(e) => dispatch({ type: 'setAppName', payload: e.target.value })} />
         </FormElement>
@@ -413,15 +416,15 @@ function GeneralTab({ app, dispatch }) {
                 {process.env.NEXT_PUBLIC_WEBSITE_URL + app.path}
             </FormHelper>
         </FormElement>
-        <FormElement  size="sm">
+        <FormElement size="sm">
             <Label sm={true} htmlFor="appShortDescription">Short Description</Label>
             <TextArea sm={true} value={app.shortDescription} id='appShortDescription' onChange={(e) => dispatch({ type: 'setAppShortDescription', payload: e.target.value })} />
         </FormElement>
-        <FormElement  size="sm">
+        <FormElement size="sm">
             <Label sm={true} htmlFor="appDescription">Description</Label>
-            <TextArea  sm={true}   value={app.description} id='appDescription' onChange={(e) => dispatch({ type: 'setAppDescription', payload: e.target.value })} ></TextArea>
+            <TextArea sm={true} value={app.description} id='appDescription' onChange={(e) => dispatch({ type: 'setAppDescription', payload: e.target.value })} ></TextArea>
         </FormElement>
-        <FormElement  size="sm">
+        <FormElement size="sm">
             <Label sm={true} htmlFor="appType">Type</Label>
             <Select value={app.type} id='appType' onChange={(option) => dispatch({ type: 'setAppType', payload: option.value })}
                 options={[
@@ -434,7 +437,7 @@ function GeneralTab({ app, dispatch }) {
                 size="sm"
             />
         </FormElement>
-        <FormElement  size="sm">
+        <FormElement size="sm">
             <Label sm={true} htmlFor="appMembership">Membership</Label>
             <Select value={app.membership} id='appMembership' onChange={(option) => dispatch({ type: 'setAppMembership', payload: option.value })}
                 options={[
@@ -445,7 +448,7 @@ function GeneralTab({ app, dispatch }) {
                 size='sm'
             />
         </FormElement>
-        <FormElement  size="sm">
+        <FormElement size="sm">
             <Label sm={true} htmlFor="appCategory">Category</Label>
             <Select value={app.category} id='appCategory' onChange={(option) => dispatch({ type: 'setAppCategory', payload: option.value })}
                 options={[
@@ -465,7 +468,7 @@ function GeneralTab({ app, dispatch }) {
                 size='sm'
             />
         </FormElement>
-        <FormElement  size="sm">
+        <FormElement size="sm">
             <Label sm={true} htmlFor="appTags">Tags</Label>
             <AutoComplete
                 id="appTags"
@@ -481,14 +484,14 @@ function GeneralTab({ app, dispatch }) {
             <Label sm={true} htmlFor="appAuthor">Author</Label>
             <Input sm={true} value={app.author} id='appAuthor' onChange={(e) => dispatch({ type: 'setAppAuthor', payload: e.target.value })} />
         </FormElement> */}
-        <FormElement  size="sm">
+        <FormElement size="sm">
             <Label sm={true} htmlFor="appVersion">Version</Label>
             <Input sm={true} value={app.version} id='appVersion' onChange={(e) => dispatch({ type: 'setAppVersion', payload: e.target.value })} />
         </FormElement>
     </FormGroup>
 }
 
-function FinalTab({ app, user ,type="submit"}) {
+function FinalTab({ app, user, type = "submit" }) {
 
     const [isSure, setSure] = useState(false);
     const SubmitApp = async () => {
@@ -501,14 +504,13 @@ function FinalTab({ app, user ,type="submit"}) {
         }
         catch (e) {
             console.log(e);
-            if(e.response.status ===401) 
-            {
+            if (e.response.status === 401) {
                 toast.error("You are not authorized to submit this app");
             }
             else if (e.response.status === 403) {
                 toast.error("App with this id already exists");
             }
-            
+
         }
     }
     return <>
@@ -525,9 +527,9 @@ function FinalTab({ app, user ,type="submit"}) {
         </FormElement>
         <Button onClick={() => {
             toast.promise(SubmitApp(), {
-                loading:(type === "update" ? "updating...":"submitting...") ,
-                success: 'App  ' + (type === "update" ? "updated":"submitted") + ' successfully',
-                error: 'Error ' + (type === "update" ? "updating":"submitting") + ' app',
+                loading: (type === "update" ? "updating..." : "submitting..."),
+                success: 'App  ' + (type === "update" ? "updated" : "submitted") + ' successfully',
+                error: 'Error ' + (type === "update" ? "updating" : "submitting") + ' app',
             })
 
         }} disabled={!isSure}>{type} </Button>
@@ -573,9 +575,9 @@ border-radius: 0.5rem;
 
 
 
-const ValidateNewInput  = (Input : InputType) => {
-    
-       
+const ValidateNewInput = (Input: InputType) => {
+
+
     // check if inputType is valid
     if (Input.inputType.length === 0) {
         return { isValid: false, message: "Input Type is required" };
@@ -645,6 +647,6 @@ const ValidateNewInput  = (Input : InputType) => {
             return { isValid: false, message: "Input Constraints must be between 2 and 50 characters" };
         }
     }
-    
+
 
 }
