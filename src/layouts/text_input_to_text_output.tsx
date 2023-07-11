@@ -55,7 +55,7 @@ export default function TextInputToTextOutput({ app, user }) {
                 {app.formFlow.inputs?.map((input, index) => {
                     const { inputType, inputOptions, inputPlaceholder, ...rest } = input;
                     if (inputType === "text_input" || inputType === "number_input")
-                        return (<FormElement>
+                        return (<FormElement key={index}>
                             <Label htmlFor={input.inputId}>{input.inputLabel}</Label>
                             <Input
                                 {...rest}
@@ -70,7 +70,7 @@ export default function TextInputToTextOutput({ app, user }) {
                             {input.inputHelper && <FormHelper>{input.inputHelper}</FormHelper>}
                         </FormElement>);
                     else if (inputType === "text_multiline")
-                        return (<FormElement>
+                        return (<FormElement  key={index}>
                             <Label htmlFor={input.inputId}>{input.inputLabel}</Label>
                             <TextArea
                                 {...rest}
@@ -84,7 +84,7 @@ export default function TextInputToTextOutput({ app, user }) {
                              {input.inputHelper && <FormHelper>{input.inputHelper}</FormHelper>}
                         </FormElement>);
                     else if (inputType === "dropdown")
-                        return (<FormElement>
+                        return (<FormElement  key={index}>
                             <Label htmlFor={input.inputId}>{input.inputLabel}</Label>
                             <Select
                                 {...rest}
@@ -100,7 +100,7 @@ export default function TextInputToTextOutput({ app, user }) {
                         </FormElement>);
 
                     else if (inputType === "autoComplete")
-                        return (<FormElement>
+                        return (<FormElement key={index}>
                             <Label htmlFor={input.inputId}>{input.inputLabel}</Label>
                             <AutoComplete
                                 {...rest}
@@ -114,8 +114,24 @@ export default function TextInputToTextOutput({ app, user }) {
                             />
                              {input.inputHelper && <FormHelper>{input.inputHelper}</FormHelper>}
                         </FormElement>);
+                    else if (inputType === "checkbox")
+                        return (<FormElement key={index}>
+                            <CheckBox
+                                {...rest}
+                                key={"input_" + index}
+                                id={input.inputId}
+                                name={input.inputName}
+                                checked={value[input.inputId]}
+                                onChange={(event) => handleChange(input.inputId, event.target.checked)}
+                            />
+                            <Label htmlFor={input.inputId}>{input.inputLabel}</Label>
+                                {input.inputHelper && <FormHelper>{input.inputHelper}</FormHelper>}
+                        </FormElement>);
 
-                    return null;
+                    return <div  key={index}>
+                        this type is not supported
+                    </div>
+                    ;
                 })}
             </FormGroup>
             {/* Controls */}

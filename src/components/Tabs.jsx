@@ -6,8 +6,8 @@ const TabHeader = styled.div`
     position:relative;
     display: flex;
     flex-direction: row;
-    justify-content: ${({justified}) => justified ? "space-between" : "flex-start"};
-    flex-wrap: ${({justified}) => justified ? "wrap" : "nowrap"};
+    justify-content: ${({align}) => align ? align : "flex-start"};
+    flex-wrap: ${({align}) => align ? "wrap" : "nowrap"};
     align-items: center;
     width: 100%;
     scroll-snap-type: x mandatory;
@@ -28,7 +28,7 @@ gap:0.5rem;
 user-select: none;
 border: 0;
 margin: 0.25rem;
-flex: 1 ${({justified}) => justified ? "1" : "0"} auto;
+flex: 1 ${({align}) => align ? "1" : "0"} auto;
 transition: all .3s cubic-bezier(.075,.82,.165,1);
 font-weight: 600;
 letter-spacing:0.0625rem;
@@ -48,6 +48,35 @@ max-width: max-content;
         border-bottom-color:rgba(var(--theme-rgb),1);
     `
     }
+
+  ${props =>
+        props.filled ?
+        `
+        color:rgba(var(--${props.variant}-rgb),1);
+        border:2px solid rgba(var(--${props.variant}-rgb),0.9);
+        background:none;
+        border-radius: 0.375rem;
+        ${props.active && `
+            color:rgba(var(--light-rgb),1);
+            border:2px solid rgba(var(--${props.variant}-rgb),1);
+            background-color:rgba(var(--${props.variant}-rgb),1);
+        `}
+        
+      
+      
+    `:``
+    }
+white-space: nowrap;
+visibility: visible;
+    gap: 8px;
+${props => props.sm && `
+padding: 8px 16px;
+font-size: 0.875rem;
+line-height: 1rem;
+`}
+
+
+
 `;
 const TabBody = styled.div`
 display:block;
@@ -63,14 +92,14 @@ ${({ open }) => open ?
     }
 `;
 
-export default function Tabs({ TabList,justified,activeIndex = 0 }) {
+export default function Tabs({ TabList,align,activeIndex = 0,filled=false,variant= "theme" ,sm=false}) {
     const [selectedIndex, setSelectedIndex] = useState(activeIndex);
 
     return (
         <>
             {TabList?.length > 0 ?
                 <>
-                    <TabHeader justified={justified}>
+                    <TabHeader align={align}>
                         {TabList.map(({ title }, index) => {
                             return (
                                 <TabToggle key={index}
@@ -79,8 +108,10 @@ export default function Tabs({ TabList,justified,activeIndex = 0 }) {
                                             setSelectedIndex(index);
                                         }
                                     }
-                                    justified={justified}
                                     active={selectedIndex === index ? true : false}
+                                    filled={filled}
+                                    variant={variant}
+                                    sm={sm}
                                     >
                                     {title}
                                 </TabToggle>

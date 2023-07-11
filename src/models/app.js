@@ -56,6 +56,11 @@ const appSchema = new mongoose.Schema({
         required: true,
         default: false,
     },
+    version:{
+        type: String,
+        trim: true, 
+        default: "1.0.0",
+    },
     name: {
         type: String,
         required: true,

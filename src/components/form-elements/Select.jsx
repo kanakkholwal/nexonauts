@@ -4,8 +4,7 @@ import { MdOutlineUnfoldMore } from "react-icons/md";
 
 export const SelectWrapper = styled.div`
 position: relative;
-width: max-content;
-
+order:2;
 svg {
     position: absolute;
     height: 20px;
@@ -40,18 +39,24 @@ const SelectToggle = styled.input.attrs(props => ({
   type: 'text',
 }))`
     letter-spacing: 0.1em;
-    width: fit-content;
+    max-width: 100%;
     min-width: 140px;
     opacity: 0.95;
     font-weight: 600;
     cursor:pointer;
     transition: all .2s linear;
     border-radius: 0.5rem;
-    padding: 0.5rem 1rem;
+  padding:0.75rem 0.875rem;
+    border: 2px solid var(--form-border);
+     background: var(--form-bg);
+     color: var(--form-color);
+     caret-color: var(--form-caret);
+     transition: all .3s ease-in-out;
+    outline: none;
+    width: 100%;
+    font-size: 1rem;
     user-select:none;
     border: ${props => props.outlined ? "2px" : "1px"} solid rgba(var(--grey-rgb),0.1);
-    background: rgba(var(--light-rgb),1);
-    color: var(--text-color);
     caret-color: var(--theme);
     
     &::placeholder {
@@ -99,7 +104,8 @@ const SelectToggle = styled.input.attrs(props => ({
     ${props => props.size === "sm" ? `padding: 0.43em 0.99em 0.35em !important;
     font-size: .775rem !important;
     line-height: 1.6 !important;
-    border-radius: 0.2rem !important;`: ""}
+    border-radius: 0.2rem !important;
+    border-width: 1px !important;`: ""}
     
 
    
@@ -160,7 +166,7 @@ const SelectDropdownItem = styled.div`
     white-space: nowrap;
     border-radius: 6px;
     line-height: 1.57143;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.875rem;
     text-transform: capitalize;
     width: 100%;
@@ -187,10 +193,11 @@ const SelectDropdownItem = styled.div`
       border-bottom-right-radius: 0.25rem;
     }
     ${props => props.size === "sm" ? 
-    `padding-block: 0.25rem;
-    padding-inline: 0.75rem;
-    font-size: 0.775rem;
-    line-height: 1.6;
+    `
+        font-size: 0.875rem !important;
+        line-height: 1rem!important;
+        padding: 8px 24px 8px 8px!important;
+        border-radius: 0.25rem !important;
     `: ""}
 `;
 

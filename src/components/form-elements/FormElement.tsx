@@ -8,11 +8,25 @@ import { SelectWrapper } from "./Select";
 import { PasswordWrapper } from "./PasswordInput";
 import { TextAreaStyled } from "./TextArea";
 
-const FormElement = styled.div`
+const FormElement = styled.div<{
+    align?: string;
+    outlined?: boolean;
+    floating?: boolean;
+    size?: string;
+    lg?: boolean;
+    sm?: boolean;
+}>`
 
     display: flex;
     align-items: ${({ align }) => align || "flex-start"};
-    flex-direction: column;
+    &:not(:has(>input[type="checkbox"],>input[type="radio"])){
+        flex-direction: column;
+    }
+    &:has(>input[type="checkbox"],>input[type="radio"]){
+        &>${Label}, &>label {
+          margin:0;
+        }
+    }
     margin: 0.25rem 0.5rem 1.25rem;
     flex:auto;
     &>${Label}, &>label {
@@ -31,7 +45,7 @@ const FormElement = styled.div`
 
   
     &>${Input}, &>${TextAreaStyled},
-    &>textarea, &>input, &>select, &>${SelectWrapper}, &>${PasswordWrapper} {
+    &>textarea, &>input:not([type="checkbox"]), &>select, &>${SelectWrapper}, &>${PasswordWrapper} {
       order: 2;
       display:flex;
     }
@@ -88,7 +102,29 @@ margin-bottom:0
         transition: .25s ease;
     }
   ` : ""}
-  
+  ${({size}) => size === "sm" ?`
+    &> ${Input},&>textarea,&>input:not([type="checkbox"])
+        font-size: 0.875rem !important;
+        line-height: 1rem!important;
+        padding: 8px 24px 8px 8px!important;
+        border-radius: 0.5rem !important;
+        border-width: 1px !important;
+    }
+   &>${Label}{
+        font-size: 0.875rem;
+        line-height: 1rem;
+    }
+   &>${FormHelper}{
+        font-size: 0.625rem;
+        line-height: 0.875rem;
+        margin-top: 0.25rem;
+    }
+    
+  `:
+    size === "lg" ? `
+    
+    
+    `:``}
   
   
   

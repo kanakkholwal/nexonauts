@@ -22,7 +22,7 @@ export const TextAreaStyled = styled.textarea`
     font-size: 1rem;
 
     text-align: left;
-    white-space: pre;
+    white-space: pre-line;
     word-spacing: normal;
     word-break: break-all;
     word-wrap: inherit;
