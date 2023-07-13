@@ -18,7 +18,7 @@ type App = {
     version?: string;
     coverImage?: string;
     recommended: Boolean,
-    createdAt:Date,
+    createdAt:Date | string,
     average_rating?: Number | null | undefined,
     ratings: Number[],
     reviews: AppReview[],

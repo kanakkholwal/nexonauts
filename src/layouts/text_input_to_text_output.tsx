@@ -6,6 +6,8 @@ import { Table, TableContainer, Tbody, Thead, Td, Tr, Th } from "components/tabl
 import CodeBlock from "components/code-block";
 import styled from "styled-components";
 import { Interweave } from 'interweave';
+import Link from "next/link";
+import { toast } from "react-hot-toast";
 
 
 export default function TextInputToTextOutput({ app, user }) {
@@ -17,6 +19,15 @@ export default function TextInputToTextOutput({ app, user }) {
     const apiCall = async () => {
         setLoading(true);
         setOutput(null);
+        // check if all required inputs are filled
+        const requiredInputs = app.formFlow.inputs.filter((input) => input.inputRequired);
+        const requiredInputIds = requiredInputs.map((input) => input.inputId);
+        const missingRequiredInputs = requiredInputIds.filter((inputId) => !value[inputId]);
+        if (missingRequiredInputs.length > 0) {
+            toast.error(`Please fill in the following required inputs: ${missingRequiredInputs.join(", ")}`);
+            setLoading(false);
+            return;
+        }
         try {
             const response = await axios.post("/api/apps/services", {
                 userId: user.id,
@@ -38,19 +49,20 @@ export default function TextInputToTextOutput({ app, user }) {
     return (
         <AppWrapper>
             {/* Meta Data */}
+            <StyledMetaContainer>
             <h2>{app.name}</h2>
-            <h6>{app.shortDescription}</h6>
-            <p>{app.description}</p>
-            <p>By {app.author?.name}</p>
-            <p>Version {app.version}</p>
-            <p>Category: {app.category}</p>
-            <p>Tags: {app?.tags?.join(", ")}</p>
-            <p>Membership: {app.membership}</p>
-            <p>Recommended: {app.recommended ? "Yes" : "No"}</p>
-            <p>Created At: {app?.createdAt?.toString()}</p>
-            <p>App Id: {app.appId}</p>
-            <p>Path: {app.path}</p>
-            
+            <div className="author">
+                By 
+                <Link className="authorName" href={`/people/${app.author.username}`}>{app.author?.name}</Link>
+                in <Link className="category" href={`/apps?category=${app.category}`}>{app.category.replaceAll("_"," ")}</Link>
+            </div>
+            <div className="tags">
+                {app?.tags?.map((tag:string, index:number) => <span key={index} className="tag">{tag}</span>)}
+            </div>
+            <p className="description">{app.description}</p>
+            </StyledMetaContainer>
+            <StyledInputContainer>
+        
             {/* Inputs */}
             <FormGroup>
                 {app.formFlow.inputs?.map((input, index) => {
@@ -135,6 +147,7 @@ export default function TextInputToTextOutput({ app, user }) {
                     ;
                 })}
             </FormGroup>
+         
             {/* Controls */}
             <div className="d-flex justify-content-center align-items-center g-2 my-2 flex-wrap">
                 {app.formFlow.controls?.map((control) => {
@@ -167,7 +180,8 @@ export default function TextInputToTextOutput({ app, user }) {
                         );
                     return null;
                 })}
-            </div>
+            </div>  
+         </StyledInputContainer>
             {loading ? <div className="d-flex justify-content-center align-items-center my-3"> <Loader /></div> : null}
             {/* Output */}
             {output ? <RenderOutput output={output} /> : output === null ? null : <p>No output</p>}
@@ -219,7 +233,7 @@ function RenderOutput({ output }) {
                     </TableContainer>
                 );
             else if (outputType === "plaintext")
-                return <Interweave content={data}/>
+                return <Interweave content={data.trim()}/>
             else if (outputType === "code" && subtype)
                 return (
                     <CodeBlock key={"output_" + index} data={data} language={subtype} />
@@ -261,7 +275,69 @@ const AppWrapper = styled.div`
 margin: 1rem auto;
 padding: 1rem;
 max-width: 920px;
-`
+`;
+const StyledMetaContainer = styled.div`
+margin: 0 auto 1rem;
+.author{
+    font-size: 1rem;
+    color: rgba(var(--grey-rgb),0.9);
+    .authorName{
+        color: var(--theme);
+        margin-left: 0.5rem;
+        font-weight: 500;
+        margin-inline: 0.5rem;
+    }
+    .category{
+        margin-left: 0.5rem;
+        font-weight: 400;
+        text-transform: capitalize;
+        color: rgba(var(--theme-rgb),0.9);
+        &:hover{
+            text-decoration: underline;
+        }
+    }
+}
+.tags{
+    margin-top: 0.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    align-items: center;
+    gap: 0.25rem;
+    &>.tag{
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        background-color: var(--card-bg);
+        color: rgba(var(--grey-rgb),0.9);
+        font-size: 0.9rem;
+        font-weight: 500;
+        &:before{
+            content: '# ';
+        }
+        background:rgba(var(--theme-rgb),0.1);
+        &:hover{
+            background-color: var(--theme);
+            color: var(--white);
+        }
+    }
+}
+.description{
+    margin-top: 0.5rem;
+    color: rgba(var(--grey-rgb),0.9);
+    font-size: 0.9rem;
+    font-weight: 500;
+    background-color: var(--card-bg);
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+}
+`;
+const StyledInputContainer = styled.div`
+margin: 1rem auto;
+padding:0.5rem;
+border-radius: 0.5rem;
+background-color: var(--card-bg);
+border-radius: 0.5rem;
+`;
 const OutputContainer = styled.div`
 margin: 1rem auto;
 padding: 1rem;

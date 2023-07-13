@@ -45,7 +45,7 @@ export default function AppBuilder({ user, app: defaultApp, type = "submit" }: {
             path: "/apps/",
             version: "0.0.1",
             recommended: false,
-            createdAt: new Date(),
+            createdAt:"",
             ratings: [],
             reviews: [],
             usage: [],
@@ -546,14 +546,15 @@ function GeneralTab({ app, dispatch }) {
         </FormElement>
         <FormElement size="sm">
             <Label sm={true} htmlFor="appTags">Tags</Label>
-            <AutoComplete
+            <Input 
                 id="appTags"
-                onChange={(options) => dispatch({ type: 'setAppTags', payload: options })}
                 placeholder={"Add Tags"}
-                multiple={true}
-                options={app.tags || []}
-                onAdd={(option) => console.log(option)}
-                size="sm"
+                value={app.tags.join(', ')}
+                onChange={(e) => dispatch({ 
+                    type: 'setAppTags',
+                    payload: e.target.value.split(',').map((tag) => tag.trim())
+                 })}
+                
             />
         </FormElement>
         {/* <FormElement>

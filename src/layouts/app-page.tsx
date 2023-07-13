@@ -90,6 +90,7 @@ padding-block: 1.5rem;
 margin-inline: auto;
 display: grid;
 gap: 1rem;
+grid-gap: 1rem;
 
 @media (min-width:576px) {
     padding: 1.25rem;
@@ -117,4 +118,39 @@ export const Card = styled.div`
         box-shadow: 0 0 0.5rem rgba(var(--theme-rgb),0.1);
     }
 
-`
+`;
+export const AppCard = styled.div`  
+    background:var(--card-bg);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid var(--border-color);
+    &:hover {
+        border-color:rgba(var(--theme-rgb),0.9);
+    }
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    a{
+        color: var(--text-color);
+        svg{
+            margin-right: 0.5rem;
+            animation: flick 1s linear infinite;
+            @keyframes flick {
+                0% {
+                    translate:0.25rem 0;
+                }
+                50% {
+                    translate:0 0;
+                }
+                100% {
+                    translate:0.25rem 0;
+                }
+            }
+        }
+    }
+
+  
+`;

@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 import { useSession } from "next-auth/react";
-import AppPage ,{AppContainer,Card} from 'layouts/app-page';
+import AppPage ,{AppContainer,AppCard} from 'layouts/app-page';
 import { NextSeo } from 'next-seo';
-
+import {TbChevronRight} from 'react-icons/tb';
 
 export default function App({ apps}) {
 
@@ -33,17 +33,25 @@ export default function App({ apps}) {
                 }}
             />
             <AppContainer>
-                {apps.map(app =>{
+                {apps?.sort((prev,curr) =>{
+                    // put recommended apps first
+                    if(prev.recommended && !curr.recommended){
+                        return -1
+                    }
+                    if(!prev.recommended && curr.recommended){
+                        return 1
+                    }
+                }).map(app =>{
                     return (
-                        <Card className="mb-4" key={app._id}>
+                        <AppCard key={app._id}>
+                            <h5>{app.name}</h5>
                             <div className="card">
                                 <div className="card-body">
-                                    <h5 className="card-title">{app.name}</h5>
                                     <p className="card-text">{app.shortDescription}</p>
-                                    <a href={app.path} className="btn btn-primary">Go to App</a>
+                                    <a href={app.path} className="btn btn-primary">Go to App <TbChevronRight/></a>
                                 </div>
                             </div>
-                        </Card>
+                        </AppCard>
                     )
                 })}
             </AppContainer>
