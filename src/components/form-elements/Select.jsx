@@ -194,10 +194,9 @@ const SelectDropdownItem = styled.div`
     }
     ${props => props.size === "sm" ? 
     `
-        font-size: 0.875rem !important;
-        line-height: 1rem!important;
-        padding: 8px 24px 8px 8px!important;
-        border-radius: 0.25rem !important;
+    font-size: 0.875rem !important;
+  line-height: 1rem!important;
+  padding: 8px 24px 8px 8px!important;
     `: ""}
 `;
 

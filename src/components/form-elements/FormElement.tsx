@@ -103,6 +103,8 @@ margin-bottom:0
     }
   ` : ""}
   ${({size}) => size === "sm" ?`
+      margin:0.125rem 0.25rem .5rem;
+
     &> ${Input},&>textarea,&>input:not([type="checkbox"])
         font-size: 0.875rem !important;
         line-height: 1rem!important;

@@ -8,6 +8,9 @@ type App = {
     description: string;
     type: TypesOfApp;
     membership: string;
+    state: string;
+    customFunction: boolean;
+    config: any;
     category: string;
     tags: string[];
     author: any;

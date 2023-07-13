@@ -29,7 +29,7 @@ export default nextConnect(handler)
             }
             
             // user is verified
-            const existingApp  = await App.findOne({appId:appId})
+            const existingApp  = await App.findOne({appId:appId}).select("+usage").select("+review").exec();
             if(!existingApp){
                 return res.status(403).json({ message: `App doesn't  exist!` });
             }

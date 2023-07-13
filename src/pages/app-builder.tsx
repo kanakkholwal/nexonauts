@@ -3,7 +3,7 @@ import TextInputToTextOutput from 'layouts/text_input_to_text_output';
 // Types
 import { newApp, } from 'types/app';
 // utilities
-import { useEffect, useReducer, useState } from 'react';
+import { useReducer, useState } from 'react';
 import axios from 'axios';
 import type { Input as InputType, Options } from "types/app"
 // Components
@@ -12,9 +12,9 @@ import Tabs from 'components/Tabs';
 import Button, { IconButton } from 'components/buttons';
 import toast, { Toaster } from 'react-hot-toast';
 import { Input, FormElement, FormGroup, Label, CheckBox, FormHelper, Switch, TextArea, Select, AutoComplete, InputWithIcon } from "components/form-elements"
-
 // Icons 
-import { TbCircleMinus, TbCirclePlus } from 'react-icons/tb';
+import { TbCircleMinus, TbCirclePlus ,TbEdit,TbTrash} from 'react-icons/tb';
+import Link from 'next/link';
 
 
 
@@ -24,10 +24,13 @@ export default function AppBuilder({ user, app: defaultApp, type = "submit" }: {
     type?: "submit" | "update",
 }) {
     const initialState = {
-        app: defaultApp ? defaultApp : {
+        app: defaultApp ? defaultApp: {
             appId: "",
             enabled: false,
             name: "",
+            customFunction: false,
+            state: "draft",
+            config: null,
             shortDescription: "",
             description: "",
             type: "text_input_to_text_output",
@@ -59,12 +62,18 @@ export default function AppBuilder({ user, app: defaultApp, type = "submit" }: {
         switch (action.type) {
             case 'setApp':
                 return { ...state, app: action.payload };
+            case 'setAppCustomFunction':
+                return { ...state, app: { ...state.app, customFunction: action.payload } };
+            case 'setAppConfig':
+                return { ...state, app: { ...state.app, config: action.payload } };
             case 'setAppId':
                 return { ...state, app: { ...state.app, appId: action.payload, path: "/apps/" + action.payload.split("_").join("-") } };
             case 'setAppEnabled':
                 return { ...state, app: { ...state.app, enabled: action.payload } };
             case 'setAppName':
                 return { ...state, app: { ...state.app, name: action.payload } };
+            case 'setAppState':
+                return { ...state, app: { ...state.app, state: action.payload } };
             case 'setAppShortDescription':
                 return { ...state, app: { ...state.app, shortDescription: action.payload } };
             case 'setAppDescription':
@@ -93,6 +102,8 @@ export default function AppBuilder({ user, app: defaultApp, type = "submit" }: {
                 return { ...state, app: { ...state.app, reviews: action.payload } };
             case 'setAppUsage':
                 return { ...state, app: { ...state.app, usage: action.payload } };
+            case 'setAppState':
+                return { ...state, app: { ...state.app, state: action.payload } };
             case 'setAppFormFlowInput':
                 return { ...state, app: { ...state.app, formFlow: { ...state.app.formFlow, inputs: action.payload } } };
             case 'setAppFormFlowOutput':
@@ -120,10 +131,11 @@ export default function AppBuilder({ user, app: defaultApp, type = "submit" }: {
                         { title: "General", id: "general", content: <GeneralTab app={app} dispatch={dispatch} /> },
                         { title: "Inputs", id: "input-flow", content: <InputFlowTab app={app} dispatch={dispatch} /> },
                         { title: "Controls ", id: "control-flow", content: <ControlFlowTab app={app} dispatch={dispatch} /> },
-                        { title: "Final", id: "final", content: <FinalTab app={app} user={user} type={type} /> },
+                        { title: "Prompt ", id: "prompt-flow", content: <PromptTab app={app} dispatch={dispatch} /> },
+                        { title: "Final", id: "final", content: <FinalTab app={app} user={user} type={type} dispatch={dispatch} /> },
                     ]}
 
-                    align={"space-evenly"}
+                    align={"flex-start"}
                     filled={true}
                     variant={"dark"}
                     sm={true}
@@ -191,6 +203,7 @@ function InputFlowTab({ app, dispatch }) {
                 </FormElement>
                 {(newInput.inputType === "dropdown" || newInput.inputType === "autoComplete" || newInput.inputType === "radio") && <div>
                     <Label>Options </Label>
+                    
                     <FormGroup className='g-0'>
                         {newInput.inputOptions.map((option, index) => {
                             return (<div className='d-flex align-items-center g-1' key={index}>
@@ -235,7 +248,7 @@ function InputFlowTab({ app, dispatch }) {
                             setNewInput({ ...newInput, inputOptions: temp })
                         }}
                         type='button'
-                        nature="info"
+                        nature="dark"
                         size="sm"
                         level={true}
 
@@ -264,6 +277,17 @@ function InputFlowTab({ app, dispatch }) {
                     <Input sm={true} value={newInput.inputHelper} id='InputHelper'
                         placeholder='Enter the helper'
                         onChange={(e) => setNewInput({ ...newInput, inputHelper: e.target.value })} />
+                </FormElement>
+                <FormElement>
+                    <Label sm={true} htmlFor="maxLength">Max Length</Label>
+                    <Input sm={true} type='number' value={newInput.constraints?.maxLength} id='maxLength'
+                        placeholder='Enter the maxLength of value'
+                        onChange={(e) => {
+                            setNewInput({ ...newInput, constraints: {
+                                ...newInput.constraints,
+                                maxLength: e.target.value
+                            } })
+                        }} />
                 </FormElement>
             </FormGroup>
 
@@ -299,6 +323,31 @@ function InputFlowTab({ app, dispatch }) {
             level={true}
         >Add Field</Button>
 
+        {app.formFlow.inputs.map((input, index) => {
+            return <div className='item' key={index}>
+                <span>{input.inputId}</span>
+                {/*  Edit input */}
+                <IconButton
+                    onClick={() => {
+                        setNewInput(input)
+                        dispatch({ type: 'setAppFormFlowInput', payload: app.formFlow.inputs.filter((_, i) => i !== index) })
+                    }}
+                    size='sm'
+                    nature='warning'
+                ><TbEdit size={16} /></IconButton>
+                {/*  Delete input */}
+                <IconButton
+                    onClick={() => {
+                        dispatch({ type: 'setAppFormFlowInput', payload: app.formFlow.inputs.filter((_, i) => i !== index) })
+                    }}
+                    size='sm'
+                    nature='danger'
+                ><TbTrash size={16} /></IconButton>
+
+
+            </div>
+        })
+        }
 
 
     </>)
@@ -316,7 +365,8 @@ function ControlFlowTab({ app, dispatch }) {
 
     })
 
-    return <FormGroup className='g-0'>
+    return < >
+    <FormGroup className='g-0'>
 
         <FormElement size="sm">
             <Label sm={true} htmlFor="ControlType">Control Type</Label>
@@ -398,9 +448,35 @@ function ControlFlowTab({ app, dispatch }) {
             nature="info"
             level={true}
         >Add Control</Button>
-
-
     </FormGroup>
+
+        {app.formFlow.controls.map((control, index) => {
+            return <div className='item' key={index}>
+                <span>{control.id}</span>
+                {/*  Edit input */}
+                <IconButton
+                    onClick={() => {
+                        setNewControl(control)
+                        dispatch({ type: 'setAppFormFlowControl', payload: app.formFlow.controls.filter((_, i) => i !== index) })
+                        
+                    }}
+                    size='sm'
+                    nature='warning'
+                ><TbEdit size={16} /></IconButton>
+                {/*  Delete input */}
+                <IconButton
+                    onClick={() => {
+                        dispatch({ type: 'setAppFormFlowControl', payload: app.formFlow.controls.filter((_, i) => i !== index) })
+                    }}
+                    size='sm'
+                    nature='danger'
+                ><TbTrash size={16} /></IconButton>
+
+
+            </div>
+        })
+        }
+    </>
 }
 function GeneralTab({ app, dispatch }) {
 
@@ -490,15 +566,156 @@ function GeneralTab({ app, dispatch }) {
         </FormElement>
     </FormGroup>
 }
+function PromptTab({ app, dispatch }) {
 
-function FinalTab({ app, user, type = "submit" }) {
+
+    return <>
+     <FormElement size="sm">
+            <Label sm={true} htmlFor="Configurations">Configurations </Label>
+            <CheckBox
+                id='Configurations'
+                checked={!(Object.keys(app.config !== null ?app.config : {}).length > 0)}
+                onChange={(e) => {
+                    if (!e.target.checked ) {
+                        dispatch({
+                            type: 'setAppConfig', payload: {
+                                prompt: "",
+                                model: "text-davinci-003",
+                                temperature: "1.0", //1.0
+                                max_tokens: "", //500
+                                top_p: "1.0", //1.0
+                                frequency_penalty: "0.0", //0.0
+                                presence_penalty: "0.0" //0.0
+                            }
+                        });
+                    }
+                    else {
+                        dispatch({ type: 'setAppConfig', payload: null });
+                    }
+                }}
+            />
+        </FormElement>
+       <FormGroup className='g-0'>
+        {app.config === null ? null : <>
+            <FormElement size="sm">
+                <Label sm={true} htmlFor="appPrompt">Prompt</Label>
+                <TextArea sm={true} value={app.config.prompt} id='appPrompt' onChange={(e) => dispatch({ type: 'setAppConfig', payload:{
+                    ...app.config,
+                    prompt: e.target.value
+                } })} />
+                <FormHelper>
+                This logic is to enable the model to receive user input defined above through a designated input field marked with an ‘@’ symbol in the prompt. The model will then utilize the provided input to generate an appropriate response or perform the requested task. Example prompt: 'translate @variable into English
+
+                </FormHelper>
+            </FormElement>
+
+            <FormElement size="sm">
+                <Label sm={true} htmlFor="appModel">Model</Label>
+                <Select
+                    id="appModel"
+                    value={app.config.model}
+                    onChange={(option) => dispatch({ 
+                        type: 'setAppConfig',
+                        payload: {
+                            ...app.config,
+                            model: option.value
+                        }
+                     })}
+                    options={[
+                        { label: "Davinci", value: "text-davinci-003" },
+                        { label: "Ada", value: "text-ada-003" },
+                        { label: "Babbage", value: "text-babbage-003" },
+                        { label: "Curie", value: "text-curie-003" },
+                        { label: "Cushman", value: "text-cushman-003" },
+                        { label: "Davinci Codex", value: "davinci-codex" },
+                    ]}
+                    size="sm"
+                />
+            </FormElement>
+            <FormElement size="sm">
+                <Label sm={true} htmlFor="appTemperature">Temperature</Label>
+                <Input sm={true} value={app.config.temperature} id='appTemperature' onChange={(e) => dispatch({ 
+                    type: 'setAppConfig',
+                    payload: {
+                        ...app.config,
+                        temperature: e.target.value
+                    }
+                })} />
+            </FormElement>
+            <FormElement size="sm">
+                <Label sm={true} htmlFor="appMaxTokens">Max Tokens</Label>
+                <Input sm={true} value={app.config.max_tokens} id='appMaxTokens' onChange={(e) => dispatch({ 
+                    type: 'setAppConfig',
+                    payload:{
+                        ...app.config,
+                        max_tokens: e.target.value
+                    }
+                 })}
+                 placeholder={'Estimated tokens : '+EstimateTokens(app) } 
+                 
+                 />
+                 <FormHelper>
+                   Requests can use up to 2048 tokens shared between prompt and completion. (One token is roughly 4 characters for normal English text)
+                 </FormHelper>
+            </FormElement>
+            <FormElement size="sm">
+                <Label sm={true} htmlFor="appTopP">Top P</Label>
+                <Input sm={true} value={app.config.top_p} id='appTopP' onChange={(e) => dispatch({ 
+                    type: 'setAppConfig',
+                    payload: {
+                        ...app.config,
+                    }
+                 })} />
+            </FormElement>
+            <FormElement size="sm">
+                <Label sm={true} htmlFor="appFrequencyPenalty">Frequency Penalty</Label>
+                <Input sm={true} value={app.config.frequency_penalty} id='appFrequencyPenalty' onChange={(e) => dispatch({ 
+                    type: 'setAppConfig',
+                    payload: {
+                        ...app.config,
+                        frequency_penalty: e.target.value
+                    }
+                 })} />
+            </FormElement>
+            <FormElement size="sm">
+                <Label sm={true} htmlFor="appPresencePenalty">Presence Penalty</Label>
+                <Input sm={true} value={app.config.presence_penalty} id='appPresencePenalty' onChange={(e) => dispatch({ 
+                    type: 'setAppConfig',
+                    payload: {
+                        ...app.config,
+                        presence_penalty: e.target.value
+                    }
+                 })} />
+            </FormElement>
+
+
+
+        </>}
+        </FormGroup>
+
+
+    </>
+
+}
+
+function FinalTab({ app, dispatch, user, type = "submit" }) {
 
     const [isSure, setSure] = useState(false);
     const SubmitApp = async () => {
+ 
+
+
         try {
+
             const response = await axios.post('/api/apps/' + type, {
                 userId: user.id as string,
-                appData: app as newApp,
+                appData: {
+                    ...app,
+                    config: app.config === null ? null : {
+                        ...app.config,
+                        prompt: replaceWords(app.config.prompt, app.formFlow.inputs.map((item) => item.inputId))
+                    }
+                },
             });
             console.log(response);
         }
@@ -514,25 +731,86 @@ function FinalTab({ app, user, type = "submit" }) {
         }
     }
     return <>
-        <FormElement size="sm">
-            <CheckBox
-                id='InputRequired'
-                checked={!isSure}
-                onChange={(e) => {
-                    if (e.target.checked) setSure(false);
-                    else setSure(true);
-                }}
-            />
-            <Label sm={true} htmlFor="InputRequired">Are you sure you want to {type} this app?</Label>
-        </FormElement>
-        <Button onClick={() => {
-            toast.promise(SubmitApp(), {
-                loading: (type === "update" ? "updating..." : "submitting..."),
-                success: 'App  ' + (type === "update" ? "updated" : "submitted") + ' successfully',
-                error: 'Error ' + (type === "update" ? "updating" : "submitting") + ' app',
-            })
 
-        }} disabled={!isSure}>{type} </Button>
+        <FormGroup className='g-0'>
+
+            <FormElement size="sm" className="m-0">
+                <Label sm={true} htmlFor="InputEnabled">Enable app :  </Label>
+                <CheckBox
+                    id='InputEnabled'
+                    checked={!app.enabled}
+                    onChange={(e) => {
+                        if (e.target.checked) {
+                            dispatch({ type: 'setAppEnabled', payload: false });
+                        }
+                        else {
+                            dispatch({ type: 'setAppEnabled', payload: true });
+                        }
+                    }}
+                />
+            </FormElement>
+            <FormElement size="sm" className="m-0">
+                <Label sm={true} htmlFor="customFunction">Custom Function </Label>
+                <CheckBox
+                    id='customFunction'
+                    checked={!app.customFunction}
+                    onChange={(e) => {
+                        if (e.target.checked) {
+                            dispatch({ type: 'setAppCustomFunction', payload: false });
+                        }
+                        else {
+                            dispatch({ type: 'setAppCustomFunction', payload: true });
+                        }
+                    }}
+                />
+            </FormElement>
+            <FormElement size="sm" className="m-0">
+                <Select
+                    id="status"
+                    value={app.status}
+                    onChange={(option: {
+                        label: string;
+                        value: string;
+                    }) => dispatch({ type: 'setAppState', payload: option.value })}
+                    options={[
+                        { label: "Draft", value: "draft" },
+                        { label: "Pending", value: "pending" },
+                        { label: "Published", value: "published" },
+                        { label: "Rejected", value: "rejected" },
+                    ]}
+                    size='sm'
+                />
+                <Label sm={true} htmlFor="status">App State </Label>
+            </FormElement>
+
+            <FormElement size="sm">
+                <Label sm={true} htmlFor="InputRequired">Are you sure you want to {type} this app?</Label>
+                <CheckBox
+                    id='InputRequired'
+                    checked={!isSure}
+                    onChange={(e) => {
+                        if (e.target.checked) setSure(false);
+                        else setSure(true);
+                    }}
+                />
+            </FormElement>
+        </FormGroup>
+
+
+        <div className='d-flex g-2 align-items-center my-2'>
+
+            <Button onClick={() => {
+                toast.promise(SubmitApp(), {
+                    loading: (type === "update" ? "updating..." : "submitting..."),
+                    success: 'App  ' + (type === "update" ? "updated" : "submitted") + ' successfully',
+                    error: 'Error ' + (type === "update" ? "updating" : "submitting") + ' app',
+                })
+            }}
+                nature='dark'
+
+                disabled={!isSure}>{type} </Button>
+        </div>
+        <p className='small'>By clicking <span className='strong'>{type}</span> you agree to our <Link href="/terms">Terms of Service</Link> and <Link href="/privacy">Privacy Policy</Link></p>
 
         <Toaster />
     </>
@@ -570,11 +848,61 @@ background:var(--card-bg);
 border-left: 1px solid var(--border-color);
 box-shadow: 0 0 10px 0 rgba(0,0,0,.1);
 border-radius: 0.5rem;
-
+    .item{
+        display: flex;
+        justify-content:flex-end;
+        align-items: center;
+        gap: 0.25rem;
+        padding: 0.25rem;
+        border-bottom: 1px solid var(--border-color);
+        background: #f2f5f7;
+        border-radius: 0.5rem;
+        margin-left:auto;
+        span{
+            margin-right: auto;
+            margin-left: 0.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        &:last-child{
+            border-bottom: none;
+        }
+    }
 `;
 
+const EstimateTokens = (app: newApp) => {
+    let prompt :string ="";
+
+    app?.formFlow.inputs.forEach((input) => {
+        input.constraints?.maxLength ? prompt += input.constraints.maxLength : prompt += "";
+    });
+
+    const cleanedPrompt = prompt.trim().replace(/\s+/g, ' ');
+
+    // Split the prompt into tokens based on whitespace and common punctuation
+    const tokens = cleanedPrompt.split(/\s+|\b/);
+  
+    // Remove empty tokens
+    const filteredTokens = tokens.filter(token => token !== '');
+  
+    // Return the estimated token count
+    return filteredTokens.length +  (app?.config.prompt.length ? app?.config.prompt.length : 0);
+    
+}
+
+const replaceWords = (sentence, wordList) => {
+    let replacedSentence = sentence;
+
+    for (const word of wordList) {
+        const regex = new RegExp(`@${word}\\b`, 'g');
+        replacedSentence = replacedSentence.replace(regex, `[${word}]`);
+    }
+
+    return replacedSentence;
+}
 
 
+  
 const ValidateNewInput = (Input: InputType) => {
 
 
@@ -642,7 +970,7 @@ const ValidateNewInput = (Input: InputType) => {
         })
     }
     // check if constraints is valid
-    if (Input.constraints.length > 0) {
+    if (Input.constraints) {
         if (Input.constraints.length < 2 || Input.constraints.length > 50) {
             return { isValid: false, message: "Input Constraints must be between 2 and 50 characters" };
         }
