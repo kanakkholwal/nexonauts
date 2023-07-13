@@ -71,7 +71,7 @@ export async function getStaticProps({ params }) {
             props: {
                 post,
             },
-            revalidate: 10,
+            revalidate: 60,
         };
     } catch (error) {
         console.log("Error during page generation using slug:", error);
