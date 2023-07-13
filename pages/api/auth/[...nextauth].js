@@ -43,7 +43,7 @@ export const authOptions = {
                         user: user._id
                     });
 
-                    throw new Error("Your password is invalid")
+                        return Promise.reject(new Error('Invalid Password'))
                 }
 
                 await Notification.create({
@@ -53,7 +53,7 @@ export const authOptions = {
 
                 // console.log(user)
 
-                return user
+                return Promise.resolve(user)
 
             }
         })
@@ -71,6 +71,7 @@ export const authOptions = {
                     profileURL: user.profileURL,
                     role: user.role,
                     account_type: user.account_type,
+                    username:user.username
                 }
             }
             return token
