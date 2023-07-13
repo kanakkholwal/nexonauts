@@ -5,9 +5,9 @@ import Head from "next/head";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { App } from "@/src/types/app";
 import AppBuilder from "pages/app-builder";
+import toast, { Toaster } from 'react-hot-toast';
 
 
 export default function Dashboard({ user }) {
@@ -24,7 +24,11 @@ export default function Dashboard({ user }) {
         setApp(res.data.app);
     }
     useEffect(() => {
-        getApp();
+        toast.promise(getApp(), {
+            loading: 'Loading...',
+            success: "App loaded",
+            error: "Error loading app"
+        });
     }, [appId])
     
 
@@ -40,6 +44,10 @@ export default function Dashboard({ user }) {
             }>
                 {app ? <AppBuilder user={user} app={app}  type="update"/> :null}
             </DashboardPage>
+            <Toaster
+                position="top-center"
+                reverseOrder={false}
+            />
         </>
     )
 }

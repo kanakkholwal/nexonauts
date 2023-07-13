@@ -101,8 +101,7 @@ const Button = styled.button<{
         margin-inline:0!important;
     }
 
-opacity:${props => props.disabled ? "0.5" : "1"};
-pointer-events:${props => props.disabled ? "none" : "all"};
+opacity:${props => props.disabled ? "0.75" : "1"};
 cursor:${props => props.disabled ? "not-allowed" : "pointer"};
 ${props => props.loading === true ? `
 user-select: none;

@@ -5,6 +5,7 @@ import Button, { IconButton } from "components/buttons";
 import { Table, TableContainer, Tbody, Thead, Td, Tr, Th } from "components/table";
 import CodeBlock from "components/code-block";
 import styled from "styled-components";
+import { Interweave } from 'interweave';
 
 
 export default function TextInputToTextOutput({ app, user }) {
@@ -40,13 +41,13 @@ export default function TextInputToTextOutput({ app, user }) {
             <h2>{app.name}</h2>
             <h6>{app.shortDescription}</h6>
             <p>{app.description}</p>
-            <p>By {app.author.name}</p>
+            <p>By {app.author?.name}</p>
             <p>Version {app.version}</p>
             <p>Category: {app.category}</p>
-            <p>Tags: {app.tags.join(", ")}</p>
+            <p>Tags: {app?.tags?.join(", ")}</p>
             <p>Membership: {app.membership}</p>
             <p>Recommended: {app.recommended ? "Yes" : "No"}</p>
-            <p>Created At: {app.createdAt.toString()}</p>
+            <p>Created At: {app?.createdAt?.toString()}</p>
             <p>App Id: {app.appId}</p>
             <p>Path: {app.path}</p>
             
@@ -218,7 +219,7 @@ function RenderOutput({ output }) {
                     </TableContainer>
                 );
             else if (outputType === "plaintext")
-                return <p key={"output_" + index}>{data}</p>;
+                return <Interweave content={data}/>
             else if (outputType === "code" && subtype)
                 return (
                     <CodeBlock key={"output_" + index} data={data} language={subtype} />
@@ -227,14 +228,14 @@ function RenderOutput({ output }) {
                 return (<span className={subtype} key={"output_" + index}>{data}</span>);
             return <>
                 <p>Output Type: {outputType}</p>
-                <p>Data: {data}</p>
+                <Interweave content={data}/>
             </>;
         })}
     </OutputContainer>)
 }
 function makeInitialObject(inputs: any[]) {
     const obj = {};
-    inputs.forEach((input: any) => {
+    inputs?.forEach((input: any) => {
         obj[input.inputId] = input.defaultValue || "";
     });
     return obj;

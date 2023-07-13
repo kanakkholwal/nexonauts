@@ -4,6 +4,7 @@ const usageSchema = new mongoose.Schema({
     appId: {
         type: String,
         required: true,
+        trim: true,
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -16,6 +17,7 @@ const usageSchema = new mongoose.Schema({
     usage: {
         type: mongoose.Schema.Types.Mixed,
         required: true,
+        default: {},
     }
 });
 const reviewSchema = new mongoose.Schema({
@@ -49,12 +51,35 @@ const appSchema = new mongoose.Schema({
         trim: true,
         unique: true,
     },
-    usage: [usageSchema],
-    reviews: [reviewSchema],
+    usage: {
+        type: [usageSchema],
+        select: false,
+        default: [],
+    },
+    reviews: {
+        type: [reviewSchema],
+        select: false,
+        default: [],
+    },
+    config:{
+        type: mongoose.Schema.Types.Mixed,
+        default: null,
+    },
     enabled: {
         type: Boolean,
         required: true,
         default: false,
+    },
+    customFunction: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    state:{
+        type: String,
+        trim: true,
+        default: "draft",
+        enum: ["draft", "pending", "published", "declined", "archived"],
     },
     version:{
         type: String,
