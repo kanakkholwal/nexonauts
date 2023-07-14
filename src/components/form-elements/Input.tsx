@@ -34,7 +34,7 @@ const Input = styled.input<{
   }}
   &::placeholder {
     color: inherit;
-    opacity: 0.75;
+    color:var(--form-placeholder);
   }
   
   
@@ -44,11 +44,6 @@ const Input = styled.input<{
   &:focus {
     border-color: var(--form-active);
     background: var(--form-bg-active);
-
-  
-    &::placeholder {
-        opacity: 1;
-    }
   }
   
   &.checkValid:invalid,

@@ -43,6 +43,7 @@ const routes = (userRole :string ) => {
                 title: "Dashboard",
                 icon: <TbDashboard size={16}/>,
                 path: "/dashboard",
+                sessionRequired: true,
             },
             {
                 title: "Apps",
@@ -126,7 +127,7 @@ export const AppCard = styled.div`
     transition: all 0.3s ease-in-out;
     border: 1px solid var(--border-color);
     &:hover {
-        border-color:rgba(var(--theme-rgb),0.9);
+        border-color:rgba(var(--dark-rgb),0.25);
     }
     
     display: flex;
@@ -135,6 +136,7 @@ export const AppCard = styled.div`
     align-items: flex-start;
     a{
         color: var(--text-color);
+        margin-top: 1rem;
         svg{
             margin-right: 0.5rem;
             animation: flick 1s linear infinite;

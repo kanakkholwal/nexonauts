@@ -39,18 +39,15 @@ export const TextAreaStyled = styled.textarea`
   }}
   &::placeholder {
     color: inherit;
-    opacity: 0.75;
+    color:var(--form-placeholder);
   }
   
   
   &:focus {
     border-color: var(--form-active);
     background: var(--form-bg-active);
+    ${'' /* box-shadow: 0 0 0 0.2rem rgba(var(--form-active-rgb), 0.15); */}
 
-  
-    &::placeholder {
-        opacity: 1;
-    }
   }
   &.checkValid:invalid,
   &.isInvalid {
@@ -263,7 +260,7 @@ function TextArea({ ...props }) {
   }, [textAreaElement.current?.value])
 
   return (
-    <TextAreaStyled {...props} ref={textAreaElement}>
+    <TextAreaStyled spellCheck={false} {...props} ref={textAreaElement}>
     </TextAreaStyled>
   )
 }

@@ -69,22 +69,22 @@ const getPosition = (position) => {
   }
 }
 const Badge = styled.span`
-  display:inline-flex;
+  display: inline-flex;
+    padding: 0.125rem 0.5rem;
+    align-items: center;
+    gap: 0.375rem;
   align-items:center;
   justify-content:center;
-  gap:0.5rem;
-  border: 0;
-  margin: 0.25rem;
+  margin: 0.125rem;
   transition: all .25s cubic-bezier(.075,.82,.165,1);
   font-weight: 500;
   font-size: 90%;
   text-transform: capitalize;
-  padding: 2px 10px;
   mix-blend-mode: multiply;
   background:var(--badge-bg,rgba(var(--theme-rgb),0.1));
   color:var(--badge-text,rgba(var(--theme-rgb),1));
   border: 1px solid var(--badge-border,rgba(var(--theme-rgb),0.6));
-  border-radius: ${props => props.pill ? `50px` : `0.25rem`};
+  border-radius: ${props => props.pill ? `50px` : `0.375rem`};
   text-align: center;
 
   ${props => props.nature ? `
