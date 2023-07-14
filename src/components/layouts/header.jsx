@@ -180,7 +180,16 @@ ${({open}) =>{
     }
 }
 `;
-
+const Logo = styled.div`
+font-size: 1rem;
+color: rgba(var(--text-color), 0.5);
+transition: all 0.3s ease;
+letter-spacing: 1px;
+font-weight: 600;
+&:hover {
+    color: rgba(var(--text-color), 0.8);
+}
+`;
 export default function Header({ user, routes, children }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -232,7 +241,7 @@ export default function Header({ user, routes, children }) {
                     {isSidebarOpen ? <TbLayoutSidebarRightExpand /> : <TbLayoutSidebarRightCollapse />}
                 </Toggler>
                 <Children>
-                    {children}
+                    {children ? children : <Logo>K K UPGRADER</Logo>}
                 </Children>
                 {routes && routes.length > 0 ? <SearchWrapper open={isSearchOpen}>
                     <CgSearch />
@@ -271,7 +280,7 @@ export default function Header({ user, routes, children }) {
                     rounded onClick={() => setIsSearchOpen((state) => !state)}>
                     <CgSearch />
                 </SearchToggler>
-                {user && <ProfileWrapper>
+                {user ? <ProfileWrapper>
                     <Profile onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
@@ -310,7 +319,10 @@ export default function Header({ user, routes, children }) {
                             Log Out
                         </ProfileDropDownItem>
                     </ProfileDropDown>
-                </ProfileWrapper>}
+                </ProfileWrapper> : <>
+                            <Button level="true" as={Link} href="/login">Log In</Button>
+                            <Button as={Link} href="/signup">Sign Up</Button>
+                        </>}
             </NavBarWrapper>
 
         </>

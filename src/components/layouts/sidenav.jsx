@@ -189,7 +189,12 @@ export default function SideNav({ routes, user }) {
                 </SectionTitle> */}
                 <Logo />    
             </SideNavHeader>
-            {routes?.length > 0 ? <RecursiveLinkList routes={routes} /> : null}
+            {routes?.length > 0 ? <RecursiveLinkList routes={routes.filter(route =>{
+                if(route?.sessionRequired === true){
+                    return user ? true : false;
+                }
+                return true;
+            })} /> : null}
             {user ? <LogoutButton as={"button"}  onClick={() => signOut()}>
             <Icon><MdLogout /></Icon>
             <Title> Sign Out </Title>

@@ -288,8 +288,8 @@ margin: 0 auto 1rem;
         margin-inline: 0.5rem;
     }
     .category{
-        margin-left: 0.5rem;
-        font-weight: 400;
+        margin-left: 0.25rem;
+        font-weight: 500;
         text-transform: capitalize;
         color: rgba(var(--theme-rgb),0.9);
         &:hover{
@@ -308,7 +308,7 @@ margin: 0 auto 1rem;
         padding: 0.25rem 0.5rem;
         border-radius: 0.25rem;
         background-color: var(--card-bg);
-        color: rgba(var(--grey-rgb),0.9);
+        color: rgba(var(--theme-rgb),0.9);
         font-size: 0.9rem;
         font-weight: 500;
         &:before{
