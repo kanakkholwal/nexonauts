@@ -76,7 +76,9 @@ export const TextAreaStyled = styled.textarea`
   ${props => props.sm ? `padding: 0.43em 0.99em 0.35em !important;
   font-size: .775rem !important;
   line-height: 1.6 !important;
-  border-radius: 0.2rem !important;`: ""}
+  border-radius: 0.2rem !important;
+  border-width: 1px !important;`: ""}
+  
   
   ${props => props.underlined ? `
   border: 0;
@@ -185,7 +187,9 @@ ${props => props.lg ? `
         }
       `: ""}
  
-${props => props.sm ? `  &~label {
+${props => props.sm ? ` 
+border-width: 1px !important;
+ &~label {
             transform: translateY(0.25rem) !important;
           }
       
@@ -210,7 +214,7 @@ ${props => props.sm ? `  &~label {
           }` : ""}` : ""}
   `;
 
-function TextArea({ ...props }) {
+function TextArea({ sm = false,lg=false,...props }) {
   const textAreaElement = React.useRef(null);
 
   React.useEffect(() => {
@@ -260,7 +264,7 @@ function TextArea({ ...props }) {
   }, [textAreaElement.current?.value])
 
   return (
-    <TextAreaStyled spellCheck={false} {...props} ref={textAreaElement}>
+    <TextAreaStyled spellCheck={false} sm={sm} lg={lg} {...props} ref={textAreaElement}>
     </TextAreaStyled>
   )
 }

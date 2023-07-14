@@ -14,6 +14,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { Input, FormElement, FormGroup, Label, CheckBox, FormHelper, Switch, TextArea, Select, AutoComplete, InputWithIcon } from "components/form-elements"
 // Icons 
 import { TbCircleMinus, TbCirclePlus ,TbEdit,TbTrash} from 'react-icons/tb';
+import { MdOutlineDragIndicator} from 'react-icons/md';
 import Link from 'next/link';
 
 
@@ -160,7 +161,19 @@ function InputFlowTab({ app, dispatch }) {
         constraints: {},
         inputOptions: [],
     });
-
+    const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
+    const handleDragStart = (index:number) => {
+        setDraggedItemIndex(index);
+      };
+    const handleDragOver = (e, index:number) => {
+        e.preventDefault();
+        const items = [...app.formFlow.inputs];
+        const draggedItem = items[draggedItemIndex !== null ? draggedItemIndex : index];
+        items.splice(draggedItemIndex !== null ? draggedItemIndex : index, 1);
+        items.splice(index, 0, draggedItem);
+        dispatch({ type: 'setAppFormFlowInput', payload: items })
+        setDraggedItemIndex(index);
+      };
 
     return (<>
         {/* new Input */}
@@ -322,9 +335,16 @@ function InputFlowTab({ app, dispatch }) {
             nature="info"
             level={true}
         >Add Field</Button>
+        {/* Drag and drop to rearrange items  in the array  */}
 
         {app.formFlow.inputs.map((input, index) => {
-            return <div className='item' key={index}>
+
+            return <div className='item' key={index} 
+            draggable
+          
+
+            >
+                
                 <span>{input.inputId}</span>
                 {/*  Edit input */}
                 <IconButton
@@ -343,6 +363,17 @@ function InputFlowTab({ app, dispatch }) {
                     size='sm'
                     nature='danger'
                 ><TbTrash size={16} /></IconButton>
+                <IconButton
+                    onDragOver={(e) => handleDragOver(e, index)}
+                    onDragStart={() => handleDragStart(index)}
+                    className='drag'
+                    size='sm'
+                    nature='grey'
+                >   <MdOutlineDragIndicator
+                        size={16}
+
+                    /></IconButton>
+         
 
 
             </div>
@@ -364,8 +395,21 @@ function ControlFlowTab({ app, dispatch }) {
         variant: "secondary",
 
     })
-
+    const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
+    const handleDragStart = (index:number) => {
+        setDraggedItemIndex(index);
+      };
+    const handleDragOver = (e, index:number) => {
+        e.preventDefault();
+        const items = [...app.formFlow.controls];
+        const draggedItem = items[draggedItemIndex !== null ? draggedItemIndex : index];
+        items.splice(draggedItemIndex !== null ? draggedItemIndex : index, 1);
+        items.splice(index, 0, draggedItem);
+        dispatch({ type: 'setAppFormFlowControl', payload: items })
+        setDraggedItemIndex(index);
+      };
     return < >
+    
     <FormGroup className='g-0'>
 
         <FormElement size="sm">
@@ -451,7 +495,9 @@ function ControlFlowTab({ app, dispatch }) {
     </FormGroup>
 
         {app.formFlow.controls.map((control, index) => {
-            return <div className='item' key={index}>
+            return <div className='item' key={index} 
+            draggable
+>
                 <span>{control.id}</span>
                 {/*  Edit input */}
                 <IconButton
@@ -471,7 +517,16 @@ function ControlFlowTab({ app, dispatch }) {
                     size='sm'
                     nature='danger'
                 ><TbTrash size={16} /></IconButton>
+ <IconButton
+                    onDragOver={(e) => handleDragOver(e, index)}
+                    onDragStart={() => handleDragStart(index)}
+                    className='drag'
+                    size='sm'
+                    nature='grey'
+                >   <MdOutlineDragIndicator
+                        size={16}
 
+                    /></IconButton>
 
             </div>
         })
@@ -480,7 +535,7 @@ function ControlFlowTab({ app, dispatch }) {
 }
 function GeneralTab({ app, dispatch }) {
 
-    return <FormGroup>
+    return <FormGroup className='g-0'>
         <FormElement size="sm">
             <Label sm={true} htmlFor="appName">App Name</Label>
             <Input sm={true} value={app.name} id='appName' onChange={(e) => dispatch({ type: 'setAppName', payload: e.target.value })} />
@@ -859,6 +914,7 @@ border-radius: 0.5rem;
         background: #f2f5f7;
         border-radius: 0.5rem;
         margin-left:auto;
+        margin-bottom:0.25rem;
         span{
             margin-right: auto;
             margin-left: 0.5rem;
@@ -867,6 +923,12 @@ border-radius: 0.5rem;
         }
         &:last-child{
             border-bottom: none;
+        }
+        .drag{
+            cursor: grab;
+            &:active{
+                cursor: grabbing;
+            }
         }
     }
 `;

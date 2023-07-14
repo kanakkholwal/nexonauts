@@ -19,7 +19,7 @@ type App = {
     coverImage?: string;
     recommended: Boolean,
     createdAt:Date | string,
-    average_rating?: Number | null | undefined,
+    averageRating?: Number,
     ratings: Number[],
     reviews: AppReview[],
     usage: string[] | AppUsage[],
