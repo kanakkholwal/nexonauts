@@ -56,7 +56,7 @@ export default nextConnect(handler)
                     username:existingUser.username,
                 },
                 createdAt: new Date(),
-                average_rating: 0,
+                averageRating: 0,
                 formFlow: appData.formFlow,
             }
             const isExistingApp = await App.findOne({appId:appData.appId});
