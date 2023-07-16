@@ -9,7 +9,7 @@ to{
 }`
 
 const Checkbox = styled.input.attrs({ type: 'checkbox' })<{
-    size?: 'sm' | 'md' | 'lg' | 'xl' | 'xs'
+    size?: 'sm' | 'md' | 'lg' | 'xl' | 'xs',
 }>`
 --checkbox-width: ${(props) => {
     if(props.size === undefined) return '1.25rem'
