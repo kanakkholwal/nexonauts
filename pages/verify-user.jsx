@@ -24,6 +24,8 @@ const VerificationPage = () => {
                 }))();
         }
     }, [token]);
+    if(router.query.token === undefined || router.query.token === null) router.push('/signup');
+
   
   return <div className='d-flex justify-content-center align-items-center flex-column g-3' style={{
     width: '100%',

@@ -190,7 +190,7 @@ export default function Login({ }) {
             }
         })
         await signIn('credentials', {
-            redirect: '/dashboard',
+            callbackUrl:router.query.continue || "/dashboard",            
             email: enteredEmail,
             password: enteredPassword,
         }).then((data) => {

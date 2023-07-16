@@ -22,7 +22,7 @@ type App = {
     averageRating?: Number,
     ratings: Number[],
     reviews: AppReview[],
-    usage: string[] | AppUsage[],
+    usage: AppUsage[],
     formFlow:{
         menuType: TypesOfApp ,
         inputs:Input[],

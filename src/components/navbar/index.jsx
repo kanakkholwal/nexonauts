@@ -78,6 +78,11 @@ export const AuthButtonWrapper = styled.div`
     list-style: none;
     margin: 0;
     padding: 0;
+    .signup{
+        @media (width <= 540px) {
+            display: none;
+        }
+    }
     `;
 export const NavToggle = styled(Button)`
 height: 40px;
@@ -130,57 +135,92 @@ top: calc(100% + 2rem);
 right: 0;
 min-width: 200px;
 width: fit-content;
-background-color: rgb(255 255 255 / 90%);
-border-radius: 1.25rem;
-backdrop-filter: blur(20px);
-box-shadow: 0 0 0.5rem 0.1rem rgba(0,0,0,0.1);
-padding: 0.75rem 0.5rem;
+box-shadow: 0px 4px 6px -2px rgba(16, 24, 40, 0.03),
+ 0px 12px 16px -4px rgba(16, 24, 40, 0.08);
+ order-radius: 0.5rem;
+border: 1px solid rgba(var(--grey-rgb,#EAECF0), 0.1);
+background: var(--light, #FFF);
+
 z-index: 999;
 display: flex;
 flex-direction: column;
 align-items: center;
 justify-content: center;
 gap: 0.2rem;
+padding: 0.25rem 0.375rem;
 transform-origin: top right;
 transform: ${({ open }) => open ? 'scale(1)' : 'scale(0)'};
 opacity: ${({ open }) => open ? '1' : '0'};
 visibility: ${({ open }) => open ? 'visible' : 'hidden'};
+${'' /* width: ${({ width }) => width ? width : '15rem'}; */}
+border-radius: 0.5rem;
 transition: all 0.3s ease-in-out;
 `;
 export const ProfileDropDownInfo = styled.div`
-font-size: 1rem;
 text-decoration: none;
 transition: all 0.3s ease;
 width: 100%;
-padding:0.5rem 1rem;
-border-radius: 8px;
-color: rgba(var(--text-rgb), 0.9);
-display:flex;
-align-items:center;
-justify-content:flex-start;
-flex-wrap:wrap;
-gap:5px;
 &:not(:last-child){
-    border-bottom: 1px solid rgba(var(--text-rgb), 0.1);
+    border-bottom: 1px solid rgba(var(--grey-rgb,#EAECF0), 0.1);
 }
-h5{
-    font-size:1.125rem
+
+display: flex;
+padding: 0.75rem;
+align-items: flex-start;
+gap:0.75rem;
+.Avatar{
+    border-radius: 12.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    img{
+        border-radius:inherit;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+    overflow: hidden;
+}
+.Info{
+    display: flex;
+flex-direction: column;
+align-items: flex-start;
+flex: 1 0 0;
+align-self: stretch;
+    h6{
+        font-size: 0.875rem;
+font-weight: 600;
+line-height: 1.25rem; 
+align-self: stretch;
+        color:rgba(var(--grey-rgb,#344054), 1)
+    }
+    p{
+        font-size: 0.875rem;
+font-weight: 500;
+line-height: 1.25rem;
+color:rgba(var(--grey-rgb,#344054), 0.75)
+
+    }
 }
 `;
 export const ProfileDropDownItem = styled.a`
-font-size: 1rem;
+font-size: 0.875rem;
+font-style: normal;
+font-weight: 500;
+line-height: 1.25rem;
 text-decoration: none;
 transition: all 0.3s ease;
 width: 100%;
-padding:0.5rem 1rem;
-border-radius: 10px;
-color: rgba(var(--text-rgb), 0.9);
-display:flex;
-align-items:center;
-justify-content:flex-start;
-gap:10px;
+border-radius: 5px;
+color: rgba(var(--text-rgb,#344054), 0.9);
+display: flex;
+padding: 0.5625rem 0.625rem;
+align-items: center;
+gap: 0.75rem;
+flex: 1 0 0;
+align-self: stretch;
 &:hover {
-    color: rgba(var(--theme-rgb), 0.8);
-    background: rgba(var(--theme-rgb), 0.1);
+    color: rgba(var(--text-rgb,#344054), 0.8);
+    background:rgba(var(--text-rgb,#344054), 0.05);
 }
 `;

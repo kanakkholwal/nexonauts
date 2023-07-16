@@ -1,16 +1,16 @@
-import { NavBarWrapper as Wrapper, ProfileDropDownInfo, ProfileWrapper, Profile, ProfileDropDown, ProfileDropDownItem } from "components/navbar";
+import { NavBarWrapper as Wrapper, ProfileDropDownInfo, ProfileWrapper, Profile, ProfileDropDown, ProfileDropDownItem ,AuthButtonWrapper} from "components/navbar";
 import styled from "styled-components";
 import Link from "next/link";
 import { signOut } from 'next-auth/react';
 import Button from "components/buttons";
-import Badge from "components/topography/badge";
+// import Badge from "components/topography/badge";
 import { useState, useEffect, useRef } from "react";
-import { BiHomeAlt2 } from "react-icons/bi";
 import { IoSettingsOutline } from "react-icons/io5";
-import { TbTools, TbLayoutSidebarRightCollapse, TbLayoutSidebarRightExpand } from "react-icons/tb";
+import { TbTools, TbLayoutSidebarRightCollapse, TbLayoutSidebarRightExpand ,TbCrown} from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import { CgSearch, CgClose } from "react-icons/cg";
 import {  MdLogout } from "react-icons/md";
+import {useRouter} from "next/router";
 import Image from "next/image";
 
 export const NavBarWrapper = styled(Wrapper)`
@@ -197,7 +197,8 @@ export default function Header({ user, routes, children }) {
     const [searchResults, setSearchResults] = useState(false);
     const [open, setOpen] = useState(false);
     let NavRef = useRef(null);
- 
+    const router = useRouter();
+
    
     useEffect(() => {
         let sidenavPanel = document.body.querySelector("#sidenav_panel");
@@ -290,27 +291,34 @@ export default function Header({ user, routes, children }) {
                     </Profile>
                     <ProfileDropDown open={open} >
                         <ProfileDropDownInfo>
-                            <h5 className="d-flex justify-content-between align-items-center">
-                                {user?.name ?? "User Name"}
-                                <Badge nature="secondary">{user?.account_type}</Badge>
+                            <div className="Avatar">
+                                <Image src={user.profileURL ? user.profileURL : "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} height={40} width={40} alt={user?.name ?? "User Profile"} />
+                            </div>
+                            <div className="Info">
+                                <h6>
+                                    {user?.name ?? "User Name"}
+                                </h6>
+                                <p>
+                                    @{user.username ?? "User name"}
+                                </p>
 
-                            </h5>
-                            <p>
-                                {user?.email ?? "User Email"}
-                            </p>
+                            </div>
                         </ProfileDropDownInfo>
-                        <ProfileDropDownItem as={Link} href="/">
-                            <BiHomeAlt2 />
-                            Home</ProfileDropDownItem>
-                        <ProfileDropDownItem as={Link} href="/tools">
-                            <TbTools />
-                            Tools</ProfileDropDownItem>
-                        <ProfileDropDownItem as={Link} href="/dashboard/profile">
-                            <FaRegUser />
-                            Profile</ProfileDropDownItem>
+                        <ProfileDropDownItem as={Link} href={"/people/" + user.username}>
+                            <FaRegUser size={14}/>
+                            Your Profile
+                        </ProfileDropDownItem>
+                        {/* <ProfileDropDownItem as={Link} href={"/dashboard/profile"}>
+                            <FaRegUser size={14}/>
+                            Edit Profile
+                        </ProfileDropDownItem> */}
                         <ProfileDropDownItem as={Link} href="/dashboard/settings">
-                            <IoSettingsOutline />
-                            Settings</ProfileDropDownItem>
+                            <IoSettingsOutline  size={14}/>
+                            Settings
+                        </ProfileDropDownItem>
+                        <ProfileDropDownItem as={Link} href="/pricing">
+                            <TbCrown    size={16}/>
+                            Upgrade Account</ProfileDropDownItem>
                         <ProfileDropDownItem as={"button"} onClick={(e) => {
                             e.preventDefault();
                             signOut();
@@ -319,10 +327,10 @@ export default function Header({ user, routes, children }) {
                             Log Out
                         </ProfileDropDownItem>
                     </ProfileDropDown>
-                </ProfileWrapper> : <>
-                            <Button level="true" as={Link} href="/login">Log In</Button>
-                            <Button as={Link} href="/signup">Sign Up</Button>
-                        </>}
+                </ProfileWrapper> : <AuthButtonWrapper>
+                            <Button level="true" as={Link} href={"/login?continue="+ router.pathname}>Log In</Button>
+                            <Button as={Link} className="signup" href="/signup">Sign Up</Button>
+                        </AuthButtonWrapper>}
             </NavBarWrapper>
 
         </>

@@ -11,6 +11,11 @@ const NotificationSchema = new mongoose.Schema({
         type: Date,
         default: () => Date.now()
     },
+    type: {
+        type: String,
+        enum: ['comment', 'post', 'like', 'follow', 'mention', 'reply', 'message', 'system'],
+        default: 'system'
+    }
 
 });
 

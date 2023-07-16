@@ -99,7 +99,7 @@ const routes = (userRole) => {
                 path: "/dashboard/admin/notifications",
                 icon: <BiBell />,
             },
-            ...userRoutes
+            // ...userRoutes
         ].filter((value, index, self) => {
             return self.indexOf(value) === index;
         });

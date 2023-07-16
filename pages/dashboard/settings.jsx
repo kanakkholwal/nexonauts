@@ -1,6 +1,6 @@
 import { getSession } from "next-auth/react"
 import DashboardPage from "components/dashboard-page";
-import {Card,CardHeader,CardBody,CardTitle} from "components/Card";
+import {Card} from "components/Card";
 import Head from "next/head";
 import { registerView } from "lib/analytics";
 import { useEffect } from "react";
@@ -19,17 +19,10 @@ export default function Settings({ user }) {
                 <title>Settings</title>
             </Head>
             <DashboardPage user={user}>
-                
                 <Card>
-                    <CardHeader>
-                    <CardTitle>Settings</CardTitle>
-                    </CardHeader>
-                    <CardBody>
-                        Dark Mode,
-                        Push Notifications,
-                        
+                    <p className="h5">Settings</p>
 
-                    </CardBody>
+
                 </Card>
 
             </DashboardPage>
