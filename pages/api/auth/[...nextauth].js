@@ -71,7 +71,8 @@ export const authOptions = {
                     profileURL: user.profileURL,
                     role: user.role,
                     account_type: user.account_type,
-                    username:user.username
+                    username:user.username,
+                    verified:user.verified
                 }
             }
             return token

@@ -958,7 +958,7 @@ const replaceWords = (sentence, wordList) => {
 
     for (const word of wordList) {
         const regex = new RegExp(`@${word}\\b`, 'g');
-        replacedSentence = replacedSentence.replace(regex, `[${word}]`);
+        replacedSentence = replacedSentence.replace(regex, `<<<${word}>>>]`);
     }
 
     return replacedSentence;

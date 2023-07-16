@@ -163,7 +163,9 @@ export default function Pages({ user }) {
                             <Thead>
                                 <Tr>
                                     <Th >
-                                        <input type="checkbox"
+                                        <CheckBox type="checkbox"
+
+                                            size="sm"
                                             onChange={(e) => {
                                                 if (e.target.checked) {
                                                     setSelectedPages(currentItems.map(page => page._id));
@@ -197,7 +199,8 @@ export default function Pages({ user }) {
                                 {currentItems.map((page, index) => (
                                     <Tr key={page._id}>
                                         <Td>
-                                            <input type="checkbox"
+                                            <CheckBox type="checkbox"
+                                            size="sm"
                                                 checked={selectedPages.includes(page._id)}
                                                 onChange={(e) => {
                                                     if (e.target.checked) {
