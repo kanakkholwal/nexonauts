@@ -10,7 +10,7 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 gap: 1.5rem;
-color: rgba(var(--text-rgb), 0.5);
+color: rgba(var(--text-muted), 1);
 padding: 1rem;
 flex-wrap: wrap;
 
@@ -38,7 +38,7 @@ a{
     text-decoration: none;
     transition: all 0.3s ease;
     &:hover {
-        color:rgba(var(--text-rgb), 0.9)!important;
+        color:rgba(var(--text-rgb), 1)!important;
     }
 }
 @media (max-width: 768px) {

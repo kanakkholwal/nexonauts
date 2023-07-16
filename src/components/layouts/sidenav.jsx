@@ -20,7 +20,6 @@ display: flex;
 flex-direction: column;
 background-color: rgb(255 255 255 / 80%);
 backdrop-filter: blur(20px);
-box-shadow: 0px 0px 1rem 0px #6658d31c;
 padding: 1.25rem;
 font-weight: 500;
 font-size: 1rem;
@@ -31,8 +30,8 @@ z-index: 1000;
 }
 
 
-@media (max-width: 1400px) {
-    
+@media (width <= 1400px) {     
+    box-shadow: 0px 0px 1rem 0px #6658d31c;
     transform: translateX(-100%);
     &.isOpen{
         transform: translateX(0);
@@ -41,7 +40,10 @@ z-index: 1000;
      padding-left:0;
     }
 }
-
+@media (width >=1400px) {
+    box-shadow: none;
+    border-right: 1px solid rgba(var(--text-rgb),0.1);
+}
 
 `;
 const CloseButton = styled.button`

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import {NavBarWrapper} from "components/navbar";
 export const MainWrapper = styled.div`
 width: 100%;
 height: 100%;
@@ -11,6 +11,9 @@ container-type: inline-size;
 @media (min-width: 1400px) {
     padding-inline-start: var(--sidenav-width);
     &.isSidenavOpen:has(~.isOpen){
+        padding-left:var(--sidenav-width);
+    }
+    &.isSidenavOpen:has(~.isOpen) ${NavBarWrapper}{
         padding-left:var(--sidenav-width);
     }
 }

@@ -77,6 +77,18 @@ export default nextConnect(handler)
 
       currentUser.profileURL = user.profileURL;
       currentUser.name = user.name;
+      
+      if(currentUser.username !== user.username){
+        const usernameExists = await User.findOne({ username: user.username });
+        if (usernameExists) {
+            return res.status(401).json({
+                message: 'Username already exists',
+            });
+            }
+        else {
+            currentUser.username = user.username;
+        }
+      }
       await currentUser.save();
 
       return res.json({

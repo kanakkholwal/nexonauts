@@ -207,6 +207,12 @@ ${props => props.sm ? `  &~label {
       
       
           }` : ""}` : ""}
+
+
+          &:disabled {
+            background-color: var(--form-bg-disabled);
+            cursor: not-allowed;
+          }
   `;
 
 export default Input;

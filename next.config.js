@@ -19,6 +19,12 @@ const nextConfig = withPWA({
   crossOrigin: 'anonymous',
   images: {
     domains: ['i.ytimg.com', "blogspot.com", "res.cloudinary.com"],
+    remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: '**.eu.org',
+        },
+      ],
   },
 });
 
