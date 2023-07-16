@@ -27,7 +27,6 @@ export const NavBarWrapper = styled.div`
     width: calc(100vw - 6%);
     align-items: center;
     justify-content: ${({ align }) => align ? align : 'space-between'};
-    box-shadow:  0px 0px 9rem 0px #6658d31c;
     a>img{
         margin-top:-12px;
     }
@@ -192,13 +191,13 @@ align-self: stretch;
 font-weight: 600;
 line-height: 1.25rem; 
 align-self: stretch;
-        color:rgba(var(--grey-rgb,#344054), 1)
+        color:rgba(var(--text-rgb,#344054), 1)
     }
     p{
         font-size: 0.875rem;
 font-weight: 500;
 line-height: 1.25rem;
-color:rgba(var(--grey-rgb,#344054), 0.75)
+color:rgba(var(--muted-rgb,#344054), 1)
 
     }
 }
@@ -220,7 +219,7 @@ gap: 0.75rem;
 flex: 1 0 0;
 align-self: stretch;
 &:hover {
-    color: rgba(var(--text-rgb,#344054), 0.8);
+    color: rgba(var(--text-rgb,#344054), 1);
     background:rgba(var(--text-rgb,#344054), 0.05);
 }
 `;

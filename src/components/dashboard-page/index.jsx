@@ -6,7 +6,7 @@ import SideNav from "components/layouts/sidenav";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import { BiBell } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
-import { TbTools, TbMessageDots, TbBrandBlogger ,TbDashboard} from "react-icons/tb";
+import { TbTools ,TbSmartHome,TbBrandBlogger,TbDashboard,TbMessageDots} from "react-icons/tb";
 import { RiAdminLine,RiPagesLine } from "react-icons/ri";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { RiAppsLine } from "react-icons/ri";
@@ -36,18 +36,43 @@ const SocialMedia = [
     },
 ]
 const userRoutes = [
-    {
-        title: "Dashboard",
-        path: "/dashboard",
-        icon: <TbDashboard />,
-    },
-    {
-        title: "Tools",
-        path: "/dashboard/tools",
-        icon: <TbTools />,
-    },
 
-]
+        {
+            title: "Home",
+            icon: <TbSmartHome size={16}/>,
+            path: "/",
+        },
+        {
+            title: "Dashboard",
+            icon: <TbDashboard size={16}/>,
+            path: "/dashboard",
+            sessionRequired: true,
+        },
+        {
+            title: "Apps",
+            icon: <RiAppsLine size={16} />,
+            path: "/apps",
+        },
+        {
+            title: "Tools",
+            icon: <TbTools  size={16}/>,
+            path: "/tools",
+        },
+        {
+            title: "Blog",
+            icon: <TbBrandBlogger  size={16}/>,
+            path: "/blog",
+        },
+        {
+            title: "Profile",
+            icon: <TbBrandBlogger  size={16}/>,
+            path: "/dashboard/profile",
+            sessionRequired: true,
+            
+        }
+    ]
+
+
 const routes = (userRole) => {
     if (userRole === "admin")
         return [

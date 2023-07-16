@@ -20,6 +20,14 @@ position: sticky;
 top: 0;
 inset-inline: 0;  
 border-radius: 0;
+@media (width <= 1400px) {
+    box-shadow:  0px 0px 9rem 0px #6658d31c;
+}
+@media (width >=1400px) {
+    box-shadow: none;
+    border-bottom: 1px solid rgba(var(--text-rgb),0.1);
+    background:#fbfbfb;
+}
 `;
 const Children = styled.div`
     margin-inline: 0.5rem auto;

@@ -5,21 +5,39 @@ import Tabs from 'components/Tabs';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card } from 'components/Card';
+import Badge from 'components/topography/badge';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useState } from 'react';
 import { getSession } from "next-auth/react"
 import toast, { Toaster } from 'react-hot-toast';
-
+import {MdVerified} from "react-icons/md";
 import { FormElement, Label, Input, FormGroup } from 'components/form-elements';
 import { registerView } from "lib/analytics";
 import { useEffect } from "react";
 
-const Wrapper = styled(Card)`
-flex-direction: row;
-justify-content:space-evenly;
+const ProfileCard = styled(Card)`
+flex-direction: column;
+animation:none;
+opacity:1;
+visibility:visible;
+max-width:20rem;
 align-items: center;
-flex-wrap:wrap;
+img{
+    border-radius:50%;
+    width:150px;
+    aspect-ratio:1/1;
+    margin-bottom:1rem;
+    overflow:hidden;
+}
+`;
+const EditPanel = styled(Card)`
+flex-direction: column;
+animation:none;
+opacity:1;
+visibility:visible;
+align-items: center;
+max-width:728px;
 `;
 
 const FileUploader = styled.div`
@@ -106,6 +124,7 @@ const EditProfile = ({ user: CurrentUser }) => {
         event.preventDefault();
 
         console.log(user);
+        //  on submit change user data
 
         try {
             await axios.put('/api/users/' + user.id, { user })
@@ -125,15 +144,31 @@ const EditProfile = ({ user: CurrentUser }) => {
 
 
     return (
-        <>
+        <div className="d-flex g-2 flex-wrap align-items-start justify-content-center">
+            <ProfileCard>
+                {CurrentUser?.profileURL ?
+                    <Image width={150} height={150}
+                        alt={CurrentUser.name} src={CurrentUser.profileURL}
+                    /> : <Image width={150} height={150}
+                        alt={"user profile image"} src={"https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} />}
+                <h3>{CurrentUser.name}</h3>
+                <h6 className="text-muted">@{CurrentUser.username}</h6>
+                <p className="mb-3">{CurrentUser.email}</p>
+                <p>
+                    <Badge nature={CurrentUser?.account_type === "premium" ? "success" : "warning"} className="g-0">
+                        {user?.account_type}
+                    </Badge>
+                    <Badge nature={CurrentUser?.verified === true ? "success" : "warning"} className="g-0">
+                        {user.verified === true ? "Verified" : "Email not verified"}<MdVerified />
+                    </Badge>
+                </p>
+            </ProfileCard>
 
-
-            <Wrapper>
+            <EditPanel>
 
                 
-                    <FormGroup style={{ justifyContent: "flex-start" ,flexDirection:"column"}}>
-
-                        <FileUploader>
+                    <FormGroup style={{ justifyContent: "flex-start" ,flexDirection:"column",gap:"0"}}>
+                    <FileUploader>
                             {user?.profileURL ?
                                 <Image width={150} height={150}
                                     alt={user.name} src={user.profileURL}
@@ -147,51 +182,51 @@ const EditProfile = ({ user: CurrentUser }) => {
                                 <input type="file" hidden accept="image/*" id="imageUpload" onChange={handleChange} />
                             </label>
                         </FileUploader>
-
-                        <FormElement>
-              
-                            <Label htmlFor="profile-pic-url" className="small">or Enter a url</Label>
-                            <Input placeholder="Enter or paste picture url from external source..." id="profile-pic-url" size="sm" value={user.profileURL ?? "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} onChange={(e) => setUser({
-                                ...user,
-                                profileURL: e.target.value
-                            })} />
-                        </FormElement>
+                       
+                    
                     </FormGroup>
              
-                    <FormGroup>
-                        <FormElement>
-                            <Label htmlFor="name">Your Name</Label>
-                            <Input placeholder="Enter your name." id="name" value={user?.name} onChange={(e) => setUser({
+                    <FormGroup className="g-0 justify-content-end">
+                        <FormElement sm={true}>
+                            <Label sm={true} htmlFor="name">Your Name</Label>
+                            <Input  sm={true}  placeholder="Enter your name." id="name" value={user?.name} onChange={(e) => setUser({
                                 ...user,
                                 name: e.target.value
                             })} />
                         </FormElement>
-                        <FormElement>
-                            <Label htmlFor="profile-pic-url">Your Email</Label>
-                            <Input placeholder="email" type="email" id="email" value={user?.email} onChange={(e) => setUser({
-                                ...user,
-                                email: e.target.value
-                            })} />
+                        <FormElement  sm={true} >
+                            <Label  sm={true}  htmlFor="username">Your Username</Label>
+                            <Input  sm={true}  placeholder="username" type="text" id="username" value={"@"+user?.username} 
+                                onChange={(e) =>{
+                                    setUser({
+                                        ...user,
+                                        username: e.target.value.split("@")[1] ?? CurrentUser?.username
+                                    })
+                                }}
+                            />
                         </FormElement>
-                    </FormGroup>    <FormGroup>
+                    </FormGroup>    
+                    <FormGroup className="g-1 justify-content-end">
 
-                        <Button size="sm" nature="primary" onClick={(event) => {
+                        <Button size="sm" nature="dark" onClick={(event) => {
                             toast.promise(handleSubmit(event), {
                                 loading: 'Updating..',
                                 success: 'User updated successfully',
                                 error: 'Something went wrong',
                             })
                         }}>Save Profile</Button>
-                        <Button size="sm" nature="danger" as={Link} href="/dashboard">Cancel</Button>
+                        <Button size="sm" nature="danger" level={true} onClick={() =>{
+                            setUser(CurrentUser);
+                        }}>reset</Button>
                     </FormGroup>
 
-
-
-            </Wrapper>
+                        <hr/>
+<ChangePassword user={CurrentUser} />
+            </EditPanel>
             <Toaster
                 position="top-center"
             />
-        </>)
+        </div>)
 }
 const ChangePassword = ({ user }) => {
 
@@ -217,30 +252,33 @@ const ChangePassword = ({ user }) => {
             console.log(err);
         }
     }
-    return (<Card>
+    return (<>
 
-        <FormGroup>
-            <FormElement>
-                <Label htmlFor="currentPassword">Enter Current Password</Label>
-                <Input placeholder="Enter Current Password" type="text" id="currentPassword"
+        <FormGroup className="g-0">
+            <FormElement sm={true}>
+                <Label  sm={true}  htmlFor="currentPassword">Enter Current Password</Label>
+                <Input  sm={true} placeholder="Enter Current Password" type="text" id="currentPassword"
                     value={currentPassword} required
                     onChange={(e) => setCurrentPassword(e.target.value)} />
             </FormElement>
-            <FormElement>
-                <Label htmlFor="password">Enter new Password</Label>
-                <Input placeholder="Enter new password" id="password"
+            <FormElement  sm={true}>
+                <Label  sm={true} htmlFor="password">Enter new Password</Label>
+                <Input sm={true} placeholder="Enter new password" id="password"
                     value={password} required
                     onChange={(e) => setPassword(e.target.value)} />
             </FormElement>
-            <FormElement>
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
-                <Input placeholder="Confirm Password" type="text" id="confirmPassword"
+            <FormElement  sm={true}>
+                <Label  sm={true} htmlFor="confirmPassword">Confirm Password</Label>
+                <Input  sm={true} placeholder="Confirm Password" type="text" id="confirmPassword"
                     value={confirmPassword} required
                     onChange={(e) => setConfirmPassword(e.target.value)} />
             </FormElement>
         </FormGroup>
-        <FormGroup>
-            <Button size="sm" nature="primary" onClick={(event) => {
+        <FormGroup  className="g-0">
+            <Button size="sm"
+            disabled={currentPassword === "" || password === "" || confirmPassword === ""}
+            
+             onClick={(event) => {
                 if (confirmPassword !== password) {
                     toast.error("Passwords do not match");
                     return
@@ -251,12 +289,11 @@ const ChangePassword = ({ user }) => {
                     error: 'Something went wrong',
                 })
             }}>Change Password</Button>
-            <Button size="sm" nature="danger" as={Link} href="/dashboard">Cancel</Button>
         </FormGroup>
         <Toaster
             position="top-center"
         />
-    </Card>)
+    </>)
 }
 
 export default function ProfilePage({ user: CurrentUser }) {
@@ -265,24 +302,15 @@ export default function ProfilePage({ user: CurrentUser }) {
 
 
     return (
-        <DashboardPage user={CurrentUser}>
+        <DashboardPage user={CurrentUser}
+        headerChildren={
+            <span className="h6">Edit Profile</span>
+        }>
             <Head>
                 <title>Edit Profile</title>
             </Head>
-
-            <Tabs
-                TabList={[
-                    {
-                        title: "Edit Profile",
-                        content: <EditProfile user={CurrentUser} />
-                    },
-                    {
-                        title: "Change Password",
-                        content: <ChangePassword user={CurrentUser} />
-                    }
-                ]}
-
-            />
+<EditProfile user={CurrentUser} />
+            
 
         </DashboardPage>)
 }

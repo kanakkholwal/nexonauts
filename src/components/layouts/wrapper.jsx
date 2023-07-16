@@ -18,6 +18,9 @@ container-type: inline-size;
     &.isSidenavOpen:has(~.isOpen) ${NavBarWrapper}{
         padding-left:var(--sidenav-width);
     }
+    &.isSidenavOpen:has(~.isOpen) nav{
+        padding-left:var(--sidenav-width);
+    }
 }
 
 `;
