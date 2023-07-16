@@ -69,7 +69,7 @@ export default function ToolPage({ headerChildren, children, session, metadata ,
         <>
             <SideNav routes={routes(session?.user?.role)} user={session?.user}/>
             <MainWrapper id="main_wrapper" className="isSidenavOpen">
-                <Header session={session} routes={[...ToolList]} >
+                <Header user={session?.user} routes={[...ToolList]} >
                     {headerChildren ? headerChildren : null}
                 </Header>
                 <ContentWrapper>
