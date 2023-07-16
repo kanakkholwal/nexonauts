@@ -46,7 +46,7 @@ interface Input {
     inputLabel:string;
     inputValue: string;
     inputPlaceholder: string;
-    inputRequired:Boolean;
+    inputRequired:boolean;
     inputHelper?: string;
     constraints:any;
     inputOptions: Options[];    

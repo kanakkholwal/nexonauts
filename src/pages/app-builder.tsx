@@ -277,11 +277,13 @@ function InputFlowTab({ app, dispatch }) {
                 <FormElement sm={true}>
                     <Label sm={true} htmlFor="InputRequired">Required Input ? </Label>
                     <CheckBox
+                        type='checkbox'
+                        checked={newInput.inputRequired}
                         id='InputRequired'
-                        checked={newInput?.inputRequired}
                         onChange={(e) => setNewInput({ ...newInput, inputRequired: e.target.checked })}
-                        
                     />
+
+
                 </FormElement>
                 <FormElement>
                     <Label sm={true} htmlFor="InputHelper">Helper Text</Label>

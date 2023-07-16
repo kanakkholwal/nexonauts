@@ -6,10 +6,12 @@ import { Spinner } from 'components/Loader';
 import axios from 'axios';
 import Head from 'next/head';
 
-const VerificationPage = () => {
-  const router = useRouter();
-  const { token } = router.query;
-  
+
+
+export default function VerifyUser() {
+    const router = useRouter();
+    const { token } = router.query;
+
     useEffect(() => {
         if (token) {
             async () => (await axios.get(`/api/auth/verify?token=${token}`)
@@ -23,26 +25,26 @@ const VerificationPage = () => {
                     // Handle verification error
                 }))();
         }
+        else{
+            router.push('/signup');
+        }
     }, [token]);
-    if(router.query.token === undefined || router.query.token === null) router.push('/signup');
-
-  
-  return <div className='d-flex justify-content-center align-items-center flex-column g-3' style={{
-    width: '100%',
-    height: '100vh',
-  }}>
-  <Spinner />
-  
-  Verification in progress...
 
 
-  <Head>
-    <title>Verification</title>
-  </Head>
-  
-  
-  
-  </div>;
+    return (<div className='d-flex justify-content-center align-items-center flex-column g-3' style={{
+        width: '100%',
+        height: '100vh',
+    }}>
+        <Spinner />
+
+        Verification in progress...
+
+
+        <Head>
+            <title>Verification</title>
+        </Head>
+
+
+
+    </div>);
 };
-
-export default VerificationPage;
