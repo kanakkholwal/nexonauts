@@ -2,7 +2,7 @@ import input from "./Input";
 import textarea from "./TextArea";
 import select from "./Select";
 import label from "./Label";
-import checkbox from "./CheckBox";
+import checkbox from "components/form-elements/CheckBox"
 import formElement from "./FormElement";
 import formHelper from "./FormHelper";
 import fileInput from "./FileInput";
