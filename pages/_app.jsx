@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Aos from "aos";
 import { SessionProvider } from "next-auth/react"
+import { UserPreferenceProvider } from "hooks/useUserPreference"
 
 
 export default function MyApp({ Component, pageProps: { session, ...pageProps }, }) {
@@ -88,7 +89,9 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps },
         `}
         </Script>
         <SessionProvider session={session}>
-            <Component {...pageProps} />
+            <UserPreferenceProvider>
+                <Component {...pageProps} />
+            </UserPreferenceProvider>
         </SessionProvider>
     </>
 }

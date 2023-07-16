@@ -274,8 +274,9 @@ const ChangePassword = ({ user }) => {
                     onChange={(e) => setConfirmPassword(e.target.value)} />
             </FormElement>
         </FormGroup>
-        <FormGroup  className="g-0">
+        <FormGroup  className="g-0 justify-content-end">
             <Button size="sm"
+            nature="dark"
             disabled={currentPassword === "" || password === "" || confirmPassword === ""}
             
              onClick={(event) => {

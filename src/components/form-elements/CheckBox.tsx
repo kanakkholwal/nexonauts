@@ -8,9 +8,12 @@ to{
     transform:scale(0)
 }`
 
-const Checkbox = styled.input.attrs({ type: 'checkbox' })`
---checkbox-width: ${({ size }) => {
-    switch (size) {
+const Checkbox = styled.input.attrs({ type: 'checkbox' })<{
+    size?: 'sm' | 'md' | 'lg' | 'xl' | 'xs'
+}>`
+--checkbox-width: ${(props) => {
+    if(props.size === undefined) return '1.25rem'
+    switch (props.size) {
         case 'sm':
             return '1rem'
         case 'md':
@@ -67,11 +70,11 @@ margin-inline:0.5rem;
     box-shadow: inset 0 0 0 2px var(--form-caret);
 
   }
-  &:checked::before {
+  &:not(:checked)::before {
     animation: ${ScaleOut} .1s .2s linear forwards;
   }
   
-  &:checked::after {
+  &:not(:checked)::after {
     transform: scale(0)
   }
   

@@ -4,10 +4,12 @@ import {Card} from "components/Card";
 import Head from "next/head";
 import { registerView } from "lib/analytics";
 import { useEffect } from "react";
+import { useUserPreferences } from "hooks/useUserPreference";
+
 
 export default function Settings({ user }) {
 
-
+    const { preferences,update } = useUserPreferences();
 
     useEffect(() =>{
         registerView({ title: "Settings", type: "dashboard", slug: "/dashboard/settings" })
@@ -21,7 +23,14 @@ export default function Settings({ user }) {
             <DashboardPage user={user}>
                 <Card>
                     <p className="h5">Settings</p>
+                    <ul>
+                        <li onClick={() =>{
+                            update({pushNotification: !preferences.pushNotification})
 
+                        }}>Dark Mode: {preferences.theme}</li>
+                        <li>Notifications: {preferences.pushNotification ? "On" : "Off"}</li>
+                        
+                    </ul>
 
                 </Card>
 

@@ -274,15 +274,13 @@ function InputFlowTab({ app, dispatch }) {
                         placeholder='Enter the placeholder'
                         onChange={(e) => setNewInput({ ...newInput, inputPlaceholder: e.target.value })} />
                 </FormElement>}
-                <FormElement>
+                <FormElement sm={true}>
                     <Label sm={true} htmlFor="InputRequired">Required Input ? </Label>
                     <CheckBox
                         id='InputRequired'
-                        checked={!newInput.inputRequired}
-                        onChange={(e) => {
-                            if (e.target.checked) setNewInput({ ...newInput, inputRequired: false })
-                            else setNewInput({ ...newInput, inputRequired: true })
-                        }}
+                        checked={newInput?.inputRequired}
+                        onChange={(e) => setNewInput({ ...newInput, inputRequired: e.target.checked })}
+                        
                     />
                 </FormElement>
                 <FormElement>
@@ -630,9 +628,9 @@ function PromptTab({ app, dispatch }) {
             <Label sm={true} htmlFor="Configurations">Configurations </Label>
             <CheckBox
                 id='Configurations'
-                checked={!(Object.keys(app.config !== null ?app.config : {}).length > 0)}
+                checked={(Object.keys(app.config !== null ?app.config : {}).length > 0)}
                 onChange={(e) => {
-                    if (!e.target.checked ) {
+                    if (e.target.checked) {
                         dispatch({
                             type: 'setAppConfig', payload: {
                                 prompt: "",
@@ -794,13 +792,13 @@ function FinalTab({ app, dispatch, user, type = "submit" }) {
                 <Label sm={true} htmlFor="InputEnabled">Enable app :  </Label>
                 <CheckBox
                     id='InputEnabled'
-                    checked={!app.enabled}
+                    checked={app.enabled}
                     onChange={(e) => {
                         if (e.target.checked) {
-                            dispatch({ type: 'setAppEnabled', payload: false });
+                            dispatch({ type: 'setAppEnabled', payload: true });
                         }
                         else {
-                            dispatch({ type: 'setAppEnabled', payload: true });
+                            dispatch({ type: 'setAppEnabled', payload: false });
                         }
                     }}
                 />
@@ -809,21 +807,16 @@ function FinalTab({ app, dispatch, user, type = "submit" }) {
                 <Label sm={true} htmlFor="customFunction">Custom Function </Label>
                 <CheckBox
                     id='customFunction'
-                    checked={!app.customFunction}
+                    checked={app.customFunction}
                     onChange={(e) => {
-                        if (e.target.checked) {
-                            dispatch({ type: 'setAppCustomFunction', payload: false });
-                        }
-                        else {
-                            dispatch({ type: 'setAppCustomFunction', payload: true });
-                        }
+                            dispatch({ type: 'setAppCustomFunction', payload: e.target.checked });
                     }}
                 />
             </FormElement>
             <FormElement size="sm" className="m-0">
                 <Select
                     id="status"
-                    value={app.status}
+                    value={app.state}
                     onChange={(option: {
                         label: string;
                         value: string;
@@ -843,10 +836,9 @@ function FinalTab({ app, dispatch, user, type = "submit" }) {
                 <Label sm={true} htmlFor="InputRequired">Are you sure you want to {type} this app?</Label>
                 <CheckBox
                     id='InputRequired'
-                    checked={!isSure}
+                    checked={isSure}
                     onChange={(e) => {
-                        if (e.target.checked) setSure(false);
-                        else setSure(true);
+                        setSure(e.target.checked);
                     }}
                 />
             </FormElement>

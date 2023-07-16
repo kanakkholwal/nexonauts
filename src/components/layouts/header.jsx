@@ -143,6 +143,7 @@ background-color:transparent;
 color:rgba(var(--text-rgb),0.8);
 font-size:1rem;
 font-weight:500;
+border-right:1px solid var(--border-color);
 
 &::placeholder{
     color:rgba(var(--text-rgb),0.5);
@@ -312,7 +313,7 @@ export default function Header({ user, routes, children }) {
 
                             </div>
                         </ProfileDropDownInfo>
-                        <ProfileDropDownItem as={Link} href={"/people/" + user.username}>
+                        <ProfileDropDownItem as={Link} href={"/dashboard/profile"}>
                             <FaRegUser size={14}/>
                             Your Profile
                         </ProfileDropDownItem>
