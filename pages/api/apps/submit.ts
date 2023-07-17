@@ -47,6 +47,7 @@ export default nextConnect(handler)
                 usage:[],
                 reviews:[],
                 ratings:[],
+                keywords: appData.keywords,
                 membership: appData.membership,
                 category: appData.category,
                 tags: appData.tags,

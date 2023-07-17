@@ -3,7 +3,7 @@ import dbConnect from "lib/dbConnect";
 import nextConnect from 'next-connect';
 import App from "models/app";
 import type { App as AppType } from "types/app";
-import { isAdminMiddleware } from 'middleware/checkUser';
+// import { isAdminMiddleware } from 'middleware/checkUser';
 
 export default nextConnect(handler)
     .post(async (req, res) => {
