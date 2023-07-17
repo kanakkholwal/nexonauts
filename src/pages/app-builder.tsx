@@ -50,6 +50,7 @@ export default function AppBuilder({ user, app: defaultApp, type = "submit" }: {
             ratings: [],
             reviews: [],
             usage: [],
+            keywords: [],
             formFlow: {
                 menuType: "text_input_to_text_output",
                 inputs: [],
@@ -79,6 +80,8 @@ export default function AppBuilder({ user, app: defaultApp, type = "submit" }: {
                 return { ...state, app: { ...state.app, shortDescription: action.payload } };
             case 'setAppDescription':
                 return { ...state, app: { ...state.app, description: action.payload } };
+            case 'setAppKeywords':
+                return { ...state, app: { ...state.app, keywords: action.payload } };
             case 'setAppType':
                 return { ...state, app: { ...state.app, type: action.payload, formFlow: { ...state.app.formFlow, menuType: action.payload } } };
             case 'setAppMembership':
@@ -608,6 +611,21 @@ function GeneralTab({ app, dispatch }) {
                 onChange={(e) => dispatch({ 
                     type: 'setAppTags',
                     payload: e.target.value.split(',').map((tag) => tag.trim())
+                 })}
+                
+            />
+        </FormElement>
+        <FormElement size="sm">
+            <Label sm={true} htmlFor="appKeywords">Keywords</Label>
+            <TextArea 
+                id="appKeywords"
+                rows={5}
+                cols={8}
+                placeholder={"Add Keywords fo search engine"}
+                value={app.keywords.join(', ')}
+                onChange={(e) => dispatch({ 
+                    type: 'setAppKeywords',
+                    payload: e.target.value.split(',').map((words) => words.trim())
                  })}
                 
             />

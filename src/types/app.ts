@@ -23,6 +23,7 @@ type App = {
     ratings: Number[],
     reviews: AppReview[],
     usage: AppUsage[],
+    keywords:string[],
     formFlow:{
         menuType: TypesOfApp ,
         inputs:Input[],

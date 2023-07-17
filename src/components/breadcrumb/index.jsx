@@ -60,7 +60,7 @@ justify-content:flex-start;
 `;
 export function BreadCrumb(){
     const router = useRouter();
-    const path = router.asPath;
+    const path = router.asPath.split('?')[0] || router.asPath;
     const pathArray = path.split('/');
 
     return (

@@ -36,6 +36,11 @@ const Children = styled.div`
     justify-content: center;
     gap: 1rem;
     width: auto;
+    span{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 `;
 
 const Toggler = styled(Button)`

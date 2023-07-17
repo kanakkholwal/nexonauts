@@ -4,11 +4,13 @@ import { useSession } from "next-auth/react";
 import AppPage ,{AppContainer,AppCard} from 'layouts/app-page';
 import { NextSeo } from 'next-seo';
 import {TbChevronRight} from 'react-icons/tb';
+import Search from '@/components/search';
 
-export default function App({ apps}) {
+export default function App({ apps,popularApps}) {
 
     
     const {data:session} = useSession();
+    console.log(popularApps);
 
 
 
@@ -32,6 +34,7 @@ export default function App({ apps}) {
                     ],
                 }}
             />
+            <Search placeholder="Search for an app or what kind of word you need.."  popular={popularApps}/>
             <AppContainer>
                 {apps?.sort((prev,curr) =>{
                     // put recommended apps first
@@ -63,13 +66,17 @@ export default function App({ apps}) {
 export async function getServerSideProps(context) {
     const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/apps/all`)
 
-    const {apps}  = data || []
+    const {apps,popularApps}  = data || {} as {
+        apps:any[],
+        popularApps:any[]
+    }
 
 
 
     return {
         props: {
-            apps
+            apps:apps || [],
+            popularApps:popularApps || []
         },
 
     }

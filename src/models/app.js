@@ -65,6 +65,11 @@ const appSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed,
         default: null,
     },
+    keywords:{
+        type: [String],
+        default: [],
+        trim: true,
+    },
     enabled: {
         type: Boolean,
         required: true,
