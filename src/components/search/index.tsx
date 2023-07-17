@@ -1,16 +1,15 @@
-import { SearchContainer,
+import { 
+    SearchContainer,
     StyledHeading,
     StyledSubHeading,
     StyledForm,
     StyledInput,
-    StyledButton
-
+    StyledButton,
+    Suggestions
 } from "./components";
 import { TbSearch } from "react-icons/tb";
 import { useState } from "react";
-import { 
-    debounce,
- } from "lodash";
+
 
 export default function Search({
     placeholder,
@@ -23,9 +22,9 @@ export default function Search({
     const [apps, setApps] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
-    console.log(popular);
 
-    const handleSearch = debounce(async (query:string) => {
+    
+    const handleSearch = async (query:string) => {
         if(query.length > 0){
             setLoading(true);
             try{
@@ -42,7 +41,7 @@ export default function Search({
                 setLoading(false);
             }
         }
-    }, 500);
+    }
 
 
 
@@ -55,20 +54,24 @@ export default function Search({
                 <StyledSubHeading>
                     Find perfect apps for your needs
                 </StyledSubHeading>
-                <StyledForm>
+                <StyledForm onSubmit={(e) =>{
+                    e.preventDefault();
+                    handleSearch(query);
+                }}>
+                    <StyledButton type="submit">
+                        <TbSearch/>
+                    </StyledButton>
                     <StyledInput type="text" placeholder={placeholder} 
                         onChange={(e) => {
                             setQuery(e.target.value);
-                            handleSearch(e.target.value);
                         }}
                         value={query}
-                    />
-                    <StyledButton type="submit">
-                            <TbSearch/>
-                    </StyledButton>
+                        />
                 </StyledForm>
-                {popular && popular.length > 0 && (<>
-                    Popular Searches: 
+                {popular && popular.length > 0 && (<Suggestions>
+                    <span>
+                    Popular Searches : 
+                    </span>
                     {popular.map((item, index) => {
                         return (
                             <span key={index}
@@ -76,13 +79,12 @@ export default function Search({
                                 e.preventDefault();
                                 e.stopPropagation();
                                 setQuery(item.name);
-                                handleSearch(item.name);
                             }}
                             >
                                 {item.name}
                             </span>) })}
 
-                </>)}
+                </Suggestions>)}
             </SearchContainer>
 
         </>

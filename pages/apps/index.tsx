@@ -4,13 +4,47 @@ import { useSession } from "next-auth/react";
 import AppPage ,{AppContainer,AppCard} from 'layouts/app-page';
 import { NextSeo } from 'next-seo';
 import {TbChevronRight} from 'react-icons/tb';
-import Search from '@/components/search';
+import { 
+    SearchContainer,
+    StyledHeading,
+    StyledSubHeading,
+    StyledForm,
+    StyledInput,
+    StyledButton,
+    Suggestions
+} from "components/search/components";
+import { TbSearch } from "react-icons/tb";
+import { useState } from "react";
 
 export default function App({ apps,popularApps}) {
 
     
     const {data:session} = useSession();
-    console.log(popularApps);
+
+    const [query, setQuery] = useState("");
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
+
+    
+    const handleSearch = async (query:string) => {
+        if(query.length > 0){
+            setLoading(true);
+            try{
+                const response = await fetch(`/api/apps/search?query=${query}`);
+                const data = await response.json();
+                if(data.success === true){
+                    setData(data);
+                    console.log(data);
+                    setError(null);
+                }
+            }catch(error){
+                setError(error);
+            }finally{
+                setLoading(false);
+            }
+        }
+    }
 
 
 
@@ -34,7 +68,46 @@ export default function App({ apps,popularApps}) {
                     ],
                 }}
             />
-            <Search placeholder="Search for an app or what kind of word you need.."  popular={popularApps}/>
+             <SearchContainer>
+                <StyledHeading>
+                    Search for Apps
+                </StyledHeading>
+                <StyledSubHeading>
+                    Find perfect apps for your needs
+                </StyledSubHeading>
+                <StyledForm onSubmit={(e) =>{
+                    e.preventDefault();
+                    handleSearch(query);
+                }}>
+                    <StyledButton type="submit">
+                        <TbSearch/>
+                    </StyledButton>
+                    <StyledInput type="text" placeholder={"Search for an app or what kind of word you need..."} 
+                        onChange={(e) => {
+                            setQuery(e.target.value);
+                        }}
+                        value={query}
+                        />
+                </StyledForm>
+                {popularApps && popularApps.length > 0 && (<Suggestions>
+                    <span>
+                    Popular Searches : 
+                    </span>
+                    {popularApps.map((item, index) => {
+                        return (
+                            <span key={index}
+                            onClick={(e) =>{
+                                e.preventDefault();
+                                e.stopPropagation();
+                                setQuery(item.name);
+                            }}
+                            >
+                                {item.name}
+                            </span>) })}
+
+                </Suggestions>)}
+            </SearchContainer>
+
             <AppContainer>
                 {apps?.sort((prev,curr) =>{
                     // put recommended apps first
