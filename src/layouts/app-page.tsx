@@ -127,9 +127,9 @@ export const AppCard = styled.div`
     transition: all 0.3s ease-in-out;
     border: 1px solid var(--border-color);
     &:hover {
-        border-color:rgba(var(--dark-rgb),0.25);
+        border-color:rgba(var(--theme-rgb),0.25);
     }
-    
+    flex: 1 1 20rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;

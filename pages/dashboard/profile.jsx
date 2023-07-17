@@ -12,7 +12,7 @@ import { useState } from 'react';
 import { getSession } from "next-auth/react"
 import toast, { Toaster } from 'react-hot-toast';
 import {MdVerified} from "react-icons/md";
-import { FormElement, Label, Input, FormGroup } from 'components/form-elements';
+import { FormElement, Label, Input, FormGroup,FormAlert } from 'components/form-elements';
 import { registerView } from "lib/analytics";
 import { useEffect } from "react";
 
@@ -272,6 +272,8 @@ const ChangePassword = ({ user }) => {
                 <Input  sm={true} placeholder="Confirm Password" type="text" id="confirmPassword"
                     value={confirmPassword} required
                     onChange={(e) => setConfirmPassword(e.target.value)} />
+                    {confirmPassword !== password && <FormAlert nature="danger">Passwords do not match</FormAlert>}
+                    {currentPassword === password && <FormAlert nature="danger">Old Password and New Must be different</FormAlert>}
             </FormElement>
         </FormGroup>
         <FormGroup  className="g-0 justify-content-end">
