@@ -23,8 +23,8 @@ export const StyledForm = styled.form`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    max-width: 500px;
+    width: calc(100% - 20px);
+    max-width: 728px;
     margin-bottom: 8px;
     gap: 5px;
     position: relative;
@@ -38,7 +38,7 @@ export const StyledForm = styled.form`
 `;
 export const StyledInput = styled.input`
     width: 100%;
-    padding: 10px 50px;
+    padding: 10px  0 10px 50px;
     background-color: var(--form-bg);
     font-size: 1rem;
     font-weight: 500;
@@ -75,13 +75,15 @@ export const Suggestions = styled.div`
     flex-wrap: wrap;
     width: 100%;
     max-width: inherit;
-    font-size: 0.875rem;
+    font-size: .875rem;
+    line-height: 1.5rem;
     &>span{
         &:first-child{
             margin-right: 5px;
         }
         &:not(:first-child){
             cursor: pointer;
+            font-weight: 500;
             &:hover{
                 text-decoration: underline;
                 color: rgba(var(--theme-rgb), 1);
@@ -91,6 +93,7 @@ export const Suggestions = styled.div`
                 &:after{
                     content: ",";
                 }
+                margin-right:0.125rem;
             }
         }
     }

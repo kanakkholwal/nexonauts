@@ -14,7 +14,7 @@ export default function TextInputToTextOutput({ app, user }) {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
     const [output, setOutput] = useState(null);
-    const [value, handleChange] = useForm(makeInitialObject(app.formFlow.inputs));
+    const [value, handleChange] = useForm(makeInitialObject(app?.formFlow?.inputs));
 
     const apiCall = async () => {
         setLoading(true);
@@ -65,7 +65,7 @@ export default function TextInputToTextOutput({ app, user }) {
         
             {/* Inputs */}
             <FormGroup>
-                {app.formFlow.inputs?.map((input, index) => {
+                {app.formFlow?.inputs?.map((input, index) => {
                     const { inputType, inputOptions, inputPlaceholder, ...rest } = input;
                     if (inputType === "text_input" || inputType === "number_input")
                         return (<FormElement key={index}>
@@ -150,7 +150,7 @@ export default function TextInputToTextOutput({ app, user }) {
          
             {/* Controls */}
             <div className="d-flex justify-content-center align-items-center g-2 my-2 flex-wrap">
-                {app.formFlow.controls?.map((control) => {
+                {app.formFlow?.controls?.map((control) => {
                     if (control.action === "get_output")
                         return (
                             <Button

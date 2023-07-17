@@ -16,6 +16,7 @@ import {
 import { TbSearch } from "react-icons/tb";
 import { useState } from "react";
 
+
 export default function App({ apps,popularApps}) {
 
     
@@ -82,7 +83,7 @@ export default function App({ apps,popularApps}) {
                     <StyledButton type="submit">
                         <TbSearch/>
                     </StyledButton>
-                    <StyledInput type="text" placeholder={"Search for an app or what kind of word you need..."} 
+                    <StyledInput type="text" placeholder={"Search for an app or what kind of work you need..."} 
                         onChange={(e) => {
                             setQuery(e.target.value);
                         }}
@@ -121,12 +122,13 @@ export default function App({ apps,popularApps}) {
                     return (
                         <AppCard key={app._id}>
                             <h5>{app.name}</h5>
-                            <div className="card">
-                                <div className="card-body">
-                                    <p className="card-text">{app.shortDescription}</p>
+                   
+                                    <p>{app.shortDescription}</p>
+                                    <div className='footer'>
+                                        <span className="category">{app.category.replaceAll("_"," ")}</span>
                                     <a href={app.path} className="btn btn-primary">Go to App <TbChevronRight/></a>
-                                </div>
-                            </div>
+                                    </div>
+                
                         </AppCard>
                     )
                 })}

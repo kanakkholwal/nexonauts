@@ -80,6 +80,7 @@ export default function App({ app, hardCoded }) {
 
 
     if(!app) return null;
+    console.log(app)
 
     return (
         <AppPage user={session?.user} headerChildren={<span className='h6'>{app.name}</span>}>

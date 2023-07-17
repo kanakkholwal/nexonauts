@@ -134,9 +134,34 @@ export const AppCard = styled.div`
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
+    .footer{
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        gap:0.25rem;
+        margin-top: 1rem;
+
+        .category{
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: rgba(var(--theme-rgb),0.75);
+            background:rgba(var(--theme-rgb),0.1);
+            text-transform:capitalize;
+        }
+    }
     a{
         color: var(--text-color);
-        margin-top: 1rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        
+        &:hover{
+          background:rgba(var(--dark-rgb),0.1);
+        }
         svg{
             margin-right: 0.5rem;
             animation: flick 1s linear infinite;

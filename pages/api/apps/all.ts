@@ -15,7 +15,7 @@ export default nextConnect(handler)
             const apps = await App.find({
                  enabled:true  , state: "published" 
               })
-            .select('name shortDescription appId type path coverImage recommended version ratings membership category tags author createdAt averageRating')
+            .select('name shortDescription description appId type path coverImage recommended version ratings membership category tags author createdAt averageRating formFlow')
             .exec();
 
             if (!apps) {
@@ -36,8 +36,7 @@ export default nextConnect(handler)
                 apps,
                 popularApps,
                 success:true,
-                message: `Successfully fetched all apps!`
-                
+                message: `Successfully fetched all apps!`               
              });
 
         }
