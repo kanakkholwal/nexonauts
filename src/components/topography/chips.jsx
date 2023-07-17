@@ -70,9 +70,10 @@ export default function Chips({
     style,
     onClick,
     onEndIconClick,
+    ...props
 }) {
     return (
-        <StyledWrapper variant={variant} className={className} style={style} onClick={onClick}>
+        <StyledWrapper variant={variant} className={className} style={style} onClick={onClick} {...props}>
             {startIcon ? <span className="startIcon" role="button">{startIcon}</span> : null}
             {avatar && avatar}
             <span className="label">{label}</span>

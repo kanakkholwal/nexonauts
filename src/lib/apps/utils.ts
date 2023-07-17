@@ -55,3 +55,19 @@ export function getMostUsedApp(apps: App[], userId: string) {
     }, { name: '', appId: '', totalUsage: 0 });
     return mostUsedApp;
 }
+
+
+export const CATEGORIES = [
+{ label: "Education", value: "education" },
+{ label: "Personal", value: "personal" },
+{ label: "Career", value: "career" },
+{ label: "Business", value: "business" },
+{ label: "Health", value: "health" },
+{ label: "Fitness", value: "fitness" },
+{ label: "Lifestyle", value: "lifestyle" },
+{ label: "Sales & Marketing", value: "sales_and_marketing" },
+{ label: "Finance", value: "finance" },
+{ label: "Productivity", value: "productivity" },
+{ label: "Social", value: "social" },
+{ label: "Entertainment", value: "entertainment" }
+]

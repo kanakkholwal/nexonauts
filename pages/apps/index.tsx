@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import axios from 'axios';
 import { useSession } from "next-auth/react";
 import AppPage ,{AppContainer,AppCard} from 'layouts/app-page';
+// import {CATEGORIES} from 'lib/apps/utils';
 import { NextSeo } from 'next-seo';
 import {TbChevronRight} from 'react-icons/tb';
 import { 
@@ -11,10 +12,13 @@ import {
     StyledForm,
     StyledInput,
     StyledButton,
-    Suggestions
+    Suggestions,
 } from "components/search/components";
-import { TbSearch } from "react-icons/tb";
+// FiltersContainer
+// import Chip from '@/components/topography/chips';
+import { TbSearch,TbFilter } from "react-icons/tb";
 import { useState } from "react";
+import { useRouter } from 'next/router';
 
 
 export default function App({ apps,popularApps}) {
@@ -26,7 +30,17 @@ export default function App({ apps,popularApps}) {
     const [data, setData] = useState(null);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
+    const router = useRouter();
+    const {category} = router.query;
+    
 
+    const handleFilters = useCallback(() => {
+        if (category) {
+            return apps.filter(app => app.category === category);
+        }
+        return apps;
+    }
+        , [category]);
     
     const handleSearch = async (query:string) => {
         if(query.length > 0){
@@ -46,6 +60,7 @@ export default function App({ apps,popularApps}) {
             }
         }
     }
+
 
 
 
@@ -107,10 +122,26 @@ export default function App({ apps,popularApps}) {
                             </span>) })}
 
                 </Suggestions>)}
+
+                {/* <FiltersContainer>
+                    <span className='_label'>Filters <TbFilter size={16}/> </span>
+                   {CATEGORIES.map((item,index) =>{
+                          return (
+                            <Chip 
+                            key={index}
+                            onClick={() =>{
+                              
+                                 router.push(`/apps?category=${item.value}`, undefined,{ shallow: true })
+                            }}
+                            label={item.label}
+                           />
+                          )
+                   })}
+                </FiltersContainer> */}
             </SearchContainer>
 
             <AppContainer>
-                {apps?.sort((prev,curr) =>{
+                {handleFilters()?.sort((prev,curr) =>{
                     // put recommended apps first
                     if(prev.recommended && !curr.recommended){
                         return -1

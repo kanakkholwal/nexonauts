@@ -2,15 +2,13 @@ import Link from "next/link";
 import Image from "next/image";
 import styled from "styled-components";
 import { CgMenu, CgSearch, CgClose } from "react-icons/cg";
-import { BiHomeAlt2 } from "react-icons/bi";
 import { IoSettingsOutline } from "react-icons/io5";
-import { TbTools } from "react-icons/tb";
+import { TbCrown } from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import {  MdLogout } from "react-icons/md";
 
 import { useState } from "react";
 import { ProfileDropDownInfo, ProfileWrapper, Profile, ProfileDropDown, ProfileDropDownItem } from "components/navbar";
-import Badge from "components/topography/badge";
 import { useSession } from "next-auth/react";
 
 const Wrapper = styled.div`
@@ -175,39 +173,46 @@ export function NavBar() {
                                 e.stopPropagation();
                                 setOpen(!open)
                             }} role="button" tabIndex="0">
+                            <Image src={session?.user?.profileURL ? session?.user?.profileURL : "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} height={40} width={40} alt={session?.user?.name ?? "User Profile"} />
+                    </Profile>
+                    <ProfileDropDown open={open} >
+                        <ProfileDropDownInfo>
+                            <div className="Avatar">
                                 <Image src={session?.user?.profileURL ? session?.user?.profileURL : "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} height={40} width={40} alt={session?.user?.name ?? "User Profile"} />
-                            </Profile>
-                            <ProfileDropDown open={open} >
-                                <ProfileDropDownInfo>
-                                    <h5 className="d-flex justify-content-between align-items-center">
-                                        {session?.user?.name ?? "User Name"}
-                                        <Badge nature="blog-theme">{session?.user?.account_type}</Badge>
+                            </div>
+                            <div className="Info">
+                                <h6>
+                                    {session?.user?.name ?? "User Name"}
+                                </h6>
+                                <p>
+                                    @{session?.user?.username ?? "User name"}
+                                </p>
 
-                                    </h5>
-                                    <p>
-                                        {session?.user?.email ?? "User Email"}
-                                    </p>
-                                </ProfileDropDownInfo>
-                                <ProfileDropDownItem as={Link} href="/">
-                                    <BiHomeAlt2 />
-                                    Home</ProfileDropDownItem>
-                                <ProfileDropDownItem as={Link} href="/tools">
-                                    <TbTools />
-                                    Tools</ProfileDropDownItem>
-                                <ProfileDropDownItem as={Link} href="/dashboard/profile">
-                                    <FaRegUser />
-                                    Profile</ProfileDropDownItem>
-                                <ProfileDropDownItem as={Link} href="/dashboard/settings">
-                                    <IoSettingsOutline />
-                                    Settings</ProfileDropDownItem>
-                                <ProfileDropDownItem as={"button"} onClick={(e) => {
-                                    e.preventDefault();
-                                    signOut();
-                                }}>
-                                    <MdLogout />
-                                    Log Out
-                                </ProfileDropDownItem>
-                            </ProfileDropDown>
+                            </div>
+                        </ProfileDropDownInfo>
+                        <ProfileDropDownItem as={Link} href={"/dashboard/profile"}>
+                            <FaRegUser size={14}/>
+                            Your Profile
+                        </ProfileDropDownItem>
+                        {/* <ProfileDropDownItem as={Link} href={"/dashboard/profile"}>
+                            <FaRegUser size={14}/>
+                            Edit Profile
+                        </ProfileDropDownItem> */}
+                        <ProfileDropDownItem as={Link} href="/dashboard/settings">
+                            <IoSettingsOutline  size={14}/>
+                            Settings
+                        </ProfileDropDownItem>
+                        <ProfileDropDownItem as={Link} href="/pricing">
+                            <TbCrown    size={16}/>
+                            Upgrade Account</ProfileDropDownItem>
+                        <ProfileDropDownItem as={"button"} onClick={(e) => {
+                            e.preventDefault();
+                            signOut();
+                        }}>
+                            <MdLogout />
+                            Log Out
+                        </ProfileDropDownItem>
+                    </ProfileDropDown>
                         </>)}
                 </ProfileWrapper>
                 <MenuToggle onClick={() => setMenuOpen(!isMenuOpen)}>

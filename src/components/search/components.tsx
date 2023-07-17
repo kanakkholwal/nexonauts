@@ -98,3 +98,25 @@ export const Suggestions = styled.div`
         }
     }
 `;
+export const FiltersContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: inherit;
+    background:var(--card-bg);
+    padding: 10px;
+    gap: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+    ._label{
+        background: rgba(var(--theme-rgb), 0.1);
+        color: rgba(var(--text-rgb), 0.9);
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin-right: 10px;
+        font-weight: 500;
+
+    }
+`;
