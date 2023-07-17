@@ -342,7 +342,7 @@ export default function Header({ user, routes, children }) {
                         </ProfileDropDownItem>
                     </ProfileDropDown>
                 </ProfileWrapper> : <AuthButtonWrapper>
-                            <Button level="true" as={Link} href={"/login?continue="+ router.pathname}>Log In</Button>
+                            <Button level="true" as={Link} href={"/login?continue="+ router.asPath}>Log In</Button>
                             <Button as={Link} className="signup" href="/signup">Sign Up</Button>
                         </AuthButtonWrapper>}
             </NavBarWrapper>
