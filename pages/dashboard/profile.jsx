@@ -1,9 +1,7 @@
-import DashboardPage, { Header } from "components/dashboard-page";
+import DashboardPage from "components/dashboard-page";
 import Head from 'next/head';
 import Button from 'components/buttons';
-import Tabs from 'components/Tabs';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Card } from 'components/Card';
 import Badge from 'components/topography/badge';
 import styled from 'styled-components';
