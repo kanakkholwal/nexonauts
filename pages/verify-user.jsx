@@ -11,10 +11,8 @@ import Head from 'next/head';
 export default function VerifyUser() {
     const router = useRouter();
     const { token } = router.query;
-
-    useEffect(() => {
-        if (token) {
-            async () => (await axios.get(`/api/auth/verify?token=${token}`)
+    const verify = async () =>{
+        await axios.get(`/api/auth/verify?token=${token}`)
                 .then((response) => {
                     console.log(response.data.message);
                     // Handle successful verification
@@ -23,7 +21,11 @@ export default function VerifyUser() {
                 .catch((error) => {
                     console.log(error.response.data.message);
                     // Handle verification error
-                }))();
+                })
+    }
+    useEffect(() => {
+        if (token) {
+            verify()
         }
         else{
             router.push('/signup');

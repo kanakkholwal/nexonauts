@@ -28,6 +28,18 @@ img{
     margin-bottom:1rem;
     overflow:hidden;
 }
+.verify{
+    font-size:0.875rem;
+    font-weight:500;
+    cursor:pointer;
+    padding:0.25rem 0.5rem;
+    color:var(--info);
+    opacity:0.75;
+    &:hover{
+        text-decoration:underline;
+        opacity:1;
+    }
+}
 `;
 const EditPanel = styled(Card)`
 flex-direction: column;
@@ -136,6 +148,14 @@ const EditProfile = ({ user: CurrentUser }) => {
             console.log(err);
         }
     }
+    const sendVerificationEmail = async () => {
+        await axios.post('/api/users/send-verification-email', { email: user.email })
+            .then(res => {
+                console.log(res);
+            }).catch(err => {
+                console.log(err);
+            })
+    }
     useEffect(() => {
         registerView({ title: "Profile", type: "dashboard", slug: "/dashboard/profile" })
     }, [])
@@ -160,6 +180,15 @@ const EditProfile = ({ user: CurrentUser }) => {
                         {user.verified === true ? "Verified" : "Email not verified"}<MdVerified />
                     </Badge>
                 </p>
+                    <span className="verify" onClick={() =>{
+                        toast.promise(sendVerificationEmail(),{
+                            loading:"Sending Email..",
+                            success:"Email sent successfully",
+                            error:"Something went wrong"
+                        })
+                    }}>
+                        Send Verification Email
+                    </span>
             </ProfileCard>
 
             <EditPanel>
@@ -271,7 +300,7 @@ const ChangePassword = ({ user }) => {
                     value={confirmPassword} required
                     onChange={(e) => setConfirmPassword(e.target.value)} />
                     {confirmPassword !== password && <FormAlert nature="danger">Passwords do not match</FormAlert>}
-                    {currentPassword === password && <FormAlert nature="danger">Old Password and New Must be different</FormAlert>}
+                    {currentPassword === password && confirmPassword.length  > 0 &&<FormAlert nature="danger">Old Password and New Must be different</FormAlert>}
             </FormElement>
         </FormGroup>
         <FormGroup  className="g-0 justify-content-end">
