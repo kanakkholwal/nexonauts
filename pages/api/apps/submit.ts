@@ -32,7 +32,7 @@ export default nextConnect(handler)
             // user is verified
             const newAppData:newApp = {
                 name: appData.name,
-                description: appData.description,
+                description: appData.shortDescription,
                 shortDescription: appData.description,
                 enabled: appData.enabled,
                 appId: appData.appId,
