@@ -5,17 +5,25 @@ import Head from "next/head";
 import Link from "next/link";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import {AppContainer,Card} from 'layouts/app-page';
+import {AppContainer,AppCard} from 'layouts/app-page';
 
 export default function Dashboard({ user}) {
     
     const [apps, setApps] = useState<any[]>([]);
-
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<boolean>(false);
     const getApps = async () => {
-        const res = await axios.get('/api/apps/all');
-        console.log(res.data);
-        setApps(res.data.apps);
-    }
+        await axios.get('/api/apps/all')
+                    .then(res => res.data)
+                    .then(data => {
+                        setApps(data.apps);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        setError(true);
+                    })
+                    .finally(() => setLoading(false));
+            }
     useEffect(() => {
         getApps();
     }, [])
@@ -30,24 +38,24 @@ export default function Dashboard({ user}) {
 
                 {apps.map((app) => {
                     return (
-                        <Card className="mb-3 d-flex flex-column justify-content-between " key={app._id} style={{
-                            width: '100%',
-                            maxWidth: '480px',
-                        }}>
-
+                        <AppCard className="mb-3 d-flex flex-column justify-content-between " key={app._id}>
                             <div className="mb-auto">
-                                <h5 className="card-title">{app.name}</h5>
-                                <p className="card-text">{app.shortDescription}</p>
+                                <h5>{app.name}</h5>
+                                <p>{app.shortDescription}</p>
                             </div>
-                            <div className="mt-auto d-flex justify-content-end align-items-center">
-                                    <Link href={`/dashboard/admin/apps/${app.appId}`} className="ms-auto underline">View</Link>
-                                    <Link href={`/dashboard/admin/apps/${app.appId}/edit`} className="mx-2 underline">Edit</Link>
+                            <div className="footer">
+                                    <span className="category">{app.category.replaceAll("_"," ")}</span>
+                                    <Link href={`/apps/${app.appId.replaceAll("_","-")}`} className="ms-auto" target="_blank">Checkout</Link>
+                                    <Link href={`/dashboard/admin/apps/${app.appId}`} >View</Link>
+                                    <Link href={`/dashboard/admin/apps/${app.appId}/edit`} className="mx-2">Edit</Link>
                             </div>
-
-                        </Card>
+                        </AppCard>
                     )
                 })}
-                                </AppContainer>
+                {loading && <p>Loading...</p>}
+                {!loading && apps.length === 0  && <>No apps Found</>}
+                {!loading && error && <p>Some Error Occurred </p>}
+                </AppContainer>
 
             </DashboardPage>
         </>

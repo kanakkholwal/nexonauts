@@ -112,6 +112,13 @@ const routes = (userRole) => {
                 title: "Apps",
                 path: "/dashboard/admin/apps",
                 icon: <RiAppsLine />,
+                children:[
+                    {
+                        title: "Submit",
+                        path: "/dashboard/admin/apps/submit",
+                        icon: <RiPagesLine />,
+                    }
+                ]
             },
             {
                 title: "Messages",
