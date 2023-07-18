@@ -6,6 +6,7 @@ import { hasTokenMiddleware } from 'middleware/checkUser';
 import nextConnect from 'next-connect';
 import { checkUser } from 'lib/checkUser';
 import AppsList from 'lib/apps';
+import axios from 'axios';
 import { Configuration, OpenAIApi } from "openai";
 // import type { TextCompletionResponse } from "types/openai";
 
@@ -64,25 +65,25 @@ export default nextConnect(handler)
             }
             else if (_app.customFunction === false) {
                 // execute app with App Data 
-                const configuration = new Configuration({
-                    apiKey: process.env.OPENAI_API_KEY,
-                });
-                const openai = new OpenAIApi(configuration);
-                const { prompt, temperature, max_tokens, top_p, frequency_penalty, presence_penalty, model } = _app.config;
+                // const configuration = new Configuration({
+                //     apiKey: process.env.OPENAI_API_KEY,
+                // });
+                // const openai = new OpenAIApi(configuration);
+                // const { prompt, temperature, max_tokens, top_p, frequency_penalty, presence_penalty, model } = _app.config;
 
-                const calculatedPrompt = prompt.replace(/{{appData}}/g, appData);
-                console.log(calculatedPrompt);
+                // const calculatedPrompt = prompt.replace(/{{appData}}/g, appData);
+                // console.log(calculatedPrompt);
 
-                const completion = await openai.createCompletion({
-                    model: model,
-                    prompt: prompt,
-                    temperature: parseFloat(temperature), //1.0
-                    max_tokens: parseInt(max_tokens), //500
-                    top_p: parseFloat(top_p), //1.0
-                    frequency_penalty: parseFloat(frequency_penalty), //0.0
-                    presence_penalty: parseFloat(presence_penalty) //0.0
-                });
-                const response = completion.data;
+                // const completion = await openai.createCompletion({
+                //     model: model,
+                //     prompt: calculatedPrompt,
+                //     temperature: parseFloat(temperature), //1.0
+                //     max_tokens: parseInt(max_tokens), //500
+                //     top_p: parseFloat(top_p), //1.0
+                //     frequency_penalty: parseFloat(frequency_penalty), //0.0
+                //     presence_penalty: parseFloat(presence_penalty) //0.0
+                // });
+                const response = await OpenAI(_app.config,appData) as any;
 
                 console.log(response);
                 // update usage
@@ -105,3 +106,59 @@ export default nextConnect(handler)
             return res.status(500).json({ success: false, message: error.message ?? "Internal Server Error" });
         }
     })
+    async function OpenAI(configuration: any,appData: any) {
+        const { prompt, temperature, max_tokens, top_p, frequency_penalty, presence_penalty, model } = configuration;
+
+        // convert appData to key - value pair in string 
+        const _appData = Object.keys(appData).map((key) => `${key}=${appData[key]}`).join("\n");
+        // console.log(_appData);
+
+        
+        const calculatedPrompt = prompt.concat("\n" +_appData);
+        // console.log(calculatedPrompt);
+
+        const url = (() =>{
+            switch (model) {
+                case "davinci":
+                    return"https://api.openai.com/v1/engines/davinci/completions";
+                case "curie":
+                    return"https://api.openai.com/v1/engines/curie/completions";
+                case "babbage":
+                    return"https://api.openai.com/v1/engines/babbage/completions";
+                case "ada":
+                    return"https://api.openai.com/v1/engines/ada/completions";
+                case "cushman":
+                    return"https://api.openai.com/v1/engines/cushman/completions";
+                case "davinci-instruct-beta":
+                    return"https://api.openai.com/v1/engines/davinci-instruct-beta/completions";
+                case "content-filter-alpha-c4":
+                    return "https://api.openai.com/v1/engines/content-filter-alpha-c4/completions";
+                    case "davinci-codex":
+                    return  'https://api.openai.com/v1/engines/davinci-codex/completions';
+                default:
+                    return "https://api.openai.com/v1/completions";
+            }
+        })()
+        const data = JSON.stringify({
+            model: model,
+            prompt: calculatedPrompt,
+            temperature: parseFloat(temperature), //1.0
+            max_tokens: parseInt(max_tokens), //500
+            top_p: parseFloat(top_p), //1.0
+            frequency_penalty: parseFloat(frequency_penalty), //0.0
+            presence_penalty: parseFloat(presence_penalty) //0.0
+        });
+        const headers = {
+            "Content-Type": "application/json",
+            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        }
+        return new Promise(async(resolve, reject) => {
+            try {
+                const response = await axios.post(url, data, { headers });
+                // console.log(response.data);
+                resolve(response.data);
+            } catch (error) {
+                reject(error);
+            }
+        })
+    }
