@@ -29,6 +29,7 @@ export default nextConnect(handler)
                 { _id: user._id },
                 { $set: { verified: true, verificationToken: null } }
             );
+            console.log("User verified successfully");
 
             return res.status(200).json({ message: 'User verified successfully' });
         } catch (error) {
