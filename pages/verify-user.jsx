@@ -16,7 +16,7 @@ export default function VerifyUser() {
                 .then((response) => {
                     console.log(response.data.message);
                     // Handle successful verification
-                    router.push('/login');
+                    router.push(response.data.callbackUrl);
                 })
                 .catch((error) => {
                     console.log(error.response.data.message);

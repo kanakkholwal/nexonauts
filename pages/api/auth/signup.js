@@ -3,11 +3,15 @@ import dbConnect from 'lib/dbConnect';
 import nodemailer from "nodemailer";
 import handler from 'lib/handler';
 import nextConnect from 'next-connect';
-
+import jwt from 'jsonwebtoken';
 // import { SibApiV3Sdk, SendSmtpEmail }  from 'sib-api-v3-sdk'
 
 export default nextConnect(handler)
     .post(createUser)
+
+// Your secret key used to sign the token
+const secretKey = process.env.JWT_SECRET;
+const expiresInMinutes = 30; // Token will expire after 30 minutes
 
 async function createUser(req, res) {
 
@@ -43,7 +47,7 @@ async function createUser(req, res) {
         // if (req.body.role.includes("admin") && !isAdminMiddleware(req, res)) {
         //     return res.status(401).json({ message: 'Not authorized' });
         // }
-        const verificationToken = Math.random().toString(36).substring(7);
+        const verificationToken = await generateVerificationToken({ email }, expiresInMinutes);
 
         const newUser = new User({ 
             name,
@@ -79,12 +83,13 @@ async function createUser(req, res) {
               <a href="https://kkupgrader.eu.org/verify-user?token=${verificationToken}">
                 Verify Account
               </a>
+              <p><small>Token will be expired in ${expiresInMinutes} minutes</small></p>
             `,
           });
             console.log("Mail sent");
         await newUser.save();
 
-        res.status(201).json({ message: 'Created user Successfully, Please verify your Email Now!!!', user: newUser });
+        res.status(201).json({ message: 'Created user Successfully, Please verify your Email Now!!!', success:true });
 
     }
     catch (error) {
@@ -92,5 +97,23 @@ async function createUser(req, res) {
     }
 
 
+}
+
+// Function to generate a token with a specific expiration time
+function generateVerificationToken(data, expiresInMinutes) {
+    return jwt.sign(data, secretKey, { expiresIn: `${expiresInMinutes}m` });
+  }
+
+
+
+// Function to verify the token and return the data if valid
+function verifyVerificationToken(token) {
+  try {
+    const decoded = jwt.verify(token, secretKey);
+    return decoded;
+  } catch (err) {
+    // Token verification failed or expired
+    return null;
+  }
 }
 
