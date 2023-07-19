@@ -199,7 +199,7 @@ export default function Signup({ }) {
                     ...state,
                     state: {
                         state: "success",
-                        message: "Registered Successfully, Now Please Login"
+                        message: response.data.message
                     }
                 })
             }).catch((error) => {
