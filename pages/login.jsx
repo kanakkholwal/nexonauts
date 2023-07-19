@@ -83,7 +83,11 @@ ${Button} {
     margin-inline: auto;
 }
 `;
-
+const metadata = {
+    title: "Login to your account",
+    description: "Login to your account",
+    keywords: "login, login page, login form, login to account, login to dashboard, login"
+}
 export default function Login({ }) {
     const { session, status } = useSession();
     const router = useRouter();
@@ -238,7 +242,9 @@ export default function Login({ }) {
     return (
         <>
             <Head>
-                Login
+                <title>{metadata.title}</title>
+                <meta name="description" content={metadata.description} />
+                <meta name="keywords" content={metadata.keywords} />
             </Head>
 
             <PageWrapper>

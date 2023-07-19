@@ -82,15 +82,7 @@ ${Button} {
 }
 `;
 
-export const metadata = {
-    title: "Login",
-    description: "Login to your account",
-    keywords: "Login, Account, Dashboard",
-    // image: "/assets/images/illustration_dashboard.webp",
-    url: "/login"
-}
-
-export default function signup({ }) {
+export default function Signup({ }) {
     const { session,status } = useSession();
     const router = useRouter();
     const [state, setState] = useState({
@@ -245,7 +237,10 @@ export default function signup({ }) {
 
         <>
             <Head>
-                Sign Up
+                <title>Sign Up | {process.env.NEXT_PUBLIC_WEBSITE_NAME}</title>
+                <meta name="description" content="Sign Up to get started" />
+                <meta name="robots" content="noindex, nofollow" />
+
             </Head>
 
             <PageWrapper>
