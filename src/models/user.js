@@ -3,7 +3,16 @@ import bcrypt from 'bcrypt'
 import validator from 'validator';
 import { v4 as UuID4 } from 'uuid';
 
+function generateRandomUsername() {
+  // Generate a random UUID
+  const uuid = UuID4();
 
+  // Take the first 10 characters of the UUID and remove any non-alphanumeric characters
+  const alphanumericUsername = uuid.replace(/[^a-zA-Z0-9]/g, '').slice(0, 10);
+
+  // Add a prefix (e.g., 'user_') to the alphanumeric username
+  return `user_${alphanumericUsername}`;
+}
 const UserSchema = new mongoose.Schema(
   {
     name: {
@@ -16,7 +25,7 @@ const UserSchema = new mongoose.Schema(
         trim: true,
         // required: true,
         unique: [true, "Username already exists"],
-       default: () => UuID4(),
+       default: () => generateRandomUsername(),
         
     },
     email: {
@@ -87,6 +96,21 @@ UserSchema.pre('save', async function (next) {
   } catch (err) {
     return next(err);
   }
+});
+UserSchema.pre('save', async function (next) {
+  if (!this.isModified('verificationToken')) {
+    return next();
+  }
+  if (this.isModified('email')) {
+    this.verified = false;
+  }
+  if(this.isModified('verificationToken')) {
+    if(this.verificationToken === null) {
+      this.verified = true;
+    }
+  }
+  next();
+
 });
 
 // Method to compare password
