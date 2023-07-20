@@ -74,3 +74,31 @@ export const isAdminMiddleware = async (req, res, next) => {
     }
     next()
 }
+export const hasSsrMiddleware = async (req, res, next) => {
+
+  return new Promise(function(resolve,reject) {
+    console.log(req.headers)
+        const authHeader = req.headers['x-authorization'];
+
+        if (!authHeader) {
+            // If no authorization header is present, the request is not authenticated
+          return  reject({code: 401, message: 'Missing authorization header'});
+        }
+  
+        // The authorization header should have the format: "Bearer <token>"
+        const [authType, token] = authHeader.split(' ');
+  
+        if (authType !== 'Bearer' || !token || token !== process.env.NEXT_AUTH_SECRET) {
+            // If the authorization header format is incorrect, the request is not authenticated
+            return res.status(401).json({ error: 'Invalid authorization header' });
+        }
+        else if(token === process.env.NEXT_AUTH_SECRET){
+            resolve(true);
+        }
+        else{
+            reject({code: 401, message: 'Invalid authorization header'});
+        }
+
+
+      })
+}

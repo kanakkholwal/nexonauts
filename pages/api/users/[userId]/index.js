@@ -6,10 +6,12 @@ import { getToken } from "next-auth/jwt";
 import nextConnect from 'next-connect';
 
 export default nextConnect(handler)
-  .use(hasTokenMiddleware)
-  .get(async (req, res) => {
-    try {
+.use(hasTokenMiddleware)
+
+  .get(async (req, res,next) => {
+      try {
       await dbConnect();
+      console.log("Connected to db")
 
       const { userId } = req.query;
       const user = await User.findById(userId);
@@ -17,16 +19,9 @@ export default nextConnect(handler)
       if (!user) {
         return res.status(404).json({ message: 'User not found!' });
       }
+     
 
-      const token = await getToken({ req, secret: process.env.NEXT_AUTH_SECRET });
-
-      if (!(token.user.id === userId && token.user.id === user.id)) {
-        return res.status(401).json({
-          message: 'You are not authorized to access this resource',
-        });
-      }
-
-      return res.status(200).json({ message: 'User fetched successfully!', user: user });
+      return res.status(200).json({ message: 'User fetched successfully!',success:true, user: user });
     } catch (err) {
       console.log(err);
       return res.status(401).json({
@@ -34,7 +29,7 @@ export default nextConnect(handler)
       });
     }
   })
-  .put(async (req, res) => {
+.put(async (req, res) => {
     await dbConnect();
 
     const { userId } = req.query;
