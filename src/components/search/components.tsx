@@ -69,12 +69,10 @@ export const StyledButton = styled.button`
     }
 `;
 export const Suggestions = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    width: 100%;
-    max-width: inherit;
+    
+    width: calc(100% - 20px);
+    max-width: 728px;
+    text-align:center;
     font-size: .875rem;
     line-height: 1.5rem;
     &>span{
