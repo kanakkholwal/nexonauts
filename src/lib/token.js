@@ -2,7 +2,7 @@ const crypto = require('crypto');
 
 // Function to generate a random JWT secret key
 function generateJWTSecretKey() {
-  const secretKeyLength = 64; // You can adjust the length as needed
+  const secretKeyLength = 26; // You can adjust the length as needed
   return crypto.randomBytes(secretKeyLength).toString('hex');
 }
 
