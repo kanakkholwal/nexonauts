@@ -48,7 +48,7 @@ const UserActivityCard = styled.div`
     border-radius: 0.5rem;
     padding: 1rem;
     border: 1px solid #eaeaea;
-    flex:0 1 min(100%, 300px);
+    flex:0 1 min(100%, 310px);
     .Icon{
         margin-right: 0.5rem;
         padding: 0.125rem 0.5rem;
@@ -60,7 +60,6 @@ const UserActivityCard = styled.div`
     }
 `;
 export default function UserPage({ username, user, currentUser }: { username: string, user: UserType & {
-    visits? : number,
     appsUsage? : number,
     reviews? : number,
     comments? : number,
@@ -119,7 +118,7 @@ export default function UserPage({ username, user, currentUser }: { username: st
                         <Badge nature="info" className="h5 ms-auto me-2">{user?.comments}</Badge>
                     </div>
                 </UserActivityCard>
-                <UserActivityCard>
+                {/* <UserActivityCard>
                     <div className="d-flex flex-wrap align-items-center  g-1">
                         <div className="Icon">
                             <IoEyeOutline />
@@ -128,7 +127,7 @@ export default function UserPage({ username, user, currentUser }: { username: st
                         <Badge nature="info" className="h5 ms-auto me-2">{user?.visits}</Badge>
 
                     </div>
-                </UserActivityCard>
+                </UserActivityCard> */}
                 <UserActivityCard>
                     <div className="d-flex flex-wrap align-items-center  g-1">
                         <div className="Icon">
