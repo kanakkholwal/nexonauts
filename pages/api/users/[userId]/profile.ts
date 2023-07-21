@@ -22,7 +22,8 @@ export default nextConnect(handler)
         } catch (err) {
             console.log(err);
             return res.status(401).json({
-                message: err.message || "Something went wrong", success: false
+                message: err.message || "Something went wrong", 
+                success: false
             });
         }
     })

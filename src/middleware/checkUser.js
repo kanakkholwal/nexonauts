@@ -62,7 +62,11 @@ export const isAdminMiddleware = async (req, res, next) => {
 
 
     if (!token) {
-        return next(new Error('Not Allowed - Not logged in'))
+        return next(new Error({
+            code: 401,
+            message: 'Not Allowed - Not logged in',
+            success: false
+        }))
     }
     let decoded = await decode({
         token,
@@ -70,7 +74,11 @@ export const isAdminMiddleware = async (req, res, next) => {
     })
 
     if (decoded.user.role !== 'admin') {
-        return next(new Error('Not Allowed - Not admin'))
+        return next(new Error({
+            code: 401,
+            message: 'Not Allowed - Not admin',
+            success: false
+        }))
     }
     next()
 }
@@ -80,23 +88,35 @@ export const hasSsrMiddleware = async (req, res, next) => {
     console.log(req.headers)
         const authHeader = req.headers['x-authorization'];
 
-        if (!authHeader) {
-            // If no authorization header is present, the request is not authenticated
-          return  reject({code: 401, message: 'Missing authorization header'});
-        }
+      if (!authHeader) {
+          // If no authorization header is present, the request is not authenticated
+          return reject({
+              code: 401, message: 'Missing authorization header',
+              success: false
+          });
+      }
   
         // The authorization header should have the format: "Bearer <token>"
         const [authType, token] = authHeader.split(' ');
   
         if (authType !== 'Bearer' || !token || token !== process.env.NEXT_AUTH_SECRET) {
             // If the authorization header format is incorrect, the request is not authenticated
-            return res.status(401).json({ error: 'Invalid authorization header' });
+            return res.status(401).json({
+                code: 401, message: 'Invalid authorization header',
+                success: false
+             });
         }
         else if(token === process.env.NEXT_AUTH_SECRET){
-            resolve(true);
+            resolve({
+                code: 200, message: 'Valid authorization header',
+                success: true
+            });
         }
-        else{
-            reject({code: 401, message: 'Invalid authorization header'});
+        else {
+            reject({
+                code: 401, message: 'Invalid authorization header',
+                success: false
+            });
         }
 
 
