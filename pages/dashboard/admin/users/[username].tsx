@@ -10,34 +10,38 @@ export async function getServerSideProps(ctx: { query: { username: string; }; })
     // Call an external API endpoint to get user
     const username = ctx.query.username;
 
-    const { data } = await axios({
-        url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/users/${username}/profile`,
+    const response = await axios({
+        url: `https://kkupgrader.eu.org/api/users/${username}/profile`,
         method: 'get',
         headers: {
             "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
             'Content-Type': 'application/json'
         }
-     });
-     console.log(data);
-    
+    }).then((res) => {
+        return res;
+    }).catch((err) => {
+        return err.response;
+    });
 
-    if(data.success === true && data.user && data.user.username === username){
+
+    if(response.data.success === true && response.data.user && response.data.user.username === username){
 
         return {
             props: {
                 username,
-                user: data.user
+                user: response.data.user
             }
         }
     }
-    else {
+    else if(response.data.success === false) {
         // not found, return
         return {
-            notFound: true,
-        }   as
-        {
-            notFound: boolean;
-        };
+            props:{
+                username,
+                user: null
+            }
+        }
     }
+  
 
   }
