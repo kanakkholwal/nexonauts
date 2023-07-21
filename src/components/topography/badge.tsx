@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const getPosition = (position) => {
+const getPosition = (position:string) => {
   switch (position) {
     case "top-right":
       return `
@@ -68,7 +68,16 @@ const getPosition = (position) => {
       break;
   }
 }
-const Badge = styled.span`
+const Badge = styled.span<{
+    nature?: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark",
+    noBorder?: boolean,
+    asButton?: boolean,
+    dot?: boolean,
+    rounded?: boolean,
+    pill?: boolean,
+    notification?: boolean,
+    position?: "top-right" | "top-left" | "bottom-right" | "bottom-left" | "top-center" | "bottom-center" | "center"
+}>`
   display: inline-flex;
     padding: 0.125rem 0.5rem;
     align-items: center;
@@ -112,7 +121,7 @@ const Badge = styled.span`
   ` : ``}
   ${props => props.notification ? `
   position: absolute;
-  ${getPosition(props.position)};
+  ${props.position && getPosition(props.position)};
 
   ` : ``}
   

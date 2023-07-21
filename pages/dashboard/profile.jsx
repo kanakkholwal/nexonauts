@@ -180,13 +180,17 @@ const EditProfile = ({ user: CurrentUser }) => {
                         {user.verified === true ? "Verified" : "Email not verified"}<MdVerified />
                     </Badge>
                 </p>
+                {CurrentUser?.verified === false && <p className="text-muted small">Your email is not verified. Please verify your email to get access to all features.</p>}
+                {CurrentUser?.verified === false && <p className="text-muted small">You can send verification email again if you didn't receive it.</p>}
                     <span className="verify" onClick={() =>{
                         toast.promise(sendVerificationEmail(),{
                             loading:"Sending Email..",
                             success:"Email sent successfully",
                             error:"Something went wrong"
                         })
-                    }}>
+                    }}
+                    hidden={CurrentUser?.verified === true}
+                        >
                         Send Verification Email
                     </span>
             </ProfileCard>
