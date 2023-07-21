@@ -124,11 +124,11 @@ export default function Dashboard({ user }) {
                         <Tbody>
                             {data && data.users.length > 0 && users?.sort((a, b) => {
                                 return new Date(b.createdAt) - new Date(a.createdAt);
-                            }).map(({ name, email, role, account_type, createdAt, verified, _id }, index) => {
+                            }).map(({ name, email, role, account_type, createdAt, verified, username,_id }, index) => {
                                 return (
                                     <Tr key={_id}>
                                         <Td>
-                                            <Link href={`/admin/users/${_id}`}>
+                                            <Link href={`/dashboard/admin/users/${username}`}>
                                                 {name}
                                             </Link>
                                         </Td>
