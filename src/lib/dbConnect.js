@@ -33,6 +33,7 @@ async function dbConnect() {
         }
         mongoose.set('strictQuery', false);
         cached.promise = mongoose.connect(MONGODB_URI, opts).then(mongoose => {
+            console.log("Connected to MongoDB");
             return mongoose
         }).catch(error => console.log(error));
     }

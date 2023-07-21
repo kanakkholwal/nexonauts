@@ -1,23 +1,24 @@
 import axios from "axios";
 
-export default function Post({ username }) {
+export default function Post({ username,user }) {
     // Render post...
-    console.log(username);
+    console.log(user);
     return <div>{username}</div>;
   
 }
 export async function getServerSideProps(ctx: { query: { username: string; }; }) {
-    // Call an external API endpoint to get posts
-    var username = ctx.query.username;
-    // You can use any data fetching library
-    const { data } = await await axios({
+    // Call an external API endpoint to get user
+    const username = ctx.query.username;
+
+    const { data } = await axios({
         url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/users/${username}/profile`,
         method: 'get',
         headers: {
-            "X-Authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
+            "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
             'Content-Type': 'application/json'
         }
-     })
+     });
+     console.log(data);
     
 
     if(data.success === true && data.user && data.user.username === username){
