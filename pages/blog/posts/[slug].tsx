@@ -4,6 +4,7 @@ import { NavBar, PostPageHero, Article, Wrapper, SideBar ,FloatingMenu} from 'co
 import { registerView } from 'lib/analytics';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
+import Head from 'next/head';
 import useSmoothScroll from 'hooks/useSmoothScroll';
 import { Post } from 'types/post';
 import { BiShareAlt } from 'react-icons/bi';
@@ -96,6 +97,7 @@ export default function Post(
     const [claps, setClaps] = useState(post?.claps ?? 0);
     const clapThePost = async () => {
         try {
+            setClaps(claps => (Number(claps) + 1));
             await axios.post(`/api/posts/${post?._id}/clap`);
             setIsClapped(true);
             const clappedPosts = JSON.parse(localStorage.getItem('clappedPosts') ?? '[]');
@@ -105,6 +107,7 @@ export default function Post(
             console.log("Clapped")
         } catch (error) {
             console.log("Error during clapping the post:", error);
+            setClaps(post?.claps ?? 0);
         }
     }
 
@@ -154,6 +157,10 @@ export default function Post(
                     cardType: 'summary_large_image',
                 }}
             />
+            <Head>
+                {/* keyword */}
+                <meta name="keywords" content={post?.labels?.join(",")} />
+            </Head>
             <NavBar />
             <PostPageHero title={post?.title} description={post?.description} />
             <Wrapper>
