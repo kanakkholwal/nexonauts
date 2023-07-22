@@ -176,41 +176,86 @@ strong,.strong{
 }
 
 
-ul{
-    margin-left: 1rem;
-}
-ol{
-    margin-left: 1rem;
-}
+// ul{
+//     margin-left: 1rem;
+// }
+// ol{
+//     margin-left: 1rem;
+// }
 .ArticleBody{
     text-align: initial;
     width: 100%;
-    ul,ol{
-    padding-left: 1rem;
-    & + ul,& + ol{
-        margin-top: 1rem;
-    }
-    & + h1,& + h2,
-    & + h3,& + h4,
-    & + h5,& + h6
+    font-size: 16px;
+    h1,h2,h3, h4,h5,h6
     {
-        margin-top: 1rem;
+        line-height: 1.3em;
+        margin: 0 0 16px;
     }
-}
+     h1 {
+        font-size: 26px
+    }
+
+     h2 {
+        font-size: 23px
+    }
+
+     h3 {
+        font-size: 20px
+    }
+    h4{
+        font-size: 18px
+    }
+    h5{
+        font-size: 16px
+    }
+    h6{
+        font-size: 14px
+    }
+    blockquote {
+        position: relative;
+        background-color: rgba(var(--gray-rgb),1);
+        // color: var(--title-color);
+        font-style: normal;
+        padding: 16px 20px;
+        margin: 0;
+        border-radius: 8px;
+    }
+    ol{
+        counter-reset: ify;
+        padding: 0 0 0 16px;
+        margin: 10px 0;
+    
+    & >li{
+        counter-increment: ify;
+        &::before{
+            display: inline-block;
+            content: counters(ify,'.')'.';
+            margin: 0 5px 0 0;
+        }
+    }
+    ul{
+        padding: 0 0 0 16px;
+        margin: 10px 0; 
+    }
+
+    }
+    li{
+        list-style: none;
+        margin: 8px 0;
+        padding: 0;
+    }
+   
     p{
+
         & + h1,& + h2,
         & + h3,& + h4,
         & + h5,& + h6
         {
             margin-top: 1rem;
         }
+        margin-bottom:0.75rem;
     }
-    pre{
-        padding: 1rem;
-    border-radius: 0.25rem;
-    margin-block: 1rem;
 
-    }
 
 }
 abbr[title] {
