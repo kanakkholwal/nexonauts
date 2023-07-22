@@ -21,6 +21,7 @@ const Heading = styled.h5.attrs({
 text-transform:capitalize;
 text-align:initial;
 margin-bottom:0.5rem;
+font-size:1.25rem;
 a{
 color:rgba(var(--text-rgb),0.95);
 }
@@ -29,6 +30,8 @@ const Description = styled.p.attrs({
     itemProp: "headline",
 })`
 text-align:initial;
+font-size:0.9375rem;
+
 &:first-letter{
     text-transform:capitalize;
 }
@@ -68,9 +71,11 @@ width:100%;
 text-align:initial;
 background-color:rgba(var(--light-rgb),1);
 border-radius:0.5rem;
-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
-    0px 1px 1px rgba(0, 0, 0, 0.08);
 
+.labels{
+    text-align:left;
+    font-size:14px;
+}
 `;
 
 export function PostCard({ post}) {
@@ -92,7 +97,7 @@ export function PostCard({ post}) {
                 <Description>
                     {post.description}
                 </Description>
-                <p className="text-left">
+                <p className="labels">
                     {
                         post.labels.map((tag,index) => {
                             if(index > 2) return null;

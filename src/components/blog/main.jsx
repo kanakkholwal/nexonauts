@@ -14,6 +14,7 @@ const MainWrapper = styled.div`
     margin-inline:auto;
     flex:1;
     display: grid;
+    align-items: stretch;
   @media screen and (width > 1024px) {
   grid-template-columns: repeat(3, 1fr);
   }
