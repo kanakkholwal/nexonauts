@@ -2,6 +2,10 @@ import axios from "axios";
 
 // for browser
 export const registerView = async ({ title, slug, type,postId }) => {
+    if(process.env.NODE_ENV === "development"){
+        console.log("registerView", title, slug, type,postId);
+        return null;
+    }
     await axios.post("/api/pages", {
         slug: slug,
         type: type,
