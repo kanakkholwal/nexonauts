@@ -44,11 +44,11 @@ export default function Page() {
     return (
         <>
             <Head>
-                <title>Privacy Policy - K K UPGRADER</title>
+                <title>Privacy Policy - {process.env.NEXT_PUBLIC_WEBSITE_NAME}</title>
             </Head>
             <NavBarWrapper>
                 <Link href="/">
-                    <Image src="/textLogo.svg" alt="K K UPGRADER" width={120} height={100} />
+                    <Image src="/textLogo.svg" alt={process.env.NEXT_PUBLIC_WEBSITE_NAME} width={120} height={100} />
                 </Link>
                 <MenuList open={open}>
                     <Link href="/">Home</Link>
@@ -67,10 +67,10 @@ export default function Page() {
                     </NavToggle>
                 </AuthButtonWrapper>
             </NavBarWrapper>
-            <PageWrapper>
-                <h1>Privacy Policy for K K UPGRADER</h1>
+            <PageWrapper className="standardTopography">
+                <h1>Privacy Policy for {process.env.NEXT_PUBLIC_WEBSITE_NAME}</h1>
                 <section>
-                    <p>At K K UPGRADER,we understand the importance of protecting your privacy and personal information. This privacy policy explains the type of information we collect,how we use it,and how we protect it.</p>
+                    <p>At {process.env.NEXT_PUBLIC_WEBSITE_NAME},we understand the importance of protecting your privacy and personal information. This privacy policy explains the type of information we collect,how we use it,and how we protect it.</p>
                     <h4>Information We Collect</h4>
                     <p>We collect personal information that is necessary for us to provide our services to you. This includes the information you provide when you contact us,register for an account,and use our services. We may ask for your name,email address,phone number,company name,address,and other contact information.</p>
                     <p>We may also collect information about how you use our website and services,including your IP address,browser type,internet service provider,date and time stamp,referring/exit pages,and the number of clicks. We use this information to analyze trends,administer the site,track user movements,and gather demographic information.</p>
@@ -79,7 +79,7 @@ export default function Page() {
                     <h4>Log Files</h4>
                     <p>We use log files to track the use of our website. These files include information such as your IP address,browser type,internet service provider,date and time stamp,referring/exit pages,and the number of clicks. This information is used to analyze trends,administer the site,track user movements,and gather demographic information. This information is not linked to any personally identifiable information.</p>
                     <h4>Cookies and Web Beacons</h4>
-                    <p>Like most websites,K K UPGRADER uses cookies to store information about your preferences and the pages you visit on our website. Cookies are small data files that are stored on your device. We use cookies to personalize your experience and optimize our website's performance.</p>
+                    <p>Like most websites,{process.env.NEXT_PUBLIC_WEBSITE_NAME} uses cookies to store information about your preferences and the pages you visit on our website. Cookies are small data files that are stored on your device. We use cookies to personalize your experience and optimize our website's performance.</p>
                     <h4>Our Advertising Partners</h4>
                     <p>We work with third-party advertising partners,including Google,to serve ads to our site visitors. These partners may use cookies and web beacons to collect information about your browsing behavior on our website and other sites. This information is used to personalize advertising content and measure the effectiveness of advertising campaigns.</p>
                     <h4>Third-Party Privacy Policies</h4>

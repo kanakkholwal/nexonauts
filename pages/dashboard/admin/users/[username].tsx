@@ -2,6 +2,7 @@ import { GetSessionParams, getSession } from "next-auth/react";
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
 import axios from "axios";
+import toast,{ Toaster } from "react-hot-toast";
 import { sessionType } from "@/src/types/session";
 import { SessionUserType, UserType } from "@/src/types/user";
 import Image from "next/image";
@@ -9,6 +10,7 @@ import Badge from "@/components/topography/badge";
 import {MdVerified,MdOutlineArticle,MdOutlineComment,MdOutlineRateReview} from "react-icons/md";
 import {IoAnalyticsOutline,IoEyeOutline} from "react-icons/io5";
 import styled from "styled-components";
+import { useRouter } from "next/router";
 
 const UserPageHeader = styled.div`
     text-align: left;
@@ -42,6 +44,13 @@ const UserPageHeader = styled.div`
     border-radius: 50%;
     box-shadow: var(--drop-shadow);
 }
+.deleteBtn{
+    position: absolute;
+    inset-inline-end: 0.5rem;
+    top:50%;
+    cursor: pointer;
+    transform: translateY(-50%);    
+}
 `;
 const UserActivityCard = styled.div`
     background:var(--card-bg);
@@ -66,7 +75,18 @@ export default function UserPage({ username, user, currentUser }: { username: st
 }, currentUser: SessionUserType }) {
     // Render post...
     console.log(user);
+    const router = useRouter()
 
+    const deleteUser = new Promise(async(resolve, reject) => {
+        await axios.delete(`/api/users/${user._id}/delete`)
+            .then((res) => {
+                resolve(res);
+                router.push('/dashboard/admin/users');
+            }).catch((err) => {
+                reject(err.response);
+            })
+
+    })
     return (<>
         <Head>
             <title>{username} | {process.env.NEXT_PUBLIC_WEBSITE_NAME}</title>
@@ -97,6 +117,15 @@ export default function UserPage({ username, user, currentUser }: { username: st
                 month: 'long',
                 day: 'numeric'
             })}</Badge>
+                <Badge nature="danger" className="deleteBtn" onClick={() =>{
+                    toast.promise(deleteUser,{
+                        loading: "Deleting user",
+                        success: "User deleted successfully",
+                        error: "Error deleting user"
+                    })
+                }}>
+                    Delete
+                </Badge>
             </UserPageHeader>
             <div className="d-flex flex-wrap g-1">
                 <UserActivityCard>
@@ -149,6 +178,7 @@ export default function UserPage({ username, user, currentUser }: { username: st
             </div>
 
         </DashboardPage>
+        <Toaster />
     </>
     );
 

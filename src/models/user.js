@@ -8,7 +8,7 @@ function generateRandomUsername() {
   const uuid = UuID4();
 
   // Take the first 10 characters of the UUID and remove any non-alphanumeric characters
-  const alphanumericUsername = uuid.replace(/[^a-zA-Z0-9]/g, '').slice(0, 10);
+  const alphanumericUsername = uuid.replace(/[^a-zA-Z0-9]/g, '').slice(0, 6);
 
   // Add a prefix (e.g., 'user_') to the alphanumeric username
   return `user_${alphanumericUsername}`;
@@ -23,7 +23,7 @@ const UserSchema = new mongoose.Schema(
     username:{
         type: String,
         trim: true,
-        // required: true,
+        required: true,
         unique: [true, "Username already exists"],
        default: () => generateRandomUsername(),
         

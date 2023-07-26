@@ -7,7 +7,7 @@ import styled from "styled-components";
 import useSWR from "swr";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import Badge from "components/topography/badge";
 const UserCard = styled.div`
 padding:0.5rem 0.75rem;
 transition:all 0.25s ease;
@@ -133,7 +133,7 @@ export default function Dashboard({ user }) {
                                             </Link>
                                         </Td>
                                         <Td>{email}</Td>
-                                        <Td>{role}</Td>
+                                        <Td><Badge nature={role === "admin" ? "success":role === "user" ? "theme":"secondary"} pill>{role}</Badge></Td>
                                         <Td>{account_type}</Td>
                                         <Td>{verified ? "Yes" : "No"}</Td>
                                         <Td>{new Date(createdAt).toLocaleDateString()}</Td>

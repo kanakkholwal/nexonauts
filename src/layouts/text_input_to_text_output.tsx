@@ -79,6 +79,7 @@ export default function TextInputToTextOutput({ app, user }) {
                                 value={value[input.inputId]}
                                 placeholder={inputPlaceholder}
                                 onChange={(event) => handleChange(input.inputId, event.target.value)}
+                                level={true}
                             />
                             {input.inputHelper && <FormHelper>{input.inputHelper}</FormHelper>}
                         </FormElement>);
@@ -92,6 +93,7 @@ export default function TextInputToTextOutput({ app, user }) {
                                 name={input.inputName}
                                 placeholder={inputPlaceholder}
                                 value={value[input.inputId]}
+                                level={true}
                                 onChange={(event) => handleChange(input.inputId, event.target.value)}
                             />
                              {input.inputHelper && <FormHelper>{input.inputHelper}</FormHelper>}

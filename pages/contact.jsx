@@ -25,15 +25,28 @@ display: flex;
 align-items: stretch;
 justify-content: center;
 padding: 1rem;
+.FormWrapper{
+    background: var(--card-bg);
+    padding: 1rem;
+    ${FormGroup}{
+        gap:0.25rem;
+    ${FormElement}{
+        flex: 1 1 auto;
+    }
+    }
+    ${FormElement}{
+        margin: 0.5rem 0;
+    }
+}
 h2{
     font-size: 3rem;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: 0.25rem;
 }
 h3{
-    font-size: 1.7rem;
+    font-size: 1.25rem;
     font-weight: 600;
-    color: rgba(var(--text-rgb), 0.7);
+    color: rgba(var(--grey-rgb), 0.9);
     margin-bottom: 1rem;
 }
 
@@ -187,7 +200,7 @@ export default function Contact() {
                 </AuthButtonWrapper>
             </NavBarWrapper>
             <ContactWrapper>
-                <div>
+                <div className="FormWrapper">
                     <h2>Let's talk</h2>
 
                     <h3>Love to hear from you,
@@ -196,6 +209,7 @@ export default function Contact() {
                         <FormElement>
                             <Label htmlFor="name">Name</Label>
                             <Input type="text" id="name" name="name" placeholder="John Doe"
+                            level={true}
                                 value={formState.name.value}
                                 onChange={e => setFormState({ ...formState, name: { ...formState.name, value: e.target.value, isValid: e.target.value.length > 3, touched: true } })}
                             />
@@ -206,6 +220,7 @@ export default function Contact() {
                             <Label htmlFor="email">Email</Label>
                             <Input type="email" id="email" name="email" placeholder="user@example.com"
                                 value={formState.email.value}
+                                level={true}
                                 onChange={e => setFormState({ ...formState, email: { ...formState.email, value: e.target.value, isValid: isEmail(e.target.value), touched: true } })}
                             />
                             {formState.email.touched && !formState.email.isValid && <FormAlert>Please enter a valid email address</FormAlert>}
@@ -216,6 +231,7 @@ export default function Contact() {
                             <Label htmlFor="company_name">Company Name</Label>
                             <Input type="text" id="company_name" name="company_name" placeholder="Fancy Army"
                                 value={formState.companyName}
+                                level={true}
                                 onChange={(e) => setFormState({ ...formState, companyName: e.target.value })} />
 
 
@@ -223,7 +239,9 @@ export default function Contact() {
                         <FormElement>
                             <Label htmlFor="Phone">Phone</Label>
                             <Input type="tel" id="Phone" name="Phone" placeholder="888 888 888 8"
+                             level={true}
                                 value={formState.phoneNumber}
+                                
                                 onChange={(e) => setFormState({ ...formState, phoneNumber: e.target.value })} />
 
                         </FormElement>
@@ -241,11 +259,15 @@ export default function Contact() {
                             ]} 
                             value={"Select one"}
                             onChange={(option) =>{
+                                if(option.value === "Select one"){
+                                    setFormState({ ...formState, category: {...formState.category,isValid:false,touched:true} });
+                                return;
+                                }
                                 setFormState({ ...formState, category: {...formState.category,value:option.value,touched:true} });
 
                             }} />
                             {
-                                formState.category === "Select one" &&
+                                (formState.category.value === "Select one" || formState.category.isValid === false) &&
                                 <FormAlert>Please select a category</FormAlert>
                             }
 
@@ -257,6 +279,7 @@ export default function Contact() {
                             cols={60}
                             rows={10}
                             value={formState.message.value}
+                            level={true}
                             onChange={(e) => {
                                 setFormState({ ...formState, message: {...formState.message,value:e.target.value,touched:true,isValid:e.target.value.length > 30} })
                             }}
@@ -266,7 +289,7 @@ export default function Contact() {
                     </FormElement>
                     <State  {...state} />
                     <FormElement>
-                        <Button type="submit" size="lg" onClick={sendMessage} >Send Message</Button>
+                        <Button type="submit" size="lg" onClick={sendMessage} rounded={true} >Send Message</Button>
                     </FormElement>
                 </div>
                 <div>

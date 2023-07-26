@@ -146,7 +146,7 @@ export function NavBar() {
         <Wrapper>
             <NavWrapper>
                 <NavLogo href="/blog">
-                    K K UPGRADER
+                    {process.env.NEXT_PUBLIC_WEBSITE_NAME} Blog
                 </NavLogo>
                 <NavMenu active={isMenuOpen}>
                     <NavItem>

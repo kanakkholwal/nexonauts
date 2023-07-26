@@ -45,8 +45,8 @@ const SelectToggle = styled.input.attrs(props => ({
     font-weight: 600;
     cursor:pointer;
     transition: all .2s linear;
-    border-radius: 0.5rem;
-  padding:0.75rem 0.875rem;
+    border-radius: 10px;
+    padding: 10px 12px;
     border: 2px solid var(--form-border);
      background: var(--form-bg);
      color: var(--form-color);
