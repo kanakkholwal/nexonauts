@@ -13,7 +13,7 @@ import { useEffect } from "react";
 
 
 const metadata = {
-    title: "Tools | K K UPGRADER",
+    title: "Tools | " + process.env.NEXT_PUBLIC_WEBSITE_NAME,
     description: "Collection of Web Tools , Design Tools , Editing and Coding Tools"
 }
 

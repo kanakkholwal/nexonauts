@@ -7,14 +7,15 @@ const Input = styled.input<{
     noBorder?: string;
     underlined?: string;
     floating?: string;
+    level?:boolean;
     lg?: boolean;
     sm?: boolean;
 }>`
   letter-spacing: 0.065em;
   font-weight: 500;
   transition: all .3s ease-in-out;
-  border-radius: 0.5rem;
-  padding:0.75rem 0.875rem;
+  border-radius: 8px;
+  padding: 8px 12px;
   border: 2px solid var(--form-border);
   background: var(--form-bg);
   color: var(--form-color);
@@ -67,9 +68,8 @@ const Input = styled.input<{
   ${props => props.lg ? `
   font-size: 1rem !important;
   line-height: 2.15 !important;
-  padding-left: 0.75em !important;
-  padding-right: 0.75em !important;
-  border-radius: 0.5rem !important;`: ""}
+  border-radius: 0.5rem !important;
+  padding:0.75rem 0.875rem !important;`: ""}
   
   ${props => props.sm ? `
   font-size: 0.875rem !important;
@@ -213,6 +213,15 @@ ${props => props.sm ? `  &~label {
             background-color: var(--form-bg-disabled);
             cursor: not-allowed;
           }
+
+            ${props => props.level ? `
+            border-color: var(--form-bg-light);
+            background-color: var(--form-bg-light);
+            &:hover, &:focus {
+                background-color: var(--form-bg-light);
+                
+            }
+            `: ""}
   `;
 
 export default Input;

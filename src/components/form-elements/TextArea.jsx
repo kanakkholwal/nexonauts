@@ -10,8 +10,8 @@ export const TextAreaStyled = styled.textarea`
   letter-spacing: 0.065em;
   font-weight: 500;
   transition: all .3s ease-in-out;
-  border-radius: 0.5rem;
-  padding:0.75rem 0.875rem;
+  border-radius: 10px;
+    padding: 10px 12px;
   border: 2px solid var(--form-border);
   background: var(--form-bg);
   color: var(--form-color);
@@ -168,6 +168,8 @@ export const TextAreaStyled = styled.textarea`
 
   }
 ${props => props.lg ? `
+border-radius: 0.5rem;
+  padding:0.75rem 0.875rem;
         &~label {
           transform: translateY(0.75rem) !important;
         }
@@ -212,6 +214,14 @@ border-width: 1px !important;
       
       
           }` : ""}` : ""}
+          ${props => props.level ? `
+            border-color: var(--form-bg-light);
+            background-color: var(--form-bg-light);
+            &:hover, &:focus {
+                background-color: var(--form-bg-light);
+                
+            }
+            `: ""}
   `;
 
 function TextArea({ sm = false,lg=false,...props }) {

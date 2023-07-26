@@ -51,7 +51,7 @@ const Footer = ({ only = "false" }) => {
     return (
         <FooterWrapper only={only}>
             <span>
-                &copy; {new Date().getFullYear()} <Link href="/">K K UPGRADER</Link>. All Rights Reserved.
+                &copy; {new Date().getFullYear()} <Link href="/">{process.env.NEXT_PUBLIC_WEBSITE_NAME}</Link>. All Rights Reserved.
             </span>
             <ul>
                 <li>

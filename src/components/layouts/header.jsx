@@ -256,7 +256,7 @@ export default function Header({ user, routes, children }) {
                     {isSidebarOpen ? <TbLayoutSidebarRightExpand /> : <TbLayoutSidebarRightCollapse />}
                 </Toggler>
                 <Children>
-                    {children ? children : <Logo>K K UPGRADER</Logo>}
+                    {children ? children : <Logo>{process.env.NEXT_PUBLIC_WEBSITE_NAME}</Logo>}
                 </Children>
                 {routes && routes.length > 0 ? <SearchWrapper open={isSearchOpen}>
                     <CgSearch />
