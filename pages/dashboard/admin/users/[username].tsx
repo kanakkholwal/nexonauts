@@ -117,7 +117,9 @@ export default function UserPage({ username, user, currentUser }: { username: st
                 month: 'long',
                 day: 'numeric'
             })}</Badge>
-                <Badge nature="danger" className="deleteBtn" onClick={() =>{
+               {user.role !== "admin" && <Badge nature="danger" className="deleteBtn" onClick={() =>{
+                    if(!confirm("Are you sure you want to delete this user?"))
+                        return;
                     toast.promise(deleteUser,{
                         loading: "Deleting user",
                         success: "User deleted successfully",
@@ -125,7 +127,7 @@ export default function UserPage({ username, user, currentUser }: { username: st
                     })
                 }}>
                     Delete
-                </Badge>
+                </Badge>}
             </UserPageHeader>
             <div className="d-flex flex-wrap g-1">
                 <UserActivityCard>
