@@ -142,9 +142,7 @@ export default function NewPost({ user,post }:{
     const [postState, setPostState] = useState(post.state);
     const [labels, setLabel] = useState<string[]>(post.labels);
     const [IsCommentEnabled, setIsCommentEnabled] = useState(post.comments.enabled);
-    const [slug, setSlug] = useMemo(() =>{
-        return createSlug(title) as string;
-    }, [title]);
+    const [slug, setSlug] = useState(post.slug);
 
     const updatePost = async () => {
         await axios.put("/api/users/" + user.id + "/posts/" + postId, {
@@ -457,7 +455,8 @@ export default function NewPost({ user,post }:{
                             </FormHelper>
                         </FormElement>
                         <div className="d-flex align-items-start justify-content-between g-3 mt-3 children-fill">
-                            <Button nature="danger" low={true}
+                            <Button nature="danger" 
+                            low={true}
 
                                 onClick={() => toast.promise(deletePost(), {
                                     loading: 'Deleting...',

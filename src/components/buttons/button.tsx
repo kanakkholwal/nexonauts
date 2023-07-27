@@ -6,6 +6,7 @@ const Button = styled.button<{
     nature?: string;
     outlined?: boolean;
     level?: boolean;
+    low?: boolean;
     fill?: boolean;
     size?: string;
     loading?: boolean;
