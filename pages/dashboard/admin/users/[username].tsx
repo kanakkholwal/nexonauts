@@ -77,31 +77,19 @@ export default function UserPage({ username, user, currentUser }: { username: st
     console.log(user);
     const router = useRouter()
 
-    const deleteUser = async() => {
+    const deleteUser = async () => {
         if (currentUser.role === "admin" || user.role === "admin") {
             toast.error("You cannot delete admin user");
-            return;
+            return Promise.reject();
         }
-        return new Promise<{
-            data: {
-                success: boolean,
-                message: string,
-                user: UserType
-            }
-        }>(async (resolve, reject) => {
-            if (currentUser.role === "admin" || user.role === "admin") {
-                toast.error("You cannot delete admin user");
-                return;
-            }
-            await axios.delete(`/api/users/${user._id}/delete`)
-                .then((res) => {
-                    resolve(res);
-                    router.push('/dashboard/admin/users');
-                }).catch((err) => {
-                    reject(err.response);
-                })
-
+        await axios.delete(`/api/users/${user._id}/delete`)
+        .then((res) => {
+            Promise.resolve(res);
+            router.push('/dashboard/admin/users');
+        }).catch((err) => {
+            Promise.reject(err.response);
         })
+       
     }
     
     return (<>
@@ -135,13 +123,15 @@ export default function UserPage({ username, user, currentUser }: { username: st
                 day: 'numeric'
             })}</Badge>
                {user.role !== "admin" && <Badge nature="danger" className="deleteBtn" onClick={() =>{
-                    if(!confirm("Are you sure you want to delete this user?"))
-                        return;
-                    toast.promise(deleteUser,{
-                        loading: "Deleting user",
-                        success: "User deleted successfully",
-                        error: "Error deleting user"
-                    })
+                    if(confirm("Are you sure you want to delete this user?"))
+                        {
+                            toast.promise(deleteUser(),{
+                                loading: "Deleting user",
+                                success: "User deleted successfully",
+                                error: "Error deleting user"
+                            })
+                        }
+                    
                 }}>
                     Delete
                 </Badge>}

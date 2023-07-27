@@ -1,5 +1,6 @@
 import handler from 'lib/handler';
 import Page from "models/page";
+import Post,{Comment} from "models/post";
 import dbConnect from "lib/dbConnect";
 import { isAdminMiddleware } from 'middleware/checkUser';
 import nextConnect from 'next-connect';
@@ -15,13 +16,25 @@ export default nextConnect(handler)
 
         // get total views of all pages
         const totalViews = pages.reduce((page) =>{
-            return page.analytics.filter((analytic) => analytic.action === "view")
-        })
+            return page.analytics.filter((analytic :any) => analytic.action === "view")
+        });
+  
+        // get no. of posts and comments
+        const posts = await Post.countDocuments();
+        const comments = await Comment.countDocuments();
         
-        return res.status(200).json({pages,totalViews});
+        
+        
+        return res.status(200).json({
+            totalViews,
+            posts,
+            comments,
+            success: true,
+            message: "Successfully fetched analytics"
+        });
 
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ error: "Internal server error", message: error.message });
+        return res.status(500).json({  message: error.message ?? "Internal server error", success: false });
     }
 })
