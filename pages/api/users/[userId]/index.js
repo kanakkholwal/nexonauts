@@ -88,7 +88,13 @@ export default nextConnect(handler)
 
       return res.json({
         message: 'User updated successfully',
-        user: user,
+        user: {
+            id: currentUser._id,
+            name: currentUser.name,
+            username: currentUser.username,
+            profileURL: currentUser.profileURL,
+            email: currentUser.email,
+        },
       });
     } catch (error) {
       return res.status(401).json({

@@ -160,17 +160,19 @@ const RecursiveLinkList = ({ routes,nested = false }) => {
         <LinkList>
             {routes?.map((item, index) => (
                 <div key={index}>
-                <Link as={NavLink}  href={item.path} className={openIndex === index ? 'active':''}>
-                {item?.icon ? <Icon>{nested === false ? item?.icon :<BiChevronRight/>}</Icon>:null}<Title>{item.title}</Title>
-                {item.children?.length > 0 ? <DropdownIcon onClick={(e) =>{
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    (openIndex === index) ? setOpenIndex(-1):setOpenIndex(index);
-                }} style={{
-                    transform: openIndex === index  ? 'rotate(-180deg)' : 'rotate(0deg)'
-                }}> <HiOutlineChevronDown/></DropdownIcon> : null}
-            </Link>
+                    <Link as={NavLink} href={item.path} className={openIndex === index ? 'active' : ''}>
+                        <Icon>
+                            {item?.icon ? item.icon:nested === true ? <BiChevronRight /> : null}
+                        </Icon><Title>{item.title}</Title>
+                        {item.children?.length > 0 ? <DropdownIcon onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            (openIndex === index) ? setOpenIndex(-1) : setOpenIndex(index);
+                        }} style={{
+                            transform: openIndex === index ? 'rotate(-180deg)' : 'rotate(0deg)'
+                        }}> <HiOutlineChevronDown /></DropdownIcon> : null}
+                    </Link>
                 {item.children?.length > 0 ? <Collapse visible={openIndex === index }><RecursiveLinkList routes={item.children} nested={true}/></Collapse>  : null}
             </div>))
             }

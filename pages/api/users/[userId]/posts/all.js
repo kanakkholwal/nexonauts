@@ -6,7 +6,7 @@ import dbConnect from "lib/dbConnect";
 import { hasTokenMiddleware } from 'middleware/checkUser';
 import { checkUser } from 'lib/checkUser';
 import nextConnect from 'next-connect';
-
+import mongoose from 'mongoose';
 export default nextConnect(handler)
     .use(hasTokenMiddleware)
     .get(async (req, res) => {
@@ -19,24 +19,42 @@ export default nextConnect(handler)
           
             const existingUser = await User.findById(userId);
             if (!existingUser) {
-              return res.status(402).json({ message: 'User not found!' });
+              return res.status(402).json({
+                 message: 'User not found!',
+                 success: false,
+                 });
             }
             
             const result = await checkUser(req, existingUser);
             if (!result.verified) {
-              return res.status(402).json({ verified: result.verified, message: result.message });
+              return res.status(402).json({ verified: result.verified, message: result.message,
+                success: false,
+            });
             }
+            console.log("User verified",userId);
+
+
+            const posts = await Post.find({ author: mongoose.Types.ObjectId(userId) })
+            .populate('analytics')
+            .populate('author')
+            .populate('comments')
+            .exec();
+                        
           
             // const {posts} = await existingUser.populate('posts')
-            const posts = await Promise.all(existingUser.posts.map(async (post) => {
-                return await getMoreFromPost(post.toString())
-            }))
-            // console.log(posts);
+            // const posts = await Promise.all(existingUser.posts.map(async (post) => {
+            //     return await getMoreFromPost(post.toString())
+            // }))
+            console.log(posts);
           
-            return res.status(200).json({ message: 'Posts fetched successfully!', posts });
+            return res.status(200).json({ message: 'Posts fetched successfully!', posts,
+            success: true,
+        });
           } catch (err) {
             console.error(err);
-            return res.status(500).json({ message: err.message || 'Something went wrong' });
+            return res.status(500).json({ message: err.message || 'Something went wrong'
+            ,success: false,
+        });
           }
 
 

@@ -7,7 +7,7 @@ import Badge from 'components/topography/badge';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useState } from 'react';
-import { getSession } from "next-auth/react"
+import { getSession, useSession } from "next-auth/react"
 import toast, { Toaster } from 'react-hot-toast';
 import {MdVerified} from "react-icons/md";
 import { FormElement, Label, Input, FormGroup,FormAlert } from 'components/form-elements';
@@ -95,6 +95,7 @@ const FileUploader = styled.div`
 
 const EditProfile = ({ user: CurrentUser }) => {
     const [user, setUser] = useState(CurrentUser);
+    const {update} = useSession();
 
     const handleFiles = async (file) => {
         const formData = new FormData();
@@ -140,6 +141,9 @@ const EditProfile = ({ user: CurrentUser }) => {
             await axios.put('/api/users/' + user.id, { user })
                 .then(res => {
                     console.log(res);
+                    update({
+                        user: res.data.user
+                    })
                 }).catch(err => {
                     console.log(err);
                 })

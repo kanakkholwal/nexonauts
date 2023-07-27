@@ -77,16 +77,21 @@ export default function UserPage({ username, user, currentUser }: { username: st
     console.log(user);
     const router = useRouter()
 
-    const deleteUser = new Promise(async(resolve, reject) => {
-        await axios.delete(`/api/users/${user._id}/delete`)
-            .then((res) => {
-                resolve(res);
-                router.push('/dashboard/admin/users');
-            }).catch((err) => {
-                reject(err.response);
-            })
+    const deleteUser = new Promise(async (resolve, reject) => {
+            if (currentUser.role === "admin" || user.role === "admin") {
+                toast.error("You cannot delete admin user");
+                return;
+            }
+            await axios.delete(`/api/users/${user._id}/delete`)
+                .then((res) => {
+                    resolve(res);
+                    router.push('/dashboard/admin/users');
+                }).catch((err) => {
+                    reject(err.response);
+                })
 
-    })
+        })
+    
     return (<>
         <Head>
             <title>{username} | {process.env.NEXT_PUBLIC_WEBSITE_NAME}</title>
