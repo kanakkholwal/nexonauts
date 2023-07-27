@@ -1,4 +1,4 @@
-import { getSession } from "next-auth/react"
+import { GetSessionParams, getSession } from "next-auth/react"
 import DashboardPage, { Header } from "components/dashboard-page";
 import Button from "components/buttons";
 import { createSlug } from "lib/scripts";
@@ -7,7 +7,7 @@ import { Input, FormElement, FormGroup,Label, TextArea, FormHelper, Switch ,File
 
 import Head from "next/head";
 import Link from 'next/link';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 
 import dynamic from "next/dynamic";
@@ -23,6 +23,9 @@ import { FiUploadCloud } from "react-icons/fi"
 import { AiOutlineLink,AiOutlineArrowUp } from "react-icons/ai"
 import { CiHashtag } from "react-icons/ci"
 import { TbFileDescription } from "react-icons/tb";
+import { sessionType } from "@/src/types/session";
+import { SessionUserType } from "@/src/types/user";
+import { Post } from "@/src/types/post";
 
 const SettingPanel = styled(Card)`
 @media (min-width: 600px){
@@ -88,10 +91,12 @@ const FileUploader = styled.div`
     }
 `;
 
-export default function NewPost({ user }) {
+export default function NewPost({ user,post }:{
+    user:SessionUserType,
+    post: Post
+}) {
 
     const router = useRouter();
-    const { postId } = router.query;
 
     const [state, setState] = useState({
         loader: {
@@ -106,11 +111,21 @@ export default function NewPost({ user }) {
         }
 
     });
-    const [title, setTitle] = useState("Loading...");
-    const [description, setDescription] = useState("Loading...");
-    const [initialContent, setInitialContent] = useState(null);
+    const [title, setTitle] = useState(post.title);
+    const [description, setDescription] = useState(post.description);
+    const [initialContent, setInitialContent] = useState<any | null>(post.content || {
+        time: new Date().getTime(),
+        blocks: [
+            {
+                type: "paragraph",
+                data: {
+                    text: "Start writing your post here..."
+                }
+            }
+        ]
+    });
     const [content, setContent] = useState(initialContent);
-    const [image, setImage] = useState("");
+    const [image, setImage] = useState(post.image);
     const [imageState, setImageState] = useState({
         loader: {
             type: "indeterminate",
@@ -124,10 +139,12 @@ export default function NewPost({ user }) {
         }
 
     });
-    const [postState, setPostState] = useState("draft");
-    const [labels, setLabel] = useState([]);
-    const [IsCommentEnabled, setIsCommentEnabled] = useState(true);
-    const [slug, setSlug] = useState(createSlug(title));
+    const [postState, setPostState] = useState(post.state);
+    const [labels, setLabel] = useState<string[]>(post.labels);
+    const [IsCommentEnabled, setIsCommentEnabled] = useState(post.comments.enabled);
+    const [slug, setSlug] = useMemo(() =>{
+        return createSlug(title) as string;
+    }, [title]);
 
     const updatePost = async () => {
         await axios.put("/api/users/" + user.id + "/posts/" + postId, {
@@ -154,7 +171,7 @@ export default function NewPost({ user }) {
     const deletePost = async () => {
         if (!confirm("Are you sure want to delete this Post"))
             return;
-        await axios.delete("/api/users/" + user?.id + "/posts/" + postId + "/delete", {
+        await axios.delete("/api/users/" + user.id + "/posts/" + postId + "/delete", {
             userId: user.id,
         }).then(res => {
             console.log(res);
@@ -207,27 +224,25 @@ export default function NewPost({ user }) {
                 console.log(err.response.status);
             })
     }
-    useEffect(() => {
-        if (postId) {
-            toast.promise(FetchPost(postId), {
-                loading: 'Getting the data',
-                success: 'Got the data',
-                error: 'Error when fetching',
-              });
-        }
-    }, []);
-    useEffect(() => {
-        if (slug.length < 1) 
-            setSlug(createSlug(title));
 
-    }, [title])
-    const handleFiles = async (files) => {
+
+    const handleFiles = async (files:File[]) => {
 
         try {
             const formData = new FormData();
+            const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
+            if(!CLOUDINARY_UPLOAD_PRESET){
+                toast.error("Cloudinary Upload Preset not found");
+                return;
+            }
+            const CLOUDINARY_FOLDER = process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER;
+            if(!CLOUDINARY_FOLDER){
+                toast.error("Cloudinary Folder not found");
+                return;
+            }
             formData.append('file', files[0]);
-            formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
-            formData.append('folder', process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER);
+            formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+            formData.append('folder', CLOUDINARY_FOLDER);
 
 
             // upload image to cloudinary and get url
@@ -272,9 +287,12 @@ export default function NewPost({ user }) {
             <Head>
                 <title>Editing Post</title>
             </Head>
-            <DashboardPage user={user}>
+            <DashboardPage user={user}
+                headerChildren={<span className="h6">Editing Post</span>}
+                
+            >
                 <Header>
-                    <Button as={Link} low="true" size="sm" level="true" href="/dashboard/admin/blog">
+                    <Button as={Link} low={true} size="sm" level={true} href="/dashboard/admin/blog">
                         Go Back
                     </Button>
                 </Header>
@@ -357,6 +375,7 @@ export default function NewPost({ user }) {
                                     setPostState(e.target.checked ? "published" : "draft");
 
                                 }}
+                                className=""
                                 id="publish"
                                 label={"Publish"}
                                 width="100%"
@@ -369,6 +388,8 @@ export default function NewPost({ user }) {
                                 onChange={(e) => {
                                     setIsCommentEnabled(e.target.checked);
                                 }}
+                                className=""
+
                                 id="comments"
                                 label={"Comments"}
                                 width="100%"
@@ -436,7 +457,7 @@ export default function NewPost({ user }) {
                             </FormHelper>
                         </FormElement>
                         <div className="d-flex align-items-start justify-content-between g-3 mt-3 children-fill">
-                            <Button nature="danger" low="true"
+                            <Button nature="danger" low={true}
 
                                 onClick={() => toast.promise(deletePost(), {
                                     loading: 'Deleting...',
@@ -447,7 +468,7 @@ export default function NewPost({ user }) {
                             >
                                 Delete
                             </Button>
-                            <Button low="true"
+                            <Button low={true}
                                 onClick={() => toast.promise(updatePost(), {
                                     loading: 'Updating...',
                                     success: "Post Updated Successfully",
@@ -458,7 +479,7 @@ export default function NewPost({ user }) {
                             </Button>
 
                         </div>
-                        <Button as={Link} href="#main_wrapper" level="true" low="true" rounded="true">
+                        <Button as={Link} href="#main_wrapper" level={true} low={true} rounded={true}>
                                 Back to Top <AiOutlineArrowUp />
                         </Button>
 
@@ -474,10 +495,14 @@ export default function NewPost({ user }) {
     )
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetSessionParams & {
+    query: {
+        postId: string
+    }
+}) {
 
 
-    const session = await getSession(context);
+    const session = (await getSession(context)) as sessionType | null;
 
     if (!session)
         return {
@@ -497,8 +522,37 @@ export async function getServerSideProps(context) {
         }
     }
 
+    // Call an external API endpoint to get user
+    const postId = context.query.postId as string;
+    const response = await axios({
+        url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/users/${session.user.id}/posts/${postId}`,
+        method: 'get',
+        headers: {
+            "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
+            'Content-Type': 'application/json'
+        }
+    }).then((res) => {
+        return res;
+    }).catch((err) => {
+        return err.response;
+    });
 
-    return {
-        props: { user: session.user },
+
+    if (response.data.success === true && response.data.user && response.data.post.post._id === postId) {
+
+        return {
+            props: {
+                user:session.user,
+                post: response.data.post,
+            }
+        }
     }
+    else if (response.data.success === false) {
+        // not found, return
+        return {
+            notFound: true,
+        }
+    }
+
+
 }

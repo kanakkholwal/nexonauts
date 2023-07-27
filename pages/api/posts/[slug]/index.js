@@ -4,9 +4,12 @@ import Page from 'models/page';
 import Post from 'models/post';
 import dbConnect from 'lib/dbConnect';
 import nextConnect from 'next-connect';
+import { hasSsrMiddleware } from 'middleware/checkUser';
 
-export default nextConnect(handler).post(async (req, res) => {
+export default nextConnect(handler).post(async (req, res,next) => {
     try {
+        await hasSsrMiddleware(req, res,next);
+
         await dbConnect();
 
         const { slug } = req.query;

@@ -10,7 +10,7 @@ import nextConnect from 'next-connect';
 export default nextConnect(handler)
     .get(async (req, res, next) => {
         try {
-            // await hasSsrMiddleware(req, res, next);
+            await hasSsrMiddleware(req, res, next);
             await dbConnect();
 
             const { userId: username } = req.query;

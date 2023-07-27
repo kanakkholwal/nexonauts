@@ -32,7 +32,7 @@ export default function BlogHomePage({ initialPosts }) {
   };
 
   useEffect(() => {
-    registerView({ title: "K K UPGRADER BLOG", type: "article", slug: "/blog" })
+    registerView({ title: "K K UPGRADER BLOG", type: "article", slug: "/blog",postId: null })
   }, []);
 
   return (
@@ -49,7 +49,7 @@ export default function BlogHomePage({ initialPosts }) {
       <AllArticles posts={posts} />
       <div className="d-flex justify-content-around align-items-center">
         {currentPage === totalPages ? <>No More Posts !!!</>
-        :<Button nature="blog-theme" fill="true" onClick={fetchMorePosts}>
+        :<Button nature="blog-theme" fill={true} onClick={fetchMorePosts}>
           {loading ? <> <CgSpinnerTwo style={{
             animation: "spinner 1s linear infinite",
           }}/> Loading...</> : <><BiDownArrowAlt /> Load More </>}
@@ -62,16 +62,32 @@ export default function BlogHomePage({ initialPosts }) {
 }
 
 export async function getServerSideProps() {
-  try {
-    const response = await axios.get(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/all`);
-    const initialPosts = response.data.posts;
-    return {
-      props: { initialPosts },
-    };
-  } catch (error) {
-    console.log(error);
-    return {
-      props: { initialPosts: [] },
-    };
-  }
+
+    const response = await axios({
+        url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/all`,
+        method: 'get',
+        headers: {
+            "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
+            'Content-Type': 'application/json'
+        }
+    }).then((res) => {
+        return res;
+    }).catch((err) => {
+        return err.response;
+    });
+    if (response.data.success === true && response.data.posts) {
+
+        return {
+            props: {
+                initialPosts:response.data.posts,
+            }
+        }
+    }
+    else if (response.data.success === false) {
+        // not found, return
+        return {
+            notFound: true,
+        }
+    }
+  
 }
