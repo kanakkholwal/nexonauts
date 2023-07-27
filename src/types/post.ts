@@ -21,7 +21,7 @@ export type Post = {
       time?: number | Date;
       blocks?: ContentBlock[];
       version?: string;
-    };
+    } | null;
     slug: string;
     labels: string[];
     image: string;

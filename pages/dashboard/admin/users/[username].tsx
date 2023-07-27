@@ -216,7 +216,7 @@ export async function getServerSideProps(context: GetSessionParams & {
     const username = context.query.username as string;
 
     const response = await axios({
-        url: `https://kkupgrader.eu.org/api/users/${username}/profile`,
+        url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/users/${username}/profile`,
         method: 'get',
         headers: {
             "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,

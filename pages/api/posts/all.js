@@ -4,9 +4,11 @@ import Post from 'models/post';
 import Page from 'models/page';
 import dbConnect from 'lib/dbConnect';
 import nextConnect from 'next-connect';
+import { hasSsrMiddleware } from 'middleware/checkUser';
 
-export default nextConnect(handler).get(async (req, res) => {
+export default nextConnect(handler).get(async (req, res,next) => {
   try {
+    await hasSsrMiddleware(req, res,next);
     await dbConnect();
 
     const page = parseInt(req.query.page) || 1; // Default to page 1 if not provided
@@ -31,11 +33,13 @@ export default nextConnect(handler).get(async (req, res) => {
       currentPage: page,
       totalPages: totalPages,
       posts: posts,
+      success: true,
     });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
       message: err.message || 'Something went wrong',
+      success: false,
     });
   }
 }).post(async (req, res) => {
@@ -53,11 +57,13 @@ export default nextConnect(handler).get(async (req, res) => {
       message: 'Posts Fetched Successfully!',
       noOfPosts: posts.length,
       posts: posts,
+      success: true,
     });
   } catch (err) {
     console.log(err);
     return res.status(500).json({
       message: err.message || 'Something went wrong',
+        success: false,
     });
   }
 });
