@@ -145,7 +145,7 @@ export default function NewPost({ user,post }:{
     const [slug, setSlug] = useState(post.slug);
 
     const updatePost = async () => {
-        await axios.put("/api/users/" + user.id + "/posts/" + postId, {
+        await axios.put("/api/users/" + user.id + "/posts/" + post._id, {
             post:
             {
                 title: title || "Untitled",
@@ -169,8 +169,10 @@ export default function NewPost({ user,post }:{
     const deletePost = async () => {
         if (!confirm("Are you sure want to delete this Post"))
             return;
-        await axios.delete("/api/users/" + user.id + "/posts/" + postId + "/delete", {
-            userId: user.id,
+        await axios.delete("/api/users/" + user.id + "/posts/" + post._id + "/delete", {
+            headers:{
+                "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
+            }
         }).then(res => {
             console.log(res);
             router.push("/dashboard/admin/blog")
