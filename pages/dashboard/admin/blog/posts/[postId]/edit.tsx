@@ -292,9 +292,9 @@ export default function NewPost({ user,post }:{
                 
             >
                 <Header>
-                    <Button as={Link} low={true} size="sm" level={true} href="/dashboard/admin/blog">
+                    <Link  href="/dashboard/admin/blog">
                         Go Back
-                    </Button>
+                    </Link>
                 </Header>
                 <div className="d-flex align-items-start justify-content-between g-3 mt-3">
                     <Card>
@@ -480,7 +480,7 @@ export default function NewPost({ user,post }:{
                             </Button>
 
                         </div>
-                        <Button as={Link} href="#main_wrapper" level={true} low={true} rounded={true}>
+                        <Button as={"a"} href="#main_wrapper" level={true} low={true} rounded={true}>
                                 Back to Top <AiOutlineArrowUp />
                         </Button>
 
