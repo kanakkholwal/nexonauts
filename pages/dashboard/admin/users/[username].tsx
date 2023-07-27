@@ -77,7 +77,18 @@ export default function UserPage({ username, user, currentUser }: { username: st
     console.log(user);
     const router = useRouter()
 
-    const deleteUser = new Promise(async (resolve, reject) => {
+    const deleteUser = async() => {
+        if (currentUser.role === "admin" || user.role === "admin") {
+            toast.error("You cannot delete admin user");
+            return;
+        }
+        return new Promise<{
+            data: {
+                success: boolean,
+                message: string,
+                user: UserType
+            }
+        }>(async (resolve, reject) => {
             if (currentUser.role === "admin" || user.role === "admin") {
                 toast.error("You cannot delete admin user");
                 return;
@@ -91,6 +102,7 @@ export default function UserPage({ username, user, currentUser }: { username: st
                 })
 
         })
+    }
     
     return (<>
         <Head>
