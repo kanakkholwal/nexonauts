@@ -10,6 +10,7 @@ import { TbTools ,TbSmartHome,TbBrandBlogger,TbDashboard,TbMessageDots} from "re
 import { RiAdminLine,RiPagesLine } from "react-icons/ri";
 import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { RiAppsLine } from "react-icons/ri";
+import { MdOutlineArticle } from "react-icons/md";
 
 export { Header } from "./elements";
 
@@ -89,12 +90,10 @@ const routes = (userRole) => {
                     {
                         title: "Pages",
                         path: "/dashboard/admin/analytics/pages",
-                        icon: <RiPagesLine />,
                     },
                     {
                         title: "Remove",
                         path: "/dashboard/admin/analytics/remove-unnecessary",
-                        icon: <RiPagesLine />,
                     },
                 ]
             },
@@ -102,6 +101,13 @@ const routes = (userRole) => {
                 title: "Blog",
                 path: "/dashboard/admin/blog",
                 icon: <TbBrandBlogger />,
+                children:[
+                    {
+                        icon:<MdOutlineArticle/>,
+                        title: "Posts",
+                        path: "/dashboard/admin/blog/posts",
+                    }
+                ]
             },
             {
                 title: "Users",
@@ -115,8 +121,7 @@ const routes = (userRole) => {
                 children:[
                     {
                         title: "Submit",
-                        path: "/dashboard/admin/apps/submit",
-                        icon: <RiPagesLine />,
+                        path: "/dashboard/admin/apps/submit"
                     }
                 ]
             },

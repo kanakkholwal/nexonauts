@@ -48,8 +48,6 @@ export default nextConnect(handler).use(hasTokenMiddleware)
             }
             await newPost.updateOne({ analytics: newPage._id });
           
-            existingUser.posts.push(newPost.id);
-            await existingUser.save();
           
             return res.status(200).json({ message: 'Post created successfully!', post: newPost });
           } catch (err) {
