@@ -1,5 +1,6 @@
 import { getSession } from "next-auth/react"
-import DashboardPage from "components/dashboard-page";
+import DashboardPage from 'layouts/app-page';
+
 import Head from "next/head";
 import { registerView } from "lib/analytics";
 import { useEffect } from "react";

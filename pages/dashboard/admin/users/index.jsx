@@ -2,7 +2,7 @@ import { getSession } from "next-auth/react";
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
 import Link from 'next/link';
-import {Table ,Thead,Tbody,Tr,Th,Td,TableContainer} from "components/table"
+import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from "components/table"
 import styled from "styled-components";
 import useSWR from "swr";
 import axios from "axios";
@@ -83,15 +83,15 @@ const fetchData = async (url, data) => {
     return response.data;
 };
 export default function Dashboard({ user }) {
-  
+
     const { data, error, isLoading } = useSWR(['/api/admin/users/all', { adminId: user.id }], ([url, data]) => fetchData(url, data))
-  
+
     const [users, setUsers] = useState(data?.users);
 
     useEffect(() => {
         if (data) {
             if (data.users !== users)
-            setUsers(data.users);
+                setUsers(data.users);
         }
 
     }, [data])
@@ -103,12 +103,12 @@ export default function Dashboard({ user }) {
                 <title>All Users</title>
             </Head>
             <DashboardPage user={user}>
-            <TableContainer>
-            <Table style={
+                <TableContainer>
+                    <Table style={
                         {
-                            padding:"0.5rem",
-                            borderRadius:"0.5rem",
-                            background:"var(--card-bg)"
+                            padding: "0.5rem",
+                            borderRadius: "0.5rem",
+                            background: "var(--card-bg)"
                         }
                     }>
                         <Thead>
@@ -124,7 +124,7 @@ export default function Dashboard({ user }) {
                         <Tbody>
                             {data && data.users.length > 0 && users?.sort((a, b) => {
                                 return new Date(b.createdAt) - new Date(a.createdAt);
-                            }).map(({ name, email, role, account_type, createdAt, verified, username,_id }, index) => {
+                            }).map(({ name, email, role, account_type, createdAt, verified, username, _id }, index) => {
                                 return (
                                     <Tr key={_id}>
                                         <Td>
@@ -133,7 +133,7 @@ export default function Dashboard({ user }) {
                                             </Link>
                                         </Td>
                                         <Td>{email}</Td>
-                                        <Td><Badge nature={role === "admin" ? "success":role === "user" ? "theme":"secondary"} pill>{role}</Badge></Td>
+                                        <Td><Badge nature={role === "admin" ? "success" : role === "user" ? "theme" : "secondary"} pill>{role}</Badge></Td>
                                         <Td>{account_type}</Td>
                                         <Td>{verified ? "Yes" : "No"}</Td>
                                         <Td>{new Date(createdAt).toLocaleDateString()}</Td>
@@ -144,8 +144,8 @@ export default function Dashboard({ user }) {
                         </Tbody>
                     </Table>
                     {!(data && data.users.length > 0) && "No Users Yet"}
-            </TableContainer>
-                 
+                </TableContainer>
+
             </DashboardPage>
         </>
     )
@@ -174,9 +174,28 @@ export async function getServerSideProps(context) {
             }
         }
     }
-
+    // const response = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/admin/users/all`, {
+    //     adminId: session.user.id
+    // }, {
+    //     headers: {
+    //         "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
+    //     }
+    // })
+    //     .then((res) => {
+    //         return res
+    //     })
+    //     .catch((err) => {
+    //         console.log(err)
+    //         return err.response
+    //     });
 
     return {
-        props: { user: session.user },
+        props: { 
+            user: session.user,
+            data:{
+                // ...response.data
+            }
+        
+        },
     }
 }

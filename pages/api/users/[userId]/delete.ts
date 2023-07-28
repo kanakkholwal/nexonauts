@@ -23,8 +23,8 @@ export default nextConnect(handler)
             console.log("comments deleted");
        
             // find posts and delete them
-            await Post.deleteMany({ author: user._id  });
-            console.log("posts deleted");
+            await Post.deleteMany({ author: user._id,state:"draft"  });
+            console.log("draft posts deleted");
             // delete user
             await User.deleteOne({ _id: user._id });
             console.log("user deleted");

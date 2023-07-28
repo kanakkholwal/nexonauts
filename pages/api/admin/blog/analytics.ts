@@ -26,9 +26,11 @@ export default nextConnect(handler)
         
         
         return res.status(200).json({
-            totalViews,
-            posts,
-            comments,
+            data:{
+                totalViews,
+                posts,
+                comments,
+            },
             success: true,
             message: "Successfully fetched analytics"
         });
