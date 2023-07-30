@@ -221,6 +221,7 @@ export async function getServerSideProps(context: GetSessionParams & {
 
     // Call an external API endpoint to get user
     const username = context.query.username as string;
+  
 
     const response = await axios({
         url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/users/${username}/profile`,
