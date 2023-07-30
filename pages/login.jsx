@@ -14,6 +14,9 @@ import { FormElement, Label, FormAlert, Input } from "components/form-elements";
 import styled from "styled-components";
 import illustration from "assets/images/login-illustration.webp";
 import { registerView } from "lib/analytics";
+import toast, { Toaster } from "react-hot-toast";
+import {FcGoogle} from "react-icons/fc";
+import {FiGithub} from "react-icons/fi";
 
 const PageWrapper = styled.div`
 display: flex;
@@ -64,6 +67,101 @@ height: 100%;
 padding: 2rem 1.5rem;
 gap: 1rem;
 text-align: left;
+background:var(--card-bg);
+${FormElement}{
+    width: 100%;
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+.forgot-password{
+    display: block;
+    font-size: 0.9rem;
+    width: 100%;
+    text-align: right;
+    margin: 0.5rem 0;
+    color: rgba(var(--theme-rgb), 0.75);
+    &:hover{
+        color: rgba(var(--theme-rgb), 1);
+    }
+}
+
+.login{
+  display: flex;
+  width:100%;
+  padding: 0.75rem 1rem;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+ border-radius: 0.75rem;
+}
+.or{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    color: rgba(var(--grey-rgb), 0.5);
+    &:before, &:after{
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: rgba(var(--grey-rgb), 0.2);
+    }
+}
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 1rem;
+  flex-direction: column;
+  button{
+  display: flex;
+  width:100%;
+  justify-content: flex-start;
+  padding: 0.75rem 1rem;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1rem;
+  gap: 1rem;
+  flex-shrink: 0;
+  border: none;
+  color:inherit;
+  border-radius: 0.75rem;
+  &.google{
+  background: #FFF;
+  box-shadow: 0px 2.4054rem 4.4672rem 0px rgba(0, 0, 0, 0.07);
+  border: 1px solid rgba(var(--grey-rgb), 0.2);
+}
+&.github {
+  background: #000;
+  color: #f6f6f6;      
+  box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.1);
+}
+&.facebook {
+  background: #1877F2;
+  box-shadow: 0px 38.486881256103516px 71.47562408447266px 0px rgba(0, 0, 0, 0.07);
+}
+
+    }
+}
+.no-account{
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-block: 1rem;
+    text-align: center;
+    display: block;
+    a{
+        color: var(--theme);
+        text-decoration: none;
+    }
+
+}
 `;
 
 
@@ -72,15 +170,28 @@ display: flex;
 flex-direction: column;
 align-items: flex-start;
 width: clamp(300px, 100%, 400px);
-gap: 1rem;
+${'' /* gap: 1rem; */}
 ${FormElement} {
     width: 100%;
 }
 ${Button} {
-    width: 75%;
-    max-width: 240px;
     text-align: center;
     margin-inline: auto;
+}
+h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+p{
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+.forgot-pass{
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
 }
 `;
 const metadata = {
@@ -161,82 +272,72 @@ export default function Login({ }) {
 
         if (!isEmail(enteredEmail)) {
 
-            setState({
-                ...state,
-                email: {
-                    value: state.email.value,
-                    error: true,
-                    errorMessage: "Please enter a valid email"
-                }
-            })
+            toast.error("Please enter a valid email address");
             return;
         }
         if (state.recaptcha.verified === false) {
-
-            setState({
-                ...state,
-                recaptcha: {
-                    verified: false,
-                    error: true,
-                    errorMessage: "Please verify that you are not a robot"
-                }
-            })
+            toast.error("Please verify that you are not a robot");
             return;
         }
 
 
-        // optional: Add validation here
-        setState({
-            ...state,
-            formState: {
-                state: "loading",
-                message: "Logging in..."
+
+
+
+
+        const signInPromise = async() => new Promise(async (resolve, reject) => {
+            try {
+                signIn('credentials', {
+                    callbackUrl: router.query.continue || "/dashboard",
+                    email: enteredEmail,
+                    password: enteredPassword,
+                    redirect: false
+                }).then((data) => {
+                    console.log(data);
+                    if (data.ok === false) {
+                        reject(data.error);
+                        return;
+                    }
+                    else if (data.ok === true) {
+                        resolve(data);
+                        router.push(router.query.continue || "/dashboard");
+                        return;
+                    }
+                    resolve(data);
+                })
+                    .catch((error) => {
+                        console.log(error);
+                        reject(error);
+                    }
+                    )
+            }
+            catch (error) {
+                reject(error);
             }
         })
-        await signIn('credentials', {
-            callbackUrl:router.query.continue || "/dashboard",            
-            email: enteredEmail,
-            password: enteredPassword,
-        }).then((data) => {
-            // console.log(data)
-            setState({
-                ...state,
-                formState: {
-                    state: "success",
-                    message: "Login Successful"
-                }
-            })
-            // router.push("/dashboard");
-        }).catch((error) => {
-            console.log(error)
-            setState({
-                ...state,
-                formState: {
-                    state: "error",
-                    message: error.message || "Something went wrong"
-                }
-            })
-        });
 
 
-
+        toast.promise(signInPromise(), {
+            loading: 'Logging in...',
+            success: "Logged in successfully",
+            error: (err) => {
+                return err || "An error occurred while logging in";
+            }
+        })
 
 
     }
 
     useEffect(() => {
-        if (session || status === "authenticated") {
-            router.push("/dashboard");
+        if (session && status === "authenticated") {
+            router.push(router.query.continue || "/dashboard");
         }
     }, [session, status])
     useEffect(() => {
         registerView({ title: "Login", type: "page", slug: "/login" })
     }, [])
 
-    if (status === "loading") {
-        return "Loading...";
-    } 
-   
+
 
 
     return (
@@ -249,13 +350,15 @@ export default function Login({ }) {
 
             <PageWrapper>
                 <Illustration>
-                    <Link href="/" className="h1">K K UPGRADER</Link>
+                    <Link href="/" className="h1">
+                        {process.env.NEXT_PUBLIC_WEBSITE_NAME}
+                    </Link>
                     <Image src={illustration} width="600" height="600" alt="Dashboard Illustration" priority={true} />
 
                 </Illustration>
                 <FormWrapper>
                     <Form onSubmit={submitHandler}>
-                        <h2>Hi, Welcome back !!</h2>
+                        <h2 >Hi, Welcome back !!</h2>
                         <p>Sign in to your account to continue</p>
                         <FormElement>
                             <Input type="email" placeholder="Enter your Email" outlined value={state.email.value}
@@ -269,9 +372,11 @@ export default function Login({ }) {
                                         }
                                     })
                                 }}
+                                level={true}
+
                                 className={state.email.error ? "isInvalid" : ""}
                             />
-                            <Label>Enter Your Email</Label>
+                            <Label htmlFor="email">Enter Your Email</Label>
                             {state.email.error && <FormAlert nature="danger">{state.email.errorMessage}</FormAlert>}
                         </FormElement>
                         <FormElement>
@@ -289,37 +394,42 @@ export default function Login({ }) {
                                         }
                                     })
                                 }}
+                                level={true}
                             />
                             {state.password.error && <FormAlert nature="danger">{state.password.errorMessage}</FormAlert>}
-                            <Label>Enter Your Password</Label>
+                            <Label htmlFor="password">Enter Your Password</Label>
 
                         </FormElement>
-                        <p><Link href="/forgot-password">Forgot Password? </Link></p>
 
-                        <FormElement align="center">
+                        <FormElement align="center" className="m-0 g-0">
                             <ReCAPTCHA
                                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                                 onChange={handleCaptcha}
+                                size="invisible"
                             />
-                            {state.recaptcha.error && <FormAlert nature="danger">{state.recaptcha.errorMessage}</FormAlert>}
                         </FormElement>
-                        {/* <State
-                        // loader, alert
-                        loader={
-                            type: "linear",
-                            
-                        }
-                    /> */}
                         {state.formState.state === "error" && <FormAlert nature="danger">{state.formState.message}</FormAlert>}
                         {state.formState.state === "success" && <FormAlert nature="success">{state.formState.message}</FormAlert>}
                         {state.formState.state === "loading" && <IndeterminateLinearLoader />}
-                        <Button type="submit" onClick={submitHandler}>Login </Button>
-                        <p>Don't have an account? <Link href="/signup">Sign Up</Link></p>
+                        <p className="forgot-password"><Link href="/forgot-password" >Forgot Password? </Link></p>
+                        <Button type="submit" onClick={submitHandler} className="login">Login </Button>
+                        <p className="or">Or</p>
+                        <div className="social">
+                            <button onClick={() => signIn('google', { callbackUrl: router.query.continue || "/dashboard" })} className="google"><FcGoogle  size={18}/> Continue with Google </button>
+                            {/* <button onClick={() => signIn('github', { callbackUrl: rou ter.query.continue || "/dashboard" })} className="github apple"> <FiGithub size={18}/> Continue with Github </button> */}
+
+                        </div>
+
+                        <p className="no-account">Don't have an account? <Link href="/signup">Sign Up</Link></p>
                     </Form>
 
 
                 </FormWrapper>
-            </PageWrapper >
+            </PageWrapper>
+            <Toaster
+                position="bottom-center"
+
+            />
         </>)
 }
 
@@ -338,8 +448,8 @@ export async function getServerSideProps(context) {
         }
 
     return {
-        props: { 
-            
+        props: {
+
         },
 
     }

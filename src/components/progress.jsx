@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const BarLine = styled.div`
 width: 100%;
 height:0.25rem;
-background:#4689e8;
+background:rgba(var(--theme-rgb),1);
 position:fixed;
 top:0;
 left:0;

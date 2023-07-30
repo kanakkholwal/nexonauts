@@ -111,12 +111,17 @@ border-radius: 0.5rem;
 font-weight: 500;
 font-size: 0.875rem;
 margin-bottom:0.25rem;
-color: rgba(var(--text-rgb), 0.75);
+color: rgba(var(--text-rgb), 0.8);
 background: rgba(var(--grey-rgb), 0);
+    transition: all 0.3s ease-in-out;
 
-&:hover,&.active{
+&:hover{
     color: rgba(var(--text-rgb),1);
     background: rgba(var(--grey-rgb), 0.08);
+}
+&.active{
+    color: rgba(var(--theme-rgb),1);
+    background: rgba(var(--theme-rgb), 0.08);
 }
 
 `;

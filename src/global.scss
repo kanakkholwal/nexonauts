@@ -62,17 +62,22 @@
     --shadow: 0 0 .5rem rgb(0 0 0 / 10%);
     --theme-opacity: 1;
     --grey-rgb: 102, 112, 133;
-    --theme-rgb: 11, 165, 236;
+    --theme-rgb:52, 138, 167;
+    // --theme-rgb: 8, 103, 136;
+    // --theme-rgb: rgb(52, 138, 167);
     --theme: rgba(var(--theme-rgb), var(--theme-opacity));
     --primary-rgb: 0, 150 ,204;
     --primary: rgba(var(--primary-rgb), var(--theme-opacity));
-    --secondary-rgb: 122, 90, 248;
+    --secondary-rgb: 128 ,47 ,222;
+    // rgb(128 47 222)
     --secondary: rgba(var(--secondary-rgb), var(--theme-opacity));
-    --success-rgb: 23, 178, 106;
+    --success-rgb:15 ,133 ,100;
+    // rgb(23, 178, 106)
     --success: rgba(var(--success-rgb), var(--theme-opacity));
     --danger-rgb: 229, 69, 69;
     --danger: rgba(var(--danger-rgb), var(--theme-opacity));
-    --info-rgb: 46, 144, 250;
+    --info-rgb: 0 ,127 ,167;
+    // rgb()
     --info: rgba(var(--info-rgb), var(--theme-opacity));
     --warning-rgb: 255, 136, 0;
     --warning: rgba(var(--warning-rgb), var(--theme-opacity));

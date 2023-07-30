@@ -174,26 +174,26 @@ export async function getServerSideProps(context) {
             }
         }
     }
-    // const response = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/admin/users/all`, {
-    //     adminId: session.user.id
-    // }, {
-    //     headers: {
-    //         "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
-    //     }
-    // })
-    //     .then((res) => {
-    //         return res
-    //     })
-    //     .catch((err) => {
-    //         console.log(err)
-    //         return err.response
-    //     });
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/admin/users/all`, {
+        adminId: session.user.id
+    }, {
+        headers: {
+            "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
+        }
+    })
+        .then((res) => {
+            return res
+        })
+        .catch((err) => {
+            console.log(err)
+            return err.response
+        });
 
     return {
         props: { 
             user: session.user,
             data:{
-                // ...response.data
+                ...response.data
             }
         
         },
