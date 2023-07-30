@@ -74,16 +74,30 @@ async function createUser(req, res) {
         console.log("Transporter created");
 
           await transporter.sendMail({
-            from: 'no_reply@kkupgrader.eu.org',
+            from: `${process.env.NEXT_WEBSITE_NAME} <no_reply@${process.env.NEXT_WEBSITE_DOMAIN}>`,
             to: newUser.email,
-            subject: 'Verify Your Account',
+            subject: `🌟 Welcome to ${process.env.NEXT_WEBSITE_NAME} - Verify Your Account! 🌟 `,
             html: `
-              <p>Hello ${newUser.name},</p>
-              <p>Please verify your account by clicking the following link:</p>
-              <a href="https://kkupgrader.eu.org/verify-user?token=${verificationToken}">
+            <h1>Welcome to ${process.env.NEXT_WEBSITE_NAME}</h1>
+            <p>Dear ${newUser.name},</p>
+            <p>Thank you for signing up with ${process.env.NEXT_WEBSITE_NAME}! We're thrilled to have you on board.</p>
+            <p>To complete the registration process and unlock the door to a world of possibilities, please click on the button below to verify your account:</p>
+    
+              <a href="${process.env.NEXTAUTH_URL}/verify-user?token=${verificationToken}" style=' display: inline-block;
+              margin-top: 20px;
+              padding: 10px 20px;
+              background-color: rgb(11 165 236);
+              color: #ffffff;
+              text-decoration: none;
+              border-radius: 3px;margin-inline:auto;'>
                 Verify Account
               </a>
-              <p><small>Token will be expired in ${expiresInMinutes} minutes</small></p>
+              <p><small style="color:red">Token will be expired in ${expiresInMinutes} minutes</small></p>
+              <p>If you didn't initiate this sign-up process or have any questions, please disregard this email.</p>
+              <p>For any assistance or inquiries, feel free to reach out to our dedicated support team at <a href="mailto:support@email.com">support@${process.env.NEXT_WEBSITE_DOMAIN}</a>. We're here to help!</p>
+              <p>Best regards,</p>
+              <p>${process.env.NEXT_WEBSITE_NAME} Team</p>
+
             `,
           });
             console.log("Mail sent");

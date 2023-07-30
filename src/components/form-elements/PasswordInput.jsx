@@ -20,7 +20,10 @@ background-color:transparent;
 border:none;
 outline:none;
 cursor:pointer;
-
+&:hover{
+    color:rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.04);
+}
 `;
 
 

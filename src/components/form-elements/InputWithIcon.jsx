@@ -17,17 +17,21 @@ display:flex;
 align-items: center;
 justify-content: center;
 padding:0.5rem 0.75rem;
+&:hover{
+    color:rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.04);
+}
 `
 
 
-export default function InputWithIcon({ icon, ...props }) {
+export default function InputWithIcon({ icon,IconEvents, ...props }) {
 
 
 
     return (
         <InputWrapper>
             <Input  {...props} />
-            <IconWrapper>
+            <IconWrapper {...IconEvents}>
                 {icon}
             </IconWrapper>
         </InputWrapper>

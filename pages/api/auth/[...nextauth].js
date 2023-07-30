@@ -1,5 +1,8 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials"
+import GoogleProvider from "next-auth/providers/google";
+// import AppleProvider from "next-auth/providers/apple";
+
 import User from "models/user";
 import Notification from "models/notification";
 import dbConnect from "lib/dbConnect";
@@ -23,40 +26,117 @@ export const authOptions = {
             // Authorize callback is ran upon calling the sign-in function
             authorize: async (credentials) => {
 
-                await dbConnect();
+
+                // return Promise.resolve(user)
+                return new Promise(async(resolve, reject) => {
+                    try{
+
+                        await dbConnect();
 
 
-                // Try to find the user and also return the password field
-                const user = await User.findOne({ email: credentials.email }).select('+password')
+                        // Try to find the user and also return the password field
+                        const user = await User.findOne({ email: credentials.email }).select('+password')
+        
+                        if(!user){
+                            reject({
+                                status: 401,
+                                message: "User not found",
+                                success: false
+                            })
+                        }
+        
+                        // Use the comparePassword method we defined in our user.js Model file to authenticate
+                        const pwValid = await user.comparePassword(credentials.password)
+        
+        
+                        if (!pwValid) {
+                            await Notification.create({
+                                message: "User attempted to login with wrong Password",
+                                user: user._id
+                            });
+        
+                            reject({
+                                status: 401,
+                                message: "Wrong Password",
+                                success: false
+                            })
 
-                if(!user){
-                    throw new Error("User not found")
-                }
+                        }
+        
+                        await Notification.create({
+                            message: "User logged in using Email and Password",
+                            user: user._id
+                        });
+        
+                        // console.log(user)
+                        resolve(user)
+        
+                    }
+                    catch(err){
 
-                // Use the comparePassword method we defined in our user.js Model file to authenticate
-                const pwValid = await user.comparePassword(credentials.password)
-
-
-                if (!pwValid) {
-                    await Notification.create({
-                        message: "User attempted to login with wrong Password",
-                        user: user._id
-                    });
-
-                        return Promise.reject(new Error('Invalid Password'))
-                }
-
-                await Notification.create({
-                    message: "User logged in using Email and Password",
-                    user: user._id
-                });
-
-                // console.log(user)
-
-                return Promise.resolve(user)
+                        console.log(err)
+                        reject(err)
+                    }
+                })
 
             }
-        })
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_ID,
+            clientSecret: process.env.GOOGLE_SECRET,
+            authorization: {
+              params: {
+                prompt: "consent",
+                access_type: "offline",
+                response_type: "code"
+              }
+            },
+            async profile(profile) {
+                try{
+                    console.log(profile);
+                    await dbConnect();
+                    const userInDb = await User.findOne({email: profile.email})
+                    if (!userInDb) {
+
+                        const user = new User({
+                            name:profile.name,
+                            email: profile.email,
+                            profileURL: profile.picture,
+                            password: "google" + profile.sub,
+                            role: "user",
+                            account_type: "free",
+                            verificationToken: null,
+                            verified: true,
+                        });
+                        await user.save();
+                        
+                        
+                        await Notification.create({
+                            message: "User logged in using Google SignIn",
+                            user: user._id,
+                            type: "system",
+                            subtype: "login"
+                        });
+                        return Promise.resolve(user);
+                    }
+                    await Notification.create({
+                        message: "User logged in using Google SignIn",
+                        user: userInDb._id,
+                        type: "system",
+                        subtype: "login"
+                    });
+
+                    return Promise.resolve(userInDb)
+                }
+                catch(err){
+                    console.log(err);
+                    return Promise.reject("/login?error=google_error")
+                }
+                
+
+            },
+          }),
+        
     ],
     // All of this is just to add user information to be accessible for our app in the token/session
     callbacks: {

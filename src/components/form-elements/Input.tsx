@@ -25,6 +25,15 @@ const Input = styled.input<{
   width: 100%;
   font-size: 1rem;
 
+  &:autofill,
+    &:autofill:hover,
+    &:autofill:focus,
+    &:autofill:active {
+        transition: background-color 5000s ease-in-out 0s;
+        -webkit-text-fill-color: var(--form-color) !important;
+        background: var(--form-bg);
+
+    }
   ${({nature}) =>{
     if(nature)
     return`
@@ -39,11 +48,9 @@ const Input = styled.input<{
   }
   
   
-  &:hover:not(:disabled):not(:placeholder-shown) {
-    border-color: var(--form-active);
-  }
-  &:focus {
-    border-color: var(--form-active);
+
+&:focus {
+    border-color: var(--form-border-active);
     background: var(--form-bg-active);
   }
   
