@@ -82,19 +82,13 @@ const fetchData = async (url, data) => {
     const response = await axios.post(url, data);
     return response.data;
 };
-export default function Dashboard({ user }) {
+export default function Dashboard({ user,data }) {
 
-    const { data, error, isLoading } = useSWR(['/api/admin/users/all', { adminId: user.id }], ([url, data]) => fetchData(url, data))
 
     const [users, setUsers] = useState(data?.users);
+    console.log(data)
 
-    useEffect(() => {
-        if (data) {
-            if (data.users !== users)
-                setUsers(data.users);
-        }
 
-    }, [data])
 
 
     return (
