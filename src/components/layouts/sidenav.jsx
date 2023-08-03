@@ -5,10 +5,11 @@ import Collapse from 'components/collapse';
 import { GrClose } from "react-icons/gr";
 import { MdLogout } from "react-icons/md";
 import { HiOutlineChevronDown } from "react-icons/hi";
-import { VscCircle } from "react-icons/vsc";
+import { TbSwitchHorizontal } from "react-icons/tb";
 import { BiChevronRight } from "react-icons/bi";
 import { useRef ,useState} from "react";
 import Logo from 'components/Logo';
+import Image from 'next/image';
 
 const SideNavWrapper = styled.div`
 position: fixed;
@@ -74,8 +75,73 @@ text-align: center;
 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 margin-bottom: 1rem;
 `;
-const SectionTitle = styled.h5`
-padding: 0.5rem 0;
+const Profile = styled.div`
+  display: flex;
+  align-items: stretch;
+  justify-content: space-around;
+  width: 100%;
+  padding: 0.25rem;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1rem;
+  flex-shrink: 0;
+  border: none;
+  color:inherit;
+  gap:0.125rem;
+  border-radius: 0.75rem;
+  background: var(--card-bg);
+  border: 1px solid rgba(var(--grey-rgb), 0.2);
+  transition: all 0.3s ease-in-out;
+  margin-bottom:10px;
+  .Avatar{
+        aspect-ratio:1;
+        border-radius:50%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left:0.5rem;
+        img{
+            width: 100%;
+            height: 100%;
+            max-width: 32px;
+            max-height: 32px;
+        }
+  }
+  .Details{
+        text-align:left;
+        padding:0.125rem;
+        margin-inline:0.5rem auto;
+        .Name{
+            font-size: 1rem;
+            line-height: 1rem;
+            font-weight: 600;
+            color: rgba(var(--text-rgb), 1);
+        }
+        .Email{
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: rgba(var(--text-rgb), 0.8);
+        }
+  }
+  .Actions{
+        ${'' /* margin-left:auto; */}
+        display:flex;
+        align-items:center;
+        gap:0.5rem;
+        justify-content:center;
+        a{
+            border-radius:50%;
+            aspect-ratio:1;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border: none;
+            margin:auto;
+            font-size: 1rem;
+        }
+  }
+  
 `;
 
 
@@ -198,6 +264,19 @@ export default function SideNav({ routes, user }) {
                 </SectionTitle> */}
                 <Logo />    
             </SideNavHeader>
+            <Profile>
+                <div className='Avatar'>
+                    <Image src={user?.profileURL} alt={user?.name} 
+                    width={40} height={40}  />
+                </div>
+                <div className='Details'>
+                    <p className='Name'>{user?.name}</p>
+                    <p className='Email'>@{user?.username}</p>
+                </div>
+                <div className='Actions'>
+                {user.role === 'admin' ? <Link href='/dashboard/admin' title='Switch to Admin Panel'><TbSwitchHorizontal/></Link> : null}
+                </div>
+            </Profile>
             {routes?.length > 0 ? <RecursiveLinkList routes={routes.filter(route =>{
                 if(route?.sessionRequired === true){
                     return user ? true : false;

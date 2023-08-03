@@ -4,12 +4,14 @@ const categorySchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     slug:{
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     createdAt: {
         type: Date,
@@ -21,11 +23,14 @@ const categorySchema = new mongoose.Schema({
 const publicToolSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     slug:{
         type: String,
-        required: true
+        required: true,
+        unique: true,
+        trim: true
     },
     coverImage:{
         type: String,
@@ -44,11 +49,16 @@ const publicToolSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    state:{
+    status:{
         type: String,
         required: true,
-        enum: ["draft", "published", "archived"],
-        default: "draft"
+        enum: ["draft", "published", "archived","deleted","pending","rejected"],
+        default: "draft" || "pending"
+    },
+    pricing_type:{
+        type: String,
+        required: true,
+        enum: ["free", "paid", "freemium", "one_time_license", "subscription", "open_source", "other"],
     },
     verified:{
         type: Boolean,
