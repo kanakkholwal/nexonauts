@@ -13,8 +13,9 @@ const Toggle = styled.button`
 position:absolute;
 top:50%;
 left:auto;
-border-radius:0.5rem;
-right:1rem;
+border-radius:50%;
+right:12px;
+padding:4px 8px;
 transform:translateY(-50%);
 background-color:transparent;
 border:none;
@@ -22,7 +23,7 @@ outline:none;
 cursor:pointer;
 &:hover{
     color:rgba(0, 0, 0, 0.75);
-    background: rgba(0, 0, 0, 0.04);
+    background: rgba(var(--theme-rgb),.1);
 }
 `;
 

@@ -525,6 +525,8 @@ export async function getServerSideProps(context: GetSessionParams & {
 
     // Call an external API endpoint to get user
     const postId = context.query.postId as string;
+    let type = "idle";
+    let message = "Loading...";
     const response = await axios({
         url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/users/${session.user.id}/posts/${postId}`,
         method: 'get',
@@ -533,14 +535,20 @@ export async function getServerSideProps(context: GetSessionParams & {
             'Content-Type': 'application/json'
         }
     }).then((res) => {
+        message = res.data.message;
+        type = "success";
         return res;
     }).catch((err) => {
+        message = err.response.data.message;
+        type = "error";
         return err.response;
     });
 
+    console.log(type,message)
 
     if (response.data.success === true && response.data.user && response.data.post.post._id === postId) {
 
+        console.log(response.data.post.post);
         return {
             props: {
                 user:session.user,
@@ -549,14 +557,19 @@ export async function getServerSideProps(context: GetSessionParams & {
         }
     }
     else if (response.data.success === false) {
+        console.log(response.data);
+
         // not found, return
         return {
-            notFound: true,
+            user:session.user,
+            post: null,
+
         }
     }
-        return {
+      
+    return {
             notFound: true,
-        }
+    }
     
     
 

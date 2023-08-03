@@ -3,14 +3,17 @@ import Post from "models/post";
 import Page from "models/page";
 import User from "models/user";
 import dbConnect from "lib/dbConnect";
-import { hasTokenMiddleware } from 'middleware/checkUser';
+// import { hasTokenMiddleware } from 'middleware/checkUser';
+import { hasSsrMiddleware } from 'middleware/checkUser';
+
 import nextConnect from 'next-connect';
 import { checkUser } from 'lib/checkUser';
 
 export default nextConnect(handler)
-    .use(hasTokenMiddleware)
-    .post(async (req, res) => {
+    // .use(hasTokenMiddleware)
+    .get(async (req, res,next) => {
         try {
+            await hasSsrMiddleware(req, res, next);
             await dbConnect();
 
             const { postId, userId } = req.query;
