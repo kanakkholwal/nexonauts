@@ -6,7 +6,7 @@ const Input = styled.input<{
     nature?: string;
     noBorder?: string;
     underlined?: string;
-    floating?: string;
+    floating?: boolean;
     level?:boolean;
     lg?: boolean;
     sm?: boolean;
@@ -191,7 +191,14 @@ ${props => props.lg ? `
         }
       `: ""}
  
-${props => props.sm ? `  &~label {
+${props => props.sm ? ` 
+font-size: 0.875rem !important;
+        line-height: 1rem!important;
+        padding: 8px 24px 8px 8px!important;
+        border-radius: 0.5rem !important;
+        border-width: 1px !important;
+
+&~label {
             transform: translateY(0.25rem) !important;
           }
       
@@ -229,6 +236,20 @@ ${props => props.sm ? `  &~label {
                 
             }
             `: ""}
+${props => props.sm ?`
+       font-size: 0.875rem !important;
+        line-height: 1rem!important;
+        padding: 8px 24px 8px 8px!important;
+        border-radius: 0.5rem !important;
+        border-width: 1px !important;
+`:''}
+${props => props.lg ?`
+       font-size: 1.25rem !important;
+        line-height: 1.25rem!important;
+        padding: 0.5rem 1.5rem 0.5rem 0.5rem!important;
+        border-radius: 0.5rem !important;
+        border-width: 2px !important;
+`:''}
   `;
 
 export default Input;
