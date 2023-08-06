@@ -74,7 +74,9 @@ const Badge = styled.span<{
     asButton?: boolean,
     dot?: boolean,
     rounded?: boolean,
+    outlined?: boolean,
     pill?: boolean,
+    fill?: boolean,
     notification?: boolean,
     position?: "top-right" | "top-left" | "bottom-right" | "bottom-left" | "top-center" | "bottom-center" | "center"
 }>`
@@ -92,7 +94,7 @@ const Badge = styled.span<{
   mix-blend-mode: multiply;
   background:var(--badge-bg,rgba(var(--theme-rgb),0.1));
   color:var(--badge-text,rgba(var(--theme-rgb),1));
-  border: 1px solid var(--badge-border,rgba(var(--theme-rgb),0.6));
+  border: 1px solid var(--badge-border,rgba(var(--theme-rgb),0.1));
   border-radius: ${props => props.pill ? `50px` : `0.375rem`};
   text-align: center;
 
@@ -111,6 +113,16 @@ const Badge = styled.span<{
     --badge-border:rgba(var(--${props.nature}-rgb), 0.85);
     --badge-text:#ffffff;
   ` : ``}
+  ${props => props.outlined ? `
+    --badge-border:rgba(var(--${props.nature}-rgb), 0.6);
+  ` : ``}
+ 
+  ${props => props.fill ? `
+    --badge-bg:rgba(var(--${props.nature}-rgb), .8);
+    --badge-border:rgba(var(--${props.nature}-rgb), 0);
+    --badge-text:rgba(var(--light-rgb),0.9);
+
+      ` : ``}
  
   ${props => props.dot ? `
   border-radius: 50%;

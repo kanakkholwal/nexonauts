@@ -42,7 +42,7 @@ const Button = styled.button<{
     border-color:var(--btn-border-hover,var(--theme));
   }
   ${props => props.rounded ? `
-  --btn-border-radius:2rem;
+  --btn-border-radius:0.75rem;
   ` : ``}
   ${props => props.pill ? `
   --btn-border-radius:10rem;
@@ -59,7 +59,7 @@ const Button = styled.button<{
     --btn-hover-color:var(--btn-text,#fbfbfb);
     --btn-bg:none;
     --btn-box-shadow: none;
-    --btn-hover-bg:rgba(var(--${props.nature || "theme"}-rgb), 1);
+    --btn-hover-bg:none;
     --btn-hover-box-shadow:none;
   ` : ``}
   ${props => props.level ? `
