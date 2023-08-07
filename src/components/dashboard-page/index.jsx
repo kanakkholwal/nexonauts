@@ -110,11 +110,6 @@ const routes = (userRole) => {
                 ]
             },
             {
-                title: "Users",
-                path: "/dashboard/admin/users",
-                icon: <FiUsers />,
-            },
-            {
                 title: "Apps",
                 path: "/dashboard/admin/apps",
                 icon: <RiAppsLine />,
@@ -124,6 +119,22 @@ const routes = (userRole) => {
                         path: "/dashboard/admin/apps/submit"
                     }
                 ]
+            },
+            {
+                title: "Public Tools",
+                path: "/dashboard/admin/public-tools",
+                icon: <RiAppsLine />,
+                children:[
+                    {
+                        title: "Add New Tools",
+                        path: "/dashboard/admin/public-tools/add"
+                    }
+                ]
+            },
+            {
+                title: "Users",
+                path: "/dashboard/admin/users",
+                icon: <FiUsers />,
             },
             {
                 title: "Messages",

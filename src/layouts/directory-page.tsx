@@ -1,0 +1,160 @@
+import styled from "styled-components";
+
+
+
+export const DirectoryPageNavBar= styled.nav`
+    width: 100%;
+    padding:1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    .Title{
+        font-size: 30px;
+        font-weight: 700;
+        color: var(--text-color);
+    }
+    .LinkList{
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        margin-inline:auto 2rem;
+        a{
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            &:hover{
+                color: var(--theme);
+            }
+        }
+    }
+    .Submit{
+        padding: 0.5rem 1.5rem;
+        border-radius: 25px;
+        background-color: rgba(var(--theme-rgb), 0.25);
+        color:rgba(var(--dark-rgb), 01);
+        font-size: 16px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        &:hover{
+            background-color: rgba(var(--theme-rgb), 0.5);
+        }
+    }
+`;
+
+export const DirectoryPageHero = styled.div`
+    width: 100%;
+    height: auto;
+    min-height: 50vh;
+    background-color: rgba(var(--grey-rgb), 0.25);
+    border-radius: 50px 50px 0 0;
+    vertical-align: middle;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    padding: 0 2rem;
+    background: linear-gradient(rgba(var(--theme-rgb), 0.5), rgba(var(--theme-rgb), 0.5)), url("assets/backgrounds/dashboard.jpg");
+    /* background-size: cover; */
+    background-repeat: no-repeat;
+    --text-color: rgba(var(--light-rgb), 1);
+    color:rgba(var(--light-rgb), 0.9);
+    &>div{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: .25rem;
+    }
+    .description{
+        font-size: 1.25rem;
+        font-weight: 400;
+        line-height: 1.75rem;
+        max-width: 720px;
+    }
+
+    .SubmitYourTool{
+        padding: 0.75rem 1.75rem;
+        border-radius: 50px;
+        background-color: rgba(var(--theme-rgb), 1);
+        color:rgba(var(--light-rgb), 1);
+        font-size: 1.25rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        margin-top:1.75rem;
+    }
+    .illustration{
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+    }
+`;
+export const DirectoryPageSearchContainer = styled.div`
+    width: 100%;
+    border-radius: 25px;
+    background-color: rgba(var(--grey-rgb), .1);
+    padding: 1rem;
+    margin-top: 5rem;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    input{
+        border-radius:50px!important;
+    }
+    .SearchBar{
+        position: relative;
+        .SearchButton{
+            position: absolute;
+            inset-block:-1px 0;
+            inset-inline-start:-2px;
+            padding: 8px 10px;
+            width:36px;
+            height:36px;
+            translate: 0.5rem 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background-color: rgba(var(--grey-rgb), .1);
+
+        }
+        input{
+            border-radius:50px!important;
+            padding-left: 2.75rem!important;
+            background-color: rgba(var(--light-rgb), 1);
+
+        }
+    }
+
+
+`;
+export const DirectoryPageSearchResults = styled.div`
+    width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    background-color: rgba(var(--grey-rgb), .1);
+    padding: 1rem;
+    border-radius: 20px;
+    height:100%;
+    min-height: 50vh;
+`;
+export const DirectoryPageSearchFilters = styled.div`
+    width: 30%;
+    margin-top: 2rem;
+    background-color: rgba(var(--grey-rgb), .1);
+    padding: 1rem;
+    border-radius: 20px;
+    height:100%;
+    min-height: 25vh;
+`;
+export const DirectoryPageContainer= styled.div`
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    margin: 0 auto;
+    max-width: 1600px;
+`;

@@ -48,11 +48,11 @@ const Button = styled.button<{
   --btn-border-radius:10rem;
   ` : ``}
   ${props => props.nature ? `
-    --btn-bg:rgba(var(--${props.nature}-rgb), 1);
-    --btn-box-shadow: 0px 1px 3px rgba(var(--${props.nature}-rgb), 0.8);
-    --btn-hover-bg:rgba(var(--${props.nature}-rgb), 0.95);
-    --btn-border:rgba(var(--${props.nature}-rgb), 0.95);
-    --btn-border-hover:rgba(var(--${props.nature}-rgb), 0.95);
+    --btn-bg:rgba(var(--${props.nature === "light" ? "grey" :props.nature}-rgb), 1);
+    --btn-box-shadow: 0px 1px 3px rgba(var(--${props.nature === "light" ? "grey" :props.nature}-rgb), 0.8);
+    --btn-hover-bg:rgba(var(--${props.nature === "light" ? "grey" :props.nature}-rgb), 0.95);
+    --btn-border:rgba(var(--${props.nature === "light" ? "grey" :props.nature}-rgb), 0.95);
+    --btn-border-hover:rgba(var(--${props.nature === "light" ? "grey" :props.nature}-rgb), 0.95);
   ` : ``}
   ${props => props.outlined ? `
     --btn-text:rgba(var(--${props.nature || "theme"}-rgb), 1);

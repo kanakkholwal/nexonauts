@@ -501,7 +501,12 @@ select {
 select {
     word-wrap: normal
 }
-
+.theme{
+    color:var(--theme)
+}
+.theme-bg{
+    background:var(--theme)
+}
 [list]::-webkit-calendar-picker-indicator {
     display: none
 }

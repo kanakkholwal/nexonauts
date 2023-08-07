@@ -10,9 +10,8 @@ import { TextAreaStyled } from "./TextArea";
 
 const FormElement = styled.div<{
     align?: string;
-    outlined?: boolean;
-    floating?: boolean;
-    size?: string;
+    size?: "lg" | "sm" | "normal";
+    nature?: "underlined" |"floating"| "normal" | undefined;
     lg?: boolean;
     sm?: boolean;
 }>`
@@ -67,49 +66,16 @@ const FormElement = styled.div<{
 margin-bottom:0
       }
     }
-  ${props => props.outlined ? `
-    position: relative;
-    label {
-      position: absolute;
-      top: 1%;
-      transition: .25s ease;
-      z-index: 0;
-    }
-  ` : ""}
-  ${props => props.floating ? `
-    position: relative;
-    label {
-        position: absolute;
-        top: 0;
-        left: 0.25rem;
-        z-index: 0;
-        background-color: var(--form-bg-active);
-        transform: translateY(0.5rem);
-        padding-inline: 0.5rem;
-        transition: .25s ease;
-    }
-  ` : ""}
-  ${props => props.floating && props.outlined ? `
-    position: relative;
-    label {
-        position: absolute;
-        top: 0;
-        left: 0.25rem;
-        z-index: 0;
-        background-color: var(--form-bg-active);
-        transform: translateY(0.5rem);
-        padding-inline: 0.5rem;
-        transition: .25s ease;
-    }
-  ` : ""}
-  ${({size}) => size === "sm" ?`
+  
+    ${props => props.nature ? getNature(props.nature) :``}
+    ${props => props.size === "sm" ?`
       margin:0.125rem 0.25rem .5rem;
 
-    &> ${Input},&>textarea,&>input:not([type="checkbox"])
+    &>${Input},&>textarea,&>${TextAreaStyled},&>input:not([type="checkbox"]){
         font-size: 0.875rem !important;
         line-height: 1rem!important;
         padding: 8px 24px 8px 8px!important;
-        border-radius: 0.5rem !important;
+        border-radius: 0.25rem !important;
         border-width: 1px !important;
     }
    &>${Label}{
@@ -123,12 +89,83 @@ margin-bottom:0
     }
     
   `:
-    size === "lg" ? `
+  props.size === "lg" ? `
+  &>${Input},&>textarea,&>${TextAreaStyled},&>input:not([type="checkbox"]){
+        font-size: 1.25rem !important;
+        line-height: 1.5rem!important;
+        padding: 12px 24px 12px 12px!important;
+        border-radius: 0.5rem !important;
+        border-width: 1px !important;
+    }
+   &>${Label}{
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+   &>${FormHelper}{
+        font-size: 0.875rem;
+        line-height: 1rem;
+        margin-top: 0.5rem;
+    }
     
     
     `:``}
   
   
-  
 `;
+
+function getNature(nature){
+
+    switch (nature) {
+        case "underlined":
+            return `
+            
+            
+            `;
+                
+        case "floating":
+            return `
+                position: relative;
+                &>${Input}{
+                    &:not(:focus){
+                        &::placeholder{
+                            opacity: 0;
+                        }
+                        
+                    }
+                }
+                &>label,&>${Label} {
+                    position: absolute;
+                    inset-block:0;
+                    left: 0.25rem;
+                    vertical-align: middle;
+                    z-index: 0;
+                    background:none;
+                    translate:6px 2px;
+                    transition: all 300ms ease-in-out;
+                }
+                &:has(>${Input}:focus,>${Input}:not(:placeholder-shown)){
+                    &>label,&>${Label} {
+                        translate:3px -20px;  
+                        padding-left:4px;
+                        
+                        &:before{
+                            content: "";
+                            position: absolute;
+                            width:100%;
+                            padding-left:4px;
+                            height: 2px;
+                            translate: -2px 0;
+                            z-index: -1;      
+                            background: var(--form-bg-active);
+                        }
+                    }
+                }
+
+            `;
+        default:
+            return ``;
+    }
+
+
+}
 export default FormElement;

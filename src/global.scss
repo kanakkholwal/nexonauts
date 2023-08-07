@@ -142,6 +142,20 @@
     --form-checkbox-shadow: rgba(0, 150, 204, .486);
     --form-select-bg-active: #ddd;
 
+    --form-sm-padding-x: calc(12px  * 1);
+    --form-sm-padding-y: calc(12px  * 0.75);
+    --form-sm-font-size: 0.8125rem;
+    --form-sm-line-height: 1.75;
+
+    --form-normal-padding-x: calc(12px  * 2);
+    --form-normal-padding-y: calc(12px  * 0.75);
+    --form-normal-font-size: 0.875rem;
+    --form-normal-line-height: 1.75;
+
+    --form-lg-padding-x: calc(12px  * 3);
+    --form-lg-padding-y: calc(12px  * 0.75);
+    --form-lg-font-size: 0.9375rem;
+
     --codeblock-header-text: inherit;
     --codeblock-header-bg: #e6e9f1;
     --codeblock-body-bg: #f5f2f0;

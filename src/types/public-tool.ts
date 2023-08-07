@@ -4,14 +4,13 @@ type PublicToolType = {
     slug: string;
     coverImage: string;
     description: string;
-    categories: string[];
+    categories: Category[];
     link: string;
     tags: string[];
     status:"draft"| "published"| "archived"|"deleted"|"pending"|"rejected"|"approved";
-    createdAt?: string;
+    createdAt?: Date | string;
     verified: boolean;
-    category:Category[];
-    pricing_type: "free" | "paid" | "freemium" | "subscription" | "one_time_license"|  "open_source"|"other";
+    pricing_type: string | "free" | "paid" | "freemium" | "subscription" | "one_time_license"|  "open_source"|"other";
     
 }
 

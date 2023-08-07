@@ -1,12 +1,12 @@
 import { GetSessionParams, getSession } from "next-auth/react";
 import DashboardPage from "components/dashboard-page";
-import Button from "components/buttons";
+import Button ,{IconButton} from "components/buttons";
 import Badge from "components/topography/badge";
-import {Input} from "components/form-elements";
+import {Input,FormGroup,FormElement,Label} from "components/form-elements";
 import Head from "next/head";
 import { sessionType } from "@/src/types/session";
 import styled from "styled-components";
-
+import {BiLike} from "react-icons/bi";
 const Wrapper = styled.div`
     background: var(--card-bg);
     padding: 1rem;
@@ -196,38 +196,53 @@ const badges = [
     },
     
 ];
+const size = ["lg","normal","sm"];
+const options = {
+    noBorder: true,
+    floating:false,
+    lg:false,
+    sm:false,
+    
+}
 const inputs = [
     {
-        name: 'Nature',
-        examples:[
-            {
-            name: "noBorder",
-            options:{
-                noBorder: true,
-            }
-        },
-            {
-            name: "floating",
-            options:{
-                floating: true,
-            }
-        },
-            {
-            name: "Large",
-            options:{
-                lg: true,
-            }
-        },
-            {
-            name: "Small",
-            options:{
-                sm: true,
-            }
-        },
-    ].map((item, index) => {
+        name: 'noBorder',
+        examples: size.map((item, index) => {
             return {
-                name: item.name,
-                options:item.options
+                name: item,
+                options:{
+                    nature: "noBorder",
+                    level: true,
+                    size:item,
+
+                }
+            }
+        }
+    )},
+    {
+        name: 'underlined',
+        examples: size.map((item, index) => {
+            return {
+                name: item,
+                options:{
+                    size:item,
+                    nature: "underlined",
+                    level: true,
+
+                }
+            }
+        }
+    )},
+    {
+        name: 'floating',
+        examples: size.map((item, index) => {
+            return {
+                name: item,
+                options:{
+                    size:item,
+                    nature: "floating",
+                    level: true,
+                }
             }
         }
     )},
@@ -261,6 +276,20 @@ export default function Dashboard({ user }) {
                         </div>
                     })}
                 </Wrapper>
+                <Wrapper id="icon-btn">
+                    <h2 className="title">Icon Button</h2>
+                    {btn.map((item, index) => {
+                        return <div key={index} className="my-4">
+                            <h3>{item.name}</h3>
+                            {item.examples.map((example, index) => {
+                                return (<IconButton {...example.options} key={index}>
+                                    <BiLike/>
+                                </IconButton>)
+                            })
+                            }
+                        </div>
+                    })}
+                </Wrapper>
                 <Wrapper id="badges">
                     <h2 className="title">Badges</h2>
                     {badges.map((item, index) => {
@@ -277,15 +306,31 @@ export default function Dashboard({ user }) {
                 </Wrapper>
                 <Wrapper id="inputs">
                     <h2 className="title">Badges</h2>
+                    <>
+
                     {inputs.map((item, index) => {
                         return <div key={index} className="my-4">
                             <h3>{item.name}</h3>
+                            <FormGroup style={{
+                                flexWrap:"nowrap",
+                                width:"100%",
+                            }}>
+
                             {item.examples.map((example, index) => {
-                                return (<Input className="mb-2" {...example.options} placeholder={example.name} key={index} />)
+                                return (<FormElement 
+                                    key={index}
+                                  {...example.options}>
+                                    <Label htmlFor={example.name}>{example.name}</Label>
+                                    <Input id={example.name} placeholder={example.name} level={true}/>
+                                </FormElement>)
                             })
                             }
+                         </FormGroup>
+
                         </div>
                     })}
+                 </>
+
                 </Wrapper>
 
 
