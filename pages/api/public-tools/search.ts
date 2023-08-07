@@ -2,13 +2,19 @@ import handler from 'lib/handler';
 import dbConnect from "lib/dbConnect";
 import nextConnect from 'next-connect';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { hasSsrMiddleware } from 'middleware/checkUser';
+// import { hasSsrMiddleware } from 'middleware/checkUser';
 import PublicTool from 'models/public-tool';
+
+
+const origin = process.env.NODE_ENV === 'production' ? process.env.WEBSITE_URL : 'http://localhost:3000'
+if(!origin) throw new Error("WEBSITE_URL is not defined in .env.local");
 
 export default nextConnect(handler)
     .post(async (req: NextApiRequest, res: NextApiResponse,next) => {
         try{
-            await hasSsrMiddleware(req,res,next);
+
+            res.setHeader('Access-Control-Allow-Origin', origin);
+
             await dbConnect();
             
      

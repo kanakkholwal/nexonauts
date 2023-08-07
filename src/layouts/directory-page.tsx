@@ -145,7 +145,7 @@ export const DirectoryPageSearchResults = styled.div`
         width: 100%;
         display: flex;
         align-items: stretch;
-        justify-content: space-between;
+        justify-content: flex-start;
         background-color: rgba(var(--light-rgb), 1);
         border-radius: 20px;
         padding: 1rem;
@@ -156,6 +156,8 @@ export const DirectoryPageSearchResults = styled.div`
             max-width: 350px;
             height:auto;
             border-radius: 10px;
+            border: 1px solid rgba(var(--grey-rgb), 0.1);
+
         
         }
         p{
@@ -233,6 +235,10 @@ export const DirectoryPageSearchFilters = styled.div`
     min-height: 25vh;
     position: sticky;
     top: 10px;
+
+    .Filter{
+        margin:0;
+    }
 `;
 export const DirectoryPageContainer= styled.div`
     width: 100%;
