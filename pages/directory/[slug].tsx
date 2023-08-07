@@ -17,7 +17,7 @@ export async function getStaticPaths() {
     const paths = tools.map(({ slug }) => {
         return {
             params: {
-                id: slug,
+                slug: slug,
             }
         };
     }) || [];
@@ -32,7 +32,7 @@ export async function getStaticProps({ params }) {
     try {
 
         const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/public-tools/ssr`,{
-            slug:params.id
+            slug:params.slug
         },{
             headers:{
                 "Content-Type":"application/json",
