@@ -17,12 +17,22 @@ export default nextConnect(handler)
             // Perform the search with pagination and sorting
             const tools = await PublicTool.find({status:"published" || "approved"}).
             sort({ createdAt: -1 }). limit(10);
-
+            const categories = await PublicTool.aggregate([
+                { $unwind: "$categories" },
+                {
+                  $group: {
+                    _id: "$categories.slug",
+                    name: { $first: "$categories.name" },
+                    slug: { $first: "$categories.slug" },
+                  },
+                },
+                { $project: { _id: 0, name: 1, slug: 1 } },
+              ]);
            return  res.json({
                 success: true,
                 message: "Tools fetched successfully",
                 tools,
-                categories: []
+                categories: categories
             });
 
 

@@ -132,7 +132,7 @@ export const DirectoryPageSearchResults = styled.div`
     width: 100%;
     margin-top: 2rem;
     display: flex;
-    align-items: stretch;
+    align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
     gap: 1rem;
@@ -150,6 +150,76 @@ export const DirectoryPageSearchResults = styled.div`
         border-radius: 20px;
         padding: 1rem;
         gap: 1rem;
+      
+        img{
+            width: 100%;
+            max-width: 350px;
+            height:auto;
+            border-radius: 10px;
+        
+        }
+        p{
+            font-size: 16px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+            text-wrap:balance;
+            overflow: hidden;
+            max-height: 3.5rem;
+            margin-bottom: 1rem;
+            width:100%;
+        }
+        .Meta{
+            display: flex;
+            justify-content:flex-start;
+            align-items: center;
+            gap: 0.20rem;
+            margin-bottom:0.75rem;
+            .pricing_type{
+                padding: 0.125rem 0.5rem;
+                border-radius: 25px;
+                background-color: rgba(var(--theme-rgb), 0.25);
+                color:rgba(var(--dark-rgb), 01);
+                font-size: 12px;
+                font-weight: 500;
+            }
+        }
+        .CheckOut{
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            background-color: rgba(var(--theme-rgb), 0.25);
+            color:rgba(var(--dark-rgb), 01);
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            &:hover{
+                background-color: rgba(var(--theme-rgb), 0.5);
+            }
+        }
+        .TryOut{
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            background-color: rgba(var(--theme-rgb), 0.25);
+            color:rgba(var(--dark-rgb), 01);
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            &:hover{
+                background-color: rgba(var(--theme-rgb), 0.5);
+            }
+        }
+        @media screen and (width <= 920px) {
+            flex-wrap: wrap;
+            img{ max-width: 100%;}
+        }
     }
 
 `;
@@ -161,6 +231,8 @@ export const DirectoryPageSearchFilters = styled.div`
     border-radius: 20px;
     height:100%;
     min-height: 25vh;
+    position: sticky;
+    top: 10px;
 `;
 export const DirectoryPageContainer= styled.div`
     width: 100%;
@@ -168,4 +240,5 @@ export const DirectoryPageContainer= styled.div`
     min-height: 100vh;
     margin: 0 auto;
     max-width: 1600px;
+    padding: 1rem;
 `;
