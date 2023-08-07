@@ -21,9 +21,7 @@ const nextConfig = withPWA({
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '*',
-        port: '',
-        pathname: '**',
+        hostname: "**",
       },
     ],
   },
