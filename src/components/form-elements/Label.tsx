@@ -28,8 +28,8 @@ line-height: 1rem;
 
 ` :""}
 ${({lg}) => lg ? `
-font-size: 0.875rem;
-line-height: 1rem;
+font-size: 1.25rem;
+line-height: 1.25rem;
 
 ` :""}
 `;

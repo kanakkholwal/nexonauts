@@ -58,7 +58,9 @@ const publicToolSchema = new mongoose.Schema({
     pricing_type:{
         type: String,
         required: true,
-        enum: ["free", "paid", "freemium", "one_time_license", "subscription", "open_source", "other"],
+        trim:true,
+        default:"other"
+        // enum: ["free", "paid", "freemium", "one_time_license", "subscription", "open_source", "other"],
     },
     verified:{
         type: Boolean,

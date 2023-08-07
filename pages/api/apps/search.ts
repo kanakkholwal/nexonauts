@@ -41,7 +41,7 @@ export default nextConnect(handler)
             // Count total matching documents for pagination
             const total = await App.countDocuments(searchQuery);
 
-            res.json({
+            return res.json({
                 success: true,
                 apps,
                 pagination: {

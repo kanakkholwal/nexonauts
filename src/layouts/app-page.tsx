@@ -4,10 +4,10 @@ import { BreadCrumb } from "components/breadcrumb";
 import { MainWrapper, ContentWrapper, } from "components/layouts/wrapper";
 import styled from "styled-components";
 import SideNav from "components/layouts/sidenav";
-import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 
 import { RiAppsLine } from "react-icons/ri";
 import { TbTools ,TbSmartHome,TbBrandBlogger,TbDashboard} from "react-icons/tb";
+import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 
 const SocialMedia = [
     {

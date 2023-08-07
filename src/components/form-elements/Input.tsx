@@ -3,13 +3,10 @@ import styled from 'styled-components';
 
 
 const Input = styled.input<{
-    nature?: string;
-    noBorder?: string;
-    underlined?: string;
-    floating?: boolean;
-    level?:boolean;
-    lg?: boolean;
-    sm?: boolean;
+    nature?:"noBorder" | "underlined" |"floating"| "normal" | undefined;
+    level?:boolean | undefined;
+    sm?:boolean | undefined;
+    lg?:boolean |undefined;
 }>`
   letter-spacing: 0.065em;
   font-weight: 500;
@@ -72,25 +69,14 @@ const Input = styled.input<{
     animation-duration: 500ms;
     animation-fill-mode: both;
   }
-  ${props => props.lg ? `
-  font-size: 1rem !important;
-  line-height: 2.15 !important;
-  border-radius: 0.5rem !important;
-  padding:0.75rem 0.875rem !important;`: ""}
-  
-  ${props => props.sm ? `
-  font-size: 0.875rem !important;
-  line-height: 1rem!important;
-  padding: 8px 24px 8px 8px!important;
-  border-radius: 0.5rem !important;
-  border-width: 1px !important;`: ""}
 
   
-  ${props => props.noBorder === "true" ? `
+
+  ${props => props.nature === "noBorder" ? `
   border: none!important;
   `: ""}
   
-  ${props => props.underlined ? `
+  ${props => props.nature  === "underlined"? `
   border-bottom-left-radius: 0!important;
   border-bottom-right-radius: 0!important;
   z-index: 1;
@@ -122,7 +108,7 @@ const Input = styled.input<{
     }
   }`: ""}
 
-  ${props => props.floating ? `
+  ${props => props.nature === "floating" ? `
   z-index: 1;
   background-color: transparent;
   border: none;
