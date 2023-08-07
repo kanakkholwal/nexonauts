@@ -9,7 +9,6 @@ import { Interweave } from 'interweave';
 import Link from "next/link";
 import { toast } from "react-hot-toast";
 
-
 export default function TextInputToTextOutput({ app, user }) {
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
