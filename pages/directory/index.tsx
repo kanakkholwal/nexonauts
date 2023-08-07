@@ -10,8 +10,6 @@ import {
     DirectoryPageSearchContainer,
     DirectoryPageSearchResults,
     DirectoryPageSearchFilters
-
-
 } from "src/layouts/directory-page";
 import { Wobble } from "components/Loader"
 
