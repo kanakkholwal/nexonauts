@@ -308,7 +308,7 @@ export default function Dashboard({ user }) {
                     <h2 className="title">Badges</h2>
                     <>
 
-                    {inputs.map((item, index) => {
+                    {/* {inputs.map((item, index) => {
                         return <div key={index} className="my-4">
                             <h3>{item.name}</h3>
                             <FormGroup style={{
@@ -328,7 +328,7 @@ export default function Dashboard({ user }) {
                          </FormGroup>
 
                         </div>
-                    })}
+                    })} */}
                  </>
 
                 </Wrapper>
