@@ -274,7 +274,7 @@ export default function SideNav({ routes, user }) {
                     <p className='Email'>@{user?.username}</p>
                 </div>
                 <div className='Actions'>
-                {user.role === 'admin' ? <Link href='/dashboard/admin' title='Switch to Admin Panel'><TbSwitchHorizontal/></Link> : null}
+                {user?.role === 'admin' ? <Link href='/dashboard/admin' title='Switch to Admin Panel'><TbSwitchHorizontal/></Link> : null}
                 </div>
             </Profile>
             {routes?.length > 0 ? <RecursiveLinkList routes={routes.filter(route =>{

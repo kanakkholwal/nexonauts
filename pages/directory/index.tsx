@@ -20,6 +20,7 @@ import { Input,Select } from "components/form-elements";
 
 
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
+import { useEffect, useState } from "react";
 
 const SocialMedia = [
     {
@@ -48,6 +49,33 @@ export default function AiDirectory({
 
 }) {
 
+    const [tools, setTools] = useState<PublicToolType[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<boolean>(false);
+    const [settings, setSettings] = useState({
+        search: "",
+        pricing: "Default",
+        category: "Default",
+    });
+
+    useEffect(() =>{
+        axios.post("/api/public-tools/all",{},{
+            headers:{
+                "Content-Type": "application/json"
+            }
+        })
+        .then(res =>{
+            setTools(res.data);
+            setLoading(false);
+        }
+        )
+        .catch(err =>{
+            setError(true);
+            setLoading(false);
+        }
+        )
+
+    },[])
 
   
 

@@ -141,6 +141,17 @@ export const DirectoryPageSearchResults = styled.div`
     border-radius: 20px;
     height:100%;
     min-height: 50vh;
+    .SearchResult{
+        width: 100%;
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        background-color: rgba(var(--light-rgb), 1);
+        border-radius: 20px;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
 `;
 export const DirectoryPageSearchFilters = styled.div`
     width: 30%;
