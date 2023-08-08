@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 
 
-export const DirectoryPageNavBar= styled.nav`
+export const DirectoryPageNavBar = styled.nav`
     width: 100%;
     padding:1rem 2rem;
     display: flex;
@@ -131,35 +131,39 @@ export const DirectoryPageSearchContainer = styled.div`
 export const DirectoryPageSearchResults = styled.div`
     width: 100%;
     margin-top: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
     background-color: rgba(var(--grey-rgb), .1);
     padding: 1rem;
     border-radius: 20px;
     height:100%;
     min-height: 50vh;
-    .SearchResult{
-        width: 100%;
+    .Results{
+        display: flex;
+        align-items: stretch;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top:1rem;
+        .SearchResult{
+        max-width: 100%;
         display: flex;
         align-items: stretch;
         justify-content: flex-start;
         background-color: rgba(var(--light-rgb), 1);
         border-radius: 20px;
         padding: 1rem;
-        gap: 1rem;
-      
+        gap: 12px;
+        
+        &>div{
+            flex: 1 1 auto;
+        }
         img{
             width: 100%;
             max-width: 350px;
             height:auto;
             border-radius: 10px;
-            border: 1px solid rgba(var(--grey-rgb), 0.1);
-
-        
+            border: 1px solid rgba(var(--grey-rgb), 0.1);        
         }
+
         p{
             font-size: 16px;
             display: -webkit-box;
@@ -184,7 +188,12 @@ export const DirectoryPageSearchResults = styled.div`
                 color:rgba(var(--dark-rgb), 01);
                 font-size: 12px;
                 font-weight: 500;
+                text-transform: capitalize;
             }
+        }
+        .actions{
+            display: flex;
+            gap:0.5rem;
         }
         .CheckOut{
             padding: 0.5rem 1.5rem;
@@ -223,7 +232,86 @@ export const DirectoryPageSearchResults = styled.div`
             img{ max-width: 100%;}
         }
     }
+        &.grid{
+        display: grid;
+            grid-gap:1rem;
+@media (min-width:576px) {
+    padding: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
+}
+@media (min-width:768px) {
+    padding: 1.5rem;
+    grid-template-columns: repeat(2, 5fr);
+}
+@media (min-width:992px) {
+    grid-template-columns: repeat(3, 3.3fr);
+}
 
+@media (min-width: 1400px) {
+    grid-template-columns: repeat(4, 2.5fr);
+}
+
+.SearchResult{
+        max-width: 100%;
+        flex-direction: column;
+        img{
+            width: 100%;
+            aspect-ratio: 16/9;
+        }
+        .actions{
+            flex-direction: column;
+        }
+        .CheckOut,.TryOut{
+            width:100%;
+        }
+    }
+}
+}
+    
+    .info{
+        display: flex;
+        width:100%;
+        align-items: center;
+        justify-content: space-between;
+        gap:0.5rem;
+        .count{
+            font-size: 1rem;
+            font-weight: 500;
+            color:rgba(var(--dark-rgb), 1);
+        }
+        .line{
+            flex: 1 1 auto;
+            height: 1px;
+            background-color: rgba(var(--grey-rgb), 0.25);
+            vertical-align: middle;
+        }
+        .options{
+            display: flex;
+            align-items: center;
+            .layout{
+                padding: 0.25rem 0.5rem;
+                border-radius: 10px;
+                background-color: rgba(var(--light-rgb), 1);
+                font-size: 16px;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.125rem;
+                .grid, .list{
+                    padding:2px 6px;
+                    border-radius: 5px;
+                    color:rgba(var(--dark-rgb), 1);
+                    &.active{
+                        background-color: rgba(var(--theme-rgb), 0.5);
+                        color:rgba(var(--light-rgb), 1);
+                    }
+                }
+            }
+        }
+    }
+    
 `;
 export const DirectoryPageSearchFilters = styled.div`
     width: 30%;
@@ -239,8 +327,12 @@ export const DirectoryPageSearchFilters = styled.div`
     .Filter{
         margin:0;
     }
+    @media screen and (max-width: 1048px) {
+        display:none;
+
+    }
 `;
-export const DirectoryPageContainer= styled.div`
+export const DirectoryPageContainer = styled.div`
     width: 100%;
     height: 100%;
     min-height: 100vh;
