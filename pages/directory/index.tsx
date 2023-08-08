@@ -20,7 +20,8 @@ import { Input, Select, CheckBox, Label, FormElement } from "components/form-ele
 
 
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
-import { useEffect, useState } from "react";
+import {CiGrid2H, CiGrid41} from "react-icons/ci"
+import { JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from "react";
 import Image from "next/image";
 
 const SocialMedia = [
@@ -54,10 +55,17 @@ export default function AiDirectory({
     const [tools, setTools] = useState<PublicToolType[]>(defaultTools);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
-    const [settings, setSettings] = useState({
+    const [settings, setSettings] = useState<{
+        query: string;
+        page: number;
+        limit: number;
+        grid: boolean;
+    }>({
         query: "",
         page: 0,
         limit: 10,
+        grid: false,
+        
     });
     const [filter, setFilter] = useState<{
         pricing_type: string;
@@ -68,8 +76,8 @@ export default function AiDirectory({
     })
 
     // search with debounce function
-    const debounce = (func, delay) => {
-        let debounceTimer
+    const debounce = (func: { (e: any): Promise<void>; apply?: any; }, delay: number | undefined) => {
+        let debounceTimer: string | number | NodeJS.Timeout | undefined
         return function () {
             const context = this
             const args = arguments
@@ -79,7 +87,7 @@ export default function AiDirectory({
         }
     }
 
-    const handleSearch = async (e) => {
+    const handleSearch = async (e: { preventDefault: () => void; target: { value: any; }; }) => {
         e.preventDefault();
         setSettings({
             ...settings,
@@ -192,7 +200,7 @@ export default function AiDirectory({
                         ]}
                         lg={true}
 
-                        onChange={option => {
+                        onChange={(option: { value: string; }) => {
                             setFilter({
                                 ...filter,
                                 pricing_type: option.value
@@ -204,8 +212,33 @@ export default function AiDirectory({
                 <div className="d-flex justify-content-between align-items-stretch g-3">
 
                     <DirectoryPageSearchResults>
-                        {loading ? <Wobble /> : null}
+                        <div className="info">
+                            <div className="count">{tools.length} tools found</div>
+                            <div className="line"/>
+                            <div className="options">
+                                    <button
+                                        type="button"
+                                        onClick={() =>{
+                                            setSettings({
+                                                ...settings,
+                                                grid: !settings.grid,
+                                            })
+                                        }}
+                                        className="layout"
+                                    >
+                                        <span className={"grid " + (settings.grid ? " active":"")}>
+                                        <CiGrid41/>
+                                        </span>
+                                        <span className={"list " + (!settings.grid ? "active":"")}>
+                                        <CiGrid2H />
+                                        </span>
 
+                                    </button>
+                            </div>
+
+                        </div>
+                        {loading ? <Wobble /> : null}
+                        <div className={"Results " + (settings.grid ? " grid":"")}>
                         {tools.filter(tool => {
                             let isValid = true;
                             // if(settings.search === ""){
@@ -231,7 +264,7 @@ export default function AiDirectory({
                             return isValid;
                         }).map((tool) => {
 
-                            return (<div className="SearchResult" key={tool._id}>
+                            return (<div className={"SearchResult "} key={tool._id}>
 
                                 <Image
                                     width={350}
@@ -247,7 +280,7 @@ export default function AiDirectory({
 
                                         <span className="pricing_type">{tool.pricing_type}</span>
                                     </div>
-                                    <div className="d-flex g-1">
+                                    <div className="actions">
 
                                         <Link href={`/directory/${tool.slug}`} className="CheckOut">
                                             Check it Out
@@ -262,10 +295,17 @@ export default function AiDirectory({
 
                             </div>)
                         })}
+                                                </div>
+
                     </DirectoryPageSearchResults>
 
                     <DirectoryPageSearchFilters>
-                        {categories.map((category) => {
+                        {categories.map((category:{
+                            _id: string;
+                            name: string;
+                            slug: string;
+
+                        }) => {
                             return (
                                 <FormElement className="Filter" key={category._id}>
                                     <CheckBox
@@ -304,7 +344,7 @@ export default function AiDirectory({
 }
 
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: any) {
 
     let data = {
         type: "idle",
