@@ -28,11 +28,14 @@ export default nextConnect(handler)
                 },
                 { $project: { _id: 0, name: 1, slug: 1 } },
               ]);
+              const pricingTypes = await PublicTool.distinct("pricing_type");
+
            return  res.json({
                 success: true,
                 message: "Tools fetched successfully",
                 tools,
-                categories: categories
+                categories: categories,
+                pricing_types:pricingTypes
             });
 
 

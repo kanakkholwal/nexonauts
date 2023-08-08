@@ -9,9 +9,11 @@ import {
     DirectoryPageHero,
     DirectoryPageSearchContainer,
     DirectoryPageSearchResults,
-    DirectoryPageSearchFilters
+    DirectoryPageSearchFilters,
+    GoToTop
 } from "src/layouts/directory-page";
 import { Wobble } from "components/Loader"
+import { IconButton } from "components/buttons"
 
 import { TbSearch, TbExternalLink, TbArrowBigRightLine } from "react-icons/tb";
 import Link from "next/link";
@@ -20,8 +22,11 @@ import { Input, Select, CheckBox, Label, FormElement } from "components/form-ele
 
 
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
-import {CiGrid2H, CiGrid41} from "react-icons/ci"
-import { JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from "react";
+import { CiGrid2H, CiGrid41 } from "react-icons/ci"
+import { RiArrowRightUpLine } from "react-icons/ri"
+import { RxArrowUp } from "react-icons/rx"
+import { CgMenuRightAlt } from "react-icons/cg"
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 
 const SocialMedia = [
@@ -49,7 +54,8 @@ const SocialMedia = [
 
 export default function AiDirectory({
     tools: defaultTools,
-    categories
+    categories,
+    pricing_types
 }) {
 
     const [tools, setTools] = useState<PublicToolType[]>(defaultTools);
@@ -60,20 +66,104 @@ export default function AiDirectory({
         page: number;
         limit: number;
         grid: boolean;
+        show: boolean;
     }>({
         query: "",
         page: 0,
         limit: 10,
         grid: false,
-        
+        show: false,
+
     });
+    const [pagination, setPagination] = useState<{
+        currentPage: number;
+        pageSize: number;
+        totalPages: number;
+        totalItems: number;
+    }>({
+        currentPage: 0,
+        pageSize: 10,
+        totalPages: 0,
+        totalItems: 0,
+    })
     const [filter, setFilter] = useState<{
         pricing_type: string;
         categories: string[];
     }>({
         pricing_type: "Default",
         categories: [],
-    })
+    });
+
+    const filteredTools = useMemo(() => {
+
+        return tools.filter(tool => {
+            let isValid = true;
+    
+            // Other code...
+    
+            if (filter.pricing_type !== "Default" && tool.pricing_type !== filter.pricing_type) {
+                isValid = false;
+            }
+    
+            if (filter.categories.length > 0 && !filter.categories.some(category => tool.categories.findIndex(toolCategory => toolCategory.slug === category) >= 0)) {
+                isValid = false;
+            }
+            // console.log(tool.pricing_type)
+    
+            return isValid;
+        }) as PublicToolType[];
+    }, [filter,tools,settings.query]);
+    const [loadingMore, setLoadingMore] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+
+    async function loadMoreData() {
+        try {
+            const response = await axios.post(`/api/public-tools/search?query=${settings.query}&page=${pagination.currentPage + 1}&limit=${settings.limit}`);
+
+            setTools(prevTools => [...prevTools, ...response.data.tools]);
+            setPagination(response.data.pagination)
+
+            if (response.data.tools.length < settings.limit) {
+                setHasMore(false);
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoadingMore(false);
+        }
+    }
+    const lastToolRef = useRef<HTMLDivElement>(null);
+
+useEffect(() => {
+    const observer = new IntersectionObserver(
+        entries => {
+            if (entries[0].isIntersecting && hasMore && !loadingMore) {
+                setLoadingMore(true);
+            }
+        },
+        { root: null, rootMargin: '0px', threshold: 1 }
+    );
+
+    if (lastToolRef.current) {
+        observer.observe(lastToolRef.current);
+    }
+
+    return () => {
+        if (lastToolRef.current) {
+            observer.unobserve(lastToolRef.current);
+        }
+    };
+}, [hasMore, loadingMore]);
+
+    
+    useEffect(() => {
+        if (loadingMore) {
+            
+    
+            loadMoreData();
+        }
+    }, [loadingMore]);
+        
 
     // search with debounce function
     const debounce = (func: { (e: any): Promise<void>; apply?: any; }, delay: number | undefined) => {
@@ -93,7 +183,7 @@ export default function AiDirectory({
             ...settings,
             query: e.target.value
         })
-        if(settings.query === ""){
+        if (settings.query === "") {
             setTools(defaultTools);
             setLoading(false);
             return;
@@ -126,7 +216,7 @@ export default function AiDirectory({
                     <Link href="/directory" className="Title">
                         AI Directory
                     </Link>
-                    <div className="LinkList">
+                    <div className={"LinkList " + (settings.show ? " show":"")}>
                         <Link href="/">
                             Home
                         </Link>
@@ -143,18 +233,31 @@ export default function AiDirectory({
                     <Link href="/submit" className="Submit">
                         Submit
                     </Link>
+                    <IconButton type="button" className="toggler"
+                        onClick={() => {
 
+                            setSettings((prevSettings) =>{
+                                return {
+                                    ...prevSettings,
+                                    show: !prevSettings.show
+                                }
+                            })
+                        }
+                    }
+                    >
+                        <CgMenuRightAlt size={16}/>
+                    </IconButton>
                 </DirectoryPageNavBar>
 
                 <DirectoryPageHero>
                     <div>
 
-                        <h2>Your Path to Peak Efficiency</h2>
+                        <h2 className="title">Your Path to Peak Efficiency</h2>
                         <p className="description">Unlock your productivity potential with AI-powered tools that streamline your workflow, optimize tasks, and elevate your success. Embrace a future of seamless efficiency at the Productivity Hub.</p>
 
                         <Link className="SubmitYourTool"
                             href="/submit">
-                            Submit your tool
+                            Submit your tool <RiArrowRightUpLine size={20}/>
                         </Link>
                     </div>
                     <div className="illustration">
@@ -174,22 +277,27 @@ export default function AiDirectory({
                     <Select
                         label="Pricing Type"
                         value={filter.pricing_type}
-                        options={[
+                        options={pricing_types?.length > 0 ? pricing_types.map(type => {
+                            return {
+                                label: type,
+                                value: type
+                            }
+                        })  :[
                             {
                                 label: "Default",
                                 value: "Default"
                             },
                             {
                                 label: "Free",
-                                value: "Free"
+                                value: "free"
                             },
                             {
                                 label: "Paid",
-                                value: "Paid"
+                                value: "paid"
                             },
                             {
                                 label: "Freemium",
-                                value: "Freemium"
+                                value: "freemium"
                             },
                             {
                                 label: "Open Source",
@@ -200,11 +308,12 @@ export default function AiDirectory({
                         ]}
                         lg={true}
 
-                        onChange={(option: { value: string; }) => {
-                            setFilter({
-                                ...filter,
+                        onChange={(option: { value: string;label:string}) => {
+                            // console.log(option.value)
+                            setFilter(prevFilter => ({
+                                ...prevFilter,
                                 pricing_type: option.value
-                            })
+                            }));
                         }}
                     />
                 </DirectoryPageSearchContainer>
@@ -213,94 +322,110 @@ export default function AiDirectory({
 
                     <DirectoryPageSearchResults>
                         <div className="info">
-                            <div className="count">{tools.length} tools found</div>
-                            <div className="line"/>
+                            <div className="count">{filteredTools.length} tools found</div>
+                            <div className="line" />
                             <div className="options">
-                                    <button
-                                        type="button"
-                                        onClick={() =>{
-                                            setSettings({
-                                                ...settings,
-                                                grid: !settings.grid,
-                                            })
-                                        }}
-                                        className="layout"
-                                    >
-                                        <span className={"grid " + (settings.grid ? " active":"")}>
-                                        <CiGrid41/>
-                                        </span>
-                                        <span className={"list " + (!settings.grid ? "active":"")}>
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setSettings({
+                                            ...settings,
+                                            grid: !settings.grid,
+                                        })
+                                    }}
+                                    className="layout"
+                                >
+                                    <span className={"grid " + (settings.grid ? " active" : "")}>
+                                        <CiGrid41 />
+                                    </span>
+                                    <span className={"list " + (!settings.grid ? "active" : "")}>
                                         <CiGrid2H />
-                                        </span>
+                                    </span>
 
-                                    </button>
+                                </button>
                             </div>
 
                         </div>
-                        {loading ? <Wobble /> : null}
-                        <div className={"Results " + (settings.grid ? " grid":"")}>
-                        {tools.filter(tool => {
-                            let isValid = true;
-                            // if(settings.search === ""){
-                            //     return true;
-                            // }else 
-                            // if(tool.name.toLowerCase().includes(settings.search.toLowerCase())){
-                            //     return tool;
-                            // }
-                            if (filter.pricing_type !== "Default") {
-                                if (tool.pricing_type !== filter.pricing_type) {
-                                    isValid = false;
+
+                        {loading ? <div className="d-flex justify-content-center align-items-center my-2"><Wobble /></div> : null}
+                        <div className={"Results " + (settings.grid ? " grid" : "")}>
+                            {filteredTools.map((tool,index) => {
+
+                                return (<div className={"SearchResult "} key={tool._id} style={{
+                                    animationDelay: `${index * 0.01}s`
+                                }}>
+
+                                    <Image
+                                        width={350}
+                                        height={400}
+                                        src={tool.coverImage} alt={tool.name} />
+
+
+                                    <div className="SearchResultContent">
+                                        <h3>{tool.name}</h3>
+                                        <p>{tool.description}</p>
+
+                                        <div className="Meta">
+
+                                            <span className="pricing_type">{tool.pricing_type}</span>
+                                        </div>
+                                        <div className="actions">
+
+                                            <Link href={`/directory/${tool.slug}`} className="CheckOut">
+                                                Check it Out
+                                                <TbArrowBigRightLine />
+                                            </Link>
+                                            <Link href={tool.link} className="TryOut" target="_blank">
+                                                Try it Out
+                                                <TbExternalLink />
+                                            </Link>
+                                        </div>
+                                    </div>
+
+                                </div>)
+                            })}
+                        </div>
+                        {filteredTools.length === 0 && !loading ? <div className="NoResults">
+                            <h2>No results found</h2>
+                            <p>Try another search query</p>
+                        </div> : null}
+                        {loadingMore ? <div className="d-flex justify-content-center align-items-center my-2"><Wobble /></div> : null}
+
+                        <div className="footer" id="search-footer" ref={lastToolRef}>
+                            {!hasMore ? <div className="NoMoreResults">
+                               No more results
+                            </div> : null
                                 }
-                            }
 
-                            if (filter.categories.length === 0) {
-                                isValid = true;
-                            }
-                            // check if filter categories matches with tool categories
-                            if (filter.categories.some(category => tool.categories.findIndex(toolCategory => toolCategory.slug === category) >= 0)) {
-                                isValid = true;
-                            }
+                            {/* <button
+                                type="button"
+                                className="prev"
+                                onClick={() => {
+                                    // setPage(prevPage => prevPage + 1);
+                                }}
+                            >
+                                    Previous
+                            </button>
+                            <div className="page">
+                                    Page {pagination.currentPage} of {pagination.totalPages}
+                            </div>
+                            <button
+                                type="button"
+                                className="next"
+                                onClick={() => {
+                                    // setPage(prevPage => prevPage + 1);
+                                }}
+                            >
+                                    Next
+                            </button> */}
 
-                            return isValid;
-                        }).map((tool) => {
+                        </div>
 
-                            return (<div className={"SearchResult "} key={tool._id}>
-
-                                <Image
-                                    width={350}
-                                    height={400}
-                                    src={tool.coverImage} alt={tool.name} />
-
-
-                                <div className="SearchResultContent">
-                                    <h3>{tool.name}</h3>
-                                    <p>{tool.description}</p>
-
-                                    <div className="Meta">
-
-                                        <span className="pricing_type">{tool.pricing_type}</span>
-                                    </div>
-                                    <div className="actions">
-
-                                        <Link href={`/directory/${tool.slug}`} className="CheckOut">
-                                            Check it Out
-                                            <TbArrowBigRightLine />
-                                        </Link>
-                                        <Link href={tool.link} className="TryOut" target="_blank">
-                                            Try it Out
-                                            <TbExternalLink />
-                                        </Link>
-                                    </div>
-                                </div>
-
-                            </div>)
-                        })}
-                                                </div>
 
                     </DirectoryPageSearchResults>
 
                     <DirectoryPageSearchFilters>
-                        {categories.map((category:{
+                        {categories.map((category: {
                             _id: string;
                             name: string;
                             slug: string;
@@ -312,17 +437,13 @@ export default function AiDirectory({
                                         checked={filter.categories.includes(category.slug)}
                                         onChange={() => {
 
-                                            if (filter.categories.includes(category.slug)) {
-                                                setFilter({
-                                                    ...filter,
-                                                    categories: filter.categories.filter((cat) => cat !== category.slug)
-                                                })
-                                            } else {
-                                                setFilter({
-                                                    ...filter,
-                                                    categories: [...filter.categories, category.slug]
-                                                })
-                                            }
+                                            setFilter(prevFilter => ({
+                                                ...prevFilter,
+                                                categories: prevFilter.categories.includes(category.slug)
+                                                    ? prevFilter.categories.filter(cat => cat !== category.slug)
+                                                    : [...prevFilter.categories, category.slug]
+                                            }));
+                                            
 
                                         }
                                         }
@@ -339,6 +460,20 @@ export default function AiDirectory({
 
             </DirectoryPageContainer>
             <Footer socialMedia={SocialMedia} />
+
+            <GoToTop role="button" 
+            onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                window?.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                })
+            }}
+            >
+                <RxArrowUp size={20}/>
+
+            </GoToTop>
         </>
     )
 }
@@ -379,6 +514,7 @@ export async function getServerSideProps(context: any) {
         props: {
             tools: response.data.tools as PublicToolType[],
             categories: response.data.categories,
+            pricing_types: response.data.pricing_types as string[] | undefined || [],
             data,
         },
 
