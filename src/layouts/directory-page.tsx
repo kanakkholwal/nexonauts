@@ -48,7 +48,6 @@ export const DirectoryPageNavBar = styled.nav`
             transform: scale(0);
             gap: 10px;
             a{
-                font-size: 20px;
                 font-weight: 500;
                 color: var(--dark);
                 transition: all 0.3s ease;
@@ -483,3 +482,50 @@ export const GoToTop = styled.div`
     }
     
     `;
+
+export const SubmitToolContainer = styled.div`
+    width: 100%;
+    padding: 1rem;
+    border-radius: 25px;
+    background-color: rgba(var(--light-rgb), 1);
+    margin: auto;
+    max-width: 768px;
+    .Title{
+        font-size: 24px;
+        font-weight: 600;
+        color:rgba(var(--dark-rgb), 1);
+        margin-bottom: 1rem;
+        text-transform: capitalize;
+        text-align:center;
+    }
+    .subtitle{
+        font-size: 16px;
+        font-weight: 500;
+        /* color:rgba(var(--dark-rgb), 1); */
+        margin-bottom: 1rem;
+        text-align:center;
+        text-wrap:balance;
+    }
+    .footer{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        .spinner{
+            font-size: 24px;
+            aspect-ratio: 1;
+            color:rgba(var(--theme-rgb), 1);
+            svg{
+                display: none;
+            }
+            &.loading > svg{
+                display: inline-block;
+                animation: spin 1s linear infinite;
+            }
+            
+
+        }
+
+    }
+`;

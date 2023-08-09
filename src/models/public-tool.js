@@ -1,23 +1,5 @@
 import mongoose from "mongoose";
 
-const categorySchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true,
-        trim: true
-    },
-    slug:{
-        type: String,
-        required: true,
-        unique: true,
-        trim: true
-    },
-    createdAt: {
-        type: Date,
-        default: () => Date.now()
-    }
-});
 
 
 const publicToolSchema = new mongoose.Schema({
@@ -43,7 +25,11 @@ const publicToolSchema = new mongoose.Schema({
     },
     categories: [{
         name:String,
-        slug:String
+        slug:{
+            type:String,
+            unique:true,
+            trim:true
+        }
     }],
     link:{
         type: String,
@@ -69,10 +55,22 @@ const publicToolSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: () => Date.now()
+    },
+    author:{
+      required:false,
+      type:{
+        name:String,
+        email:String,
+        public_link:String
+      },
+    default:{
+        name:"Kanak",
+        email:"kanakkholwal@gmail.com",
+        public_link:"https://kanakkholwal.eu.org"
+        }
     }
 
 });
 
 
-export const Category =  mongoose.models.Category || mongoose.model('Category', categorySchema)
 export default mongoose.models.PublicTool || mongoose.model('PublicTool', publicToolSchema)
