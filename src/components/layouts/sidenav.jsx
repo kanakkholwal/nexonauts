@@ -264,7 +264,7 @@ export default function SideNav({ routes, user }) {
                 </SectionTitle> */}
                 <Logo />    
             </SideNavHeader>
-            <Profile>
+        {user?.role === 'admin'?    <Profile>
                 <div className='Avatar'>
                     <Image src={user?.profileURL} alt={user?.name} 
                     width={40} height={40}  />
@@ -276,7 +276,7 @@ export default function SideNav({ routes, user }) {
                 <div className='Actions'>
                 {user?.role === 'admin' ? <Link href='/dashboard/admin' title='Switch to Admin Panel'><TbSwitchHorizontal/></Link> : null}
                 </div>
-            </Profile>
+            </Profile>:null}
             {routes?.length > 0 ? <RecursiveLinkList routes={routes.filter(route =>{
                 if(route?.sessionRequired === true){
                     return user ? true : false;

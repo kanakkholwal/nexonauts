@@ -6,7 +6,7 @@ import Button from "components/buttons";
 // import Badge from "components/topography/badge";
 import { useState, useEffect, useRef } from "react";
 import { IoSettingsOutline } from "react-icons/io5";
-import { TbTools, TbLayoutSidebarRightCollapse, TbLayoutSidebarRightExpand ,TbCrown} from "react-icons/tb";
+import { TbBell, TbLayoutSidebarRightCollapse, TbLayoutSidebarRightExpand ,TbCrown} from "react-icons/tb";
 import { FaRegUser } from "react-icons/fa";
 import { CgSearch, CgClose } from "react-icons/cg";
 import {  MdLogout } from "react-icons/md";
@@ -61,6 +61,74 @@ border-radius: 0.5rem;
 aspect-ratio: 1;
 height: 40px;
 font-size:1.25rem;
+`;
+const NotificationWrapper = styled.div`
+position:relative;
+
+.notification-list{
+    position:absolute;
+    top:calc(100% + 20px);
+    right:0;
+    width:max-content;
+    max-width:20rem;
+    background-color:rgba(var(--light-rgb),1);
+    border-radius:0.5rem;
+    box-shadow: 0px 0px 1rem 0px rgba(var(--dark-rgb),0.1);
+    padding:0.5rem;
+    z-index:100;
+    transform-origin:top right;
+    transform:scale(0);
+    transition:transform 0.2s ease-in-out;
+    .notification-item{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:0.5rem;
+        padding:0.5rem;
+        border-radius:0.5rem;
+        background-color:rgba(var(--light-rgb),1);
+        color:rgba(var(--text-rgb),1);
+    }
+}
+&:focus-within, &.active{
+    .notification-list{
+        transform:scale(1)
+    }
+}
+`;
+const NotificationBtn = styled(Button)`
+padding: 0;
+margin-inline-end: 0.75rem;
+border-radius: 0.5rem;
+aspect-ratio: 1;
+height: 40px;
+font-size:1.25rem;
+position:relative;
+.notification-count{
+    position:absolute;
+    top:0;
+    right:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:1.5rem;
+    height:1.5rem;
+    border-radius:50%;
+    background-color:rgba(var(--theme-rgb),0.1);
+    color:rgba(var(--theme-rgb),1);
+    font-size:0.75rem;
+    font-weight:600;
+    transform:translate(50%,-50%);
+}
+&:active,&:focus,&.active{
+    background-color:rgba(var(--theme-rgb),1);
+    color:rgba(var(--light-rgb),1);
+    .notification-count{
+        background-color:rgba(var(--light-rgb),1);
+        color:rgba(var(--theme-rgb),1);
+    }
+}
+
 `;
 const NoSearchResult = styled.div`
 width:100%;
@@ -250,7 +318,7 @@ export default function Header({ user, routes, children }) {
     return (
         <>
             <NavBarWrapper ref={NavRef}>
-                <Toggler level="true"
+                <Toggler level={true}
                     rounded
                     onClick={() => setIsSidebarOpen((state) => !state)}>
                     {isSidebarOpen ? <TbLayoutSidebarRightExpand /> : <TbLayoutSidebarRightCollapse />}
@@ -260,7 +328,7 @@ export default function Header({ user, routes, children }) {
                 </Children>
                 {routes && routes.length > 0 ? <SearchWrapper open={isSearchOpen}>
                     <CgSearch />
-                    <SearchInput type="text" placeholder="Search" value={searchPath} onChange={(e) => setSearchPath(e.target.value)} onClick={() => setSearchResults(true)} />
+                    <SearchInput type="text" placeholder="Search pages ..." value={searchPath} onChange={(e) => setSearchPath(e.target.value)} onClick={() => setSearchResults(true)} />
                     <CgClose onClick={() => {
                         setIsSearchOpen(false);
                         setSearchResults(false);
@@ -291,10 +359,27 @@ export default function Header({ user, routes, children }) {
                 </SearchWrapper> : null}
  
 
-                <SearchToggler level="true" low="true"
+                <SearchToggler level={true} low={true}
                     rounded onClick={() => setIsSearchOpen((state) => !state)}>
                     <CgSearch />
                 </SearchToggler>
+                {/* <NotificationWrapper>
+                <NotificationBtn level={true} low={true}
+                    rounded onClick={() => {
+
+                    }}>
+                    <TbBell />
+                    <span className="notification-count">
+                        1
+                    </span>
+                </NotificationBtn>
+                <div  className="notification-list">
+                    <div className="notification-item">
+                        Checkout our new Features
+                    </div>
+
+                </div>
+                </NotificationWrapper> */}
                 {user ? <ProfileWrapper>
                     <Profile onClick={(e) => {
                         e.preventDefault();
@@ -342,7 +427,7 @@ export default function Header({ user, routes, children }) {
                         </ProfileDropDownItem>
                     </ProfileDropDown>
                 </ProfileWrapper> : <AuthButtonWrapper>
-                            <Button level="true" as={Link} href={"/login?continue="+ router.asPath}>Log In</Button>
+                            <Button level={true} as={Link} href={"/login?continue="+ router.asPath}>Log In</Button>
                             <Button as={Link} className="signup" href="/signup">Sign Up</Button>
                         </AuthButtonWrapper>}
             </NavBarWrapper>

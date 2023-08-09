@@ -100,6 +100,7 @@ export default function AiDirectory({
             let isValid = true;
     
             // Other code...
+            console.log(tool)
     
             if (filter.pricing_type !== "Default" && tool.pricing_type !== filter.pricing_type) {
                 isValid = false;
@@ -230,7 +231,7 @@ useEffect(() => {
                             Blog
                         </Link>
                     </div>
-                    <Link href="/submit" className="Submit">
+                    <Link href="/directory/submit" className="Submit">
                         Submit
                     </Link>
                     <IconButton type="button" className="toggler"
@@ -256,7 +257,7 @@ useEffect(() => {
                         <p className="description">Unlock your productivity potential with AI-powered tools that streamline your workflow, optimize tasks, and elevate your success. Embrace a future of seamless efficiency at the Productivity Hub.</p>
 
                         <Link className="SubmitYourTool"
-                            href="/submit">
+                            href="/directory/submit">
                             Submit your tool <RiArrowRightUpLine size={20}/>
                         </Link>
                     </div>
@@ -277,12 +278,15 @@ useEffect(() => {
                     <Select
                         label="Pricing Type"
                         value={filter.pricing_type}
-                        options={pricing_types?.length > 0 ? pricing_types.map(type => {
+                        options={pricing_types?.length > 0 ? [ {
+                            label: "Default",
+                            value: "Default"
+                        },...pricing_types.map(type => {
                             return {
                                 label: type,
                                 value: type
                             }
-                        })  :[
+                        }) ] :[
                             {
                                 label: "Default",
                                 value: "Default"
@@ -430,9 +434,8 @@ useEffect(() => {
                             name: string;
                             slug: string;
 
-                        }) => {
-                            return (
-                                <FormElement className="Filter" key={category._id}>
+                        },index) => {
+                            return (<FormElement className="Filter" key={index}>
                                     <CheckBox
                                         checked={filter.categories.includes(category.slug)}
                                         onChange={() => {
@@ -491,7 +494,7 @@ export async function getServerSideProps(context: any) {
 
 
     const response = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/public-tools/all`, {
-
+            limit:15
     }, {
         headers: {
             "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,

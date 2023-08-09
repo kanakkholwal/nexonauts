@@ -16,7 +16,7 @@ export default nextConnect(handler)
 
             // Perform the search with pagination and sorting
             const tools = await PublicTool.find({status:"published" || "approved"}).
-            sort({ createdAt: -1 }). limit(10);
+            sort({ createdAt: -1 }).limit(req.body.limit|| 10);
             const categories = await PublicTool.aggregate([
                 { $unwind: "$categories" },
                 {

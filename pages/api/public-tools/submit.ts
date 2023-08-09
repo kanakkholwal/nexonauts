@@ -4,37 +4,43 @@ import nextConnect from 'next-connect';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import PublicTool from 'models/public-tool';
-
+import { v4 as UuID } from 'uuid';
+function generateRandomUsername() {
+    // Generate a random UUID
+    const uuid = UuID();
+  
+    // Take the first 10 characters of the UUID and remove any non-alphanumeric characters
+    const alphanumericUsername = uuid.replace(/[^a-zA-Z0-9]/g, '').slice(0, 6);
+  
+    // Add a prefix (e.g., 'user_') to the alphanumeric username
+    return `public-tool_${alphanumericUsername}`;
+  }
 export default nextConnect(handler)
     .post(async (req: NextApiRequest, res: NextApiResponse) => {
         try{
             await dbConnect();
-            const { name, slug, coverImage, description, categories, link, tags,  pricing_type } = req.body;
+            const { name, description, link, pricing_type,author } = req.body;
             
             // validate inputs 
-            if (!name || !slug || !coverImage || !description || !categories || !link || !tags  || !pricing_type) {
+            if (!name || !description  || !link || !pricing_type || !author) {
                 return res.status(400).json({ success: false, message: "Missing required fields" });
             }
             // check if tool already exists
-            const oldSlug = await PublicTool.find({
-                slug: slug
-            });
-            if (oldSlug.length > 0) {
-                return res.status(400).json({ success: false, message: "Tool already exists with this slug" });
-            }
+ 
             // create new tool
             const newTool = new PublicTool({
                 name,
-                slug,
-                coverImage,
+                slug:generateRandomUsername(),
+                // coverImage,
                 description,
-                categories,
+                categories:[],
                 link,
-                tags,
+                tags:[],
                 status:"pending",
                 createdAt: new Date(),
                 verified :false,
-                pricing_type
+                pricing_type,
+                author
             });
             await newTool.save();
             return res.status(200).json({ success: true, message: "Tool submitted successfully" });
