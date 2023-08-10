@@ -4,7 +4,7 @@ import nextConnect from 'next-connect';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { isAdminMiddleware } from 'middleware/checkUser';
 
-import PublicTool, { Category}  from 'models/public-tool';
+import PublicTool from 'models/public-tool';
 import PublicToolType from 'types/public-tool';
 
 export default nextConnect(handler)
