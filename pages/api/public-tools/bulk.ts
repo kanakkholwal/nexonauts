@@ -4,7 +4,7 @@ import nextConnect from 'next-connect';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { isAdminMiddleware } from 'middleware/checkUser';
 
-import PublicTool, { Category}  from 'models/public-tool';
+import PublicTool from 'models/public-tool';
 import PublicToolType from 'types/public-tool';
 
 export default nextConnect(handler)
@@ -14,12 +14,13 @@ export default nextConnect(handler)
             await dbConnect();
             // const { tools } = req.body;
             
-            if (!tools) {
+          if(process.env.NODE_ENV === "development"){  if (!tools) {
                 return res.status(400).json({ success: false, message: "Missing required fields" });
             }
             const sanitizedTools = await sanitize(tools) as PublicToolType[];
             // insert tool in bulk 
-            await PublicTool.insertMany(sanitizedTools);
+
+            await PublicTool.insertMany(sanitizedTools);}
             return res.status(200).json({ success: true, message: "Tool submitted successfully" });
 
 
@@ -75,29 +76,7 @@ const sanitize = async(tools: any[]) => {
     });
 
 }
-const getCategories = async (_categories) =>{
-    
-    let categories = [];
-    if(_categories.length > 0){
-        for await (const category of _categories){
-        const existingCategory = await Category.findOne({
-              slug: category.slug 
-          });
 
-         if (!existingCategory) {
-             const newCategory= new Category(category);
-             const savedCategory = await newCategory.save();
-             categories.push(savedCategory)
-            } else {
-                categories.push(existingCategory)
-                console.log("Duplicate category. Skipping insertion....");
-
-          }
-        }
-
-    }
-    return categories
-}
 
 const tools = [
     {
@@ -19118,16 +19097,4 @@ const tools = [
         "updated_on": "2023-08-04T16:57:26.904Z",
         "__v": 0
     }
-] as {
-    _id?:string;
-    name:string;
-    slug:string;
-    url:string;
-    toolTags:string[];
-    imageSrc:string;
-    pricingModel:string;
-    desc:string;
-    updated_on:string;
-    created_on:string;
-    __v:string;
-}[]
+] 
