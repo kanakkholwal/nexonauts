@@ -10,7 +10,7 @@ type PublicToolType = {
     status:"draft"| "published"| "archived"|"deleted"|"pending"|"rejected"|"approved";
     createdAt?: Date | string;
     verified: boolean;
-    pricing_type: string | "free" | "paid" | "freemium" | "subscription" | |  "open_source"|"other";
+    pricing_type: string | "free" | "paid" | "freemium" | "subscription" |  "open_source"|"other";
     author:{
         name:string;
         email:string;
