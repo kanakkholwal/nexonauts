@@ -13,16 +13,16 @@ export default nextConnect(handler)
         try {
             await dbConnect();
             // const { tools } = req.body;
-            
-          if(process.env.NODE_ENV === "development"){ 
-             if (!tools) {
-                return res.status(400).json({ success: false, message: "Missing required fields" });
-            }
-            const sanitizedTools = await sanitize(tools) as PublicToolType[];
-            // insert tool in bulk 
 
-            await PublicTool.insertMany(sanitizedTools);
-        }
+            if (process.env.NODE_ENV === "development") {
+                if (!tools) {
+                    return res.status(400).json({ success: false, message: "Missing required fields" });
+                }
+                const sanitizedTools = await sanitize(tools) as PublicToolType[];
+                // insert tool in bulk 
+
+                await PublicTool.insertMany(sanitizedTools);
+            }
             return res.status(200).json({ success: true, message: "Tool submitted successfully" });
 
 
@@ -35,17 +35,17 @@ export default nextConnect(handler)
 
     })
 
-const sanitize = async(tools: any[]) => {
+const sanitize = async (tools: any[]) => {
 
-    return new Promise<PublicToolType[]>(async(resolve, reject) => {
-        
+    return new Promise<PublicToolType[]>(async (resolve, reject) => {
+
         const result = tools.map(tool => {
             const categories = tool.toolTags.map((tag: string) => {
-                return { 
+                return {
                     name: tag.trim(),
                     slug: tag.toLocaleLowerCase().trim().split(" ").join("_")
-                         
-                     }
+
+                }
             }) || []
             return {
                 name: tool.name,
@@ -57,21 +57,21 @@ const sanitize = async(tools: any[]) => {
                 tags: tool.toolTags,
                 categories: categories,
                 status: "published",
-                verified:true,
+                verified: true,
                 createdAt: new Date(),
-                author:{
-                    name:"Kanak",
-                    email:"kanakkholwal@gmail.com",
-                    public_link:"https://kanakkholwal.eu.org"
+                author: {
+                    name: "Kanak",
+                    email: "kanakkholwal@gmail.com",
+                    public_link: "https://kanakkholwal.eu.org"
                 }
-                
-            } as PublicToolType
-    });
 
-        if(result){
+            } as PublicToolType
+        });
+
+        if (result) {
             resolve(result);
         }
-        else{
+        else {
             reject("Error sanitizing tools");
         }
 
@@ -19099,16 +19099,4 @@ const tools = [
         "updated_on": "2023-08-04T16:57:26.904Z",
         "__v": 0
     }
-] as {
-    _id?:string;
-    name:string;
-    slug:string;
-    url:string;
-    toolTags:string[];
-    imageSrc:string;
-    pricingModel:string;
-    desc:string;
-    updated_on:string;
-    created_on:string;
-    __v:string;
-}[]
+] 
