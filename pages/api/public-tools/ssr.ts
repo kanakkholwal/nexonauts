@@ -37,10 +37,23 @@ export default nextConnect(handler)
             await dbConnect();
             const {slug} = req.body;
             const tool = await PublicTool.findOne({slug,status:"published" || "approved"});
+            if(!tool){
+                return res.status(404).json({
+                    success:false,
+                    message:"Tool not found",
+                    tool:null
+                })
+            }
+            // run a query to find similiar tools based on category and tags and return them
+            const similarTools = await PublicTool.find({category:tool.category,tags:tool.tags,status:"published" || "approved"})
+            .sort({createdAt:-1})
+            .limit(8)
+
             return res.json({
                 success: true,
                 message: "Tool fetched successfully",
-                tool
+                tool,
+                related:similarTools
             });
 
         }

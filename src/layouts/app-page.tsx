@@ -5,6 +5,7 @@ import { MainWrapper, ContentWrapper, } from "components/layouts/wrapper";
 import styled from "styled-components";
 import SideNav from "components/layouts/sidenav";
 
+import { GrResources } from "react-icons/gr";
 import { RiAppsLine } from "react-icons/ri";
 import { TbTools ,TbSmartHome,TbBrandBlogger,TbDashboard} from "react-icons/tb";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
@@ -54,6 +55,11 @@ const routes = (userRole :string ) => {
                 title: "Tools",
                 icon: <TbTools  size={16}/>,
                 path: "/tools",
+            },
+            {
+                title: "AI Directory",
+                icon: <GrResources  size={16}/>,
+                path: "/directory",
             },
             {
                 title: "Blog",

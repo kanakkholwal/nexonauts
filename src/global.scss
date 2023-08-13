@@ -287,10 +287,17 @@ html {
         }
     }
 
-
 }
 
 body {
+    &.dark{
+        --body-bg:rgba(17,17,17,1);
+        --text-color:rgba(243,244,246,1);
+        --body-color:rgba(243,244,246,1);
+        --card-bg:rgb(28, 35, 41);
+        --form-bg:#252525;
+    
+    }
     font-weight: 400;
     font-size: 16px;
     line-height: 1.6;

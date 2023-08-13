@@ -7,7 +7,7 @@ import CodeBlock from "components/code-block";
 import styled from "styled-components";
 import { Interweave } from 'interweave';
 import Link from "next/link";
-import { toast } from "react-hot-toast";
+import toast,{Toaster} from "react-hot-toast";
 
 export default function TextInputToTextOutput({ app, user }) {
     const [error, setError] = useState("");
@@ -40,6 +40,7 @@ export default function TextInputToTextOutput({ app, user }) {
         } catch (error) {
             console.log(error);
             setError(error.message);
+            toast.error(error.message);
         } finally {
             setLoading(false);
         }
@@ -186,6 +187,11 @@ export default function TextInputToTextOutput({ app, user }) {
             {loading ? <div className="d-flex justify-content-center align-items-center my-3"> <Loader /></div> : null}
             {/* Output */}
             {output ? <RenderOutput output={output} /> : output === null ? null : <p>No output</p>}
+            <Toaster
+                position="bottom-right"
+                reverseOrder={false}
+                gutter={8}
+                />
 
         </AppWrapper>
     );

@@ -28,6 +28,7 @@ padding: 1rem;
 .FormWrapper{
     background: var(--card-bg);
     padding: 1rem;
+    width:100%;
     ${FormGroup}{
         gap:0.25rem;
     ${FormElement}{
@@ -58,6 +59,8 @@ img{
     margin-bottom: 1rem;
     max-width: 540px;
     filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.2));
+
+    
 }
 &>div:has(>img){
     text-align: left;
@@ -66,7 +69,9 @@ img{
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 640px;
+    @media screen and (max-width: 1068px){
+        display: none;
+    }
 }
 `;
 const isEmail = (email) => {

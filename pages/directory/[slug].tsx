@@ -1,16 +1,17 @@
 import { NextSeo } from 'next-seo';
 import axios from 'axios';
-import { useSession } from "next-auth/react";
 
-import Head from "next/head";
 import PublicToolType from "types/public-tool";
 import Footer from "components/layouts/footer";
 
 import {
     DirectoryPageNavBar,
     DirectoryPageContainer,
-    DirectoryPageHero
+    SlugPage,
+    SimilarTools
 } from "src/layouts/directory-page";
+import { RiArrowRightUpLine } from "react-icons/ri"
+import { TbShare2 } from "react-icons/tb"
 
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import Image from "next/image";
@@ -74,8 +75,13 @@ export async function getStaticProps({ params }) {
                 "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`
             }
         })
-        const { tool } : {
-            tool: PublicToolType
+        const { 
+            tool ,
+            related
+            
+        } : {
+            tool: PublicToolType,
+            related: PublicToolType[] | null
         } = data;
 
         if (!tool) {
@@ -107,17 +113,38 @@ export async function getStaticProps({ params }) {
 
 }
 
-export default function Tool({ tool }:{
-    tool: PublicToolType
+export default function Tool({ tool ,related}:{
+    tool: PublicToolType,
+    related: PublicToolType[] | null
 }) {
 
 
     if (!tool) return null;
 
     return <>
-        <Head>
-            <title>{tool.name}</title>
-        </Head>
+        <NextSeo
+            title={tool.name}
+            description={tool.description}
+            openGraph={{
+                url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/directory/${tool.slug}`,
+                title: tool.name,
+                description: tool.description,
+                images: [
+                    {
+                        url: tool.coverImage,
+                        alt: tool.name,
+                    }
+                ],
+                site_name: 'AI Directory',
+            }}
+            twitter={{
+                handle: '@KanakKholwal',
+                site: '@KanakKholwal',
+                cardType: 'summary_large_image',
+            }}
+        />
+
+
         <DirectoryPageContainer>
             <DirectoryPageNavBar>
                 <Link href="/directory" className="Title">
@@ -142,8 +169,8 @@ export default function Tool({ tool }:{
                 </Link>
 
             </DirectoryPageNavBar>  
-            <DirectoryPageHero>
-                <div className="illustration">
+            <SlugPage>
+                <div className="CoverImage">
                     <Image src={tool.coverImage} alt="AI Directory" width={600} height={480} />
                 </div>
                 <div>
@@ -152,16 +179,57 @@ export default function Tool({ tool }:{
                     <p className="description">
                         {tool.description}
                     </p>
-
-                    <Link className="SubmitYourTool"
+                    <div className="Actions">
+                    <Link className="CheckOut"
                         href={tool.link} 
                         target="_blank"
                         rel="noopener noreferrer"
                         >
                        Checkout
+                       <RiArrowRightUpLine/>
                     </Link>
+                    <button className="ShareBtn">
+                        <TbShare2/>
+                    </button>
                 </div>
-            </DirectoryPageHero>
+                </div>
+            </SlugPage>
+            {/* <SimilarTools>
+                <div className='Header'>
+                <h4 className='Title'>Similar Tools</h4>
+                <Link href={"/directory/"} className='ViewAll'>
+                    Explore All
+                </Link>
+                </div>
+                <div className="Tools">
+                    {related?.map((tool) => {
+                        return <div className="Tool" key={tool._id}>
+                            <div className="CoverImage">
+                                <Image src={tool.coverImage} alt="AI Directory" width={600} height={480} />
+                            </div>
+                            <div className="Details">
+                                <h4 className="Name">{tool.name}</h4>
+                                <p className="description">
+                                    {tool.description}
+                                </p>
+                                <div className="Actions">
+                                    <Link className="CheckOut"
+                                        href={tool.link} 
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >
+                                       Checkout
+                                       <RiArrowRightUpLine/>
+                                    </Link>
+                                    <button className="ShareBtn">
+                                        <TbShare2/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    })}
+                </div>
+            </SimilarTools> */}
 
         </DirectoryPageContainer>
         <Footer socialMedia={SocialMedia} />

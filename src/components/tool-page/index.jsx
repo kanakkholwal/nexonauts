@@ -5,6 +5,7 @@ import SideNav from "components/layouts/sidenav";
 import { CategoryList,ToolList } from "pages/tools/ToolsList";
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import { TbTools ,TbSmartHome,TbBrandBlogger,TbDashboard} from "react-icons/tb";
+import { GrResources } from "react-icons/gr";
 import { RiAppsLine } from "react-icons/ri";
 
 const SocialMedia = [
@@ -53,6 +54,11 @@ const routes = (userRole) => {
             title: "Tools",
             icon: <TbTools  size={16}/>,
             path: "/tools",
+        },
+        {
+            title: "AI Directory",
+            icon: <GrResources  size={16}/>,
+            path: "/directory",
         },
         {
             title: "Blog",
