@@ -7,6 +7,7 @@ import { isAdminMiddleware } from 'middleware/checkUser';
 
 
 const LIMIT = 5;
+
 export default nextConnect(handler)
     .post(async (req, res) => {
         try {

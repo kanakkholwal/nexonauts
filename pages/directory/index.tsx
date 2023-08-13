@@ -1,4 +1,4 @@
-import Head from "next/head";
+import { NextSeo } from 'next-seo';
 import axios from "axios";
 import PublicToolType from "types/public-tool";
 import Footer from "components/layouts/footer";
@@ -209,9 +209,16 @@ useEffect(() => {
 
     return (
         <>
-            <Head>
-                <title>AI directory</title>
-            </Head>
+            <NextSeo
+                title="AI Directory - AI Tools, Services, and Resources"
+                description="AI Directory is a curated list of AI tools, services, and resources. Find the best AI tools for your business."
+                canonical={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/directory/`}
+                openGraph={{
+                    url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/directory/`,
+                    title: "AI Directory - AI Tools, Services, and Resources",
+                    description: "AI Directory is a curated list of AI tools, services, and resources. Find the best AI tools for your business.",
+                }}
+            />
             <DirectoryPageContainer>
                 <DirectoryPageNavBar>
                     <Link href="/directory" className="Title">
@@ -361,7 +368,7 @@ useEffect(() => {
 
                                     <Image
                                         width={350}
-                                        height={400}
+                                        height={200}
                                         src={tool.coverImage} alt={tool.name} />
 
 

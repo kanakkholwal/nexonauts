@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema(
         trim: true,
         required: true,
         unique: [true, "Username already exists"],
-       default: () => generateRandomUsername(),
+        default: () => generateRandomUsername(),
         
     },
     email: {
