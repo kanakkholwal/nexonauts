@@ -19,6 +19,7 @@ import { TbSearch, TbExternalLink, TbArrowBigRightLine } from "react-icons/tb";
 import Link from "next/link";
 
 import { Input, Select, CheckBox, Label, FormElement } from "components/form-elements";
+import Badge from "components/topography/badge"
 
 
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
@@ -27,7 +28,7 @@ import { RiArrowRightUpLine } from "react-icons/ri"
 import { RxArrowUp } from "react-icons/rx"
 import { CgMenuRightAlt } from "react-icons/cg"
 import { useEffect, useMemo, useRef, useState } from "react";
-import Image from "next/image";
+import LazyImage from "components/image";
 
 const SocialMedia = [
     {
@@ -366,7 +367,7 @@ useEffect(() => {
                                     animationDelay: `${index * 0.01}s`
                                 }}>
 
-                                    <Image
+                                    <LazyImage
                                         width={350}
                                         height={200}
                                         src={tool.coverImage} alt={tool.name} />
@@ -378,7 +379,7 @@ useEffect(() => {
 
                                         <div className="Meta">
 
-                                            <span className="pricing_type">{tool.pricing_type}</span>
+                                            <Badge noBorder={true}>{tool.pricing_type}</Badge>
                                         </div>
                                         <div className="actions">
 

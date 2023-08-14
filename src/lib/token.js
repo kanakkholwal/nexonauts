@@ -9,3 +9,4 @@ function generateJWTSecretKey() {
 // Generate the JWT secret key
 const jwtSecretKey = generateJWTSecretKey();
 console.log('JWT Secret Key:', jwtSecretKey);
+

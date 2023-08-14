@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
-import { useState, useEffect, forwardRef } from "react";
-import PropTypes from "prop-types";
+import { useState, useEffect, forwardRef, useCallback, Ref } from "react";
+
 const slideInAnimation = keyframes`
   from {
     opacity: 0;
@@ -17,8 +17,13 @@ const fadeOutAnimation = keyframes`
     opacity: 0;
   }
 `;
-
-const ModalDialog = styled.dialog`
+interface ModalProps {
+    maxWidth?: string;
+    children: React.ReactNode;
+    open?: boolean;
+  }
+  
+  const ModalDialog = styled.dialog<ModalProps>`
   inset: 0px;
   margin: auto;
   padding:2rem 1rem ;
@@ -26,6 +31,7 @@ const ModalDialog = styled.dialog`
   outline: none;
   overflow: unset;
   height: fit-content;
+  width:100%;
   max-width: ${({maxWidth}) => maxWidth || "720px"};
   transition: all 0.5s cubic-bezier(0.5, -0.5, 0.1, 1.5);
   --animation-in-settings: 500ms cubic-bezier(0.25, 0, 0.3, 1) normal;
@@ -52,18 +58,20 @@ const ModalDialog = styled.dialog`
   }
 `;
 
-export const useModal = (ref) => {
+export const useModal = (ref,isBlocked = false) => {
   const [show, setShow] = useState(false);
 
   const open = () => {
-    if (ref.current) {
+    if (ref.current && show === false) {
+        ref.current.classList.remove("closing");
         ref.current.showModal();
-      setShow(true);
+        setShow(true);
 
     }
   };
 
-  const close = () => {
+  
+  const close = useCallback(() => {
     if (ref.current) {
         ref.current.classList.add("closing");
         const closeDialog = () => {
@@ -73,9 +81,10 @@ export const useModal = (ref) => {
             setShow(false);
         }
         ref.current.addEventListener("transitionend",closeDialog);
-
+      
     }
-  };
+  }, [ref]);
+
 
   const toggle = () => {
     if (ref.current) {
@@ -88,13 +97,15 @@ export const useModal = (ref) => {
   };
   
 
+  
+
   useEffect(() => {
     const dialog = ref.current;
-    const handleKeyDown = (e) => {
-      if (e.key === "Escape") {
-        close();
-      }
-    };
+      const handleKeyDown = (e : KeyboardEvent) => {
+          if (e.key === "Escape" && !isBlocked) {
+                // close();
+          }
+      };
 
     const handleClick = (e) => {
       const dialogDimensions = dialog.getBoundingClientRect();
@@ -104,9 +115,8 @@ export const useModal = (ref) => {
         e.clientY < dialogDimensions.top ||
         e.clientY > dialogDimensions.bottom
       ) {
-        if(ref.current.contains(e.target)) return;
-        
-        close();
+
+         close();
       }
     };
 
@@ -121,21 +131,14 @@ export const useModal = (ref) => {
 
   return {
      show, 
-     isShowing: show, 
      toggle, 
      open,
-    close,
+     close,
 
      };
 };
+type ModalRef = HTMLDialogElement;
 
-export const Modal = forwardRef((props, ref) => {
-  return (
-      <ModalDialog ref={ref} {...props}>
-        {props.children}
-      </ModalDialog>
-  );
-});
-PropTypes.Modal = {
-    children: PropTypes.node.isRequired,
-}
+export const Modal = forwardRef((props: ModalProps, ref: Ref<ModalRef>) => {
+    return <ModalDialog ref={ref} {...props}>{props.children}</ModalDialog>;
+  });
