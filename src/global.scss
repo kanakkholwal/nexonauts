@@ -351,7 +351,7 @@ body {
 .Blog{
     // background: var(--light);
     // color: var(--dark);
-    --blog-theme-rgb:var(--secondary-rgb);
+    --blog-theme-rgb:var(--theme-rgb);
     transition: all .3s ease-in-out;
     min-height: 100vh;
     width:100%;
