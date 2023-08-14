@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import toast ,{Toaster} from 'react-hot-toast';
 import {useState,useEffect} from 'react';
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaWhatsapp ,FaPinterestP,FaTelegramPlane,FaRedditAlien} from 'react-icons/fa';
+import { LuCopy} from 'react-icons/lu';
 import { IoMailOutline} from 'react-icons/io5';
 import { BiShareAlt} from 'react-icons/bi';
-import { LuCopy} from 'react-icons/lu';
 
 const Wrapper = styled.div`
     display: flex;

@@ -6,7 +6,8 @@ import dbConnect from 'lib/dbConnect';
 import nextConnect from 'next-connect';
 import { hasSsrMiddleware } from 'middleware/checkUser';
 
-export default nextConnect(handler).get(async (req, res,next) => {
+export default nextConnect(handler)
+.get(async (req, res,next) => {
   try {
     await hasSsrMiddleware(req, res,next);
     await dbConnect();
