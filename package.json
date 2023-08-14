@@ -29,6 +29,8 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@tanem/react-nprogress": "^5.0.32",
+    "@vercel/node": "^2.15.9",
+    "@vercel/og": "^0.5.11",
     "ai": "^2.1.18",
     "aos": "^2.3.4",
     "apexcharts": "^3.40.0",
