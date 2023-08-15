@@ -8,6 +8,7 @@ display:grid;
 grid-auto-flow: column;
 margin-inline: auto;
 grid-template-columns: 1fr auto;
+position: relative;
 ${Input}{
     margin-bottom:0;
 }
@@ -16,11 +17,13 @@ const IconWrapper = styled.div`
 display:flex;
 align-items: center;
 justify-content: center;
-padding:0.5rem 0.75rem;
-border-radius:50%;
-right:12px;
-padding:4px 8px;
-transform:translateY(-50%);
+padding:0.5rem;
+aspect-ratio: 1;
+border-radius:25px;
+right:0px;
+inset-block: 0;
+position: absolute;
+/* transform:translateY(-50%); */
 background-color:transparent;
 border:none;
 outline:none;
