@@ -280,6 +280,7 @@ export default function NewPost({ user,post }:{
         }
     }
 
+    console.log(post,user)
 
 
     return (
@@ -552,7 +553,7 @@ export async function getServerSideProps(context: GetSessionParams & {
         return {
             props: {
                 user:session.user,
-                post: response.data.post,
+                post:response.data.post,
             }
         }
     }
@@ -561,8 +562,12 @@ export async function getServerSideProps(context: GetSessionParams & {
 
         // not found, return
         return {
-            user:session.user,
-            post: null,
+            notFound: true,
+
+            // props:{
+            //     user:session.user,
+            //     post:null,
+            // }
 
         }
     }
