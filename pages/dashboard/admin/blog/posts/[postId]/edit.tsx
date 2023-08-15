@@ -1,24 +1,20 @@
 import { GetSessionParams, getSession } from "next-auth/react"
-import DashboardPage, { Header } from "components/dashboard-page";
-import Button from "components/buttons";
 import { createSlug } from "lib/scripts";
-import { Card, } from "components/Card";
-import { Input, FormElement, FormGroup,Label, TextArea, FormHelper, Switch ,InputWithIcon} from "components/form-elements";
 
 import Head from "next/head";
 import Link from 'next/link';
-import { useEffect, useState,useReducer,useRef } from "react";
+import { useRouter } from 'next/router';
+import Image from 'next/image';
+// React
+import {  useState,useReducer,useRef } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-
 import dynamic from "next/dynamic";
 const Editor = dynamic(() => import("components/editor/editorjs"), {
     ssr: false,
 });
 import styled from 'styled-components';
 import axios from 'axios';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
-
+// Icons
 import { BsLayoutTextSidebar } from "react-icons/bs"
 import { FiUploadCloud } from "react-icons/fi"
 import { AiOutlineLink,AiOutlineArrowUp } from "react-icons/ai"
@@ -26,9 +22,16 @@ import { CiHashtag } from "react-icons/ci"
 import { LuImagePlus } from "react-icons/lu"
 import { MdOutlineImageSearch } from "react-icons/md"
 import { TbFileDescription } from "react-icons/tb";
+// Types
 import { sessionType } from "@/src/types/session";
 import { SessionUserType } from "@/src/types/user";
 import { Post } from "@/src/types/post";
+// components
+import DashboardPage, { Header } from "components/dashboard-page";
+import Button from "components/buttons";
+import State from "components/state"
+import { Card } from "components/Card";
+import { Input, FormElement, Label, TextArea, FormHelper, Switch ,InputWithIcon} from "components/form-elements";
 import LazyImage from "components/image";
 import {
     Modal,
@@ -130,55 +133,53 @@ export default function NewPost({ user,post }:{
     const [menu, setMenu] = useState(false);
     const ImageModalRef = useRef(null);
     const {open} = useModal(ImageModalRef);
-
-    
-
-
-    const [state, setState] = useState({
-        loader: {
-            type: "indeterminate",
-            shape: "linear",
-            show: false,
-        },
-        alert: {
-            open: false,
-            message: "",
-            nature: "success",
-        }
-
-    });
-    const [title, setTitle] = useState(post.title);
-    const [description, setDescription] = useState(post.description);
-    const [initialContent, setInitialContent] = useState<any | null>(post.content || {
-        time: new Date().getTime(),
-        blocks: [
-            {
-                type: "paragraph",
-                data: {
-                    text: "Start writing your post here..."
+    //  useReducer to manage state
+    const initialState = {
+        title: post.title,
+        description: post.description,
+        content: post.content || {
+            time: new Date().getTime(),
+            blocks: [
+                {
+                    type: "paragraph",
+                    data: {
+                        text: "Start writing your post here..."
+                    }
                 }
-            }
-        ]
-    });
-    const [content, setContent] = useState(initialContent);
-    const [image, setImage] = useState(post.image);
-    const [imageState, setImageState] = useState({
-        loader: {
-            type: "indeterminate",
-            shape: "linear",
-            show: false,
+            ]
         },
-        alert: {
-            open: false,
-            message: "Fetching post data...",
-            nature: "info",
+        image: post.image,
+        postState: post.state,
+        labels: post.labels,
+        IsCommentEnabled: post.comments.enabled,
+        slug: post.slug,
+        
+    }
+    function reducer (state, action) {
+        // console.log(state,action);
+        switch (action.type) {
+            case 'title':
+                return { ...state, title: action.payload };
+            case 'description':
+                return { ...state, description: action.payload };
+            case 'content':
+                return { ...state, content: action.payload };
+            case 'image':
+                return { ...state, image: action.payload };
+            case 'postState':
+                return { ...state, postState: action.payload };
+            case 'labels':
+                return { ...state, labels: action.payload };
+            case 'IsCommentEnabled':
+                return { ...state, IsCommentEnabled: action.payload };
+            case 'slug':
+                return { ...state, slug: action.payload };
+            default:
+                return state;
         }
-
-    });
-    const [postState, setPostState] = useState(post.state);
-    const [labels, setLabel] = useState<string[]>(post.labels);
-    const [IsCommentEnabled, setIsCommentEnabled] = useState(post.comments.enabled);
-    const [slug, setSlug] = useState(post.slug);
+    }
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const { title, description, content, image, postState, labels, IsCommentEnabled, slug } = state;
 
     const updatePost = async () => {
         await axios.put("/api/users/" + user.id + "/posts/" + post._id, {
@@ -193,7 +194,6 @@ export default function NewPost({ user,post }:{
                 image: image,
                 comments: {
                     enabled: IsCommentEnabled,
-                    items: []
                 }
             }
         }).then(res => {
@@ -216,50 +216,7 @@ export default function NewPost({ user,post }:{
             console.log(err);
         })
     }
-    const FetchPost = async (postId) => {
-        await axios.post("/api/users/" + user.id + "/posts/" + postId)
-            .then(({ data }) => {
-                const post = data?.post;
-                setTitle(post.title);
-                setDescription(post.description);
-                setImage(post.image);
-                setLabel(post.labels);
-                setIsCommentEnabled(post.comments.enabled);
-                setPostState(post.state);
-                setSlug(post.slug);
-                setState({
-                    ...state,
-                    loader: {
-                        ...state.loader,
-                        show: false,
-                    },
-                })
 
-                post.content !== null ? setInitialContent(post.content) : setInitialContent({
-                    time: new Date().getTime(),
-                    blocks: [
-                        {
-                            type: "paragraph",
-                            data: {
-                                text: "Start writing your post here..."
-                            }
-                        }
-                    ]
-                });
-               
-                console.log(initialContent);
-            })
-            .catch(err => {
-                if (err.response.status === 404) {
-                    console.log(err.response.data);
-
-                    router.push("/dashboard/admin/blog");
-                    return
-
-                }
-                console.log(err.response.status);
-            })
-    }
 
 
   
@@ -278,7 +235,9 @@ export default function NewPost({ user,post }:{
             >
                 <Header>
                     <Link  href="/dashboard/admin/blog">
+                        <Button level={true}>
                         Go Back
+                        </Button>
                     </Link>
                     <Button level={true} low={true} rounded={true}
                         onClick={() =>{
@@ -294,8 +253,12 @@ export default function NewPost({ user,post }:{
                             <Label htmlFor="title">
                                 Post Title
                             </Label>
-                            <Input type="text" id="title" placeholder="Write a post title..." value={title}
-                                onChange={(e) => setTitle(e.target.value)} />
+                            <Input  level={true} type="text" id="title" placeholder="Write a post title..." value={title}
+                                onChange={(e) => {
+                                    dispatch({ type: "title", payload: e.target.value });
+                                    if(slug === "")
+                                        dispatch({ type: "slug", payload: createSlug(e.target.value) });
+                                }} />
                         </FormElement>
                         <FormElement>
                             <Label htmlFor="description">Post Description</Label>
@@ -305,11 +268,11 @@ export default function NewPost({ user,post }:{
                                 placeholder="Post Description"
 
                                 value={description}
-
+                                level={true}
                                 maxLength={150}
                                 onChange={
                                     (e) => {
-                                        setDescription(e.target.value);
+                                        dispatch({ type: "description", payload: e.target.value });
                                     }
                                 }
                             />
@@ -317,12 +280,12 @@ export default function NewPost({ user,post }:{
                         <FormElement>
                             <h6>Post Content</h6>
                             {
-                                initialContent !== null ?
+                                content !== null ?
                                     <Editor
-                                        defaultValue={initialContent}
+                                        defaultValue={content}
 
                                         onSave={(value) => {
-                                            setContent(value)
+                                            dispatch({ type: "content", payload: value });
                                         }}
                                     /> : "Loading..."
                             }
@@ -337,11 +300,11 @@ export default function NewPost({ user,post }:{
                         <h5>Post Settings</h5>
                         <hr />
                         {image ?
-                                <Image height={120} width={220}
+                                <Image  height={480} width={720}
                                     alt={title} src={image}
                                     className="coverImage"
 
-                                /> : <Image height={120} width={220}
+                                /> : <Image  height={480} width={720}
                                 className="coverImage"
 
                                     alt={"Cover image"} src={"https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp"} />}
@@ -349,13 +312,13 @@ export default function NewPost({ user,post }:{
                         <Button level={true} low={true} rounded={true} fill={true} onClick={() =>{
                             open();
                         }}>
-                                Add a Cover Image <LuImagePlus />
+                                Change Cover Image <LuImagePlus />
                         </Button>
                         <FormElement className="mt-2">
                             <Switch
                                 checked={postState === "published"}
                                 onChange={(e) => {
-                                    setPostState(e.target.checked ? "published" : "draft");
+                                    dispatch({ type: "postState", payload: e.target.checked ? "published" : "draft" });
 
                                 }}
                                 className=""
@@ -369,7 +332,7 @@ export default function NewPost({ user,post }:{
                             <Switch
                                 checked={IsCommentEnabled}
                                 onChange={(e) => {
-                                    setIsCommentEnabled(e.target.checked);
+                                    dispatch({ type: "IsCommentEnabled", payload: e.target.checked });
                                 }}
                                 className=""
 
@@ -382,9 +345,10 @@ export default function NewPost({ user,post }:{
                         <FormElement>
                             <Label><CiHashtag />Label</Label>
                             <Input type="text" placeholder="Add label to the Post..." value={labels.join(",")}
+                            level={true}
                                 onChange={
                                     (e) => {
-                                        setLabel(e.target.value?.trim().split(",").map((item) => item.trim()));
+                                        dispatch({ type: "labels", payload: e.target.value.split(",") });
                                     }
                                 }
                             />
@@ -398,15 +362,12 @@ export default function NewPost({ user,post }:{
                             <Input
                                 type="text"
                                 placeholder="Edit the slug for the post"
-
+                                level={true}
                                 id="slug"
                                 value={slug}
                                 onChange={
                                     (e) => {
-                                        if (e.target.value === "")
-                                            setSlug(title?.toLocaleLowerCase().split(" ").join("-"));
-                                        else
-                                            setSlug(e.target.value);
+                                        dispatch({ type: "slug", payload: e.target.value?.replaceAll(" ","-") });
                                     }
                                 }
                             />
@@ -425,13 +386,13 @@ export default function NewPost({ user,post }:{
                             <TextArea
                                 type="text"
                                 placeholder="Meta Description"
-
+                                level={true}
                                 value={description}
 
                                 maxLength={150}
                                 onChange={
                                     (e) => {
-                                        setDescription(e.target.value);
+                                        dispatch({ type: "description", payload: e.target.value });
                                     }
                                 }
                             />
@@ -479,7 +440,11 @@ export default function NewPost({ user,post }:{
                 <ImageUploader
                     image={image}
                     title={title}
-                    setImage={setImage}
+                    setImage={
+                        (image) => {
+                            dispatch({ type: "image", payload: image });
+                        }
+                    }
 
                 />
               </Modal>
@@ -492,8 +457,9 @@ function ImageUploader({
     title,
     setImage
 }){
-    const [tab, setTab] = useState("");
-    const [finalImage, setFinalImage] = useState("");
+    const [tab, setTab] = useState("image_link");
+
+    const [selectedImage,setSelectedImage] = useState("");
 
     const handleFiles = async (files:File[]) => {
 
@@ -549,7 +515,31 @@ function ImageUploader({
         }
     }
     const [query, setQuery] = useState('');
-    const [images, setImages] = useState([]);
+    const [pexelState, setPexelState] = useState<{
+        loader: {
+            type: "indeterminate" | "determinate",
+            shape: "linear" | "circular",
+            show: boolean,
+        },
+        alert: {
+            open: boolean,
+            message: string,
+            nature: "success" | "error" | "info",
+        },
+        items: any[]
+    }>({
+        loader: {
+            type: "indeterminate",
+            shape: "circular",
+            show: false,
+        },
+        alert: {
+            open: false,
+            message: "",
+            nature: "success",
+        },
+        items: []
+    });
     const [page, setPage] = useState(1);
   
     const PEXELS_API_KEY = '6tGXTXkyJQzKkrv0sdGukm8XwkmuFnISpAmAi0Yft40vaNsyLSj7KdZ5';
@@ -557,6 +547,19 @@ function ImageUploader({
     const PER_PAGE = 12;
 
     const searchImages = async () => {
+        if (!query) return;
+         console.log('Searching for', query);
+        //  loading 
+        setPexelState(prev =>{
+            return {
+                ...prev,
+                loader:{
+                    ...prev.loader,
+                    show:true,
+                }
+            }
+        })
+
       try {
         const response = await axios.get(BASE_URL, {
           headers: {
@@ -570,10 +573,38 @@ function ImageUploader({
           },
         });
   
-        setImages(response.data.photos);
+        setPexelState((prev) =>{
+
+            return {
+                ...prev,
+                items: [...prev.items, ...response.data.photos],
+            }
+        })
+
       } catch (error) {
         console.error('Error fetching images:', error);
+        //  show error 
+        setPexelState(prev =>{
+            return {
+                ...prev,
+                alert:{
+                    open:true,
+                    message:error.message,
+                    nature:"error"
+                }
+            }
+        } );
       }
+    //    stop loading 
+        setPexelState(prev => {
+            return {
+                ...prev,
+                loader: {
+                    ...prev.loader,
+                    show: false,
+                }
+            }
+        });
     };
   
     const handleSearch = () => {
@@ -621,6 +652,8 @@ function ImageUploader({
         </div>
         <div className="preview">
             {tab === "image_search" ? <div className="search_pexels">
+                <div className="d-flex g-1">
+
                 <InputWithIcon id="imageUrl" type="text" placeholder="Paste a Image URL here..." level={true}
 
                     value={query}
@@ -633,38 +666,86 @@ function ImageUploader({
                     }}
                     onChange={(e) => setQuery(e.target.value)}
                     />
+                    <Button 
+                        onClick={() =>{
+                            setQuery("")
+                            setPexelState({
+                                loader: {
+                                    type: "indeterminate",
+                                    shape: "circular",
+                                    show: false,
+                                },
+                                alert: {
+                                    open: false,
+                                    message: "",
+                                    nature: "success",
+                                },
+                                items: []
+                            })
+                        }}
+                        level={true}
+                        >
+                        Clear <AiOutlineLink />
+                    </Button>
+                    </div>
+
                 <div className="image-gallery">
-                    {images.map((image:any) => (<LazyImage key={image.id} className="image-item" src={image.src.small} alt={image.photographer} width={image.width} height={image.height} />
+                    {pexelState.items.map((image:any) => (<LazyImage key={image.id} className={"image-item " + (image.src.landscape === selectedImage ? " selected" : "")}
+                        onClick={() => {
+                            setSelectedImage(image.src.landscape);
+                        }}
+                    src={image.src.landscape} alt={image.photographer} width={image.width} height={image.height} />
                     ))}
                 </div>
+               
 
-                {images.length > 0 && (
+                    {pexelState ? <State {...pexelState}/> : null}
                     <div className="action">
                     <Button onClick={handleLoadMore}level={true}>Load More</Button>
                     <Button onClick={() =>{
-
-                    }} >Use this Image</Button>
+                        if(selectedImage === ""){
+                            toast.error("Please select an image");
+                            return;
+                        }
+                        setImage(selectedImage);
+                        toast.success("Image Added");
+                    }} 
+                        disabled={selectedImage === ""}
+                    >Use this Image</Button>
                     </div>
-                )}
+            
 
             </div> : null}
             {tab === "image_link" ? <div>
                 <FormElement>
                     <Label htmlFor="imageUrl">Paste an Image Url</Label>
-                    <Input id="imageUrl" type="text" placeholder="Paste a Image URL here..." level={true} value={finalImage} onChange={(e) => {
-                        setFinalImage(e.target.value);
+                    <Input id="imageUrl" type="text" placeholder="Paste a Image URL here..." level={true} value={selectedImage} onChange={(e) => {
+                        setSelectedImage(e.target.value);
                     }} />
                 </FormElement>
+                    <div className="action">
+                    <Button onClick={() =>{
+                        if(selectedImage === ""){
+                            toast.error("Please select an image");
+                            return;
+                        }
+                        setImage(selectedImage);
+                        toast.success("Image Added");
+                    }}
+                        disabled={selectedImage === ""}
+                    >Use this Image</Button>
 
+
+                    </div>
             </div> : null}
             {tab === "image_upload" ? <FormElement>
             <FileUploader>
                             {image ?
-                                <Image height={120} width={220}
+                                <Image height={480} width={600}
                                     alt={title} src={image}
                                     className="coverImage"
-                                /> : <Image height={120} width={220}
-                                className=""
+                                /> : <Image  height={480} width={600}
+                                className="coverImage"
                                     alt={"Cover image"} src={"https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp"} />}
                             <label htmlFor="imageUpload">
                                 <FiUploadCloud/>
@@ -730,6 +811,8 @@ const ImageUploaderContainer = styled.div`
         .image-gallery {
             overflow: auto;
             display: flex;
+            align-items: center;
+            justify-content: center;
             flex-wrap:wrap;
             gap: 10px;
             margin: 20px;
@@ -740,7 +823,7 @@ const ImageUploaderContainer = styled.div`
          .image-item {
            overflow: hidden;
            border-radius: 8px;
-           flex:1 1 auto;
+           flex:0 1 30%;
            filter: drop-shadow(4px 6px 5px rgba(var(--dark-rgb),0.25));
             transition:all 200ms ease-in-out;
             cursor:pointer;
@@ -748,8 +831,11 @@ const ImageUploaderContainer = styled.div`
            &:active{
                 transform:scale(0.95);
            }
-           &:hover{
-                transform:scale(1.05);
+       
+           &.selected{
+            /* transform:scale(); */
+            padding:0.25rem;
+                border:2px solid rgba(var(--theme-rgb),1);
            }
         }
   
