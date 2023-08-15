@@ -26,13 +26,13 @@ export default nextConnect(handler)
                 });
             }
 
-            const result = await checkUser(req, existingUser);
-            if (!result.verified) {
-                return res.status(404).json({
-                    verified: result.verified, message: result.message,
-                    success: false
-                });
-            }
+            // const result = await checkUser(req, existingUser);
+            // if (!result.verified) {
+            //     return res.status(404).json({
+            //         verified: result.verified, message: result.message,
+            //         success: false
+            //     });
+            // }
             if (!postId)
                 return res.status(404).json({
                     message: 'Post not found!',
