@@ -82,35 +82,16 @@ const SocialMedia = [
     },
 ]
 
-export async function getStaticPaths() {
-    // Return a list of possible value for toolName
-    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/public-tools/ssr`, {
-        headers: {
-            "Content-Type": "application/json",
-            "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`
-        }
-    })
 
-    const { tools } = data;
-    const paths = tools.map(({ slug }) => {
-        return {
-            params: {
-                slug: slug,
-            }
-        };
-    }) || [];
-    return {
-        paths,
-        fallback: false,
-    };
-}
 
-export async function getStaticProps({ params }) {
-    // Fetch necessary data for the tool using params.appName
+export async function getServerSideProps(context: { query: { slug: string; }; }) {
+    
+    const slug = context.query.slug;
+
     try {
 
         const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/public-tools/ssr`, {
-            slug: params.slug
+            slug: slug
         }, {
             headers: {
                 "Content-Type": "application/json",
@@ -129,9 +110,9 @@ export async function getStaticProps({ params }) {
         if (!tool) {
             return {
                 notFound: true,
-                revalidate: 60,
                 props: {
                     tool: null,
+                    related: null,
                 }
             };
         }
@@ -140,8 +121,6 @@ export async function getStaticProps({ params }) {
                 tool,
                 related
             },
-            revalidate: 60,
-
         }
     } catch (error) {
         console.log("Error during page generation using slug:", error);
@@ -151,7 +130,6 @@ export async function getStaticProps({ params }) {
                 tool: null,
                 related: null
             },
-            revalidate: 60,
         };
     }
 

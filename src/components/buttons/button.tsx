@@ -69,17 +69,15 @@ const Button = styled.button<{
     --btn-box-shadow: none;
     --btn-hover-box-shadow: none;
     --btn-hover-bg:rgba(var(--${props.nature || "theme"}-rgb), 0.12);
+  
     --btn-border:transparent;
     --btn-border-hover:transparent;
   ` : ``
   }
   ${props => props.fill ? `
-    --btn-text:rgba(var(--${props.nature || "theme"}-rgb), 1);
     --btn-hover-color:#fbfbfb;
-    --btn-bg:none;
     --btn-hover-bg:rgba(var(--${props.nature || "theme"}-rgb), 1);
-    --btn-border:rgba(var(--${props.nature || "theme"}-rgb), 1);
-    --btn-border-hover:rgba(var(--${props.nature || "theme"}-rgb), 1);
+    // --btn-border-hover:rgba(var(--${props.nature || "theme"}-rgb), 1);
   ` : ``
   }
   
