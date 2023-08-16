@@ -48,10 +48,7 @@ export default nextConnect(handler)
     await dbConnect();
 
     const posts = await Post.find({ state: 'published' })
-      .sort({ createdAt: -1 })
-      .populate('author.user', 'name profileURL')
-      .select('content title description slug labels image author createdAt publishedAt comments')
-      .populate('analytics')
+      .select('slug')
       .exec();
 
     return res.status(200).json({
