@@ -139,7 +139,7 @@ export function Article({ post }) {
 
                 <BlogBreadCrumb slug={post.slug} title={post.title} category={post.labels[0]} />
                 <ArticleThumbnail>
-                    <Image src={post.image} height={400} width={600} alt={post.title} />
+                    <Image src={post.image} height={480} width={920} alt={post.title} />
                 </ArticleThumbnail>
                 <ArticleTitle>
                     <h5>{post.title}</h5>
@@ -181,9 +181,6 @@ export function Article({ post }) {
                             },
                             th: { style: {} },
                             td: { style: {} },
-                        },
-                        code: {
-                            className: "language-js"
                         },
                 }} 
                 renderers={{

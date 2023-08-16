@@ -269,7 +269,7 @@ export default function NewPost({ user,post }:{
 
                                 value={description}
                                 level={true}
-                                maxLength={150}
+                                maxLength={200}
                                 onChange={
                                     (e) => {
                                         dispatch({ type: "description", payload: e.target.value });
@@ -367,7 +367,7 @@ export default function NewPost({ user,post }:{
                                 value={slug}
                                 onChange={
                                     (e) => {
-                                        dispatch({ type: "slug", payload: e.target.value?.replaceAll(" ","-") });
+                                        dispatch({ type: "slug", payload: e.target.value?.toLowerCase()?.replaceAll(" ","-") });
                                     }
                                 }
                             />
@@ -389,7 +389,7 @@ export default function NewPost({ user,post }:{
                                 level={true}
                                 value={description}
 
-                                maxLength={150}
+                                maxLength={200}
                                 onChange={
                                     (e) => {
                                         dispatch({ type: "description", payload: e.target.value });

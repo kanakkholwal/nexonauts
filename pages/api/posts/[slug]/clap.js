@@ -15,7 +15,10 @@ export default nextConnect(handler)
             const existingPost = await Post.findById(postId);
 
             if (!existingPost) {
-                return res.status(404).json({ message: 'Post not found!' });
+                return res.status(404).json({
+                    success: false,
+                    message: 'Post not found!'
+                });
             }
             if (existingPost.claps)
                 existingPost.claps += 1;
@@ -23,10 +26,14 @@ export default nextConnect(handler)
                 existingPost.claps = 1;
             await existingPost.save();
 
-            return res.status(200).json({ message: 'Post Clapped Successfully!', post: existingPost });
+            return res.status(200).json({
+                success: true,
+                message: 'Post Clapped Successfully!', post: existingPost
+            });
         } catch (err) {
             console.log(err);
             return res.status(500).json({
+                success: true,
                 message: err.message || 'Something went wrong',
             });
         }
