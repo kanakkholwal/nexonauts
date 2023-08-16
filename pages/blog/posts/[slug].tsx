@@ -105,20 +105,20 @@ export default function Post(
 ) {
     useSmoothScroll();
     const [isClapped, setIsClapped] = useState(false);
-    const [claps, setClaps] = useState(post?.claps ?? 0);
+    const [claps, setClaps] = useState(post.claps ? Number(post.claps) : 0);
     const clapThePost = async () => {
         try {
             setClaps(claps => (Number(claps) + 1));
-            await axios.post(`/api/posts/${post?._id}/clap`);
+            await axios.post(`/api/posts/${post._id}/clap`);
             setIsClapped(true);
             const clappedPosts = JSON.parse(localStorage.getItem('clappedPosts') ?? '[]');
-            !clappedPosts.includes(post?._id) && clappedPosts.push(post?._id);
+            !clappedPosts.includes(post._id) && clappedPosts.push(post._id);
             localStorage.setItem('clappedPosts', JSON.stringify(clappedPosts));
-            setClaps(post?.claps ? Number(post.claps) + 1 : 0);
+            setClaps(clappedPosts.claps ? Number(clappedPosts.claps ) : Number(post.claps));
             console.log("Clapped")
         } catch (error) {
             console.log("Error during clapping the post:", error);
-            setClaps(post?.claps ?? 0);
+            setClaps(Number(post.claps));
         }
     }
 
