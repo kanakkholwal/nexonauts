@@ -32,6 +32,7 @@ export default nextConnect(handler).use(hasTokenMiddleware)
               slug:  UuID4(),
               state: 'draft',
               author: existingUser._id,
+              claps:0,
               comments:  { enabled: true, numberOfComments: 0, items: [] }
             });
           
