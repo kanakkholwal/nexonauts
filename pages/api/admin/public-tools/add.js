@@ -1,5 +1,5 @@
 import handler from 'lib/handler';
-import PublicTool,{Category} from "models/public-tool";
+import PublicTool from "models/public-tool";
 import dbConnect from "lib/dbConnect";
 
 import nextConnect from 'next-connect';
