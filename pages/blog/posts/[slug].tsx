@@ -105,7 +105,7 @@ export default function Post(
 ) {
     useSmoothScroll();
     const [isClapped, setIsClapped] = useState(false);
-    const [claps, setClaps] = useState(post.claps ? Number(post.claps) : 0);
+    const [claps, setClaps] = useState(post?.claps ? Number(post?.claps) : 0);
     const clapThePost = async () => {
         try {
             setClaps(claps => (Number(claps) + 1));
@@ -114,11 +114,11 @@ export default function Post(
             const clappedPosts = JSON.parse(localStorage.getItem('clappedPosts') ?? '[]');
             !clappedPosts.includes(post._id) && clappedPosts.push(post._id);
             localStorage.setItem('clappedPosts', JSON.stringify(clappedPosts));
-            setClaps(clappedPosts.claps ? Number(clappedPosts.claps ) : Number(post.claps));
+            setClaps(clappedPosts.claps ? Number(clappedPosts.claps ) : Number(post?.claps));
             console.log("Clapped")
         } catch (error) {
             console.log("Error during clapping the post:", error);
-            setClaps(Number(post.claps));
+            setClaps(Number(post?.claps));
         }
     }
 
