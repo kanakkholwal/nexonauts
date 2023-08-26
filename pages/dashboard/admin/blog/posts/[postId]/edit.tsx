@@ -542,7 +542,10 @@ function ImageUploader({
     });
     const [page, setPage] = useState(1);
   
-    const PEXELS_API_KEY = '6tGXTXkyJQzKkrv0sdGukm8XwkmuFnISpAmAi0Yft40vaNsyLSj7KdZ5';
+    const PEXELS_API_KEY = process.env.NEXT_PUBLIC_PEXELS_API_KEY;
+    if(!PEXELS_API_KEY){
+        console.error("API KEY IS NOT VALID")
+    }
     const BASE_URL = 'https://api.pexels.com/v1/search';
     const PER_PAGE = 12;
 

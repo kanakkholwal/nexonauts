@@ -18,7 +18,12 @@ export default function BlogHomePage({ initialPosts }) {
   const fetchMorePosts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`/api/posts/all?page=${currentPage + 1}`);
+      const response = await axios.get(`/api/posts/all?page=${currentPage + 1}`,{
+        headers: {
+            "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
+            'Content-Type': 'application/json'
+        }
+      });
       const newPosts = response.data.posts;
       const totalPages = response.data.totalPages;
       setCurrentPage(currentPage + 1);
