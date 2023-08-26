@@ -20,7 +20,12 @@ export default nextConnect(handler)
         });
   
         // get no. of posts and comments
-        const posts = await Post.countDocuments();
+        const posts = await Promise.all([Post.countDocuments({
+            status: "published"
+        }),
+        Post.countDocuments({
+            status: "draft"
+        })]);
         const comments = await Comment.countDocuments();
         
         

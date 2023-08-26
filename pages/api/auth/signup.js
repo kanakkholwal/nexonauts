@@ -53,6 +53,7 @@ async function createUser(req, res) {
             name,
             email,
             password,
+            username: email.split("@")[0],
             role: "user",
             account_type: "free",
             verificationToken: verificationToken,

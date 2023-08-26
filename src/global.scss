@@ -291,11 +291,11 @@ html {
 
 body {
     &.dark{
-        --body-bg:rgba(17,17,17,1);
+        --body-bg:#1f2935;
         --text-color:rgba(243,244,246,1);
         --body-color:rgba(243,244,246,1);
-        --card-bg:rgb(28, 35, 41);
-        --form-bg:#252525;
+        --card-bg:#455363;
+        --form-bg:#455363;
     
     }
     font-weight: 400;
