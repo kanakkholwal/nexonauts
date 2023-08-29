@@ -3,16 +3,21 @@ import styled from "styled-components";
 
 
 export const DirectoryPageNavBar = styled.nav`
-    width: 100%;
+
+    width:100%;
     padding:1rem 2rem;
+    max-width:var(--max-width);
+    background:var(--light);
+    margin:auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
     position:relative;
+    margin-bottom: 15px;
+    border-radius: 50px;
     .Title{
-        font-size: 30px;
-        font-weight: 700;
+        font-size: 26px;
+        font-weight: 600;
         color: var(--text-color);
         margin-right: auto;
     }
@@ -455,8 +460,31 @@ export const DirectoryPageContainer = styled.div`
     height: 100%;
     min-height: 100vh;
     margin: 0 auto;
-    max-width: 1600px;
-    padding: 1rem;
+    --theme-rgb:113, 93, 242;
+    --max-width: 1600px;
+    background-color: inherit;
+`;
+export const DirectoryPageHeader = styled.header`
+    width:100%;
+    padding-top:25px;
+    padding-bottom:25rem;
+    background-color:rgba(var(--theme-rgb),0.1);
+    position: relative;
+    z-index: 0;
+    `;
+export const Wave = styled.div`
+        background-repeat:no-repeat;
+        background-position-y: bottom;
+        background-size: contain;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='99' viewBox='0 0 1200 99' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 47.1131L50 51.437C100 55.7609 200 64.4087 300 60.0848C400 55.7609 500 38.4653 600 23.3316C700 8.1979 800 -4.77383 900 1.71204C1000 8.1979 1100 34.1414 1150 47.1131L1200 60.0848V99H1150C1100 99 1000 99 900 99C800 99 700 99 600 99C500 99 400 99 300 99C200 99 100 99 50 99H0V47.1131Z' fill='rgb(244, 247, 254)' /%3E%3C/svg%3E");  
+        width: 100%;
+        height: 10rem;
+        position: absolute;
+        min-width: 100vw;
+        inset-inline: 0;
+        bottom: 0;
+        
+    
 `;
 
 export const GoToTop = styled.div`
@@ -532,9 +560,10 @@ export const SubmitToolContainer = styled.div`
 
 export const SlugPage = styled.div`
     width: 100%;
-    /* height: auto; */
-    /* background-color: rgba(var(--theme-rgb), .1); */
-    background: var(--card-bg);
+    margin-inline: auto;
+    margin-top: -22rem;
+    z-index: 11;
+    position: relative;
     border-radius: 30px;
     gap: 5px;
     vertical-align: middle;
@@ -543,70 +572,69 @@ export const SlugPage = styled.div`
     justify-content: space-around;
     flex-wrap:wrap;
     padding:2rem;
-    &>div:not(.CoverImage){
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        gap: .25rem;
-        height:100%;
-        margin:auto;
-    }
-    .title{
-        font-size: 3rem;
-        font-weight: 700;
-        line-height: 3.5rem;
-        max-width: 720px;
+  
+  
+
+  
+    
+`;
+export const Header = styled.div`
+    max-width: var(--max-width);
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    gap:1rem;
+    padding: 1rem;
+    .Meta{
+        display: inline-flex;
+        justify-content: flex-start;
+        gap:0.75rem;
+        img{
+            max-width: 90px !important;
+            aspect-ratio: 1;
+            height: auto;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--card-bg);
+
+        }
+        .Info{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+        }
+       
+        h1{
+        font-size: 1.875rem;
+        line-height: 2.25rem;
         text-transform: uppercase;
         text-wrap:balance;
-        margin-block:auto 1rem;
         .verify{
             color:rgba(var(--primary-rgb), 1);
             margin-inline: 0.5rem;
         }
-        @media screen and (max-width: 920px) {
-            font-size: 2.5rem;
-            line-height: 3rem;
-
-        }
+     }
+     p{
+        font-size: .875rem;
+    line-height: 1.25rem;
+     }
     }
-    .description{
-        line-height: 1.5rem;
-        max-width: 720px;
-        @media screen and (max-width: 920px) {
-            font-size: 1rem;
-            line-height: 1.25rem;
-        }
-    }
-
-    .CheckOut{
-        padding: 0.75rem 1.75rem;
-        border-radius: 50px;
-        background-color: rgba(var(--theme-rgb), 1);
-        color:rgba(var(--light-rgb), 1);
-        font-size: 1rem;
-        font-weight: 500;
-        text-transform:capitalize;
-        transition: all 0.3s ease;
-        display:inline-flex;
-        align-items: center;
+    .Action{
+        display: inline-flex;
         justify-content: center;
-        gap:0.25rem;
-        transition: all 200ms ease;
-        transform:scale(1);
-
-        &:active{
-            transform:scale(0.8);
-        }
-    }
-    .ShareBtn{
+        align-items: center;
+        gap:0.75rem;
+        .ShareBtn{
         display: inline-flex;
         align-items: center;
         justify-content: center;
         gap: 0.5rem;
-        padding: 0.75rem 1.5rem;
+        padding: 0.75rem;
         border-radius: 50px;
-        background-color: rgba(var(--theme-rgb), 1);
+        background-color: rgba(var(--theme-rgb), 0.75);
         color:rgba(var(--light-rgb), 1);
         font-size: 1.25rem;
         font-weight: 500;
@@ -618,26 +646,22 @@ export const SlugPage = styled.div`
         }
 
     }
-    .Actions{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
-        margin-block:2rem auto ;
+            .visit{
+                display: flex;
+                padding: 0.75rem 1.5rem;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50px;
+                font-size: 1.25rem;
+                color: var(--light);
+                background: rgba(var(--theme-rgb),1);
+                &:hover{
+                    background: rgba(var(--theme-rgb),0.91);
 
-    }
-    .CoverImage{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: flex-start;
-        img{
-            width: 100%;
-            height: auto;
-            border-radius: 25px;
-            filter: drop-shadow(4px 6px 5px rgba(var(--dark-rgb),0.25));
+                }
+
+            }
         }
-    }
 `;
 
 export const SimilarTools = styled.section`

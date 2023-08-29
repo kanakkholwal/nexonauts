@@ -1,5 +1,5 @@
 import handler from 'lib/handler';
-import PublicTool,{Category} from "models/public-tool";
+import PublicTool from "models/public-tool";
 import dbConnect from "lib/dbConnect";
 
 import nextConnect from 'next-connect';
@@ -10,8 +10,8 @@ export default nextConnect(handler)
     try {
         await dbConnect();
         const tools = await PublicTool.find({state:'published'}).populate("category");
-        const categories = await Category.find({});
-        return res.status(200).json({ tools, categories });
+
+        return res.status(200).json({ tools });
       
     }
     catch (error) {
