@@ -23,12 +23,14 @@ export default function useShare({
     
 
     return {
-        nativeShare:isShareNavigatorAvailable ? navigator.share({
-            title,
-            url,
-            text:description,
-            files:[image as any],
-        }):false,
+        nativeShare:isShareNavigatorAvailable ?   () =>{
+            navigator!.share({
+                title,
+                url,
+                text:description,
+                files:[image as any],
+            })
+        } :false,
         copyLink,
         socials:[
             {

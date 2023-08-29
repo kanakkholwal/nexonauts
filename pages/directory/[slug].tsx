@@ -6,18 +6,21 @@ import Footer from "components/layouts/footer";
 
 import {
     DirectoryPageNavBar,
+    DirectoryPageHeader,
     DirectoryPageContainer,
     SlugPage,
     SimilarTools,
-    ShareContainer
+    ShareContainer,
+    Header,
+    Wave
 } from "src/layouts/directory-page";
 import { RiArrowRightUpLine, RiCloseLine } from "react-icons/ri"
 import { TbShare2 } from "react-icons/tb"
 
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
-import { FaFacebookF, FaTwitter, FaLinkedinIn, FaWhatsapp ,FaPinterestP,FaTelegramPlane,FaRedditAlien} from 'react-icons/fa';
-import { LuCopy,LuVerified} from 'react-icons/lu';
-import { IoMailOutline} from 'react-icons/io5';
+import { FaFacebookF, FaTwitter, FaLinkedinIn, FaWhatsapp, FaPinterestP, FaTelegramPlane, FaRedditAlien } from 'react-icons/fa';
+import { LuCopy, LuVerified } from 'react-icons/lu';
+import { IoMailOutline } from 'react-icons/io5';
 import Badge from "components/topography/badge"
 import Button from '@/components/buttons';
 import LazyImage from "components/image";
@@ -26,37 +29,37 @@ import useShare from 'hooks/useShare';
 import {
     useModal,
     Modal,
-}  from "components/dialog/modal";
+} from "components/dialog/modal";
 import { useRef } from 'react';
 
 const social_icons = [
     {
-        name :"facebook",
-        icon: <FaFacebookF/>,
+        name: "facebook",
+        icon: <FaFacebookF />,
     }
-    ,{
-        name :"twitter",
-        icon: <FaTwitter/>,
+    , {
+        name: "twitter",
+        icon: <FaTwitter />,
     }
-    ,{
-        name :"linkedin",
-        icon: <FaLinkedinIn/>,
+    , {
+        name: "linkedin",
+        icon: <FaLinkedinIn />,
     }
-    ,{
-        name :"whatsapp",
-        icon: <FaWhatsapp/>,
+    , {
+        name: "whatsapp",
+        icon: <FaWhatsapp />,
     }
-    ,{
-        name :"pinterest",
-        icon: <FaPinterestP/>,
+    , {
+        name: "pinterest",
+        icon: <FaPinterestP />,
     }
-    ,{
-        name :"telegram",
-        icon: <FaTelegramPlane/>,
+    , {
+        name: "telegram",
+        icon: <FaTelegramPlane />,
     }
-    ,{
-        name :"reddit",
-        icon: <FaRedditAlien/>,
+    , {
+        name: "reddit",
+        icon: <FaRedditAlien />,
     }
 ]
 const SocialMedia = [
@@ -85,7 +88,7 @@ const SocialMedia = [
 
 
 export async function getServerSideProps(context: { query: { slug: string; }; }) {
-    
+
     const slug = context.query.slug;
 
     try {
@@ -98,11 +101,11 @@ export async function getServerSideProps(context: { query: { slug: string; }; })
                 "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`
             }
         })
-        const { 
-            tool ,
+        const {
+            tool,
             related
-            
-        } : {
+
+        }: {
             tool: PublicToolType,
             related: PublicToolType[] | null
         } = data;
@@ -135,14 +138,14 @@ export async function getServerSideProps(context: { query: { slug: string; }; })
 
 }
 
-export default function Tool({ tool ,related}:{
+export default function Tool({ tool, related }: {
     tool: PublicToolType,
     related: PublicToolType[] | null
 }) {
-    const { 
+    const {
         nativeShare,
         socials,
-     } = useShare({
+    } = useShare({
         title: tool.name,
         description: tool.description,
         url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/directory/${tool.slug}`,
@@ -180,37 +183,72 @@ export default function Tool({ tool ,related}:{
 
 
         <DirectoryPageContainer>
-            <DirectoryPageNavBar>
-                <Link href="/directory" className="Title">
-                    AI Directory
-                </Link>
-                <div className="LinkList">
-                    <Link href="/">
-                        Home
-                    </Link>
-                    <Link href="/apps">
-                        Services
-                    </Link>
-                    <Link href="/tools">
-                        Tools
-                    </Link>
-                    <Link href="/blog">
-                        Blog
-                    </Link>
-                </div>
-                <Link href="/submit" className="Submit">
-                    Submit
-                </Link>
 
-            </DirectoryPageNavBar>  
+            <DirectoryPageHeader>
+                <DirectoryPageNavBar>
+                    <Link href="/directory" className="Title">
+                        AI Directory
+                    </Link>
+                    <div className="LinkList">
+                        <Link href="/">
+                            Home
+                        </Link>
+                        <Link href="/apps">
+                            Services
+                        </Link>
+                        <Link href="/tools">
+                            Tools
+                        </Link>
+                        <Link href="/blog">
+                            Blog
+                        </Link>
+                    </div>
+                    <Link href="/submit" className="Submit">
+                        Submit
+                    </Link>
+
+                </DirectoryPageNavBar>
+                <Wave />
+            </DirectoryPageHeader>
             <SlugPage>
+                <Header>
+                    <div className="Meta">
+                        <LazyImage src={tool.coverImage} alt="AI Directory" width={600} height={480} />
+                        <div className='Info'>
+                            <h1>{tool.name}
+                                {/* {tool.verified && <LuVerified className='verify' size={32} title='Verified ' />} */}
+                            </h1>
+                            <p>
+                            <Badge noBorder={true}>
+                                {tool.pricing_type}
+                            </Badge>
+                            </p>
+                        </div> 
+                    </div>
+                    <div className="Action">
+                    <button className="ShareBtn"
+                            onClick={() => {
+                                // if (nativeShare !== false) {
+                                //     nativeShare();
+                                // } else {
+                                open();
+                                // }
+                            }
+                            }
+                        >
+                            <TbShare2 />
+                        </button>
+                            <Link href={tool.link} target='_blank' className='visit' >
+                                Visit Site
+                            </Link>
+                    </div>
+                </Header>
                 <div className="CoverImage">
-                    <LazyImage src={tool.coverImage} alt="AI Directory" width={600} height={480} />
                 </div>
                 <div>
 
                     <h2 className='title'>{tool.name}
-                        {tool.verified && <LuVerified className='verify' size={32} title='Verified '/>}
+                        {tool.verified && <LuVerified className='verify' size={32} title='Verified ' />}
                     </h2>
                     <p className="description">
                         {tool.description}
@@ -219,48 +257,37 @@ export default function Tool({ tool ,related}:{
                         <Badge noBorder={true}>
                             {tool.pricing_type}
                         </Badge>
-                        {tool.categories.map((tag,index) => {
-                                return <Badge key={index} noBorder={true} nature={"primary"}>
-                                    {tag.name}
-                                </Badge>
-                            })}
+                        {tool.categories.map((tag, index) => {
+                            return <Badge key={index} noBorder={true} nature={"primary"}>
+                                {tag.name}
+                            </Badge>
+                        })}
                     </p>
                     <div className="Actions">
-                    <Link className="CheckOut"
-                        href={tool.link} 
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        <Link className="CheckOut"
+                            href={tool.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
                         >
-                       Checkout
-                       <RiArrowRightUpLine/>
-                    </Link>
-                    <button className="ShareBtn" 
-                        onClick={() => {
-                            // if (nativeShare !== false) {
-                            //     nativeShare();
-                            // } else {
-                                open();
-                            // }
-                        }
-                        }
-                    >
-                        <TbShare2/>
-                    </button>
-                        </div>
-                      
+                            Checkout
+                            <RiArrowRightUpLine />
+                        </Link>
+                       
+                    </div>
+
                 </div>
             </SlugPage>
             <SimilarTools>
                 <div className='Header'>
-                <h4 className='Title'>Similar Tools</h4>
-                <Link href={"/directory/"} className='ViewAll'>
-                    Explore All
-                </Link>
+                    <h4 className='Title'>Similar Tools</h4>
+                    <Link href={"/directory/"} className='ViewAll'>
+                        Explore All
+                    </Link>
                 </div>
                 <div className="Tools">
-                    {related?.map((tool,index) => {
+                    {related?.map((tool, index) => {
                         return <div className="Tool" key={tool._id} style={{
-                            animationDelay:0.01 * index + "s"
+                            animationDelay: 0.01 * index + "s"
                         }}>
                             <div className="CoverImage">
                                 <LazyImage src={tool.coverImage} alt="AI Directory" width={600} height={480} />
@@ -272,12 +299,12 @@ export default function Tool({ tool ,related}:{
                                 </p>
                                 <div className="Actions">
                                     <Link className="CheckOut"
-                                        href={"/directory/" + tool.slug} 
-                                        >
-                                       Checkout
-                                       <RiArrowRightUpLine/>
+                                        href={"/directory/" + tool.slug}
+                                    >
+                                        Checkout
+                                        <RiArrowRightUpLine />
                                     </Link>
-                                 
+
                                 </div>
                             </div>
                         </div>
@@ -287,13 +314,13 @@ export default function Tool({ tool ,related}:{
 
         </DirectoryPageContainer>
         <Footer socialMedia={SocialMedia} />
-        <Modal 
+        <Modal
             ref={shareRef}
-            ><ShareContainer>
+        ><ShareContainer>
                 <div className='Header'>
                     <h4 className='Title'>Share</h4>
                     <button className='CloseBtn' onClick={close}>
-                        <RiCloseLine/>
+                        <RiCloseLine />
                     </button>
                 </div>
                 <div className='socials'>
@@ -302,14 +329,14 @@ export default function Tool({ tool ,related}:{
                         if (!icon)
                             return null
                         else
-                            return (<Button level={true} as={"a"} href={social.url} data-social={social.name} key={index} target='_blank'  rel="noopener noreferrer" title={"Share on " + social.name} className='item'>
+                            return (<Button level={true} as={"a"} href={social.url} data-social={social.name} key={index} target='_blank' rel="noopener noreferrer" title={"Share on " + social.name} className='item'>
                                 {icon.icon}
                             </Button>)
                     })}
                 </div>
-                </ShareContainer>
-                
-            </Modal>
+            </ShareContainer>
+
+        </Modal>
 
     </>
 }
