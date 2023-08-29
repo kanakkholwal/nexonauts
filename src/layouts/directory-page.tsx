@@ -567,10 +567,6 @@ export const SlugPage = styled.div`
     border-radius: 30px;
     gap: 5px;
     vertical-align: middle;
-    display: flex;
-    align-items: stretch;
-    justify-content: space-around;
-    flex-wrap:wrap;
     padding:2rem;
   
   
@@ -579,7 +575,7 @@ export const SlugPage = styled.div`
     
 `;
 export const Header = styled.div`
-    max-width: var(--max-width);
+    max-width: calc(var(--max-width) - 3rem);
     margin: auto;
     display: flex;
     justify-content: space-between;
@@ -634,8 +630,8 @@ export const Header = styled.div`
         gap: 0.5rem;
         padding: 0.75rem;
         border-radius: 50px;
-        background-color: rgba(var(--theme-rgb), 0.75);
-        color:rgba(var(--light-rgb), 1);
+        background-color: rgba(var(--light-rgb), 1);
+        color:rgba(var(--theme-rgb), 1);
         font-size: 1.25rem;
         font-weight: 500;
         transition: all 200ms ease;
@@ -663,6 +659,55 @@ export const Header = styled.div`
             }
         }
 `;
+export const SlugPageSection = styled.section`
+max-width: calc(var(--max-width) - 3rem);
+width: 100%;
+margin: auto;
+display: flex;
+justify-content: space-between;
+align-items: stretch;
+gap:1rem;
+`;
+export const SlugPageMain = styled.main`
+        .overview{
+            padding:1rem;
+            border-radius:0.5rem;
+            background: var(--card-bg);
+            h6{
+                font-size: 1.25rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+            }
+            .content{
+                font-weight: 500;
+            }
+        }
+    
+`;
+export const SlugPageAside = styled.aside`
+width: 100%;
+max-width:400px;
+
+.tagsWrapper{
+        padding:1rem;
+        border-radius:0.5rem;
+        font-weight: 500;
+        background: var(--card-bg);
+        margin-bottom: 1rem;
+        h6{
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .tags{
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+    }
+`;
 
 export const SimilarTools = styled.section`
     width: 100%;
@@ -671,7 +716,7 @@ export const SimilarTools = styled.section`
     max-width: 1600px;
     padding: 1rem;
     border-radius: 25px;
-    background-color: rgba(var(--grey-rgb), 0.1);
+    // background-color: rgba(var(--grey-rgb), 0.1);
     .Header{
         display: flex;
         align-items: center;
