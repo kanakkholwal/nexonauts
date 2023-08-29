@@ -8,9 +8,12 @@ import {
     DirectoryPageNavBar,
     DirectoryPageHeader,
     DirectoryPageContainer,
+    SlugPageSection,
     SlugPage,
     SimilarTools,
     ShareContainer,
+    SlugPageMain,
+    SlugPageAside,
     Header,
     Wave
 } from "src/layouts/directory-page";
@@ -243,39 +246,29 @@ export default function Tool({ tool, related }: {
                             </Link>
                     </div>
                 </Header>
-                <div className="CoverImage">
-                </div>
-                <div>
-
-                    <h2 className='title'>{tool.name}
-                        {tool.verified && <LuVerified className='verify' size={32} title='Verified ' />}
-                    </h2>
-                    <p className="description">
-                        {tool.description}
-                    </p>
-                    <p>
-                        <Badge noBorder={true}>
-                            {tool.pricing_type}
-                        </Badge>
-                        {tool.categories.map((tag, index) => {
-                            return <Badge key={index} noBorder={true} nature={"primary"}>
+                <SlugPageSection>
+                    <SlugPageMain>
+                        <div className="overview">
+                            <h6>Overview</h6>
+                            <p>{tool.description}</p>
+                    
+                        </div>  
+                    </SlugPageMain>
+                    <SlugPageAside>
+                        <div className="tagsWrapper">
+                            <h6>Tags</h6>
+                            <p className='tags'>
+                            {tool.categories.map((tag, index) => {
+                            return <Badge key={index} noBorder={true} nature={"primary"} rounded={true}>
                                 {tag.name}
                             </Badge>
                         })}
-                    </p>
-                    <div className="Actions">
-                        <Link className="CheckOut"
-                            href={tool.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Checkout
-                            <RiArrowRightUpLine />
-                        </Link>
-                       
-                    </div>
-
-                </div>
+                            </p>
+                        </div>  
+                    </SlugPageAside>
+                </SlugPageSection>
+              
+            
             </SlugPage>
             <SimilarTools>
                 <div className='Header'>
