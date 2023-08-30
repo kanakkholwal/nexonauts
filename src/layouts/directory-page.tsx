@@ -69,14 +69,12 @@ export const DirectoryPageNavBar = styled.nav`
     .Submit{
         padding: 0.5rem 1.5rem;
         border-radius: 25px;
-        background-color: rgba(var(--theme-rgb), 0.25);
-        color:rgba(var(--dark-rgb), 01);
+        background-color: rgba(var(--theme-rgb), 0.1);
+        color:rgba(var(--theme-rgb), 1);
         font-size: 16px;
         font-weight: 500;
         transition: all 0.3s ease;
-        &:hover{
-            background-color: rgba(var(--theme-rgb), 0.5);
-        }
+
     }
     .toggler{
         display: none;
@@ -461,7 +459,7 @@ export const DirectoryPageContainer = styled.div`
     min-height: 100vh;
     margin: 0 auto;
     --theme-rgb:113, 93, 242;
-    --max-width: 1600px;
+    --max-width: 1200px;
     background-color: inherit;
 `;
 export const DirectoryPageHeader = styled.header`
@@ -568,11 +566,18 @@ export const SlugPage = styled.div`
     gap: 5px;
     vertical-align: middle;
     padding:2rem;
-  
-  
-
-  
     
+`;
+export const Page = styled(SlugPage)`   
+    .searchContainer{
+        margin:auto;
+        width: 75%;
+        max-width: 540px;
+        padding: 1rem;
+        border-radius: 12px;
+        background-color: rgba(var(--light-rgb), 1);
+    }
+
 `;
 export const Header = styled.div`
     max-width: calc(var(--max-width) - 3rem);
@@ -673,6 +678,7 @@ export const SlugPageMain = styled.main`
             padding:1rem;
             border-radius:0.5rem;
             background: var(--card-bg);
+            margin-bottom: 2rem;
             h6{
                 font-size: 1.25rem;
                 font-weight: 600;
@@ -682,117 +688,92 @@ export const SlugPageMain = styled.main`
                 font-weight: 500;
             }
         }
+        .preview{
+            padding:1rem;
+            border-radius:0.5rem;
+            background: var(--card-bg);
+            h6{
+                font-size: 1.25rem;
+                font-weight: 600;
+                margin-bottom: 0.5rem;
+            }
+            .previews{
+                width: 100%;
+                display: inline-flex;
+                flex-wrap: nowrap;
+                flex-direction: row;
+                gap: 1rem;
+                justify-content: center;
+                align-items: center;
+                overflow: auto;
+            }
+          
+        }
     
 `;
 export const SlugPageAside = styled.aside`
 width: 100%;
 max-width:400px;
 
-.tagsWrapper{
-        padding:1rem;
-        border-radius:0.5rem;
+.tagsWrapper,.relatedWrapper{
         font-weight: 500;
-        background: var(--card-bg);
+  
         margin-bottom: 1rem;
         h6{
             font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: 0.5rem;
         }
+      
+    }
+    .tagsWrapper{
+        padding:1rem;
+
+        border-radius:0.5rem;
+        background: var(--card-bg);
         .tags{
             display: flex;
             justify-content: flex-start;
             align-items: center;
             flex-wrap: wrap;
             gap: 0.5rem;
+            font-size: 0.85rem;
         }
     }
-`;
-
-export const SimilarTools = styled.section`
-    width: 100%;
-    height: auto;
-    margin: 2rem auto;
-    max-width: 1600px;
-    padding: 1rem;
-    border-radius: 25px;
-    // background-color: rgba(var(--grey-rgb), 0.1);
-    .Header{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        padding-inline: 1rem;
-        margin-bottom: 1rem;
-        .Title{
-            color:rgba(var(--dark-rgb), 1);
-            text-transform: capitalize;
-        }
-        .ViewAll{
-            font-size: 1rem;
-            font-weight: 500;
-            color:rgba(var(--theme-rgb), 1);
-            background:rgba(var(--light-rgb), 1);
-            text-transform: capitalize;
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            &:hover{
-                color:rgba(var(--light-rgb), 0.75);
-                background-color: rgba(var(--theme-rgb), 0.8);
-            }
-        }
-    }
-    .Tools{
-        display:flex;
-        justify-content: flex-start;
-        align-items: stretch;
-        gap:0.75rem;
-        flex-wrap:wrap;
-        .Tool{
-            display:flex;
-            flex-direction: column;
-            align-items: stretch;
+    .relatedWrapper{
+   
+        .relatedCard{
+            display: flex;
             justify-content: flex-start;
-            padding:0.75rem;
+            align-items: center;
+            width: 100%;
+            border-radius:0.5rem;
             background: var(--card-bg);
-            border-radius: 12px;
-            flex:1 1 360px;
-            opacity: 0;
-    visibility: hidden;
-    transition: all 250ms ease-in-out 0s;
-    animation-name: pop;
-    animation-duration: 0.83s;
-    animation-direction: normal;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-
-            .CoverImage{
-                margin-bottom: 0.5rem;
-                img{
-                    border-radius: 15px;
-                    width: 100%;
-                    height: auto;
-                    aspect-ratio: 16/9;
-                    filter: drop-shadow(1px 1px 5px rgba(var(--dark-rgb),0.1));
+            gap: 0.5rem;
+            padding: 0.75rem;
+            margin-bottom: 10px;
+            border: 1px solid #eee;
+            img{
+                width: 100px;
+                border: 1px solid #eee;
+                border-radius: 0.5rem;
+            }
+            .Details{
+                h4{
+                    font-size: 1.25rem;
+                    font-weight: 600;
+                    margin-bottom: 0.5rem;
+                }
+                p{
+                    font-size: 0.875rem;
+                    font-weight: 500;
                 }
             }
-            .Name{
-                text-transform: capitalize;
-                margin-bottom:0.25rem;
-            }
-            .description{
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                -webkit-box-orient: vertical;
-                -webkit-line-clamp:2;
-                overflow: hidden;
-                line-height: 1.25rem;
-                max-height: 2.5rem;
-                margin-bottom:0.5rem;
-            }
         }
     }
 `;
+
+
 export const ShareContainer = styled.div`
     width: 100%;
     .Header{

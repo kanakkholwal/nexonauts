@@ -55,6 +55,9 @@ const Footer = ({ only = "false" }) => {
             </span>
             <ul>
                 <li>
+                    <Link href="/directory">AI Directory</Link>
+                </li>
+                <li>
                     <Link href="/apps">AI Apps</Link>
                 </li>
                 <li>
