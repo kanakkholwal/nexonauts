@@ -69,7 +69,7 @@ const getPosition = (position:string) => {
   }
 }
 const Badge = styled.span<{
-    nature?: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark",
+    nature?: "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark" | "theme",
     noBorder?: boolean,
     asButton?: boolean,
     dot?: boolean,

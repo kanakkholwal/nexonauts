@@ -10,7 +10,6 @@ import {
     DirectoryPageContainer,
     SlugPageSection,
     SlugPage,
-    SimilarTools,
     ShareContainer,
     SlugPageMain,
     SlugPageAside,
@@ -222,14 +221,14 @@ export default function Tool({ tool, related }: {
                                 {/* {tool.verified && <LuVerified className='verify' size={32} title='Verified ' />} */}
                             </h1>
                             <p>
-                            <Badge noBorder={true}>
-                                {tool.pricing_type}
-                            </Badge>
+                                <Badge noBorder={true}>
+                                    {tool.pricing_type}
+                                </Badge>
                             </p>
-                        </div> 
+                        </div>
                     </div>
                     <div className="Action">
-                    <button className="ShareBtn"
+                        <button className="ShareBtn"
                             onClick={() => {
                                 // if (nativeShare !== false) {
                                 //     nativeShare();
@@ -241,9 +240,9 @@ export default function Tool({ tool, related }: {
                         >
                             <TbShare2 />
                         </button>
-                            <Link href={tool.link} target='_blank' className='visit' >
-                                Visit Site
-                            </Link>
+                        <Link href={tool.link} target='_blank' className='visit' >
+                            Visit Site
+                        </Link>
                     </div>
                 </Header>
                 <SlugPageSection>
@@ -251,85 +250,76 @@ export default function Tool({ tool, related }: {
                         <div className="overview">
                             <h6>Overview</h6>
                             <p>{tool.description}</p>
-                    
-                        </div>  
+                        </div>
+                        <div className="preview">
+                            <h6>Previews</h6>
+                            <div className='previews'>
+                                <LazyImage src={tool.coverImage} alt="AI Directory" width={600} height={480} />
+                            </div>
+                        </div>
                     </SlugPageMain>
                     <SlugPageAside>
                         <div className="tagsWrapper">
                             <h6>Tags</h6>
                             <p className='tags'>
-                            {tool.categories.map((tag, index) => {
-                            return <Badge key={index} noBorder={true} nature={"primary"} rounded={true}>
-                                {tag.name}
-                            </Badge>
-                        })}
+                                {tool.categories.map((tag, index) => {
+                                    return <Badge key={index} noBorder={true} nature={"primary"} rounded={true}>
+                                        {tag.name}
+                                    </Badge>
+                                })}
                             </p>
-                        </div>  
+                        </div>
+                        <div className="relatedWrapper">
+                            <h6>Related to {tool.name}</h6>
+                            {related?.map((tool, index) => {
+                                return (<Link className='relatedCard'  href={"/directory/" + tool.slug} key={index}>
+
+                                    <LazyImage src={tool.coverImage} alt="AI Directory" width={600} height={480} />
+                                    <div className="Details">
+                                        <h4>{tool.name}</h4>
+                                        <p>
+                                            <Badge noBorder={true} nature={"theme"} rounded={true}>
+                                                {tool.pricing_type}
+                                            </Badge>
+                                        </p>
+
+                                    </div>
+
+                                </Link>)
+                            })}
+                        </div>
                     </SlugPageAside>
                 </SlugPageSection>
-              
-            
+
+
             </SlugPage>
-            <SimilarTools>
-                <div className='Header'>
-                    <h4 className='Title'>Similar Tools</h4>
-                    <Link href={"/directory/"} className='ViewAll'>
-                        Explore All
-                    </Link>
-                </div>
-                <div className="Tools">
-                    {related?.map((tool, index) => {
-                        return <div className="Tool" key={tool._id} style={{
-                            animationDelay: 0.01 * index + "s"
-                        }}>
-                            <div className="CoverImage">
-                                <LazyImage src={tool.coverImage} alt="AI Directory" width={600} height={480} />
-                            </div>
-                            <div className="Details">
-                                <h4 className="Name">{tool.name}</h4>
-                                <p className="description">
-                                    {tool.description}
-                                </p>
-                                <div className="Actions">
-                                    <Link className="CheckOut"
-                                        href={"/directory/" + tool.slug}
-                                    >
-                                        Checkout
-                                        <RiArrowRightUpLine />
-                                    </Link>
+          
+            <Modal
+                ref={shareRef}
+            ><ShareContainer>
+                    <div className='Header'>
+                        <h4 className='Title'>Share</h4>
+                        <button className='CloseBtn' onClick={close}>
+                            <RiCloseLine />
+                        </button>
+                    </div>
+                    <div className='socials'>
+                        {socials.map((social, index) => {
+                            const icon = social_icons.find((item) => item.name === social.name)
+                            if (!icon)
+                                return null
+                            else
+                                return (<Button level={true} as={"a"} href={social.url} data-social={social.name} key={index} target='_blank' rel="noopener noreferrer" title={"Share on " + social.name} className='item'>
+                                    {icon.icon}
+                                </Button>)
+                        })}
+                    </div>
+                </ShareContainer>
 
-                                </div>
-                            </div>
-                        </div>
-                    })}
-                </div>
-            </SimilarTools>
-
+            </Modal>
         </DirectoryPageContainer>
         <Footer socialMedia={SocialMedia} />
-        <Modal
-            ref={shareRef}
-        ><ShareContainer>
-                <div className='Header'>
-                    <h4 className='Title'>Share</h4>
-                    <button className='CloseBtn' onClick={close}>
-                        <RiCloseLine />
-                    </button>
-                </div>
-                <div className='socials'>
-                    {socials.map((social, index) => {
-                        const icon = social_icons.find((item) => item.name === social.name)
-                        if (!icon)
-                            return null
-                        else
-                            return (<Button level={true} as={"a"} href={social.url} data-social={social.name} key={index} target='_blank' rel="noopener noreferrer" title={"Share on " + social.name} className='item'>
-                                {icon.icon}
-                            </Button>)
-                    })}
-                </div>
-            </ShareContainer>
 
-        </Modal>
 
     </>
 }

@@ -10,7 +10,11 @@ import {
     DirectoryPageSearchContainer,
     DirectoryPageSearchResults,
     DirectoryPageSearchFilters,
-    GoToTop
+    GoToTop,
+    Header,
+    DirectoryPageHeader,
+    Page,
+    Wave
 } from "src/layouts/directory-page";
 import { Wobble } from "components/Loader"
 import { IconButton } from "components/buttons"
@@ -221,11 +225,12 @@ useEffect(() => {
                 }}
             />
             <DirectoryPageContainer>
+            <DirectoryPageHeader>
                 <DirectoryPageNavBar>
                     <Link href="/directory" className="Title">
                         AI Directory
                     </Link>
-                    <div className={"LinkList " + (settings.show ? " show":"")}>
+                    <div className="LinkList">
                         <Link href="/">
                             Home
                         </Link>
@@ -239,29 +244,21 @@ useEffect(() => {
                             Blog
                         </Link>
                     </div>
-                    <Link href="/directory/submit" className="Submit">
+                    <Link href="/submit" className="Submit">
                         Submit
                     </Link>
-                    <IconButton type="button" className="toggler"
-                        onClick={() => {
 
-                            setSettings((prevSettings) =>{
-                                return {
-                                    ...prevSettings,
-                                    show: !prevSettings.show
-                                }
-                            })
-                        }
-                    }
-                    >
-                        <CgMenuRightAlt size={16}/>
-                    </IconButton>
                 </DirectoryPageNavBar>
-
-                <DirectoryPageHero>
+                <Wave />
+            </DirectoryPageHeader>
+            <Page>
+                <div className='searchContainer'>
+                <h4 className="title">Your Path to Peak Efficiency</h4>
+                    <Input />
+                </div>
+                {/* <DirectoryPageHero>
                     <div>
 
-                        <h2 className="title">Your Path to Peak Efficiency</h2>
                         <p className="description">Unlock your productivity potential with AI-powered tools that streamline your workflow, optimize tasks, and elevate your success. Embrace a future of seamless efficiency at the Productivity Hub.</p>
 
                         <Link className="SubmitYourTool"
@@ -272,7 +269,7 @@ useEffect(() => {
                     <div className="illustration">
                         <img src="assets/images/illustration_dashboard.png" alt="AI Directory" />
                     </div>
-                </DirectoryPageHero>
+                </DirectoryPageHero> */}
                 <DirectoryPageSearchContainer>
                     <div className="SearchBar">
                         <Input type="search"
@@ -468,6 +465,7 @@ useEffect(() => {
                     </DirectoryPageSearchFilters>
 
                 </div>
+            </Page>
 
             </DirectoryPageContainer>
             <Footer socialMedia={SocialMedia} />
