@@ -255,7 +255,7 @@ export default function AiDirectory({
                                 Blog
                             </Link>
                         </div>
-                        <Link href="/submit" className="Submit">
+                        <Link href="/directory/submit" className="Submit">
                             Submit
                         </Link>
 
