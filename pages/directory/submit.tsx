@@ -4,13 +4,15 @@ import Footer from "components/layouts/footer";
 
 import {
     DirectoryPageNavBar,
+    DirectoryPageHeader,
     DirectoryPageContainer,
-    SubmitToolContainer
+    SubmitToolContainer,
+    Wave
 } from "src/layouts/directory-page";
 
 import Button, { IconButton } from "components/buttons"
 import Link from "next/link";
-import { Input, Select, TextArea, Label, FormElement,FormGroup } from "components/form-elements";
+import { Input, Select, TextArea, Label, FormElement, FormGroup } from "components/form-elements";
 
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import { RiArrowRightUpLine } from "react-icons/ri"
@@ -66,7 +68,7 @@ export default function AiDirectory({
         author_name: "",
         author_email: "",
     });
-    const [state,setState] = useState<{
+    const [state, setState] = useState<{
         loading: boolean,
         error: boolean,
         success: boolean,
@@ -85,13 +87,13 @@ export default function AiDirectory({
                 link: tool.link,
                 pricing_type: tool.pricing_type,
                 description: tool.description,
-                author:{
+                author: {
                     name: tool.author_name,
                     email: tool.author_email,
                 }
             }).then((response) => {
                 resolve(response.data);
-                setState((prevState)=>{
+                setState((prevState) => {
                     return {
                         ...prevState,
                         success: true,
@@ -100,25 +102,26 @@ export default function AiDirectory({
                 })
             }).catch((error) => {
                 console.log(error);
-                setState((prevState)=>{
+                setState((prevState) => {
                     return {
                         ...prevState,
                         error: true,
                         message: error.message,
-                    }})
-                reject(error);
-            })
-            .finally(() =>{
-                setState((prevState)=>{
-                    return {
-                        ...prevState,
-                        loading: false,
                     }
                 })
+                reject(error);
             })
+                .finally(() => {
+                    setState((prevState) => {
+                        return {
+                            ...prevState,
+                            loading: false,
+                        }
+                    })
+                })
         })
     }
-    
+
 
 
 
@@ -128,42 +131,32 @@ export default function AiDirectory({
                 <title>Submit | AI directory</title>
             </Head>
             <DirectoryPageContainer>
-                <DirectoryPageNavBar>
-                    <Link href="/directory" className="Title">
-                        AI Directory
-                    </Link>
-                    <div className={"LinkList " + (settings.show ? " show":"")}>
-                        <Link href="/">
-                            Home
+                <DirectoryPageHeader>
+                    <DirectoryPageNavBar>
+                        <Link href="/directory" className="Title">
+                            AI Directory
                         </Link>
-                        <Link href="/apps">
-                            Services
+                        <div className="LinkList">
+                            <Link href="/">
+                                Home
+                            </Link>
+                            <Link href="/apps">
+                                Services
+                            </Link>
+                            <Link href="/tools">
+                                Tools
+                            </Link>
+                            <Link href="/blog">
+                                Blog
+                            </Link>
+                        </div>
+                        <Link href="/submit" className="Submit">
+                            Submit
                         </Link>
-                        <Link href="/tools">
-                            Tools
-                        </Link>
-                        <Link href="/blog">
-                            Blog
-                        </Link>
-                    </div>
-                    <Link href="/directory/submit" className="Submit">
-                        Submit
-                    </Link>
-                    <IconButton type="button" className="toggler"
-                        onClick={() => {
 
-                            setSettings((prevSettings) =>{
-                                return {
-                                    ...prevSettings,
-                                    show: !prevSettings.show
-                                }
-                            })
-                        }
-                    }
-                    >
-                        <CgMenuRightAlt size={16}/>
-                    </IconButton>
-                </DirectoryPageNavBar>
+                    </DirectoryPageNavBar>
+                    <Wave />
+                </DirectoryPageHeader>
                 <SubmitToolContainer>
                     <h1 className="Title">
                         Submit your tool
@@ -174,42 +167,42 @@ export default function AiDirectory({
                     <FormGroup>
                         <FormElement>
                             <Label htmlFor="your_name">Your Name</Label>
-                            <Input type="text" id="your_name" name="your_name" level={true} placeholder="Enter your name" 
-                            onChange={(event)=>{
-                                setTool((prevTool)=>{
-                                    return {
-                                        ...prevTool,
-                                        author_name: event.target.value
-                                    }
-                                })
-                            }
-                            }
-                            value={tool.author_name}
+                            <Input type="text" id="your_name" name="your_name" level={true} placeholder="Enter your name"
+                                onChange={(event) => {
+                                    setTool((prevTool) => {
+                                        return {
+                                            ...prevTool,
+                                            author_name: event.target.value
+                                        }
+                                    })
+                                }
+                                }
+                                value={tool.author_name}
                             />
                         </FormElement>
                         <FormElement>
                             <Label htmlFor="your_mail">Your Email</Label>
-                            <Input type="email" id="your_mail" name="your_mail" level={true} placeholder="Enter your email" 
-                            onChange={(event)=>{
-                                setTool((prevTool)=>{
-                                    return {
-                                        ...prevTool,
-                                        author_email: event.target.value
-                                    }
-                                })
-                            }
-                            }
-                            value={tool.author_email}
+                            <Input type="email" id="your_mail" name="your_mail" level={true} placeholder="Enter your email"
+                                onChange={(event) => {
+                                    setTool((prevTool) => {
+                                        return {
+                                            ...prevTool,
+                                            author_email: event.target.value
+                                        }
+                                    })
+                                }
+                                }
+                                value={tool.author_email}
 
                             />
                         </FormElement>
                     </FormGroup>
-                        <FormElement>
-                            <Label htmlFor="tool_name">Tool Name</Label>
-                            <Input type="text" id="tool_name" name="tool_name" level={true} placeholder="Enter Tool Name" 
-                            onChange={(event)=>{
+                    <FormElement>
+                        <Label htmlFor="tool_name">Tool Name</Label>
+                        <Input type="text" id="tool_name" name="tool_name" level={true} placeholder="Enter Tool Name"
+                            onChange={(event) => {
 
-                                setTool((prevTool)=>{
+                                setTool((prevTool) => {
                                     return {
                                         ...prevTool,
                                         name: event.target.value
@@ -218,14 +211,14 @@ export default function AiDirectory({
                             }
                             }
                             value={tool.name}
-            
-                            />
-                        </FormElement>
-                        <FormElement>
-                            <Label htmlFor="tool_link">Tool Link</Label>
-                            <Input type="text" id="tool_link" name="tool_link" level={true} placeholder="Enter Tool Link"
-                            onChange={(event)=>{
-                                setTool((prevTool)=>{
+
+                        />
+                    </FormElement>
+                    <FormElement>
+                        <Label htmlFor="tool_link">Tool Link</Label>
+                        <Input type="text" id="tool_link" name="tool_link" level={true} placeholder="Enter Tool Link"
+                            onChange={(event) => {
+                                setTool((prevTool) => {
                                     return {
                                         ...prevTool,
                                         link: event.target.value
@@ -235,11 +228,11 @@ export default function AiDirectory({
                             }
                             value={tool.link}
 
-                            />
-                        </FormElement>
-                        <FormElement>
-                            <Label htmlFor="tool_pricing_type">Select Tool Pricing Type</Label>
-                            <Select 
+                        />
+                    </FormElement>
+                    <FormElement>
+                        <Label htmlFor="tool_pricing_type">Select Tool Pricing Type</Label>
+                        <Select
                             id="tool_pricing_type" name="tool_pricing_type" level={true} placeholder="Select Tool Pricing Type"
                             value={tool.pricing_type}
                             options={[
@@ -272,9 +265,9 @@ export default function AiDirectory({
                                     label: "Other"
                                 },
                             ]}
-                            onChange={(option )=>{
+                            onChange={(option) => {
                                 console.log(option);
-                                setTool((prevTool)=>{
+                                setTool((prevTool) => {
                                     return {
                                         ...prevTool,
                                         pricing_type: option.value
@@ -283,13 +276,13 @@ export default function AiDirectory({
                                 )
 
                             }}
-                            />
-                        </FormElement>
-                        <FormElement>
-                            <Label htmlFor="tool_description">Tool Description</Label>
-                            <TextArea 
-                            onChange={(event)=>{
-                                setTool((prevTool)=>{
+                        />
+                    </FormElement>
+                    <FormElement>
+                        <Label htmlFor="tool_description">Tool Description</Label>
+                        <TextArea
+                            onChange={(event) => {
+                                setTool((prevTool) => {
                                     return {
                                         ...prevTool,
                                         description: event.target.value
@@ -298,18 +291,18 @@ export default function AiDirectory({
                             }
                             }
                             value={tool.description}
-                            id="tool_description" name="tool_description" level={true} placeholder="Enter Tool Description"  rows={8}/>
-                        </FormElement>
-                        <div className="footer">
-                            <div className={"spinner " + (state.loading ? "loading":"")}>
-                                <ImSpinner10/>
-                            </div>
+                            id="tool_description" name="tool_description" level={true} placeholder="Enter Tool Description" rows={8} />
+                    </FormElement>
+                    <div className="footer">
+                        <div className={"spinner " + (state.loading ? "loading" : "")}>
+                            <ImSpinner10 />
+                        </div>
                         <Button type="button"
-                             onClick={() =>{
-                               
+                            onClick={() => {
+
                                 toast.promise(submitTool(), {
                                     loading: 'Submitting Tool...',
-                                    success: (data :any) => {
+                                    success: (data: any) => {
                                         console.log(data);
                                         return data.message;
                                     },
@@ -319,24 +312,24 @@ export default function AiDirectory({
                                     },
                                 });
                             }}
-                        
-                        loading={state.loading}
-                       
-                        >
-                            Submit your Tool <RiArrowRightUpLine size={20}/>
-                        </Button>
-                        </div>
-                    </SubmitToolContainer>
 
-            
-        
+                            loading={state.loading}
+
+                        >
+                            Submit your Tool <RiArrowRightUpLine size={20} />
+                        </Button>
+                    </div>
+                </SubmitToolContainer>
+
+
+
             </DirectoryPageContainer>
             <Footer socialMedia={SocialMedia} />
 
-                <Toaster
-                    position="bottom-center"
-                    reverseOrder={false}
-                    />
+            <Toaster
+                position="bottom-center"
+                reverseOrder={false}
+            />
         </>
     )
 }
@@ -353,12 +346,12 @@ export async function getServerSideProps(context: any) {
     };
 
 
-  
+
 
 
     return {
         props: {
-            
+
             data,
         },
 

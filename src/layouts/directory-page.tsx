@@ -89,9 +89,11 @@ export const DirectoryPageNavBar = styled.nav`
 
 export const DirectoryPageHero = styled.div`
     width: 100%;
+    max-width: var(--max-width);
+    margin-inline: auto;
+    margin-top:-3rem;
     height: auto;
     min-height: 50vh;
-    background-color: rgba(var(--theme-rgb), 0.5);
     border-radius: 50px;
     vertical-align: middle;
     display: flex;
@@ -101,8 +103,8 @@ export const DirectoryPageHero = styled.div`
     /* background: linear-gradient(rgba(var(--theme-rgb), 0.5), rgba(var(--theme-rgb), 0.5)), url("assets/backgrounds/dashboard.jpg"); */
     /* background-size: cover; */
     background-repeat: no-repeat;
-    --text-color: rgba(var(--light-rgb), 1);
-    color:rgba(var(--light-rgb), 0.9);
+    /* --text-color: rgba(var(--light-rgb), 1);
+    color:rgba(var(--light-rgb), 0.9); */
     &>div:not(.illustration){
         display: flex;
         flex-direction: column;
@@ -111,7 +113,7 @@ export const DirectoryPageHero = styled.div`
         gap: .25rem;
     }
     .title{
-        font-size: 3rem;
+        font-size: 4rem;
         font-weight: 700;
         line-height: 3.5rem;
         max-width: 720px;
@@ -126,7 +128,7 @@ export const DirectoryPageHero = styled.div`
     }
     .description{
      font-size: 1.2rem;
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.5rem;
         max-width: 720px;
         @media screen and (max-width: 920px) {
@@ -138,17 +140,21 @@ export const DirectoryPageHero = styled.div`
     .SubmitYourTool{
         padding: 0.75rem 1.75rem;
         border-radius: 50px;
-        background-color: rgba(var(--light-rgb), 1);
-        color:rgba(var(--theme-rgb), 1);
         font-size: 1.25rem;
         font-weight: 500;
         text-transform:capitalize;
         transition: all 0.3s ease;
-        margin-block: auto 2rem;
+        margin-block: auto 4rem;
         display:flex;
         align-items: center;
         justify-content: center;
         gap:0.25rem;
+        background-color: rgba(var(--theme-rgb), .1);
+        color:rgba(var(--theme-rgb), 1);
+        &:hover{
+            background-color: rgba(var(--theme-rgb), 1);
+            color:rgba(var(--light-rgb), 0.9);
+        }
     }
     .illustration{
         display: flex;
@@ -159,22 +165,59 @@ export const DirectoryPageHero = styled.div`
         @media screen and (max-width: 768px) {
             display: none;
         }
+        img{
+            animation:float 5s linear infinite;
+            @keyframes float{
+                from{
+                    transform: translateX(0);
+                }
+                25%{
+                    transform: translateY(-20px);
+                }
+                50%{
+                    transform: translateY(0);
+                }
+                75%{
+                    transform: translateY(20px);
+                }
+
+                to{
+                    transform: translateY(0);
+                }
+            }
+        }
     }
 `;
 export const DirectoryPageSearchContainer = styled.div`
+    --theme-rgb:113, 93, 242!important;
     width: 100%;
-    border-radius: 25px;
-    background-color: rgba(var(--grey-rgb), .1);
+    max-width: var(--max-width);
+    margin-inline: auto;
+    border-radius: 15px;
+    background-color: rgba(var(--light-rgb), 1);
     padding: 1rem;
     margin-top: 5rem;
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
-    input{
-        border-radius:50px!important;
+    h4{
+        font-size: 2rem;
+        font-weight: 600;
+        line-height: 2.25rem;
+        text-transform:capitalize;
+        text-align:center;
+        margin-block: auto 1rem;
+        @media screen and (max-width: 920px) {
+            font-size: 1.25rem;
+            line-height: 1.5rem;
+        }
     }
+
     .SearchBar{
         position: relative;
+        max-width: calc(var(--max-width) * 0.6);
+        display: flex;
+        align-items: center;
+        margin-inline: auto;
+        width: 100%;
+        margin-bottom: 12px;
         .SearchButton{
             position: absolute;
             inset-block:-1px 0;
@@ -196,14 +239,69 @@ export const DirectoryPageSearchContainer = styled.div`
             background-color: rgba(var(--light-rgb), 1);
 
         }
+        .filterbtn{
+            --theme-rgb:113, 93, 242;
+            color: rgba(var(--theme-rgb),1);
+            padding: 12px;
+            background: rgba(var(--theme-rgb),0.1);
+            &:hover,&.active{
+                color: rgba(var(--light-rgb),0.9);
+                background: rgba(var(--theme-rgb),1);
+            }
+
+        }
+    }
+    @media screen and (max-width: 768px) {
+        margin-top: 2rem;
+    }
+    .filterWrapper{
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.25rem;
+        input{
+            border-radius: 25px!important;
+            padding: 10px 15px!important;
+            font-size: 14px !important;
+            line-height: 16px !important;
+            max-width: 200px !important;
+            text-transform: capitalize!important;
+        }
+        .filter{
+            --theme-rgb:113, 93, 242;
+            color: rgba(var(--theme-rgb),1);
+            border-radius: 25px!important;
+            padding: 8px 15px!important;
+            font-size: 14px !important;
+            line-height: 16px !important;
+            background: rgba(var(--theme-rgb),0.1);
+            &:hover,&.active{
+                color: rgba(var(--light-rgb),0.9);
+                background: rgba(var(--theme-rgb),1);
+            }
+        }
+        .clear{
+            --theme-rgb:113, 93, 242;
+            color: rgba(var(--theme-rgb),1);
+
+            padding: 8px 15px!important;
+            font-size: 14px!important;
+            line-height: 16px!important;
+            &:hover,&.active{
+              text-decoration: underline;
+            }
+        }
     }
 
 
 `;
 export const DirectoryPageSearchResults = styled.div`
     width: 100%;
+    max-width: var(--max-width);
+    margin-inline: auto;
     margin-top: 2rem;
-    background-color: rgba(var(--grey-rgb), .1);
     padding: 1rem;
     border-radius: 20px;
     height:100%;
@@ -299,8 +397,11 @@ export const DirectoryPageSearchResults = styled.div`
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
+            background-color: rgba(var(--theme-rgb), 0.1);
+
             &:hover{
-                background-color: rgba(var(--theme-rgb), 0.1);
+                background-color: rgba(var(--theme-rgb), 1);
+                color: rgba(var(--light-rgb), 0.9);
             }
         }
         .TryOut{
@@ -458,7 +559,7 @@ export const DirectoryPageContainer = styled.div`
     height: 100%;
     min-height: 100vh;
     margin: 0 auto;
-    --theme-rgb:113, 93, 242;
+    --theme-rgb:113, 93, 242!important;
     --max-width: 1200px;
     background-color: inherit;
 `;
@@ -513,8 +614,10 @@ export const SubmitToolContainer = styled.div`
     width: 100%;
     padding: 1rem;
     border-radius: 25px;
+    position: relative;
     background-color: rgba(var(--light-rgb), 1);
     margin: auto;
+    margin-top:-18rem;
     max-width: 768px;
     .Title{
         font-size: 24px;
@@ -572,10 +675,10 @@ export const Page = styled(SlugPage)`
     .searchContainer{
         margin:auto;
         width: 75%;
-        max-width: 540px;
+        max-width: 980px;
         padding: 1rem;
         border-radius: 12px;
-        background-color: rgba(var(--light-rgb), 1);
+        /* background-color: rgba(var(--light-rgb), 1); */
     }
 
 `;

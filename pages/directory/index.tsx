@@ -2,27 +2,24 @@ import { NextSeo } from 'next-seo';
 import axios from "axios";
 import PublicToolType from "types/public-tool";
 import Footer from "components/layouts/footer";
-
 import {
     DirectoryPageNavBar,
     DirectoryPageContainer,
     DirectoryPageHero,
     DirectoryPageSearchContainer,
     DirectoryPageSearchResults,
-    DirectoryPageSearchFilters,
     GoToTop,
-    Header,
     DirectoryPageHeader,
     Page,
     Wave
 } from "src/layouts/directory-page";
 import { Wobble } from "components/Loader"
-import { IconButton } from "components/buttons"
+import  { IconButton } from "components/buttons"
 
 import { TbSearch, TbExternalLink, TbArrowBigRightLine } from "react-icons/tb";
 import Link from "next/link";
 
-import { Input, Select, CheckBox, Label, FormElement } from "components/form-elements";
+import { Input, Select,   } from "components/form-elements";
 import Badge from "components/topography/badge"
 
 
@@ -30,9 +27,21 @@ import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "re
 import { CiGrid2H, CiGrid41 } from "react-icons/ci"
 import { RiArrowRightUpLine } from "react-icons/ri"
 import { RxArrowUp } from "react-icons/rx"
-import { CgMenuRightAlt } from "react-icons/cg"
 import { useEffect, useMemo, useRef, useState } from "react";
 import LazyImage from "components/image";
+import { Quicksand } from "next/font/google";
+import { FiFilter } from 'react-icons/fi';
+import Collapse from '@/components/collapse';
+
+const quicksand = Quicksand({
+    preload: false,
+    weight: ["400", "500", "600", "700"],
+    subsets: [
+        "latin-ext",
+        "latin"
+    ]
+})
+
 
 const SocialMedia = [
     {
@@ -94,31 +103,33 @@ export default function AiDirectory({
     const [filter, setFilter] = useState<{
         pricing_type: string;
         categories: string[];
+        open: boolean
     }>({
         pricing_type: "Default",
         categories: [],
+        open: false,
     });
 
     const filteredTools = useMemo(() => {
 
         return tools.filter(tool => {
             let isValid = true;
-    
+
             // Other code...
             console.log(tool)
-    
+
             if (filter.pricing_type !== "Default" && tool.pricing_type !== filter.pricing_type) {
                 isValid = false;
             }
-    
+
             if (filter.categories.length > 0 && !filter.categories.some(category => tool.categories.findIndex(toolCategory => toolCategory.slug === category) >= 0)) {
                 isValid = false;
             }
             // console.log(tool.pricing_type)
-    
+
             return isValid;
         }) as PublicToolType[];
-    }, [filter,tools,settings.query]);
+    }, [filter, tools, settings.query]);
     const [loadingMore, setLoadingMore] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
@@ -140,36 +151,36 @@ export default function AiDirectory({
     }
     const lastToolRef = useRef<HTMLDivElement>(null);
 
-useEffect(() => {
-    const observer = new IntersectionObserver(
-        entries => {
-            if (entries[0].isIntersecting && hasMore && !loadingMore) {
-                setLoadingMore(true);
-            }
-        },
-        { root: null, rootMargin: '0px', threshold: 1 }
-    );
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            entries => {
+                if (entries[0].isIntersecting && hasMore && !loadingMore) {
+                    setLoadingMore(true);
+                }
+            },
+            { root: null, rootMargin: '0px', threshold: 1 }
+        );
 
-    if (lastToolRef.current) {
-        observer.observe(lastToolRef.current);
-    }
-
-    return () => {
         if (lastToolRef.current) {
-            observer.unobserve(lastToolRef.current);
+            hasMore ? observer.observe(lastToolRef.current) : observer.unobserve(lastToolRef.current);
         }
-    };
-}, [hasMore, loadingMore]);
 
-    
+        return () => {
+            if (lastToolRef.current) {
+                observer.unobserve(lastToolRef.current);
+            }
+        };
+    }, [hasMore, loadingMore]);
+
+
     useEffect(() => {
         if (loadingMore) {
-            
-    
+
+
             loadMoreData();
         }
     }, [loadingMore]);
-        
+
 
     // search with debounce function
     const debounce = (func: { (e: any): Promise<void>; apply?: any; }, delay: number | undefined) => {
@@ -225,109 +236,157 @@ useEffect(() => {
                 }}
             />
             <DirectoryPageContainer>
-            <DirectoryPageHeader>
-                <DirectoryPageNavBar>
-                    <Link href="/directory" className="Title">
-                        AI Directory
-                    </Link>
-                    <div className="LinkList">
-                        <Link href="/">
-                            Home
+                <DirectoryPageHeader>
+                    <DirectoryPageNavBar>
+                        <Link href="/directory" className="Title">
+                            AI Directory
                         </Link>
-                        <Link href="/apps">
-                            Services
+                        <div className="LinkList">
+                            <Link href="/">
+                                Home
+                            </Link>
+                            <Link href="/apps">
+                                Services
+                            </Link>
+                            <Link href="/tools">
+                                Tools
+                            </Link>
+                            <Link href="/blog">
+                                Blog
+                            </Link>
+                        </div>
+                        <Link href="/submit" className="Submit">
+                            Submit
                         </Link>
-                        <Link href="/tools">
-                            Tools
-                        </Link>
-                        <Link href="/blog">
-                            Blog
-                        </Link>
-                    </div>
-                    <Link href="/submit" className="Submit">
-                        Submit
-                    </Link>
 
-                </DirectoryPageNavBar>
-                <Wave />
-            </DirectoryPageHeader>
-            <Page>
-                <div className='searchContainer'>
-                <h4 className="title">Your Path to Peak Efficiency</h4>
-                    <Input />
-                </div>
-                {/* <DirectoryPageHero>
-                    <div>
+                    </DirectoryPageNavBar>
+                    <Wave />
+                </DirectoryPageHeader>
+                <Page>
 
-                        <p className="description">Unlock your productivity potential with AI-powered tools that streamline your workflow, optimize tasks, and elevate your success. Embrace a future of seamless efficiency at the Productivity Hub.</p>
+                    <DirectoryPageHero>
+                        <div>
 
-                        <Link className="SubmitYourTool"
-                            href="/directory/submit">
-                            Submit your tool <RiArrowRightUpLine size={20}/>
-                        </Link>
-                    </div>
-                    <div className="illustration">
-                        <img src="assets/images/illustration_dashboard.png" alt="AI Directory" />
-                    </div>
-                </DirectoryPageHero> */}
-                <DirectoryPageSearchContainer>
-                    <div className="SearchBar">
-                        <Input type="search"
-                            level={true}
-                            placeholder="Search for a tool"
-                            lg={true}
-                            onChange={debounce(handleSearch, 500)}
-                        />
-                        <button className="SearchButton"><TbSearch /></button>
-                    </div>
-                    <Select
-                        label="Pricing Type"
-                        value={filter.pricing_type}
-                        options={pricing_types?.length > 0 ? [ {
-                            label: "Default",
-                            value: "Default"
-                        },...pricing_types.map(type => {
-                            return {
-                                label: type,
-                                value: type
-                            }
-                        }) ] :[
-                            {
-                                label: "Default",
-                                value: "Default"
-                            },
-                            {
-                                label: "Free",
-                                value: "free"
-                            },
-                            {
-                                label: "Paid",
-                                value: "paid"
-                            },
-                            {
-                                label: "Freemium",
-                                value: "freemium"
-                            },
-                            {
-                                label: "Open Source",
-                                value: "open-source"
-                            },
+                            <h4 className={"title " + quicksand.className}>Your Path to Peak Efficiency</h4>
+                            <p className={"description " + quicksand.className}>Unlock your productivity potential with AI-powered tools that streamline your workflow, optimize tasks, and elevate your success. Embrace a future of seamless efficiency at the Productivity Hub.</p>
+
+                            <Link className="SubmitYourTool"
+                                href="/directory/submit">
+                                Submit your tool <RiArrowRightUpLine size={20} />
+                            </Link>
+                        </div>
+                        <div className="illustration">
+                            <img src="assets/images/illustration_dashboard.png" alt="AI Directory" />
+                        </div>
+                    </DirectoryPageHero>
+                    <DirectoryPageSearchContainer>
+                        <h4>Find the tool,make your thing.</h4>
+                        <div className="SearchBar">
+                            <Input type="search"
+                                level={true}
+                                placeholder="Search for a tool"
+                                lg={true}
+                                onChange={debounce(handleSearch, 500)}
+                            />
+                            <button className="SearchButton"><TbSearch /></button>
+                            <IconButton className='filterbtn'
+                                onClick={() => {
+                                    setFilter({
+                                        ...filter,
+                                        open: !filter.open,
+                                    })
+                                }}
+                            >
+                                <FiFilter size={20} />
+                            </IconButton>
+                        </div>
+                        <Collapse visible={filter.open}>
+                            <div className="filterWrapper">
+                                <div>
+                                    <Select
+                                        label="Pricing Type"
+                                        value={filter.pricing_type?.split("-").join(" ")}
+                                        options={pricing_types?.length > 0 ? [{
+                                            label: "Default",
+                                            value: "Default"
+                                        }, ...pricing_types.map((type: string) => {
+                                            return {
+                                                label: type,
+                                                value: type
+                                            }
+                                        })] : [
+                                            {
+                                                label: "Default",
+                                                value: "Default"
+                                            },
+                                            {
+                                                label: "Free",
+                                                value: "free"
+                                            },
+                                            {
+                                                label: "Paid",
+                                                value: "paid"
+                                            },
+                                            {
+                                                label: "Freemium",
+                                                value: "freemium"
+                                            },
+                                            {
+                                                label: "Open Source",
+                                                value: "open-source"
+                                            },
 
 
-                        ]}
-                        lg={true}
+                                        ]}
+                                        lg={true}
 
-                        onChange={(option: { value: string;label:string}) => {
-                            // console.log(option.value)
-                            setFilter(prevFilter => ({
-                                ...prevFilter,
-                                pricing_type: option.value
-                            }));
-                        }}
-                    />
-                </DirectoryPageSearchContainer>
+                                        onChange={(option: { value: string; label: string }) => {
+                                            // console.log(option.value)
+                                            setFilter(prevFilter => ({
+                                                ...prevFilter,
+                                                pricing_type: option.value
+                                            }));
+                                        }}
+                                    />
+                                </div>
 
-                <div className="d-flex justify-content-between align-items-stretch g-3">
+                                {categories.map((category: {
+                                    _id: string;
+                                    name: string;
+                                    slug: string;
+
+                                }, index: number) => {
+                                    return (<span role="button"
+                                        onClick={() => {
+
+                                            setFilter(prevFilter => ({
+                                                ...prevFilter,
+                                                categories: prevFilter.categories.includes(category.slug)
+                                                    ? prevFilter.categories.filter(cat => cat !== category.slug)
+                                                    : [...prevFilter.categories, category.slug]
+                                            }));
+                                        }}
+                                        className={"filter" + (filter.categories.includes(category.slug) ? " active" : "")} key={index}>
+                                        {category.name}
+                                    </span>
+                                    )
+                                })}
+                                {/* <span className="clear" role="button"
+                                    onChange={() => {
+                                        setFilter({
+                                            ...filter,
+                                            categories: []
+                                        });
+                                    }}
+                                >
+                                    Clear all
+                                </span> */}
+                            </div>
+                        </Collapse>
+
+
+                    </DirectoryPageSearchContainer>
+
 
                     <DirectoryPageSearchResults>
                         <div className="info">
@@ -358,7 +417,7 @@ useEffect(() => {
 
                         {loading ? <div className="d-flex justify-content-center align-items-center my-2"><Wobble /></div> : null}
                         <div className={"Results " + (settings.grid ? " grid" : "")}>
-                            {filteredTools.map((tool,index) => {
+                            {filteredTools.map((tool, index) => {
 
                                 return (<div className={"SearchResult "} key={tool._id} style={{
                                     animationDelay: `${index * 0.01}s`
@@ -402,9 +461,9 @@ useEffect(() => {
 
                         <div className="footer" id="search-footer" ref={lastToolRef}>
                             {!hasMore ? <div className="NoMoreResults">
-                               No more results
+                                No more results
                             </div> : null
-                                }
+                            }
 
                             {/* <button
                                 type="button"
@@ -433,54 +492,23 @@ useEffect(() => {
 
                     </DirectoryPageSearchResults>
 
-                    <DirectoryPageSearchFilters>
-                        {categories.map((category: {
-                            _id: string;
-                            name: string;
-                            slug: string;
 
-                        },index) => {
-                            return (<FormElement className="Filter" key={index}>
-                                    <CheckBox
-                                        checked={filter.categories.includes(category.slug)}
-                                        onChange={() => {
-
-                                            setFilter(prevFilter => ({
-                                                ...prevFilter,
-                                                categories: prevFilter.categories.includes(category.slug)
-                                                    ? prevFilter.categories.filter(cat => cat !== category.slug)
-                                                    : [...prevFilter.categories, category.slug]
-                                            }));
-                                            
-
-                                        }
-                                        }
-                                        id={category.slug}
-
-                                    />
-                                    <Label htmlFor={category.slug}>{category.name}</Label>
-                                </FormElement>
-                            )
-                        })}
-                    </DirectoryPageSearchFilters>
-
-                </div>
-            </Page>
+                </Page>
 
             </DirectoryPageContainer>
             <Footer socialMedia={SocialMedia} />
 
-            <GoToTop role="button" 
-            onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                window?.scrollTo({
-                    top: 0,
-                    behavior: "smooth"
-                })
-            }}
+            <GoToTop role="button"
+                onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    window?.scrollTo({
+                        top: 0,
+                        behavior: "smooth"
+                    })
+                }}
             >
-                <RxArrowUp size={20}/>
+                <RxArrowUp size={20} />
 
             </GoToTop>
         </>
@@ -500,7 +528,7 @@ export async function getServerSideProps(context: any) {
 
 
     const response = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/public-tools/all`, {
-            limit:15
+        limit: 15
     }, {
         headers: {
             "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
