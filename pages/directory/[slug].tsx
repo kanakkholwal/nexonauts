@@ -205,7 +205,7 @@ export default function Tool({ tool, related }: {
                             Blog
                         </Link>
                     </div>
-                    <Link href="/submit" className="Submit">
+                    <Link href="/directory/submit" className="Submit">
                         Submit
                     </Link>
 
