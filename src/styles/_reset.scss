@@ -258,6 +258,12 @@ strong,.strong{
 
 
 }
+.bordered{
+    border: 1px solid var(--border-color);
+}
+.border-2{
+    border-radius: 0.5rem;
+}
 abbr[title] {
     text-decoration: underline;
     -webkit-text-decoration: underline dotted;

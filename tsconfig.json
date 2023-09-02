@@ -1,115 +1,115 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/components/*": [
-        "src/components/*"
-      ],
-      "@hooks/*": [
-        "src/hooks/*"
-      ],
-      "helper/*": [
-        "src/helpers/*"
-      ],
-      "@pages/*": [
-        "./pages/*"
-      ],
-      "@/scripts/*": [
-        "src/scripts/*"
-      ],
-      "@/src/*": [
-        "src/*"
-      ],
-      "@/firebase/*": [
-        "src/firebase/*"
-      ],
-      "libs/*": [
-        "src/libs/*"
-      ],
-      "@utils/*": [
-        "src/utils/*"
-      ],
-      "@backend/*": [
-        "src/backend/*"
-      ],
-      "@models/*": [
-        "src/models/*"
-      ],
-      "@middleware/*": [
-        "src/middleware/*"
-      ],
-      "@/*": [
-        "./*"
-      ],
-      "src/*": [
-        "./src/*"
-      ],
-      "backend/*": [
-        "src/backend/*"
-      ],
-      "components/*": [
-        "./src/components/*"
-      ],
-      "middleware/*": [
-        "./src/middleware/*"
-      ],
-      "pages/*": [
-        "./src/pages/*"
-      ],
-      "hooks/*": [
-        "./src/hooks/*"
-      ],
-      "layouts/*": [
-        "./src/layouts/*"
-      ],
-      "store/*": [
-        "./src/store/*"
-      ],
-      "assets/*": [
-        "./src/assets/*"
-      ],
-      "types/*": [
-        "./src/types/*"
-      ],
-      "lib/*": [
-        "./src/lib/*"
-      ],
-      "models/*": [
-        "./src/models/*"
-      ]
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/components/*": [
+                "src/components/*"
+            ],
+            "@hooks/*": [
+                "src/hooks/*"
+            ],
+            "helper/*": [
+                "src/helpers/*"
+            ],
+            "@pages/*": [
+                "./pages/*"
+            ],
+            "@/scripts/*": [
+                "src/scripts/*"
+            ],
+            "@/src/*": [
+                "src/*"
+            ],
+            "@/firebase/*": [
+                "src/firebase/*"
+            ],
+            "libs/*": [
+                "src/libs/*"
+            ],
+            "@utils/*": [
+                "src/utils/*"
+            ],
+            "@backend/*": [
+                "src/backend/*"
+            ],
+            "@models/*": [
+                "src/models/*"
+            ],
+            "@middleware/*": [
+                "src/middleware/*"
+            ],
+            "@/*": [
+                "./*"
+            ],
+            "src/*": [
+                "./src/*"
+            ],
+            "backend/*": [
+                "src/backend/*"
+            ],
+            "components/*": [
+                "./src/components/*"
+            ],
+            "middleware/*": [
+                "./src/middleware/*"
+            ],
+            "pages/*": [
+                "./src/pages/*"
+            ],
+            "hooks/*": [
+                "./src/hooks/*"
+            ],
+            "layouts/*": [
+                "./src/layouts/*"
+            ],
+            "store/*": [
+                "./src/store/*"
+            ],
+            "assets/*": [
+                "./src/assets/*"
+            ],
+            "types/*": [
+                "./src/types/*"
+            ],
+            "lib/*": [
+                "./src/lib/*"
+            ],
+            "models/*": [
+                "./src/models/*"
+            ]
+        },
+        "target": "es5",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": false,
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "incremental": true,
+        "esModuleInterop": true,
+        "module": "esnext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "preserve",
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+        "strictNullChecks": true
     },
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": false,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "incremental": true,
-    "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "strictNullChecks": true
-  },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx",
+        ".next/types/**/*.ts"
+, "pages/dashboard/admin/test.jsx", "src/components/editor/mdx-editor/index.jsx"    ],
+    "exclude": [
+        "node_modules"
+    ]
 }

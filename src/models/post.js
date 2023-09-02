@@ -55,12 +55,12 @@ const postSchema = new mongoose.Schema(
         content: {
             type: mongoose.Schema.Types.Mixed,
             required: true,
-            default: [
+            default: `[
                 {
                     type: 'paragraph',
                     children: [{ text: 'Enter your blog post content here...' }],
                 },
-            ],
+            ]`,
             select: false,
         },
         slug: {
