@@ -14,6 +14,7 @@ const withPWA = require("next-pwa")({
 
 const nextConfig = withPWA({
   // reactStrictMode: true,
+  transpilePackages: ['@mdxeditor/editor', 'react-diff-view'],
   swcMinify: true,
   compiler: { styledComponents: { ssr: true } },
   crossOrigin: 'anonymous',
@@ -24,6 +25,13 @@ const nextConfig = withPWA({
         hostname: "**",
       },
     ],
+  },
+  webpack: (config) => {
+    // this will override the experiments
+    config.experiments = { ...config.experiments, topLevelAwait: true };
+    // this will just update topLevelAwait property of config.experiments
+    // config.experiments.topLevelAwait = true 
+    return config;
   },
 });
 

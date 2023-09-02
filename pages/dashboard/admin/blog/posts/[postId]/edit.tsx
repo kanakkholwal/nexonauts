@@ -6,18 +6,18 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 // React
-import {  useState,useReducer,useRef } from "react";
+import { useState, useReducer, useRef } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import dynamic from "next/dynamic";
-const Editor = dynamic(() => import("components/editor/editorjs"), {
-    ssr: false,
-});
+
+const MDXEditor = dynamic(() => import('@mdxeditor/editor/MDXEditor').then((mod) => mod.MDXEditor), { ssr: false });
+import { plugins } from "components/editor/mdx-editor"
 import styled from 'styled-components';
 import axios from 'axios';
 // Icons
 import { BsLayoutTextSidebar } from "react-icons/bs"
 import { FiUploadCloud } from "react-icons/fi"
-import { AiOutlineLink,AiOutlineArrowUp } from "react-icons/ai"
+import { AiOutlineLink, AiOutlineArrowUp } from "react-icons/ai"
 import { CiHashtag } from "react-icons/ci"
 import { LuImagePlus } from "react-icons/lu"
 import { MdOutlineImageSearch } from "react-icons/md"
@@ -31,7 +31,7 @@ import DashboardPage, { Header } from "components/dashboard-page";
 import Button from "components/buttons";
 import State from "components/state"
 import { Card } from "components/Card";
-import { Input, FormElement, Label, TextArea, FormHelper, Switch ,InputWithIcon} from "components/form-elements";
+import { Input, FormElement, Label, TextArea, FormHelper, Switch, InputWithIcon } from "components/form-elements";
 import LazyImage from "components/image";
 import {
     Modal,
@@ -124,15 +124,16 @@ const FileUploader = styled.div`
 
 
 
-export default function NewPost({ user,post }:{
-    user:SessionUserType,
+export default function NewPost({ user, post }: {
+    user: SessionUserType,
     post: Post
 }) {
 
     const router = useRouter();
     const [menu, setMenu] = useState(false);
     const ImageModalRef = useRef(null);
-    const {open} = useModal(ImageModalRef);
+
+    const { open } = useModal(ImageModalRef);
     //  useReducer to manage state
     const initialState = {
         title: post.title,
@@ -153,9 +154,9 @@ export default function NewPost({ user,post }:{
         labels: post.labels,
         IsCommentEnabled: post.comments.enabled,
         slug: post.slug,
-        
+
     }
-    function reducer (state, action) {
+    function reducer(state, action) {
         // console.log(state,action);
         switch (action.type) {
             case 'title':
@@ -206,7 +207,7 @@ export default function NewPost({ user,post }:{
         if (!confirm("Are you sure want to delete this Post"))
             return;
         await axios.delete("/api/users/" + user.id + "/posts/" + post._id + "/delete", {
-            headers:{
+            headers: {
                 "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
             }
         }).then(res => {
@@ -219,9 +220,9 @@ export default function NewPost({ user,post }:{
 
 
 
-  
 
-    console.log(post,user)
+
+    console.log(post, user)
 
 
     return (
@@ -231,16 +232,16 @@ export default function NewPost({ user,post }:{
             </Head>
             <DashboardPage user={user}
                 headerChildren={<span className="h6">Editing Post</span>}
-                
+
             >
                 <Header>
-                    <Link  href="/dashboard/admin/blog">
+                    <Link href="/dashboard/admin/blog">
                         <Button level={true}>
-                        Go Back
+                            Go Back
                         </Button>
                     </Link>
                     <Button level={true} low={true} rounded={true}
-                        onClick={() =>{
+                        onClick={() => {
                             setMenu(!menu);
                         }}
                     >
@@ -253,10 +254,10 @@ export default function NewPost({ user,post }:{
                             <Label htmlFor="title">
                                 Post Title
                             </Label>
-                            <Input  level={true} type="text" id="title" placeholder="Write a post title..." value={title}
+                            <Input level={true} type="text" id="title" placeholder="Write a post title..." value={title}
                                 onChange={(e) => {
                                     dispatch({ type: "title", payload: e.target.value });
-                                    if(slug === "")
+                                    if (slug === "")
                                         dispatch({ type: "slug", payload: createSlug(e.target.value) });
                                 }} />
                         </FormElement>
@@ -279,40 +280,38 @@ export default function NewPost({ user,post }:{
                         </FormElement>
                         <FormElement>
                             <h6>Post Content</h6>
-                            {
-                                content !== null ?
-                                    <Editor
-                                        defaultValue={content}
 
-                                        onSave={(value) => {
-                                            dispatch({ type: "content", payload: value });
-                                        }}
-                                    /> : "Loading..."
-                            }
-
+                            <MDXEditor
+                                className="standardTopography bordered border-2 position-relative"
+                                markdown={JSON.stringify(content)}
+                                plugins={plugins}
+                                onChange={(value) => {
+                                    dispatch({ type: "content", payload: value });
+                                }}
+                            />
 
                         </FormElement>
 
-                      
+
 
                     </Card>
                     <SettingPanel className={menu ? " open" : ""}>
                         <h5>Post Settings</h5>
                         <hr />
                         {image ?
-                                <Image  height={480} width={720}
-                                    alt={title} src={image}
-                                    className="coverImage"
-
-                                /> : <Image  height={480} width={720}
+                            <Image height={480} width={720}
+                                alt={title} src={image}
                                 className="coverImage"
 
-                                    alt={"Cover image"} src={"https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp"} />}
-                       
-                        <Button level={true} low={true} rounded={true} fill={true} onClick={() =>{
+                            /> : <Image height={480} width={720}
+                                className="coverImage"
+
+                                alt={"Cover image"} src={"https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp"} />}
+
+                        <Button level={true} low={true} rounded={true} fill={true} onClick={() => {
                             open();
                         }}>
-                                Change Cover Image <LuImagePlus />
+                            Change Cover Image <LuImagePlus />
                         </Button>
                         <FormElement className="mt-2">
                             <Switch
@@ -345,7 +344,7 @@ export default function NewPost({ user,post }:{
                         <FormElement>
                             <Label><CiHashtag />Label</Label>
                             <Input type="text" placeholder="Add label to the Post..." value={labels.join(",")}
-                            level={true}
+                                level={true}
                                 onChange={
                                     (e) => {
                                         dispatch({ type: "labels", payload: e.target.value.split(",") });
@@ -367,7 +366,7 @@ export default function NewPost({ user,post }:{
                                 value={slug}
                                 onChange={
                                     (e) => {
-                                        dispatch({ type: "slug", payload: e.target.value?.toLowerCase()?.replaceAll(" ","-") });
+                                        dispatch({ type: "slug", payload: e.target.value?.toLowerCase()?.replaceAll(" ", "-") });
                                     }
                                 }
                             />
@@ -401,8 +400,8 @@ export default function NewPost({ user,post }:{
                             </FormHelper>
                         </FormElement>
                         <div className="d-flex align-items-start justify-content-between g-3 mt-3 children-fill">
-                            <Button nature="danger" 
-                            low={true}
+                            <Button nature="danger"
+                                low={true}
 
                                 onClick={() => toast.promise(deletePost(), {
                                     loading: 'Deleting...',
@@ -425,7 +424,7 @@ export default function NewPost({ user,post }:{
 
                         </div>
                         <Button as={"a"} href="#main_wrapper" level={true} low={true} rounded={true}>
-                                Back to Top <AiOutlineArrowUp />
+                            Back to Top <AiOutlineArrowUp />
                         </Button>
 
 
@@ -447,7 +446,7 @@ export default function NewPost({ user,post }:{
                     }
 
                 />
-              </Modal>
+            </Modal>
         </>
     )
 }
@@ -456,22 +455,22 @@ function ImageUploader({
     image,
     title,
     setImage
-}){
+}) {
     const [tab, setTab] = useState("image_link");
 
-    const [selectedImage,setSelectedImage] = useState("");
+    const [selectedImage, setSelectedImage] = useState("");
 
-    const handleFiles = async (files:File[]) => {
+    const handleFiles = async (files: File[]) => {
 
         try {
             const formData = new FormData();
             const CLOUDINARY_UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
-            if(!CLOUDINARY_UPLOAD_PRESET){
+            if (!CLOUDINARY_UPLOAD_PRESET) {
                 toast.error("Cloudinary Upload Preset not found");
                 return;
             }
             const CLOUDINARY_FOLDER = process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER;
-            if(!CLOUDINARY_FOLDER){
+            if (!CLOUDINARY_FOLDER) {
                 toast.error("Cloudinary Folder not found");
                 return;
             }
@@ -541,64 +540,68 @@ function ImageUploader({
         items: []
     });
     const [page, setPage] = useState(1);
-  
-    const PEXELS_API_KEY = process.env.NEXT_PUBLIC_PEXELS_API_KEY;
-    if(!PEXELS_API_KEY){
-        console.error("API KEY IS NOT VALID")
-    }
-    const BASE_URL = 'https://api.pexels.com/v1/search';
-    const PER_PAGE = 12;
+
+    
 
     const searchImages = async () => {
         if (!query) return;
-         console.log('Searching for', query);
+        console.log('Searching for', query);
         //  loading 
-        setPexelState(prev =>{
+        setPexelState(prev => {
             return {
                 ...prev,
-                loader:{
+                loader: {
                     ...prev.loader,
-                    show:true,
+                    show: true,
                 }
             }
-        })
-
-      try {
-        const response = await axios.get(BASE_URL, {
-          headers: {
-            Authorization: PEXELS_API_KEY,
-          },
-          params: {
-            query: query,
-            per_page: PER_PAGE,
-            page: page,
-            orientation: 'landscape',
-          },
         });
-  
-        setPexelState((prev) =>{
+        const BASE_URL = 'https://api.pexels.com/v1/search';
+        const PER_PAGE = 12;
+        const PEXELS_API_KEY = process.env.NEXT_PUBLIC_PEXELS_API_KEY;
+        if (!PEXELS_API_KEY) {
+            console.error("API KEY IS NOT VALID");
+            alert("API KEY IS NOT VALID");
 
-            return {
-                ...prev,
-                items: [...prev.items, ...response.data.photos],
-            }
-        })
+            return;
+        }
 
-      } catch (error) {
-        console.error('Error fetching images:', error);
-        //  show error 
-        setPexelState(prev =>{
-            return {
-                ...prev,
-                alert:{
-                    open:true,
-                    message:error.message,
-                    nature:"error"
+        try {
+            const response = await axios.get(BASE_URL, {
+                headers: {
+                    Authorization: PEXELS_API_KEY,
+                },
+                params: {
+                    query: query,
+                    per_page: PER_PAGE,
+                    page: page,
+                    orientation: 'landscape',
+                },
+            });
+
+            setPexelState((prev) => {
+
+                return {
+                    ...prev,
+                    items: [...prev.items, ...response.data.photos],
                 }
-            }
-        } );
-      }
-    //    stop loading 
+            })
+
+        } catch (error) {
+            console.error('Error fetching images:', error);
+            //  show error 
+            setPexelState(prev => {
+                return {
+                    ...prev,
+                    alert: {
+                        open: true,
+                        message: error.message,
+                        nature: "error"
+                    }
+                }
+            });
+        }
+        //    stop loading 
         setPexelState(prev => {
             return {
                 ...prev,
@@ -609,15 +612,15 @@ function ImageUploader({
             }
         });
     };
-  
+
     const handleSearch = () => {
-      setPage(1); // Reset page to 1 when performing a new search
-      searchImages();
+        setPage(1); // Reset page to 1 when performing a new search
+        searchImages();
     };
-  
+
     const handleLoadMore = () => {
-      setPage(page + 1);
-      searchImages();
+        setPage(page + 1);
+        searchImages();
     };
 
     return (<ImageUploaderContainer>
@@ -657,20 +660,20 @@ function ImageUploader({
             {tab === "image_search" ? <div className="search_pexels">
                 <div className="d-flex g-1">
 
-                <InputWithIcon id="imageUrl" type="text" placeholder="Paste a Image URL here..." level={true}
+                    <InputWithIcon id="imageUrl" type="text" placeholder="Paste a Image URL here..." level={true}
 
-                    value={query}
-                    icon={<MdOutlineImageSearch />}
-                    IconEvents={{
-                        onClick: (e) => {
-                            e.preventDefault();
-                            handleSearch()
-                        }
-                    }}
-                    onChange={(e) => setQuery(e.target.value)}
+                        value={query}
+                        icon={<MdOutlineImageSearch />}
+                        IconEvents={{
+                            onClick: (e) => {
+                                e.preventDefault();
+                                handleSearch()
+                            }
+                        }}
+                        onChange={(e) => setQuery(e.target.value)}
                     />
-                    <Button 
-                        onClick={() =>{
+                    <Button
+                        onClick={() => {
                             setQuery("")
                             setPexelState({
                                 loader: {
@@ -687,36 +690,36 @@ function ImageUploader({
                             })
                         }}
                         level={true}
-                        >
+                    >
                         Clear <AiOutlineLink />
                     </Button>
-                    </div>
+                </div>
 
                 <div className="image-gallery">
-                    {pexelState.items.map((image:any) => (<LazyImage key={image.id} className={"image-item " + (image.src.landscape === selectedImage ? " selected" : "")}
+                    {pexelState.items.map((image: any) => (<LazyImage key={image.id} className={"image-item " + (image.src.landscape === selectedImage ? " selected" : "")}
                         onClick={() => {
                             setSelectedImage(image.src.landscape);
                         }}
-                    src={image.src.landscape} alt={image.photographer} width={image.width} height={image.height} />
+                        src={image.src.landscape} alt={image.photographer} width={image.width} height={image.height} />
                     ))}
                 </div>
-               
 
-                    {pexelState ? <State {...pexelState}/> : null}
-                    <div className="action">
-                    <Button onClick={handleLoadMore}level={true}>Load More</Button>
-                    <Button onClick={() =>{
-                        if(selectedImage === ""){
+
+                {pexelState ? <State {...pexelState} /> : null}
+                <div className="action">
+                    <Button onClick={handleLoadMore} level={true}>Load More</Button>
+                    <Button onClick={() => {
+                        if (selectedImage === "") {
                             toast.error("Please select an image");
                             return;
                         }
                         setImage(selectedImage);
                         toast.success("Image Added");
-                    }} 
+                    }}
                         disabled={selectedImage === ""}
                     >Use this Image</Button>
-                    </div>
-            
+                </div>
+
 
             </div> : null}
             {tab === "image_link" ? <div>
@@ -726,9 +729,9 @@ function ImageUploader({
                         setSelectedImage(e.target.value);
                     }} />
                 </FormElement>
-                    <div className="action">
-                    <Button onClick={() =>{
-                        if(selectedImage === ""){
+                <div className="action">
+                    <Button onClick={() => {
+                        if (selectedImage === "") {
                             toast.error("Please select an image");
                             return;
                         }
@@ -739,30 +742,30 @@ function ImageUploader({
                     >Use this Image</Button>
 
 
-                    </div>
+                </div>
             </div> : null}
             {tab === "image_upload" ? <FormElement>
-            <FileUploader>
-                            {image ?
-                                <Image height={480} width={600}
-                                    alt={title} src={image}
-                                    className="coverImage"
-                                /> : <Image  height={480} width={600}
-                                className="coverImage"
-                                    alt={"Cover image"} src={"https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp"} />}
-                            <label htmlFor="imageUpload">
-                                <FiUploadCloud/>
-                                <span>Cover Image</span>
-                                <input type="file" hidden accept="image/*" id="imageUpload" onChange={handleChange} />
-                            </label>
-                        </FileUploader>
-                        <FormHelper>
-                            Upload a cover image for your post. It will be displayed on the top of your post.
-                        </FormHelper>
+                <FileUploader>
+                    {image ?
+                        <Image height={480} width={600}
+                            alt={title} src={image}
+                            className="coverImage"
+                        /> : <Image height={480} width={600}
+                            className="coverImage"
+                            alt={"Cover image"} src={"https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp"} />}
+                    <label htmlFor="imageUpload">
+                        <FiUploadCloud />
+                        <span>Cover Image</span>
+                        <input type="file" hidden accept="image/*" id="imageUpload" onChange={handleChange} />
+                    </label>
+                </FileUploader>
+                <FormHelper>
+                    Upload a cover image for your post. It will be displayed on the top of your post.
+                </FormHelper>
             </FormElement> : null}
 
         </div>
-         
+
     </ImageUploaderContainer>)
 }
 
@@ -903,7 +906,7 @@ export async function getServerSideProps(context: GetSessionParams & {
         return err.response;
     });
 
-    console.log(type,message)
+    console.log(type, message)
 
     if (response.data.success === true && response.data.post._id === postId) {
 
@@ -911,7 +914,7 @@ export async function getServerSideProps(context: GetSessionParams & {
         console.log(post);
         return {
             props: {
-                user:session.user,
+                user: session.user,
                 post
             }
         }
@@ -924,12 +927,12 @@ export async function getServerSideProps(context: GetSessionParams & {
             notFound: true
         }
     }
-      
+
     return {
-            notFound: true,
+        notFound: true,
     }
-    
-    
+
+
 
 
 }

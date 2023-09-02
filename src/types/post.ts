@@ -21,7 +21,7 @@ export type Post = {
       time?: number | Date;
       blocks?: ContentBlock[];
       version?: string;
-    } | null;
+    } | string | null;
     slug: string;
     labels: string[];
     image: string;
@@ -40,8 +40,23 @@ export type Post = {
     publishedAt: string;
     __v: number;
     description: string;
-  }
-  interface ContentBlock {
+}
+
+type rawPost = {
+    _id: string;
+    title: string;
+    content: string;
+    slug: string;
+    labels: string[];
+    image: string;
+    state: string;
+    claps?: Number;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+    __v?: number;
+}
+interface ContentBlock {
     id: string;
     type: string;
     data: {

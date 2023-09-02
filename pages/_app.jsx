@@ -2,7 +2,7 @@ import Head from "next/head";
 import Script from 'next/script'
 import "src/global.scss";
 import "aos/dist/aos.css";
-// import "@uiw/react-md-editor/markdown-editor.css";
+import '@mdxeditor/editor/style.css';
 
 import Progress from 'components/progress';
 import { useRouter } from 'next/router';

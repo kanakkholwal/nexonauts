@@ -4,6 +4,7 @@ import Badge from "components/topography/badge";
 import { calculateReadTime } from "lib/scripts";
 import Blocks from 'editorjs-blocks-react-renderer';
 import CodeRenderer from './codeRender';
+import Markdown from 'markdown-to-jsx'
 
 import { GrValidate } from 'react-icons/gr';
 import { MdOutlineDateRange, MdOutlineLabel } from 'react-icons/md';
@@ -186,10 +187,12 @@ export function Article({ post }) {
                 renderers={{
                     code: CodeRenderer,
                     header:HeaderRenderer,
-                }}
-
-
-                />
+                }}/>
+                {typeof post?.content === "string" ?
+                    <Markdown>
+                        {post?.content}
+                    </Markdown>
+                :null}
                 </div>
                 <div className="d-flex align-items-center flex-wrap gy-2  mt-2 pt-3" >
                     <Badge className="px-0 py-2" as="strong"><MdOutlineLabel /></Badge>
