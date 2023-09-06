@@ -55,12 +55,7 @@ const postSchema = new mongoose.Schema(
         content: {
             type: mongoose.Schema.Types.Mixed,
             required: true,
-            default: `[
-                {
-                    type: 'paragraph',
-                    children: [{ text: 'Enter your blog post content here...' }],
-                },
-            ]`,
+            default: `Write a cool post`,
             select: false,
         },
         slug: {

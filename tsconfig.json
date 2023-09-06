@@ -1,45 +1,12 @@
 {
     "compilerOptions": {
         "baseUrl": ".",
-        "paths": {
-            "@/components/*": [
-                "src/components/*"
-            ],
-            "@hooks/*": [
-                "src/hooks/*"
-            ],
+        "paths": {          
             "helper/*": [
                 "src/helpers/*"
             ],
-            "@pages/*": [
-                "./pages/*"
-            ],
-            "@/scripts/*": [
-                "src/scripts/*"
-            ],
-            "@/src/*": [
-                "src/*"
-            ],
-            "@/firebase/*": [
-                "src/firebase/*"
-            ],
             "libs/*": [
                 "src/libs/*"
-            ],
-            "@utils/*": [
-                "src/utils/*"
-            ],
-            "@backend/*": [
-                "src/backend/*"
-            ],
-            "@models/*": [
-                "src/models/*"
-            ],
-            "@middleware/*": [
-                "src/middleware/*"
-            ],
-            "@/*": [
-                "./*"
             ],
             "src/*": [
                 "./src/*"
@@ -108,7 +75,7 @@
         "**/*.ts",
         "**/*.tsx",
         ".next/types/**/*.ts"
-, "pages/dashboard/admin/test.jsx", "src/components/editor/mdx-editor/index.jsx"    ],
+, "src/components/editor/mdx-editor/index.js"    ],
     "exclude": [
         "node_modules"
     ]

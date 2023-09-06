@@ -2,9 +2,6 @@ import styled from "styled-components";
 import { BlogBreadCrumb } from "components/breadcrumb";
 import Badge from "components/topography/badge";
 import { calculateReadTime } from "lib/scripts";
-import Blocks from 'editorjs-blocks-react-renderer';
-import CodeRenderer from './codeRender';
-import Markdown from 'markdown-to-jsx'
 
 import { GrValidate } from 'react-icons/gr';
 import { MdOutlineDateRange, MdOutlineLabel } from 'react-icons/md';
@@ -14,7 +11,9 @@ import Image from "next/image";
 import Comments from "./comments";
 import ShareUI from "./share";
 import RelatedPosts from "./RelatedPosts";
-import TOC ,{HeaderRenderer} from "./toc";
+import { TOCMarkDown } from "./toc";
+import { CodeBlockMarkdown } from './codeRender';
+import Markdown from 'markdown-to-jsx'
 
 const Tag = styled(Badge)`
     font-size:0.75rem;
@@ -131,7 +130,7 @@ gap:0.5rem;
 `;
 export function Article({ post }) {
 
-  
+
 
     return (
         <ArticleWrapper>
@@ -152,7 +151,7 @@ export function Article({ post }) {
                             <span className="authorName">{post.author.name} <GrValidate /></span>
                             <p className="postDetail">
                                 <span>
-                                    <MdOutlineDateRange />{new Date(post.createdAt).toLocaleDateString()}
+                                    {/* <MdOutlineDateRange />{new Date(post.createdAt).toLocaleDateString()} */}
                                 </span>
                                 <span>
                                     <AiOutlineFieldTime />{calculateReadTime(JSON.stringify(post?.content)) + " read"}
@@ -167,32 +166,22 @@ export function Article({ post }) {
                         </span>
                     </div>
                 </MetaData>
-                <TOC blocks={post?.content?.blocks.filter((block) => block.type === "header")} />
+                <TOCMarkDown content={post.content} />
                 <div className="ArticleBody">
-               
-                <Blocks data={post?.content} style={{
-                        table: {
-                            table: {
-                                style: {
-                                    width: "100%",
-                                }
-                            },
-                            tr: {
-                                style: {}
-                            },
-                            th: { style: {} },
-                            td: { style: {} },
-                        },
-                }} 
-                renderers={{
-                    code: CodeRenderer,
-                    header:HeaderRenderer,
-                }}/>
-                {typeof post?.content === "string" ?
-                    <Markdown>
-                        {post?.content}
-                    </Markdown>
-                :null}
+
+                    {typeof post?.content === "string" ?
+                        <Markdown
+                            options={{
+                                overrides: {
+                                    pre: {
+                                        component: CodeBlockMarkdown
+                                    },
+
+                                },
+                            }}>
+                            {post?.content}
+                        </Markdown>
+                        : null}
                 </div>
                 <div className="d-flex align-items-center flex-wrap gy-2  mt-2 pt-3" >
                     <Badge className="px-0 py-2" as="strong"><MdOutlineLabel /></Badge>
@@ -207,59 +196,3 @@ export function Article({ post }) {
         </ArticleWrapper>
     )
 }
-
-const style = {
-    header: {
-        h1: {
-            color: 'lightseagreen',
-            fontFamily: 'cursive'
-        },
-    },
-    image: {
-        img: {},
-        figure: {},
-        figcaption: {}
-    },
-    paragraph: {
-        textAlign: 'justify',
-        margin: '8px 0',
-        fontSize: '18px',
-        lineHeight: '1.7',
-        fontWeight: 200,
-    },
-    list: {},
-    table: {
-        table: {},
-        tr: {},
-        th: {},
-        td: {},
-    },
-    quote: {
-        container: {},
-        content: {},
-        author: {},
-        message: {}
-    },
-    codebox: {
-        code: { lineHeight: '22px' },
-    },
-    warning: {
-        icon: {
-            width: '28px',
-        },
-        title: {
-            marginRight: '10px'
-        },
-        message: {
-            textAlign: 'left'
-        },
-    },
-    avatar: {
-        height: '40px',
-        width: '40px',
-        borderRadius: '20px',
-        margin: '8px',
-        boxShadow: '0 0 4px 0 rgba(0,0,0,0.5)',
-        backgroundColor: '#1e242a'
-    }
-};

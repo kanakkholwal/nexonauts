@@ -5,7 +5,7 @@ import Head from "next/head";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { App } from "@/src/types/app";
+import { App } from "src/types/app";
 import AppBuilder from "pages/app-builder";
 import toast, { Toaster } from 'react-hot-toast';
 

@@ -6,7 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { App } from "@/src/types/app";
+import { App } from "src/types/app";
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function Dashboard({ user }) {

@@ -8,27 +8,27 @@ import Image from 'next/image';
 // React
 import { useState, useReducer, useRef } from "react";
 import toast, { Toaster } from 'react-hot-toast';
-import dynamic from "next/dynamic";
 
-const MDXEditor = dynamic(() => import('@mdxeditor/editor/MDXEditor').then((mod) => mod.MDXEditor), { ssr: false });
-import { plugins } from "components/editor/mdx-editor"
+import { plugins, MDXEditor } from "components/editor/mdx-editor";
 import styled from 'styled-components';
 import axios from 'axios';
+import Collapse from "components/collapse"
 // Icons
 import { BsLayoutTextSidebar } from "react-icons/bs"
 import { FiUploadCloud } from "react-icons/fi"
+import { IoIosArrowUp, IoMdClose } from "react-icons/io"
 import { AiOutlineLink, AiOutlineArrowUp } from "react-icons/ai"
 import { CiHashtag } from "react-icons/ci"
 import { LuImagePlus } from "react-icons/lu"
 import { MdOutlineImageSearch } from "react-icons/md"
 import { TbFileDescription } from "react-icons/tb";
 // Types
-import { sessionType } from "@/src/types/session";
-import { SessionUserType } from "@/src/types/user";
-import { Post } from "@/src/types/post";
+import { sessionType } from "src/types/session";
+import { SessionUserType } from "src/types/user";
+import { Post } from "src/types/post";
 // components
 import DashboardPage, { Header } from "components/dashboard-page";
-import Button from "components/buttons";
+import Button, { IconButton } from "components/buttons";
 import State from "components/state"
 import { Card } from "components/Card";
 import { Input, FormElement, Label, TextArea, FormHelper, Switch, InputWithIcon } from "components/form-elements";
@@ -38,10 +38,39 @@ import {
     useModal
 } from "components/dialog/modal"
 
+
+
+const Wrapper = styled.div`
+    display:flex;
+    justify-content:flex-start;
+    align-items:flex-start;
+    gap:0.5rem;
+    width:100%;
+    &>${Card}{
+        width:auto;
+        flex:0 1 auto;
+        @media (width >= 1400px){
+
+        }
+    }
+    
+`;
 const SettingPanel = styled(Card)`
 animation:none;
 opacity: 1;
 visibility: visible;
+max-width:360px!important;
+flex: 1 0 auto;
+width:100%;
+.toggle{
+    position: absolute;
+    top: 20px;
+    right:100%;
+    background:rgba(var(--theme-rgb),0.1);
+    display:none;
+
+
+}
 .coverImage{
     border-radius: 15px;
     overflow: hidden;
@@ -54,20 +83,24 @@ visibility: visible;
     top:95px;
     max-width: 400px;
 }
-@media (max-width: 728px){
+
+@media (width <= 1240px){
     position:fixed;
     top:190px;
+    right:10px;
     transform:translateX(100%);
     box-shadow: 4px 4px 8px rgba(var(--dark-rgb),0.1);
     &.open{
         transform:translateX(0%);
+    }
+    .toggle{
+        display:flex; 
     }
 }
 svg{
     margin-inline:0.5rem;
 }
 `;
-
 const FileUploader = styled.div`
     display: flex;
     justify-content: center;
@@ -180,8 +213,147 @@ export default function NewPost({ user, post }: {
         }
     }
     const [state, dispatch] = useReducer(reducer, initialState);
-    const { title, description, content, image, postState, labels, IsCommentEnabled, slug } = state;
+    const { title, description, content, image, slug } = state;
 
+
+
+
+
+    console.log(post, user)
+
+
+    return (
+        <>
+            <Head>
+                <title>Editing Post</title>
+            </Head>
+            <DashboardPage user={user}
+                headerChildren={<span className="h6">Editing Post</span>}
+
+            >
+            
+                    <Wrapper>
+
+                    <Card>
+                        <FormElement>
+                            <Label htmlFor="title">
+                                Post Title
+                            </Label>
+                            <Input level={true} type="text" id="title" placeholder="Write a post title..." value={title}
+                                onChange={(e) => {
+                                    dispatch({ type: "title", payload: e.target.value });
+                                    if (slug === "")
+                                        dispatch({ type: "slug", payload: createSlug(e.target.value) });
+                                }} />
+                                
+                        </FormElement>
+                        <FormElement>
+                            <Label htmlFor="description">Post Description</Label>
+                            <TextArea
+                                type="text"
+                                id="description"
+                                placeholder="Post Description"
+
+                                value={description}
+                                level={true}
+                                maxLength={200}
+                                onChange={
+                                    (e) => {
+                                        dispatch({ type: "description", payload: e.target.value });
+                                    }
+                                }
+                            />
+                        </FormElement>
+                        <FormElement>
+                            <h6>Post Content</h6>
+
+                            <MDXEditor
+                                className="standardTopography  mt-2 position-relative"
+                                markdown={content}
+                                plugins={plugins}
+                                onChange={(value) => {
+                                    dispatch({ type: "content", payload: value });
+                                }}
+                            />
+
+                        </FormElement>
+
+
+
+                    </Card>
+                    <SideBar
+                        menu={menu}
+                        setMenu={setMenu}
+                        open={open}
+                        user={user}
+                        post={post}
+                        dispatch={dispatch}
+                        router={router}
+                        {...state}
+                    />
+                    </Wrapper>
+            </DashboardPage>
+            <Toaster
+                position="top-center"
+                reverseOrder={true}
+            />
+            <Modal ref={ImageModalRef} maxWidth="990px">
+                <ImageUploader
+                    image={image}
+                    title={title}
+                    setImage={
+                        (image) => {
+                            dispatch({ type: "image", payload: image });
+                        }
+                    }
+
+                />
+            </Modal>
+        </>
+    )
+}
+function SideBar({
+    menu,
+    setMenu,
+    title,
+    description,
+    content,
+    image,
+    postState,
+    labels,
+    IsCommentEnabled,
+    slug,
+    dispatch,
+    open,
+    user,
+    router,
+    post
+
+}) {
+    const initialState = {
+        label: false,
+        IsCommentEnabled: false,
+        slug: false,
+        meta: false
+
+    }
+    function reducer(state, action) {
+        // console.log(state,action);
+        switch (action.type) {
+            case 'label':
+                return { ...state, label: action.payload };
+            case 'IsCommentEnabled':
+                return { ...state, IsCommentEnabled: action.payload };
+            case 'slug':
+                return { ...state, slug: action.payload };
+            case 'meta':
+                return { ...state, meta: action.payload };
+
+            default:
+                return state;
+        }
+    }
+    const [state, update] = useReducer(reducer, initialState);
     const updatePost = async () => {
         await axios.put("/api/users/" + user.id + "/posts/" + post._id, {
             post:
@@ -218,238 +390,214 @@ export default function NewPost({ user, post }: {
         })
     }
 
+    return (<SettingPanel className={menu ? " open" : ""}>
+        <IconButton
+            className="toggle"
+            nature="theme"
+            onClick={() => {
+                setMenu(!menu);
+            }}
+        >
+            <BsLayoutTextSidebar />
+        </IconButton>
+        <div className="d-flex g-1 align-items-center justify-content-between">
+            <h6>Post Settings</h6>
+            <IconButton onClick={() =>{
+                setMenu(false)
+            }}>
+                <IoMdClose />
+            </IconButton>
+        </div>
+        <hr />
+        {image ?
+            <Image height={480} width={720}
+                alt={title} src={image}
+                className="coverImage"
 
+            /> : <Image height={480} width={720}
+                className="coverImage"
 
+                alt={"Cover image"} src={"https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp"} />}
 
+        <Button level={true} low={true} rounded={true} fill={true} onClick={() => {
+            open();
+        }}>
+            Change Cover Image <LuImagePlus />
+        </Button>
+        <FormElement className="mt-2">
+            <Switch
+                checked={postState === "published"}
+                onChange={(e) => {
+                    dispatch({ type: "postState", payload: e.target.checked ? "published" : "draft" });
 
-    console.log(post, user)
-
-
-    return (
-        <>
-            <Head>
-                <title>Editing Post</title>
-            </Head>
-            <DashboardPage user={user}
-                headerChildren={<span className="h6">Editing Post</span>}
-
-            >
-                <Header>
-                    <Link href="/dashboard/admin/blog">
-                        <Button level={true}>
-                            Go Back
-                        </Button>
-                    </Link>
-                    <Button level={true} low={true} rounded={true}
-                        onClick={() => {
-                            setMenu(!menu);
-                        }}
-                    >
-                        <BsLayoutTextSidebar />
-                    </Button>
-                </Header>
-                <div className="d-flex align-items-start justify-content-between g-3 mt-3">
-                    <Card>
-                        <FormElement>
-                            <Label htmlFor="title">
-                                Post Title
-                            </Label>
-                            <Input level={true} type="text" id="title" placeholder="Write a post title..." value={title}
-                                onChange={(e) => {
-                                    dispatch({ type: "title", payload: e.target.value });
-                                    if (slug === "")
-                                        dispatch({ type: "slug", payload: createSlug(e.target.value) });
-                                }} />
-                        </FormElement>
-                        <FormElement>
-                            <Label htmlFor="description">Post Description</Label>
-                            <TextArea
-                                type="text"
-                                id="description"
-                                placeholder="Post Description"
-
-                                value={description}
-                                level={true}
-                                maxLength={200}
-                                onChange={
-                                    (e) => {
-                                        dispatch({ type: "description", payload: e.target.value });
-                                    }
-                                }
-                            />
-                        </FormElement>
-                        <FormElement>
-                            <h6>Post Content</h6>
-
-                            <MDXEditor
-                                className="standardTopography bordered border-2 position-relative"
-                                markdown={JSON.stringify(content)}
-                                plugins={plugins}
-                                onChange={(value) => {
-                                    dispatch({ type: "content", payload: value });
-                                }}
-                            />
-
-                        </FormElement>
-
-
-
-                    </Card>
-                    <SettingPanel className={menu ? " open" : ""}>
-                        <h5>Post Settings</h5>
-                        <hr />
-                        {image ?
-                            <Image height={480} width={720}
-                                alt={title} src={image}
-                                className="coverImage"
-
-                            /> : <Image height={480} width={720}
-                                className="coverImage"
-
-                                alt={"Cover image"} src={"https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp"} />}
-
-                        <Button level={true} low={true} rounded={true} fill={true} onClick={() => {
-                            open();
-                        }}>
-                            Change Cover Image <LuImagePlus />
-                        </Button>
-                        <FormElement className="mt-2">
-                            <Switch
-                                checked={postState === "published"}
-                                onChange={(e) => {
-                                    dispatch({ type: "postState", payload: e.target.checked ? "published" : "draft" });
-
-                                }}
-                                className=""
-                                id="publish"
-                                label={"Publish"}
-                                width="100%"
-                            />
-
-                        </FormElement>
-                        <FormElement className="mt-2">
-                            <Switch
-                                checked={IsCommentEnabled}
-                                onChange={(e) => {
-                                    dispatch({ type: "IsCommentEnabled", payload: e.target.checked });
-                                }}
-                                className=""
-
-                                id="comments"
-                                label={"Comments"}
-                                width="100%"
-                            />
-
-                        </FormElement>
-                        <FormElement>
-                            <Label><CiHashtag />Label</Label>
-                            <Input type="text" placeholder="Add label to the Post..." value={labels.join(",")}
-                                level={true}
-                                onChange={
-                                    (e) => {
-                                        dispatch({ type: "labels", payload: e.target.value.split(",") });
-                                    }
-                                }
-                            />
-                            <FormHelper>
-                                Tags or Categories the post will be included
-                            </FormHelper>
-                        </FormElement>
-                        <FormElement>
-                            <Label htmlFor="slug">   <AiOutlineLink />Edit Slug</Label>
-
-                            <Input
-                                type="text"
-                                placeholder="Edit the slug for the post"
-                                level={true}
-                                id="slug"
-                                value={slug}
-                                onChange={
-                                    (e) => {
-                                        dispatch({ type: "slug", payload: e.target.value?.toLowerCase()?.replaceAll(" ", "-") });
-                                    }
-                                }
-                            />
-                            <FormHelper>
-                                <strong>
-
-                                    Permalink :  {" "}
-                                </strong>
-                                <Link href={"https://kkupgrader.eu.org/blog/posts/" + slug} target="_blank">
-                                    {"https://kkupgrader.eu.org/blog/posts/" + slug}
-                                </Link>
-                            </FormHelper>
-                        </FormElement>
-                        <FormElement>
-                            <Label><TbFileDescription />Meta Description</Label>
-                            <TextArea
-                                type="text"
-                                placeholder="Meta Description"
-                                level={true}
-                                value={description}
-
-                                maxLength={200}
-                                onChange={
-                                    (e) => {
-                                        dispatch({ type: "description", payload: e.target.value });
-                                    }
-                                }
-                            />
-                            <FormHelper>
-                                Short Description visible in search results
-                            </FormHelper>
-                        </FormElement>
-                        <div className="d-flex align-items-start justify-content-between g-3 mt-3 children-fill">
-                            <Button nature="danger"
-                                low={true}
-
-                                onClick={() => toast.promise(deletePost(), {
-                                    loading: 'Deleting...',
-                                    success: "Post Deleted Successfully",
-                                    error: "Error Deleting the post!!",
-                                })}
-
-                            >
-                                Delete
-                            </Button>
-                            <Button low={true}
-                                onClick={() => toast.promise(updatePost(), {
-                                    loading: 'Updating...',
-                                    success: "Post Updated Successfully",
-                                    error: "Error updating the post!!",
-                                })}
-                            >
-                                Update
-                            </Button>
-
-                        </div>
-                        <Button as={"a"} href="#main_wrapper" level={true} low={true} rounded={true}>
-                            Back to Top <AiOutlineArrowUp />
-                        </Button>
-
-
-                    </SettingPanel>
-                </div>
-            </DashboardPage>
-            <Toaster
-                position="top-center"
-                reverseOrder={true}
+                }}
+                className=""
+                id="publish"
+                label={"Publish"}
+                width="100%"
             />
-            <Modal ref={ImageModalRef} maxWidth="990px">
-                <ImageUploader
-                    image={image}
-                    title={title}
-                    setImage={
-                        (image) => {
-                            dispatch({ type: "image", payload: image });
+
+        </FormElement>
+        <FormElement className="mt-2">
+            <Switch
+                checked={IsCommentEnabled}
+                onChange={(e) => {
+                    dispatch({ type: "IsCommentEnabled", payload: e.target.checked });
+                }}
+                className=""
+
+                id="comments"
+                label={"Comments"}
+                width="100%"
+            />
+
+        </FormElement>
+        <AccordionHeader
+            active={state.label}
+            onClick={() => {
+                update({ type: "label", payload: !state.label });
+            }}
+        > <Label>
+                <CiHashtag />Label
+            </Label>
+            <IoIosArrowUp />
+        </AccordionHeader>
+        <Collapse visible={state.label}>
+            <FormElement>
+                <Input type="text" placeholder="Add label to the Post..." value={labels.join(",")}
+                    level={true}
+                    sm={true}
+                    onChange={
+                        (e) => {
+                            dispatch({ type: "labels", payload: e.target.value.split(",") });
                         }
                     }
-
                 />
-            </Modal>
-        </>
-    )
+                <FormHelper>
+                    Tags or Categories the post will be included
+                </FormHelper>
+            </FormElement>
+        </Collapse>
+        <AccordionHeader
+            active={state.slug}
+            onClick={() => {
+                update({ type: "slug", payload: !state.slug });
+            }}
+        > <Label>
+                <AiOutlineLink />Edit Slug
+            </Label>
+            <IoIosArrowUp />
+
+        </AccordionHeader>
+        <Collapse visible={state.slug}>
+            <FormElement>
+
+                <Input
+                    type="text"
+                    placeholder="Edit the slug for the post"
+                    level={true}
+                    id="slug"
+                    value={slug}
+                    onChange={
+                        (e) => {
+                            dispatch({ type: "slug", payload: e.target.value?.toLowerCase()?.replaceAll(" ", "-") });
+                        }
+                    }
+                />
+                <FormHelper>
+                    <strong>
+
+                        Permalink :  {" "}
+                    </strong>
+                    <Link href={"https://kkupgrader.eu.org/blog/posts/" + slug} target="_blank">
+                        {"https://kkupgrader.eu.org/blog/posts/" + slug}
+                    </Link>
+                </FormHelper>
+            </FormElement>
+        </Collapse>
+        <AccordionHeader
+            active={state.meta}
+            onClick={() => {
+                update({ type: "meta", payload: !state.meta });
+            }}
+        > <Label>
+                <TbFileDescription />Meta
+            </Label>
+            <IoIosArrowUp />
+        </AccordionHeader>
+        <Collapse visible={state.meta}>
+            <FormElement>
+                <TextArea
+                    type="text"
+                    placeholder="Meta Description"
+                    level={true}
+                    value={description}
+
+                    maxLength={200}
+                    onChange={
+                        (e) => {
+                            dispatch({ type: "description", payload: e.target.value });
+                        }
+                    }
+                />
+                <FormHelper>
+                    Short Description visible in search results
+                </FormHelper>
+            </FormElement></Collapse>
+        <div className="d-flex align-items-start justify-content-between g-3 mt-3 children-fill">
+            <Button nature="danger"
+                low={true}
+
+                onClick={() => toast.promise(deletePost(), {
+                    loading: 'Deleting...',
+                    success: "Post Deleted Successfully",
+                    error: "Error Deleting the post!!",
+                })}
+
+            >
+                Delete
+            </Button>
+            <Button low={true}
+                onClick={() => toast.promise(updatePost(), {
+                    loading: 'Updating...',
+                    success: "Post Updated Successfully",
+                    error: "Error updating the post!!",
+                })}
+            >
+                Update
+            </Button>
+
+        </div>
+        <Button as={"a"} href="#main_wrapper" level={true} low={true} rounded={true}>
+            Back to Top <AiOutlineArrowUp />
+        </Button>
+
+
+    </SettingPanel>)
 }
+
+const AccordionHeader = styled.div<{
+    active: boolean
+}>`
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:0.5rem;
+    padding:0.5rem;
+    cursor:pointer;
+    border-radius:0.5rem;
+    transition: all 0.2s ease-in-out;
+
+    &>svg{
+       transition: all 0.2s ease-in-out;
+    }
+    ${(props) => props.active ? `
+    background:rgba(var(--grey-rgb),0.05);
+        &>svg{
+            transform:rotate(180deg);
+        }
+    `: ""}
+`;
 
 function ImageUploader({
     image,
@@ -541,7 +689,7 @@ function ImageUploader({
     });
     const [page, setPage] = useState(1);
 
-    
+
 
     const searchImages = async () => {
         if (!query) return;

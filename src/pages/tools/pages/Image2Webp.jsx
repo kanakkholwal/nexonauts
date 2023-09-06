@@ -1,9 +1,9 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 
 import { useDropzone } from 'react-dropzone'
-import FileInput from "@/components/form-elements/FileInput"
-import FormElement from "@/components/form-elements/FormElement"
-import FormHelper from "@/components/form-elements/FormHelper"
+import FileInput from "components/form-elements/FileInput"
+import FormElement from "components/form-elements/FormElement"
+import FormHelper from "components/form-elements/FormHelper"
 import {IconButton} from "components/buttons"
 import {Card,CardBody, CardFooter} from "components/Card"
 import styled from "styled-components";

@@ -17,8 +17,14 @@ import { quotePlugin } from '@mdxeditor/editor/plugins/quote';
 import { listsPlugin } from '@mdxeditor/editor/plugins/lists';
 import { thematicBreakPlugin } from '@mdxeditor/editor/plugins/thematic-break';
 
+import {GenericDirectiveEditor } from '@mdxeditor/editor/directive-editors/GenericDirectiveEditor';
 
+import dynamic from "next/dynamic";
 
+export const MDXEditor = dynamic(
+    () => import('@mdxeditor/editor').then((mod) => mod.MDXEditor),
+    { ssr: false }
+);
 
 
 
@@ -50,14 +56,7 @@ const simpleSandpackConfig = {
     ],
 };
 
-const GenericDirectiveEditor = (props) => {
-    const cb = useCodeBlockEditorContext()
-    return (
-        <div onKeyDown={(e) => e.nativeEvent.stopImmediatePropagation()}>
-            <textarea rows={3} cols={20} defaultValue={props.code} onChange={(e) => cb.setCode(e.target.value)} />
-        </div>
-    )
-}
+
 const CalloutDirectiveDescriptor = {
     name: 'callout',
     testNode(node) {
@@ -87,6 +86,7 @@ export const plugins = [
         codeBlockLanguages: {
             js: 'JavaScript',
             css: 'CSS',
+            bash: 'Bash',
             html: 'HTML',
             sql: 'SQL',
             json: 'JSON',

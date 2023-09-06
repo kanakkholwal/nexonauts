@@ -1,19 +1,16 @@
 import { GetSessionParams, getSession } from "next-auth/react";
 import DashboardPage from "components/dashboard-page";
 import Head from "next/head";
-import { sessionType } from "@/src/types/session";
 import dynamic from 'next/dynamic';
 
 // Import the missing CalloutDirectiveDescriptor
 
-const MDXEditor = dynamic(() => import('@mdxeditor/editor/MDXEditor').then((mod) => mod.MDXEditor), { ssr: false })
-import Markdown from "markdown-to-jsx"
-import { plugins } from "@/components/editor/mdx-editor";
+
 import { useState } from "react";
 
 export default function Dashboard({ user }) {
 
-    const [data,setData] = useState("")
+    const [data, setData] = useState("")
     return (
         <>
             <Head>
@@ -23,22 +20,7 @@ export default function Dashboard({ user }) {
                 user={user}
                 headerChildren={<span className="h5">UI Page</span>}
             >
-                <MDXEditor
-                    markdown={data}
-                    plugins={plugins}
-                    onChange={(data) => {
-                        console.log(data);
-                        setData(data);
-                    }}
-                />
-                previe : 
-                <Markdown
-                    options={{
-                        className:"standardTopography"
-                    }}
-                >
-                    {data}
-                </Markdown>
+                Testtttttttt
             </DashboardPage>
         </>
     );

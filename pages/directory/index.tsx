@@ -31,7 +31,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import LazyImage from "components/image";
 import { Quicksand } from "next/font/google";
 import { FiFilter } from 'react-icons/fi';
-import Collapse from '@/components/collapse';
+import Collapse from 'components/collapse';
 
 const quicksand = Quicksand({
     preload: false,
