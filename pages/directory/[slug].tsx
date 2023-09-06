@@ -21,10 +21,10 @@ import { TbShare2 } from "react-icons/tb"
 
 import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import { FaFacebookF, FaTwitter, FaLinkedinIn, FaWhatsapp, FaPinterestP, FaTelegramPlane, FaRedditAlien } from 'react-icons/fa';
-import { LuCopy, LuVerified } from 'react-icons/lu';
-import { IoMailOutline } from 'react-icons/io5';
+// import { LuCopy, LuVerified } from 'react-icons/lu';
+// import { IoMailOutline } from 'react-icons/io5';
 import Badge from "components/topography/badge"
-import Button from '@/components/buttons';
+import Button from 'components/buttons';
 import LazyImage from "components/image";
 import Link from 'next/link';
 import useShare from 'hooks/useShare';

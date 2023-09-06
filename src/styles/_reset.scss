@@ -186,6 +186,7 @@ strong,.strong{
     text-align: initial;
     width: 100%;
     font-size: 16px;
+    font-family:"Inter",sans-serif!important;
     h1,h2,h3, h4,h5,h6
     {
         line-height: 1.3em;
@@ -257,6 +258,13 @@ strong,.strong{
     }
 
 
+}
+[role="toolbar"]{
+    position: sticky!important;
+    top:80px!important;
+    z-index: 1000!important;
+    border:var(--spacing-px) solid var(--baseBorder);
+    background: var(--card-bg);
 }
 .bordered{
     border: 1px solid var(--border-color);

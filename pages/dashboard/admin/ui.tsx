@@ -4,7 +4,7 @@ import Button ,{IconButton} from "components/buttons";
 import Badge from "components/topography/badge";
 import {Input,FormGroup,FormElement,Label} from "components/form-elements";
 import Head from "next/head";
-import { sessionType } from "@/src/types/session";
+import { sessionType } from "src/types/session";
 import styled from "styled-components";
 import {BiLike} from "react-icons/bi";
 const Wrapper = styled.div`

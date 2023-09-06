@@ -7,6 +7,50 @@ import Collapse from "components/collapse";
 import HTMLReactParser from 'html-react-parser';
 
 
+const remapHeadingsRecursive = (
+    headings: Omit<Heading, "children">[],
+    level: number = 1,
+    lastIndex: number = -1
+): Heading[] => {
+    const topLevelHeadings = headings.filter(
+        (heading, index) => heading.level === level && index > lastIndex
+    );
+
+    let currentIndex = lastIndex;
+
+    return topLevelHeadings.map((heading, index) => {
+        const children = remapHeadingsRecursive(headings, level + 1, currentIndex);
+
+        if (children.length > 0) {
+            currentIndex = headings.indexOf(topLevelHeadings[index + 1]);
+            return {
+                ...heading,
+                children,
+            };
+        }
+
+        return heading;
+    }) as Heading[];
+};
+
+function extractHeadings(markdown: string) {
+    const headings: Omit<Heading, "children">[] = [];
+    const headingRegex = /^(#+)\s+(.*)$/gm;
+    let match: RegExpExecArray | null;
+
+    while ((match = headingRegex.exec(markdown)) !== null) {
+        const level = match[1].length;
+        let text = match[2].trim();
+        text = text.replace(/\*\*/g, '');
+
+        const heading: Omit<Heading, "children"> = { text, level };
+
+        headings.push(heading);
+    }
+
+    return remapHeadingsRecursive(headings, (headings[0]?.level ?? 1));
+}
+
 
 
 
@@ -69,7 +113,7 @@ const StyledTOC = styled.div`
     
 
 `;
-const StyledButton = styled.button<{open: boolean}>`
+const StyledButton = styled.button<{ open: boolean }>`
     padding: 0.5rem;
     display: flex;
     justify-content: center;
@@ -86,8 +130,8 @@ const StyledButton = styled.button<{open: boolean}>`
         background-color: rgba(var(--blog-theme-rgb), 0.3);
         scale: 1.1;
     }
-    ${({open}) => {
-        if(open === true){
+    ${({ open }) => {
+        if (open === true) {
             return `
                 transform: rotate(45deg);
             `
@@ -104,7 +148,12 @@ type Block = {
     }
     children?: Array<Block>
 }
-
+type Heading = {
+    id?: string,
+    level: number,
+    text: string,
+    children: Array<Heading>
+}
 
 export default function TOC({ blocks }: {
     blocks: Block[]
@@ -116,7 +165,7 @@ export default function TOC({ blocks }: {
     return (
         <StyledTOC>
             <div className="Toc_Header">
-                <MdFormatListNumbered size={20}/>
+                <MdFormatListNumbered size={20} />
                 <span>Table of Contents</span>
                 <StyledButton open={open} onClick={() => setOpen(!open)}><AiOutlinePlus /></StyledButton>
             </div>
@@ -128,6 +177,68 @@ export default function TOC({ blocks }: {
 
         </StyledTOC>
     )
+
+}
+export const TOCMarkDown = ({ content }: {
+    content: string
+}) => {
+
+    const headings = extractHeadings(content);
+    const [open, setOpen] = React.useState(false);
+    console.log(headings)
+
+    return (
+        <StyledTOC>
+            <div className="Toc_Header">
+                <MdFormatListNumbered size={20} />
+                <span>Table of Contents</span>
+                <StyledButton open={open} onClick={() => setOpen(!open)}><AiOutlinePlus /></StyledButton>
+            </div>
+            <Collapse visible={open}>
+                <div className="Toc_Body">
+                    <ol>
+                        {
+                            headings.map((heading: any, i: number) => {
+                                return (
+                                    <li key={i}>
+                                        <Link href={`#${heading.text?.toString().replace(/\.\s/, ' ').replaceAll(" ","-").toLowerCase()}`}>
+                                            {heading.text && HTMLReactParser(heading.text.replace(/\d+\.\s/, ''))}
+                                        </Link>
+                                        {heading.children && <TOCListMD headings={heading.children} />}
+                                    </li>
+                                )
+
+                            })
+                        }
+
+                    </ol>
+                </div>
+            </Collapse>
+
+        </StyledTOC>
+    )
+}
+const TOCListMD = ({ headings }:{
+    headings: Heading[]
+}) => {
+
+    return <ol>
+        {
+            headings.map((heading: Heading, i: number) => {
+                return (
+                    <li key={i}>
+                        <Link href={`#${heading.text?.toString().replace(/\d+\.\s/, '').replaceAll(" ","-").toLowerCase()}`}>
+                            {heading.text && HTMLReactParser(heading.text.replace(/\d+\.\s/, ''))}
+                        </Link>
+                        {heading.children && <TOCListMD headings={heading.children} />}
+                    </li>
+                )
+
+            })
+        }
+
+    </ol>
+
 
 }
 const TOCList = ({ blocks }) => {
@@ -165,16 +276,26 @@ const remapBlocks = (blocks: Block[], level: number = 2): Block[] => {
         };
     });
 };
-
-export const HeaderRenderer = ({ data, className = '' }) => {
+export const HeaderToc = (data) => {
     const props: {
-      [s: string]: string;
+        [s: string]: string;
     } = {};
-  
-    if (className) {
-      props.className = className;
+    if (data.className) {
+        props.className = data.className;
     }
-  
+
     const Tag = `h${data?.level || 1}` as keyof JSX.IntrinsicElements;
     return <Tag {...props} id={data.text.toString().replace(/\s/g, "_").toLowerCase()}>{data?.text && HTMLReactParser(data.text)}</Tag>;
-  };
+}
+export const HeaderRenderer = ({ data, className = '' }) => {
+    const props: {
+        [s: string]: string;
+    } = {};
+
+    if (className) {
+        props.className = className;
+    }
+
+    const Tag = `h${data?.level || 1}` as keyof JSX.IntrinsicElements;
+    return <Tag {...props} id={data.text.toString().replace(/\s/g, "_").toLowerCase()}>{data?.text && HTMLReactParser(data.text)}</Tag>;
+};
