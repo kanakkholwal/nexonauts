@@ -1,21 +1,21 @@
-import { getSession } from "next-auth/react"
-import DashboardPage from "components/dashboard-page";
+import axios from 'axios';
 import { Card } from "components/Card";
 import Button from "components/buttons";
-import { Input, TextArea, Select, Label, FormGroup, FormElement, FormHelper } from "components/form-elements";
+import DashboardPage from "components/dashboard-page";
+import { FormElement, FormGroup, FormHelper, Input, Label, Select } from "components/form-elements";
 import AutoComplete from "components/form-elements/AutoComplete";
 import ImageUpload from "components/form-elements/imageUpload";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
-import useSWR from 'swr'
-import { useReducer } from 'react'
-import axios from 'axios';
+import { useReducer } from 'react';
+import useSWR from 'swr';
 // import styled from "styled-components";
 import toast, { Toaster } from 'react-hot-toast';
 
-import dynamic from "next/dynamic";
-const Editor = dynamic(() => import("components/editor/editorjs"), {
-    ssr: false,
-});
+// import dynamic from "next/dynamic";
+// const Editor = dynamic(() => import("components/editor/editorjs"), {
+//     ssr: false,
+// });
 
 const fetcher = (url) => axios.get(url).then(res => res.data)
 
@@ -254,7 +254,7 @@ export default function AddPublicToolPage({ user }) {
                             <FormElement>
                                 <span htmlFor="description">Description</span>
                               
-                                    <Editor
+                                    {/* <Editor
                                         defaultValue={{
                                             time: new Date().getTime(),
                                             blocks: [
@@ -272,7 +272,7 @@ export default function AddPublicToolPage({ user }) {
                                             dispatch({ type: 'SET_DESCRIPTION', payload: value });
 
                                         }}
-                                    /> 
+                                    />  */}
                           
                                 
                             </FormElement>

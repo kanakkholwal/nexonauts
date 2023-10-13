@@ -8,6 +8,7 @@
 /.vscode
 # testing
 /coverage
+.turbo
 /.env
 .env
 .env.local

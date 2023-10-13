@@ -1,15 +1,16 @@
-import Head from "next/head";
-import Script from 'next/script'
-import "src/global.scss";
-import "aos/dist/aos.css";
 import '@mdxeditor/editor/style.css';
+import "aos/dist/aos.css";
+import Head from "next/head";
+import Script from 'next/script';
+import "src/global.scss";
+import "src/tailwind.css";
 
+import Aos from "aos";
 import Progress from 'components/progress';
+import { UserPreferenceProvider } from "hooks/useUserPreference";
+import { SessionProvider } from "next-auth/react";
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import Aos from "aos";
-import { SessionProvider } from "next-auth/react"
-import { UserPreferenceProvider } from "hooks/useUserPreference"
 
 
 export default function MyApp({ Component, pageProps: { session, ...pageProps }, }) {

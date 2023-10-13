@@ -75,4 +75,21 @@ interface AppUsage{
     _id:string | any;
 }
 type newApp = Omit<App ,"_id">
+export type AppInfo = {
+    _id:string | any;
+    appId: string;
+    enabled:Boolean;
+    name: string;
+    shortDescription: string;
+    membership: string;
+    state: string;
+    category: string;
+    tags: string[];
+    author: any;
+    path: string;
+    version?: string;
+    coverImage?: string;
+    recommended: Boolean,
+    createdAt:Date | string,
+}
 export type { App,newApp, AppReview, AppUsage ,Input,Controls,Options,TypesOfApp};
