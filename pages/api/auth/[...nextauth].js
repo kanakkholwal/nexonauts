@@ -135,7 +135,7 @@ export const authOptions = {
                 
 
             },
-          }),
+        }),
         
     ],
     // All of this is just to add user information to be accessible for our app in the token/session

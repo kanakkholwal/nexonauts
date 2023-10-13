@@ -2,7 +2,7 @@ import handler from 'lib/handler';
 import dbConnect from "lib/dbConnect";
 import nextConnect from 'next-connect';
 import App from "models/app";
-import type { App as AppType } from "types/app";
+import type { App as AppType ,AppInfo} from "types/app";
 import { isAdminMiddleware } from 'middleware/checkUser';
 
 
@@ -51,7 +51,9 @@ export default nextConnect(handler)
         try {
             await dbConnect();
             // find all enabled apps
-            const apps = await App.find({}) as AppType[] | null;
+            const apps = await App.find({})
+            .select('name shortDescription appId path coverImage recommended version membership category tags author createdAt')
+            .exec()  as AppInfo[] | null;
             if (!apps) {
                 return res.status(403).json({ message: `No apps found!`, apps: [] });
             }
