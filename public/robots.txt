@@ -1,9 +1,5 @@
-# *
-User-agent: *
+User-agent: Googlebot
 Allow: /
-
-# Host
-Host: https://kkupgrader.eu.org
-
-# Sitemaps
-Sitemap: https://kkupgrader.eu.org/sitemap.xml
+User-agent: *
+Disallow:
+Sitemap: http://www.example.com/sitemap.xml

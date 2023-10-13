@@ -79,7 +79,7 @@ export async function getStaticProps({ params }) {
             props: {
                 post,
             },
-            revalidate: 60,
+            revalidate: 10,
         };
     }
     else if (response.data.success === false) {
@@ -89,7 +89,7 @@ export async function getStaticProps({ params }) {
             props: {
                 post: null,
             },
-            revalidate: 60,
+            revalidate: 10,
         };
 
     }
