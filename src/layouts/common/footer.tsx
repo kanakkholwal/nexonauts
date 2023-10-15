@@ -43,70 +43,74 @@ export default function Footer() {
                     </p>
                 </div>
                 <div className="max-w-[571px] w-full">
-                <div className="flex flex-col sm:flex-row sm:justify-between gap-10">
-                    <div>
-                        <h5 className="font-semibold mb-5">
-                            Product
-                        </h5>
-                        <ul className="flex flex-col gap-3">
-                            <li>
-                                <Link href="#features" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                    Features
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/pricing" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                    Pricing
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/blog" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                    Blog
-                                </Link>
-                            </li>
-                        </ul>
+                    <div className="flex flex-col sm:flex-row sm:justify-between gap-10">
+                        <div>
+                            <h5 className="font-semibold mb-5">
+                                Product
+                            </h5>
+                            <ul className="flex flex-col gap-3">
+                                <li>
+                                    <Link href="/apps" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Apps
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/tools" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Tools
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/pricing" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Pricing
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/blog" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Blog
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 className="font-semibold mb-5">
+                                Company
+                            </h5>
+                            <ul className="flex flex-col gap-3">
+                                <li>
+                                    <Link href="/about" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        About
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/contact" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Contact
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/privacy" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Privacy
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 className="font-semibold mb-5">
+                                Support
+                            </h5>
+                            <ul className="flex flex-col gap-3">
+                                <li>
+                                    <Link href="/#features" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Features
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/status" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Status
+                                    </Link>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <div>
-                        <h5 className="font-semibold mb-5">
-                            Company
-                        </h5>
-                        <ul className="flex flex-col gap-3">
-                            <li>
-                                <Link href="/about" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                    About
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/contact" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                    Contact
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/privacy" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                    Privacy
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h5 className="font-semibold mb-5">
-                        Support
-                        </h5>
-                        <ul className="flex flex-col gap-3">
-                          
-                            <li>
-                                <Link href="/faq" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                    FAQ
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/status" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                    Status
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
                 </div>
             </div>
 
