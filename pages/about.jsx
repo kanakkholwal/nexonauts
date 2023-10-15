@@ -1,16 +1,9 @@
-import styled from "styled-components";
-import Image from 'next/image';
-import Link from "next/link";
-import Button from "components/buttons";
+import Footer from 'layouts/common/footer';
+import Header from 'layouts/common/header';
+import Hero from 'layouts/common/hero';
 import Head from "next/head";
-import { HiBars3 } from "react-icons/hi2";
 import { useState } from "react";
-import { useSession } from "next-auth/react";
-import { NavBarWrapper, MenuList, AuthButtonWrapper, NavToggle } from "components/navbar";
-import Footer from "components/footer";
-
-import { registerView } from "lib/analytics";
-import { useEffect } from "react";
+import styled from "styled-components";
 
 
 
@@ -38,41 +31,25 @@ const PageWrapper = styled.div`
 export default function Page() {
     const [open, setOpen] = useState(false);
 
-    const { data: session } = useSession()
-    useEffect(() =>{
-        registerView({ title: "About", type: "page", slug: "/about" })
-    },[])
+ 
     return (
         <>
             <Head>
-                <title>About - K K UPGRADER</title>
+                <title>
+                    About Us | {process.env.NEXT_PUBLIC_WEBSITE_NAME}
+                </title>
             </Head>
-            <NavBarWrapper>
-                <Link href="/">
-                    <Image src="/textLogo.svg" alt="K K UPGRADER" width={120} height={100} />
-                </Link>
-                <MenuList open={open}>
-                    <Link href="/">Home</Link>
-                    <Link href="/tools">Tools</Link>
-                    <Link href="/about">About</Link>
-                    <Link href="/pricing">Pricing</Link>
-                </MenuList>
-                <AuthButtonWrapper>
-                    {session ? <Button as={Link} href="/dashboard">Go to Dashboard</Button> :
-                        <>
-                            <Button level="true" as={Link} href="/login">Log In</Button>
-                            <Button as={Link} href="/signup">Sign Up</Button>
-                        </>}
-                    <NavToggle onClick={() => setOpen(!open)} level="true">
-                        <HiBars3 />
-                    </NavToggle>
-                </AuthButtonWrapper>
-            </NavBarWrapper>
-            <PageWrapper>
+            <Header/>
+            <Hero
+                title="About Us"
+                // description="Choose the plan that works for you."
+                path={[{ name: "About Us", path: "/about" }]}
+            />
+            <div className="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
                 <h1>About Us</h1>
 
                 <p>
-                    Welcome to <strong>K K UPGRADER</strong>, a team of passionate individuals dedicated to making a difference in the world.</p>
+                    Welcome to <strong>{process.env.NEXT_PUBLIC_WEBSITE_NAME}</strong>, a team of passionate individuals dedicated to making a difference in the world.</p>
 
                 <section className="my-3">
                     <h3 className="mb-3">Our Mission</h3>
@@ -137,7 +114,7 @@ export default function Page() {
                 We look forward to working with you and making a positive impact in the world together.
 
 
-            </PageWrapper>
+            </div>
             <Footer only="true" />
         </>
     )

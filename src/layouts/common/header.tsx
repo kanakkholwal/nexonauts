@@ -57,17 +57,17 @@ export default function Header() {
                         <ul className="flex lg:items-center flex-col lg:flex-row gap-5 lg:gap-2">
                         {menu.map((item,index:number) =>{
                             return (<li className="nav__menu group relative lg:py-7" key={index}>
-                            <Link href={item.link} className="relative text-sm py-1.5 px-4 border border-transparent  hover:bg-primary/5 rounded-full  hover:border-primary/5">
+                            <Link href={item.link} className="relative text-sm py-1.5 px-4 border border-transparent  hover:bg-primary/10 rounded-full  hover:border-primary/50">
                                 {item.name}
                             </Link>
                         </li>)})}
                         </ul>
                     </nav>
-                    <div className="flex items-center gap-6 mt-7 lg:mt-0">
-                        <Link href="/login" className=" text-sm hover:text-opacity-75">
+                    <div className="flex items-center gap-2 mt-7 lg:mt-0">
+                        <Link href="/login" className=" text-sm hover:text-opacity-75 hover:bg-slate-200  py-2  px-3 relative rounded-lg  flex items-center gap-1.5">
                             SignIn
                         </Link>
-                        <Link href="/signup" className="bg-primary text-white px-3 relative rounded-lg  text-sm flex items-center gap-1.5 py-2 px-4.5 shadow-button">
+                        <Link href="/signup" className="bg-primary text-white py-2  px-3 relative rounded-lg  text-sm flex items-center gap-1.5 shadow-button">
                             Sign up
                         </Link>
                     </div>
