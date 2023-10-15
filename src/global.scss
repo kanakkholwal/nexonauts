@@ -3,7 +3,7 @@
 
 
 @import "./styles/reset",
-"./styles/flex",
+// "./styles/flex",
 // "./styles/forms",
 // "./styles/layout",
 // "./styles/position",
@@ -418,6 +418,42 @@ body {
 .footer-bg-gradient {
     background: linear-gradient(0deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0));
 }
+.aiSearch-border-gredient:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    z-index: -1;
+    background: linear-gradient(180deg,hsla(0,0%,100%,.11),hsla(0,0%,100%,0))
+}
+
+.gradient-box {
+    position: relative;
+    box-sizing: border-box;
+    background-clip: padding-box;
+    /* !importanté */
+    border: 1px solid transparent /* !importanté */
+}
+
+.gradient-box:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    margin: -1px;
+    /* !importanté */
+    border-radius: inherit;
+    /* !importanté */
+    background: linear-gradient(180deg,hsla(0,0%,100%,.11),hsla(0,0%,100%,0))
+}
+
 .Blog{
     // background: var(--light);
     // color: var(--dark);
