@@ -71,7 +71,7 @@
         "react-editor-js": "latest",
         "react-google-recaptcha": "^2.1.0",
         "react-hot-toast": "^2.4.1",
-        "react-icons": "^4.9.0",
+        "react-icons": "^4.11.0",
         "react-is": "^18.2.0",
         "react-transition-group": "^4.4.5",
         "sass": "^1.55.0",

@@ -5,13 +5,19 @@ import Script from 'next/script';
 import "src/global.scss";
 import "src/tailwind.css";
 
-import Aos from "aos";
 import Progress from 'components/progress';
 import { UserPreferenceProvider } from "hooks/useUserPreference";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+import { Plus_Jakarta_Sans } from "next/font/google";
+
+const customFont = Plus_Jakarta_Sans({
+    weight: ['400', '500', '600', '700', '800'],
+    display:"swap",
+    subsets: ['latin-ext', 'latin'],
+})
 
 export default function MyApp({ Component, pageProps: { session, ...pageProps }, }) {
 
@@ -37,29 +43,6 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps },
         };
     }, [router]);
 
-
-    useEffect(() => {
-
-        // if (window.matchMedia('(prefers-color-scheme: dark)')) {
-        //     if (localStorage.getItem("kkupgrader_Mode") && localStorage.getItem("kkupgrader_Mode") === "false")
-        //         document.body.classList.remove("DarkMode");
-        //     else
-        //         document.body.classList.remove("DarkMode");
-        // }
-        // else if (localStorage.getItem("kkupgrader_Mode") === "true")
-        //     document.body.classList.add("DarkMode");
-        // else if (localStorage.getItem("kkupgrader_Mode") === "false")
-        //     document.body.classList.remove("DarkMode");
-        // else
-        //     document.body.classList.remove("DarkMode");
-
-        Aos.init({
-            offset: 200,
-            duration: 750,
-            easing: 'ease-in-out',
-            delay: 100,
-        });
-    }, [])
     return <>
         <Head>
             {/* <!-- Preload Cdns --> */}
@@ -91,7 +74,9 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps },
         </Script>
         <SessionProvider session={session}>
             <UserPreferenceProvider>
+            <main className={customFont.className}>
                 <Component {...pageProps} />
+            </main>
             </UserPreferenceProvider>
         </SessionProvider>
     </>
