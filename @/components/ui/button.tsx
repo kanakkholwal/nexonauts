@@ -17,7 +17,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "bg-white hover:bg-white hover:text-accent-foreground",
-        dark: "bg-slate-800 hover:bg-slate-700 text-white/90 hover:text-white transition-duration-500",
+        dark: "bg-slate-900 hover:bg-slate-800 text-white/90 hover:text-white transition-duration-500",
         link: "text-primary underline-offset-4 hover:underline",
         gradient: "hero-button-gradient",
       },
@@ -25,7 +25,7 @@ const buttonVariants = cva(
         default: "h-10 px-4 py-2",
         sm: "h-9 rounded-md px-3",
         lg: "rounded-md py-3 px-7",
-        icon: "h-10 w-10",
+        icon: "h-10 w-10 p-3",
       },
     },
     defaultVariants: {

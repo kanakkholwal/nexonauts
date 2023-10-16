@@ -468,9 +468,7 @@ body {
         flex-direction: column;
         gap: 0.25rem;
         @apply bg-slate-50 p-2 rounded-md shadow-xl items-center;
-        .nav__menu{
-            padding-block: 0.25rem;
-        }
+        
 
     }
     &:is(:focus-visible,:focus,:focus-within,:hover)>.navdrop_menu{
@@ -480,6 +478,20 @@ body {
         pointer-events: auto;
     }
 
+}
+.or{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    &:before, &:after{
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: rgba(var(--grey-rgb), 0.2);
+    }
 }
 .Blog{
     // background: var(--light);
