@@ -453,7 +453,34 @@ body {
     /* !importanté */
     background: linear-gradient(180deg,hsla(0,0%,100%,.11),hsla(0,0%,100%,0))
 }
+.nav__menu{
+    position: relative;
+    &>.navdrop_menu{
+        position: absolute;
+        top: calc(100% - 5px);
+        transform-origin: center center;
+        opacity: 0;
+        transform:translateY(50px);
+        transition: all 300ms ease-in-out;
+        visibility: hidden;
+        pointer-events: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        @apply bg-slate-50 p-2 rounded-md shadow-xl items-center;
+        .nav__menu{
+            padding-block: 0.25rem;
+        }
 
+    }
+    &:is(:focus-visible,:focus,:focus-within,:hover)>.navdrop_menu{
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+}
 .Blog{
     // background: var(--light);
     // color: var(--dark);
