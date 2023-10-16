@@ -1,11 +1,11 @@
 import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials"
+import CredentialsProvider from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-// import AppleProvider from "next-auth/providers/apple";
 
-import User from "models/user";
-import Notification from "models/notification";
 import dbConnect from "lib/dbConnect";
+import Notification from "models/notification";
+import User from "models/user";
 
 export const authOptions = {
     // Enable JSON Web Tokens since we will not store sessions in our DB
@@ -85,11 +85,11 @@ export const authOptions = {
             clientId: process.env.GOOGLE_ID,
             clientSecret: process.env.GOOGLE_SECRET,
             authorization: {
-              params: {
+            params: {
                 prompt: "consent",
                 access_type: "offline",
                 response_type: "code"
-              }
+            }
             },
             async profile(profile) {
                 try{
@@ -136,6 +136,33 @@ export const authOptions = {
 
             },
         }),
+        GithubProvider({
+            clientId: process.env.GITHUB_ID,
+            clientSecret: process.env.GITHUB_SECRET,
+            scope: "read:user",
+            async profile(profile) {
+                console.log(profile);
+                const gotUser = {
+                    name: profile.name,
+                    email: profile.email,
+                    profileURL: profile.avatar_url,
+                    password: "github" + profile.id,
+                    username: profile.login,
+                    role: "user",
+                    account_type: "free",
+                    verificationToken: null,
+                    verified: true,
+                }
+                await dbConnect();
+                const isUser = await User.findOne({email: profile.email})
+                if(isUser){
+                    return Promise.resolve(isUser)
+                }
+                const user = new User(gotUser);
+                await user.save();
+                return Promise.resolve(profile);
+            },
+        })
         
     ],
     // All of this is just to add user information to be accessible for our app in the token/session

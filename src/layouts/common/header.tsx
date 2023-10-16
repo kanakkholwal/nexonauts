@@ -1,7 +1,9 @@
+// import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { BiChevronDown } from "react-icons/bi";
+// import { RiMenuFill } from "react-icons/ri";
 
 type MenuLinkType = {
     name: string;
@@ -84,15 +86,13 @@ export default function Header() {
                                         {item.name}
                                         {item?.items && item.items.length ? <BiChevronDown className="w-3 h-3"/>:null}
                                     </Link>
-                                    {item?.items && item.items.length > 0 ? <ul className="navdrop_menu">
+                                    {item?.items && item.items.length > 0 ? <div className="navdrop_menu z-[9999]">
                                         {item.items.map((item: MenuLinkType, index: number) => {
-                                            return (<li className="nav__menu group relative lg:py-7" key={index}>
-                                                <Link href={item.link} className="relative text-sm py-1.5 px-4 border border-transparent  hover:bg-primary/10 rounded-full  hover:border-primary/50">
+                                            return (<Link  href={item.link}className="nav__menu group relative py-1 px-4 hover:bg-slate-200 rounded-lg w-full  text-sm" key={index}>
                                                     {item.name}
-                                                </Link>
-                                            </li>)
+                                            </Link>)
                                         })}
-                                    </ul>:null}
+                                    </div>:null}
                                     
                                 </li>)
                             })}
@@ -109,6 +109,9 @@ export default function Header() {
                             Sign up
                         </Link>
                         </>}
+                        {/* <Button variant="ghost" size="icon" className="flex lg:hidden">
+                            <RiMenuFill className="w-4 h-4"/>
+                        </Button> */}
                     </div>
                 </div>
             </div>

@@ -33,7 +33,7 @@ export default function Page() {
                 description="Page Not Found"
                 path={[{ name: "Error Page", path: "/404" }]}
             />
-            <div className="pt-17 lg:pt-22 xl:pt-27 pb-20 lg:pb-25 xl:pb-30 2xl:pb-[150px] max-w-[597px] mb-40">
+            <div className="pt-20 lg:pt-22 xl:pt-27 pb-20 lg:pb-25 xl:pb-30 2xl:pb-[150px] mb-40 flex justify-center w-full">
                 <div className=" mx-auto w-full max-w-[597px] text-center px-4 sm:px-8 lg:px-0" data-aos="fade-in-up">
                 <div className="relative aspect-[191/143] max-w-[382px] mx-auto w-full flex justify-center items-center mb-12" data-aos="fade-in-up">
 
