@@ -1,19 +1,16 @@
-import { useSession } from "next-auth/react";
-import { useState } from "react";
-import Head from "next/head";
-import styled from "styled-components";
-import Image from 'next/image';
-import Link from "next/link";
 import Button from "components/buttons";
 import State from "components/state";
+import { useSession } from "next-auth/react";
+import { NextSeo } from 'next-seo';
+import Image from 'next/image';
+import { useState } from "react";
+import styled from "styled-components";
 
-import { HiBars3 } from "react-icons/hi2";
-import { NavBarWrapper, MenuList, AuthButtonWrapper, NavToggle } from "components/navbar";
-import Footer from "components/footer";
-import { FormAlert, FormGroup, FormElement, Input, Label, TextArea, Select } from "components/form-elements";
 import axios from "axios";
-import { registerView } from "lib/analytics";
-import { useEffect } from "react";
+import { FormAlert, FormElement, FormGroup, Input, Label, Select, TextArea } from "components/form-elements";
+import Footer from 'layouts/common/footer';
+import Header from 'layouts/common/header';
+import Hero from 'layouts/common/hero';
 
 
 const ContactWrapper = styled.div`
@@ -175,35 +172,25 @@ export default function Contact() {
 
 
     }
-    useEffect(() =>{
-        registerView({ title: "Contact", type: "page", slug: "/contact" })
-    },[])
+    // useEffect(() =>{
+    //     registerView({ title: "Contact", type: "page", slug: "/contact" })
+    // },[])
     return (
         <>
-            <Head>
-                <title>Contact Us</title>
-            </Head>
-            <NavBarWrapper>
-                <Link href="/">
-                    <Image src="/textLogo.svg" alt="K K UPGRADER" width={120} height={100} />
-                </Link>
-                <MenuList open={open}>
-                    <Link href="/">Home</Link>
-                    <Link href="/tools">Tools</Link>
-                    <Link href="/about">About</Link>
-                    <Link href="/pricing">Pricing</Link>
-                </MenuList>
-                <AuthButtonWrapper>
-                    {session ? <Button as={Link} href="/dashboard">Go to Dashboard</Button> :
-                        <>
-                            <Button level="true" as={Link} href="/login">Log In</Button>
-                            <Button as={Link} href="/signup">Sign Up</Button>
-                        </>}
-                    <NavToggle onClick={() => setOpen(!open)} level="true">
-                        <HiBars3 />
-                    </NavToggle>
-                </AuthButtonWrapper>
-            </NavBarWrapper>
+            
+            <NextSeo
+            title={`Contact Us | ${process.env.NEXT_PUBLIC_WEBSITE_NAME}`}
+        />
+            <Header/>
+            <Hero 
+                title="Contact Us"
+                path={[
+                    {
+                        name:"Contact",
+                        path:"/contact"
+                    }
+                ]}
+            />
             <ContactWrapper>
                 <div className="FormWrapper">
                     <h2>Let's talk</h2>
@@ -302,7 +289,7 @@ export default function Contact() {
                 </div>
             </ContactWrapper>
 
-            <Footer only="true" />
+            <Footer  />
         </>
     )
 }

@@ -1,15 +1,14 @@
-import styled from "styled-components";
+import Button from "components/buttons";
+import Footer from "components/footer";
+import { AuthButtonWrapper, MenuList, NavBarWrapper, NavToggle } from "components/navbar";
+import { registerView } from "lib/analytics";
+import { useSession } from "next-auth/react";
+import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import Link from "next/link";
-import Button from "components/buttons";
-import Head from "next/head";
+import { useEffect, useState } from "react";
 import { HiBars3 } from "react-icons/hi2";
-import { useState } from "react";
-import { useSession } from "next-auth/react";
-import { NavBarWrapper, MenuList, AuthButtonWrapper, NavToggle } from "components/navbar";
-import Footer from "components/footer";
-import { registerView } from "lib/analytics";
-import { useEffect } from "react";
+import styled from "styled-components";
 
 
 
@@ -43,9 +42,10 @@ export default function Page() {
     },[])
     return (
         <>
-            <Head>
-                <title>Privacy Policy - {process.env.NEXT_PUBLIC_WEBSITE_NAME}</title>
-            </Head>
+        <NextSeo
+            title={`Privacy Policy -  ${process.env.NEXT_PUBLIC_WEBSITE_NAME}`}
+        />
+           
             <NavBarWrapper>
                 <Link href="/">
                     <Image src="/textLogo.svg" alt={process.env.NEXT_PUBLIC_WEBSITE_NAME} width={120} height={100} />

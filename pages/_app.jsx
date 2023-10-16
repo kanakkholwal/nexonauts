@@ -15,8 +15,11 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 
 const customFont = Plus_Jakarta_Sans({
     weight: ['400', '500', '600', '700', '800'],
-    display:"swap",
     subsets: ['latin-ext', 'latin'],
+    display: 'swap',
+    adjustFontFallback: false,
+    variable: '--plus-jakarta',
+    fallback:['system-ui','sans-serif']
 })
 
 export default function MyApp({ Component, pageProps: { session, ...pageProps }, }) {

@@ -1,9 +1,9 @@
 import Footer from 'layouts/common/footer';
 import Header from 'layouts/common/header';
 import Hero from 'layouts/common/hero';
-import Head from "next/head";
 
 import Aos from 'aos';
+import { NextSeo } from 'next-seo';
 import { useEffect } from 'react';
 import { BsStars } from "react-icons/bs";
 
@@ -22,12 +22,10 @@ export default function Page() {
 
     return (
         <>
-            <Head>
-                <title>
-                    Pricing | {process.env.NEXT_PUBLIC_WEBSITE_NAME}
+        <NextSeo
+            title={`Pricing | ${process.env.NEXT_PUBLIC_WEBSITE_NAME}`}
+        />
 
-                </title>
-            </Head>
             <Header />
             <Hero
                 title="Pricing"

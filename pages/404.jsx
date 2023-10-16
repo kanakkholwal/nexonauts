@@ -2,7 +2,7 @@ import Aos from 'aos';
 import Footer from 'layouts/common/footer';
 import Header from 'layouts/common/header';
 import Hero from 'layouts/common/hero';
-import Head from "next/head";
+import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import Link from "next/link";
 import { useEffect } from 'react';
@@ -23,11 +23,10 @@ export default function Page() {
 
     return (
         <>
-            <Head>
-                <title>
-                    404 | {process.env.NEXT_PUBLIC_WEBSITE_NAME}
-                </title>
-            </Head>
+        <NextSeo
+            title={`404 | ${process.env.NEXT_PUBLIC_WEBSITE_NAME}`}
+        />
+
             <Header/>
             <Hero
                 title="404"

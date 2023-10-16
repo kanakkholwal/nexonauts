@@ -22,6 +22,7 @@ export default function Home() {
   return (<>
   <NextSeo
     title={process.env.NEXT_PUBLIC_WEBSITE_NAME ?? "NexoNauts"}
+    description='Nexo AI Toolkit is a collection of AI-powered apps that help you to automate your daily tasks.'
     
 
     />

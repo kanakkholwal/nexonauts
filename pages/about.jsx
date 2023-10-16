@@ -1,44 +1,23 @@
 import Footer from 'layouts/common/footer';
 import Header from 'layouts/common/header';
 import Hero from 'layouts/common/hero';
-import Head from "next/head";
-import { useState } from "react";
-import styled from "styled-components";
+import { NextSeo } from 'next-seo';
 
 
 
-const PageWrapper = styled.div`
-    margin-top: 200px;
-    width: 100%;
-    max-width: var(--max-width);
-    margin-inline: auto;
-    padding: 1rem;
-    background:var(--card-bg);
-    h1{
-        text-align:center;
-    }
-    li{
-        margin:1rem 0;
-        margin-left: 3em;
-        font-weight: 500;
-        list-style:disc
-    }
-
-`;
 
 
 
 export default function Page() {
-    const [open, setOpen] = useState(false);
 
- 
+    
+
     return (
         <>
-            <Head>
-                <title>
-                    About Us | {process.env.NEXT_PUBLIC_WEBSITE_NAME}
-                </title>
-            </Head>
+
+            <NextSeo
+            title={`About Us | ${process.env.NEXT_PUBLIC_WEBSITE_NAME}`}
+        />
             <Header/>
             <Hero
                 title="About Us"
