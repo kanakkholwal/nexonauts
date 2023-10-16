@@ -99,7 +99,7 @@ export default function Header() {
                         </ul>
                     </nav>
                     <div className="flex items-center gap-2 mt-7 lg:mt-0">
-                        {session?.user ? <Link href="/dashboard" className=" text-sm hover:text-opacity-75 bg-primary text-white py-2  px-3 relative rounded-lg  flex items-center gap-1.5">
+                        {session?.user ? <Link href="/dashboard" className=" text-sm hover:opacity-95 bg-primary text-white py-2  px-3 relative rounded-lg  flex items-center gap-1.5">
                             Dashboard
                         </Link> :<>
                         <Link href="/login" className=" text-sm hover:text-opacity-75 hover:bg-slate-200  py-2  px-3 relative rounded-lg  flex items-center gap-1.5">
