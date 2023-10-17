@@ -1,5 +1,5 @@
 
-type App = {
+export type AppType = {
     _id:string | any;
     appId: string;
     enabled:Boolean;
@@ -92,4 +92,5 @@ export type AppInfo = {
     recommended: Boolean,
     createdAt:Date | string,
 }
-export type { App,newApp, AppReview, AppUsage ,Input,Controls,Options,TypesOfApp};
+export type App = AppType;
+export type { AppReview, AppUsage, Controls, Input, Options, TypesOfApp, newApp };

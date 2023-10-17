@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { CATEGORIES } from 'lib/apps/utils';
-import { useSession } from "next-auth/react";
 import { NextSeo } from 'next-seo';
 import { useCallback } from 'react';
 // FiltersContainer
@@ -18,16 +17,23 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import Footer from 'layouts/common/footer';
-import Header from 'layouts/common/header';
-import Hero from 'layouts/common/hero';
+import Layout from 'layouts/apps/layout';
+import { GetSessionParams, getSession } from "next-auth/react";
 import Link from 'next/link';
+import { BiSliderAlt } from 'react-icons/bi';
 import { RiSearch2Line } from "react-icons/ri";
+import { AppType } from 'src/types/app';
+import { sessionType } from "src/types/session";
+import { SessionUserType } from 'src/types/user';
 
-export default function App({ apps, popularApps }) {
+export default function App({ apps, popularApps, user }: {
+    user: SessionUserType | null,
+    apps: AppType[],
+    popularApps: AppType[]
+
+}) {
 
 
-    const { data: session } = useSession();
 
     const [query, setQuery] = useState("");
     const [data, setData] = useState(null);
@@ -42,8 +48,7 @@ export default function App({ apps, popularApps }) {
             return apps.filter(app => app.category === category);
         }
         return apps;
-    }
-        , [category]);
+    }, [category]);
 
     const handleSearch = async (query: string) => {
         if (query.length > 0) {
@@ -68,7 +73,7 @@ export default function App({ apps, popularApps }) {
 
 
     return (
-        <>
+        <Layout user={user}>
             <NextSeo
                 title="All Apps"
                 description="All Apps"
@@ -87,23 +92,33 @@ export default function App({ apps, popularApps }) {
                     ],
                 }}
             />
-            <Header />
-            <Hero title={"AI Apps"}
-            path={[ { name: "AI Apps", path: "/apps" }]}
-            />
-            <section className='max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0 z-10 mb-10'>
-                <div className='mt-5 group shadow-lg relative aiSearch-border-gredient border border-[#8f59ec] rounded-lg lg:py-2 lg:px-6 p-4 flex justify-center md:justify-between lg:flex-row items-center'>
+            <div className="max-w-5xl">
+                <h1 className="text-3xl font-bold">
+                    All Applications
+                </h1>
+                <p className="text-slate-500 mt-2 line-clamp-3">
+                    Find perfect apps for your needs
+                </p>
+
+            </div>
+            <section className='max-w-[1170px] mt-8 mx-auto px-4 sm:px-8 xl:px-0 z-10 mb-10'>
+                <div className='mt-5 group shadow-lg relative aiSearch-border-gredient border border-[#8f59ec] rounded-lg lg:py-2 lg:pl-6 p-4 flex gap-1 justify-center md:justify-between lg:flex-row items-center'>
                     <RiSearch2Line className='text-accent-foreground w-5 h-5' />
                     <Input placeholder={"Search for an app or what kind of work you need..."} className='w-auto max-w-full grow'
-                    onChange={(e) => {
-                        setQuery(e.target.value);
-                    }}
-                    value={query}
+                        onChange={(e) => {
+                            setQuery(e.target.value);
+                        }}
+                        value={query}
                     />
-                    <Button className="hero-button-gradient" onClick={() =>{
-                            handleSearch(query);
+                    <Button className="hero-button-gradient" onClick={() => {
+                        handleSearch(query);
                     }}>
                         Search Apps
+                    </Button>
+                    <Button variant="slate" onClick={() => {
+                        handleSearch(query);
+                    }}>
+                        <BiSliderAlt className='text-accent-foreground w-5 h-5' />
                     </Button>
                     {/* Popular suggestions for search .... */}
                     {/* <div className='hidden group-focus-within:block group-focus-visible:block group-focus:block absolute z-50 bg-slate-50 top-[100%] left-2 right-2 shadow-2xl p-4 rounded-lg'>
@@ -129,10 +144,10 @@ export default function App({ apps, popularApps }) {
                         </ul>
                     </div> */}
                 </div>
-        
+
 
                 <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-7 pt-7'>
-                    {handleFilters()?.sort((prev, curr) => {
+                    {handleFilters()?.sort((prev: any, curr: any) => {
                         // put recommended apps first
                         if (prev.recommended && !curr.recommended) {
                             return -1
@@ -144,19 +159,21 @@ export default function App({ apps, popularApps }) {
                         const Category = CATEGORIES.find((category) => category.value === app.category)
 
                         return (
-                            <Card key={app._id} className='py-9 px-8 flex flex-col justify-between'>
-                                <CardContent>
-                                    <span className='icon-border group-hover:shadow-lg group-hover:bg-white relative max-w-[80px] bg-slate-100 w-full h-20 rounded-full inline-flex items-center justify-center mb-8 mx-auto'>
-                                        {Category ?  <Category.Icon className="w-6 h-6" />:null}
-                                    </span>
-                                    <CardHeader>
-                                        <CardTitle className='font-bold text-2xl mb-4'>{app.name}</CardTitle>
-                                        <CardDescription className='text-md text-slate-600'>{app.shortDescription}</CardDescription>
+                            <Card key={app._id} className='py-5 flex flex-col justify-between group'>
+                                    <CardHeader className="py-4 px-2">
+                                        <div className='flex gap-2 items-center justify-start'>
+                                            <span className='icon-border group-hover:bg-primary/10 relative max-w-[80px] bg-slate-200 w-full h-20 rounded-full inline-flex items-center justify-center  ml-3 '>
+                                                {Category ? <Category.Icon className="w-6 h-6" /> : null}
+                                            </span>
+                                            <CardTitle className='font-bold text-2xl mb-4'>{app.name}</CardTitle>
+                                        </div>
                                     </CardHeader>
+                                <CardContent className='px-5 flex flex-col items-start'>
+                                        <CardDescription className='text-md font-medium text-slate-600'>{app.shortDescription}</CardDescription>
 
                                 </CardContent>
                                 <CardFooter>
-                                    <Link href={app.path} className='mt-9 inline-block button-border-gradient relative rounded-lg  text-sm  gap-1.5 py-3 px-6 shadow-button hover:button-gradient-hover hover:shadow-none'>
+                                    <Link href={app.path} className='mt-9 inline-block text-white font-semibold hero-button-gradient relative rounded-lg  text-sm  gap-1.5 py-3 px-6 shadow-button hover:button-gradient-hover hover:shadow-none'>
                                         Try Out
                                     </Link>
                                 </CardFooter>
@@ -166,17 +183,21 @@ export default function App({ apps, popularApps }) {
                     })}
                 </div>
             </section>
-            <Footer />
-        </>
+        </Layout>
     )
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetSessionParams) {
+    const session = (await getSession(context)) as sessionType | null;
+
     const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/apps/all`)
 
-    const { apps, popularApps } = data || {} as {
-        apps: any[],
-        popularApps: any[]
+    const { apps, popularApps } = data || {
+        apps: [],
+        popularApps: []
+    } as {
+        apps: AppType[],
+        popularApps: AppType[]
     }
 
 
@@ -184,7 +205,8 @@ export async function getServerSideProps(context) {
     return {
         props: {
             apps: apps || [],
-            popularApps: popularApps || []
+            popularApps: popularApps || [],
+            user: session?.user || null
         },
 
     }

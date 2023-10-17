@@ -17,6 +17,7 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "bg-white hover:bg-white hover:text-accent-foreground",
+        slate: "bg-slate-200 hover:bg-slate-300 text-slate-700",
         dark: "bg-slate-900 hover:bg-slate-800 text-white/90 hover:text-white transition-duration-500",
         link: "text-primary underline-offset-4 hover:underline",
         gradient: "hero-button-gradient",
