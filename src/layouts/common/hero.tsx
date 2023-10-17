@@ -15,7 +15,7 @@ export default function Hero({title,path}:{
 		<ul className="flex items-center justify-center gap-2 text-slate-600">
 			<li className="font-medium"><Link href="/">Home</Link></li>
 			{path.map((item,index)=>{
-                return (<li className="font-medium" key={index}>/ {item.name}</li>)
+                return (<li className="font-medium" key={index}>/{" "}{item.name}</li>)
             })}
 		</ul>
 	</div>

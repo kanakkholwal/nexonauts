@@ -1,9 +1,9 @@
-import handler from 'lib/handler';
 import dbConnect from "lib/dbConnect";
-import nextConnect from 'next-connect';
-import App from "models/app";
-import type { App as AppType ,AppInfo} from "types/app";
+import handler from 'lib/handler';
 import { isAdminMiddleware } from 'middleware/checkUser';
+import App from "models/app";
+import nextConnect from 'next-connect';
+import type { AppInfo } from "types/app";
 
 
 const LIMIT = 5;
@@ -13,10 +13,9 @@ export default nextConnect(handler)
         try {
             await dbConnect();
             // find all enabled apps
-            const apps = await App.find({
+            const apps = await App.findOne({
                 enabled: true, state: "published"
-            })
-                .select('name shortDescription description appId type path coverImage recommended version ratings membership category tags author createdAt averageRating formFlow')
+            }).select('name shortDescription description appId type path coverImage recommended version ratings membership category tags author createdAt averageRating formFlow')
                 .exec();
 
             if (!apps) {

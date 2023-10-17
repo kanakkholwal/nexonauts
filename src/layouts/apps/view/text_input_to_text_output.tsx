@@ -1,13 +1,12 @@
-import { useState } from "react"
 import axios from "axios";
-import { Input, FormElement, FormGroup, Label, CheckBox, FormHelper, Switch, TextArea, Select, AutoComplete, InputWithIcon } from "components/form-elements"
 import Button, { IconButton } from "components/buttons";
-import { Table, TableContainer, Tbody, Thead, Td, Tr, Th } from "components/table";
 import CodeBlock from "components/code-block";
-import styled from "styled-components";
+import { AutoComplete, CheckBox, FormElement, FormGroup, FormHelper, Input, Label, Select, TextArea } from "components/form-elements";
+import { Table, TableContainer, Tbody, Td, Th, Thead, Tr } from "components/table";
 import { Interweave } from 'interweave';
-import Link from "next/link";
-import toast,{Toaster} from "react-hot-toast";
+import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+import styled from "styled-components";
 
 export default function TextInputToTextOutput({ app, user }) {
     const [error, setError] = useState("");
@@ -48,19 +47,7 @@ export default function TextInputToTextOutput({ app, user }) {
 
     return (
         <AppWrapper>
-            {/* Meta Data */}
-            <StyledMetaContainer>
-            <h2>{app.name}</h2>
-            <div className="author">
-                By 
-                <Link className="authorName" href={`/people/${app.author.username}`}>{app.author?.name}</Link>
-                in <Link className="category" href={`/apps?category=${app.category}`}>{app.category.replaceAll("_"," ")}</Link>
-            </div>
-            <div className="tags">
-                {app?.tags?.map((tag:string, index:number) => <span key={index} className="tag">{tag}</span>)}
-            </div>
-            <p className="description">{app.description}</p>
-            </StyledMetaContainer>
+        
             <StyledInputContainer>
         
             {/* Inputs */}

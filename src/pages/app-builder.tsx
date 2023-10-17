@@ -1,21 +1,21 @@
-import TextInputToTextOutput from 'layouts/text_input_to_text_output';
+import TextInputToTextOutput from 'src/layouts/apps/view/text_input_to_text_output';
 
 // Types
 import { newApp, } from 'types/app';
 // utilities
-import { useReducer, useState } from 'react';
 import axios from 'axios';
-import type { Input as InputType, Options } from "types/app"
+import { useReducer, useState } from 'react';
+import type { Input as InputType } from "types/app";
 // Components
-import styled from 'styled-components';
 import Tabs from 'components/Tabs';
 import Button, { IconButton } from 'components/buttons';
+import { CheckBox, FormElement, FormGroup, FormHelper, Input, Label, Select, TextArea } from "components/form-elements";
 import toast, { Toaster } from 'react-hot-toast';
-import { Input, FormElement, FormGroup, Label, CheckBox, FormHelper, Switch, TextArea, Select, AutoComplete, InputWithIcon } from "components/form-elements"
+import styled from 'styled-components';
 // Icons 
-import { TbCircleMinus, TbCirclePlus ,TbEdit,TbTrash} from 'react-icons/tb';
-import { MdOutlineDragIndicator} from 'react-icons/md';
 import Link from 'next/link';
+import { MdOutlineDragIndicator } from 'react-icons/md';
+import { TbCircleMinus, TbCirclePlus, TbEdit, TbTrash } from 'react-icons/tb';
 
 
 
