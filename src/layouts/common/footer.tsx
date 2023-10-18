@@ -28,13 +28,13 @@ export default function Footer() {
                         {process.env.NEXT_PUBLIC_WEBSITE_NAME} is an open source project that aims to provide a complete solution for AI Powered Apps.
                     </p>
                     <div className="flex items-center gap-5">
-                        <Link href="https://x.com/NexoNauts" className="hover:text-primary ease-in duration-300">
+                        <Link href="https://x.com/NexoNauts" className="hover:text-primary ease-in duration-300 icon">
                             <RiTwitterXFill className="w-5 h-5" />
                         </Link>
-                        <Link href="https://linkedin.com/NexoNauts" className="hover:text-primary ease-in duration-300">
+                        <Link href="https://linkedin.com/NexoNauts" className="hover:text-primary ease-in duration-300 icon">
                             <FiLinkedin className="w-5 h-5" />
                         </Link>
-                        <Link href="https://github.com/NexoNauts" className="hover:text-primary ease-in duration-300">
+                        <Link href="https://github.com/NexoNauts" className="hover:text-primary ease-in duration-300 icon">
                             <LuGithub className="w-5 h-5" />
                         </Link>
                     </div>

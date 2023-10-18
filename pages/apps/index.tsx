@@ -21,6 +21,7 @@ import Layout from 'layouts/apps/layout';
 import { GetSessionParams, getSession } from "next-auth/react";
 import Link from 'next/link';
 import { BiSliderAlt } from 'react-icons/bi';
+import { FaAngleRight } from 'react-icons/fa';
 import { RiSearch2Line } from "react-icons/ri";
 import { AppType } from 'src/types/app';
 import { sessionType } from "src/types/session";
@@ -92,7 +93,7 @@ export default function App({ apps, popularApps, user }: {
                     ],
                 }}
             />
-            <div className="max-w-5xl">
+            <div className="max-full grow">
                 <h1 className="text-3xl font-bold">
                     All Applications
                 </h1>
@@ -100,28 +101,28 @@ export default function App({ apps, popularApps, user }: {
                     Find perfect apps for your needs
                 </p>
 
-            </div>
-            <section className='max-w-[1170px] mt-8 mx-auto px-4 sm:px-8 xl:px-0 z-10 mb-10'>
-                <div className='mt-5 group shadow-lg relative aiSearch-border-gredient border border-[#8f59ec] rounded-lg lg:py-2 lg:pl-6 p-4 flex gap-1 justify-center md:justify-between lg:flex-row items-center'>
-                    <RiSearch2Line className='text-accent-foreground w-5 h-5' />
-                    <Input placeholder={"Search for an app or what kind of work you need..."} className='w-auto max-w-full grow'
-                        onChange={(e) => {
-                            setQuery(e.target.value);
-                        }}
-                        value={query}
-                    />
-                    <Button className="hero-button-gradient" onClick={() => {
-                        handleSearch(query);
-                    }}>
-                        Search Apps
-                    </Button>
-                    <Button variant="slate" onClick={() => {
-                        handleSearch(query);
-                    }}>
-                        <BiSliderAlt className='text-accent-foreground w-5 h-5' />
-                    </Button>
-                    {/* Popular suggestions for search .... */}
-                    {/* <div className='hidden group-focus-within:block group-focus-visible:block group-focus:block absolute z-50 bg-slate-50 top-[100%] left-2 right-2 shadow-2xl p-4 rounded-lg'>
+
+                <section className='max-w-[1170px] mt-8 mx-auto px-4 sm:px-8 xl:px-0 z-10 mb-10'>
+                    <div className='mt-5 group shadow-lg relative aiSearch-border-gredient border border-[#8f59ec] rounded-lg lg:py-2 lg:pl-6 p-4 flex gap-1 justify-center md:justify-between lg:flex-row items-center'>
+                        <RiSearch2Line className='text-accent-foreground w-5 h-5' />
+                        <Input placeholder={"Search for an app or what kind of work you need..."} className='w-auto max-w-full grow'
+                            onChange={(e) => {
+                                setQuery(e.target.value);
+                            }}
+                            value={query}
+                        />
+                        <Button className="hero-button-gradient" onClick={() => {
+                            handleSearch(query);
+                        }}>
+                            Search Apps
+                        </Button>
+                        <Button variant="slate" onClick={() => {
+                            handleSearch(query);
+                        }}>
+                            <BiSliderAlt className='text-accent-foreground w-5 h-5' />
+                        </Button>
+                        {/* Popular suggestions for search .... */}
+                        {/* <div className='hidden group-focus-within:block group-focus-visible:block group-focus:block absolute z-50 bg-slate-50 top-[100%] left-2 right-2 shadow-2xl p-4 rounded-lg'>
                         <h4 className='text-slate-700'>
                             Popular Searches :
                         </h4>
@@ -143,23 +144,23 @@ export default function App({ apps, popularApps, user }: {
                         })}
                         </ul>
                     </div> */}
-                </div>
+                    </div>
 
 
-                <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-7 pt-7'>
-                    {handleFilters()?.sort((prev: any, curr: any) => {
-                        // put recommended apps first
-                        if (prev.recommended && !curr.recommended) {
-                            return -1
-                        }
-                        if (!prev.recommended && curr.recommended) {
-                            return 1
-                        }
-                    }).map(app => {
-                        const Category = CATEGORIES.find((category) => category.value === app.category)
+                    <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-7 pt-7'>
+                        {handleFilters()?.sort((prev: any, curr: any) => {
+                            // put recommended apps first
+                            if (prev.recommended && !curr.recommended) {
+                                return -1
+                            }
+                            if (!prev.recommended && curr.recommended) {
+                                return 1
+                            }
+                        }).map(app => {
+                            const Category = CATEGORIES.find((category) => category.value === app.category)
 
-                        return (
-                            <Card key={app._id} className='py-5 flex flex-col justify-between group'>
+                            return (
+                                <Card key={app._id} className='py-5 flex flex-col justify-between group'>
                                     <CardHeader className="py-4 px-2">
                                         <div className='flex gap-2 items-center justify-start'>
                                             <span className='icon-border group-hover:bg-primary/10 relative max-w-[80px] bg-slate-200 w-full h-20 rounded-full inline-flex items-center justify-center  ml-3 '>
@@ -168,21 +169,22 @@ export default function App({ apps, popularApps, user }: {
                                             <CardTitle className='font-bold text-2xl mb-4'>{app.name}</CardTitle>
                                         </div>
                                     </CardHeader>
-                                <CardContent className='px-5 flex flex-col items-start'>
+                                    <CardContent className='px-5 flex flex-col items-start'>
                                         <CardDescription className='text-md font-medium text-slate-600'>{app.shortDescription}</CardDescription>
 
-                                </CardContent>
-                                <CardFooter>
-                                    <Link href={app.path} className='mt-9 inline-block text-white font-semibold hero-button-gradient relative rounded-lg  text-sm  gap-1.5 py-3 px-6 shadow-button hover:button-gradient-hover hover:shadow-none'>
-                                        Try Out
-                                    </Link>
-                                </CardFooter>
+                                    </CardContent>
+                                    <CardFooter>
+                                        <Link href={app.path} className='inline-flex items-center text-white font-semibold hero-button-gradient relative rounded-lg  text-sm  gap-1.5 py-3 px-6 shadow-button hover:button-gradient-hover hover:shadow-none'>
+                                            Try Out <FaAngleRight className='w-4 h-4 ml-2' />
+                                        </Link>
+                                    </CardFooter>
 
-                            </Card>
-                        )
-                    })}
-                </div>
-            </section>
+                                </Card>
+                            )
+                        })}
+                    </div>
+                </section>
+            </div>
         </Layout>
     )
 }
