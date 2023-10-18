@@ -1,56 +1,46 @@
-import handler from 'lib/handler';
 import dbConnect from "lib/dbConnect";
-import { hasTokenMiddleware } from 'middleware/checkUser';
-import nextConnect from 'next-connect';
+import handler from 'lib/handler';
 import App from "models/app";
-import type { App as AppType } from "types/app";
+import nextConnect from 'next-connect';
 
 export default nextConnect(handler)
     // .use(hasTokenMiddleware)
     .get(async (req, res) => {
         try {
             await dbConnect();
-            const { query, page, limit } = req.query;
+            const { query = '', page = '1', limit = '10' } = req.query as {
+                page: string;
+                limit: string;
+                query: string;
+            }
 
-            // Pagination configuration
-            const pageNumber = parseInt(page) || 1;
-            const pageSize = parseInt(limit) || 10;
-            const skip = (pageNumber - 1) * pageSize;
+            const skip = (parseInt(page, 10) - 1) * parseInt(limit, 10);
 
-
-
-            // Build the search query
-            const searchQuery = {
+            const QUERY = {
                 $or: [
-                  { name: { $regex: query, $options: 'i' } },
-                  { description: { $regex: query, $options: 'i' } },
-                  { shortDescription: { $regex: query, $options: 'i' } },
-                  { category: { $regex: query, $options: 'i' } },
-                  { type: { $regex: query, $options: 'i' } },
-                  { keywords: { $in: [query] } },
-                  { tags: { $in: [query] } },
+                    { name: { $regex: new RegExp(query, 'i') } },
+                    { shortDescription: { $regex: new RegExp(query, 'i') } },
+                    { tags: { $regex: new RegExp(query, 'i') } },
+                    { category: { $regex: new RegExp(query, 'i') } },
                 ],
-              };
+            }
 
-            // Perform the search with pagination and sorting
-            const apps = await App.find(searchQuery)
-                .select('name shortDescription appId type path coverImage recommended version ratings membership category tags author createdAt averageRating')  
+            const apps = await App.find(QUERY).sort({createdAt:-1}) 
+                .select('name shortDescription appId type path coverImage recommended version ratings membership category tags author createdAt averageRating')
                 .skip(skip)
-                .limit(pageSize);
+                .limit(parseInt(limit, 10));
 
-            // Count total matching documents for pagination
-            const total = await App.countDocuments(searchQuery);
+            // Count the total number of matching apps for pagination
+            const totalApps = await App.countDocuments(QUERY);
 
-            return res.json({
+            // Return the search results
+            return res.status(200).json({
+                message: "Apps fetched successfully",
+                result: apps,
+                total: totalApps,
                 success: true,
-                apps,
-                pagination: {
-                    currentPage: pageNumber,
-                    pageSize: pageSize,
-                    totalPages: Math.ceil(total / pageSize),
-                    totalItems: total,
-                },
             });
+
 
 
 

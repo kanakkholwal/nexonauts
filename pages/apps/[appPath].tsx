@@ -7,13 +7,17 @@ import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import AppplicationLayout from 'src/layouts/apps';
-import { AppType } from 'src/types/app';
+import { AppType, PublicAppType } from 'src/types/app';
 import { sessionType } from "src/types/session";
 import { SessionUserType } from 'src/types/user';
 
-import { PostReview } from "layouts/apps/view/review";
+import AllReviews, { PostReview } from "layouts/apps/view/review";
+import { AiFillStar } from "react-icons/ai";
 import { FiLock } from "react-icons/fi";
 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { CATEGORIES } from 'lib/apps/utils';
+import { useEffect, useState } from "react";
 import workingApp from "src/assets/animation/app-working.gif";
 
 export default function App({ app, user }: {
@@ -23,6 +27,21 @@ export default function App({ app, user }: {
 
 
     console.log(app);
+    const [relatedApps, setRelatedApps] = useState<PublicAppType[]>([]);
+
+    useEffect(() => {
+        fetch("/api/apps/" + app._id + "/related")
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setRelatedApps(data.result);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }, [])
+
+
     if (!app) return null;
 
 
@@ -66,11 +85,52 @@ export default function App({ app, user }: {
                     />
 
                     <div className="absolute inset-0  backdrop-blur-sm flex justify-center items-center z-10">
-                        <Link  href={"/login?continue=" + encodeURI(app.path)} className="w-full max-w-xs flex items-center justify-center border border-solid border-primary rounded-md p-2 bg-slate-100">
+                        <Link href={"/login?continue=" + encodeURI(app.path)} className="w-full max-w-xs flex items-center justify-center border border-solid border-primary rounded-md p-2 bg-slate-100">
                             <FiLock className="w-4 h-4 mr-2 text-primary inline-block" /> Please login to use this app
                         </Link>
                     </div>
                 </div>}
+                <Card>
+                    <CardHeader>
+                        <CardTitle>
+                            Related Apps
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex flex-wrap gap-1">
+                        {relatedApps?.map((app: PublicAppType, index) => {
+                            const Category = CATEGORIES.find((category) => category.value === app.category)
+
+                            return (<Card key={index} className="relative p-2 max-w-[280px] flex flex-col justify-center items-center group py-4" >
+                                <span className="absolute top-2 right-2 bg-slate-100 text-primary px-2 py-1 rounded-md text-xs">
+                                    {app?.averageRating?.toFixed(1)}
+                                    <AiFillStar className="inline-block ml-1 h-4 w-4 text-primary" />
+                                </span>
+                                <CardContent className="flex flex-col items-center gap-2 justify-center ">
+                                    <div className='flex gap-2 items-center justify-start'>
+                                        <span className='icon-border group-hover:bg-primary/10 relative max-w-[80px] bg-slate-200 w-full h-20 aspect-square rounded-full inline-flex items-center justify-center  ml-3 '>
+                                            {Category ? <Category.Icon className="w-6 h-6" /> : null}
+                                        </span>
+                                    </div>
+                                    {/* <p className="flex gap-1"> */}
+                                    {/* {app.tags.map((tag, index) => {
+                                        if(index > 2) return null;
+                                        return <Badge key={index}>{tag?.split(" ")[0]}</Badge>
+                                    })}</p> */}
+                                </CardContent>
+                                <CardHeader className="text-center !p-0">
+                                    <CardTitle className="text-[20px] font-semibold">
+                                        <Link href={app.path}>
+                                            {app.name}
+                                        </Link>
+                                    </CardTitle>
+                                    <CardDescription className="text-[16px] font-medium">{app.shortDescription.length > 40 ? app.shortDescription.trim().slice(0, 40) + " ..." : app.shortDescription.trim()}</CardDescription>
+                                </CardHeader>
+
+                            </Card>)
+                        })}
+                    </CardContent>
+
+                </Card>
             </div>
             <div className="grow">
                 <Tabs defaultValue="my_review" className="w-full">
@@ -88,7 +148,7 @@ export default function App({ app, user }: {
                         </Link>}
                     </TabsContent>
                     <TabsContent value="others_review">
-                        No reviews yet
+                        <AllReviews app={app} />
                     </TabsContent>
                 </Tabs>
 

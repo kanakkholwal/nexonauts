@@ -1,5 +1,10 @@
+import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import {
@@ -10,8 +15,9 @@ import {
 } from "@/components/ui/tooltip";
 import { useEffect, useState } from "react";
 import { AiFillStar } from "react-icons/ai";
-import { BsFillArrowDownCircleFill } from "react-icons/bs";
 import { CgSpinner } from "react-icons/cg";
+import { MdOutlineExpandMore } from "react-icons/md";
+import { TbSend } from "react-icons/tb";
 import { AppType } from "src/types/app";
 import { SessionUserType } from "src/types/user";
 
@@ -27,16 +33,17 @@ export function PostReview({ app, user }: {
         setLoading(true)
 
 
-        await fetch(`/apps/${app._id}/review`, {
+        await fetch(`/api/apps/${app._id}/reviews`, {
             method: "POST",
             headers: {
                 "accept": "application/json",
                 "Content-Type": "application/json",
-                "user-id": user?.id
             },
             body: JSON.stringify({
-                "comment": review,
-                "rating": rating > 0 ? rating : 1
+                userId: user.id,
+                rating,
+                review,
+                appId: app._id
             })
         }).then(res => res.json())
             .then(data => {
@@ -58,11 +65,10 @@ export function PostReview({ app, user }: {
                 <Label htmlFor="review" className="font-semibold mb-0">Review</Label>
                 <div className="flex ml-auto gap-1">
                     {STARS.map((star, index) => {
-                        return <TooltipProvider>
+                        return <TooltipProvider key={index}>
                             <Tooltip>
                                 <TooltipTrigger>
                                     <AiFillStar
-                                        key={index}
                                         onClick={() => {
                                             !loading && setRating((index + 1))
                                         }}
@@ -90,6 +96,7 @@ export function PostReview({ app, user }: {
             <div className="flex w-full justify-center items-center p-2">
                 <Button onClick={() => handleSubmit()} disabled={loading}>
                     {loading ? "Submitting" : "Submit"}
+                    {loading ? <CgSpinner className="animate-spin w-4 h-4 ml-2" /> : <TbSend className="w-4 h-4 ml-2" />}
                 </Button>
             </div>
         </div>
@@ -98,30 +105,32 @@ export function PostReview({ app, user }: {
 
 }
 
-export default function AllReviews({ app, user }: {
+export default function AllReviews({ app }: {
     app: AppType,
-    user: SessionUserType
 }) {
 
     const [page, setPage] = useState(1);
     const [loading, setloading] = useState(false);
     const [reviews, setReviews] = useState<{
-        comment: string | null,
+        appId: string,
+        userId: any,
         rating: number,
-        app_id: string,
-        user_id: string,
-        user_name: string,
-        created_at: string
+        review: string,
+        createdAt: string,
+        _id: string,
+        __v?: number,
     }[]>([]);
 
     const fetchReviews = async () => {
         setloading(true)
-        await fetch(`/apps/${app._id}/reviews/all/paged?page=${page}&limit=5`)
+        await fetch(`/api/apps/${app._id}/reviews?page=${page}&limit=5`)
             .then(res => res.json())
             .then(data => {
-                const newArr = data.filter((item: any) => item.user_id != user?.id);
-                console.log(newArr);
-                setReviews([...reviews, ...newArr])
+                //  check if we already have the review
+                const filtered = data.result.filter((review: any) => {
+                    return !reviews.find((r) => r._id === review._id)
+                })
+                setReviews([...reviews, ...filtered])
             })
             .catch(err => console.log(err))
             .finally(() => setloading(false))
@@ -131,18 +140,19 @@ export default function AllReviews({ app, user }: {
     }, [page])
     return (
         <Card className="w-full max-w-[1024px] m-auto mt-5">
-            <CardHeader className="flex justify-center border-b-2 border-slate-200	">
-                <CardTitle className="text-2xl font-semibold">Reviews</CardTitle>
-            </CardHeader>
-            <CardContent className="flex gap-2 flex-col pt-3">
+            <CardContent className="flex gap-2 flex-col pt-2">
                 {reviews.map((review, index) => {
                     return <div key={index} className="flex flex-col gap-2 p-1  border-1 border-slate-100">
                         <div className="flex justify-between items-center p-2">
-                            <div>
-                            By <span className="font-semibold">{review.user_name ? review.user_name : "Textify User"}</span>
+                            <div className="flex gap-2 items-center">
+                                <Avatar>
+                                    <AvatarImage src={review.userId.profileURL} alt={"@" + review.userId.username} />
+                                    <AvatarFallback>{review.userId.name.trim().split("")[0]}</AvatarFallback>
+                                </Avatar>
+                                By <span className="font-semibold">{review.userId.name ? review.userId.name : "A User"}</span>
                             </div>
-                            <div>
-                                <span className="mr-2">
+                            <div className="flex ">
+                                <span className="mr-2 text-primary  text-sm font-medium px-2 py-1 rounded-md bg-primary/10 hover:bg-primary/20 capitalize ml-1">
                                     {STARS[review.rating - 1]}
                                 </span>
                                 {STARS.map((star, index) => {
@@ -168,19 +178,18 @@ export default function AllReviews({ app, user }: {
 
                             </div>
                         </div>
-                        <p className={((review.comment === null || review.comment.trim() === "") ? "italic font-light" : "") + " p-3 bg-slate-100 rounded-md"}>
-                            {review.comment === null || review.comment.trim() === "" ? "No comment" : review.comment}
+                        <p className={((review.review === null || review.review.trim() === "") ? "italic font-light" : "") + " p-3 bg-slate-100 rounded-md"}>
+                            {review.review === null || review.review.trim() === "" ? "No comment" : review.review}
                         </p>
                     </div>
                 })}
             </CardContent>
             <CardFooter className="flex justify-center">
                 <Button onClick={() => setPage(page + 1)} disabled={loading}
-                    size="lg"
-                    variant="ghost"
-                    className="flex justify-center items-center gap-1 text-primary text-lg"
+                    size="icon"
+                    className="bg-primary/30 hover:bg-primary/40 text-primary text-sm"
                 >
-                    {loading ? <CgSpinner className="animate-spin w-4 h-4" /> : <BsFillArrowDownCircleFill className="w-4 h-4" />}
+                    {loading ? <CgSpinner className="animate-spin w-4 h-4" /> : <MdOutlineExpandMore className="w-4 h-4" />}
                 </Button>
             </CardFooter>
         </Card>

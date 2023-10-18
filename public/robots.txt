@@ -1,5 +1,9 @@
-User-agent: Googlebot
-Allow: /
+# *
 User-agent: *
-Disallow:
-Sitemap: http://www.example.com/sitemap.xml
+Allow: /
+
+# Host
+Host: https://kkupgrader.eu.org
+
+# Sitemaps
+Sitemap: https://kkupgrader.eu.org/sitemap.xml

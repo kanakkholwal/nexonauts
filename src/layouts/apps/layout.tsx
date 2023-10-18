@@ -16,6 +16,8 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import axios from "axios";
+import debounce from 'lodash.debounce';
 import { signOut } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
@@ -26,8 +28,30 @@ import { TbLayoutSidebarRightCollapse, TbLayoutSidebarRightExpand } from "react-
 export default function Layout({ children, user }: { children: React.ReactNode, user: SessionUserType | null }) {
     const [isSidenavOpen, setSidenavOpen] = useState<boolean>(false);
     let NavRef = useRef<HTMLElement>(null);
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [results, setResults] = useState<any[]>([]);
+    const [loading, setLoading] = useState<boolean>(false);
 
-
+    const handleSearch = async (searchQuery) => {
+        try {
+          setLoading(true);
+          const response = await axios.get(`/api/apps/search?query=${searchQuery}`);
+          console.log(response.data.result);
+          setResults(response.data.result);
+        } catch (error) {
+          console.error('Error:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+    
+      const debouncedSearch = debounce(handleSearch, 300); // Adjust the debounce delay as needed
+    
+      const handleChange = (e) => {
+        const searchText = e.target.value;
+        setSearchQuery(searchText);
+        debouncedSearch(searchText);
+    };
     useEffect(() => {
         let sidenavPanel = document.body.querySelector("#nexo_sidenav");
         if (!sidenavPanel) return;
@@ -50,7 +74,7 @@ export default function Layout({ children, user }: { children: React.ReactNode, 
             if (e.target.id === "nexo_sidenav" || e.target.id === "nexo_sidenav_toggler") {
                 setSidenavOpen(false);
             }
-            if (NavRef.current && !NavRef.current.contains(e.target as Node)) {
+            if (NavRef.current && !NavRef.current.contains(e.target as any)) {
                 setSidenavOpen(false);
             }
         }
@@ -76,7 +100,7 @@ export default function Layout({ children, user }: { children: React.ReactNode, 
                     </div>
                     <div className="relative">
                         <CgSearch className="absolute top-1/2 left-3 z-10 transform -translate-y-1/2 text-slate-500" />
-                        <Input className="pl-9 bg-slate-200" placeholder="Search..." />
+                        <Input className="pl-9 bg-slate-200" placeholder="Search..." value={searchQuery}   onChange={handleChange} />
                     </div>
                     <div className="ml-auto">
                         {user ? <div className="flex items-center space-x-2">

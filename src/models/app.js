@@ -200,6 +200,10 @@ const appSchema = new mongoose.Schema({
         }]
     }
 });
-// Also change TYPES schema
+// appSchema.index({ name: 'text', description: 'text', tags: 'text',category: 'text', keywords: 'text',shortDescription: 'text' });
 
+// Also change TYPES schema
+// export review and usage schema as model
+export const Review = mongoose.models.Review || mongoose.model('Review', reviewSchema);
+export const Usage = mongoose.models.Usage || mongoose.model('Usage', usageSchema);
 export default mongoose.models.App || mongoose.model('App', appSchema);
