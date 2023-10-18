@@ -1,11 +1,11 @@
-import TextInputToTextOutput from 'src/layouts/apps/view/text_input_to_text_output';
+import TextInputToTextOutput from 'src/layouts/apps/text_input_to_text_output';
 
 // Types
 import { newApp, } from 'types/app';
 // utilities
 import axios from 'axios';
 import { useReducer, useState } from 'react';
-import type { Input as InputType } from "types/app";
+import type { InputType } from "types/app";
 // Components
 import Tabs from 'components/Tabs';
 import Button, { IconButton } from 'components/buttons';
@@ -17,7 +17,7 @@ import Link from 'next/link';
 import { MdOutlineDragIndicator } from 'react-icons/md';
 import { TbCircleMinus, TbCirclePlus, TbEdit, TbTrash } from 'react-icons/tb';
 
-
+import { INPUT_TYPES } from 'src/layouts/apps/constants';
 
 export default function AppBuilder({ user, app: defaultApp, type = "submit" }: {
     user: any,
@@ -184,15 +184,7 @@ function InputFlowTab({ app, dispatch }) {
             <FormElement>
                 <Label sm={true} htmlFor="InputType">Type</Label>
                 <Select id="InputType" value={newInput.inputType} onChange={(option) => setNewInput({ ...newInput, inputType: option.value })}
-                    options={[
-                        { label: "Text", value: "text_input" },
-                        { label: "Number", value: "number_input" },
-                        { label: "TextArea", value: "text_multiline" },
-                        { label: "Select", value: "dropdown" },
-                        { label: "Auto Complete", value: "autoComplete" },
-                        { label: "Radio", value: "radio" },
-                        { label: "Checkbox", value: "checkbox" },
-                    ]}
+                    options={INPUT_TYPES}
                     size='sm'
                 />
             </FormElement>

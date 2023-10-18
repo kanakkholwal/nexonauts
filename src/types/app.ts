@@ -40,7 +40,7 @@ interface Controls {
     variant: string;
 }
 // Also change mongo schema
-interface Input {
+export type InputType ={
     inputType: string;
     inputName: string;
     inputId: string;
@@ -93,4 +93,4 @@ export type AppInfo = {
     createdAt:Date | string,
 }
 export type App = AppType;
-export type { AppReview, AppUsage, Controls, Input, Options, TypesOfApp, newApp };
+export type { AppReview, AppUsage, Controls, Options, TypesOfApp, newApp };

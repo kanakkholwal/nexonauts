@@ -7,6 +7,7 @@ import { VscChevronDown } from "react-icons/vsc";
 import { SessionUserType } from "src/types/user";
 import Sidenav from "./components/sidenav";
 
+import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -16,17 +17,63 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
+import { TbLayoutSidebarRightCollapse, TbLayoutSidebarRightExpand } from "react-icons/tb";
 
 
 export default function Layout({ children, user }: { children: React.ReactNode, user: SessionUserType | null }) {
+    const [isSidenavOpen, setSidenavOpen] = useState<boolean>(false);
+    let NavRef = useRef<HTMLElement>(null);
+
+
+    useEffect(() => {
+        let sidenavPanel = document.body.querySelector("#nexo_sidenav");
+        if (!sidenavPanel) return;
+
+        if (!sidenavPanel.classList.contains('isOpen')) {
+            sidenavPanel.classList.add('isOpen');
+        }
+        else {
+            sidenavPanel.classList.remove('isOpen');
+        }
+
+    }, [isSidenavOpen]);
+    useEffect(() => {
+
+        const HandleOutSide = (e: MouseEvent & {
+            target: {
+                id: string
+            }
+        }) => {
+            if (e.target.id === "nexo_sidenav" || e.target.id === "nexo_sidenav_toggler") {
+                setSidenavOpen(false);
+            }
+            if (NavRef.current && !NavRef.current.contains(e.target as Node)) {
+                setSidenavOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", HandleOutSide)
+
+        return () => {
+            document.removeEventListener("mousedown", HandleOutSide)
+        }
+    }, []);
 
     return (<div className="w-full min-h-screen flex">
-        <Sidenav />
+        <Sidenav open={isSidenavOpen} />
+        {isSidenavOpen ? <div className="xl:hidden fixed inset-0 z-50 bg-background/80 backdrop-blur-sm " /> : null}
         <div className="flex-1">
             <header className="w-full">
-                <nav className="flex items-center w-full p-6 border-b border-solid border-slate-200">
+                <nav className="flex items-center w-full p-6 border-b border-solid border-slate-200" ref={NavRef}>
+                    <div className="grow-0 flex xl:hidden">
+                        <Button size="icon" variant="ghost" onClick={() => {
+                            setSidenavOpen(!isSidenavOpen)
+                        }} id="nexo_sidenav_toggler" className="bg-slate-100 hover:bg-slate-200 mr-2">
+                            {isSidenavOpen ? <TbLayoutSidebarRightExpand   className="w-4 h-4"/> : <TbLayoutSidebarRightCollapse   className="w-4 h-4"/>}
+                        </Button>
+                    </div>
                     <div className="relative">
                         <CgSearch className="absolute top-1/2 left-3 z-10 transform -translate-y-1/2 text-slate-500" />
                         <Input className="pl-9 bg-slate-200" placeholder="Search..." />
@@ -75,7 +122,7 @@ export default function Layout({ children, user }: { children: React.ReactNode, 
                     </div>
                 </nav>
             </header>
-            <main className="p-10">     
+            <main className="p-10 flex min-h-screen gap-2 w-full justify-between flex-wrap items-start">
                 {children}
             </main>
             <Footer />
