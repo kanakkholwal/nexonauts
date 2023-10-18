@@ -13,7 +13,7 @@ export default nextConnect(handler)
         try {
             await dbConnect();
             // find all enabled apps
-            const apps = await App.findOne({
+            const apps = await App.find({
                 enabled: true, state: "published"
             }).select('name shortDescription description appId type path coverImage recommended version ratings membership category tags author createdAt averageRating formFlow')
                 .exec();

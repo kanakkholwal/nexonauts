@@ -1,7 +1,3 @@
-import { useEffect, useState } from "react";
-import { NEXT_PUBLIC_BACKEND_API_URL } from "src/lib/config";
-import { AppType } from "../types";
-import Image from "next/image";
 import {
     Card,
     CardContent,
@@ -9,11 +5,14 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { AppType } from "src/types/app";
 
-import { AiFillStar } from "react-icons/ai";
-import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { AiFillStar } from "react-icons/ai";
 
 export default function Recomended({ app }: {
     app: AppType
@@ -23,7 +22,7 @@ export default function Recomended({ app }: {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        fetch(`${NEXT_PUBLIC_BACKEND_API_URL}/app/app-category?q=${app.app_category[0]}`, {
+        fetch(`api/apps/app-category?q=${app.category}`, {
             method: "GET",
         })
             .then(res => res.json())
@@ -75,18 +74,18 @@ export default function Recomended({ app }: {
                             <AiFillStar className="inline-block ml-1 h-4 w-4 text-primary" />
                         </span>
                         <CardContent className="flex flex-col items-center gap-2 justify-center ">
-                            <Image src={`/icons/${tool.service_name}.svg`} alt={tool.title} width={300} height={320} className="max-w-[120px] object-contain m-auto" />
+                            <Image src={`/icons/${tool.appId}.svg`} alt={tool.name} width={300} height={320} className="max-w-[120px] object-contain m-auto" />
                             {app.tags.map((tag, index) => {
                                 return <Badge key={index}>{tag}</Badge>
                             })}
                         </CardContent>
                         <CardHeader className="text-center !p-0">
                             <CardTitle className="text-[20px] font-semibold">
-                                <Link href={tool.link}>
-                                    {tool.title}
+                                <Link href={tool.path}>
+                                    {tool.name}
                                 </Link>
                             </CardTitle>
-                            <CardDescription className="text-[16px] font-medium">{app.short_description.length > 40 ? app.short_description.trim().slice(0, 40) + " ..." : app.short_description.trim()}</CardDescription>
+                            <CardDescription className="text-[16px] font-medium">{app.shortDescription.length > 40 ? app.shortDescription.trim().slice(0, 40) + " ..." : app.shortDescription.trim()}</CardDescription>
                         </CardHeader>
 
                     </Card>

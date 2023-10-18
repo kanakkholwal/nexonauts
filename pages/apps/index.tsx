@@ -148,15 +148,7 @@ export default function App({ apps, popularApps, user }: {
 
 
                     <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-7 pt-7'>
-                        {handleFilters()?.sort((prev: any, curr: any) => {
-                            // put recommended apps first
-                            if (prev.recommended && !curr.recommended) {
-                                return -1
-                            }
-                            if (!prev.recommended && curr.recommended) {
-                                return 1
-                            }
-                        }).map(app => {
+                        {apps.map(app => {
                             const Category = CATEGORIES.find((category) => category.value === app.category)
 
                             return (

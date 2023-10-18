@@ -17,20 +17,21 @@ export type AppType = {
     path: string;
     version?: string;
     coverImage?: string;
-    recommended: Boolean,
+    recommended: boolean,
     createdAt:Date | string,
-    averageRating?: Number,
-    ratings: Number[],
+    averageRating?: number,
+    ratings: number[],
     reviews: AppReview[],
     usage: AppUsage[],
     keywords:string[],
     formFlow:{
         menuType: TypesOfApp ,
-        inputs:Input[],
+        inputs:InputType[],
         outputs:any[],
         controls:Controls[]
     }
 }
+export type PublicAppType = Omit<AppType, "config" | "reviews" | "usage">;
 interface Controls {
     controlType: string;
     id: string;
@@ -61,8 +62,8 @@ type TypesOfApp = "text_input_to_text_output" | "chatbot"| "text_input_to_image_
 
 interface AppReview {
     appId: string;
-    userId: string;
-    rating: Number;
+    userId: string | any;
+    rating: number;
     review: string;
     createdAt: string;
     _id:string | any;
