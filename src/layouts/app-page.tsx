@@ -1,14 +1,14 @@
-import Header from "components/layouts/header";
-import Footer from "components/layouts/footer";
 import { BreadCrumb } from "components/breadcrumb";
-import { MainWrapper, ContentWrapper, } from "components/layouts/wrapper";
-import styled from "styled-components";
+import Header from "components/layouts/header";
 import SideNav from "components/layouts/sidenav";
+import { ContentWrapper, MainWrapper, } from "components/layouts/wrapper";
+import Footer from 'layouts/common/footer';
+import styled from "styled-components";
 
 import { GrResources } from "react-icons/gr";
+import { IoLogoGithub, IoLogoInstagram, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import { RiAppsLine } from "react-icons/ri";
-import { TbTools ,TbSmartHome,TbBrandBlogger,TbDashboard} from "react-icons/tb";
-import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
+import { TbBrandBlogger, TbDashboard, TbSmartHome, TbTools } from "react-icons/tb";
 
 const SocialMedia = [
     {
@@ -86,7 +86,7 @@ export default function AppPage({ headerChildren , children, user } :{
                     <BreadCrumb />
                     {children}
                 </ContentWrapper>
-                <Footer socialMedia={SocialMedia} />
+                <Footer />
 
             </MainWrapper>
         </>
