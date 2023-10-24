@@ -1,9 +1,11 @@
+import { Button } from "@/components/ui/button";
 import Footer from 'layouts/common/footer';
 import Header from 'layouts/common/header';
 import Hero from 'layouts/common/hero';
 
 import Aos from 'aos';
 import { NextSeo } from 'next-seo';
+import Link from 'next/link';
 import { useEffect } from 'react';
 import { BsStars } from "react-icons/bs";
 
@@ -22,9 +24,9 @@ export default function Page() {
 
     return (
         <>
-        <NextSeo
-            title={`Pricing | ${process.env.NEXT_PUBLIC_WEBSITE_NAME}`}
-        />
+            <NextSeo
+                title={`Pricing | ${process.env.NEXT_PUBLIC_WEBSITE_NAME}`}
+            />
 
             <Header />
             <Hero
@@ -49,114 +51,119 @@ export default function Page() {
                     </p>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-                    <div className="rounded-3xl bg-slate-100 shadow-xl relative z-20 overflow-hidden pt-12 pb-10 px-8 xl:px-10 pricing-item-border" data-aos="fade-in-up">
-                        <h3 className="font-semibold text-heading-6 mb-5">Starter</h3>
+                    <div className="rounded-xl bg-slate-100 shadow-xl relative z-20 overflow-hidden pt-12 pb-10 px-8 xl:px-10 pricing-item-border" data-aos="fade-in-up">
+                        <h3 className="font-semibold text-heading-6 mb-5">Free Tier</h3>
                         <div className="flex items-center gap-3.5">
-                            <h2 className="font-bold text-custom-1 pricing-gradient-text">$ 100</h2>
-                            <p className="font-medium">/month <br />(billed annually)</p></div>
+                            <h2 className="font-bold text-custom-1 pricing-gradient-text">$ 0</h2>
+                            <p className="font-medium">/month</p></div>
 
                         <hr className="my-10 w-full h-[1px] pricing-gradient-divider" />
                         <ul className="flex flex-col gap-4">
                             <li className='flex items-center gap-5'>
 
                                 <span className="font-medium">
-                                    Subscription with levels
+                                    Create upto 3 AI apps
                                 </span>
                             </li>
                             <li className='flex items-center gap-5'>
                                 <span className="font-medium">
-                                Advanced features included
+                                    Basic app analytics
                                 </span>
                             </li>
                             <li className='flex items-center gap-5'>
                                 <span className="font-medium">
-                                Advanced features included
+                                    Upto 5 Usage per app per day.
                                 </span>
                             </li>
                             <li className='flex items-center gap-5'>
                                 <span className="font-medium">
-                                Advanced features included
+                                    Save your favorite apps in your dashboard
                                 </span>
                             </li>
                             <li className='flex items-center gap-5'>
                                 <span className="font-medium">
-                                Advanced features included
+                                    Share your apps with your friends with QR code
                                 </span>
                             </li>
                         </ul>
+                        <div className="flex justify-center items-center my-3">
+
+                        <Link href="/signup">
+                            <Button variant="gradient">
+                                Get Started
+                            </Button>
+                        </Link>
+                        </div>
                     </div>
-                    <div className="rounded-3xl bg-slate-100 shadow-xl relative z-20 overflow-hidden pt-12 pb-10 px-8 xl:px-10 pricing-item-border" data-aos="fade-in-up">
-                        <h3 className="font-semibold text-heading-6 mb-5">Starter</h3>
+                    <div className="rounded-xl bg-slate-100 shadow-xl relative z-20 overflow-hidden pt-12 pb-10 px-8 xl:px-10 pricing-item-border" data-aos="fade-in-up">
+                        <h3 className="font-semibold text-heading-6 mb-5">Pro tier</h3>
                         <div className="flex items-center gap-3.5">
-                            <h2 className="font-bold text-custom-1 pricing-gradient-text">$ 100</h2>
-                            <p className="font-medium">/month <br />(billed annually)</p></div>
+                            <h2 className="font-bold text-custom-1 pricing-gradient-text">$ 9.99</h2>
+                            <p className="font-medium">/month</p></div>
+
+                        <hr className="my-10 w-full h-[1px] pricing-gradient-divider" />
+                        <ul className="flex flex-col gap-4">
+                            <li className='flex items-center gap-5'>
+                                <span className="font-medium">
+                                    Create upto 10 apps
+                                </span>
+                            </li>
+                            <li className='flex items-center gap-5'>
+                                <span className="font-medium">
+                                    Enchanced Apps analytics
+                                </span>
+                            </li>
+                            <li className='flex items-center gap-5'>
+                                <span className="font-medium">
+                                    Basic features included (Free tier)
+                                </span>
+                            </li>
+                        </ul>
+                        <div className="flex justify-center items-center my-3">
+
+<Link href="/signup">
+    <Button variant="gradient">
+        Get Started
+    </Button>
+</Link>
+</div>
+                    </div>
+                    <div className="rounded-xl bg-slate-100 shadow-xl relative z-20 overflow-hidden pt-12 pb-10 px-8 xl:px-10 pricing-item-border" data-aos="fade-in-up">
+                        <h3 className="font-semibold text-heading-6 mb-5">Premium</h3>
+                        <div className="flex items-center gap-3.5">
+                            <h2 className="font-bold text-custom-1 pricing-gradient-text">$ 14.99</h2>
+                            <p className="font-medium">/month </p></div>
 
                         <hr className="my-10 w-full h-[1px] pricing-gradient-divider" />
                         <ul className="flex flex-col gap-4">
                             <li className='flex items-center gap-5'>
 
                                 <span className="font-medium">
-                                    Subscription with levels
+                                    Create upto 20 apps
                                 </span>
                             </li>
                             <li className='flex items-center gap-5'>
                                 <span className="font-medium">
-                                Advanced features included
+                                    Advanced app analytics
                                 </span>
                             </li>
                             <li className='flex items-center gap-5'>
                                 <span className="font-medium">
-                                Advanced features included
+                                    Basic features included (Pro tier)
                                 </span>
                             </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                Advanced features included
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                Advanced features included
-                                </span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div className="rounded-3xl bg-slate-100 shadow-xl relative z-20 overflow-hidden pt-12 pb-10 px-8 xl:px-10 pricing-item-border" data-aos="fade-in-up">
-                        <h3 className="font-semibold text-heading-6 mb-5">Starter</h3>
-                        <div className="flex items-center gap-3.5">
-                            <h2 className="font-bold text-custom-1 pricing-gradient-text">$ 100</h2>
-                            <p className="font-medium">/month <br />(billed annually)</p></div>
 
-                        <hr className="my-10 w-full h-[1px] pricing-gradient-divider" />
-                        <ul className="flex flex-col gap-4">
-                            <li className='flex items-center gap-5'>
-
-                                <span className="font-medium">
-                                    Subscription with levels
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                Advanced features included
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                Advanced features included
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                Advanced features included
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                Advanced features included
-                                </span>
-                            </li>
                         </ul>
+                        <div className="flex justify-center items-center my-3">
+
+<Link href="/signup">
+    <Button variant="gradient">
+        Get Started
+    </Button>
+</Link>
+</div>
                     </div>
+
                 </div>
 
             </div>
