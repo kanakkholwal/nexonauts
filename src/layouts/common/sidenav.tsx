@@ -30,7 +30,7 @@ const userRoutes = [
         path: "/apps",
     },
     {
-        title: "Tools",
+        title: "Developer Tools",
         Icon: TbTools,
         path: "/tools",
     },

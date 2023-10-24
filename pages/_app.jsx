@@ -10,6 +10,7 @@ import { UserPreferenceProvider } from "hooks/useUserPreference";
 import { SessionProvider } from "next-auth/react";
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { Toaster } from 'react-hot-toast';
 
 import { Plus_Jakarta_Sans } from "next/font/google";
 
@@ -81,5 +82,29 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps },
             </main>
             </UserPreferenceProvider>
         </SessionProvider>
+        <Toaster
+            position="bottom-right"
+            reverseOrder={false}
+            gutter={8}
+            containerClassName=""
+            containerStyle={{}}
+            toastOptions={{
+                // Define default options
+                className: '',
+                duration: 5000,
+                style: {
+                    background: '#363636',
+                    color: '#fff',
+                },
+                // Default options for specific types
+                success: {
+                    duration: 3000,
+                    theme: {
+                        primary: 'green',
+                        secondary: 'black',
+                    },
+                },
+            }}
+        />
     </>
 }

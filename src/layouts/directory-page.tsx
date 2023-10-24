@@ -14,7 +14,7 @@ export const DirectoryPageNavBar = styled.nav`
     align-items: center;
     position:relative;
     margin-bottom: 15px;
-    border-radius: 50px;
+    border-radius: 10px;
     .Title{
         font-size: 26px;
         font-weight: 600;
@@ -144,7 +144,7 @@ export const DirectoryPageHero = styled.div`
         font-weight: 500;
         text-transform:capitalize;
         transition: all 0.3s ease;
-        margin-block: auto 4rem;
+        margin-block: 2rem 4rem;
         display:flex;
         align-items: center;
         justify-content: center;

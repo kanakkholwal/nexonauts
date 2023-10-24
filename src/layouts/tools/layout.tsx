@@ -84,6 +84,7 @@ export default function Layout({ children, user }: { children: React.ReactNode, 
             document.removeEventListener("mousedown", HandleOutSide)
         }
     }, []);
+    console.log(user)
 
     return (<div className="w-full min-h-screen flex">
         <Sidenav open={isSidenavOpen} />
@@ -116,7 +117,7 @@ export default function Layout({ children, user }: { children: React.ReactNode, 
                                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem asChild>
-                                        <Link href={"/dashboard/settings?defaultTabprofile=profile"} className="w-full text-accent-foreground hover:text-slate-800">
+                                        <Link href={"/dashboard/settings/profile"} className="w-full text-accent-foreground hover:text-slate-800">
                                             <FaRegUser className="w-3 h-3 mr-1" />
                                             Profile
                                         </Link>

@@ -1,46 +1,38 @@
-import { NextSeo } from 'next-seo';
 import axios from "axios";
-import PublicToolType from "types/public-tool";
+import { Wobble } from "components/Loader";
+import { IconButton } from "components/buttons";
 import Footer from "components/layouts/footer";
+import { NextSeo } from 'next-seo';
 import {
-    DirectoryPageNavBar,
     DirectoryPageContainer,
+    DirectoryPageHeader,
     DirectoryPageHero,
+    DirectoryPageNavBar,
     DirectoryPageSearchContainer,
     DirectoryPageSearchResults,
     GoToTop,
-    DirectoryPageHeader,
     Page,
     Wave
 } from "src/layouts/directory-page";
-import { Wobble } from "components/Loader"
-import  { IconButton } from "components/buttons"
+import PublicToolType from "types/public-tool";
 
-import { TbSearch, TbExternalLink, TbArrowBigRightLine } from "react-icons/tb";
 import Link from "next/link";
+import { TbArrowBigRightLine, TbExternalLink, TbSearch } from "react-icons/tb";
 
-import { Input, Select,   } from "components/form-elements";
-import Badge from "components/topography/badge"
+import { Input, Select, } from "components/form-elements";
+import Badge from "components/topography/badge";
 
 
-import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
-import { CiGrid2H, CiGrid41 } from "react-icons/ci"
-import { RiArrowRightUpLine } from "react-icons/ri"
-import { RxArrowUp } from "react-icons/rx"
-import { useEffect, useMemo, useRef, useState } from "react";
-import LazyImage from "components/image";
-import { Quicksand } from "next/font/google";
-import { FiFilter } from 'react-icons/fi';
 import Collapse from 'components/collapse';
+import LazyImage from "components/image";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { CiGrid2H, CiGrid41 } from "react-icons/ci";
+import { FiFilter } from 'react-icons/fi';
+import { IoLogoGithub, IoLogoInstagram, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
+import { RiArrowRightUpLine } from "react-icons/ri";
+import { RxArrowUp } from "react-icons/rx";
 
-const quicksand = Quicksand({
-    preload: false,
-    weight: ["400", "500", "600", "700"],
-    subsets: [
-        "latin-ext",
-        "latin"
-    ]
-})
+
 
 
 const SocialMedia = [
@@ -238,8 +230,11 @@ export default function AiDirectory({
             <DirectoryPageContainer>
                 <DirectoryPageHeader>
                     <DirectoryPageNavBar>
-                        <Link href="/directory" className="Title">
-                            AI Directory
+                        <Link href="/ai-valley" className="Title">
+                            AI Valley
+                            <span className="text-xs text-primary">
+                                by NexoNauts
+                            </span>
                         </Link>
                         <div className="LinkList">
                             <Link href="/">
@@ -255,7 +250,7 @@ export default function AiDirectory({
                                 Blog
                             </Link>
                         </div>
-                        <Link href="/directory/submit" className="Submit">
+                        <Link href="/ai-valley/submit" className="Submit">
                             Submit
                         </Link>
 
@@ -265,10 +260,10 @@ export default function AiDirectory({
                 <Page>
 
                     <DirectoryPageHero>
-                        <div>
+                        <div className="flex flex-col items-start ">
 
-                            <h4 className={"title " + quicksand.className}>Your Path to Peak Efficiency</h4>
-                            <p className={"description " + quicksand.className}>Unlock your productivity potential with AI-powered tools that streamline your workflow, optimize tasks, and elevate your success. Embrace a future of seamless efficiency at the Productivity Hub.</p>
+                            <h4 className={"title "}>Your Path to Peak Efficiency</h4>
+                            <p className={"description text-slate-600"}>Unlock your productivity potential with AI-powered tools that streamline your workflow, optimize tasks, and elevate your success. Embrace a future of seamless efficiency at the Productivity Hub.</p>
 
                             <Link className="SubmitYourTool"
                                 href="/directory/submit">
