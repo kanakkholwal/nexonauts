@@ -1,73 +1,11 @@
-import Prism from "prismjs";
+import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
-
+import Prism from "prismjs";
 import { useEffect, useState } from "react";
-import styled, { keyframes } from 'styled-components';
+import toast from 'react-hot-toast';
 import { FiCodesandbox } from "react-icons/fi";
 import { MdContentCopy, MdDoneAll, MdErrorOutline } from "react-icons/md";
-import Button from 'components/buttons'
-const rotate = keyframes`
-from {
-    transform: rotateY(0deg) scale(1);
-  }
 
-  to {
-    transform: rotateY(360deg) scale(1.2);
-  }
-`
-
-const CodeBlockContainer = styled.div`
-width: 100%;
-height: auto;
-margin: 0.5rem auto 0.75rem;
---radius:1rem;
-@media (max-width:576px) {
-    --size:0.75rem;
-}
-`;
-const CodeIcon = styled(FiCodesandbox)`
-font-size: var(--size);
-color: var(--codeblock-header-text);
-animation:${rotate} 3s cubic-bezier(0, 0, .2, 1) 0.25s infinite alternate;
-`
-
-const CodeBlockHeader = styled.div`
-position: relative;
-display: grid;
-align-items: center;
-margin-inline: auto;
-grid-auto-flow: column;
-grid-template-columns: 1fr 25fr auto;white-space: nowrap;
-overflow: hidden;
-border-radius: var(--radius) var(--radius) 0 0;
-text-align: left;
-color: var(--codeblock-header-text);
-background: var(--codeblock-header-bg);
-width: 100%;
-padding: 0.5rem 0.75rem;
---size:1.75em;
-@media (max-width:576px) {
-    --size:1em;
-}
-`;
-const CodeBlockTitle = styled.h2`
-font-weight: 700;
-text-overflow: ellipsis;
-font-size: var(--size);
-`;
-const CopyButton = styled(Button)`
-margin-left:auto;
-`;
-const CodeBlockBody = styled.div`
-border-radius: 0 0 var(--radius) var(--radius);
-overflow:hidden;
-pre{
-    margin-block:0;
-}
-code{
-    padding:1em;
-}
-`;
 
 const ParseString = (string) => {
     var replaced;
@@ -116,6 +54,7 @@ function CodeBlock({ content, language, title, ...props }) {
             return new Promise((res, rej) => {
                 // here the magic happens
                 document.execCommand('copy') ? res() : rej();
+                toast.success("Copied to clipboard")
                 textArea.remove();
             });
         }
@@ -125,9 +64,12 @@ function CodeBlock({ content, language, title, ...props }) {
         copyToClipboard(text)
             .then(() => {
                 SetCopyState("done")
+                toast.success("Copied to clipboard")
+
             })
             .catch((error) => {
-                SetCopyState("error")
+                SetCopyState("error");
+                toast.error("Error copying to clipboard")
 
                 console.log('error', error)
             }).finally(() => {
@@ -159,23 +101,26 @@ function CodeBlock({ content, language, title, ...props }) {
       }, [language, content]);
 
     return (
-        <CodeBlockContainer>
-            <CodeBlockHeader>
-                <CodeIcon />
-                <CodeBlockTitle title={title ? title : "CodeBlock"}>
+        <>
+            <div className='flex justify-between items-center w-full truncate py-2 px-4 bg-primary/25 rounded-t '>
+                <div className='flex gap-2 items-center justify-start'>
+
+                <FiCodesandbox className='w-4 h-5 mr-2' />
+                <h3 className='text-lg font-semibold' title={title ? title : "CodeBlock"}>
                     {title ? title : "CodeBlock"}
-                </CodeBlockTitle>
-                <CopyButton type="button" level="true" size="sm" onClick={(e) => Copy(e, content.toString())}><HandleCopyState state={CopyState} />
-                </CopyButton>
-            </CodeBlockHeader>
-            <CodeBlockBody>
-                <pre {...props} tabIndex={0}>
+                </h3>
+                </div>
+                <Button type="button" variant="secondary" size="sm" onClick={(e) => Copy(e, content.toString())}><HandleCopyState state={CopyState} />
+                </Button>
+            </div>
+            <div className=' p-0'>
+                <pre {...props} className='!m-0' tabIndex={0}>
                     <code className={"language-" + language} >
                         {content}
                     </code>
                 </pre>
-            </CodeBlockBody>
-        </CodeBlockContainer>
+            </div>
+        </>
     )
 }
 

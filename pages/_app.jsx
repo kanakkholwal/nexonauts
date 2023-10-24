@@ -54,7 +54,6 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps },
             <meta name="googlebot" content="all" />
             <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
             <meta name='viewport' content='width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no' />
-            <link rel="icon" type="image/svg+xml" href="/kkupgrader.svg" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             <link rel="manifest" href="/manifest.json" />
             <meta name="theme-color" content="#11a6d3" />

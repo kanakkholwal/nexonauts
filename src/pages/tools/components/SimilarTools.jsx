@@ -1,52 +1,30 @@
-import styled from "styled-components";
-import Button from "components/buttons";
+import { Button } from "@/components/ui/button";
+import {
+    CardContainer,
+    ToolCard
+} from "components/tools";
 import Link from "next/link";
 import { ToolList } from "pages/tools/ToolsList";
-import {
-    ToolCard,
-    CardContainer
-} from "components/tools";
-const Container = styled.div`
-width:100%;
-display:flex;
-flex-direction:column;
-margin-inline: auto;
-max-width: var(--max-width);
-padding-top:2.25rem;
 
-`
 
-const Header = styled.div`
-width:100%;
-display:flex;
-align-items:center;
-justify-content:space-between;
-background:var(--card-bg);
-padding:0.5rem;
-border-radius:0.5rem;
-`;
-const Title = styled.h5`
-font-weight:bold;
-font-size:1.25rem;
-margin-left:0.5rem;
-`
-const Body = styled(CardContainer)`
-padding:1rem 0;
 
-`;
+export default function SimilarTools({category,tool}) {
+    const similars = ToolList.filter((tool) => tool.category === category);
 
-export default function SimilarTools({category}) {
+    return (<>
+        <div className="flex gap-2 w-full items-center justify-between">
+            <h3 className="font-semibold text-lg">More Like this  ...</h3>
+            <Link href="/tools/">
+            <Button variant="outline" className="text-primary">See all</Button>
+            </Link>
+            
+        </div>
+        <hr className="my-2" />
+        <CardContainer>
+            {similars.map(({ title, description, path, category, online }, index) => {
+                        return <ToolCard className="!bg-slate-100 flex flex-col items-start" path={path} key={index} title={title} description={description} category={category} online={online} index={index} style={{ animationDelay: (0.1 * index) + "s" }} />
+                    })}
+        </CardContainer>
 
-    return (<Container>
-        <Header>
-            <Title>More Like this  ...</Title>
-            <Button nature="info" as={Link} href="/tools/">Use Them All</Button>
-        </Header>
-        <Body>
-            {ToolList.filter((tool) => tool.category === category).map((tool, index) => {
-                return <ToolCard key={index} {...tool}/>
-            })}
-        </Body>
-
-    </Container>)
+    </>)
 }
