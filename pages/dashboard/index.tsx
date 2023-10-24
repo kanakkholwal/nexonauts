@@ -15,7 +15,7 @@ import toast from 'react-hot-toast';
 import { SessionUserType } from "src/types/user";
 import useSWR from 'swr';
 
-const fetcher = (url) => fetch(url).then((res) => res.json());
+const fetcher = (url :string) => fetch(url).then((res) => res.json());
 
 export default function Dashboard({ user }:{
     user:SessionUserType
