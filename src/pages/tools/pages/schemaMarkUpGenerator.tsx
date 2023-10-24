@@ -9,6 +9,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+
 import {
     Select,
     SelectContent,
@@ -19,8 +21,7 @@ import {
 
 import axios from "axios";
 import CodeBlock from "components/code-block";
-import { CheckBox, FormElement, FormGroup } from "components/form-elements";
-import AutoComplete from "components/form-elements/AutoComplete";
+import { FormElement, FormGroup } from "components/form-elements";
 import { useEffect, useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 
@@ -281,7 +282,7 @@ function Person({ setCode }) {
     }, [name, alternateName, url, image, jobTitle, worksFor, telephone, email, address, sameAs])
     return (
         <div>
-            <FormGroup>
+            <div className="flex gap-2 items-stretch justify-start w-full flex-wrap">
                 <FormElement>
                     <Label>Name</Label>
                     <Input variant="ghost" type="text" placeholder="Name"
@@ -352,7 +353,7 @@ function Person({ setCode }) {
                         onChange={(e) => setSameAs(e.target.value)}
                     />
                 </FormElement>
-            </FormGroup>
+            </div>
         </div>
     )
 
@@ -403,22 +404,30 @@ function Article({ setCode }) {
     }, [headline, image, author, publisher, datePublished, dateModified, description, articleBody, url, sameAs, type, width, height, isAMP])
     return (
         <div>
-            <FormElement>
-                <Label>Type</Label>
+            <div className="mb-2">
+                <Label htmlFor="type">Type</Label>
                 <Select onValueChange={(value) => {
                     setType(value)
-                }}>
-                    <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Type" />
+                }} >
+                    <SelectTrigger className="w-[180px] bg-slate-100">
+                        <SelectValue placeholder="Select a Type" id="type" />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="BlogPosting">BlogPosting</SelectItem>
                         <SelectItem value="NewsArticle">NewsArticle</SelectItem>
                     </SelectContent>
                 </Select>
-
-
-            </FormElement>
+            </div>
+            <div className="flex items-center space-x-2 my-3">
+                <Switch
+                    checked={isAMP}
+                    onCheckedChange={(value) => {
+                        setIsAMP(value)
+                    }}
+                    id="isAmp"
+                />
+                <Label htmlFor="isAmp" className="mb-0">Accelerated Mobile Page (AMP)?</Label>
+            </div>
             <FormGroup>
                 <FormElement>
                     <Label>Headline</Label>
@@ -428,20 +437,6 @@ function Article({ setCode }) {
                     />
                 </FormElement>
 
-                <FormElement>
-                    <CheckBox
-                        checked={!isAMP ? true : false}
-                        onChange={
-                            (e) => {
-
-                                setIsAMP(!e.target.checked)
-                            }
-                        }
-
-                        id="isAmp"
-                    />
-                    <Label htmlFor="isAmp">Accelerated Mobile Page (AMP)?</Label>
-                </FormElement>
                 <FormElement>
                     <Label>Image</Label>
                     <Input variant="ghost" type="url" placeholder="Image URL"
@@ -463,6 +458,9 @@ function Article({ setCode }) {
                         onChange={(e) => setHeight(e.target.value)}
                     />
                 </FormElement>
+            </FormGroup>
+
+            {isAMP ? <FormGroup>
                 <FormElement>
                     <Label>Author</Label>
                     <Input variant="ghost" type="text" placeholder="Author"
@@ -519,23 +517,69 @@ function Article({ setCode }) {
                         onChange={(e) => setSameAs(e.target.value)}
                     />
                 </FormElement>
-            </FormGroup>
+            </FormGroup> : null}
+
         </div>
     )
 
 }
+const PRODUCT_TYPES = [
+    {
+        value: "sku",
+        label: "SKU"
+    }
+    , {
+        value: "gtin8",
+        label: "GTIN-8"
+    },
+    {
+        value: "gtin13",
+        label: "GTIN-13"
+    },
+    {
+        value: "gtin14",
+        label: "GTIN-14"
+    }
+    , {
+        value: "mpn",
+        label: "MPN"
+
+    }
+] as {
+    value: string,
+    label: string
+}[];
+
 function Product({ setCode }) {
     const [name, setName] = useState("");
     const [image, setImage] = useState("");
     const [description, setDescription] = useState("");
     const [brand, setBrand] = useState("");
 
-    const [types, setTypes] = useState([]);
-    const [sku, setSku] = useState("");
-    const [gtin8, setGtin8] = useState("");
-    const [gtin13, setGtin13] = useState("");
-    const [gtin14, setGtin14] = useState("");
-    const [mpn, setMpn] = useState("");
+    const [types, setTypes] = useState({
+        sku: {
+            enable: false,
+            value: ""
+        },
+        gtin8: {
+            enable: false,
+            value: ""
+        },
+        gtin13: {
+            enable: false,
+            value: ""
+        },
+        gtin14: {
+            enable: false,
+            value: ""
+        },
+        mpn: {
+            enable: false,
+            value: ""
+        }
+
+    });
+  
     const [url, setUrl] = useState("");
     const [currencies, setCurrencies] = useState<any[]>([]);
     const [offers, setOffers] = useState({
@@ -573,15 +617,19 @@ function Product({ setCode }) {
             "bestRating": "${aggregateRating.bestRating}",
             "worstRating": "${aggregateRating.worstRating}",
             "ratingCount": "${aggregateRating.ratingCount}"
-          }
+        },
         "offers": {
             "@type": "${offers.type}",
             "priceCurrency": "${offers.priceCurrency}",
             "lowPrice": "${offers.lowPrice}",${offers.type === "Offer" ? `\n            "priceValidUntil": "${offers.priceValidUntil}",` : ""}${offers.type === "Offer" ? `\n            "url": "${offers.url}",` : ""}${offers.type === "Offer" ? `\n            "availability": "http://schema.org/${offers.availability}",` : ""}${offers.type === "Offer" ? `\n            "itemCondition": "http://schema.org/${offers.itemCondition}",` : ""}
-          },${types.find(type => type === "sku") ? `\n        "sku": "${sku}",` : ""}${types.find(type => type === "gtin8") ? `\n        "gtin8": "${gtin8}",` : ""}${types.find(type => type === "gtin13") ? `\n        "gtin13": "${gtin13}",` : ""}${types.find(type => type === "gtin14") ? `\n        "gtin14": "${gtin14}",` : ""}${types.find(type => type === "mpn") ? `"mpn": "${mpn}",` : ""}
+        },${Object.keys(types).filter((key) => {
+            return types[key].enable && types[key].value.trim().length > 0
+        }).map((key) => {
+            return `\n        "${key}": "${types[key].value.trim()}"`
+        }).join(",")}
     },
 </script>`)
-    }, [name, image, description, brand, sku, gtin8, gtin13, gtin14, mpn, url, offers, types, aggregateRating])
+    }, [name, image, description, brand, url, offers, types, aggregateRating])
 
     useEffect(() => {
         (async () => {
@@ -644,77 +692,56 @@ function Product({ setCode }) {
                         onChange={(e) => setUrl(e.target.value)}
                     />
                 </FormElement>
-                <FormElement>
+                <div>
                     <Label>Types</Label>
-                    <AutoComplete
-                        placeholder="Types"
-                        options={[
-                            {
-                                value: "sku",
-                                label: "SKU"
-                            }
-                            , {
-                                value: "gtin8",
-                                label: "GTIN-8"
-                            },
-                            {
-                                value: "gtin13",
-                                label: "GTIN-13"
-                            },
-                            {
-                                value: "gtin14",
-                                label: "GTIN-14"
-                            }
-                            , {
-                                value: "mpn",
-                                label: "MPN"
+                    <div className="flex gap-2 items-stretch justify-start w-full">
 
-                            }
-                        ]}
-                        multiple={true}
-                        onChange={(options) => {
-                            setTypes(options)
-                        }}
+                        {PRODUCT_TYPES.map((item, index) => {
+                            return (<div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm" key={index}>
+                                <div className="space-y-0.5">
+                                    <Label htmlFor={item.value}>{item.label}</Label>
+                                    <div>
+                                        <Input variant="ghost" type="text" placeholder="GTIN-14"
+                                            disabled={!types[item.value].enable}
+                                            value={types[item.value].value}
+                                            onChange={(e) => {
+                                                setTypes((types) => {
+                                                    return {
+                                                        ...types,
+                                                        [item.value]: {
+                                                            ...types[item.value],
+                                                            value: e.target.value
+                                                        }
+                                                    }
+                                                })
+                                            }}
+                                        />
+                                    </div>
+                                </div>
+                                <div>
+                                    <Switch
+                                        id={item.value}
+                                        checked={types[item.value].enable}
+                                        onCheckedChange={(value) => {
+                                            setTypes((types) => {
+                                                return {
+                                                    ...types,
+                                                    [item.value]: {
+                                                        ...types[item.value],
+                                                        enable: value
+                                                    }
+                                                }
+                                            })
+                                        }}
+                                    />
+                                </div>
+                            </div>)
+                        })}
+                    </div>
+
+                </div>
 
 
-                    />
-                </FormElement>
-
-                {types.find(type => type === "sku") && <FormElement>
-                    <Label>SKU</Label>
-                    <Input variant="ghost" type="text" placeholder="SKU"
-                        value={sku}
-                        onChange={(e) => setSku(e.target.value)}
-                    />
-                </FormElement>}
-                {types.find(type => type === "gtin8") && <FormElement>
-                    <Label>GTIN-8</Label>
-                    <Input variant="ghost" type="text" placeholder="GTIN-8"
-                        value={gtin8}
-                        onChange={(e) => setGtin8(e.target.value)}
-                    />
-                </FormElement>}
-                {types.find(type => type === "gtin13") && <FormElement>
-                    <Label>GTIN-13</Label>
-                    <Input variant="ghost" type="text" placeholder="GTIN-13"
-                        value={gtin13}
-                        onChange={(e) => setGtin13(e.target.value)}
-                    />
-                </FormElement>}
-                {types.find(type => type === "gtin14") && <FormElement>
-                    <Label>GTIN-14</Label>
-                    <Input variant="ghost" type="text" placeholder="GTIN-14"
-                        value={gtin14}
-                        onChange={(e) => setGtin14(e.target.value)}
-                    />
-                </FormElement>}
-                {types.find(type => type === "mpn") && <FormElement>
-                    <Label>MPN</Label>
-                    <Input variant="ghost" type="text" placeholder="MPN"
-                        value={mpn}
-                        onChange={(e) => setMpn(e.target.value)}
-                    />
-                </FormElement>}
 
                 <FormGroup>
 
@@ -858,7 +885,7 @@ function Product({ setCode }) {
 
                 </FormGroup> : null}
 
-                <FormGroup>
+{offers.type === "AggregateOffer" ?  <FormGroup>
                     <FormElement>
                         <Label>Aggregate rating value</Label>
                         <Input variant="ghost" type="number" placeholder="Aggregate rating value"
@@ -908,7 +935,7 @@ function Product({ setCode }) {
                         />
                     </FormElement>
 
-                </FormGroup>
+                </FormGroup>:null}
             </FormGroup>
 
         </div>

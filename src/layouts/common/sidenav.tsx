@@ -37,7 +37,7 @@ const userRoutes = [
     {
         title: "Profile",
         Icon:BiUser,
-        path: "/dashboard/profile",
+        path: "/dashboard/settings?defaultTab=profile",
         sessionRequired: true,
     }
 ]  as LinkType[]

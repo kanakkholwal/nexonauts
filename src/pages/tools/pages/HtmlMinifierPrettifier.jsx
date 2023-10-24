@@ -1,12 +1,20 @@
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import SnackBar from "components/SnackBar";
 import Button from "components/buttons";
-import TextArea from "components/form-elements/TextArea";
-import FormElement from "components/form-elements/FormElement";
-import Label from "components/form-elements/Label";
-import { FaCompressArrowsAlt, FaExpandArrowsAlt } from "react-icons/fa";
-import { MdDeleteOutline, MdContentCopy } from "react-icons/md";
 import { useState } from "react";
+
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardFooter,
+    CardHeader,
+    CardTitle,
+} from "@/components/ui/card";
 import pretty from 'pretty';
+import { FaCompressArrowsAlt, FaExpandArrowsAlt } from "react-icons/fa";
+import { MdContentCopy, MdDeleteOutline } from "react-icons/md";
 
 export default function HtmlMinifierPrettifier() {
 
@@ -14,14 +22,26 @@ export default function HtmlMinifierPrettifier() {
     const [snackObj, SetSnackObj] = useState({ Message: "Some error Occurred", open: false });
 
     return (
-        <div style={{ maxWidth: "720px", margin: "auto" }}>
-            <FormElement>
-                <TextArea outlined name="HtmlValue" rows={10} value={value} onChange={(e) => SetValue(e.target.value)} style={{ fontFamily: "var(--code-font)!important" }} />
-                <Label htmlFor="HtmlValue">Enter HTML Code Here</Label>
-            </FormElement>
-            <div className="m-auto d-flex flex-wrap justify-content-center align-items-center">
-
-                <Button nature="primary" onClick={() => {
+        <div className="flex gap-2 justify-around items-start">
+            <Card>
+  <CardHeader>
+    <CardTitle>
+        HTML Minifier Prettifier
+    </CardTitle>
+    <CardDescription>
+        Minify or Beautify your HTML code
+    </CardDescription>
+  </CardHeader>
+  <CardContent>
+    <Label htmlFor="HtmlValue">
+        Enter HTML Code Here
+    </Label>
+  <Textarea variant="ghost" name="HtmlValue" rows={10} 
+    placeholder="Enter HTML Code Here"
+  value={value} onChange={(e) => SetValue(e.target.value)} style={{ fontFamily: "var(--code-font)!important" }} />
+  </CardContent>
+  <CardFooter>
+  <Button nature="primary" onClick={() => {
                     SetValue(value.replace(/([^0-9a-zA-Z\.#])\s+/g, "$1").replace(/\s([^0-9a-zA-Z\.#]+)/g, "$1").replace(/;}/g, "}").replace(/\/\*.*?\*\//g, ""))
                     SetSnackObj({
                         ...SnackBar,
@@ -90,7 +110,10 @@ export default function HtmlMinifierPrettifier() {
                 }}>
                     Copy <MdContentCopy />
                 </Button>
-            </div>
+  </CardFooter>
+</Card>
+
+  
             <SnackBar {...snackObj} />
         </div >
     )

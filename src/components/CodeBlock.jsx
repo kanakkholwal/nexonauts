@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import toast from 'react-hot-toast';
 import { FiCodesandbox } from "react-icons/fi";
 import { MdContentCopy, MdDoneAll, MdErrorOutline } from "react-icons/md";
+import copy from 'copy-to-clipboard';
 
 
 const ParseString = (string) => {

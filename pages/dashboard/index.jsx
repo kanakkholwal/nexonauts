@@ -1,9 +1,7 @@
-import { getSession } from "next-auth/react"
-import DashboardPage from 'layouts/app-page';
+import Layout from 'layouts/apps/layout';
+import { getSession } from "next-auth/react";
 
 import Head from "next/head";
-import { registerView } from "lib/analytics";
-import { useEffect } from "react";
 import styled from "styled-components";
 import useSWR from 'swr';
 
@@ -43,9 +41,9 @@ export default function Dashboard({ user }) {
 
     const { data, error, isLoading } = useSWR('/api/users/'+user.id+ "/dashboard" , fetcher);
 
-    useEffect(() =>{
-        registerView({ title: "Dashboard", type: "dashboard", slug: "/dashboard" })
-    },[])
+    // useEffect(() =>{
+    //     registerView({ title: "Dashboard", type: "dashboard", slug: "/dashboard" })
+    // },[])
 
 
     return (
@@ -53,7 +51,7 @@ export default function Dashboard({ user }) {
             <Head>
                 <title>Dashboard</title>
             </Head>
-            <DashboardPage user={user}>
+            <Layout user={user}>
             <StyledInfo>
                     <span>
                         <h5>Posts</h5>
@@ -81,7 +79,7 @@ export default function Dashboard({ user }) {
                 </StyledInfo>
 
 
-            </DashboardPage>
+            </Layout>
         </>
     )
 }
