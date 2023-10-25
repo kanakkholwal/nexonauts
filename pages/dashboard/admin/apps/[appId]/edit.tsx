@@ -5,13 +5,13 @@ import Head from "next/head";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { App } from "src/types/app";
+import { AppType } from "src/types/app";
 import AppBuilder from "pages/app-builder";
 import toast, { Toaster } from 'react-hot-toast';
 
 
 export default function Dashboard({ user }) {
-    const [app, setApp] = useState<App | null>(null);
+    const [app, setApp] = useState<AppType | null>(null);
     const router = useRouter();
     const {appId} = router.query;
 

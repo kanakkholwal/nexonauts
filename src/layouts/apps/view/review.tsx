@@ -18,11 +18,11 @@ import { AiFillStar } from "react-icons/ai";
 import { CgSpinner } from "react-icons/cg";
 import { MdOutlineExpandMore } from "react-icons/md";
 import { TbSend } from "react-icons/tb";
-import { AppType } from "src/types/app";
+import { AppTypeWithFormFlow } from "src/types/app";
 import { SessionUserType } from "src/types/user";
 
 export function PostReview({ app, user }: {
-    app: AppType,
+    app: AppTypeWithFormFlow,
     user: SessionUserType
 }) {
     const [review, setReview] = useState("");
@@ -106,7 +106,7 @@ export function PostReview({ app, user }: {
 }
 
 export default function AllReviews({ app }: {
-    app: AppType,
+    app: AppTypeWithFormFlow,
 }) {
 
     const [page, setPage] = useState(1);

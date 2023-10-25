@@ -1,17 +1,16 @@
-import { getSession } from "next-auth/react";
-import DashboardPage from "components/dashboard-page";
 import Button from "components/buttons";
+import DashboardPage from "components/dashboard-page";
+import { DashCard, Icon, TrendingPages, TrendingPagesListItem } from "components/dashboard-page/elements";
 import Badge from "components/topography/badge";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Link from 'next/link';
 import { FaRegUser } from "react-icons/fa";
-import {TbTools, TbBrandGoogleAnalytics } from "react-icons/tb";
-import { RiArticleLine ,RiAppsLine} from 'react-icons/ri';
-import {DashCard,Icon,TrendingPages,TrendingPagesListItem} from "components/dashboard-page/elements";
+import { RiAppsLine, RiArticleLine } from 'react-icons/ri';
+import { TbBrandGoogleAnalytics, TbTools } from "react-icons/tb";
 
-import useSWR from "swr";
 import axios from "axios";
-import { getAnalytics } from 'lib/analytics';
+import useSWR from "swr";
 
 
 const fetchData = async (url, data) => {
@@ -21,7 +20,7 @@ const fetchData = async (url, data) => {
 const fetcher = url => axios.get(url).then(res => res.data)
 
 export default function Dashboard({ user }) {
-  
+
     const { data, error, isLoading} = useSWR('/api/admin/dashboard/stats', fetcher)
 
     if(error)

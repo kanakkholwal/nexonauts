@@ -1,6 +1,17 @@
 import mongoose from 'mongoose';
+import { v4 as UuID4 } from 'uuid';
 
-const usageSchema = new mongoose.Schema({
+function generateRandomAppId() {
+  // Generate a random UUID
+  const uuid = UuID4();
+
+  // Take the first 10 characters of the UUID and remove any non-alphanumeric characters
+  const alphanumericUsername = uuid.replace(/[^a-zA-Z0-9]/g, '').slice(0, 6);
+
+  // Add a prefix (e.g., 'user_') to the alphanumeric username
+  return `app_${alphanumericUsername}`;
+}
+const UsageSchema = new mongoose.Schema({
     appId: {
         type: String,
         required: true,
@@ -20,7 +31,8 @@ const usageSchema = new mongoose.Schema({
         default: {},
     }
 });
-const reviewSchema = new mongoose.Schema({
+
+const ReviewSchema = new mongoose.Schema({
     appId: {
         type: String,
         required: true,
@@ -31,7 +43,7 @@ const reviewSchema = new mongoose.Schema({
     },
     rating: {
         type: Number,
-        required: true,
+        srequired: true,
     },
     review: {
         type: String,
@@ -44,51 +56,42 @@ const reviewSchema = new mongoose.Schema({
     }
 });
 
-const appSchema = new mongoose.Schema({
+const AppSchema = new mongoose.Schema({
     appId: {
         type: String,
         required: true,
         trim: true,
         unique: true,
+        default: generateRandomAppId,
     },
-    usage: {
-        type: [usageSchema],
-        select: false,
-        default: [],
-    },
-    reviews: {
-        type: [reviewSchema],
-        select: false,
-        default: [],
-    },
-    config:{
+    config: {
         type: mongoose.Schema.Types.Mixed,
         default: null,
     },
-    keywords:{
+    keywords: {
         type: [String],
         default: [],
         trim: true,
     },
-    enabled: {
+    isPublic: {
         type: Boolean,
         required: true,
         default: false,
     },
-    customFunction: {
+    hasCustomFunction: {
         type: Boolean,
         required: true,
         default: false,
     },
-    state:{
+    status: {
         type: String,
         trim: true,
         default: "draft",
         enum: ["draft", "pending", "published", "declined", "archived"],
     },
-    version:{
+    version: {
         type: String,
-        trim: true, 
+        trim: true,
         default: "1.0.0",
     },
     name: {
@@ -110,19 +113,25 @@ const appSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
+        default: "text_input_to_text_output",
     },
     category: {
         type: String,
         required: true,
         trim: true,
+        default: "productivity",
     },
     tags: {
         type: [String],
         required: true,
         trim: true,
     },
-    author: {
-        type: mongoose.Schema.Types.Mixed,
+    developer: {
+        type: {
+            name: String,
+            username: String,
+            userId: mongoose.Schema.Types.ObjectId,
+        },
         required: true,
         default: {
             name: "K K UPGRADER",
@@ -135,12 +144,21 @@ const appSchema = new mongoose.Schema({
         required: true,
         trim: true,
         unique: true,
+        default: () => `/apps/${generateRandomAppId()}`,
+    },
+    membership:{
+        default:["free"],
+        type:[{
+            type:String,
+            enum:["free" , "pro", "premium" , "enterprise"],
+        }]
     },
     coverImage: {
         type: String,
         trim: true,
+        default: null,
     },
-    recommended: {
+    isRecommended: {
         type: Boolean,
         required: true,
         default: false,
@@ -162,48 +180,49 @@ const appSchema = new mongoose.Schema({
             default: "text_input_to_text_output",
         },
         inputs: [{
-            inputType: String,
-            inputName: String,
-            inputLabel: String,
-            inputPlaceholder: String,
-            inputRequired: Boolean,
-            inputDefaultValue: String,
-            inputValue: String,
-            inputId: String,
-            inputOptions: {
+            type: String,
+            name: String,
+            label: String,
+            placeholder: String,
+            required: Boolean,
+            defaultValue: String,
+            value: String,
+            id: String,
+            options: {
                 type: [{
                     label: String,
                     value: String,
                 }],
-                default: null
+                default: null,
             },
             constraints: {}
         }],
         controls: {
-            type:[{
+            type: [{
                 controlType: String,
                 id: String,
                 text: String,
                 icon: String,
                 action: String,
-                variant: String
+                variant: String,
             }],
-            default: []
+            default: [],
         },
         outputs: [{
-            outputType: String,
+            type: String,
             id: String,
-            data:{
+            data: {
                 type: mongoose.Schema.Types.Mixed,
                 default: null,
-            }
-        }]
-    }
+            },
+        }],
+    },
 });
-// appSchema.index({ name: 'text', description: 'text', tags: 'text',category: 'text', keywords: 'text',shortDescription: 'text' });
 
-// Also change TYPES schema
-// export review and usage schema as model
-export const Review = mongoose.models.Review || mongoose.model('Review', reviewSchema);
-export const Usage = mongoose.models.Usage || mongoose.model('Usage', usageSchema);
-export default mongoose.models.App || mongoose.model('App', appSchema);
+// Define indexes for search functionality
+AppSchema.index({ name: 'text', description: 'text', tags: 'text', category: 'text', keywords: 'text', shortDescription: 'text' });
+
+// Export review and usage schema as models
+export const Review = mongoose.models.Review || mongoose.model('Review', ReviewSchema);
+export const Usage = mongoose.models.Usage || mongoose.model('Usage', UsageSchema);
+export default mongoose.models.App || mongoose.model('App', AppSchema);

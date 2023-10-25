@@ -10,7 +10,6 @@ import { RenderOutput } from "./view/output";
 
 // Components
 
-
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -37,8 +36,8 @@ export default function AppView({ user }) {
         setLoading(true);
         setOutput(null);
         // check if all required inputs are filled
-        const requiredInputs = app.formFlow.inputs.filter((input) => input.inputRequired);
-        const requiredInputIds = requiredInputs.map((input) => input.inputId);
+        const requiredInputs = app.formFlow.inputs.filter((input) => input.required);
+        const requiredInputIds = requiredInputs.map((input) => input.id);
         const missingRequiredInputs = requiredInputIds.filter((inputId) => !value[inputId]);
         if (missingRequiredInputs.length > 0) {
             toast.error(`Please fill in the following required inputs: ${missingRequiredInputs.join(", ")}`);
@@ -121,7 +120,7 @@ const useForm = (initialValues) => {
 function makeInitialObject(inputs: any[]) {
     const obj = {};
     inputs?.forEach((input: any) => {
-        obj[input.inputId] = input.defaultValue || "";
+        obj[input.id] = input.defaultValue || "";
     });
     return obj;
 }

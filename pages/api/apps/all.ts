@@ -3,7 +3,6 @@ import handler from 'lib/handler';
 import { isAdminMiddleware } from 'middleware/checkUser';
 import App from "models/app";
 import nextConnect from 'next-connect';
-import type { AppInfo } from "types/app";
 
 
 const LIMIT = 5;
@@ -14,7 +13,7 @@ export default nextConnect(handler)
             await dbConnect();
             // find all enabled apps
             const apps = await App.find({
-                enabled: true, state: "published"
+                isPublic: true, status: "published"
             }).select('name shortDescription description appId type path coverImage recommended version ratings membership category tags author createdAt averageRating formFlow')
                 .exec();
 
@@ -52,7 +51,7 @@ export default nextConnect(handler)
             // find all enabled apps
             const apps = await App.find({})
             .select('name shortDescription appId path coverImage recommended version membership category tags author createdAt')
-            .exec()  as AppInfo[] | null;
+            .exec()
             if (!apps) {
                 return res.status(403).json({ message: `No apps found!`, apps: [] });
             }

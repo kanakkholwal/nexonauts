@@ -7,9 +7,10 @@ import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import AppplicationLayout from 'src/layouts/apps';
-import { AppType, PublicAppType } from 'src/types/app';
+import { AppTypeViewOnly, AppTypeWithFormFlow } from 'src/types/app';
 import { sessionType } from "src/types/session";
 import { SessionUserType } from 'src/types/user';
+import { PUBLIC_RUN_KEYS } from "src/utils/app";
 
 import AllReviews, { PostReview } from "layouts/apps/view/review";
 import { AiFillStar } from "react-icons/ai";
@@ -21,13 +22,13 @@ import { useEffect, useState } from "react";
 import workingApp from "src/assets/animation/app-working.gif";
 
 export default function App({ app, user }: {
-    app: AppType,
+    app: AppTypeWithFormFlow,
     user: SessionUserType | null
 }) {
 
 
     console.log(app);
-    const [relatedApps, setRelatedApps] = useState<PublicAppType[]>([]);
+    const [relatedApps, setRelatedApps] = useState<AppTypeViewOnly[]>([]);
 
     useEffect(() => {
         fetch("/api/apps/" + app._id + "/related")
@@ -73,7 +74,7 @@ export default function App({ app, user }: {
                     {app.description}
                 </p>
                 <div className='mt-2 text-sm font-medium w-full rounded-lg text-slate-500 bg-slate-100 p-2'>
-                    Created by <span className="text-accent-foreground font-semibold cursor-pointer hover:underline">{app.author.name}</span>
+                    Created by <span className="text-accent-foreground font-semibold cursor-pointer hover:underline">{app.developer.name}</span>
                     {" "} in <Link className="text-primary font-semibold px-2 py-1 rounded-md bg-primary/10 hover:bg-primary/20 capitalize ml-1" href={`/apps?category=${app.category}`}>{app.category.replaceAll("_", " ")}</Link>
                 </div>
                 {user ? <AppplicationLayout app={app} user={user} /> : <div className="relative w-full aspect-video flex justify-center items-center bg-slate-100 my-5">
@@ -97,7 +98,7 @@ export default function App({ app, user }: {
                         </CardTitle>
                     </CardHeader>
                     <CardContent className="flex flex-wrap gap-1">
-                        {relatedApps?.map((app: PublicAppType, index) => {
+                        {relatedApps?.map((app: AppTypeViewOnly, index) => {
                             const Category = CATEGORIES.find((category) => category.value === app.category)
 
                             return (<Card key={index} className="relative p-2 max-w-[280px] flex flex-col justify-center items-center group py-4" >
@@ -169,7 +170,7 @@ export async function getServerSideProps(context: GetSessionParams & { params: {
         }
     }
     await dbConnect();
-    const app = await AppModel.findOne({ path: "/apps/" + appPath }).populate("author").select("-config")
+    const app = await AppModel.findOne({ path: "/apps/" + appPath }).select(PUBLIC_RUN_KEYS).populate("developer").lean();
 
     if (!app) {
         return {
