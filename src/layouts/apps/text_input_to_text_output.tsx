@@ -16,7 +16,7 @@ import toast, { Toaster } from "react-hot-toast";
 import styled from "styled-components";
 
 // new ui components
-import InputField from "./view/components/input";
+import InputField from "./common/components/input";
 
 export default function TextInputToTextOutput({ app, user }) {
     const [error, setError] = useState("");

@@ -1,5 +1,6 @@
-import App from "models/app";
+import App, { Usage } from "models/app";
 import User from "models/user";
+import mongoose from "mongoose";
 
 export const DEV_VIEW_KEYS = "name shortDescription description appId type path coverImage recommended version ratings membership category tags developer createdAt averageRating";
 export const PUBLIC_VIEW_KEYS = "name shortDescription description appId type path coverImage recommended version ratings membership category tags developer createdAt averageRating";
@@ -67,4 +68,85 @@ export async function getAppOfUserByAPPID(userId: string, appId: string, options
         message: 'Apps found!',
         app: app
     }
+}
+export async function getUsageByUser(userId:string){
+
+    const allUsage = await Usage.aggregate([
+        {
+            $match: {
+                "usage.userId": new mongoose.Types.ObjectId(userId)
+            }
+        },
+        {
+            $unwind: "$usage"
+        },
+        {
+            $match: {
+                "usage.userId": userId
+            }
+        },
+        {
+            $group: {
+                _id: "$usage.userId",
+                usages: {
+                    $push: "$usage"
+                }
+            }
+        }
+    ]).exec()
+    if (!allUsage) {
+        console.log("No usage found!");
+        return {
+            sucess: false,
+            message: 'No usage found!',
+            usages: []
+        }
+    }
+    return {
+        sucess: true,
+        message: 'Usage found!',
+        usages: allUsage
+    }
+
+}
+export async function getUsageByUserAndAppId(userId:string,appId:string){
+    
+        const allUsage = await Usage.aggregate([
+            {
+                $match: {
+                    "usage.userId": new mongoose.Types.ObjectId(userId),
+                    "usage.appId": new mongoose.Types.ObjectId(appId)
+                }
+            },
+            {
+                $unwind: "$usage"
+            },
+            {
+                $match: {
+                    "usage.userId": userId,
+                    "usage.appId": appId
+                }
+            },
+            {
+                $group: {
+                    _id: "$usage.userId",
+                    usages: {
+                        $push: "$usage"
+                    }
+                }
+            }
+        ]).exec();
+        if (!allUsage) {
+            console.log("No usage found!");
+            return {
+                sucess: false,
+                message: 'No usage found!',
+                usages: []
+            }
+        }
+        return {
+            sucess: true,
+            message: 'Usage found!',
+            usages: allUsage
+        }
 }

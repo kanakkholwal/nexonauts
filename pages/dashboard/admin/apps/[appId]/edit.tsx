@@ -1,13 +1,13 @@
-import { GetSessionParams, getSession } from "next-auth/react";
-import type {sessionType} from "types/session";
-import DashboardPage from "components/dashboard-page";
-import Head from "next/head";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import DashboardPage from "components/dashboard-page";
+import { GetSessionParams, getSession } from "next-auth/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
-import { AppType } from "src/types/app";
 import AppBuilder from "pages/app-builder";
-import toast, { Toaster } from 'react-hot-toast';
+import { useEffect, useState } from "react";
+import toast from 'react-hot-toast';
+import { AppType } from "src/types/app";
+import type { sessionType } from "types/session";
 
 
 export default function Dashboard({ user }) {
@@ -44,10 +44,6 @@ export default function Dashboard({ user }) {
             }>
                 {app ? <AppBuilder user={user} app={app}  type="update"/> :null}
             </DashboardPage>
-            <Toaster
-                position="top-center"
-                reverseOrder={false}
-            />
         </>
     )
 }

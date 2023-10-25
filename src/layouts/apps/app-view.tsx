@@ -5,7 +5,6 @@ import {
 } from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";
-import { useFormContext } from "./form-context";
 import { RenderOutput } from "./view/output";
 
 // Components
@@ -15,12 +14,13 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { BsStars } from "react-icons/bs";
 import { CgSpinner } from "react-icons/cg";
-import TextInputToTextOutput from "./view/text_input_to_text_output";
+import { useBuilderContext } from "./common/context/builder-context";
+import TextInputToTextOutput from "./common/view/text_input_to_text_output";
 
 
 
 export default function AppView({ user }) {
-    const { formData: app } = useFormContext();
+    const { builderData: app } = useBuilderContext();
     console.log(app)
 
 

@@ -1,16 +1,16 @@
+import AppBuilder from "layouts/apps/builder/index";
 import Layout from 'layouts/apps/layout';
 import dbConnect from "lib/dbConnect";
 import { GetSessionParams, getSession } from "next-auth/react";
 import { NextSeo } from 'next-seo';
-import AppBuilder from "pages/app-builder";
-import { AppTypeViewOnly } from "src/types/app";
+import { AppType } from "src/types/app";
 import { sessionType } from "src/types/session";
 import { SessionUserType } from "src/types/user";
 import { getAppOfUserByAPPID } from 'src/utils/app';
 
 type PageProps = {
     user: SessionUserType
-    app: AppTypeViewOnly
+    app: AppType
 }
 export default function Dashboard({ user, app }: PageProps) {
 
@@ -29,7 +29,9 @@ export default function Dashboard({ user, app }: PageProps) {
             <p className="text-slate-500 mt-2 line-clamp-3">
                 {app.description}
             </p>
-            {app ? <AppBuilder user={user} app={app}  type="update"/> :null}
+            {app ? <AppBuilder user={user} app={app} mode="edit" /> : <>
+                Something went wrong
+            </>}
 
 
 

@@ -53,7 +53,7 @@ interface Controls {
     text: string;
     icon?: string;
     action: string;
-    variant: string;
+    variant?: string;
 }
 // Also change mongo schema
 export type InputType = {
