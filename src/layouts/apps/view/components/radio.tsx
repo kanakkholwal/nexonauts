@@ -18,23 +18,23 @@ const RadioButtonField = ({ input, value, onChange }: RadioButtonFieldProps) => 
 
   return (
     <RadioGroup className='my-2 appInput'
-      defaultValue={value[input.inputId]}
-      required={input.inputRequired}
-      name={input.inputId}
+      defaultValue={value[input.id]}
+      required={input.required}
+      name={input.id}
       onValueChange={(value) => {
         console.log(value);
         onChange && onChange({
           value,
-          name: input.inputId
+          name: input.id
         })
       }}>
-      <Label htmlFor={input.inputId} className="text-lg font-semibold mb-2">
-        {input.inputLabel}</Label>
+      <Label htmlFor={input.id} className="text-lg font-semibold mb-2">
+        {input.label}</Label>
       <div className='grid w-full grid-cols-2 gap-2 '>
         {permissibleValues.map((value) => (
           <div key={value} className="flex items-center space-x-2">
-            <RadioGroupItem id={`${input.inputId}-${value}`} value={value} />
-            <Label htmlFor={`${input.inputId}-${value}`}>{value}</Label>
+            <RadioGroupItem id={`${input.id}-${value}`} value={value} />
+            <Label htmlFor={`${input.id}-${value}`}>{value}</Label>
           </div>
         ))}
       </div>

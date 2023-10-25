@@ -13,35 +13,35 @@ const CustomDropdown = ({ input,onChange,value }
 // }
 ) => {
 
-  const permissibleValues = input.field_constraints?.permissible_values || [];
+  const permissibleValues = input.options || [];
 
   return (
     <div className='mb-2 flex flex-col items-start appInput'>
-      <Label htmlFor={input.field_id} className="text-lg font-semibold mb-2">
-        {input.field_label}
-        {input.field_mandatory && <span className="text-red-500 ms-1">*</span>}
+            <Label htmlFor={input.id} className="font-semibold mb-2">
+        {input.label}
+        {input.required && <span className="text-red-500 ms-1">*</span>}
       </Label>    
         <Select
-          defaultValue={permissibleValues[0]}
-          required={input.field_mandatory}
-          name={input.field_id}
+          defaultValue={permissibleValues[0].value}
+          required={input.required}
+          name={input.id}
           onValueChange={(value) => {
             console.log(value);
             onChange?.({
               value,
-              name:input.field_id
+              name:input.id
             });
             
           }}>
-        <SelectTrigger className="w-[180px]">
-          <SelectValue placeholder={input.field_placeholder} />
+        <SelectTrigger className="w-[180px] bg-slate-100 dark:bg-grey-100">
+          <SelectValue placeholder={input.placeholder} />
         </SelectTrigger>
         <SelectContent>
           <SelectGroup>
-            <SelectLabel>{input.field_label}</SelectLabel>
-            {input.field_constraints.permissible_values?.map((value) => (
-              <SelectItem key={value} value={value}  id={`${input.field_id}-${value}`}>
-                {value}
+            <SelectLabel>{input.label}</SelectLabel>
+            {input.options?.map((item) => (
+              <SelectItem key={item._id} value={item.value}  id={`${input.id}-${item.value}`}>
+                {item.value}
               </SelectItem>
             ))}
           </SelectGroup>

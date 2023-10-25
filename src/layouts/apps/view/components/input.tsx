@@ -17,24 +17,24 @@ const InputField = ({ input, type, value, onChange }:InputFieldProps) => {
 
     return (
         <div className='mb-2 appInput'>
-            <Label htmlFor={input.inputId}>
-                {input.inputLabel}
-                {input.inputRequired && <span className="text-red-500">*</span>}
+            <Label htmlFor={input.id}>
+                {input.label}
+                {input.required && <span className="text-red-500">*</span>}
             </Label>
             <Input
                 type={type ?? "text"}
                 variant="ghost"
-                name={input.inputId}
-                id={input.inputId}
+                name={input.id}
+                id={input.name}
                 minLength={input.constraints?.min_length}
                 // maxLength={input.constraints.max_length}
-                placeholder={input.inputPlaceholder}
-                required={input.inputRequired}
-                value={value[input.inputId]}
+                placeholder={input.placeholder}
+                required={input.required}
+                value={value[input.id]}
                 onChange={(e) => {
                     onChange({
                         value: e.target.value,
-                        name: input.inputId
+                        name: input.id
                     })
                 }}
             />

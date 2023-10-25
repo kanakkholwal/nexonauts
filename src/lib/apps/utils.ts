@@ -5,7 +5,7 @@ import { LiaMoneyBillWaveSolid } from 'react-icons/lia';
 import { MdBusiness, MdOutlineAutoGraph } from 'react-icons/md';
 import { PiStudentFill } from 'react-icons/pi';
 import { TbHealthRecognition, TbSocial } from 'react-icons/tb';
-import type { App } from 'types/app';
+import { AppType } from 'types/app';
 
 export const CATEGORIES = [
     { label: "Education", value: "education",Icon:PiStudentFill },
@@ -24,7 +24,7 @@ export const CATEGORIES = [
     Icon:React.ElementType;
 }[];
 
-export function getUsageData(apps: App[], userId: string) {
+export function getUsageData(apps: AppType[], userId: string) {
     const today = new Date().toISOString().split('T')[0]; // Get today's date
     const userUsage = apps.map(app => {
         const usageToday = app.usage.filter(usage => {

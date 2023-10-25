@@ -1,37 +1,52 @@
+import { UserType } from "./user";
 
 export type AppType = {
-    _id:string | any;
+    _id?: string | any;
     appId: string;
-    enabled:Boolean;
+    config: AppConfigType | null;
+    isPublic: string[];
+    enabled: boolean;
+    hasCustomFunction: boolean;
+    membership: MemberShipType[];
+    status: "draft" | "pending" | "published" | "declined" | "archived";
+    version: string;
     name: string;
     shortDescription: string;
     description: string;
     type: TypesOfApp;
-    membership: string;
-    state: string;
-    customFunction: boolean;
-    config: any;
     category: string;
     tags: string[];
-    author: any;
+    developer: {
+        name: string;
+        username: string;
+        userId: string | null;
+    };
     path: string;
-    version?: string;
-    coverImage?: string;
-    recommended: boolean,
-    createdAt:Date | string,
-    averageRating?: number,
-    ratings: number[],
-    reviews: AppReview[],
-    usage: AppUsage[],
-    keywords:string[],
-    formFlow:{
-        menuType: TypesOfApp ,
-        inputs:InputType[],
-        outputs:any[],
-        controls:Controls[]
+    coverImage: string | null;
+    isRecommended: boolean;
+    createdAt: Date;
+    averageRating: number;
+    formFlow: FormFlowType;
+}
+export type AppConfigType = {
+    prompt: string;
+    hyperparameters: {
+        model: string;
+
     }
 }
-export type PublicAppType = Omit<AppType, "config" | "reviews" | "usage">;
+export type MemberShipType = "free" | "pro"| "premium" | "enterprise";
+export type AppTypeWithConfig = Omit<AppType, "config"> & { config: AppConfigType };
+export type AppTypeViewOnly = Omit<AppType, "config" | "reviews" | "usage" | "formFlow">;
+export type AppTypeWithFormFlow = Omit<AppType, "config" | "reviews" | "usage"> & { formFlow: FormFlowType };
+
+
+export type FormFlowType = {
+    menuType: TypesOfApp;
+    inputs: InputType[];
+    controls: Controls[];
+    outputs: any[];
+}
 interface Controls {
     controlType: string;
     id: string;
@@ -41,57 +56,39 @@ interface Controls {
     variant: string;
 }
 // Also change mongo schema
-export type InputType ={
-    inputType: string;
-    inputName: string;
-    inputId: string;
-    inputLabel:string;
-    inputValue: string;
-    inputPlaceholder: string;
-    inputRequired:boolean;
-    inputHelper?: string;
-    constraints:any;
-    inputOptions: Options[];    
+export type InputType = {
+    type: string;
+    name: string;
+    label: string;
+    placeholder: string;
+    required: boolean;
+    defaultValue: string;
+    value: string;
+    id: string;
+    options:Option[] | null;
+    constraints: Record<string, any> | null;
 }
-type Options = {
+interface Option {
     label: string;
     value: string;
 }
-type TypesOfApp = "text_input_to_text_output" | "chatbot"| "text_input_to_image_output" | "text_input_to_video_output" | "text_input_to_audio_output" | "text_input_to_file_output"  |  "text_input_to_code_output";
+type TypesOfApp = "text_input_to_text_output" | "chatbot" | "text_input_to_image_output" | "text_input_to_video_output" | "text_input_to_audio_output" | "text_input_to_file_output" | "text_input_to_code_output";
 
 
-interface AppReview {
+export type AppReviewType = {
     appId: string;
-    userId: string | any;
+    userId: string | UserType;
     rating: number;
     review: string;
     createdAt: string;
-    _id:string | any;
+    _id?: string | any;
 }
-interface AppUsage{
+export type AppUsageType = {
     appId: string;
     userId: string;
     usage: any;
     createdAt: string;
-    _id:string | any;
+    _id: string | any;
 }
-type newApp = Omit<App ,"_id">
-export type AppInfo = {
-    _id:string | any;
-    appId: string;
-    enabled:Boolean;
-    name: string;
-    shortDescription: string;
-    membership: string;
-    state: string;
-    category: string;
-    tags: string[];
-    author: any;
-    path: string;
-    version?: string;
-    coverImage?: string;
-    recommended: Boolean,
-    createdAt:Date | string,
-}
-export type App = AppType;
-export type { AppReview, AppUsage, Controls, Options, TypesOfApp, newApp };
+
+

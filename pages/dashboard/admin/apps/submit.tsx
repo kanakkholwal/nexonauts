@@ -6,7 +6,7 @@ import AppBuilder from "pages/app-builder";
 
 
 export default function Dashboard({ user }) {
- 
+
 
     return (
         <>

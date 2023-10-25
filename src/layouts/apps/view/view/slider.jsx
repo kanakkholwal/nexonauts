@@ -20,39 +20,39 @@ const SliderField = ({ input, type, value, onChange }) => {
     return (
         <div className='mb-2 appInput'>
             <div className="flex justify-between mb-2">
-            <Label htmlFor={input.field_id} className="text-lg font-semibold mb-2">
-                    {input.field_label}
-                    {input.field_mandatory && <span className="text-red-500">*</span>}
+            <Label htmlFor={input.id} className="font-semibold mb-2">
+                    {input.label}
+                    {input.required && <span className="text-red-500">*</span>}
                 </Label>
-                <span className="text-sm text-gray-500">{value[input.field_id]}</span>
+                <span className="text-sm text-gray-500">{value[input.id]}</span>
             </div>
             <Slider
-                defaultValue={[parseInt(input.field_constraints.default_value ?? "0")]}
+                defaultValue={[parseInt(input.constraints?.default_value ?? "0")]}
                 step={1}
-                min={input.field_constraints.min_value}
-                max={input.field_constraints.max_value}
-                value={[parseInt(value[input.field_id])]}
+                min={input.constraints?.min_value}
+                max={input.constraints?.max_value}
+                value={[parseInt(value[input.id])]}
                 onValueChange={(value) => {
                     onChange({
                         value: value[0],
-                        name: input.field_id
+                        name: input.id
                     })
                 }}
 
             />
             {/* <Input
                 type={type ?? "text"}
-                name={input.field_id}
-                id={input.field_id}
-                minLength={input.field_constraints.min_length}
-                // maxLength={input.field_constraints.max_length}
-                placeholder={input.field_placeholder}
-                required={input.field_mandatory}
-                value={value[input.field_id]}
+                name={input.id}
+                id={input.id}
+                minLength={input.constraints.min_length}
+                // maxLength={input.constraints.max_length}
+                placeholder={input.placeholder}
+                required={input.mandatory}
+                value={value[input.id]}
                 onChange={(e) =>{
                     onChange({
                         value:e.target.value,
-                        name:input.field_id
+                        name:input.id
                     })
                 }}
             /> */}

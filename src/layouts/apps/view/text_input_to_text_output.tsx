@@ -16,22 +16,22 @@ interface TextInputToTextOutputProps {
 export default function TextInputToTextOutput({inputs,value,handleChange}:TextInputToTextOutputProps) {
     return <div className="flex flex-col gap-2">
         {inputs.map((input, index) => {
-                        if (input.inputType === "text_input")
+                        if (input.type === "text_input")
                             return <InputField input={input} key={index} value={value} onChange={handleChange} />
-                        else if (input.inputType === "number_input")
+                        else if (input.type === "number_input")
                             return <SliderField input={input} key={index} type="number" value={value} onChange={handleChange} />
-                        else if (input.inputType === "radio")
+                        else if (input.type === "radio")
                             return <RadioButtonField input={input} key={index} value={value} onChange={handleChange} />
-                        else if (input.inputType === "dropdown")
+                        else if (input.type === "dropdown" || input.type === "autoComplete")
                             return <DropDownField input={input} key={index} value={value} onChange={handleChange} />
-                        else if (input.inputType === "dropdown_editable")
+                        else if (input.type === "dropdown_editable")
                             return <ComboBox input={input} key={index} value={value} onChange={handleChange} />
-                        else if (input.inputType === "text_multiline")
+                        else if (input.type === "text_multiline")
                             return <TextBoxField input={input} key={index} value={value} onChange={handleChange} />
                         else
                             return (<div key={index}>
                                 <p>Field type not supported</p>
-                                {input.inputType}
+                                {input.type}
                             </div>)
                     })}
     

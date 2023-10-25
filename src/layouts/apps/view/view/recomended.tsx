@@ -64,10 +64,10 @@ export default function Recomended({ app }: {
             {(!error && !loading) && recommended.filter((item: AppType) => item._id != app._id).slice(0, (recommended.length <= 3 ? recommended.length : 3)).map((tool: AppType, index: number) => {
                     let avg_rating = 0;
                     let sum_rating = 0;
-                    tool.ratings?.forEach((item: number, idx: number) => {
-                        avg_rating = avg_rating + (item * (idx + 1));
-                        sum_rating = sum_rating + item;
-                    });
+                    // tool.ratings?.forEach((item: number, idx: number) => {
+                    //     avg_rating = avg_rating + (item * (idx + 1));
+                    //     sum_rating = sum_rating + item;
+                    // });
 
                     return <Card key={index} className="relative p-2 max-w-[280px] flex flex-col justify-center items-center" >
                         <span className="absolute top-2 right-2 bg-slate-100 text-primary px-2 py-1 rounded-md text-xs">{(avg_rating / sum_rating).toFixed(1)}
