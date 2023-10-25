@@ -13,9 +13,9 @@ function generateRandomAppId() {
 }
 const UsageSchema = new mongoose.Schema({
     appId: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true,
-        trim: true,
+        ref: 'App',
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,

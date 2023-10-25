@@ -59,7 +59,7 @@ export default function Dashboard({ user, apps }: PageProps) {
                 </div>
                 <hr className="mt-5" />
 
-                <div className="mt-4 flex w-full gap-2 flex-wrap items-stretch justify-start bg-slate-100 rounded-md p-5 py-10">
+                <div className="mt-4 w-full gap-2 grid sm:grid-cols-2 lg:grid-cols-3 items-stretch justify-start bg-slate-100 rounded-md p-5 py-10">
                     {apps.length === 0 ? <div className="flex flex-col items-center justify-center w-full">
                         <h1 className="text-2xl font-bold">
                             No Apps

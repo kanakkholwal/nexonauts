@@ -17,7 +17,7 @@ import Link from 'next/link';
 import { MdOutlineDragIndicator } from 'react-icons/md';
 import { TbCircleMinus, TbCirclePlus, TbEdit, TbTrash } from 'react-icons/tb';
 
-import { INPUT_TYPES } from 'src/layouts/apps/constants';
+import { INPUT_TYPES } from 'src/layouts/apps/common/constants';
 
 export default function AppBuilder({ user, app: defaultApp, type = "submit" }: {
     user: any,

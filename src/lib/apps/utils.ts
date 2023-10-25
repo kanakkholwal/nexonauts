@@ -1,3 +1,5 @@
+import { Usage } from "models/app";
+import mongoose from "mongoose";
 import { CgWorkAlt } from 'react-icons/cg';
 import { FcSalesPerformance } from 'react-icons/fc';
 import { GoPerson } from 'react-icons/go';
@@ -24,59 +26,104 @@ export const CATEGORIES = [
     Icon:React.ElementType;
 }[];
 
-export function getUsageData(apps: AppType[], userId: string) {
+export async function getUsageData(apps: AppType[], userId: string) {
     const today = new Date().toISOString().split('T')[0]; // Get today's date
-    const userUsage = apps.map(app => {
-        const usageToday = app.usage.filter(usage => {
-            const date = new Date(usage.createdAt).toISOString().split('T')[0]; // Get the date portion of createdAt
-            return usage.userId.toString() === userId && date === today; // Filter by userId and today's date
-        })
+
+    // Use MongoDB aggregation to aggregate userUsage data
+    const userUsage = await Usage.aggregate([
+        {
+            $match: {
+                userId: new mongoose.Types.ObjectId(userId),
+                createdAt: {
+                    $gte: new Date(today),
+                },
+            },
+        },
+        {
+            $group: {
+                _id: { appId: '$appId', date: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } } },
+                count: { $sum: 1 },
+            },
+        },
+    ]);
+
+    // Create a mapping of userUsage data
+    const userUsageMap = {};
+    userUsage.forEach((item) => {
+        const appId = item._id.appId;
+        const date = item._id.date;
+        const count = item.count;
+
+        if (!userUsageMap[appId]) {
+            userUsageMap[appId] = {};
+        }
+
+        userUsageMap[appId][date] = count;
+    });
+
+    // Calculate usage for each app
+    const usageData = apps.map(app => {
+        const appId = app.appId;
+        const appName = app.name;
+
+        const usageToday = userUsageMap[appId] ? userUsageMap[appId][today] || 0 : 0;
+        const totalUsage = Object.values(userUsageMap[appId] || {}).reduce((acc, cur) => acc + cur, 0);
+
         return {
-            name: app.name,
-            appId: app.appId,
-            usage: app.usage.filter(usage => usage.userId.toString() === userId).reduce((acc, cur) => {
-                const date = new Date(cur.createdAt).toISOString().split('T')[0]; // Get the date portion of createdAt
-                acc[date] = (acc[date] || 0) + 1; // Count the number of usages per day
-                return acc;
-            }, {}),// Filter by userId,
-            usageToday: usageToday.length,
+            name: appName,
+            appId: appId,
+            usage: userUsageMap[appId] || {},
+            usageToday: usageToday,
+            totalUsage: totalUsage,
         };
     });
-    const totalUsageToday = userUsage.map(app => app.usageToday).reduce((acc, cur) => acc + cur, 0);
-    const totalUsage = userUsage.map(app => Object.values(app.usage).reduce((acc: number, cur: number) => acc + cur, 0)).reduce((acc: number, cur: number) => acc + cur, 0);
+
+    // Calculate total usage for today and overall
+    const totalUsageToday = usageData.reduce((acc, app) => acc + app.usageToday, 0);
+    const totalUsage = usageData.reduce((acc, app) => acc + Object.values(app.usage as any).reduce((a, b) => a + b, 0), 0);
+
     const usage = {
         totalUsageToday,
         totalUsage,
         usageLimit: 5
-    }
+    };
+
     return usage;
 }
-// most used app
-export function getMostUsedApp(apps: App[], userId: string) {
 
-    const userUsage = apps.map(app => {
-        return {
-            name: app.name,
-            appId: app.appId,
-            usage: app.usage.filter(usage => usage.userId.toString() === userId).reduce((acc, cur) => {
-                const date = new Date(cur.createdAt).toISOString().split('T')[0]; // Get the date portion of createdAt
-                acc[date] = (acc[date] || 0) + 1; // Count the number of usages per day
-                return acc;
-            }, {}),// Filter by userId,
-        };
-    });
-    const mostUsedApp = userUsage.reduce((acc, cur) => {
-        const totalUsage = Object.values(cur.usage).reduce((acc: number, cur: number) => acc + cur, 0)  as number;
-        if (totalUsage > acc.totalUsage) {
-            acc = {
-                name: cur.name,
-                appId: cur.appId,
-                totalUsage
-            };
-        }
-        return acc;
-    }, { name: '', appId: '', totalUsage: 0 });
-    return mostUsedApp;
+export async function getMostUsedApp(apps: AppType[], userId: string) {
+    // Use MongoDB aggregation to find the most used app by the user
+    const mostUsedApp = await Usage.aggregate([
+        {
+            $match: {
+                userId: new mongoose.Types.ObjectId(userId),
+            },
+        },
+        {
+            $addFields: {
+                totalUsage: { $sum: { $objectToArray: "$usage.v" } },
+            },
+        },
+        {
+            $sort: {
+                totalUsage: -1,
+            },
+        },
+        {
+            $limit: 1,
+        },
+        {
+            $project: {
+                _id: 0,
+                name: 1,
+                appId: 1,
+                totalUsage: 1,
+            },
+        },
+    ]);
+
+    return mostUsedApp[0] || { name: '', appId: '', totalUsage: 0 };
 }
+
 
 

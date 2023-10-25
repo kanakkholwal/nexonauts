@@ -64,8 +64,8 @@ export default function Dashboard({ user }:{
                     </CardHeader>
                     <CardContent>
                         <div className="bg-slate-50 border border-solid border-primary/30 w-full flex items-center justify-between py-1 px-3 rounded-md">
-                            {isLoading ? <Skeleton className="h-7 w-full max-w-xs bg-primary/5" /> : <span className="font-semibold text-md">{response?.stats.mostUsed.name}</span>}
-                            {isLoading ? <Skeleton className="h-10 w-32  bg-primary/5" /> : <Link href={response?.stats.mostUsed.path ?? "/"} target="_blank">
+                            {isLoading ? <Skeleton className="h-7 w-full max-w-xs bg-primary/5" /> : <span className="font-semibold text-md">{response?.stats?.mostUsed.name}</span>}
+                            {isLoading ? <Skeleton className="h-10 w-32  bg-primary/5" /> : <Link href={response?.stats?.mostUsed.path ?? "/"} target="_blank">
                                 <Button size="sm" variant="link">
                                     Check it Out
                                 </Button>
