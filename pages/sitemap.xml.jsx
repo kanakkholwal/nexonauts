@@ -48,7 +48,7 @@ export async function getServerSideProps({ res }) {
     // Generate the XML sitemap with the blog data
     const sitemap = generateSiteMap([...manualRoutes,...posts.map((post) => ({
       path: `/blog/posts/${post.slug}`,
-      date: post.publishedAt,
+      date: new Date(post.publishedAt).toISOString(),
   }))]);
    
     res.setHeader("Content-Type", "text/xml");
