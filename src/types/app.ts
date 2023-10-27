@@ -14,7 +14,7 @@ export type AppType = {
     shortDescription: string;
     description: string;
     type: TypesOfApp;
-    category: string;
+    categories: string[];
     tags: string[];
     developer: {
         name: string;
@@ -25,7 +25,6 @@ export type AppType = {
     coverImage: string | null;
     isRecommended: boolean;
     createdAt: Date;
-    averageRating: number;
     formFlow: FormFlowType;
 }
 export type AppConfigType = {
@@ -39,7 +38,8 @@ export type MemberShipType = "free" | "pro"| "premium" | "enterprise";
 export type AppTypeWithConfig = Omit<AppType, "config"> & { config: AppConfigType };
 export type AppTypeViewOnly = Omit<AppType, "config" | "reviews" | "usage" | "formFlow">;
 export type AppTypeWithFormFlow = Omit<AppType, "config" | "reviews" | "usage"> & { formFlow: FormFlowType };
-
+export type AppTypeEditable = AppType
+export type AppTypeRenderable = Omit<AppType, "config" | "reviews" | "usage"> & { formFlow: FormFlowType };
 
 export type FormFlowType = {
     menuType: TypesOfApp;
@@ -63,16 +63,17 @@ export type InputType = {
     placeholder: string;
     required: boolean;
     defaultValue: string;
-    value: string;
+    value?: string;
     id: string;
-    options:Option[] | null;
-    constraints: Record<string, any> | null;
+    helperText?: string;
+    options:OptionType[] | [];
+    constraints: Record<string, any> | {};
 }
-interface Option {
+export type OptionType =  {
     label: string;
     value: string;
 }
-type TypesOfApp = "text_input_to_text_output" | "chatbot" | "text_input_to_image_output" | "text_input_to_video_output" | "text_input_to_audio_output" | "text_input_to_file_output" | "text_input_to_code_output";
+export type TypesOfApp = "text_input_to_text_output" | "chatbot" | "text_input_to_image_output" | "text_input_to_video_output" | "text_input_to_audio_output" | "text_input_to_file_output" | "text_input_to_code_output";
 
 
 export type AppReviewType = {

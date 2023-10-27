@@ -22,7 +22,7 @@ export default function Recomended({ app }: {
     const [error, setError] = useState(false);
 
     useEffect(() => {
-        fetch(`api/apps/app-category?q=${app.category}`, {
+        fetch(`api/apps/app-category?q=${app.categories[0]}`, {
             method: "GET",
         })
             .then(res => res.json())

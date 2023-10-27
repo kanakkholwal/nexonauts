@@ -24,8 +24,8 @@ const InputField = ({ input, value, onChange }: InputFieldProps) => {
                 name={input.id}
                 id={input.id}
                 variant="ghost"
-                minLength={input.constraints?.min_length}
-                maxLength={input.constraints?.max_length}
+                minLength={input.constraints["min_length"]}
+                maxLength={input.constraints["max_length"]}
                 placeholder={input.placeholder}
                 required={input.required}
                 value={value[input.id]}

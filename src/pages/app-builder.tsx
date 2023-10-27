@@ -1,7 +1,7 @@
 import TextInputToTextOutput from 'src/layouts/apps/text_input_to_text_output';
 
 // Types
-import { newApp, } from 'types/app';
+import { AppTypeEditable, OptionType } from 'types/app';
 // utilities
 import axios from 'axios';
 import { useReducer, useState } from 'react';
@@ -21,43 +21,11 @@ import { INPUT_TYPES } from 'src/layouts/apps/common/constants';
 
 export default function AppBuilder({ user, app: defaultApp, type = "submit" }: {
     user: any,
-    app?: newApp,
+    app?: AppTypeEditable,
     type?: "submit" | "update",
 }) {
     const initialState = {
-        app: defaultApp ? defaultApp: {
-            appId: "",
-            enabled: false,
-            name: "",
-            customFunction: false,
-            state: "draft",
-            config: null,
-            shortDescription: "",
-            description: "",
-            type: "text_input_to_text_output",
-            membership: "free",
-            category: "",
-            tags: [],
-            author: {
-                name: user.name,
-                id: user.id,
-                username: user.username,
-            },
-            path: "/apps/",
-            version: "0.0.1",
-            recommended: false,
-            createdAt:"",
-            ratings: [],
-            reviews: [],
-            usage: [],
-            keywords: [],
-            formFlow: {
-                menuType: "text_input_to_text_output",
-                inputs: [],
-                outputs: [],
-                controls: [],
-            }
-        } as newApp,
+        app: defaultApp
     };
 
     function reducer(state: any, action: any) {
@@ -153,16 +121,16 @@ export default function AppBuilder({ user, app: defaultApp, type = "submit" }: {
 function InputFlowTab({ app, dispatch }) {
 
     const [newInput, setNewInput] = useState<InputType>({
-        inputType: "",
-        inputName: "",
-        inputId: "",
-        inputLabel: "",
-        inputValue: "",
-        inputPlaceholder: "",
-        inputRequired: false,
-        inputHelper: "",
+        type: "",
+        name: "",
+        id: "",
+        label: "",
+        defaultValue: "",
+        placeholder: "",
+        required: false,
+        helperText: "",
         constraints: {},
-        inputOptions: [],
+        options: [],
     });
     const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
     const handleDragStart = (index:number) => {
@@ -183,45 +151,45 @@ function InputFlowTab({ app, dispatch }) {
         <FormGroup className='g-0'>
             <FormElement>
                 <Label sm={true} htmlFor="InputType">Type</Label>
-                <Select id="InputType" value={newInput.inputType} onChange={(option) => setNewInput({ ...newInput, inputType: option.value })}
+                <Select id="InputType" value={newInput.type} onChange={(option) => setNewInput({ ...newInput, type: option.value })}
                     options={INPUT_TYPES}
                     size='sm'
                 />
             </FormElement>
         </FormGroup>
-        {newInput.inputType.length > 0 && <>
+        {newInput.type.length > 0 && <>
             <FormGroup className='g-0'>
                 <FormElement>
                     <Label sm={true} htmlFor="InputName">Name</Label>
-                    <Input sm={true} value={newInput.inputName} id='InputName' placeholder='Enter the name' onChange={(e) => setNewInput({ ...newInput, inputName: e.target.value })} />
+                    <Input sm={true} value={newInput.name} id='InputName' placeholder='Enter the name' onChange={(e) => setNewInput({ ...newInput, name: e.target.value })} />
                 </FormElement>
                 <FormElement>
                     <Label sm={true} htmlFor="InputId">Id</Label>
-                    <Input sm={true} value={newInput.inputId} id='InputId' placeholder='@variable' required onChange={(e) => setNewInput({ ...newInput, inputId: e.target.value })} />
+                    <Input sm={true} value={newInput.id} id='InputId' placeholder='@variable' required onChange={(e) => setNewInput({ ...newInput, id: e.target.value })} />
                 </FormElement>
                 <FormElement>
                     <Label sm={true} htmlFor="InputLabel">Label</Label>
-                    <Input sm={true} value={newInput.inputLabel} id='InputLabel' placeholder='Enter the label' onChange={(e) => setNewInput({ ...newInput, inputLabel: e.target.value })} />
+                    <Input sm={true} value={newInput.label} id='InputLabel' placeholder='Enter the label' onChange={(e) => setNewInput({ ...newInput, label: e.target.value })} />
                 </FormElement>
                 <FormElement>
                     <Label sm={true} htmlFor="InputValue">Value</Label>
-                    <Input sm={true} value={newInput.inputValue} id='InputValue'
+                    <Input sm={true} value={newInput.defaultValue} id='InputValue'
                         placeholder='Enter the value'
-                        onChange={(e) => setNewInput({ ...newInput, inputValue: e.target.value })} />
+                        onChange={(e) => setNewInput({ ...newInput, defaultValue: e.target.value })} />
                 </FormElement>
-                {(newInput.inputType === "dropdown" || newInput.inputType === "autoComplete" || newInput.inputType === "radio") && <div>
+                {(newInput.type === "dropdown" || newInput.type === "autoComplete" || newInput.type === "radio") && <div>
                     <Label>Options </Label>
                     
                     <FormGroup className='g-0'>
-                        {newInput.inputOptions.map((option, index) => {
+                        {newInput?.options?.map((option, index) => {
                             return (<div className='d-flex align-items-center g-1' key={index}>
 
                                 <Input
                                     id='InputOptionLabel'
                                     onChange={(e) => {
-                                        let temp = [...newInput.inputOptions]
+                                        let temp = [...newInput?.options]
                                         temp[index].label = e.target.value
-                                        setNewInput({ ...newInput, inputOptions: temp })
+                                        setNewInput({ ...newInput, options: temp })
                                     }}
                                     value={option.label}
                                     placeholder='label'
@@ -232,15 +200,15 @@ function InputFlowTab({ app, dispatch }) {
                                     value={option.value}
                                     placeholder='value'
                                     onChange={(e) => {
-                                        let temp = [...newInput.inputOptions]
+                                        let temp = [...newInput?.options]
                                         temp[index].value = e.target.value
-                                        setNewInput({ ...newInput, inputOptions: temp })
+                                        setNewInput({ ...newInput, options: temp })
                                     }} sm={true} />
                                 <IconButton
                                     onClick={() => {
-                                        let temp = [...newInput.inputOptions]
+                                        let temp = [...newInput?.options]
                                         temp.splice(index, 1)
-                                        setNewInput({ ...newInput, inputOptions: temp })
+                                        setNewInput({ ...newInput, options: temp })
                                     }}
                                     size='sm'
                                     nature='danger'
@@ -251,9 +219,9 @@ function InputFlowTab({ app, dispatch }) {
                     </FormGroup>
                     <Button
                         onClick={() => {
-                            let temp = [...newInput.inputOptions]
+                            let temp = [...newInput.options]
                             temp.push({ label: "", value: "" })
-                            setNewInput({ ...newInput, inputOptions: temp })
+                            setNewInput({ ...newInput, options: temp })
                         }}
                         type='button'
                         nature="dark"
@@ -263,37 +231,37 @@ function InputFlowTab({ app, dispatch }) {
                     >Add New <TbCirclePlus size={16} /></Button>
 
                 </div>}
-                {(newInput.inputType === "text_input" || newInput.inputType === "number_input" || newInput.inputType === "text_multiline" || newInput.inputType === "autoComplete") && <FormElement>
+                {(newInput.type === "text_input" || newInput.type === "number_input" || newInput.type === "text_multiline" || newInput.type === "autoComplete") && <FormElement>
                     <Label sm={true} htmlFor="InputPlaceholder">Placeholder</Label>
-                    <Input sm={true} value={newInput.inputPlaceholder} id='InputPlaceholder'
+                    <Input sm={true} value={newInput.placeholder} id='InputPlaceholder'
                         placeholder='Enter the placeholder'
-                        onChange={(e) => setNewInput({ ...newInput, inputPlaceholder: e.target.value })} />
+                        onChange={(e) => setNewInput({ ...newInput, placeholder: e.target.value })} />
                 </FormElement>}
                 <FormElement sm={true}>
                     <Label sm={true} htmlFor="InputRequired">Required Input ? </Label>
                     <CheckBox
                         type='checkbox'
-                        checked={newInput.inputRequired}
+                        checked={newInput.required}
                         id='InputRequired'
-                        onChange={(e) => setNewInput({ ...newInput, inputRequired: e.target.checked })}
+                        onChange={(e) => setNewInput({ ...newInput, required: e.target.checked })}
                     />
 
 
                 </FormElement>
                 <FormElement>
                     <Label sm={true} htmlFor="InputHelper">Helper Text</Label>
-                    <Input sm={true} value={newInput.inputHelper} id='InputHelper'
-                        placeholder='Enter the helper'
-                        onChange={(e) => setNewInput({ ...newInput, inputHelper: e.target.value })} />
+                    <Input sm={true} value={newInput.helperText} id='InputHelper'
+                        placeholder='Enter the helperText'
+                        onChange={(e) => setNewInput({ ...newInput, helperText: e.target.value })} />
                 </FormElement>
                 <FormElement>
                     <Label sm={true} htmlFor="maxLength">Max Length</Label>
-                    <Input sm={true} type='number' value={newInput.constraints?.maxLength} id='maxLength'
+                    <Input sm={true} type='number' value={newInput.constraints["max_length"]} id='maxLength'
                         placeholder='Enter the maxLength of value'
                         onChange={(e) => {
                             setNewInput({ ...newInput, constraints: {
                                 ...newInput.constraints,
-                                maxLength: e.target.value
+                                "max_length": e.target.value
                             } })
                         }} />
                 </FormElement>
@@ -314,16 +282,16 @@ function InputFlowTab({ app, dispatch }) {
                     dispatch({ type: 'setAppFormFlowInput', payload: [...app.formFlow.inputs, newInput] })
                 }
                 setNewInput({
-                    inputType: "",
-                    inputName: "",
-                    inputId: "",
-                    inputLabel: "",
-                    inputValue: "",
-                    inputPlaceholder: "",
-                    inputRequired: false,
-                    inputHelper: "",
+                    type: "",
+                    name: "",
+                    id: "",
+                    label: "",
+                    defaultValue: "",
+                    placeholder: "",
+                    required: false,
+                    helperText: "",
                     constraints: {},
-                    inputOptions: [],
+                    options: [],
                 })
             }}
             type='button'
@@ -340,7 +308,7 @@ function InputFlowTab({ app, dispatch }) {
 
             >
                 
-                <span>{input.inputId}</span>
+                <span>{input.id}</span>
                 {/*  Edit input */}
                 <IconButton
                     onClick={() => {
@@ -779,7 +747,7 @@ function FinalTab({ app, dispatch, user, type = "submit" }) {
                     ...app,
                     config: app.config === null ? null : {
                         ...app.config,
-                        prompt: replaceWords(app.config.prompt, app.formFlow.inputs.map((item) => item.inputId))
+                        prompt: replaceWords(app.config.prompt, app.formFlow.inputs.map((item) => item.id))
                     }
                 },
             });
@@ -937,11 +905,11 @@ border-radius: 0.5rem;
     }
 `;
 
-const EstimateTokens = (app: newApp) => {
+const EstimateTokens = (app: AppTypeEditable) => {
     let prompt :string ="";
 
     app?.formFlow.inputs.forEach((input) => {
-        input.constraints?.maxLength ? prompt += input.constraints.maxLength : prompt += "";
+        input.constraints["max_length"] ? prompt += input.constraints["max_length"] : prompt += "";
     });
 
     const cleanedPrompt = prompt.trim().replace(/\s+/g, ' ');
@@ -953,7 +921,7 @@ const EstimateTokens = (app: newApp) => {
     const filteredTokens = tokens.filter(token => token !== '');
   
     // Return the estimated token count
-    return filteredTokens.length +  (app?.config.prompt.length ? app?.config.prompt.length : 0);
+    return filteredTokens.length +  (app?.config?.prompt.length ? app?.config.prompt.length : 0);
     
 }
 
@@ -973,61 +941,61 @@ const replaceWords = (sentence, wordList) => {
 const ValidateNewInput = (Input: InputType) => {
 
 
-    // check if inputType is valid
-    if (Input.inputType.length === 0) {
+    // check if type is valid
+    if (Input.type.length === 0) {
         return { isValid: false, message: "Input Type is required" };
     }
-    if (Input.inputType !== "text_input" && Input.inputType !== "number_input" && Input.inputType !== "text_multiline" && Input.inputType !== "dropdown" && Input.inputType !== "autoComplete" && Input.inputType !== "radio" && Input.inputType !== "checkbox") {
+    if (Input.type !== "text_input" && Input.type !== "number_input" && Input.type !== "text_multiline" && Input.type !== "dropdown" && Input.type !== "autoComplete" && Input.type !== "radio" && Input.type !== "checkbox") {
         return { isValid: false, message: "Input Type is invalid" };
     }
-    // check if inputName is valid
-    if (Input.inputName.length === 0) {
+    // check if name is valid
+    if (Input.name.length === 0) {
         return { isValid: false, message: "Input Name is required" };
     }
-    if (Input.inputName.length < 2 || Input.inputName.length > 50) {
+    if (Input.name.length < 2 || Input.name.length > 50) {
         return { isValid: false, message: "Input Name must be between 2 and 50 characters" };
     }
-    // check if inputId is valid
-    if (Input.inputId.length === 0) {
+    // check if id is valid
+    if (Input.id.length === 0) {
         return { isValid: false, message: "Input Id is required" };
     }
-    if (Input.inputId.length < 2 || Input.inputId.length > 50) {
+    if (Input.id.length < 2 || Input.id.length > 50) {
         return { isValid: false, message: "Input Id must be between 2 and 50 characters" };
     }
-    // check if inputLabel is valid
-    if (Input.inputLabel.length === 0) {
+    // check if label is valid
+    if (Input.label.length === 0) {
         return { isValid: false, message: "Input Label is required" };
     }
-    if (Input.inputLabel.length < 2 || Input.inputLabel.length > 50) {
+    if (Input.label.length < 2 || Input.label.length > 50) {
         return { isValid: false, message: "Input Label must be between 2 and 50 characters" };
     }
-    // check if inputPlaceholder is valid
-    if (Input.inputPlaceholder.length === 0) {
+    // check if placeholder is valid
+    if (Input.placeholder.length === 0) {
         return { isValid: false, message: "Input Placeholder is required" };
     }
-    if (Input.inputPlaceholder.length < 2) {
+    if (Input.placeholder.length < 2) {
         return { isValid: false, message: "Input Placeholder must be between 2 characters" };
     }
-    // check if inputHelper is valid
-    if (Input.inputHelper) {
-        if (Input.inputHelper.length < 2 || Input.inputHelper.length > 100) {
+    // check if helperText is valid
+    if (Input?.helperText) {
+        if (Input?.helperText.length < 2 || Input?.helperText.length > 100) {
             return { isValid: false, message: "Input Helper must be between 2 and 100 characters" };
         }
     }
     // check if InputOptions is valid
-    if (Input.inputOptions.length > 0) {
-        if (Input.inputOptions.length < 2) {
+    if (Input?.options.length > 0) {
+        if (Input?.options.length < 2) {
             return { isValid: false, message: "Input Options must be at least 2" };
         }
-        Input.inputOptions.forEach((option) => {
-            // check if inputOptions label is valid
+        Input?.options.forEach((option :OptionType) => {
+            // check if options label is valid
             if (option.label.length === 0) {
                 return { isValid: false, message: "Input Option Label is required" };
             }
             if (option.label.length < 2 || option.label.length > 50) {
                 return { isValid: false, message: "Input Option Label must be between 2 and 50 characters" };
             }
-            // check if inputOptions value is valid
+            // check if options value is valid
             if (option.value.length === 0) {
                 return { isValid: false, message: "Input Option Value is required" };
             }
@@ -1037,11 +1005,11 @@ const ValidateNewInput = (Input: InputType) => {
         })
     }
     // check if constraints is valid
-    if (Input.constraints) {
-        if (Input.constraints.length < 2 || Input.constraints.length > 50) {
-            return { isValid: false, message: "Input Constraints must be between 2 and 50 characters" };
-        }
-    }
+    // if (Input.constraints) {
+    //     if (Input.constraints.length < 2 || Input.constraints.length > 50) {
+    //         return { isValid: false, message: "Input Constraints must be between 2 and 50 characters" };
+    //     }
+    // }
 
 
 }

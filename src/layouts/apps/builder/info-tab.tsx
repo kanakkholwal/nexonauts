@@ -73,10 +73,10 @@ export default function InfoTab({ app }: {
         <div className="grid w-full grid-cols-2 gap-2 !my-4">
             {CATEGORIES.map((category) =>{
                 return <div className="flex items-center space-x-2" key={category}>
-                <Checkbox defaultChecked={category===builderData.category[0]?true:false} value={category} id={category} 
+                <Checkbox defaultChecked={category===builderData.categories[0]?true:false} value={category} id={category} 
                 onChange={(e) => {
                     console.log(e.target);
-                    updateBuilderData({ ...builderData, category:category })
+                    updateBuilderData({ ...builderData, categories:[category] })
                 }}
                 />
                 <Label htmlFor={category}>{category}</Label>

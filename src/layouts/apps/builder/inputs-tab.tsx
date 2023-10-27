@@ -34,7 +34,7 @@ export default function InputTab({ inputs }: {
             max_length: 200,
         },
         name: "",
-        options: null
+        options: []
     });
 
     const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
@@ -87,12 +87,12 @@ export default function InputTab({ inputs }: {
             type: "text_field",
             value: "",
             constraints: {
-                data_type: "str",
-                min_length: 1,
-                max_length: 200,
+                "data_type": "str",
+                "min_length": 1,
+                'max_length': 200,
             },
             name: "",
-            options: null
+            options: []
         });
         console.log(builderData)
     };
@@ -174,7 +174,7 @@ export default function InputTab({ inputs }: {
                     }} /> : null}
                 {input.type === "numeric" ? <div className="flex w-full flex-row gap-1 my-2">
                     <Input id="min"  variant="ghost"  type="number" placeholder="Min"
-                        value={input.constraints?.min_length}
+                        value={input.constraints["min_length"] ?? 0}
                         onChange={(e) => {
                             setInput({
                                 ...input,
@@ -187,7 +187,7 @@ export default function InputTab({ inputs }: {
                         }
                     />
                     <Input  variant="ghost"  id="max" type="number" placeholder="Max"
-                        value={input.constraints?.max_length}
+                        value={input.constraints["max_length"]}
                         onChange={(e) => {
                             setInput({
                                 ...input,
@@ -206,7 +206,7 @@ export default function InputTab({ inputs }: {
                         Add Options
                     </Label>
 
-                    {input.constraints?.permissible_values?.map((option, index) => {
+                    {input.constraints['permissible_values']?.map((option, index) => {
                         return (<div className="flex flex-row justify-between items-center w-full gap-2 my-2" key={index}>
                             <Input  variant="ghost"  id={`option_${index}`} type="text" placeholder={`Option ${index + 1}`} value={option}
                                 onChange={(e) => {
@@ -214,7 +214,7 @@ export default function InputTab({ inputs }: {
                                         ...input,
                                         constraints: {
                                             ...input.constraints,
-                                            permissible_values: input.constraints?.permissible_values?.map((item, i) => {
+                                            permissible_values: input.constraints['permissible_values']?.map((item, i) => {
                                                 if (i === index) {
                                                     return e.target.value
                                                 } else {
@@ -230,7 +230,7 @@ export default function InputTab({ inputs }: {
                                     ...input,
                                     constraints: {
                                         ...input.constraints,
-                                        permissible_values: input.constraints?.permissible_values ? [...input.constraints?.permissible_values, ""] : [""]
+                                        permissible_values: input.constraints['permissible_values'] ? [...input.constraints['permissible_values'], ""] : [""]
                                     }
                                 })
                             }}><IoMdAdd /></Button>
@@ -239,7 +239,7 @@ export default function InputTab({ inputs }: {
                                     ...input,
                                     constraints: {
                                         ...input.constraints,
-                                        permissible_values: input.constraints?.permissible_values?.filter((_, i) => {
+                                        permissible_values: input.constraints['permissible_values']?.filter((_, i) => {
                                             if (i === index) {
                                                 return false
                                             } else {
@@ -249,7 +249,7 @@ export default function InputTab({ inputs }: {
                                     }
                                 })
                             }}
-                                disabled={input.constraints?.permissible_values?.length === 1 ? true : false}
+                                disabled={input.constraints['permissible_values']?.length === 1 ? true : false}
                             >
                                 <MdOutlineDeleteOutline />
                             </Button>

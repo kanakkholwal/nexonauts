@@ -115,11 +115,11 @@ const AppSchema = new mongoose.Schema({
         trim: true,
         default: "text_input_to_text_output",
     },
-    category: {
-        type: String,
+    categories: {
+        type: [String],
         required: true,
         trim: true,
-        default: "productivity",
+        default: ["productivity"],
     },
     tags: {
         type: [String],

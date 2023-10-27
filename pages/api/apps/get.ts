@@ -1,11 +1,10 @@
-import handler from 'lib/handler';
-import dbConnect from "lib/dbConnect";
-import { isAdminMiddleware } from 'middleware/checkUser';
-import nextConnect from 'next-connect';
 import { checkUser } from 'lib/checkUser';
-import User from "models/user";
+import dbConnect from "lib/dbConnect";
+import handler from 'lib/handler';
+import { isAdminMiddleware } from 'middleware/checkUser';
 import App from "models/app";
-import type {App as AppType } from "types/app";
+import User from "models/user";
+import nextConnect from 'next-connect';
 
 export default nextConnect(handler)
     .use(isAdminMiddleware)

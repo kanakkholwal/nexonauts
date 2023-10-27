@@ -6,3 +6,4 @@ module.exports = {
     sitemapSize: 7000,
     exclude:["/dashboard/*","/dashboard/*","/404","/verify-user"]
 }
+//  && next-sitemap --config next-sitemap.config.js

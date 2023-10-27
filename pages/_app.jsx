@@ -12,16 +12,16 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { Toaster } from 'react-hot-toast';
 
-import { Plus_Jakarta_Sans } from "next/font/google";
+// import { Plus_Jakarta_Sans } from "next/font/google";
 
-const customFont = Plus_Jakarta_Sans({
-    weight: ['400', '500', '600', '700', '800'],
-    subsets: ['latin-ext', 'latin'],
-    display: 'swap',
-    adjustFontFallback: false,
-    variable: '--plus-jakarta',
-    fallback:['system-ui','sans-serif']
-})
+// const customFont = Plus_Jakarta_Sans({
+//     weight: ['400', '500', '600', '700', '800'],
+//     subsets: ['latin-ext', 'latin'],
+//     display: 'swap',
+//     adjustFontFallback: false,
+//     variable: '--plus-jakarta',
+//     fallback:['system-ui','sans-serif']
+// })
 
 export default function MyApp({ Component, pageProps: { session, ...pageProps }, }) {
 
@@ -77,9 +77,9 @@ export default function MyApp({ Component, pageProps: { session, ...pageProps },
         </Script>
         <SessionProvider session={session}>
             <UserPreferenceProvider>
-            <main className={customFont.className}>
+            {/* <main className={customFont.className}> */}
                 <Component {...pageProps} />
-            </main>
+            {/* </main> */}
             </UserPreferenceProvider>
         </SessionProvider>
         <Toaster
