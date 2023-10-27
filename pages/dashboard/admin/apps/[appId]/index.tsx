@@ -1,17 +1,17 @@
-import { GetSessionParams, getSession } from "next-auth/react";
-import type { sessionType } from "types/session";
-import DashboardPage from "components/dashboard-page";
-import Head from "next/head";
 import axios from "axios";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import DashboardPage from "components/dashboard-page";
+import { GetSessionParams, getSession } from "next-auth/react";
+import Head from "next/head";
 import Link from "next/link";
-import { App } from "src/types/app";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
+import { AppType } from "src/types/app";
+import type { sessionType } from "types/session";
 
 export default function Dashboard({ user }) {
 
-    const [app, setApp] = useState<App | null>(null);
+    const [app, setApp] = useState<AppType | null>(null);
     const router = useRouter();
     const { appId } = router.query;
 

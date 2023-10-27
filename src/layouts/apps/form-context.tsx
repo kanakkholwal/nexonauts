@@ -1,10 +1,10 @@
 // FormContext.tsx
 import { ReactNode, createContext, useContext, useState } from 'react';
-import { AppType } from 'src/types/app';
+import { AppTypeEditable } from "src/types/app";
 
 interface FormContextType {
-    formData: AppType;
-    updateFormData: (newData: AppType) => void;
+    formData:  AppTypeEditable;
+    updateFormData: (newData: AppTypeEditable) => void;
 }
 
 const FormContext = createContext<FormContextType | undefined>(undefined);
@@ -19,13 +19,13 @@ export const useFormContext = () => {
 
 interface FormProviderProps {
     children: ReactNode;
-    app: AppType;
+    app: AppTypeEditable;
 }
 
 export const FormProvider = ({ children, app }: FormProviderProps) => {
     const [formData, setFormData] = useState(app);
 
-    const updateFormData = (newData: AppType) => {
+    const updateFormData = (newData: AppTypeEditable) => {
         setFormData({ ...formData, ...newData });
     };
 

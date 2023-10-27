@@ -6,8 +6,8 @@ import { GetSessionParams, getSession } from "next-auth/react";
 import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import Link from 'next/link';
-import AppplicationLayout from 'src/layouts/apps';
-import { AppTypeViewOnly, AppTypeWithFormFlow } from 'src/types/app';
+import AppplicationLayout from 'src/layouts/apps/view-layout';
+import { AppTypeRenderable, AppTypeViewOnly } from 'src/types/app';
 import { sessionType } from "src/types/session";
 import { SessionUserType } from 'src/types/user';
 import { PUBLIC_RUN_KEYS } from "src/utils/app";
@@ -22,7 +22,7 @@ import { useEffect, useState } from "react";
 import workingApp from "src/assets/animation/app-working.gif";
 
 export default function App({ app, user }: {
-    app: AppTypeWithFormFlow,
+    app: AppTypeRenderable,
     user: SessionUserType | null
 }) {
 
@@ -75,7 +75,7 @@ export default function App({ app, user }: {
                 </p>
                 <div className='mt-2 text-sm font-medium w-full rounded-lg text-slate-500 bg-slate-100 p-2'>
                     Created by <span className="text-accent-foreground font-semibold cursor-pointer hover:underline">{app.developer.name}</span>
-                    {" "} in <Link className="text-primary font-semibold px-2 py-1 rounded-md bg-primary/10 hover:bg-primary/20 capitalize ml-1" href={`/apps?category=${app.category}`}>{app.category.replaceAll("_", " ")}</Link>
+                    {" "} in <Link className="text-primary font-semibold px-2 py-1 rounded-md bg-primary/10 hover:bg-primary/20 capitalize ml-1" href={`/apps?category=${app.categories[0]}`}>{app.categories[0].replaceAll("_", " ")}</Link>
                 </div>
                 {user ? <AppplicationLayout app={app} user={user} /> : <div className="relative w-full aspect-video flex justify-center items-center bg-slate-100 my-5">
                     <Image src={workingApp}
@@ -99,11 +99,12 @@ export default function App({ app, user }: {
                     </CardHeader>
                     <CardContent className="flex flex-wrap gap-1">
                         {relatedApps?.map((app: AppTypeViewOnly, index) => {
-                            const Category = CATEGORIES.find((category) => category.value === app.category)
+                            const Category = CATEGORIES.find((category) => category.value === app.categories[0]);
+
 
                             return (<Card key={index} className="relative p-2 max-w-[280px] flex flex-col justify-center items-center group py-4" >
                                 <span className="absolute top-2 right-2 bg-slate-100 text-primary px-2 py-1 rounded-md text-xs">
-                                    {app?.averageRating?.toFixed(1)}
+                                    {/* {app?.averageRating?.toFixed(1)} */}
                                     <AiFillStar className="inline-block ml-1 h-4 w-4 text-primary" />
                                 </span>
                                 <CardContent className="flex flex-col items-center gap-2 justify-center ">
@@ -170,7 +171,7 @@ export async function getServerSideProps(context: GetSessionParams & { params: {
         }
     }
     await dbConnect();
-    const app = await AppModel.findOne({ path: "/apps/" + appPath }).select(PUBLIC_RUN_KEYS).populate("developer").lean();
+    const app = await AppModel.findOne({ path: "/apps/" + appPath }).select(PUBLIC_RUN_KEYS).populate("developer").lean() as AppTypeRenderable | null;
 
     if (!app) {
         return {
@@ -180,7 +181,7 @@ export async function getServerSideProps(context: GetSessionParams & { params: {
 
     return {
         props: {
-            app: JSON.parse(JSON.stringify(app)),
+            app: JSON.parse(JSON.stringify(app)) as AppTypeRenderable,
             user: session?.user || null
         }
     }

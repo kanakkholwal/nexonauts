@@ -71,10 +71,7 @@ export default function Layout({ children, user }: { children: React.ReactNode, 
                 id: string
             }
         }) => {
-            if (e.target.id === "nexo_sidenav" || e.target.id === "nexo_sidenav_toggler") {
-                setSidenavOpen(false);
-            }
-            if (NavRef.current && !NavRef.current.contains(e.target as any)) {
+            if (NavRef.current && !NavRef.current.contains(e.target as any) ||document.body.querySelector("#nexo_sidenav")?.contains(e.target as any) ||document.body.querySelector("#nexo_sidenav_toggler")?.contains(e.target as any)) {
                 setSidenavOpen(false);
             }
         }

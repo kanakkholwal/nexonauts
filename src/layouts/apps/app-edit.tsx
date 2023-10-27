@@ -14,11 +14,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { BsStars } from "react-icons/bs";
 import { CgSpinner } from "react-icons/cg";
+import { useBuilderContext } from "./common/context/builder-context";
 import TextInputToTextOutput from "./common/view/text_input_to_text_output";
 
 
 
-export default function AppView({ user,app }) {
+export default function AppView({ user }) {
+    const { builderData: app } = useBuilderContext();
+    console.log(app)
 
 
 

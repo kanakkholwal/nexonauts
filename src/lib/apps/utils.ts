@@ -67,7 +67,7 @@ export async function getUsageData(apps: AppType[], userId: string) {
         const appName = app.name;
 
         const usageToday = userUsageMap[appId] ? userUsageMap[appId][today] || 0 : 0;
-        const totalUsage = Object.values(userUsageMap[appId] || {}).reduce((acc, cur) => acc + cur, 0);
+        const totalUsage = Object.values(userUsageMap[appId] || {}).reduce((acc :any, cur:any) => acc + cur, 0);
 
         return {
             name: appName,
@@ -80,7 +80,9 @@ export async function getUsageData(apps: AppType[], userId: string) {
 
     // Calculate total usage for today and overall
     const totalUsageToday = usageData.reduce((acc, app) => acc + app.usageToday, 0);
-    const totalUsage = usageData.reduce((acc, app) => acc + Object.values(app.usage as any).reduce((a, b) => a + b, 0), 0);
+    const totalUsage = usageData.reduce((acc, app) => acc + Object.values(app.usage as {
+        [key: string]: number;
+    }).reduce((a:any, b:any) => a + b, 0), 0);
 
     const usage = {
         totalUsageToday,

@@ -21,7 +21,7 @@ import LogicTab from "./logic-tab";
 import OutputTab from "./output-tab";
 
 import { useRouter } from "next/router";
-import AppView from "../app-view";
+import AppEdit from "../app-edit";
 
 
 
@@ -61,7 +61,7 @@ export default function Builder({
     return (
     <BuilderProvider app={app} >
         <div className="flex gap-1 items-start justify-around w-full h-full">
-            <AppView
+            <AppEdit
             user={user}
             />
             <div role="toolbar" className="p-2">

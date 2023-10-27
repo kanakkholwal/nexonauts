@@ -46,7 +46,7 @@ export default function App({ apps, popularApps, user }: {
 
     const handleFilters = useCallback(() => {
         if (category) {
-            return apps.filter(app => app.category === category);
+            return apps.filter(app => app.categories.includes(category as string));
         }
         return apps;
     }, [category]);
@@ -149,7 +149,7 @@ export default function App({ apps, popularApps, user }: {
 
                     <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-7 pt-7'>
                         {apps.map(app => {
-                            const Category = CATEGORIES.find((category) => category.value === app.category)
+                            const Category = CATEGORIES.find((category) =>  app.categories.includes(category.value));
 
                             return (
                                 <Card key={app._id} className='py-5 flex flex-col justify-between group'>

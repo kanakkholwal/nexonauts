@@ -14,7 +14,7 @@ interface RadioButtonFieldProps {
 const RadioButtonField = ({ input, value, onChange }: RadioButtonFieldProps) => {
 
 
-  const permissibleValues = input?.constraints?.permissible_values?.split(",").map((value) => value.trim()) ?? ["Yes", "No"];
+  const permissibleValues = input?.options ?? [];
 
   return (
     <RadioGroup className='my-2 appInput'
@@ -31,10 +31,10 @@ const RadioButtonField = ({ input, value, onChange }: RadioButtonFieldProps) => 
       <Label htmlFor={input.id} className="text-lg font-semibold mb-2">
         {input.label}</Label>
       <div className='grid w-full grid-cols-2 gap-2 '>
-        {permissibleValues.map((value) => (
-          <div key={value} className="flex items-center space-x-2">
-            <RadioGroupItem id={`${input.id}-${value}`} value={value} />
-            <Label htmlFor={`${input.id}-${value}`}>{value}</Label>
+        {permissibleValues.map((option) => (
+          <div key={option.value} className="flex items-center space-x-2">
+            <RadioGroupItem id={`${input.id}-${option.value}`} value={option.value} />
+            <Label htmlFor={`${input.id}-${option.value}`}>{option.value}</Label>
           </div>
         ))}
       </div>
