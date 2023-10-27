@@ -1,5 +1,5 @@
 import dbConnect from "lib/dbConnect";
-import Post from "models/Post";
+import Post from "models/post";
 
 const URL = process.env.WEBSITE_URL || "https://kkupgrader.eu.org";
 
