@@ -223,8 +223,8 @@ const AppSchema = new mongoose.Schema({
 // AppSchema.index({ name: 'text', description: 'text', tags: 'text', category: 'text', keywords: 'text', shortDescription: 'text' });
 
 // Export review and usage schema as models
-const Review = mongoose.models.Review || mongoose.model('Review', ReviewSchema);
 const Usage = mongoose.models.Usage || mongoose.model('Usage', UsageSchema);
+const Review = mongoose.model('Review', ReviewSchema);
 
 export { Review, Usage };
 export default mongoose.models.App || mongoose.model('App', AppSchema);
