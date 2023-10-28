@@ -38,15 +38,15 @@ export default nextConnect(handler)
                 return res.status(404).json({ message: 'App not found!' });
             }
             // check if app is enabled
-            if (!_app.enabled) {
+            if (!_app.isPublic) {
                 return res.status(404).json({ message: 'App is not enabled!' });
             }
             // check if app state is published
-            if (_app.state !== "published") {
+            if (_app.status !== "published") {
                 return res.status(404).json({ message: 'App is not published!' });
             }
             // check if app has customFunction 
-            if (_app.customFunction === true) {
+            if (_app.hasCustomFunction === true) {
                 const app = AppsList.find((app) => app.appId === _app.appId);
                 if (!app) {
                     return res.status(404).json({ message: 'App is not available!' });
@@ -71,7 +71,7 @@ export default nextConnect(handler)
                 return res.status(200).json({ result: resultData, message: "Output generated successfully" });
 
             }
-            else if (_app.customFunction === false) {
+            else if (_app.hasCustomFunction === false) {
                 // execute app with App Data 
                 // const configuration = new Configuration({
                 //     apiKey: process.env.OPENAI_API_KEY,

@@ -55,6 +55,7 @@
             "esnext"
         ],
         "allowJs": true,
+        "downlevelIteration": true,
         "skipLibCheck": true,
         "strict": false,
         "forceConsistentCasingInFileNames": true,

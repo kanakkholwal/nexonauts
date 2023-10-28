@@ -1,6 +1,6 @@
 import { CATEGORIES } from 'lib/apps/utils';
 import { NextSeo } from 'next-seo';
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 // FiltersContainer
 // import Chip from '@/components/topography/chips';
 import {
@@ -17,13 +17,16 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Layout from 'layouts/apps/layout';
+import SearchFilter, { filterType } from 'layouts/apps/search-filter';
 import dbConnect from 'lib/dbConnect';
 import { GetSessionParams, getSession } from "next-auth/react";
 import Link from 'next/link';
-import { BiSliderAlt } from 'react-icons/bi';
+import toast from 'react-hot-toast';
+import { CgSpinnerAlt } from 'react-icons/cg';
 import { FaAngleRight } from 'react-icons/fa';
+import { GrFormClose } from 'react-icons/gr';
 import { RiSearch2Line } from "react-icons/ri";
-import { AppType } from 'src/types/app';
+import { AppType, MemberShipType } from 'src/types/app';
 import { sessionType } from "src/types/session";
 import { SessionUserType } from 'src/types/user';
 import { getAllApps } from "src/utils/app";
@@ -38,33 +41,89 @@ export default function App({ apps, popularApps, user }: {
 
 
     const [query, setQuery] = useState("");
-    const [data, setData] = useState(null);
+    const [data, setData] = useState({
+        apps: apps,
+        total: apps.length,
+        success: false,
+    });
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
     const { category } = router.query;
 
+    const [filter, setFilter] = useState<filterType>({
+        categories: [category ? category as string : ""],
+        membership: [],
+        popularity: "",
+    });
+
 
     const handleFilters = useCallback(() => {
-        if (category) {
-            return apps.filter(app => app.categories.includes(category as string));
+        router.push({
+            pathname: "/apps",
+            query: {
+                query: query,
+                category: filter.categories.join(","),
+                membership: filter.membership,
+                popularity: filter.popularity,
+            },
+        },undefined, { shallow: true});
+    }, []);
+    //  memoize apps with filters 
+    const filteredApps = useMemo(() => {
+        let filteredApps = apps;
+        if (filter.categories.length > 0) {
+            filteredApps = filteredApps.filter((app) => {
+                return filter.categories.every((category) => app.categories.includes(category));
+            });
         }
-        return apps;
-    }, [category]);
+        if (filter.membership.length > 0) {
+            filteredApps = filteredApps.filter((app :AppType) => {
+                return filter.membership.some(item => app.membership.includes(item as MemberShipType))
+            });
+        }
+        if (filter.popularity !== "") {
+            // if(filter.popularity === "popular"){
+
+            // }
+            // filteredApps = filteredApps.filter((app) => {
+            //     return app.popularity === filter.popularity;
+            // });
+        }
+        return filteredApps;
+    }, [apps, filter]);
+        
+
 
     const handleSearch = async (query: string) => {
         if (query.length > 0) {
             setLoading(true);
+            setError(null);
             try {
                 const response = await fetch(`/api/apps/search?query=${query}`);
                 const data = await response.json();
                 if (data.success === true) {
-                    setData(data);
+                    if(data.total === 0){
+                        toast.error("No apps found");
+                        return;
+                    }
+                    if(data.total > 0){
+                        toast.success(`${data.total} apps found`);
+                    }
+                    setData({
+                        apps: [
+                            ...apps,
+                            ...data.result,
+                        ],
+                        total: data.total,
+                        success: true,
+                    });
                     console.log(data);
-                    setError(null);
+        
                 }
             } catch (error) {
                 setError(error);
+                toast.error(error.message);
             } finally {
                 setLoading(false);
             }
@@ -109,48 +168,47 @@ export default function App({ apps, popularApps, user }: {
                         <Input placeholder={"Search for an app or what kind of work you need..."} className='w-auto max-w-full grow'
                             onChange={(e) => {
                                 setQuery(e.target.value);
+                                router.push({
+                                    pathname: "/apps",
+                                    query: {
+                                        query: e.target.value,
+                                        category: filter.categories.join(","),
+                                        membership: filter.membership,
+                                        popularity: filter.popularity,
+                                    },
+                                },undefined, { shallow: true
+                                })
                             }}
                             value={query}
                         />
+                        <Button
+                            size="icon"
+                            variant="secondary"
+                            disabled={query.trim().length === 0}
+                            className={"flex-shrink-0 !p-3 !rounded-full !bg-none " + (query.trim().length === 0 ? "hidden" : "")}
+                            onClick={() => {
+                                if(loading){
+                                    return;
+                                }
+                                if(query.trim().length > 0){
+                                    setQuery("");
+                                }
+                            }}>
+                            {loading? <CgSpinnerAlt className='w-4 h-4 animate-spin' />:<GrFormClose className='w-4 h-4' />}
+
+                        </Button>
                         <Button className="hero-button-gradient" onClick={() => {
                             handleSearch(query);
                         }}>
                             Search Apps
                         </Button>
-                        <Button variant="slate" onClick={() => {
-                            handleSearch(query);
-                        }}>
-                            <BiSliderAlt className='text-accent-foreground w-5 h-5' />
-                        </Button>
-                        {/* Popular suggestions for search .... */}
-                        {/* <div className='hidden group-focus-within:block group-focus-visible:block group-focus:block absolute z-50 bg-slate-50 top-[100%] left-2 right-2 shadow-2xl p-4 rounded-lg'>
-                        <h4 className='text-slate-700'>
-                            Popular Searches :
-                        </h4>
-                        <ul>
-                        {popularApps?.map((item, index:number) => {
-                            return (
-                                <li key={index}
-                                    className='text-accent-foreground cursor-pointer hover:text-accent-foreground-hover'
-                                    aria-label={item.name}
-                                    role='button'
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        e.stopPropagation();
-                                        setQuery(item.name);
-                                    }}
-                                >
-                                    {item.name}
-                                </li>)
-                        })}
-                        </ul>
-                    </div> */}
+                        <SearchFilter categories={CATEGORIES.map((category) => category.value)} filter={filter} setFilter={setFilter} handleFilters={handleFilters} />
                     </div>
 
 
                     <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-7 pt-7'>
-                        {apps.map(app => {
-                            const Category = CATEGORIES.find((category) =>  app.categories.includes(category.value));
+                        {filteredApps.map(app => {
+                            const Category = CATEGORIES.find((category) => app.categories.includes(category.value));
 
                             return (
                                 <Card key={app._id} className='py-5 flex flex-col justify-between group'>

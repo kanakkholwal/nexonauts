@@ -23,12 +23,7 @@ export default function Dashboard({ user, app }: PageProps) {
             description={app.description}
         />
         <div className="max-full grow">
-            <h1 className="text-3xl font-bold">
-                Edit :   {app.name}
-            </h1>
-            <p className="text-slate-500 mt-2 line-clamp-3">
-                {app.description}
-            </p>
+     
             {app ? <AppBuilder user={user} app={app} mode="edit" /> : <>
                 Something went wrong
             </>}

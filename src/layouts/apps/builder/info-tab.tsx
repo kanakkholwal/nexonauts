@@ -31,7 +31,7 @@ export default function InfoTab({ app }: {
 
         <div className="flex flex-col gap-2 ">
             <Label htmlFor="link">Link
-                <span className="text-xs text-gray-400"> (app.textify.ai/apps/{builderData.path.trim().length === 0 ? "your-app-link":builderData.path})</span>
+                <span className="text-xs text-gray-400"> ({process.env.NEXT_PUBLIC_WEBSITE_URL}{builderData.path.trim().length === 0 ? "/apps/your-app-link":builderData.path})</span>
             </Label>
             <Input id="link" name="link" value={builderData.path}  variant="ghost" 
                 placeholder='app-link'
