@@ -1,31 +1,39 @@
 import dbConnect from "lib/dbConnect";
 import Post from "models/post";
 
-const URL = process.env.WEBSITE_URL || "https://kkupgrader.eu.org";
-
+const URL = process.env.WEBSITE_URL || "https://nexonauts.com";
+// Function to escape special XML characters
+function escapeXml(unsafe) {
+  return unsafe.replace(/[<>&'"]/g, (c) => {
+      switch (c) {
+          case '<': return '&lt;';
+          case '>': return '&gt;';
+          case '&': return '&amp;';
+          case "'": return '&apos;';
+          case '"': return '&quot;';
+      }
+  });
+}
 // This function will generate the robots.txt
 function generateSiteMap(pages) {
     return `<?xml version="1.0" encoding="UTF-8"?>
-     <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
-       <!-- Add the static URLs manually -->
-       ${pages
-         .map((page) => {
-           return `
-             <url>
-                 <loc>${URL + page.path}</loc>
-                <lastmod>${page.date}</lastmod>
-                <changefreq>weekly</changefreq>
-                <priority>0.8</priority>
-             </url>
-           `;
-         })
-         .join("")}
-     </urlset>
-   `;
+    <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+      <!-- Add the static URLs manually -->
+      ${pages.map((page) => {
+          return `
+            <url>
+              <loc>${URL + escapeXml(page.path)}</loc>
+              <lastmod>${escapeXml(page.date)}</lastmod>
+              <changefreq>weekly</changefreq>
+              <priority>0.8</priority>
+            </url>
+          `}).join("")}
+    </urlset>
+    `;
   }
 export async function getServerSideProps({ res }) {
     // const posts = getSortedPostsData();
-   
+  
     await dbConnect();
     const posts = await Post.find({
         state: "published",
@@ -50,12 +58,12 @@ export async function getServerSideProps({ res }) {
       path: `/blog/posts/${post.slug}`,
       date: new Date(post.publishedAt).toISOString(),
   }))]);
-   
+  
     res.setHeader("Content-Type", "text/xml");
     // Send the XML to the browser
     res.write(sitemap);
     res.end();
-   
+  
     return {
       props: {},
     };

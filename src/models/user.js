@@ -1,7 +1,7 @@
+import bcrypt from 'bcrypt';
 import mongoose from "mongoose";
-import bcrypt from 'bcrypt'
-import validator from 'validator';
 import { v4 as UuID4 } from 'uuid';
+import validator from 'validator';
 
 function generateRandomUsername() {
   // Generate a random UUID
@@ -63,13 +63,18 @@ const UserSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    posts: [
+    posts: {
+      
+      type:[
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Post',
         populate: { path: 'analytics' } // Add this line
       },
     ],
+    default: [],
+    select: false,
+  },
     verificationToken: {
       type: String,
       default: null,
