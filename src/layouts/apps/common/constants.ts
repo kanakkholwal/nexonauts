@@ -1,6 +1,7 @@
 import { CgWorkAlt } from 'react-icons/cg';
 import { FcSalesPerformance } from 'react-icons/fc';
 import { GoPerson } from 'react-icons/go';
+import { IoMdCode } from "react-icons/io";
 import { LiaMoneyBillWaveSolid } from 'react-icons/lia';
 import { MdBusiness, MdOutlineAutoGraph } from 'react-icons/md';
 import { PiStudentFill } from 'react-icons/pi';
@@ -12,6 +13,7 @@ export const CATEGORIES = [
     { label: "Career", value: "career",Icon:CgWorkAlt },
     { label: "Business", value: "business",Icon:MdBusiness },
     { label: "Health", value: "health",Icon:TbHealthRecognition },
+    { label: "Coding", value: "coding",Icon:IoMdCode },
     // { label: "Lifestyle", value: "lifestyle" },
     { label: "Sales & Marketing", value: "sales_and_marketing" ,Icon:FcSalesPerformance},
     { label: "Finance", value: "finance" ,Icon:LiaMoneyBillWaveSolid},
@@ -31,4 +33,7 @@ export const INPUT_TYPES = [
     { label: "Auto Complete", value: "autoComplete" },
     { label: "Radio", value: "radio" },
     { label: "Checkbox", value: "checkbox" },
-] as const;
+] as {
+    label: string;
+    value: string;
+}[];

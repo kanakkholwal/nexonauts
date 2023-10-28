@@ -77,7 +77,7 @@ export default function Builder({
                                     Change meta information about your app here
                                 </CardDescription>
                             </CardHeader>
-                            <CardContent className="space-y-4">
+                            <CardContent className="space-y-6">
                                 <InfoTab app={app}/>
 
                             </CardContent>

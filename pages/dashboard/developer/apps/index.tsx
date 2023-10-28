@@ -91,17 +91,27 @@ export default function Dashboard({ user, apps }: PageProps) {
                                 </CardDescription>
                             </CardHeader>
                             <CardFooter className="gap-2">
-                            <Link className={buttonVariants({ variant: "outline",size:"sm" })} href={`/dashboard/developer/apps/${app.appId}`}>
+                                <Link className={buttonVariants({ variant: "outline", size: "sm" })} href={`/dashboard/developer/apps/${app.appId}`}>
                                     Manage App
-                            </Link>
-                            <Link className={buttonVariants({ variant: "link",size:"sm" })} href={`${app.path}`} target="_blank">
+                                </Link>
+                                <Link className={buttonVariants({ variant: "link", size: "sm" })} href={`${app.path}`} target="_blank">
                                     View App
-                            </Link>
-
-
-                            </CardFooter> 
+                                </Link>
+                            </CardFooter>
                         </Card>
                     })}
+                    <Card className="max-w-[480px] transition-duration-300 overflow-hidden grow flex flex-col justify-center items-center border-2 border-dashed border-primary group hover:bg-primary/10">
+            
+                        <Button variant="outline" className="mt-2 bg-primary/10 group-hover:bg-primary group-hover:text-white hover:text-white transition-duration-300" onClick={async () => {
+                            toast.promise(CreateApp(), {
+                                loading: 'Creating App...',
+                                success: 'App Created!',
+                                error: 'Error Creating App'
+                            })
+                        }}>
+                            Create a New App
+                        </Button>
+                    </Card>
                 </div>
 
             </section>
