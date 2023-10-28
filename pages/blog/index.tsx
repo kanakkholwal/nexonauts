@@ -4,16 +4,21 @@ import Button from "components/buttons";
 import Footer from "components/footer";
 import { registerView } from "lib/analytics";
 import dbConnect from 'lib/dbConnect';
-import Post from 'models/post';
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { BiDownArrowAlt } from "react-icons/bi";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { getHomePagePosts } from "src/utils/blog";
+import { PubliewViewPostType } from 'types/post';
 
-export default function BlogHomePage({ initialPosts }) {
+export default function BlogHomePage({ initialPosts ,
+  noOfPages,
+  currentIndex,
+  total
+}) {
   const [posts, setPosts] = useState(initialPosts);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(2);
+  const [currentPage, setCurrentPage] = useState(currentIndex);
+  const [totalPages, setTotalPages] = useState(noOfPages);
   const [loading, setLoading] = useState(false);
 
   const fetchMorePosts = async () => {
@@ -70,23 +75,14 @@ export default function BlogHomePage({ initialPosts }) {
 export async function getServerSideProps() {
   await dbConnect();
 
-  const page = 1; // Default to page 1 if not provided
-  const limit = 10; // Default to 10 posts per page
-  const skip = (page - 1) * limit;
-
-  const posts = await Post.find({ state: 'published' })
-  .populate('author')
-  .select('title description slug labels image author createdAt publishedAt comments')
-  .populate('analytics')
-  .skip(skip)
-  .limit(limit)
-  .exec();
-
-
+  const {posts,totalPages,total,currentPage} = await getHomePagePosts()
 
   return {
     props: {
-      initialPosts:JSON.parse(JSON.stringify(posts)) || [],
+      initialPosts:JSON.parse(JSON.stringify(posts)) as PubliewViewPostType[] || [] ,
+      noOfPages:totalPages || 2,
+      total:total || 0,
+      currentIndex:currentPage || 1
     }
   }
 

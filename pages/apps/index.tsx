@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { CATEGORIES } from 'lib/apps/utils';
 import { NextSeo } from 'next-seo';
 import { useCallback } from 'react';
@@ -18,6 +17,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Layout from 'layouts/apps/layout';
+import dbConnect from 'lib/dbConnect';
 import { GetSessionParams, getSession } from "next-auth/react";
 import Link from 'next/link';
 import { BiSliderAlt } from 'react-icons/bi';
@@ -26,6 +26,7 @@ import { RiSearch2Line } from "react-icons/ri";
 import { AppType } from 'src/types/app';
 import { sessionType } from "src/types/session";
 import { SessionUserType } from 'src/types/user';
+import { getAllApps } from "src/utils/app";
 
 export default function App({ apps, popularApps, user }: {
     user: SessionUserType | null,
@@ -184,22 +185,13 @@ export default function App({ apps, popularApps, user }: {
 export async function getServerSideProps(context: GetSessionParams) {
     const session = (await getSession(context)) as sessionType | null;
 
-    const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/apps/all`)
-
-    const { apps, popularApps } = data || {
-        apps: [],
-        popularApps: []
-    } as {
-        apps: AppType[],
-        popularApps: AppType[]
-    }
-
-
+    await dbConnect();
+    const { apps, popularApps } = await getAllApps();
 
     return {
         props: {
-            apps: apps || [],
-            popularApps: popularApps || [],
+            apps: JSON.parse(JSON.stringify(apps)) || [],
+            popularApps: JSON.parse(JSON.stringify(popularApps)) || [],
             user: session?.user || null
         },
 

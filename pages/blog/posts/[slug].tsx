@@ -1,16 +1,17 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { NavBar, PostPageHero, Article, Wrapper, SideBar, FloatingMenu } from 'components/blog';
-import { registerView } from 'lib/analytics';
-import { NextSeo } from 'next-seo';
-import Link from 'next/link';
-import Head from 'next/head';
-import useSmoothScroll from 'hooks/useSmoothScroll';
-import { Post } from 'types/post';
-import { BiShareAlt } from 'react-icons/bi';
-import { BiCommentDetail } from 'react-icons/bi';
+import { Article, FloatingMenu, NavBar, PostPageHero, SideBar, Wrapper } from 'components/blog';
 import Footer from "components/tool-page/footer";
-import { IoLogoInstagram, IoLogoGithub, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
+import useSmoothScroll from 'hooks/useSmoothScroll';
+import { registerView } from 'lib/analytics';
+import dbConnect from 'lib/dbConnect';
+import { NextSeo } from 'next-seo';
+import Head from 'next/head';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { BiCommentDetail, BiShareAlt } from 'react-icons/bi';
+import { IoLogoGithub, IoLogoInstagram, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
+import { getPostBySlug } from "src/utils/blog";
+import { PUBLICPostViewType } from 'types/post';
 
 const SocialMedia = [
     {
@@ -34,87 +35,95 @@ const SocialMedia = [
         url: "https://twitter.com/KanakKholwal",
     },
 ]
-export async function getStaticPaths() {
-    try {
-        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/all`);
-        const paths = data.posts?.map((post: Post) => ({
-            params: {
-                slug: post.slug,
-            },
-        }));
+// export async function getStaticPaths() {
+//     try {
+//         await dbConnect()
+//         const { posts } = await getAllPublishedPostsForMapping();
+        
+//         const paths = posts.map((post: {
+//             slug: string,
+//             _id: string
+//         }) => ({
+//             params: {
+//                 slug: post.slug,
+//             },
+//         }));
 
-        return {
-            paths,
-            fallback: true,
-        };
-    } catch (error) {
-        console.log("Error during path generation:", error);
+//         return {
+//             paths,
+//             fallback: true,
+//         };
+//     } catch (error) {
+//         console.log("Error during path generation:", error);
 
-        return {
-            paths: [],
-            fallback: true,
-        };
-    }
-}
+//         return {
+//             paths: [],
+//             fallback: true,
+//         };
+//     }
+// }
 
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
+    try{
+        await dbConnect()
 
-    const response = await axios({
-        url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/posts/${params.slug ?? ""}`,
-        method: 'post',
-        headers: {
-            "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,
-            'Content-Type': 'application/json'
+        const { post } :{
+            post: PUBLICPostViewType | null,
+            message: string,
+            success: boolean
+        } = await getPostBySlug(params.slug)
+        if (!post) {
+            console.log("Post not found, Slug :", params.slug)
+            return {
+                notFound: true,
+                props: {
+                    post: null,
+                },
+                // revalidate: 10,
+            }
         }
-    }).then((res) => {
-        return res;
-    }).catch((err) => {
-        return err.response;
-    });
-    if (response.data.success === true && response.data.post && params.slug === response.data.post.slug) {
-
-        const post: Post = response.data.post;
-
         return {
             props: {
-                post,
+                post: JSON.parse(JSON.stringify(post))
             },
-            revalidate: 10,
-        };
+            // revalidate: 10,
+        }
     }
-    else if (response.data.success === false) {
-        console.log("Error during page generation using slug:", response.data);
+    catch(error){
+        console.log("Error during path generation:", error);
+
         return {
             notFound: true,
             props: {
                 post: null,
             },
-            revalidate: 10,
-        };
-
+            // revalidate: 10,
+        }
     }
+
+
+
+
 
 
 }
 
 export default function Post(
-    { post }
-        : {
-            post: Post
-        }
-) {
+    { post } : {
+            post: PUBLICPostViewType
+        }) {
     useSmoothScroll();
     const [isClapped, setIsClapped] = useState(false);
     const [claps, setClaps] = useState(post?.claps ? Number(post?.claps) : 0);
     const clapThePost = async () => {
         try {
-            setClaps(claps => (Number(claps) + 1));
+            setClaps(claps => (claps + 1));
             await axios.post(`/api/posts/${post._id}/clap`);
             setIsClapped(true);
             const clappedPosts = JSON.parse(localStorage.getItem('clappedPosts') ?? '[]');
             !clappedPosts.includes(post._id) && clappedPosts.push(post._id);
             localStorage.setItem('clappedPosts', JSON.stringify(clappedPosts));
-            setClaps(clappedPosts.claps ? Number(clappedPosts.claps ) : Number(post?.claps));
+            setClaps(clappedPosts.claps ? clappedPosts.claps : post?.claps);
             console.log("Clapped")
         } catch (error) {
             console.log("Error during clapping the post:", error);

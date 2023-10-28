@@ -42,6 +42,44 @@ export type Post = {
     description: string;
 }
 
+//  title description slug coverImage labels claps createdAt author image
+export type PubliewViewPostType = {
+    _id: string;
+    title: string;
+    description: string;
+    slug: string;
+    image: string;
+    labels: string[];
+    claps: number;
+    publishedAt: string;
+    author: {
+        name: string;
+        username: string;
+        profileURL: string;
+    }
+    
+
+}
+// export const PUBLIC_POST_VIEW_KEYS = "title description slug coverImage labels claps publishedAt content publishedAt comments author image";
+
+export type PUBLICPostViewType = {
+    _id: string;
+    title: string;
+    description: string;
+    slug: string;
+    image: string;
+    labels: string[];
+    claps: number;
+    publishedAt: string;
+    content: string;
+    author:{
+        name: string;
+        username: string;
+        profileURL: string;
+    }
+    comments: string[];
+
+}
 type rawPost = {
     _id: string;
     title: string;
@@ -50,7 +88,7 @@ type rawPost = {
     labels: string[];
     image: string;
     state: string;
-    claps?: Number;
+    claps?: number;
     createdAt: string;
     updatedAt: string;
     publishedAt: string;
