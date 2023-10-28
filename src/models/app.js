@@ -222,9 +222,24 @@ const AppSchema = new mongoose.Schema({
 // Define indexes for search functionality
 // AppSchema.index({ name: 'text', description: 'text', tags: 'text', category: 'text', keywords: 'text', shortDescription: 'text' });
 
-// Export review and usage schema as models
-const Usage = mongoose.models.Usage || mongoose.model('Usage', UsageSchema);
-const Review = mongoose.model('Review', ReviewSchema);
-
+// Export review and usage schema as models;
+let Review;
+let Usage;
+if (mongoose.models?.Review) {
+    Review = mongoose.model('Review');
+}else{
+    Review = mongoose.model('Review', ReviewSchema);
+}
+if (mongoose.models?.Usage) {
+    Usage = mongoose.model('Usage');
+}else{
+    Usage = mongoose.model('Usage', UsageSchema);
+}
 export { Review, Usage };
-export default mongoose.models.App || mongoose.model('App', AppSchema);
+let App;
+if (mongoose.models?.App) {
+    App = mongoose.model('App');
+} else{
+    App = mongoose.model('App', AppSchema);
+}
+export default App

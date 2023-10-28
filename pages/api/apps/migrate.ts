@@ -13,7 +13,7 @@ export default nextConnect(handler)
                 // inputType -> type ,inputLabel -> label ,inputPlaceholder -> placeholder ,inputRequired -> required ,inputOptions -> options ,inputValue -> value ,
                 // write code now 
                 // app.hasCustomFunction = app.customFunction;
-                app.status = app.state;
+                // app.status = app.state;
                 // app.isPublic = app.enabled;
                 // app.isRecommended = app.recommended;
                 // console.log(app.formFlow.inputs)
@@ -26,7 +26,7 @@ export default nextConnect(handler)
                 //     input.value = input.inputValue;
                 // })
                 // save app
-                await app.save();
+                // await app.save();
 
             })
         

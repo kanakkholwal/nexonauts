@@ -1,12 +1,3 @@
-import { Input } from "@/components/ui/input";
-import Footer from 'layouts/common/footer';
-import Image from "next/image";
-import Link from "next/link";
-import { CgSearch } from "react-icons/cg";
-import { VscChevronDown } from "react-icons/vsc";
-import { SessionUserType } from "src/types/user";
-import Sidenav from "../common/sidenav";
-
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -17,12 +8,19 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import axios from "axios";
+import Footer from 'layouts/common/footer';
 import debounce from 'lodash.debounce';
 import { signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { TbLayoutSidebarRightCollapse, TbLayoutSidebarRightExpand } from "react-icons/tb";
+import { VscChevronDown } from "react-icons/vsc";
+import { SessionUserType } from "src/types/user";
+import SearchBar from "../common/search";
+import Sidenav from "../common/sidenav";
 
 
 export default function Layout({ children, user }: { children: React.ReactNode, user: SessionUserType | null }) {
@@ -71,7 +69,7 @@ export default function Layout({ children, user }: { children: React.ReactNode, 
                 id: string
             }
         }) => {
-            if (NavRef.current && !NavRef.current.contains(e.target as any) ||document.body.querySelector("#nexo_sidenav")?.contains(e.target as any) ||document.body.querySelector("#nexo_sidenav_toggler")?.contains(e.target as any)) {
+            if (NavRef.current && !NavRef.current.contains(e.target as any) || document.body.querySelector("#nexo_sidenav")?.contains(e.target as any) || document.body.querySelector("#nexo_sidenav_toggler")?.contains(e.target as any)) {
                 setSidenavOpen(false);
             }
         }
@@ -95,11 +93,8 @@ export default function Layout({ children, user }: { children: React.ReactNode, 
                             {isSidenavOpen ? <TbLayoutSidebarRightExpand className="w-4 h-4" /> : <TbLayoutSidebarRightCollapse className="w-4 h-4" />}
                         </Button>
                     </div>
-                    <div className="relative">
-                        <CgSearch className="absolute top-1/2 left-3 z-10 transform -translate-y-1/2 text-slate-500" />
-                        <Input className="pl-9 bg-slate-200" placeholder="Search..." value={searchQuery} onChange={handleChange} />
-                    </div>
-                    <div className="ml-auto">
+                    <div className="ml-auto inline-flex gap-1 items-center">
+                        <SearchBar />
                         {user ? <div className="flex items-center space-x-2">
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>

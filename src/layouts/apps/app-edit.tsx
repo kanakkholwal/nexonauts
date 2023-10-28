@@ -19,7 +19,7 @@ import TextInputToTextOutput from "./common/view/text_input_to_text_output";
 
 
 
-export default function AppView({ user }) {
+export default function AppEdit({ user }) {
     const { builderData: app } = useBuilderContext();
     console.log(app)
 
@@ -66,6 +66,12 @@ export default function AppView({ user }) {
 
 
     return (<div className="p-2 flex flex-col gap-5 mt-5">
+        <h1 className="text-3xl font-bold">
+            {app.name}
+        </h1>
+        <p className="text-slate-500 mt-2 line-clamp-3">
+            {app.description}
+        </p>
         <Card className="w-full max-w-[1024px]">
             <CardContent className="flex flex-col gap-2 pt-5">
                 {app.formFlow.menuType === "text_input_to_text_output" && <TextInputToTextOutput inputs={app.formFlow.inputs} value={value} handleChange={handleChange} />}

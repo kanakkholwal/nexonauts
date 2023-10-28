@@ -1,4 +1,3 @@
-import { getMostUsedApp, getUsageData } from "lib/apps/utils";
 import { checkUser } from 'lib/checkUser';
 import dbConnect from "lib/dbConnect";
 import handler from 'lib/handler';
@@ -37,8 +36,8 @@ export default nextConnect(handler)
 
       const apps = await App.find({}).select("+usage").exec();
 
-      const usage = await getUsageData(apps, userId);
-      const mostUsed = await getMostUsedApp(apps, userId);
+      // const usage = await getUsageData(apps, userId);
+      // const mostUsed = await getMostUsedApp(apps, userId);
       // format usage data on each app per day basis
 
       return res.status(200).json({
@@ -46,8 +45,14 @@ export default nextConnect(handler)
         stats: {
           posts: posts.length,
           comments: comments.length,
-          usage: usage,
-          mostUsed: mostUsed
+          usage: {
+            totalUsageToday:5,
+            totalUsage:20,
+            usageLimit: 5
+        },
+          mostUsed: {
+            name: '', appId: '', totalUsage: 0 
+          }
         }
       });
 
