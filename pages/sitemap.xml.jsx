@@ -1,5 +1,6 @@
 import dbConnect from "lib/dbConnect";
 import Post from "models/post";
+import { getAllApps } from "src/utils/app";
 
 const URL = process.env.WEBSITE_URL || "https://nexonauts.com";
 // Function to escape special XML characters
@@ -40,6 +41,7 @@ export async function getServerSideProps({ res }) {
     }).sort({ publishedAt: -1 })
     .select("slug publishedAt")
     .exec()
+    const {apps} = await getAllApps();
     const manualRoutes = [{
         path: "/",
         date: new Date().toISOString(),
@@ -57,6 +59,11 @@ export async function getServerSideProps({ res }) {
     const sitemap = generateSiteMap([...manualRoutes,...posts.map((post) => ({
       path: `/blog/posts/${post.slug}`,
       date: new Date(post.publishedAt).toISOString(),
+  }),...apps.map((app) => {
+    return {
+        path: app.path,
+        date: new Date(app.createdAt).toISOString(),
+    }
   }))]);
   
     res.setHeader("Content-Type", "text/xml");

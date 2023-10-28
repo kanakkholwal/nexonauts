@@ -19,12 +19,13 @@ const nextConfig = withPWA({
   compiler: { styledComponents: { ssr: true } },
   crossOrigin: 'anonymous',
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: "**",
-      },
-    ],
+    domains: ['res.cloudinary.com', ],
+    // remotePatterns: [
+    //   {
+    //     protocol: 'https',
+    //     hostname: "**",
+    //   },
+    // ],
   },
   webpack: (config) => {
     // this will override the experiments
