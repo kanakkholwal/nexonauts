@@ -2,7 +2,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -107,30 +113,20 @@ export default function InputTab({ inputs }: {
                     <Label htmlFor="add_field">
                         Input Field
                     </Label>
-                    <Select onValueChange={(value) => {
-                        console.log(value)
-                        setInput((input) => {
-                            return {
+                    <Select
+                        onValueChange={(value) => {
+                            console.log(value)
+                            setInput({
                                 ...input,
-                                type: value,
-                                constraints: {
-                                    ...input.constraints,
-                                    data_type: value === "numeric" ? "int" : "str",
-                                    ...{
-                                        permissible_values: value === "dropdown" || value === "radio_button" ? [""] : undefined
-                                    }
-                                }
+                                type: value
+                            })
 
-                            }
-                        })
-
-                    }}
-                    >
-                        <SelectTrigger className="w-[180px] bg-slate-100">
+                        }} >
+                        <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder={"Field Type"} />
                         </SelectTrigger>
                         <SelectContent>
-                            {INPUT_TYPES?.map((item, index) => (
+                            {INPUT_TYPES.map((item, index) => (
                                 <SelectItem key={index} value={item.value} role="button">
                                     {item.label}
                                 </SelectItem>
@@ -139,7 +135,7 @@ export default function InputTab({ inputs }: {
                     </Select>
                 </div>
                 <div className="flex flex-row justify-between items-center w-full gap-2 my-2">
-                    <Input  variant="ghost" id="id" type="text" placeholder="@Field Name (eg. user_name)"
+                    <Input id="id" type="text" placeholder="@Field Name (eg. user_name)"
                         value={input.id}
                         onChange={(e) => {
                             setInput({
@@ -166,14 +162,14 @@ export default function InputTab({ inputs }: {
 
                 </div>
                 {(input.type === "text_field" || input.type === "text_multiline") ?
-                    <Input id="placeholder"  variant="ghost"  type="text" placeholder="Field Placeholder" value={input.placeholder} onChange={(e) => {
+                    <Input id="placeholder" type="text" placeholder="Field Placeholder" value={input.placeholder} onChange={(e) => {
                         setInput({
                             ...input,
                             placeholder: e.target.value
                         })
                     }} /> : null}
                 {input.type === "numeric" ? <div className="flex w-full flex-row gap-1 my-2">
-                    <Input id="min"  variant="ghost"  type="number" placeholder="Min"
+                    <Input id="min" type="number" placeholder="Min"
                         value={input.constraints["min_length"] ?? 0}
                         onChange={(e) => {
                             setInput({
@@ -186,7 +182,7 @@ export default function InputTab({ inputs }: {
                         }
                         }
                     />
-                    <Input  variant="ghost"  id="max" type="number" placeholder="Max"
+                    <Input variant="ghost" id="max" type="number" placeholder="Max"
                         value={input.constraints["max_length"]}
                         onChange={(e) => {
                             setInput({
@@ -206,22 +202,21 @@ export default function InputTab({ inputs }: {
                         Add Options
                     </Label>
 
-                    {input.constraints['permissible_values']?.map((option, index) => {
+                    {input.options?.map((option, index) => {
                         return (<div className="flex flex-row justify-between items-center w-full gap-2 my-2" key={index}>
-                            <Input  variant="ghost"  id={`option_${index}`} type="text" placeholder={`Option ${index + 1}`} value={option}
+                            <Input id={`option_${index}`} type="text" placeholder={`Option ${index + 1}`} value={option}
                                 onChange={(e) => {
                                     setInput({
                                         ...input,
-                                        constraints: {
-                                            ...input.constraints,
-                                            permissible_values: input.constraints['permissible_values']?.map((item, i) => {
-                                                if (i === index) {
-                                                    return e.target.value
-                                                } else {
-                                                    return item
-                                                }
-                                            })
+                                        options: input.options?.map((item, i) => {
+                                            if (i === index) {
+                                                return e.target.value
+                                            } else {
+                                                return item
+                                            }
                                         }
+                                        )
+
                                     })
 
                                 }} />
@@ -349,8 +344,8 @@ export default function InputTab({ inputs }: {
                                         controlType: "button",
                                         text: value,
                                         action: "get_output",
-                                        id:"get_output",
-                                        variant:"default"
+                                        id: "get_output",
+                                        variant: "default"
                                     },
                                 ],
                             },
@@ -361,14 +356,11 @@ export default function InputTab({ inputs }: {
                         <SelectValue placeholder={"Button Text"} />
                     </SelectTrigger>
                     <SelectContent>
-                        <SelectGroup>
-                            <SelectLabel>Button Text</SelectLabel>
                             {["Generate", "Analyse", "Detect"]?.map((value) => (
                                 <SelectItem key={value} value={value}>
                                     {value}
                                 </SelectItem>
                             ))}
-                        </SelectGroup>
                     </SelectContent>
                 </Select>
             </div>

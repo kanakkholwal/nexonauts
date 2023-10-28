@@ -4,7 +4,7 @@ export type AppType = {
     _id?: string | any;
     appId: string;
     config: AppConfigType | null;
-    isPublic: string[];
+    isPublic: boolean;
     enabled: boolean;
     hasCustomFunction: boolean;
     membership: MemberShipType[];
