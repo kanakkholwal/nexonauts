@@ -72,19 +72,26 @@ export default function App({ apps, popularApps, user }: {
     //  memoize apps with filters 
     const filteredApps = useMemo(() => {
         let filteredApps = apps;
-        if (filter.categories.length > 0) {
+        if (filter.categories.toString().trim() !== "") {
             filteredApps = filteredApps.filter((app) => {
                 return filter.categories.every((category) => app.categories.includes(category));
             });
         }
-        if (filter.membership.length > 0) {
+        if (filter.membership.toString().trim() !== "") {
             filteredApps = filteredApps.filter((app :AppType) => {
                 return filter.membership.some(item => app.membership.includes(item as MemberShipType))
             });
         }
-        if (filter.popularity !== "") {
-            // if(filter.popularity === "popular"){
-
+        if (filter.popularity.toString().trim() !== "") {
+            if(filter.popularity === "new"){
+                filteredApps = filteredApps.sort((a, b) => {
+                    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+                })
+            } 
+            // else if(filter.popularity === "isRecommended"){
+                // filteredApps = filteredApps.sort((a:AppType, b:) => {
+                    
+                // })
             // }
             // filteredApps = filteredApps.filter((app) => {
             //     return app.popularity === filter.popularity;
@@ -176,8 +183,7 @@ export default function App({ apps, popularApps, user }: {
                                         membership: filter.membership,
                                         popularity: filter.popularity,
                                     },
-                                },undefined, { shallow: true
-                                })
+                                },undefined, { shallow: true})
                             }}
                             value={query}
                         />

@@ -47,7 +47,7 @@ export default function Sidenav({open}:{
 
     return (<div className={" min-h-screen h-full px-3 py-2 space-y-4 bg-slate-100  top-0  left-0 bottom-0  z-[999] transition-all w-[300px] translate-x-[-300px] xl:translate-x-0   fixed xl:sticky" + (open ? " !translate-x-0 shadow-lg":"")} id="nexo_sidenav">
                 <div  className="w-full flex justify-center items-center mt-5" aria-roledescription="Website Logo">
-                    <Image height={120} width={280} src="/logo.svg" alt="logo" className="w-64 h-12" draggable={false} />
+                    <Image height={120} width={280} src={"/logo.svg"} alt="logo" className="w-64 h-12" draggable={false} />
                 </div>
             <div className="space-y-1 px-3 py-2">
                 {userRoutes.map((link :LinkType, i) => {
