@@ -493,6 +493,48 @@ body {
         background: rgba(var(--grey-rgb), 0.2);
     }
 }
+// mentions plugin styles
+$color_1: #575f67;
+$color_2: #677584;
+$color_3: #222;
+$background-color_1: #cce7ff;
+$background-color_2: #e6f3ff;
+
+.m6zwb4v {
+	@apply text-primary/90 cursor-pointer inline-block rounded-md px-1 bg-primary/5 hover:bg-primary hover:text-white transition-colors;
+}
+.mnw6qvm {
+	min-width: 220px;
+	max-width: 440px;
+	background: #fff;
+	cursor: pointer;
+	z-index: 2;
+	@apply flex flex-col gap-1 shadow-md rounded-md absolute p-1 border border-solid;
+	box-sizing: border-box;
+
+	transform: scale(0);
+}
+.m1ymsnxd {
+	opacity: 0;
+	transition: opacity 0.25s cubic-bezier(0.3,1.2,0.2,1);
+}
+.m126ak5t {
+	opacity: 1;
+}
+.mtiwdxc {
+	@apply relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 w-full text-accent-foreground hover:text-slate-800 hover:cursor-pointer hover:bg-slate-100;
+}
+.myz2dw1 {
+		@apply relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 w-full text-accent-foreground hover:text-slate-800 hover:cursor-pointer  hover:bg-slate-100;
+}
+.mpqdcgq {
+	max-width: 368px;
+    @apply text-sm truncate whitespace-nowrap overflow-hidden inline-flex items-center justify-start gap-2;
+}
+.m1mfvffo {
+    @apply w-6 h-6 rounded-full inline-block;
+}
+
 .Blog{
     // background: var(--light);
     // color: var(--dark);

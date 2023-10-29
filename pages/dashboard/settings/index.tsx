@@ -118,7 +118,18 @@ export default function SettingsPage({ user: CurrentUser }: {
                 <Tabs className="flex flex-col w-full space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0" defaultValue={TABLIST.find(item => item.id === router.query.defaultTab) ? router.query.defaultTab?.toString() : TABLIST[0].id}>
                     <TabsList className="-mx-4 lg:w-1/4 w-full md:flex-col md:justify-start md:h-fit gap-2 ">
                         {TABLIST.map((item: TabItemType) => {
-                            return <TabsTrigger value={item.id} className="w-full" key={item.id}>{item.title}</TabsTrigger>
+                            return <TabsTrigger value={item.id} className="w-full" key={item.id}
+                                onClick={() => {
+                                    router.push({
+                                        pathname: "/dashboard/settings",
+                                        query: {
+                                            defaultTab: item.id
+                                        }   
+                                    }, undefined, {
+                                        shallow: true
+                                    })
+                                }}
+                            >{item.title}</TabsTrigger>
                         })}
                     </TabsList>
                     <div className="flex-1 lg:max-w-2xl">
@@ -137,15 +148,15 @@ export default function SettingsPage({ user: CurrentUser }: {
         </Layout>)
 }
 function Appearance() {
-    return (  <div className="space-y-6">
-    <div>
-        <h3 className="text-lg font-medium">Appearance</h3>
-        <p className="text-sm text-muted-foreground">
-        Customize the appearance of the site. Automatically switch between day and night themes.
-        </p>
-    </div>
-    <Separator />
-    <div className="flex items-center justify-between gap-2 w-full mb-5">
+    return (<div className="space-y-6">
+        <div>
+            <h3 className="text-lg font-medium">Appearance</h3>
+            <p className="text-sm text-muted-foreground">
+                Customize the appearance of the site. Automatically switch between day and night themes.
+            </p>
+        </div>
+        <Separator />
+        <div className="flex items-center justify-between gap-2 w-full mb-5">
         </div>
     </div>)
 }

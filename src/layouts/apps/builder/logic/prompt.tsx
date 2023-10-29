@@ -1,15 +1,16 @@
+import { ContentState, EditorState, convertToRaw } from 'draft-js';
 import {
+    useCallback,
     useEffect,
+    useMemo,
     useRef,
     useState
 } from 'react';
-// import { EditorState, ContentState } from 'draft-js';
-// import { convertToRaw } from 'draft-js';
 
-// import Editor from '@draft-js-plugins/editor';
-// import createMentionPlugin from '@draft-js-plugins/mention';
 import { Badge } from '@/components/ui/badge';
-import { AppType } from "src/types/app";
+import Editor from '@draft-js-plugins/editor';
+import createMentionPlugin from '@draft-js-plugins/mention';
+import { AppConfigType, AppType } from "src/types/app";
 import { useBuilderContext } from "../../common/context/builder-context";
 
 
@@ -27,42 +28,42 @@ export default function Prompt({app}:{
     });
     const ref = useRef<any>(null);
     const [editorState, setEditorState] = useState(() =>
-        // EditorState.createEmpty()
-        ""
+        EditorState.createEmpty()
     );
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(true);
     const [suggestions, setSuggestions] = useState(mentions);
 
-    // const { MentionSuggestions, plugins } = useMemo(() => {
-        // const mentionPlugin = createMentionPlugin();
-        // eslint-disable-next-line no-shadow
-        // const { MentionSuggestions } = mentionPlugin;
-        // eslint-disable-next-line no-shadow
-        // const plugins = [mentionPlugin];
-    //     return { plugins, MentionSuggestions };
-    // }, []);
+    const { MentionSuggestions, plugins } = useMemo(() => {
+        const mentionPlugin = createMentionPlugin();
 
-    // const onOpenChange = useCallback((_open: boolean) => {
-    //     setOpen(_open);
-    // }, []);
-    // const onSearchChange = useCallback(({ value }: {
-    //     value: string
-    // }) => {
-    //     setSuggestions(mentions.filter((mention) => {
-    //         return mention.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-    //     }));
-    // }, []);
+        const { MentionSuggestions } = mentionPlugin;
+
+        const plugins = [mentionPlugin];
+        return { plugins, MentionSuggestions };
+    }, []);
+
+    const onOpenChange = useCallback((_open: boolean) => {
+        setOpen(_open);
+    }, []);
+    const onSearchChange = useCallback(({ value }: {
+        value: string
+    }) => {
+        setSuggestions(mentions.filter((mention) => {
+            return mention.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+        }));
+    }, []);
     useEffect(() => {
         // Convert plain text to Draft.js content state
-        // const initialContentState = ContentState.createFromText(formData?.data?.prompt ?? "");
-        // const initialEditorState = EditorState.createWithContent(initialContentState);
-        // setEditorState(initialEditorState);
+        const initialContentState = ContentState.createFromText(builderData?.config?.prompt ?? "");
+        const initialEditorState = EditorState.createWithContent(initialContentState);
+        setEditorState(initialEditorState);
+        let config = {
+            ...builderData.config,
+            prompt: builderData?.config?.prompt ? builderData.config.prompt : ""
+        } as AppConfigType;
         updateBuilderData({
             ...builderData,
-            config:{
-                ...builderData.config,
-                prompt:""
-            }
+            config
         })
     }, []);
 
@@ -88,7 +89,7 @@ export default function Prompt({app}:{
                         ref.current?.focus();
                 }}
             >
-                {/* <Editor
+                <Editor
                     editorKey={'editor'}
                     editorState={editorState}
                     onChange={(value) => {
@@ -96,20 +97,20 @@ export default function Prompt({app}:{
                         const plainText = convertToRaw(value.getCurrentContent()).blocks.map(block => block.text).join('\n');
 
                         console.log(plainText)
-
-                        updateFormData({
-                            ...formData,
-                            data: {
-                                ...formData?.data,
-                                prompt: plainText?? ""
-                            }
+                        let config = {
+                            ...builderData.config,
+                            prompt:plainText
+                        } as AppConfigType;
+                        updateBuilderData({
+                            ...builderData,
+                            config
                         })
                         setEditorState(value)
                     }}
                     plugins={plugins}
                     ref={ref}
-                /> */}
-                {/* <MentionSuggestions
+                />
+                <MentionSuggestions
                     open={open}
                     onOpenChange={onOpenChange}
                     suggestions={suggestions}
@@ -117,7 +118,7 @@ export default function Prompt({app}:{
                     onAddMention={() => {
                         // get the mention object selected
                     }}
-                /> */}
+                />
             </div>
 
 
@@ -127,20 +128,20 @@ export default function Prompt({app}:{
                         return (
                             <Badge variant="secondary" key={index} className={`break-word cursor-pointer`}
                                 onClick={() => {
-                                    // const editorValue = convertToRaw(editorState.getCurrentContent()).blocks.map(block => block.text).join('\n');
+                                    const editorValue = convertToRaw(editorState.getCurrentContent()).blocks.map(block => block.text).join('\n');
 
-                                    // const withSuggester = editorValue + sugg.name + " ";
-                                    // updateFormData({
-                                    //     ...formData,
-                                    //     data: {
-                                    //         ...formData?.data,
-                                    //         prompt: withSuggester
-                                    //     }
-                                        
-                                    // })
-                                    // const initialContentState = ContentState.createFromText(withSuggester);
-                                    // const _EditorState = EditorState.createWithContent(initialContentState);
-                                    // setEditorState(_EditorState);
+                                    const withSuggester = editorValue + sugg.name + " ";
+                                    let config = {
+                                        ...builderData.config,
+                                        prompt: withSuggester
+                                    } as AppConfigType;
+                                    updateBuilderData({
+                                        ...builderData,
+                                        config 
+                                    })
+                                    const initialContentState = ContentState.createFromText(withSuggester);
+                                    const _EditorState = EditorState.createWithContent(initialContentState);
+                                    setEditorState(_EditorState);
 
                                 }}
                             >
