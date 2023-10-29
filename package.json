@@ -9,6 +9,8 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@draft-js-plugins/editor": "^4.1.4",
+        "@draft-js-plugins/mention": "^5.2.2",
         "@emotion/react": "^11.10.5",
         "@emotion/styled": "^11.10.5",
         "@hookform/resolvers": "^3.3.2",
@@ -50,6 +52,7 @@
         "cssbeautify": "^0.3.1",
         "date-fns": "^2.30.0",
         "dotenv": "^16.0.3",
+        "draft-js": "^0.11.7",
         "eslint-config-next": "^13.3.0",
         "html-2-jsx": "^0.5.1-dev",
         "html-react-parser": "^4.0.0",

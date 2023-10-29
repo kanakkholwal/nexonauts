@@ -20,15 +20,15 @@ export const models: Model<ModelType>[] = [
     strengths:
       "Enhanced Performance, Language Understanding, Creative Generation, Intent Recognition",
   },
-  {
-    id: "c305f976-8e38-42b1-9fb7-d21b2e3fg4f0sad",
-    name: "text-bison-001",
-    description:
-      "Pathways Language Model (PaLM): A 540-billion parameter, dense decoder Transformer model from Google AI, using Pathways system, achieves state-of-the-art few-shot performance on various language tasks, pushing the limits of model scale and efficiency.    ",
-    type: "Google AI",
-    strengths:
-      "Word completion, code completion, question answering, summarization, sentiment analysis",
-  },
+  // {
+  //   id: "c305f976-8e38-42b1-9fb7-d21b2e3fg4f0sad",
+  //   name: "text-bison-001",
+  //   description:
+  //     "Pathways Language Model (PaLM): A 540-billion parameter, dense decoder Transformer model from Google AI, using Pathways system, achieves state-of-the-art few-shot performance on various language tasks, pushing the limits of model scale and efficiency.    ",
+  //   type: "Google AI",
+  //   strengths:
+  //     "Word completion, code completion, question answering, summarization, sentiment analysis",
+  // },
  
   {
     id: "c305f976-8e38-42b1-9fb7-d21b2e34f0da",

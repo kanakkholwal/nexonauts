@@ -28,6 +28,7 @@ import {
 import { useMutationObserver } from "@/hooks/use-mutation-observer"
 import { cn } from "@/lib/utils"
 
+import { AppConfigType } from "src/types/app"
 import { useBuilderContext } from "../../common/context/builder-context"
 import { Model, ModelType } from "./models"
 
@@ -113,12 +114,14 @@ export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
                           onPeek={(model) => setPeekedModel(model)}
                           onSelect={() => {
                             setSelectedModel(model);
+                            let config = {
+                              ...builderData.config,
+                              model:model.name
+                            } as AppConfigType;
+                            
                             updateBuilderData({ 
                               ...builderData,
-                              config:{
-                                ...builderData.config,
-                                model:model.name  as string
-                              }
+                              config
                             });
                             setOpen(false)
                           }}

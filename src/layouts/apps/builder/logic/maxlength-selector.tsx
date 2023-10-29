@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/hover-card"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
+import { AppConfigType } from "src/types/app"
 import { useBuilderContext } from "../../common/context/builder-context"
 
 interface MaxLengthSelectorProps {
@@ -38,18 +39,18 @@ export function MaxLengthSelector({ defaultValue }: MaxLengthSelectorProps) {
               step={10}
               onValueChange={(value) =>{
                 setValue(value);
-                // updateBuilderData({
-                //   ...builderData,
-                //   config:{
-                //     ...builderData?.config,
-                //     hyperparameters:{
-                //       ...builderData.config.hyperparameters,
-                //       "max_tokens": value[0]
-
-                //   }
-                // }
-                  
-                // });
+                let config = {
+                  ...builderData.config,
+                  hyperparameters:{
+                    ...builderData?.config?.hyperparameters,
+                    "max_tokens": value[0]
+                  }
+                } as AppConfigType
+                
+                updateBuilderData({
+                  ...builderData,
+                  config
+                });
               }}
               className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
               aria-label="Maximum Length"

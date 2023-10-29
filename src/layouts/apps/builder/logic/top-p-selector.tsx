@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/hover-card"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
+import { AppConfigType } from "src/types/app"
 import { useBuilderContext } from "../../common/context/builder-context"
 
 interface TopPSelectorProps {
@@ -38,15 +39,17 @@ export function TopPSelector({ defaultValue }: TopPSelectorProps) {
               step={0.1}
               onValueChange={(value) => {
                 setValue(value);
+                let config = {
+                  ...builderData.config,
+                  hyperparameters: {
+                    ...builderData?.config?.hyperparameters,
+                    "topP": value[0],
+                  }
+                } as AppConfigType
+                
                 updateBuilderData({
                   ...builderData,
-                  config: {
-                    ...builderData.config,
-                    hyperparameters: {
-                      ...builderData.config.hyperparameters,
-                      "topP": value[0],
-                    }
-                  }
+                  config
                 });
               }}
               className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4"
