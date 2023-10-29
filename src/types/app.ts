@@ -29,9 +29,9 @@ export type AppType = {
 }
 export type AppConfigType = {
     prompt: string;
+    model: string;
     hyperparameters: {
-        model: string;
-
+        [k :string]:string | number
     }
 }
 export type MemberShipType = "free" | "pro"| "premium" | "enterprise";
@@ -45,7 +45,10 @@ export type FormFlowType = {
     menuType: TypesOfApp;
     inputs: InputType[];
     controls: Controls[];
-    outputs: any[];
+    outputs: {
+        render_type : string | "markdown" | "html" | "pdf",
+        save_to_db:boolean
+    };
 }
 interface Controls {
     controlType: string;

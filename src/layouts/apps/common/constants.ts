@@ -9,16 +9,16 @@ import { TbHealthRecognition, TbSocial } from 'react-icons/tb';
 
 export const CATEGORIES = [
     { label: "Education", value: "education",Icon:PiStudentFill },
-    { label: "Personal", value: "personal" ,Icon:GoPerson},
-    { label: "Career", value: "career",Icon:CgWorkAlt },
-    { label: "Business", value: "business",Icon:MdBusiness },
-    { label: "Health", value: "health",Icon:TbHealthRecognition },
-    { label: "Coding", value: "coding",Icon:IoMdCode },
-    // { label: "Lifestyle", value: "lifestyle" },
-    { label: "Sales & Marketing", value: "sales_and_marketing" ,Icon:FcSalesPerformance},
-    { label: "Finance", value: "finance" ,Icon:LiaMoneyBillWaveSolid},
     { label: "Productivity", value: "productivity" ,Icon:MdOutlineAutoGraph},
+    { label: "Sales & Marketing", value: "sales_and_marketing" ,Icon:FcSalesPerformance},
+    { label: "Business", value: "business",Icon:MdBusiness },
+    { label: "Career", value: "career",Icon:CgWorkAlt },
+    { label: "Coding", value: "coding",Icon:IoMdCode },
+    { label: "Finance", value: "finance" ,Icon:LiaMoneyBillWaveSolid},
+    { label: "Health", value: "health",Icon:TbHealthRecognition },
+    // { label: "Lifestyle", value: "lifestyle" },
     { label: "Social", value: "social",Icon:TbSocial },
+    { label: "Personal", value: "personal" ,Icon:GoPerson},
 ] as {
     label: string;
     value: string;

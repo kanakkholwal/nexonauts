@@ -37,7 +37,7 @@ const UserSchema = new mongoose.Schema(
     },
     profileURL: {
       type: String,
-      default: 'https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png',
+      default: 'https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png',
     },
     password: {
       type: String,

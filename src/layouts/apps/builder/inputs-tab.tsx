@@ -85,12 +85,12 @@ export default function InputTab({ inputs }: {
         });
 
         setInput({
+            ...input,
             id: "",
             label: "",
             defaultValue: "",
             required: true,
             placeholder: "",
-            type: "text_field",
             value: "",
             constraints: {
                 "data_type": "str",
@@ -118,7 +118,11 @@ export default function InputTab({ inputs }: {
                             console.log(value)
                             setInput({
                                 ...input,
-                                type: value
+                                type: value,
+                                options: value === "dropdown" || value === "radio" || value === "checkbox" ? [{
+                                    label: "",
+                                    value: ""
+                                }] : []
                             })
 
                         }} >
@@ -161,14 +165,14 @@ export default function InputTab({ inputs }: {
                     </div>
 
                 </div>
-                {(input.type === "text_field" || input.type === "text_multiline") ?
+                {(input.type === "text_input" || input.type === "text_multiline") ?
                     <Input id="placeholder" type="text" placeholder="Field Placeholder" value={input.placeholder} onChange={(e) => {
                         setInput({
                             ...input,
                             placeholder: e.target.value
                         })
                     }} /> : null}
-                {input.type === "numeric" ? <div className="flex w-full flex-row gap-1 my-2">
+                {input.type === "number_input" ? <div className="flex w-full flex-row gap-1 my-2">
                     <Input id="min" type="number" placeholder="Min"
                         value={input.constraints["min_length"] ?? 0}
                         onChange={(e) => {
@@ -197,20 +201,23 @@ export default function InputTab({ inputs }: {
                     />
 
                 </div> : null}
-                {(input.type === "dropdown" || input.type === "radio_button") ? <div>
+                {(input.type === "dropdown" || input.type === "radio" || input.type === "checkbox") ? <div>
                     <Label>
                         Add Options
                     </Label>
 
                     {input.options?.map((option, index) => {
                         return (<div className="flex flex-row justify-between items-center w-full gap-2 my-2" key={index}>
-                            <Input id={`option_${index}`} type="text" placeholder={`Option ${index + 1}`} value={option}
+                            <Input id={`option_${index}`} type="text" placeholder={`Option ${index + 1}`} value={option.value}
                                 onChange={(e) => {
                                     setInput({
                                         ...input,
                                         options: input.options?.map((item, i) => {
                                             if (i === index) {
-                                                return e.target.value
+                                                return {
+                                                    label: e.target.value.split(" ").map((item) => item.charAt(0).toUpperCase() + item.slice(1)).join("_"),
+                                                    value: e.target.value
+                                                }
                                             } else {
                                                 return item
                                             }
@@ -223,28 +230,27 @@ export default function InputTab({ inputs }: {
                             <Button variant="outline" size="icon" onClick={() => {
                                 setInput({
                                     ...input,
-                                    constraints: {
-                                        ...input.constraints,
-                                        permissible_values: input.constraints['permissible_values'] ? [...input.constraints['permissible_values'], ""] : [""]
-                                    }
+                                        options: input.options ? [...input.options, {
+                                        label: "",
+                                        value: ""
+                                        }] : []
+                                    
                                 })
                             }}><IoMdAdd /></Button>
                             <Button variant="outline" size="icon" onClick={() => {
                                 setInput({
                                     ...input,
-                                    constraints: {
-                                        ...input.constraints,
-                                        permissible_values: input.constraints['permissible_values']?.filter((_, i) => {
+                                    options: input.options?.filter((_, i) => {
                                             if (i === index) {
                                                 return false
                                             } else {
                                                 return true
                                             }
                                         })
-                                    }
+                                    
                                 })
                             }}
-                                disabled={input.constraints['permissible_values']?.length === 1 ? true : false}
+                                disabled={input.options?.length === 1 ? true : false}
                             >
                                 <MdOutlineDeleteOutline />
                             </Button>
@@ -253,8 +259,12 @@ export default function InputTab({ inputs }: {
                     })}</div> : null}
                 <div className="flex flex-row justify-center items-center my-2">
                     <Button variant="outline" onClick={() => {
-                        if (input.id === "") {
+                        if (input.id.trim() === "") {
                             toast.error("Field ID cannot be empty")
+                            return
+                        }
+                        if(!INPUT_TYPES.find((type) => type.value === input.type)){
+                            toast.error("Select a proper input type");
                             return
                         }
                         updateBuilderDataAndResetInput(input)
@@ -352,7 +362,7 @@ export default function InputTab({ inputs }: {
                         });
                     }}
                 >
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[180px] bg-slate-100">
                         <SelectValue placeholder={"Button Text"} />
                     </SelectTrigger>
                     <SelectContent>
