@@ -138,7 +138,7 @@ export default function Layout({ children, user }: { children: React.ReactNode, 
                     </div>
                 </nav>
             </header>
-            <main className="p-10 flex min-h-screen gap-2 w-full justify-between flex-wrap items-start">
+            <main className="p-10 flex min-h-screen gap-2 w-full justify-between flex-wrap items-start relative z-0">
                 {children}
             </main>
             <Footer />

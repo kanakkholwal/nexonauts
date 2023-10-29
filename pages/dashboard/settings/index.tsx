@@ -84,7 +84,12 @@ const TABLIST = [
         title: "Profile",
         id: "profile",
         Component: Profile
-    }
+    },
+    {
+        title: "Appearance",
+        id: "appearance",
+        Component: Appearance
+    },
 
 ] as TabItemType[]
 
@@ -112,7 +117,7 @@ export default function SettingsPage({ user: CurrentUser }: {
                 <Separator className="my-6" />
                 <Tabs className="flex flex-col w-full space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0" defaultValue={TABLIST.find(item => item.id === router.query.defaultTab) ? router.query.defaultTab?.toString() : TABLIST[0].id}>
                     <TabsList className="-mx-4 lg:w-1/4 w-full md:flex-col md:justify-start md:h-fit gap-2 ">
-                        {TABLIST.map((item: TabItemType, index) => {
+                        {TABLIST.map((item: TabItemType) => {
                             return <TabsTrigger value={item.id} className="w-full" key={item.id}>{item.title}</TabsTrigger>
                         })}
                     </TabsList>
@@ -130,6 +135,19 @@ export default function SettingsPage({ user: CurrentUser }: {
 
 
         </Layout>)
+}
+function Appearance() {
+    return (  <div className="space-y-6">
+    <div>
+        <h3 className="text-lg font-medium">Appearance</h3>
+        <p className="text-sm text-muted-foreground">
+        Customize the appearance of the site. Automatically switch between day and night themes.
+        </p>
+    </div>
+    <Separator />
+    <div className="flex items-center justify-between gap-2 w-full mb-5">
+        </div>
+    </div>)
 }
 function Profile({ user: CurrentUser }) {
     const [user, setUser] = useState(CurrentUser);
@@ -306,7 +324,7 @@ function Profile({ user: CurrentUser }) {
                                     <Image width={150} height={150}
                                         alt={user.name} src={user.profileURL}
                                     /> : <Image width={150} height={150}
-                                        alt={"user profile image"} src={"https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} />}
+                                        alt={"user profile image"} src={"https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} />}
                                 <label htmlFor="imageUpload">
                                     <span>Upload</span>
                                     <span>Profile Picture</span>

@@ -15,7 +15,7 @@ import React from "react";
 
 // searchable contents 
 import { CategoryList } from "pages/tools/ToolsList";
-
+import { CATEGORIES } from "src/layouts/apps/common/constants";
 export default function Search() {
     const [open, setOpen] = React.useState(false);
     const [apps, setApps] = React.useState<{
@@ -55,9 +55,19 @@ export default function Search() {
                 </kbd>
             </button>
             <CommandDialog open={open} onOpenChange={setOpen}>
-                <CommandInput placeholder="Type a command or search..." />
+                <CommandInput placeholder="Type a search..." />
                 <CommandList>
                     <CommandEmpty>No results found.</CommandEmpty>
+                    <CommandGroup heading="AI Apps">
+                        {CATEGORIES.map((category, index) => {
+                            return (<Link href={`/apps?category=${category.value}`} key={"apps_category_" + index} className="cursor-pointer">
+                                <CommandItem>
+                                    <category.Icon className="mr-3 h-4 w-4" />
+                                    <span>{category.label}</span>
+                                </CommandItem>
+                            </Link>)
+                        })}
+                    </CommandGroup>
                     <CommandGroup heading="Developer Tools">
                         {CategoryList.map((tool, index) => {
                             return (<Link href={tool.path} key={"tool_" + index} className="cursor-pointer">
@@ -69,18 +79,6 @@ export default function Search() {
                                 </CommandItem>
                             </Link>)
                         })}
-                        {/* <CommandItem>
-                            <CalendarIcon className="mr-2 h-4 w-4" />
-                            <span>Calendar</span>
-                        </CommandItem>
-                        <CommandItem>
-                            <FaceIcon className="mr-2 h-4 w-4" />
-                            <span>Search Emoji</span>
-                        </CommandItem>
-                        <CommandItem>
-                            <RocketIcon className="mr-2 h-4 w-4" />
-                            <span>Launch</span>
-                        </CommandItem> */}
                     </CommandGroup>
                     <CommandSeparator />
                     <CommandGroup heading="Settings">
