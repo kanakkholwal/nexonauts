@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";
-import { RenderOutput } from "./view/output";
+import { RenderOutput, RenderOutputType } from "./view/output";
 
 // Components
 
@@ -27,14 +27,20 @@ export default function AppEdit({ user }) {
 
     const [value, handleChange] = useForm(makeInitialObject(app.formFlow.inputs));
     const [answer, setAnswer] = useState(null)
-    const [output, setOutput] = useState(null)
+    const [output, setOutput] = useState<RenderOutputType >({
+        type: "text/plain",
+        data: ""
+    })
     const [res, setRes] = useState(null)
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState(null);
 
     const apiCall = async () => {
         setLoading(true);
-        setOutput(null);
+        setOutput({
+            type: "text/plain",
+            data: null
+        });
         // check if all required inputs are filled
         const requiredInputs = app.formFlow.inputs.filter((input) => input.required);
         const requiredInputIds = requiredInputs.map((input) => input.id);
@@ -45,6 +51,7 @@ export default function AppEdit({ user }) {
             return;
         }
         try {
+        
             const response = await axios.post("/api/apps/playground", {
                 userId: user.id,
                 appId: app.appId,
