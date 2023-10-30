@@ -144,12 +144,12 @@ export default function InputTab({ inputs }: {
                         onChange={(e) => {
                             setInput({
                                 ...input,
-                                id: e.target.value,
-                                label: e.target.value.replaceAll("_", " ").replaceAll("-", " ").split(" ").map((item) => item.charAt(0).toUpperCase() + item.slice(1)).join(" ")
+                                label: e.target.value,
+                                id: e.target.value.replaceAll("_", " ").replaceAll("-", " ").split(" ").map((item) => item.charAt(0).toUpperCase() + item.slice(1)).join(" ")
                             })
                         }} />
                     <div className="items-center flex gap-2">
-                        <Label htmlFor="mandatory">
+                        <Label htmlFor="mandatory" className="mb-0">
                             Mandatory
                         </Label>
                         <Switch
@@ -180,20 +180,20 @@ export default function InputTab({ inputs }: {
                                 ...input,
                                 constraints: {
                                     ...input.constraints,
-                                    min_length: parseInt(e.target.value ?? 0)
+                                    "min_length": parseInt(e.target.value ?? 0)
                                 }
                             })
                         }
                         }
                     />
-                    <Input variant="ghost" id="max" type="number" placeholder="Max"
+                    <Input id="max" type="number" placeholder="Max"
                         value={input.constraints["max_length"]}
                         onChange={(e) => {
                             setInput({
                                 ...input,
                                 constraints: {
                                     ...input.constraints,
-                                    max_length: parseInt(e.target.value ?? 0)
+                                    "max_length": parseInt(e.target.value ?? 0)
                                 }
                             })
                         }

@@ -45,12 +45,13 @@ export default function AppEdit({ user }) {
             return;
         }
         try {
-            const response = await axios.post("/api/apps/services", {
+            const response = await axios.post("/api/apps/playground", {
                 userId: user.id,
                 appId: app.appId,
-                appData: {
+                appInputs: {
                     ...value
-                }
+                },
+                config:app.config
             });
             setOutput(response.data.result);
             console.log(response.data.result);
@@ -93,7 +94,7 @@ export default function AppEdit({ user }) {
 
             </CardFooter>
         </Card>
-        <RenderOutput output={answer} loading={loading} />
+        <RenderOutput output={output} loading={loading} />
     </div>)
 
 }

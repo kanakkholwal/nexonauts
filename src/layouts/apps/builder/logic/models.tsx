@@ -1,4 +1,8 @@
-export const types = ["GPT-3", "Codex","GPT-4","Google AI"] as const
+export const types = ["GPT-3", 
+// "Codex",
+"GPT-4",
+// "Google AI"
+] as const
 
 export type ModelType = (typeof types)[number]
 
