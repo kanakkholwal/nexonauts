@@ -8,10 +8,11 @@ import User from "models/user";
 import nextConnect from 'next-connect';
 import { Configuration, OpenAIApi } from 'openai';
 // import type { TextCompletionResponse } from "types/openai";
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default nextConnect(handler)
     .use(hasTokenMiddleware)
-    .post(async (req, res) => {
+    .post(async (req: NextApiRequest, res: NextApiResponse) => {
         try {
             await dbConnect();
             const { userId, appId, appInputs, config } = req.body;
@@ -35,7 +36,7 @@ export default nextConnect(handler)
             });
             const openai = new OpenAIApi(configuration);
 
-            const calculatedPrompt = replaceWords(config.prompt, appInputs);
+            const calculatedPrompt = replaceWords(config.prompt,Object.keys(appInputs).map(key => key)) + "\n" + Object.keys(appInputs).map((key) => `${key}=${appInputs[key]}`).join("\n");
             console.log(calculatedPrompt);
 
             const completion = await openai.createCompletion({
@@ -56,12 +57,12 @@ export default nextConnect(handler)
                 createdAt: Date.now(),
                 data: appInputs,
                 usage: completion.data.usage,
-                type: "playground"
+                type: "playground_usage"
             });
             return res.status(200).json({
                 result: {
                     data: completion.data.choices[0].text,
-                    outputType: "plaintext"
+                    type: "plaintext"
                 },
                 message: "Output generated successfully in playground mode!"
             });
@@ -77,11 +78,7 @@ export default nextConnect(handler)
         }
     })
 
-    const replaceWords = (sentence:string, appInputs:{
-        [key: string]: string;
-    }) => {
-        const wordList = Object.keys(appInputs);
-        const Values = Object.values(appInputs);
+    const replaceWords = (sentence, wordList) => {
         let replacedSentence = sentence;
     
         for (const word of wordList) {
@@ -89,7 +86,7 @@ export default nextConnect(handler)
             replacedSentence = replacedSentence.replace(regex, `<<<USER_INPUT_VALUE>>>${word}<<</USER_INPUT_VALUE>>>`);
         }
     
-        return replacedSentence + '\n' + Object.keys(appInputs).map((key) => `${key}=${appInputs[key]}`).join("\n");
+        return replacedSentence;
     };
     const reverseReplaceWords = (sentence: string): string => {
         const regexPattern = '<<<USER_INPUT_VALUE>>>(.*?)<<</USER_INPUT_VALUE>>>';

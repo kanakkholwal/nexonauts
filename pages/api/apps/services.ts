@@ -105,10 +105,10 @@ export default nextConnect(handler)
                     usage: response.usage
                 });
                 return res.status(200).json({
-                    result: [{
+                    result: {
                         data: response.choices[0].text,
-                        outputType: "plaintext"
-                    }], message: "Output generated successfully"
+                        type: "plaintext"
+                    }, message: "Output generated successfully"
                 });
             } else {
                 return res.status(401).json({ message: 'Something went wrong!.' });
