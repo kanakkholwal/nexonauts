@@ -1,3 +1,5 @@
+import Editor from '@draft-js-plugins/editor';
+import createMentionPlugin from '@draft-js-plugins/mention';
 import { ContentState, EditorState, convertToRaw } from 'draft-js';
 import {
     useCallback,
@@ -8,8 +10,6 @@ import {
 } from 'react';
 
 import { Badge } from '@/components/ui/badge';
-import Editor from '@draft-js-plugins/editor';
-import createMentionPlugin from '@draft-js-plugins/mention';
 import { AppConfigType, AppType } from "src/types/app";
 import { useBuilderContext } from "../../common/context/builder-context";
 
@@ -73,9 +73,8 @@ export default function Prompt({app}:{
     return (
         <div>
 
-            <p className="text-xs text-gray-400">
-                This logic is to enable the model to receive user input defined above through a designated input field marked with an ‘@’ symbol in the prompt. The model will then utilize the provided input to generate an appropriate response or perform the requested task. Example prompt: 'translate @input_name into English
-
+            <p className="text-xs text-gray-400 ">
+            This logic allows the model to receive user input defined above via a specific input field in the prompt denoted with a <kbd className='font-inherit text-xs bg-primary/5 text-primary'>@</kbd> symbol. The model will next use the input provided to provide an appropriate answer or carry out the specified task. <kbd className='font-inherit text-xs bg-primary/5 text-primary'>translate @input_name into English</kbd> is an example prompt.
             </p>
 
             <div
@@ -83,7 +82,7 @@ export default function Prompt({app}:{
                 aria-multiline="true"
                 aria-labelledby="prompt-label"
                 aria-required="true"
-                className={` promptBox my-2 bg-slate-100 focus:border-[hsl(var(--primary))] border-[hsl(var(--border))] border cursor-text rounded-md p-4 w-[100%] outline-none min-h-[400px] break-words`}
+                className={` promptBox my-2 bg-slate-100 focus-within:border-primary active:border-primary border-[hsl(var(--border))] border cursor-text rounded-md p-4 w-[100%] outline-none min-h-[400px] break-words`}
                 onClick={() => {
                     if (ref.current)
                         ref.current?.focus();

@@ -28,6 +28,22 @@ export const BuilderProvider = ({ children, app }: BuilderProviderProps) => {
     const updateBuilderData = (newData: AppType) => {
         setBuilderData({ ...builderData, ...newData });
     };
+    // pro user only
+    // useEffect(() => {
+        //  save builderData to localStorage
+
+        // if(!builderData) return;
+        // let savedData = localStorage.getItem('builderData');
+        // if (savedData) {
+        //     localStorage.removeItem('builderData');
+        // }
+        
+        // if (builderData){
+        //     localStorage.setItem('builderData', JSON.stringify(builderData));
+        // }   
+
+
+    // },[builderData]);//[builderData] is the dependency array, which tells React to only re-run the effect if builderData changes
 
     return (
         <BuilderContext.Provider value={{ builderData, updateBuilderData }}>

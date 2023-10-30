@@ -3,13 +3,13 @@ import { v4 as UuID4 } from 'uuid';
 
 function generateRandomAppId() {
   // Generate a random UUID
-  const uuid = UuID4();
+    const uuid = UuID4();
 
   // Take the first 10 characters of the UUID and remove any non-alphanumeric characters
-  const alphanumericUsername = uuid.replace(/[^a-zA-Z0-9]/g, '').slice(0, 6);
+    const alphanumericUsername = uuid.replace(/[^a-zA-Z0-9]/g, '').slice(0, 6);
 
   // Add a prefix (e.g., 'user_') to the alphanumeric username
-  return `app_${alphanumericUsername}`;
+    return `app_${alphanumericUsername}`;
 }
 const UsageSchema = new mongoose.Schema({
     appId: {
@@ -29,6 +29,15 @@ const UsageSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed,
         required: true,
         default: {},
+    },
+    data:{
+        type:mongoose.Schema.Types.Mixed,
+        default:{}
+    },
+    type:{
+        type:String,
+        enum:["playground_usage" , "free_usage","pro_usage", "premium_usage" , "enterprise_usage"],
+        default:"free_usage"
     }
 });
 
