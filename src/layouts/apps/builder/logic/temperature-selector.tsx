@@ -10,9 +10,9 @@ import {
 } from "@/components/ui/hover-card"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
+import { FaTemperatureEmpty } from "react-icons/fa6"
 import { AppConfigType } from "src/types/app"
 import { useBuilderContext } from "../../common/context/builder-context"
-
 interface TemperatureSelectorProps {
   defaultValue: SliderProps["defaultValue"]
 }
@@ -29,7 +29,18 @@ export function TemperatureSelector({
         <HoverCardTrigger asChild>
           <div className="grid gap-4">
             <div className="flex items-center justify-between">
-              <Label htmlFor="temperature">Temperature</Label>
+              <div>
+                <Label htmlFor="temperature">
+                  <FaTemperatureEmpty className="h-4 w-4 mr-2 shrink-0 inline-block" />
+                  Temperature
+
+                </Label>
+
+                <p className="text-sm text-muted-foreground">
+                  Creativity allowed in the responses.
+                </p>
+
+              </div>
               <span className="w-12 rounded-md border border-transparent px-2 py-0.5 text-right text-sm text-muted-foreground hover:border-border">
                 {value}
               </span>
@@ -39,11 +50,11 @@ export function TemperatureSelector({
               max={1}
               defaultValue={value}
               step={0.1}
-              onValueChange={value =>{
+              onValueChange={value => {
                 setValue(value);
                 let config = {
                   ...builderData.config,
-                  hyperparameters:{
+                  hyperparameters: {
                     ...builderData?.config?.hyperparameters,
                     "temperature": value[0]
                   }

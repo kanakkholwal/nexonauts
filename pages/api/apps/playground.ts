@@ -9,7 +9,7 @@ import nextConnect from 'next-connect';
 import { Configuration, OpenAIApi } from 'openai';
 // import type { TextCompletionResponse } from "types/openai";
 import type { NextApiRequest, NextApiResponse } from 'next';
-
+import { availableModels } from "src/lib/models";
 export default nextConnect(handler)
     .use(hasTokenMiddleware)
     .post(async (req: NextApiRequest, res: NextApiResponse) => {
@@ -38,30 +38,42 @@ export default nextConnect(handler)
 
             const calculatedPrompt = replaceWords(config.prompt,Object.keys(appInputs).map(key => key)) + "\n" + Object.keys(appInputs).map((key) => `${key}=${appInputs[key]}`).join("\n");
             console.log(calculatedPrompt);
+            let response: any;
+            if(availableModels.google_ai.includes(config.model)){
+                const request = await axios.post(`https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key=${process.env.PALM2_API_KEY}`, {
+                    prompt:{
+                        "text": calculatedPrompt
+                    }
+                });
+                response = request.data.candidates[0].output
+            } else if (availableModels.openai.includes(config.model)){
 
-            const completion = await openai.createCompletion({
-                model: config.model,
-                prompt: calculatedPrompt,
-                // temperature: parseFloat(config.hyperparameters["temperature"] ?? 1), //1.0
-                // max_tokens: parseInt(config.hyperparameters["max_tokens"] ?? 500), //500
-                // top_p: parseFloat(config.hyperparameters["top_p"] ?? 1), //1.0
-                // frequency_penalty: parseFloat(config.hyperparameters["frequency_penalty"] ?? 0), //0.0
-                // presence_penalty: parseFloat(config.hyperparameters["presence_penalty"] ?? 0) //0.0
-            });
+                const completion = await openai.createCompletion({
+                    model: config.model,
+                    prompt: calculatedPrompt,
+                    // temperature: parseFloat(config.hyperparameters["temperature"] ?? 1), //1.0
+                    // max_tokens: parseInt(config.hyperparameters["max_tokens"] ?? 500), //500
+                    // top_p: parseFloat(config.hyperparameters["top_p"] ?? 1), //1.0
+                    // frequency_penalty: parseFloat(config.hyperparameters["frequency_penalty"] ?? 0), //0.0
+                    // presence_penalty: parseFloat(config.hyperparameters["presence_penalty"] ?? 0) //0.0
+                })
+                console.log(completion.data);
+                response = completion.data.choices[0].text,
+        
+                await Usage.create({
+                    userId: existingUser._id,
+                    appId: appId,
+                    createdAt: Date.now(),
+                    data: appInputs,
+                    usage: completion.data.usage,
+                    type: "playground_usage",
+                    model_used: config.model,
+                });
+            }
 
-            console.log(completion.data);
-    
-            await Usage.create({
-                userId: existingUser._id,
-                appId: appId,
-                createdAt: Date.now(),
-                data: appInputs,
-                usage: completion.data.usage,
-                type: "playground_usage"
-            });
             return res.status(200).json({
                 result: {
-                    data: completion.data.choices[0].text,
+                    data: response,
                     type: "plaintext"
                 },
                 message: "Output generated successfully in playground mode!"

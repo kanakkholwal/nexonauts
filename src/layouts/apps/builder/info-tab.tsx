@@ -31,7 +31,8 @@ export default function InfoTab({ app }: { app: AppType }) {
                 <span className="text-xs text-red-400">  *</span>
                 {/* <span className="text-xs text-gray-400"> ({process.env.NEXT_PUBLIC_WEBSITE_URL}{builderData.path.trim().length === 0 ? "/apps/your-app-link":builderData.path})</span> */}
             </Label>
-            <Input id="link" name="link" value={builderData.path} variant="ghost"
+            <Input id="link" name="link" value={builderData.path}
+                variant="ghost" rounded="lg"
                 placeholder='/apps/your-app-link (unique without spaces)'
                 onChange={(e) => {
                     console.log(e.target.value);
@@ -85,17 +86,23 @@ export default function InfoTab({ app }: { app: AppType }) {
                 </span>
             </p>
         </div>
-            <Label htmlFor="category">
-                Categories
-                <span className="text-xs text-red-400"> *</span>
-            </Label>
+        <Label htmlFor="category">
+            Categories
+            <span className="text-xs text-red-400"> *</span>
+        </Label>
         <div className="grid w-full grid-cols-2 gap-2 !my-4">
             {CATEGORIES.map((category) => {
                 return <div className="flex items-center space-x-2" key={category}>
-                    <Checkbox defaultChecked={category === builderData.categories[0] ? true : false} value={category} id={category}
-                        onChange={(e) => {
-                            console.log(e.target);
-                            updateBuilderData({ ...builderData, categories: [category] })
+                    <Checkbox
+                        defaultChecked={builderData.categories.includes(category)}
+                        value={category} id={category}
+                        onCheckedChange={(value) => {
+
+                            if (value) {
+                                updateBuilderData({ ...builderData, categories: [...builderData.categories, category] })
+                            } else {
+                                updateBuilderData({ ...builderData, categories: builderData.categories.filter((cat) => cat !== category) })
+                            }
                         }}
                     />
                     <Label htmlFor={category} className="!mb-0 font-medium">{category}</Label>

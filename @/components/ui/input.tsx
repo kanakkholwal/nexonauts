@@ -13,6 +13,13 @@ const inputVarinats = cva(
       ghost: "border border-solid border-transparent bg-slate-100 text-slate-900 focus:border-primary/70",
       border:" border-2 focus:border-primary/70 border-solid"
     },
+    rounded: {
+      default: "rounded-md",
+      sm: "rounded-sm",
+      lg: "rounded-3xl",
+      full: "rounded-full",
+      none: "rounded-none",
+    },
   },
   defaultVariants: {
     variant: "default",

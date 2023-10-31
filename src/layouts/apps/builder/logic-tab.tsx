@@ -3,11 +3,11 @@ import { AppType } from "src/types/app";
 import { useBuilderContext } from '../common/context/builder-context';
 import { ModelSelector } from './logic/model-selecter';
 
-import { MaxLengthSelector } from './logic/maxlength-selector';
+// import { MaxLengthSelector } from './logic/maxlength-selector';
+// import { TopPSelector } from './logic/top-p-selector';
 import { models, types } from "./logic/models";
 import Prompt from './logic/prompt';
 import { TemperatureSelector } from './logic/temperature-selector';
-import { TopPSelector } from './logic/top-p-selector';
 
 export default function LogicTab({ app }: {
     app: AppType
@@ -23,8 +23,11 @@ export default function LogicTab({ app }: {
         <div className="w-full mb-2">
             <ModelSelector models={models} types={types} />
             <TemperatureSelector defaultValue={[0.5]} />
+
+            {/* <>
             <MaxLengthSelector defaultValue={[500]} />
             <TopPSelector defaultValue={[0.4]} />
+            </> */}
         </div>
 
 
