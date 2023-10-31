@@ -27,16 +27,16 @@ import AppEdit from "../app-edit";
 
 
 const STEPS = [{
-    title: "App Info",
+    title: "Meta Data",
     id: "app-info",
 }, {
-    title: "App Input",
+    title: "Inputs",
     id: "app-input",
 }, {
-    title: "App Logic",
+    title: "Logic",
     id: "app-logic",
 }, {
-    title: "App Output",
+    title: "Output",
     id: "app-output",
 }];
 
@@ -66,13 +66,15 @@ export default function Builder({
             />
             <div role="toolbar" className="p-2">
                 <Tabs defaultValue="app-info" className="w-[500px]">
-                    <TabsList className="grid w-full grid-cols-4">
-                        {STEPS.map((step) => (<TabsTrigger value={step.id} key={step.id}>{step.title}</TabsTrigger>))}
+                    <TabsList className="grid w-full grid-cols-4 rounded-3xl shadow">
+                        {STEPS.map((step) => (<TabsTrigger value={step.id} key={step.id} className="rounded-3xl">{step.title}</TabsTrigger>))}
                     </TabsList>
                     <TabsContent value="app-info">
                         <Card>
                             <CardHeader>
-                                <CardTitle className="text-black font-semibold">App Info</CardTitle>
+                                <CardTitle className="text-black font-semibold">
+                                    Meta Data
+                                </CardTitle>
                                 <CardDescription>
                                     Change meta information about your app here
                                 </CardDescription>
@@ -88,7 +90,7 @@ export default function Builder({
                         <Card>
                             <CardHeader>
                                 <CardTitle>
-                                    App Input
+                                    App Inputs
                                 </CardTitle>
                                 <CardDescription>
                                     Add input fields to your app here

@@ -38,6 +38,11 @@ const UsageSchema = new mongoose.Schema({
         type:String,
         enum:["playground_usage" , "free_usage","pro_usage", "premium_usage" , "enterprise_usage"],
         default:"free_usage"
+    },
+    model_used:{
+        type:String,
+        required:true,
+        enum:["text-bison-001" , "gpt-3.5-turbo", "davinci" , "ada","curie","babbage"],
     }
 });
 

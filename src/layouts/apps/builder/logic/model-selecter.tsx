@@ -28,9 +28,10 @@ import {
 import { useMutationObserver } from "@/hooks/use-mutation-observer"
 import { cn } from "@/lib/utils"
 
+import { LuAtom } from "react-icons/lu"
+import { Model, ModelType } from "src/lib/models"
 import { AppConfigType } from "src/types/app"
 import { useBuilderContext } from "../../common/context/builder-context"
-import { Model, ModelType } from "./models"
 
 interface ModelSelectorProps extends PopoverProps {
   types: readonly ModelType[]
@@ -48,7 +49,14 @@ export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
     <div className="grid gap-2">
       <HoverCard openDelay={200}>
         <HoverCardTrigger asChild>
-          <Label htmlFor="model">Model</Label>
+          <div>
+            <Label htmlFor="model">       
+                <LuAtom className="h-4 w-4 mr-2 shrink-0 inline-block" />
+              Model</Label>
+            <p className="text-sm text-muted-foreground">
+              The model used to generate the responses.
+            </p>
+          </div>
         </HoverCardTrigger>
         <HoverCardContent
           align="start"
@@ -116,10 +124,10 @@ export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
                             setSelectedModel(model);
                             let config = {
                               ...builderData.config,
-                              model:model.name
+                              model: model.name
                             } as AppConfigType;
-                            
-                            updateBuilderData({ 
+
+                            updateBuilderData({
                               ...builderData,
                               config
                             });
