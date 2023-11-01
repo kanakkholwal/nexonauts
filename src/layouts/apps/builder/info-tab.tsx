@@ -27,16 +27,16 @@ export default function InfoTab({ app }: { app: AppType }) {
         </div>
 
         <div className="flex flex-col gap-2 ">
-            <Label htmlFor="link">Link
+            <Label htmlFor="appId">App ID (unique)
                 <span className="text-xs text-red-400">  *</span>
-                {/* <span className="text-xs text-gray-400"> ({process.env.NEXT_PUBLIC_WEBSITE_URL}{builderData.path.trim().length === 0 ? "/apps/your-app-link":builderData.path})</span> */}
+                <span className="text-xs text-gray-400"> ({process.env.NEXT_PUBLIC_WEBSITE_URL}/apps/{builderData.appId.toLowerCase().replaceAll(/ /g, "-").replaceAll("_", "-")})</span>
             </Label>
-            <Input id="link" name="link" value={builderData.path}
+            <Input id="appId" name="appId" value={builderData.appId}
                 variant="ghost" rounded="lg"
-                placeholder='/apps/your-app-link (unique without spaces)'
+                placeholder='(unique without spaces)'
                 onChange={(e) => {
                     console.log(e.target.value);
-                    updateBuilderData({ ...builderData, path: e.target.value })
+                    updateBuilderData({ ...builderData, appId: e.target.value.replaceAll(/ /g, "_") })
                 }} />
             {/* <span className="text-xs text-gray-400"> ({process.env.NEXT_PUBLIC_WEBSITE_URL}{builderData.path.trim().length === 0 ? "/apps/your-app-link":builderData.path})</span> */}
         </div>
@@ -95,7 +95,8 @@ export default function InfoTab({ app }: { app: AppType }) {
                 return <div className="flex items-center space-x-2" key={category}>
                     <Checkbox
                         defaultChecked={builderData.categories.includes(category)}
-                        value={category} id={category}
+                        value={category}
+                        id={category}
                         onCheckedChange={(value) => {
 
                             if (value) {
@@ -105,7 +106,7 @@ export default function InfoTab({ app }: { app: AppType }) {
                             }
                         }}
                     />
-                    <Label htmlFor={category} className="!mb-0 font-medium">{category}</Label>
+                    <Label htmlFor={category} className="!mb-0 font-medium capitalize">{category.replaceAll("_"," ")}</Label>
                 </div>
             })}
         </div>
@@ -114,9 +115,9 @@ export default function InfoTab({ app }: { app: AppType }) {
                 Visibile to everyone
             </Label>
             <Switch
+                
                 checked={builderData.isPublic}
                 onCheckedChange={(value) => {
-
                     updateBuilderData({ ...builderData, isPublic: value })
                 }}
 
@@ -126,13 +127,15 @@ export default function InfoTab({ app }: { app: AppType }) {
     </>)
 }
 const CATEGORIES = [
-    "Writing Assistant",
-    "Reading Assistant",
-    "Text Analysis",
-    "Career",
-    "Education",
-    "Sales & Marketing",
-    "Personal",
-    "Coding",
-    "Other Tools"
+    "writing_assistant",
+    "reading_assistant",
+    "text_analysis",
+    "career",
+    "education",
+    "sales_and_marketing",
+    "personal",
+    "productivity",
+    "finance",
+    "coding",
+    "other_tools"
 ]

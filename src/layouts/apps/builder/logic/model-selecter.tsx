@@ -35,12 +35,13 @@ import { useBuilderContext } from "../../common/context/builder-context"
 
 interface ModelSelectorProps extends PopoverProps {
   types: readonly ModelType[]
-  models: Model[]
+  models: Model[],
+  defaultModel?: Model
 }
 
-export function ModelSelector({ models, types, ...props }: ModelSelectorProps) {
+export function ModelSelector({defaultModel, models, types, ...props }: ModelSelectorProps) {
   const [open, setOpen] = React.useState(false)
-  const [selectedModel, setSelectedModel] = React.useState<Model>(models[0])
+  const [selectedModel, setSelectedModel] = React.useState<Model>(defaultModel ?? models[0])
   const [peekedModel, setPeekedModel] = React.useState<Model>(models[0])
   const { builderData, updateBuilderData } = useBuilderContext();
 

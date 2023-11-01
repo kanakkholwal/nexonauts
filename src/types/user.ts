@@ -20,7 +20,8 @@ type SessionUserType = {
     email: string;
     role: string;
     profileURL: string;
-    account_type?: string;
+    account_type: string;
 }
 
-export type { UserType, SessionUserType };
+export type { SessionUserType, UserType };
+

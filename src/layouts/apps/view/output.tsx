@@ -7,8 +7,9 @@ import {
     CardTitle
 } from "@/components/ui/card";
 import Copy from "copy-to-clipboard";
-import { Interweave } from "interweave";
+import Markdown from 'markdown-to-jsx';
 import toast from "react-hot-toast";
+import { outputsType } from "src/types/app";
 
 export type RenderOutputType = {
     type: string
@@ -16,9 +17,10 @@ export type RenderOutputType = {
 }
 type RenderOutputProps = {
     output: RenderOutputType,
-    loading: boolean
+    loading: boolean,
+    outputConfig: outputsType
 }
-export function RenderOutput({ output, loading }: RenderOutputProps) {
+export function RenderOutput({ output, loading, outputConfig }: RenderOutputProps) {
     return (<Card className="w-full max-w-[1024px]">
         <CardHeader className="w-full flex items-start sm:items-center gap-2 sm:flex-row justify-between">
             <div>
@@ -55,11 +57,14 @@ export function RenderOutput({ output, loading }: RenderOutputProps) {
                     <div className="animate-pulse bg-slate-200 w-[60%] h-4 mb-2 rounded-md" />
                     <div className="animate-pulse bg-slate-200 w-[70%] h-4 mb-2 rounded-md" />
                 </> : <>
-                    {output.data === null || output.data.trim() === "" ? <p className="text-foreground text-center">No output generated</p> : <>
-
-                        <p>Output Type: {output.type}</p>
-                        <Interweave content={output.data} tagName="p" className="text-foreground" />
-                    </>}
+                    {(output.data === null || output.data?.trim() === "") ?
+                        <p className="text-foreground text-center">No output generated</p> : <>
+                            {outputConfig.render_type === "text" && <p className="text-foreground text-center">{output.data}</p>}
+                            {outputConfig.render_type === "markdown" &&
+                                <Markdown className="text-foreground" >
+                                    {output.data}
+                                </Markdown>}
+                        </>}
                 </>}
 
 

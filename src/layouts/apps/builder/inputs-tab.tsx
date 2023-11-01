@@ -42,6 +42,7 @@ export default function InputTab({ inputs }: {
         name: "",
         options: []
     });
+    console.log(input)
 
     const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
 
@@ -68,7 +69,7 @@ export default function InputTab({ inputs }: {
 
     // Utility function to update form data
     const updateBuilderDataAndResetInput = (updatedInput: InputType) => {
-        const updatedInputs = [...builderData.formFlow?.inputs];
+        const updatedInputs = [...builderData.formFlow.inputs];
         const index = updatedInputs.findIndex((item) => item.id === updatedInput.id);
         if (index !== -1) {
             updatedInputs.splice(index, 1, updatedInput);
@@ -93,9 +94,9 @@ export default function InputTab({ inputs }: {
             placeholder: "",
             value: "",
             constraints: {
-                "data_type": "str",
-                "min_length": 1,
-                'max_length': 200,
+                // "data_type": "str",
+                // "min_length": 1,
+                // 'max_length': 200,
             },
             name: "",
             options: []
@@ -119,13 +120,12 @@ export default function InputTab({ inputs }: {
                             setInput({
                                 ...input,
                                 type: value,
-                                options: value === "dropdown" || value === "radio" || value === "checkbox" ? [{
+                                options: (value === "dropdown" || value === "radio" || value === "checkbox") ? [{
                                     label: "",
                                     value: ""
                                 }] : []
                             })
-
-                        }} >
+                        }}>
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder={"Field Type"} />
                         </SelectTrigger>
@@ -139,13 +139,13 @@ export default function InputTab({ inputs }: {
                     </Select>
                 </div>
                 <div className="flex flex-row justify-between items-center w-full gap-2 my-2">
-                    <Input id="id" type="text" placeholder="@Field Name (eg. user_name)"
-                        value={input.id}
+                    <Input id="label" type="text" placeholder="@Field Name (eg. user_name)"
+                        value={input.label}
                         onChange={(e) => {
                             setInput({
                                 ...input,
-                                label: e.target.value,
-                                id: e.target.value.replaceAll("_", " ").replaceAll("-", " ").split(" ").map((item) => item.charAt(0).toUpperCase() + item.slice(1)).join(" ")
+                                label: e.target.value.trim(),
+                                id: e.target.value.replaceAll("_", " ").replaceAll("-", " ").split(" ").map((item) => item.charAt(0).toUpperCase() + item.slice(1)).join(" ").trim().replaceAll(" ", "_").toLowerCase(),
                             })
                         }} />
                     <div className="items-center flex gap-2">
@@ -212,7 +212,7 @@ export default function InputTab({ inputs }: {
                                 onChange={(e) => {
                                     setInput({
                                         ...input,
-                                        options: input.options?.map((item, i) => {
+                                        options: input.options?.map((item, i:number) => {
                                             if (i === index) {
                                                 return {
                                                     label: e.target.value.split(" ").map((item) => item.charAt(0).toUpperCase() + item.slice(1)).join("_"),
@@ -227,32 +227,34 @@ export default function InputTab({ inputs }: {
                                     })
 
                                 }} />
-                            <Button variant="outline" size="icon" onClick={() => {
+                            <Button variant="ghost" size="icon" onClick={() => {
                                 setInput({
                                     ...input,
-                                        options: input.options ? [...input.options, {
+                                    options: input.options ? [...input.options, {
                                         label: "",
                                         value: ""
-                                        }] : []
-                                    
+                                    }] : []
+
                                 })
-                            }}><IoMdAdd /></Button>
+                            }}>
+                                <IoMdAdd className="w-5 h-5" />
+                            </Button>
                             <Button variant="outline" size="icon" onClick={() => {
                                 setInput({
                                     ...input,
                                     options: input.options?.filter((_, i) => {
-                                            if (i === index) {
-                                                return false
-                                            } else {
-                                                return true
-                                            }
-                                        })
-                                    
+                                        if (i === index) {
+                                            return false
+                                        } else {
+                                            return true
+                                        }
+                                    })
+
                                 })
                             }}
                                 disabled={input.options?.length === 1 ? true : false}
                             >
-                                <MdOutlineDeleteOutline />
+                                <MdOutlineDeleteOutline className="w-5 h-5" />
                             </Button>
 
                         </div>)
@@ -263,7 +265,7 @@ export default function InputTab({ inputs }: {
                             toast.error("Field ID cannot be empty")
                             return
                         }
-                        if(!INPUT_TYPES.find((type) => type.value === input.type)){
+                        if (!INPUT_TYPES.find((type) => type.value === input.type)) {
                             toast.error("Select a proper input type");
                             return
                         }
@@ -292,10 +294,9 @@ export default function InputTab({ inputs }: {
                                             setInput(item);
 
                                         }}
-                                        variant="outline" size="icon"
-                                        className="w-8 h-8"
-
-                                    ><TbEdit size={16} /></Button>
+                                        variant="outline" size="icon">
+                                        <TbEdit className="w-4 h-4" />
+                                    </Button>
                                     <Button
                                         onClick={() => {
                                             const _inputs = [...builderData.formFlow?.inputs]
@@ -309,23 +310,17 @@ export default function InputTab({ inputs }: {
                                             })
 
                                         }}
-                                        variant="outline" size="icon"
-                                        className="w-8 h-8"
-
-
-                                    ><TbTrash size={16} /></Button>
+                                        variant="outline" size="icon">
+                                        <TbTrash className="w-4 h-4" />
+                                    </Button>
                                     <Button
                                         onDragOver={(e) => handleDragOver(e, index)}
                                         onDragStart={() => handleDragStart(index)}
 
                                         variant="outline" size="icon"
-                                        className="w-8 h-8"
-
-
-                                    >   <MdOutlineDragIndicator
-                                            size={16}
-
-                                        /></Button>
+                                    >
+                                        <MdOutlineDragIndicator className="w-4 h-4" />
+                                    </Button>
                                 </div>
 
                             </div>)
@@ -366,11 +361,11 @@ export default function InputTab({ inputs }: {
                         <SelectValue placeholder={"Button Text"} />
                     </SelectTrigger>
                     <SelectContent>
-                            {["Generate", "Analyse", "Detect"]?.map((value) => (
-                                <SelectItem key={value} value={value}>
-                                    {value}
-                                </SelectItem>
-                            ))}
+                        {["Generate", "Analyse", "Detect"]?.map((value) => (
+                            <SelectItem key={value} value={value}>
+                                {value}
+                            </SelectItem>
+                        ))}
                     </SelectContent>
                 </Select>
             </div>
