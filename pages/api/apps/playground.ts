@@ -40,6 +40,7 @@ export default nextConnect(handler)
             console.log(calculatedPrompt);
             let response: any;
             if(availableModels.google_ai.includes(config.model)){
+                console.log("google ai")
                 const request = await axios.post(`https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key=${process.env.PALM2_API_KEY}`, {
                     prompt:{
                         "text": calculatedPrompt
@@ -47,7 +48,7 @@ export default nextConnect(handler)
                 });
                 response = request.data.candidates[0].output
             } else if (availableModels.openai.includes(config.model)){
-
+                console.log("openai")
                 const completion = await openai.createCompletion({
                     model: config.model,
                     prompt: calculatedPrompt,
@@ -95,7 +96,7 @@ export default nextConnect(handler)
     
         for (const word of wordList) {
             const regex = new RegExp(`@${word}\\b`, 'g');
-            replacedSentence = replacedSentence.replace(regex, `<<<USER_INPUT_VALUE>>>${word}<<</USER_INPUT_VALUE>>>`);
+            replacedSentence = replacedSentence.replaceAll(regex, `<<<USER_INPUT_VALUE>>>${word}<<</USER_INPUT_VALUE>>>`);
         }
     
         return replacedSentence;

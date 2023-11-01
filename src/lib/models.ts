@@ -23,13 +23,13 @@ export const availableModels = {
         "curie",
         "babbage",
         "ada",
-        "gpt-3.5-turbo"
+        "gpt-3.5-turbo-instruct"
     ]
-}
+} as const
 export const models: Model<ModelType>[] = [
     {
         id: "c305f976-8e38-42b1-9fb7-d21b2e34f0sad",
-        name: "gpt-3.5-turbo",
+        name: "gpt-3.5-turbo-instruct",
         description:
             "It's the latest addition to the GPT-3 series, combining the strengths of its predecessors with enhanced performance and versatility.",
         type: "GPT-4",

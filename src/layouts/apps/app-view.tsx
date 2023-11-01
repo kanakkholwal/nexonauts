@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";
-import { RenderOutput } from "./view/output";
+import { RenderOutput, RenderOutputType } from "./view/output";
 
 // Components
 
@@ -23,15 +23,20 @@ export default function AppView({ user,app }) {
 
 
     const [value, handleChange] = useForm(makeInitialObject(app.formFlow.inputs));
-    const [answer, setAnswer] = useState(null)
-    const [output, setOutput] = useState(null)
-    const [res, setRes] = useState(null)
+
+    const [output, setOutput] = useState<RenderOutputType >({
+        type: app.formFlow.outputs.render_type,
+        data: ""
+    });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     const apiCall = async () => {
         setLoading(true);
-        setOutput(null);
+        setOutput({
+            ...output,
+            data: null
+        });
         // check if all required inputs are filled
         const requiredInputs = app.formFlow.inputs.filter((input) => input.required);
         const requiredInputIds = requiredInputs.map((input) => input.id);
@@ -84,7 +89,7 @@ export default function AppView({ user,app }) {
 
             </CardFooter>
         </Card>
-        <RenderOutput output={answer} loading={loading} />
+        <RenderOutput output={output} loading={loading} outputConfig={app.formFlow.outputs}/>
     </div>)
 
 }

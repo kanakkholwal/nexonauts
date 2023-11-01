@@ -45,10 +45,11 @@ export type FormFlowType = {
     menuType: TypesOfApp;
     inputs: InputType[];
     controls: Controls[];
-    outputs: {
-        render_type : string | "markdown" | "html" | "pdf",
-        save_to_db:boolean
-    };
+    outputs:outputsType
+}
+export type outputsType = {
+    render_type : string | "markdown" | "html" | "pdf" |"plain/text",
+    save_to_db:boolean
 }
 interface Controls {
     controlType: string;
@@ -68,6 +69,7 @@ export type InputType = {
     defaultValue: string;
     value?: string;
     id: string;
+    _id?: string;
     helperText?: string;
     options:OptionType[] | [];
     constraints: Record<string, any> | {};

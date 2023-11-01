@@ -26,19 +26,18 @@ export default function AppEdit({ user }) {
 
 
     const [value, handleChange] = useForm(makeInitialObject(app.formFlow.inputs));
-    const [answer, setAnswer] = useState(null)
+  
     const [output, setOutput] = useState<RenderOutputType >({
         type: "text/plain",
         data: ""
     })
-    const [res, setRes] = useState(null)
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState(null);
 
     const apiCall = async () => {
         setLoading(true);
         setOutput({
-            type: "text/plain",
+            ...output,
             data: null
         });
         // check if all required inputs are filled
@@ -101,7 +100,7 @@ export default function AppEdit({ user }) {
 
             </CardFooter>
         </Card>
-        <RenderOutput output={output} loading={loading} />
+        <RenderOutput output={output} loading={loading} outputConfig={app.formFlow.outputs}/>
     </div>)
 
 }

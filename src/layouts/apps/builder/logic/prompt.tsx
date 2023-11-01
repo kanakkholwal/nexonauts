@@ -15,7 +15,7 @@ import { useBuilderContext } from "../../common/context/builder-context";
 
 
 
-export default function Prompt({app}:{
+export default function Prompt({ app }: {
     app: AppType
 }) {
     const { builderData, updateBuilderData } = useBuilderContext();
@@ -33,8 +33,16 @@ export default function Prompt({app}:{
     const [open, setOpen] = useState(true);
     const [suggestions, setSuggestions] = useState(mentions);
 
+    
+
     const { MentionSuggestions, plugins } = useMemo(() => {
-        const mentionPlugin = createMentionPlugin();
+        const mentionPlugin = createMentionPlugin({
+            entityMutability: 'IMMUTABLE',
+            // mentionPrefix: '@',
+            mentionTrigger: '@',
+            supportWhitespace: true,
+            // mentionRegExp: "/@(\w+)/g"
+        });
 
         const { MentionSuggestions } = mentionPlugin;
 
@@ -54,7 +62,7 @@ export default function Prompt({app}:{
     }, []);
     useEffect(() => {
         // Convert plain text to Draft.js content state
-        const initialContentState = ContentState.createFromText(builderData?.config?.prompt ?? "");
+        const initialContentState = ContentState.createFromText(builderData?.config?.prompt ?  builderData?.config?.prompt + " " :"");
         const initialEditorState = EditorState.createWithContent(initialContentState);
         setEditorState(initialEditorState);
         let config = {
@@ -74,7 +82,7 @@ export default function Prompt({app}:{
         <div>
 
             <p className="text-xs text-gray-400 ">
-            This logic allows the model to receive user input defined above via a specific input field in the prompt denoted with a <kbd className='font-inherit text-xs bg-primary/5 text-primary'>@</kbd> symbol. The model will next use the input provided to provide an appropriate answer or carry out the specified task. <kbd className='font-inherit text-xs bg-primary/5 text-primary'>translate @input_name into English</kbd> is an example prompt.
+                This logic allows the model to receive user input defined above via a specific input field in the prompt denoted with a <kbd className='font-inherit text-xs bg-primary/5 text-primary'>@</kbd> symbol. The model will next use the input provided to provide an appropriate answer or carry out the specified task. <kbd className='font-inherit text-xs bg-primary/5 text-primary'>translate @input_name into English</kbd> is an example prompt.
             </p>
 
             <div
@@ -98,7 +106,7 @@ export default function Prompt({app}:{
                         console.log(plainText)
                         let config = {
                             ...builderData.config,
-                            prompt:plainText
+                            prompt: plainText
                         } as AppConfigType;
                         updateBuilderData({
                             ...builderData,
@@ -129,14 +137,14 @@ export default function Prompt({app}:{
                                 onClick={() => {
                                     const editorValue = convertToRaw(editorState.getCurrentContent()).blocks.map(block => block.text).join('\n');
 
-                                    const withSuggester = editorValue + sugg.name + " ";
+                                    const withSuggester = editorValue + " " +  sugg.name + " ";
                                     let config = {
                                         ...builderData.config,
                                         prompt: withSuggester
                                     } as AppConfigType;
                                     updateBuilderData({
                                         ...builderData,
-                                        config 
+                                        config
                                     })
                                     const initialContentState = ContentState.createFromText(withSuggester);
                                     const _EditorState = EditorState.createWithContent(initialContentState);

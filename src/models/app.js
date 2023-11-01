@@ -42,7 +42,7 @@ const UsageSchema = new mongoose.Schema({
     model_used:{
         type:String,
         required:true,
-        enum:["text-bison-001" , "gpt-3.5-turbo", "davinci" , "ada","curie","babbage"],
+        enum:["text-bison-001" , "gpt-3.5-turbo-instruct", "davinci" , "ada","curie","babbage"],
     }
 });
 
@@ -222,14 +222,13 @@ const AppSchema = new mongoose.Schema({
             }],
             default: [],
         },
-        outputs: [{
-            type: String,
-            id: String,
-            data: {
-                type: mongoose.Schema.Types.Mixed,
-                default: null,
-            },
-        }],
+        outputs:{
+            type:Object,
+            default:{
+                render_type : "markdown",
+                save_to_db:false,
+            }
+        },
     },
 });
 
