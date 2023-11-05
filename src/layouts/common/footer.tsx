@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { FiLinkedin } from "react-icons/fi";
-import { LuGithub } from "react-icons/lu";
+//import { LuGithub } from "react-icons/lu";
 import { RiTwitterXFill } from "react-icons/ri";
 
 export default function Footer() {
@@ -34,9 +34,9 @@ export default function Footer() {
                         <Link href="https://linkedin.com/NexoNauts" className="hover:text-primary ease-in duration-300 icon">
                             <FiLinkedin className="w-5 h-5" />
                         </Link>
-                        <Link href="https://github.com/NexoNauts" className="hover:text-primary ease-in duration-300 icon">
+{/*                         <Link href="https://github.com/NexoNauts" className="hover:text-primary ease-in duration-300 icon">
                             <LuGithub className="w-5 h-5" />
-                        </Link>
+                        </Link> */}
                     </div>
                     <p className="font-medium mt-6 text-slate-600">
                         © {new Date().getFullYear()} <Link href="/" className="text-slate-900">{process.env.NEXT_PUBLIC_WEBSITE_NAME}</Link> . All rights reserved.
