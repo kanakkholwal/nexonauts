@@ -28,7 +28,7 @@ export default function SectionHome() {
                     <div className="absolute w-full h-full bg-[url(https://ai-tool.nextjstemplates.com/images/blur/blur-01.svg)] bg-no-repeat bg-cover bg-top top-0 left-1/2 -translate-x-1/2 -u-z-10"></div>
                 </div>
             </div>
-            <div className="mx-auto max-w-[900px] px-4 sm:px-8 xl:px-0 relative z-1">
+            <div className="mx-auto max-w-[900px] px-4 pt-8 sm:pt-2 sm:px-8 xl:px-0 relative z-1">
                 <div className="text-center">
                     <span className="hero-subtitle-gradient hover:hero-subtitle-hover text-primary relative mb-5 font-medium text-sm inline-flex items-center gap-2 py-2 px-3 rounded-full">
                         <BsStars className="text-md" />
