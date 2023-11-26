@@ -545,7 +545,24 @@ $background-color_2: #e6f3ff;
     overflow-x: hidden;
     font-family: 'Inter', 'Euclid Circular A',var(--font-body), sans-serif;
 }
+@keyframes float{
+    from{
+        transform: translateX(0);
+    }
+    25%{
+        transform: translateY(-20px);
+    }
+    50%{
+        transform: translateY(0);
+    }
+    75%{
+        transform: translateY(20px);
+    }
 
+    to{
+        transform: translateY(0);
+    }
+}
 
 img {
     display: block;

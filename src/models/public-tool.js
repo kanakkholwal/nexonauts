@@ -57,12 +57,12 @@ const publicToolSchema = new mongoose.Schema({
         default: () => Date.now()
     },
     author:{
-      required:false,
-      type:{
+    required:false,
+    type:{
         name:String,
         email:String,
         public_link:String
-      },
+    },
     default:{
         name:"Kanak",
         email:"kanakkholwal@gmail.com",

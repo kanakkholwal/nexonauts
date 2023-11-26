@@ -1,6 +1,7 @@
 import dbConnect from "lib/dbConnect";
 import Post from "models/post";
 import { getAllApps } from "src/utils/app";
+import { getAllPublicTools } from "src/utils/public-tool";
 
 const URL = process.env.WEBSITE_URL || "https://nexonauts.com";
 // Function to escape special XML characters
@@ -55,6 +56,7 @@ export async function getServerSideProps({ res }) {
         date: new Date().toISOString(),
     },
     ]
+    const publicTools = await getAllPublicTools();
     // Generate the XML sitemap with the blog data
     const sitemap = generateSiteMap([...manualRoutes,...posts.map((post) => ({
       path: `/blog/posts/${post.slug}`,
@@ -64,7 +66,14 @@ export async function getServerSideProps({ res }) {
         path: app.path,
         date: new Date(app.createdAt).toISOString(),
     }
-  }))]);
+  })),
+  ...publicTools.map((tool) => {
+    return {
+        path: `/toolbox/${tool.slug}`,
+        date: new Date(tool.createdAt).toISOString(),
+    }
+  }),
+]);
   
     res.setHeader("Content-Type", "text/xml");
     // Send the XML to the browser

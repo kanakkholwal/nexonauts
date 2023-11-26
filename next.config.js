@@ -19,7 +19,7 @@ const nextConfig = withPWA({
   compiler: { styledComponents: { ssr: true } },
   crossOrigin: 'anonymous',
   images: {
-    domains: ['res.cloudinary.com', ],
+    domains: ['res.cloudinary.com',"global-uploads.webflow.com" ],
     // remotePatterns: [
     //   {
     //     protocol: 'https',
