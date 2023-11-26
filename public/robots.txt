@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://kkupgrader.eu.org
+Host: https://nexonauts.com
 
 # Sitemaps
-Sitemap: https://kkupgrader.eu.org/sitemap.xml
+Sitemap: https://nexonauts.com/sitemap.xml
