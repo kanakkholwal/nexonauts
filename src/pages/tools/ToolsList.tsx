@@ -15,7 +15,7 @@ import HtmlToJsxTool from "./pages/HtmlToJsx";
 import IframeGenerator from "./pages/IframeGenerator";
 import MetaTagGenerator from "./pages/MetaTagGenerator";
 import SchemaMarkUpGenerator from "./pages/schemaMarkUpGenerator";
-import SvgEncoder from "./pages/svgEncoder";
+// import SvgEncoder from "./pages/svgEncoder";
 
 interface ToolProp {
     title: string,
@@ -36,14 +36,14 @@ export const ToolList: ToolProp[] = [
     //     Component: <YouTubeDownloader />,
     //     online: true
     // },
-    {
-        title: "Svg Encoder",
-        description: "This tool helps you to encode your svg code to base64 format",
-        category: "Web Tools",
-        path: "/tools/svg-encoder",
-        Component: <SvgEncoder />,
-        online: true
-    },
+    // {
+    //     title: "Svg Encoder",
+    //     description: "This tool helps you to encode your svg code to base64 format",
+    //     category: "Web Tools",
+    //     path: "/tools/svg-encoder",
+    //     Component: <SvgEncoder />,
+    //     online: true
+    // },
     {
         title: "Image to Webp Convertor",
         description: "Image to WebP converter is an online tool that converts images from one format to WebP. WebP is a modern image format developed by Google that offers better compression than other image formats, such as JPEG and PNG. This can lead to smaller file sizes, which can improve the performance of websites and web apps.",

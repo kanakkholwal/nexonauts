@@ -3,24 +3,21 @@ import Footer from 'layouts/common/footer';
 import Header from 'layouts/common/header';
 import Hero from 'layouts/common/hero';
 
-import Aos from 'aos';
 import { NextSeo } from 'next-seo';
-import Link from 'next/link';
-import { useEffect } from 'react';
 import { BsStars } from "react-icons/bs";
 
-
+import Link from 'next/link';
 
 
 export default function Page() {
-    useEffect(() => {
-        Aos.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            mirror: false
-        })
-    }, [])
+    // useEffect(() => {
+    //     Aos.init({
+    //         duration: 800,
+    //         easing: 'ease-in-out',
+    //         once: true,
+    //         mirror: false
+    //     })
+    // }, [])
 
     return (
         <>
@@ -50,125 +47,128 @@ export default function Page() {
                         help you to automate your daily tasks.
                     </p>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
-                    <div className="rounded-xl bg-slate-100 shadow-xl relative z-20 overflow-hidden pt-12 pb-10 px-8 xl:px-10 pricing-item-border" data-aos="fade-in-up">
-                        <h3 className="font-semibold text-heading-6 mb-5">Free Tier</h3>
-                        <div className="flex items-center gap-3.5">
-                            <h2 className="font-bold text-custom-1 pricing-gradient-text">$ 0</h2>
-                            <p className="font-medium">/month</p></div>
-
-                        <hr className="my-10 w-full h-[1px] pricing-gradient-divider" />
-                        <ul className="flex flex-col gap-4">
-                            <li className='flex items-center gap-5'>
-
-                                <span className="font-medium">
-                                    Create upto 3 AI apps
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                    Basic app analytics
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                    Upto 5 Usage per app per day.
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                    Save your favorite apps in your dashboard
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                    Share your apps with your friends with QR code
-                                </span>
-                            </li>
-                        </ul>
-                        <div className="flex justify-center items-center my-3">
-
-                        <Link href="/signup">
-                            <Button variant="gradient">
-                                Get Started
-                            </Button>
-                        </Link>
-                        </div>
-                    </div>
-                    <div className="rounded-xl bg-slate-100 shadow-xl relative z-20 overflow-hidden pt-12 pb-10 px-8 xl:px-10 pricing-item-border" data-aos="fade-in-up">
-                        <h3 className="font-semibold text-heading-6 mb-5">Pro tier</h3>
-                        <div className="flex items-center gap-3.5">
-                            <h2 className="font-bold text-custom-1 pricing-gradient-text">$ 9.99</h2>
-                            <p className="font-medium">/month</p></div>
-
-                        <hr className="my-10 w-full h-[1px] pricing-gradient-divider" />
-                        <ul className="flex flex-col gap-4">
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                    Create upto 10 apps
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                    Enchanced Apps analytics
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                    Basic features included (Free tier)
-                                </span>
-                            </li>
-                        </ul>
-                        <div className="flex justify-center items-center my-3">
-
-<Link href="/signup">
-    <Button variant="gradient">
-        Get Started
-    </Button>
-</Link>
-</div>
-                    </div>
-                    <div className="rounded-xl bg-slate-100 shadow-xl relative z-20 overflow-hidden pt-12 pb-10 px-8 xl:px-10 pricing-item-border" data-aos="fade-in-up">
-                        <h3 className="font-semibold text-heading-6 mb-5">Premium</h3>
-                        <div className="flex items-center gap-3.5">
-                            <h2 className="font-bold text-custom-1 pricing-gradient-text">$ 14.99</h2>
-                            <p className="font-medium">/month </p></div>
-
-                        <hr className="my-10 w-full h-[1px] pricing-gradient-divider" />
-                        <ul className="flex flex-col gap-4">
-                            <li className='flex items-center gap-5'>
-
-                                <span className="font-medium">
-                                    Create upto 20 apps
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                    Advanced app analytics
-                                </span>
-                            </li>
-                            <li className='flex items-center gap-5'>
-                                <span className="font-medium">
-                                    Basic features included (Pro tier)
-                                </span>
-                            </li>
-
-                        </ul>
-                        <div className="flex justify-center items-center my-3">
-
-<Link href="/signup">
-    <Button variant="gradient">
-        Get Started
-    </Button>
-</Link>
-</div>
-                    </div>
-
-                </div>
+                <PricingTable />
 
             </div>
 
             <Footer />
         </>
+    )
+}
+
+function PricingTable() {
+    return (
+        <section className=" w-full py-12  flex items-center justify-center">
+            <div className="container px-4 md:px-6">
+                <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-3 md:gap-8">
+                    <div className="flex flex-col p-6 bg-white shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-gray-200 hover:border-primary transition-all duration-300 hover:translate-y-[-16px]">
+                        <div>
+                            <h3 className="text-2xl font-bold text-center">Free</h3>
+                            <div className="mt-4 text-center text-zinc-600 dark:text-zinc-400">
+                                <span className="text-4xl font-bold">$0</span>/ month
+                            </div>
+                            <ul className="my-4 space-y-2">
+                                <li className="flex items-center">
+                                    <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
+                                    Upto 5 Usage per app per day.
+                                </li>
+                                <li className="flex items-center">
+                                    <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
+                                    Create upto 3 AI apps
+                                </li>
+                                <li className="flex items-center">
+                                    <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
+                                    Basic app analytics
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="mt-6">
+                            <Link href="/signup">
+                                <Button className="w-full">Get Started</Button>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="relative flex flex-col p-6 bg-white shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-purple-500  hover:border-purple-700 transition-all duration-300 hover:translate-y-[-16px]">
+                        <div className="px-3 py-1 text-sm text-white bg-gradient-to-r from-pink-500 to-purple-500 rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                            Popular
+                        </div>
+                        <div>
+                            <h3 className="text-2xl font-bold text-center">Pro</h3>
+                            <div className="mt-4 text-center text-zinc-600 dark:text-zinc-400">
+                                <span className="text-4xl font-bold">$9.99</span>/ month
+                            </div>
+                            <ul className="my-4 space-y-2">
+                                <li className="flex items-center">
+                                    <IconCheck className="text-white text-2xs bg-green-500 rounded-full mr-2 p-1" />
+                                    Basic features included (Free tier)
+                                </li>
+                                <li className="flex items-center">
+                                    <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
+                                    Create upto 10 apps
+                                </li>
+                                <li className="flex items-center">
+                                    <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
+                                    Enchanced Apps analytics
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="mt-6">
+                            <Link href="/signup">
+                                <Button className="w-full bg-gradient-to-r from-pink-500 to-purple-500">Get Started</Button>
+                            </Link>
+                        </div>
+                    </div>
+                    <div className="flex flex-col p-6 bg-white shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-gray-200 hover:border-primary transition-all duration-300 hover:translate-y-[-16px]">
+                        <div>
+                            <h3 className="text-2xl font-bold text-center">Premium</h3>
+                            <div className="mt-4 text-center text-zinc-600 dark:text-zinc-400">
+                                <span className="text-4xl font-bold">$14.99</span>/ month
+                            </div>
+                            <ul className="my-4 space-y-2">
+                                <li className="flex items-center">
+                                    <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
+                                    Basic features included (Pro tier)
+                                </li>
+                                <li className="flex items-center">
+                                    <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
+                                    Create upto 20 apps
+
+                                </li>
+                                <li className="flex items-center">
+                                    <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
+                                    Advanced app analytics
+
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div className="mt-6">
+                            <Link href="/signup">
+                                <Button className="w-full">Get Started</Button>
+                            </Link>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
+}
+
+function IconCheck(props) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+        >
+            <polyline points="20 6 9 17 4 12" />
+        </svg>
     )
 }

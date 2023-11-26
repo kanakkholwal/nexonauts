@@ -306,7 +306,7 @@ function Profile({ user: CurrentUser }) {
                 <div className=" flex items-center gap-2">
                     <Avatar className="h-20 w-20">
                         <AvatarImage alt={CurrentUser.name} src={user.profileURL} height={180} width={180} />
-                        <AvatarFallback className="bg-primary/2">{CurrentUser.name.trim().split(" ")[0]}</AvatarFallback>
+                        <AvatarFallback className="bg-slate-200 text-4xl">{CurrentUser.name[0]}</AvatarFallback>
                     </Avatar>
                     <div>
                         <h4 className="font-bold mb-0">{CurrentUser.name}</h4>
