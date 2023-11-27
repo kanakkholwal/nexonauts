@@ -89,7 +89,7 @@
         "react-transition-group": "^4.4.5",
         "rss-to-json": "^2.1.1",
         "sass": "^1.55.0",
-        "sharp": "^0.31.2",
+        "sharp": "^0.32.6",
         "styled-components": "^5.3.6",
         "swr": "^2.0.3",
         "tailwind-merge": "^1.14.0",
