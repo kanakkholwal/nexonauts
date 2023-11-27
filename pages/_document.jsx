@@ -34,7 +34,7 @@ export default class MyDocument extends Document {
 
         return (
             <Html lang='en'>
-                <Head>
+                <Head>                    
                     <meta name="google-adsense-account" content="ca-pub-2329686175069611"/>
                     <NextScript />
                     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
