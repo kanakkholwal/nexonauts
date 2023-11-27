@@ -3,13 +3,10 @@ import { AllArticles, HomePageHero, NavBar } from "components/blog";
 import Button from "components/buttons";
 import Footer from "components/footer";
 import { registerView } from "lib/analytics";
-import dbConnect from 'lib/dbConnect';
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { BiDownArrowAlt } from "react-icons/bi";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { getHomePagePosts } from "src/utils/blog";
-import { PubliewViewPostType } from 'types/post';
 
 export default function BlogHomePage({ initialPosts ,
   noOfPages,
@@ -73,23 +70,26 @@ export default function BlogHomePage({ initialPosts ,
 }
 
 export async function getServerSideProps() {
-  await dbConnect();
+  // await dbConnect();
 
-  const {posts,totalPages,total,currentPage} = await getHomePagePosts()
+  // const {posts,totalPages,total,currentPage} = await getHomePagePosts()
 
-  return {
-    props: {
-      initialPosts:JSON.parse(JSON.stringify(posts)) as PubliewViewPostType[] || [] ,
-      noOfPages:totalPages || 2,
-      total:total || 0,
-      currentIndex:currentPage || 1
-    }
-  }
+  // return {
+  //   props: {
+  //     initialPosts:JSON.parse(JSON.stringify(posts)) as PubliewViewPostType[] || [] ,
+  //     noOfPages:totalPages || 2,
+  //     total:total || 0,
+  //     currentIndex:currentPage || 1
+  //   }
+  // }
 
   // // not found, return
-  // return {
-  //   notFound: true,
-  // }
+  return {
+    redirect: {
+      destination: 'https://kanakkholwal.medium.com/',
+      permanent: true
+  }
+  }
 
 
 }

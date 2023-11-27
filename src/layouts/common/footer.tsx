@@ -60,13 +60,13 @@ export default function Footer() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/pricing" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                        Pricing
+                                    <Link href="/toolbox" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        ToolBox
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/blog" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                        Blog
+                                    <Link href="/pricing" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Pricing
                                     </Link>
                                 </li>
                             </ul>
