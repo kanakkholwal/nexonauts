@@ -1,4 +1,5 @@
 import axios from "axios";
+import Newsletter from "components/newsletter";
 import Footer from 'layouts/common/footer';
 import { NextSeo } from 'next-seo';
 import {
@@ -193,7 +194,7 @@ export default function AiDirectory({
                         A curated list of AI, tools, services, and resources. Find the best AI tools for your business.
                     </h5>
                 </div>
-                <form className="relative max-w-3xl px-4 mx-auto mt-0 mb-10 sm:px-6 flex items-center bg-white p-4 rounded-full" onSubmit={(e) => {
+                <form className="relative max-w-3xl px-4 mx-auto mt-0 mb-10 sm:px-6 flex items-center bg-white p-4 rounded-full border-2 border-transparent focus-within:border-indigo-400" onSubmit={(e) => {
                     e.preventDefault();
                     // handleSearch(e);
                 }}>
@@ -372,9 +373,11 @@ export default function AiDirectory({
 
 
             </section>
+            <Newsletter/>
             <Footer />
 
             <GoToTop role="button"
+            className="bg-indigo-600 text-white rounded-full p-2 fixed bottom-5 right-5 z-50"
                 onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();

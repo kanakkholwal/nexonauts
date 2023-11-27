@@ -16,12 +16,8 @@ const menu = [
         link: "/",
     },
     {
-        name: "About",
+        name: "About Us",
         link: "/about",
-    },
-    {
-        name: "Blog",
-        link: "/blog",
     },
     {
         name: "Contact",
@@ -44,9 +40,14 @@ const menu = [
                 link: "/apps"
             },
             {
-                name: "Features",
-                link: "/#features"
+                name: "ToolBox",
+                link: "/toolbox"
             },
+            // {
+            //     name: "Store",
+            //     link: "/store"
+            // },
+            
         ]
     },
 
