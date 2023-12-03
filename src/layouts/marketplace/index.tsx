@@ -3,17 +3,17 @@ import FloatingMenu from "./floating-menu";
 import { Navbar } from "./navbar";
 
 export type WrapperProps = {
-    children:React.ReactNode,
-    user:SessionUserType | null,
-
+    children: React.ReactNode,
+    title?: React.ReactNode |null,
+    user: SessionUserType | null,
 }
 
-export default function MarketWrapper({ children,user }:WrapperProps) {
+export default function MarketWrapper({ children, user,title }: WrapperProps) {
     return (<>
-        <Navbar user={user}/>
-            <FloatingMenu />
-            <main className="relative z-0 lg:pl-[100px] bg-slate-100 min-h-screen h-full">
-                {children}
-            </main>
+        <Navbar user={user} title={title} />
+        <FloatingMenu />
+        <main className="relative z-0 p-2 lg:pl-[104px] bg-slate-100 min-h-screen h-full">
+            {children}
+        </main>
     </>)
 }

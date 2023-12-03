@@ -57,6 +57,13 @@ module.exports = {
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
+      // boxShadow:{
+      //   "primary": "0px 18px 48px -12px hsl(var(--primary) / 0.35)",
+      //   "slate": "0px 18px 48px -12px hsl(var(--slate) / 0.35)",
+      //   "destructive": "0px 18px 48px -12px hsl(var(--destructive) / 0.35)",
+      //   "accent": "0px 18px 48px -12px hsl(var(--accent) / 0.35)",
+      //   "card": "0px 18px 48px -12px hsl(var(--card) / 0.35)",
+      // },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
