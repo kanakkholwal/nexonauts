@@ -15,12 +15,12 @@ const navigations = [
     },
     {
         label: "Trending",
-        href: "/marketplace/trending/",
+        href: "/marketplace/trending",
         icon: PiTrendUpBold,
     },
     {
         label: "Explore",
-        href: "/marketplace/explore/",
+        href: "/marketplace/explore",
         icon: BsSearch,
     },
     {
@@ -47,9 +47,8 @@ export default function FloatingMenu() {
         <div className="flex lg:flex-col gap-1  p-1 lg:px-5">
             {navigations.map((NavLink, i) => {
                 return (<Link key={i} href={NavLink.href}
-
                     className={"flex flex-col items-center justify-center gap-1 px-5 h-16 w-full "}>
-                    <span title={NavLink.label} className={"px-6 py-2 rounded-full" + (pathname === NavLink.href ? " text-primary bg-primary/10 shadow-sm" : " text-slate-700  hover:text-slate-900 hover:bg-white lg:hover:bg-slate-100")}>
+                    <span title={NavLink.label} className={"px-6 py-2 rounded-full" + (pathname === NavLink.href ? " text-primary bg-primary/10 shadow-sm shadow-primary/10" : " text-slate-700  hover:text-slate-900 hover:bg-white lg:hover:bg-slate-100")}>
                         <NavLink.icon className={"w-6 h-6 text-inherit  transition-all duration-200"} />
                     </span>
                     <span className={"lg:hidden text-xs" + (pathname === NavLink.href ? " font-semibold" : " font-medium")}>
