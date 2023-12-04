@@ -9,11 +9,18 @@ import User from "models/user";
 import nextConnect from 'next-connect';
 import { Configuration, OpenAIApi } from "openai";
 // import type { TextCompletionResponse } from "types/openai";
+import rateLimit from 'src/utils/rate-limiter'
 
+const limiter = rateLimit({
+  interval: 60 * 1000, // 60 seconds
+  uniqueTokenPerInterval: 500, // Max 500 users per second
+})
 export default nextConnect(handler)
     .use(hasTokenMiddleware)
     .post(async (req, res) => {
         try {
+            await limiter.check(res, 10, 'CACHE_TOKEN') // 10 requests per minute
+
             await dbConnect();
             const { userId, appId, appData } = req.body;
             if (!appData || !appId || !userId) {

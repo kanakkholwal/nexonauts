@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
+import { product_types } from "src/lib/marketplace/item-types";
 import { v4 as UuID4 } from 'uuid';
-
 
 
 const productSchema = new mongoose.Schema(
@@ -15,17 +15,23 @@ const productSchema = new mongoose.Schema(
         required: true,
         default: 0,
     },
-    description: String,
-    content: {
-      type: mongoose.Schema.Types.Mixed,
+    type:{
+        type: String,
+        required: true,
+        default: product_types
+    },
+    description: {
+      type: String,
       required: true,
-      default: [
-        {
-          type: 'paragraph',
-          children: [{ text: 'Describe Your product' }],
-        },
-      ],
+      minLength: 10,
+      trim: true,
+    },
+    content: {
+      type: String,
+      required: true,
+      default: '',
       select: false,
+      trim: true,
     },
     slug: {
       type: String,
@@ -40,12 +46,12 @@ const productSchema = new mongoose.Schema(
     coverImage: {
       type: String,
       default:
-        'https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp',
+        'https://res.cloudinary.com/nexonauts/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp',
     },
-    thumbnail:[{
+    coverImage:[{
         type: String,
         default:
-        'https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp',
+        'https://res.cloudinary.com/nexonauts/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp',
     }],
     status: {
       type: String,
@@ -66,15 +72,6 @@ const productSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    publishedAt: {
-      type: Date,
-      default: Date.now,
-    },
-    analytics: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Page',
-      default: null,
-    }
   },
   {
     timestamps: true,
