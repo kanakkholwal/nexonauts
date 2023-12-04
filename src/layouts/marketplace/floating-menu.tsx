@@ -30,7 +30,7 @@ const navigations = [
     },
     {
         label: "Account",
-        href: "/marketplace/account",
+        href: "/marketplace/my/account",
         icon: FaRegUser,
     },
 ] as {
