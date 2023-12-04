@@ -32,7 +32,7 @@ const userRoutes = [
     {
         title: "Developer Tools",
         Icon: TbTools,
-        path: "/tools",
+        path: "/dev-tools",
     },
     {
         title: "Profile",
