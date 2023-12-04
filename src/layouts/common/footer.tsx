@@ -55,8 +55,8 @@ export default function Footer() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/tools" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                        Tools
+                                    <Link href="/dev-tools" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                       Dev Tools
                                     </Link>
                                 </li>
                                 <li>

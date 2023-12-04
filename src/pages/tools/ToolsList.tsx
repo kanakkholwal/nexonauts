@@ -32,7 +32,7 @@ export const ToolList: ToolProp[] = [
     //     title: "Youtube Downloader",
     //     description: "This Tool helps you to download YouTube Videos in multiple formats",
     //     category: "Downloader",
-    //     path: "/tools/youtube-downloader",
+    //     path: "/dev-tools/youtube-downloader",
     //     Component: <YouTubeDownloader />,
     //     online: true
     // },
@@ -40,7 +40,7 @@ export const ToolList: ToolProp[] = [
     //     title: "Svg Encoder",
     //     description: "This tool helps you to encode your svg code to base64 format",
     //     category: "Web Tools",
-    //     path: "/tools/svg-encoder",
+    //     path: "/dev-tools/svg-encoder",
     //     Component: <SvgEncoder />,
     //     online: true
     // },
@@ -48,7 +48,7 @@ export const ToolList: ToolProp[] = [
         title: "Image to Webp Convertor",
         description: "Image to WebP converter is an online tool that converts images from one format to WebP. WebP is a modern image format developed by Google that offers better compression than other image formats, such as JPEG and PNG. This can lead to smaller file sizes, which can improve the performance of websites and web apps.",
         category: "Image Tools",
-        path: "/tools/image-to-webp-convertor",
+        path: "/dev-tools/image-to-webp-convertor",
         Component: <Image2Webp />,
         online: true
     },
@@ -56,7 +56,7 @@ export const ToolList: ToolProp[] = [
         title: "HTML to JSX Convertor",
         description: "The HTML to JSX Converter is a helpful tool that enables developers to seamlessly convert HTML code into JSX (JavaScript XML) syntax, commonly used in React applications. With an HTML to JSX Converter, developers can efficiently transform HTML code into JSX, ensuring the compatibility and efficiency of their React projects.",
         category: "Web Tools",
-        path: "/tools/html-to-jsx-convertor",
+        path: "/dev-tools/html-to-jsx-convertor",
         Component: <HtmlToJsxTool />,
         online: true
     },
@@ -64,7 +64,7 @@ export const ToolList: ToolProp[] = [
         title: "Css Minifier and Prettifier Tool",
         description: "  Online CSS Minifier takes any form of css code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Css to make it easy to read and edit. It reduces file size and optimizes css for your website.",
         category: "Web Tools",
-        path: "/tools/css-minifier-and-prettifier",
+        path: "/dev-tools/css-minifier-and-prettifier",
         Component: <CssMinifierPrettifier />,
         online: true
     }
@@ -73,7 +73,7 @@ export const ToolList: ToolProp[] = [
         title: "JSON Minifier Tool",
         description: "Online JSON Minifier takes any form of json code and make it minified,compressed by removing white spaces, newlines, indentation ,etc. It reduces file size and optimizes json for your request.",
         category: "Web Tools",
-        path: "/tools/json-minifier-tool",
+        path: "/dev-tools/json-minifier-tool",
         Component: <JsonMinifierPrettifier />,
 
         online: true
@@ -84,7 +84,7 @@ export const ToolList: ToolProp[] = [
         title: "Html Minifier and Prettifier Tool",
         description: " Online HTML Minifier takes any form of HTML code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Html to make it easy to read and edit. It reduces file size and optimizes css for your website.",
         category: "Web Tools",
-        path: "/tools/html-minifier-and-prettifier",
+        path: "/dev-tools/html-minifier-and-prettifier",
         Component: <HtmlMinifierPrettifier />,
         online: true
     }
@@ -93,7 +93,7 @@ export const ToolList: ToolProp[] = [
         title: "Html Parser Tool",
         description: "Online CSS Minifier takes any form of css code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Css to make it easy to read and edit. It reduces file size and optimizes css for your website.",
         category: "Web Tools",
-        path: "/tools/html-parser-tool",
+        path: "/dev-tools/html-parser-tool",
         Component: <HtmlParser />,
         online: true
     }
@@ -102,7 +102,7 @@ export const ToolList: ToolProp[] = [
         title: "Meta Tag Generator",
         description: "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide",
         category: "SEO Tools",
-        path: "/tools/meta-tag-generator",
+        path: "/dev-tools/meta-tag-generator",
         Component: <MetaTagGenerator />,
         online: true
     }
@@ -111,7 +111,7 @@ export const ToolList: ToolProp[] = [
         title: "Schema MarkUp Generator",
         description: "A Schema Markup Generator is a tool that helps users create structured data markup for their website. Structured data markup is a type of code that provides search engines with additional information about the content on a website, making it easier for search engines to understand and display the content in search results.",
         category: "SEO Tools",
-        path: "/tools/schema-markup-generator",
+        path: "/dev-tools/schema-markup-generator",
         Component: <SchemaMarkUpGenerator />,
         online: true
     }
@@ -120,7 +120,7 @@ export const ToolList: ToolProp[] = [
         title: "iFrame Embed Code Generator",
         description: "With the help of this tool, you can generate your iframe codes easily with just a click of a button.",
         category: "Other Tools",
-        path: "/tools/iframe-generator",
+        path: "/dev-tools/iframe-generator",
         Component: <IframeGenerator />,
         online: true
     }
@@ -128,38 +128,38 @@ export const ToolList: ToolProp[] = [
 const Categories = [
     {
         title: "Image Tools",
-        path: "/tools/category/image-tools",
+        path: "/dev-tools/category/image-tools",
         icon: <IoImageOutline />
     }
     // , {
     //     title: "Downloader",
-    //     path: "/tools/category/downloader",
+    //     path: "/dev-tools/category/downloader",
     //     icon: <HiOutlineFolderDownload />
     // }
     , {
         title: "Web Tools",
-        path: "/tools/category/coding-tools",
+        path: "/dev-tools/category/coding-tools",
         icon: <BiCodeAlt />
     }, {
         title: "SEO Tools",
-        path: "/tools/category/seo-tools",
+        path: "/dev-tools/category/seo-tools",
         icon: <AiOutlineFileSearch />
 
     }
     //  {
     //     title: "Social Media Tools",
-    //     path: "/tools/category/social-media-tools"
+    //     path: "/dev-tools/category/social-media-tools"
     // }, {
     //     title: "Video Tools",
-    //     path: "/tools/category/video-tools"
+    //     path: "/dev-tools/category/video-tools"
     // }, {
     //     title: "Audio Tools",
-    //     path: "/tools/category/audio-tools"
+    //     path: "/dev-tools/category/audio-tools"
     // },
     ,
     {
         title: "Other Tools",
-        path: "/tools/category/other-tools",
+        path: "/dev-tools/category/other-tools",
         icon: <TbTools />
     }
 ]

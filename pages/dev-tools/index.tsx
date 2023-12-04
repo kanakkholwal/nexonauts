@@ -17,7 +17,7 @@ export default function Tools() {
         <Layout user={session?.user}>
             <Head>
                 <title>
-                    Tools | Nexo
+                    Dev Tools | Nexo
                 </title>
             </Head>
             <div className="max-full grow">
