@@ -45,6 +45,8 @@ export async function getPostBySlug(slug: string) {
     const post = await Post.findOne({
         slug,
         state: 'published'
+    },{
+        lean: true
     })
         .populate('author', 'name username profileURL')
         .select(PUBLIC_POST_VIEW_KEYS)
