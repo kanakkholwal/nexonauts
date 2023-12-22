@@ -1,9 +1,9 @@
-import User from 'models/user';
-import dbConnect from 'lib/dbConnect';
-import nodemailer from "nodemailer";
-import handler from 'lib/handler';
-import nextConnect from 'next-connect';
 import jwt from 'jsonwebtoken';
+import dbConnect from 'lib/dbConnect';
+import handler from 'lib/handler';
+import User from 'models/user';
+import nextConnect from 'next-connect';
+import nodemailer from "nodemailer";
 // import { SibApiV3Sdk, SendSmtpEmail }  from 'sib-api-v3-sdk'
 
 export default nextConnect(handler)
@@ -117,9 +117,16 @@ async function createUser(req, res) {
 // Function to generate a token with a specific expiration time
 function generateVerificationToken(data, expiresInMinutes) {
     return jwt.sign(data, secretKey, { expiresIn: `${expiresInMinutes}m` });
-  }
+}
 
-
+// promisify = (func, args) => {
+//     return new Promise((resolve, reject) => {
+//         func(args, (err, data) => {
+//             if (err) reject(err);
+//             resolve(data);
+//         });
+//     });
+// };
 
 // Function to verify the token and return the data if valid
 function verifyVerificationToken(token) {

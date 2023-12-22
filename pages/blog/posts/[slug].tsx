@@ -1,14 +1,12 @@
 import axios from 'axios';
-import { Article, FloatingMenu, NavBar, PostPageHero, SideBar, Wrapper } from 'components/blog';
-import Footer from "components/tool-page/footer";
+// import { Article, FloatingMenu, NavBar, PostPageHero, SideBar, Wrapper } from 'components/blog';
 import useSmoothScroll from 'hooks/useSmoothScroll';
+import PostPage from 'layouts/blog/post-page';
 import { registerView } from 'lib/analytics';
 import dbConnect from 'lib/dbConnect';
 import { NextSeo } from 'next-seo';
 import Head from 'next/head';
-import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { BiCommentDetail, BiShareAlt } from 'react-icons/bi';
 import { IoLogoGithub, IoLogoInstagram, IoLogoLinkedin, IoLogoTwitter } from "react-icons/io5";
 import { getPostBySlug } from "src/utils/blog";
 import { PUBLICPostViewType } from 'types/post';
@@ -108,8 +106,7 @@ export async function getServerSideProps({ params }) {
 
 }
 
-export default function Post(
-    { post } : {
+export default function Post({ post } : {
             post: PUBLICPostViewType
         }) {
     useSmoothScroll();
@@ -181,7 +178,8 @@ export default function Post(
                 {/* keyword */}
                 <meta name="keywords" content={post?.labels?.join(",")} />
             </Head>
-            <NavBar />
+            <PostPage post={post} />
+            {/* <NavBar />
             <PostPageHero title={post?.title} description={post?.description} />
             <Wrapper>
                 <Article post={post} />
@@ -248,7 +246,7 @@ export default function Post(
             </FloatingMenu>
             <Footer socialMedia={SocialMedia} style={{
                 "--theme-rgb": "var(--blog-theme-rgb)",
-            }} />
+            }} /> */}
 
         </div>
     );
