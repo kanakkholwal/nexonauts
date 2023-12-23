@@ -1,4 +1,4 @@
-import Product from "src/models/Product";
+import Product from "src/models/product";
 import { SessionUserType } from "src/types/user";
 
 export async function getProducts() {
