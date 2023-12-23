@@ -11,6 +11,7 @@ const inputVarinats = cva(
       default: "border-input",
       outline: "border-input",
       ghost: "border border-solid border-transparent bg-slate-100 text-slate-900 focus:border-primary/70",
+      fluid: "border border-solid border-transparent bg-slate-100 text-slate-900 focus:border-primary/70",
       border:" border-2 focus:border-primary/70 border-solid"
     },
     rounded: {

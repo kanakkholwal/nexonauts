@@ -1,42 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import styled from "styled-components";
-
-
-const Body = styled.div`
-display:flex;
-justify-content:flex-start;
-align-items:flex-start;
-flex-direction:column;
-h6{
-    font-weight: 500;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    a{
-        color:var(--text-color);
-        &:hover{
-            color:rgba(var(--blog-theme-rgb),1);
-        }
-    }
-}
-span{
-    font-weight: 400;
-font-size: 0.8125rem;
-line-height: 1.25rem;
-color: #969696;
-
-&.Tag{
-    letter-spacing: 0.04em;
-text-transform: uppercase;
-font-weight: 600;
-font-size: 0.625rem;
-line-height: 1rem;
-    margin-inline-end:0.5rem;
-    padding-right:0.5rem;
-    border-right:1px solid rgba(var(--grey-rgb),0.2);
-}
-}
-`;
 
 export default function SideBarPostCard({ post }) {
 

@@ -1,5 +1,5 @@
 {
-    "name": "kkupgrader",
+    "name": "nexonauts",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -9,6 +9,8 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@apollo/client": "^3.8.0-rc.2",
+        "@apollo/experimental-nextjs-app-support": "^0.5.2",
         "@draft-js-plugins/editor": "^4.1.4",
         "@draft-js-plugins/mention": "^5.2.2",
         "@emotion/react": "^11.10.5",
