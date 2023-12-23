@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
+import { customAlphabet } from 'nanoid';
 import { product_types } from "src/lib/marketplace/item-types";
-import { v4 as UuID4 } from 'uuid';
+
+const generateUrlSlug = (length = 16) => customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", length)();
 
 const productRatingSchema = new mongoose.Schema({
   userId: {
@@ -58,20 +60,30 @@ const productSchema = new mongoose.Schema(
       required: true,
       unique: true,
       trim: true,
-      default: () => UuID4(),
+      default: () => generateUrlSlug(),
     },
     price:{
-        type: Number,
+        type: {
+            amount: Number,
+            currency: String,
+        },
         required: true,
-        default: 0,
+        default: {
+            amount: 0,
+            currency: 'USD',
+        },
     },
-    type:{
+    product_type:{
         type: String,
         required: true,
         trim: true,
         default: product_types
     },
-    labels: {
+    categories: {
+      type: [String],
+      required: true,
+    },  
+    tags: {
       type: [String],
       required: true,
     },  
@@ -95,6 +107,7 @@ const productSchema = new mongoose.Schema(
         required: true,
       }],
       default: [],
+      
     },
     views:{
       type: Number,
@@ -107,9 +120,21 @@ const productSchema = new mongoose.Schema(
       enum: ['rejected','pending','approved'],
     },
     creator: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+       username: {
+        type: String,
         required: true,
+        trim: true,
+       },
+       profileURL: {
+        type: String,
+        required: true,
+        trim: true,
+       },
+        userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User',
+          required: true,
+        },
     }
   },{
     timestamps: true,

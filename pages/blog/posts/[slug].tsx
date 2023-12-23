@@ -33,33 +33,7 @@ const SocialMedia = [
         url: "https://twitter.com/KanakKholwal",
     },
 ]
-// export async function getStaticPaths() {
-//     try {
-//         await dbConnect()
-//         const { posts } = await getAllPublishedPostsForMapping();
-        
-//         const paths = posts.map((post: {
-//             slug: string,
-//             _id: string
-//         }) => ({
-//             params: {
-//                 slug: post.slug,
-//             },
-//         }));
 
-//         return {
-//             paths,
-//             fallback: true,
-//         };
-//     } catch (error) {
-//         console.log("Error during path generation:", error);
-
-//         return {
-//             paths: [],
-//             fallback: true,
-//         };
-//     }
-// }
 
 export async function getServerSideProps({ params }) {
     try{
@@ -179,12 +153,7 @@ export default function Post({ post } : {
                 <meta name="keywords" content={post?.labels?.join(",")} />
             </Head>
             <PostPage post={post} />
-            {/* <NavBar />
-            <PostPageHero title={post?.title} description={post?.description} />
-            <Wrapper>
-                <Article post={post} />
-                <SideBar />
-            </Wrapper>
+            {/* 
             <FloatingMenu>
                 <button className="ActionButton" onClick={() => {
                     if (!isClapped) {

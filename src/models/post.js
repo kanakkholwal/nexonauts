@@ -101,6 +101,7 @@ const postSchema = new mongoose.Schema(
             // required: true,
             select: false,
         },
+
         publishedAt: {
             type: Date,
             default: Date.now,

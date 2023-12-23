@@ -1,18 +1,7 @@
 import axios from "axios";
 import { Suspense, useEffect, useState } from "react";
-import styled from "styled-components";
 import SideBarPostCard from "./sidenavPostCard";
 
-
-export const SidebarWrapper = styled.aside`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 1rem;
-  width: 100%;
-
-`;
 
 export function SideBar() {
     const [posts, setPosts] = useState({

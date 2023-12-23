@@ -1,37 +1,36 @@
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
-import { getSession } from 'next-auth/react';
+import { GetSessionParams, getSession } from 'next-auth/react';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 import React from 'react';
 import { FULL_DESCRIPTION, TITLE } from 'src/constants/marketplace';
 import Wrapper from 'src/layouts/marketplace';
-import ProductCard, { ProductCardSkeleton } from 'src/layouts/marketplace/product-card';
-
+import { ProductCardOnDashboard } from 'src/layouts/marketplace/product-card';
+import dbConnect from 'src/lib/dbConnect';
+import { getMyProducts } from 'src/lib/marketplace/server-apis';
+import { statsProductType } from 'src/types/product';
+import { sessionType } from 'src/types/session';
+import { SessionUserType } from 'src/types/user';
 const cache = new Map();
 
-const skeleton = new Array(4).fill(0);
 
-export default function Market({ user }) {
 
-    const [products, setProducts] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
-    const [error, setError] = React.useState(null);
+export default function Market({ user, myproducts }: {
+    user: SessionUserType,
+    myproducts: statsProductType[]
+}) {
+
+    const [products, setProducts] = React.useState<statsProductType[]>([]);
+
+
 
     React.useEffect(() => {
         if (cache.has("my-products")) {
             setProducts(cache.get("my-products"));
         } else {
-            fetch(`/api/marketplace/trending/${user._id}`)
-                .then(res => res.json())
-                .then(res => {
-                    cache.set("my-products", res);
-                    setProducts(res);
-                }).catch(err => {
-                    setError(err);
-                }).finally(() => {
-                    // setLoading(false);
-                })
+            setProducts(myproducts);
+            cache.set("my-products", myproducts);
         }
     }, [user])
 
@@ -51,15 +50,13 @@ export default function Market({ user }) {
                         </Link>
                     </Button>
                 </div>
-                <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-4 mt-4 md:px-8 ">
-            {loading && skeleton.map((_, i) => {
-                return (<ProductCardSkeleton key={i} />)
-            })}
+                <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4 md:px-8 ">
 
-            {products.map((product, i) => {
-                return (<ProductCard key={i} product={product}/>)
-            })}
-        </div>
+
+                    {products.map((product, i) => {
+                        return (<Link key={i} href={"/marketplace/my/seller-dashboard/" + product.slug}><ProductCardOnDashboard  product={product} /></Link>)
+                    })}
+                </div>
             </section>
 
 
@@ -67,10 +64,10 @@ export default function Market({ user }) {
         </Wrapper>
     </>)
 }
-export async function getServerSideProps(context) {
+export async function getServerSideProps(context: GetSessionParams) {
 
 
-    const session = await getSession(context);
+    const session = await getSession(context) as sessionType | null;
 
     if (!session)
         return {
@@ -80,10 +77,16 @@ export async function getServerSideProps(context) {
             }
         }
 
+    await dbConnect();
+
+    const myproducts = await getMyProducts(session?.user)
 
 
     return {
-        props: { user: session.user },
+        props: {
+            user: session?.user,
+            myproducts: JSON.parse(JSON.stringify(myproducts))
+        },
 
     }
 }
