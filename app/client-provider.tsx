@@ -16,6 +16,6 @@ export function Provider({ children }: { children: React.ReactNode }) {
     },[])
   return <SessionProvider>
     {children}
-    <Next13ProgressBar height="4px" color="hsl(var(--primary))" options={{ showSpinner: true }} showOnShallow={true} />
+    <Next13ProgressBar height="4px" color="hsl(var(--primary))" options={{ showSpinner: true,trickle:true }} showOnShallow={true} />
   </SessionProvider>;
 }
