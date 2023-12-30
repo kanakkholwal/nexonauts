@@ -53,7 +53,6 @@
         "date-fns": "^2.30.0",
         "dotenv": "^16.0.3",
         "draft-js": "^0.11.7",
-        "eslint-config-next": "^13.3.0",
         "html-2-jsx": "^0.5.1-dev",
         "html-react-parser": "^4.0.0",
         "interweave": "^13.1.0",
@@ -69,6 +68,7 @@
         "next-pwa": "^5.6.0",
         "next-seo": "^6.0.0",
         "next-sitemap": "^3.1.42",
+        "next13-progressbar": "^1.1.2",
         "node-fetch": "^3.3.2",
         "nodemailer": "^6.8.0",
         "openai": "^3.3.0",
@@ -99,6 +99,7 @@
         "zod": "^3.22.4"
     },
     "devDependencies": {
+        "@types/aos": "^3.0.7",
         "@types/cssbeautify": "^0.3.2",
         "@types/csso": "^5.0.0",
         "@types/htmltojsx": "^0.0.30",
@@ -107,6 +108,7 @@
         "@types/react": "18.0.25",
         "@types/styled-components": "^5.1.26",
         "autoprefixer": "^10.4.16",
+        "eslint-config-next": "^14.0.4",
         "globby": "^11.0.1",
         "postcss": "^8.4.31",
         "prop-types": "^15.6.0",
