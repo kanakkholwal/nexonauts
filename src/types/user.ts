@@ -6,9 +6,8 @@ type UserType = {
     password?: string;
     role: string;
     createdAt: string;
-    profileURL: string;
+    profilePicture: string;
     account_type: string;
-    posts: string[];
     verificationToken: string|null;
     verified: boolean;
     __v?: number;
@@ -19,8 +18,17 @@ type SessionUserType = {
     username: string;
     email: string;
     role: string;
-    profileURL: string;
+    profilePicture: URL;
     account_type: string;
+    verificationToken: string|null;
+    verified: boolean;
+    aditional_info:{
+        [key: string]: string | number | boolean | string[] | number[] | boolean[] | URL[] | URL,
+    },
+    providers: string[];
+    preferences: {
+        [key: string]: string | number | boolean | string[] | number[] | boolean[],
+    },
 }
 
 export type { SessionUserType, UserType };

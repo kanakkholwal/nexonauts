@@ -57,14 +57,14 @@ const FormSchema = z.object({
             }
         ),
     confirmPassword: z.string().min(8, { message: 'Password must be at least 8 characters long' })
-    .max(50, { message: 'Password cannot exceed 50 characters' })
-    .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/,
-        {
-            message:
-                'Password must contain at least one uppercase letter, one lowercase letter, and one number',
-        }
-    ),
+        .max(50, { message: 'Password cannot exceed 50 characters' })
+        .regex(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/,
+            {
+                message:
+                    'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+            }
+        ),
 });
 
 
@@ -87,7 +87,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         console.log(data);
 
         setIsLoading(true);
-        if(data.password !== data.confirmPassword){
+        if (data.password !== data.confirmPassword) {
             setIsLoading(false);
             toast.error('Passwords do not match');
             return;
@@ -95,7 +95,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
         toast.promise(signUpPromise(data), {
             loading: 'Signing up...',
-            success: (data :any) => {
+            success: (data: any) => {
                 console.log(data);
                 setIsLoading(false)
                 return data?.message || "Signed up successfully"
@@ -115,22 +115,22 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     }) => new Promise(async (resolve, reject) => {
         try {
             await axios.post('/api/auth/signup',
-            {
-                email: data.email,
-                name: data.name,
-                password: data.password,
-            }).then((response) => {
-                console.log(response);
-                if (response.data?.success) {
-                    resolve(response.data)
-                }
-                else {
-                    reject(response.data)
-                }
-            }).catch((error) => {
-                console.log(error)
-                reject(error)
-            });
+                {
+                    email: data.email,
+                    name: data.name,
+                    password: data.password,
+                }).then((response) => {
+                    console.log(response);
+                    if (response.data?.success) {
+                        resolve(response.data)
+                    }
+                    else {
+                        reject(response.data)
+                    }
+                }).catch((error) => {
+                    console.log(error)
+                    reject(error)
+                });
 
         }
         catch (error) {
@@ -143,10 +143,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
 
     return (
-        <div className={cn("grid gap-6 lg:max-w-lg", className)} {...props}>
+        <div className={cn("grid gap-6 lg:max-w-lg text-left", className)} {...props}>
             <div className='grid gap-2'>
                 <Button variant="ghost" type="button" disabled={isLoading}
-                    className='border-transparent border hover:border-primary/50 border-solid '
+                    className='border-slate-200 shadow-sm border hover:border-primary/50 border-solid '
+                    data-aos="flip-down"
+                    data-aos-delay="1100"
                     onClick={async () => {
                         setIsLoading(true);
                         await signIn('google', { callbackUrl: "/dashboard" })
@@ -157,9 +159,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
                     ) : (
                         <FcGoogle className="mr-2 h-4 w-4" />
-                    )}{" "}Login with Google
+                    )}{" "}Sign Up with Google
                 </Button>
-                <Button variant="dark" type="button" disabled={isLoading}
+                <Button variant="dark" type="button" disabled={isLoading}  data-aos="flip-up" data-aos-delay="1100"
                     onClick={async () => {
                         setIsLoading(true);
                         await signIn('github', { callbackUrl: "/dashboard" })
@@ -170,7 +172,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                     ) : (
                         <FiGithub className="mr-2 h-4 w-4" />
                     )}{" "}
-                    Login with Github
+                    Sign Up with Github
                 </Button>
                 <p className="or my-5">
                     Or sign up with email
@@ -178,70 +180,68 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             </div>
             <Form  {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
+                    <div className="flex gap-2">
+                        <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <div className='relative group'>
+                                        <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
+                                            <GoPerson className='w-4 h-4' />
+                                        </FormLabel>
+                                        <FormControl className='relative'>
+                                            <Input
+                                                id="name"
+                                                placeholder="Enter your name"
+                                                type="text"
+                                                autoCapitalize="none"
+                                                autoComplete="name"
+                                                autoCorrect="off"
+                                                disabled={isLoading}
+                                                className='pl-12 !py-6 pr-5 !mt-0  group-focus-within:ring-2 ring-primary'
+                                                {...field} />
+                                        </FormControl>
+                                    </div>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <div className='relative group'>
 
-                    <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                            <FormItem>
-                                <div className='relative'>
+                                        <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
+                                            <LuMail className='w-4 h-4' />
+                                        </FormLabel>
+                                        <FormControl className='relative'>
+                                            <Input
+                                                id="email"
+                                                placeholder="name@example.com"
+                                                type="email"
+                                                autoCapitalize="none"
+                                                autoComplete="email"
+                                                autoCorrect="off"
+                                                disabled={isLoading}
+                                                className='pl-12 !py-6 pr-5 !mt-0  group-focus-within:ring-2 ring-primary'
+                                                {...field} />
+                                        </FormControl>
 
-                                    <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
-                                        <GoPerson className='w-4 h-4' />
-                                    </FormLabel>
-                                    <FormControl className='relative'>
-                                        <Input
-                                            id="name"
-                                            placeholder="Enter your name"
-                                            type="text"
-                                            autoCapitalize="none"
-                                            autoComplete="name"
-                                            autoCorrect="off"
-                                            disabled={isLoading}
-                                            className='pl-12 !py-6 pr-5 !mt-0'
-                                            {...field} />
-                                    </FormControl>
-
-                                </div>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-            
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormItem>
-                                <div className='relative'>
-
-                                    <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
-                                        <LuMail className='w-4 h-4' />
-                                    </FormLabel>
-                                    <FormControl className='relative'>
-                                        <Input
-                                            id="email"
-                                            placeholder="name@example.com"
-                                            type="email"
-                                            autoCapitalize="none"
-                                            autoComplete="email"
-                                            autoCorrect="off"
-                                            disabled={isLoading}
-                                            className='pl-12 !py-6 pr-5 !mt-0'
-                                            {...field} />
-                                    </FormControl>
-
-                                </div>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                                    </div>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
                     <FormField
                         control={form.control}
                         name="password"
                         render={({ field }) => (
                             <FormItem>
-                                <div className='relative'>
+                                <div className='relative group'>
 
                                     <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
                                         <BiLockOpenAlt className='w-4 h-4' />
@@ -255,7 +255,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                             autoComplete="password"
                                             autoCorrect="off"
                                             disabled={isLoading}
-                                            className='pl-12 !py-6 pr-5 !mt-0'
+                                            className='pl-12 !py-6 pr-5 !mt-0 group-focus-within:ring-2 ring-primary'
 
                                             {...field} />
                                     </FormControl>
@@ -269,7 +269,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         name="confirmPassword"
                         render={({ field }) => (
                             <FormItem>
-                                <div className='relative'>
+                                <div className='relative group'>
 
                                     <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
                                         <BiLockOpenAlt className='w-4 h-4' />
@@ -283,7 +283,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                             autoComplete="password"
                                             autoCorrect="off"
                                             disabled={isLoading}
-                                            className='pl-12 !py-6 pr-5 !mt-0'
+                                            className='pl-12 !py-6 pr-5 !mt-0 group-focus-within:ring-2 ring-primary'
 
                                             {...field} />
                                     </FormControl>
@@ -293,14 +293,14 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         )}
                     />
 
-                    <Button disabled={isLoading} type="submit" className="my-2 hero-button-gradient" size="lg">
+                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" size="lg">
                         {isLoading && (
                             <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
                         )}
-                        Sign In with Email
+                        Sign Up with Email
                     </Button>
-                    <p className='text-center'>
-                    Already have an account? <Link href="/login" className='text-primary hover:underline'>Sign in Here</Link>
+                    <p className='text-left text-sm font-medium text-slate-500'>
+                        Already have an account? <Link href="/login" className='text-primary underline'>Sign in</Link>
                     </p>
                 </form>
             </Form>
