@@ -3,7 +3,7 @@ import Link from "next/link"
 const navLinks  = [
     {
         name: 'Solution',
-        link: '#solution',
+        link: '/#solution',
     },
 
     {

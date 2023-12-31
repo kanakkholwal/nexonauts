@@ -254,10 +254,10 @@ export default async function HomePage() {
 									<img src={article.image} alt="art cover" loading="lazy" width={1000} height={667} className="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105" />
 								</div>
 								<div className="mt-6 relative">
-									<h3 className="text-2xl font-semibold text-gray-800 dark:text-white">
+									<h3 className="text-2xl font-semibold text-gray-800 dark:text-white line-clamp-2">
 										{article.title}
 									</h3>
-									<p className="mt-6 mb-8 text-gray-600 dark:text-gray-300">
+									<p className="mt-6 mb-8 text-gray-600 dark:text-gray-300 line-clamp-3">
 										{article.description}
 									</p>
 									<Link href={`/blog/${article.slug}`} className="inline-block">

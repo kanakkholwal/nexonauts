@@ -1,28 +1,28 @@
 import type { Metadata } from 'next';
-import { Urbanist } from 'next/font/google';
 import Script from 'next/script';
 import { Toaster } from 'react-hot-toast';
 import { Provider } from "./client-provider";
 import './global.css';
 
-// import { Plus_Jakarta_Sans } from "next/font/google";
+// import { Urbanist } from 'next/font/google';
+import { Plus_Jakarta_Sans } from "next/font/google";
 
-// const customFont = Plus_Jakarta_Sans({
-//     weight: ['400', '500', '600', '700', '800'],
-//     subsets: ['latin-ext', 'latin'],
-//     display: 'swap',
-//     adjustFontFallback: false,
-//     variable: '--plus-jakarta',
-//     fallback:['system-ui','sans-serif']
-// })
-
-
-const font = Urbanist({
-    subsets: ['latin'],
-    preload: true,
+const font = Plus_Jakarta_Sans({
+    weight: ['400', '500', '600', '700', '800'],
+    subsets: ['latin-ext', 'latin'],
     display: 'swap',
-    weight: ["200","300", "400", "500", "600", '700', "800"],
+    adjustFontFallback: false,
+    variable: '--plus-jakarta',
+    fallback:['system-ui','sans-serif']
 })
+
+
+// const font = Urbanist({
+//     subsets: ['latin'],
+//     preload: true,
+//     display: 'swap',
+//     weight: ["200","300", "400", "500", "600", '700', "800"],
+// })
 
 export const metadata: Metadata = {
     title: 'Nexonauts - One stop solution for all your developer needs.',

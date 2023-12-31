@@ -1,17 +1,15 @@
 import bcrypt from 'bcrypt';
 import mongoose from "mongoose";
-import { v4 as UuID4 } from 'uuid';
+import { customAlphabet } from 'nanoid';
 import validator from 'validator';
+
 
 function generateRandomUsername() {
   // Generate a random UUID
-  const uuid = UuID4();
-
-  // Take the first 10 characters of the UUID and remove any non-alphanumeric characters
-  const alphanumericUsername = uuid.replace(/[^a-zA-Z0-9]/g, '').slice(0, 6);
+  const slug = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 8)()
 
   // Add a prefix (e.g., 'user_') to the alphanumeric username
-  return `user_${alphanumericUsername}`;
+  return `user_${slug}`;
 }
 const UserSchema = new mongoose.Schema(
   {
@@ -35,7 +33,7 @@ const UserSchema = new mongoose.Schema(
       validate: [validator.isEmail, 'Please enter a valid email'],
       lowercase: true,
     },
-    profileURL: {
+    profilePicture: {
       type: String,
       default: 'https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png',
     },
@@ -44,6 +42,10 @@ const UserSchema = new mongoose.Schema(
       required: [true, "Please enter your password"],
       minLength: [6, "Your password must be at least 6 characters long"],
       select: false, // Don't send back password after request
+    },
+    providers:{
+      type: Array,
+      default: [],
     },
     role: {
       type: String,
@@ -56,25 +58,32 @@ const UserSchema = new mongoose.Schema(
       type: String,
       default: 'free',
       enum: {
-        values: ['free', 'premium'],
+        values: ['free', 'pro', 'premium'],
       },
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    posts: {
-      
-      type:[
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Post',
-        populate: { path: 'analytics' } // Add this line
+    aditional_info: {
+      github: {
+        type: String,
+        default: null,
       },
-    ],
-    default: [],
-    select: false,
-  },
+      linkedin: {
+        type: String,
+        default: null,
+      },
+      twitter: {
+        type: String,
+        default: null,
+      },
+      instagram: {
+        type: String,
+        default: null,
+      },
+      website:{
+        type: String,
+        default: null,
+      },
+    },
+
     verificationToken: {
       type: String,
       default: null,
@@ -83,6 +92,8 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+  },{
+    timestamps: true,
   }
 );
 
@@ -128,4 +139,4 @@ UserSchema.methods.comparePassword = async function (password) {
 };
 
 
-export default mongoose.models.User || mongoose.model('User', UserSchema)
+export default mongoose.models?.User || mongoose.model('User', UserSchema)

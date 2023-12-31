@@ -1,36 +1,30 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import dbConnect from "src/lib/dbConnect";
 import UserModel from "src/models/user";
+import { SessionUserType } from "src/types/user";
 // Define types for environment variables
 interface AuthEnv {
     GOOGLE_ID: string;
     GOOGLE_SECRET: string;
+    GITHUB_ID: string;
+    GITHUB_SECRET: string;
     NEXT_AUTH_SECRET: string;
     NEXTAUTH_URL: string;
 }
 
 // Define types for user object
-interface User {
-    _id: string;
-    id?: string;
-    name: string;
-    email: string;
-    username: string;
-    account_type?: string;
-    profileURL: URL;
-    role?: string;
-    verified?: boolean;
-    provider: string;
-}
+interface User  extends SessionUserType{}
 // Read environment variables
 const env: AuthEnv = {
     GOOGLE_ID: process.env.GOOGLE_ID || "",
     GOOGLE_SECRET: process.env.GOOGLE_SECRET || "",
     NEXT_AUTH_SECRET: process.env.NEXT_AUTH_SECRET || "",
     NEXTAUTH_URL: process.env.NEXTAUTH_URL || "",
-
+    GITHUB_ID: process.env.GITHUB_ID || "",
+    GITHUB_SECRET: process.env.GITHUB_SECRET || "",
 };
 
 // Check if all required environment variables are defined
@@ -101,16 +95,18 @@ export const authOptions: NextAuthOptions = {
                                 success: false
                             })
                         const user = {
-                            _id: userInDb._id.toString(),
                             id: userInDb._id.toString(),
                             name: userInDb.name,
                             email: userInDb.email,
                             username: userInDb.username,
                             account_type: userInDb.account_type || "free",
-                            profileURL: userInDb.profileURL,
+                            profilePicture: userInDb.profilePicture,
                             role: userInDb.role || "user",
+                            verificationToken: userInDb.verificationToken || null,
                             verified: userInDb.verified || false,
-                            provider: "credentials"
+                            providers:userInDb.providers,
+                            aditional_info: userInDb.aditional_info,
+                            preferences: userInDb.preferences
                         } satisfies User
                         
 
@@ -148,13 +144,16 @@ export const authOptions: NextAuthOptions = {
                             name: profile.name,
                             email: profile.email,
                             username: profile.email.split("@")[0],
-                            profileURL: profile.picture,
+                            profilePicture: profile.picture,
                             password: "google" + profile.sub,
                             role: "user",
                             account_type: "free",
                             verificationToken: null,
                             verified: true,
-                            provider: "google"
+                            providers: ["google"],
+                            aditional_info: {},
+                            preferences: {},
+                            
                         });
                         await user.save();
 
@@ -163,8 +162,9 @@ export const authOptions: NextAuthOptions = {
                     console.log("user found", userInDb)
                     await UserModel.updateOne({ _id: userInDb._id }, {
                         $set: {
-                            profileURL: profile.picture,
+                            profilePicture: profile.picture,
                             verified: true,
+                            providers: [...userInDb.providers, "google"]
                         }
                     })
 
@@ -179,7 +179,46 @@ export const authOptions: NextAuthOptions = {
 
             },
         }),
-
+        GithubProvider({
+            clientId: env.GITHUB_ID,
+            clientSecret: env.GITHUB_SECRET,
+            authorization:{
+                params: { scope: "read:user user:email" },
+            },
+            async profile(profile) {
+                console.log(profile);
+                const gotUser = {
+                    name: profile.name,
+                    email: profile.email,
+                    profilePicture: profile.avatar_url,
+                    password: "github" + profile.id,
+                    username: profile.login,
+                    role: "user",
+                    account_type: "free",
+                    verificationToken: null,
+                    verified: true,
+                    providers: ["github"],
+                    aditional_info: {},
+                    preferences: {},
+                }
+                await dbConnect();
+                const isUser = await UserModel.findOne({email: profile.email})
+                if(isUser){
+                    await UserModel.updateOne({ _id: isUser._id }, {
+                        $set: {
+                            profilePicture: profile.avatar_url,
+                            verified: true,
+                            providers: [...isUser.providers, "github"]
+                        }
+                    })
+                    
+                    return Promise.resolve(isUser)
+                }
+                const user = new UserModel(gotUser);
+                await user.save();
+                return Promise.resolve(profile);
+            },
+        })
     ],
     // All of this is just to add user information to be accessible for our app in the token/session
     callbacks: {
@@ -196,10 +235,12 @@ export const authOptions: NextAuthOptions = {
                     email: user.email,
                     username: user.username,
                     account_type: user.account_type || "free",
-                    profileURL: user.profileURL,
+                    profilePicture: user.profilePicture,
                     role: user.role || "user",
                     verified: user.verified || false,
-                    provider: user.provider
+                    providers: user.providers,
+                    aditional_info: user.aditional_info,
+                    preferences: user.preferences
                 }
             }
             return token
@@ -218,11 +259,11 @@ export const authOptions: NextAuthOptions = {
 
     pages: {
         // Here you can define your own custom pages for login, recover password, etc.
-        signIn: '/', // Displays sign in buttons
+        signIn: '/login', // Displays sign in buttons
+        newUser: '/signup'
         // signOut: '/auth/sign out',
         // error: '/auth/error',
         // verifyRequest: '/auth/verify-request',
-        newUser: '/register'
     },
 }
 
