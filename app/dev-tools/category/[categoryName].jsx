@@ -7,11 +7,11 @@ import {
     ToolCard,
     CardContainer
 } from "components/tools";
- import Head from "next/head";
+import Head from "next/head";
 
 
-import { registerView } from "lib/analytics";
-import { useEffect } from "react";
+// import { registerView } from "lib/analytics";
+// import { useEffect } from "react";
 
 
 export async function getStaticPaths() {
@@ -51,9 +51,9 @@ export default function Tool({ path }){
 
     const Category = CategoryList.find((category) => category.path === path);
     const ToolsInThisCategory = ToolList.filter(({ category }) => category === Category.title);
-    useEffect(() =>{
-        registerView({ title: "Tools Category : " + Category.title, type: "page", slug: path })
-    },[])
+    // useEffect(() =>{
+    //     registerView({ title: "Tools Category : " + Category.title, type: "page", slug: path })
+    // },[])
     return (
         <>
             <Head>

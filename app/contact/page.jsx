@@ -1,3 +1,4 @@
+"use client";
 import Button from "components/buttons";
 import State from "components/state";
 import { useSession } from "next-auth/react";
