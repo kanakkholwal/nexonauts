@@ -408,14 +408,12 @@ function Article({ setCode }) {
 
             <div
                 className="w-full flex flex-wrap gap-2"
-                onChange={(e) => {
-                    setType(e.target?.value)
-                }}
+
             >
                 {["NewsArticle", "BlogPosting"].map((item, index) => {
                     return (<label  key={index} className="text-slate-700 has-[:checked]:ring-indigo-200 has-[:checked]:text-indigo-900 has-[:checked]:bg-primary/50 flex justify-between items-center gap-6 rounded-lg p-4 ring-1 ring-transparent hover:bg-slate-100">
                             {item}
-                            <input type="radio" name="type" value={item} className="box-content h-1.5 w-1.5 appearance-none rounded-full border-[5px] border-white bg-white bg-clip-padding outline-none ring-1 ring-gray-950/10 checked:border-primary checked:ring-primary" />
+                            <input type="radio"  onChange={(e) => setType(e.target.value)} name="type" value={item} className="box-content h-1.5 w-1.5 appearance-none rounded-full border-[5px] border-white bg-white bg-clip-padding outline-none ring-1 ring-gray-950/10 checked:border-primary checked:ring-primary" />
                         </label>)                  
                 })}
 
