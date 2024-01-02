@@ -34,7 +34,7 @@ import {
 
 
 import { Button } from "@/components/ui/button";
-import HTMLtoJSX from 'html-2-jsx';
+// import HTMLtoJSX from 'html-2-jsx';
 import { MdDeleteOutline, MdOutlineCode } from "react-icons/md";
 
 
@@ -70,9 +70,9 @@ export default function HtmlToJsxTool() {
     try {
 
 
-      const convertor = new HTMLtoJSX(settings);
+      // const convertor = new HTMLtoJSX(settings);
 
-      setState({ ...state, convertedData: convertor.convert(state.rawData), loading: false });
+      setState({ ...state, convertedData:` convertor.convert(state.rawData)`, loading: false });
     }
     catch (e) {
       console.log(e);

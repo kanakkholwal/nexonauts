@@ -1,4 +1,13 @@
 "use client";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -6,6 +15,7 @@ import Image from "next/image";
 import { useDropzone } from 'react-dropzone';
 import { CgFileDocument } from "react-icons/cg";
 import { FiUpload } from "react-icons/fi";
+import { HiDownload } from "react-icons/hi";
 import styled from "styled-components";
 
 
@@ -130,21 +140,27 @@ const ProgressCard = ({ progress, file, url }) => {
       </ProgressCardWrapper>
     </>)
 }
+function formatFileSize(sizeInBytes) {
+  const KB = 1024;
+  const fileSizeInKB = sizeInBytes / KB;
+  return fileSizeInKB.toFixed(2) + ' KB';
+}
 
 export default function Image2Webp() {
   const [progress, setProgress] = useState(0);
-  const [file, setFile] = useState(null);
+  const [file, setFile] = useState<File |null>(null);
   const [fileUrl, setFileUrl] = useState("");
   const [scaledImg, setScaledImg] = useState<{
     image: string;
     fileName: string;
+    fileSize?:string;
   }[]>([]);
   const inputRef = useRef(null);
 
 
 
   const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file) => {
+    acceptedFiles.forEach((file :File) => {
       if (!file) {
         throw new Error(`${file} was not a file`);
       }
@@ -168,6 +184,7 @@ export default function Image2Webp() {
               const splitName = fileName.split('.');
               fileName = splitName[0];
             }
+            let fileSize = file.size
 
             const processImage = async () => {
               const rawImage = new window.Image();
@@ -195,6 +212,7 @@ export default function Image2Webp() {
                   setScaledImg((prev) => [...prev, {
                     image: imageURL,
                     fileName: fileName,
+                    fileSize:formatFileSize(file.size)
                   }]);
                 });
             };
@@ -225,25 +243,26 @@ export default function Image2Webp() {
 
       {/* {file && <ProgressCard progress={progress} file={file} url={fileUrl} />} */}
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-3 mt-8">
-        {scaledImg.map(({ image, fileName }, index) => {
+      <div className="w-full h-full gap-8 columns-1 sm:columns-2 md:columns-3 lg:columns-4 my-3 mt-8">
+        {scaledImg.map(({ image, fileName,fileSize }, index) => {
           return (
-            <div key={index} className="rounded overflow-hidden" >
-              {/* <CardBody> */}
-              <Image alt={fileName} width={480} height={320} src={image} />
-              {/* </CardBody>
-                        <CardFooter style={{
-                            margin:"0",
-                        }}>
-                        <span>
-                            {fileName}
-                        </span>
-                            <IconButton nature="success" as="a" href={image} download={`${fileName}.[Converted by kkupgrader.eu.org].webp`} title="Download Image in WEBP Format">
-                            <HiDownload/>
-                            </IconButton>
+            <Card key={index} className="rounded-lg w-auto mb-4" >
+              <CardHeader>
+                <CardTitle>{fileName}</CardTitle>
+                <CardDescription>{fileSize}</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Image alt={fileName} width={480} height={320} src={image}  className="max-h-56"/>
+              </CardContent>
+              <CardFooter>
+                <Button className="w-full rounded-full" size="sm"  asChild>
+                  <a href={image} download={`${fileName}.[Converted by nexonauts.com].webp`} title="Download Image in WEBP Format">
+                    Download <HiDownload  className="w-4 h-5 ml-2"/>
+                  </a>
+                </Button>
 
-                        </CardFooter> */}
-            </div>)
+              </CardFooter>
+            </Card>)
         })}
       </div>
 
