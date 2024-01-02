@@ -8,15 +8,14 @@ import {
     CardTitle,
 } from "@/components/ui/card";
 
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
 
 import CodeBlock from "components/CodeBlock";
-import FormElement from "components/form-elements/FormElement";
-import FormHelper from "components/form-elements/FormHelper";
+
 import { useCallback, useEffect, useState } from "react";
 
 
@@ -66,7 +65,7 @@ export default function MetaTagGenerator() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const getString = useCallback(() => {
 
-        const RawHTML = `\n <!-- COMMON TAGS -->\n<meta charset="utf-8">\n<title>${Google_Title}</title>\n<!-- Search Engine -->\n<meta name="description" content="${Google_Description}">\n<meta name="image" content="${Google_siteImage}">\n<!-- Schema.org for Google -->\n<meta itemprop="name" content="${Google_Title}">\n<meta itemprop="description" content="${Google_Description}">\n<meta itemprop="image" content="${Google_siteImage}">\n<!-- Open Graph general (Facebook, Pinterest & LinkedIn) -->\n<meta property="og:title" content="${OG_Title}">\n<meta property="og:description" content="${OG_Description}">\n<meta property="og:image" content="${OG_previewImage}">\n<meta property="og:url" content="${OG_URL}">\n<meta property="og:site_name" content="${OG_siteName}">\n<meta property="og:locale" content="${OG_locale}">\n<meta property="og:type" content="website">\n<!-- Twitter -->\n<meta property="twitter:card" content="summary">\n<meta property="twitter:title" content="${Twitter_Title}">\n<meta property="twitter:description" content="${Twitter_Description}">\n<meta property="twitter:image:src" content="${Twitter_previewImage}">`;
+        const RawHTML = `<!-- COMMON TAGS -->\n<meta charset="utf-8"/>\n<title>${Google_Title}</title>\n<!-- Search Engine -->\n<meta name="description" content="${Google_Description}"/>\n<meta name="image" content="${Google_siteImage}"/>\n<!-- Schema.org for Google -->\n<meta itemprop="name" content="${Google_Title}"/>\n<meta itemprop="description" content="${Google_Description}"/>\n<meta itemprop="image" content="${Google_siteImage}"/>\n<!-- Open Graph general (Facebook, Pinterest & LinkedIn) -->\n<meta property="og:title" content="${OG_Title}"/>\n<meta property="og:description" content="${OG_Description}"/>\n<meta property="og:image" content="${OG_previewImage}"/>\n<meta property="og:url" content="${OG_URL}"/>\n<meta property="og:site_name" content="${OG_siteName}"/>\n<meta property="og:locale" content="${OG_locale}"/>\n<meta property="og:type" content="website"/>\n<!-- Twitter -->\n<meta property="twitter:card" content="summary"/>\n<meta property="twitter:title" content="${Twitter_Title}"/>\n<meta property="twitter:description" content="${Twitter_Description}"/>\n<meta property="twitter:image:src" content="${Twitter_previewImage}"/>`;
 
 
         // return ParseString(RawHTML);
@@ -97,8 +96,8 @@ export default function MetaTagGenerator() {
         <div className="grid gap-3">
             {/* Section: Google */}
             <section id="section-google">
-                <div className="flex items-center gap-3 ">
-                    <div className="grow">
+                <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-3 ">
+                    <div className="w-full">
                         <p className="mb-3 ml-3">
                             <strong>Google search results:</strong>
                         </p>
@@ -116,7 +115,7 @@ export default function MetaTagGenerator() {
                     </div>
                     {/* Section: Controls */}
 
-                    <Card className="grow max-w-[550px]">
+                    <Card>
                         <CardHeader>
                             <CardTitle>
                                 Google search results
@@ -126,29 +125,29 @@ export default function MetaTagGenerator() {
                             </CardDescription>
 
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="grid gap-4">
                             {/* Page title */}
-                            <FormElement>
+                            <div className="grid gap-1.5 items-center">
+                                <Label htmlFor="Fui_FormPageTitleGoogle">Page title</Label>
                                 <Input
                                     type="text"
                                     id="Fui_FormPageTitleGoogle"
                                     variant="ghost"
                                     maxLength={60} value={Google_Title} onChange={(e) => SetGoogle_Title(e.target.value)} />
-                                <Label htmlFor="Fui_FormPageTitleGoogle">Page title</Label>
-                                <FormHelper className="text-muted-foreground text-xs">60 characters maximum ({60 - Google_Title.length} are remaining)</FormHelper>
-                            </FormElement>
+                                <p className="text-muted-foreground text-xs">60 characters maximum ({60 - Google_Title.length} are remaining)</p>
+                            </div>
                             {/* Page description */}
-                            <FormElement>
-                                <Textarea variant="ghost" id="DescriptionGoogle" rows={4} maxLength={160} value={Google_Description} onChange={(e) => SetGoogle_Description(e.target.value)} />
+                            <div className="grid gap-1.5 items-center">
                                 <Label htmlFor="DescriptionGoogle">Page description</Label>
-                                <FormHelper className="text-muted-foreground text-xs">160 characters maximum ({160 - Google_Description.length} are remaining)</FormHelper>
-                            </FormElement>
+                                <Textarea variant="ghost" id="DescriptionGoogle" rows={4} maxLength={160} value={Google_Description} onChange={(e) => SetGoogle_Description(e.target.value)} />
+                                <p className="text-muted-foreground text-xs">160 characters maximum ({160 - Google_Description.length} are remaining)</p>
+                            </div>
                             {/* Site image */}
-                            <FormElement>
-                                <Input type="text" id="Fui_FormSiteImageGoogle" variant="ghost" value={Google_siteImage} onChange={(e) => SetGoogle_siteImage(e.target.value)} />
+                            <div className="grid gap-1.5 items-center">
                                 <Label htmlFor="Fui_FormSiteImageGoogle">Site image</Label>
-                                <FormHelper className="text-muted-foreground text-xs"> Valid URL address of the .jpg or .png image</FormHelper>
-                            </FormElement>
+                                <Input type="text" id="Fui_FormSiteImageGoogle" variant="ghost" value={Google_siteImage} onChange={(e) => SetGoogle_siteImage(e.target.value)} />
+                                <p className="text-muted-foreground text-xs"> Valid URL address of the .jpg or .png image</p>
+                            </div>
                         </CardContent>
                         <CardFooter className="justify-end">
                             <Button type="button" variant="secondary" size="sm" onClick={() => {
@@ -166,8 +165,8 @@ export default function MetaTagGenerator() {
 
             {/* Section: Open Graph */}
             <section id="section-open-graph" className="w-full">
-                <div className="flex items-center justify-around gap-3 w-full">
-                    <div className="grow">
+            <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-3 ">
+            <div className="w-full">
                         <p className="mb-3 ml-3">
                             <strong>Open graph
                                 <small className="text-muted">(Facebook, Pinterest, LinkedIn)</small>:</strong>
@@ -186,7 +185,7 @@ export default function MetaTagGenerator() {
                         {/* Section: Preview */}
                     </div>
                     {/* Section: Controls */}
-                    <Card className="grow max-w-[550px]">
+                    <Card>
                         <CardHeader>
                             <CardTitle>
                                 Open graph
@@ -197,40 +196,40 @@ export default function MetaTagGenerator() {
 
                         </CardHeader>
 
-                        <CardContent>
+                        <CardContent className="grid gap-4">
                             {/* Page title */}
-                            <FormElement>
-                                <Input type="text" id="formPageTitleOG" variant="ghost" maxLength={60} value={OG_Title} onChange={e => SetOG_Title(e.target.value)} />
+                            <div className="grid gap-1.5 items-center">
                                 <Label htmlFor="formPageTitleOG">Page title</Label>
-                                <FormHelper className="text-muted-foreground text-xs">60 characters maximum ({60 - OG_Title.length} are remaining)</FormHelper>
-                            </FormElement>
+                                <Input type="text" id="formPageTitleOG" variant="ghost" maxLength={60} value={OG_Title} onChange={e => SetOG_Title(e.target.value)} />
+                                <p className="text-muted-foreground text-xs">60 characters maximum ({60 - OG_Title.length} are remaining)</p>
+                            </div>
                             {/* Page description */}
-                            <FormElement>
-                                <Textarea variant="ghost" id="pageDescriptionOG" rows={5} cols={32} maxLength={68} value={OG_Description} onChange={e => SetOG_Description(e.target.value)} />
+                            <div className="grid gap-1.5 items-center">
                                 <Label htmlFor="pageDescriptionOG">Page description</Label>
-                                <FormHelper className="text-muted-foreground text-xs">68 characters maximum ({68 - OG_Description.length} are remaining)</FormHelper>
-                            </FormElement>
+                                <Textarea variant="ghost" id="pageDescriptionOG" rows={5} cols={32} maxLength={68} value={OG_Description} onChange={e => SetOG_Description(e.target.value)} />
+                                <p className="text-muted-foreground text-xs">68 characters maximum ({68 - OG_Description.length} are remaining)</p>
+                            </div>
                             {/* Preview image */}
-                            <FormElement>
-                                <Input type="text" id="formPreviewImageOG" variant="ghost" value={OG_previewImage} onChange={e => SetOG_previewImage(e.target.value)} />
+                            <div className="grid gap-1.5 items-center">
                                 <Label htmlFor="formPreviewImageOG">Preview image</Label>
-                                <FormHelper className="text-muted-foreground text-xs">1200x628 px recommended</FormHelper>
-                            </FormElement>
+                                <Input type="text" id="formPreviewImageOG" variant="ghost" value={OG_previewImage} onChange={e => SetOG_previewImage(e.target.value)} />
+                                <p className="text-muted-foreground text-xs">1200x628 px recommended</p>
+                            </div>
                             {/* URL */}
-                            <FormElement>
-                                <Input type="text" id="URL_OG" variant="ghost" value={OG_URL} onChange={e => SetOG_URL(e.target.value)} />
+                            <div className="grid gap-1.5 items-center">
                                 <Label htmlFor="URL_OG">URL</Label>
-                            </FormElement>
+                                <Input type="text" id="URL_OG" variant="ghost" value={OG_URL} onChange={e => SetOG_URL(e.target.value)} />
+                            </div>
                             {/* Site name */}
-                            <FormElement>
-                                <Input type="text" id="formSiteNameOG" variant="ghost" value={OG_siteName} onChange={e => SetOG_siteName(e.target.value)} />
+                            <div className="grid gap-1.5 items-center">
                                 <Label htmlFor="formSiteNameOG">Site name</Label>
-                            </FormElement>
+                                <Input type="text" id="formSiteNameOG" variant="ghost" value={OG_siteName} onChange={e => SetOG_siteName(e.target.value)} />
+                            </div>
                             {/* Locale */}
-                            <FormElement>
-                                <Input type="text" id="formLocaleOG" variant="ghost" value={OG_locale} onChange={e => SetOG_locale(e.target.value)} />
+                            <div className="grid gap-1.5 items-center">
                                 <Label htmlFor="formLocaleOG">Locale</Label>
-                            </FormElement>
+                                <Input type="text" id="formLocaleOG" variant="ghost" value={OG_locale} onChange={e => SetOG_locale(e.target.value)} />
+                            </div>
                         </CardContent>
                         <CardFooter className="justify-end">
                             <Button type="button" variant="secondary" size="sm" onClick={() => {
@@ -250,8 +249,8 @@ export default function MetaTagGenerator() {
             </section>
             {/* Section: Twitter */}
             <section id="section-twitter" className="mb-5">
-                <div className="flex items-center justify-around gap-3 w-full">
-                    <div className="grow">
+            <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-3 ">
+                    <div className="w-full">
                         <p className="mb-3 ml-3">
                             <strong>Twitter:</strong>
                         </p>
@@ -268,32 +267,32 @@ export default function MetaTagGenerator() {
                         {/* Section: Preview */}
                     </div>
                     {/* Section: Controls */}
-                    <Card className="grow max-w-[550px]">
+                    <Card>
                         <CardHeader>
                             <CardTitle>Twitter</CardTitle>
                             <CardDescription>
                                 (Twitter)
                             </CardDescription>
                         </CardHeader>
-                        <CardContent>
+                        <CardContent className="grid gap-4">
                             {/* Page title */}
-                            <FormElement>
-                                <Input type="text" id="formPageTitleTwitter" variant="ghost" maxLength={60} value={Twitter_Title} onChange={e => SetTwitter_Title(e.target.value)} />
+                            <div className="grid gap-1.5 items-center">
                                 <Label htmlFor="formPageTitleTwitter">Page title</Label>
-                                <FormHelper>60 characters maximum ({60 - Twitter_Title.length} are remaining)</FormHelper>
-                            </FormElement>
+                                <Input type="text" id="formPageTitleTwitter" variant="ghost" maxLength={60} value={Twitter_Title} onChange={e => SetTwitter_Title(e.target.value)} />
+                                <p className="text-muted-foreground text-xs">60 characters maximum ({60 - Twitter_Title.length} are remaining)</p>
+                            </div>
                             {/* Page description */}
-                            <FormElement>
-                                <Textarea variant="ghost" id="pageDescriptionTwitter" rows={8} value={Twitter_Description} onChange={e => SetTwitter_Description(e.target.value)} maxLength={120} />
+                            <div className="grid gap-1.5 items-center">
                                 <Label htmlFor="pageDescriptionTwitter">Page description</Label>
-                                <FormHelper>120 characters maximum ({120 - Twitter_Description.length} are remaining)</FormHelper>
-                            </FormElement>
+                                <Textarea variant="ghost" id="pageDescriptionTwitter" rows={8} value={Twitter_Description} onChange={e => SetTwitter_Description(e.target.value)} maxLength={120} />
+                                <p className="text-muted-foreground text-xs">120 characters maximum ({120 - Twitter_Description.length} are remaining)</p>
+                            </div>
                             {/* Site image */}
-                            <FormElement>
-                                <Input type="text" id="formSiteImageTwitter" variant="ghost" value={Twitter_previewImage} onChange={e => SetTwitter_previewImage(e.target.value)} />
+                            <div className="grid gap-1.5 items-center">
                                 <Label htmlFor="formSiteImageTwitter">Site image</Label>
-                                <FormHelper>Valid URL address of the image</FormHelper>
-                            </FormElement>
+                                <Input type="text" id="formSiteImageTwitter" variant="ghost" value={Twitter_previewImage} onChange={e => SetTwitter_previewImage(e.target.value)} />
+                                <p className="text-muted-foreground text-xs">Valid URL address of the image</p>
+                            </div>
                         </CardContent>
                         <CardFooter className="justify-end">
                             <Button type="button" variant="secondary" size="sm" onClick={() => {

@@ -28,6 +28,7 @@ export const allDevTools: ToolProp[] = [
         description: "Image to WebP converter is an online tool that converts images from one format to WebP. WebP is a modern image format developed by Google that offers better compression than other image formats, such as JPEG and PNG. This can lead to smaller file sizes, which can improve the performance of websites and web apps.",
         category: "Image Tools",
         id: "image-to-webp-convertor",
+        
         online: true
     },
     // {
@@ -86,14 +87,21 @@ export const allDevTools: ToolProp[] = [
         id: "schema-markup-generator",
         online: true
     }
-    ,
-    {
-        title: "iFrame Embed Code Generator",
-        description: "With the help of this tool, you can generate your iframe codes easily with just a click of a button.",
-        category: "Other Tools",
-        id: "iframe-generator",
-        online: true
-    }
-]
+    // ,
+    // {
+    //     title: "iFrame Embed Code Generator",
+    //     description: "With the help of this tool, you can generate your iframe codes easily with just a click of a button.",
+    //     category: "Other Tools",
+    //     id: "iframe-generator",
+    //     online: true
+    // }
+].map((tool) => ({
+    description: tool.description,
+    id: tool.id,
+    category: tool.category,
+    title: tool.title,
+    path: `/dev-tools/${tool.id}`,
+    online: tool.online,
+}));
 
 

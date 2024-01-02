@@ -20,6 +20,7 @@ const buttonVariants = cva(
         slate: "bg-slate-200 hover:bg-slate-300 text-slate-700",
         dark: "bg-slate-900 text-white hover:bg-slate-800 transition-duration-500",
         link: "text-primary underline-offset-4 hover:underline",
+        success:"bg-green-100 text-green-600 hover:bg-green-200 hover:text-green-700",
         gradient: "hero-button-gradient",
       },
       size: {

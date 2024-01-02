@@ -6,9 +6,9 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { allDevTools } from "pages/tools/ToolsList";
 import { FAQs } from "./faqs";
 import bgImage from "./hero.png";
+import { allDevTools } from "./list";
 
 
 

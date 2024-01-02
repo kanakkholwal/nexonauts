@@ -34,7 +34,7 @@ export default function Footer() {
                         <Link href="https://linkedin.com/NexoNauts" className="hover:text-primary ease-in duration-300 icon">
                             <FiLinkedin className="w-5 h-5" />
                         </Link>
-{/*                         <Link href="https://github.com/NexoNauts" className="hover:text-primary ease-in duration-300 icon">
+                        {/*                         <Link href="https://github.com/NexoNauts" className="hover:text-primary ease-in duration-300 icon">
                             <LuGithub className="w-5 h-5" />
                         </Link> */}
                     </div>
@@ -56,7 +56,7 @@ export default function Footer() {
                                 </li>
                                 <li>
                                     <Link href="/dev-tools" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                       Dev Tools
+                                        Dev Tools
                                     </Link>
                                 </li>
                                 <li>
@@ -101,6 +101,11 @@ export default function Footer() {
                                 <li>
                                     <Link href="/contact" className="text-slate-500 hover:text-primary ease-in duration-300">
                                         Contact
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/copyright" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Disclaimer
                                     </Link>
                                 </li>
 

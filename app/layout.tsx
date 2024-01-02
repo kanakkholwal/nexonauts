@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { Toaster } from 'react-hot-toast';
 import { Provider } from "./client-provider";
+import "./codebox.css";
 import './global.css';
 
 // import { Urbanist } from 'next/font/google';
@@ -69,30 +69,7 @@ export default function RootLayout({
             </head>
             <body className={font.className + " min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900"}>
                 <Provider>{children}</Provider>
-                <Toaster
-                    position="bottom-right"
-                    reverseOrder={false}
-                    gutter={8}
-                    containerClassName=""
-                    containerStyle={{}}
-                    toastOptions={{
-                        // Define default options
-                        className: '',
-                        duration: 5000,
-                        style: {
-                            background: '#363636',
-                            color: '#fff',
-                        },
-                        // Default options for specific types
-                        success: {
-                            duration: 3000,
-                            // "theme": {
-                            //     primary: 'green',
-                            //     secondary: 'black',
-                            // },
-                        },
-                    }}
-                />
+
             </body>
         </html>
     )
