@@ -3,7 +3,7 @@ import { Metadata } from "next"
 import ToolComponent from "./tool"
 
 
-export const tool = {
+const tool = {
     title: "Svg Encoder",
     description: "This tool helps you to encode your svg code to base64 format",
     categories: ["Web Tools"],

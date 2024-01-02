@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import ToolComponent from "./tool"
 
 
-export const tool = {
+const tool = {
     title: "Html Minifier and Prettifier Tool",
     description: " Online HTML Minifier takes any form of HTML code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Html to make it easy to read and edit. It reduces file size and optimizes css for your website.",
     category: "Web Tools",

@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import ToolComponent from "./tool"
 
 
-export const tool = {
+const tool = {
     title: "Schema MarkUp Generator",
     description: "A Schema Markup Generator is a tool that helps users create structured data markup for their website. Structured data markup is a type of code that provides search engines with additional information about the content on a website, making it easier for search engines to understand and display the content in search results.",
     id: "schema-markup-generator",

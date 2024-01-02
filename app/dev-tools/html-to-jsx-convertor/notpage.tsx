@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import ToolComponent from "./tool"
 
 
-export const tool = {
+const tool = {
          title: "HTML to JSX Convertor",
         description: "The HTML to JSX Converter is a helpful tool that enables developers to seamlessly convert HTML code into JSX (JavaScript XML) syntax, commonly used in React applications. With an HTML to JSX Converter, developers can efficiently transform HTML code into JSX, ensuring the compatibility and efficiency of their React projects.",
         categories: ["Web Tools"],

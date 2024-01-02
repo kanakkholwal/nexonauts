@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import ToolComponent from "./tool"
 
 
-export const tool = {
+const tool = {
     title: "Meta Tag Generator",
     description: "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide",
     categories: ["SEO Tools"],

@@ -3,7 +3,7 @@ import { Metadata } from "next"
 import ToolComponent from "./tool"
 
 
-export const tool = {
+const tool = {
     title: "Youtube Downloader",
     description: "This Tool helps you to download YouTube Videos in multiple formats",
     categories: ["Downloader"],
