@@ -7,10 +7,10 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { signOut } from "next-auth/react";
 import axios from "axios";
 import Footer from 'layouts/common/footer';
 import debounce from 'lodash.debounce';
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -99,7 +99,7 @@ export default function Layout({ children, user }: { children: React.ReactNode, 
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <button className="flex items-center space-x-2 hover:bg-slate-100 px-3 py-1.5 rounded-lg">
-                                        <Image src={user.profileURL} height={80} width={80} alt="avatar" className="w-6 h-6 rounded-full" />
+                                        <Image src={user.profilePicture.toString()} height={80} width={80} alt="avatar" className="w-6 h-6 rounded-full" />
                                         <span className="text-slate-500 text-md ml-2 font-semibold   hidden md:inline-block">{user.name}</span>
                                         <VscChevronDown className="text-slate-500" />
                                     </button>

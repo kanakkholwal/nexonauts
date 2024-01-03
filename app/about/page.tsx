@@ -4,8 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Settings } from 'lucide-react';
-import image1 from "./about_1.png";
-import image2 from "./about_2.png";
+
 
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { IoAnalyticsSharp } from "react-icons/io5";
@@ -53,7 +52,7 @@ export default function Page() {
                                 Welcome to Nexonauts.com, the brainchild of a passionate developer driven by the mission to simplify the development journey for fellow creators. As the sole visionary behind this platform, I'm committed to building a vibrant ecosystem that fuels creativity, collaboration, and growth for developers worldwide.
                             </p>
                         </div>
-                        <Image src={image1} alt="values" width={1380} height={720} className='w-full h-auto rounded-xl max-w-xl shadow-lg' draggable={false} />
+                        <Image src={"/assets/image/about_1.png"} alt="values" width={1380} height={720} className='w-full h-auto rounded-xl max-w-xl shadow-lg' draggable={false} />
                     </div>
 
                 </section>
@@ -103,7 +102,7 @@ export default function Page() {
                             </div>
                         </div>
                         <div className="flex justify-center items-center mt-16 w-full  mx-auto p-4 rounded-lg">
-                            <Image src={image2} alt="values" width={1380} height={720} className='w-full h-auto rounded-xl  max-w-4xl mix-blend-multiply' draggable={false} />
+                            <Image src={"/assets/image/about_1.png"} alt="values" width={1380} height={720} className='w-full h-auto rounded-xl  max-w-4xl mix-blend-multiply' draggable={false} />
                         </div>
                     </div>
                 </section>

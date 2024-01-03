@@ -4,7 +4,8 @@ interface ToolProp {
     description: string,
     category: string,
     id: string,
-    online: boolean
+    online: boolean,
+    path: string
 }
 
 export const allDevTools: ToolProp[] = [

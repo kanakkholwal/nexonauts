@@ -1,16 +1,16 @@
-import { GetSessionParams, getSession } from "next-auth/react";
-import DashboardPage from "components/dashboard-page";
-import Head from "next/head";
 import axios from "axios";
-import toast,{ Toaster } from "react-hot-toast";
+import DashboardPage from "components/dashboard-page";
+import Badge from "components/topography/badge";
+import { GetSessionParams, getSession } from "next-auth/react";
+import Head from "next/head";
+import Image from "next/image";
+import { useRouter } from "next/router";
+import toast, { Toaster } from "react-hot-toast";
+import { IoAnalyticsOutline } from "react-icons/io5";
+import { MdOutlineArticle, MdOutlineComment, MdOutlineRateReview, MdVerified } from "react-icons/md";
 import { sessionType } from "src/types/session";
 import { SessionUserType, UserType } from "src/types/user";
-import Image from "next/image";
-import Badge from "components/topography/badge";
-import {MdVerified,MdOutlineArticle,MdOutlineComment,MdOutlineRateReview} from "react-icons/md";
-import {IoAnalyticsOutline,IoEyeOutline} from "react-icons/io5";
 import styled from "styled-components";
-import { useRouter } from "next/router";
 
 const UserPageHeader = styled.div`
     text-align: left;
@@ -101,7 +101,7 @@ export default function UserPage({ username, user, currentUser }: { username: st
             headerChildren={<span className="h6">Username : {username}</span>}>
             <UserPageHeader>
                 <Image
-                    src={user.profileURL}
+                    src={user.profilePicture.toString()}
                     alt={user.username}
                     width={100}
                     height={100}
@@ -143,7 +143,7 @@ export default function UserPage({ username, user, currentUser }: { username: st
                             <MdOutlineArticle />
                         </div>
                         <span className="h5">Posts</span>
-                        <Badge nature="info" className="h5 ms-auto me-2">{user.posts.length}</Badge>
+                        {/* <Badge nature="info" className="h5 ms-auto me-2">{user.posts.length}</Badge> */}
 
                     </div>
                 </UserActivityCard>
@@ -153,7 +153,7 @@ export default function UserPage({ username, user, currentUser }: { username: st
                             <MdOutlineComment />
                         </div>
                         <span className="h5">Comments</span>
-                        <Badge nature="info" className="h5 ms-auto me-2">{user?.comments}</Badge>
+                        {/* <Badge nature="info" className="h5 ms-auto me-2">{user?.comments}</Badge> */}
                     </div>
                 </UserActivityCard>
                 {/* <UserActivityCard>

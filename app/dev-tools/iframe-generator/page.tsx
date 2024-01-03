@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import ToolComponent from "./tool"
 
 
-export const tool = {
+const tool = {
     title: "iFrame Embed Code Generator",
     description: "With the help of this tool, you can generate your iframe codes easily with just a click of a button.",
     categories: ["Other Tools"],

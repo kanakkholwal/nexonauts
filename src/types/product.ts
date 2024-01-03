@@ -15,7 +15,7 @@ export type newProductType = {
     tags?: string[],
     creator: {
         username: string,
-        profileURL: string,
+        profilePicture: string,
         userId: string,
     },
 }
@@ -42,7 +42,7 @@ export type searhableProductType = {
     tags?: string[],
     creator: {
         username: string,
-        profileURL: string,
+        profilePicture: string,
         userId: string,
     },
     likes?: string[],
@@ -64,7 +64,7 @@ export type publicProductType = {
     tags?: string[],
     creator: {
         username: string,
-        profileURL: string,
+        profilePicture: string,
         userId: string,
     },
     likes?: string[],
@@ -84,7 +84,7 @@ export type statsProductType = {
     categories?: string[],
     creator: {
         username: string,
-        profileURL: string,
+        profilePicture: string,
         userId: string,
     },
     likes: string[],
