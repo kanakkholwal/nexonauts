@@ -100,7 +100,7 @@ export function Navbar({ user, title }: {
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="relative h-8 w-8 rounded-full ring-transparent focus:ring-transparent">
                         <Avatar className="h-8 w-8">
-                            <AvatarImage src={user.profileURL} height={80} width={80} alt="avatar" className="w-8 h-8 rounded-full shadow-sm" />
+                            <AvatarImage src={user.profilePicture.toString()} height={80} width={80} alt="avatar" className="w-8 h-8 rounded-full shadow-sm" />
                             <AvatarFallback>SC</AvatarFallback>
                         </Avatar>
                     </Button>

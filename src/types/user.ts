@@ -6,7 +6,7 @@ type UserType = {
     password?: string;
     role: string;
     createdAt: string;
-    profilePicture: string;
+    profilePicture:URL | string;
     account_type: string;
     verificationToken: string|null;
     verified: boolean;
@@ -18,7 +18,7 @@ type SessionUserType = {
     username: string;
     email: string;
     role: string;
-    profilePicture: URL;
+    profilePicture: URL | string;
     account_type: string;
     verificationToken: string|null;
     verified: boolean;

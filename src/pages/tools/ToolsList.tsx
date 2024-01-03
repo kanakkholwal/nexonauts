@@ -171,4 +171,9 @@ export const allDevTools = ToolList.map((tool) => ({
     path: `/dev-tools/${tool.id}`,
     online: tool.online,
 }));
-export const CategoryList = Categories
+export const CategoryList = Categories.map((category) => ({
+    id: category.id,
+    title: category.title,
+    path: `/dev-tools/category/${category.id}`,
+    icon: category.icon
+}) )

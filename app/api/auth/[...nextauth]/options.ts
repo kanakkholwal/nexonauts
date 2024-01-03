@@ -107,7 +107,7 @@ export const authOptions: NextAuthOptions = {
                             providers:userInDb.providers,
                             aditional_info: userInDb.aditional_info,
                             preferences: userInDb.preferences
-                        } satisfies User
+                        }
                         
 
                         console.log("user found",user)
@@ -216,7 +216,7 @@ export const authOptions: NextAuthOptions = {
                 }
                 const user = new UserModel(gotUser);
                 await user.save();
-                return Promise.resolve(profile);
+                return Promise.resolve(user);
             },
         })
     ],

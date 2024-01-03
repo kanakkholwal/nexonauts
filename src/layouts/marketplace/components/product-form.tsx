@@ -55,7 +55,7 @@ export default function ProductForm({ user }: { user: SessionUserType }) {
         creator: {
             userId: user.id,
             username: user.username,
-            profileURL: user.profileURL
+            profilePicture: user.profilePicture.toString(),
         },
     });
     const [isLoading, setIsLoading] = useState(false);
