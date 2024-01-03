@@ -1,117 +1,217 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import axios from "axios";
-import { FormAlert } from "components/form-elements";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Building2, ExternalLink, Send } from 'lucide-react';
+import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { LuMail } from "react-icons/lu";
+import * as z from "zod";
 
-const isEmail = (email) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
+import {
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+import { GoPerson } from "react-icons/go";
+const FormSchema = z.object({
+    name: z.string().min(1, { message: 'Name must be between 1 and 100 characters' })
+        .max(100, { message: 'Name must be between 1 and 100 characters' }),
+    email: z
+        .string()
+        .email({ message: 'Invalid email format' })
+        .min(5, { message: 'Email must be at least 5 characters long' })
+        .max(100, { message: 'Email cannot exceed 100 characters' }),
+    message: z.string().min(30, { message: 'Message should be atleast 30 characters long' })
+        .max(500, { message: 'Message cannot exceed 500 characters' }),
+    category: z.string().min(1, { message: 'Please select a category' })
+        .max(100, { message: 'Please select a category' }),
+    companyName: z.string().max(100, { message: 'Company name cannot exceed 100 characters' }),
+    website: z.string().max(100, { message: 'Website cannot exceed 100 characters' }),
+});
+
 export function ContactForm() {
-    const [formState, setFormState] = useState({
-        name: {
-            value: "",
-            isValid: false,
-            touched: false,
+    const { data: session } = useSession();
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const form = useForm<z.infer<typeof FormSchema>>({
+        resolver: zodResolver(FormSchema),
+        defaultValues: {
+            name: session?.user?.name || "",
+            email: session?.user?.email || "",
+            message: "",
+            category: "",
+            companyName: "",
+            website: "",
         },
-        message: {
-            value: "",
-            isValid: false,
-            touched: false,
-        },
-        email: {
-            value: "",
-            isValid: false,
-            touched: false,
-        },
-        category: {
-            value: "Select one",
-            isValid: false,
-            touched: false,
-        },
-        companyName: "",
-        phoneNumber: ""
-    })
+    });
 
 
-    const sendMessage = async (e) => {
+    async function onSubmit(data: z.infer<typeof FormSchema>) {
         // validate the inputs first before sending the request
-        e.preventDefault();
-        if (!formState.name.value || !formState.message.value || !isEmail(formState.email.value) || !formState.name.value) {
-            setFormState({
-                ...formState, name: { value: "", isValid: false, touched: false }, message: { value: "", isValid: false, touched: false }, email: { value: "", isValid: false, touched: false },
-                category: {
-                    value: "Select one",
-                    isValid: false,
-                    touched: false,
-                }, companyName: "", phoneNumber: ""
-            });
-            return;
-        }
+        console.log(data)
 
-
-        await axios.post("/api/messages", {
-            name: formState.name.value,
-            message: formState.message.value,
-            email: formState.email.value,
-            category: formState.category.value,
-            companyName: formState.companyName,
-            phoneNumber: formState.phoneNumber
+        await fetch("/api/contact",{
+            
         })
-        
+
+
 
 
 
     }
-    return (<div className="grid gap-4 w-full">
+    return (<Form  {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4 w-full">
         <div className="flex gap-4 w-full items-center justify-evenly flex-col lg:flex-row">
-            <div className="grid gap-1.5 grow w-full">
-                <Label htmlFor="name">Name</Label>
-                <Input type="text" id="name" name="name" placeholder="John Doe"
-                    variant="fluid"
-                    value={formState.name.value}
-                    onChange={e => setFormState({ ...formState, name: { ...formState.name, value: e.target.value, isValid: e.target.value.length > 3, touched: true } })}
-                />
-                {formState.name.touched && !formState.name.isValid && <FormAlert>Name must be between 1 and 100 characters</FormAlert>}
 
-            </div>
-            <div className="grid gap-1.5 grow w-full">
-                <Label htmlFor="email">Email</Label>
-                <Input type="email" id="email" name="email" placeholder="user@example.com"
-                    value={formState.email.value}
-                    variant="fluid"
-                    onChange={e => setFormState({ ...formState, email: { ...formState.email, value: e.target.value, isValid: isEmail(e.target.value), touched: true } })}
-                />
-                {formState.email.touched && !formState.email.isValid && <FormAlert>Please enter a valid email address</FormAlert>}
-            </div>
+            <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                    <FormItem className="grid gap-1.5 grow w-full">
+                        <div className='relative group'>
+                            <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
+                                <GoPerson className='w-4 h-4' />
+                            </FormLabel>
+                            <FormControl className='relative'>
+                                <Input
+                                    id="name"
+                                    placeholder="Enter your name"
+                                    type="text"
+                                    autoCapitalize="none"
+                                    autoComplete="name"
+                                    autoCorrect="off"
+                                    required
+                                    disabled={isLoading} variant="fluid"
+                                    className='pl-12 !py-6 pr-5 !mt-0'
+                                    {...field} />
+                            </FormControl>
+                        </div>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+
+            <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                    <FormItem className="grid gap-1.5 grow w-full">
+                        <div className='relative group'>
+
+                            <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
+                                <LuMail className='w-4 h-4' />
+                            </FormLabel>
+                            <FormControl className='relative'>
+                                <Input
+                                    id="email"
+                                    placeholder="name@example.com"
+                                    type="email"
+                                    required
+                                    autoCapitalize="none"
+                                    autoComplete="email"
+                                    autoCorrect="off"
+                                    disabled={isLoading} variant="fluid"
+                                    className='pl-12 !py-6 pr-5 !mt-0'
+                                    {...field} />
+                            </FormControl>
+
+                        </div>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
         </div>
-        <div>
-            <div>
-                <Label htmlFor="company_name">Company Name</Label>
-                <Input type="text" id="company_name" name="company_name" placeholder="Fancy Army"
-                    value={formState.companyName}
-                    variant="fluid"
-                    onChange={(e) => setFormState({ ...formState, companyName: e.target.value })} />
+        <div className="flex gap-4 w-full items-center justify-evenly flex-col lg:flex-row">
+            <FormField
+                control={form.control}
+                name="companyName"
+                render={({ field }) => (
+                    <FormItem className="grid gap-1.5 grow w-full">
+                        <div className='relative group'>
+                            <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
+                                <Building2 className='w-4 h-4' />
+                            </FormLabel>
+                            <FormControl className='relative'>
+                                <Input
+                                    id="companyName"
+                                    placeholder="Enter your Company Name"
+                                    type="text"
+                                    autoCapitalize="none"
+                                    autoComplete="name"
+                                    autoCorrect="off"
+                                    disabled={isLoading}
+                                    variant="fluid"
+                                    className='pl-12 !py-6 pr-5 !mt-0'
+                                    {...field} />
+                            </FormControl>
+                        </div>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
 
+            <FormField
+                control={form.control}
+                name="website"
+                render={({ field }) => (
+                    <FormItem className="grid gap-1.5 grow w-full">
+                        <div className='relative group'>
+                            <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
+                                <ExternalLink className='w-4 h-4' />
+                            </FormLabel>
+                            <FormControl className='relative'>
+                                <Input
+                                    id="website"
+                                    placeholder="Enter your website url"
+                                    type="url"
+                                    autoCapitalize="none"
+                                    autoComplete="name"
+                                    autoCorrect="off"
+                                    disabled={isLoading} variant="fluid"
+                                    className='pl-12 !py-6 pr-5 !mt-0'
+                                    {...field} />
+                            </FormControl>
+                        </div>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
 
-            </div>
-            <div>
-                <Label htmlFor="Phone">Phone</Label>
-                <Input type="tel" id="Phone" name="Phone" placeholder="888 888 888 8"
-                    variant="fluid"
-                    value={formState.phoneNumber}
-
-                    onChange={(e) => setFormState({ ...formState, phoneNumber: e.target.value })} />
-
-            </div>
         </div>
         <div className="grid gap-1.5">
+            <FormField
+                control={form.control}
+                name="category"
+                render={({ field }) => (
+                    <FormItem>
 
-            <Label htmlFor="chat_about">What would you like to chat about?</Label>
+                        <FormLabel>
+                            What would you like to chat about?
+                        </FormLabel>
+                        <FormControl className='flex flex-wrap gap-4 w-full justify-around'>
+
+                            <div className="flex flex-wrap gap-4 w-full justify-around">
+                                {[
+                                    "Brand Strategy", "Marketing / Ads", "Careers", "Development", "Design / UX&UI", "Other"
+                                ].map((item, index) => {
+                                    return (<label key={index} className="text-slate-700 grow cursor-pointer bg-slate-100 hover:bg-primary/20 has-[:checked]:ring-primary/50  has-[:checked]:text-primary has-[:checked]:bg-primary/10 flex justify-between items-center gap-6 rounded-lg p-4 ring-1 ring-transparent ">
+                                        {item}
+                                        <input type="radio" required  {...field} disabled={isLoading} name="category" value={item} className="box-content h-1.5 w-1.5 appearance-none rounded-full border-[5px] border-white bg-white bg-clip-padding outline-none ring-1 ring-primary/50 checked:border-primary checked:ring-primary" />
+                                    </label>)
+                                })}
+                            </div>
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                )}
+            />
+            {/* <Label htmlFor="chat_about">What would you like to chat about?</Label>
             <div className="flex flex-wrap gap-4 w-full justify-around">
                 {[
                     "Brand Strategy", "Marketing / Ads", "Careers", "Development", "Design / UX&UI", "Other"
@@ -123,27 +223,48 @@ export function ContactForm() {
                         }} name="chat_about" value={item} className="box-content h-1.5 w-1.5 appearance-none rounded-full border-[5px] border-white bg-white bg-clip-padding outline-none ring-1 ring-primary/50 checked:border-primary checked:ring-primary" />
                     </label>)
                 })}
-            </div>
+            </div> */}
         </div>
 
 
         <div className="grid gap-1.5">
-            <Label htmlFor="message">Message</Label>
-            <Textarea id="message" name="message" placeholder="Enter your message"
-                cols={60}
-                rows={10}
-                value={formState.message.value}
-                variant="fluid"
-                onChange={(e) => {
-                    setFormState({ ...formState, message: { ...formState.message, value: e.target.value, touched: true, isValid: e.target.value.length > 30 } })
-                }}
+            <FormField
+                control={form.control}
+                name="message"
+                render={({ field }) => (
+                    <FormItem>
+
+                        <FormLabel >
+                            Your Message
+                        </FormLabel>
+                        <FormControl>
+                            <Textarea
+                                id="message" placeholder="Enter your message"
+                                cols={60}
+                                rows={10}
+                                autoCapitalize="none"
+                                autoComplete="name"
+                                autoCorrect="off"
+                                disabled={isLoading}
+                                variant="fluid"
+                                required
+
+                                {...field} />
+                        </FormControl>
+
+                        <FormMessage />
+                    </FormItem>
+                )}
             />
-            {formState.message.touched && !formState.message.isValid && <FormAlert>Message should be atleast 30 characters long</FormAlert>}
-
         </div>
-        <div>
-            <Button type="submit" size="lg" onClick={sendMessage}  >Send Message</Button>
+        <div className="flex items-center justify-center">
+            <Button type="submit" size="lg" className="tracking-wide text-lg rounded-full mx-auto w-full max-w-md relative before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95" disabled={isLoading}>
+                <span className="relative text-base font-semibold text-white">
+                    Send Message <Send className="w-5 h-5 ml-2 inline-block" />
+                </span>
+            </Button>
         </div>
 
-    </div>)
+    </form>
+    </Form>)
 }
