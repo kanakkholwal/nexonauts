@@ -23,9 +23,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import {toast} from "sonner";
 import { AiOutlineLoading } from "react-icons/ai";
 import * as z from "zod";
+
 const FormSchema = z.object({
     email: z
         .string()

@@ -1,7 +1,6 @@
 
+import Footer from 'app/layouts/footer';
 import Navbar from "app/navbar";
-
-import Footer from 'layouts/common/footer';
 
 import { ContactForm } from "app/contact/form";
 
