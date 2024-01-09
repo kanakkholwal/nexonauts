@@ -21,9 +21,10 @@ export function Provider({ children }: { children: React.ReactNode }) {
     <Toaster
       position="bottom-right"
       richColors  
+      theme="light"
       toastOptions={{
         // Define default options
-        duration: 5000,
+        duration: 2500,
       }}
     />
   </SessionProvider>;

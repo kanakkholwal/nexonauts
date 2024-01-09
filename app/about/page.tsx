@@ -1,4 +1,4 @@
-import NavBar from 'app/navbar';
+import Navbar from "app/layouts/navbar";
 import Footer from 'layouts/common/footer';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -17,7 +17,7 @@ export default function Page() {
     return (
         <>
 
-            <NavBar />
+            <Navbar />
             <main className="space-y-40 mb-40 max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
                 <section className="relative" id="home">
                     <div aria-hidden="true" className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">

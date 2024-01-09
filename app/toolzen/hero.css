@@ -1,0 +1,9 @@
+@media screen and (min-width: 1024px) {
+    .hero_image {
+        background-image: url(/assets/images/hero-shapes-large.png);
+    }
+}
+
+.hero_image {
+    background-image: url(/assets/images/hero-shapes-small.png);
+}

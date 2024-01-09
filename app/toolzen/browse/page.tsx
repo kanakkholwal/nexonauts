@@ -1,13 +1,16 @@
+import Navbar from "app/layouts/navbar";
 import dbConnect from "lib/dbConnect";
 import PublicTool from 'models/public-tool';
-
 import { Metadata } from "next";
-
+import AiDirectory from "./comp";
 
 export const metadata: Metadata = {
     title: "ToolZen - AI Tools, Services, and Resources",
     description: "ToolZen is a curated list of AI tools, services, and resources. Find the best AI tools for your business.",
 }
+
+
+
 
 export default async function Page() {
     await dbConnect();
@@ -25,6 +28,7 @@ export default async function Page() {
         },
         { $project: { _id: 0, name: 1, slug: 1 } },
     ]);
+
     // PublicTool.distinct("pricing_type")
     const pricingTypes = await PublicTool.aggregate([
         { $match: { status: "published" || "approved" } },
@@ -34,7 +38,11 @@ export default async function Page() {
 
 
     return (<>
-       Page content
+        <header>
+            <Navbar />
+        </header>
+        <AiDirectory tools={JSON.parse(JSON.stringify(tools))} categories={JSON.parse(JSON.stringify(categories))} pricing_types={JSON.parse(JSON.stringify(pricingTypes))} />
+
     </>)
 
 }
