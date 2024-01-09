@@ -45,12 +45,12 @@ const marketplace_components: NavLinksType[] = [
 const search_components: NavLinksType[] = [
   {
     title: "Find Perfect Tools",
-    href: "/toolbox",
+    href: "/toolzen",
     description: `Find the perfect tools for your business.`,
   },
   {
     title: "Submit Your Tool",
-    href: "/toolbox/submit",
+    href: "/toolzen/submit",
     description: `Submit your tool to our toolbox.`,
   }
 ]
@@ -95,11 +95,11 @@ export default function Navbar() {
                           </a>
                         </NavigationMenuLink>
                       </li>
-                      <ListItem href="/" title="Homepage">
-                        The homepage of website.
-                      </ListItem>
                       <ListItem href="/about" title="About Us">
                         Learn more about us.
+                      </ListItem>
+                      <ListItem href="/pricing" title="Pricing">
+                        See our pricing plans.
                       </ListItem>
                       <ListItem href="/contact" title="Contact Us">
                         Contact Us
@@ -108,7 +108,7 @@ export default function Navbar() {
                   </NavigationMenuContent>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger>ToolZen</NavigationMenuTrigger>
+                  <NavigationMenuTrigger>Tool Zen</NavigationMenuTrigger>
                   <NavigationMenuContent>
                     <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                       {search_components.map((component) => (

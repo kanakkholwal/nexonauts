@@ -51,7 +51,7 @@ export default function Footer() {
                             <ul className="flex flex-col gap-3">
                                 <li>
                                     <Link href="/apps" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                        Apps
+                                        AI Apps
                                     </Link>
                                 </li>
                                 <li>
@@ -60,13 +60,13 @@ export default function Footer() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/toolbox" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                        ToolBox
+                                    <Link href="/tool-finder" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Tool Finder
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/pricing" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                        Pricing
+                                    <Link href="/marketplace" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        MarketPlace <span className="text-slate-400 italic">(Comming Soon)</span>
                                     </Link>
                                 </li>
                             </ul>
@@ -82,13 +82,18 @@ export default function Footer() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/tos" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                        Term of Use
+                                    <Link href="/pricing" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Pricing
                                     </Link>
                                 </li>
                                 <li>
                                     <Link href="/privacy" className="text-slate-500 hover:text-primary ease-in duration-300">
                                         Privacy
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/tos" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Term of Use
                                     </Link>
                                 </li>
                             </ul>

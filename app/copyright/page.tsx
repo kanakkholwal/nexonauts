@@ -1,5 +1,5 @@
-import Navbar from "app/navbar";
-import Footer from 'layouts/common/footer';
+import Footer from 'app/layouts/footer';
+import Navbar from "app/layouts/navbar";
 import Link from "next/link";
 
 

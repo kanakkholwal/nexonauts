@@ -36,7 +36,7 @@ const FormSchema = z.object({
 });
 
 export function ContactForm() {
-    const { data: session } = useSession();
+    const { data: session,status } = useSession();
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -52,12 +52,13 @@ export function ContactForm() {
     });
 
 
+
     async function onSubmit(data: z.infer<typeof FormSchema>) {
         // validate the inputs first before sending the request
         console.log(data)
 
         await fetch("/api/contact",{
-            
+
         })
 
 

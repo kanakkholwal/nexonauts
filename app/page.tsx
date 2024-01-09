@@ -1,10 +1,10 @@
-import Footer from 'layouts/common/footer';
+import Footer from 'app/layouts/footer';
+import Navbar from "app/layouts/navbar";
 import { LineChart, ScanSearch } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import dbConnect from 'src/lib/dbConnect';
 import Post from 'src/models/post';
-import Navbar from "./navbar";
 
 const features = [
 	{
