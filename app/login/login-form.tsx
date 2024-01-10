@@ -23,8 +23,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useForm } from "react-hook-form";
-import {toast} from "sonner";
 import { AiOutlineLoading } from "react-icons/ai";
+import { toast } from "sonner";
 import * as z from "zod";
 
 const FormSchema = z.object({
@@ -122,7 +122,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         <div className={cn("grid gap-6 lg:max-w-lg text-left", className)} {...props}>
             <div className='grid gap-2'>
                 <Button variant="ghost" type="button" disabled={isLoading}
-                    className='border-transparent border hover:border-primary/50 border-solid '
+                    className='border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200'
                     data-aos="flip-down"
                     data-aos-delay="1100"
                     onClick={async () => {
@@ -139,6 +139,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 </Button>
                 <Button variant="dark" type="button" disabled={isLoading}  data-aos="flip-up"
                     data-aos-delay="1100"
+                    className='border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200'
+
                     onClick={async () => {
                         setIsLoading(true);
                         await signIn('github', { callbackUrl: "/dashboard" })
@@ -227,7 +229,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         )}
                         Sign In with Email
                     </Button>
-                    <p className='text-left text-sm font-medium text-slate-500'>
+                    <p className='text-left text-sm font-medium text-slate-500 dark:text-slate-300'>
                         Don't have an account? <Link href="/signup" className='text-primary hover:underline'>Sign Up</Link>
                     </p>
                 </form>

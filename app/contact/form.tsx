@@ -1,6 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { RadioStyle } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Building2, ExternalLink, Send } from 'lucide-react';
@@ -189,6 +190,7 @@ export function ContactForm() {
             <FormField
                 control={form.control}
                 name="category"
+                
                 render={({ field }) => (
                     <FormItem>
 
@@ -201,9 +203,9 @@ export function ContactForm() {
                                 {[
                                     "Brand Strategy", "Marketing / Ads", "Careers", "Development", "Design / UX&UI", "Other"
                                 ].map((item, index) => {
-                                    return (<label key={index} className="text-slate-700 grow cursor-pointer bg-slate-100 hover:bg-primary/20 has-[:checked]:ring-primary/50  has-[:checked]:text-primary has-[:checked]:bg-primary/10 flex justify-between items-center gap-6 rounded-lg p-4 ring-1 ring-transparent ">
+                                    return (<label key={index} className={RadioStyle.label}>
                                         {item}
-                                        <input type="radio" required  {...field} disabled={isLoading} name="category" value={item} className="box-content h-1.5 w-1.5 appearance-none rounded-full border-[5px] border-white bg-white bg-clip-padding outline-none ring-1 ring-primary/50 checked:border-primary checked:ring-primary" />
+                                        <input type="radio" required  {...field} disabled={isLoading} name="category"  value={item} className={RadioStyle.input}/>
                                     </label>)
                                 })}
                             </div>
@@ -221,7 +223,7 @@ export function ContactForm() {
                         {item}
                         <input type="radio" onChange={(e) => {
 
-                        }} name="chat_about" value={item} className="box-content h-1.5 w-1.5 appearance-none rounded-full border-[5px] border-white bg-white bg-clip-padding outline-none ring-1 ring-primary/50 checked:border-primary checked:ring-primary" />
+                        }} name="chat_about" value={item} className={RadioStyle.input}/>
                     </label>)
                 })}
             </div> */}

@@ -3,6 +3,7 @@ import { FiLinkedin } from "react-icons/fi";
 //import { LuGithub } from "react-icons/lu";
 import { RiTwitterXFill } from "react-icons/ri";
 
+
 export default function Footer() {
 
     return (<footer className="relative z-10 pb-17 lg:pb-22 xl:pb-27 mt-10">
@@ -28,18 +29,18 @@ export default function Footer() {
                         {process.env.NEXT_PUBLIC_WEBSITE_NAME} is an open source project that aims to provide a complete solution for AI Powered Apps.
                     </p>
                     <div className="flex items-center gap-5">
-                        <Link href="https://x.com/NexoNauts" className="hover:text-primary ease-in duration-300 icon">
+                        <Link href="https://x.com/NexoNauts" className={"text-slate-500 hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon"}>
                             <RiTwitterXFill className="w-5 h-5" />
                         </Link>
-                        <Link href="https://linkedin.com/NexoNauts" className="hover:text-primary ease-in duration-300 icon">
+                        <Link href="https://linkedin.com/NexoNauts" className={"text-slate-500 hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon"}>
                             <FiLinkedin className="w-5 h-5" />
                         </Link>
-                        {/*                         <Link href="https://github.com/NexoNauts" className="hover:text-primary ease-in duration-300 icon">
+                        {/*                         <Link href="https://github.com/NexoNauts" className={"text-slate-500 hover:text-primary ease-in duration-300 flex justify-center items-center h-16 icon"}>
                             <LuGithub className="w-5 h-5" />
                         </Link> */}
                     </div>
                     <p className="font-medium mt-6 text-slate-600">
-                        © {new Date().getFullYear()} <Link href="/" className="text-slate-900">{process.env.NEXT_PUBLIC_WEBSITE_NAME}</Link> . All rights reserved.
+                        © {new Date().getFullYear()} <Link href="/" className="text-slate-900 dark:text-slate-200 font-semibold">{process.env.NEXT_PUBLIC_WEBSITE_NAME}</Link> . All rights reserved.
                     </p>
                 </div>
                 <div className="max-w-[571px] w-full">

@@ -139,7 +139,7 @@ export default async function HomePage() {
 						</p>
 					</div><div className="mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
 						{features.map((feature, index) => {
-							return (<div key={index} className="group relative bg-white dark:bg-gray-800 transition hover:z-[1] hover:shadow-2xl hover:shadow-slate-600/10 hover:bg-slate-100">
+							return (<div key={index} className="group relative bg-white dark:bg-gray-800 dark:hover:bg-gray-700 transition hover:z-[1] hover:shadow-2xl hover:shadow-slate-600/10 hover:bg-slate-100 ">
 								<div className="relative space-y-8 py-12 p-8">
 									<img src={feature.icon} className="w-12" width={512} height={512} alt="burger illustration" />
 									<div className="space-y-2">

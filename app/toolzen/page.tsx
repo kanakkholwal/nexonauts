@@ -81,12 +81,12 @@ export default async function Page() {
             <h1 className="text-5xl font-bold mb-2 text-center">
                 Find the best AI tools for your business.
             </h1>
-            <p className="text-slate-600 text-2xl font-semibold text-center mt-3 mb-5 line-clamp-3">
+            <p className="text-slate-600 dark:text-slate-400 text-2xl font-semibold text-center mt-3 mb-5 line-clamp-3">
                 ToolZen is a curated list of AI tools, services, and resources.
             </p>
             <div className="relative w-full rounded-full overflow-hidden flex">
                 <Search className="absolute top-1/2 left-4 transform -translate-y-1/2 w-5 h-5" />
-                <Input placeholder="Search dev tools curated from open source projects ..." className="border-2 border-primary/15 focus:border-primary rounded-full py-4 h-14 pl-12" />
+                <Input placeholder="Search any tool for anything..." className="border-2 border-primary/15 focus:border-primary rounded-full py-4 h-14 pl-12" />
             </div>
             <p className="text-slate-500 text-md font-semibold text-center max-w-4xl break-words mt-8 mb-5 line-clamp-3">
                 Now with 100+ tools and growing. <Link href="/toolzen/submit" className="text-primary">Submit a tool</Link> to be listed on ToolZen.<br />
@@ -130,7 +130,7 @@ export default async function Page() {
 
         <section className="bg-primary/10 py-32 px-8  min-h-96  w-full" id="features">
             <div className="max-w-7xl mx-auto">
-                <h2 className="text-6xl font-extrabold text-slate-800 sm:text-5xl sm:tracking-tight lg:text-6xl">
+                <h2 className="text-6xl font-extrabold text-slate-800 dark:text-slate-100 sm:text-5xl sm:tracking-tight lg:text-6xl">
                     Features
                 </h2>
                 <div className="flex">
@@ -161,8 +161,8 @@ function Feature({ feature }: { feature: { title: string, description: string, I
                 <feature.Icon className="w-6 h-6" />
             </div>
             <div className="mt-5">
-                <h3 className="text-lg font-medium text-slate-800">{feature.title}</h3>
-                <p className="mt-2 text-base text-slate-600">{feature.description}</p>
+                <h3 className="text-lg font-medium text-slate-800 dark:text-slate-200">{feature.title}</h3>
+                <p className="mt-2 text-base text-slate-600 dark:text-slate-400">{feature.description}</p>
             </div>
         </div>
     )

@@ -55,7 +55,7 @@ function PricingTable() {
         <section className=" w-full py-12  flex items-center justify-center">
             <div className="container px-4 md:px-6">
                 <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-3 md:gap-8">
-                    <div className="flex flex-col p-6 bg-white shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-gray-200 hover:border-primary transition-all duration-300 hover:translate-y-[-16px]">
+                    <div className="flex flex-col p-6 bg-white dark:bg-slate-800 shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-gray-200 dark:border-slate-700 hover:border-primary transition-all duration-300 hover:translate-y-[-16px]">
                         <div>
                             <h3 className="text-2xl font-bold text-center">Free</h3>
                             <div className="mt-4 text-center text-zinc-600 dark:text-zinc-400">
@@ -86,7 +86,7 @@ function PricingTable() {
                             </Link>
                         </div>
                     </div>
-                    <div className="relative flex flex-col p-6 bg-white shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-cyan-500 hover:border-sky-500 transition-all duration-300 hover:translate-y-[-16px]">
+                    <div className="relative flex flex-col p-6 bg-white  dark:bg-slate-800 shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-cyan-500 hover:border-sky-500 transition-all duration-300 hover:translate-y-[-16px]">
                         <div className="px-3 py-1 text-sm text-white bg-gradient-to-r from-cyan-500 to-sky-500 rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                             Popular
                         </div>
@@ -120,7 +120,7 @@ function PricingTable() {
                             </Link>
                         </div>
                     </div>
-                    <div className="flex flex-col p-6 bg-white shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-gray-200 hover:border-primary transition-all duration-300 hover:translate-y-[-16px]">
+                    <div className="flex flex-col p-6 bg-white dark:bg-slate-800 shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-gray-200 dark:border-slate-700 hover:border-primary transition-all duration-300 hover:translate-y-[-16px]">
                         <div>
                             <h3 className="text-2xl font-bold text-center">Premium</h3>
                             <div className="mt-4 text-center text-zinc-600 dark:text-zinc-400">

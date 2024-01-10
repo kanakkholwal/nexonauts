@@ -1,5 +1,5 @@
+import Footer from 'app/layouts/footer';
 import Navbar from "app/layouts/navbar";
-import Footer from 'layouts/common/footer';
 import Image from 'next/image';
 import Link from 'next/link';
 

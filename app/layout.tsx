@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
-import { Provider } from "./client-provider";
+import { Provider, ThemeProvider } from "./client-provider";
 import "./codebox.css";
 import './global.css';
 
@@ -13,7 +13,7 @@ const font = Plus_Jakarta_Sans({
     display: 'swap',
     adjustFontFallback: false,
     variable: '--plus-jakarta',
-    fallback:['system-ui','sans-serif']
+    fallback: ['system-ui', 'sans-serif']
 })
 
 
@@ -68,8 +68,15 @@ export default function RootLayout({
                     <link href='https://fonts.googleapis.com/css?family=Fira+Code:wght@300,400,500,600&display=swap' rel='stylesheet' /> */}
             </head>
             <body className={font.className + " min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900"}>
-                <Provider>{children}</Provider>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="light"
+                    enableSystem
+                    themes={['light', 'dark']}
+                >
+                    <Provider>{children}</Provider>
 
+                </ThemeProvider>
             </body>
         </html>
     )
