@@ -16,7 +16,8 @@ const NotificationSchema = new mongoose.Schema({
         enum: ['comment', 'post', 'like', 'follow', 'mention', 'reply', 'message', 'system'],
         default: 'system'
     }
-
+},{
+    timestamps: true,
 });
 
 

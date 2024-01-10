@@ -17,7 +17,7 @@ export default async function ToolPage({ params }: {
     if (!tool) {
         notFound();
     }
-    console.log(tool);
+    // console.log(tool);
 
     return (<>
     <Navbar />

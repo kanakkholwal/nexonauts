@@ -260,7 +260,7 @@ export default async function HomePage() {
 									<p className="mt-6 mb-8 text-gray-600 dark:text-gray-300 line-clamp-3">
 										{article.description}
 									</p>
-									<Link href={`/blog/${article.slug}`} className="inline-block">
+									<Link href={`/blog/articles/${article.slug}`} className="inline-block">
 										<span className="text-info dark:text-blue-300 font-semibold">Read more</span>
 									</Link>
 								</div>
