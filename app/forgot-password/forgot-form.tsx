@@ -95,7 +95,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         )}
                         Send reset link
                     </Button>
-                    <p className='text-left text-sm font-medium text-slate-500'>
+                    <p className='text-left text-sm font-medium text-slate-500 dark:text-slate-300 mt-2'>
                         Remembered your password? <Link href="/login" className='text-primary hover:underline'>Login</Link>
                     </p>
                 </form>

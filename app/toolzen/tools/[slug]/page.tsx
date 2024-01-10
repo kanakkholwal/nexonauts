@@ -24,7 +24,7 @@ export default async function ToolPage({ params }: {
         <main className="w-full mx-auto xl:max-w-6xl xl:px-0 bg-white rounded-lg overflow-hidden pt-20">
             <section id="tool-header" className="border-t border-x-border border-x rounded-t-lg  overflow-hidden">
                 <div id="tool-banner" className="w-full h-40 bg-gray-200">
-                    <img src={tool.coverImage} alt={tool.name} className="w-full h-full object-cover" />
+                    <img src={tool.bannerImage || tool.coverImage} alt={tool.name} className="w-full h-full object-cover" />
                 </div>
                 <div className="w-full border-t py-4 px-6 flex flex-col md:flex-row justify-start items-start gap-4">
                     <div className="lg:-mt-16 z-30" id="tool-logo">

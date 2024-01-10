@@ -1,6 +1,7 @@
+"use client";
 import axios from "axios";
 import { Suspense, useEffect, useState } from "react";
-import SideBarPostCard from "./sidenavPostCard";
+import SideBarPostCard from "../../../src/layouts/blog/sidenavPostCard";
 
 
 export function SideBar() {

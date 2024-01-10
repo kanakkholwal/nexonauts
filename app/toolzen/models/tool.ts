@@ -24,6 +24,8 @@ export interface IPublicTool extends Document {
     pricing_type: 'free' | 'paid' | 'freemium' | 'one_time_license' | 'subscription' | 'open_source' | 'other';
     verified: boolean;
     author?: IAuthor;
+    createdAt?: Date;
+    updatedAt?: Date;
 }
 
 const categorySchema = new mongoose.Schema({
@@ -50,7 +52,7 @@ const publicToolSchema = new mongoose.Schema<IPublicTool>({
     pricing_type: { type: String, required: true, trim: true, default: 'other' },
     verified: { type: Boolean, default: false },
     author: { type: authorSchema, required: false, default: { name: 'Kanak', email: 'kanakkholwal@gmail.com', public_link: 'https://kanakkholwal.eu.org', userId: null } }
-});
+},{ timestamps: true });
 
 const PublicTool: Model<IPublicTool> = mongoose.models.PublicTool || mongoose.model<IPublicTool>('PublicTool', publicToolSchema);
 

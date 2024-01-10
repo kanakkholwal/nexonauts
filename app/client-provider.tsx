@@ -6,7 +6,12 @@ import "aos/dist/aos.css";
 import { SessionProvider } from "next-auth/react";
 import { Next13ProgressBar } from 'next13-progressbar';
 import { useEffect } from "react";
+import { ThemeProvider as NextThemesProvider } from "next-themes"
+import { type ThemeProviderProps } from "next-themes/dist/types"
 
+export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+}
 export function Provider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     Aos.init({

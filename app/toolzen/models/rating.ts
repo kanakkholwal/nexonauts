@@ -6,6 +6,7 @@ export interface IRating extends Document {
     rating: number;
     comment?: string;
     createdAt?: Date;
+    updatedAt?: Date;
 }
 
 const ratingSchema = new mongoose.Schema<IRating>({
@@ -13,8 +14,7 @@ const ratingSchema = new mongoose.Schema<IRating>({
     toolId: { type: String, required: true },
     rating: { type: Number, required: true, min: 1, max: 5 },
     comment: { type: String,minlength: 10, maxlength: 500 },
-    createdAt: { type: Date, default: Date.now }
-});
+},{timestamps: true});
 
 const Rating: Model<IRating> = mongoose.models.Rating || mongoose.model<IRating>('Rating', ratingSchema);
 
