@@ -20,7 +20,7 @@ import ThemeSwitcher from "./theme-switcher";
 export default function Navbar({ user }: { user: SessionUserType }) {
 
     return (<nav className="w-full p-4 rounded-[20px] bg-white dark:bg-slate-800 flex items-center lg:px-6">
-        <div className="flex items-start flex-col">
+        <div className="flex items-start flex-col pl-12 lg:pl-0">
             <h3 className="text-lg font-bold">Dashboard</h3>
             <h6 className="text-sm text-gray-500 dark:text-slate-400">
                 Hello {user.name}, Welcome back!

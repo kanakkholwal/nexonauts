@@ -61,7 +61,7 @@ const UserSchema = new mongoose.Schema(
         values: ['free', 'pro', 'premium'],
       },
     },
-    aditional_info: {
+    additional_info: {
       github: {
         type: String,
         default: null,

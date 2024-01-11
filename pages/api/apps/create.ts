@@ -27,7 +27,7 @@ export default nextConnect(handler)
             const newApp = await App.create({
                 appId:"app_"+ Date.now(),
                 developer:{
-                    userId:existingUser._id,
+                    userId:existingUser._id.toString(),
                     username:existingUser.username,
                     name:existingUser.name
                 },

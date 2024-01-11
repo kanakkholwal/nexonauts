@@ -16,9 +16,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
     if (!session) return redirect("/login")
 
     return (<>
-        <div className="flex gap-3 h-screen min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900 bg-slate-100">
+        <div className="flex gap-3 h-screen min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900 bg-slate-200/80">
             <SideBar />
-            <div className="lg:pl-72 flex flex-col flex-1 w-full pt-3 pr-2">
+            <div className="lg:pl-72 flex flex-col flex-1 w-full pt-3 px-2 ">
                 <Navbar user={session.user} />
                 <main className="content">
                     {children}
