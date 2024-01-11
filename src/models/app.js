@@ -144,12 +144,12 @@ const AppSchema = new mongoose.Schema({
         type: {
             name: String,
             username: String,
-            userId: mongoose.Schema.Types.ObjectId,
+            userId: String,
         },
         required: true,
         default: {
-            name: "K K UPGRADER",
-            username: "kkupgrader",
+            name: "Kanak",
+            username: "kanakkholwal",
             userId: null,
         }
     },
@@ -158,13 +158,13 @@ const AppSchema = new mongoose.Schema({
         required: true,
         trim: true,
         unique: true,
-        default: () => `/apps/${generateRandomAppId()}`,
+        default: () => `${generateRandomAppId()}`,
     },
     membership:{
         default:["free"],
         type:[{
             type:String,
-            enum:["free" , "pro", "premium" , "enterprise"],
+            enum:["free" , "pro", "premium"],
         }]
     },
     coverImage: {
@@ -176,10 +176,6 @@ const AppSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false,
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now,
     },
     averageRating: {
         type: Number,
@@ -230,6 +226,8 @@ const AppSchema = new mongoose.Schema({
             }
         },
     },
+},{
+    timestamps: true,
 });
 
 // Define indexes for search functionality

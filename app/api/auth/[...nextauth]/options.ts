@@ -16,7 +16,7 @@ interface AuthEnv {
 }
 
 // Define types for user object
-interface User  extends SessionUserType{}
+interface User extends SessionUserType { }
 // Read environment variables
 const env: AuthEnv = {
     GOOGLE_ID: process.env.GOOGLE_ID || "",
@@ -80,22 +80,23 @@ export const authOptions: NextAuthOptions = {
                         await dbConnect();
                         const userInDb = await UserModel.findOne({ email: credentials.email }).select('+password')
 
-                        if (!userInDb) 
+                        if (!userInDb)
                             return reject({
                                 status: 401,
                                 message: "User not found",
                                 success: false
                             })
                         const pwValid = await userInDb.comparePassword(credentials.password);
-                    
-                        if (!pwValid) 
-                        return  reject({
+
+                        if (!pwValid)
+                            return reject({
                                 status: 401,
                                 message: "Wrong Password",
                                 success: false
                             })
                         const user = {
                             id: userInDb._id.toString(),
+                            _id: userInDb._id.toString(),
                             name: userInDb.name,
                             email: userInDb.email,
                             username: userInDb.username,
@@ -104,13 +105,13 @@ export const authOptions: NextAuthOptions = {
                             role: userInDb.role || "user",
                             verificationToken: userInDb.verificationToken || null,
                             verified: userInDb.verified || false,
-                            providers:userInDb.providers,
-                            aditional_info: userInDb.aditional_info,
+                            providers: userInDb.providers,
+                            additional_info: userInDb.additional_info,
                             preferences: userInDb.preferences
                         }
-                        
 
-                        console.log("user found",user)
+
+                        console.log("user found", user)
                         return resolve(user)
 
                     }
@@ -151,25 +152,54 @@ export const authOptions: NextAuthOptions = {
                             verificationToken: null,
                             verified: true,
                             providers: ["google"],
-                            aditional_info: {},
+                            additional_info: {},
                             preferences: {},
-                            
+
                         });
                         await user.save();
 
-                        return Promise.resolve(user);
+                        return Promise.resolve({
+                            id: user._id.toString(),
+                            _id: userInDb._id.toString(),
+
+                            name: user.name,
+                            email: user.email,
+                            username: user.username,
+                            account_type: user.account_type || "free",
+                            profilePicture: user.profilePicture,
+                            role: user.role || "user",
+                            verificationToken: user.verificationToken || null,
+                            verified: user.verified || false,
+                            providers: user.providers,
+                            additional_info: user.additional_info,
+                            preferences: user.preferences
+                        });
                     }
                     console.log("user found", userInDb)
                     await UserModel.updateOne({ _id: userInDb._id }, {
                         $set: {
-                            profilePicture: profile.picture,
                             verified: true,
                             providers: [...userInDb.providers, "google"]
                         }
                     })
 
 
-                    return Promise.resolve(userInDb)
+                    return Promise.resolve({
+                        id: userInDb._id.toString(),
+                        _id: userInDb._id.toString(),
+
+                        name: userInDb.name,
+                        email: userInDb.email,
+                        username: userInDb.username,
+                        account_type: userInDb.account_type || "free",
+                        profilePicture: userInDb.profilePicture,
+                        role: userInDb.role || "user",
+                        verificationToken: userInDb.verificationToken || null,
+                        verified: true,
+                        providers: [...userInDb.providers, "google"],
+                        additional_info: userInDb.additional_info,
+                        preferences: userInDb.preferences
+                    })
                 }
                 catch (err) {
                     console.log(err);
@@ -182,7 +212,7 @@ export const authOptions: NextAuthOptions = {
         GithubProvider({
             clientId: env.GITHUB_ID,
             clientSecret: env.GITHUB_SECRET,
-            authorization:{
+            authorization: {
                 params: { scope: "read:user user:email" },
             },
             async profile(profile) {
@@ -198,12 +228,12 @@ export const authOptions: NextAuthOptions = {
                     verificationToken: null,
                     verified: true,
                     providers: ["github"],
-                    aditional_info: {},
+                    additional_info: {},
                     preferences: {},
                 }
                 await dbConnect();
-                const isUser = await UserModel.findOne({email: profile.email})
-                if(isUser){
+                const isUser = await UserModel.findOne({ email: profile.email })
+                if (isUser) {
                     await UserModel.updateOne({ _id: isUser._id }, {
                         $set: {
                             profilePicture: profile.avatar_url,
@@ -211,7 +241,7 @@ export const authOptions: NextAuthOptions = {
                             providers: [...isUser.providers, "github"]
                         }
                     })
-                    
+
                     return Promise.resolve(isUser)
                 }
                 const user = new UserModel(gotUser);
@@ -239,7 +269,7 @@ export const authOptions: NextAuthOptions = {
                     role: user.role || "user",
                     verified: user.verified || false,
                     providers: user.providers,
-                    aditional_info: user.aditional_info,
+                    additional_info: user.additional_info,
                     preferences: user.preferences
                 }
             }

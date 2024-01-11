@@ -13,7 +13,7 @@ type UserType = {
     __v?: number;
 }
 type SessionUserType = {
-    id: string;
+    _id: string;
     name: string;
     username: string;
     email: string;
@@ -22,7 +22,7 @@ type SessionUserType = {
     account_type: string;
     verificationToken: string|null;
     verified: boolean;
-    aditional_info:{
+    additional_info:{
         [key: string]: string | number | boolean | string[] | number[] | boolean[] | URL[] | URL,
     },
     providers: string[];
