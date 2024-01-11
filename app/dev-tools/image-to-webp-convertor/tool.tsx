@@ -237,16 +237,16 @@ export default function Image2Webp() {
             <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
             <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
           </div>
-          <input id="dropzone-file" type="file" className="hidden" accept="image/*" multiple={true} {...getInputProps()} />
+          <input id="dropzone" type="file" className="hidden" accept="image/*" multiple={true} {...getInputProps()} />
         </label>
       </div>
 
       {/* {file && <ProgressCard progress={progress} file={file} url={fileUrl} />} */}
 
-      <div className="w-full h-full gap-8 columns-1 sm:columns-2 md:columns-3 lg:columns-4 my-3 mt-8">
+      <div className="w-full h-full gap-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-3 mt-8">
         {scaledImg.map(({ image, fileName,fileSize }, index) => {
           return (
-            <Card key={index} className="rounded-lg w-auto mb-4" >
+            <Card key={index} className="rounded-lg w-auto mb-4 " >
               <CardHeader>
                 <CardTitle>{fileName}</CardTitle>
                 <CardDescription>{fileSize}</CardDescription>

@@ -4,15 +4,16 @@ import { Toaster } from "@/components/ui/sonner";
 import Aos from 'aos';
 import "aos/dist/aos.css";
 import { SessionProvider } from "next-auth/react";
+import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
+import { type ThemeProviderProps } from "next-themes/dist/types";
 import { Next13ProgressBar } from 'next13-progressbar';
 import { useEffect } from "react";
-import { ThemeProvider as NextThemesProvider } from "next-themes"
-import { type ThemeProviderProps } from "next-themes/dist/types"
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }
 export function Provider({ children }: { children: React.ReactNode }) {
+  const { theme } = useTheme();
   useEffect(() => {
     Aos.init({
       duration: 1000,
@@ -26,7 +27,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
     <Toaster
       position="bottom-right"
       richColors  
-      theme="light"
+      theme={theme === "dark" ? "dark" : "light"}
       toastOptions={{
         // Define default options
         duration: 2500,

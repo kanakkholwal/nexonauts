@@ -1,7 +1,6 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axios from 'axios';
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -15,152 +14,32 @@ import {
 } from "@/components/ui/dialog";
 
 import { Button } from "@/components/ui/button";
-import Layout from 'layouts/apps/layout';
-import { getSession, useSession } from "next-auth/react";
-import Head from 'next/head';
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { BiLockAlt } from "react-icons/bi";
 import { CgSpinnerAlt } from "react-icons/cg";
-import { LuImage, LuMail } from "react-icons/lu";
+import { LuImage } from "react-icons/lu";
 import { PiCrownSimpleBold } from "react-icons/pi";
-import { SessionUserType } from 'src/types/user';
-import styled from 'styled-components';
+import { SessionUserType } from "src/types/user";
 
 
-
-const FileUploader = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    position: relative;
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 1px solid #ccc;
-    background: #f4f4f4;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    margin-inline:auto;
-    label{
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        gap: 0.125rem;
-        font-size: 0.75rem;
-        font-weight: 500;
-        cursor: pointer;
-        opacity: 0;
-        visibility: hidden;
-        background: rgba(var(--light-rgb),0.05);
-        color: rgba(var(--light-rgb),1);
-        backdrop-filter: blur(10px);
-        transition: all 0.3s ease-in-out;
-    }
-    &:hover {
-        background: #e4e4e4;
-        label{
-            opacity: 1;
-            visibility: visible;
-        }
-    }
-`;
-type TabItemType = {
-    title: string,
-    id: string,
-    Component: React.ElementType
-}
-const TABLIST = [
-    {
-        title: "Profile",
-        id: "profile",
-        Component: Profile
-    },
-    {
-        title: "Appearance",
-        id: "appearance",
-        Component: Appearance
-    },
-
-] as TabItemType[]
 
 const DEFAULT_PROFILE_URL = "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"
-export default function SettingsPage({ user: CurrentUser }: {
-    user: SessionUserType
-}) {
 
-    const router = useRouter()
-
-
-
-    return (
-        <Layout user={CurrentUser}>
-            <Head>
-                <title>Settings</title>
-            </Head>
-            <div className="space-y-6 p-10 pb-16 w-full">
-                <div className="space-y-0.5">
-                    <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
-                    <p className="text-muted-foreground">
-                        Manage your account settings and set e-mail preferences.
-                    </p>
-                </div>
-                <Separator className="my-6" />
-                <Tabs className="flex flex-col w-full space-y-8 lg:flex-row lg:space-x-12 lg:space-y-0" defaultValue={TABLIST.find(item => item.id === router.query.defaultTab) ? router.query.defaultTab?.toString() : TABLIST[0].id}>
-                    <TabsList className="-mx-4 lg:w-1/4 w-full md:flex-col md:justify-start md:h-fit gap-2 ">
-                        {TABLIST.map((item: TabItemType) => {
-                            return <TabsTrigger value={item.id} className="w-full" key={item.id}
-                                onClick={() => {
-                                    router.push({
-                                        pathname: "/dashboard/settings",
-                                        query: {
-                                            defaultTab: item.id
-                                        }   
-                                    }, undefined, {
-                                        shallow: true
-                                    })
-                                }}
-                            >{item.title}</TabsTrigger>
-                        })}
-                    </TabsList>
-                    <div className="flex-1 lg:max-w-2xl">
-                        {TABLIST.map((Item: TabItemType, index) => {
-                            return <TabsContent value={Item.id} key={Item.id}>
-                                <Item.Component user={CurrentUser} />
-                            </TabsContent>
-                        })}
-
-                    </div>
-                </Tabs>
-            </div>
-
-
-
-        </Layout>)
+type Props = {
+    user:SessionUserType,
+    serverActions: {
+        handleUpdateName: (newName: string) => Promise<{
+            result: string,
+            message: string
+        }>
+    }
 }
-function Appearance() {
-    return (<div className="space-y-6">
-        <div>
-            <h3 className="text-lg font-medium">Appearance</h3>
-            <p className="text-sm text-muted-foreground">
-                Customize the appearance of the site. Automatically switch between day and night themes.
-            </p>
-        </div>
-        <Separator />
-        <div className="flex items-center justify-between gap-2 w-full mb-5">
-        </div>
-    </div>)
-}
-function Profile({ user: CurrentUser }) {
+export function AccountForm({ user: CurrentUser,serverActions }:Props) {
+    const {handleUpdateName} = serverActions;
     const [user, setUser] = useState(CurrentUser);
     const { data: session, update } = useSession();
     const [currentPassword, setCurrentPassword] = useState("");
@@ -197,7 +76,7 @@ function Profile({ user: CurrentUser }) {
         }).then(res => {
             const file = res.data;
             // console.log(file);
-            setUser({ ...user, profileURL: file.secure_url });
+            setUser({ ...user, profilePicture: file.secure_url });
             setImageStatus("success");
         }).catch(err => {
             console.log(err);
@@ -273,7 +152,7 @@ function Profile({ user: CurrentUser }) {
         })
     }
 
-    function isImageURLValid(url) {
+    async function isImageURLValid(url) {
         return fetch(url)
             .then((response) => {
                 // Check if the HTTP status code is in the 200 range (success)
@@ -295,18 +174,11 @@ function Profile({ user: CurrentUser }) {
 
     return (
         <div className="space-y-6">
-            <div>
-                <h3 className="text-lg font-medium">Profile</h3>
-                <p className="text-sm text-muted-foreground">
-                    This is how you or others will see you on the site.
-                </p>
-            </div>
-            <Separator />
             <div className="flex items-center justify-between gap-2 w-full mb-5">
                 <div className=" flex items-center gap-2">
                     <Avatar className="h-20 w-20">
-                        <AvatarImage alt={CurrentUser.name} src={user.profileURL} height={180} width={180} />
-                        <AvatarFallback className="bg-slate-200 text-4xl">{CurrentUser.name[0]}</AvatarFallback>
+                        <AvatarImage alt={CurrentUser.name} src={user.profilePicture.toString()} height={180} width={180} />
+                        <AvatarFallback className="bg-slate-200 dark:bg-slate-900 text-4xl">{CurrentUser.name[0]}</AvatarFallback>
                     </Avatar>
                     <div>
                         <h4 className="font-bold mb-0">{CurrentUser.name}</h4>
@@ -330,20 +202,20 @@ function Profile({ user: CurrentUser }) {
                                     Upload a new photo from your computer or paste a link to an image.
                                 </DialogDescription>
                             </DialogHeader>
-                            <FileUploader >
-                                {user?.profileURL ?
+                            <div className="group flex justify-center items-center relative overflow-hidden w-[150px] h-[150px] rounded-full border border-border bg-slate-100 dark:bg-slate-900 duration-300 hover:border-primary mx-auto cursor-pointer" >
+                                {user?.profilePicture ?
                                     <Image width={150} height={150}
-                                        alt={user.name} src={user.profileURL}
+                                        alt={user.name} src={user.profilePicture.toString()}
                                     /> : <Image width={150} height={150}
                                         alt={"user profile image"} src={"https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"} />}
-                                <label htmlFor="imageUpload">
+                                <label htmlFor="imageUpload" className="absolute inset-0 flex justify-center items-center flex-col gap-1 text-xs cursor-pointer backdrop-blur-sm duration-300 text-slate-600 opacity-0 group-hover:opacity-100 visibility-hidden group-hover:visible">
                                     <span>Upload</span>
                                     <span>Profile Picture</span>
                                     <span>Click or Drop</span>
                                     <span>Image Here</span>
                                     <input type="file" hidden accept="image/*" id="imageUpload" onChange={handleChange} />
                                 </label>
-                            </FileUploader>
+                            </div>
                             <div className="flex items-center gap-2 w-full">
                                 <div className='relative grow'>
                                     <Label className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
@@ -351,19 +223,19 @@ function Profile({ user: CurrentUser }) {
                                         {imageStatus === "loading" ? <CgSpinnerAlt className="w-4 h-4 animate-spin" /> : <LuImage className={`w-4 h-4 ${imageStatus === "success" && "text-green-500"} ${imageStatus === "error" && "text-red-500"}`} />}
                                     </Label>
                                     <Input
-                                        id="profileURL"
+                                        id="profilePicture"
                                         placeholder="Enter image URL"
                                         type="url"
                                         autoCorrect="off"
                                         className='pl-12 !py-3 pr-5 !mt-0'
-                                        value={user?.profileURL} onChange={async (e) => {
+                                        value={user.profilePicture.toString()} onChange={async (e) => {
                                             const url = e.target.value;
                                             setImageStatus("loading");
                                             await isImageURLValid(url).then(valid => {
                                                 if (valid) {
                                                     setUser({
                                                         ...user,
-                                                        profileURL: url
+                                                        profilePicture: url
                                                     })
                                                 }
                                                 else {
@@ -389,7 +261,7 @@ function Profile({ user: CurrentUser }) {
                                             ...session,
                                             user: {
                                                 ...CurrentUser,
-                                                profileURL: user.profileURL
+                                                profilePicture: user.profilePicture
                                             }
                                         })
                                         toast.success("Profile picture updated successfully");
@@ -399,7 +271,7 @@ function Profile({ user: CurrentUser }) {
                                         toast.error("Something went wrong");
                                     }
                                 }}
-                                    disabled={imageStatus === "loading" || imageStatus === "error" || user?.profileURL === DEFAULT_PROFILE_URL}
+                                    disabled={imageStatus === "loading" || imageStatus === "error" || user?.profilePicture === DEFAULT_PROFILE_URL}
                                 >
 
                                     Save
@@ -410,7 +282,7 @@ function Profile({ user: CurrentUser }) {
                     </Dialog>
 
                     <Button size="sm" variant="slate" onClick={() => {
-                        setUser({ ...user, profileURL: DEFAULT_PROFILE_URL })
+                        setUser({ ...user, profilePicture: DEFAULT_PROFILE_URL })
                     }}>
                         Remove photo
                     </Button>
@@ -424,19 +296,32 @@ function Profile({ user: CurrentUser }) {
                     Your full name, or the name you go by.
                 </p>
                 <div className="flex items-center gap-2 mt-2">
-                    <Input placeholder="Enter your full name" value={user?.name} onChange={(e) => setUser({
+                    <Input placeholder="Enter your full name" value={user.name} onChange={(e) => setUser({
                         ...user,
                         name: e.target.value
                     })}
                         variant="ghost"
                     />
-                    <Button size="sm" variant="slate">
+                    <Button size="sm" variant="slate" onClick={() => {
+                        handleUpdateName(user.name).then(res =>{
+                            if(res.result === "success"){
+                                toast.success(res.message);
+                                update({
+                                    ...session,
+                                    user: {
+                                        ...CurrentUser,
+                                        name: user.name
+                                    }
+                                })
+                            }
+                        })
+                    }}>
                         Save
                     </Button>
                 </div>
 
             </div>
-            <div className="w-full mb-5">
+            {/* <div className="w-full mb-5">
                 <h3 className="font-bold">
                     Contact Email
                 </h3>
@@ -468,7 +353,7 @@ function Profile({ user: CurrentUser }) {
                     </Button>
                 </div>
 
-            </div>
+            </div> */}
             <div className="w-full mb-5">
                 <h3 className="font-bold">
                     Password
@@ -563,24 +448,3 @@ function Profile({ user: CurrentUser }) {
         </div>)
 }
 
-
-export async function getServerSideProps(context) {
-
-
-    const session = await getSession(context);
-
-    if (!session)
-        return {
-            redirect: {
-                destination: '/login',
-                permanent: false
-            }
-        }
-
-
-
-    return {
-        props: { user: session.user },
-
-    }
-}
