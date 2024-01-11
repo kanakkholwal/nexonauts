@@ -54,7 +54,7 @@ export default function Dashboard({ user }:{
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      
+                    
                     </CardContent>
                 </Card>
                 <Card>

@@ -157,7 +157,7 @@ a {
     content: "";
     flex: 1;
     height: 1px;
-    @apply bg-border;
+    @apply bg-border dark:bg-slate-700;
 }
 
 /* lg: */
