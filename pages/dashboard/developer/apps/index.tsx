@@ -29,7 +29,7 @@ export default function Dashboard({ user, apps }: PageProps) {
 
         return new Promise(async (resolve, reject) => {
             await axios.post('/api/apps/create', {
-                userId: user.id
+                userId: user._id
             }).then((res) => {
                 console.log(res.data);
                 resolve(res.data.result)
@@ -78,7 +78,6 @@ export default function Dashboard({ user, apps }: PageProps) {
                         }}>
                             Create App
                         </Button>
-
 
                     </div> : apps.map((app, index) => {
                         return <Card key={index} className="max-w-[480px] grow flex flex-col justify-between items-start">
@@ -136,7 +135,7 @@ export async function getServerSideProps(context: GetSessionParams) {
             }
         }
     await dbConnect();
-    const { apps } = await getAppsOfUser(session.user.id);
+    const { apps } = await getAppsOfUser(session.user._id);
     // console.log(apps);
 
 

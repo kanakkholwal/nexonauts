@@ -12,15 +12,15 @@ export default nextConnect(handler)
     .post(async (req, res) => {
         try {
             await dbConnect();
-            const { userId ,appId } = req.body;
+            const { userId,appId } = req.body;
             const existingUser = await User.findById(userId);
             if (!existingUser) {
-              return res.status(404).json({ message: 'User not found!' });
+                return res.status(404).json({ message: 'User not found!' });
             }
-          
+        
             const result = await checkUser(req, existingUser);
             if (!result.verified) {
-              return res.status(403).json({ verified: result.verified, message: result.message });
+                return res.status(403).json({ verified: result.verified, message: result.message });
             }
             // check if user is admin of not 
             if(result.isAdmin !== true)

@@ -59,9 +59,7 @@
         @apply border-border;
     }
 
-    body {
-        @apply bg-background text-foreground;
-    }
+
 }
 
 * {
@@ -115,8 +113,8 @@ body {
     position: relative;
     z-index: 1;
     font-family: "DM Sans", "Plus Jakarta Sans", 'Poppins', 'Inter', "ManRope", "Google Sans", san-serif;
-    background: var(--body-bg);
-    color: var(--body-color);
+    @apply bg-background text-foreground;
+
 }
 
 a,

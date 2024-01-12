@@ -47,12 +47,20 @@ export default nextConnect(handler)
             });
             await newApp.save();
             // return application
-            return res.status(200).json({sucess:true, result: newApp, message: "App created successfully" });
+            return res.status(200).json({
+                result: "success",
+                message: "Application created successfully",
+                data: newApp
+             });
 
 
         }
         catch (error) {
             console.log(error);
-            return res.status(500).json({ success: false, message: error.message ?? "Internal Server Error" });
+            return res.status(500).json({ 
+                result: "fail",
+                data:null,
+                message: error.message,
+             });
         }
     })
