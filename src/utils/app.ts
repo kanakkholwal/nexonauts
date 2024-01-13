@@ -50,7 +50,7 @@ export async function getAppOfUserByAPPID(userId: string, appId: string, options
         }
     }
     const app = await App.findOne({
-        "developer.userId": existingUser._id,
+        "developer.userId": userId,
         appId: appId,
         ...options
     }).lean().exec()

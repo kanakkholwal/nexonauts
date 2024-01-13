@@ -40,7 +40,7 @@ export function PostReview({ app, user }: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                userId: user.id,
+                userId: user._id,
                 rating,
                 review,
                 appId: app._id
