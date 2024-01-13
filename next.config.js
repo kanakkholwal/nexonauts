@@ -13,19 +13,20 @@ const withPWA = require("next-pwa")({
 });
 
 const nextConfig = withPWA({
-  // reactStrictMode: true,
+  reactStrictMode: true,
   transpilePackages: ['@mdxeditor/editor', 'react-diff-view'],
   swcMinify: true,
   compiler: { styledComponents: { ssr: true } },
   crossOrigin: 'anonymous',
+  output:"standalone",
   images: {
-    domains: ['res.cloudinary.com',"global-uploads.webflow.com" ],
-    // remotePatterns: [
-    //   {
-    //     protocol: 'https',
-    //     hostname: "**",
-    //   },
-    // ],
+    // domains: ['res.cloudinary.com',"global-uploads.webflow.com" ],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: "**",
+      },
+    ],
   },
   webpack: (config) => {
     // this will override the experiments

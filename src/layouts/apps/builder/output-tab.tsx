@@ -34,7 +34,7 @@ export default function OutputTab({
 
             await axios.put(`/api/apps/${builderData._id.toString()}/update`, {
                 appData: appObject,
-                userId: user.id
+                userId: user._id
             })
                 .then((response) => {
                     console.log(response);

@@ -8,7 +8,7 @@ export default function Hero({title,path}:{
         path:string
     }[]
 }) {
-    return (<section className="relative z-10 mt-20 lg:mt-15 xl:mt-20 pb-18 bg-slate-100">
+    return (<section className="relative z-10 pt-10 pb-18 bg-slate-100">
 
 	<div className="text-center px-4 py-20">
 		<h1 className="font-extrabold text-4xl  mb-3">{title}</h1>

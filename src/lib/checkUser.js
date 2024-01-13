@@ -1,5 +1,5 @@
-import { decode } from "next-auth/jwt"
 import cookie from 'cookie';
+import { decode } from "next-auth/jwt";
 
 const secret = process.env.NEXT_AUTH_SECRET;
 
@@ -65,7 +65,7 @@ export const checkUser = async (req, user) => {
 }
 function verifyUser(tokenUser, DbUser) {
 
-    if (tokenUser.user.id !== DbUser._id.toString())
+    if (tokenUser.user._id !== DbUser._id.toString())
         return {
             verified: false,
             message: "User Id doesn't match with DB"

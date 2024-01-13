@@ -108,7 +108,7 @@ export default function Layout({ children, user }: { children: React.ReactNode, 
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <button className="flex items-center space-x-2 hover:bg-slate-100 px-3 py-1.5 rounded-lg">
-                                        <Image src={user.profileURL} height={80} width={80} alt="avatar" className="w-6 h-6 rounded-full" />
+                                        <Image src={user.profilePicture.toString()} height={80} width={80} alt="avatar" className="w-6 h-6 rounded-full" />
                                         <span className="text-slate-500 text-md ml-2 font-semibold   hidden md:inline-block">{user.name}</span>
                                         <VscChevronDown className="text-slate-500" />
                                     </button>

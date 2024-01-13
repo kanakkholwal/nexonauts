@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
 
     return (<Card className="rounded-3xl border-0 shadow-md shadow-slate-200">
         <CardHeader>
-            <Image src={product.coverImage} className="w-full h-48 rounded-xl" width={480} height={320} alt={product.title} />
+            <Image src={product.coverImage} className=" w-96 h-64 object-cover rounded-xl" width={600} height={400} alt={product.title} />
         </CardHeader>
         <CardContent>
             <div className="flex justify-between w-full gap-2 items-center">
@@ -27,15 +27,38 @@ export default function ProductCard({ product }) {
             </CardDescription>
         </CardContent>
         <CardFooter className="justify-between">
-            <span className="text-primary uppercase">
-            {product.price}
+            <span className="text-primary uppercase font-semibold">
+                {product.price.currency} {product.price.amount}
             </span>
             <Link href={`/marketplace/products/${product.slug}`} className="text-primary font-semibold bg-primary/20 uppercase px-4 py-2 rounded-md">
-                    Get it now
+                Get it now
             </Link>
         </CardFooter>
     </Card>
     )
+}
+export function ProductCardOnDashboard({ product }) {
+
+    return (<Card className="rounded-2xl border-0 shadow-md shadow-slate-200">
+        <CardHeader>
+            <Image src={product.coverImage} className="w-96 h-64 object-cover rounded-xl" width={600} height={400} alt={product.title} />
+        </CardHeader>
+        <CardContent>
+            <CardTitle>
+                {product.title}
+            </CardTitle>
+        </CardContent>
+        <CardFooter className="justify-between">
+            <span className="text-primary uppercase font-semibold">
+                {product.price.currency} {product.price.amount}
+            </span>
+            <span className="text-primary font-semibold bg-primary/20 uppercase px-3 py-1 text-sm rounded-md" title={product.price.amount === 0 ? "Free" : "Paid"}>
+                    {product.price.amount === 0 ? "Free" : "Paid"}
+            </span>
+        </CardFooter>
+    </Card>
+    )
+
 }
 export function ProductCardSkeleton() {
     return (<Card className="rounded-3xl border-0 shadow-md shadow-slate-200">

@@ -1,11 +1,10 @@
+"use client"
 import { Button } from "@/components/ui/button";
 import dynamic from "next/dynamic";
 import Prism from "prismjs";
 import { useEffect, useState } from "react";
-import toast from 'react-hot-toast';
-import { FiCodesandbox } from "react-icons/fi";
 import { MdContentCopy, MdDoneAll, MdErrorOutline } from "react-icons/md";
-import copy from 'copy-to-clipboard';
+import { toast } from "sonner";
 
 
 const ParseString = (string) => {
@@ -83,11 +82,11 @@ function CodeBlock({ content, language, title, ...props }) {
     const HandleCopyState = ({ state }) => {
 
         if (state == "error")
-            return (<>Error <MdErrorOutline /></>)
+            return (<>Error <MdErrorOutline className="w-3 h-3 ml-2" /></>)
         else if (state == "done")
-            return (<>Copied <MdDoneAll /> </>)
+            return (<>Copied <MdDoneAll className="w-3 h-3 ml-2"/> </>)
         else if (state == "normal")
-            return (<>Copy <MdContentCopy /> </>)
+            return (<>Copy <MdContentCopy className="w-3 h-3 ml-2"/> </>)
     }
     useEffect(() => {
         //create an async function to load the languages using import
@@ -103,18 +102,13 @@ function CodeBlock({ content, language, title, ...props }) {
 
     return (
         <>
-            <div className='flex justify-between items-center w-full truncate py-2 px-4 bg-primary/25 rounded-t '>
-                <div className='flex gap-2 items-center justify-start'>
-
-                <FiCodesandbox className='w-4 h-5 mr-2' />
-                <h3 className='text-lg font-semibold' title={title ? title : "CodeBlock"}>
-                    {title ? title : "CodeBlock"}
-                </h3>
-                </div>
-                <Button type="button" variant="secondary" size="sm" onClick={(e) => Copy(e, content.toString())}><HandleCopyState state={CopyState} />
+        
+            <div className='relative p-0'>
+            <Button type="button"
+                className="absolute z-40 top-2 right-2 ml-auto left-auto h-8 bg-transparent text-slate-600 dark:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-white/5 backdrop-blur-sm" variant="secondary" size="sm"
+                onClick={(e) => Copy(e, content.toString())}>
+                <HandleCopyState state={CopyState} />
                 </Button>
-            </div>
-            <div className=' p-0'>
                 <pre {...props} className='!m-0' tabIndex={0}>
                     <code className={"language-" + language} >
                         {content}

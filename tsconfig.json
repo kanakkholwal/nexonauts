@@ -2,51 +2,22 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {          
-            "helper/*": [
-                "src/helpers/*"
-            ],
-            "libs/*": [
-                "src/libs/*"
-            ],
-            "src/*": [
-                "./src/*"
-            ],
-            "backend/*": [
-                "src/backend/*"
-            ],
-            "components/*": [
-                "./src/components/*"
-            ],
-            "middleware/*": [
-                "./src/middleware/*"
-            ],
-            "pages/*": [
-                "./src/pages/*"
-            ],
-            "hooks/*": [
-                "./src/hooks/*"
-            ],
-            "layouts/*": [
-                "./src/layouts/*"
-            ],
-            "store/*": [
-                "./src/store/*"
-            ],
-            "assets/*": [
-                "./src/assets/*"
-            ],
-            "types/*": [
-                "./src/types/*"
-            ],
-            "lib/*": [
-                "./src/lib/*"
-            ],
-            "@/*": [
-                "./@/*"
-            ],
-            "models/*": [
-                "./src/models/*"
-            ]
+            "helper/*": ["src/helpers/*"],
+            "libs/*": ["src/libs/*"],
+            "src/*": ["./src/*"],
+            "app/*": ["./app/*"],
+            "backend/*": ["src/backend/*"],
+            "components/*": ["./src/components/*"],
+            "middleware/*": ["./src/middleware/*"],
+            "pages/*": ["./src/pages/*"],
+            "hooks/*": ["./src/hooks/*"],
+            "layouts/*": [ "./src/layouts/*"],
+            "store/*": ["./src/store/*"],
+            "assets/*": ["./src/assets/*"],
+            "types/*": ["./src/types/*"],
+            "lib/*": [ "./src/lib/*"],
+            "@/*": ["./@/*"],
+            "models/*": ["./src/models/*"]
         },
         "target": "es5",
         "lib": [
@@ -78,8 +49,7 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        ".next/types/**/*.ts"
-, "src/components/editor/mdx-editor/index.js"    ],
+        ".next/types/**/*.ts"],
     "exclude": [
         "node_modules"
     ]
