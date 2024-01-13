@@ -2,7 +2,7 @@ import Navbar from "app/layouts/navbar";
 import Footer from 'app/layouts/footer';
 import { Pricing } from "./pricing";
 
-export default function Page() {
+export default async  function Page() {
 
     return (<>
         <header>
