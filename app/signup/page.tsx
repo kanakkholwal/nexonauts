@@ -30,7 +30,7 @@ export default async function Page() {
                     <div className='py-8 px-8'>
                         <div className='text-center'>
                             <Link href='/' className="text-center">
-                                <Image className="h-10 mx-auto dark:invert" src="/logo.svg" alt="Nexonauts.png" width={200} height={40}  priority/>
+                                <Image className="h-10 mx-auto dark:invert" src="/assets/logo.svg" alt="Nexonauts.png" width={200} height={40}  priority/>
                             </Link>
                             <h2 className='font-bold text-xl mt-5'>
                             Create an account to get started.

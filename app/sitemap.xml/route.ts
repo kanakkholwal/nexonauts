@@ -114,7 +114,7 @@ export async function GET(request: Request) {
         ...apps.map((app) => {
             return {
                 path: app.path,
-                date: new Date(app.createdAt).toISOString(),
+                date: new Date(app?.createdAt || Date.now()).toISOString(),
             }
         })),
         ...publicTools.map((tool) => {

@@ -40,7 +40,7 @@ export default function Page() {
                         <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
                         <div className="blur-[106px] h-32 bg-gradient-to-r from-teal-400 to-sky-300 dark:to-indigo-600" />
                     </div>
-                    <div className="flex gap-6 items-center w-full">
+                    <div className="flex gap-6 items-start w-full flex-col lg:flex-row lg:items-center">
                         <div className="space-y-4">
                             <p className="text-lg md:text-xl xl:text-2xl text-primary font-semibold uppercase text-left">
                                 Our Mission
@@ -67,7 +67,7 @@ export default function Page() {
                     <h4 className="text-2xl md:text-3xl xl:text-4xl text-gray-900 dark:text-white text-center font-bold">
                         The fundamental principles guiding NexoNauts
                     </h4>
-                    <div className="flex gap-6 items-stretch w-full">
+                    <div className="flex gap-6 items-start w-full flex-col lg:flex-row lg:items-stretch">
                         <div className="space-y-4">
                             <div className="mt-8 flex gap-4 md:items-center">
                                 <div className="w-12 h-12 gap-4 rounded-full bg-indigo-100 dark:bg-indigo-900/20 flex justify-center items-center">

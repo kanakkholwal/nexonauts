@@ -34,7 +34,7 @@ export default async function Page() {
                     <div className='py-8 px-8'>
                         <div className='text-center'>
                             <Link href='/' className="text-center">
-                                <Image className="h-10 mx-auto" src="/logo.svg" alt="Nexonauts.png" width={200} height={40} priority />
+                                <Image className="h-10 mx-auto" src="/assets/logo.svg" alt="Nexonauts.png" width={200} height={40} priority />
                             </Link>
  
                             <UserAuthForm data-aos="fade-up" />

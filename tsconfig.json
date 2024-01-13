@@ -49,8 +49,7 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        ".next/types/**/*.ts"
-, "src/components/editor/mdx-editor/index.js"    ],
+        ".next/types/**/*.ts"],
     "exclude": [
         "node_modules"
     ]
