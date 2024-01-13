@@ -51,7 +51,7 @@ export default function SideBar() {
         </button>
         <div className="relative  flex w-full justify-center items-center">
             <Link href="/" aria-label="logo" className="flex items-center space-x-2">
-                <Image height={40} width={300} className="h-10 dark:invert" src="/logo.svg" alt="logo" />
+                <Image height={40} width={300} className="h-10 dark:invert" src="/assets/logo.svg" alt="logo" />
             </Link>
         </div>
         <nav className="flex flex-col justify-start items-start gap-2 flex-1 mt-6">
