@@ -96,19 +96,19 @@ export default function History({
     }[] | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
 
-    useEffect(() => {
-        if (visible) {
-            fetch(`https://api.app.textify.ai/dashboard/user/${user?.id}/all/${service_name}`)
-                .then(res => res.json())
-                .then(response => {
-                    console.log(response);
-                    setData(response);
-                })
-                .catch(error => console.log(error))
-                .finally(() => setLoading(false));
-        }
+    // useEffect(() => {
+    //     if (visible) {
+    //         fetch(`https://api.app.textify.ai/dashboard/user/${user?.id}/all/${service_name}`)
+    //             .then(res => res.json())
+    //             .then(response => {
+    //                 console.log(response);
+    //                 setData(response);
+    //             })
+    //             .catch(error => console.log(error))
+    //             .finally(() => setLoading(false));
+    //     }
 
-    }, [visible]);
+    // }, [visible]);
     return (<>
         {visible ? <BackDrop className="backdrop-blur bg-background-80 inset-0" onClick={() => setVisible(false)} /> : null}
         <Wrapper className={(visible ? "opening" : "closing") + " border-l bg-background p-6 w-[3/4] h-full max-w-[728px]"}>

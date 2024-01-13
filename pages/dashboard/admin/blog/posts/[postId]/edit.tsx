@@ -1038,7 +1038,7 @@ export async function getServerSideProps(context: GetSessionParams & {
     let type = "idle";
     let message = "Loading...";
     const response = await axios({
-        url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/users/${session.user.id}/posts/${postId}`,
+        url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/api/users/${session.user._id}/posts/${postId}`,
         method: 'get',
         headers: {
             "x-authorization": `Bearer ${process.env.NEXT_AUTH_SECRET}`,

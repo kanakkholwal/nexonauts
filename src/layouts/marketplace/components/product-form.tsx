@@ -53,7 +53,7 @@ export default function ProductForm({ user }: { user: SessionUserType }) {
         category: "",
         coverImage: "",
         creator: {
-            userId: user.id,
+            userId: user._id,
             username: user.username,
             profilePicture: user.profilePicture.toString(),
         },
