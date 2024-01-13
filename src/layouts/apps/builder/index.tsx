@@ -1,3 +1,5 @@
+"use client";
+
 import {
     Card,
     CardContent,
@@ -20,7 +22,6 @@ import InputTab from "./inputs-tab";
 import LogicTab from "./logic-tab";
 import OutputTab from "./output-tab";
 
-import { useRouter } from "next/router";
 import AppEdit from "../app-edit";
 
 
@@ -54,8 +55,8 @@ export default function Builder({
     console.log(user);
     console.log(app);
     console.log(mode);
-    const router = useRouter();
 
+    
 
 
     return (

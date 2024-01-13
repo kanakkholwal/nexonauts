@@ -76,7 +76,7 @@ export async function getServerSideProps(context: GetSessionParams & {
     const { appId } = context.params;
 
     await dbConnect();
-    const { app } = await getAppOfUserByAPPID(session.user.id, appId);
+    const { app } = await getAppOfUserByAPPID(session.user._id, appId);
 
     if (!app) {
         return {

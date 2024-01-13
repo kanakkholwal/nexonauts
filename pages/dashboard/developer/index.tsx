@@ -21,7 +21,7 @@ export default function Dashboard({ user }:{
     user:SessionUserType
 }) {
 
-    const { data: response, isLoading, error } = useSWR(`/api/users/${user.id}/dashboard`, fetcher)
+    const { data: response, isLoading, error } = useSWR(`/api/users/${user._id}/dashboard`, fetcher)
 
     if (error) {
         toast.error(error.message)

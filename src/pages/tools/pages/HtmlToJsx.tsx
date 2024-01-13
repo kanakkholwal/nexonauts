@@ -36,7 +36,8 @@ import HTMLtoJSX from 'html-2-jsx';
 import { MdDeleteOutline, MdOutlineCode } from "react-icons/md";
 
 
-const rawHtml = `<!-- Hello world -->
+const rawHtml = `
+<!-- Hello world -->
 <div class="awesome" style="border: 1px solid red">
   <label for="name">Enter your name: </label>
   <input type="text" id="name" />

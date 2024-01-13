@@ -19,12 +19,18 @@ const publicToolSchema = new mongoose.Schema({
         required: true,
         default: "https://via.placeholder.com/150"
     },
+    bannerImage:{
+        type: String,
+    },
     description:{
-        type: mongoose.Schema.Types.Mixed,
+        type: mongoose.Schema.Types.Mixed || String,
         required: true
     },
     categories: [{
-        name:String,
+        name:{
+            type:String,
+            trim:true
+        },
         slug:{
             type:String,
             unique:true,
@@ -52,21 +58,19 @@ const publicToolSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
-    createdAt: {
-        type: Date,
-        default: () => Date.now()
-    },
     author:{
-    required:false,
-    type:{
-        name:String,
-        email:String,
-        public_link:String
-    },
-    default:{
-        name:"Kanak",
-        email:"kanakkholwal@gmail.com",
-        public_link:"https://kanakkholwal.eu.org"
+        required:false,
+        type:{
+            name:String,
+            email:String,
+            public_link:String,
+            userId:String || null
+        },
+        default:{
+            name:"Kanak",
+            email:"kanakkholwal@gmail.com",
+            public_link:"https://kanakkholwal.eu.org",
+            userId:null
         }
     }
 

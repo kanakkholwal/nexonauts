@@ -81,3 +81,5 @@ export const Item_types = [
     //     icon:MingcuteMore3Line
     // },
 ] as ItemType[]
+
+export const product_types = Item_types.map(item => item.id)
