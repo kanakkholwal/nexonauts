@@ -4,7 +4,7 @@ import Navbar from "app/layouts/navbar";
 
 import { ContactForm } from "app/contact/form";
 
-export default function Contact() {
+export default  async function Contact() {
 
 
     return (

@@ -10,7 +10,7 @@ import { FaRegCircleCheck } from "react-icons/fa6";
 import { IoAnalyticsSharp } from "react-icons/io5";
 
 
-export default function Page() {
+export default async  function Page() {
 
 
 

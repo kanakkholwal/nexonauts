@@ -3,7 +3,7 @@ import Navbar from "app/layouts/navbar";
 import Link from "next/link";
 
 
-export default function Page() {
+export default async function Page() {
 
     return (<>
         <header>
