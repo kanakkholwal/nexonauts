@@ -25,7 +25,7 @@ export default async function AccountPage() {
         "use server";
         return new Promise(async (resolve, reject) => {
             try{
-                const user = await User.findById(session.user.id);
+                const user = await User.findById(session.user._id);
                 if (!user) {
                     return reject({
                         result: "fail",

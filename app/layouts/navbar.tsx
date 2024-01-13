@@ -67,7 +67,7 @@ export default function Navbar() {
       <div className="relative flex flex-wrap items-center justify-between gap-6 lg:gap-0 lg:py-4">
         <div className="relative z-20 flex w-full justify-between md:px-0 lg:w-max">
           <a href="/" aria-label="logo" className="flex items-center space-x-2">
-            <img className="h-10 dark:invert" src="/logo.svg" alt="logo" />
+            <img className="h-10 dark:invert" src="/assets/logo.svg" alt="logo" />
           </a>
           <button aria-label="humburger" id="hamburger" className="relative -mr-6 p-6 lg:hidden"
             onClick={() => setOpen(!open)}
@@ -92,7 +92,7 @@ export default function Navbar() {
                             className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                             href="/"
                           >
-                            <img className="h-12 dark:invert" src="/logo.svg" alt="logo" />
+                            <img className="h-12 dark:invert" src="/assets/logo.svg" alt="logo" />
                             <div className="mb-2 mt-4 text-lg font-medium">
                               Nexonauts.com
                             </div>

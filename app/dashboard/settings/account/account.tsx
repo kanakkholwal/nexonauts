@@ -107,7 +107,7 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
         //  on submit change user data
 
         try {
-            await axios.put('/api/users/' + user.id, { user })
+            await axios.put('/api/users/' + user._id, { user })
                 .then(res => {
                     console.log(res);
                     update({
@@ -133,7 +133,7 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
         event.preventDefault();
         return new Promise(async (resolve, reject) => {
             try {
-                await axios.put('/api/users/' + user.id + "/change-password", {
+                await axios.put('/api/users/' + user._id + "/change-password", {
                     currentPassword: currentPassword,
                     newPassword: confirmPassword,
                 })
@@ -152,7 +152,7 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
         })
     }
 
-    async function isImageURLValid(url) {
+    async function isImageURLValid(url:string):Promise<boolean> {
         return fetch(url)
             .then((response) => {
                 // Check if the HTTP status code is in the 200 range (success)
