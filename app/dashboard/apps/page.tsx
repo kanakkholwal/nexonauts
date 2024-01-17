@@ -9,15 +9,16 @@ import {
 } from "@/components/ui/card";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { Eye, Pencil } from 'lucide-react';
+import AppModel from "models/app";
+import User from "models/user";
 import { getServerSession } from "next-auth/next";
+import { revalidatePath } from "next/cache";
 import Image from 'next/image';
 import Link from "next/link";
 import { Suspense } from "react";
 import dbConnect from "src/lib/dbConnect";
-import AppModel from "src/models/app";
 import { sessionType } from "src/types/session";
 import { CreateAppButton } from "./create";
-
 
 
 export default async function DashboardPage() {
@@ -26,9 +27,50 @@ export default async function DashboardPage() {
     await dbConnect();
     const apps = await AppModel.find({
         "developer.userId": session.user._id
-
     });
-    console.log(apps)
+    console.log(apps);
+    async function createApp(): Promise<boolean> {
+        "use server"
+        const session = await getServerSession(authOptions) as sessionType;
+
+        return new Promise(async (resolve, reject) => {
+            try{
+                await dbConnect();
+                const existingUser = await User.findById(session.user._id);
+                if (!existingUser) {
+                    return reject("User not found")
+                }
+                const newApp = await AppModel.create({
+                    appId:"app_"+ Date.now(),
+                    developer:{
+                        userId:existingUser._id.toString(),
+                        username:existingUser.username,
+                        name:existingUser.name
+                    },
+                    status:"draft",
+                    version:"0.0.1",
+                    name:"New App",
+                    path:"/apps/app_" + Date.now(),
+                    shortDescription:"Short description",
+                    description:"Description",
+                    config : null,
+                    formFlow:{
+                        menuType:"text_input_to_text_output",
+                        inputs:[],
+                        controls:[],
+                        outputs:[]
+                    }
+                });
+                await newApp.save();
+                revalidatePath("/dashboard/apps","page")
+                return resolve(true)
+
+            }catch(error){
+                console.log(error);
+                return reject(error)
+            }
+        })
+    }
 
 
 
@@ -37,7 +79,7 @@ export default async function DashboardPage() {
             <h2 className="text-3xl font-semibold">
                 Your Apps
             </h2>
-            <CreateAppButton user={session.user} className=" w-full max-w-[200px]" />
+            <CreateAppButton createApp={createApp} className=" w-full max-w-[200px]" />
         </div>
         <div className="w-full gap-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-5">
             <Suspense fallback={<div>Loading...</div>}>
@@ -96,7 +138,7 @@ export default async function DashboardPage() {
                     </CardDescription>
                 </CardContent>
                 <CardFooter className="justify-center">
-                    <CreateAppButton user={session.user} className=" w-full max-w-md" />
+                    <CreateAppButton createApp={createApp}  className=" w-full max-w-md" />
                 </CardFooter>
                 {/* </div> */}
             </Card>

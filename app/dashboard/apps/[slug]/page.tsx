@@ -7,8 +7,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import dbConnect from "src/lib/dbConnect";
 import AppModel from "src/models/app";
+import User from "src/models/user";
+
 import { sessionType } from "src/types/session";
 import { DeleteAppButton } from "./delete-btn";
+import { revalidatePath } from "next/cache";
 export default async function EditApplicationPage({ params }: {
     params: {
         slug: string
@@ -25,6 +28,38 @@ export default async function EditApplicationPage({ params }: {
     console.log(app);
     if (!app) return notFound();
 
+    async function deleteApp(appId:string): Promise<boolean> {
+        "use server"
+        const session = await getServerSession(authOptions) as sessionType;
+
+        return new Promise(async (resolve, reject) => {
+            try{
+                await dbConnect();
+                const existingUser = await User.findById(session.user._id);
+                if (!existingUser) {
+                    return reject("User not found")
+                }
+                const isExistingApp  = await AppModel.findOne({
+                    appId: appId,
+                    "developer.userId": session.user._id,
+                })
+                if(!isExistingApp){
+                    return reject("App not found")
+                }
+                const deletedApp = await AppModel.findByIdAndDelete(isExistingApp._id);
+                if(!deletedApp){
+                    return reject("App not found")
+                }
+                revalidatePath(`/dashboard/apps`,'page')
+                return resolve(true)
+
+            }catch(error){
+                console.log(error);
+                return reject(error)
+            }
+        })
+    }
+
 
 
 
@@ -38,7 +73,7 @@ export default async function EditApplicationPage({ params }: {
                         Back to apps
                     </Link>
                 </Button>
-                <DeleteAppButton appId={app.appId} />
+                <DeleteAppButton appId={app.appId} deleteApp={deleteApp}  />
             </div>
             <h2 className="text-3xl font-semibold">
                 {app.name}

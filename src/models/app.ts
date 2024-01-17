@@ -63,7 +63,7 @@ const usageSchema = new mongoose.Schema<IUsage>(
 // Interface for App document
 export interface IApp extends Document {
     appId: string;
-    config?: mongoose.Schema.Types.Mixed;
+    config?: Object;
     keywords: string[];
     isPublic: boolean;
     hasCustomFunction: boolean;
@@ -104,7 +104,7 @@ export interface IApp extends Document {
             action: string;
             variant: string;
         }[];
-        outputs: { render_type: string; save_to_db: boolean };
+        output: { render_type: string; save_to_db: boolean };
     };
     createdAt?: Date;
     updatedAt?: Date;
@@ -195,7 +195,7 @@ const appSchema = new mongoose.Schema<IApp>(
                 ],
                 default: [],
             },
-            outputs: { type: Object, default: { render_type: 'markdown', save_to_db: false } },
+            output: { type: Object, default: { render_type: 'markdown', save_to_db: false } },
         },
     },
     { timestamps: true, toJSON: { virtuals: true } }

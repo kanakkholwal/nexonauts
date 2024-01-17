@@ -3,6 +3,7 @@ import dbConnect from "lib/dbConnect";
 import AppModel from "models/app";
 import User from "models/user";
 import { getServerSession } from "next-auth/next";
+import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(request: NextRequest) {
@@ -50,6 +51,8 @@ export async function DELETE(request: NextRequest) {
                 status:404
             })
         }
+        revalidatePath(`/dashboard/apps`,'page')
+
         return NextResponse.json({
             result: "success",
             message: 'App deleted successfully',

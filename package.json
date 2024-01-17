@@ -98,7 +98,8 @@
         "tailwindcss-animate": "^1.0.7",
         "validator": "^13.9.0",
         "ytdl-core": "^4.11.2",
-        "zod": "^3.22.4"
+        "zod": "^3.22.4",
+        "zustand": "^4.4.7"
     },
     "devDependencies": {
         "@types/aos": "^3.0.7",
