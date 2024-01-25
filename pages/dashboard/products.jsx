@@ -8,9 +8,9 @@ import { useEffect } from "react";
 export default function Dashboard({ user }) {
 
 
-    useEffect(() => {
-        registerView({ title: "Products", type: "dashboard", slug: "/products" })
-    }, [])
+    // useEffect(() => {
+    //     registerView({ title: "Products", type: "dashboard", slug: "/products" })
+    // }, [])
 
 
     return (

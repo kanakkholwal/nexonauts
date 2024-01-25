@@ -11,8 +11,9 @@ export interface IAuthor {
     public_link: string;
     userId: string | null;
 }
-
-export interface IPublicTool extends Document {
+export type PublicToolStatus = 'draft' | 'published' | 'archived' | 'deleted' | 'pending' | 'rejected';
+export type PublicToolPricingType = 'free' | 'paid' | 'freemium' | 'one_time_license' | 'subscription' | 'open_source' | 'other';
+export interface PublicToolType {
     name: string;
     slug: string;
     coverImage: string;
@@ -20,13 +21,17 @@ export interface IPublicTool extends Document {
     description: string;
     categories: ICategory[];
     link: string;
-    status: 'draft' | 'published' | 'archived' | 'deleted' | 'pending' | 'rejected';
-    pricing_type: 'free' | 'paid' | 'freemium' | 'one_time_license' | 'subscription' | 'open_source' | 'other';
+    status: PublicToolStatus;
+    pricing_type: PublicToolPricingType
     verified: boolean;
     author?: IAuthor;
     createdAt?: Date;
     updatedAt?: Date;
 }
+export interface PublicToolTypeWithId extends PublicToolType {
+    _id: string;
+}
+export interface IPublicTool extends Document , PublicToolType {}
 
 const categorySchema = new mongoose.Schema({
     name: { type: String, trim: true },
