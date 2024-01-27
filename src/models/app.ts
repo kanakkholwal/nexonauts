@@ -11,7 +11,7 @@ export interface inputType {
     defaultValue: string;
     value: string;
     id: string;
-    options: { label: string; value: string }[] | null;
+    options: { label: string; value: string }[]
     constraints: {};
 }
 export interface controlType {
@@ -36,10 +36,10 @@ export interface ConfigurationType {
     model: string;
     prompt: string;
     modelType: string; // 'text-generation' | 'text-classification' | 'text-to-sql' | 'text-to-text' | 'text-to-image' | 'text-to-html' | 'text-to-csv' | 'text-to-json' | 'text-to-xml' | 'text-to-markdown' | 'text-to-y
-    params : {
+    params: {
         [key: string]: any
     },
-    [key: string]: string | object 
+    [key: string]: string | object
 }
 export interface MetaDataType {
     readonly appId: string;
@@ -88,7 +88,7 @@ export interface UsageType {
     appId: string;
     userId: mongoose.Schema.Types.ObjectId;
     createdAt?: Date;
-    type: 'playground_usage' | 'free_usage' | 'pro_usage' | 'premium_usage' ;
+    type: 'playground_usage' | 'free_usage' | 'pro_usage' | 'premium_usage';
     usage: {
         [key: string]: any,
     },
@@ -103,7 +103,7 @@ interface IUsage extends Document, UsageType { }
 
 
 // Function to generate a random UUID-based AppId
-function generateRandomAppId() : string {
+function generateRandomAppId(): string {
     // Generate a random 16-character alphanumeric string
     const slug = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 16)()
     return `${slug}`;
@@ -138,9 +138,11 @@ const usageSchema = new mongoose.Schema<IUsage>(
             type: String,
             required: true,
         },
-    },
-    { timestamps: true }
-);
+        createdAt: {
+            type: Date,
+            default: Date.now,
+        }
+    });
 
 
 

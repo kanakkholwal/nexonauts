@@ -12,16 +12,16 @@ import {
 } from 'react';
 
 import { Badge } from '@/components/ui/badge';
-import { AppConfigType, AppType } from "src/types/app";
+import { ConfigurationType } from "src/models/app";
+
+import { useAppStore } from '../../store';
 
 
+export default function Prompt() {
+    const { config, formFlow: {  inputs } } = useAppStore()
 
-export default function Prompt({ app }: {
-    app: AppType
-}) {
-    const { builderData, updateBuilderData } = useBuilderContext();
 
-    const mentions = builderData.formFlow.inputs.map((item) => item.id).map((item, index) => {
+    const mentions = inputs.map((item) => item.id).map((item, index) => {
         return {
             name: "@" + item,
             id: index,
@@ -34,7 +34,7 @@ export default function Prompt({ app }: {
     const [open, setOpen] = useState(true);
     const [suggestions, setSuggestions] = useState(mentions);
 
-    
+
 
     const { MentionSuggestions, plugins } = useMemo(() => {
         const mentionPlugin = createMentionPlugin({
@@ -63,17 +63,20 @@ export default function Prompt({ app }: {
     }, []);
     useEffect(() => {
         // Convert plain text to Draft.js content state
-        const initialContentState = ContentState.createFromText(builderData?.config?.prompt ?  builderData?.config?.prompt + " " :"");
+        const initialContentState = ContentState.createFromText(config?.prompt ? config?.prompt + " " : "");
         const initialEditorState = EditorState.createWithContent(initialContentState);
         setEditorState(initialEditorState);
-        let config = {
-            ...builderData.config,
-            prompt: builderData?.config?.prompt ? builderData.config.prompt : ""
-        } as AppConfigType;
-        updateBuilderData({
-            ...builderData,
-            config
+        let _config = {
+            ...config,
+            prompt: config?.prompt ? config.prompt : ""
+        } as ConfigurationType;
+        useAppStore.setState((state) =>{
+            return {
+                ...state,
+                config: _config
+            }
         })
+
     }, []);
 
 
@@ -91,7 +94,7 @@ export default function Prompt({ app }: {
                 aria-multiline="true"
                 aria-labelledby="prompt-label"
                 aria-required="true"
-                className={` promptBox my-2 bg-slate-100 focus-within:border-primary active:border-primary border-[hsl(var(--border))] border cursor-text rounded-md p-4 w-[100%] outline-none min-h-[400px] break-words`}
+                className={` promptBox my-2 bg-slate-100 dark:bg-slate-900 focus-within:border-primary active:border-primary border-[hsl(var(--border))] border cursor-text rounded-md p-4 w-[100%] outline-none min-h-[400px] break-words`}
                 onClick={() => {
                     if (ref.current)
                         ref.current?.focus();
@@ -104,14 +107,16 @@ export default function Prompt({ app }: {
 
                         const plainText = convertToRaw(value.getCurrentContent()).blocks.map(block => block.text).join('\n');
 
-                        console.log(plainText)
-                        let config = {
-                            ...builderData.config,
+                        console.log(plainText);
+                        let _config = {
+                            ...config,
                             prompt: plainText
-                        } as AppConfigType;
-                        updateBuilderData({
-                            ...builderData,
-                            config
+                        } as ConfigurationType;
+                        useAppStore.setState((state) =>{
+                            return {
+                                ...state,
+                                config: _config
+                            }
                         })
                         setEditorState(value)
                     }}
@@ -138,14 +143,16 @@ export default function Prompt({ app }: {
                                 onClick={() => {
                                     const editorValue = convertToRaw(editorState.getCurrentContent()).blocks.map(block => block.text).join('\n');
 
-                                    const withSuggester = editorValue + " " +  sugg.name + " ";
-                                    let config = {
-                                        ...builderData.config,
+                                    const withSuggester = editorValue + " " + sugg.name + " ";
+                                    let _config = {
+                                        ...config,
                                         prompt: withSuggester
-                                    } as AppConfigType;
-                                    updateBuilderData({
-                                        ...builderData,
-                                        config
+                                    } as ConfigurationType;
+                                    useAppStore.setState((state) =>{
+                                        return {
+                                            ...state,
+                                            config: _config
+                                        }
                                     })
                                     const initialContentState = ContentState.createFromText(withSuggester);
                                     const _EditorState = EditorState.createWithContent(initialContentState);

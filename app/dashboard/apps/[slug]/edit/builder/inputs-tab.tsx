@@ -1,4 +1,4 @@
-
+"use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -15,19 +15,21 @@ import toast from "react-hot-toast";
 import { IoMdAdd } from "react-icons/io";
 import { MdOutlineDeleteOutline, MdOutlineDragIndicator } from "react-icons/md";
 import { TbEdit, TbTrash } from "react-icons/tb";
-import { InputType } from "src/types/app";
-import { INPUT_TYPES } from "../common/constants";
-import { useBuilderContext } from "../common/context/builder-context";
+import {
+    inputType
+} from "src/models/app";
+import { INPUT_TYPES } from "../constants";
+import { useAppStore } from '../store';
 
 
+export default function InputTab() {
+    const { formFlow: {
+        inputs,
+        controls
+    } } = useAppStore()
 
-export default function InputTab({ inputs }: {
-    inputs: InputType[]
-}) {
-    const { builderData, updateBuilderData } = useBuilderContext();
-
-    const [input, setInput] = useState<InputType>({
-        id: "",
+    const [input, setInput] = useState<inputType>({
+        id: new Date().getTime().toString(),
         label: "",
         defaultValue: "",
         required: true,
@@ -53,41 +55,38 @@ export default function InputTab({ inputs }: {
 
     const handleDragOver = (e: React.DragEvent, index: number) => {
         e.preventDefault();
-        const items = [...builderData.formFlow?.inputs];
+        const items = [...inputs];
         const draggedItem = items[draggedItemIndex !== null ? draggedItemIndex : index];
         items.splice(draggedItemIndex !== null ? draggedItemIndex : index, 1);
         items.splice(index, 0, draggedItem);
-        updateBuilderData({
-            ...builderData,
+        useAppStore.setState({
             formFlow: {
-                ...builderData.formFlow,
-                inputs: items,
-            },
-        });
+                ...useAppStore.getState().formFlow,
+                inputs: items
+            }
+        })  
         setDraggedItemIndex(index);
     };
 
     // Utility function to update form data
-    const updateBuilderDataAndResetInput = (updatedInput: InputType) => {
-        const updatedInputs = [...builderData.formFlow.inputs];
+    const updateBuilderDataAndResetInput = (updatedInput: inputType) => {
+        const updatedInputs = [...inputs];
         const index = updatedInputs.findIndex((item) => item.id === updatedInput.id);
         if (index !== -1) {
             updatedInputs.splice(index, 1, updatedInput);
         } else {
             updatedInputs.push(updatedInput);
         }
-
-        updateBuilderData({
-            ...builderData,
+        useAppStore.setState({
             formFlow: {
-                ...builderData.formFlow,
-                inputs: updatedInputs,
-            },
-        });
+                ...useAppStore.getState().formFlow,
+                inputs: updatedInputs
+            }
+        })
 
         setInput({
             ...input,
-            id: "",
+            id:new Date().getTime().toString(),
             label: "",
             defaultValue: "",
             required: true,
@@ -101,7 +100,7 @@ export default function InputTab({ inputs }: {
             name: "",
             options: []
         });
-        console.log(builderData)
+
     };
 
 
@@ -109,7 +108,7 @@ export default function InputTab({ inputs }: {
 
         <div className="flex flex-col gap-2">
 
-            <div className="flex flex-col justify-between items-center p-5 bg-slate-100 rounded-md">
+            <div className="flex flex-col justify-between items-center p-5 bg-slate-100 dark:bg-slate-900 rounded-md">
                 <div className="flex flex-row justify-between items-center w-full">
                     <Label htmlFor="add_field">
                         Input Field
@@ -212,7 +211,7 @@ export default function InputTab({ inputs }: {
                                 onChange={(e) => {
                                     setInput({
                                         ...input,
-                                        options: input.options?.map((item, i:number) => {
+                                        options: input.options?.map((item, i: number) => {
                                             if (i === index) {
                                                 return {
                                                     label: e.target.value.split(" ").map((item) => item.charAt(0).toUpperCase() + item.slice(1)).join("_"),
@@ -242,13 +241,7 @@ export default function InputTab({ inputs }: {
                             <Button variant="outline" size="icon" onClick={() => {
                                 setInput({
                                     ...input,
-                                    options: input.options?.filter((_, i) => {
-                                        if (i === index) {
-                                            return false
-                                        } else {
-                                            return true
-                                        }
-                                    })
+                                    options: input.options?.filter((item, i: number) => i !== index)
 
                                 })
                             }}
@@ -269,7 +262,48 @@ export default function InputTab({ inputs }: {
                             toast.error("Select a proper input type");
                             return
                         }
-                        updateBuilderDataAndResetInput(input)
+                        if (input.label.trim() === "") {
+                            toast.error("Field name cannot be empty")
+                            return
+                        }
+                        if (input.type === "dropdown" || input.type === "radio" || input.type === "checkbox") {
+                            if (input.options?.length === 0) {
+                                toast.error("Add atleast one option")
+                                return
+                            }
+                        }
+                        useAppStore.setState((state) =>{
+                            return {
+                                ...state,
+                                formFlow: {
+                                    ...state.formFlow,
+                                    inputs: state.formFlow.inputs.map((item) => {
+                                        if (item.id === input.id) {
+                                            return input
+                                        } else {
+                                            return item
+                                        }
+                                    })
+                                }
+
+                            }
+                        })
+                        setInput({
+                            ...input,
+                            id: new Date().getTime().toString(),
+                            label: "",
+                            defaultValue: "",
+                            required: true,
+                            placeholder: "",
+                            value: "",
+                            constraints: {
+                                // "data_type": "str",
+                                // "min_length": 1,
+                                // 'max_length': 200,
+                            },
+                            name: "",
+                            options: []
+                        })
 
                     }}>
                         Add Field
@@ -278,9 +312,9 @@ export default function InputTab({ inputs }: {
                 </div>
 
 
-                <div className="flex flex-col gap-1 my-2 border  w-full bg-gray-50 p-1  rounded-md  ">
+                <div className="flex flex-col gap-1 my-2 border  w-full bg-gray-50 dark:bg-slate-950 p-1  rounded-md  ">
                     {
-                        builderData.formFlow?.inputs?.map((item, index) => {
+                        inputs?.map((item, index) => {
                             return (<div className="flex flex-row justify-between items-center w-full gap-2 border-b-1 border-slate-200" key={index} draggable>
                                 <span className="ms-3 font-semibold text-xs">
                                     @{item.id}
@@ -299,13 +333,15 @@ export default function InputTab({ inputs }: {
                                     </Button>
                                     <Button
                                         onClick={() => {
-                                            const _inputs = [...builderData.formFlow?.inputs]
+                                            const _inputs = [...inputs]
                                             _inputs?.splice(index, 1);
-                                            updateBuilderData({
-                                                ...builderData,
-                                                formFlow: {
-                                                    ...builderData.formFlow,
-                                                    inputs: _inputs
+                                            useAppStore.setState((state) =>{
+                                                return {
+                                                    ...state,
+                                                    formFlow: {
+                                                        ...state.formFlow,
+                                                        inputs: _inputs
+                                                    }
                                                 }
                                             })
 
@@ -326,7 +362,7 @@ export default function InputTab({ inputs }: {
                             </div>)
                         })
                     }
-                    {builderData.formFlow?.inputs?.length === 0 ? <span className="px-3 py-2 text-sm font-semibold mx-auto bg-slate-100 rounded">No Input Fields</span> : null}
+                    {inputs.length === 0 ? <span className="px-3 py-2 text-sm font-semibold mx-auto bg-slate-100 dark:bg-slate-900 rounded">No Input Fields</span> : null}
                 </div>
 
 
@@ -340,21 +376,25 @@ export default function InputTab({ inputs }: {
                 </Label>
                 <Select
                     onValueChange={(value) => {
-                        updateBuilderData({
-                            ...builderData,
+                    useAppStore.setState((state) => {
+                        return {
+                            ...state,
                             formFlow: {
-                                ...builderData.formFlow,
-                                controls: [
-                                    {
-                                        controlType: "button",
-                                        text: value,
-                                        action: "get_output",
-                                        id: "get_output",
-                                        variant: "default"
-                                    },
-                                ],
-                            },
-                        });
+                                ...state.formFlow,
+                                controls: state.formFlow.controls.map((control) => {
+                                    if (control.action === "get_output") {
+                                        return {
+                                            ...control,
+                                            text: value
+                                        }
+                                    } else {
+                                        return control
+                                    }
+                                })
+                            }
+                        }
+                    })
+
                     }}
                 >
                     <SelectTrigger className="w-[180px] bg-slate-100">

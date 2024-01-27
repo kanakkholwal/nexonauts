@@ -1,3 +1,4 @@
+"use client";
 import {
     Card,
     CardContent,
@@ -20,12 +21,11 @@ import TextInputToTextOutput from "./common/view/text_input_to_text_output";
 
 export default function AppView({ user,app }) {
 
-
-
+    
     const [value, handleChange] = useForm(makeInitialObject(app.formFlow.inputs));
 
     const [output, setOutput] = useState<RenderOutputType >({
-        type: app.formFlow.outputs.render_type,
+        type: app.formFlow.output.render_type,
         data: ""
     });
     const [loading, setLoading] = useState(false);
@@ -67,7 +67,7 @@ export default function AppView({ user,app }) {
 
 
 
-    return (<div className="p-2 flex flex-col gap-5 mt-5">
+    return (<div className="p-2 flex flex-col gap-5 mt-5 w-full  max-w-[1024px]">
         <Card className="w-full max-w-[1024px]">
             <CardContent className="flex flex-col gap-2 pt-5">
                 {app.formFlow.menuType === "text_input_to_text_output" && <TextInputToTextOutput inputs={app.formFlow.inputs} value={value} handleChange={handleChange} />}
@@ -76,7 +76,8 @@ export default function AppView({ user,app }) {
                 {app.formFlow.controls.map((control, index) => {
                     if (control.action === "get_output")
                         return (<Button key={index}
-                            variant="gradient"
+                            size="lg"
+                            variant="gradient_blue"
                             onClick={() => control.action === "get_output" && apiCall()}
                             disabled={loading}
                         >
