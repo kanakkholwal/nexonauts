@@ -98,9 +98,9 @@ const appReducer = (state: State, action: Action) => {
     case "REMOVE_INPUT":
       return { ...state, formFlow: { ...state.formFlow, inputs: state.formFlow.inputs.filter((_, i) => i !== action.payload) } }
     case "UPDATE_INPUT":
-      const { id, ...rest } = action.payload as inputType;
+      const { field_id, ...rest } = action.payload as inputType;
       return { ...state, formFlow: { ...state.formFlow, inputs: state.formFlow.inputs.map(obj => {
-        if (obj.id === id) {
+        if (obj.field_id === field_id) {
           // If the object's id matches, update it with the new data
           return { ...obj, ...rest };
         } else {

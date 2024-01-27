@@ -414,7 +414,7 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
                 </p>
                 {CurrentUser?.account_type === "premium" ? <div className="flex items-center gap-2 mt-5">
                     <Link href="/pricing">
-                        <Button size="sm" variant="gradient">
+                        <Button size="sm" variant="gradient_blue">
                             <PiCrownSimpleBold className="w-4 h-4 mr-2" />
                             Upgrade to Premium
                         </Button>

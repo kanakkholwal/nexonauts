@@ -21,7 +21,7 @@ export default function Prompt() {
     const { config, formFlow: {  inputs } } = useAppStore()
 
 
-    const mentions = inputs.map((item) => item.id).map((item, index) => {
+    const mentions = inputs.map((item) => item.field_name).map((item, index) => {
         return {
             name: "@" + item,
             id: index,

@@ -1,5 +1,5 @@
-import dbConnect from "src/lib/dbConnect";
 import Post from "models/post";
+import dbConnect from "src/lib/dbConnect";
 import { getAllApps } from "src/utils/app";
 import { getAllPublicTools } from "src/utils/public-tool";
 
@@ -84,7 +84,7 @@ export async function GET(request: Request) {
         }), 
         ...apps.map((app) => {
             return {
-                path: app.path,
+                path: `/apps/${app.slug}`,
                 date: new Date(app?.createdAt || Date.now()).toISOString(),
             }
         })),
