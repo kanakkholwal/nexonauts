@@ -3,14 +3,13 @@ import { customAlphabet } from 'nanoid';
 
 //  types for App, Review, and Usage models
 export interface inputType {
-    type: string;
-    name: string;
-    label: string;
-    placeholder: string;
-    required: boolean;
-    defaultValue: string;
-    value: string;
-    id: string;
+    field_type: string;
+    field_name: string;
+    field_label: string;
+    field_placeholder: string;
+    field_required: boolean;
+    field_defaultValue: string;
+    field_id: string;
     options: { label: string; value: string }[]
     constraints: {};
 }
@@ -184,14 +183,13 @@ const appSchema = new mongoose.Schema<IApp>(
             menuType: { type: String, required: true, trim: true, default: 'text_input_to_text_output' },
             inputs: [
                 {
-                    type: String,
-                    name: String,
-                    label: String,
-                    placeholder: String,
-                    required: Boolean,
-                    defaultValue: String,
-                    value: String,
-                    id: String,
+                    field_type: String,
+                    field_name: String,
+                    field_label: String,
+                    field_placeholder: String,
+                    field_required: Boolean,
+                    field_defaultValue: String,
+                    field_id: String,
                     options: {
                         type: [
                             {
@@ -199,10 +197,10 @@ const appSchema = new mongoose.Schema<IApp>(
                                 value: String,
                             },
                         ],
-                        default: null,
+                        default: [],
                     },
                     constraints: {
-                        type: Object || null,
+                        type: Object,
                         default: {},
                     },
                 },
@@ -223,7 +221,7 @@ const appSchema = new mongoose.Schema<IApp>(
             output: { type: Object, default: { render_type: 'markdown', save_to_db: false } },
         },
     },
-    { timestamps: true, toJSON: { virtuals: true } }
+    { timestamps: true, }
 );
 
 // Define indexes for text search functionality

@@ -39,9 +39,7 @@ export default function BlogHomePage({ initialPosts ,
     }
   };
 
-  useEffect(() => {
-    registerView({ title: "K K UPGRADER BLOG", type: "article", slug: "/blog", postId: null })
-  }, []);
+
 
   return (
     <div className={" Blog"}>

@@ -18,7 +18,7 @@ import { ChevronLeft } from 'lucide-react';
 import { getServerSession } from "next-auth/next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import AppView from "src/layouts/apps/app-view";
+import AppEditView from "./app-preview";
 import { getAppByAppId } from "src/lib/apps/actions";
 import { sessionType } from "src/types/session";
 import InfoTab from "./builder/info-tab";
@@ -83,7 +83,7 @@ export default async function EditApplicationPage({ params }: {
                     </Badge>
                 </p>
                 <div className="flex gap-1 items-start justify-between w-full h-full ">
-                    <AppView user={session.user} app={useAppStore.getState()} />
+                    <AppEditView user={session.user} />
                     <Tabs defaultValue="app-info" className="w-full max-w-[500px]">
                         <TabsList className="grid w-full grid-cols-4 rounded-3xl shadow">
                             {STEPS.map((step) => (<TabsTrigger value={step.id} key={step.id} className="rounded-3xl">{step.title}</TabsTrigger>))}

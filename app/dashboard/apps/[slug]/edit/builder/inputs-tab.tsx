@@ -15,10 +15,10 @@ import toast from "react-hot-toast";
 import { IoMdAdd } from "react-icons/io";
 import { MdOutlineDeleteOutline, MdOutlineDragIndicator } from "react-icons/md";
 import { TbEdit, TbTrash } from "react-icons/tb";
+import { INPUT_TYPES } from "src/constants/app";
 import {
     inputType
 } from "src/models/app";
-import { INPUT_TYPES } from "../constants";
 import { useAppStore } from '../store';
 
 
@@ -29,23 +29,18 @@ export default function InputTab() {
     } } = useAppStore()
 
     const [input, setInput] = useState<inputType>({
-        id: new Date().getTime().toString(),
-        label: "",
-        defaultValue: "",
-        required: true,
-        placeholder: "",
-        type: "none",
-        value: "",
-        constraints: {
-            data_type: "str",
-            min_length: 1,
-            max_length: 200,
-        },
-        name: "",
+        field_id: new Date().getTime().toString(),
+        field_label: "",
+        field_defaultValue: "",
+        field_required: true,
+        field_placeholder: "",
+        field_type: "none",
+        field_name: "",
+        constraints: {},
         options: []
     });
-    console.log(input)
 
+    
     const [draggedItemIndex, setDraggedItemIndex] = useState<number | null>(null);
 
     // Drag and Drop Logic
@@ -71,7 +66,7 @@ export default function InputTab() {
     // Utility function to update form data
     const updateBuilderDataAndResetInput = (updatedInput: inputType) => {
         const updatedInputs = [...inputs];
-        const index = updatedInputs.findIndex((item) => item.id === updatedInput.id);
+        const index = updatedInputs.findIndex((item) => item.field_id === updatedInput.field_id);
         if (index !== -1) {
             updatedInputs.splice(index, 1, updatedInput);
         } else {
@@ -86,18 +81,18 @@ export default function InputTab() {
 
         setInput({
             ...input,
-            id:new Date().getTime().toString(),
-            label: "",
-            defaultValue: "",
-            required: true,
-            placeholder: "",
-            value: "",
+            field_id:new Date().getTime().toString(),
+            field_label: "",
+            field_defaultValue: "",
+            field_required: true,
+            field_placeholder: "",
+
             constraints: {
                 // "data_type": "str",
                 // "min_length": 1,
                 // 'max_length': 200,
             },
-            name: "",
+            field_name: "",
             options: []
         });
 
@@ -118,7 +113,7 @@ export default function InputTab() {
                             console.log(value)
                             setInput({
                                 ...input,
-                                type: value,
+                                field_type: value,
                                 options: (value === "dropdown" || value === "radio" || value === "checkbox") ? [{
                                     label: "",
                                     value: ""
@@ -139,12 +134,12 @@ export default function InputTab() {
                 </div>
                 <div className="flex flex-row justify-between items-center w-full gap-2 my-2">
                     <Input id="label" type="text" placeholder="@Field Name (eg. user_name)"
-                        value={input.label}
+                        value={input.field_label}
                         onChange={(e) => {
                             setInput({
                                 ...input,
-                                label: e.target.value.trim(),
-                                id: e.target.value.replaceAll("_", " ").replaceAll("-", " ").split(" ").map((item) => item.charAt(0).toUpperCase() + item.slice(1)).join(" ").trim().replaceAll(" ", "_").toLowerCase(),
+                                field_label: e.target.value.trim(),
+                                field_name: e.target.value.replaceAll("_", " ").replaceAll("-", " ").split(" ").map((item) => item.charAt(0).toUpperCase() + item.slice(1)).join(" ").trim().replaceAll(" ", "_").toLowerCase(),
                             })
                         }} />
                     <div className="items-center flex gap-2">
@@ -157,21 +152,21 @@ export default function InputTab() {
                             onCheckedChange={(checked) => {
                                 setInput({
                                     ...input,
-                                    required: checked
+                                    field_required: checked
                                 })
                             }}
                         />
                     </div>
 
                 </div>
-                {(input.type === "text_input" || input.type === "text_multiline") ?
-                    <Input id="placeholder" type="text" placeholder="Field Placeholder" value={input.placeholder} onChange={(e) => {
+                {(input.field_type === "text_input" || input.field_type === "text_multiline") ?
+                    <Input id="placeholder" type="text" placeholder="Field Placeholder" value={input.field_placeholder} onChange={(e) => {
                         setInput({
                             ...input,
-                            placeholder: e.target.value
+                            field_placeholder: e.target.value
                         })
                     }} /> : null}
-                {input.type === "number_input" ? <div className="flex w-full flex-row gap-1 my-2">
+                {input.field_type === "number_input" ? <div className="flex w-full flex-row gap-1 my-2">
                     <Input id="min" type="number" placeholder="Min"
                         value={input.constraints["min_length"] ?? 0}
                         onChange={(e) => {
@@ -200,7 +195,7 @@ export default function InputTab() {
                     />
 
                 </div> : null}
-                {(input.type === "dropdown" || input.type === "radio" || input.type === "checkbox") ? <div>
+                {(input.field_type === "dropdown" || input.field_type === "radio" || input.field_type === "checkbox") ? <div>
                     <Label>
                         Add Options
                     </Label>
@@ -254,19 +249,19 @@ export default function InputTab() {
                     })}</div> : null}
                 <div className="flex flex-row justify-center items-center my-2">
                     <Button variant="outline" onClick={() => {
-                        if (input.id.trim() === "") {
+                        if (input.field_id.trim() === "") {
                             toast.error("Field ID cannot be empty")
                             return
                         }
-                        if (!INPUT_TYPES.find((type) => type.value === input.type)) {
+                        if (!INPUT_TYPES.find((type) => type.value === input.field_type)) {
                             toast.error("Select a proper input type");
                             return
                         }
-                        if (input.label.trim() === "") {
+                        if (input.field_label.trim() === "") {
                             toast.error("Field name cannot be empty")
                             return
                         }
-                        if (input.type === "dropdown" || input.type === "radio" || input.type === "checkbox") {
+                        if (input.field_type === "dropdown" || input.field_type === "radio" || input.field_type === "checkbox") {
                             if (input.options?.length === 0) {
                                 toast.error("Add atleast one option")
                                 return
@@ -277,31 +272,23 @@ export default function InputTab() {
                                 ...state,
                                 formFlow: {
                                     ...state.formFlow,
-                                    inputs: state.formFlow.inputs.map((item) => {
-                                        if (item.id === input.id) {
-                                            return input
-                                        } else {
-                                            return item
-                                        }
-                                    })
+                                    inputs: [...state.formFlow.inputs, input]
                                 }
-
                             }
                         })
                         setInput({
                             ...input,
-                            id: new Date().getTime().toString(),
-                            label: "",
-                            defaultValue: "",
-                            required: true,
-                            placeholder: "",
-                            value: "",
+                            field_id: new Date().getTime().toString(),
+                            field_label: "",
+                            field_defaultValue: "",
+                            field_required: true,
+                            field_placeholder: "",
                             constraints: {
                                 // "data_type": "str",
                                 // "min_length": 1,
                                 // 'max_length': 200,
                             },
-                            name: "",
+                            field_name: "",
                             options: []
                         })
 
@@ -316,8 +303,8 @@ export default function InputTab() {
                     {
                         inputs?.map((item, index) => {
                             return (<div className="flex flex-row justify-between items-center w-full gap-2 border-b-1 border-slate-200" key={index} draggable>
-                                <span className="ms-3 font-semibold text-xs">
-                                    @{item.id}
+                                <span className="ms-3 font-semibold text-xs truncate">
+                                    @{item.field_name}
                                 </span>
 
                                 <div className="flex gap-1 text-sm items-center">
@@ -326,7 +313,6 @@ export default function InputTab() {
                                     <Button
                                         onClick={() => {
                                             setInput(item);
-
                                         }}
                                         variant="outline" size="icon">
                                         <TbEdit className="w-4 h-4" />

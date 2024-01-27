@@ -31,7 +31,7 @@ export function RenderOutput({ output, loading, outputConfig }: RenderOutputProp
                 </CardDescription>
             </div>
             <div>
-                <Button variant="gradient_blue" onClick={() => {
+                <Button size="sm" variant="gradient_blue" onClick={() => {
                     if (output.type !== "text/plain" || typeof output.data !== "string")
                         return;
                     if (output.data === null || output.data.trim() === "")

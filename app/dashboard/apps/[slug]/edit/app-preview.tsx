@@ -1,3 +1,4 @@
+"use client";
 import {
     Card,
     CardContent,
@@ -5,7 +6,7 @@ import {
 } from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";
-import { RenderOutput, RenderOutputType } from "./view/output";
+import { RenderOutput, RenderOutputType } from "src/layouts/apps/view/output";
 
 // Components
 
@@ -14,20 +15,23 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { BsStars } from "react-icons/bs";
 import { CgSpinner } from "react-icons/cg";
-import { useBuilderContext } from "./common/context/builder-context";
-import TextInputToTextOutput from "./common/view/text_input_to_text_output";
+
+import TextInputToTextOutput from "src/layouts/apps/common/view/text_input_to_text_output";
+import { SessionUserType } from "src/types/user";
+import { useAppStore } from './store';
 
 
 
-export default function AppEdit({ user }) {
-    const { builderData: app } = useBuilderContext();
-    console.log(app)
+export default function AppEdit({ user }:{
+    user: SessionUserType
+}) {
+    const app = useAppStore(state => state);
 
-
+    console.log("preview -mode " , app);
 
     const [value, handleChange] = useForm(makeInitialObject(app.formFlow.inputs));
-  
-    const [output, setOutput] = useState<RenderOutputType >({
+
+    const [output, setOutput] = useState<RenderOutputType>({
         type: "text/plain",
         data: ""
     })
@@ -41,8 +45,8 @@ export default function AppEdit({ user }) {
             data: null
         });
         // check if all required inputs are filled
-        const requiredInputs = app.formFlow.inputs.filter((input) => input.required);
-        const requiredInputIds = requiredInputs.map((input) => input.id);
+        const requiredInputs = app.formFlow.inputs.filter((input) => input.field_required);
+        const requiredInputIds = requiredInputs.map((input) => input.field_name);
         const missingRequiredInputs = requiredInputIds.filter((inputId) => !value[inputId]);
         if (missingRequiredInputs.length > 0) {
             toast.error(`Please fill in the following required inputs: ${missingRequiredInputs.join(", ")}`);
@@ -50,14 +54,14 @@ export default function AppEdit({ user }) {
             return;
         }
         try {
-        
+
             const response = await axios.post("/api/apps/playground", {
-                userId: user.id,
+                userId: user._id,
                 appId: app.appId,
                 appInputs: {
                     ...value
                 },
-                config:app.config
+                config: app.config
             });
             setOutput(response.data.result);
             console.log(response.data.result);
@@ -87,7 +91,7 @@ export default function AppEdit({ user }) {
                 {app.formFlow.controls.map((control, index) => {
                     if (control.action === "get_output")
                         return (<Button key={index}
-                            variant="gradient"
+                            variant="gradient_blue"
                             onClick={() => control.action === "get_output" && apiCall()}
                             disabled={loading}
                         >
@@ -100,7 +104,7 @@ export default function AppEdit({ user }) {
 
             </CardFooter>
         </Card>
-        <RenderOutput output={output} loading={loading} outputConfig={app.formFlow.outputs}/>
+        <RenderOutput output={output} loading={loading} outputConfig={app.formFlow.output} />
     </div>)
 
 }
