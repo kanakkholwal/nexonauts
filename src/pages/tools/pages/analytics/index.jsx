@@ -2,7 +2,7 @@ import { getSession } from "next-auth/react";
 import DashboardPage from "components/dashboard-page";
 import { AnalyticCard, DashCard, Icon } from "components/dashboard-page/elements";
 import Head from "next/head";
-import State from 'components/state';
+// import State from 'components/state';
 import { useEffect, useState } from 'react';
 import { Card, CardBody, CardHeader, CardTitle } from 'components/Card';
 import { intervalWise, authWise, pageWise,getPopularPages, ConversionRate, getAnalyticsByAction, getAnalytics } from 'lib/analytics';
@@ -30,13 +30,13 @@ export default function Stats({ user }) {
         <title>Analytics</title>
       </Head>
       <DashboardPage user={user}>
-        {!data && (<State
+        {/* {!data && (<State
           loader={{ type: "indeterminate", show: isLoading }}
           alert={{
             type: error ? "danger" : "success",
             message: error ? error.message : "Analytics fetched successfully",
             show: error ? true : false
-          }} />)}
+          }} />)} */}
 
         <div className="d-flex justify-content-start align-items-start g-3 mb-3 flex-wrap">
           <DashCard width={"16rem"}>

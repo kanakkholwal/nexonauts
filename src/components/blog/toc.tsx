@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { MdFormatListNumbered } from "react-icons/md";
 import { AiOutlinePlus } from "react-icons/ai";
 import React from "react";
-import Collapse from "components/collapse";
+// import Collapse from "components/collapse";
 import HTMLReactParser from 'html-react-parser';
 
 
@@ -164,16 +164,16 @@ export default function TOC({ blocks }: {
 
     return (
         <StyledTOC>
-            <div className="Toc_Header">
+            {/* <div className="Toc_Header">
                 <MdFormatListNumbered size={20} />
                 <span>Table of Contents</span>
                 <StyledButton open={open} onClick={() => setOpen(!open)}><AiOutlinePlus /></StyledButton>
-            </div>
-            <Collapse visible={open}>
-                <div className="Toc_Body">
+            </div> */}
+            {/* <Collapse visible={open}> */}
+                {/* <div className="Toc_Body">
                     <TOCList blocks={remapBlocks(blocks)} />
-                </div>
-            </Collapse>
+                </div> */}
+            {/* </Collapse> */}
 
         </StyledTOC>
     )
@@ -194,7 +194,7 @@ export const TOCMarkDown = ({ content }: {
                 <span>Table of Contents</span>
                 <StyledButton open={open} onClick={() => setOpen(!open)}><AiOutlinePlus /></StyledButton>
             </div>
-            <Collapse visible={open}>
+            {/* <Collapse visible={open}> */}
                 <div className="Toc_Body">
                     <ol>
                         {
@@ -213,7 +213,7 @@ export const TOCMarkDown = ({ content }: {
 
                     </ol>
                 </div>
-            </Collapse>
+            {/* </Collapse> */}
 
         </StyledTOC>
     )

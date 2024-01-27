@@ -8,7 +8,7 @@ import styled from "styled-components";
 import dynamic from "next/dynamic";
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
-import {  Select } from "components/form-elements";
+// import {  Select } from "components/form-elements";
 import Badge from "components/topography/badge";
 import { Card } from "components/Card";
 import Link from "next/link";
@@ -134,7 +134,7 @@ export default function Pages({ user }) {
                         <Badge nature="info">
                             {page.type}
                         </Badge>
-                        <Select 
+                        {/* <Select 
                         options={[
                             {label:'Daily',value:'daily'},
                             {label:'Weekly',value:'weekly'},
@@ -145,7 +145,7 @@ export default function Pages({ user }) {
                         ]}
                         onChange={(option)=>setSelectedType(option.value)}
 
-                        />
+                        /> */}
                     </div>
                 </StyledHeader>
                 
