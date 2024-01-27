@@ -1,5 +1,5 @@
 
-import { InputType } from "src/types/app";
+import { inputType } from "src/models/app";
 import ComboBox from "../components/combobox";
 import DropDownField from "../components/dropdown";
 import InputField from "../components/input";
@@ -9,7 +9,7 @@ import TextBoxField from "../components/textarea";
 
 
 interface TextInputToTextOutputProps {
-    inputs: InputType[]
+    inputs: inputType[]
     value: any,
     handleChange: any
 }

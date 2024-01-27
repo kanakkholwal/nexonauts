@@ -6,7 +6,7 @@ import { GetSessionParams, getSession } from "next-auth/react";
 import { NextSeo } from 'next-seo';
 import Image from 'next/image';
 import Link from 'next/link';
-import AppplicationLayout from 'src/layouts/apps/view-layout';
+// import AppplicationLayout from 'src/layouts/apps/view-layout';
 import { AppTypeRenderable, AppTypeViewOnly } from 'src/types/app';
 import { sessionType } from "src/types/session";
 import { SessionUserType } from 'src/types/user';
@@ -77,7 +77,7 @@ export default function App({ app, user }: {
                     Created by <span className="text-accent-foreground font-semibold cursor-pointer hover:underline">{app.developer.name}</span>
                     {" "} in <Link className="text-primary font-semibold px-2 py-1 rounded-md bg-primary/10 hover:bg-primary/20 capitalize ml-1" href={`/apps?category=${app.categories[0]}`}>{app.categories[0].replaceAll("_", " ")}</Link>
                 </div>
-                {user ? <AppplicationLayout app={app} user={user} /> : <div className="relative w-full aspect-video flex justify-center items-center bg-slate-100 my-5">
+                {/* {user ? <AppplicationLayout app={app} user={user} /> : <div className="relative w-full aspect-video flex justify-center items-center bg-slate-100 my-5">
                     <Image src={workingApp}
                         height={500}
                         width={500}
@@ -90,7 +90,7 @@ export default function App({ app, user }: {
                             <FiLock className="w-4 h-4 mr-2 text-primary inline-block" /> Please login to use this app
                         </Link>
                     </div>
-                </div>}
+                </div>} */}
                 <Card>
                     <CardHeader>
                         <CardTitle>

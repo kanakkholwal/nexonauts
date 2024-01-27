@@ -14,3 +14,27 @@ export async function getAppByAppId(appId: string, developerId: string): Promise
     }).exec();
     return JSON.parse(JSON.stringify(app));
 }
+export async function getPublicApps(query: string, currentPage: number, filter: {
+    [key: string]: any
+}) {
+    const resultsPerPage = 32;
+    const skip = currentPage * resultsPerPage - resultsPerPage;
+    const filterQuery = {
+        $or: [
+            { "name": { $regex: query, $options: "i" } },
+            { "description": { $regex: query, $options: "i" } },
+            { "tags": { $regex: query, $options: "i" } },
+            { "categories": { $regex: query, $options: "i" } },
+        ],
+    } as unknown as any;
+    await dbConnect();
+    const apps = await AppModel.find({
+        status:"published"
+    }).skip(skip)
+    .limit(resultsPerPage)
+    .exec();
+    const totalPages = Math.ceil((await AppModel.countDocuments(filterQuery)) / resultsPerPage);
+
+    
+    return {apps:JSON.parse(JSON.stringify(apps)),totalPages}
+}

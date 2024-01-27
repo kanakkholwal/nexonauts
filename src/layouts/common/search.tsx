@@ -14,7 +14,7 @@ import Link from "next/link";
 import React from "react";
 
 // searchable contents 
-import { CategoryList } from "pages/tools/ToolsList";
+// import { CategoryList } from "pages/tools/ToolsList";
 import { CATEGORIES } from "src/layouts/apps/common/constants";
 export default function Search() {
     const [open, setOpen] = React.useState(false);
@@ -68,7 +68,7 @@ export default function Search() {
                             </Link>)
                         })}
                     </CommandGroup>
-                    <CommandGroup heading="Developer Tools">
+                    {/* <CommandGroup heading="Developer Tools">
                         {CategoryList.map((tool, index) => {
                             return (<Link href={tool.path} key={"tool_" + index} className="cursor-pointer">
                                 <CommandItem>
@@ -79,7 +79,7 @@ export default function Search() {
                                 </CommandItem>
                             </Link>)
                         })}
-                    </CommandGroup>
+                    </CommandGroup> */}
                     <CommandSeparator />
                     <CommandGroup heading="Settings">
                         <Link href={"/dashboard/settings?defaultTab=profile"}  className="cursor-pointer">

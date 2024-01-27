@@ -25,7 +25,7 @@ export default async function EditApplicationPage({ params }: {
         appId: params.slug,
         "developer.userId": session.user._id
     }).lean();
-    console.log(app);
+    // console.log(app);
     if (!app) return notFound();
 
     async function deleteApp(appId:string): Promise<boolean> {

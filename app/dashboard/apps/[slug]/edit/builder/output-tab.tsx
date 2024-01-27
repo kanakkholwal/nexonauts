@@ -29,7 +29,7 @@ export default function OutputTab({
         return new Promise(async (resolve, reject) => {
 
 
-            await axios.put(`/api/apps/${app.appId.toString()}/update`, {
+            await axios.put(`/api/apps/update?appId=${appObject.appId}`, {
                 appData: appObject,
                 userId: user._id
             })
