@@ -1,88 +1,97 @@
 "use client";
-import React, { Dispatch, createContext, useContext, useReducer } from 'react';
-import { IApp } from 'src/models/app';
+import { ReactNode, createContext, useContext, useState } from "react";
 
-interface AppContextProps {
-  state: IApp;
-  dispatch: Dispatch<AppAction>;
+import {
+  AppTypeWithId
+} from "src/models/app";
+
+export const DEFAULT_APP: AppTypeWithId = {
+  _id: "",
+  version: "",
+  membership: [],
+  appId: "",
+  name: "",
+  description: "",
+  slug: "",
+  categories: [],
+  tags: [],
+  status: "draft",
+  icon: "",
+  bannerImage: "",
+  developer: {
+    name: "",
+    username: "",
+    userId: "",
+  },
+  formFlow: {
+    menuType: "text_input_to_text_output",
+    inputs: [],
+    output: {
+      render_type: "markdown",
+      save_to_db: false,
+    },
+    controls: [],
+  },
+  config: {
+    model: "",
+    modelType: "huggingface",
+    prompt: "",
+    params: {}
+  },
 }
-type AppAction = { type: "", payload: Partial<IApp> };
+// BuilderContext.tsx
 
-const appReducer = (state: IApp, action: AppAction): IApp => {
-  switch (action.type) {
-    case 'UPDATE_APP':
-      return { ...state, ...action.payload };
-    case 'UPDATE_APP_NAME':
-      return { ...state, name: action.payload };
-    case 'UPDATE_APP_DESCRIPTION':
-      return { ...state, description: action.payload };
-    case 'UPDATE_APP_IMAGE':
-      return { ...state, image: action.payload };
-    case 'UPDATE_APP_URL':
-      return { ...state, url: action.payload };
-    case 'UPDATE_APP_TAGS':
-      return { ...state, tags: action.payload };
-    case 'UPDATE_APP_CATEGORY':
-      return { ...state, category: action.payload };
-    default:
-      return state;
-  }
-};
+interface BuilderContextType {
+    builderData: AppTypeWithId;
+    updateBuilderData: (newData: AppTypeWithId) => void;
+}
 
-const AppContext = createContext<AppContextProps | undefined>(undefined);
+const BuilderContext = createContext<BuilderContextType | undefined>(undefined);
 
-const AppProvider: React.FC = ({ children }:{
-  children: React.ReactNode;
-}) => {
-  const initialState: IApp = {
-    appId:"" ,
-    config:{},
-    keywords: [],
-    isPublic: false,
-    hasCustomFunction: false,
-    status: 'draft' ,
-    version: '0.0.1',
-    name: '',
-    shortDescription: '',
-    description: "",
-    type: "",
-    categories:[],
-    tags:[],
-    developer: { name: "", username: "", userId:  null },
-    path: "",
-    membership:[],
-    coverImage: "",
-    icon: "",
-    isRecommended: false,
-    averageRating: 0,
-    formFlow:{
-      menuType: "text_input_to_text_output",
-      inputs: [],
-      controls: [],
-      output:{
-        render_type: "markdown",
-        save_to_db:false,
-      }
+export const useBuilderContext = () => {
+    const context = useContext(BuilderContext);
+    if (!context) {
+        throw new Error('useBuilderContext must be used within a BuilderProvider');
     }
-
-
-  };
-
-  const [state, dispatch] = useReducer(appReducer, initialState);
-
-  return (
-    <AppContext.Provider value={{ state, dispatch }}>
-      {children}
-    </AppContext.Provider>
-  );
+    return context;
 };
 
-export const useStore = () => {
-  const context = useContext(AppContext);
-  if (!context) {
-    throw new Error('useAppContext must be used within an AppProvider');
-  }
-  return context;
-};
+interface BuilderProviderProps {
+    children: ReactNode;
+    app: AppTypeWithId;
+}
 
-export default AppProvider;
+export const BuilderProvider = ({ children, app }: BuilderProviderProps) => {
+    const [builderData, setBuilderData] = useState(app);
+
+    const updateBuilderData = (newData: AppTypeWithId) => {
+        setBuilderData({ ...builderData, ...newData });
+    };
+    // pro user only
+    // useEffect(() => {
+        //  save builderData to localStorage
+
+        // if(!builderData) return;
+        // let savedData = localStorage.getItem('builderData');
+        // if (savedData) {
+        //     localStorage.removeItem('builderData');
+        // }
+        
+        // if (builderData){
+        //     localStorage.setItem('builderData', JSON.stringify(builderData));
+        // }   
+
+
+    // },[builderData]);//[builderData] is the dependency array, which tells React to only re-run the effect if builderData changes
+
+    return (
+        <BuilderContext.Provider value={{ builderData, updateBuilderData }}>
+            {builderData ? children :
+                <div className='w-full p-10 text-center text-xl text-red-600'>
+                    <p>Something went wrong</p>
+                    <p>Please try again later</p>
+                </div>
+            }
+        </BuilderContext.Provider>
+    );
+};

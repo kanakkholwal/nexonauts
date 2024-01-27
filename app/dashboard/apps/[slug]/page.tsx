@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Eye, Pencil } from 'lucide-react';
 import { getServerSession } from "next-auth/next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -9,9 +9,9 @@ import dbConnect from "src/lib/dbConnect";
 import AppModel from "src/models/app";
 import User from "src/models/user";
 
+import { revalidatePath } from "next/cache";
 import { sessionType } from "src/types/session";
 import { DeleteAppButton } from "./delete-btn";
-import { revalidatePath } from "next/cache";
 export default async function EditApplicationPage({ params }: {
     params: {
         slug: string
@@ -73,7 +73,19 @@ export default async function EditApplicationPage({ params }: {
                         Back to apps
                     </Link>
                 </Button>
+                <div className="flex gap-2">
+                <Button asChild>
+                    <Link href={`/apps/${app.slug}`}  target="_blank">
+                        <Eye className="w-5 h-5" />
+                    </Link>
+                </Button>
+                <Button variant="default_light" asChild>
+                    <Link href={`/dashboard/apps/${app.appId}/edit` }>
+                        <Pencil className="w-5 h-5" />
+                    </Link>
+                </Button>
                 <DeleteAppButton appId={app.appId} deleteApp={deleteApp}  />
+                </div>
             </div>
             <h2 className="text-3xl font-semibold">
                 {app.name}

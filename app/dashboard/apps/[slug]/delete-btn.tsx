@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Trash2 } from 'lucide-react';
 import { useRouter } from "next/navigation";
-// import { toast } from "sonner";
 import toast from "react-hot-toast";
 
 export function DeleteAppButton({ deleteApp, appId, className, ...props }: {
