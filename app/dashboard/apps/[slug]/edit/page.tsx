@@ -18,11 +18,15 @@ import { ChevronLeft } from 'lucide-react';
 import { getServerSession } from "next-auth/next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import AppView from "src/layouts/apps/app-view";
 import { getAppByAppId } from "src/lib/apps/actions";
 import { sessionType } from "src/types/session";
-
 import InfoTab from "./builder/info-tab";
-import { BuilderProvider } from "./store";
+import InputTab from "./builder/inputs-tab";
+import LogicTab from "./builder/logic-tab";
+import OutputTab from "./builder/output-tab";
+import { useAppStore } from './store';
+import StoreInitializer from './store-intializer';
 
 const STEPS = [{
     title: "Meta Data",
@@ -47,38 +51,40 @@ export default async function EditApplicationPage({ params }: {
 
 
     const app = await getAppByAppId(params.slug, session.user._id);
-    
+
     console.log(app);
     if (!app) return notFound();
 
+    useAppStore.setState({
+        ...app
+    })
 
 
 
 
     return (
-        <BuilderProvider app={app}>
-        <div className="space-y-4 mt-5">
-            <div className="flex justify-between items-center p-3 flex-wrap">
-                <Button variant="dark" asChild>
-                    <Link href={`/dashboard/apps`}>
-                        <ChevronLeft className="w-6 h-6 mr-2" />
-                        Back
-                    </Link>
-                </Button>
-            </div>
-            <h2 className="text-3xl font-semibold">
-                {app.name}
-            </h2>
-            <p className="pl-2 text-sm">
-                <Badge variant={(app.status === "published" ? "success_light" : app.status === "declined" ? "destructive_light" : app.status === "pending" ? "warning_light" : "default_light")} className="uppercase">
-                    {app.status}
-                </Badge>
-            </p>
-            <div className="flex gap-1 items-start justify-between w-full h-full ">
-                <div>
-
+        <>
+        <StoreInitializer app={app}/>
+            <div className="space-y-4 mt-5">
+                <div className="flex justify-between items-start p-3 flex-wrap">
+                    <Button variant="dark" asChild>
+                        <Link href={`/dashboard/apps`}>
+                            <ChevronLeft className="w-6 h-6 mr-2" />
+                            Back
+                        </Link>
+                    </Button>
                 </div>
-                    <Tabs defaultValue="app-info" className="w-[500px]">
+                <h2 className="text-3xl font-semibold">
+                    {app.name}
+                </h2>
+                <p className="pl-2 text-sm">
+                    <Badge variant={(app.status === "published" ? "success_light" : app.status === "declined" ? "destructive_light" : app.status === "pending" ? "warning_light" : "default_light")} className="uppercase">
+                        {app.status}
+                    </Badge>
+                </p>
+                <div className="flex gap-1 items-start justify-between w-full h-full ">
+                    <AppView user={session.user} app={useAppStore.getState()} />
+                    <Tabs defaultValue="app-info" className="w-full max-w-[500px]">
                         <TabsList className="grid w-full grid-cols-4 rounded-3xl shadow">
                             {STEPS.map((step) => (<TabsTrigger value={step.id} key={step.id} className="rounded-3xl">{step.title}</TabsTrigger>))}
                         </TabsList>
@@ -108,7 +114,7 @@ export default async function EditApplicationPage({ params }: {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-2">
-                                    {/* <InputTab inputs={app.formFlow.inputs} /> */}
+                                    <InputTab  />
                                 </CardContent>
 
                             </Card>
@@ -124,7 +130,7 @@ export default async function EditApplicationPage({ params }: {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-2">
-                                    {/* <LogicTab app={app} /> */}
+                                    <LogicTab/>
                                 </CardContent>
 
                             </Card>
@@ -140,16 +146,16 @@ export default async function EditApplicationPage({ params }: {
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent className="space-y-4">
-                                    {/* <OutputTab app={app} mode={mode} user={user} /> */}
+                                    <OutputTab user={session.user} />
                                 </CardContent>
 
                             </Card>
                         </TabsContent>
                     </Tabs>
 
-            </div>
+                </div>
 
-        </div>
-        </BuilderProvider>
+            </div>
+        </>
     );
 }
