@@ -48,7 +48,7 @@ const AppProvider: React.FC = ({ children }:{
     type: "",
     categories:[],
     tags:[],
-    developer: { name: "", username: "", userId:  null };
+    developer: { name: "", username: "", userId:  null },
     path: "",
     membership:[],
     coverImage: "",
@@ -77,7 +77,7 @@ const AppProvider: React.FC = ({ children }:{
   );
 };
 
-export const useAppContext = () => {
+export const useStore = () => {
   const context = useContext(AppContext);
   if (!context) {
     throw new Error('useAppContext must be used within an AppProvider');

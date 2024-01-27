@@ -17,10 +17,10 @@ import { AppType } from "src/types/app";
 import { SessionUserType } from "src/types/user";
 
 // import { BuilderProvider } from "../common/context/builder-context";
-import InfoTab from "./info-tab";
-import InputTab from "./inputs-tab";
-import LogicTab from "./logic-tab";
-import OutputTab from "./output-tab";
+// import InfoTab from "./info-tab";
+// import InputTab from "./inputs-tab";
+// import LogicTab from "./logic-tab";
+// import OutputTab from "./output-tab";
 
 // import AppEdit from "../app-edit";
 
@@ -81,7 +81,7 @@ export default function Builder({
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-6">
-                                <InfoTab app={app}/>
+                                {/* <InfoTab app={app}/> */}
 
                             </CardContent>
 
@@ -98,7 +98,7 @@ export default function Builder({
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-2">
-                                <InputTab inputs={app.formFlow.inputs} />
+                                {/* <InputTab inputs={app.formFlow.inputs} /> */}
                             </CardContent>
 
                         </Card>
@@ -114,7 +114,7 @@ export default function Builder({
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-2">
-                                <LogicTab app={app} />
+                                {/* <LogicTab app={app} /> */}
                             </CardContent>
 
                         </Card>
@@ -130,7 +130,7 @@ export default function Builder({
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-4">
-                                <OutputTab app={app} mode={mode} user={user} />
+                                {/* <OutputTab app={app} mode={mode} user={user} /> */}
                             </CardContent>
 
                         </Card>

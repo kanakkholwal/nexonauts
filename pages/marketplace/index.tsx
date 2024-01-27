@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FULL_DESCRIPTION, NAME, SHORT_DESCRIPTION, TITLE } from 'src/constants/marketplace';
 import Wrapper from 'src/layouts/marketplace';
+
 export default function Market({ user }) {
     return (<>
         <NextSeo

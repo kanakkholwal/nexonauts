@@ -23,7 +23,7 @@ import AppModel from "src/models/app";
 import { sessionType } from "src/types/session";
 
 import InfoTab from "./builder/info-tab";
-import AppProvider from "./store";
+
 const STEPS = [{
     title: "Meta Data",
     id: "app-info",
@@ -37,6 +37,7 @@ const STEPS = [{
     title: "Output",
     id: "app-output",
 }];
+
 export default async function EditApplicationPage({ params }: {
     params: {
         slug: string
@@ -79,7 +80,7 @@ export default async function EditApplicationPage({ params }: {
                 <div>
 
                 </div>
-                <AppProvider app={app}>
+                {/* <AppProvider app={app}> */}
                     <Tabs defaultValue="app-info" className="w-[500px]">
                         <TabsList className="grid w-full grid-cols-4 rounded-3xl shadow">
                             {STEPS.map((step) => (<TabsTrigger value={step.id} key={step.id} className="rounded-3xl">{step.title}</TabsTrigger>))}
@@ -148,7 +149,7 @@ export default async function EditApplicationPage({ params }: {
                             </Card>
                         </TabsContent>
                     </Tabs>
-                </AppProvider>
+                {/* </AppProvider> */}
 
             </div>
 
