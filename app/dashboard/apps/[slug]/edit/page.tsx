@@ -18,11 +18,11 @@ import { ChevronLeft } from 'lucide-react';
 import { getServerSession } from "next-auth/next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import dbConnect from "src/lib/dbConnect";
-import AppModel from "src/models/app";
+import { getAppByAppId } from "src/lib/apps/actions";
 import { sessionType } from "src/types/session";
 
 import InfoTab from "./builder/info-tab";
+import { BuilderProvider } from "./store";
 
 const STEPS = [{
     title: "Meta Data",
@@ -45,12 +45,9 @@ export default async function EditApplicationPage({ params }: {
 }) {
     const session = await getServerSession(authOptions) as sessionType;
 
-    await dbConnect();
 
-    const app = await AppModel.findOne({
-        appId: params.slug,
-        "developer.userId": session.user._id
-    }).lean();
+    const app = await getAppByAppId(params.slug, session.user._id);
+    
     console.log(app);
     if (!app) return notFound();
 
@@ -59,6 +56,7 @@ export default async function EditApplicationPage({ params }: {
 
 
     return (
+        <BuilderProvider app={app}>
         <div className="space-y-4 mt-5">
             <div className="flex justify-between items-center p-3 flex-wrap">
                 <Button variant="dark" asChild>
@@ -80,7 +78,6 @@ export default async function EditApplicationPage({ params }: {
                 <div>
 
                 </div>
-                {/* <AppProvider app={app}> */}
                     <Tabs defaultValue="app-info" className="w-[500px]">
                         <TabsList className="grid w-full grid-cols-4 rounded-3xl shadow">
                             {STEPS.map((step) => (<TabsTrigger value={step.id} key={step.id} className="rounded-3xl">{step.title}</TabsTrigger>))}
@@ -149,10 +146,10 @@ export default async function EditApplicationPage({ params }: {
                             </Card>
                         </TabsContent>
                     </Tabs>
-                {/* </AppProvider> */}
 
             </div>
 
         </div>
+        </BuilderProvider>
     );
 }

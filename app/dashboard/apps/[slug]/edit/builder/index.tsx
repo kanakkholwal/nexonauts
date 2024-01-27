@@ -17,7 +17,7 @@ import { AppType } from "src/types/app";
 import { SessionUserType } from "src/types/user";
 
 // import { BuilderProvider } from "../common/context/builder-context";
-// import InfoTab from "./info-tab";
+import InfoTab from "./info-tab";
 // import InputTab from "./inputs-tab";
 // import LogicTab from "./logic-tab";
 // import OutputTab from "./output-tab";
@@ -81,7 +81,7 @@ export default function Builder({
                                 </CardDescription>
                             </CardHeader>
                             <CardContent className="space-y-6">
-                                {/* <InfoTab app={app}/> */}
+                             <InfoTab/> 
 
                             </CardContent>
 
