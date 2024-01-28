@@ -80,7 +80,7 @@ export default function Navbar() {
         <div id="layer" aria-hidden={open ? "false" : "true"} className="fixed inset-0 z-10 h-screen w-screen origin-bottom scale-y-0 bg-white/70 backdrop-blur-2xl transition duration-500 dark:bg-gray-900/70 lg:hidden" />
         <div id="navlinks" className={"invisible absolute top-full left-0 z-20 w-full origin-top-right translate-y-1 scale-90 flex-col flex-wrap justify-end gap-6 rounded-3xl border border-gray-100 bg-white p-8 opacity-0 shadow-2xl shadow-gray-600/10 transition-all duration-300 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none lg:visible lg:relative lg:flex lg:w-auto lg:translate-y-0 lg:scale-100 lg:flex-row lg:items-center lg:gap-0 lg:border-none lg:bg-transparent lg:p-0 lg:opacity-100 lg:shadow-none lg:peer-checked:translate-y-0 dark:lg:bg-transparent" + (open ? " !visible !scale-100 !opacity-100 !lg:translate-y-0" : "")}>
           <div className="text-gray-600 dark:text-gray-300 lg:pr-4">
-            <NavigationMenu>
+            <NavigationMenu className="flex-col sm:flex-row">
               <NavigationMenuList>
                 <NavigationMenuItem>
                   <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>

@@ -52,6 +52,6 @@
         ".next/types/**/*.ts"],
     "exclude": [
         "node_modules",
-        "./src/pages/**/*",
+        "./src/pages/admin/**/*",
     ]
 }
