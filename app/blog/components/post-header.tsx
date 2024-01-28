@@ -8,20 +8,11 @@ import { AiOutlineFieldTime } from "react-icons/ai"
 
 
 
-export function PostHeader({ title, image, author, publishedAt, readTime }: {
+export function PostHeader({ title, image, publishedAt, readTime }: {
     title: string,
     image: string,
     publishedAt: string,
     readTime?: string,
-    author: {
-        name: string;
-        profileURL: string;
-        user?: {
-            _id?: string;
-            name?: string;
-            profileURL?: string;
-        } | string | null;
-    }
 }) {
 
     return (<>
@@ -42,13 +33,13 @@ export function PostHeader({ title, image, author, publishedAt, readTime }: {
                     </h1>
                     <div className="flex items-center gap-2 mt-4">
                         <div className="flex items-center gap-2">
-                            <Image src={author.profileURL} height={120} width={120} alt={author.name} className="w-8 h-8 rounded-full" />
+                            {/* <Image src={author?.user?.profilePicture.toString()} height={120} width={120} alt={author.name} className="w-8 h-8 rounded-full" /> */}
                             <span className="text-md font-semibold leading-none text-slate-600">
-                                {author.name}
+                                {/* {author.name} */}
                             </span>
                         </div>
                         <span className="text-sm font-medium leading-none text-slate-600 dark:text-slate-400">
-                            on {new Date(publishedAt).toLocaleDateString()}
+                            on {new Date(publishedAt).toLocaleDateString("en-US", { dateStyle: "long" })}
                         </span>
                     </div>
                     <div className="flex items-center gap-2 mt-2">

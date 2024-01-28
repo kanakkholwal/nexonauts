@@ -11,7 +11,7 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import CodeBlock from "components/code-block";
-import { FormElement } from "components/form-elements";
+// import { FormElement } from "components/form-elements";
 import { useState } from "react";
 
 import {
@@ -98,7 +98,7 @@ export default function HtmlToJsxTool() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-6">
-          <div >
+          <div  className="grid w-full gap-2">
             <Label htmlFor="Indentation">Indentation</Label>
             <Select
               onValueChange={(value) => {
@@ -128,7 +128,7 @@ export default function HtmlToJsxTool() {
             }} />
           </div>
 
-          <FormElement>
+          <div  className="grid w-full gap-2">
             <Label htmlFor="outputClassName">Output Class Name</Label>
             <Input
               type="text"
@@ -138,7 +138,7 @@ export default function HtmlToJsxTool() {
               value={settings.outputClassName}
               onChange={(e) => setSettings({ ...settings, outputClassName: e.target.value })}
               disabled={!settings.createClass}
-            /></FormElement>
+            /></div>
 
 
         </CardContent>
