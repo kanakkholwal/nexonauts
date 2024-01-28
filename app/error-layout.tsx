@@ -9,7 +9,7 @@ export function ErrorPage() {
 
 
     return <div className="min-h-screen w-full p-5 flex justify-between items-stretch bg-white ">
- 
+
         <div className="flex flex-col justify-center items-center p-4 w-full h-screen">
             <Image src="/404.svg" width={500} height={500} alt="Not found | Socially Bio"
                 className="object-contain w-full h-auto max-w-6xl mix-blend-multiply max-h-96"

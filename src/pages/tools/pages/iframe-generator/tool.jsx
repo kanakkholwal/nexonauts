@@ -1,11 +1,18 @@
 "use client";
-import { useState } from "react"
-import Select from 'components/form-elements/Select';
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select";
+import { useState } from "react";
+
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import CodeBlock from "components/CodeBlock";
-import FormElement from "components/form-elements/FormElement";
-import Input from "components/form-elements/Input";
-import Label from "components/form-elements/Label";
-import Button from "components/buttons";
+
 
 export default function IframeGenerator() {
     const SizeType = [
@@ -54,68 +61,140 @@ export default function IframeGenerator() {
     return (
         <div className="row p-2">
             <div className="col-sm-4 col-12">
-                <FormElement>
+                <div className="grid w-full gap-2">
                     <Input outlined type="text" name="url" placeholder="Enter the Url" value={url} onChange={(e) => setUrl(e.target.value)} />
                     <Label htmlFor="url" >Enter the Url</Label>
-                </FormElement>
+                </div>
             </div>
             <div className="col-sm-4 col-12">
-                <FormElement>
+                <div className="grid w-full gap-2">
                     <Input outlined type="text" name="name" placeholder="Enter the Name" value={name} onChange={(e) => setName(e.target.value)} />
                     <Label htmlFor="name" >Enter the Name</Label>
-                </FormElement>
+                </div>
             </div>
             <div className="col-sm-4 col-12">
 
-                <FormElement>
+                <div className="grid w-full gap-2">
                     <Input outlined type="text" name="width" placeholder="Enter width" value={width} onChange={(e) => setWidth(e.target.value)} />
                     <Label htmlFor="width" >Enter width</Label>
-                </FormElement>
+                </div>
             </div>
             <div className="col-sm-4 col-12">
 
-                <FormElement>
+                <div className="grid w-full gap-2">
                     <Input outlined type="text" name="height" placeholder="Enter height" value={height} onChange={(e) => setHeight(e.target.value)} />
                     <Label htmlFor="height" >Enter height</Label>
-                </FormElement>
+                </div>
             </div>
             <div className="col-sm-4 col-12">
-                <FormElement>
-                    <Select options={SizeType} onChange={(option) =>{
-                        setSizeType(option.value) 
-                    }} name="sizeType" />
+                <div className="grid w-full gap-2">
                     <Label htmlFor="sizeType" >Size Type</Label>
-                </FormElement>
+
+                    <Select
+                        name="sizeType"
+                        onValueChange={(value) => {
+                            setSizeType(value)
+
+                        }}
+                    >
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Size Type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {SizeType.map((item) => {
+                                return (
+                                    <SelectItem
+                                        key={item.value}
+                                        value={item.value}
+                                    >
+                                        {item.label}
+                                    </SelectItem>
+                                )
+                            })}
+                            <SelectItem value="light">Light</SelectItem>
+                            <SelectItem value="dark">Dark</SelectItem>
+                            <SelectItem value="system">System</SelectItem>
+                        </SelectContent>
+                    </Select>
+
+
+                </div>
             </div>
             <div className="col-sm-4 col-12">
-                <FormElement>
-                    <Select options={Border} onChange={(option =>{
-                        setBorder(option.value)
-                    })} name="Border" />
+                <div className="grid w-full gap-2">
                     <Label htmlFor="Border" >Border</Label>
-                </FormElement>
+                    <Select
+                        name="Border"
+
+                        onValueChange={(value) => {
+                            setBorder(value)
+
+                        }
+                        }
+                    >
+                        <SelectTrigger className="w-[180px]">
+                            <SelectValue placeholder="Border" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            {Border.map((item) => {
+                                return (
+                                    <SelectItem
+                                        key={item.value}
+                                        value={item.value}
+                                    >
+                                        {item.label}
+                                    </SelectItem>
+                                )
+                            })}
+                        </SelectContent>
+                    </Select>
+
+
+                </div>
             </div>
             {
                 isBorder && (<>
                     <div className="col-sm-4 col-12">
-                        <FormElement>
-                            <Select options={BorderType} onChange={option =>{
-                                setBorderType(option.value)
-                            }} name="BorderType" />
+                        <div className="grid w-full gap-2">
                             <Label htmlFor="BorderType" >BorderType</Label>
-                        </FormElement>
+                            <Select
+                                name="BorderType"
+                                onValueChange={(value) => {
+                                    setBorderType(value)
+
+                                }}
+                            >
+                                <SelectTrigger className="w-[180px]">
+                                    <SelectValue placeholder="BorderType" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    {BorderType.map((item) => {
+                                        return (
+                                            <SelectItem
+                                                key={item.value}
+                                                value={item.value}
+                                            >
+                                                {item.label}
+                                            </SelectItem>
+                                        )
+                                    }
+                                    )}
+                                </SelectContent>
+                            </Select>
+                        
+                        </div>
                     </div>
                     <div className="col-sm-4 col-12">
-                        <FormElement>
-                            <input type="color" name="BorderColor" value={borderColor} onChange={(e) => SetBorderColor(e.target.value)} />
+                        <div className="grid w-full gap-2">
                             <Label htmlFor="BorderColor">BorderColor</Label>
-                        </FormElement>
+                            <Input type="color" name="BorderColor" value={borderColor} onChange={(e) => SetBorderColor(e.target.value)} />
+                        </div>
                     </div>
                     <div className="col-sm-4 col-12">
-                        <FormElement>
+                        <div className="grid w-full gap-2">
                             <Input type="text" value={borderSize} onChange={(e) => SetBorderSize(e.target.value)} name="BorderWidth" />
                             <Label htmlFor="BorderWidth" >Border Width</Label>
-                        </FormElement>
+                        </div>
                     </div>
                 </>)
             }

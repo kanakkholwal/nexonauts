@@ -9,137 +9,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 import Image from "next/image";
 import { useDropzone } from 'react-dropzone';
-import { CgFileDocument } from "react-icons/cg";
+
 import { FiUpload } from "react-icons/fi";
 import { HiDownload } from "react-icons/hi";
-import styled from "styled-components";
 
 
-const ProgressCardWrapper = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    word-wrap: break-word;
-    border-radius: 0.5rem;
-    background: var(--card-bg);
-    max-width: 29rem;
-    margin-inline: auto;
-    padding:0.75rem 1rem;
-    margin-bottom:0.75rem;
-    border: 1px solid rgba(var(--grey-rgb), 0.25);
-    border-radius: 7px;
-    &>div{
-        flex:1 1 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-`;
 
-const ProgressCardDetails = styled.div`
-padding: 1.25rem 0.75rem;
-text-align: center;
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 0.5rem;
-width:100%;
-.fileSize{
-    font-weight: 400;
-font-size: 0.875rem;
-line-height: 1.25rem;
-svg{
-    font-size: 1.25rem;
-    margin-inline: 0.5rem;
-    margin-top: -0.25rem;
-}
-}
-.fileProgress{
-    font-weight: 500;
-font-size: 1rem;
-line-height: 1.5rem;
-color:var(--text-color);
-}
-`
-const ProgressBar = styled.div`
-width:100%;
-height:8px;
-position: relative;
-overflow: hidden;
-transition: all 0.2s linear;
-border-radius: 0.25rem;
-margin-bottom:1rem;
-`
-const ProgressMeter = styled.div`
-border-radius:inherit;
-width:auto;
-position:absolute;
-inset:0;
-background:var(--progress);
-`
-const PreviewArea = styled.div`
-margin-inline: auto;
-display: flex;
-flex-wrap: wrap;
-align-items: stretch;
-justify-content: space-evenly;
-gap: 1rem;
-
-`
-
-
-const ProgressCard = ({ progress, file, url }) => {
-  const [type, SetType] = useState("var(--theme)");
-
-  const CurrentValue = progress.toFixed(2);
-  useEffect(() => {
-    if (CurrentValue >= 98) {
-      SetType("var(--success)")
-    }
-    else if (CurrentValue >= 60 && CurrentValue <= 90) {
-      SetType("var(--warning)")
-    }
-    else if (CurrentValue >= 90) {
-      SetType("var(--info)")
-    }
-    else if (CurrentValue <= 60 && CurrentValue >= 25) {
-      SetType("var(--secondary)")
-    }
-    else {
-      SetType("var(--theme)")
-    }
-  }, [CurrentValue]);
-
-
-  const FileSize = (() => {
-    let size = file.size;
-    if (file.size / 1024 > 1024)
-      size = (file.size / (1024 * 1024)).toFixed(3).toString() + " M.B."
-    else
-      size = (file.size / 1024).toFixed(3).toString() + " K.B."
-
-    return size;
-  })();
-
-  return (
-    <>
-      <ProgressCardWrapper>
-        <div>
-          <ProgressCardDetails>
-            <span className="fileProgress">{CurrentValue + " %"} Completed</span>
-            <span className="fileSize"><CgFileDocument />{FileSize}</span>
-          </ProgressCardDetails>
-        </div>
-        <ProgressBar>
-          <ProgressMeter style={{ width: `${CurrentValue}%`, background: type }} />
-        </ProgressBar>
-      </ProgressCardWrapper>
-    </>)
-}
 function formatFileSize(sizeInBytes) {
   const KB = 1024;
   const fileSizeInKB = sizeInBytes / KB;
