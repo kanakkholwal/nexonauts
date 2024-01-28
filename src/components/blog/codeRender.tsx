@@ -1,6 +1,6 @@
-import React, { memo, useEffect } from "react";
-import Prism from "prismjs";
 import dynamic from "next/dynamic";
+import Prism from "prismjs";
+import { memo, useEffect } from "react";
 
 type Props = {
     data: any;
@@ -55,7 +55,7 @@ export const CodeBlockMarkdown = (props) => {
     }, [language, children]);
 
     return (
-        <pre tabIndex={0} className={`language-${language}`}>
+        <pre tabIndex={0} className={`language-${language} dark:border dark:border-border`}>
             <code className={`language-${language}`}>{children}</code>
         </pre>
     )

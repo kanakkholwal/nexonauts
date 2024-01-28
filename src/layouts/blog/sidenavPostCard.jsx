@@ -5,7 +5,7 @@ export default function SideBarPostCard({ post }) {
 
 
     return (
-        <div class="group flex justify-between items-start gap-4 md:gap-6 mx-2 sm:mx-4 w-full min-w-[300px] py-2 mb-4 last:mb-0 border-b border-border last:border-b-0">
+        <div className="group flex justify-between items-start gap-4 md:gap-6 mx-2 sm:mx-4 w-full min-w-[300px] py-2 mb-4 last:mb-0 border-b border-border last:border-b-0">
                 <Image src={post.image} width={80} height={80} alt={post.title} className="h-20 w-20 object-cover rounded-md border border-border" />
             <div>
             {/* <div className="flex items-center gap-2">

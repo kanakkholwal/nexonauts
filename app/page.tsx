@@ -40,7 +40,6 @@ export default async function HomePage() {
 	// get recent posts
 	const articles = await Post.find({ state: 'published' })
 		.sort({ createdAt: -1 })
-		.populate('author')
 		.limit(3)
 		.select('title description slug image')
 		.exec();
