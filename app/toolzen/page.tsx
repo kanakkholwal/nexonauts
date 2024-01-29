@@ -69,7 +69,7 @@ export default async function Page() {
         { $project: { _id: 0, name: 1, slug: 1, tools: { $slice: ["$tools", 6] } } },
         { $match: { slug: { $in: slugs } } },
     ]);
-    console.log(categorized_tools);
+    // console.log(categorized_tools);
 
     return (<>
         <header>
