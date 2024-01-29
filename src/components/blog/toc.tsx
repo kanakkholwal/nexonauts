@@ -77,7 +77,7 @@ export default function TOC({ blocks }: {
 
 
     return (
-        <StyledTOC>
+        <>
             {/* <div className="Toc_Header">
                 <MdFormatListNumbered size={20} />
                 <span>Table of Contents</span>
@@ -89,7 +89,7 @@ export default function TOC({ blocks }: {
                 </div> */}
             {/* </Collapse> */}
 
-        </StyledTOC>
+        </>
     )
 
 }
