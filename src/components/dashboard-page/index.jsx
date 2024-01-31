@@ -12,7 +12,7 @@ import { TbBrandGoogleAnalytics } from "react-icons/tb";
 import { RiAppsLine } from "react-icons/ri";
 import { MdOutlineArticle } from "react-icons/md";
 
-export { Header } from "./elements";
+
 
 const SocialMedia = [
     {

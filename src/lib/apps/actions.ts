@@ -2,6 +2,7 @@
 import mongoose from "mongoose";
 import dbConnect from "src/lib/dbConnect";
 import AppModel, {
+    AppReview,
     AppTypeWithId
 } from "src/models/app";
 
@@ -37,4 +38,31 @@ export async function getPublicApps(query: string, currentPage: number, filter: 
 
     
     return {apps:JSON.parse(JSON.stringify(apps)),totalPages}
+}
+
+export async function getAppBySlug(slug: string): Promise<AppTypeWithId | null> {
+    await dbConnect();
+    const app = await AppModel.findOne({
+        slug: slug
+    }).select("-config").exec();
+    return JSON.parse(JSON.stringify(app));
+
+}
+export async function getAppReviews(appId: string, currentPage: number) {
+    const resultsPerPage = 32;
+    const skip = currentPage * resultsPerPage - resultsPerPage;
+    await dbConnect();
+    const reviews = await AppReview.findOne({
+        appId: appId,
+    })
+    .populate('userId', 'name username profilePicture')
+    .sort({ createdAt: -1 })
+    .skip(skip)
+    .limit(resultsPerPage)
+    .exec();
+    const totalPages = Math.ceil((await AppReview.countDocuments({appId: appId})) / resultsPerPage);
+    return {
+        reviews:JSON.parse(JSON.stringify(reviews)),
+        currentPage,totalPages
+    }
 }

@@ -1,6 +1,5 @@
-import App, { Usage } from "models/app";
+import App from "models/app";
 import User from "models/user";
-import mongoose from "mongoose";
 
 export const DEV_VIEW_KEYS = "name shortDescription description appId type path coverImage recommended version ratings membership categories tags developer createdAt averageRating";
 export const PUBLIC_VIEW_KEYS = "name shortDescription description appId type path coverImage recommended version ratings membership categories tags developer createdAt averageRating";
@@ -33,7 +32,7 @@ export async function getAppsOfUser(userId: string, options?: Record<string, any
         }
     }
 
-    return {
+    return {    
         sucess: true,
         message: 'Apps found!',
         apps: userApps
@@ -69,87 +68,7 @@ export async function getAppOfUserByAPPID(userId: string, appId: string, options
         app: app
     }
 }
-export async function getUsageByUser(userId: string) {
 
-    const allUsage = await Usage.aggregate([
-        {
-            $match: {
-                "usage.userId": new mongoose.Types.ObjectId(userId)
-            }
-        },
-        {
-            $unwind: "$usage"
-        },
-        {
-            $match: {
-                "usage.userId": userId
-            }
-        },
-        {
-            $group: {
-                _id: "$usage.userId",
-                usages: {
-                    $push: "$usage"
-                }
-            }
-        }
-    ]).exec()
-    if (!allUsage) {
-        console.log("No usage found!");
-        return {
-            sucess: false,
-            message: 'No usage found!',
-            usages: []
-        }
-    }
-    return {
-        sucess: true,
-        message: 'Usage found!',
-        usages: allUsage
-    }
-
-}
-export async function getUsageByUserAndAppId(userId: string, appId: string) {
-
-    const allUsage = await Usage.aggregate([
-        {
-            $match: {
-                "usage.userId": new mongoose.Types.ObjectId(userId),
-                "usage.appId": new mongoose.Types.ObjectId(appId)
-            }
-        },
-        {
-            $unwind: "$usage"
-        },
-        {
-            $match: {
-                "usage.userId": userId,
-                "usage.appId": appId
-            }
-        },
-        {
-            $group: {
-                _id: "$usage.userId",
-                usages: {
-                    $push: "$usage"
-                }
-            }
-        }
-    ]).exec();
-    if (!allUsage) {
-        console.log("No usage found!");
-        return {
-            sucess: false,
-            message: 'No usage found!',
-            usages: []
-        }
-    }
-    return {
-        sucess: true,
-        message: 'Usage found!',
-        usages: allUsage
-    }
-}
 export async function getAllApps(LIMIT = 5) {
 
     const [allApps, allPopularApps] = await Promise.allSettled([
@@ -159,7 +78,7 @@ export async function getAllApps(LIMIT = 5) {
         .exec(),
         App.find({
             enabled: true, state: "published"
-        }).sort({ recommended: -1, usage: -1, ratings: -1 })
+        }).sort({ recommended: -1, AppUsage: -1, ratings: -1 })
             .select(PUBLIC_VIEW_KEYS)
             .limit(LIMIT)
         ]);

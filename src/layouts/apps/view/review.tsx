@@ -1,3 +1,4 @@
+"use client";
 import {
     Avatar,
     AvatarFallback,
@@ -18,11 +19,12 @@ import { AiFillStar } from "react-icons/ai";
 import { CgSpinner } from "react-icons/cg";
 import { MdOutlineExpandMore } from "react-icons/md";
 import { TbSend } from "react-icons/tb";
+import { AppTypeWithId } from "src/models/app";
 import { AppTypeWithFormFlow } from "src/types/app";
 import { SessionUserType } from "src/types/user";
 
 export function PostReview({ app, user }: {
-    app: AppTypeWithFormFlow,
+    app: AppTypeWithId,
     user: SessionUserType
 }) {
     const [review, setReview] = useState("");

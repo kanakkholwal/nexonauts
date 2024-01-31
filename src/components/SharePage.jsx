@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import './_SharePage.scss';
+
 export default function SharePage({ size = 24, ...props }) {
 
     const [share, setShare] = useState(false);
