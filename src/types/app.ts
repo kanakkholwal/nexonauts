@@ -22,7 +22,9 @@ export type AppType = {
         userId: string | null;
     };
     path: string;
-    coverImage: string | null;
+    iconImage: string;
+    bannerImage?: string;
+
     isRecommended: boolean;
     createdAt: Date;
     formFlow: FormFlowType;
@@ -44,8 +46,8 @@ export type AppTypeRenderable = Omit<AppType, "config" | "reviews" | "usage"> & 
 export type FormFlowType = {
     menuType: TypesOfApp;
     inputs: InputType[];
-    controls: Controls[];
-    outputs:outputsType
+    controls?: Controls[];
+    output:outputsType
 }
 export type outputsType = {
     render_type : string | "markdown" | "html" | "pdf" |"plain/text",
@@ -61,14 +63,14 @@ interface Controls {
 }
 // Also change mongo schema
 export type InputType = {
-    type: string;
-    name: string;
-    label: string;
-    placeholder: string;
-    required: boolean;
-    defaultValue: string;
-    value?: string;
-    id: string;
+    field_type: string;
+    field_name: string;
+    field_label: string;
+    field_placeholder: string;
+    mandatory: boolean;
+    field_defaultValue: string;
+    field_value?: string;
+    field_id: string;
     _id?: string;
     helperText?: string;
     options:OptionType[] | [];

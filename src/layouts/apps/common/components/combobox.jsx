@@ -38,7 +38,7 @@ const ComboBox= ({
 ) => {
     const [open, setOpen] = React.useState(false)
     const [value, setValue] = React.useState(givenValue[input.field_id] ?? "");
-    const suggestedValues = input.field_constraints?.suggested_options?.map((item) =>{
+    const suggestedValues = input.options.map((item) =>{
         return {
             label:item,
             value:item
@@ -55,7 +55,7 @@ const ComboBox= ({
         <div className="flex flex-col items-start appInput">
       <Label htmlFor={input.field_id} className="text-lg font-semibold mb-2">
         {input.field_label}
-        {input.field_mandatory && <span className="text-red-500 ms-1">*</span>}
+        {input.field_required && <span className="text-red-500 ms-1">*</span>}
       </Label>  
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>

@@ -1,4 +1,4 @@
-import { Usage } from "models/app";
+import { AppUsage } from "models/app";
 import mongoose from "mongoose";
 import { CgWorkAlt } from 'react-icons/cg';
 import { FcSalesPerformance } from 'react-icons/fc';
@@ -30,7 +30,7 @@ export async function getUsageData(apps: AppType[], userId: string) {
     const today = new Date().toISOString().split('T')[0]; // Get today's date
 
     // Use MongoDB aggregation to aggregate userUsage data
-    const userUsage = await Usage.aggregate([
+    const userUsage = await AppUsage.aggregate([
         {
             $match: {
                 userId: new mongoose.Types.ObjectId(userId),
@@ -95,7 +95,7 @@ export async function getUsageData(apps: AppType[], userId: string) {
 
 export async function getMostUsedApp(apps: AppType[], userId: string) {
     // Use MongoDB aggregation to find the most used app by the user
-    const mostUsedApp = await Usage.aggregate([
+    const mostUsedApp = await AppUsage.aggregate([
         {
             $match: {
                 userId: new mongoose.Types.ObjectId(userId),

@@ -24,7 +24,6 @@ import {
 
 import axios from "axios";
 import CodeBlock from "components/code-block";
-import { FormElement, FormGroup } from "components/form-elements";
 import { useEffect, useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 
@@ -110,25 +109,25 @@ function Website({ setCode }) {
 
     return (
         <div>
-            <FormGroup>
-                <FormElement>
+            <div className="w-full flex items-center gap-4 flex-wrap">
+                <div className="grid w-full gap-2">
                     <Label>Website Name</Label>
                     <Input variant="ghost" type="text" placeholder="Website Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
 
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Alternate Name</Label>
                     <Input variant="ghost" type="text" placeholder="Alternate Name"
                         value={alternateName}
                         onChange={(e) => setAlternateName(e.target.value)}
 
                     />
-                </FormElement>
-            </FormGroup>
-            <FormElement>
+                </div>
+            </div>
+            <div className="grid w-full gap-2">
                 <Label>Website URL</Label>
                 <Input variant="ghost" type="url" placeholder="Website URL (include the protocol)"
                     value={url}
@@ -136,17 +135,17 @@ function Website({ setCode }) {
 
 
                 />
-            </FormElement>
+            </div>
 
-            <FormElement>
+            <div className="grid w-full gap-2">
                 <Label>Search Query</Label>
                 <Input variant="ghost" type="text" placeholder="URL for internal site search before query (e.g. https://example.com/search?q=)"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
 
                 />
-            </FormElement>
-            <FormElement>
+            </div>
+            <div className="grid w-full gap-2">
                 <Label>Query String</Label>
                 <Input variant="ghost" type="text" placeholder="Optional: string in the search URL occurring after the query"
                     value={queryString}
@@ -154,7 +153,7 @@ function Website({ setCode }) {
                     disabled={searchQuery === ""}
 
                 />
-            </FormElement>
+            </div>
 
         </div>
     )
@@ -200,8 +199,8 @@ function Breadcrumbs({ setCode }) {
                             <MdDeleteOutline className="w-4 h-4" />
                         </button></h6>
                     <hr className="my-2 mb-3" />
-                    <FormGroup>
-                        <FormElement>
+                    <div className="w-full flex items-center gap-4 flex-wrap">
+                        <div className="grid w-full gap-2">
                             <Label>Item Name</Label>
                             <Input variant="ghost" type="text" placeholder="Item Name"
                                 value={item.name}
@@ -212,8 +211,8 @@ function Breadcrumbs({ setCode }) {
                                 }}
                             />
 
-                        </FormElement>
-                        <FormElement>
+                        </div>
+                        <div className="grid w-full gap-2">
                             <Label>Item URL</Label>
                             <Input variant="ghost" type="url" placeholder="Item URL"
                                 value={item.url}
@@ -224,8 +223,8 @@ function Breadcrumbs({ setCode }) {
                                 }}
 
                             />
-                        </FormElement>
-                        <FormElement>
+                        </div>
+                        <div className="grid w-full gap-2">
                             <Label>Item Image</Label>
                             <Input variant="ghost" type="url" placeholder="Item Image URL"
                                 value={item.image}
@@ -236,8 +235,8 @@ function Breadcrumbs({ setCode }) {
                                 }}
 
                             />
-                        </FormElement>
-                    </FormGroup>
+                        </div>
+                    </div>
                 </div>)
             })}
             <Button size="sm" onClick={() => {
@@ -285,76 +284,76 @@ function Person({ setCode }) {
     return (
         <div>
             <div className="flex gap-2 items-stretch justify-start w-full flex-wrap">
-                <FormElement>
+                <div className="grid w-full gap-2">
                     <Label>Name</Label>
                     <Input variant="ghost" type="text" placeholder="Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Alternate Name</Label>
                     <Input variant="ghost" type="text" placeholder="Alternate Name"
                         value={alternateName}
                         onChange={(e) => setAlternateName(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>URL</Label>
                     <Input variant="ghost" type="url" placeholder="URL"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Image</Label>
                     <Input variant="ghost" type="url" placeholder="Image URL"
                         value={image}
                         onChange={(e) => setImage(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Job Title</Label>
                     <Input variant="ghost" type="text" placeholder="Job Title"
                         value={jobTitle}
                         onChange={(e) => setJobTitle(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Works For</Label>
                     <Input variant="ghost" type="text" placeholder="Works For"
                         value={worksFor}
                         onChange={(e) => setWorksFor(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Telephone</Label>
                     <Input variant="ghost" type="tel" placeholder="Telephone"
                         value={telephone}
                         onChange={(e) => setTelephone(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Email</Label>
                     <Input variant="ghost" type="email" placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Address</Label>
                     <Input variant="ghost" type="text" placeholder="Address"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Same As</Label>
                     <Input variant="ghost" type="url" placeholder="Same As"
                         value={sameAs}
                         onChange={(e) => setSameAs(e.target.value)}
                     />
-                </FormElement>
+                </div>
             </div>
         </div>
     )
@@ -430,96 +429,96 @@ function Article({ setCode }) {
                 />
                 <Label htmlFor="isAmp" className="mb-0">Accelerated Mobile Page (AMP)?</Label>
             </div>
-            <FormGroup>
-                <FormElement>
+            <div className="grid w-full gap-2">
+                <div className="grid w-full gap-2">
                     <Label>Headline</Label>
                     <Input variant="ghost" type="text" placeholder="Headline"
                         value={headline}
                         onChange={(e) => setHeadline(e.target.value)}
                     />
-                </FormElement>
+                </div>
 
-                <FormElement>
+                <div className="grid w-full gap-2">
                     <Label>Image</Label>
                     <Input variant="ghost" type="url" placeholder="Image URL"
                         value={image}
                         onChange={(e) => setImage(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Width</Label>
                     <Input variant="ghost" type="number" placeholder="Image Width"
                         value={width}
                         onChange={(e) => setWidth(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Height</Label>
                     <Input variant="ghost" type="number" placeholder="Image Height"
                         value={height}
                         onChange={(e) => setHeight(e.target.value)}
                     />
-                </FormElement>
-            </FormGroup>
+                </div>
+            </div>
 
-            {isAMP ? <FormGroup>
-                <FormElement>
+            {isAMP ? <div className="grid w-full gap-2">
+                <div className="grid w-full gap-2">
                     <Label>Author</Label>
                     <Input variant="ghost" type="text" placeholder="Author"
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Publisher</Label>
                     <Input variant="ghost" type="text" placeholder="Publisher"
                         value={publisher}
                         onChange={(e) => setPublisher(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Date Published</Label>
                     <Input variant="ghost" type="date" placeholder="Date Published"
                         value={datePublished}
                         onChange={(e) => setDatePublished(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Date Modified</Label>
                     <Input variant="ghost" type="date" placeholder="Date Modified"
                         value={dateModified}
                         onChange={(e) => setDateModified(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Description</Label>
                     <Input variant="ghost" type="text" placeholder="Description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Article Body</Label>
                     <Input variant="ghost" type="text" placeholder="Article Body"
                         value={articleBody}
                         onChange={(e) => setArticleBody(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>URL</Label>
                     <Input variant="ghost" type="url" placeholder="URL"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Same As</Label>
                     <Input variant="ghost" type="url" placeholder="Same As"
                         value={sameAs}
                         onChange={(e) => setSameAs(e.target.value)}
                     />
-                </FormElement>
-            </FormGroup> : null}
+                </div>
+            </div> : null}
 
         </div>
     )
@@ -657,43 +656,43 @@ function Product({ setCode }) {
     }, [])
     return (
         <div>
-            <FormGroup>
+            <div className="w-full flex items-center gap-4 flex-wrap">
 
-                <FormElement>
+                <div className="grid w-full gap-2">
                     <Label>Name</Label>
                     <Input variant="ghost" type="text" placeholder="Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Image</Label>
                     <Input variant="ghost" type="url" placeholder="Image URL"
                         value={image}
                         onChange={(e) => setImage(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Description</Label>
                     <Input variant="ghost" type="text" placeholder="Description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>Brand</Label>
                     <Input variant="ghost" type="text" placeholder="Brand"
                         value={brand}
                         onChange={(e) => setBrand(e.target.value)}
                     />
-                </FormElement>
-                <FormElement>
+                </div>
+                <div className="grid w-full gap-2">
                     <Label>URL</Label>
                     <Input variant="ghost" type="url" placeholder="URL"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                     />
-                </FormElement>
+                </div>
                 <div>
                     <Label>Types</Label>
                     <div className="flex gap-2 items-stretch justify-start w-full">
@@ -745,7 +744,7 @@ function Product({ setCode }) {
 
 
 
-                <FormGroup>
+                <div className="w-full flex items-center gap-4 flex-wrap">
 
                     <div className="mb-2">
                         <Label>Offers</Label>
@@ -791,10 +790,10 @@ function Product({ setCode }) {
                         </Select>
                             : <Input value={"Loading ..."} disabled={true} />}
                     </div>
-                </FormGroup>
+                </div>
 
-                {offers.type === "Offer" ? <FormGroup>
-                    <FormElement>
+                {offers.type === "Offer" ? <div className="w-full flex items-center gap-4 flex-wrap">
+                    <div className="grid w-full gap-2">
                         <Label>Offer Price</Label>
                         <Input variant="ghost" type="number" placeholder="Offer Price"
                             value={offers.price}
@@ -806,8 +805,8 @@ function Product({ setCode }) {
                             }
                             )}
                         />
-                    </FormElement>
-                    <FormElement>
+                    </div>
+                    <div className="grid w-full gap-2">
                         <Label>Offer Price Valid Until</Label>
                         <Input variant="ghost" type="date" placeholder="Offer Price Valid Until"
                             value={offers.priceValidUntil}
@@ -819,7 +818,7 @@ function Product({ setCode }) {
                             }
                             )}
                         />
-                    </FormElement>
+                    </div>
                     <div className="mb-2">
                         <Label>Offer Item Condition</Label>
                         <Select onValueChange={(value) => {
@@ -885,10 +884,10 @@ function Product({ setCode }) {
 
 
 
-                </FormGroup> : null}
+                </div> : null}
 
-                {offers.type === "AggregateOffer" ? <FormGroup>
-                    <FormElement>
+                {offers.type === "AggregateOffer" ? <div className="w-full flex items-center gap-4 flex-wrap">
+                    <div className="grid w-full gap-2">
                         <Label>Aggregate rating value</Label>
                         <Input variant="ghost" type="number" placeholder="Aggregate rating value"
                             value={aggregateRating.ratingValue}
@@ -899,8 +898,8 @@ function Product({ setCode }) {
                                 }
                             })}
                         />
-                    </FormElement>
-                    <FormElement>
+                    </div>
+                    <div className="w-full flex items-center gap-4 flex-wrap">
                         <Label>Aggregate rating review count</Label>
                         <Input variant="ghost" type="number" placeholder="Aggregate rating review count"
                             value={aggregateRating.ratingCount}
@@ -911,8 +910,8 @@ function Product({ setCode }) {
                                 }
                             })}
                         />
-                    </FormElement>
-                    <FormElement>
+                    </div>
+                    <div className="w-full flex items-center gap-4 flex-wrap">
                         <Label>Aggregate rating best rating</Label>
                         <Input variant="ghost" type="number" placeholder="Aggregate rating best rating"
                             value={aggregateRating.bestRating}
@@ -923,8 +922,8 @@ function Product({ setCode }) {
                                 }
                             })}
                         />
-                    </FormElement>
-                    <FormElement>
+                    </div>
+                    <div className="w-full flex items-center gap-4 flex-wrap">
                         <Label>Aggregate rating worst rating</Label>
                         <Input variant="ghost" type="number" placeholder="Aggregate rating worst rating"
                             value={aggregateRating.worstRating}
@@ -935,10 +934,10 @@ function Product({ setCode }) {
                                 }
                             })}
                         />
-                    </FormElement>
+                    </div>
 
-                </FormGroup> : null}
-            </FormGroup>
+                </div> : null}
+            </div>
 
         </div>
     )

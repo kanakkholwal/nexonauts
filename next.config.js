@@ -35,6 +35,9 @@ const nextConfig = withPWA({
     // config.experiments.topLevelAwait = true 
     return config;
   },
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
 });
 
 
