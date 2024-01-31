@@ -21,17 +21,11 @@ export default async function Page() {
     if (session) return redirect("/dashboard")
 
     return (
-        <main className="min-h-screen w-full flex flex-col justify-center items-center bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600">
+        <>
 
-
-
-<div className='rounded-3xl bg-slate-100 dark:bg-slate-800 flex justify-around items-center shadow-lg '  data-aos="fade-left">
-
-                <div className='w-full lg:w-[540px]'>
-                    <div className='py-8 px-8'>
                         <div className='text-center'>
                             <Link href='/' className="text-center">
-                            <Image className="h-10 mx-auto dark:invert" src="/assets/logo.svg" alt="Nexonauts.png" width={200} height={40}  priority/>
+                                <Image className="h-10 mx-auto dark:invert" src="/assets/logo.svg" alt="Nexonauts.png" width={200} height={40} priority />
                             </Link>
                             <h2 className='font-bold text-xl mt-5'>
                                 Welcome back, Login.
@@ -39,14 +33,9 @@ export default async function Page() {
                             <p className='text-base text-slate-600 dark:text-slate-300 mb-8'>
                                 Login to your account to access your dashboard
                             </p>
-                            <UserAuthForm  data-aos="fade-up" />
+                            <UserAuthForm data-aos="fade-up" />
                         </div>
 
-
-                    </div>
-                </div>
-            </div>
-
-        </main>
+        </>
     )
 }

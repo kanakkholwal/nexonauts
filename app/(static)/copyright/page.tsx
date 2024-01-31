@@ -6,10 +6,7 @@ import Link from "next/link";
 export default async function Page() {
 
     return (<>
-        <header>
-            <Navbar />
-        </header>
-        <main className="space-y-40 mb-40 max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
+     
             <div className="relative" id="home">
                 <div aria-hidden="true" className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
                     <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
@@ -21,8 +18,6 @@ export default async function Page() {
                             <h1 className="text-gray-900 dark:text-white font-bold text-3xl md:text-4xl xl:text-5xl">
                             Copyright Disclaimer
                             </h1>
-
-
                         </div>
 
                     </div>
@@ -42,8 +37,7 @@ export default async function Page() {
                 <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">Contact Information</h4>
                 <p>For any copyright-related queries, concerns, or takedown requests, please contact us at <Link  href="/contact"  className="font-bold italic text-primary hover:underline">Contact Us</Link>.</p>
             </section>
-        </main>
-        <Footer />
+      
 
     </>)
 }

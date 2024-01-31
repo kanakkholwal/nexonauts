@@ -234,10 +234,10 @@ appSchema.index({
 });
 
 // Model creation for Review, Usage, and App
-const Review: Model<IReview> = mongoose.models.Review || mongoose.model<IReview>('Review', reviewSchema);
-const Usage: Model<IUsage> = mongoose.models.Usage || mongoose.model<IUsage>('Usage', usageSchema);
+const AppReview: Model<IReview> = mongoose.models.Review || mongoose.model<IReview>('AppReview', reviewSchema);
+const AppUsage: Model<IUsage> = mongoose.models.Usage || mongoose.model<IUsage>('AppUsage', usageSchema);
 const App: Model<IApp> = mongoose.models.App || mongoose.model<IApp>('App', appSchema);
 
-export { App, Review, Usage };
+export { App, AppReview, AppUsage };
 export default App;
 
