@@ -1,6 +1,6 @@
 
-import Post from 'models/post';
-import User from 'models/user';
+import Post from 'src/models/post';
+import User from 'src/models/user';
 
 export const PUBLIC_VIEW_KEYS = "title description slug coverImage labels claps publishedAt author image";
 export const PUBLIC_POST_VIEW_KEYS = "title description slug coverImage labels claps publishedAt content publishedAt comments author image";
@@ -46,7 +46,7 @@ export async function getPostBySlug(slug: string) {
         slug,
         state: 'published'
     },{lean: true})
-        .populate('author', 'name username profileURL')
+        .populate('author', 'name username profilePicture')
         .select(PUBLIC_POST_VIEW_KEYS)
         .exec()
     if (!post) {
@@ -59,9 +59,22 @@ export async function getPostBySlug(slug: string) {
     return {
         success: true,
         message: 'Post found!',
-        post
+        post:JSON.parse(JSON.stringify(post))
     }
 
+
+}
+export async function getRecentPosts(noOfPost:number){
+
+    
+    const posts = await Post.find({ state: 'published' })
+    .sort({ createdAt: -1 })
+    .populate('author')
+    .limit(noOfPost ?? 5)
+    .select('title description slug labels image author createdAt publishedAt comments')
+    .populate('analytics').exec();
+
+    return JSON.parse(JSON.stringify(posts));
 
 }
 

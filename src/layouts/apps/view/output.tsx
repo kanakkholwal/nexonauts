@@ -6,6 +6,7 @@ import {
     CardHeader,
     CardTitle
 } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import Copy from "copy-to-clipboard";
 import Markdown from 'markdown-to-jsx';
 import toast from "react-hot-toast";
@@ -30,7 +31,7 @@ export function RenderOutput({ output, loading, outputConfig }: RenderOutputProp
                 </CardDescription>
             </div>
             <div>
-                <Button variant="gradient" onClick={() => {
+                <Button size="sm" variant="gradient_blue" onClick={() => {
                     if (output.type !== "text/plain" || typeof output.data !== "string")
                         return;
                     if (output.data === null || output.data.trim() === "")
@@ -49,13 +50,13 @@ export function RenderOutput({ output, loading, outputConfig }: RenderOutputProp
             </div>
         </CardHeader>
         <CardContent>
-            <div className="bg-slate-50 w-full p-5 py-8 rounded-md">
+            <div className="w-full p-5 py-8 rounded-md">
                 {loading ? <>
-                    <div className="animate-pulse bg-slate-200 w-[95%] h-4 mb-2 rounded-md" />
-                    <div className="animate-pulse bg-slate-200 w-[75%] h-4 mb-2 rounded-md" />
-                    <div className="animate-pulse bg-slate-200 w-[90%] h-4 mb-2 rounded-md" />
-                    <div className="animate-pulse bg-slate-200 w-[60%] h-4 mb-2 rounded-md" />
-                    <div className="animate-pulse bg-slate-200 w-[70%] h-4 mb-2 rounded-md" />
+                    <Skeleton className=" w-[95%] h-4 mb-2 rounded-md" />
+                    <Skeleton className=" w-[75%] h-4 mb-2 rounded-md" />
+                    <Skeleton className=" w-[90%] h-4 mb-2 rounded-md" />
+                    <Skeleton className=" w-[60%] h-4 mb-2 rounded-md" />
+                    <Skeleton className=" w-[70%] h-4 mb-2 rounded-md" />
                 </> : <>
                     {(output.data === null || output.data?.trim() === "") ?
                         <p className="text-foreground text-center">No output generated</p> : <>

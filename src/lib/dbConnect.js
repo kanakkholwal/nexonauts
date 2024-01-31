@@ -31,8 +31,8 @@ async function dbConnect(db = "main") {
 
     if (!cached.promise) {
         const opts = {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
+            // useNewUrlParser: true,
+            // useUnifiedTopology: true,
         }
         mongoose.set('strictQuery', false);
         cached.promise = mongoose.connect(MONGODB_URI + collectionName + "?retryWrites=true&w=majority", opts).then(mongoose => {

@@ -6,7 +6,7 @@ import App from "models/app";
 import Post from "models/post";
 import User from "models/user";
 import nextConnect from 'next-connect';
-import { getUsageByUser } from "src/utils/app";
+// import { getUsageByUser } from "src/utils/app";
 
 export default nextConnect(handler)
   .use(hasTokenMiddleware)
@@ -24,17 +24,17 @@ export default nextConnect(handler)
         return res.status(403).json({ verified: result.verified, message: result.message });
       }
       // get all posts created by user
-      const posts = await Post.find({ author: existingUser._id }).select('author').exec();
+      // const posts = await Post.find({ author: existingUser._id }).select('author').exec();
       // comments by the user
-      const comments = await Post.find({ comments: { $elemMatch: { author: existingUser._id } } }).select('comments').exec();
+      // const comments = await Post.find({ comments: { $elemMatch: { author: existingUser._id } } }).select('comments').exec();
 
       // get app usage data of user
-      const total_app_usage = await getUsageByUser(userId);
+      // const total_app_usage = await getUsageByUser(userId);
       // reduce usage data to get total usage
       // const totalUsage = total_app_usage.usages;
-      console.log(total_app_usage);
+      // console.log(total_app_usage);
 
-      const apps = await App.find({}).select("+usage").exec();
+      // const apps = await App.find({}).select("+usage").exec();
 
       // const usage = await getUsageData(apps, userId);
       // const mostUsed = await getMostUsedApp(apps, userId);
@@ -43,8 +43,8 @@ export default nextConnect(handler)
       return res.status(200).json({
         message: "Stats fetched successFully",
         stats: {
-          posts: posts.length,
-          comments: comments.length,
+          posts: 0,
+          comments: 0,
           usage: {
             totalUsageToday:5,
             totalUsage:20,

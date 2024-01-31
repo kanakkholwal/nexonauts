@@ -1,10 +1,10 @@
 // components/RadioButtonField.tsx
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { InputType } from "src/types/app";
+import { inputType } from "src/models/app";
 
 interface RadioButtonFieldProps {
-  input: InputType,
+  input: inputType,
   value: {
     [key: string]: string
   },
@@ -18,23 +18,23 @@ const RadioButtonField = ({ input, value, onChange }: RadioButtonFieldProps) => 
 
   return (
     <RadioGroup className='my-2 appInput'
-      defaultValue={value[input.id]}
-      required={input.required}
-      name={input.id}
+      defaultValue={value[input.field_name]}
+      required={input.field_required}
+      name={input.field_id}
       onValueChange={(value) => {
         console.log(value);
         onChange && onChange({
           value,
-          name: input.id
+          name: input.field_name
         })
       }}>
-      <Label htmlFor={input.id} className="text-lg font-semibold mb-2">
-        {input.label}</Label>
+      <Label htmlFor={input.field_name} className="text-lg font-semibold mb-2">
+        {input.field_label}</Label>
       <div className='grid w-full grid-cols-2 gap-2 '>
         {permissibleValues.map((option) => (
           <div key={option.value} className="flex items-center space-x-2">
-            <RadioGroupItem id={`${input.id}-${option.value}`} value={option.value} />
-            <Label htmlFor={`${input.id}-${option.value}`}>{option.value}</Label>
+            <RadioGroupItem id={`${input.field_id}-${option.value}`} value={option.value} />
+            <Label htmlFor={`${input.field_id}-${option.value}`}>{option.value}</Label>
           </div>
         ))}
       </div>

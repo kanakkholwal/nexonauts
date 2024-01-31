@@ -69,7 +69,7 @@ export default async function Page() {
         { $project: { _id: 0, name: 1, slug: 1, tools: { $slice: ["$tools", 6] } } },
         { $match: { slug: { $in: slugs } } },
     ]);
-    console.log(categorized_tools);
+    // console.log(categorized_tools);
 
     return (<>
         <header>
@@ -96,7 +96,7 @@ export default async function Page() {
                 <Button className="rounded-full px-5" asChild>
                     <Link href="/toolzen/browse">Browse Tools <Compass className="w-4 h-4 ml-2" /></Link>
                 </Button>
-                <Button className="rounded-full bg-primary/10 text-primary hover:bg-primary/15 hover:text-primary px-5" asChild>
+                <Button variant="default_light" className="rounded-full px-5" asChild>
                     <Link href="/signup?ref=toolzen">Get Started <ChevronRight className="w-4 h-4 ml-2" /></Link>
                 </Button>
             </div>
