@@ -4,7 +4,6 @@ import dbConnect from "lib/dbConnect";
 import AppModel from "models/app";
 import { GetSessionParams, getSession } from "next-auth/react";
 import { NextSeo } from 'next-seo';
-import Image from 'next/image';
 import Link from 'next/link';
 // import AppplicationLayout from 'src/layouts/apps/view-layout';
 import { AppTypeRenderable, AppTypeViewOnly } from 'src/types/app';
@@ -19,7 +18,7 @@ import { FiLock } from "react-icons/fi";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { CATEGORIES } from 'lib/apps/utils';
 import { useEffect, useState } from "react";
-import workingApp from "src/assets/animation/app-working.gif";
+// import workingApp from "src/assets/animation/app-working.gif";
 
 export default function App({ app, user }: {
     app: AppTypeRenderable,
@@ -31,15 +30,15 @@ export default function App({ app, user }: {
     const [relatedApps, setRelatedApps] = useState<AppTypeViewOnly[]>([]);
 
     useEffect(() => {
-        fetch("/api/apps/" + app._id + "/related")
-            .then(res => res.json())
-            .then(data => {
-                console.log(data);
-                setRelatedApps(data.result);
-            })
-            .catch(err => {
-                console.log(err);
-            })
+        // fetch("/api/apps/" + app._id + "/related")
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         console.log(data);
+        //         setRelatedApps(data.result);
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     })
     }, [])
 
 
