@@ -13,7 +13,7 @@ export const metadata :Metadata = {
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerSession(authOptions);
     console.log(session)
-    if (!session) return redirect("/login")
+    if (!(session && session.user)) return redirect("/login")
 
     return (<>
         <div className="flex gap-3 h-full min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900 bg-slate-200/80">

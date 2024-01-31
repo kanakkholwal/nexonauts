@@ -88,19 +88,21 @@ export default function AppEdit({ user }:{
                 {app.formFlow.menuType === "text_input_to_text_output" && <TextInputToTextOutput inputs={app.formFlow.inputs} value={value} handleChange={handleChange} />}
             </CardContent>
             <CardFooter className="flex flex-row gap-2 justify-center items-center">
-                {app.formFlow.controls.map((control, index) => {
-                    if (control.action === "get_output")
-                        return (<Button key={index}
+                {/* {app.formFlow.controls.map((control, index) => {
+                    if (control.action === "get_output") */}
+                        {/* return ( */}
+                        <Button
+                        //  key={index}
                             variant="gradient_blue"
-                            onClick={() => control.action === "get_output" && apiCall()}
+                            onClick={() => apiCall()}
                             disabled={loading}
                         >
-                            {loading ? ("Generating...") : control.text}
+                            {loading ? ("Generating...") : "control.text"}
                             {loading ? <CgSpinner className="w-4 h-4 ml-2 animate-spin" /> : <BsStars className="w-4 h-4 ml-2" />}
-                        </Button>)
-                    else
+                        </Button>
+                    {/* else
                         return null
-                })}
+                })} */}
 
             </CardFooter>
         </Card>

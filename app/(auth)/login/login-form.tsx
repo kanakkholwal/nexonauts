@@ -120,11 +120,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
     return (
         <div className={cn("grid gap-6 lg:max-w-lg text-left", className)} {...props}>
-            <div className='grid gap-2'>
-                <Button variant="ghost" type="button" disabled={isLoading}
+            <div className='grid gap-2 grid-cols-2'>
+                <Button variant="outline" type="button" disabled={isLoading}
                     className='border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200'
-                    data-aos="flip-down"
-                    data-aos-delay="1100"
                     onClick={async () => {
                         setIsLoading(true);
                         await signIn('google', { callbackUrl: "/dashboard" })
@@ -132,13 +130,12 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
                     }}            >
                     {isLoading ? (
-                        <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
+                        <AiOutlineLoading className="h-6 w-6 animate-spin" />
                     ) : (
-                        <FcGoogle className="mr-2 h-4 w-4" />
-                    )}{" "}Login with Google
+                        <FcGoogle className=" h-6 w-6" />
+                    )}
                 </Button>
-                <Button variant="dark" type="button" disabled={isLoading}  data-aos="flip-up"
-                    data-aos-delay="1100"
+                <Button variant="outline" type="button" disabled={isLoading}  
                     className='border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200'
 
                     onClick={async () => {
@@ -147,16 +144,15 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         setIsLoading(false);
                     }}   >
                     {isLoading ? (
-                        <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                        <FiGithub className="mr-2 h-4 w-4" />
-                    )}{" "}
-                    Login with Github
+                        <AiOutlineLoading className="h-6 w-6 animate-spin" />
+                        ) : (
+                        <FiGithub className="h-6 w-6" />
+                    )}
                 </Button>
+            </div>
                 <p className="or my-5">
                     Or sign in with email
                 </p>
-            </div>
             <Form  {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
 
@@ -223,7 +219,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         </Link>
                     </p>
 
-                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" size="lg">
+                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" variant="gradient_blue" size="lg">
                         {isLoading && (
                             <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
                         )}

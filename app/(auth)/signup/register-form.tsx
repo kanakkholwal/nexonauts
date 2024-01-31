@@ -199,6 +199,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                                 autoCapitalize="none"
                                                 autoComplete="name"
                                                 autoCorrect="off"
+                                                variant="fluid"
                                                 disabled={isLoading}
                                                 className='pl-12 !py-6 pr-5 !mt-0  group-focus-within:ring-2 ring-primary'
                                                 {...field} />
@@ -223,6 +224,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                                 id="email"
                                                 placeholder="name@example.com"
                                                 type="email"
+                                                variant="fluid"
                                                 autoCapitalize="none"
                                                 autoComplete="email"
                                                 autoCorrect="off"
@@ -252,6 +254,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                             id="password"
                                             placeholder="Enter your password"
                                             type="password"
+                                            variant="fluid"
                                             autoCapitalize="none"
                                             autoComplete="password"
                                             autoCorrect="off"
@@ -283,6 +286,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                             autoCapitalize="none"
                                             autoComplete="password"
                                             autoCorrect="off"
+                                            variant="fluid"
                                             disabled={isLoading}
                                             className='pl-12 !py-6 pr-5 !mt-0 group-focus-within:ring-2 ring-primary'
 
@@ -294,7 +298,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         )}
                     />
 
-                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" size="lg">
+                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" size="lg" variant="gradient_blue">
                         {isLoading && (
                             <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
                         )}

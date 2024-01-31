@@ -17,8 +17,7 @@ export default async  function Page() {
     return (
         <>
 
-            <Navbar />
-            <main className="space-y-40 mb-40 max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
+            
                 <section className="relative" id="home">
                     <div aria-hidden="true" className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
                         <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
@@ -125,8 +124,7 @@ export default async  function Page() {
 							</div>
 
                 </section>
-            </main>
-            <Footer />
+          
         </>
     )
 }

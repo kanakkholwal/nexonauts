@@ -1,13 +1,14 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import axios from 'axios';
-import { checkUser } from 'lib/checkUser';
 import dbConnect from "lib/dbConnect";
 import handler from 'lib/handler';
 import { hasTokenMiddleware } from 'middleware/checkUser';
 import User from "models/user";
 import nextConnect from 'next-connect';
-// import { Configuration, OpenAIApi } from 'openai';
-// import type { TextCompletionResponse } from "types/openai";
+import App, { AppUsage } from 'models/app';
+
 import type { NextApiRequest, NextApiResponse } from 'next';
+
 export default nextConnect(handler)
     .use(hasTokenMiddleware)
     .post(async (req: NextApiRequest, res: NextApiResponse) => {
@@ -22,57 +23,33 @@ export default nextConnect(handler)
                 return res.status(404).json({ message: 'User not found!' });
             }
 
-            const result = await checkUser(req, existingUser);
-            if (!result.verified) {
-                return res.status(404).json({ verified: result.verified, message: result.message });
-            }
 
-
-            // execute app with App Data 
-            // const configuration = new Configuration({
-            //     apiKey: process.env.OPENAI_API_KEY,
-            // });
-            // const openai = new OpenAIApi(configuration);
 
             const calculatedPrompt = replaceWords(config.prompt,Object.keys(appInputs).map(key => key)) + "\n" + Object.keys(appInputs).map((key) => `${key}=${appInputs[key]}`).join("\n");
-            console.log(calculatedPrompt);
-            let response: any;
-            // if(availableModels.google_ai.includes(config.model)){
-                console.log("google ai")
-                const request = await axios.post(`https://generativelanguage.googleapis.com/v1beta2/models/text-bison-001:generateText?key=${process.env.PALM2_API_KEY}`, {
-                    prompt:{
-                        "text": calculatedPrompt
-                    }
-                });
-                response = request.data.candidates[0].output
-            // } else if (availableModels.openai.includes(config.model)){
-            //     console.log("openai")
-            //     const completion = await openai.createCompletion({
-            //         model: config.model,
-            //         prompt: calculatedPrompt,
-            //         // temperature: parseFloat(config.hyperparameters["temperature"] ?? 1), //1.0
-            //         // max_tokens: parseInt(config.hyperparameters["max_tokens"] ?? 500), //500
-            //         // top_p: parseFloat(config.hyperparameters["top_p"] ?? 1), //1.0
-            //         // frequency_penalty: parseFloat(config.hyperparameters["frequency_penalty"] ?? 0), //0.0
-            //         // presence_penalty: parseFloat(config.hyperparameters["presence_penalty"] ?? 0) //0.0
-            //     })
-            //     console.log(completion.data);
-            //     response = completion.data.choices[0].text,
+            console.log("calculatedPrompt",calculatedPrompt);
+            const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
+            const model = genAI.getGenerativeModel({ model: "gemini-pro"});
+
+            const result = await model.generateContent(calculatedPrompt);
+            const text = await result.response.text();
+            console.log(text);
+         // save app usage
+         const appUsage = new AppUsage({
+            userId: existingUser._id,
+            appId: appId,
+            createdAt: new Date(),
+            type: 'playground_usage',
+            usage: {
+                ...appInputs
+            },
+            model_used: "gemini-pro"
+        });
         
-            //     await Usage.create({
-            //         userId: existingUser._id,
-            //         appId: appId,
-            //         createdAt: Date.now(),
-            //         data: appInputs,
-            //         usage: completion.data.usage,
-            //         type: "playground_usage",
-            //         model_used: config.model,
-            //     });
-            // }
+        await appUsage.save();
 
             return res.status(200).json({
                 result: {
-                    data: response,
+                    data: text,
                     type: "plaintext"
                 },
                 message: "Output generated successfully in playground mode!"
@@ -106,59 +83,3 @@ export default nextConnect(handler)
         return reversedSentence;
     };
     
-async function OpenAI(configuration: any, appInputs: any) {
-    const { prompt, temperature, max_tokens, top_p, frequency_penalty, presence_penalty, model } = configuration;
-
-    // convert appInputs to key - value pair in string 
-    const _appInputs = Object.keys(appInputs).map((key) => `${key}=${appInputs[key]}`).join("\n");
-    // console.log(_appInputs);
-
-
-    const calculatedPrompt = prompt.concat("\n" + _appInputs);
-    // console.log(calculatedPrompt);
-
-    const url = (() => {
-        switch (model) {
-            case "davinci":
-                return "https://api.openai.com/v1/engines/davinci/completions";
-            case "curie":
-                return "https://api.openai.com/v1/engines/curie/completions";
-            case "babbage":
-                return "https://api.openai.com/v1/engines/babbage/completions";
-            case "ada":
-                return "https://api.openai.com/v1/engines/ada/completions";
-            case "cushman":
-                return "https://api.openai.com/v1/engines/cushman/completions";
-            case "davinci-instruct-beta":
-                return "https://api.openai.com/v1/engines/davinci-instruct-beta/completions";
-            case "content-filter-alpha-c4":
-                return "https://api.openai.com/v1/engines/content-filter-alpha-c4/completions";
-            case "davinci-codex":
-                return 'https://api.openai.com/v1/engines/davinci-codex/completions';
-            default:
-                return "https://api.openai.com/v1/completions";
-        }
-    })()
-    const data = JSON.stringify({
-        model: model,
-        prompt: calculatedPrompt,
-        temperature: parseFloat(temperature), //1.0
-        max_tokens: parseInt(max_tokens), //500
-        top_p: parseFloat(top_p), //1.0
-        frequency_penalty: parseFloat(frequency_penalty), //0.0
-        presence_penalty: parseFloat(presence_penalty) //0.0
-    });
-    const headers = {
-        "Content-Type": "application/json",
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-    }
-    return new Promise(async (resolve, reject) => {
-        try {
-            const response = await axios.post(url, data, { headers });
-            // console.log(response.data);
-            resolve(response.data);
-        } catch (error) {
-            reject(error);
-        }
-    })
-}
