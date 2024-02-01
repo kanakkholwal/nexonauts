@@ -20,12 +20,12 @@ type NavLinksType = {
 const ai_applications: NavLinksType[] = [
   {
     title: "Find AI-Powered Apps",
-    href: "/ai-applications",
+    href: "/apps",
     description: `Find the perfect tools for your business.`,
   },
   {
     title: "Create Your Own App",
-    href: "/ai-applications/submit",
+    href: "/apps/",
     description: `Create your own AI-powered app.`,
   }
 ]
