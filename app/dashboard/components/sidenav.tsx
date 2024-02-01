@@ -22,6 +22,7 @@ type LinkType = {
     href: string;
     icon: React.ElementType;
 }
+
 const links: LinkType[] = [
     {
         label: "Dashboard",
@@ -50,7 +51,7 @@ export default function SideBar({ user }: { user: SessionUserType }) {
     const pathname = usePathname()
 
     return (<div
-        aria-label="SideBar"
+        aria-label="Sidenav"
         className={"fixed top-0 left-0 bottom-0 z-[999] flex flex-col w-[280px] min-h-screen space-y-6 bg-slate-100 dark:bg-slate-800" + (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") + " transition-transform duration-200 ease-in-out shadow-lg"}
     >
         <button
