@@ -6,6 +6,7 @@
             "libs/*": ["src/libs/*"],
             "src/*": ["./src/*"],
             "app/*": ["./app/*"],
+            "emails/*": ["./emails/*"],
             "backend/*": ["src/backend/*"],
             "components/*": ["./src/components/*"],
             "middleware/*": ["./src/middleware/*"],
@@ -17,6 +18,7 @@
             "types/*": ["./src/types/*"],
             "lib/*": [ "./src/lib/*"],
             "@/*": ["./@/*"],
+            "@root/*": ["./*"],
             "models/*": ["./src/models/*"]
         },
         "target": "es5",
