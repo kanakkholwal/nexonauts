@@ -1,4 +1,3 @@
-
 export default function Layout({
     children,
 }: {
@@ -15,7 +14,6 @@ export default function Layout({
                         </div>
                     </div>
                     <div className='py-8 px-8'>
-
                         {children}
                     </div>
                 </div>
