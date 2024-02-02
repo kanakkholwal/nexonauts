@@ -26,7 +26,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 router.push(response.data.callbackUrl);
             })
             .catch((error) => {
-                console.log(error.response.data.message);
+                console.log(error.response.data)
                 // Handle verification error
             })
     }

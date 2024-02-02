@@ -114,23 +114,18 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         password: string
     }) => new Promise(async (resolve, reject) => {
         try {
-            await axios.post('/api/auth/signup',
-                {
-                    email: data.email,
-                    name: data.name,
-                    password: data.password,
-                }).then((response) => {
-                    console.log(response);
-                    if (response.data?.success) {
-                        resolve(response.data)
-                    }
-                    else {
-                        reject(response.data)
-                    }
-                }).catch((error) => {
-                    console.log(error)
-                    reject(error)
-                });
+            const response = await axios.post('/api/auth/signup', {
+                email: data.email,
+                name: data.name,
+                password: data.password,
+            });
+            console.log(response.data);
+            if (response.data.result === 'success') {
+                resolve(response.data)
+            }
+            else {
+                reject(response.data)
+            }
 
         }
         catch (error) {
@@ -161,8 +156,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         <FcGoogle className="mr-2 h-4 w-4" />
                     )}{" "}Sign Up with Google
                 </Button>
-                <Button variant="dark" type="button" disabled={isLoading}  data-aos="flip-up" data-aos-delay="1100"
-                className="border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200"
+                <Button variant="dark" type="button" disabled={isLoading} data-aos="flip-up" data-aos-delay="1100"
+                    className="border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200"
                     onClick={async () => {
                         setIsLoading(true);
                         await signIn('github', { callbackUrl: "/dashboard" })
