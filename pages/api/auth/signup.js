@@ -75,11 +75,11 @@ async function createUser(req, res) {
         console.log("Transporter created");
 
           await transporter.sendMail({
-            from: `${process.env.NEXT_WEBSITE_NAME} <no_reply@${process.env.NEXT_WEBSITE_DOMAIN}>`,
+            from: `Nexonauts <no_reply@nexonauts.com>`,
             to: newUser.email,
-            subject: `🌟 Welcome to ${process.env.NEXT_WEBSITE_NAME} - Verify Your Account! 🌟 `,
+            subject: `🌟 Welcome to Nexonauts - Verify Your Account! 🌟 `,
             html: `
-            <h1>Welcome to ${process.env.NEXT_WEBSITE_NAME}</h1>
+            <h1>Welcome to Nexonauts</h1>
             <p>Dear ${newUser.name},</p>
             <p>Thank you for signing up with ${process.env.NEXT_WEBSITE_NAME}! We're thrilled to have you on board.</p>
             <p>To complete the registration process and unlock the door to a world of possibilities, please click on the button below to verify your account:</p>
