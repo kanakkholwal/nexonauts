@@ -105,7 +105,7 @@ const userSchema = new Schema<User>(
       },
       dev_type: {
         type: String,
-        default: 'programmer',
+        default: 'developer',
       },
     },
 
