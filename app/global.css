@@ -157,7 +157,18 @@ a {
     height: 1px;
     @apply bg-border dark:bg-slate-700;
 }
-
+.staticWave{
+    background-repeat: no-repeat;
+    background-position-y: 100%;
+    background-size: contain;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='99' viewBox='0 0 1200 99' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 47.1131L50 51.437C100 55.7609 200 64.4087 300 60.0848C400 55.7609 500 38.4653 600 23.3316C700 8.1979 800 -4.77383 900 1.71204C1000 8.1979 1100 34.1414 1150 47.1131L1200 60.0848V99H1150C1100 99 1000 99 900 99C800 99 700 99 600 99C500 99 400 99 300 99C200 99 100 99 50 99H0V47.1131Z' fill='rgb(244, 247, 254)' /%3E%3C/svg%3E");
+    width: 100%;
+    height: 10rem;
+    position: absolute;
+    min-width: 100vw;
+    inset-inline: 0px;
+    bottom: 0px;
+}
 /* lg: */
 @media (max-width: 1024px) {
     .sidenav {

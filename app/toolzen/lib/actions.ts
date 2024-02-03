@@ -1,5 +1,5 @@
 "use server";
-import PublicTool, { PublicToolTypeWithId } from 'app/toolzen/models/tool';
+import PublicTool, { PublicToolTypeWithId } from 'src/models/tool';
 import dbConnect from "lib/dbConnect";
 
 export async function getPublicToolBySlug(slug: string): Promise<PublicToolTypeWithId> {
