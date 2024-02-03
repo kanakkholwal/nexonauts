@@ -1,5 +1,3 @@
-import Footer from 'app/layouts/footer';
-import Navbar from "app/layouts/navbar";
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -51,7 +49,7 @@ export default async  function Page() {
                                 Welcome to Nexonauts.com, the brainchild of a passionate developer driven by the mission to simplify the development journey for fellow creators. As the sole visionary behind this platform, I'm committed to building a vibrant ecosystem that fuels creativity, collaboration, and growth for developers worldwide.
                             </p>
                         </div>
-                        <Image src={"/assets/images/about_1.png"} alt="values" width={1380} height={720} className='w-full h-auto rounded-xl max-w-xl shadow-lg' draggable={false} />
+                        <Image src={"/assets/images/about_1.png"} alt="values" priority width={1380} height={720} className='w-full h-auto rounded-xl max-w-xl shadow-lg' draggable={false} />
                     </div>
 
                 </section>

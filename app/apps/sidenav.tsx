@@ -46,13 +46,13 @@ export default function Sidenav({open}:{
     open:boolean
 }) {
 
-    return (<div className={" min-h-screen h-full px-3 py-2 space-y-4 bg-slate-100  top-0  left-0 bottom-0  z-[999] transition-all w-[300px] translate-x-[-300px] xl:translate-x-0 " + (open ? " !translate-x-0 shadow-lg":"")} id="nexo_sidenav">
+    return (<div className={" min-h-screen h-full px-3 py-2 space-y-4 bg-slate-100 dark:bg-slate-800 fixed top-0  left-0 bottom-0  z-[999] transition-all w-[300px] translate-x-[-300px] xl:translate-x-0 " + (open ? " !translate-x-0 shadow-lg":"")} id="nexo_sidenav">
                 <div  className="w-full flex justify-center items-center mt-5" aria-roledescription="Website Logo">
-                    <Image height={120} width={280} src={"/logo.svg"} alt="logo" className="w-64 h-12" draggable={false} />
+                    <Image height={120} width={280} src={"/assets/logo.svg"} alt="logo" className="w-64 h-12  dark:invert" draggable={false} />
                 </div>
             <div className="space-y-1 px-3 py-2">
                 {userRoutes.map((link :LinkType, i) => {
-                    return <Link  key={i} href={link.path} className="inline-flex items-center rounded-md w-full justify-start text-sm group font-semibold text-slate-500 hover:shadow-sm hover:bg-white hover:text-slate-900 px-4 py-3 ">
+                    return <Link  key={i} href={link.path} className="inline-flex items-center rounded-md w-full justify-start text-sm group font-semibold text-slate-500 hover:shadow-sm hover:bg-white hover:text-slate-900 dark:text-slate-400  dark:hover:text-slate-900 px-4 py-3 ">
                                 {link.Icon && <link.Icon className="w-4 h-4 mr-2 text-current" />}
                                 <span className="truncate">
                                     {link.title}
@@ -61,7 +61,7 @@ export default function Sidenav({open}:{
                 })}
             </div>
             <div className="mt-auto px-3 py-2">
-                <Link href="/logout" className="inline-flex items-center rounded-md w-full justify-start text-sm group font-semibold text-slate-500 hover:shadow-sm  hover:bg-red-500 hover:text-white px-4 py-3 ">
+                <Link href="/logout" className="inline-flex items-center rounded-md w-full justify-start text-sm group font-semibold text-slate-500 hover:shadow-sm  hover:bg-red-500 hover:text-white px-4 py-3   dark:text-slate-400">
                         <PiSignOut className="w-4 h-4  mr-2 font-inherit text-current" />
                     <span className="truncate">
                         Logout

@@ -69,7 +69,7 @@ export default async function EditApplicationPage({ params }: {
             <div className="flex justify-between items-center p-3 flex-wrap">
                 <Button variant="outline" asChild>
                     <Link href={`/dashboard/apps`}>
-                        <ChevronLeft className="w-6 h-6 mr-2" />
+                        <ChevronLeft className="w-6 h-6" />
                         Back to apps
                     </Link>
                 </Button>

@@ -52,7 +52,7 @@ export default function SideBar({ user }: { user: SessionUserType }) {
 
     return (<div
         aria-label="Sidenav"
-        className={"fixed top-0 left-0 bottom-0 z-[999] flex flex-col w-[280px] min-h-screen space-y-6 bg-slate-100 dark:bg-slate-800" + (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") + " transition-transform duration-200 ease-in-out shadow-lg"}
+        className={"fixed top-0 left-0 bottom-0 z-[999] flex flex-col w-[280px] min-h-screen space-y-6 bg-slate-100 dark:bg-slate-800 " + (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") + " transition-transform duration-200 ease-in-out"}
     >
         <button
             className={"absolute top-10 -right-6 p-2 rounded-xl bg-white dark:bg-slate-800 border border-transparent dark:border-slate-700 shadow-md transition-colors duration-200 ease-in-out" + (open ? " translate-x-0" : " translate-x-full") + " lg:translate-x-0 lg:hidden"}
@@ -62,22 +62,29 @@ export default function SideBar({ user }: { user: SessionUserType }) {
             {open ? <ChevronLeftCircle className="w-4 h-4" /> : <ChevronRightCircle className="w-4 h-4" />}
         </button>
         <Link href="/" aria-label="logo" className="flex items-center justify-start px-4">
-            <Image height={40} width={300} className="h-14 w-56 dark:invert" src="/logo.svg" alt="logo" />
+            <Image height={40} width={300} className="h-14 w-56 dark:invert" src="/assets/logo.svg" alt="logo" />
         </Link>
-        <nav className="flex flex-col justify-start items-start gap-2 flex-1 px-4">
-            {links.map((link: LinkType) => {
-                return (
-                    <Link href={link.href} key={link.href}
-                        aria-label={link.label}
-                        className={cn("flex items-center gap-2 px-3 text-sm py-2 rounded-lg self-stretch font-semibold text-slate-500 hover:bg-white hover:text-slate-900   dark:text-slate-400  dark:hover:text-slate-300 dark:hover:bg-slate-700 group transition-colors duration-200 ease-in-out " , pathname === link.href ? ' bg-primary/10 text-primary hover:bg-primary/20  hover:text-primary dark:bg-primary/10  dark:text-primary  dark:hover:bg-primary/20 dark:hover:text-primary' : '')}
-                    >
-                        <link.icon className="w-4 h-4" />
-                        {link.label}
+        <div className="flex-1 px-4">
+            {/* <div className="flex items-center justify-start gap-2 mb-2 ml-2 font-semibold text-xs text-slate-800 dark:text-slate-400 uppercase after:bg-slate-400 h-1">
+                Dashboard
+            </div> */}
+            <div className="flex flex-col justify-start items-start gap-2 ">
+                {links.map((link: LinkType) => {
+                    return (
+                        <Link href={link.href} key={link.href}
+                            aria-label={link.label}
+                            className={cn("flex items-center gap-2 px-3 text-sm py-2 rounded-lg self-stretch font-semibold  group transition-colors duration-200 ease-in-out ",
+                                " text-slate-500 hover:bg-white hover:text-slate-900 border border-transparent hover:border-border dark:hover:border-gray-700 dark:hover:text-slate-300 dark:text-slate-400 dark:hover:bg-transparent",
+                                pathname === link.href ? ' bg-primary/10 text-primary hover:bg-primary/20  hover:text-primary dark:bg-primary/10  dark:text-primary  dark:hover:bg-primary/20 dark:hover:text-primary  hover:border-transparent' : '')}
+                        >
+                            <link.icon className="w-4 h-4" />
+                            {link.label}
 
-                    </Link>
-                );
-            })}
-        </nav>
+                        </Link>
+                    );
+                })}
+            </div>
+        </div>
         <div className="flex self-stretch items-center gap-3 border-t border-t-border py-6 px-2 rounded-md mx-4 dark:border-t-slate-700">
             <Avatar>
                 <AvatarImage src={user.profilePicture.toString()} alt={"@" + user.username} />
@@ -93,7 +100,7 @@ export default function SideBar({ user }: { user: SessionUserType }) {
                     </Link>
                 </p>
             </div>
-            <Button variant="destructive_light" size="icon" className='rounded-full ml-auto' onClick={(e) =>{
+            <Button variant="destructive_light" size="icon" className='rounded-full ml-auto' onClick={(e) => {
                 e.preventDefault();
                 signOut({
                     callbackUrl: "/login"

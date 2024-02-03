@@ -10,11 +10,11 @@ export default async function Layout({ children }: { children: React.ReactNode }
     const session = await getServerSession(authOptions) as sessionType | null;
     // console.log(session)
 
-    return (<div className="w-full min-h-screen h-full flex items-stretch">
+    return (<>
         <Navbar user={session ? session.user : null} />
         <div className="p-10 flex min-h-screen gap-2 w-full justify-between flex-wrap items-start relative z-0">
             {children}
-        <Footer />
         </div>
-    </div>)
+            <Footer />
+    </>)
 }
