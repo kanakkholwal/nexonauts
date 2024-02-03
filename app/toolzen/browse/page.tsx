@@ -1,7 +1,7 @@
 import Navbar from "app/layouts/navbar";
 import dbConnect from "lib/dbConnect";
-import PublicTool from 'models/public-tool';
 import { Metadata } from "next";
+import PublicTool from 'src/models/tool';
 import AiDirectory from "./comp";
 
 export const metadata: Metadata = {

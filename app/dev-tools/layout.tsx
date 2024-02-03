@@ -5,8 +5,9 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
     title: "Developer Tools | Nexonauts",
     description: "A collection of tools that I have made to make your developer life easier.",
-
+    // keywords: "submit, tool, toolzen, devtools, developer tools, open source, tools, software, code, development, programming, web development, frontend, backend, fullstack, javascript, typescript, react, vue, svelte, angular, nodejs, deno, python, rust, go, ruby, rails, php, laravel, java, kotlin, swift, ios, android, mobile, app, application, desktop, windows, macos, linux, unix, server, api, database, sql, nosql, graphql, rest, restful, websockets, http, https, css, scss, sass, less, tailwindcss, bootstrap, bulma, materialize, foundation, semantic, ant, chakra, styled, emotion, jss, jss, mui, vuetify, quasar, nuxt, next, gatsby, sapper, sveltekit, angular, ionic, reactnative, flutter, expo, electron, nwjs, deno, oak, express, fastify, hapi, koa, nest, sails, adonis, django, flask, rails, sinatra, laravel, lumen, slim, spring, spark, ktor, vertx, actix, rocket, iron, warp, rocket
 }
+
 
 
 export default function Layout({ children }: { children: React.ReactNode }) {
