@@ -1,6 +1,6 @@
-import PublicTool from 'app/toolzen/models/tool';
 import dbConnect from "lib/dbConnect";
 import { NextRequest, NextResponse } from "next/server";
+import PublicTool from 'src/models/tool';
 import { Worker } from 'worker_threads';
 
 export async function PUT(request: NextRequest) {
