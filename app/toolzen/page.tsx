@@ -4,11 +4,11 @@ import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "app/layouts/navbar";
 import dbConnect from "lib/dbConnect";
 import { ChevronRight, Compass, Search, ShieldCheck, Star } from 'lucide-react';
-import PublicTool from 'models/public-tool';
 import { Metadata } from "next";
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from "react";
+import PublicTool from 'src/models/tool';
 import { Categorized } from "./categoried";
 import { HeroWrapper } from "./hero";
 export const metadata: Metadata = {

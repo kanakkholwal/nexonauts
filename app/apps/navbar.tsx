@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import {
     DropdownMenu,
@@ -9,6 +8,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import ThemeSwitch from "app/layouts/theme-switcher";
 import axios from "axios";
 import debounce from 'lodash.debounce';
 import { signOut } from "next-auth/react";
@@ -81,9 +81,9 @@ export default function Navbar({ user }: { user: SessionUserType | null }) {
     return (<>
         <Sidenav open={isSidenavOpen} />
         {isSidenavOpen ? <div className="xl:hidden fixed inset-0 z-50 bg-background/80 backdrop-blur-sm " /> : null}
-        <div className="flex-1">
+        <div className="flex-1 pl-[300px]">
             <header className="w-full">
-                <nav className="flex items-center w-full p-6 border-b border-solid border-slate-200" ref={NavRef}>
+                <nav className="flex items-center w-full p-6 border-b border-solid border-slate-200 dark:border-slate-700" ref={NavRef}>
                     <div className="grow-0 flex xl:hidden">
                         <Button size="icon" variant="ghost" onClick={() => {
                             setSidenavOpen(!isSidenavOpen)
@@ -91,22 +91,25 @@ export default function Navbar({ user }: { user: SessionUserType | null }) {
                             {isSidenavOpen ? <TbLayoutSidebarRightExpand className="w-4 h-4" /> : <TbLayoutSidebarRightCollapse className="w-4 h-4" />}
                         </Button>
                     </div>
+                    <Link href="/">
+                        <Image className="h-10 dark:invert" height={60} width={160} src="/assets/logo.svg" alt="logo" />
+                    </Link>
                     <div className="ml-auto inline-flex gap-1 items-center">
                         {/* <SearchBar /> */}
                         {user ? <div className="flex items-center space-x-2">
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <button className="flex items-center space-x-2 hover:bg-slate-100 px-3 py-1.5 rounded-lg">
+                                    <Button variant="outline">
                                         <Image src={user.profilePicture.toString()} height={80} width={80} alt="avatar" className="w-6 h-6 rounded-full" />
                                         <span className="text-slate-500 text-md ml-2 font-semibold   hidden md:inline-block">{user.name}</span>
                                         <VscChevronDown className="text-slate-500" />
-                                    </button>
+                                    </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent sideOffset={15}>
                                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                                     <DropdownMenuSeparator />
                                     <DropdownMenuItem asChild>
-                                        <Link href={"/dashboard/settings?defaultTabprofile=profile"} className="w-full text-accent-foreground hover:text-slate-800">
+                                        <Link href={"/dashboard/settings"} className="w-full text-accent-foreground hover:text-slate-800">
                                             <FaRegUser className="w-3 h-3 mr-1" />
                                             Profile
                                         </Link>
@@ -126,12 +129,18 @@ export default function Navbar({ user }: { user: SessionUserType | null }) {
 
 
                         </div> : <div className="flex items-center space-x-2">
-                            <Link href="/login" className=" text-sm hover:text-opacity-75 bg-slate-200  py-2  px-3 relative rounded-lg  flex items-center gap-1.5">
-                                SignIn
-                            </Link>
-                            <Link href="/signup" className="bg-primary text-white py-2  px-3 relative rounded-lg  text-sm flex items-center gap-1.5 shadow-button">
-                                Sign up
-                            </Link>
+                            <Button variant="outline" asChild>
+                                <Link href="/login" >
+                                    SignIn
+                                </Link>
+                            </Button>
+                            <Button asChild>
+
+                                <Link href="/signup">
+                                    Sign up
+                                </Link>
+                            </Button>
+                            <ThemeSwitch />
                         </div>}
                     </div>
                 </nav>

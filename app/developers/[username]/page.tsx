@@ -26,7 +26,7 @@ export default async function DeveloperPage({ params }: { params: { username: st
 
     return (
         <>
-            <div id="basic_info" className="w-full px-4 py-8 space-y-2 flex flex-col lg:flex-row items-start justify-center space-x-6 mb-8 bg-slate-200/40 dark:bg-slate-800/80 rounded-lg">
+            <div id="basic_info" className="w-full px-4 py-8 space-y-2 flex flex-col lg:flex-row items-start justify-center space-x-6 mb-8">
                 <Avatar className="w-40 h-40 shadow-lg">
                     <AvatarImage src={developer.profilePicture} alt={developer.username} width={320} height={320} className="w-40 h-40" />
                     <AvatarFallback className="w-40 h-40 uppercase text-xl">{developer.username[0] + developer.username[1]}</AvatarFallback>

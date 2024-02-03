@@ -1,4 +1,5 @@
 import mongoose, { Document, Model } from 'mongoose';
+import { customAlphabet } from 'nanoid';
 
 export interface ICategory extends Document {
     name: string;
@@ -24,7 +25,7 @@ export interface PublicToolType {
     status: PublicToolStatus;
     pricing_type: PublicToolPricingType
     verified: boolean;
-    author?: IAuthor;
+    author: IAuthor;
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -47,10 +48,10 @@ const authorSchema = new mongoose.Schema({
 
 const publicToolSchema = new mongoose.Schema<IPublicTool>({
     name: { type: String, required: true, trim: true },
-    slug: { type: String, required: true, unique: true, trim: true },
+    slug: { type: String, unique: true, trim: true ,default: customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 16)()},
     coverImage: { type: String, required: true, default: 'https://via.placeholder.com/150' },
-    bannerImage: { type: String },
-    description: { type: String, required: true },
+    bannerImage: { type: String,default: 'https://via.placeholder.com/920'},
+    description: { type: String, required: true ,default:""},
     categories: [categorySchema],
     link: { type: String, required: true },
     status: { type: String, required: true, enum: ['draft', 'published', 'archived', 'deleted', 'pending', 'rejected'], default: 'draft' },
