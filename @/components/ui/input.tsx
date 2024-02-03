@@ -1,8 +1,8 @@
 "use client";
-import * as React from "react"
+import * as React from "react";
 
-import { cn } from "@/lib/utils"
-import { VariantProps, cva } from "class-variance-authority"
+import { cn } from "@/lib/utils";
+import { VariantProps, cva } from "class-variance-authority";
 
 const inputVarinats = cva(
   "flex h-10 w-full rounded-md border-input bg-background px-3 py-2 text-sm font-medium  file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50 disabled:border-slate-100 invalid:ring-red-500"
@@ -11,8 +11,8 @@ const inputVarinats = cva(
     variant: {
       default: "border-input",
       outline: "border-input",
-      ghost: "border border-solid border-transparent bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-200 dark:border-slate-700  focus:border-primary/70",
-      fluid: "border border-solid border-transparent bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-200 dark:border-slate-700  focus:border-primary/70",
+      ghost: "border border-solid border-transparent bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 dark:border-slate-700  focus:border-primary/70 dark:focus:border-primary/70",
+      fluid: "border border-solid border-transparent bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 dark:border-slate-700  focus:border-primary/70 dark:focus:border-primary/70",
       border:" border-2 focus:border-primary/70 border-solid"
     },
     rounded: {
@@ -46,5 +46,5 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 )
 Input.displayName = "Input"
 
-export { Input }
+export { Input };
 

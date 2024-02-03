@@ -95,9 +95,9 @@ export default function AppEdit({ user }:{
                         //  key={index}
                             variant="gradient_blue"
                             onClick={() => apiCall()}
-                            disabled={loading}
+                            disabled={loading  || Object.keys(value).length === 0}
                         >
-                            {loading ? ("Generating...") : "control.text"}
+                            {loading ? ("Generating...") : "Generate"}
                             {loading ? <CgSpinner className="w-4 h-4 ml-2 animate-spin" /> : <BsStars className="w-4 h-4 ml-2" />}
                         </Button>
                     {/* else

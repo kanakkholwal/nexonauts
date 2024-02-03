@@ -1,6 +1,7 @@
 import Footer from 'app/layouts/footer';
 import Navbar from "app/layouts/navbar";
 import { LineChart, ScanSearch } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import dbConnect from 'src/lib/dbConnect';
@@ -11,21 +12,25 @@ const features = [
 		name: 'Discover the Tools You Need',
 		description: `Say goodbye to endless searches. Our intelligent search engine scours the web to find the simplest and most advanced tools for every facet of your development work. From AI-powered solutions to tried-and-tested classics, it's all here at your fingertips.`,
 		icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341139.png',
+		path: '/toolzen',
 	},
 	{
 		name: 'Marketplace for Digital Creators',
 		description: `Browse, buy, sell, and promote digital products in our vibrant marketplace. Whether you're looking for themes, templates, e-books, Figma designs, illustrations, fonts, and more, our marketplace connects you with a global community of creators and buyers.`,
 		icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341134.png',
+		path: '/marketplace',
 	},
 	{
 		name: 'Dev Tools Directory',
 		description: `Simplify your development process with our curated directory of open-source tools. Access a wealth of resources to expedite your projects and collaborate with fellow developers seamlessly.`,
 		icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341160.png',
+		path: '/dev-tools',
 	},
 	{
 		name: 'No-Code AI App Builder',
 		description: `Unleash your creativity without boundaries. Our drag-and-drop AI app builder harnesses the power of LLMs APIs, allowing you to create and deploy applications effortlessly. Build, publish, and use your apps privately right from our platform.`,
 		icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341025.png',
+		path: '/apps',
 	},
 	// {
 	// 	name: 'Resource Hub for Continuous Learning',
@@ -75,25 +80,25 @@ export default async function HomePage() {
 							</div>
 							<div className="hidden py-8 mt-16 border-y border-gray-100 dark:border-gray-800 sm:flex justify-between gap-4">
 								<div className="text-left">
-									<h6 className="text-lg font-semibold text-gray-700 dark:text-white">
+									<h5 className="text-lg font-semibold text-gray-700 dark:text-white">
 										Use the best technology
-									</h6>
+									</h5>
 									<p className="mt-2 text-gray-500 text-balance">
 										Empower your creations with cutting-edge tools and advanced technology.
 									</p>
 								</div>
 								<div className="text-left">
-									<h6 className="text-lg font-semibold text-gray-700 dark:text-white">
+									<h5 className="text-lg font-semibold text-gray-700 dark:text-white">
 										Build the best product
-									</h6>
+									</h5>
 									<p className="mt-2 text-gray-500">
 										Craft exceptional digital products that stand out in the market.
 									</p>
 								</div>
 								<div className="text-left">
-									<h6 className="text-lg font-semibold text-gray-700 dark:text-white">
+									<h5 className="text-lg font-semibold text-gray-700 dark:text-white">
 										Promote your products
-									</h6>
+									</h5>
 									<p className="mt-2 text-gray-500">
 										Reach a global audience and showcase your creations to the world.
 									</p>
@@ -149,12 +154,12 @@ export default async function HomePage() {
 											{feature.description}
 										</p>
 									</div>
-									<a href="#" className="flex items-center justify-between group-hover:text-primary">
+									<Link href={feature.path} className="flex items-center justify-between group-hover:text-primary">
 										<span className="text-sm font-semibold">Read more</span>
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 -translate-x-4 text-2xl opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100">
 											<path fillRule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clipRule="evenodd" />
 										</svg>
-									</a>
+									</Link>
 								</div>
 							</div>)
 						})}
@@ -250,16 +255,16 @@ export default async function HomePage() {
 						{articles.map((article) => {
 							return (<div key={article._id} className="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
 								<div className="relative overflow-hidden rounded-xl">
-									<img src={article.image} alt="art cover" loading="lazy" width={1000} height={667} className="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105" />
+									<Image src={article.image} alt={article.title} loading="lazy" width={1000} height={667} className="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105" />
 								</div>
 								<div className="mt-6 relative">
-									<h3 className="text-2xl font-semibold text-gray-800 dark:text-white line-clamp-2">
+									<h3 className="text-2xl font-semibold text-gray-800 dark:text-white line-clamp-2"  title={article.title}>
 										{article.title}
 									</h3>
 									<p className="mt-6 mb-8 text-gray-600 dark:text-gray-300 line-clamp-3">
 										{article.description}
 									</p>
-									<Link href={`/blog/articles/${article.slug}`} className="inline-block">
+									<Link href={`/blog/articles/${article.slug}`} className="inline-block" title={article.title}>
 										<span className="text-info dark:text-blue-300 font-semibold">Read more</span>
 									</Link>
 								</div>
