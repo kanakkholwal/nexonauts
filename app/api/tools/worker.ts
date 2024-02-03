@@ -1,5 +1,5 @@
 import { GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai";
-import PublicTool from 'app/toolzen/models/tool';
+import PublicTool from 'src/models/tool';
 import { isMainThread, workerData } from 'worker_threads';
 
 // Function to update a single public tool description
