@@ -50,10 +50,11 @@ export default async function DashboardPage() {
                     status:"draft",
                     version:"0.0.1",
                     name:"New App",
-                    path:"/apps/app_" + Date.now(),
-                    shortDescription:"Short description",
                     description:"Description",
-                    config : null,
+                    config : {
+                        prompt: "Write a prompt here",
+                        model: "gemini-pro",
+                    },
                     formFlow:{
                         menuType:"text_input_to_text_output",
                         inputs:[],
@@ -112,7 +113,7 @@ export default async function DashboardPage() {
                                 </Link>
                             </Button>
                             <Button variant="default_light" asChild>
-                                <Link href={`/apps/${app.appId}`} target="_blank">
+                                <Link href={`/apps/${app.slug}`} target="_blank">
                                     <Eye className="h-5 w-5" />
                                 </Link>
                             </Button>

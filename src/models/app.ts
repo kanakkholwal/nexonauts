@@ -150,7 +150,10 @@ const usageSchema = new mongoose.Schema<IUsage>(
 const appSchema = new mongoose.Schema<IApp>(
     {
         appId: { type: String, required: true, trim: true, unique: true, default: () => `app_${generateRandomAppId()}` },
-        config: { type: Object, default: null },
+        config: { type: Object, default: {
+            prompt: "Write a prompt here",
+            model: "gemini-pro",
+        } },
         status: {
             type: String,
             trim: true,
@@ -234,8 +237,8 @@ appSchema.index({
 });
 
 // Model creation for Review, Usage, and App
-const AppReview: Model<IReview> = mongoose.models.Review || mongoose.model<IReview>('AppReview', reviewSchema);
-const AppUsage: Model<IUsage> = mongoose.models.Usage || mongoose.model<IUsage>('AppUsage', usageSchema);
+const AppReview: Model<IReview> = mongoose.models.AppReview || mongoose.model<IReview>('AppReview', reviewSchema);
+const AppUsage: Model<IUsage> = mongoose.models.AppUsage || mongoose.model<IUsage>('AppUsage', usageSchema);
 const App: Model<IApp> = mongoose.models.App || mongoose.model<IApp>('App', appSchema);
 
 export { App, AppReview, AppUsage };

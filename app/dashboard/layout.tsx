@@ -16,11 +16,15 @@ export default async function DashboardLayout({ children }: { children: React.Re
     if (!(session && session.user)) return redirect("/login")
 
     return (<>
-        <div className="flex gap-3 h-full min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900 bg-slate-200/80">
+        <div className="flex h-full min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900 bg-slate-200/80 z-0">
             <SideBar user={session.user}  />
-            <div className="lg:pl-72 flex flex-col flex-1 w-full pt-3 px-2 ">
+            <div className="lg:pl-72 flex flex-col flex-1 w-full relative z-0">
                 <Navbar user={session.user} />
-                <main className="content p-2">
+                <div aria-hidden="true" className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20 -z-[1]">
+                <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
+                <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+            </div>
+                <main className="content p-2 z-2">
                     {children}
                 </main>
                 {process.env.NODE_ENV !== "production" && <div className="fixed bottom-0 right-0 p-2 text-xs text-gray-500 dark:text-slate-400">v0.0.1({process.env.NODE_ENV})</div>}
