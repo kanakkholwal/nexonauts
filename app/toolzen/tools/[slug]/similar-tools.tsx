@@ -1,6 +1,6 @@
-import { PublicToolTypeWithId } from 'app/toolzen/models/tool';
 import { Zap } from 'lucide-react';
 import Link from 'next/link';
+import { PublicToolTypeWithId } from 'src/models/tool';
 export default function SimilarTools({ tools }: { tools: PublicToolTypeWithId[] }) {
 
     
