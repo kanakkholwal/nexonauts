@@ -106,8 +106,7 @@ export const authOptions: NextAuthOptions = {
                             verificationToken: userInDb.verificationToken || null,
                             verified: userInDb.verified || false,
                             providers: userInDb.providers,
-                            additional_info: userInDb.additional_info,
-                            preferences: userInDb.preferences
+                            additional_info: userInDb.additional_info || {},
                         }
 
 
@@ -153,8 +152,6 @@ export const authOptions: NextAuthOptions = {
                             verified: true,
                             providers: ["google"],
                             additional_info: {},
-                            preferences: {},
-
                         });
                         await user.save();
 
@@ -171,8 +168,7 @@ export const authOptions: NextAuthOptions = {
                             verificationToken: user.verificationToken || null,
                             verified: user.verified || false,
                             providers: user.providers,
-                            additional_info: user.additional_info,
-                            preferences: user.preferences
+                            additional_info: user.additional_info || {},
                         });
                     }
                     console.log("user found", userInDb)
@@ -197,8 +193,7 @@ export const authOptions: NextAuthOptions = {
                         verificationToken: userInDb.verificationToken || null,
                         verified: true,
                         providers: [...userInDb.providers, "google"],
-                        additional_info: userInDb.additional_info,
-                        preferences: userInDb.preferences
+                        additional_info: userInDb.additional_info || {},
                     })
                 }
                 catch (err) {
@@ -229,7 +224,6 @@ export const authOptions: NextAuthOptions = {
                     verified: true,
                     providers: ["github"],
                     additional_info: {},
-                    preferences: {},
                 }
                 await dbConnect();
                 const isUser = await UserModel.findOne({ email: profile.email })
@@ -270,7 +264,6 @@ export const authOptions: NextAuthOptions = {
                     verified: user.verified || false,
                     providers: user.providers,
                     additional_info: user.additional_info,
-                    preferences: user.preferences
                 }
             }
             return token

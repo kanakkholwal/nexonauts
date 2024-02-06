@@ -4,26 +4,58 @@ import {
     AvatarFallback,
     AvatarImage,
 } from "@/components/ui/avatar";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
+import { MessageSquareText } from 'lucide-react';
+import { LuMoreHorizontal } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
-import { ChevronLeftCircle, ChevronRightCircle, LogOut, Settings2, UserRoundCog } from 'lucide-react';
+import { ArrowBigDown, ChevronLeftCircle, ChevronRightCircle, LogOut, Settings2, UserRoundCog } from 'lucide-react';
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { useState } from "react";
 import { RiAppsLine } from "react-icons/ri";
-import { TbDashboard } from "react-icons/tb";
+import { TbDashboard, TbHome } from "react-icons/tb";
 import { SessionUserType } from "src/types/user";
 
-type LinkType = {
+export type sideLinkType = {
     label: string;
     href: string;
-    icon: React.ElementType;
+    icon: React.ElementType,
 }
+const admin_links: sideLinkType[] = [
+    {
+        label: "Dashboard",
+        icon: TbHome,
+        href: "/admin",
+    },
+    {
+        label: "Apps",
+        icon: RiAppsLine,
+        href: "/admin/apps",
+    },
+    {
+        label: "Users",
+        icon: UserRoundCog,
+        href: "/admin/users",
+    },
+    {
+        label: "Messages",
+        icon: MessageSquareText,
+        href: "/admin/messages",
+    }
+];
 
-const links: LinkType[] = [
+const user_links: sideLinkType[] = [
     {
         label: "Dashboard",
         icon: TbDashboard,
@@ -33,6 +65,7 @@ const links: LinkType[] = [
         label: "Apps",
         icon: RiAppsLine,
         href: "/dashboard/apps",
+
     },
     {
         label: "Account",
@@ -46,70 +79,83 @@ const links: LinkType[] = [
     }
 ];
 
+
+
 export default function SideBar({ user }: { user: SessionUserType }) {
     const [open, setOpen] = useState(false);
-    const pathname = usePathname()
+    const pathname = usePathname() as string;
+    const links = pathname.startsWith("/admin") ? admin_links : user_links;
 
-    return (<div
-        aria-label="Sidenav"
-        className={"fixed top-0 left-0 bottom-0 z-[999] flex flex-col w-[280px] min-h-screen space-y-6 bg-slate-100 dark:bg-slate-800 " + (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") + " transition-transform duration-200 ease-in-out"}
+
+    return (<div aria-label="Sidenav"
+        className={"fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 bg-slate-100 dark:bg-gray-900 " + (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") + " transition-transform duration-200 ease-in-out"}
     >
         <button
-            className={"absolute top-10 -right-6 p-2 rounded-xl bg-white dark:bg-slate-800 border border-transparent dark:border-slate-700 shadow-md transition-colors duration-200 ease-in-out" + (open ? " translate-x-0" : " translate-x-full") + " lg:translate-x-0 lg:hidden"}
+            className={"absolute top-5 -right-3 p-2 rounded-xl bg-white dark:bg-slate-800 border border-transparent dark:border-slate-700 shadow-md transition-colors duration-200 ease-in-out" + (open ? " translate-x-0" : " translate-x-full") + " lg:translate-x-0 lg:hidden"}
             onClick={() => {
                 setOpen(!open)
             }}>
             {open ? <ChevronLeftCircle className="w-4 h-4" /> : <ChevronRightCircle className="w-4 h-4" />}
         </button>
-        <Link href="/" aria-label="logo" className="flex items-center justify-start px-4">
-            <Image height={40} width={300} className="h-14 w-56 dark:invert" src="/assets/logo.svg" alt="logo" />
-        </Link>
-        <div className="flex-1 px-4">
-            {/* <div className="flex items-center justify-start gap-2 mb-2 ml-2 font-semibold text-xs text-slate-800 dark:text-slate-400 uppercase after:bg-slate-400 h-1">
+        <div className="flex items-center justify-between px-6 py-4">
+            <Image height={40} width={300} className="h-14 w-52 dark:invert" src="/assets/logo.svg" alt="logo" />
+            <DropdownMenu>
+                <DropdownMenuTrigger><LuMoreHorizontal className="w-5 h-5" /></DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuLabel>Go To <ArrowBigDown className="w-5 h-5 ml-2 inline-block" /></DropdownMenuLabel>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild><Link target="_blank" href="/">HomePage</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link target="_blank" href="/apps">Apps</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link target="_blank" href="/toolzen">Toolzen</Link></DropdownMenuItem>
+                    <DropdownMenuItem asChild><Link target="_blank" href="/dev-tools">Dev Tools</Link></DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+
+        </div>
+        <div className="flex-1 px-6">
+            <h6 className="mb-2 ml-2 font-semibold text-xs text-slate-500 dark:text-slate-400 uppercase">
                 Dashboard
-            </div> */}
-            <div className="flex flex-col justify-start items-start gap-2 ">
-                {links.map((link: LinkType) => {
-                    return (
-                        <Link href={link.href} key={link.href}
-                            aria-label={link.label}
-                            className={cn("flex items-center gap-2 px-3 text-sm py-2 rounded-lg self-stretch font-semibold  group transition-colors duration-200 ease-in-out ",
-                                " text-slate-500 hover:bg-white hover:text-slate-900 border border-transparent hover:border-border dark:hover:border-gray-700 dark:hover:text-slate-300 dark:text-slate-400 dark:hover:bg-transparent",
-                                pathname === link.href ? ' bg-primary/10 text-primary hover:bg-primary/20  hover:text-primary dark:bg-primary/10  dark:text-primary  dark:hover:bg-primary/20 dark:hover:text-primary  hover:border-transparent' : '')}
-                        >
-                            <link.icon className="w-4 h-4" />
-                            {link.label}
-
-                        </Link>
-                    );
-                })}
+            </h6>
+            <div className="flex flex-col justify-start items-start gap-1">
+                {links.map((link: sideLinkType, index) => <SideBarLink link={link} active={pathname.startsWith(link.href)} key={`sidenav_links_${index}`} />)}
             </div>
         </div>
-        <div className="flex self-stretch items-center gap-3 border-t border-t-border py-6 px-2 rounded-md mx-4 dark:border-t-slate-700">
-            <Avatar>
-                <AvatarImage src={user.profilePicture.toString()} alt={"@" + user.username} />
-                <AvatarFallback className="uppercase">
-                    {user.name[0] + user.name[1]}
-                </AvatarFallback>
-            </Avatar>
-            <div className="flex flex-col items-start justify-start ">
-                <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{user.name}</h3>
-                <p className="text-xs text-slate-600 dark:text-slate-300">
-                    <Link href={"/developers/" + user.username} target="_blank">
-                        @{user.username}
-                    </Link>
-                </p>
-            </div>
-            <Button variant="destructive_light" size="icon" className='rounded-full ml-auto' onClick={(e) => {
-                e.preventDefault();
-                signOut({
-                    callbackUrl: "/login"
-                })
-
-            }}>
-                <LogOut className="w-5 h-5" />
-            </Button>
-        </div>
-
+        <SidenavFooter user={user} />
     </div>)
 }
+
+export function SidenavFooter({ user }: { user: SessionUserType }) {
+    return <div className="flex self-stretch items-center gap-3 border-t border-t-border py-6 px-2 rounded-md mx-4 dark:border-t-slate-700">
+        <Avatar>
+            <AvatarImage src={user.profilePicture.toString()} alt={"@" + user.username} />
+            <AvatarFallback className="uppercase">
+                {user.name[0] + user.name[1]}
+            </AvatarFallback>
+        </Avatar>
+        <div className="flex flex-col items-start justify-start">
+            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{user.name}</h3>
+            <p className="text-xs text-slate-600 dark:text-slate-300">
+                <Link href={"/developers/" + user.username} target="_blank">
+                    @{user.username}
+                </Link>
+            </p>
+        </div>
+        <Button variant="destructive_light" size="icon" className='rounded-full ml-auto' onClick={(e) => { e.preventDefault(); signOut({ callbackUrl: "/login" }) }}>
+            <LogOut className="w-5 h-5" />
+        </Button>
+    </div>
+}
+
+export function SideBarLink({ link, active }: { link: sideLinkType, active: boolean }) {
+
+    return (<Link href={link.href} aria-label={link.label}
+        className={cn(
+            "flex items-center justify-start gap-2 px-3 py-2 rounded-lg self-stretch font-semibold  group transition-colors duration-200 ease-in-out ",
+            " text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300",
+            active ? 'text-primary/70 hover:text-primary dark:text-primary/70 dark:hover:text-primary' : ''
+        )}>
+        <link.icon className="w-5 h-5" />
+        <span className="truncate text-sm">{link.label}</span>
+    </Link>)
+}
+
