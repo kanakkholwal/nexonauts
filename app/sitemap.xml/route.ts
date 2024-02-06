@@ -18,61 +18,61 @@ export async function GET(request: Request) {
     const { apps } = await getAllApps();
     const manualRoutes = [
         {
-        path: "/",
-        date: new Date().toISOString(),
-    },
-    {
-        path: "/contact",
-        date: new Date().toISOString(),
-    },
-    {
-        path: "/about",
-        date: new Date().toISOString(),
-    },
-    {
-        path: "/copyright",
-        date: new Date().toISOString(),
-    },
-    {
-        path: "/pricing",
-        date: new Date().toISOString(),
-    },
-    {
-        path: "/privacy",
-        date: new Date().toISOString(),
-    },
-    {
-        path: "/tos",
-        date: new Date().toISOString(),
-    },
-    {
-        path: "/login",
-        date: new Date().toISOString(),
-    },
-    {
-        path: "/signup",
-        date: new Date().toISOString(),
-    },
-    {
-        path: "/blog",
-        date: new Date().toISOString(),
-    },
-    {
-        path: "/apps",
-        date: new Date().toISOString(),
-    },
-    {
-        path: "/dev-tools",
-        date: new Date().toISOString(),
-    },
-    {
-        path: `/toolzen/`,
-        date: new Date().toISOString(),
-    },
-    {
-        path: `/toolzen/browse`,
-        date: new Date().toISOString(),
-    },
+            path: "/",
+            date: new Date().toISOString(),
+        },
+        {
+            path: "/contact",
+            date: new Date().toISOString(),
+        },
+        {
+            path: "/about",
+            date: new Date().toISOString(),
+        },
+        {
+            path: "/copyright",
+            date: new Date().toISOString(),
+        },
+        {
+            path: "/pricing",
+            date: new Date().toISOString(),
+        },
+        {
+            path: "/privacy",
+            date: new Date().toISOString(),
+        },
+        {
+            path: "/tos",
+            date: new Date().toISOString(),
+        },
+        {
+            path: "/login",
+            date: new Date().toISOString(),
+        },
+        {
+            path: "/signup",
+            date: new Date().toISOString(),
+        },
+        // {
+        //     path: "/blog",
+        //     date: new Date().toISOString(),
+        // },
+        {
+            path: "/apps",
+            date: new Date().toISOString(),
+        },
+        {
+            path: "/dev-tools",
+            date: new Date().toISOString(),
+        },
+        {
+            path: `/toolzen/`,
+            date: new Date().toISOString(),
+        },
+        {
+            path: `/toolzen/browse`,
+            date: new Date().toISOString(),
+        },
     ]
     const publicTools = await getAllPublicTools();
     // Generate the XML sitemap with the blog data
@@ -81,13 +81,13 @@ export async function GET(request: Request) {
         ...posts.map((post) => ({
             path: `/blog/posts/${post.slug}`,
             date: new Date(post.publishedAt).toISOString(),
-        }), 
-        ...apps.map((app) => {
-            return {
-                path: `/apps/${app.slug}`,
-                date: new Date(app?.createdAt || Date.now()).toISOString(),
-            }
-        })),
+        }),
+            ...apps.map((app) => {
+                return {
+                    path: `/apps/${app.slug}`,
+                    date: new Date(app?.createdAt || Date.now()).toISOString(),
+                }
+            })),
         ...publicTools.map((tool) => {
             return {
                 path: `/toolzen/tools/${tool.slug}`,
@@ -108,7 +108,7 @@ export async function GET(request: Request) {
 
 
 // Function to escape special XML characters
-function escapeXml(unsafe) {
+function escapeXml(unsafe: string) {
     return unsafe.replace(/[<>&'"]/g, (c) => {
         switch (c) {
             case '<': return '&lt;';
@@ -116,6 +116,7 @@ function escapeXml(unsafe) {
             case '&': return '&amp;';
             case "'": return '&apos;';
             case '"': return '&quot;';
+            default: return '';
         }
     });
 }
@@ -123,16 +124,16 @@ function escapeXml(unsafe) {
 function generateSiteMap(pages) {
     return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
-      <!-- Add the static URLs manually -->
-      ${pages.map((page) => {
+    <!-- Add the static URLs manually -->
+    ${pages.map((page) => {
         return `
             <url>
-              <loc>${URL + escapeXml(page.path)}</loc>
-              <lastmod>${escapeXml(page.date)}</lastmod>
-              <changefreq>weekly</changefreq>
-              <priority>0.8</priority>
+                <loc>${URL + escapeXml(page.path)}</loc>
+                <lastmod>${escapeXml(page.date)}</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.8</priority>
             </url>
-          `}).join("")}
+        `}).join("")}
     </urlset>
     `;
 }
