@@ -1,6 +1,5 @@
 
 import Post from 'src/models/post';
-import User from 'src/models/user';
 
 export const PUBLIC_VIEW_KEYS = "title description slug coverImage labels claps publishedAt author image";
 export const PUBLIC_POST_VIEW_KEYS = "title description slug coverImage labels claps publishedAt content publishedAt comments author image";
@@ -72,7 +71,7 @@ export async function getRecentPosts(noOfPost:number){
     .populate('author')
     .limit(noOfPost ?? 5)
     .select('title description slug labels image author createdAt publishedAt comments')
-    .populate('analytics').exec();
+    .exec();
 
     return JSON.parse(JSON.stringify(posts));
 
