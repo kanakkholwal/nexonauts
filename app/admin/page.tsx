@@ -24,14 +24,7 @@ export default async function DashboardPage() {
     const { count: toolCount, growth: toolGrowth, trend: toolTrend } = await tools_CountAndGrowth("this_month");
 
     return (<div className="space-y-6 my-5">
-        <div>
-            <h2 className="text-3xl font-semibold mb-2">
-                Hi, {session.user.name}
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400">
-                Let's check out your Platform today!
-            </p>
-        </div>
+       
         <div className="flex justify-between gap-2 w-full flex-col lg:flex-row">
             <div className="w-full">
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
