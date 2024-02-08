@@ -1,12 +1,15 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Navbar from "app/layouts/navbar";
-import { getPublicToolBySlug,getSimilarTools } from "app/toolzen/lib/actions";
+import { getPublicToolBySlug, getSimilarTools } from "app/toolzen/lib/actions";
 import { ExternalLink, Heart, HeartOff, Star, Zap } from 'lucide-react';
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import MarkdownView from 'src/components/markdown/view';
 import SimilarTools from "./similar-tools";
+
 export default async function ToolPage({ params }: {
     params: {
         slug: string
@@ -17,7 +20,7 @@ export default async function ToolPage({ params }: {
         return notFound();
     }
 
-    
+
     const similarTools = await getSimilarTools(tool.categories);
 
     return (<>
@@ -25,11 +28,11 @@ export default async function ToolPage({ params }: {
         <main className="w-full mx-auto xl:max-w-7xl xl:px-0 rounded-lg overflow-hidden pt-20">
             <section id="tool-header" className="border-t border-x-border border-x rounded-t-lg  overflow-hidden mt-8">
                 <div id="tool-banner" className="w-full h-40 bg-gray-200">
-                    <img src={tool.bannerImage || tool.coverImage} alt={tool.name} className="w-full h-full object-cover" />
+                    <Image width={900} height={160} src={tool.bannerImage || tool.coverImage} alt={tool.name} className="w-full h-full object-cover" />
                 </div>
                 <div className="w-full border-t py-4 px-6 flex flex-col md:flex-row justify-start items-start gap-4">
                     <div className="lg:-mt-16 z-30" id="tool-logo">
-                        <img src={tool.coverImage} alt={tool.name} className="w-40 h-40 rounded-lg shadow-xl border border-slate-500/20  backdrop-blur-lg object-cover" />
+                        <Image width={160} height={160}  src={tool.coverImage} alt={tool.name} className="w-40 h-40 rounded-lg shadow-xl border border-slate-500/20  backdrop-blur-lg object-cover" />
                     </div>
                     <div id="tool-basic-info" className="flex flex-col items-start">
                         <h3 className="text-3xl font-bold">{tool.name}</h3>
@@ -69,7 +72,9 @@ export default async function ToolPage({ params }: {
                 <h3 className="text-2xl font-bold mb-4">
                     <Zap className="inline-block mr-2 w-5 h-5" /> Overview
                 </h3>
-                <p className="text-base font-medium text-muted-foreground">{tool.description}</p>
+                <div className="text-base font-medium">
+                    <MarkdownView>{tool.description}</MarkdownView>
+                </div>
             </section>
 
             <section id="reviews" className="py-4 px-6 border-t border-x-border border-x border-b border-b-border mb-5">
@@ -78,9 +83,9 @@ export default async function ToolPage({ params }: {
                 </h3>
             </section>
             <section id="similar-tools">
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <SimilarTools tools={similarTools} />
-                    </Suspense>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <SimilarTools tools={similarTools} />
+                </Suspense>
             </section>
         </main>
     </>)

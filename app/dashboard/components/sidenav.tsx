@@ -109,8 +109,8 @@ export default function SideBar({ user }: { user: SessionUserType }) {
                 <DropdownMenuContent>
                     <DropdownMenuLabel>Go To <ArrowBigDown className="w-5 h-5 ml-2 inline-block" /></DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    {pathname.startsWith("/admin") && <DropdownMenuItem asChild><Link target="_blank" href="/dashboard">Dashboard</Link></DropdownMenuItem>}
-                    {pathname.startsWith("/dashboard") && <DropdownMenuItem asChild><Link target="_blank" href="/admin">Admin</Link></DropdownMenuItem>}
+                    {(user.role === "admin" && pathname.startsWith("/admin") )&& <DropdownMenuItem asChild><Link target="_blank" href="/dashboard">User</Link></DropdownMenuItem>}
+                    {(user.role === "admin" && pathname.startsWith("/dashboard")) && <DropdownMenuItem asChild><Link target="_blank" href="/admin">Admin</Link></DropdownMenuItem>}
                     <DropdownMenuItem asChild><Link target="_blank" href="/">HomePage</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link target="_blank" href="/apps">Apps</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link target="_blank" href="/toolzen">Toolzen</Link></DropdownMenuItem>
