@@ -17,7 +17,7 @@ import { MessageSquareText } from 'lucide-react';
 import { LuMoreHorizontal } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
-import { ArrowBigDown, ChevronLeftCircle, ChevronRightCircle, LogOut, Settings2, UserRoundCog } from 'lucide-react';
+import { ArrowBigDown, ChevronLeftCircle, ChevronRightCircle, LogOut, Settings2, Swords, UserRoundCog } from 'lucide-react';
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,6 +26,7 @@ import { useState } from "react";
 import { RiAppsLine } from "react-icons/ri";
 import { TbDashboard, TbHome } from "react-icons/tb";
 import { SessionUserType } from "src/types/user";
+import { LayoutGrid } from 'lucide-react';
 
 export type sideLinkType = {
     label: string;
@@ -35,7 +36,7 @@ export type sideLinkType = {
 const admin_links: sideLinkType[] = [
     {
         label: "Dashboard",
-        icon: TbHome,
+        icon: LayoutGrid,
         href: "/admin",
     },
     {
@@ -47,6 +48,11 @@ const admin_links: sideLinkType[] = [
         label: "Users",
         icon: UserRoundCog,
         href: "/admin/users",
+    },
+    {
+        label: "Tools",
+        icon: Swords,
+        href: "/admin/tools",
     },
     {
         label: "Messages",
@@ -88,7 +94,7 @@ export default function SideBar({ user }: { user: SessionUserType }) {
 
 
     return (<div aria-label="Sidenav"
-        className={"fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 bg-slate-100 dark:bg-gray-900 " + (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") + " transition-transform duration-200 ease-in-out"}
+        className={"fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 glassmorphism " + (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") + " transition-transform duration-200 ease-in-out"}
     >
         <button
             className={"absolute top-5 -right-3 p-2 rounded-xl bg-white dark:bg-slate-800 border border-transparent dark:border-slate-700 shadow-md transition-colors duration-200 ease-in-out" + (open ? " translate-x-0" : " translate-x-full") + " lg:translate-x-0 lg:hidden"}
@@ -117,7 +123,7 @@ export default function SideBar({ user }: { user: SessionUserType }) {
                 Dashboard
             </h6>
             <div className="flex flex-col justify-start items-start gap-1">
-                {links.map((link: sideLinkType, index) => <SideBarLink link={link} active={pathname.startsWith(link.href)} key={`sidenav_links_${index}`} />)}
+                {links.map((link: sideLinkType, index) => <SideBarLink link={link} active={pathname === link.href} key={`sidenav_links_${index}`} />)}
             </div>
         </div>
         <SidenavFooter user={user} />

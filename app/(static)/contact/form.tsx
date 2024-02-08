@@ -20,6 +20,8 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { GoPerson } from "react-icons/go";
+
+
 const FormSchema = z.object({
     name: z.string().min(1, { message: 'Name must be between 1 and 100 characters' })
         .max(100, { message: 'Name must be between 1 and 100 characters' }),
@@ -59,7 +61,29 @@ export function ContactForm() {
         console.log(data)
 
         await fetch("/api/contact",{
-
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: data.name,
+                email: data.email,
+                message: data.message,
+                aditional_info: {
+                    category: data.category,
+                    companyName: data.companyName,
+                    website: data.website
+                }
+            })
+        }).then(response => {
+            if(response.ok){
+                return response.json()
+            }
+            throw new Error('Something went wrong')
+        }).then(data => {
+            console.log(data)
+        }).catch(error => {
+            console.log(error)
         })
 
 

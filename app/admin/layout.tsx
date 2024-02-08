@@ -27,6 +27,14 @@ export default async function DashboardLayout({ children }: { children: React.Re
                 </div>
 
                 <main className="content p-2 md:p-4 z-2">
+                    <div>
+                        <h2 className="text-3xl font-semibold mb-2">
+                            Hi, {session.user.name}
+                        </h2>
+                        <p className="text-slate-600 dark:text-slate-400">
+                            Let's check out your Platform today!
+                        </p>
+                    </div>
                     {children}
                 </main>
                 {process.env.NODE_ENV !== "production" && <div className="fixed bottom-0 right-0 p-2 text-xs text-gray-500 dark:text-slate-400">v0.0.1({process.env.NODE_ENV})</div>}

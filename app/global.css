@@ -139,7 +139,10 @@ a {
     text-decoration: none;
     background-color: transparent;
 }
-
+.glassmorphism{
+    /* glassmorphism  with tailwindcss  and dark mode */
+    @apply bg-slate-50/15 dark:bg-slate-800/15 backdrop-blur-xl border border-slate-500/10 dark:border-border/70;
+}
 .or {
     display: flex;
     align-items: center;
