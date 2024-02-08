@@ -2,13 +2,16 @@ import { Button } from "@/components/ui/button";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth/next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { sessionType } from "src/types/session";
 import { getToolById } from "./actions";
+
 
 export default async function DashboardPage({ params }: { params: { id: string } }) {
     const session = await getServerSession(authOptions) as sessionType;
 
     const tool = await getToolById(params.id);
+    if (!tool) return notFound();
 
 
     return (<div className="space-y-6 my-5">
