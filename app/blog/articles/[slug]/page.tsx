@@ -20,7 +20,7 @@ export default async function PostPage({ params }: {
         notFound()
     }
     console.log("post")
-    console.dirxml(post)
+
     return (
         <div>
             <PostHeader {...JSON.parse(JSON.stringify(post))} />
