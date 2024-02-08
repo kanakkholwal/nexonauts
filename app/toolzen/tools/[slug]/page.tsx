@@ -16,8 +16,8 @@ export default async function ToolPage({ params }: {
     if (!tool) {
         return notFound();
     }
-    // console.log(tool);
 
+    
     const similarTools = await getSimilarTools(tool.categories);
 
     return (<>
