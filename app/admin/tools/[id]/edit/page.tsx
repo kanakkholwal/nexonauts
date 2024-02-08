@@ -6,6 +6,7 @@ import { getToolById } from "../actions";
 import EditForm from "./form";
 import { useFormStore } from "./store";
 import StoreInitializer from "./store-initialzer";
+import {updateTool} from "./actions";
 
 export default async function DashboardPage({ params }: { params: { id: string } }) {
     const session = await getServerSession(authOptions) as sessionType;
@@ -25,7 +26,7 @@ export default async function DashboardPage({ params }: { params: { id: string }
         </div>
 
         <div className="glassmorphism p-5 rounded-lg">
-            <EditForm />
+            <EditForm updateTool={updateTool}/>
         </div>
 
 

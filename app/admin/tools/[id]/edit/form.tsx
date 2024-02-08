@@ -10,37 +10,31 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import { ExternalLink } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Image from "next/image";
-import React, { useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import { FiUpload } from "react-icons/fi";
+import Link from "next/link";
+import React from 'react';
+import toast from "react-hot-toast";
 import 'react-markdown-editor-lite/lib/index.css';
 import MarkdownView from 'src/components/markdown/view';
+import { UploadImage } from "src/components/uploader";
 import { PublicToolPricingType, PublicToolStatus, PublicToolTypeWithId } from "src/models/tool";
 import { useFormStore } from "./store";
+
 
 const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
     loading: () => <p>Loading...</p>,
     ssr: false
 });
 
-export default function Form() {
+export default function Form({ updateTool }: {
+    updateTool: (id: string, data: Record<string, any>) => Promise<any>
+}) {
     const tool = useFormStore((state) => state.tool) as PublicToolTypeWithId;
+    const [loading, setLoading] = React.useState(false);
     const editorRef = React.useRef(null);
 
-    const onDrop = useCallback((acceptedFiles) => {
-        acceptedFiles.forEach((file: File) => {
-            if (!file) {
-                throw new Error(`${file} was not a file`);
-            }
-
-
-        });
-
-    }, []);
-
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
     return (<>
         <div className="grid gap-4 w-full grid-cols-1 sm:grid-cols-2">
@@ -48,27 +42,32 @@ export default function Form() {
                 <Label htmlFor="name">Name</Label>
                 <Input id="name" name="name" type="text"
                     value={tool?.name}
-                    placeholder="Name of the tool"
+                    placeholder="Name of the tool" disabled={loading}
                     onChange={(e) => {
                         useFormStore.setState({ tool: { ...tool, name: e.target.value } })
                     }}
                 />
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="slug">Slug</Label>
+                <Label htmlFor="slug">Slug
+                    <Link href={"/toolzen/tools/" + tool.slug} target="_blank" className="text-xs text-slate-500">
+                        <ExternalLink className="w-4 h-4 inline-block ml-1 -mt-1" />
+                    </Link>
+                </Label>
                 <Input id="slug" name="slug" type="text"
                     value={tool?.slug}
-                    placeholder="Slug of the tool"
+                    placeholder="Slug of the tool" disabled={loading}
                     onChange={(e) => {
                         useFormStore.setState({ tool: { ...tool, slug: e.target.value } })
                     }}
                 />
+
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="link">Link</Label>
                 <Input id="link" name="link" type="url"
                     value={tool?.link}
-                    placeholder="Link of the tool website"
+                    placeholder="Link of the tool website" disabled={loading}
                     onChange={(e) => {
                         useFormStore.setState({ tool: { ...tool, link: e.target.value } })
                     }}
@@ -78,7 +77,7 @@ export default function Form() {
                 <Label htmlFor="status">Status</Label>
 
                 <Select name="status"
-                    value={tool?.status}
+                    value={tool?.status} disabled={loading}
                     onValueChange={(value) => {
                         useFormStore.setState({ tool: { ...tool, status: value as PublicToolStatus } })
                     }}
@@ -98,7 +97,7 @@ export default function Form() {
                 <Label htmlFor="pricing_type">Pricing Type</Label>
 
                 <Select name="pricing_type"
-                    value={tool?.pricing_type}
+                    value={tool?.pricing_type} disabled={loading}
                     onValueChange={(value) => {
                         useFormStore.setState({ tool: { ...tool, pricing_type: value as PublicToolPricingType } })
                     }}
@@ -120,7 +119,7 @@ export default function Form() {
                     className="flex items-center gap-2"
                 >
                     <Switch id="verified" aria-label="Verified"
-                        checked={tool?.verified}
+                        checked={tool?.verified} disabled={loading}
                         onCheckedChange={(checked) => {
                             useFormStore.setState({ tool: { ...tool, verified: checked } })
                         }}
@@ -138,6 +137,7 @@ export default function Form() {
             <MdEditor
                 className="w-full h-96  rounded-lg shadow-md p-2"
                 value={tool?.description || ""}
+                disabled={loading}
                 onChange={({ html, text }) => {
                     console.log('onChange', html, text);
                     useFormStore.setState({ tool: { ...tool, description: text } })
@@ -152,11 +152,21 @@ export default function Form() {
             </Label>
             <Input id="coverImage" name="coverImage" type="url"
                 value={tool?.coverImage}
+                disabled={loading}
                 placeholder="Cover Image URL"
                 onChange={(e) => {
                     useFormStore.setState({ tool: { ...tool, coverImage: e.target.value } })
                 }}
             />
+            <div>
+
+                <UploadImage
+                    key={"coverImage_upload"}
+                    onUpload={(fileUrl) => {
+                        useFormStore.setState({ tool: { ...tool, coverImage: fileUrl } })
+                    }}
+                />
+            </div>
             <div className="p-4">
                 {tool?.coverImage && <Image
                     src={tool?.coverImage}
@@ -167,16 +177,6 @@ export default function Form() {
                 />}
             </div>
 
-            <div className="flex items-center justify-center w-full">
-                <label htmlFor="dropzone-file" {...getRootProps()} className="flex flex-col items-center justify-center w-full h-64 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-slate-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <FiUpload className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" />
-                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                    </div>
-                    <input id="dropzone" type="file" className="hidden" accept="image/*" multiple={true} {...getInputProps()} />
-                </label>
-            </div>
 
         </div>
         <div className="grid w-full items-center gap-1.5 my-4">
@@ -185,11 +185,22 @@ export default function Form() {
             </Label>
             <Input id="bannerImage" name="bannerImage" type="url"
                 value={tool?.bannerImage}
+                disabled={loading}
+
                 placeholder="Banner Image URL"
                 onChange={(e) => {
                     useFormStore.setState({ tool: { ...tool, bannerImage: e.target.value } })
                 }}
             />
+            <div>
+
+                <UploadImage
+                    key={"bannerImage_upload"}
+                    onUpload={(fileUrl) => {
+                        useFormStore.setState({ tool: { ...tool, bannerImage: fileUrl } })
+                    }}
+                />
+            </div>
             <div className="w-full h-40 bg-gray-200">
                 {tool?.bannerImage && <Image
                     src={tool?.bannerImage}
@@ -199,23 +210,45 @@ export default function Form() {
                     className="rounded-lg shadow-md w-full h-full object-cover"
                 />}
             </div>
-            <div className="flex items-center justify-center w-full">
-                <label htmlFor="dropzone-file" {...getRootProps()} className="flex flex-col items-center justify-center w-full h-64 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-slate-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                        <FiUpload className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" />
-                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                    </div>
-                    <input id="dropzone" type="file" className="hidden" accept="image/*" multiple={true} {...getInputProps()} />
-                </label>
-            </div>
+
 
         </div>
         <div className="grid w-full items-center gap-1.5 my-4">
-                    <Button size="lg" className="w-full">
-                        Save Changes
-                    </Button>
+            <Button size="lg" className="w-full" disabled={loading}
+
+                onClick={(e) => {
+                    e.preventDefault();
+                    console.log('Save Changes', tool);
+                    setLoading(true);
+                    toast.promise(updateTool(tool._id, {
+                        name: tool.name,
+                        slug: tool.slug,
+                        link: tool.link,
+                        status: tool.status,
+                        pricing_type: tool.pricing_type,
+                        verified: tool.verified,
+                        description: tool.description,
+                        coverImage: tool.coverImage,
+                        bannerImage: tool.bannerImage
+                    }), {
+                        loading: 'Saving Changes...',
+                        success: (data) => {
+                            return 'Changes Saved';
+                        },
+                        error: (error) => {
+                            console.error(error);
+                            return 'Error Saving Changes';
+                        }
+                    })
+                        .finally(() => {
+                            setLoading(false);
+                        });
+                }}
+            >
+                Save Changes
+            </Button>
         </div>
 
     </>)
 }
+
