@@ -5,6 +5,7 @@ interface IMessage extends Document {
     name: string;
     email: string;
     message: string;
+    subject: string;
     read: boolean;
     type: string;
     aditional_info: Record<string, string | null>
@@ -18,6 +19,11 @@ const messageSchema =  new Schema<IMessage>({
     email:{
         type: String,
         required: true
+    },
+    subject:{
+        type: String,
+        required: true,
+        default: "No Subject"
     },
     message:{
         type: String,

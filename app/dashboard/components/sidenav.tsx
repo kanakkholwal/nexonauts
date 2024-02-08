@@ -17,16 +17,15 @@ import { MessageSquareText } from 'lucide-react';
 import { LuMoreHorizontal } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
-import { ArrowBigDown, ChevronLeftCircle, ChevronRightCircle, LogOut, Settings2, Swords, UserRoundCog } from 'lucide-react';
+import { ArrowBigDown, ChevronLeftCircle, ChevronRightCircle, LayoutGrid, LogOut, Settings2, Swords, UserRoundCog } from 'lucide-react';
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { useState } from "react";
 import { RiAppsLine } from "react-icons/ri";
-import { TbDashboard, TbHome } from "react-icons/tb";
+import { TbDashboard } from "react-icons/tb";
 import { SessionUserType } from "src/types/user";
-import { LayoutGrid } from 'lucide-react';
 
 export type sideLinkType = {
     label: string;
@@ -110,6 +109,8 @@ export default function SideBar({ user }: { user: SessionUserType }) {
                 <DropdownMenuContent>
                     <DropdownMenuLabel>Go To <ArrowBigDown className="w-5 h-5 ml-2 inline-block" /></DropdownMenuLabel>
                     <DropdownMenuSeparator />
+                    {pathname.startsWith("/admin") && <DropdownMenuItem asChild><Link target="_blank" href="/dashboard">Dashboard</Link></DropdownMenuItem>}
+                    {pathname.startsWith("/dashboard") && <DropdownMenuItem asChild><Link target="_blank" href="/admin">Admin</Link></DropdownMenuItem>}
                     <DropdownMenuItem asChild><Link target="_blank" href="/">HomePage</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link target="_blank" href="/apps">Apps</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link target="_blank" href="/toolzen">Toolzen</Link></DropdownMenuItem>

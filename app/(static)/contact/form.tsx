@@ -10,7 +10,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { LuMail } from "react-icons/lu";
 import * as z from "zod";
-
+import toast from "react-hot-toast";
 import {
     Form,
     FormControl,
@@ -31,7 +31,7 @@ const FormSchema = z.object({
         .min(5, { message: 'Email must be at least 5 characters long' })
         .max(100, { message: 'Email cannot exceed 100 characters' }),
     message: z.string().min(30, { message: 'Message should be atleast 30 characters long' })
-        .max(500, { message: 'Message cannot exceed 500 characters' }),
+        .max(5000, { message: 'Message cannot exceed 500 characters' }),
     category: z.string().min(1, { message: 'Please select a category' })
         .max(100, { message: 'Please select a category' }),
     companyName: z.string().max(100, { message: 'Company name cannot exceed 100 characters' }),
@@ -60,7 +60,7 @@ export function ContactForm() {
         // validate the inputs first before sending the request
         console.log(data)
 
-        await fetch("/api/contact",{
+        toast.promise(fetch("/api/contact",{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -75,18 +75,11 @@ export function ContactForm() {
                     website: data.website
                 }
             })
-        }).then(response => {
-            if(response.ok){
-                return response.json()
-            }
-            throw new Error('Something went wrong')
-        }).then(data => {
-            console.log(data)
-        }).catch(error => {
-            console.log(error)
+        }),{
+            loading: "Sending message...",
+            success: "Message sent successfully",
+            error: "An error occured while sending the message"
         })
-
-
 
 
 
