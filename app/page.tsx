@@ -1,6 +1,7 @@
 import Footer from 'app/layouts/footer';
+import HeroSection from "app/layouts/hero";
 import Navbar from "app/layouts/navbar";
-import { LineChart, ScanSearch } from 'lucide-react';
+import { LineChart, ScanSearch, Sparkles } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -55,93 +56,23 @@ export default async function HomePage() {
 		<header>
 			<Navbar />
 		</header>
-		<main className="space-y-40 mb-40">
-			<div className="relative" id="home">
-				<div aria-hidden="true" className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
-					<div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
-					<div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
-				</div>
-				<div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
-					<div className="relative pt-36 ml-auto">
-						<div className="lg:w-2/3 text-center mx-auto">
-							<h1 className="text-gray-900 dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl">Shaping a world with <span className="relative bg-gradient-to-r from-primary to-violet-200 bg-clip-text text-transparent dark:from-primaryLight dark:to-secondaryLight md:px-2">reimagination.</span></h1>
-							<p className="mt-8 text-gray-700 dark:text-gray-300">
-								At {process.env.NEXT_PUBLIC_WEBSITE_NAME}, we've built a comprehensive ecosystem tailored for developers like you. Whether you're a seasoned pro or just stepping into the world of coding, our platform offers a suite of tools and resources to streamline your journey and amplify your potential.
+		<main className="space-y-20 mb-40">
 
-
-							</p>
-							<div className="mt-16 flex flex-wrap justify-center gap-y-4 gap-x-6">
-								<Link href="/signup" className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
-									<span className="relative text-base font-semibold text-white">Get started</span>
-								</Link>
-								<Link href="#" className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max">
-									<span className="relative text-base font-semibold text-primary dark:text-white">Learn more</span>
-								</Link>
-							</div>
-							<div className="hidden py-8 mt-16 border-y border-gray-100 dark:border-gray-800 sm:flex justify-between gap-4">
-								<div className="text-left">
-									<h5 className="text-lg font-semibold text-gray-700 dark:text-white">
-										Use the best technology
-									</h5>
-									<p className="mt-2 text-gray-500 text-balance">
-										Empower your creations with cutting-edge tools and advanced technology.
-									</p>
-								</div>
-								<div className="text-left">
-									<h5 className="text-lg font-semibold text-gray-700 dark:text-white">
-										Build the best product
-									</h5>
-									<p className="mt-2 text-gray-500">
-										Craft exceptional digital products that stand out in the market.
-									</p>
-								</div>
-								<div className="text-left">
-									<h5 className="text-lg font-semibold text-gray-700 dark:text-white">
-										Promote your products
-									</h5>
-									<p className="mt-2 text-gray-500">
-										Reach a global audience and showcase your creations to the world.
-									</p>
-								</div>
-							</div>
-						</div>
-						<div className="mt-12  grid-cols-3 sm:grid-cols-4 md:grid-cols-6 hidden">
-							<div className="p-4 grayscale transition duration-200 hover:grayscale-0">
-								<img src="./images/clients/microsoft.svg" className="h-12 w-auto mx-auto" loading="lazy" alt="client logo" />
-							</div>
-							<div className="p-4 grayscale transition duration-200 hover:grayscale-0">
-								<img src="./images/clients/airbnb.svg" className="h-12 w-auto mx-auto" loading="lazy" alt="client logo" />
-							</div>
-							<div className="p-4 flex grayscale transition duration-200 hover:grayscale-0">
-								<img src="./images/clients/google.svg" className="h-9 w-auto m-auto" loading="lazy" alt="client logo" />
-							</div>
-							<div className="p-4 grayscale transition duration-200 hover:grayscale-0">
-								<img src="./images/clients/ge.svg" className="h-12 w-auto mx-auto" loading="lazy" alt="client logo" />
-							</div>
-							<div className="p-4 flex grayscale transition duration-200 hover:grayscale-0">
-								<img src="./images/clients/netflix.svg" className="h-8 w-auto m-auto" loading="lazy" alt="client logo" />
-							</div>
-							<div className="p-4 grayscale transition duration-200 hover:grayscale-0">
-								<img src="./images/clients/google-cloud.svg" className="h-12 w-auto mx-auto" loading="lazy" alt="client logo" />
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<HeroSection />
 			<div id="solutions">
-				<div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
-					<div className="md:w-2/3 lg:w-1/2">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 text-secondary">
-							<path fillRule="evenodd" d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z" clipRule="evenodd" />
-						</svg>
-						<h2 className="my-8 text-2xl font-bold text-gray-700 dark:text-white md:text-4xl">
-							Develop with Confidence, Innovate with Ease
-						</h2>
-						<p className="text-gray-600 dark:text-gray-300">
-							Welcome to our developer-centric platform, designed to empower your journey in crafting exceptional digital products. We've curated a comprehensive suite of tools and resources that put developers at the forefront, enabling you to innovate, collaborate, and create without limitations.
+				<div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 flex flex-col w-full bg-cover relative overflow-hidden md:py-40">
+					<h3 className="text-sm text-center text-primary font-semibold tracking-widest mb-2 border border-primary/20 shadow-lg bg-white dark:bg-slate-800 mt-4 py-2 px-3 rounded-full inline-flex items-center justify-center gap-2 mx-auto">
+						<Sparkles className="w-4 h-4 inline-block text-[gold]" />
+						Empower Your Development Journey
+					</h3>
+					<h2 className="text-3xl font-bold text-gray-800 dark:text-white text-center md:text-5xl mt-3 mb-5">
+						Explore Our Developer-Centric Solutions
+					</h2>
+					<p className="text-center font-semibold text-slate-500 dark:text-slate-300 text-base">
+						{/* Welcome to our developer-centric platform, which is designed to help you create amazing digital products and services. */}
+					We've created a complete set of tools and resources that prioritise developers, allowing you to experiment, collaborate, and create without limitations.</p>
 
-						</p>
-					</div><div className="mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
+					<div className="mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
 						{features.map((feature, index) => {
 							return (<div key={index} className="group relative bg-white dark:bg-gray-800 dark:hover:bg-gray-700 transition hover:z-[1] hover:shadow-2xl hover:shadow-slate-600/10 hover:bg-slate-100 ">
 								<div className="relative space-y-8 py-12 p-8">
@@ -252,26 +183,26 @@ export default async function HomePage() {
 					</div>
 					<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 						<Suspense fallback={<div className="animate-pulse">Loading...</div>}>
-						{articles.map((article) => {
-							return (<div key={article._id} className="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
-								<div className="relative overflow-hidden rounded-xl">
-									<Image src={article.image} alt={article.title} loading="lazy" width={1000} height={667} className="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105" />
-								</div>
-								<div className="mt-6 relative">
-									<h3 className="text-2xl font-semibold text-gray-800 dark:text-white line-clamp-2"  title={article.title}>
-										{article.title}
-									</h3>
-									<p className="mt-6 mb-8 text-gray-600 dark:text-gray-300 line-clamp-3">
-										{article.description}
-									</p>
-									<Link href={`/blog/articles/${article.slug}`} className="inline-block" title={article.title}>
-										<span className="text-info dark:text-blue-300 font-semibold">Read more</span>
-									</Link>
-								</div>
-							</div>)
-						})}
+							{articles.map((article) => {
+								return (<div key={article._id} className="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
+									<div className="relative overflow-hidden rounded-xl">
+										<Image src={article.image} alt={article.title} loading="lazy" width={1000} height={667} className="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105" />
+									</div>
+									<div className="mt-6 relative">
+										<h3 className="text-2xl font-semibold text-gray-800 dark:text-white line-clamp-2" title={article.title}>
+											{article.title}
+										</h3>
+										<p className="mt-6 mb-8 text-gray-600 dark:text-gray-300 line-clamp-3">
+											{article.description}
+										</p>
+										<Link href={`/blog/articles/${article.slug}`} className="inline-block" title={article.title}>
+											<span className="text-info dark:text-blue-300 font-semibold">Read more</span>
+										</Link>
+									</div>
+								</div>)
+							})}
 						</Suspense>
-					
+
 					</div>
 				</div>
 			</div>
