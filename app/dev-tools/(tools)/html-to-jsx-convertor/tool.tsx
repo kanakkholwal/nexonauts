@@ -23,18 +23,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 
 import { Button } from "@/components/ui/button";
-// import HTMLtoJSX from 'html-2-jsx';
+import HTMLtoJSX, { configType } from 'nexo-html2jsx';
 import { MdDeleteOutline, MdOutlineCode } from "react-icons/md";
+
 
 
 const rawHtml = `
@@ -48,11 +42,12 @@ const rawHtml = `
 export default function HtmlToJsxTool() {
 
 
-  const [settings, setSettings] = useState({
-    indent: '\t',
+  const [settings, setSettings] = useState<configType>({
+    indent: "\t",
     hideComment: false,
     createClass: false,
-    outputClassName: 'MyAwesomeComponent'
+    createFunction: false,
+    outputComponentName: 'MyAwesomeComponent',
   })
   const [state, setState] = useState({
     rawData: rawHtml,
@@ -69,9 +64,10 @@ export default function HtmlToJsxTool() {
     try {
 
 
-      // const convertor = new HTMLtoJSX(settings);
+      const htmlToJsx = HTMLtoJSX(settings)
+      const convertor = new htmlToJsx();
 
-      setState({ ...state, convertedData:` convertor.convert(state.rawData)`, loading: false });
+      setState({ ...state, convertedData: convertor.convert(state.rawData), loading: false });
     }
     catch (e) {
       console.log(e);
@@ -82,12 +78,12 @@ export default function HtmlToJsxTool() {
 
 
   return (
-    <div className="flex justify-around item-start">
+    <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
 
-      <div className="mb-2">
+      <div className="flex flex-col w-full gap-1.5">
         <Label htmlFor="rawData">Enter Raw HTML Here</Label>
         <Textarea variant="ghost" value={state.rawData}
-          rows={8} id="rawData" onChange={(e) => setState({ ...state, rawData: e.target.value })} placeholder="Enter raw Html to convert " />
+          rows={12} cols={8} id="rawData" onChange={(e) => setState({ ...state, rawData: e.target.value })} placeholder="Enter raw Html to convert " />
       </div>
       <Card>
         <CardHeader>
@@ -99,10 +95,10 @@ export default function HtmlToJsxTool() {
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-6">
-          <div >
+          {/* <div >
             <Label htmlFor="Indentation">Indentation</Label>
             <Select
-              onValueChange={(value) => {
+              onValueChange={(value: configType["indent"]) => {
                 setSettings({ ...settings, indent: value })
               }}
             >
@@ -114,7 +110,7 @@ export default function HtmlToJsxTool() {
                 <SelectItem value=" ">Space</SelectItem>
               </SelectContent>
             </Select>
-          </div>
+          </div> */}
 
           <div className="flex w-full items-center space-x-2">
             <Label htmlFor="hideComment">Hide Comment</Label>
@@ -123,27 +119,27 @@ export default function HtmlToJsxTool() {
             }} />
           </div>
           <div className="flex w-full items-center space-x-2">
-            <Label htmlFor="createClass">Create Class</Label>
+            <Label htmlFor="createClass">Create Functional Component</Label>
             <Switch id="createClass" onCheckedChange={(value) => {
-              setSettings({ ...settings, createClass: value })
+              setSettings({ ...settings, createFunction: value })
             }} />
           </div>
 
           <div className="grid w-full gap-2">
-            <Label htmlFor="outputClassName">Output Class Name</Label>
+            <Label htmlFor="outputComponentName">Output Component Name</Label>
             <Input
               type="text"
-              name="outputClassName"
+              name="outputComponentName"
               variant="ghost"
-              id="outputClassName"
-              value={settings.outputClassName}
-              onChange={(e) => setSettings({ ...settings, outputClassName: e.target.value })}
+              id="outputComponentName"
+              value={settings.outputComponentName}
+              onChange={(e) => setSettings({ ...settings, outputComponentName: e.target.value })}
               disabled={!settings.createClass}
             /></div>
 
 
         </CardContent>
-        <CardFooter>
+        <CardFooter className="gap-2 flex-wrap">
 
           <Dialog>
             <DialogTrigger asChild>
@@ -163,15 +159,15 @@ export default function HtmlToJsxTool() {
                   Here is your HTML to JSX converted code...
                 </DialogDescription>
               </DialogHeader>
-              <CodeBlock language={settings.createClass ? "javascript" : "html"} data={state.convertedData} />
+              <CodeBlock language={settings.createFunction ? "javascript" :"html"} data={state.convertedData} />
             </DialogContent>
           </Dialog>
 
-          <Button variant="secondary" onClick={() => setState({ ...state, convertedData: "", rawData: rawHtml })} >
-            Reset Raw Data <MdOutlineCode />
+          <Button variant="outline" onClick={() => setState({ ...state, convertedData: "", rawData: rawHtml })} >
+            Reset Raw Data <MdOutlineCode className="w-4 h-4 ml-2" />
           </Button>
-          <Button variant="slate"  onClick={() => setState({ ...state, convertedData: "", rawData: "" })}>
-            Clear <MdDeleteOutline />
+          <Button variant="destructive_light" onClick={() => setState({ ...state, convertedData: "", rawData: "" })}>
+            Clear <MdDeleteOutline className="w-4 h-4 ml-2" />
           </Button>
 
         </CardFooter>

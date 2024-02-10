@@ -24,7 +24,7 @@ export default function Navbar({ user }: { user: SessionUserType }) {
     return (<nav className="w-full p-4  backdrop-blur border-b border-solid border-slate-100/50 dark:border-slate-700 flex items-center lg:px-6 z-2">
         <div className="flex items-start flex-col pl-12 lg:pl-0">
             <h3 className="text-lg font-bold">Dashboard</h3>
-            <h6 className="text-xs text-slate-500 dark:text-slate-400 font-semibold truncate w-full max-w-[60%]">
+            <h6 className="text-xs text-slate-500 dark:text-slate-400 font-semibold truncate w-full max-w-72">
                 {pathname}
             </h6>
         </div>
