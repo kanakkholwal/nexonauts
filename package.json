@@ -106,6 +106,7 @@
         "zustand": "^4.4.7"
     },
     "devDependencies": {
+        "@tailwindcss/typography": "^0.5.10",
         "@types/aos": "^3.0.7",
         "@types/cssbeautify": "^0.3.2",
         "@types/csso": "^5.0.0",
