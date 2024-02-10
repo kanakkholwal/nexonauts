@@ -43,7 +43,7 @@ export default async function DashboardPage() {
                             <CardDescription>
                                 <span className={(userTrend === "increase" ? "text-green-500" : userTrend === "decrease" ? "text-red-500" : "text-primary/80") + " text-base"}>
                                     {userTrend === "increase" ? <TrendingUp size={20} className="inline-block mr-2" /> : userTrend === "decrease" ? <TrendingDown size={20} className="inline-block mr-2" /> : <CircleDashed size={20} className="inline-block mr-2" />}
-                                    {userGrowth}%
+                                    {userGrowth?.toFixed(2)}%
                                 </span> from last month
                             </CardDescription>
                         </CardHeader>
@@ -61,7 +61,7 @@ export default async function DashboardPage() {
                             <CardDescription>
                                 <span className={(appTrend === "increase" ? "text-green-500" : appTrend === "decrease" ? "text-red-500" : "text-primary/80") + " text-base"}>
                                     {appTrend === "increase" ? <TrendingUp size={20} className="inline-block mr-2" /> : appTrend === "decrease" ? <TrendingDown size={20} className="inline-block mr-2" /> : <CircleDashed size={20} className="inline-block mr-2" />}
-                                    {appGrowth}%
+                                    {appGrowth?.toFixed(2)}%
                                 </span> from last month
                             </CardDescription>
                         </CardHeader>
@@ -79,7 +79,7 @@ export default async function DashboardPage() {
                             <CardDescription>
                                 <span className={(toolTrend === "increase" ? "text-green-500" : toolTrend === "decrease" ? "text-red-500" : "text-primary/80") + " text-base"}>
                                     {toolTrend === "increase" ? <TrendingUp size={20} className="inline-block mr-2" /> : toolTrend === "decrease" ? <TrendingDown size={20} className="inline-block mr-2" /> : <CircleDashed size={20} className="inline-block mr-2" />}
-                                    {toolGrowth}%
+                                    {toolGrowth?.toFixed(2)}%
                                 </span> from last month
                             </CardDescription>
                         </CardHeader>

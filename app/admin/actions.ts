@@ -1,9 +1,9 @@
 "use server";
 // import mongoose from "mongoose";
 import dbConnect from "src/lib/dbConnect";
-import UserModel from "src/models/user";
 import AppModel from "src/models/app";
 import PublicToolModel from "src/models/tool";
+import UserModel from "src/models/user";
 
 // Function to count users and calculate percent growth
 export async function users_CountAndGrowth(timeInterval: string): Promise<{ count: number; growth: number; trend: 'increase' | 'decrease' | 'stable' }> {
@@ -34,7 +34,8 @@ export async function users_CountAndGrowth(timeInterval: string): Promise<{ coun
             throw new Error('Invalid time interval provided');
     }
 
-    const count = await UserModel.countDocuments({ createdAt: { $gte: startTime } });
+    const count = await UserModel.countDocuments({  });
+    // const count = await UserModel.countDocuments({ createdAt: { $gte: startTime } });
 
     const prevTimeIntervalStartTime = new Date(startTime.getTime());
     prevTimeIntervalStartTime.setFullYear(prevTimeIntervalStartTime.getFullYear() - 1); // Assuming yearly comparison for growth
@@ -82,7 +83,8 @@ export async function apps_CountAndGrowth(timeInterval: string): Promise<{ count
             throw new Error('Invalid time interval provided');
     }
 
-    const count = await AppModel.countDocuments({ createdAt: { $gte: startTime } });
+    // const count = await AppModel.countDocuments({ createdAt: { $gte: startTime } });
+    const count = await AppModel.countDocuments({  });
 
     const prevTimeIntervalStartTime = new Date(startTime.getTime());
     prevTimeIntervalStartTime.setFullYear(prevTimeIntervalStartTime.getFullYear() - 1); // Assuming yearly comparison for growth
@@ -130,7 +132,8 @@ export async function tools_CountAndGrowth(timeInterval: string): Promise<{ coun
             throw new Error('Invalid time interval provided');
     }
 
-    const count = await PublicToolModel.countDocuments({ createdAt: { $gte: startTime } });
+    // const count = await PublicToolModel.countDocuments({ createdAt: { $gte: startTime } });
+    const count = await PublicToolModel.countDocuments({  });
 
     const prevTimeIntervalStartTime = new Date(startTime.getTime());
     prevTimeIntervalStartTime.setFullYear(prevTimeIntervalStartTime.getFullYear() - 1); // Assuming yearly comparison for growth
