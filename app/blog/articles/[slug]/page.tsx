@@ -22,9 +22,7 @@ export async function generateMetadata({ params }: {
     }
     const metadata: Metadata = {
         title: post.title,
-        description: post.excerpt,
-        type: "article",
-        url: `https://nexonauts.com/blog/articles/${post.slug}`
+        description: post.description,
     }
     return metadata
 }
