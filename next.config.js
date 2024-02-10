@@ -33,14 +33,14 @@ const nextConfig = withPWA({
     config.experiments = { ...config.experiments, topLevelAwait: true };
     // this will just update topLevelAwait property of config.experiments
     // config.experiments.topLevelAwait = true 
-      // if (!isServer) {
-      //   config.resolve.fallback = { ...config.resolve.fallback, 
-      //     net: false, os: false,fs:false,
-      //     tls:false,
-      //     canvas:false,
-      //     child_process:false
-      //    };
-      // }
+      if (!isServer) {
+        config.resolve.fallback = { ...config.resolve.fallback, 
+          net: false, os: false,fs:false,
+          tls:false,
+          canvas:false,
+          child_process:false
+        };
+      }
 
       
 
