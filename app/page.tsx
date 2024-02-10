@@ -61,7 +61,7 @@ export default async function HomePage() {
 			<HeroSection />
 			<div id="solutions">
 				<div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 flex flex-col w-full bg-cover relative overflow-hidden md:py-40">
-					<h3 className="text-sm text-center text-primary font-semibold tracking-widest mb-2 border border-primary/20 shadow-lg bg-white dark:bg-slate-800 mt-4 py-2 px-3 rounded-full inline-flex items-center justify-center gap-2 mx-auto">
+					<h3 className="text-xs text-center text-primary font-semibold tracking-widest mb-2 border border-primary/20 shadow-lg bg-white dark:bg-slate-800 mt-4 py-1.5 px-3 rounded-full inline-flex items-center justify-center gap-2 mx-auto">
 						<Sparkles className="w-4 h-4 inline-block text-[gold]" />
 						Empower Your Development Journey
 					</h3>
