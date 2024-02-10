@@ -159,7 +159,7 @@ export default function HtmlToJsxTool() {
                   Here is your HTML to JSX converted code...
                 </DialogDescription>
               </DialogHeader>
-              <CodeBlock language={"javascript"} data={state.convertedData} />
+              <CodeBlock language={createFunction ? "javascript" :"html"} data={state.convertedData} />
             </DialogContent>
           </Dialog>
 
