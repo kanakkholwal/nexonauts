@@ -32,13 +32,13 @@ export const allDevTools: ToolProp[] = [
         
         online: true
     },
-    // {
-    //     title: "HTML to JSX Convertor",
-    //     description: "The HTML to JSX Converter is a helpful tool that enables developers to seamlessly convert HTML code into JSX (JavaScript XML) syntax, commonly used in React applications. With an HTML to JSX Converter, developers can efficiently transform HTML code into JSX, ensuring the compatibility and efficiency of their React projects.",
-    //     category: "Web Tools",
-    //     id: "html-to-jsx-convertor",
-    //     online: true
-    // },
+    {
+        title: "HTML to JSX Convertor",
+        description: "The HTML to JSX Converter is a helpful tool that enables developers to seamlessly convert HTML code into JSX (JavaScript XML) syntax, commonly used in React applications. With an HTML to JSX Converter, developers can efficiently transform HTML code into JSX, ensuring the compatibility and efficiency of their React projects.",
+        category: "Web Tools",
+        id: "html-to-jsx-convertor",
+        online: true
+    },
     {
         title: "Css Minifier and Prettifier Tool",
         description: "Online CSS Minifier takes any form of css code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Css to make it easy to read and edit. It reduces file size and optimizes css for your website.",

@@ -112,10 +112,11 @@ pre[class*=language-] {
 
 code[class*="language-"],
 pre[class*="language-"] {
-    white-space: pre-line;
+    text-align: left;
+    white-space: pre;
     word-spacing: normal;
-    word-break: normal;
-    word-wrap: normal;
+    word-break: break-all;
+    word-wrap: inherit;
     @apply bg-slate-100 text-slate-600 dark:bg-[#1e293b] dark:text-[#f8fafc] text-left text-sm  mb-10 mt-5 leading-7 font-normal overflow-x-auto rounded-lg p-4;
     /* box-shadow: 0 4px 6px -1px #0000001a, 0 2px 4px -2px #0000001a; */
     -moz-tab-size: 4;

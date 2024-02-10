@@ -1,8 +1,8 @@
+import copy from 'copy-to-clipboard';
 import dynamic from "next/dynamic";
 import Prism from "prismjs";
 import { memo, useEffect, useState } from "react";
-import copy from 'copy-to-clipboard';
-import toast from "react-hot-toast"
+import toast from "react-hot-toast";
 
 type Props = {
     data: any;
@@ -47,7 +47,7 @@ const CodeRenderer = ({ data,language,format }: Props) => {
       >
         {state === "idle" ? "Copy":"Copied !!!"}
       </button>
-      <code className={`language-${language}`}>{data}</code>
+      <code className={`language-${language} whitespace-pre-wrap`}>{data}</code>
     </pre>
   );
 };
