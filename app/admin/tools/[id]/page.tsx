@@ -3,6 +3,7 @@ import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth/next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import MarkdownView from 'src/components/markdown/view';
 import { sessionType } from "src/types/session";
 import { getToolById } from "./actions";
 
@@ -53,7 +54,7 @@ export default async function DashboardPage({ params }: { params: { id: string }
 
             <div className="mt-5">
                 <h1 className="text-xl font-bold">Description</h1>
-                <p className="text-gray-500 mt-2">{tool.description}</p>
+                <MarkdownView className="prose xl:prose-xl">{tool.description}</MarkdownView>
             </div>
             <div className="mt-5">
                 <h1 className="text-xl font-bold">Categories</h1>
