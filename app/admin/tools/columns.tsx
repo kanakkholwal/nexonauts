@@ -62,12 +62,7 @@ export const columns: ColumnDef<userType>[] = [
       <DataTableColumnHeader column={column} title="Name" />
     ),
     cell: ({ row }) => {
-      return <div className="text-left font-medium">
-        <Link href={`/admin/tools/${row.original._id}`} className="hover:underline">
-          {row.getValue("name")}
-        </Link>
-
-      </div>
+      return <div className="text-left font-medium">{row.getValue("name")}</div>
     },
     enableSorting: true,
     enableHiding: true,
