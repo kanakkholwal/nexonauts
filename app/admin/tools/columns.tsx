@@ -24,7 +24,7 @@ export type userType = {
   slug: string,
   coverImage: string,
   link: string,
-  createdAt: string,
+  updatedAt: string,
   status: string,
   verified: boolean,
   pricing_type: string,
@@ -129,13 +129,13 @@ export const columns: ColumnDef<userType>[] = [
     enableHiding: true,
   },
   {
-    id: "createdAt",
-    accessorKey: "createdAt",
+    id: "updatedAt",
+    accessorKey: "updatedAt",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Created At" />
+      <DataTableColumnHeader column={column} title="Updated At" />
     ),
     cell: ({ row }) => {
-      const formatted = new Date(row.getValue("createdAt")).toLocaleDateString("en-US", {
+      const formatted = new Date(row.getValue("updatedAt")).toLocaleDateString("en-US", {
         year: "numeric",
         month: "long",
         day: "numeric",

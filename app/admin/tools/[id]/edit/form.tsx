@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import axios from "axios";
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Loader2, Sparkles } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Image from "next/image";
 import Link from "next/link";
@@ -143,11 +143,13 @@ export default function Form({ updateTool }: {
                     // console.log('onChange', html, text);
                     useFormStore.setState({ tool: { ...tool, description: text } })
                 }}
-                renderHTML={(text: string) => <MarkdownView>{text}</MarkdownView>}
+                renderHTML={(text: string) => <MarkdownView className="prose lg:prose-xl">{text}</MarkdownView>}
                 ref={editorRef}
             />
             <div className="flex justify-end gap-2">
-                <Button size="lg" disabled={generating}
+                <Button 
+                variant="default_light"
+                disabled={generating}
                     onClick={(e) => {
                         e.preventDefault();
                         const name = tool?.name;
@@ -174,7 +176,8 @@ export default function Form({ updateTool }: {
                 
                     }}
                 >
-                    Generate Description
+                {loading ? <Loader2 className="h5 w-5 mr-2"/>:<Sparkles className="w-4 h-4 mr-2"/>}
+                {loading ? "Generating...":"Generate"}
                 </Button>
             </div>
         </div>
@@ -277,7 +280,9 @@ export default function Form({ updateTool }: {
                         });
                 }}
             >
-                Save Changes
+                {loading ? <Loader2 className="h5 w-5 mr-2"/>:null}
+                {loading ? "Saving...":"Save Changes"}
+                
             </Button>
         </div>
 
