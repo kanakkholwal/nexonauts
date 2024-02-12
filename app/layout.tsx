@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
 import Script from 'next/script';
 import { Provider, ThemeProvider } from "./client-provider";
@@ -77,6 +78,7 @@ export default function RootLayout({
                     <Provider>{children}</Provider>
 
                 </ThemeProvider>
+                {process.env.NODE_ENV !== "development" &&      <GoogleAnalytics gaId="G-DQ8920P13D" />}
             </body>
         </html>
     )
