@@ -10,6 +10,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
+import axios from "axios";
 import { ExternalLink } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Image from "next/image";
@@ -22,7 +23,6 @@ import { UploadImage } from "src/components/uploader";
 import { PublicToolPricingType, PublicToolStatus, PublicToolTypeWithId } from "src/models/tool";
 import { useFormStore } from "./store";
 
-
 const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
     loading: () => <p>Loading...</p>,
     ssr: false
@@ -34,6 +34,7 @@ export default function Form({ updateTool }: {
     const tool = useFormStore((state) => state.tool) as PublicToolTypeWithId;
     const [loading, setLoading] = React.useState(false);
     const editorRef = React.useRef(null);
+    const [generating, setGenerating] = React.useState(false);
 
 
     return (<>
@@ -137,14 +138,45 @@ export default function Form({ updateTool }: {
             <MdEditor
                 className="w-full h-96  rounded-lg shadow-md p-2"
                 value={tool?.description || ""}
-                disabled={loading}
+                disabled={loading || generating}
                 onChange={({ html, text }) => {
-                    console.log('onChange', html, text);
+                    // console.log('onChange', html, text);
                     useFormStore.setState({ tool: { ...tool, description: text } })
                 }}
                 renderHTML={(text: string) => <MarkdownView>{text}</MarkdownView>}
                 ref={editorRef}
             />
+            <div className="flex justify-end gap-2">
+                <Button size="lg" disabled={generating}
+                    onClick={(e) => {
+                        e.preventDefault();
+                        const name = tool?.name;
+                        const link = tool?.link;
+                        if (!name || !link) {
+                            toast.error('Name and Link are required');
+                            return;
+                        }
+                        setGenerating(true);
+                        toast.promise(axios.post('/api/tools/generate', { name, link }), {
+                            loading: 'Generating Description...',
+                            success: (response) => {
+                                useFormStore.setState({ tool: { ...tool, description: response.data.data } });
+                                return 'Description Generated';
+                            },
+                            error: (error) => {
+                                console.error(error);
+                                return 'Error Generating Description';
+                            }
+                        })
+                            .finally(() => {
+                                setGenerating(false);
+                            });
+                
+                    }}
+                >
+                    Generate Description
+                </Button>
+            </div>
         </div>
         <div className="grid w-full items-center gap-1.5 my-4">
             <Label htmlFor="coverImage">
