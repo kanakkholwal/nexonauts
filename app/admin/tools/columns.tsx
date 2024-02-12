@@ -167,6 +167,11 @@ export const columns: ColumnDef<userType>[] = [
               success: 'ID copied to clipboard',
               error: 'Failed to copy ID'
             })}> Copy ID </DropdownMenuItem>
+            <DropdownMenuItem asChild> 
+            <Link href={`/admin/tools/${tool._id}/edit`}>
+              Edit 
+            </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem onClick={() => {
               console.log("deleting tool ", tool);
               toast.promise(axios.delete(`/api/tool/delete?userId=${tool._id}`), {
