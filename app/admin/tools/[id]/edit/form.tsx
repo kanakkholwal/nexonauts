@@ -176,8 +176,8 @@ export default function Form({ updateTool }: {
                 
                     }}
                 >
-                {loading ? <Loader2 className="h5 w-5 mr-2"/>:<Sparkles className="w-4 h-4 mr-2"/>}
-                {loading ? "Generating...":"Generate"}
+                {generating ? <Loader2 className="h5 w-5 mr-2"/>:<Sparkles className="w-4 h-4 mr-2"/>}
+                {generating ? "Generating...":"Generate"}
                 </Button>
             </div>
         </div>
