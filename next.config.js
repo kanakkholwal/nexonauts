@@ -16,7 +16,6 @@ const nextConfig = withPWA({
   reactStrictMode: true,
   transpilePackages: ['@mdxeditor/editor', 'react-diff-view'],
   swcMinify: true,
-  compiler: { styledComponents: { ssr: true } },
   crossOrigin: 'anonymous',
   output:"standalone",
   images: {
