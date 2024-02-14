@@ -138,7 +138,7 @@ export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
         const ratingUnratedColor = computeUnratedColor(unratedColor || "gray");
 
         const ratingClasses = cn(
-            "flex",
+            "inline-flex",
             "space-x-1",
             "text-2xl",
             "cursor-pointer",
@@ -156,8 +156,8 @@ export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
 
         return (
             <>
-                <TooltipProvider>
-                    <Tooltip>
+                <TooltipProvider key={"rating_" + randomId + "_provider"}>
+                    <Tooltip key={"rating_" + randomId}>
                         <TooltipTrigger asChild>
                             <div {...rest} ref={ref} className={ratingClasses}>
                                 {[...Array(ratingCount)].map((_, index) => {
