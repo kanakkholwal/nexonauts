@@ -1,8 +1,8 @@
-import mongoose, { Document, Model } from 'mongoose';
+import mongoose, {Model, Document, Types } from "mongoose";
 
 export interface IRating extends Document {
-    userId: string;
-    toolId: string;
+    userId: Types.ObjectId;
+    toolId: Types.ObjectId;
     rating: number;
     comment?: string;
     createdAt?: Date;
@@ -10,8 +10,8 @@ export interface IRating extends Document {
 }
 
 const ratingSchema = new mongoose.Schema<IRating>({
-    userId: { type: String, required: true },
-    toolId: { type: String, required: true },
+    userId: { type: Types.ObjectId, ref: 'User', required: true },
+    toolId: { type: Types.ObjectId, ref: 'PublicTool', required: true },
     rating: { type: Number, required: true, min: 1, max: 5 },
     comment: { type: String,minlength: 10, maxlength: 500 },
 },{timestamps: true});
