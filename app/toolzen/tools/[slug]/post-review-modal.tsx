@@ -71,7 +71,7 @@ export function PostReviewModal({tool,
                             variant="fluid"
                             value={comment}
                             onChange={(e) => setComment(e.target.value)}
-                            required
+                        
                         />
                     </div>
                 <DialogFooter>

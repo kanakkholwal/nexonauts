@@ -4,11 +4,11 @@ import {
     Card,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
-    CardTitle,
+    CardTitle
 } from "@/components/ui/card";
 import { Rating } from "@/components/ui/rating";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import Navbar from "app/layouts/navbar";
 import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools, postRatingAndReview } from "app/toolzen/lib/actions";
@@ -19,6 +19,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import MarkdownView from 'src/components/markdown/view';
+import { formatNumber } from "src/utils/formaters";
 import { PostReviewModal } from "./post-review-modal";
 import SimilarTools from "./similar-tools";
 
@@ -34,7 +35,7 @@ export default async function ToolPage({ params }: {
         return notFound();
     }
     const session = await getServerSession(authOptions);
-    console.log(session)
+    console.log(tool)
 
 
     const similarTools = await getSimilarTools(tool.categories);
@@ -45,59 +46,58 @@ export default async function ToolPage({ params }: {
         <main className="w-full mx-auto xl:max-w-7xl xl:px-0 rounded-lg overflow-hidden pt-20 space-y-4">
 
             <Card>
-                <CardHeader className="flex flex-row gap-3 items-center ">
-                    <div>
-                        <Image width={320} height={320} src={tool.coverImage} alt={tool.name}
-                            className="rounded-lg backdrop-blur-lg border border-border max-w-40" />
+                <CardHeader className="flex flex-row gap-3 items-center flex-wrap">
+                    <div className="flex-1 space-y-4">
+                        <div className="flex flex-row gap-3 items-center justify-start">
+                            <Image width={320} height={320} src={tool.coverImage} alt={tool.name}
+                                className="rounded-lg backdrop-blur-lg border border-border max-w-40" />
+                            <CardTitle title={tool.name} className="text-5xl font-bold">{tool.name}</CardTitle>
+                        </div>
                     </div>
-                    <div className="space-y-2">
-
-                        <CardTitle title={tool.name}>{tool.name}</CardTitle>
-                        <div className="space-y-2">
+                    <div className="flex items-center justify-center gap-2 ml-auto">
+                        <Button variant="destructive_light">
+                            {tool.verified ? <Heart className="inline-block w-5 h-5" /> : <HeartOff className="inline-block w-5 h-5" />}
+                        </Button>
+                        <Button
+                            variant="gradient_blue"
+                            className="rounded-full px-6 py-2"
+                            asChild>
+                            <Link href={tool.link + "?ref=nexonauts.com/toolzen"} target="_blank">
+                                <span>
+                                    Check it out
+                                </span>
+                                <ExternalLink className="inline-block ml-2 w-4 h-4" />
+                            </Link>
+                        </Button>
+                    </div>
+                    <div className="w-full space-y-4">
+                        <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start">
                             <Badge variant="default_light" size="sm">{tool.pricing_type}</Badge>
-                            <div className="flex items-center">
+                            <div className="inline-flex items-center">
                                 <Star className="w-4 h-4 fill-yellow-300 text-yellow-300 me-1" />
                                 <p className="ms-2 text-sm font-bold text-gray-900 dark:text-white">4.95</p>
                                 <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400" />
                                 <a href="#reviews" className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">73 reviews</a>
                             </div>
-
+                        </div>
+                        <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start">
+                            {tool.categories.map((category, index) => {
+                                return <Badge key={category.slug + "_" + index} variant="success_light" className="font-medium">
+                                    <Hash className="inline-block w-4 h-4" />
+                                    {category.name}
+                                </Badge>
+                            })}
                         </div>
                     </div>
                 </CardHeader>
-                <CardContent className=" border-y border-y-border pt-5 flex items-center justify-center">
+                <CardContent className=" border-y border-y-border pt-5 flex-col flex items-center justify-center gap-4">
                     {tool.bannerImage === "https://via.placeholder.com/920" ? <>
                         <Image width={900} height={384} src={tool.coverImage} alt={tool.name} className="w-full h-auto max-w-3xl  rounded-lg shadow-xl backdrop-blur-lg object-cover border border-border  mx-auto" />
                     </> : <>
                         <Image width={900} height={384} src={tool.bannerImage || tool.coverImage} alt={tool.name}
                             className="w-full h-auto max-w-3xl object-cover rounded-lg shadow-xl backdrop-blur-lg border border-border mx-auto aspect-video" />
                     </>}
-                    <h5 className="text-lg font-semibold mt-4">Categories</h5>
-
-                    <div className="flex flex-wrap gap-2 w-full items-center justify-start mt-2">
-                        {tool.categories.map((category, index) => {
-                            return <Badge key={category.slug + "_" + index} variant="success_light" size="sm" className="font-medium">
-                                <Hash className="inline-block w-4 h-4 mr-1" />
-                                {category.name}
-                            </Badge>
-                        })}
-                    </div>
                 </CardContent>
-                <CardFooter className="gap-2 justify-center pt-4">
-                    <Button variant="destructive_light">
-                        {tool.verified ? <Heart className="inline-block w-5 h-5" /> : <HeartOff className="inline-block w-5 h-5" />}
-                    </Button>
-                    <Button
-                        variant="gradient_blue"
-                        asChild>
-                        <Link href={tool.link + "?ref=nexonauts.com/toolzen"} target="_blank">
-                            <span >
-                                Check it out
-                            </span>
-                            <ExternalLink className="inline-block ml-2 w-4 h-4" />
-                        </Link>
-                    </Button>
-                </CardFooter>
             </Card>
 
             <Card id="overview">
@@ -107,8 +107,8 @@ export default async function ToolPage({ params }: {
                         Learn about <strong>{tool.name}</strong> and it's pricing model and every basic thing I should know before using it.
                     </CardDescription>
                 </CardHeader>
-                <CardContent className="prose  dark:prose-invert  prose-slate">
-                    <MarkdownView>{tool.description}</MarkdownView>
+                <CardContent>
+                    <MarkdownView  className="prose  dark:prose-invert  prose-slate">{tool.description}</MarkdownView>
                 </CardContent>
             </Card>
             <Card id="similar-tools">
@@ -127,85 +127,67 @@ export default async function ToolPage({ params }: {
                 </CardContent>
             </Card>
             <Card id="reviews">
-                <CardHeader>
-                    <CardTitle>
-                        <Star className="inline-block mr-2 w-5 h-5" />Ratings & Reviews
-                    </CardTitle>
-                    <CardDescription>
-                        See what other users have to say about <strong>{tool.name}</strong>
-                    </CardDescription>
-                    {session && session.user ? <>
-                        <PostReviewModal tool={tool} postRatingAndReview={postRatingAndReview} />
-                    </> : <Button variant="gradient_blue" asChild>
-                        <Link href="/login">
-                            <span>Rate this tool</span>
-                        </Link>
-                    </Button>}
+                <CardHeader className="flex items-center w-full gap-2 flex-col md:flex-row">
+                    <div>
+                        <CardTitle>
+                            <Star className="inline-block mr-2 w-5 h-5" />Ratings & Reviews
+                        </CardTitle>
+                        <CardDescription>
+                            See what other users have to say about <strong>{tool.name}</strong>
+                        </CardDescription>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 ml-auto">
+                        {session && session.user ? <>
+                            <PostReviewModal tool={tool} postRatingAndReview={postRatingAndReview} />
+                        </> : <Button variant="gradient_blue" asChild>
+                            <Link href="/login">
+                                <span>Rate this tool</span>
+                            </Link>
+                        </Button>}
+                    </div>
                 </CardHeader>
                 <CardContent>
-                    <div>
-                        <div className="flex items-center mb-2">
-                            {/* <Star className="w-4 h-4 fill-yellow-300 text-yellow-300 me-1" />
-                            <Star className="w-4 h-4 fill-yellow-300 text-yellow-300 me-1" />
-                            <Star className="w-4 h-4 fill-yellow-300 text-yellow-300 me-1" />
-                            <Star className="w-4 h-4 fill-yellow-300 text-yellow-300 me-1" />
-                            <Star className="w-4 h-4 fill-yellow-300 text-yellow-300 me-1" /> */}
-                            <Rating 
+                    <div className="flex items-center mb-2">
+                        <Rating
                             count={5}
                             value={4.5}
                             readonly={true}
-                            />
-                        </div>
-                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400">1,745 global ratings</p>
-                        <div className="flex items-center mt-4">
-                            <a href="#" className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">5 star</a>
-                            <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div className="h-5 bg-yellow-300 rounded" style={{ width: '70%' }} />
-                            </div>
-                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">70%</span>
-                        </div>
-                        <div className="flex items-center mt-4">
-                            <a href="#" className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">4 star</a>
-                            <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div className="h-5 bg-yellow-300 rounded" style={{ width: '17%' }} />
-                            </div>
-                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">17%</span>
-                        </div>
-                        <div className="flex items-center mt-4">
-                            <a href="#" className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">3 star</a>
-                            <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div className="h-5 bg-yellow-300 rounded" style={{ width: '8%' }} />
-                            </div>
-                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">8%</span>
-                        </div>
-                        <div className="flex items-center mt-4">
-                            <a href="#" className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">2 star</a>
-                            <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div className="h-5 bg-yellow-300 rounded" style={{ width: '4%' }} />
-                            </div>
-                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">4%</span>
-                        </div>
-                        <div className="flex items-center mt-4">
-                            <a href="#" className="text-sm font-medium text-blue-600 dark:text-blue-500 hover:underline">1 star</a>
-                            <div className="w-2/4 h-5 mx-4 bg-gray-200 rounded dark:bg-gray-700">
-                                <div className="h-5 bg-yellow-300 rounded" style={{ width: '1%' }} />
-                            </div>
-                            <span className="text-sm font-medium text-gray-500 dark:text-gray-400">1%</span>
-                        </div>
+                        />
                     </div>
+                    <p className="text-sm font-medium text-gray-500 dark:text-gray-400 inline-flex items-center">
+                        <span className="font-semibold hover:underline cursor-pointer">
+                            {formatNumber(ratings.length)}{" "} ratings
+                        </span>
+                        <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400" />
+                        We don't verify reviews.
+                    </p>
 
-                    <Suspense fallback={<div>Loading...</div>}>
-                        {ratings.map((rating:any) => {
-                            return <div key={rating._id} className="flex flex-row gap-4 items-center justify-start">
-                                <div className="flex flex-col items-start justify-start">
-                                    <h4 className="text-lg font-semibold">{rating.rating}</h4>
-                                    <p className="text-base text-muted-foreground line-clamp-2 text-pretty prose prose-sm  dark:prose-invert  prose-slate">
-                                        {rating.comment}
-                                    </p>
-                                </div>
-                            </div>
-                        })}
-                    </Suspense>
+                    <Tabs defaultValue="all-reviews" className="w-full mt-5">
+                        <TabsList className="w-full">
+                            <TabsTrigger value="all-reviews">
+                                All Reviews
+                            </TabsTrigger>
+                            <TabsTrigger value="your-review">Your Review</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="all-reviews">
+                            <Suspense fallback={<div>Loading...</div>}>
+                                {ratings.map((rating: any) => {
+                                    return <div key={rating._id} className="flex flex-row gap-4 items-center justify-start">
+                                        <div className="flex flex-col items-start justify-start">
+                                            <h4 className="text-lg font-semibold">{rating.rating}</h4>
+                                            <p className="text-base text-muted-foreground line-clamp-2 text-pretty prose prose-sm  dark:prose-invert  prose-slate">
+                                                {rating.comment}
+                                            </p>
+                                        </div>
+                                    </div>
+                                })}
+                            </Suspense>
+                        </TabsContent>
+                        <TabsContent value="your-review">
+                            Login to add your review
+                        </TabsContent>
+                    </Tabs>
+
                 </CardContent>
             </Card>
         </main>

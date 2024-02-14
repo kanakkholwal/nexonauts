@@ -147,7 +147,7 @@ export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
         );
         const ratedIconClasses = cn(
             (!readonly ? "transition-colors duration-300 ease-in-out cursor-pointer" : ""),
-            "select-none hover:scale-110 dark:hover:scale-110 transform-gpu hover:rotate-12 dark:hover:rotate-12 rotate-0 hover:translate-y-0 dark:hover:translate-y-0 translate-y-0 hover:translate-x-0 dark:hover:translate-x-0 translate-x-0",
+            "select-none hover:scale-110 dark:hover:scale-110 transform-gpu hover:translate-y-0 dark:hover:translate-y-0 translate-y-0 hover:translate-x-0 dark:hover:translate-x-0 translate-x-0",
             "w-6 h-6",
         );
 
