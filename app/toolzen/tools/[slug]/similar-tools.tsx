@@ -13,7 +13,7 @@ export default function SimilarTools({ tools }: { tools: Partial<PublicToolTypeW
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                 {tools.map(tool => {
                     return (
-                        <Link key={tool._id} href={`/toolzen/tools/${tool.slug}`} className="bg-slate-50 dark:bg-slate-800 hover:bg-primary/10 dark:hover:bg-primary/20 w-full flex flex-row items-center justify-start gap-4 border border-border px-2 py-3 rounded-md">
+                        <Link key={tool._id} href={`/toolzen/tools/${tool.slug}`} className="bg-slate-50 dark:bg-slate-800 hover:bg-primary/5 dark:hover:bg-primary/10 w-full flex flex-row items-center justify-start gap-4 border border-border px-2 py-3 rounded-md">
                             <Image src={tool.coverImage!} alt={tool.name!} height={128} width={320} className="max-w-32 max-h-24 flex-auto rounded-lg  backdrop-blur-lg object-cover w-full my-auto" />
                             <div className="flex flex-col items-start justify-start">
                                 <h4 className="text-lg font-semibold">{tool.name}</h4>

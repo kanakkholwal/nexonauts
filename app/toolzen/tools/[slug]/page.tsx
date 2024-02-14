@@ -11,7 +11,7 @@ import {
 import { Rating } from "@/components/ui/rating";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import Navbar from "app/layouts/navbar";
-import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools } from "app/toolzen/lib/actions";
+import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools,postRatingAndReview } from "app/toolzen/lib/actions";
 import { ExternalLink, Hash, Heart, HeartOff, Star, Zap } from 'lucide-react';
 import { getServerSession } from "next-auth/next";
 import Image from "next/image";
@@ -21,6 +21,8 @@ import { Suspense } from "react";
 import MarkdownView from 'src/components/markdown/view';
 import { PostReviewModal } from "./post-review-modal";
 import SimilarTools from "./similar-tools";
+
+
 export default async function ToolPage({ params }: {
     params: {
         slug: string
@@ -134,7 +136,7 @@ export default async function ToolPage({ params }: {
                         See what other users have to say about <strong>{tool.name}</strong>
                     </CardDescription>
                     {session && session.user ? <>
-                        <PostReviewModal tool={tool} />
+                        <PostReviewModal tool={tool} postRatingAndReview={postRatingAndReview} />
                     </> : <Button variant="gradient_blue" asChild>
                         <Link href="/login">
                             <span>Rate this tool</span>
