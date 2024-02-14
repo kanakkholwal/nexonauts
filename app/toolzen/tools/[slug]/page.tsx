@@ -11,7 +11,7 @@ import {
 import { Rating } from "@/components/ui/rating";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import Navbar from "app/layouts/navbar";
-import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools,postRatingAndReview } from "app/toolzen/lib/actions";
+import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools, postRatingAndReview } from "app/toolzen/lib/actions";
 import { ExternalLink, Hash, Heart, HeartOff, Star, Zap } from 'lucide-react';
 import { getServerSession } from "next-auth/next";
 import Image from "next/image";
@@ -65,13 +65,12 @@ export default async function ToolPage({ params }: {
                         </div>
                     </div>
                 </CardHeader>
-                <CardContent className=" border-y border-y-border pt-5">
+                <CardContent className=" border-y border-y-border pt-5 flex items-center justify-center">
                     {tool.bannerImage === "https://via.placeholder.com/920" ? <>
-                        <Image width={900} height={384} src={tool.coverImage} alt={tool.name} className="w-full h-auto max-h-96 rounded-lg shadow-xl backdrop-blur-lg object-cover border border-border  mx-auto" />
+                        <Image width={900} height={384} src={tool.coverImage} alt={tool.name} className="w-full h-auto max-w-3xl  rounded-lg shadow-xl backdrop-blur-lg object-cover border border-border  mx-auto" />
                     </> : <>
                         <Image width={900} height={384} src={tool.bannerImage || tool.coverImage} alt={tool.name}
-                            className="w-full h-auto max-h-96 object-contain rounded-lg shadow-xl backdrop-blur-lg border border-border mx-auto aspect-video" />
-
+                            className="w-full h-auto max-w-3xl object-cover rounded-lg shadow-xl backdrop-blur-lg border border-border mx-auto aspect-video" />
                     </>}
                     <h5 className="text-lg font-semibold mt-4">Categories</h5>
 
