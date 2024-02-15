@@ -11,10 +11,12 @@ import { Suspense } from "react";
 import PublicTool from 'src/models/tool';
 import { Categorized } from "./categoried";
 import { HeroWrapper } from "./hero";
+
 export const metadata: Metadata = {
     title: "ToolZen - AI Tools, Services, and Resources",
     description: "ToolZen is a curated list of AI tools, services, and resources. Find the best AI tools for your business.",
 }
+
 const features = [
     {
         title: "Search Engine",

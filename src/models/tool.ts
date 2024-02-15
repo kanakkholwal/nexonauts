@@ -1,4 +1,4 @@
-import mongoose, { Document, Model } from 'mongoose';
+import mongoose, { Document, Model, Types } from 'mongoose';
 import { customAlphabet } from 'nanoid';
 
 export interface ICategory extends Document {
@@ -31,8 +31,11 @@ export interface PublicToolType {
 }
 export interface PublicToolTypeWithId extends PublicToolType {
     _id: string;
+    bookmarks: string[];
 }
-export interface IPublicTool extends Document , PublicToolType {}
+export interface IPublicTool extends Document, PublicToolType {
+    bookmarks: Types.ObjectId[];
+}
 
 const categorySchema = new mongoose.Schema({
     name: { type: String, trim: true },
@@ -57,6 +60,10 @@ const publicToolSchema = new mongoose.Schema<IPublicTool>({
     status: { type: String, required: true, enum: ['draft', 'published', 'archived', 'deleted', 'pending', 'rejected'], default: 'draft' },
     pricing_type: { type: String, required: true, trim: true, default: 'other' },
     verified: { type: Boolean, default: false },
+    bookmarks: {
+        type: [{ type: Types.ObjectId, ref: 'User' }],
+        default: [],
+    },
     author: { type: authorSchema, required: false, default: { name: 'Kanak', email: 'kanakkholwal@gmail.com', public_link: 'https://kanakkholwal.eu.org', userId: null } }
 },{ timestamps: true });
 
