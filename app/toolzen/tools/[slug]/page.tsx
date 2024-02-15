@@ -1,92 +1,222 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle
+} from "@/components/ui/card";
+import { Rating } from "@/components/ui/rating";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { authOptions } from "app/api/auth/[...nextauth]/options";
 import Navbar from "app/layouts/navbar";
-import { getPublicToolBySlug, getSimilarTools } from "app/toolzen/lib/actions";
-import { ExternalLink, Heart, HeartOff, Star, Zap } from 'lucide-react';
+import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools, postRatingAndReview, toggleBookmark } from "app/toolzen/lib/actions";
+import { getAverageRating } from "app/toolzen/lib/utils";
+import { ExternalLink, Hash, Star, Zap } from 'lucide-react';
+import { getServerSession } from "next-auth/next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import MarkdownView from 'src/components/markdown/view';
+import { RatingTypeWithId } from 'src/models/tool-rating';
+import { formatNumber } from "src/utils/formaters";
+import { PostReview } from "./post-review";
+import RatingComponent, { RatingSkeletonLoader } from './rating';
 import SimilarTools from "./similar-tools";
+
+import { BookMarkButton } from './bookmark';
+
 
 export default async function ToolPage({ params }: {
     params: {
         slug: string
     }
 }) {
+
     const tool = await getPublicToolBySlug(params.slug);
     if (!tool) {
         return notFound();
     }
+    const session = await getServerSession(authOptions);
+    console.log(tool)
 
 
     const similarTools = await getSimilarTools(tool.categories);
+    const ratings = await getRatingsAndReviews(tool._id);
+    // console.log(ratings);
+
+    async function publishRating(data: {
+        rating: number,
+        comment: string
+    }) {
+        "use server"
+        try {
+            if (!session || !session.user) {
+                return Promise.reject("You need to be logged in to rate a tool")
+            }
+            const rating = await postRatingAndReview({
+                toolId: tool._id!,
+                userId: session.user._id!,
+                rating: data.rating,
+                comment: data.comment
+            });
+            return Promise.resolve(rating);
+        } catch (e) {
+            console.error(e);
+            return Promise.reject(e);
+        }
+
+    }
 
     return (<>
         <Navbar />
-        <main className="w-full mx-auto xl:max-w-7xl xl:px-0 rounded-lg overflow-hidden pt-20">
-            <section id="tool-header" className="border-t border-x-border border-x rounded-t-lg  overflow-hidden mt-8">
-                <div id="tool-banner" className="w-full h-40 bg-gray-200">
-                    <Image width={900} height={160} src={tool.bannerImage || tool.coverImage} alt={tool.name} className="w-full h-full object-cover" />
-                </div>
-                <div className="w-full border-t py-4 px-6 flex flex-col md:flex-row justify-start items-start gap-4">
-                    <div className="lg:-mt-16 z-30" id="tool-logo">
-                        <Image width={160} height={160}  src={tool.coverImage} alt={tool.name} className="w-40 h-40 rounded-lg shadow-xl border border-slate-500/20  backdrop-blur-lg object-cover" />
-                    </div>
-                    <div id="tool-basic-info" className="flex flex-col items-start">
-                        <h3 className="text-3xl font-bold">{tool.name}</h3>
-                        <div id="tool-ratings">
+        <main className="w-full mx-auto xl:max-w-7xl xl:px-0 rounded-lg overflow-hidden pt-20 space-y-4">
 
+            <Card>
+                <CardHeader className="flex flex-row gap-3 items-center flex-wrap">
+                    <div className="flex-1 space-y-4">
+                        <div className="flex flex-row gap-3 items-center justify-start">
+                            <Image width={320} height={320} src={tool.coverImage} alt={tool.name}
+                                className="rounded-lg backdrop-blur-lg border border-border max-w-40" />
+                            <CardTitle title={tool.name} className="text-5xl font-bold">{tool.name}</CardTitle>
                         </div>
-                        <div className="mt-4">
-                            <Badge variant="default_light" size="md" className="mr-2">{tool.pricing_type}</Badge>
-                        </div>
-                        {/* <div className="flex flex-row gap-4 justify-start items-stretch mt-5">
-                            <Link href="#overview" className="text-base font-medium active:text-primary">Overview</Link>
-                            <Link href="#pricing" className="text-base font-medium active:text-primary">Pricing</Link>
-                            <Link href="#reviews" className="text-base font-medium active:text-primary">Features</Link>
-                        </div> */}
                     </div>
-                    <div id="tool-goto" className="lg:ml-auto flex items-center gap-2">
-                        <Button size="sm" variant="destructive_light"
-                        //  onClick={() =>{
-                        //     toast.success("Added to favorites")
-                        // }} 
-                        >
-                            {tool.verified ? <Heart className="inline-block w-5 h-5" /> : <HeartOff className="inline-block w-5 h-5" />}
-                        </Button>
-
-                        <Button asChild>
-                            <Link href={tool.link + "?ref=nexonnauts.com/toolzen"} target="_blank">
-                                <span >
+                    <div className="flex items-center justify-center gap-2 ml-auto">
+                        <BookMarkButton tool={tool} toggleBookmark={toggleBookmark}  userId={session?.user?._id! || null}/>
+                        <Button
+                            variant="gradient_blue"
+                            className="rounded-full px-6 py-2"
+                            asChild>
+                            <Link href={tool.link + "?ref=nexonauts.com/toolzen"} target="_blank">
+                                <span>
                                     Check it out
                                 </span>
                                 <ExternalLink className="inline-block ml-2 w-4 h-4" />
                             </Link>
                         </Button>
                     </div>
-                </div>
-            </section>
-            <section id="overview" className="py-4 px-6 border-t border-x-border border-x">
-                <h3 className="text-2xl font-bold mb-4">
-                    <Zap className="inline-block mr-2 w-5 h-5" /> Overview
-                </h3>
-                <div className="text-base font-medium">
-                    <MarkdownView>{tool.description}</MarkdownView>
-                </div>
-            </section>
+                    <div className="w-full space-y-4">
+                        <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start">
+                            <Badge variant="default_light" size="sm">{tool.pricing_type}</Badge>
+                            <div className="inline-flex items-center">
+                                <Star className="w-4 h-4 fill-yellow-300 text-yellow-300 me-1" />
+                                <p className="ms-2 text-sm font-bold text-gray-900 dark:text-white">{getAverageRating(ratings)}</p>
+                                <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400" />
+                                <a href="#reviews" className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">{formatNumber(ratings.length)} reviews</a>
+                            </div>
+                        </div>
+                        <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start">
+                            {tool.categories.map((category, index) => {
+                                return <Badge key={category.slug + "_" + index} variant="success_light" className="font-medium">
+                                    <Hash className="inline-block w-4 h-4" />
+                                    {category.name}
+                                </Badge>
+                            })}
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent className=" border-y border-y-border pt-5 flex-col flex items-center justify-center gap-4">
+                    {tool.bannerImage === "https://via.placeholder.com/920" ? <>
+                        <Image width={900} height={384} src={tool.coverImage} alt={tool.name} className="w-full h-auto max-w-3xl  rounded-lg shadow-xl backdrop-blur-lg object-cover border border-border  mx-auto" />
+                    </> : <>
+                        <Image width={900} height={384} src={tool.bannerImage || tool.coverImage} alt={tool.name}
+                            className="w-full h-auto max-w-3xl object-cover rounded-lg shadow-xl backdrop-blur-lg border border-border mx-auto aspect-video" />
+                    </>}
+                </CardContent>
+            </Card>
 
-            <section id="reviews" className="py-4 px-6 border-t border-x-border border-x border-b border-b-border mb-5">
-                <h3 className="text-2xl font-bold mb-4">
-                    <Star className="inline-block mr-2 w-5 h-5" />Ratings & Reviews
-                </h3>
-            </section>
-            <section id="similar-tools">
-                <Suspense fallback={<div>Loading...</div>}>
-                    <SimilarTools tools={similarTools} />
-                </Suspense>
-            </section>
+            <Card id="overview">
+                <CardHeader>
+                    <CardTitle><Zap className="inline-block mr-2 w-5 h-5 text-teal-600" /> Overview</CardTitle>
+                    <CardDescription>
+                        Learn about <strong>{tool.name}</strong> and it's pricing model and every basic thing I should know before using it.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <MarkdownView className="prose dark:prose-invert prose-slate">{tool.description}</MarkdownView>
+                </CardContent>
+            </Card>
+            <Card id="similar-tools">
+                <CardHeader>
+                    <CardTitle><Star className="inline-block mr-2 w-5 h-5 text-indigo-600" />
+                        Similar Tools & Alternatives
+                    </CardTitle>
+                    <CardDescription>
+                        You might also like these tools that are similar to <strong>{tool.name}</strong>
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <SimilarTools tools={similarTools} />
+                    </Suspense>
+                </CardContent>
+            </Card>
+            <Card id="reviews">
+                <CardHeader className="flex items-center w-full gap-2 flex-col md:flex-row">
+                    <div>
+                        <CardTitle>
+                            <Star className="inline-block mr-2 w-6 h-6" />Ratings & Reviews
+                        </CardTitle>
+                        <CardDescription>
+                            See what other users have to say about <strong>{tool.name}</strong>
+                        </CardDescription>
+                    </div>
+
+                </CardHeader>
+                <CardContent>
+                    <div className="flex items-center mb-2 gap-2">
+                        <span className="text-2xl font-bold text-slate-900 dark:text-white/80">
+                            {getAverageRating(ratings)} of 5
+                        </span>
+                        <Rating
+                            count={5}
+                            value={parseFloat(formatNumber(ratings.length))}
+                            readonly={true}
+                        />
+                    </div>
+                    <p className="text-sm font-medium text-gray-500 dark:text-gray-400 inline-flex items-center">
+                        <span className="font-semibold hover:underline cursor-pointer">
+                            {formatNumber(ratings.length)}{" "} ratings
+                        </span>
+                        <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400" />
+                        We don't verify reviews.
+                    </p>
+
+                    <Tabs defaultValue="all-reviews" className="w-full mt-5">
+                        <TabsList className="w-full">
+                            <TabsTrigger value="all-reviews">
+                                All Reviews
+                            </TabsTrigger>
+                            <TabsTrigger value="your-review">Your Review</TabsTrigger>
+                        </TabsList>
+                        <TabsContent value="all-reviews" className="py-4 space-y-4">
+                            <Suspense fallback={<>
+                                <RatingSkeletonLoader />
+                                <RatingSkeletonLoader />
+                                <RatingSkeletonLoader />
+                            </>}>
+                                {ratings.map((rating: RatingTypeWithId) => {
+                                    return <RatingComponent key={rating._id} rating={rating} />
+                                })}
+                            </Suspense>
+                        </TabsContent>
+                        <TabsContent value="your-review">
+                            <div className="flex items-center justify-center gap-2 mx-auto">
+                                {session && session.user ? <>
+                                    <PostReview tool={tool} postRatingAndReview={publishRating} />
+                                </> : <Button variant="gradient_blue" asChild>
+                                    <Link href="/login">
+                                        <span>Rate this tool</span>
+                                    </Link>
+                                </Button>}
+                            </div>
+                        </TabsContent>
+                    </Tabs>
+
+                </CardContent>
+            </Card>
         </main>
     </>)
 }

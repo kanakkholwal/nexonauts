@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 
+// const path = require('path');
 const runtimeCaching = require("next-pwa/cache");
 const withPWA = require("next-pwa")({
   dest: "public",
@@ -8,19 +9,15 @@ const withPWA = require("next-pwa")({
   skipWaiting: true,
   runtimeCaching,
   buildExcludes: [/middleware-manifest.json$/],
-  disable: process.env.NODE_ENV === "development",
-
+  disable: process.env.NODE_ENV !== "production",
 });
 
 const nextConfig = withPWA({
   reactStrictMode: true,
   transpilePackages: ['@mdxeditor/editor', 'react-diff-view'],
-  swcMinify: true,
-  compiler: { styledComponents: { ssr: true } },
   crossOrigin: 'anonymous',
   output:"standalone",
   images: {
-    // domains: ['res.cloudinary.com',"global-uploads.webflow.com" ],
     remotePatterns: [
       {
         protocol: 'https',
@@ -42,12 +39,18 @@ const nextConfig = withPWA({
         };
       }
 
+      // config.resolve.alias = {
+      //   ...config.resolve.alias,
+      //   '@': path.resolve(__dirname, './@'),
+      //   'src': path.resolve(__dirname, './components'),
+      // };
       
 
     return config;
   },
   experimental: {
     missingSuspenseWithCSRBailout: false,
+    
   },
 });
 
