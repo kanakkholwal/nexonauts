@@ -1,13 +1,13 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
 
-export interface RawRatingType {
+export interface rawRatingType {
     userId: string;
     toolId: string;
     rating: number;
     comment: string;
 }
 
-export interface RatingTypeWithId extends RawRatingType {
+export interface RatingTypeWithId extends rawRatingType {
     _id:string,
     createdAt?: Date;
     updatedAt?: Date;
