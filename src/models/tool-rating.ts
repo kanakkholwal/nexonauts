@@ -7,11 +7,19 @@ export interface rawRatingType {
     comment: string;
 }
 
-export interface RatingTypeWithId extends rawRatingType {
-    _id:string,
+export type RatingTypeWithId = Omit<rawRatingType, 'userId'> & {
+    _id: string;
     createdAt?: Date;
     updatedAt?: Date;
+    userId: {
+        _id: string;
+        name: string;
+        username: string;
+        profilePicture: string;
+    }
+
 }
+
 
 export interface RatingDocument extends Document {
     userId: Types.ObjectId;

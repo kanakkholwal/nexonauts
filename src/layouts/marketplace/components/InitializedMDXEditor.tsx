@@ -1,4 +1,5 @@
-"use client"
+// "use client"
+export { };
 // InitializedMDXEditor.tsx
 // import {
 //   MDXEditor,

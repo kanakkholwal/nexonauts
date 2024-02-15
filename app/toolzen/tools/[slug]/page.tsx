@@ -11,17 +11,22 @@ import { Rating } from "@/components/ui/rating";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import Navbar from "app/layouts/navbar";
-import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools, postRatingAndReview } from "app/toolzen/lib/actions";
-import { ExternalLink, Hash, Heart, HeartOff, Star, Zap } from 'lucide-react';
+import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools, postRatingAndReview, toggleBookmark } from "app/toolzen/lib/actions";
+import { getAverageRating } from "app/toolzen/lib/utils";
+import { ExternalLink, Hash, Star, Zap } from 'lucide-react';
 import { getServerSession } from "next-auth/next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import MarkdownView from 'src/components/markdown/view';
+import { RatingTypeWithId } from 'src/models/tool-rating';
 import { formatNumber } from "src/utils/formaters";
-import { PostReviewModal } from "./post-review-modal";
+import { PostReview } from "./post-review";
+import RatingComponent, { RatingSkeletonLoader } from './rating';
 import SimilarTools from "./similar-tools";
+
+import { BookMarkButton } from './bookmark';
 
 
 export default async function ToolPage({ params }: {
@@ -40,6 +45,30 @@ export default async function ToolPage({ params }: {
 
     const similarTools = await getSimilarTools(tool.categories);
     const ratings = await getRatingsAndReviews(tool._id);
+    // console.log(ratings);
+
+    async function publishRating(data: {
+        rating: number,
+        comment: string
+    }) {
+        "use server"
+        try {
+            if (!session || !session.user) {
+                return Promise.reject("You need to be logged in to rate a tool")
+            }
+            const rating = await postRatingAndReview({
+                toolId: tool._id!,
+                userId: session.user._id!,
+                rating: data.rating,
+                comment: data.comment
+            });
+            return Promise.resolve(rating);
+        } catch (e) {
+            console.error(e);
+            return Promise.reject(e);
+        }
+
+    }
 
     return (<>
         <Navbar />
@@ -55,9 +84,7 @@ export default async function ToolPage({ params }: {
                         </div>
                     </div>
                     <div className="flex items-center justify-center gap-2 ml-auto">
-                        <Button variant="destructive_light">
-                            {tool.verified ? <Heart className="inline-block w-5 h-5" /> : <HeartOff className="inline-block w-5 h-5" />}
-                        </Button>
+                        <BookMarkButton tool={tool} toggleBookmark={toggleBookmark}  userId={session?.user?._id! || null}/>
                         <Button
                             variant="gradient_blue"
                             className="rounded-full px-6 py-2"
@@ -75,9 +102,9 @@ export default async function ToolPage({ params }: {
                             <Badge variant="default_light" size="sm">{tool.pricing_type}</Badge>
                             <div className="inline-flex items-center">
                                 <Star className="w-4 h-4 fill-yellow-300 text-yellow-300 me-1" />
-                                <p className="ms-2 text-sm font-bold text-gray-900 dark:text-white">4.95</p>
+                                <p className="ms-2 text-sm font-bold text-gray-900 dark:text-white">{getAverageRating(ratings)}</p>
                                 <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400" />
-                                <a href="#reviews" className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">73 reviews</a>
+                                <a href="#reviews" className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">{formatNumber(ratings.length)} reviews</a>
                             </div>
                         </div>
                         <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start">
@@ -108,7 +135,7 @@ export default async function ToolPage({ params }: {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <MarkdownView  className="prose  dark:prose-invert  prose-slate">{tool.description}</MarkdownView>
+                    <MarkdownView className="prose dark:prose-invert prose-slate">{tool.description}</MarkdownView>
                 </CardContent>
             </Card>
             <Card id="similar-tools">
@@ -130,27 +157,22 @@ export default async function ToolPage({ params }: {
                 <CardHeader className="flex items-center w-full gap-2 flex-col md:flex-row">
                     <div>
                         <CardTitle>
-                            <Star className="inline-block mr-2 w-5 h-5" />Ratings & Reviews
+                            <Star className="inline-block mr-2 w-6 h-6" />Ratings & Reviews
                         </CardTitle>
                         <CardDescription>
                             See what other users have to say about <strong>{tool.name}</strong>
                         </CardDescription>
                     </div>
-                    <div className="flex items-center justify-center gap-2 ml-auto">
-                        {session && session.user ? <>
-                            <PostReviewModal tool={tool} postRatingAndReview={postRatingAndReview} />
-                        </> : <Button variant="gradient_blue" asChild>
-                            <Link href="/login">
-                                <span>Rate this tool</span>
-                            </Link>
-                        </Button>}
-                    </div>
+
                 </CardHeader>
                 <CardContent>
-                    <div className="flex items-center mb-2">
+                    <div className="flex items-center mb-2 gap-2">
+                        <span className="text-2xl font-bold text-slate-900 dark:text-white/80">
+                            {getAverageRating(ratings)} of 5
+                        </span>
                         <Rating
                             count={5}
-                            value={4.5}
+                            value={parseFloat(formatNumber(ratings.length))}
                             readonly={true}
                         />
                     </div>
@@ -169,22 +191,27 @@ export default async function ToolPage({ params }: {
                             </TabsTrigger>
                             <TabsTrigger value="your-review">Your Review</TabsTrigger>
                         </TabsList>
-                        <TabsContent value="all-reviews">
-                            <Suspense fallback={<div>Loading...</div>}>
-                                {ratings.map((rating: any) => {
-                                    return <div key={rating._id} className="flex flex-row gap-4 items-center justify-start">
-                                        <div className="flex flex-col items-start justify-start">
-                                            <h4 className="text-lg font-semibold">{rating.rating}</h4>
-                                            <p className="text-base text-muted-foreground line-clamp-2 text-pretty prose prose-sm  dark:prose-invert  prose-slate">
-                                                {rating.comment}
-                                            </p>
-                                        </div>
-                                    </div>
+                        <TabsContent value="all-reviews" className="py-4 space-y-4">
+                            <Suspense fallback={<>
+                                <RatingSkeletonLoader />
+                                <RatingSkeletonLoader />
+                                <RatingSkeletonLoader />
+                            </>}>
+                                {ratings.map((rating: RatingTypeWithId) => {
+                                    return <RatingComponent key={rating._id} rating={rating} />
                                 })}
                             </Suspense>
                         </TabsContent>
                         <TabsContent value="your-review">
-                            Login to add your review
+                            <div className="flex items-center justify-center gap-2 mx-auto">
+                                {session && session.user ? <>
+                                    <PostReview tool={tool} postRatingAndReview={publishRating} />
+                                </> : <Button variant="gradient_blue" asChild>
+                                    <Link href="/login">
+                                        <span>Rate this tool</span>
+                                    </Link>
+                                </Button>}
+                            </div>
                         </TabsContent>
                     </Tabs>
 
