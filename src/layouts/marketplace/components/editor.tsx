@@ -1,12 +1,13 @@
-"use client"
+// "use client"
+export { };
 // MDXEditor.tsx
 // import {
 //   type MDXEditorMethods,
 //   type MDXEditorProps,
 // } from "@mdxeditor/editor";
-import dynamic from "next/dynamic";
-import { forwardRef } from "react";
-import { CgSpinner } from "react-icons/cg";
+// import dynamic from "next/dynamic";
+// import { forwardRef } from "react";
+// import { CgSpinner } from "react-icons/cg";
 
 // This is the only place InitializedMDXEditor is imported directly.
 // const ForwardRefEditor = dynamic(() => import("./InitializedMDXEditor"), {
