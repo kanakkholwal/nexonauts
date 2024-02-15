@@ -1,41 +1,39 @@
-import mongoose, { Document, Types } from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
 
-export interface rawRatingType {
+export interface RawRatingType {
     userId: string;
     toolId: string;
     rating: number;
     comment: string;
 }
 
-export interface RatingType {
-    userId: string;
-    toolId: string;
-    rating: number;
-    comment: string;
+export interface RatingTypeWithId extends RawRatingType {
+    _id:string,
     createdAt?: Date;
     updatedAt?: Date;
 }
-export interface RatingTypeWithId extends RatingType {
-    _id: string;
-}
-export interface IRating extends Document {
+
+export interface RatingDocument extends Document {
     userId: Types.ObjectId;
     toolId: Types.ObjectId;
     rating: number;
     comment: string;
-    createdAt?: Date;
-    updatedAt?: Date;
+    createdAt: Date;
+    updatedAt: Date;
 }
-const ratingSchema = new mongoose.Schema<IRating>({
-    userId: { type: Types.ObjectId, ref: 'User' },
-    toolId: { type: Types.ObjectId, ref: 'PublicTool' },
+
+const ratingSchema = new Schema<RatingDocument>({
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    toolId: { type:  Schema.Types.ObjectId, ref: 'PublicTool', required: true },
     rating: { type: Number, required: true, min: 1, max: 5 },
     comment: {
-        type: String, minlength: 10, maxlength: 500,
+        type: String,
+        minlength: 10,
+        maxlength: 500,
         default: "No comment provided"
     },
 }, { timestamps: true });
 
-const Rating = mongoose.models.Rating || mongoose.model<IRating>('Rating', ratingSchema);
+const Rating = mongoose.models.Rating || mongoose.model<RatingDocument>('Rating', ratingSchema);
 
 export default Rating;
