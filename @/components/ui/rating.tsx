@@ -37,6 +37,7 @@ export interface RatingProps extends Omit<React.ComponentProps<"div">, "onChange
     className?: string;
     onChange?: (value: number) => void;
     readonly?: boolean;
+    size?: "sm" | "md" | "lg";
 }
 const computeUnratedColor = (color: colors | "white") => {
     if (color === "white") {
@@ -111,6 +112,17 @@ const computeRatedColor = (color: colors | "white") => {
     }            
 
 }
+const computeIconSize = (size: "sm" | "md" | "lg") => {
+    switch (size) {
+        case "sm":
+            return "w-4 h-4";
+        case "lg":
+            return "w-8 h-8";
+        default:
+            return "w-6 h-6";
+    }
+
+}
 export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
     (
         {
@@ -123,6 +135,7 @@ export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
             className,
             onChange,
             readonly,
+            size,
             ...rest
         },
         ref,
@@ -136,19 +149,19 @@ export const Rating = React.forwardRef<HTMLDivElement, RatingProps>(
 
         const ratingRatedColor = computeRatedColor(ratedColor || "yellow");
         const ratingUnratedColor = computeUnratedColor(unratedColor || "gray");
+        const ratingSize = computeIconSize(size || "md");
 
         const ratingClasses = cn(
             "inline-flex",
             "space-x-1",
             "text-2xl",
-            "cursor-pointer",
+            (!readonly ?"cursor-pointer" :"cursor-default"),
             "select-none",
             className,
         );
         const ratedIconClasses = cn(
-            (!readonly ? "transition-colors duration-300 ease-in-out cursor-pointer" : ""),
-            "select-none hover:scale-110 dark:hover:scale-110 transform-gpu hover:translate-y-0 dark:hover:translate-y-0 translate-y-0 hover:translate-x-0 dark:hover:translate-x-0 translate-x-0",
-            "w-6 h-6",
+            (!readonly ? "transition-colors duration-300 ease-in-out cursor-pointer select-none hover:scale-110 dark:hover:scale-110 transform-gpu hover:translate-y-0 dark:hover:translate-y-0 translate-y-0 hover:translate-x-0 dark:hover:translate-x-0 translate-x-0" : ""),
+            ratingSize
         );
 
 
