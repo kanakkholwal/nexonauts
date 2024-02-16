@@ -5,10 +5,11 @@ import Navbar from "app/layouts/navbar";
 import dbConnect from "lib/dbConnect";
 import { ChevronRight, Compass, Search, ShieldCheck, Star } from 'lucide-react';
 import { Metadata } from "next";
-import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from "react";
+import Image from 'src/components/image';
 import PublicTool from 'src/models/tool';
+import { formatNumber } from "src/utils/formaters";
 import { Categorized } from "./categoried";
 import { HeroWrapper } from "./hero";
 
@@ -45,6 +46,7 @@ export default async function Page() {
 
     // const tools = await PublicTool.find({ status: "published" || "approved" }).
     //     sort({ createdAt: -1 }).limit(10);
+    const noOfTools = await PublicTool.countDocuments({ status: "published" || "approved" });
     const categories = await PublicTool.aggregate([
         { $unwind: "$categories" },
         {
@@ -91,7 +93,7 @@ export default async function Page() {
                 <Input placeholder="Search any tool for anything..." className="border-2 border-primary/15 focus:border-primary rounded-full py-4 h-14 pl-12" />
             </div>
             <p className="text-slate-500 text-md font-semibold text-center max-w-4xl break-words mt-8 mb-5 line-clamp-3">
-                Now with 100+ tools and growing. <Link href="/toolzen/submit" className="text-primary">Submit a tool</Link> to be listed on ToolZen.<br />
+                Now with {formatNumber(noOfTools)}+ tools and growing. <Link href="/toolzen/submit" className="text-primary">Submit a tool</Link> to be listed on ToolZen.<br />
                 You can also save your favorite tools to your account.
             </p>
             <div className="w-full flex justify-center items-center gap-4">
