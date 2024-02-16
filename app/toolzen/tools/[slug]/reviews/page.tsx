@@ -11,41 +11,38 @@ import { Rating } from "@/components/ui/rating";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import Navbar from "app/layouts/navbar";
-import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools, postRatingAndReview, toggleBookmark } from "app/toolzen/lib/actions";
+import { getPublicToolBySlugForRatingPage, getRatingsAndReviewsByPage, postRatingAndReview, toggleBookmark } from "app/toolzen/lib/actions";
 import { getAverageRating } from "app/toolzen/lib/utils";
-import { ExternalLink, Hash, Star, Zap } from 'lucide-react';
+import { ArrowLeftToLine, ExternalLink, Hash, Star } from 'lucide-react';
 import { getServerSession } from "next-auth/next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import MarkdownView from 'src/components/markdown/view';
 import { RatingTypeWithId } from 'src/models/tool-rating';
 import { formatNumber } from "src/utils/formaters";
-import { BookMarkButton } from './bookmark';
-import { PostReview } from "./post-review";
-import RatingComponent, { RatingSkeletonLoader } from './rating';
-import SimilarTools from "./similar-tools";
+import { BookMarkButton } from '../bookmark';
+import { PostReview } from "../post-review";
+import RatingComponent, { RatingSkeletonLoader } from '../rating';
 
 
 export default async function ToolPage({ params }: {
     params: {
         slug: string
-    }
+    },
 }) {
 
-    const tool = await getPublicToolBySlug(params.slug);
+    const tool = await getPublicToolBySlugForRatingPage(params.slug);
     if (!tool) {
         return notFound();
     }
     const session = await getServerSession(authOptions);
     console.log(tool)
 
+    
+    const {ratings} = await getRatingsAndReviewsByPage(tool._id, 1);
 
-    const similarTools = await getSimilarTools(tool.categories);
-    const ratings = await getRatingsAndReviews(tool._id);
-    // console.log(ratings);
-
+    
     async function publishRating(data: {
         rating: number,
         comment: string
@@ -75,6 +72,14 @@ export default async function ToolPage({ params }: {
 
             <Card>
                 <CardHeader className="flex flex-row gap-3 items-center flex-wrap">
+                    <div className="flex-1 w-full basis-full">
+                        <Button variant="link" size="sm" className="font-medium text-gray-500 dark:text-gray-400" asChild>
+                            <Link href={"/toolzen/tools/" + params.slug}>
+                                <ArrowLeftToLine className="w-4 h-4 mr-2" />
+                                <span>Back to tools</span>
+                            </Link>
+                        </Button>
+                    </div>
                     <div className="flex-1 space-y-4">
                         <div className="flex flex-row gap-3 items-center justify-start">
                             <Image width={320} height={320} src={tool.coverImage} alt={tool.name}
@@ -116,47 +121,13 @@ export default async function ToolPage({ params }: {
                         </div>
                     </div>
                 </CardHeader>
-                <CardContent className=" border-y border-y-border pt-5 flex-col flex items-center justify-center gap-4">
-                    {tool.bannerImage === "https://via.placeholder.com/920" ? <>
-                        <Image width={900} height={384} src={tool.coverImage} alt={tool.name} className="w-full h-auto max-w-3xl  rounded-lg shadow-xl backdrop-blur-lg object-cover border border-border  mx-auto" />
-                    </> : <>
-                        <Image width={900} height={384} src={tool.bannerImage || tool.coverImage} alt={tool.name}
-                            className="w-full h-auto max-w-3xl object-cover rounded-lg shadow-xl backdrop-blur-lg border border-border mx-auto aspect-video" />
-                    </>}
-                </CardContent>
             </Card>
 
-            <Card id="overview">
-                <CardHeader>
-                    <CardTitle><Zap className="inline-block mr-2 w-5 h-5 text-teal-600" /> Overview</CardTitle>
-                    <CardDescription>
-                        Learn about <strong>{tool.name}</strong> and it's pricing model and every basic thing I should know before using it.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <MarkdownView className="prose dark:prose-invert prose-slate">{tool.description}</MarkdownView>
-                </CardContent>
-            </Card>
-            <Card id="similar-tools">
-                <CardHeader>
-                    <CardTitle><Star className="inline-block mr-2 w-5 h-5 text-indigo-600" />
-                        Similar Tools & Alternatives
-                    </CardTitle>
-                    <CardDescription>
-                        You might also like these tools that are similar to <strong>{tool.name}</strong>
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <SimilarTools tools={similarTools} />
-                    </Suspense>
-                </CardContent>
-            </Card>
             <Card id="reviews">
                 <CardHeader className="flex items-center w-full gap-2 flex-col md:flex-row">
                     <div>
                         <CardTitle>
-                            <Star className="inline-block mr-2 w-6 h-6" />Ratings & Reviews
+                            <Star className="inline-block mr-2 w-6 h-6" />All Ratings & Reviews
                         </CardTitle>
                         <CardDescription>
                             See what other users have to say about <strong>{tool.name}</strong>
