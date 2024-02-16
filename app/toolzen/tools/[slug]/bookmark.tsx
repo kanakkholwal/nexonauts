@@ -21,7 +21,7 @@ export function BookMarkButton({ tool, toggleBookmark,userId }: { tool: PublicTo
         className="pointer-events-auto relative inline-flex rounded-md cursor-pointer border border-input bg-accent dark:bg-gray-800 dark:border-gray-700  dark:text-white text-[0.8125rem] font-medium leading-5 text-slate-700 shadow-sm">
         <div className="flex px-3 py-2 gap-2">
             {userId ? (tool?.bookmarks?.includes(userId) ? <BookmarkCheck className="w-5 h-5" /> : <Bookmark className="w-5 h-5" />) : <Bookmark className="w-5 h-5" />}
-            <span>
+            <span className="user-select-none">
                 {userId ? (tool?.bookmarks?.includes(userId) ? "Bookmarked" : "Bookmark") : "Bookmark"}
             </span>
         </div>
