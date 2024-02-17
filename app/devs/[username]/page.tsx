@@ -21,7 +21,7 @@ export default async function DeveloperPage({ params }: { params: { username: st
     const developer = await getUserByUserName(params.username);
 
     if (!developer) return notFound();
-    console.log(`developer:`, developer);
+    // console.log(`developer:`, developer);
 
 
     return (
