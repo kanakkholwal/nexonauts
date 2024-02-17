@@ -1,38 +1,39 @@
+import { Button } from "@/components/ui/button";
 import Footer from 'app/layouts/footer';
 import HeroSection from "app/layouts/hero";
 import Navbar from "app/layouts/navbar";
-import { LineChart, ScanSearch, Sparkles } from 'lucide-react';
-import Image from 'next/image';
+import { LineChart, ScanSearch } from 'lucide-react';
 import Link from 'next/link';
 import { Suspense } from 'react';
+import Image from 'src/components/image';
 import dbConnect from 'src/lib/dbConnect';
 import Post from 'src/models/post';
 
 const features = [
 	{
 		name: 'Discover the Tools You Need',
-		description: `Say goodbye to endless searches. Our intelligent search engine scours the web to find the simplest and most advanced tools for every facet of your development work. From AI-powered solutions to tried-and-tested classics, it's all here at your fingertips.`,
+		description: `Say good-bye to endless searching. Our ingenious search engine scours the web for the most basic and advanced tools for every phase of your development process. From AI-powered solutions to tried-and-true classics, it's everything at your fingertips.`,
 		icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341139.png',
 		path: '/toolzen',
 	},
 	{
 		name: 'Marketplace for Digital Creators',
-		description: `Browse, buy, sell, and promote digital products in our vibrant marketplace. Whether you're looking for themes, templates, e-books, Figma designs, illustrations, fonts, and more, our marketplace connects you with a global community of creators and buyers.`,
+		description: `Browse, purchase, sell, and promote digital products in our growing marketplace. Whether you're looking for themes, templates, e-books, Figma designs, designs, styles, or another product, our marketplace connects you to a global community of creators and buyers.`,
 		icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341134.png',
 		path: '/marketplace',
 	},
 	{
-		name: 'Dev Tools Directory',
-		description: `Simplify your development process with our curated directory of open-source tools. Access a wealth of resources to expedite your projects and collaborate with fellow developers seamlessly.`,
+		name: 'Developer Tools',
+		description: `Our curated catalogue of open-source tools can help you simplify your development process. Access a wide range of materials to help you accelerate your projects and collaborate with other developers smoothly.		`,
 		icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341160.png',
 		path: '/dev-tools',
 	},
-	{
-		name: 'No-Code AI App Builder',
-		description: `Unleash your creativity without boundaries. Our drag-and-drop AI app builder harnesses the power of LLMs APIs, allowing you to create and deploy applications effortlessly. Build, publish, and use your apps privately right from our platform.`,
-		icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341025.png',
-		path: '/apps',
-	},
+	// {
+	// 	name: 'No-Code AI App Builder',
+	// 	description: `Unleash your creativity without boundaries. Our drag-and-drop AI app builder harnesses the power of LLMs APIs, allowing you to create and deploy applications effortlessly. Build, publish, and use your apps privately right from our platform.`,
+	// 	icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341025.png',
+	// 	path: '/apps',
+	// },
 	// {
 	// 	name: 'Resource Hub for Continuous Learning',
 	// 	description: `Stay ahead of the curve with our resource hub. Access a plethora of resources including tips, code snippets, useful website links, and insights to fuel continuous growth and learning.`,
@@ -60,33 +61,33 @@ export default async function HomePage() {
 
 			<HeroSection />
 			<div id="solutions">
-				<div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 flex flex-col w-full bg-cover relative overflow-hidden md:py-40">
-					<h3 className="text-xs text-center text-primary font-semibold tracking-wide mb-2 border border-primary/20 shadow-lg bg-white dark:bg-slate-800 mt-4 py-1.5 px-3 rounded-full inline-flex items-center justify-center gap-2 mx-auto">
-						<Sparkles className="w-4 h-4 inline-block text-[gold]" />
-						Empower Your Development Journey
-					</h3>
-					<h2 className="text-3xl font-bold text-gray-800 dark:text-white text-center md:text-5xl mt-3 mb-5">
-						Explore Our Developer-Centric Solutions
-					</h2>
-					<p className="text-center font-semibold text-slate-500 dark:text-slate-300 text-base">
-						{/* Welcome to our developer-centric platform, which is designed to help you create amazing digital products and services. */}
-					We've created a complete set of tools and resources that prioritise developers, allowing you to experiment, collaborate, and create without limitations.</p>
-
-					<div className="mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl border border-gray-100 text-gray-600 dark:border-gray-700 sm:grid-cols-2 lg:grid-cols-4 lg:divide-y-0 xl:grid-cols-4">
+				<div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 w-full py-24 md:py-32">
+					<div className="space-y-6 max-w-[42rem]">
+						<h2 className="text-3xl font-bold text-start md:text-5xl">
+							Explore Our Developer-Centric Solutions
+						</h2>
+						<p className="text-start text-lg">
+							{/* Welcome to our developer-centric platform, which is designed to help you create amazing digital products and services. */}
+							We've created a complete set of tools and resources that prioritise developers, allowing you to experiment, collaborate, and create without limitations.
+						</p>
+					</div>
+					<div className="mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl sm:grid-cols-2 lg:grid-cols-3 lg:divide-y-0">
 						{features.map((feature, index) => {
-							return (<div key={index} className="group relative bg-white dark:bg-gray-800 dark:hover:bg-gray-700 transition hover:z-[1] hover:shadow-2xl hover:shadow-slate-600/10 hover:bg-slate-100 ">
-								<div className="relative space-y-8 py-12 p-8">
-									<img src={feature.icon} className="w-12" width={512} height={512} alt="burger illustration" />
-									<div className="space-y-2">
-										<h5 className="text-xl font-semibold text-gray-700 dark:text-white transition group-hover:text-primary/80">
+							return (<div key={"solutions_" + index} className="group transition">
+								<div className="relative py-12 p-8">
+									<div className="space-y-8 mb-2">
+										<div className='w-12 h-12 bg-primary/10 p-2 rounded-lg flex items-center justify-center'>
+											<Image src={feature.icon} className="w-8 h-8" width={256} height={256} alt={feature.name + " | Nexonauts"} />
+										</div>
+										<h5 className="text-lg font-bold text-gray-700 dark:text-white">
 											{feature.name}
 										</h5>
-										<p className="text-gray-600 dark:text-gray-300">
-											{feature.description}
-										</p>
 									</div>
-									<Link href={feature.path} className="flex items-center justify-between group-hover:text-primary">
-										<span className="text-sm font-semibold">Read more</span>
+									<p className="text-gray-600 dark:text-gray-300 text-base">
+										{feature.description}
+									</p>
+									<Link href={feature.path} className="flex items-center justify-between group-hover:text-primary mt-5">
+										<span className="text-sm font-semibold">Learn more</span>
 										<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 -translate-x-4 text-2xl opacity-0 transition duration-300 group-hover:translate-x-0 group-hover:opacity-100">
 											<path fillRule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clipRule="evenodd" />
 										</svg>
@@ -95,6 +96,47 @@ export default async function HomePage() {
 							</div>)
 						})}
 					</div>
+				</div>
+			</div>
+			<div id="dev-solutions" className="px-5">
+				<div className="max-w-7xl mx-auto rounded-xl flex flex-col justify-center items-center w-full bg-cover relative overflow-hidden border border-transparent  bg-gradient-to-tr from-[#070523] from-[26.3%] to-[#0a0559] to-[91.13%] dark:bg-none dark:bg-slate-100/5 dark:border-border/50 shadow-xl backdrop-blur">
+					<div className='flex justify-between items-stretch flex-col lg:flex-row'>
+						<div className='py-16 px-6 md:pl-12 md:py-40 lg:py-20 text-center lg:text-start'>
+							<h3 className='text-base font-semibold tracking-wide uppercase text-cyan-600 mb-4'>
+								See all your developer portfolio at one place
+							</h3>
+							<h2 className='text-5xl font-bold tracking-wide text-white'>
+								Turn your skills into shareable portfolio
+							</h2>
+							<p className='mt-6 text-lg text-gray-300'>
+								Showcase your projects, skills, and experiences to the world. Create a stunning portfolio that reflects your unique style and personality.
+							</p>
+							<div className="mt-8 flex justify-center items-center gap-4">
+								<Button size="lg" className="rounded-full bg-secondary dark:bg-white text-secondary-foreground dark:text-gray-900 hover:bg-secondary/90 dark:hover:bg-white/95 px-6">Get Started for Free</Button>
+								<Button size="lg" className="rounded-full bg-white/10 text-white hover:bg-white/15 dark:bg-white/10 dark:hover:bg-white/15 px-6">Live Preview</Button>
+							</div>
+							<div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+								<div className="rounded-2xl bg-white/5 text-white p-6">
+									<h3 className="text-lg font-semibold text-white">Create a Portfolio</h3>
+									<p className="text-gray-300">Showcase your work and skills in a stunning portfolio.</p>
+								</div>
+								<div className="rounded-2xl bg-white/5 text-white p-6">
+									<h3 className="text-lg font-semibold text-white">Share Your Work</h3>
+									<p className="text-gray-300">Share your portfolio with the world and get discovered.</p>
+								</div>
+								<div className="rounded-2xl bg-white/5 text-white p-6">
+									<h3 className="text-lg font-semibold text-white">Get Discovered</h3>
+									<p className="text-gray-300">Get discovered by potential employers and collaborators.</p>
+								</div>
+								<div className="rounded-2xl bg-white/5 text-white p-6">
+									<h3 className="text-lg font-semibold text-white">Grow Your Career</h3>
+									<p className="text-gray-300">Grow your career and network with like-minded individuals.</p>
+								</div>
+							</div>
+						</div>
+						<Image src="https://horizon-ui.com/static/media/turn-data-image.e3628d967bf2a4802cee.png" alt="illustration" width={1000} height={667} className="w-full max-w-full h-full lg:w-1/2 md:w-[60%] mt-auto ml-auto" />
+					</div>
+
 				</div>
 			</div>
 			<div id="get-started">
@@ -184,7 +226,7 @@ export default async function HomePage() {
 					<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 						<Suspense fallback={<div className="animate-pulse">Loading...</div>}>
 							{articles.map((article) => {
-								return (<div key={article._id} className="group p-6 sm:p-8 rounded-3xl bg-white border border-gray-100 dark:shadow-none dark:border-gray-700 dark:bg-gray-800 bg-opacity-50 shadow-2xl shadow-gray-600/10">
+								return (<div key={article._id} className="group p-6 sm:p-8 ">
 									<div className="relative overflow-hidden rounded-xl">
 										<Image src={article.image} alt={article.title} loading="lazy" width={1000} height={667} className="h-64 w-full object-cover object-top transition duration-500 group-hover:scale-105" />
 									</div>
