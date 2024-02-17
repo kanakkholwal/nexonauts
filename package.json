@@ -42,7 +42,6 @@
         "@tanstack/react-table": "^8.11.8",
         "aos": "^2.3.4",
         "apexcharts": "^3.40.0",
-        "aws-amplify": "^6.0.16",
         "axios": "^1.2.1",
         "bcryptjs": "^2.4.3",
         "class-variance-authority": "^0.7.0",
