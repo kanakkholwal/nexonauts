@@ -26,7 +26,7 @@ export default function Footer() {
                         {process.env.NEXT_PUBLIC_WEBSITE_NAME}
                     </Link>
                     <p className="mb-12 xl:w-4/5 font-medium text-slate-600">
-                        {process.env.NEXT_PUBLIC_WEBSITE_NAME} is an open source project that aims to provide a complete solution for AI Powered Apps.
+                        {process.env.NEXT_PUBLIC_WEBSITE_NAME}  is a developer-centric platform, which is designed to help you create amazing digital products and services.
                     </p>
                     <div className="flex items-center gap-5">
                         <Link href="https://x.com/NexoNauts" className={"text-slate-500 hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon"}>
