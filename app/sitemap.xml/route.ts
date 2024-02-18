@@ -1,12 +1,13 @@
-import Post from "models/post";
+import { NextRequest } from "next/server";
 import dbConnect from "src/lib/dbConnect";
+import Post from "src/models/post";
 import { getAllApps } from "src/utils/app";
 import { getAllPublicTools } from "src/utils/public-tool";
 
 const URL = process.env.WEBSITE_URL || "https://nexonauts.com";
 
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
     // const posts = getSortedPostsData();
 
     await dbConnect();
