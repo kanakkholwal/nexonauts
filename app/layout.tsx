@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     },
     metadataBase: new URL('https://nexonauts.com/'),
     robots: {
-        index: false,
+        index: true,
         follow: true,
         nocache: true,
         googleBot: {
@@ -51,7 +51,10 @@ export const metadata: Metadata = {
             'max-snippet': -1,
         },
     },
-    manifest: './manifest.json',
+    // manifest: './manifest.json',
+    // verification: {
+    //     google: ['G-BCVK6GWZ0E'],
+    // }
 
 }
 

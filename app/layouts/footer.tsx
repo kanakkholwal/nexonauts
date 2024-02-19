@@ -21,11 +21,11 @@ export default function Footer() {
         <div className="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0 relative pt-17">
             <div className="w-full h-[1px] footer-divider-gradient absolute top-0 left-0" />
             <div className="flex flex-wrap justify-between">
-                <div className="mb-10 max-w-[520px] w-full">
-                    <Link className="mb-8 inline-block  text-3xl font-extrabold sm:text-3xl xl:text-heading-3" href="/">
+                <div className="mb-10 max-w-[520px] w-full prose dark:prose-invert">
+                    <Link className="mb-8 inline-block  text-3xl font-extrabold sm:text-3xl xl:text-heading-3 not-prose" href="/">
                         {process.env.NEXT_PUBLIC_WEBSITE_NAME}
                     </Link>
-                    <p className="mb-12 xl:w-4/5 font-medium text-slate-600">
+                    <p className="mb-12 xl:w-4/5">
                         {process.env.NEXT_PUBLIC_WEBSITE_NAME}  is a developer-centric platform, which is designed to help you create amazing digital products and services.
                     </p>
                     <div className="flex items-center gap-5">
@@ -99,7 +99,7 @@ export default function Footer() {
                                 </li>
                             </ul>
                         </div>
-                        <div>
+                        <div className="pb-5">
                             <h5 className="font-semibold mb-5">
                                 Support
                             </h5>

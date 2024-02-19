@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from 'react';
+import { BiSupport } from "react-icons/bi";
 import { ErrorActions } from "./error-layout";
 
 export const metadata: Metadata = {
@@ -13,13 +14,18 @@ export default function NotFound() {
 
 
     return <div className="min-h-screen w-full relative overflow-hidden">
-        <nav className="flex justify-center md:justify-between items-center w-full py-3 px-6">
+        <nav className="flex justify-between items-center w-full py-3 px-4 md:px-6">
             <Link href="/" aria-label="logo" className="p-1.5">
                 <span className="sr-only">Nexonauts</span>
-                <Image height={40} width={280} className="h-14 dark:invert w-auto" src="/assets/logo.svg" alt="logo" />
+                <Image height={40} width={280} className="h-12 dark:invert w-auto" src="/assets/logo.svg" alt="logo" />
+            </Link>
+
+            <Link href="/contact" className="flex items-center gap-2 text-slate-700 dark:text-slate-400 hover:underline text-base">
+                    <BiSupport className="w-5 h-5" />
+                    <span>Contact</span>
             </Link>
         </nav>
-        <div className="flex flex-col justify-center items-center p-4 w-full h-full gap-4 mt-8">
+        <div className="flex flex-col justify-center items-center p-4 w-full h-full gap-4 mt-10">
 
 
             <h2 className="text-5xl font-bold text-slate-900 dark:text-gray-100 text-center">
@@ -29,7 +35,7 @@ export default function NotFound() {
                 Sorry, we couldn’t find the page you’re looking for. Perhaps you’ve mistyped the URL? Be sure to check your spelling.
 
             </p>
-            <svg className="w-full h-80" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
+            <svg className="w-full h-80 my-4" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <linearGradient id="BG" x1="19.496%" x2="77.479%" y1="71.822%" y2="16.69%">
                         <stop offset="0%" stopColor="#078DEE" /><stop offset="100%" stopColor="#078DEE" stopOpacity={0} />
