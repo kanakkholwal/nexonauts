@@ -134,7 +134,7 @@ export default async function HomePage() {
 								</div>
 							</div>
 						</div>
-						<Image src="https://horizon-ui.com/static/media/turn-data-image.e3628d967bf2a4802cee.png" alt="illustration" width={1000} height={667} className="w-full max-w-full h-full lg:w-1/2 md:w-[60%] mt-auto ml-auto" />
+						<Image src="/assets/svg-images/home_profile.svg" alt="illustration" width={1000} height={667} className="w-full max-w-full h-full lg:w-1/2 md:w-[60%] mt-auto ml-auto rounded-lg mix-blend-multiply" />
 					</div>
 
 				</div>

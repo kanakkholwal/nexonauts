@@ -23,8 +23,8 @@ import * as z from "zod";
 const FormSchema = z.object({
     email: z
         .string()
-        .email({ message: 'Invalid email format' })
         .min(5, { message: 'Email must be at least 5 characters long' })
+        .email({ message: 'Invalid email format' })
         .max(100, { message: 'Email cannot exceed 100 characters' }),
 });
 
@@ -42,10 +42,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     });
     async function onSubmit(data: z.infer<typeof FormSchema>) {
         console.log(data);
-
         setIsLoading(true)
 
-   
+
 
     }
 
@@ -77,8 +76,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                             autoCapitalize="none"
                                             autoComplete="email"
                                             autoCorrect="off"
+                                            variant="fluid"
                                             disabled={isLoading}
-                                            className='pl-12 !py-6 pr-5 !mt-0  group-focus-within:ring-2 ring-primary'
+                                            className='pl-12 !py-6 pr-5 !mt-0'
                                             {...field} />
                                     </FormControl>
 
