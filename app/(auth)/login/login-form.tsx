@@ -175,7 +175,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                             autoComplete="email"
                                             autoCorrect="off"
                                             disabled={isLoading}
-                                            className='pl-12 !py-6 pr-5 !mt-0  group-focus-within:ring-2 ring-primary'
+                                            variant="fluid"
+                                            className='pl-12 !py-6 pr-5 !mt-0 border-2'
                                             {...field} />
                                     </FormControl>
 
@@ -203,7 +204,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                             autoComplete="password"
                                             autoCorrect="off"
                                             disabled={isLoading}
-                                            className='pl-12 !py-6 pr-5 !mt-0  group-focus-within:ring-2 ring-primary'
+                                            variant="fluid"
+                                            className='pl-12 !py-6 pr-5 !mt-0  border-2'
 
                                             {...field} />
                                     </FormControl>
