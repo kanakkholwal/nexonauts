@@ -41,17 +41,18 @@ export default function HeroLayout() {
 						<p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">
 							Welcome to our developer-centric platform, which is designed to help you create amazing digital products and services.
 						</p>
-						<div className="mt-10 flex items-center justify-center gap-x-6">
+						<div className="mt-10 flex items-center justify-center flex-wrap  gap-6">
+							
 							<Button
 								size="lg"
-								className='px-8 rounded-full'
+								className='rounded-full relative flex h-12 w-full items-center justify-center px-6 sm:w-max'
 								asChild>
 								<Link href="/signup">Get started</Link>
 							</Button>
 							<Button
 								size="lg"
 								variant="outline"
-								className='px-6 rounded-full'
+								className='rounded-full relative flex h-12 w-full items-center justify-center px-6 sm:w-max'
 								asChild>
 								<Link href="#solutions">Learn more
 									<ExternalLink className="w-5 h-5 ml-2" />

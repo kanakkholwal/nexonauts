@@ -17,7 +17,7 @@ export default async function DashboardPage() {
             Quick Actions
         </h2>
         <div className="flex flex-wrap gap-4 items-stretch w-full">
-            <Link href={"/developers/" + session.user.username} target="_blank" className="grow hover:shadow-sm bg-white dark:bg-slate-800 rounded-xl py-3 px-5 space-x-2 flex items-center">
+            <Link href={"/devs/" + session.user.username} target="_blank" className="grow hover:shadow-sm bg-white dark:bg-slate-800 rounded-xl py-3 px-5 space-x-2 flex items-center">
                 <div className="flex items-center justify-center rounded-full p-3 w-16 h-16 bg-sky-500">
                     <User className="w-10 h-10 text-slate-100 dark:text-slate-200" />
                 </div>

@@ -2,6 +2,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
+import { DataTableColumnHeader } from "@/components/ui/data-table"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,7 +14,6 @@ import axios from "axios"
 import { MoreHorizontal } from "lucide-react"
 import Link from "next/link"
 import toast from "react-hot-toast"
-import { DataTableColumnHeader } from "@/components/ui/data-table"
 
 
 
@@ -73,7 +73,7 @@ export const columns: ColumnDef<userType>[] = [
       <DataTableColumnHeader column={column} title="UserName" />
     ),
     cell: ({ row }) => {
-      return <Link className="text-left font-medium" href={`/developers/${row.getValue("username")}`} target="_blank">@{row.getValue("username")}</Link>
+      return <Link className="text-left font-medium" href={`/devs/${row.getValue("username")}`} target="_blank">@{row.getValue("username")}</Link>
     },
     enableSorting: true,
     enableHiding: true,

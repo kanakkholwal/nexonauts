@@ -142,7 +142,7 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
         <div className="flex flex-col items-start justify-start">
             <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">{user.name}</h3>
             <p className="text-xs text-slate-600 dark:text-slate-300">
-                <Link href={"/developers/" + user.username} target="_blank">
+                <Link href={"/devs/" + user.username} target="_blank">
                     @{user.username}
                 </Link>
             </p>
