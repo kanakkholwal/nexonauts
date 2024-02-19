@@ -8,10 +8,10 @@ import {
   NavigationMenuTrigger
 } from "@/components/ui/navigation-menu";
 import { cn } from "@/lib/utils";
-import { useTheme } from "next-themes";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import ThemeSwitcher from "./theme-switcher";
 
 type NavLinksType = {
   title: string
@@ -59,16 +59,15 @@ const search_components: NavLinksType[] = [
 
 
 export default function Navbar() {
-  const { theme, setTheme } = useTheme();
   const [open, setOpen] = React.useState(false);
 
 
-  return (<nav id="navbar" className="absolute inset-x-0 top-0 z-50  w-full backdrop-blur">
+  return (<div aria-label="NavMenu" id="navbar" className="absolute inset-x-0 top-0 z-50  w-full">
     <div className="relative flex flex-wrap items-center justify-between gap-6 py-2 lg:gap-0 lg:py-4 mx-auto px-4 sm:px-12 xl:max-w-7xl xl:px-0 lg:px-8" aria-label="Global">
       <div className="flex lg:flex-1">
         <Link href="/" aria-label="NexoNauts Logo" className="p-1.5">
           <span className="sr-only">Nexonauts</span>
-          <Image height={40} width={280} className="h-10 dark:invert w-auto" src="/assets/logo.svg" alt="logo" />
+          <Image height={40} width={280} className="h-10 dark:invert w-auto" src="/assets/logo.svg" alt="logo" priority loading="eager"/>
         </Link>
 
       </div>
@@ -77,7 +76,7 @@ export default function Navbar() {
         "fixed lg:relative  lg:scale-y-100 inset-x-0 top-20 lg:top-auto z-20 origin-top scale-y-0 transform-gpu  transition duration-500",
         "h-auto w-screen max-w-xl mx-auto rounded-lg sm:rounded-full py-4 lg:py-1.5 px-6 lg:px-3 ",
         (open ? "scale-y-100 " : ""),
-        "backdrop-blur-[50px] bg-white/40 dark:bg-slate-100/5 border border-border/50"
+        "backdrop-blur-sm bg-white/10 dark:bg-slate-100/5 border border-border/50 shadow-lg md:shadow-none"
       )}>
         <NavigationMenuList className="flex-col sm:flex-row flex sm:justify-around w-full">
           <NavigationMenuItem>
@@ -173,15 +172,7 @@ export default function Navbar() {
           href="/signup?ref=navbar-button">
           <span className="relative text-sm font-semibold  text-primary dark:text-white">Get Started</span>
         </Link>
-        <button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          aria-label="switche theme" className="switcher group relative flex h-9 w-9 rounded-full before:absolute before:inset-0 before:rounded-full before:border before:border-gray-200 before:bg-gray-50 before:bg-gradient-to-b before:transition-transform before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800">
-          <svg xmlns="http://www.w3.org/2000/svg" className="transistion relative m-auto hidden h-5 w-5 fill-gray-500 duration-300 group-hover:rotate-180 group-hover:fill-yellow-400 dark:block dark:fill-gray-300" viewBox="0 0 20 20" fill="currentColor">
-            <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-          </svg>
-          <svg xmlns="http://www.w3.org/2000/svg" className="transistion relative m-auto h-5 w-5 fill-gray-500 duration-300 group-hover:-rotate-90 group-hover:fill-blue-900 dark:hidden" viewBox="0 0 20 20" fill="currentColor">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-          </svg>
-        </button>
+        <ThemeSwitcher/>
         <button aria-label="humburger" id="hamburger" className="relative lg:hidden h-10 w-10"
           onClick={() => setOpen(!open)}
         >
@@ -191,7 +182,7 @@ export default function Navbar() {
 
       </div>
     </div>
-  </nav>)
+  </div>)
 }
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,
