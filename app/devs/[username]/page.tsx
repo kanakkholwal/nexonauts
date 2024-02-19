@@ -9,10 +9,33 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Metadata } from 'next';
 import { notFound } from "next/navigation";
-import { getUserByUserName } from "src/lib/user/actions";
+import { getMetaByUserName, getUserByUserName } from "src/lib/user/actions";
 import { ShareProfile } from "./components/share";
 import SocialLinks from "./components/social-links";
+
+
+export async function generateMetadata({ params }:{
+    params: { username: string }
+}): Promise<Metadata> {
+    const meta = await getMetaByUserName(params.username);
+
+    if (!meta) return notFound();
+
+    return {
+        title: `${meta.name}'s profile on ${process.env.NEXT_PUBLIC_WEBSITE_NAME}`,
+        description: meta.dev_account.bio,
+        openGraph: {
+            type: 'profile',
+            username: meta.username,
+            title: `${meta.name}'s profile on ${process.env.NEXT_PUBLIC_WEBSITE_NAME}`,
+            siteName: process.env.NEXT_PUBLIC_WEBSITE_NAME,
+            url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/devs/${meta.username}`,
+            images: [{ url: meta.profilePicture, alt: meta.name }],
+        }
+    };
+}
 
 
 export default async function DeveloperPage({ params }: { params: { username: string } }) {
@@ -21,7 +44,6 @@ export default async function DeveloperPage({ params }: { params: { username: st
     const developer = await getUserByUserName(params.username);
 
     if (!developer) return notFound();
-    // console.log(`developer:`, developer);
 
 
     return (
@@ -102,7 +124,7 @@ export default async function DeveloperPage({ params }: { params: { username: st
                     <SocialLinks socials={developer.dev_account.socials} />
                     <div className="flex flex-row items-center justify-start space-x-2 w-full">
                         <Button className="rounded-full px-5 w-full max-w-xs" variant="gradient_blue">Follow</Button>
-                        <ShareProfile profile={{username: developer.username,name: developer.name,profilePicture: developer.profilePicture,bio: developer.dev_account.bio,}} />
+                        <ShareProfile profile={{ username: developer.username, name: developer.name, profilePicture: developer.profilePicture, bio: developer.dev_account.bio, }} />
                     </div>
                 </div>
             </div>
