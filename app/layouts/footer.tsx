@@ -29,7 +29,7 @@ export default function Footer() {
                         {process.env.NEXT_PUBLIC_WEBSITE_NAME}  is a developer-centric platform, which is designed to help you create amazing digital products and services.
                     </p>
                     <div className="flex items-center gap-5">
-                        <Link href="https://x.com/NexoNauts" className={"text-slate-500 hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon"}>
+                        <Link href="https://x.com/KanakKholwal" className={"text-slate-500 hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon"}>
                             <RiTwitterXFill className="w-5 h-5" />
                         </Link>
                         <Link href="https://linkedin.com/NexoNauts" className={"text-slate-500 hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon"}>
@@ -51,13 +51,13 @@ export default function Footer() {
                             </h5>
                             <ul className="flex flex-col gap-3">
                                 <li>
-                                    <Link href="/apps" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                        AI Apps
+                                    <Link href="/dev-tools" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Dev Tools
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/dev-tools" className="text-slate-500 hover:text-primary ease-in duration-300">
-                                        Dev Tools
+                                    <Link href="/apps" className="text-slate-500 hover:text-primary ease-in duration-300">
+                                        Dev Profiles
                                     </Link>
                                 </li>
                                 <li>

@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 
 export default function HeroLayout() {
@@ -52,7 +53,9 @@ export default function HeroLayout() {
 								variant="outline"
 								className='px-6 rounded-full'
 								asChild>
-								<Link href="#solutions">Learn more</Link>
+								<Link href="#solutions">Learn more
+									<ExternalLink className="w-5 h-5 ml-2" />
+								</Link>
 							</Button>
 						</div>
 					</div>

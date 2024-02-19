@@ -75,13 +75,13 @@ export default function Navbar() {
       <div id="layer" aria-hidden={open ? "false" : "true"} className="fixed inset-0 z-10 h-screen w-screen origin-bottom scale-y-0 bg-white/70 backdrop-blur-2xl transition duration-500 dark:bg-gray-900/70 lg:hidden" />
       <NavigationMenu id="navlinks" className={cn(
         "fixed lg:relative  lg:scale-y-100 inset-x-0 top-20 lg:top-auto z-20 origin-top scale-y-0 transform-gpu  transition duration-500",
-        "h-auto w-screen max-w-xl mx-auto rounded-full py-4 lg:py-1.5 px-6 lg:px-3 ",
+        "h-auto w-screen max-w-xl mx-auto rounded-lg sm:rounded-full py-4 lg:py-1.5 px-6 lg:px-3 ",
         (open ? "scale-y-100 " : ""),
         "backdrop-blur-[50px] bg-white/40 dark:bg-slate-100/5 border border-border/50"
       )}>
         <NavigationMenuList className="flex-col sm:flex-row flex sm:justify-around w-full">
-          <NavigationMenuItem className="rounded-full">
-            <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="rounded-full">Getting started</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
                 <li className="row-span-3">
@@ -112,8 +112,8 @@ export default function Navbar() {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem className="rounded-full">
-            <NavigationMenuTrigger>Tool Zen</NavigationMenuTrigger>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="rounded-full">Tool Zen</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {search_components.map((component) => (
@@ -128,8 +128,8 @@ export default function Navbar() {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem className="rounded-full">
-            <NavigationMenuTrigger>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="rounded-full">
               CreationsHub
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -146,8 +146,8 @@ export default function Navbar() {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem className="rounded-full">
-            <NavigationMenuTrigger>
+          <NavigationMenuItem>
+            <NavigationMenuTrigger className="rounded-full">
               AppForge
             </NavigationMenuTrigger>
             <NavigationMenuContent>
