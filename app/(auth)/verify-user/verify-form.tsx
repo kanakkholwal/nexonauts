@@ -15,7 +15,7 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
 
@@ -50,21 +50,23 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
 
     return (<>
-        <h2 className='font-bold text-xl mt-5'>
+        <h2 className='mt-0'>
             {isLoading ? 'Verifying' : 'Verify Email'}
         </h2>
-        <p className='text-base text-slate-600 mb-8'>
+        <p>
             {isLoading ? 'Please wait while we verify your email' : 'Please wait while we verify your email'}
         </p>
 
-        <div className={cn("grid gap-6 lg:max-w-lg text-left", className)} {...props}>
+        <div className={cn("grid gap-6 lg:max-w-lg text-left mb-5", className)} {...props}>
 
             <div className="flex justify-center items-center w-full">
-                {isLoading && <CgSpinner className="animate-spin h-20 w-20 text-primary" />}
-                {error && <MdOutlineReportGmailerrorred className="h-20 w-20 text-red-500" />}
+                {isLoading && <CgSpinner className="animate-spin h-24 w-24 text-primary" />}
+                {error && <MdOutlineReportGmailerrorred className="h-24 w-24 text-red-500" />}
                 {success && <Image src={verifyPng} height={320} width={320} alt="Verify Email" className="w-80 h-80" />}
             </div>
-            <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" size="lg">
+            <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" size="lg" onClick={() => {
+                router.push('/login')
+            }}>
                 Go to Login
             </Button>
 
