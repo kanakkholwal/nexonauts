@@ -21,9 +21,9 @@ export function ShareProfile({ profile }: {
     }
 }) {
     const { share, socials } = useShare({
-        title: `${profile.name}'s profile`,
+        title: `${profile.name}'s profile on ${process.env.NEXT_PUBLIC_WEBSITE_NAME}`,
         text: `${profile.name}'s profile \n\n ${profile.bio}`,
-        url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/developers/${profile.username}`,
+        url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/devs/${profile.username}`,
         image: profile.profilePicture,
     });
 

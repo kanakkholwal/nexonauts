@@ -10,7 +10,7 @@
 		<use xlink:href="#SVGID_1_"  style="overflow:visible;"/>
 	</clipPath>
 	
-		<rect transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 600 400)" style="clip-path:url(#SVGID_00000170267770611099405180000017209775521128216198_);fill:#FFFFFF;" width="600" height="400"/>
+		<rect transform="matrix(-1 -1.224647e-16 1.224647e-16 -1 600 400)" style="clip-path:url(#SVGID_00000170267770611099405180000017209775521128216198_);fill:transparent;" width="600" height="400"/>
 	<g style="clip-path:url(#SVGID_00000170267770611099405180000017209775521128216198_);">
 		<path style="fill:#F1F1F4;" d="M452.049,204.671l-2.531,0.077l-0.064-2.088l-0.098,0.003l-0.748,2.112l-3.611,0.11
 			c-0.664,0.02-1.231-0.047-1.703-0.2c-0.472-0.154-0.856-0.381-1.153-0.679c-0.296-0.298-0.516-0.665-0.66-1.1

@@ -2,10 +2,10 @@ import { Button } from "@/components/ui/button";
 import Footer from 'app/layouts/footer';
 import HeroSection from "app/layouts/hero";
 import Navbar from "app/layouts/navbar";
-import { LineChart, ScanSearch } from 'lucide-react';
+import { ExternalLink, LineChart, ScanSearch } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
-import Image from 'src/components/image';
 import dbConnect from 'src/lib/dbConnect';
 import Post from 'src/models/post';
 
@@ -111,9 +111,10 @@ export default async function HomePage() {
 							<p className='mt-6 text-lg text-gray-300'>
 								Showcase your projects, skills, and experiences to the world. Create a stunning portfolio that reflects your unique style and personality.
 							</p>
-							<div className="mt-8 flex justify-center items-center gap-4">
-								<Button size="lg" className="rounded-full bg-secondary dark:bg-white text-secondary-foreground dark:text-gray-900 hover:bg-secondary/90 dark:hover:bg-white/95 px-6">Get Started for Free</Button>
-								<Button size="lg" className="rounded-full bg-white/10 text-white hover:bg-white/15 dark:bg-white/10 dark:hover:bg-white/15 px-6">Live Preview</Button>
+							<div className="mt-8 flex justify-center items-center flex-wrap  gap-6">
+
+								<Button size="lg" className="relative flex h-12 w-full items-center justify-center sm:w-max rounded-full bg-secondary dark:bg-white text-secondary-foreground dark:text-gray-900 hover:bg-secondary/90 dark:hover:bg-white/95 px-6">Get Started for Free</Button>
+								<Button size="lg" className="relative flex h-12 w-full items-center justify-center sm:w-max rounded-full bg-white/10 text-white hover:bg-white/15 dark:bg-white/10 dark:hover:bg-white/15 px-6">Live Preview<ExternalLink className="w-5 h-5 ml-2 inline-block" /></Button>
 							</div>
 							<div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
 								<div className="rounded-2xl bg-white/5 text-white p-6">
@@ -134,7 +135,7 @@ export default async function HomePage() {
 								</div>
 							</div>
 						</div>
-						<Image src="/assets/svg-images/home_profile.svg" alt="illustration" width={1000} height={667} className="w-full max-w-full h-full lg:w-1/2 md:w-[60%] mt-auto ml-auto rounded-lg mix-blend-multiply" />
+						<Image src="/assets/svg-images/home_profile.svg" alt="illustration" width={1000} height={667} className="w-full max-w-full h-full lg:w-1/2 md:w-[60%] m-auto rounded-lg mix-blend-multiply" />
 					</div>
 
 				</div>
@@ -146,7 +147,7 @@ export default async function HomePage() {
 						<path fillRule="evenodd" d="M12.75 3a.75.75 0 01.75-.75 8.25 8.25 0 018.25 8.25.75.75 0 01-.75.75h-7.5a.75.75 0 01-.75-.75V3z" clipRule="evenodd" />
 					</svg><div className="space-y-6 justify-between text-gray-600 md:flex flex-row-reverse md:gap-6 md:space-y-0 lg:gap-12 lg:items-center">
 						<div className="md:5/12 lg:w-1/2">
-							<img src="/assets/images/illustration_dashboard.png" alt="image" loading="lazy" className="w-full" />
+							<Image width={720} height={667} src="/assets/images/illustration_dashboard.png" alt="image" loading="lazy" className="w-full" />
 						</div>
 						<div className="md:7/12 lg:w-1/2">
 							<h2 className="text-3xl font-bold text-gray-900 md:text-4xl dark:text-white">
@@ -208,7 +209,9 @@ export default async function HomePage() {
 									<span className="relative text-base font-semibold text-white dark:text-dark">Get Started</span>
 								</Link>
 								<a href="/about" className="relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max">
-									<span className="relative text-base font-semibold text-primary dark:text-white">More about</span>
+									<span className="relative text-base font-semibold text-primary dark:text-white">
+										More about
+									</span>
 								</a>
 							</div>
 						</div>

@@ -14,3 +14,12 @@ export async function getUserByUserName(username:string){
 
     return developer;
 }
+export async function getMetaByUserName(username:string){
+    await dbConnect();
+
+    const developer = await UserModel.findOne({ username: username,verified:true,private:false })
+    .select('username name profilePicture following followers dev_account')
+    .exec();
+
+    return JSON.parse(JSON.stringify(developer));
+}
