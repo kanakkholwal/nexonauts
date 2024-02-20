@@ -27,7 +27,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from 'axios';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import { useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
@@ -72,6 +72,8 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams?.get('callbackUrl') || "/dashboard";
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -97,7 +99,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             loading: 'Signing up...',
             success: (data: any) => {
                 console.log(data);
-                setIsLoading(false)
+                setIsLoading(false);
+                if (callbackUrl) {
+                    router.push(process.env.NEXT_PUBLIC_WEBSITE_URL + "?callbackUrl=" + callbackUrl);
+                    return data?.message || "Signed up successfully"
+                }
                 return data?.message || "Signed up successfully"
             },
             error: (err) => {
