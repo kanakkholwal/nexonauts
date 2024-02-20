@@ -1,5 +1,6 @@
 
 import Post from 'src/models/post';
+import User from 'src/models/user';
 
 export const PUBLIC_VIEW_KEYS = "title description slug coverImage labels claps publishedAt author image";
 export const PUBLIC_POST_VIEW_KEYS = "title description slug coverImage labels claps publishedAt content publishedAt comments author image";
