@@ -21,7 +21,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from '@/lib/utils';
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter ,useSearchParams} from 'next/navigation';
 import { useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { toast } from "sonner";
@@ -52,6 +52,8 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const callbackUrl = searchParams?.get('callbackUrl') || "/dashboard";
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -70,7 +72,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             loading: 'Logging in...',
             success: (data) => {
                 console.log(data);
-                setIsLoading(false)
+                setIsLoading(false);
+                if(callbackUrl){
+                    router.push(callbackUrl);
+                    return `Logged in successfully`
+                }
                 return `Logged in successfully`
             },
             error: (err) => {
@@ -98,7 +104,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 }
                 else if (data && data.ok === true) {
                     resolve(data);
-                    router.push(("/dashboard"));
                     return;
                 }
                 resolve(data);

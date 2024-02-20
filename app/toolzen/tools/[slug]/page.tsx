@@ -27,7 +27,6 @@ import { PostReview } from "./post-review";
 import RatingComponent, { RatingSkeletonLoader } from './rating';
 import SimilarTools from "./similar-tools";
 
-
 export default async function ToolPage({ params }: {
     params: {
         slug: string
@@ -52,12 +51,12 @@ export default async function ToolPage({ params }: {
     }) {
         "use server"
         try {
-            if (!session || !session.user) {
+            if (!session || !session?.user) {
                 return Promise.reject("You need to be logged in to rate a tool")
             }
             const rating = await postRatingAndReview({
                 toolId: tool._id!,
-                userId: session.user._id!,
+                userId: session?.user?._id!,
                 rating: data.rating,
                 comment: data.comment
             });
@@ -71,9 +70,40 @@ export default async function ToolPage({ params }: {
 
     return (<>
         <Navbar />
-        <main className="w-full mx-auto xl:max-w-7xl xl:px-0 rounded-lg overflow-hidden pt-20 space-y-4">
+        <div className="relative" id="home">
+            <div aria-hidden="true" className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
+                <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
+                <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+            </div>
+            <div className="max-w-7xl mx-auto relative isolate px-6 md:px-12 lg:px-8">
+                <div
+                    className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+                    aria-hidden="true"
+                >
+                    <div
+                        className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                        style={{
+                            clipPath:
+                                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+                        }}
+                    />
+                </div>
+                <div
+                    className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+                    aria-hidden="true">
+                    <div
+                        className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+                        style={{
+                            clipPath:
+                                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+                        }}
+                    />
+                </div>
+            </div>
+        </div>
+        <main className="w-full mx-auto xl:max-w-7xl xl:px-0 rounded-lg overflow-hidden pt-28 px-2 space-y-4">
 
-            <Card>
+            <Card variant="glass">
                 <CardHeader className="flex flex-row gap-3 items-center flex-wrap">
                     <div className="flex-1 space-y-4">
                         <div className="flex flex-row gap-3 items-center justify-start">
@@ -83,7 +113,9 @@ export default async function ToolPage({ params }: {
                         </div>
                     </div>
                     <div className="flex items-center justify-center gap-2 ml-auto">
-                        <BookMarkButton tool={tool} toggleBookmark={toggleBookmark} userId={session?.user?._id! || null} />
+                        <Suspense fallback={null}>
+                            <BookMarkButton tool={tool} toggleBookmark={toggleBookmark} userId={session?.user?._id! || null} />
+                        </Suspense>
                         <Button
                             variant="gradient_blue"
                             className="rounded-full px-6 py-2"
@@ -207,14 +239,22 @@ export default async function ToolPage({ params }: {
                             </Suspense>
                         </TabsContent>
                         <TabsContent value="your-review">
-                            <div className="flex items-center justify-center gap-2 mx-auto">
-                                {session && session.user ? <>
-                                    <PostReview tool={tool} postRatingAndReview={publishRating} />
-                                </> : <Button variant="gradient_blue" asChild>
-                                    <Link href="/login">
-                                        <span>Rate this tool</span>
-                                    </Link>
-                                </Button>}
+                            <div className="flex items-center justify-center flex-col gap-2 mx-auto">
+                                <Suspense fallback={<>
+                                    <RatingSkeletonLoader />
+                                </>}>
+                                    {(session && session?.user) ? <>
+                                        <PostReview tool={tool} postRatingAndReview={publishRating} />
+                                    </> : <>
+                                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-5 mb-2">
+                                            You need to be logged in to rate this tool
+                                        </p>
+                                        <Button variant="default_light" asChild>
+                                            <Link href={"/login?callbackUrl=" + encodeURI(process.env.NEXT_PUBLIC_WEBSITE_URL + "/toolzen/tools/" + tool.slug)}>
+                                                Login to rate this tool
+                                            </Link>
+                                        </Button></>}
+                                </Suspense>
                             </div>
                         </TabsContent>
                     </Tabs>
