@@ -27,16 +27,15 @@ export default function SubmitPage() {
                 Share your tool with the community and get feedback from developers.
             </p>
         </section>
-        <p className="text-lg text-gray-600 dark:text-gray-400 ">
-            Share your tool with the community and get feedback from developers.
-        </p>
-        <p className="text-lg text-gray-600 dark:text-gray-400 ">
-            Fill out the form below to submit your tool.
-        </p>
+        <div className="p-4 text-center mb-5">
+            <p className="text-lg text-gray-600 dark:text-gray-400 ">
+                Fill out the form below to submit your tool.
+            </p>
 
-        <p className="text-lg text-gray-600 dark:text-gray-400 ">
-            Please note that all submissions are reviewed before they are added to the directory.
-        </p>
+            <p className="text-lg text-gray-600 dark:text-gray-400 ">
+                Please note that all submissions are reviewed before they are added to the directory.
+            </p>
+        </div>
         <div className="flex justify-around items-stretch gap-6">
             <SubmitForm />
             <div className="w-full max-w-xl hidden md:block">
