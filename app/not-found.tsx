@@ -1,9 +1,9 @@
+import { ErrorActions } from "app/layouts/error-layout";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from 'react';
 import { BiSupport } from "react-icons/bi";
-import { ErrorActions } from "./error-layout";
 
 export const metadata: Metadata = {
     title: "Not Found | Nexoauts",

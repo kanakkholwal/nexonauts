@@ -1,8 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Navbar from "app/layouts/navbar";
-import { FilterButton, SearchBar } from "app/toolzen/browse/search";
-import { getTools } from 'app/toolzen/lib/actions';
+import { FilterButton, SearchBar } from "app/tool-scout/browse/search";
+import { getTools } from 'app/tool-scout/lib/actions';
 import LazyImage from "components/image";
 import { Hash } from 'lucide-react';
 import { Metadata } from "next";
@@ -11,8 +11,8 @@ import { PublicToolPricingType } from "src/models/tool";
 
 
 export const metadata: Metadata = {
-    title: "Browse ToolZen - AI Tools, Services, and Resources",
-    description: "ToolZen is a curated list of AI tools, services, and resources. Find the best AI tools for your business.",
+    title: "Browse Nexo Scout - AI Tools, Services, and Resources",
+    description: "Nexo Scout is a curated list of AI tools, services, and resources. Find the best AI tools for your business.",
 }
 
 
@@ -108,7 +108,7 @@ export default async function BrowsePage({
                     <div className="grid mx-auto gap-x-6 gap-y-12 grid-cols-1 sm:grid-cols-2 xl:gap-x-8 2xl:gap-x-12 2xl:gap-y-16 xl:gap-y-14 mt-8">
                         {tools.map((tool) => {
                             return (<div key={tool._id}>
-                                <Link href={`/toolzen/tools/${tool.slug}`} className="p-1">
+                                <Link href={`/tool-scout/tools/${tool.slug}`} className="p-1">
                                     <Card className="rounded-3xl">
                                         <CardHeader>
                                             <div className="flex flex-col w-full aspect-video overflow-hidden bg-gray-100 dark:bg-slate-800 rounded-2xl h-64 sm:h-72">
