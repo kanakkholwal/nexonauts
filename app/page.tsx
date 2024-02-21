@@ -135,7 +135,7 @@ export default async function HomePage() {
 								</div>
 							</div>
 						</div>
-						<Image src="/assets/svg-images/home_profile.svg" alt="illustration" width={1000} height={667} className="w-full max-w-full h-full lg:w-1/2 md:w-[60%] m-auto rounded-lg mix-blend-multiply" />
+						<Image src="/assets/svg-images/home_profile.svg" alt="illustration" width={1000} height={667} className="w-full max-w-full h-full lg:w-1/2 md:w-[60%] m-auto rounded-lg" />
 					</div>
 
 				</div>

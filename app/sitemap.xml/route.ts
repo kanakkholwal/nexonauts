@@ -67,11 +67,11 @@ export async function GET(request: NextRequest) {
             date: new Date().toISOString(),
         },
         {
-            path: `/toolzen/`,
+            path: `/tool-scout/`,
             date: new Date().toISOString(),
         },
         {
-            path: `/toolzen/browse`,
+            path: `/tool-scout/browse`,
             date: new Date().toISOString(),
         },
     ]
@@ -91,7 +91,7 @@ export async function GET(request: NextRequest) {
             })),
         ...publicTools.map((tool) => {
             return {
-                path: `/toolzen/tools/${tool.slug}`,
+                path: `/tool-scout/tools/${tool.slug}`,
                 date: new Date(tool?.createdAt || Date.now()).toISOString(),
             }
         }),
