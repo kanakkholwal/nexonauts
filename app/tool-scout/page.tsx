@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "app/layouts/navbar";
@@ -7,15 +8,24 @@ import { ChevronRight, Compass, Search, ShieldCheck, Star } from 'lucide-react';
 import { Metadata } from "next";
 import Link from 'next/link';
 import { Suspense } from "react";
-import Image from 'src/components/image';
+import LazyImage from "src/components/image";
 import PublicTool from 'src/models/tool';
 import { formatNumber } from "src/utils/formaters";
 import { Categorized } from "./categoried";
 import { HeroWrapper } from "./hero";
+// import Autoplay from "embla-carousel-autoplay"
+import { Badge } from "@/components/ui/badge";
 
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel";
 export const metadata: Metadata = {
-    title: "ToolZen - AI Tools, Services, and Resources",
-    description: "ToolZen is a curated list of AI tools, services, and resources. Find the best AI tools for your business.",
+    title: "Nexo Scout - AI Tools, Services, and Resources",
+    description: "Nexo Scout is a curated list of AI tools, services, and resources. Find the best AI tools for your business.",
 }
 
 const features = [
@@ -30,7 +40,7 @@ const features = [
         Icon: Star
     },
     {
-        title: "Submit your own tools to be listed on ToolZen",
+        title: "Submit your own tools to be listed on Nexo Scout",
         description: "We will review and approve your submission within 1-3 days.",
         Icon: ShieldCheck
     }
@@ -72,36 +82,37 @@ export default async function Page() {
         },
         { $project: { _id: 0, name: 1, slug: 1, tools: { $slice: ["$tools", 6] } } },
         { $match: { slug: { $in: slugs } } },
+        { $sort: { name: 1 } }
     ]);
 
-    
+
     return (<>
-        <header>
+        <header className="dark">
             <Navbar />
         </header>
 
-        <HeroWrapper>
+        <HeroWrapper className="dark">
 
-            <h1 className="text-5xl font-bold mb-2 text-center">
+            <h1 className="text-5xl font-bold mb-2 text-center text-white">
                 Find the best AI tools for your business.
             </h1>
-            <p className="text-slate-600 dark:text-slate-400 text-2xl font-semibold text-center mt-3 mb-5 line-clamp-3">
-                ToolZen is a curated list of AI tools, services, and resources.
+            <p className="text-gray-400 text-2xl font-semibold text-center mt-3 mb-5 line-clamp-3">
+                Nexo Scout is a curated list of AI tools, services, and resources.
             </p>
             <div className="relative w-full rounded-full overflow-hidden flex">
-                <Search className="absolute top-1/2 left-4 transform -translate-y-1/2 w-5 h-5" />
-                <Input placeholder="Search any tool for anything..." className="border-2 border-primary/15 focus:border-primary rounded-full py-4 h-14 pl-12" />
+                <Search className="absolute top-1/2 left-4 transform -translate-y-1/2 w-5 h-5 dark:text-white" />
+                <Input placeholder="Search any tool for anything..." variant="fluid" className="border-2 focus:border-primary rounded-full py-4 h-14 pl-12" />
             </div>
-            <p className="text-slate-500 text-md font-semibold text-center max-w-4xl break-words mt-8 mb-5 line-clamp-3">
-                Now with {formatNumber(noOfTools)}+ tools and growing. <Link href="/toolzen/submit" className="text-primary">Submit a tool</Link> to be listed on ToolZen.<br />
+            <p className="text-gray-400 text-md font-semibold text-center max-w-4xl break-words mt-8 mb-5 line-clamp-3">
+                Now with {formatNumber(noOfTools)}+ tools and growing. <Link href="/toolzen/submit" className="text-primary hover:underline">Submit a tool</Link> to be listed on ToolZen.<br />
                 You can also save your favorite tools to your account.
             </p>
             <div className="w-full flex justify-center items-center gap-4">
                 <Button className="rounded-full px-5" asChild>
-                    <Link href="/toolzen/browse">Browse Tools <Compass className="w-4 h-4 ml-2" /></Link>
+                    <Link href="/tool-scout/browse">Browse Tools <Compass className="w-4 h-4 ml-2" /></Link>
                 </Button>
                 <Button variant="default_light" className="rounded-full px-5" asChild>
-                    <Link href="/signup?ref=toolzen">Get Started <ChevronRight className="w-4 h-4 ml-2" /></Link>
+                    <Link href="/signup?ref=tool-scout">Get Started <ChevronRight className="w-4 h-4 ml-2" /></Link>
                 </Button>
             </div>
 
@@ -134,23 +145,46 @@ export default async function Page() {
 
         <section className="bg-primary/10 py-32 px-8  min-h-96  w-full" id="features">
             <div className="max-w-7xl mx-auto">
-                <h2 className="text-6xl font-extrabold text-slate-800 dark:text-slate-100 sm:text-5xl sm:tracking-tight lg:text-6xl">
-                    Features
+                <h2
+                    className="text-3xl font-bold mb-8 text-center text-slate-800 dark:text-slate-200">
+                    Featured Tools
                 </h2>
-                <div className="flex">
+                <Carousel
+                    // plugins={[
+                    //     Autoplay({
+                    //       delay: 2000,
+                    //     }),
+                    //   ]}
+                    className="w-full max-w-5xl mx-auto">
+                    <CarouselContent className="-ml-1">
+                        {categorized_tools[0].tools.map((tool, index:number) => (
+                            <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/3">
+                                <Link href={`/tool-scout/tools/${tool.slug}`} className="p-1">
+                                    <Card className="rounded-3xl">
+                                        <CardHeader>
+                                            <div className="flex flex-col w-full h-auto aspect-video overflow-hidden bg-gray-100 dark:bg-slate-800 rounded-xl">
+                                                <div className="relative flex items-center justify-center flex-shrink-0 h-full group">
+                                                    <LazyImage className=" h-auto rounded-lg shadow-md mx-auto object-cover object-left-top transition ease-in-out duration-300"
+                                                        width={350}
+                                                        height={200}
+                                                        src={tool.coverImage} alt={tool.name} />
+                                                    <div className="absolute inset-0 transition duration-200 bg-gray-900 opacity-0 rounded-2xl group-hover:opacity-60"></div>
+                                                </div>
+                                            </div>
+                                        </CardHeader>
+                                        <CardContent>
+                                            <h4 className="text-xl font-semibold mb-2">{tool.name}</h4>
+                                            <Badge variant="default_light" size="sm">{tool.pricing_type}</Badge>
 
-                    <div className="flex flex-col items-start  gap-4 mt-7  w-full lg:w-50%">
-                        {features.map((feature, index) => {
-                            return <Feature key={index} feature={feature} />
-                        })}
-                    </div>
-                    <div className="flex-auto  justify-center items-center  w-full lg:w-50% hidden lg:flex">
-                        <Image src='/assets/images/toolzen_features.svg' width={928} height={720} alt={"ToolZen - NexoNauts"}
-                            className="w-full h-full min-h-[28rem] aspect-[4/3] select-none	pointer-events-none"
-                            draggable={false} />
-
-                    </div>
-                </div>
+                                        </CardContent>
+                                    </Card>
+                                </Link>
+                            </CarouselItem>
+                        ))}
+                    </CarouselContent>
+                    <CarouselPrevious className="h-12 w-12" />
+                    <CarouselNext className="h-12 w-12" />
+                </Carousel>
 
             </div>
         </section>

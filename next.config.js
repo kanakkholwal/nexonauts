@@ -17,6 +17,11 @@ const nextConfig = withPWA({
   transpilePackages: ['@mdxeditor/editor', 'react-diff-view'],
   crossOrigin: 'anonymous',
   output:"standalone",
+  logging: {
+    fetches: {
+        fullUrl: true
+    }
+  },
   images: {
     remotePatterns: [
       {
