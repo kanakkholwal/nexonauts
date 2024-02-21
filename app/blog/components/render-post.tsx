@@ -55,7 +55,7 @@ export function RenderPost({ post }) {
     return <article >
         {isMarkdown ?
             <MarkdownView
-                className="prose lg:prose-xl"
+                className="prose lg:prose-xl dark:prose-invert"
                 options={{
                     components: {
                         pre: ({ children, className, node, ...props }) => <RenderCodeBlock className={cn("relative", monoFont.className, className)} node={node} {...props}>{children}</RenderCodeBlock>,

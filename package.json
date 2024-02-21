@@ -53,6 +53,7 @@
         "cssbeautify": "^0.3.1",
         "date-fns": "^2.30.0",
         "draft-js": "^0.11.7",
+        "embla-carousel-autoplay": "^8.0.0-rc23",
         "embla-carousel-react": "^8.0.0-rc22",
         "framer-motion": "^11.0.3",
         "html-react-parser": "^4.0.0",

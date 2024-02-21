@@ -32,9 +32,11 @@ export interface PublicToolType {
 export interface PublicToolTypeWithId extends PublicToolType {
     _id: string;
     bookmarks: string[];
+    views: number;
 }
 export interface IPublicTool extends Document, PublicToolType {
     bookmarks: Types.ObjectId[];
+    views: number;
 }
 
 const categorySchema = new mongoose.Schema({
@@ -60,6 +62,7 @@ const publicToolSchema = new mongoose.Schema<IPublicTool>({
     status: { type: String, required: true, enum: ['draft', 'published', 'archived', 'deleted', 'pending', 'rejected'], default: 'draft' },
     pricing_type: { type: String, required: true, trim: true, default: 'other' },
     verified: { type: Boolean, default: false },
+    views: { type: Number, default: 0 },
     bookmarks: {
         type: [{ type: Types.ObjectId, ref: 'User' }],
         default: [],

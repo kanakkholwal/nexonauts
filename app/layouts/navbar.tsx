@@ -47,13 +47,25 @@ const marketplace_components: NavLinksType[] = [
 const search_components: NavLinksType[] = [
   {
     title: "Find Perfect Tools",
-    href: "/toolzen",
+    href: "/tool-scout",
     description: `Find the perfect tools for your business.`,
   },
   {
     title: "Submit Your Tool",
-    href: "/toolzen/submit",
+    href: "/tool-scout/submit",
     description: `Submit your tool to our toolbox.`,
+  }
+]
+const dev_components: NavLinksType[] = [
+  {
+    title: "Find Dev Tools",
+    href: "/dev-tools",
+    description: `Find the dev tools for your project development.`,
+  },
+  {
+    title: "Submit Your Tool",
+    href: "/dev-tools/submit",
+    description: `Submit your tool to our directory.`,
   }
 ]
 
@@ -112,7 +124,7 @@ export default function Navbar() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="rounded-full">Tool Zen</NavigationMenuTrigger>
+            <NavigationMenuTrigger className="rounded-full">Tool Scout</NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                 {search_components.map((component) => (
@@ -147,11 +159,11 @@ export default function Navbar() {
           </NavigationMenuItem>
           <NavigationMenuItem>
             <NavigationMenuTrigger className="rounded-full">
-              AppForge
+              Dev Tools
             </NavigationMenuTrigger>
             <NavigationMenuContent>
               <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {ai_applications.map((component) => (
+                {dev_components.map((component) => (
                   <ListItem
                     key={component.title}
                     title={component.title}

@@ -1,10 +1,10 @@
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import Navbar from "app/dashboard/components/navbar";
 import SideBar from "app/dashboard/components/sidenav";
+import Page403 from "app/layouts/403";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
-
 export const metadata: Metadata = {
     title: "Admin Dashboard - NexoNauts",
     description: "Admin Dashboard ",
@@ -14,7 +14,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
     const session = await getServerSession(authOptions);
     console.log(session)
     if (!(session && session.user)) return redirect("/login");
-    if (session.user.role !== "admin") return redirect("/dashboard");
+    if (session.user.role !== "admin") return <Page403 />;
 
     return (<>
         <div className="flex h-full min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900 bg-slate-200/80 z-0">
@@ -27,7 +27,6 @@ export default async function DashboardLayout({ children }: { children: React.Re
                 </div>
 
                 <main className="content p-2 md:p-4 z-2">
-                   
                     {children}
                 </main>
                 {process.env.NODE_ENV !== "production" && <div className="fixed bottom-0 right-0 p-2 text-xs text-gray-500 dark:text-slate-400">v0.0.1({process.env.NODE_ENV})</div>}

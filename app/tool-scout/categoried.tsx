@@ -25,7 +25,7 @@ export function Categorized({ categorized_tools }: { categorized_tools: any[] })
                     </h2>
                     <div className="grid grid-col-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         {category.tools.map((tool) => {
-                            return <Link href={`/toolzen/tools/${tool.slug}`} key={tool.slug} className="flex flex-col gap-4 items-start  p-4 rounded-lg border hover:bg-slate-100 dark:hover:bg-slate-800">
+                            return <Link href={`/tool-scout/tools/${tool.slug}`} key={tool.slug} className="flex flex-col gap-4 items-start  p-4 rounded-lg border hover:bg-slate-100 dark:hover:bg-slate-800">
                                 <div className="flex flex-col gap-1 shrink ">
                                     <h3 className="text-lg font-semibold">{tool.name}</h3>
                                     <p className="text-slate-600 text-md font-medium line-clamp-2">{tool.description}</p>
