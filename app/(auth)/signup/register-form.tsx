@@ -1,317 +1,288 @@
 "use client";
-
-import { Metadata } from "next";
-
-
-import { useState } from 'react';
-
 import { Button } from "@/components/ui/button";
-import { BiLockOpenAlt } from "react-icons/bi";
-import { FcGoogle } from "react-icons/fc";
-import { FiGithub } from "react-icons/fi";
-import { GoPerson } from "react-icons/go";
-import { LuMail } from "react-icons/lu";
-
-
-import {
-    Form,
-    FormControl,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { cn } from '@/lib/utils';
-import { zodResolver } from "@hookform/resolvers/zod";
-import axios from 'axios';
-import { signIn } from 'next-auth/react';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { Label } from "@/components/ui/label";
+import Link from "next/link";
+import { useState } from "react";
+import toast from "react-hot-toast";
+// import { FaApple } from "react-icons/fa";
+import { CgSpinner } from "react-icons/cg";
+import { FcGoogle } from "react-icons/fc";
+import { LuCheckCircle2 } from "react-icons/lu";
+import { RiErrorWarningLine } from "react-icons/ri";
 
-import { useForm } from "react-hook-form";
-import { AiOutlineLoading } from "react-icons/ai";
-import { toast } from "sonner";
-import * as z from "zod";
-export const metadata: Metadata = {
-    title: "Signup | " + process.env.NEXT_PUBLIC_APP_NAME,
-    description: "Register for an account on " + process.env.NEXT_PUBLIC_APP_NAME,
-    keywords: "register, account, " + process.env.NEXT_PUBLIC_APP_NAME,
+interface Props {
+    validateEmail: (email: string) => Promise<boolean>,
+    validateUsername: (username: string) => Promise<boolean>,
 }
-const FormSchema = z.object({
-    name: z.string().min(3, { message: 'Name must be at least 3 characters long' }).max(50, { message: 'Name cannot exceed 50 characters' }),
-    email: z
-        .string()
-        .email({ message: 'Invalid email format' })
-        .min(5, { message: 'Email must be at least 5 characters long' })
-        .max(100, { message: 'Email cannot exceed 100 characters' }),
-    password: z
-        .string()
-        .min(8, { message: 'Password must be at least 8 characters long' })
-        .max(50, { message: 'Password cannot exceed 50 characters' })
-        .regex(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/,
-            {
-                message:
-                    'Password must contain at least one uppercase letter, one lowercase letter, and one number',
-            }
-        ),
-    confirmPassword: z.string().min(8, { message: 'Password must be at least 8 characters long' })
-        .max(50, { message: 'Password cannot exceed 50 characters' })
-        .regex(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/,
-            {
-                message:
-                    'Password must contain at least one uppercase letter, one lowercase letter, and one number',
-            }
-        ),
-});
+const INVALID_CHARACTERS = [" ", "-", "@", "#", "%", "^", "!", "~", "*", "(", ")", "=", "+", ".", ">", ",", "<", "?", `"`, `'`, "{", "}", "[", "]", "|", "$", ":", ";", "&"]
 
+export function RegisterForm({ validateEmail, validateUsername }: Props) {
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
-
-export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const callbackUrl = searchParams?.get('callbackUrl') || "/dashboard";
-
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-    const form = useForm<z.infer<typeof FormSchema>>({
-        resolver: zodResolver(FormSchema),
-        defaultValues: {
-            name: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [validity, setValidity] = useState({
+        email: {
+            loading: false,
+            valid: false,
         },
-    });
-    async function onSubmit(data: z.infer<typeof FormSchema>) {
-        console.log(data);
-
-        setIsLoading(true);
-        if (data.password !== data.confirmPassword) {
-            setIsLoading(false);
-            toast.error('Passwords do not match');
-            return;
+        username: {
+            loading: false,
+            valid: false,
+        },
+        password: {
+            loading: false,
+            valid: false,
+            errorMessage: ""
         }
+    });
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [state, setState] = useState<"onboarding" | "registered">("onboarding");
 
-        toast.promise(signUpPromise(data), {
-            loading: 'Signing up...',
-            success: (data: any) => {
-                console.log(data);
-                setIsLoading(false);
-                if (callbackUrl) {
-                    router.push(process.env.NEXT_PUBLIC_WEBSITE_URL + "?callbackUrl=" + callbackUrl);
-                    return data?.message || "Signed up successfully"
+    const signUp = async () => {
+
+        return new Promise(async (resolve, reject) => {
+            setLoading(true);
+            try {
+                const res = await fetch("/api/auth/signup", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        username,
+                        password,
+                    }),
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    setState("registered");
+                    resolve(data);
+                } else {
+                    setError(data.message);
+                    reject(data);
                 }
-                return data?.message || "Signed up successfully"
-            },
-            error: (err) => {
-                console.log(err);
-                setIsLoading(false)
-                return err.message || "An error occurred while logging in"
+            } catch (err: any) {
+                setError(err?.message ?? "Something went wrong");
+                reject(err);
+            } finally {
+                setLoading(false);
             }
         })
-
     }
-    const signUpPromise = async (data: {
-        email: string,
-        name: string,
-        password: string
-    }) => new Promise(async (resolve, reject) => {
-        try {
-            const response = await axios.post('/api/auth/signup', {
-                email: data.email,
-                name: data.name,
-                password: data.password,
-            });
-            console.log(response.data);
-            if (response.data.result === 'success') {
-                resolve(response.data)
-            }
-            else {
-                reject(response.data)
-            }
 
-        }
-        catch (error) {
-            reject(error);
-        }
-    })
+    return (<>
+        {state === "onboarding" && <>
+            <div className="grid w-full max-w-lg items-center gap-1.5">
+                <Label htmlFor="name">Enter your Name</Label>
+
+                <Input type="text" id="name" placeholder="e.g. John Doe"  value={name} onChange={(e) => setName(e.target.value)} />
+            </div>
+            <div className="grid w-full max-w-lg items-center gap-1.5">
+                <Label htmlFor="email">Enter your Email</Label>
+                <div className="relative">
+                    <Input type="email" id="email" placeholder="e.g. johndoe@gmail.com"
+
+                        // 
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        value={email} onChange={(e) => {
+                            setEmail(e.target.value);
+                            //  check with regex if email is valid
+                            const regex = new RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$", "i");
+                            if (regex.test(e.target.value)) {
+                                setValidity({ ...validity, email: { ...validity.email, loading: true } })
+                                validateEmail(e.target.value)
+                                    .then((valid: boolean) => {
+                                        setValidity({ ...validity, email: { ...validity.email, loading: false, valid: valid } })
+                                    }).catch((err) => {
+                                        setValidity({ ...validity, email: { ...validity.email, loading: false, valid: false } })
+                                    })
+                            }
+                        }}
+                        className="pr-10" />
+                    <span className="absolute inset-y-0 right-0 flex items-center pr-3">
+                        {validity.email.loading ? <CgSpinner className="animate-spin h-5 w-5" /> :
+                            validity.email.valid ? <LuCheckCircle2 className="h-5 w-5 text-green-500" /> : validity.email.valid === false ? <RiErrorWarningLine className="h-5 w-5 text-red-500" /> : null}
+                    </span>
+                </div>
+            </div>
+            <div className="grid w-full max-w-lg items-center gap-1.5">
+                <Label htmlFor="password">Enter your username</Label>
+                <div className="relative">
+                    <span className="absolute inset-y-0 left-0 flex items-center pl-3 font-regular text-gray-500 dark:text-gray-500">
+                        nexonauts.com/devs/
+                    </span>
+                    <Input type="text" id="username"
+                        pattern="^[a-zA-Z0-9_]" 
+                        value={username} onChange={(e) => {
+                            // prevent invalid characters 
+
+                            setUsername(e.target.value
+                                .split('')
+                                .filter(char => !INVALID_CHARACTERS.includes(char))
+                                .join('').trim());
+                            if (username.length > 3) {
+                                validateUsername(username)
+                                    .then((valid: boolean) => {
+                                        setValidity({ ...validity, username: { ...validity.username, loading: false, valid: valid } })
+                                    }).catch(() => {
+                                        setValidity({ ...validity, username: { ...validity.username, loading: false, valid: false } })
+                                    })
+                            }
 
 
+                        }}
+                        placeholder="username" className="pl-[11.25rem] pr-10" />
+                    <span className="absolute inset-y-0 right-0 flex items-center pr-3">
+                        {validity.username.loading ? <CgSpinner className="animate-spin h-5 w-5" /> :
+                            validity.username.valid ? <LuCheckCircle2 className="h-5 w-5 text-green-500" /> : validity.username.valid === false ? <RiErrorWarningLine className="h-5 w-5 text-red-500" /> : null}
 
+                    </span>
+                </div>
+            </div>
+            <div className="grid w-full max-w-lg items-center gap-1.5">
+                <Label htmlFor="password">Enter your password</Label>
+                <div className="relative">
+                    <Input
+                        type={"text"} id="password" 
+                        value={password} onChange={(e) => {
+                            setPassword(e.target.value);
+                            const { valid, message } = isStrongPassword(e.target.value);
+                            setValidity({ ...validity, password: { loading: false, valid: valid, errorMessage: message } })
 
+                        }}
+                        placeholder="********" />
+                    <span className="absolute inset-y-0 right-0 flex items-center pr-3">
+                        {validity.password.valid && <LuCheckCircle2 className="h-5 w-5 text-green-500" />}
+                    </span>
+                </div>
+            {validity.password.valid === false && <p className="text-red-500 text-sm font-semibold text-left">{validity.password.errorMessage}</p>}
+            </div>
+            <div className="grid w-full max-w-lg items-center gap-1.5">
+                <Button className="w-full rounded-full"
 
-    return (
-        <div className={cn("grid gap-6 lg:max-w-lg text-left", className)} {...props}>
-            <div className='grid gap-2'>
-                <Button variant="ghost" type="button" disabled={isLoading}
-                    className='border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200'
-                    data-aos="flip-down"
-                    data-aos-delay="1100"
-                    onClick={async () => {
-                        setIsLoading(true);
-                        await signIn('google', { callbackUrl: "/dashboard" })
-                        setIsLoading(false);
+                    disabled={loading || (validity.password.valid === false || validity.email.valid === false || validity.username.valid === false)}
+                    onClick={() => {
+                        if (!isStrongPassword(password)) {
+                            toast.error("Password must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character")
+                            return;
+                        }
 
-                    }}            >
-                    {isLoading ? (
-                        <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                        <FcGoogle className="mr-2 h-4 w-4" />
-                    )}{" "}Sign Up with Google
+                        toast.promise(signUp(), {
+                            loading: "Creating account...",
+                            success: (data) => {
+                                return <> Account created successfully!</>
+                            },
+                            error: (err) => {
+                                return <>{err.message}</>
+                            }
+                        })
+
+                    }}
+                    size="lg">
+                    {loading && <CgSpinner className="animate-spin mr-2 h-5 w-5" />}
+                    Create a new Account
                 </Button>
-                <Button variant="dark" type="button" disabled={isLoading} data-aos="flip-up" data-aos-delay="1100"
-                    className="border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200"
-                    onClick={async () => {
-                        setIsLoading(true);
-                        await signIn('github', { callbackUrl: "/dashboard" })
-                        setIsLoading(false);
-                    }}   >
-                    {isLoading ? (
-                        <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                        <FiGithub className="mr-2 h-4 w-4" />
-                    )}{" "}
-                    Sign Up with Github
-                </Button>
-                <p className="or my-5">
-                    Or sign up with email
+            </div>
+            <div className="pt-lg  max-w-lg text-center">
+                <p className="text-center my-4 capitalize text-sm text-concrete font-semibold">
+                    OR SIGN UP WITH
+                </p>
+                <div className="w-full max-w-lg flex flex-col gap-3">
+                    <Button variant="outline" size="lg" className="w-full rounded-full">
+                        {loading ? <CgSpinner className="animate-spin mr-2 h-5 w-5" /> : <FcGoogle className="mr-2 h-6 w-6" />}
+
+                        Sign up with Google
+                    </Button>
+                    {/* <Button className="rounded-full ease-linear duration-300 text-base font-medium text-slate-100 bg-slate-700 hover:bg-slate-800 shadow-lg" size="lg">
+                <FaApple className="mr-2 h-6 w-6" />
+                Sign up with Apple
+              </Button> */}
+                </div>
+                <div className="flex justify-center mt-8">
+                    <p className="text-concrete">Already have an account ?&nbsp;</p>
+                    <Link className=" text-primary inline-flex hover:underline"
+                        href="/login" data-testid="login_redirect">Log in</Link>
+                </div>
+                <p className="text-concrete text-xs lg:text-sm pt-8">By clicking <span className="font-semibold">Create account / Sign up</span>, you agree to {process.env.NEXT_PUBLIC_WEBSITE_NAME}'s {" "}
+                    <Link className="!text-concrete text-primary inline-flex hover:underline"
+                        href={process.env.NEXT_PUBLIC_WEBSITE_URL + "/tos"}>Terms</Link> {" "}
+                    and confirm you have read our <Link className="!text-concrete text-primary inline-flex hover:underline"
+                        href={process.env.NEXT_PUBLIC_WEBSITE_URL + "/privacy"}>Privacy Policy</Link>.
+                    You may receive offers, news and updates from us.
                 </p>
             </div>
-            <Form  {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
-                    <div className="flex flex-col lg:flex-row w-full justify-between gap-2">
-                        <FormField
-                            control={form.control}
-                            name="name"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <div className='relative group'>
-                                        <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
-                                            <GoPerson className='w-4 h-4' />
-                                        </FormLabel>
-                                        <FormControl className='relative'>
-                                            <Input
-                                                id="name"
-                                                placeholder="Enter your name"
-                                                type="text"
-                                                autoCapitalize="none"
-                                                autoComplete="name"
-                                                autoCorrect="off"
-                                                variant="fluid"
-                                                disabled={isLoading}
-                                                className='pl-12 !py-6 pr-5 !mt-0 border-2'
-                                                {...field} />
-                                        </FormControl>
-                                    </div>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        <FormField
-                            control={form.control}
-                            name="email"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <div className='relative group'>
+        </>}
+        {state === "registered" && <>
+            <div className="grid w-full max-w-lg items-center gap-1.5">
+                <div className="flex flex-col items-center justify-center">
+                    <LuCheckCircle2 className="h-16 w-16 text-green-500" />
+                    <h1 className="text-2xl font-semibold text-black">Account created successfully!</h1>
+                    <p className="text-concrete text-sm">Please check your email to verify your account</p>
+                </div>
+            </div>
+        </>}
+    </>)
+}
+function isStrongPassword(password: string) {
+    const minLength = 8;
+    const minUppercase = 1;
+    const minLowercase = 1;
+    const minNumbers = 1;
+    const minSpecialChars = 1;
+    const specialChars = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
 
-                                        <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
-                                            <LuMail className='w-4 h-4' />
-                                        </FormLabel>
-                                        <FormControl className='relative'>
-                                            <Input
-                                                id="email"
-                                                placeholder="name@example.com"
-                                                type="email"
-                                                variant="fluid"
-                                                autoCapitalize="none"
-                                                autoComplete="email"
-                                                autoCorrect="off"
-                                                disabled={isLoading}
-                                                className='pl-12 !py-6 pr-5 !mt-0  border-2'
-                                                {...field} />
-                                        </FormControl>
+    const uppercaseRegex = /[A-Z]/g;
+    const lowercaseRegex = /[a-z]/g;
+    const numbersRegex = /[0-9]/g;
 
-                                    </div>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    </div>
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormItem>
-                                <div className='relative group'>
+    // Check minimum length
+    if (password.length < minLength) {
+        return {
+            valid: false,
+            message: `Password must contain at least ${minLength} characters`
+        }
+    }
 
-                                    <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
-                                        <BiLockOpenAlt className='w-4 h-4' />
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            id="password"
-                                            placeholder="Enter your password"
-                                            type="password"
-                                            variant="fluid"
-                                            autoCapitalize="none"
-                                            autoComplete="password"
-                                            autoCorrect="off"
-                                            disabled={isLoading}
-                                            className='pl-12 !py-6 pr-5 !mt-0  border-2'
+    // Check for minimum uppercase letters
+    if ((password.match(uppercaseRegex) || []).length < minUppercase) {
+        return {
+            valid: false,
+            message: `Password must contain at least ${minUppercase} uppercase letter`
+        }
+    }
 
-                                            {...field} />
-                                    </FormControl>
-                                </div>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="confirmPassword"
-                        render={({ field }) => (
-                            <FormItem>
-                                <div className='relative group'>
+    // Check for minimum lowercase letters
+    if ((password.match(lowercaseRegex) || []).length < minLowercase) {
+        return {
+            valid: false,
+            message: `Password must contain at least ${minLowercase} lowercase letter`
+        }
+    }
 
-                                    <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
-                                        <BiLockOpenAlt className='w-4 h-4' />
-                                    </FormLabel>
-                                    <FormControl>
-                                        <Input
-                                            id="confirmPassword"
-                                            placeholder="Confirm your password"
-                                            type="password"
-                                            autoCapitalize="none"
-                                            autoComplete="password"
-                                            autoCorrect="off"
-                                            variant="fluid"
-                                            disabled={isLoading}
-                                            className='pl-12 !py-6 pr-5 !mt-0  border-2'
+    // Check for minimum numbers
+    if ((password.match(numbersRegex) || []).length < minNumbers) {
+        return {
+            valid: false,
+            message: `Password must contain at least ${minNumbers} number`
+        }
+    }
 
-                                            {...field} />
-                                    </FormControl>
-                                </div>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+    // Check for minimum special characters
+    if (!specialChars.test(password) || (password.match(specialChars) || []).length < minSpecialChars) {
+        return {
+            valid: false,
+            message: `Password must contain at least ${minSpecialChars} special character`
+        }
+    }
 
-                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" size="lg" variant="gradient_blue">
-                        {isLoading && (
-                            <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
-                        )}
-                        Sign Up with Email
-                    </Button>
-                    <p className='text-left text-sm font-medium text-slate-500 dark:text-slate-300'>
-                        Already have an account? <Link href="/login" className='text-primary underline'>Sign in</Link>
-                    </p>
-                </form>
-            </Form>
-
-
-        </div>
-    )
+    return {
+        valid: true,
+        message: "Password is strong"
+    }
 }
