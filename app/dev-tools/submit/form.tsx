@@ -52,7 +52,10 @@ export default function SubmitForm() {
 
         </div>
         <div className="flex justify-center items-center w-full gap-1.5 mt-5">
-            <Button type="submit" onClick={() => console.log(useFormStore.getState())}>
+            <Button type="submit" 
+            disabled={true}
+            // disabled={!useFormStore(state => state.name) || !useFormStore(state => state.email) || !useFormStore(state => state.github_username) || !useFormStore(state => state.github_repo)}  
+            onClick={() => console.log(useFormStore.getState())}>
                 Submit Tool
                 <Send className="w-4 h-4 ml-2" />
             </Button>
