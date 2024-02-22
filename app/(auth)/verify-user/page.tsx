@@ -26,14 +26,9 @@ export default async function Page({ searchParams }: {
 
     return (
         <>
-
-            <div className="bg-white/20 dark:bg-slate-800/20 backdrop-blur-2xl z-20 border border-border dark:border-slate-700/70 rounded-xl prose dark:prose-invert py-4 px-6 w-full max-w-2xl flex flex-col justify-center items-center">
-                <Link href='/' className="text-center">
-                    <Image className="h-10 mx-auto dark:invert" src="/assets/logo.svg" alt="Nexonauts.png" width={200} height={40} priority />
-                </Link>
+   
 
                 <UserAuthForm className="flex-auto w-full" key={"form"} />
-            </div>
 
 
 

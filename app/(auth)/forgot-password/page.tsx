@@ -2,8 +2,6 @@
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
-import Image from 'next/image';
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { UserAuthForm } from './forgot-form';
 
@@ -20,19 +18,19 @@ export default async function Page() {
     if (session) return redirect("/dashboard");
 
     return (
-        <div className="bg-white/20 dark:bg-slate-800/20 backdrop-blur-2xl z-20 border border-border dark:border-slate-700/70 rounded-xl prose dark:prose-invert py-4 px-6 w-full max-w-2xl flex flex-col justify-center items-center">
-
-                <Link href='/' className="text-center">
-                    <Image className="h-10 mx-auto dark:invert" src="/assets/logo.svg" alt="Nexonauts.png" width={200} height={40} priority />
-                </Link>
-                <h2 className="mt-0">
+        <>
+            <header className="mb-2xl text-center mt-10 p-4 space-y-2">
+                <h1 className="text-[32px] font-extrabold leading-heading tracking-[-1px] lg:text-4xl lg:tracking-[-2px] mb-md">
                     Forgot Password
-                </h2>
-                <p>
+                </h1>
+                <p className="text-concrete text-xl">
                     Enter your email to reset your password
                 </p>
-                <UserAuthForm  className="flex-auto w-full" key={"form"}/>
+            </header>
+            <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
+                <UserAuthForm className="flex-auto w-full" key={"form"} />
+            </main>
 
-        </div>
+        </>
     )
 }

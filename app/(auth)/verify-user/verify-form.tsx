@@ -50,27 +50,34 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
 
     return (<>
-        <h2 className='mt-0'>
-            {isLoading ? 'Verifying' : 'Verify Email'}
-        </h2>
-        <p>
-            {isLoading ? 'Please wait while we verify your email' : 'Please wait while we verify your email'}
-        </p>
+        <header className="mb-2xl text-center mt-10 p-4 space-y-2">
+            <h1 className="text-[32px] font-extrabold leading-heading tracking-[-1px] lg:text-4xl lg:tracking-[-2px] mb-md">
+                {isLoading ? 'Verifying' : 'Verify Email'}
 
-        <div className={cn("grid gap-6 lg:max-w-lg text-left mb-5", className)} {...props}>
+            </h1>
+            <p className="text-concrete text-xl">
+                {isLoading ? 'Please wait while we verify your email' : 'Please wait while we verify your email'}
+            </p>
+        </header>
+        <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
 
-            <div className="flex justify-center items-center w-full">
-                {isLoading && <CgSpinner className="animate-spin h-24 w-24 text-primary" />}
-                {error && <MdOutlineReportGmailerrorred className="h-24 w-24 text-red-500" />}
-                {success && <Image src={verifyPng} height={320} width={320} alt="Verify Email" className="w-80 h-80" />}
+
+            <div className={cn("grid gap-6 lg:max-w-lg text-left mb-5", className)} {...props}>
+
+                <div className="flex justify-center items-center w-full">
+                    {isLoading && <CgSpinner className="animate-spin h-24 w-24 text-primary" />}
+                    {error && <MdOutlineReportGmailerrorred className="h-24 w-24 text-red-500" />}
+                    {success && <Image src={verifyPng} height={320} width={320} alt="Verify Email" className="w-80 h-80" />}
+                </div>
+                <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" size="lg" onClick={() => {
+                    router.push('/login')
+                }}>
+                    Go to Login
+                </Button>
+
             </div>
-            <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" size="lg" onClick={() => {
-                router.push('/login')
-            }}>
-                Go to Login
-            </Button>
+        </main>
 
-        </div>
     </>)
 }
 
