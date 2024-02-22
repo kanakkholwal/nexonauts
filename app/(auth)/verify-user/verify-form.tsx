@@ -11,22 +11,30 @@ import { MdOutlineReportGmailerrorred } from "react-icons/md";
 import verifyPng from "./verified.png";
 
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
+interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
+    loggedIn: boolean;
+ }
 
-export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+export function UserAuthForm({ className, loggedIn,...props }: UserAuthFormProps) {
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [success, setSuccess] = useState<string | null>(null);
 
     const router = useRouter();
-    const token = useSearchParams()?.get('token') ?? null;
+    const searchParams = useSearchParams() as URLSearchParams;
+    const token = searchParams.get('token') 
     const verify = async () => {
         await axios.get(`/api/auth/verify?token=${token}`)
             .then((response) => {
                 console.log(response.data.message);
                 // Handle successful verification
-                router.push(response.data.callbackUrl);
+                if(!loggedIn){
+                    router.push('/login');
+                }
+                else{
+                    router.push('/dashboard');
+                }
                 setSuccess(response.data.message)
             })
             .catch((error) => {
@@ -38,11 +46,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             })
     }
     useEffect(() => {
-        if (token && token?.trim() !== '') {
-            verify()
-        }
-        else {
+        if (!token && !loggedIn){
             router.push('/signup');
+        }
+        else{
+            verify()
         }
     }, [token]);
 
