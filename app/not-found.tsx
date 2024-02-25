@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     description: "The page you are looking for does not exist.",
 }
 
-export default function NotFound() {
+export default async function NotFound() {
 
 
     return <div className="min-h-screen w-full relative overflow-hidden bg-primary/10">
