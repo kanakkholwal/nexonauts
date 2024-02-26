@@ -1,17 +1,4 @@
 /** @type {import('next').NextConfig} */
-
-// const path = require('path');
-// const runtimeCaching = require("next-pwa/cache");
-// const withPWA = require("next-pwa")({
-  // dest: "public",
-  // swSrc: "./public/sw.js",
-//   register: true,
-//   skipWaiting: true,
-//   runtimeCaching,
-//   buildExcludes: [/middleware-manifest.json$/],
-//   disable: process.env.NODE_ENV !== "production",
-// });
-
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ['@mdxeditor/editor', 'react-diff-view'],
