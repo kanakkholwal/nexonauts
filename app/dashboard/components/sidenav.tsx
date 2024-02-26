@@ -67,12 +67,6 @@ const user_links: sideLinkType[] = [
         href: "/dashboard",
     },
     {
-        label: "Apps",
-        icon: RiAppsLine,
-        href: "/dashboard/apps",
-
-    },
-    {
         label: "Account",
         icon: UserRoundCog,
         href: "/dashboard/settings/account",
@@ -96,10 +90,9 @@ export default function SideBar({ user }: { user: SessionUserType }) {
         className={"fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 glassmorphism " + (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") + " transition-transform duration-200 ease-in-out"}
     >
         <button
+            aria-label="Toggle Sidenav"
             className={"absolute top-5 -right-3 p-2 rounded-xl bg-white dark:bg-slate-800 border border-transparent dark:border-slate-700 shadow-md transition-colors duration-200 ease-in-out" + (open ? " translate-x-0" : " translate-x-full") + " lg:translate-x-0 lg:hidden"}
-            onClick={() => {
-                setOpen(!open)
-            }}>
+            onClick={() => setOpen(!open)}>
             {open ? <ChevronLeftCircle className="w-4 h-4" /> : <ChevronRightCircle className="w-4 h-4" />}
         </button>
         <div className="flex items-center justify-between px-6 py-4">
@@ -109,11 +102,11 @@ export default function SideBar({ user }: { user: SessionUserType }) {
                 <DropdownMenuContent>
                     <DropdownMenuLabel>Go To <ArrowBigDown className="w-5 h-5 ml-2 inline-block" /></DropdownMenuLabel>
                     <DropdownMenuSeparator />
-                    {(user.role === "admin" && pathname.startsWith("/admin") )&& <DropdownMenuItem asChild><Link target="_blank" href="/dashboard">User</Link></DropdownMenuItem>}
+                    {(user.role === "admin" && pathname.startsWith("/admin")) && <DropdownMenuItem asChild><Link target="_blank" href="/dashboard">User</Link></DropdownMenuItem>}
                     {(user.role === "admin" && pathname.startsWith("/dashboard")) && <DropdownMenuItem asChild><Link target="_blank" href="/admin">Admin</Link></DropdownMenuItem>}
                     <DropdownMenuItem asChild><Link target="_blank" href="/">HomePage</Link></DropdownMenuItem>
-                    <DropdownMenuItem asChild><Link target="_blank" href="/apps">Apps</Link></DropdownMenuItem>
-                    <DropdownMenuItem asChild><Link target="_blank" href="/toolzen">Toolzen</Link></DropdownMenuItem>
+                    {/* <DropdownMenuItem asChild><Link target="_blank" href="/apps">Apps</Link></DropdownMenuItem> */}
+                    <DropdownMenuItem asChild><Link target="_blank" href="/tool-scout">Tool Scout</Link></DropdownMenuItem>
                     <DropdownMenuItem asChild><Link target="_blank" href="/dev-tools">Dev Tools</Link></DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>

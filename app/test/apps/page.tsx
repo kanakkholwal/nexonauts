@@ -1,4 +1,4 @@
-
+import { NextPage } from "next";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth/next";
 import { getPublicApps } from "src/lib/apps/actions";

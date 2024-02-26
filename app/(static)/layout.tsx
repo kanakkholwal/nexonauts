@@ -1,9 +1,8 @@
 import Footer from 'app/layouts/footer';
 import Navbar from "app/layouts/navbar";
-import Link from "next/link";
 
 
-export default function Layout({children}:{children:React.ReactNode}) {
+export default async function Layout({children}:{children:React.ReactNode}) {
 
     return (<>
         <header>

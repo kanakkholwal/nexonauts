@@ -1,6 +1,5 @@
 import { GoogleAnalytics } from '@next/third-parties/google';
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import { Provider, ThemeProvider } from "./client-provider";
 import "./codebox.css";
 import './global.css';
@@ -58,7 +57,7 @@ export const metadata: Metadata = {
 
 }
 
-export default function RootLayout({
+export default async function RootLayout({
     children,
 }: {
     children: React.ReactNode
@@ -66,7 +65,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <head>
-                <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-BCVK6GWZ0E" />
+                {/* <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-BCVK6GWZ0E" /> */}
                 <meta name="google-adsense-account" content="ca-pub-2329686175069611" />
                 {/* <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
                     <link href='https://fonts.googleapis.com/css?family=Fira+Code:wght@300,400,500,600&display=swap' rel='stylesheet' /> */}
@@ -81,7 +80,7 @@ export default function RootLayout({
                     <Provider>{children}</Provider>
 
                 </ThemeProvider>
-                {process.env.NODE_ENV !== "development" &&      <GoogleAnalytics gaId="G-DQ8920P13D" />}
+                {process.env.NODE_ENV !== "development" && <GoogleAnalytics gaId="G-DQ8920P13D" />}
             </body>
         </html>
     )

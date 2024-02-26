@@ -122,7 +122,7 @@ function escapeXml(unsafe: string) {
     });
 }
 // This function will generate the robots.txt
-function generateSiteMap(pages) {
+function generateSiteMap(pages: any[]) {
     return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
     <!-- Add the static URLs manually -->
