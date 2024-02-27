@@ -100,7 +100,11 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"),require('@tailwindcss/typography'),addVariablesForColors],
+  plugins: [
+    require("tailwindcss-animate")
+    ,require('@tailwindcss/container-queries')
+    ,require('@tailwindcss/typography')
+    ,addVariablesForColors],
 }
 function addVariablesForColors({ addBase, theme }) {
   let allColors = flattenColorPalette(theme("colors"));

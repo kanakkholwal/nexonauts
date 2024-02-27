@@ -15,6 +15,8 @@ const badgeVariants = cva(
         default_light: "bg-primary/10 text-primary hover:bg-primary/20",
         success_light: "bg-green-500/10 text-green-500 hover:bg-green-500/20",
         warning_light: "bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20",
+        info_light: "bg-sky-500/10 text-sky-500 hover:bg-sky-500/20",
+        info: "bg-sky-100 hover:bg-sky-200 text-sky-600 dark:bg-sky-700 dark:text-sky-200 dark:hover:bg-sky-800 dark:hover:text-sky-200",
         destructive_light: "bg-red-500/10 text-red-500 hover:bg-red-500/20 dark:bg-red-500/20 dark:text-red-500 hover:dark:bg-red-500/10 hover:dark:text-red-500",
         destructive:
           "bg-red-100 hover:bg-red-200 text-red-600	dark:bg-red-700 dark:text-red-200 dark:hover:bg-red-800 dark:hover:text-red-200",
@@ -32,7 +34,7 @@ const badgeVariants = cva(
         gradient_pink: "text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br",
         gradient_purple: "text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:bg-gradient-to-br",
         secondary:
-          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "border-border bg-secondary text-secondary-foreground hover:bg-secondary/80",
         outline: "text-foreground",
       },
       size: {

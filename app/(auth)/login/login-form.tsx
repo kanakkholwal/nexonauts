@@ -21,7 +21,7 @@ import { Input } from "@/components/ui/input";
 import { cn } from '@/lib/utils';
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from 'next/link';
-import { useRouter ,useSearchParams} from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { toast } from "sonner";
@@ -75,9 +75,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 setIsLoading(false);
                 if(callbackUrl){
                     router.push(callbackUrl);
-                    return `Logged in successfully`
+                    return `Logged in successfully to ${callbackUrl}`
                 }
-                return `Logged in successfully`
+                router.push("/dashboard");
+                return `Logged in successfully to dashboard`
             },
             error: (err) => {
                 console.log(err);

@@ -66,6 +66,11 @@ const user_links: sideLinkType[] = [
         icon: TbDashboard,
         href: "/dashboard",
     },
+    // {
+    //     label: "Tools",
+    //     icon: Swords,
+    //     href: "/dashboard/tools",
+    // },
     {
         label: "Account",
         icon: UserRoundCog,
