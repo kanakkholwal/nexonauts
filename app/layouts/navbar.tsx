@@ -10,7 +10,7 @@ export default function Navbar() {
 
 
   return (<div aria-label="NavMenu" id="navbar" className="absolute inset-x-0 top-0 z-50  w-full">
-    <div className="relative flex flex-wrap items-center justify-between gap-6 py-2 lg:gap-0 lg:py-4 mx-auto px-4 sm:px-12 xl:max-w-7xl xl:px-0 lg:px-8" aria-label="Global">
+    <div className="relative flex flex-wrap items-center justify-between gap-6 py-2 lg:gap-0 lg:py-4 mx-auto px-4 sm:px-12 xl:max-w-[1440px] xl:px-0 lg:px-8" aria-label="Global">
       <div className="flex lg:flex-1">
         <Link href="/" aria-label="Logo" className="p-1.5">
           <span className="sr-only">Nexonauts</span>

@@ -39,6 +39,7 @@
         "@react-email/button": "0.0.13",
         "@react-email/components": "0.0.14",
         "@react-email/html": "0.0.7",
+        "@tailwindcss/container-queries": "^0.1.1",
         "@tanstack/react-table": "^8.11.8",
         "aos": "^2.3.4",
         "apexcharts": "^3.40.0",

@@ -1,10 +1,10 @@
 "use client";
-
 import { Badge, BadgeProps } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { Loader2, Search, X } from "lucide-react";
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import React from "react";
 import { useDebouncedCallback } from 'use-debounce';
 
@@ -16,8 +16,8 @@ export function FilterButton({ filterKey, filterValue, active, children, ...prop
     children: React.ReactNode
 } & BadgeProps) {
     const searchParams = useSearchParams() as URLSearchParams;
-    const pathname = usePathname();
-    const { replace } = useRouter();
+
+    const router = useRouter();
 
     const handleFilter = (filterValue: string) => {
         const params = new URLSearchParams(searchParams);
@@ -26,20 +26,20 @@ export function FilterButton({ filterKey, filterValue, active, children, ...prop
         } else {
             params.delete(filterKey);
         }
-        replace(`${pathname}?${params.toString()}`);
+        router.push(`?${params.toString()}`);
     }
     const removeFilter = () => {
         const params = new URLSearchParams(searchParams);
         params.delete(filterKey);
-        replace(`${pathname}?${params.toString()}`);
+        router.push(`?${params.toString()}`);
     }
     return (
         <Badge
             size="sm"
-            className="cursor-pointer"
-            variant={active ? "secondary" : "outline"}
+            className="cursor-pointer glassmorphism" 
+            variant={active ? "info_light" : "secondary"}
             onClick={() => {
-                console.log("Filtering by", filterKey, filterValue)
+                // console.log("Filtering by", filterKey, filterValue)
                 handleFilter(filterValue)
             }}
             {...props}
@@ -62,11 +62,11 @@ export function FilterButton({ filterKey, filterValue, active, children, ...prop
     )
 
 }
-export function SearchBar() {
+export function SearchBar({className, ...props}: {className?: string} & React.HTMLAttributes<HTMLDivElement>) {
     const [loading, setLoading] = React.useState(false);
     const searchParams = useSearchParams() as URLSearchParams;
-    const pathname = usePathname();
-    const { replace } = useRouter();
+
+    const router = useRouter();
     const [query, setQuery] = React.useState(searchParams.get('query')?.toString()!);
 
 
@@ -82,16 +82,17 @@ export function SearchBar() {
         } else {
             params.delete('query');
         }
-        replace(`${pathname}?${params.toString()}`);
+        router.push(`?${params.toString()}`);
         setLoading(false);
     }, 300);
 
     return (
-        <div className="flex w-full gap-4 items-center justify-start mx-auto mt-0 mb-10" id="search">
+        <div className={cn("flex w-full gap-4 items-center justify-start mx-auto mt-0",className)} id="search" {...props}>
             <div className="relative w-full">
 
-                <Search className="absolute top-1/2 left-4 transform -translate-y-1/2 w-5 h-5" size={20} />
-                <React.Suspense key={"search_key"} fallback={<Input placeholder="Search for a AI, tools, services, and resources" className="w-full pl-12 pr-4 py-2 h-14 rounded-xl" />}>
+                <Search className="absolute top-1/2 left-4 transform -translate-y-1/2 w-5 h-5"  />
+                <React.Suspense key={"search_key"}
+                fallback={<Input placeholder="Search for a AI, tools, services, and resources" className="w-full pl-12 pr-4 py-2 h-14 rounded-xl glassmorphism" />}>
                     <Input
                         type="text"
                         name="query"
@@ -99,7 +100,7 @@ export function SearchBar() {
                         value={query}
                         variant="fluid"
                         placeholder="Search for a AI, tools, services, and resources"
-                        className="w-full pl-12 pr-4 py-2 h-14 rounded-xl"
+                        className="w-full pl-12 pr-4 py-2 h-14 rounded-xl bg-slate-50/15 dark:bg-slate-800/15 shadow border border-border"
                         defaultValue={searchParams.get('query')?.toString()?.trim()!}
                         onChange={(e) => {
                             if(e.target.value.trim() ==="") return;
@@ -109,13 +110,13 @@ export function SearchBar() {
                         required={true}
                     />
                     <Button size="icon" variant="outline"
-                        className="rounded-full absolute z-20 top-1/2 right-2 transform -translate-y-1/2 border-none bg-transparent focus:outline-none"
+                        className="rounded-full absolute z-20 top-1/2 right-2 transform -translate-y-1/2 border-none bg-transparent dark:bg-transparent  focus:outline-none"
 
                         onClick={() => {
                             setQuery("");
                             handleSearch("");
                         }}>
-                        {query?.trim() === "" ? null : loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <X className="h-4 w-4" />}
+                            {query?.trim() !== "" ? loading ? <Loader2 className="h-4 w-4 animate-spin" /> : <X className="h-4 w-4" /> : null}
                     </Button>
                 </React.Suspense>
             </div>

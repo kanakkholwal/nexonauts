@@ -63,7 +63,7 @@ export default async function DashboardPage() {
                     }
                 });
                 await newApp.save();
-                revalidatePath("/dashboard/apps","page")
+                revalidatePath("/admin/apps","page")
                 return resolve(true)
 
             }catch(error){
