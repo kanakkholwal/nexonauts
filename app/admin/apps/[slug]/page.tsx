@@ -50,7 +50,7 @@ export default async function EditApplicationPage({ params }: {
                 if(!deletedApp){
                     return reject("App not found")
                 }
-                revalidatePath(`/dashboard/apps`,'page')
+                revalidatePath(`/admin/apps`,'page')
                 return resolve(true)
 
             }catch(error){

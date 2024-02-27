@@ -21,7 +21,7 @@ interface UserSubmitProps extends React.HTMLAttributes<HTMLDivElement> {
     submit: (tool:PublicToolType) => Promise<boolean>
 }
 
-export function ToolSubmitForm({ className, ...props }: UserSubmitProps) {
+export function ToolSubmitForm({ className,submit, ...props }: UserSubmitProps) {
     const { data: session } = useSession();
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -46,23 +46,7 @@ export function ToolSubmitForm({ className, ...props }: UserSubmitProps) {
         verified: false,
         pricing_type: "free"
     })
-    async function isImageURLValid(url:string):Promise<boolean> {
-        return fetch(url)
-            .then((response) => {
-                // Check if the HTTP status code is in the 200 range (success)
-                if (response.status >= 200 && response.status < 300) {
-                    // Check the content type in the response headers
-                    const contentType = response.headers.get('content-type');
-                    if (contentType && contentType.startsWith('image/')) {
-                        return true; // It's a valid image URL
-                    }
-                }
-                return false; // It's not a valid image URL
-            })
-            .catch(() => {
-                return false; // An error occurred (e.g., network issue)
-            });
-    }
+
 
 
 
@@ -144,7 +128,7 @@ export function ToolSubmitForm({ className, ...props }: UserSubmitProps) {
                 <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" variant="gradient_blue"
                 onClick={async () => {
                     setIsLoading(true);
-                    toast.promise(props.submit(tool), {
+                    toast.promise(submit(tool), {
                         loading: 'Submitting Tool...',
                         success: (res) => {
                             setSuccess(res ? "Tool submitted successfully" : null);
@@ -166,4 +150,22 @@ export function ToolSubmitForm({ className, ...props }: UserSubmitProps) {
 
             </CardFooter>
         </>)
+}
+
+async function isImageURLValid(url:string):Promise<boolean> {
+    return fetch(url)
+        .then((response) => {
+            // Check if the HTTP status code is in the 200 range (success)
+            if (response.status >= 200 && response.status < 300) {
+                // Check the content type in the response headers
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.startsWith('image/')) {
+                    return true; // It's a valid image URL
+                }
+            }
+            return false; // It's not a valid image URL
+        })
+        .catch(() => {
+            return false; // An error occurred (e.g., network issue)
+        });
 }
