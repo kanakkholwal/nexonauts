@@ -59,6 +59,8 @@ export async function getTools(query: string, currentPage: number, filter: {
             },
         },
         { $project: { _id: 0, name: 1, slug: 1 } },
+        //  sort by name
+        { $sort: { name: 1 } },
     ]);
     const pricing_types = await PublicTool.distinct("pricing_type");
 

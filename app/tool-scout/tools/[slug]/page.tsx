@@ -108,7 +108,7 @@ export default async function ToolPage({ params }: {
                     <div className="flex-1 space-y-4">
                         <div className="flex flex-row gap-3 items-center justify-start">
                             <Image width={320} height={320} src={tool.coverImage} alt={tool.name}
-                                className="rounded-lg backdrop-blur-lg border border-border max-w-40" />
+                                className="rounded-lg backdrop-blur-lg border border-border max-w-40 p-2" />
                             <CardTitle title={tool.name} className="text-5xl font-bold">{tool.name}</CardTitle>
                         </div>
                     </div>

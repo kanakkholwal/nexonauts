@@ -141,7 +141,11 @@ a {
 }
 .glassmorphism{
     /* glassmorphism  with tailwindcss  and dark mode */
-    @apply bg-slate-50/15 dark:bg-slate-800/15 backdrop-blur-xl border border-slate-500/10 dark:border-border/70;
+    @apply bg-slate-50/15 dark:bg-slate-800/15 backdrop-blur-xl border border-slate-500/10 dark:border-border;
+}
+.glassmorphism_light{
+    /* glassmorphism  with tailwindcss  and dark mode */
+    @apply bg-white/15 dark:bg-gray-800/15 backdrop-blur-lg border border-slate-500/10 dark:border-border/70;
 }
 .or {
     display: flex;

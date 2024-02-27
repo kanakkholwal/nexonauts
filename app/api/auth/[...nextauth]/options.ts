@@ -105,7 +105,7 @@ export const authOptions: NextAuthOptions = {
                             role: userInDb.role || "user",
                             verificationToken: userInDb.verificationToken || null,
                             verified: userInDb.verified || false,
-                            providers: userInDb.providers,
+                            providers: Array.from(new Set(userInDb.providers)),
                             additional_info: userInDb.additional_info || {},
                         }
 
@@ -167,7 +167,7 @@ export const authOptions: NextAuthOptions = {
                             role: user.role || "user",
                             verificationToken: user.verificationToken || null,
                             verified: user.verified || false,
-                            providers: user.providers,
+                            providers: Array.from(new Set(user.providers)),
                             additional_info: user.additional_info || {},
                         });
                     }
@@ -175,7 +175,7 @@ export const authOptions: NextAuthOptions = {
                     await UserModel.updateOne({ _id: userInDb._id }, {
                         $set: {
                             verified: true,
-                            providers: [...userInDb.providers, "google"]
+                            providers: Array.from(new Set([...userInDb.providers, "google"]))
                         }
                     })
 
@@ -192,7 +192,7 @@ export const authOptions: NextAuthOptions = {
                         role: userInDb.role || "user",
                         verificationToken: userInDb.verificationToken || null,
                         verified: true,
-                        providers: [...userInDb.providers, "google"],
+                        providers: Array.from(new Set([...userInDb.providers, "google"])),
                         additional_info: userInDb.additional_info || {},
                     })
                 }
