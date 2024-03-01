@@ -22,7 +22,7 @@ export async function getTools(query: string, currentPage: number, filter: {
 }> {
     await dbConnect();
 
-    const resultsPerPage = 32;
+    const resultsPerPage = 69;
     const skip = currentPage * resultsPerPage - resultsPerPage;
 
     const filterQuery = {
@@ -75,6 +75,14 @@ export async function getTools(query: string, currentPage: number, filter: {
 
 }
 
+export async function getToolMetaBySlug(slug: string): Promise<PublicToolTypeWithId> {
+    await dbConnect();
+    const tool = await PublicTool.findOne({ slug , status: "published" || "approved" })
+        .populate('categories', 'name slug')
+        .select('name slug coverImage description categories')
+        .exec();
+    return JSON.parse(JSON.stringify(tool));
+}
 export async function getPublicToolBySlug(slug: string): Promise<PublicToolTypeWithId> {
     await dbConnect();
     const tool = await PublicTool.findOne({ slug, status: "published" || "approved" });

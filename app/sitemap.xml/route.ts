@@ -91,7 +91,7 @@ export async function GET(request: NextRequest) {
             })),
         ...publicTools.map((tool) => {
             return {
-                path: `/tool-scout/tools/${tool.slug}`,
+                path: `/scout/tools/${tool.slug}`,
                 date: new Date(tool?.createdAt || Date.now()).toISOString(),
             }
         }),

@@ -11,8 +11,8 @@ import { Rating } from "@/components/ui/rating";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import Navbar from "app/layouts/navbar";
-import { getPublicToolBySlugForRatingPage, getRatingsAndReviewsByPage, postRatingAndReview, toggleBookmark } from "app/tool-scout/lib/actions";
-import { getAverageRating } from "app/tool-scout/lib/utils";
+import { getPublicToolBySlugForRatingPage, getRatingsAndReviewsByPage, postRatingAndReview, toggleBookmark } from "app/scout/lib/actions";
+import { getAverageRating } from "app/scout/lib/utils";
 import { ArrowLeftToLine, ExternalLink, Hash, Star } from 'lucide-react';
 import { getServerSession } from "next-auth/next";
 import Image from "next/image";
@@ -74,7 +74,7 @@ export default async function ToolPage({ params }: {
                 <CardHeader className="flex flex-row gap-3 items-center flex-wrap">
                     <div className="flex-1 w-full basis-full">
                         <Button variant="link" size="sm" className="font-medium text-gray-500 dark:text-gray-400" asChild>
-                            <Link href={"/tool-scout/tools/" + params.slug}>
+                            <Link href={"/scout/tools/" + params.slug}>
                                 <ArrowLeftToLine className="w-4 h-4 mr-2" />
                                 <span>Back to tools</span>
                             </Link>
@@ -93,7 +93,7 @@ export default async function ToolPage({ params }: {
                             variant="gradient_blue"
                             className="rounded-full px-6 py-2"
                             asChild>
-                            <Link href={tool.link + "?ref=nexonauts.com/tool-scout"} target="_blank">
+                            <Link href={tool.link + "?ref=nexonauts.com/scout"} target="_blank">
                                 <span>
                                     Check it out
                                 </span>
