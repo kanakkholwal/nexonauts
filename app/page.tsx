@@ -24,7 +24,7 @@ const features = [
 	},
 	{
 		name: 'Developer Tools',
-		description: `Our curated catalogue of open-source tools can help you simplify your development process. Access a wide range of materials to help you accelerate your projects and collaborate with other developers smoothly.		`,
+		description: `Our curated catalogue of open-source tools can help you simplify your development process. Access a wide range of materials to help you accelerate your projects and collaborate with other developers smoothly.		`,
 		icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341160.png',
 		path: '/dev-tools',
 	},

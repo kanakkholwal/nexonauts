@@ -35,9 +35,6 @@ export default function Page403() {
             <p className="text-md  text-gray-500 dark:text-gray-400 mt-5 text-center">
             The page you're trying access has restricted access.{`\n`}
             Please refer to your system administrator
-
-
-
             </p>
             <svg className="w-full h-80 my-4" viewBox="0 0 480 360" xmlns="http://www.w3.org/2000/svg"><defs>
                 <linearGradient id="BG" x1="19.496%" x2="77.479%" y1="71.822%" y2="16.69%">
