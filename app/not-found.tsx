@@ -5,6 +5,9 @@ import Navbar from "app/layouts/navbar";
 import { Metadata } from "next";
 import { Suspense } from 'react';
 
+
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: "Not Found | Nexoauts",
     description: "The page you are looking for does not exist.",
