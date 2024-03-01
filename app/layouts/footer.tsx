@@ -16,8 +16,8 @@ const footerLinks = [
                 href: "/devs"
             },
             {
-                title: "Tool Scout",
-                href: "/tool-scout"
+                title: "Nexo Scout",
+                href: "/scout"
             },
             {
                 title: "MarketPlace",

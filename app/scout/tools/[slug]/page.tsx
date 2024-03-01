@@ -11,9 +11,10 @@ import { Rating } from "@/components/ui/rating";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import Navbar from "app/layouts/navbar";
-import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools, postRatingAndReview, toggleBookmark } from "app/tool-scout/lib/actions";
-import { getAverageRating } from "app/tool-scout/lib/utils";
-import { ExternalLink, Hash, Star, Zap } from 'lucide-react';
+import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools, getToolMetaBySlug, postRatingAndReview, toggleBookmark } from "app/scout/lib/actions";
+import { getAverageRating } from "app/scout/lib/utils";
+import { ExternalLink, Hash, Lock, MessageCircle, Star, Zap } from 'lucide-react';
+import type { Metadata, ResolvingMetadata } from 'next';
 import { getServerSession } from "next-auth/next";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,11 +28,31 @@ import { PostReview } from "./post-review";
 import RatingComponent, { RatingSkeletonLoader } from './rating';
 import SimilarTools from "./similar-tools";
 
-export default async function ToolPage({ params }: {
-    params: {
-        slug: string
+
+type Props = {
+    params: { slug: string }
+}
+export async function generateMetadata({ params }: Props,parent: ResolvingMetadata): Promise<Metadata> {
+    const slug = params.slug
+
+    const tool = await getToolMetaBySlug(slug);
+    return {
+        title: tool.name,
+        description: tool.description.substring(0, 160),
+        keywords: tool.categories.map((category) => category.name).join(", "),
+        metadataBase: new URL((process.env.NEXT_PUBLIC_WEBSITE_URL || "https://nexonauts.com") + "/scout/tools/" + tool.slug),
+        // url: process.env.NEXT_PUBLIC_WEBSITE_URL + "/scout/tools/" + tool.slug,
+        openGraph: {
+            images: [tool.coverImage, tool.bannerImage || tool.coverImage],
+            title: tool.name,
+            description: tool.description.substring(0, 160),
+            url: (process.env.NEXT_PUBLIC_WEBSITE_URL || "https://nexonauts.com") + "/scout/tools/" + tool.slug,
+        },
+        category: tool.categories.map((category) => category.name).join(", "),
     }
-}) {
+}
+
+export default async function ToolPage({ params }: Props) {
 
     const tool = await getPublicToolBySlug(params.slug);
     if (!tool) {
@@ -120,7 +141,7 @@ export default async function ToolPage({ params }: {
                             variant="gradient_blue"
                             className="rounded-full px-6 py-2"
                             asChild>
-                            <Link href={tool.link + "?ref=nexonauts.com/tool-scout"} target="_blank">
+                            <Link href={tool.link + "?ref=nexonauts.com/scout"} target="_blank">
                                 <span>
                                     Check it out
                                 </span>
@@ -231,9 +252,11 @@ export default async function ToolPage({ params }: {
                                 {ratings.map((rating: RatingTypeWithId) => {
                                     return <RatingComponent key={rating._id} rating={rating} />
                                 })}
-                                {ratings.length === 0 && <div className="flex items-center justify-center gap-2">
-                                    <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
-                                        No reviews yet. Be the first to rate this tool
+                                {ratings.length === 0 && <div className="flex items-center justify-center flex-col gap-2">
+                                    <MessageCircle className="w-24 h-24 text-gray-400" />
+                                    <h3 className="text-gray-500 text-xl font-semibold">No reviews yet.</h3>
+                                    <p className="text-gray-500 text-base">
+                                        Be the first to rate this tool and share your experience with the community.
                                     </p>
                                 </div>}
                             </Suspense>
@@ -245,15 +268,20 @@ export default async function ToolPage({ params }: {
                                 </>}>
                                     {(session && session?.user) ? <>
                                         <PostReview tool={tool} postRatingAndReview={publishRating} />
-                                    </> : <>
-                                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-5 mb-2">
-                                            You need to be logged in to rate this tool
+                                    </> : <div className="flex items-center justify-center flex-col gap-2 py-4">
+                                        <Lock className="w-24 h-24 text-gray-400" />
+                                        <h3 className="text-gray-500 text-xl font-semibold">
+                                            You need to be logged in.
+                                        </h3>
+                                        <p className="text-sm font-medium text-gray-500 dark:text-gray-400  mb-2">
+                                            Login to rate this tool and share your experience with the community.
                                         </p>
-                                        <Button variant="default_light" asChild>
-                                            <Link href={"/login?callbackUrl=" + encodeURI(process.env.NEXT_PUBLIC_WEBSITE_URL + "/tool-scout/tools/" + tool.slug)}>
-                                                Login to rate this tool
+                                        <Button asChild>
+                                            <Link href={"/login?callbackUrl=" + encodeURI(process.env.NEXT_PUBLIC_WEBSITE_URL + "/scout/tools/" + tool.slug)}>
+                                                Login
                                             </Link>
-                                        </Button></>}
+                                        </Button>
+                                    </div>}
                                 </Suspense>
                             </div>
                         </TabsContent>

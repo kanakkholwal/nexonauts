@@ -1,9 +1,9 @@
 import { ErrorActions } from "app/layouts/error-layout";
+import Footer from 'app/layouts/footer';
+import Navbar from "app/layouts/navbar";
+
 import { Metadata } from "next";
-import Image from "next/image";
-import Link from "next/link";
 import { Suspense } from 'react';
-import { BiSupport } from "react-icons/bi";
 
 export const metadata: Metadata = {
     title: "Not Found | Nexoauts",
@@ -14,18 +14,14 @@ export default async function NotFound() {
 
 
     return <div className="min-h-screen w-full relative overflow-hidden bg-primary/10">
-        <nav className="flex justify-between items-center w-full py-3 px-4 md:px-6">
-            <Link href="/" aria-label="logo" className="p-1.5">
-                <span className="sr-only">Nexonauts</span>
-                <Image height={40} width={280} className="h-12 dark:invert w-auto" src="/assets/logo.svg" alt="logo" />
-            </Link>
-
-            <Link href="/contact" className="flex items-center gap-2 text-slate-700 dark:text-slate-400 hover:underline text-base font-semibold">
-                    <BiSupport className="w-5 h-5" />
-                    <span>Contact</span>
-            </Link>
-        </nav>
-        <div className="flex flex-col justify-center items-center p-4 w-full h-full gap-4 mt-10">
+        <header>
+            <Navbar />
+            <div aria-hidden="true" className="fixed inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20 -z-10">
+                <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
+                <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+            </div>
+        </header>
+        <div className="flex flex-col justify-center items-center p-4 w-full h-full gap-4 mt-10 py-36">
 
 
             <h2 className="text-5xl font-bold text-slate-900 dark:text-gray-100 text-center">
@@ -52,6 +48,6 @@ export default async function NotFound() {
                 <ErrorActions />
             </Suspense>
         </div>
-
+        <Footer/>
     </div>
 }
