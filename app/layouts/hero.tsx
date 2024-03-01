@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { ExternalLink } from 'lucide-react';
+import { ChevronDown, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 
 export default function HeroLayout() {
@@ -12,7 +12,7 @@ export default function HeroLayout() {
 			</div>
 			<div className="max-w-7xl mx-auto relative isolate px-6 md:px-12 lg:px-8">
 				<div
-					className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+					className="fixed inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
 					aria-hidden="true"
 				>
 					<div
@@ -23,7 +23,7 @@ export default function HeroLayout() {
 						}}
 					/>
 				</div>
-				<div className="mx-auto max-w-4xl py-32 sm:py-48 lg:py-56">
+				<div className="mx-auto max-w-4xl pt-32 sm:pt-48 lg:pt-56">
 					<div className="hidden sm:mb-8 sm:flex sm:justify-center">
 						{/* <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20 bg-white/10 dark:text-gray-300">
 							Case study
@@ -42,7 +42,6 @@ export default function HeroLayout() {
 							Welcome to our developer-centric platform, which is designed to help you create amazing digital products and services.
 						</p>
 						<div className="mt-10 flex items-center justify-center flex-wrap  gap-6">
-							
 							<Button
 								size="lg"
 								className='rounded-full relative flex h-12 w-full items-center justify-center px-6 sm:w-max'
@@ -56,6 +55,17 @@ export default function HeroLayout() {
 								asChild>
 								<Link href="#solutions">Learn more
 									<ExternalLink className="w-5 h-5 ml-2" />
+								</Link>
+							</Button>
+						</div>
+						<div className="mt-56 flex items-center justify-center">
+							<Button
+								size="icon"
+								variant="outline"
+								className='rounded-full relative flex h-12 w-full items-center justify-center sm:w-max bg-transparent animate-moveVertical'
+								asChild>
+								<Link href="#solutions">
+									<ChevronDown className="w-6 h-6" />
 								</Link>
 							</Button>
 						</div>

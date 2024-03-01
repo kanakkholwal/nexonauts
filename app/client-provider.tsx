@@ -13,12 +13,13 @@ import { Toaster as HotToastser } from "react-hot-toast";
 
 
 
-
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>
 }
 export function Provider({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
+  
+
   useEffect(() => {
     Aos.init({
       duration: 1000,
@@ -29,6 +30,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
   return <SessionProvider>
     {children}
     <Next13ProgressBar height="4px" color="hsl(var(--primary))" options={{ showSpinner: true, trickle: true }} showOnShallow={true} />
+    {/* <SmoothScroll /> */}
     <Toaster
       position="bottom-right"
       richColors

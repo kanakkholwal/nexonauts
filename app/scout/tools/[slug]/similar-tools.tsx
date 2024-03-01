@@ -26,7 +26,7 @@ export default function SimilarTools({ tools }: { tools: Partial<PublicToolTypeW
         <CarouselContent className="-ml-2 md:-ml-4 px-2 md:px-4">
           {tools.map((tool) => (
             <CarouselItem key={tool._id} className="md:basis-1/2 lg:basis-1/3 pl-2 md:pl-4">
-              <Link href={`/tool-scout/tools/${tool.slug}`} className="p-1">
+              <Link href={`/scout/tools/${tool.slug}`} className="p-1">
                 <Card className="rounded-3xl">
                   <CardHeader>
                   <div className="flex flex-col w-full h-auto aspect-video overflow-hidden bg-gray-100 dark:bg-slate-800 rounded-xl">

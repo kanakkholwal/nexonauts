@@ -1,14 +1,15 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Navbar from "app/layouts/navbar";
-import { FilterButton, SearchBar } from "app/tool-scout/browse/search";
-import { getTools } from 'app/tool-scout/lib/actions';
+import { FilterButton, SearchBar } from "app/scout/browse/search";
+import { getTools } from 'app/scout/lib/actions';
 import LazyImage from "components/image";
 import { Hash } from 'lucide-react';
 import { Metadata } from "next";
 import Link from "next/link";
 import { TracingBeam } from "src/components/animations/tracing-beam";
 import { PublicToolPricingType } from "src/models/tool";
+
 
 export const metadata: Metadata = {
     title: "Browse Nexo Scout - AI Tools, Services, and Resources",
@@ -69,7 +70,7 @@ export default async function BrowsePage({
                         <div className="mx-auto w-full grow grid gap-4 grid-cols-1 @md:grid-cols-2 @lg:grid-cols-3">
                             {tools.map((tool) => {
                                 return (<div key={tool._id}>
-                                    <Link href={`/tool-scout/tools/${tool.slug}`} className="p-1">
+                                    <Link href={`/scout/tools/${tool.slug}`} className="p-1">
                                         <Card className="rounded-2xl backdrop-blur backdrop-saturate bg-opacity-75 bg-white-300 border-0" variant="glass">
                                             <CardHeader className="p-2">
                                                 <div className="flex flex-col w-full aspect-video overflow-hidden bg-gray-100 dark:bg-slate-800 rounded-lg h-32 sm:h-36">
