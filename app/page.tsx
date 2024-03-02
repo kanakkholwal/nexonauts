@@ -14,7 +14,7 @@ const features = [
 		name: 'Discover the Tools You Need',
 		description: `Say good-bye to endless searching. Our ingenious search engine scours the web for the most basic and advanced tools for every phase of your development process. From AI-powered solutions to tried-and-true classics, it's everything at your fingertips.`,
 		icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341139.png',
-		path: '/toolzen',
+		path: '/scout',
 	},
 	{
 		name: 'Marketplace for Digital Creators',
@@ -72,7 +72,7 @@ export default async function HomePage() {
 							We've created a complete set of tools and resources that prioritise developers, allowing you to experiment, collaborate, and create without limitations.
 						</p>
 					</div>
-					<div className="mt-16 grid divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl sm:grid-cols-2 lg:grid-cols-3 lg:divide-y-0">
+					<div className="mt-16 grid lg:divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl grid-cols-1 lg:grid-cols-3 lg:divide-y-0">
 						{features.map((feature, index) => {
 							return (<div key={"solutions_" + index} className="group transition">
 								<div className="relative py-12 p-8">
@@ -211,7 +211,7 @@ export default async function HomePage() {
 								</Link>
 								<a href="/about" className="relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max">
 									<span className="relative text-base font-semibold text-primary dark:text-white">
-										More about
+										Learn More 
 									</span>
 								</a>
 							</div>

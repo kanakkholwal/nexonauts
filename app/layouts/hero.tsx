@@ -1,11 +1,27 @@
 import { Button } from '@/components/ui/button';
-import { ChevronDown, ExternalLink } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
+import { TypewriterEffectSmooth } from "src/components/animations/typewriter-effect";
 
 export default function HeroLayout() {
+	const words = [
+		{
+			text: "Supercharge",
+		},
+		{
+			text: "Development ",
+		},
+		{
+			text: "with ",
+		},
+		{
+			text: "Nexonauts.",
+			className: "text-blue-500 dark:text-blue-500",
+		},
+	];
 
 	return (
-		<div className="relative" id="home">
+		<div className="relative" id="hero">
 			<div aria-hidden="true" className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
 				<div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
 				<div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
@@ -23,7 +39,7 @@ export default function HeroLayout() {
 						}}
 					/>
 				</div>
-				<div className="mx-auto max-w-4xl pt-32 sm:pt-48 lg:pt-56">
+				<div className="mx-auto pt-32 sm:pt-48 lg:pt-56">
 					<div className="hidden sm:mb-8 sm:flex sm:justify-center">
 						{/* <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20 bg-white/10 dark:text-gray-300">
 							Case study
@@ -35,34 +51,39 @@ export default function HeroLayout() {
 						</div> */}
 					</div>
 					<div className="text-center">
-						<h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
-							Develop with Confidence {`\n`} Innovate with Ease
-						</h1>
-						<p className="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-400">
-							Welcome to our developer-centric platform, which is designed to help you create amazing digital products and services.
+						<p className="mt-6 text-base leading-8 text-gray-600 dark:text-gray-400">
+							Elevate Your Development Journey Today.
 						</p>
+						{/* <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">
+							Develop with Confidence {`\n`} Innovate with Ease
+						</h1> */}
+						<TypewriterEffectSmooth words={words} />
+
 						<div className="mt-10 flex items-center justify-center flex-wrap  gap-6">
 							<Button
 								size="lg"
-								className='rounded-full relative flex h-12 w-full items-center justify-center px-6 sm:w-max'
+								className='rounded-full overflow-hidden relative flex h-12 w-full items-center justify-center px-6 sm:max-w-[12rem] shadow-lg shadow-primary'
 								asChild>
-								<Link href="/signup">Get started</Link>
-							</Button>
-							<Button
-								size="lg"
-								variant="outline"
-								className='rounded-full relative flex h-12 w-full items-center justify-center px-6 sm:w-max'
-								asChild>
-								<Link href="#solutions">Learn more
-									<ExternalLink className="w-5 h-5 ml-2" />
+								<Link href="/signup">
+									Sign Up Now
 								</Link>
 							</Button>
+							{/* <Button
+								size="lg"
+								variant="outline"
+								className='rounded-full relative flex h-12 w-full items-center justify-center px-6 sm:w-max shadow shadow-accent'
+								asChild>
+								<Link href="/login">
+									Login
+									<ExternalLink className="w-5 h-5 ml-2" />
+								</Link>
+							</Button> */}
 						</div>
 						<div className="mt-56 flex items-center justify-center">
 							<Button
 								size="icon"
 								variant="outline"
-								className='rounded-full relative flex h-12 w-full items-center justify-center sm:w-max bg-transparent animate-moveVertical'
+								className='rounded-full relative flex h-12 items-center justify-center w-max bg-transparent animate-moveVertical'
 								asChild>
 								<Link href="#solutions">
 									<ChevronDown className="w-6 h-6" />
