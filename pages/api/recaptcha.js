@@ -1,5 +1,4 @@
 import axios from 'axios';
-
 import handler from 'lib/handler';
 import nextConnect from 'next-connect';
 

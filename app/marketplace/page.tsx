@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { BackgroundBeams } from "src/components/animations/background-beams";
 
+export const dynamic = 'force-dynamic';
 
 export default function Page() {
 
