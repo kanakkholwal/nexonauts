@@ -4,7 +4,7 @@ import {
     CardHeader,
     CardTitle
 } from "@/components/ui/card";
-import Navbar from "app/layouts/navbar";
+import Navbar from "app/layouts/navbar-static";
 import dbConnect from "lib/dbConnect";
 import type { Metadata } from "next";
 import PublicTool, { PublicToolType } from 'src/models/tool';
