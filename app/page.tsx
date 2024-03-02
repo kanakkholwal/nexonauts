@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import Footer from 'app/layouts/footer';
 import HeroSection from "app/layouts/hero";
-import Navbar from "app/layouts/navbar";
+import Navbar from "app/layouts/navbar-static";
 import { ExternalLink, LineChart, ScanSearch } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';

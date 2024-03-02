@@ -1,22 +1,22 @@
 import { NextRequest } from "next/server";
 import dbConnect from "src/lib/dbConnect";
 import Post from "src/models/post";
-import { getAllApps } from "src/utils/app";
+// import { getAllApps } from "src/utils/app";
 import { getAllPublicTools } from "src/utils/public-tool";
 
 const URL = process.env.WEBSITE_URL || "https://nexonauts.com";
 
 
 export async function GET(request: NextRequest) {
-    // const posts = getSortedPostsData();
 
+    
     await dbConnect();
     const posts = await Post.find({
         state: "published",
     }).sort({ publishedAt: -1 })
         .select("slug publishedAt")
         .exec()
-    const { apps } = await getAllApps();
+
     const manualRoutes = [
         {
             path: "/",
@@ -67,11 +67,11 @@ export async function GET(request: NextRequest) {
             date: new Date().toISOString(),
         },
         {
-            path: `/tool-scout/`,
+            path: `/scout/`,
             date: new Date().toISOString(),
         },
         {
-            path: `/tool-scout/browse`,
+            path: `/scout/browse`,
             date: new Date().toISOString(),
         },
     ]
@@ -82,13 +82,7 @@ export async function GET(request: NextRequest) {
         ...posts.map((post) => ({
             path: `/blog/posts/${post.slug}`,
             date: new Date(post.publishedAt).toISOString(),
-        }),
-            ...apps.map((app) => {
-                return {
-                    path: `/apps/${app.slug}`,
-                    date: new Date(app?.createdAt || Date.now()).toISOString(),
-                }
-            })),
+        })),
         ...publicTools.map((tool) => {
             return {
                 path: `/scout/tools/${tool.slug}`,
