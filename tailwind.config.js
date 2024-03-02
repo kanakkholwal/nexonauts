@@ -77,11 +77,11 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "spotlight": "spotlight 2s ease .75s 1 forwards",
-        "moveVertical": "moveVertical 1.5s ease infinite",
+        "moveVertical": "moveVertical 5s ease infinite",
         first: "moveVertical 30s ease infinite",
         second: "moveInCircle 20s reverse infinite",
         third: "moveInCircle 40s linear infinite",
-        fourth: "moveHorizontal 40s ease infinite",
+        "moveHorizontal": "moveHorizontal 4s ease infinite",
         fifth: "moveInCircle 20s ease infinite",
       },
       keyframes: {

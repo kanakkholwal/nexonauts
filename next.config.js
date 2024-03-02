@@ -6,7 +6,7 @@ const nextConfig = {
   output:"standalone",
   logging: {
     fetches: {
-        fullUrl: true
+        fullUrl: false
     }
   },
   images: {
@@ -40,10 +40,6 @@ const nextConfig = {
       
 
     return config;
-  },
-  experimental: {
-    missingSuspenseWithCSRBailout: false,
-    
   },
 }
 
