@@ -10,7 +10,7 @@ import ToolRating, { RatingTypeWithId, rawRatingType } from 'src/models/tool-rat
 export async function getTools(query: string, currentPage: number, filter: {
     pricing_type: PublicToolPricingType | "all",
     category: string,
-}): Promise<{
+},offset:number): Promise<{
     tools: Partial<PublicToolTypeWithId>[],
     categories: {
         name: string;
@@ -23,7 +23,9 @@ export async function getTools(query: string, currentPage: number, filter: {
     await dbConnect();
 
     const resultsPerPage = 69;
-    const skip = currentPage * resultsPerPage - resultsPerPage;
+    // const skip = currentPage * resultsPerPage - resultsPerPage;
+    // calculate the number of items to skip
+    const skip = (currentPage - 1) * resultsPerPage + offset;
 
     const filterQuery = {
         $or: [

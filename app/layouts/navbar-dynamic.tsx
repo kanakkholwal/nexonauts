@@ -5,6 +5,7 @@ import { NavList, QuickLinks } from "./nav-list-dynamic";
 import ThemeSwitcher from "./theme-switcher";
 
 import { Skeleton } from "@/components/ui/skeleton";
+import GoToBtn from "./go-to-btn";
 
 export default function Navbar() {
 
@@ -24,11 +25,7 @@ export default function Navbar() {
 
             <div className="flex gap-2 items-center justify-end flex-auto">
                 <QuickLinks />
-                <Link
-                    className="relative hidden md:flex  h-9 items-center justify-center before:absolute before:inset-0 before:rounded-full  before:transition-transform before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-primaryLight sm:px-4 before:border before:border-gray-200 before:bg-primary/10 dark:before:bg-gray-800"
-                    href="/signup?ref=navbar-button">
-                    <span className="relative text-sm font-semibold  text-primary dark:text-white">Get Started</span>
-                </Link>
+                <GoToBtn />
                 <Suspense fallback={<Skeleton className="w-10 h-10  rounded-full animate-pulse" />}>
                     <ThemeSwitcher />
                 </Suspense>
