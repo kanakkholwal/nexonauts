@@ -125,7 +125,6 @@ const userSchema = new Schema<User>(
       type: Boolean,
       default: false,
     },
-    
     followers: [{ type: Types.ObjectId, ref: 'User' }],
     following: [{ type: Types.ObjectId, ref: 'User' }],
     integrations: {

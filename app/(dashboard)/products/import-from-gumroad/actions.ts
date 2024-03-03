@@ -23,7 +23,7 @@ export async function saveAccessToken(options: optionsType) {
         redirect_uri: options.redirect_uri,
     }
 
-    const  response = await axios.post(url, dataBody);
+    const response = await axios.post(url, dataBody);
     const data = response.data;
 
     if (!data.access_token) {
@@ -35,10 +35,20 @@ export async function saveAccessToken(options: optionsType) {
     await dbConnect();
     const user = await UserModel.findById(session.user._id).select('integrations').exec();
     console.log("User", user);
-    user.integrations.gumroad.access_token = data.access_token;
-    user.integrations.gumroad.lastAuthorized = data.created_at;
-    user.integrations.gumroad.scope = options.scope;
-    user.integrations.gumroad.integrated = true;
+    if (!user) {
+        return Promise.reject("User not found");
+    }
+    if (!user.integrations) {
+        user.integrations = {};
+        user.integrations.gumroad = {}
+    }
+    user.integrations.gumroad = {
+        access_token: data.access_token,
+        lastAuthorized: data.created_at,
+        scope: options.scope,
+        integrated: true
+
+    }
     await user.save();
     console.log("Token saved");
 
