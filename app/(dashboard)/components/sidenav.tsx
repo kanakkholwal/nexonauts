@@ -4,26 +4,15 @@ import {
     AvatarFallback,
     AvatarImage,
 } from "@/components/ui/avatar";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-import { MessageSquareText } from 'lucide-react';
-import { LuMoreHorizontal } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
-import { ArrowBigDown, ChevronLeftCircle, ChevronRightCircle, LayoutGrid, LogOut, Settings2, Swords, UserRoundCog } from 'lucide-react';
+import { ChevronLeftCircle, ChevronRightCircle, LogOut, Settings2, UserRoundCog } from 'lucide-react';
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { useState } from "react";
-import { RiAppsLine } from "react-icons/ri";
 import { TbDashboard } from "react-icons/tb";
 import { SessionUserType } from "src/types/user";
 
@@ -32,39 +21,12 @@ export type sideLinkType = {
     href: string;
     icon: React.ElementType,
 }
-const admin_links: sideLinkType[] = [
-    {
-        label: "Dashboard",
-        icon: LayoutGrid,
-        href: "/admin",
-    },
-    {
-        label: "Apps",
-        icon: RiAppsLine,
-        href: "/admin/apps",
-    },
-    {
-        label: "Users",
-        icon: UserRoundCog,
-        href: "/admin/users",
-    },
-    {
-        label: "Tools",
-        icon: Swords,
-        href: "/admin/tools",
-    },
-    {
-        label: "Messages",
-        icon: MessageSquareText,
-        href: "/admin/messages",
-    }
-];
 
 const user_links: sideLinkType[] = [
     {
-        label: "Dashboard",
+        label: "Feed",
         icon: TbDashboard,
-        href: "/dashboard",
+        href: "/feed",
     },
     // {
     //     label: "Tools",
@@ -88,7 +50,7 @@ const user_links: sideLinkType[] = [
 export default function SideBar({ user }: { user: SessionUserType }) {
     const [open, setOpen] = useState(false);
     const pathname = usePathname() as string;
-    const links = pathname.startsWith("/admin") ? admin_links : user_links;
+    const links = user_links;
 
 
     return (<div aria-label="Sidenav"
@@ -100,22 +62,8 @@ export default function SideBar({ user }: { user: SessionUserType }) {
             onClick={() => setOpen(!open)}>
             {open ? <ChevronLeftCircle className="w-4 h-4" /> : <ChevronRightCircle className="w-4 h-4" />}
         </button>
-        <div className="flex items-center justify-between px-6 py-4">
-            <Image height={40} width={300} className="h-14 w-52 dark:invert" src="/assets/logo.svg" alt="logo" />
-            <DropdownMenu>
-                <DropdownMenuTrigger><LuMoreHorizontal className="w-5 h-5" /></DropdownMenuTrigger>
-                <DropdownMenuContent>
-                    <DropdownMenuLabel>Go To <ArrowBigDown className="w-5 h-5 ml-2 inline-block" /></DropdownMenuLabel>
-                    <DropdownMenuSeparator />
-                    {(user.role === "admin" && pathname.startsWith("/admin")) && <DropdownMenuItem asChild><Link target="_blank" href="/dashboard">User</Link></DropdownMenuItem>}
-                    {(user.role === "admin" && pathname.startsWith("/dashboard")) && <DropdownMenuItem asChild><Link target="_blank" href="/admin">Admin</Link></DropdownMenuItem>}
-                    <DropdownMenuItem asChild><Link target="_blank" href="/">HomePage</Link></DropdownMenuItem>
-                    {/* <DropdownMenuItem asChild><Link target="_blank" href="/apps">Apps</Link></DropdownMenuItem> */}
-                    <DropdownMenuItem asChild><Link target="_blank" href="/tool-scout">Tool Scout</Link></DropdownMenuItem>
-                    <DropdownMenuItem asChild><Link target="_blank" href="/dev-tools">Dev Tools</Link></DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
-
+        <div className="flex items-center justify-between px-6 py-2">
+            <Image height={120} width={300} className="h-14 w-14 dark:invert" src="/logo-square-with-bg.svg" alt="logo" />
         </div>
         <div className="flex-1 px-6">
             <h6 className="mb-2 ml-2 font-semibold text-xs text-slate-500 dark:text-slate-400 uppercase">

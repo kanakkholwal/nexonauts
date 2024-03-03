@@ -16,7 +16,7 @@ export default function Page() {
                 <p className="text-neutral-500 max-w-lg mx-auto my-2 text-sm text-center relative z-10">
                     We are working hard to bring you the best experience. Stay tuned!
                 </p>
-                <div className="flex justify-center gap-4 mt-8">
+                <div className="flex justify-center gap-4 mt-8 z-10">
                     <Button size="lg" asChild>
                         <Link href="/">Go Home
                         </Link>
