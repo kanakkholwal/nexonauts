@@ -1,10 +1,11 @@
 import { authOptions } from "app/api/auth/[...nextauth]/options";
-import Navbar from "app/dashboard/components/navbar";
-import SideBar from "app/dashboard/components/sidenav";
 import Page403 from "app/layouts/403";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
+import Navbar from "./components/navbar";
+import SideBar from "./components/sidenav";
+
 export const metadata: Metadata = {
     title: "Admin Dashboard - NexoNauts",
     description: "Admin Dashboard ",

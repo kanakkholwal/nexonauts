@@ -10,7 +10,7 @@ import {
 import { Rating } from "@/components/ui/rating";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
-import Navbar from "app/layouts/navbar";
+import Navbar from "app/layouts/navbar-static";
 import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools, getToolMetaBySlug, postRatingAndReview, toggleBookmark } from "app/scout/lib/actions";
 import { getAverageRating } from "app/scout/lib/utils";
 import { ExternalLink, Hash, Lock, MessageCircle, Star, Zap } from 'lucide-react';
@@ -32,7 +32,7 @@ import SimilarTools from "./similar-tools";
 type Props = {
     params: { slug: string }
 }
-export async function generateMetadata({ params }: Props,parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
     const slug = params.slug
 
     const tool = await getToolMetaBySlug(slug);
@@ -41,7 +41,6 @@ export async function generateMetadata({ params }: Props,parent: ResolvingMetada
         description: tool.description.substring(0, 160),
         keywords: tool.categories.map((category) => category.name).join(", "),
         metadataBase: new URL((process.env.NEXT_PUBLIC_WEBSITE_URL || "https://nexonauts.com") + "/scout/tools/" + tool.slug),
-        // url: process.env.NEXT_PUBLIC_WEBSITE_URL + "/scout/tools/" + tool.slug,
         openGraph: {
             images: [tool.coverImage, tool.bannerImage || tool.coverImage],
             title: tool.name,
@@ -141,7 +140,7 @@ export default async function ToolPage({ params }: Props) {
                             variant="gradient_blue"
                             className="rounded-full px-6 py-2"
                             asChild>
-                            <Link href={tool.link + "?ref=nexonauts.com/scout"} target="_blank">
+                            <Link href={tool.link + "?ref=nexonauts.com/scout&utm_source=nexonauts&utm_medium=nexoscout&utm_campaign=" + tool.name} target="_blank">
                                 <span>
                                     Check it out
                                 </span>
@@ -191,19 +190,9 @@ export default async function ToolPage({ params }: Props) {
                 </CardContent>
             </Card>
             <Card id="similar-tools">
-                <CardHeader>
-                    <CardTitle><Star className="inline-block mr-2 w-5 h-5 text-indigo-600" />
-                        Similar Tools & Alternatives
-                    </CardTitle>
-                    <CardDescription>
-                        You might also like these tools that are similar to <strong>{tool.name}</strong>
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <SimilarTools tools={similarTools} />
-                    </Suspense>
-                </CardContent>
+                <Suspense fallback={<div>Loading...</div>}>
+                    <SimilarTools tools={similarTools} toolName={tool.name} />
+                </Suspense>
             </Card>
             <Card id="reviews">
                 <CardHeader className="flex items-center w-full gap-2 flex-col md:flex-row">

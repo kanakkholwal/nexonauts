@@ -27,16 +27,18 @@ export default async function BrowsePage({
         page?: string,
         pricing_type?: string,
         category?: string,
+        offset?: string,
     };
 }) {
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
+    const offset = Number(searchParams?.offset) || 0;
     const filter = {
         pricing_type: searchParams?.pricing_type as PublicToolPricingType || "all",
         category: searchParams?.category || "all",
     }
 
-    const { tools, categories, totalPages, pricing_types } = await getTools(query, currentPage, filter);
+    const { tools, categories, totalPages, pricing_types } = await getTools(query, currentPage, filter,offset);
 
 
     return (<>
@@ -60,7 +62,7 @@ export default async function BrowsePage({
                                 {query ? `Search results for "${query}"` : "Browse Tools"}
                             </h1>
                             <p className="text-sm text-muted-foreground">
-                                {tools.length} results
+                            {query ? `Found ${tools.length} tools` : `Showing ${tools.length} of ${totalPages} pages`}
                             </p>
                         </div>
                     </div>
