@@ -213,7 +213,7 @@ export default async function ToolPage({ params }: Props) {
                         </span>
                         <Rating
                             count={5}
-                            value={parseFloat(formatNumber(ratings.length))}
+                            value={getAverageRating(ratings || [])}
                             readonly={true}
                         />
                     </div>
