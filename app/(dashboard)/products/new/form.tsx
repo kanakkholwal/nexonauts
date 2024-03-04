@@ -1,19 +1,22 @@
 "use client"
-
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
     Form,
     FormControl,
+    FormDescription,
     FormField,
     FormItem,
     FormLabel,
     FormMessage
 } from "@/components/ui/form"
+import { Switch } from "@/components/ui/switch"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 
 const formSchema = z.object({
     name: z.string().min(3).max(100),
@@ -22,11 +25,20 @@ const formSchema = z.object({
     url: z.string().url(),
     slug: z.string(),
     thumbnail_url: z.string().url(),
-    preview_url: z.string().url(),   
+    preview_url: z.string().url(),
     tags: z.array(z.string()),
     categories: z.array(z.string()),
-    price: z.string(), 
+    price: z.string(),
 })
+const defaultCategories = [
+    "Design",
+    "Course",
+    "Productivity",
+    "Themes",
+    "Templates",
+    "UI Kits",
+
+] as const
 
 export default function ProductForm() {
     // ...
@@ -56,7 +68,7 @@ export default function ProductForm() {
     return (
         <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            
+
                 <FormField
                     control={form.control}
                     name="name"
@@ -75,9 +87,11 @@ export default function ProductForm() {
                     name="description"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Description</FormLabel>
+                            <FormLabel>
+                                Description (Markdown preferred)
+                            </FormLabel>
                             <FormControl>
-                                <Input placeholder="Description" {...field} />
+                                <Textarea placeholder="Description" {...field} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -87,41 +101,44 @@ export default function ProductForm() {
                     control={form.control}
                     name="published"
                     render={({ field }) => (
-                        <FormItem>
+                        <FormItem className="flex items-center">
                             <FormLabel>Published</FormLabel>
                             <FormControl>
-                                {/* <Input type="checkbox" {...field} /> */}
+                                <Switch checked={field.value}
+                                    onCheckedChange={field.onChange} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-                <FormField
-                    control={form.control}
-                    name="url"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>URL</FormLabel>
-                            <FormControl>
-                                <Input placeholder="https://example.com" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name="slug"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Slug</FormLabel>
-                            <FormControl>
-                                <Input placeholder="my-product" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
+                <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
+                    <FormField
+                        control={form.control}
+                        name="url"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>URL</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="https://example.com" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                    <FormField
+                        control={form.control}
+                        name="slug"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Slug</FormLabel>
+                                <FormControl>
+                                    <Input placeholder="my-product" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
                 <FormField
                     control={form.control}
                     name="thumbnail_url"
@@ -155,25 +172,67 @@ export default function ProductForm() {
                         <FormItem>
                             <FormLabel>Tags</FormLabel>
                             <FormControl>
-                                <Input placeholder="tag1, tag2, tag3" {...field} />
+                                <Input placeholder="tag1, tag2, tag3" {...field}
+                                    value={field.value?.join(", ")}
+                                    onChange={(e) => {
+                                        field.onChange(e.target.value.split(","))
+                                    }}
+                                />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
+
                 <FormField
                     control={form.control}
                     name="categories"
-                    render={({ field }) => (
+                    render={() => (
                         <FormItem>
-                            <FormLabel>Categories</FormLabel>
-                            <FormControl>
-                                <Input placeholder="category1, category2, category3" {...field} />
-                            </FormControl>
+                            <div className="mb-4">
+                                <FormLabel className="text-base">Categories</FormLabel>
+                                <FormDescription>
+                                    Select the categories that best describe your product.
+                                </FormDescription>
+                            </div>
+                            {defaultCategories.map((item, index) => (
+                                <FormField
+                                    key={item + "_" + index}
+                                    control={form.control}
+                                    name="categories"
+                                    render={({ field }) => {
+                                        return (
+                                            <FormItem
+                                                key={item}
+                                                className="flex flex-row items-start space-x-3 space-y-0"
+                                            >
+                                                <FormControl>
+                                                    <Checkbox
+                                                        checked={field.value?.includes(item)}
+                                                        onCheckedChange={(checked) => {
+                                                            return checked
+                                                                ? field.onChange([...field.value, item])
+                                                                : field.onChange(
+                                                                    field.value?.filter(
+                                                                        (value) => value !== item
+                                                                    )
+                                                                )
+                                                        }}
+                                                    />
+                                                </FormControl>
+                                                <FormLabel className="font-normal">
+                                                    {item}
+                                                </FormLabel>
+                                            </FormItem>
+                                        )
+                                    }}
+                                />
+                            ))}
                             <FormMessage />
                         </FormItem>
                     )}
                 />
+
                 <FormField
                     control={form.control}
                     name="price"
@@ -187,7 +246,7 @@ export default function ProductForm() {
                         </FormItem>
                     )}
                 />
-                
+
                 <FormField
                     control={form.control}
                     name="url"
@@ -201,7 +260,7 @@ export default function ProductForm() {
                         </FormItem>
                     )}
                 />
-                
+
                 <Button type="submit">Submit</Button>
             </form>
         </Form>
