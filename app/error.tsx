@@ -3,10 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
 import { BiSupport } from "react-icons/bi";
 import { Provider, ThemeProvider } from "./client-provider";
 import './global.css';
+
 const font = Plus_Jakarta_Sans({
     weight: ['400', '500', '600', '700', '800'],
     subsets: ['latin-ext', 'latin'],
@@ -24,7 +24,7 @@ export default function GlobalError({
     reset: () => void
 }) {
     console.error(error);
-    const router = useRouter();
+
     return (
         <html>
             <body>
@@ -70,7 +70,9 @@ export default function GlobalError({
                                     <Button className="px-6 py-4 h-12"
                                         size="lg" variant="dark" onClick={() => reset()}>Try again</Button>
                                     <Button className="px-6 py-4 h-12"
-                                        size="lg" variant="outline" onClick={() => router.refresh()}>Reload</Button>
+                                        size="lg" variant="outline" onClick={() => {
+                                            window.location.reload();
+                                        }}>Reload</Button>
                                 </div>
                             </div>
                         </div>

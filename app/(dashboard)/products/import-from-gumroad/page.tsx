@@ -22,7 +22,7 @@ export default async function MyProducts({ searchParams }: Props) {
     
 
 
-    return (<div className="space-y-6 p-10 pb-16 w-full bg-white dark:bg-slate-800 rounded-3xl mt-5">
+    return (<div className="space-y-6 p-10 mt-5">
 
 
     <Authorisor code={code} scope={scope} saveToken={saveAccessToken} />
