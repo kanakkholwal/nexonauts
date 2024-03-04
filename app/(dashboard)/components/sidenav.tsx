@@ -7,13 +7,12 @@ import {
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
-import { ChevronLeftCircle, ChevronRightCircle, LogOut, Settings2, UserRoundCog } from 'lucide-react';
+import { ChevronLeftCircle, ChevronRightCircle, LogOut, Rss, Settings2, UserRoundCog } from 'lucide-react';
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { useState } from "react";
-import { TbDashboard } from "react-icons/tb";
 import { SessionUserType } from "src/types/user";
 
 export type sideLinkType = {
@@ -25,7 +24,7 @@ export type sideLinkType = {
 const user_links: sideLinkType[] = [
     {
         label: "Feed",
-        icon: TbDashboard,
+        icon: Rss,
         href: "/feed",
     },
     // {
