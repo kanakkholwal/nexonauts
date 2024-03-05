@@ -20,6 +20,14 @@ interface User extends Document {
   }
   account_type: string;
   private: boolean;
+  integrations: {
+    gumroad: {
+      access_token: string;
+      scope: string;
+      integrated: boolean;
+      lastAuthorized: Date | null;
+    }
+  };
   additional_info:  Record<string, string | null>
   verificationToken: string | null;
   verified: boolean;
@@ -117,9 +125,34 @@ const userSchema = new Schema<User>(
       type: Boolean,
       default: false,
     },
-    
     followers: [{ type: Types.ObjectId, ref: 'User' }],
     following: [{ type: Types.ObjectId, ref: 'User' }],
+    integrations: {
+      select: false,
+      type: {
+        gumroad: {
+          scope: {
+            type: String,
+            default: "edit_products",
+            enum: {
+              values: ["edit_products", "view_profile", "view_sales"],
+            }
+          },
+          access_token: {
+            type: String,
+            default: null,
+          },
+          integrated: {
+            type: Boolean,
+            default: true,
+          },
+          lastAuthorized: {
+            type: Date,
+            default: null,
+          },
+        },
+      },
+    }
   },{
     timestamps: true,
   }

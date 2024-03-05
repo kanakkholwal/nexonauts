@@ -33,7 +33,7 @@ export function UserAuthForm({ className, loggedIn,...props }: UserAuthFormProps
                     router.push('/login');
                 }
                 else{
-                    router.push('/dashboard');
+                    router.push('/feed');
                 }
                 setSuccess(response.data.message)
             })

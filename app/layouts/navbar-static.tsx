@@ -5,6 +5,7 @@ import { NavList, ToggleButton } from "./nav-list";
 import ThemeSwitcher from "./theme-switcher";
 
 import { Skeleton } from "@/components/ui/skeleton";
+import GoToBtn from "./go-to-btn";
 
 export default function Navbar() {
 
@@ -19,15 +20,11 @@ export default function Navbar() {
 
       </div>
       <Suspense fallback={<Skeleton className="w-full h-10  rounded-full animate-pulse" />}>
-      <NavList />
+        <NavList />
       </Suspense>
 
       <div className="flex gap-2 items-center justify-end flex-1">
-        <Link
-          className="relative ml-auto hidden md:flex  h-9 items-center justify-center before:absolute before:inset-0 before:rounded-full  before:transition-transform before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-primaryLight sm:px-4 before:border before:border-gray-200 before:bg-primary/10 dark:before:bg-gray-800"
-          href="/login?ref=navbar-button">
-          <span className="relative text-sm font-semibold  text-primary dark:text-white">Sign In</span>
-        </Link>
+        <GoToBtn />
         <Suspense fallback={<Skeleton className="w-10 h-10  rounded-full animate-pulse" />}>
           <ThemeSwitcher />
           <ToggleButton />

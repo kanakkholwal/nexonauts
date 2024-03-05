@@ -1,5 +1,5 @@
 import { Skeleton } from "@/components/ui/skeleton";
-import Navbar from "app/layouts/navbar";
+import Navbar from "app/layouts/navbar-static";
 import dbConnect from "lib/dbConnect";
 import { Search, ShieldCheck, Star } from 'lucide-react';
 import { Metadata } from "next";
