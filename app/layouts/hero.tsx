@@ -62,7 +62,7 @@ export default function HeroLayout() {
 						<div className="mt-10 flex items-center justify-center flex-wrap  gap-6">
 							<Button
 								size="lg"
-								className='rounded-full overflow-hidden relative flex h-12 w-full items-center justify-center px-6 sm:max-w-[12rem] shadow-lg shadow-primary'
+								className='rounded-full overflow-hidden relative flex h-12 w-full items-center justify-center px-6 sm:max-w-[12rem] shadow-lg shadow-primary/50 bg-primary/80 backdrop-blur'
 								asChild>
 								<Link href="/signup">
 									Sign Up Now

@@ -1,4 +1,4 @@
-import Navbar from "app/layouts/sub-navbar";
+import Navbar from "app/layouts/navbar-dynamic";
 import Footer from "app/layouts/footer";
 
 export const dynamic = 'force-dynamic';
