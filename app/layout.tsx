@@ -65,8 +65,7 @@ export default async function RootLayout({
     return (
         <html lang="en">
             <head>
-                {/* <Script strategy="afterInteractive" src="https://www.googletagmanager.com/gtag/js?id=G-BCVK6GWZ0E" /> */}
-                <meta name="google-adsense-account" content="ca-pub-2329686175069611" />
+                <meta name="google-adsense-account" content="ca-pub-6988693445063744" />
                 {/* <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
                     <link href='https://fonts.googleapis.com/css?family=Fira+Code:wght@300,400,500,600&display=swap' rel='stylesheet' /> */}
             </head>
