@@ -10,22 +10,58 @@ import {
     FormLabel,
     FormMessage
 } from "@/components/ui/form"
-import { Switch } from "@/components/ui/switch"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-
 import { Input } from "@/components/ui/input"
+import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
+import { zodResolver } from "@hookform/resolvers/zod"
+import Image from "next/image"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import toast from "react-hot-toast"
+import { UploadImage } from "src/components/uploader"
+import { z } from "zod"
+async function isValidImageUrl(url: string): Promise<boolean> {
+    try {
+        const response = await fetch(url, {
+            method: 'HEAD'
+        });
+
+        // Check if the response status is within the range of successful responses for images
+        if (response.ok && response.headers.get('Content-Type')?.startsWith('image/')) {
+            return true;
+        } else {
+            return false;
+        }
+    } catch (error) {
+        // Any error during fetching or response handling will result in returning false
+        console.error('Error while validating image URL:', error);
+        return false;
+    }
+}
 
 const formSchema = z.object({
     name: z.string().min(3).max(100),
     description: z.string().min(10).max(1000),
     published: z.boolean(),
     url: z.string().url(),
-    slug: z.string(),
-    thumbnail_url: z.string().url(),
-    preview_url: z.string().url(),
+    preview_url: z.string().url().refine((value) => {
+
+        isValidImageUrl(value)
+            .then(isValid => {
+                if (isValid) {
+                    console.log('Valid image URL');
+                    return true;
+                } else {
+                    console.log('Not a valid image URL');
+                    return false;
+                }
+            }).catch(error => {
+                console.error('Error while validating image URL:', error);
+                return false;
+            })
+    }, {
+        message: 'Preview URL must be a valid image URL'
+    }),
     tags: z.array(z.string()),
     categories: z.array(z.string()),
     price: z.string(),
@@ -39,10 +75,13 @@ const defaultCategories = [
     "UI Kits",
 
 ] as const
-
-export default function ProductForm() {
+interface Props {
+    saveProduct: (product: z.infer<typeof formSchema>) => Promise<boolean>
+}
+export default function ProductForm(props: Props) {
     // ...
     // 1. Define your form.
+    const [loading, setLoading] = useState(false)
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -50,8 +89,6 @@ export default function ProductForm() {
             description: "",
             published: false,
             url: "",
-            slug: "",
-            thumbnail_url: "",
             preview_url: "",
             tags: [],
             categories: [],
@@ -64,6 +101,22 @@ export default function ProductForm() {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         console.log(values)
+        setLoading(true)
+        toast.promise(props.saveProduct(values), {
+            loading: "Saving product...",
+            success: "Product saved!",
+            error: "Error saving product",
+        })
+            .then((result) => {
+                if (result) {
+                    form.reset()
+                }
+            })
+            .finally(() => {
+                setLoading(false)
+            })
+
+
     }
     return (
         <Form {...form}>
@@ -97,54 +150,17 @@ export default function ProductForm() {
                         </FormItem>
                     )}
                 />
+
                 <FormField
                     control={form.control}
-                    name="published"
-                    render={({ field }) => (
-                        <FormItem className="flex items-center">
-                            <FormLabel>Published</FormLabel>
-                            <FormControl>
-                                <Switch checked={field.value}
-                                    onCheckedChange={field.onChange} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-4">
-                    <FormField
-                        control={form.control}
-                        name="url"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>URL</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="https://example.com" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name="slug"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Slug</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="my-product" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                </div>
-                <FormField
-                    control={form.control}
-                    name="thumbnail_url"
+                    name="url"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Thumbnail URL</FormLabel>
+                            <FormLabel>Buying URL
+                                <span className="text-sm text-gray-500 ml-2">
+                                    (Gumroad, Sellfy, etc.)
+                                </span>
+                            </FormLabel>
                             <FormControl>
                                 <Input placeholder="https://username.gumroad.com/l/product" {...field} />
                             </FormControl>
@@ -152,15 +168,30 @@ export default function ProductForm() {
                         </FormItem>
                     )}
                 />
+
                 <FormField
                     control={form.control}
                     name="preview_url"
-                    render={({ field }) => (
+                    render={({ field, fieldState }) => (
                         <FormItem>
-                            <FormLabel>Preview URL</FormLabel>
+                            <FormLabel>
+                                Preview URL
+                                <span className="text-sm text-gray-500"> (preffered 16 / 9)</span>
+                            </FormLabel>
                             <FormControl>
                                 <Input placeholder="https://example.com/preview.png" {...field} />
                             </FormControl>
+                            <UploadImage
+                                key={"preview_url"}
+                                onUpload={(fileUrl) => {
+                                    field.onChange(fileUrl)
+                                }}
+                            />
+                            {fieldState.isTouched && !fieldState.isDirty && fieldState.invalid === false && (<>
+                                <div>
+                                    <Image src={field.value} width={512} height={320} alt={"preview image"} />
+                                </div>
+                            </>)}
                             <FormMessage />
                         </FormItem>
                     )}
@@ -173,7 +204,7 @@ export default function ProductForm() {
                             <FormLabel>Tags</FormLabel>
                             <FormControl>
                                 <Input placeholder="tag1, tag2, tag3" {...field}
-                                    value={field.value?.join(", ")}
+                                    value={field.value?.join(", ") || ""}
                                     onChange={(e) => {
                                         field.onChange(e.target.value.split(","))
                                     }}
@@ -238,7 +269,9 @@ export default function ProductForm() {
                     name="price"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Price</FormLabel>
+                            <FormLabel>Price (USD)
+                                <span className="text-sm text-gray-500"> (leave blank for Free)</span>
+                            </FormLabel>
                             <FormControl>
                                 <Input placeholder="10.00" {...field} />
                             </FormControl>
@@ -247,21 +280,32 @@ export default function ProductForm() {
                     )}
                 />
 
-                <FormField
-                    control={form.control}
-                    name="url"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>URL</FormLabel>
-                            <FormControl>
-                                <Input placeholder="https://example.com" {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-
-                <Button type="submit">Submit</Button>
+                <div className="flex items-center gap-2">
+                    <FormField
+                        control={form.control}
+                        name="published"
+                        render={({ field }) => (
+                            <FormItem className="flex items-center gap-2 space-y-0">
+                                <FormLabel className="mb-0">Published</FormLabel>
+                                <FormControl>
+                                    <Switch checked={field.value}
+                                        onCheckedChange={field.onChange} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+                </div>
+                <div className="flex items-center gap-2">
+                    <Button type="reset"
+                        variant="destructive_light"
+                        onClick={(e) => form.reset()}>
+                        Reset
+                    </Button>
+                    <Button type="submit">
+                        Save Product
+                    </Button>
+                </div>
             </form>
         </Form>
     )
