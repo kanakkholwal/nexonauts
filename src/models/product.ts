@@ -9,7 +9,6 @@ interface Product extends Document {
   published: boolean;
   url: string;
   slug: string;
-  thumbnail_url: string;
   preview_url: string | null;
   tags: string[];
   categories: string[];
@@ -48,11 +47,6 @@ const productSchema = new Schema<Product>(
       required: true,
       unique: true,
       default: () => generateUrlSlug(8),
-    },
-    thumbnail_url: {
-      type: String,
-      trim: true,
-      required: true,
     },
     preview_url: {
       type: String,

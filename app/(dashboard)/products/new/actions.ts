@@ -23,7 +23,6 @@ export async function createProduct(product) {
         description: product.description,
         price: product.formatted_price,
         slug: generateUrlSlug(),
-        thumbnail_url: product.thumbnail_url || product.preview_url,
         preview_url: product.preview_url,
         url: product.short_url,
         creator: session.user._id,
