@@ -1,5 +1,6 @@
 
 import { Metadata } from "next";
+import { createProduct } from "./actions";
 import ProductForm from "./form";
 
 export const metadata: Metadata = {
@@ -10,6 +11,7 @@ export const metadata: Metadata = {
 
 export default async function CreateNewProduct() {
 
+
     return (<div className="space-y-6 p-10 pb-16 w-full mt-5">
 
         <div className="flex justify-between items-center flex-wrap">
@@ -19,7 +21,7 @@ export default async function CreateNewProduct() {
 
         </div>
 
-        <ProductForm/>
+        <ProductForm saveProduct={createProduct}/>
 
 
 

@@ -75,7 +75,7 @@ export function QuickLinks() {
                 onClick={() => setOpen(!open)}
                 className={cn(
                     "font-medium  text-sm text-muted-foreground",
-                    "inline-flex items-center whitespace-nowrap rounded-full w-full max-w-60 transition-colors h-9 px-4 py-2 relative justify-start",
+                    "inline-flex items-center whitespace-nowrap rounded-full w-full max-w-60 transition-colors h-9 px-4 py-2 relative justify-start ml-auto",
                     "backdrop-blur-sm bg-white/30 dark:bg-slate-100/5 border border-border/50 shadow-lg md:shadow-none",
                 )}>
                 <span className="inline-flex">
@@ -152,8 +152,8 @@ export function NavList() {
                 return (<Link key={`navlink-${index}`}
                     className={cn(
                         "relative items-center justify-center py-1 px-3 rounded-full",
-                        "text-gray-600 dark:text-gray-100 hover:text-gray-800 dark:hover:text-primary",
-                        "bg-transparent dark:bg-transparent hover:bg-gray-100 dark:hover:bg-primary/10",
+                        "text-gray-600 dark:text-gray-100 hover:text-gray-800 dark:hover:text-white",
+                        "bg-transparent dark:bg-transparent hover:bg-white/30 dark:hover:bg-slate-100/5 backdrop-blur-lg",
                         "transition-colors duration-300",
                         "text-sm font-semibold"
                     )}
