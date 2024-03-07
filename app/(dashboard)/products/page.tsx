@@ -5,14 +5,14 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { Plus } from 'lucide-react';
+import { Plus, Trash2 } from 'lucide-react';
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { getProducts, syncWithGumroad } from "./actions";
 import ProductSyncButton from "./sync-btn";
-
+import DeleteProductButton from "./delete-btn";
 
 export const metadata: Metadata = {
     title: "My Products",
@@ -81,6 +81,7 @@ export default async function MyProducts() {
                         <div className="p-2">
                             <h2 className="text-xl font-semibold truncate">{product.name}</h2>
                             <div className="flex justify-end gap-2 p-2">
+                                <DeleteProductButton/>
                                 <Button variant="link" size="sm" asChild>
                                     <Link href={`/products/${product.slug}/edit`} className="text-primary">Edit</Link>
                                 </Button>
