@@ -3,17 +3,17 @@ import { customAlphabet } from 'nanoid';
 
 const generateUrlSlug = (length = 16) => customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", length)();
 
-interface Product extends Document {
+
+interface Product {
   name: string;
   description: string;
   published: boolean;
   url: string;
   slug: string;
-  thumbnail_url: string;
-  preview_url: string | null;
+  preview_url: string;
   tags: string[];
   categories: string[];
-  price: string | null;
+  price: number;
   creator: Types.ObjectId;
   third_party: {
     provider: string | null;
@@ -21,7 +21,16 @@ interface Product extends Document {
     product_id: string |null
   } | null;
 }
-const productSchema = new Schema<Product>(
+export type ProductType = Product & {
+  _id: string;
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+
+type ProductDocument = Document & Product;
+
+const productSchema = new Schema<ProductDocument>(
   {
     name: {
       type: String,
@@ -49,15 +58,9 @@ const productSchema = new Schema<Product>(
       unique: true,
       default: () => generateUrlSlug(8),
     },
-    thumbnail_url: {
-      type: String,
-      trim: true,
-      required: true,
-    },
     preview_url: {
       type: String,
       trim: true,
-      default: null,
     },
     tags: {
       type: [String],
@@ -68,9 +71,8 @@ const productSchema = new Schema<Product>(
       required: true,
     },
     price: {
-      type: String,
-      required: false,
-      default: null,
+      type: Number,
+      default: 0,
     },
     creator: {
       type: Schema.Types.ObjectId,
@@ -99,6 +101,6 @@ const productSchema = new Schema<Product>(
   }
 );
 
-const Product = mongoose.models.Product || mongoose.model<Product>("Product", productSchema);
+const Product = mongoose.models.Product || mongoose.model<ProductDocument>("Product", productSchema);
 
 export default Product

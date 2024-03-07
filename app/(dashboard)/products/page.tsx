@@ -77,7 +77,7 @@ export default async function MyProducts() {
             <Suspense fallback={<div>Loading...</div>}>
                 {products.map((product) => {
                     return <div key={product._id} className="flex flex-col space-y-4">
-                        <Image width={256} height={160} src={product.thumbnail_url} alt={product.name} className="w-full h-auto aspect-video object-cover rounded-lg" />
+                        <Image width={256} height={160} src={product.preview_url!} alt={product.name} className="w-full h-auto aspect-video object-cover rounded-lg" />
                         <div className="p-2">
                             <h2 className="text-xl font-semibold truncate">{product.name}</h2>
                             <div className="flex justify-end gap-2 p-2">

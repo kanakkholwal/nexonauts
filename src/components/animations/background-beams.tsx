@@ -125,8 +125,8 @@ export const BackgroundBeams = ({ className }: { className?: string }) => {
             gradientUnits="userSpaceOnUse"
             gradientTransform="translate(352 34) rotate(90) scale(555 1560.62)"
           >
-            <stop offset="0.0666667" stopColor="var(--neutral-300)"></stop>
-            <stop offset="0.243243" stopColor="var(--neutral-300)"></stop>
+            <stop offset="0.0666667" stopColor="var(--cyan-300)"></stop>
+            <stop offset="0.243243" stopColor="var(--sky-300)"></stop>
             <stop offset="0.43594" stopColor="white" stopOpacity="0"></stop>
           </radialGradient>
         </defs>
