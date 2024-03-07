@@ -31,7 +31,7 @@ export async function syncWithGumroad() {
     const data = await response.data;
     console.log("Data", data);
     if (data.success) {
-        const products = data.products;
+        const products = data.products.filter((product: any) => product.published && product.deleted === false);
         for (const product of products) {
             const existingProduct = await Product.findOne({
                 "third_party.provider": "gumroad",
@@ -40,22 +40,21 @@ export async function syncWithGumroad() {
             if (existingProduct) {
                 existingProduct.name = product.name;
                 existingProduct.description = product.description;
-                existingProduct.price = product.formatted_price;
+                existingProduct.price = (product.price / 100).toFixed(2);
                 existingProduct.url = product.short_url;
                 existingProduct.preview_url = product.preview_url || null;
-                existingProduct.thumbnail_url = product.thumbnail_url || product.preview_url
                 existingProduct.published = product.published;
                 // TODO - Add tags and categories (unique to the array)
                 existingProduct.tags = product.tags;
                 existingProduct.categories = product.categories || [];
                 await existingProduct.save();
             } else {
+                console.log("Creating new product", product);
                 const newProduct = new Product({
                     name: product.name,
                     description: product.description,
-                    price: product.formatted_price,
+                    price: (product.price / 100).toFixed(2),
                     slug: generateUrlSlug(),
-                    thumbnail_url: product.thumbnail_url ||product.preview_url,
                     preview_url: product.preview_url,
                     url: product.short_url,
                     creator: session.user._id,
