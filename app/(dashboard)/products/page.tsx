@@ -5,14 +5,14 @@ import {
     DropdownMenuItem,
     DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { getProducts, syncWithGumroad } from "./actions";
-import ProductSyncButton from "./sync-btn";
 import DeleteProductButton from "./delete-btn";
+import ProductSyncButton from "./sync-btn";
 
 export const metadata: Metadata = {
     title: "My Products",
@@ -83,10 +83,10 @@ export default async function MyProducts() {
                             <div className="flex justify-end gap-2 p-2">
                                 <DeleteProductButton/>
                                 <Button variant="link" size="sm" asChild>
-                                    <Link href={`/products/${product.slug}/edit`} className="text-primary">Edit</Link>
+                                    <Link href={`/marketplace/products/${product.slug}/edit`} className="text-primary">Edit</Link>
                                 </Button>
                                 <Button variant="outline" size="sm" asChild>
-                                    <Link href={`/products/${product.slug}`}>View</Link>
+                                    <Link href={`/marketplace/products/${product.slug}`}>View</Link>
                                 </Button>
                             </div>
 
