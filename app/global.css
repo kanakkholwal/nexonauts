@@ -112,7 +112,7 @@ body {
     overflow-x: hidden;
     position: relative;
     z-index: 1;
-    font-family: "DM Sans", "Plus Jakarta Sans", 'Poppins', 'Inter', "ManRope", "Google Sans", san-serif;
+    font-family: var(--plus-jakarta,'"DM Sans", "Plus Jakarta Sans", "Poppins", "Inter", "ManRope", "Google Sans", san-serif');
     @apply bg-background text-foreground;
 
 }

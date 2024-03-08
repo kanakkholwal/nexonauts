@@ -6,7 +6,43 @@ import './global.css';
 
 // import { Urbanist } from 'next/font/google';
 import { Plus_Jakarta_Sans } from "next/font/google";
+// import localFont from 'next/font/local';
 
+
+// const productFont = localFont({
+//     src: [
+//         {
+//             path: './fonts/THICCCBOI-Regular.woff2',
+//             weight: '400',
+//             style: 'normal',
+//         },
+//         {
+//             path: './fonts/THICCCBOI-Medium.woff2',
+//             weight: '500',
+//             style: 'normal',
+//         },
+//         {
+//             path: './fonts/THICCCBOI-SemiBold.woff2',
+//             weight: '600',
+//             style: 'normal',
+//         },
+//         {
+//             path: './fonts/THICCCBOI-Bold.woff2',
+//             weight: '700',
+//             style: 'normal',
+//         },      
+//     ],
+//     variable: '--font-product',
+// });
+
+
+// const monoFont = Fira_Code({
+//     weight: ['300', '400', '500', '600'],
+//     subsets: ['latin-ext', 'latin'],
+//     display: 'swap',
+//     adjustFontFallback: false,
+//     variable: '--font-code',
+// })
 const font = Plus_Jakarta_Sans({
     weight: ['400', '500', '600', '700', '800'],
     subsets: ['latin-ext', 'latin'],
@@ -70,7 +106,7 @@ export default async function RootLayout({
                 {/* <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
                     <link href='https://fonts.googleapis.com/css?family=Fira+Code:wght@300,400,500,600&display=swap' rel='stylesheet' /> */}
             </head>
-            <body className={font.className + " min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900 antialiased"}>
+            <body className={`${font.className}  min-h-screen selection:bg-primary/10 selection:text-primary bg-slate-100 dark:bg-neutral-900 antialiased`}>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="light"

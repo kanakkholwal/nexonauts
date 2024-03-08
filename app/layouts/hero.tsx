@@ -91,7 +91,11 @@ export default function HeroLayout() {
 							</Button>
 						</div>
 					</div>
+					
 				</div>
+				{/* <div style={{position: 'absolute', borderRadius: 'inherit', top: 0, right: 0, bottom: 0, left: 0}} >
+					<img src="https://framerusercontent.com/images/XYW9U89OkawwfrVLXPIaB6miUN0.svg" alt style={{display: 'block', width: '100%', height: '100%', borderRadius: 'inherit', objectPosition: 'center', objectFit: 'cover', imageRendering: 'auto'}} /></div> */}
+
 				<div
 					className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
 					aria-hidden="true">
