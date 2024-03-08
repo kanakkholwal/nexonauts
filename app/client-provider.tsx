@@ -50,5 +50,17 @@ export function Provider({ children }: { children: React.ReactNode }) {
     {process.env.NODE_ENV === "development" && <div className="fixed bottom-4 right-4 z-50">
       <ThemeSwitcher />
     </div>}
+    {/* <div className="fixed inset-0 aspect-square rounded-full overflow-hidden will-change-transform m-auto -z-1 backdrop-blur-[100px]"
+      style={{
+        background:"linear-gradient(139deg,#233452 0%,rgba(35,52,82,0) 100%)",
+        transform:"perspective(1200px) translateX(-50%) rotate(39deg)"
+      }}
+    />
+    <div className="fixed inset-0 aspect-square rounded-full overflow-hidden will-change-transform m-auto -z-1 backdrop-blur-[100px]"
+      style={{
+        background:"linear-gradient(139deg,#233452 0%,rgba(35,52,82,0) 100%)",
+        transform:"perspective(1200px) translateX(-50%) rotate(-60deg)"
+      }}
+    /> */}
   </SessionProvider>;
 }

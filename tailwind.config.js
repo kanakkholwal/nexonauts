@@ -137,6 +137,11 @@ module.exports = {
           },
         },
         },
+        fontFamily: {
+          sans: ['var(--plus-jakarta)'],
+          mono: ['var(--font-code)'],
+          product: ['var(--font-product)'],
+        },
     },
   },
   plugins: [
