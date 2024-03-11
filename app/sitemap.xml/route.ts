@@ -2,8 +2,8 @@ import { NextRequest } from "next/server";
 import dbConnect from "src/lib/dbConnect";
 import Post from "src/models/post";
 // import { getAllApps } from "src/utils/app";
+import { allDevTools } from "app/dev-tools/list";
 import { getAllPublicTools } from "src/utils/public-tool";
-
 const URL = process.env.WEBSITE_URL || "https://nexonauts.com";
 
 
@@ -66,6 +66,12 @@ export async function GET(request: NextRequest) {
             path: "/dev-tools",
             date: new Date().toISOString(),
         },
+        ...allDevTools.map((tool) => {  
+            return {
+                path: `${tool.path}`,
+                date: new Date(Date.now()).toISOString(),
+            }
+        }),
         {
             path: `/scout/`,
             date: new Date().toISOString(),
