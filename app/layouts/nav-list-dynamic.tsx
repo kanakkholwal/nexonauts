@@ -76,7 +76,7 @@ export function QuickLinks() {
                 className={cn(
                     "font-medium  text-sm text-muted-foreground",
                     "inline-flex items-center whitespace-nowrap rounded-full w-full max-w-60 transition-colors h-9 px-4 py-2 relative justify-start ml-auto",
-                    "backdrop-blur-sm bg-white/30 dark:bg-slate-100/5 border border-border/50 shadow-lg md:shadow-none",
+                    "backdrop-blur-sm bg-white/30 dark:bg-slate-100/5 border border-border/50",
                 )}>
                 <span className="inline-flex">
                     <Search className="w-4 h-4 dark:text-gray-400" />
