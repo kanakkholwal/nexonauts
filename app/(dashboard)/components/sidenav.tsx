@@ -7,7 +7,8 @@ import {
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
-import { ChevronLeftCircle, ChevronRightCircle, LogOut, Rss, Settings2, UserRoundCog } from 'lucide-react';
+import { Input } from "@/components/ui/input";
+import { ChevronLeftCircle, ChevronRightCircle, LogOut, Rss, Search, Settings2, ShoppingCart, UserRoundCog } from 'lucide-react';
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,20 +28,20 @@ const user_links: sideLinkType[] = [
         icon: Rss,
         href: "/feed",
     },
-    // {
-    //     label: "Tools",
-    //     icon: Swords,
-    //     href: "/dashboard/tools",
-    // },
+    {
+        label: "My Products",
+        icon: ShoppingCart,
+        href: "/products",
+    },
     {
         label: "Account",
         icon: UserRoundCog,
-        href: "/dashboard/settings/account",
+        href: "/settings/account",
     },
     {
         label: "Settings",
         icon: Settings2,
-        href: "/dashboard/settings",
+        href: "/settings",
     }
 ];
 
@@ -65,6 +66,13 @@ export default function SideBar({ user }: { user: SessionUserType }) {
             <Image height={120} width={300} className="h-14 w-14 dark:invert" src="/logo-square-with-bg.svg" alt="logo" />
         </div>
         <div className="flex-1 px-6">
+            <div className="relative flex items-center mb-4 search group">
+            <Input 
+                className="rounded-lg pl-8 focus:pl-3 transition-all peer focus:outline-0"
+                type="search" placeholder="Search..." />
+            
+                <Search className="h-4 w-4 absolute inset-y-0 my-3 left-2 scale-1 opacity-1 peer-focus:scale-0 peer-focus:opacity-0 transition-all"/>
+                </div>
             <h6 className="mb-2 ml-2 font-semibold text-xs text-slate-500 dark:text-slate-400 uppercase">
                 Dashboard
             </h6>

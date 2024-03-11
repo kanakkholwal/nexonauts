@@ -2,6 +2,7 @@ import { Button } from '@/components/ui/button';
 import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 import { TypewriterEffectSmooth } from "src/components/animations/typewriter-effect";
+// import "./hero.css";
 
 export default function HeroLayout() {
 	const words = [
@@ -91,7 +92,7 @@ export default function HeroLayout() {
 							</Button>
 						</div>
 					</div>
-					
+
 				</div>
 				{/* <div style={{position: 'absolute', borderRadius: 'inherit', top: 0, right: 0, bottom: 0, left: 0}} >
 					<img src="https://framerusercontent.com/images/XYW9U89OkawwfrVLXPIaB6miUN0.svg" alt style={{display: 'block', width: '100%', height: '100%', borderRadius: 'inherit', objectPosition: 'center', objectFit: 'cover', imageRendering: 'auto'}} /></div> */}
@@ -108,10 +109,22 @@ export default function HeroLayout() {
 					/>
 				</div>
 			</div>
+			{/* <BgLines/> */}
 		</div>
 	);
 }
 
+function BgLines() {
+	return (
+		<div className="![perspective:1000px] sm:![perspective:1000px] md:![perspective:1000px] lg:![perspective:1000px] absolute overflow-hidden -z-[6] inset-0 transition-[perspective] ease">
+			<div className="z-[100] absolute inset-0 [--gradient-stop-1:0px] [--gradient-stop-2:50%]"
+				style={{ background: 'linear-gradient(to top, rgba(0,0,0,0) 0px, #000 50%)' }} />
+			<div style={{ transform: 'rotateX(75deg)', position: 'absolute', inset: 0 }}>
+				<div className="background_lines" />
+			</div>
+
+		</div>);
+}
 {/* <div className="lg:w-3/4 text-center mx-auto"> */ }
 {/* <h1 className=" font-bold text-5xl md:text-6xl xl:text-7xl relative bg-clip-text text-transparent bg-gradient-to-r from-primary to-violet-300  dark:from-sky-600 dark:to-purple-300">
 							Develop with Confidence {`\n`} Innovate with Ease
