@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getSession } from 'next-auth/react';
-import { NextSeo } from 'next-seo';
+
 import { FULL_DESCRIPTION, TITLE } from 'src/constants/marketplace';
 import Wrapper from 'src/layouts/marketplace';
 import { Item_types } from 'src/lib/marketplace/item-types';
@@ -12,9 +12,8 @@ import ProductCard from 'src/layouts/marketplace/product-card';
 export default function Market({ user, products }) {
 
     return (<>
-        <NextSeo
-            title={TITLE}
-            description={FULL_DESCRIPTION} />
+    
+    
         <Wrapper user={user}>
             <section className="w-full p-3  mt-4 ">
                 <h1 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
