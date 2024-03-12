@@ -9,13 +9,13 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Metadata } from 'next';
 import { notFound } from "next/navigation";
 import { getMetaByUserName, getUserByUserName } from "src/lib/user/actions";
 import { ShareProfile } from "./components/share";
 import SocialLinks from "./components/social-links";
 
 
+import { Metadata } from 'next';
 export async function generateMetadata({ params }:{
     params: { username: string }
 }): Promise<Metadata> {

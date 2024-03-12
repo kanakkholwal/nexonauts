@@ -1,5 +1,5 @@
 import { getSession } from 'next-auth/react';
-import { NextSeo } from 'next-seo';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { FULL_DESCRIPTION, NAME, SHORT_DESCRIPTION, TITLE } from 'src/constants/marketplace';
@@ -7,9 +7,8 @@ import Wrapper from 'src/layouts/marketplace';
 
 export default function Market({ user }) {
     return (<>
-        <NextSeo
-            title={TITLE}
-            description={FULL_DESCRIPTION} />
+
+
         <Wrapper user={user}>
             <section className="w-full p-3  mt-4 ">
                 <div className="w-full flex items-center justify-between p-7 rounded-xl bg-white shadow-slate-200 shadow-lg">

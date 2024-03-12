@@ -29,7 +29,7 @@ export const allDevTools: ToolProp[] = [
         description: "Image to WebP converter is an online tool that converts images from one format to WebP. WebP is a modern image format developed by Google that offers better compression than other image formats, such as JPEG and PNG. This can lead to smaller file sizes, which can improve the performance of websites and web apps.",
         category: "Image Tools",
         id: "image-to-webp-convertor",
-        
+
         online: true
     },
     {
@@ -45,55 +45,43 @@ export const allDevTools: ToolProp[] = [
         category: "Web Tools",
         id: "css-minifier-and-prettifier",
         online: true
-    }
-    ,
-    {
+    }, {
         title: "JSON Minifier Tool",
         description: "Online JSON Minifier takes any form of json code and make it minified,compressed by removing white spaces, newlines, indentation ,etc. It reduces file size and optimizes json for your request.",
         category: "Web Tools",
         id: "json-minifier-tool",
 
         online: true
-    }
-    ,
-
-    {
+    }, {
         title: "Html Minifier and Prettifier Tool",
         description: " Online HTML Minifier takes any form of HTML code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Html to make it easy to read and edit. It reduces file size and optimizes css for your website.",
         category: "Web Tools",
         id: "html-minifier-and-prettifier",
         online: true
-    }
-    ,
-    {
+    }, {
         title: "Html Parser Tool",
         description: "Online CSS Minifier takes any form of css code and make it minified,compressed by removing white spaces, newlines, indentation and comments and here You can also Beautify Css to make it easy to read and edit. It reduces file size and optimizes css for your website.",
         category: "Web Tools",
         id: "html-parser-tool",
         online: true
-    }
-    ,
-    {
+    }, {
         title: "Meta Tag Generator",
         description: "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide",
         category: "SEO Tools",
         id: "meta-tag-generator",
         online: true
-    }
-    ,
-    {
+    }, {
         title: "Schema MarkUp Generator",
         description: "A Schema Markup Generator is a tool that helps users create structured data markup for their website. Structured data markup is a type of code that provides search engines with additional information about the content on a website, making it easier for search engines to understand and display the content in search results.",
         category: "SEO Tools",
         id: "schema-markup-generator",
         online: true
-    }
-    // ,
+    },
     // {
-    //     title: "iFrame Embed Code Generator",
-    //     description: "With the help of this tool, you can generate your iframe codes easily with just a click of a button.",
-    //     category: "Other Tools",
-    //     id: "iframe-generator",
+    //     title: "Thumbnail Generator Tool",
+    //     description: "  Thumbnail Generator Tool is a free online tool to generate thumbnails for your website, blog, or social media. It's easy to use and works with any image format. Just upload your image, select the size, and download the thumbnail.",
+    //     category: "Image tools",
+    //     id: "thumbnail-generator",
     //     online: true
     // }
 ].map((tool) => ({

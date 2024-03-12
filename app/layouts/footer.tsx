@@ -55,7 +55,7 @@ const footerLinks = [
             },
             {
                 title: "Disclaimer",
-                href: "/disclaimer"
+                href: "/copyright"
             }
         ]
     }
@@ -117,8 +117,8 @@ function LinkList({ title, links }: { title: string, links: { title: string, hre
             </h5>
             <ul className="flex flex-col gap-2">
                 {links.map((link, index) => (
-                    <li key={index}>
-                        <Link href={link.href} title={link.title} className="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary font-semibold text-sm ease-in duration-300">
+                    <li key={index} className="relative">
+                        <Link href={link.href} title={link.title} className="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary font-semibold text-sm ease-in duration-300 inset-0 hover:left-2">
                             {link.title}
                         </Link>
                     </li>
