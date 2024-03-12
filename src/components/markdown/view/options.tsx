@@ -60,7 +60,9 @@ export const defaultOptions: Options = {
         ul: ({ children, node, ...props }) => <ul {...props}>{children}</ul>,
         ol: ({ children, node, ...props }) => <ol {...props}>{children}</ol>,
         li: ({ children, node, ...props }) => <li {...props}>{children}</li>,
-        a: ({ children, href, node, ...props}) => <a href={href} className="text-blue-600 relative inline-block  line-height-2 hover:before:block hover:before:w-full hover:before:h-2 hover:before:rounded hover:before:bg-white hover:before:absolute hover:before:bottom-negative-0.5 hover:before:left-0 hover:before:transition-transform-400 hover:before:transition-opacity-400 hover:before:opacity-0  mr-2" {...props}>{children}</a>,
+        a: ({ children, href, node, ...props}) => <a href={href}
+        className="text-blue-600 relative inline-block  line-height-2 hover:before:block hover:before:w-full hover:before:h-2 hover:before:rounded hover:before:bg-white hover:before:absolute hover:before:bottom-negative-0.5 hover:before:left-0 hover:before:transition-transform-400 hover:before:transition-opacity-400 hover:before:opacity-0  mr-2" 
+        {...props}>{children}</a>,
         blockquote: ({ children, node, ...props }) => <blockquote {...props}>{children}</blockquote>,
         hr: () => <hr className="my-4" />,
         img: ({ src, alt, node, ...props }) => <img src={src} alt={alt} className="w-full h-auto rounded-md" {...props} />,

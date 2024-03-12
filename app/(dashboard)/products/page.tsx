@@ -86,7 +86,9 @@ export default async function MyProducts() {
                                     <Link href={`/marketplace/products/${product.slug}/edit`} className="text-primary">Edit</Link>
                                 </Button>
                                 <Button variant="outline" size="sm" asChild>
-                                    <Link href={`/marketplace/products/${product.slug}`}>View</Link>
+                                    <Link href={`/marketplace/products/${product.slug}`} target="_blank"
+                                        rel="noopener noreferrer" 
+                                    >View</Link>
                                 </Button>
                             </div>
 
