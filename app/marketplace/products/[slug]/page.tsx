@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Heart } from 'lucide-react';
+import { ArrowUpRight, Heart, MoveLeft } from 'lucide-react';
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -49,6 +49,12 @@ export default async function ProductPage({ params }: {
         <>
 
             <div className="w-full max-w-7xl my-10 mx-auto">
+                <Button size="sm" variant="link"  asChild>
+                    <Link href="/marketplace">
+                        <MoveLeft className="w-4 h-4 mr-2" />
+                        Back 
+                    </Link>
+                </Button>
                 <h1 className="text-5xl font-bold mb-4 text-center tracking-wider">{product.name}</h1>
                 <div className="flex items-center mx-auto w-full justify-center gap-2 divide-x">
                     <Badge variant="info" className="gap-1">

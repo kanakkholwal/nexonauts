@@ -7,8 +7,8 @@ import { BiSupport } from "react-icons/bi";
 import { ErrorActions } from "./error-layout";
 
 export const metadata: Metadata = {
-    title: "Not Found | Nexoauts",
-    description: "The page you are looking for does not exist.",
+    title: "UnAuthorised | Nexoauts",
+    description: "The page you're trying access has restricted access. Please refer to your system administrator",
 }
 
 export default function Page403() {

@@ -1,7 +1,7 @@
 import { authOptions } from "app/api/auth/[...nextauth]/options";
+import WithoutSession from "app/layouts/without-session";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
-import { redirect } from "next/navigation";
 import Navbar from "./components/navbar";
 import SideBar from "./components/sidenav";
 
@@ -12,11 +12,12 @@ export const metadata :Metadata = {
 
 export default async function FeedLayout({ children }: { children: React.ReactNode }) {
     const session = await getServerSession(authOptions);
-    console.log(session)
-    if (!(session && session.user)) return redirect("/login?redirect=/feed")
+    // console.log(session)
+    if (!(session && session.user))
+        return <WithoutSession/>
 
     return (<>
-        <div className="flex h-full min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-800/80 bg-slate-200/80 z-0">
+        <div className="flex h-full min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-neutral-800/80 bg-slate-200/80 z-0">
             <SideBar user={session.user}  />
             <div className="lg:pl-80 flex flex-col flex-1 w-full relative z-0">
                 <Navbar user={session.user} />
