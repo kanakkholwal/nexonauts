@@ -14,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { useState } from "react";
+import { RiApps2Line } from "react-icons/ri";
 import { SessionUserType } from "src/types/user";
 
 export type sideLinkType = {
@@ -32,6 +33,11 @@ const user_links: sideLinkType[] = [
         label: "My Products",
         icon: ShoppingCart,
         href: "/products",
+    },
+    {
+        label: "My Tools",
+        icon: RiApps2Line,
+        href: "/tools",
     },
     {
         label: "Account",
@@ -54,7 +60,7 @@ export default function SideBar({ user }: { user: SessionUserType }) {
 
 
     return (<div aria-label="Sidenav"
-        className={"fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 glassmorphism " + (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") + " transition-transform duration-200 ease-in-out"}
+        className={"fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 glassmorphism_light " + (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") + " transition-transform duration-200 ease-in-out"}
     >
         <button
             aria-label="Toggle Sidenav"

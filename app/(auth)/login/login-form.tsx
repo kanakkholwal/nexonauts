@@ -77,7 +77,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                     router.push(callbackUrl);
                     return `Logged in successfully to ${callbackUrl}`
                 }
-                router.push("/dashboard");
+                router.push("/feed");
                 return `Logged in successfully to dashboard`
             },
             error: (err) => {
