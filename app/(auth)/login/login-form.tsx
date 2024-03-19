@@ -130,7 +130,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                     className='border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200'
                     onClick={async () => {
                         setIsLoading(true);
-                        await signIn('google', { callbackUrl: "/dashboard" })
+                        await signIn('google', { callbackUrl: "/feed" })
                         setIsLoading(false);
 
                     }}            >
@@ -145,7 +145,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
                     onClick={async () => {
                         setIsLoading(true);
-                        await signIn('github', { callbackUrl: "/dashboard" })
+                        await signIn('github', { callbackUrl: "/feed" })
                         setIsLoading(false);
                     }}   >
                     {isLoading ? (
