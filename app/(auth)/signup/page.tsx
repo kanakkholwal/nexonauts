@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import dbConnect from "src/lib/dbConnect";
 import User from "src/models/user";
 import { RegisterForm } from './register-form';
+import Link from "next/link";
 
 export const metadata: Metadata = {
     title: "Signup | NexoNauts",
@@ -19,6 +20,8 @@ export default async function Page() {
     const session = await getServerSession(authOptions);
     if (session) return redirect("/feed")
     await dbConnect();
+
+    const IsWaitingList = true;
 
     const validateEmail = async (email: string): Promise<boolean> => {
         "use server";
@@ -65,7 +68,16 @@ export default async function Page() {
             </header>
             <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
 
-            <RegisterForm validateEmail={validateEmail} validateUsername={validateUsername} />
+            {!IsWaitingList ?  <RegisterForm validateEmail={validateEmail} validateUsername={validateUsername} />:<>
+                <div className="flex items-center justify-center space-x-2">
+                    <p className="text-lg">Signup is currently by invitation only.</p>
+                    <Link href="/login" className="text-blue-600 underline">Login</Link>
+                    or 
+                    <Link href="/waitlist" className="text-blue-600 underline">
+                        Join the waiting list
+                    </Link>
+                </div>
+            </>}
 
             </main>
 
