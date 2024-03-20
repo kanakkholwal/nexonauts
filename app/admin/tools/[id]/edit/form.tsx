@@ -51,13 +51,13 @@ export default function Form({ updateTool }: {
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="slug">Slug
-                    <Link href={"/toolzen/tools/" + tool.slug} target="_blank" className="text-xs text-slate-500">
+                    <Link href={"/scout/tools/" + tool.slug} target="_blank" className="text-xs text-slate-500">
                         <ExternalLink className="w-4 h-4 inline-block ml-1 -mt-1" />
                     </Link>
                 </Label>
                 <Input id="slug" name="slug" type="text"
                     value={tool?.slug}
-                    placeholder="Slug of the tool" disabled={loading}
+                    placeholder="Slug of the tool" disabled={true}
                     onChange={(e) => {
                         useFormStore.setState({ tool: { ...tool, slug: e.target.value } })
                     }}

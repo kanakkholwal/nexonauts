@@ -83,7 +83,7 @@ export default async function MyProducts() {
                             <div className="flex justify-end gap-2 p-2">
                                 <DeleteProductButton/>
                                 <Button variant="link" size="sm" asChild>
-                                    <Link href={`/marketplace/products/${product.slug}/edit`} className="text-primary">Edit</Link>
+                                    <Link href={`/products/${product.slug}/edit`} className="text-primary">Edit</Link>
                                 </Button>
                                 <Button variant="outline" size="sm" asChild>
                                     <Link href={`/marketplace/products/${product.slug}`} target="_blank"
