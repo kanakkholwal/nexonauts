@@ -88,7 +88,7 @@ const userSchema = new Schema<User>(
       type: String,
       default: 'user',
       enum: {
-        values: ['user', 'admin'],
+        values: ['user', 'admin',"waitlist"],
       },
     },
     account_type: {

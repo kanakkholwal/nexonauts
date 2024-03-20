@@ -23,32 +23,7 @@ import { CATEGORIES as defaultCategories } from "src/constants/marketplace"
 import { ProductType } from "src/models/product"
 import { z } from "zod"
 
-async function isValidImageUrl(url: string): Promise<boolean> {
-    try {
-        const response = await fetch(url, {
-            method: 'HEAD'
-        });
 
-        // Check if the response status is within the range of successful responses for images
-        if (response.ok && response.headers.get('Content-Type')?.startsWith('image/')) {
-            return true;
-        } else {
-            // Handle specific HTTP error codes
-            if (response.status === 403) {
-                toast.error('Forbidden: Access to the resource is forbidden.');
-                return true;
-            } else {
-                // Handle other errors
-                console.error('Error:', response.statusText);
-                return false;
-            }
-        }
-    } catch (error) {
-        // Any error during fetching or response handling will result in returning false
-        console.error('Error while validating image URL:', error);
-        return false;
-    }
-}
 
 const formSchema = z.object({
     name: z.string().min(3).max(100),
@@ -106,7 +81,7 @@ export default function ProductForm(props: Props) {
 
 
     }
-   
+
     
     return (
         <Form {...form}>

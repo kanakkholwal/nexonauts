@@ -20,46 +20,16 @@ import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import { UploadImage } from "src/components/uploader"
 import { z } from "zod"
-async function isValidImageUrl(url: string): Promise<boolean> {
-    try {
-        const response = await fetch(url, {
-            method: 'HEAD'
-        });
 
-        // Check if the response status is within the range of successful responses for images
-        if (response.ok && response.headers.get('Content-Type')?.startsWith('image/')) {
-            return true;
-        } else {
-            return false;
-        }
-    } catch (error) {
-        // Any error during fetching or response handling will result in returning false
-        console.error('Error while validating image URL:', error);
-        return false;
-    }
-}
+
+
 
 const formSchema = z.object({
     name: z.string().min(3).max(100),
     description: z.string().min(10).max(1000),
     published: z.boolean(),
     url: z.string().url(),
-    preview_url: z.string().url().refine((value) => {
-
-        isValidImageUrl(value)
-            .then(isValid => {
-                if (isValid) {
-                    console.log('Valid image URL');
-                    return true;
-                } else {
-                    console.log('Not a valid image URL');
-                    return false;
-                }
-            }).catch(error => {
-                console.error('Error while validating image URL:', error);
-                return false;
-            })
-    }, {
+    preview_url: z.string().url({
         message: 'Preview URL must be a valid image URL'
     }),
     tags: z.array(z.string()),
@@ -187,7 +157,7 @@ export default function ProductForm(props: Props) {
                                     field.onChange(fileUrl)
                                 }}
                             />
-                            {fieldState.isTouched && !fieldState.isDirty && fieldState.invalid === false && (<>
+                            {((fieldState.isTouched && !fieldState.isDirty && fieldState.invalid === false) || form.getValues("preview_url").length > 20) && (<>
                                 <div>
                                     <Image src={field.value} width={512} height={320} alt={"preview image"} />
                                 </div>
