@@ -21,6 +21,7 @@ export interface PublicToolType {
     bannerImage?: string;
     description: string;
     categories: ICategory[];
+    tags: string[];
     link: string;
     status: PublicToolStatus;
     pricing_type: PublicToolPricingType
@@ -60,6 +61,7 @@ const publicToolSchema = new mongoose.Schema<IPublicTool>({
     categories: [categorySchema],
     link: { type: String, required: true },
     status: { type: String, required: true, enum: ['draft', 'published', 'archived', 'deleted', 'pending', 'rejected'], default: 'draft' },
+    tags: { type: [String], default: [] },
     pricing_type: { type: String, required: true, trim: true, default: 'other' },
     verified: { type: Boolean, default: false },
     views: { type: Number, default: 0 },
