@@ -24,10 +24,10 @@ export async function createProduct(product) {
         const newProduct = new Product({
             name: product.name,
             description: product.description,
-            price: product.formatted_price,
+            price: product.price,
             slug: generateUrlSlug(),
             preview_url: product.preview_url,
-            url: product.short_url,
+            url: product.url,
             creator: session.user._id,
             tags: product.tags,
             categories: product?.categories || [],
