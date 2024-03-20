@@ -33,6 +33,7 @@ export function ToolSubmitForm({ className,submit, ...props }: UserSubmitProps) 
         name: "",
         description: "",
         link: "",
+        tags:[],
         author: {
             name: session?.user?.name || "",
             email: session?.user?.email || "",

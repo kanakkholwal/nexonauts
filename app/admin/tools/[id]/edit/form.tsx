@@ -65,14 +65,27 @@ export default function Form({ updateTool }: {
 
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
-                <Label htmlFor="link">Link</Label>
-                <Input id="link" name="link" type="url"
+                <Label htmlFor="tags">
+                    Tags
+                </Label>
+                <Input id="tags" name="tags" type="text"
+                    value={tool?.tags.join(',')}
+                    placeholder="Tags of the tool" disabled={loading}
+                    onChange={(e) => {
+                        useFormStore.setState({ tool: { ...tool, tags: e.target.value.split(',') } })
+                    }}
+                />
+
+            </div>
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+                <Label htmlFor="categories">Categories</Label>
+                {/* <Input id="categories" name="categories" type="url"
                     value={tool?.link}
                     placeholder="Link of the tool website" disabled={loading}
                     onChange={(e) => {
                         useFormStore.setState({ tool: { ...tool, link: e.target.value } })
                     }}
-                />
+                /> */}
             </div>
             <div className="grid w-full max-w-sm items-center gap-1.5">
                 <Label htmlFor="status">Status</Label>
