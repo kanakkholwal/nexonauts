@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     keywords: "Waitlist, account, " + process.env.NEXT_PUBLIC_APP_NAME,
 }
 
+export const dynamic = 'force-dynamic';
 
 export default async function Page() {
 
