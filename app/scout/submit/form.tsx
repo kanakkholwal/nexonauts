@@ -37,7 +37,7 @@ export function ToolSubmitForm({ className,submit, ...props }: UserSubmitProps) 
         author: {
             name: session?.user?.name || "",
             email: session?.user?.email || "",
-            public_link: session?.user?.username ? `/developers/${session?.user?.username}` : "",
+            public_link: session?.user?.username ? `/devs/${session?.user?.username}` : "",
             userId: session?.user?._id || null,
         },
         status: "pending",
