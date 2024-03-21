@@ -18,13 +18,13 @@ const badgeVariants = cva(
         info_light: "bg-sky-500/10 text-sky-500 hover:bg-sky-500/20",
         info: "bg-sky-100 hover:bg-sky-200 text-sky-600 dark:bg-sky-700 dark:text-sky-200 dark:hover:bg-sky-800 dark:hover:text-sky-200",
         destructive_light: "bg-red-500/10 text-red-500 hover:bg-red-500/20 dark:bg-red-500/20 dark:text-red-500 hover:dark:bg-red-500/10 hover:dark:text-red-500",
-        destructive:
-          "bg-red-100 hover:bg-red-200 text-red-600	dark:bg-red-700 dark:text-red-200 dark:hover:bg-red-800 dark:hover:text-red-200",
         ghost: "bg-white hover:bg-white hover:text-accent-foreground  dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white",
         slate: "bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-950 dark:hover:text-slate-100",
         dark: "bg-slate-900 text-white hover:bg-slate-800 dark:bg-white/80 dark:hover:bg-white/70 dark:text-slate-200",
         link: "text-primary underline-offset-4 hover:underline",
-        success:"bg-green-100 text-green-600 hover:bg-green-200 hover:text-green-700",
+        success:"bg-green-100 text-green-600 border-green-400 dark:bg-green-500/20 dark:border-green-400/50",
+        warning:"bg-yellow-100 text-yellow-600 border-yellow-400",
+        destructive:"bg-red-100 text-red-600 border-red-400",
         gradient_blue: "text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br",
         gradient_green: "text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br",
         gradient_cyan: "text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br",
@@ -34,7 +34,7 @@ const badgeVariants = cva(
         gradient_pink: "text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br",
         gradient_purple: "text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:bg-gradient-to-br",
         secondary:
-          "border-border bg-secondary text-secondary-foreground hover:bg-secondary/80",
+          "border border-input bg-secondary hover:bg-secondary/80 hover:text-accent-foreground dark:bg-gray-800 dark:border-gray-700  dark:text-white",
         outline: "text-foreground",
       },
       size: {

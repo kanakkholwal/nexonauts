@@ -1,6 +1,11 @@
 "use client";
 
 import {
+    Avatar,
+    AvatarFallback,
+    AvatarImage,
+} from "@/components/ui/avatar";
+import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
@@ -9,15 +14,12 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { VscChevronDown } from "react-icons/vsc";
 import { SessionUserType } from "src/types/user";
-import ThemeSwitcher from "./theme-switcher";
-
 export default function Navbar({ user }: { user: SessionUserType }) {
     const pathname = usePathname();
 
@@ -30,13 +32,16 @@ export default function Navbar({ user }: { user: SessionUserType }) {
         </div>
         <div className="ml-auto inline-flex gap-1 items-center">
 
-            <ThemeSwitcher />
             <div className="flex items-center space-x-2">
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <button className="flex items-center space-x-2 px-3 py-1.5 rounded-lg">
-                            <Image src={user.profilePicture.toString()} height={80} width={80} alt="avatar" className="w-8 h-8 rounded-full" />
-                            <span className="text-slate-500 dark:text-slate-300 text-sm ml-2 font-semibold hidden md:inline-block">{user.name}</span>
+                            <Avatar>
+                                <AvatarImage src={user.profilePicture.toString()} alt={"@" + user.username} height={80} width={80} className="" />
+                                <AvatarFallback className="uppercase hidden md:inline-block">
+                                    {user.name[0] + user.name[1]}
+                                </AvatarFallback>
+                            </Avatar>
                             <VscChevronDown className="text-slate-500" />
                         </button>
                     </DropdownMenuTrigger>

@@ -194,7 +194,7 @@ export function RegisterForm({ validateEmail, validateUsername }: Props) {
                     OR SIGN UP WITH
                 </p>
                 <div className="w-full max-w-lg flex flex-col gap-3">
-                    <Button variant="outline" size="lg" className="w-full rounded-full">
+                    <Button variant="outline" size="lg" className="w-full rounded-full gap-2">
                         {loading ? <CgSpinner className="animate-spin mr-2 h-5 w-5" /> : <FcGoogle className="mr-2 h-6 w-6" />}
 
                         Sign up with Google

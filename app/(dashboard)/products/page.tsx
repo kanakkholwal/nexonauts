@@ -38,11 +38,11 @@ export default async function MyProducts() {
     }
 
 
-    return (<div className="space-y-6 p-10 pb-16 w-full mt-5">
+    return (<div className="space-y-6 p-4 md:p-10 pb-16 w-full mt-5">
 
-        <div className="flex justify-between items-center flex-wrap">
+        <div className="flex justify-between items-center flex-wrap gap-4">
             <h1 className="text-3xl font-bold">My Products</h1>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
                 <Button variant="link" size="sm" asChild>
                     <Link href={`/products/new`} >
                         <Plus className="w-4 h-4 mr-2" />
@@ -76,9 +76,8 @@ export default async function MyProducts() {
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 divide-y">
             <Suspense fallback={<div>Loading...</div>}>
                 {products.map((product) => {
-                    return <div key={product._id} className="flex flex-col space-y-4">
+                    return <div key={product._id} className="flex flex-col space-y-2 glassmorphism p-4 rounded-xl">
                         <Image width={256} height={160} src={product.preview_url!} alt={product.name} className="w-full h-auto aspect-video object-cover rounded-lg" />
-                        <div className="p-2">
                             <h2 className="text-xl font-semibold truncate">{product.name}</h2>
                             <div className="flex justify-end gap-2 p-2">
                                 <DeleteProductButton/>
@@ -91,8 +90,6 @@ export default async function MyProducts() {
                                     >View</Link>
                                 </Button>
                             </div>
-
-                        </div>
                     </div>
                 })}
             </Suspense>

@@ -13,7 +13,7 @@ interface User extends Document {
   providers: string[];
   role: string;
   dev_account: {
-    bio:string;
+    bio: string;
     socials: Record<string, string>;
     bio_link: string;
     dev_type: string;
@@ -26,9 +26,16 @@ interface User extends Document {
       scope: string;
       integrated: boolean;
       lastAuthorized: Date | null;
-    }
-  };
-  additional_info:  Record<string, string | null>
+    },
+    github: {
+      access_token: string;
+      refresh_token: string | null;
+      scope: string;
+      integrated: boolean;
+      lastAuthorized: Date | null;
+    },
+  }
+  additional_info: Record<string, string | null>
   verificationToken: string | null;
   verified: boolean;
   followers: Types.ObjectId[];
@@ -36,7 +43,7 @@ interface User extends Document {
 }
 
 
-function generateRandomUsername():string {
+function generateRandomUsername(): string {
   // Generate a random UUID
   const slug = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 8)()
 
@@ -50,14 +57,14 @@ const userSchema = new Schema<User>(
       trim: true,
       required: true,
     },
-    username:{
-        type: String,
-        trim: true,
-        required: true,
-        unique: true,
-        validate: [validator.isAlphanumeric, 'Username can only contain letters and numbers'],
-        default: () => generateRandomUsername(),
-        
+    username: {
+      type: String,
+      trim: true,
+      required: true,
+      unique: true,
+      validate: [validator.isAlphanumeric, 'Username can only contain letters and numbers'],
+      default: () => generateRandomUsername(),
+
     },
     email: {
       type: String,
@@ -80,7 +87,7 @@ const userSchema = new Schema<User>(
       minLength: [6, "Your password must be at least 6 characters long"],
       select: false, // Don't send back password after request
     },
-    providers:{
+    providers: {
       type: [String],
       default: [],
     },
@@ -88,7 +95,7 @@ const userSchema = new Schema<User>(
       type: String,
       default: 'user',
       enum: {
-        values: ['user', 'admin',"waitlist"],
+        values: ['user', 'admin', "waitlist"],
       },
     },
     account_type: {
@@ -151,11 +158,30 @@ const userSchema = new Schema<User>(
             default: null,
           },
         },
+        github: {
+          scope: {
+            type: String,
+            default: "repo",
+            
+          },
+          access_token: {
+            type: String,
+            default: null,
+          },
+          integrated: {
+            type: Boolean,
+            default: false,
+          },
+          lastAuthorized: {
+            type: Date,
+            default: null,
+          },
+        },
       },
     }
-  },{
-    timestamps: true,
-  }
+  }, {
+  timestamps: true,
+}
 );
 
 

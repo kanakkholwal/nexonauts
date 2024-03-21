@@ -8,13 +8,14 @@ import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import ThemeSwitcher from "app/layouts/theme-switcher";
 import { ChevronLeftCircle, ChevronRightCircle, LogOut, Rss, Search, Settings2, ShoppingCart, UserRoundCog } from 'lucide-react';
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { useState } from "react";
-import { RiApps2Line } from "react-icons/ri";
+// import { RiApps2Line } from "react-icons/ri";
 import { SessionUserType } from "src/types/user";
 
 export type sideLinkType = {
@@ -34,11 +35,11 @@ const user_links: sideLinkType[] = [
         icon: ShoppingCart,
         href: "/products",
     },
-    {
-        label: "My Tools",
-        icon: RiApps2Line,
-        href: "/tools",
-    },
+    // {
+    //     label: "My Tools",
+    //     icon: RiApps2Line,
+    //     href: "/tools",
+    // },
     {
         label: "Account",
         icon: UserRoundCog,
@@ -106,9 +107,12 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
                 </Link>
             </p>
         </div>
-        <Button variant="destructive_light" size="icon" className='rounded-full ml-auto' onClick={(e) => { e.preventDefault(); signOut({ callbackUrl: "/login" }) }}>
+        <div className="flex gap-2 items-center ml-auto">
+        <ThemeSwitcher />
+        <Button variant="destructive_light" size="icon" className='rounded-full' onClick={(e) => { e.preventDefault(); signOut({ callbackUrl: "/login" }) }}>
             <LogOut className="w-5 h-5" />
         </Button>
+        </div>
     </div>
 }
 
