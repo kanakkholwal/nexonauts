@@ -28,7 +28,7 @@ export default async function IntegrationPage() {
 
     const GITHUB_CLIENT_ID = process.env.GITHUB_ID;
     const GITHUB_REDIRECT_URI = process.env.NEXTAUTH_URL + "settings/integrations/github";
-    const GITHUB_SCOPE = "user%20repo";
+    const GITHUB_SCOPE = "user%20public_repo";
     const GITHUB_STATE = generateSlug(10)
 
 
