@@ -25,13 +25,6 @@ export async function saveAccessToken(code: string) {
     });
     const data = response.data
 
-    // Parse the response string as URLSearchParams
-    const params = new URLSearchParams(data);
-    console.log(response.data);
-    // Data access_token=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&scope=repo%2Cuser&token_type=bearer
-    // extract access_token from data
-
-
 
     if (!data.access_token) {
         return Promise.reject("Error getting token");
