@@ -29,6 +29,7 @@ interface User extends Document {
     },
     github: {
       access_token: string;
+      refresh_token: string | null;
       scope: string;
       integrated: boolean;
       lastAuthorized: Date | null;
@@ -161,9 +162,7 @@ const userSchema = new Schema<User>(
           scope: {
             type: String,
             default: "repo",
-            enum: {
-              values: ["repo", "read:user"],
-            }
+            
           },
           access_token: {
             type: String,

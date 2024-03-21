@@ -6,7 +6,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Metadata } from "next";
 //   import Image from "next/image";
-import { User } from 'lucide-react';
+import { User, Workflow } from 'lucide-react';
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -20,12 +20,12 @@ const list = [
         icon: User,
         href: "/settings/account",
     },
-    // {
-    //     label: "Appearance",
-    //     description: "Manage your site appearance",
-    //     icon: Layers,
-    //     href: "/settings/appearance",
-    // }
+    {
+        label: "Integrations",
+        description:"Manage your integrations",
+        icon: Workflow,
+        href: "/settings/integrations",
+    }
 ] as const;
 
 export default async function SettingsPage() {
