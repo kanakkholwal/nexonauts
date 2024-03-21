@@ -85,7 +85,7 @@ export default function ProductForm(props: Props) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 justify-around items-start">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 justify-around items-start flex-col md:flex-row">
 
                 <div className="flex flex-col gap-4 w-full">
 
@@ -210,7 +210,7 @@ export default function ProductForm(props: Props) {
 
 
                 </div>
-                <div className="flex flex-col gap-4 flex-0 glassmorphism_light p-5 rounded-xl min-w-[24rem]">
+                <div className="flex flex-col gap-4 flex-0 glassmorphism_light p-5 rounded-xl w-full md:min-w-[24rem] md:max-w-md mx-auto">
 
                     <FormField
                         control={form.control}
