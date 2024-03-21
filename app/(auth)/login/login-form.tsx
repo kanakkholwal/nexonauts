@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { BiLockOpenAlt } from "react-icons/bi";
 import { FcGoogle } from "react-icons/fc";
-import { FiGithub } from "react-icons/fi";
 import { LuMail } from "react-icons/lu";
 
 import {
@@ -125,9 +124,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
     return (
         <div className={cn("grid gap-6 lg:max-w-lg text-left", className)} {...props}>
-            <div className='grid gap-2 grid-cols-2'>
+            <div className='grid  grid-cols-1'>
                 <Button variant="outline" type="button" disabled={isLoading}
-                    className='border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200'
+                    className='border-slate-200 gap-2 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200'
                     onClick={async () => {
                         setIsLoading(true);
                         await signIn('google', { callbackUrl: "/feed" })
@@ -139,20 +138,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                     ) : (
                         <FcGoogle className=" h-6 w-6" />
                     )}
-                </Button>
-                <Button variant="outline" type="button" disabled={isLoading}  
-                    className='border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200'
-
-                    onClick={async () => {
-                        setIsLoading(true);
-                        await signIn('github', { callbackUrl: "/feed" })
-                        setIsLoading(false);
-                    }}   >
-                    {isLoading ? (
-                        <AiOutlineLoading className="h-6 w-6 animate-spin" />
-                        ) : (
-                        <FiGithub className="h-6 w-6" />
-                    )}
+                    {isLoading ? "Signing in..." : "Sign in with Google"}
                 </Button>
             </div>
                 <p className="or my-5">
@@ -167,7 +153,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         render={({ field }) => (
                             <FormItem>
                                 <div className='relative group'>
-
                                     <FormLabel className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
                                         <LuMail className='w-4 h-4' />
                                     </FormLabel>
@@ -184,7 +169,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                             className='pl-12 !py-6 pr-5 !mt-0 border-2'
                                             {...field} />
                                     </FormControl>
-
                                 </div>
                                 <FormMessage />
                             </FormItem>

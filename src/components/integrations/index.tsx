@@ -6,7 +6,13 @@ const icons: { [key: string]: React.ElementType } = {
     "github": DiGithubFull,
     "gumroad": TbBrandGumroad,
 };
+const descriptions: { [key: string]: string } = {
+    "github": "Import your GitHub repositories and activity.",
+    "gumroad": "Import your Gumroad products."
+}
 
+export const INTEGRATIONS = Object.keys(icons);
+export const INTEGRATION_DESCRIPTIONS = descriptions;
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
     icon: keyof typeof icons;
