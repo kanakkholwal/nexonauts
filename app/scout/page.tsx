@@ -121,7 +121,7 @@ export default async function Page() {
                         Trusted by over 1000+ developers and businesses.
                     </p>
                 </div>
-                <div className="flex flex-col gap-4 items-center justify-center mt-8">
+                <div className="hidden md:flex flex-col gap-4 items-center justify-center mt-8">
                     <div aria-hidden="true" className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20 -z-10">
                         <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
                         <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
