@@ -14,15 +14,14 @@ import {
 } from "@/components/ui/dialog";
 
 import { Button } from "@/components/ui/button";
+import { Pencil } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { BiLockAlt } from "react-icons/bi";
 import { CgSpinnerAlt } from "react-icons/cg";
 import { LuImage } from "react-icons/lu";
-import { PiCrownSimpleBold } from "react-icons/pi";
 import { SessionUserType } from "src/types/user";
 
 
@@ -35,7 +34,11 @@ type Props = {
         handleUpdateName: (newName: string) => Promise<{
             result: string,
             message: string
-        }>
+        }>,
+        handleUpdatePassword: (oldPassword: string, newPassword: string) => Promise<{
+            result: string,
+            message: string
+        }>,
     }
 }
 export function AccountForm({ user: CurrentUser,serverActions }:Props) {
@@ -44,6 +47,9 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
     const { data: session, update } = useSession();
     const [currentPassword, setCurrentPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const [editingName, setEditingName] = useState(false);
+    // const [editingEmail, setEditingEmail] = useState(false);
+    const [editingPassword, setEditingPassword] = useState(false);
     const [imageStatus, setImageStatus] = useState("idle" as "idle" | "loading" | "success" | "error");
 
 
@@ -100,55 +106,25 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
             })
         }
     }
-    const handleSubmit = async (event) => {
-        event.preventDefault();
 
-        console.log(user);
-        //  on submit change user data
-
-        try {
-            await axios.put('/api/users/' + user._id, { user })
-                .then(res => {
-                    console.log(res);
-                    update({
-                        user: res.data.user
-                    })
-                }).catch(err => {
-                    console.log(err);
-                })
-        }
-        catch (err) {
-            console.log(err);
-        }
-    }
-    const sendVerificationEmail = async () => {
-        await axios.post('/api/users/send-verification-email', { email: user.email })
-            .then(res => {
-                console.log(res);
-            }).catch(err => {
-                console.log(err);
-            })
-    }
     const changePassword = async (event) => {
         event.preventDefault();
-        return new Promise(async (resolve, reject) => {
-            try {
-                await axios.put('/api/users/' + user._id + "/change-password", {
-                    currentPassword: currentPassword,
-                    newPassword: confirmPassword,
-                })
-                    .then(res => {
-                        console.log(res);
-                        resolve(res);
-                    }).catch(err => {
-                        console.log(err);
-                        reject(err);
-                    })
-            }
-            catch (err) {
-                console.log(err);
-                reject(err);
-            }
+        if (currentPassword === confirmPassword) {
+            toast.error("New password can't be same as old password");
+            return;
+        }
+        if (currentPassword.trim() === "" || confirmPassword.trim().length < 6) {
+            toast.error("Invalid password");
+            return;
+        }
+        toast.promise(serverActions.handleUpdatePassword(currentPassword, confirmPassword), {
+            loading: 'Updating password..',
+            success: 'Password updated successfully',
+            error: 'Something went wrong',
+        }).finally(() =>{
+            setCurrentPassword("");
+            setConfirmPassword("");
+            setEditingPassword(false);
         })
     }
 
@@ -300,9 +276,16 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
                         ...user,
                         name: e.target.value
                     })}
-                        variant="ghost"
+                        variant="fluid"
+                        disabled={!editingName}
                     />
-                    <Button size="sm" variant="slate" onClick={() => {
+                    <Button size={editingName ? "sm" : "icon"}
+                    variant="slate" onClick={() => {
+                        if(!editingName){
+                            setEditingName(true);
+                            return;
+                        }
+
                         handleUpdateName(user.name).then(res =>{
                             if(res.result === "success"){
                                 toast.success(res.message);
@@ -313,10 +296,11 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
                                         name: user.name
                                     }
                                 })
+                                setEditingName(false);
                             }
                         })
                     }}>
-                        Save
+                        {editingName ? "Save": <Pencil className="w-4 h-4" /> }
                     </Button>
                 </div>
 
@@ -355,13 +339,25 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
 
             </div> */}
             <div className="w-full mb-5">
+                <div className="flex items-center justify-between gap-4 flex-wrap">
+                <div>
+
                 <h3 className="font-bold">
                     Password
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                    Modify your account's current password.
+                    Change your password. Make sure it's at least 6 characters long.
                 </p>
-                <div className="flex items-center gap-2 mt-2">
+                </div>
+                <div>
+                <Button size="sm" variant="outline" onClick={() => {
+                    setEditingPassword(!editingPassword);
+                }}>
+                    Change Password
+                </Button>
+                </div>
+                </div>
+                {editingPassword && (<div className="flex items-center gap-2 mt-2">
                     <div className='relative grow'>
                         <Label className='absolute top-1/2 -translate-y-1/2 left-4 z-50'>
                             <BiLockAlt className='w-4 h-4' />
@@ -402,48 +398,9 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
                         disabled={currentPassword === confirmPassword || currentPassword.trim() === "" || confirmPassword.trim().length < 6}>
                         Save
                     </Button>
-                </div>
+                </div>)}
 
             </div>
-            <div className="w-full mb-5">
-                <h3 className="font-bold">
-                    Account Type
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                    {CurrentUser?.account_type === "premium" ? "You are a premium user. You have access to all features." : "You are a free user. You have limited access to features."}
-                </p>
-                {CurrentUser?.account_type === "premium" ? <div className="flex items-center gap-2 mt-5">
-                    <Link href="/pricing">
-                        <Button size="sm" variant="gradient_blue">
-                            <PiCrownSimpleBold className="w-4 h-4 mr-2" />
-                            Upgrade to Premium
-                        </Button>
-                    </Link>
-                </div> : null}
-
-            </div>
-
-            {/* <p>
-                <Badge nature={CurrentUser?.account_type === "premium" ? "success" : "warning"} className="g-0">
-                    {user?.account_type}
-                </Badge>
-                <Badge nature={CurrentUser?.verified === true ? "success" : "warning"} className="g-0">
-                    {user.verified === true ? "Verified" : "Email not verified"}<MdVerified />
-                </Badge>
-            </p>
-            {CurrentUser?.verified === false && <p className="text-muted small">Your email is not verified. Please verify your email to get access to all features.</p>}
-            {CurrentUser?.verified === false && <p className="text-muted small">You can send verification email again if you didn't receive it.</p>}
-            <span className="verify" onClick={() => {
-                toast.promise(sendVerificationEmail(), {
-                    loading: "Sending Email..",
-                    success: "Email sent successfully",
-                    error: "Something went wrong"
-                })
-            }}
-                hidden={CurrentUser?.verified === true}
-            >
-                Send Verification Email
-            </span> */}
 
         </div>)
 }
