@@ -112,7 +112,7 @@ export const INTEGRATION_CONFIG: {
             user.integrations.github = {
                 access_token: data.access_token,
                 lastAuthorized: new Date().toISOString(),
-                scope: data.scope,
+                scope: this.scope,
                 integrated: true
             }
             await user.save();
