@@ -71,7 +71,7 @@ export default async function PlatformPage({ searchParams, params }: Props) {
                     Your account is connected with <strong>{params.platform}</strong>
                 </p>
             </div>
-            <RevokeTokenButton revokeToken={revokeToken} platform={params.platform} key={params.platform} />
+            <RevokeTokenButton revokeToken={revokeToken} platform={params.platform} key={gparams.platform} />
         </div>)}
         {/* // This is the Authorisation component */}
         {(!integrationData.integrated && !isRedirected) && (<>
