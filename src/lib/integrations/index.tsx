@@ -77,8 +77,49 @@ export const INTEGRATION_CONFIG: {
         },
         saveToken: async function (options: Record<string, any>) {
 
-            
-            return Promise.resolve(true);
+            const url = 'https://github.com/login/oauth/access_token';
+
+            const dataBody = {
+                client_id: process.env.GITHUB_ID,
+                client_secret: process.env.GITHUB_SECRET,
+                redirect_uri: this.redirect_uri,
+                code:options.code
+            }
+
+            const response = await axios.post(url, dataBody, {
+                headers: {
+                    'Accept': 'application/json',
+                },
+            });
+            const data = response.data
+
+
+            if (!data.access_token) {
+                return Promise.reject("Error getting token");
+            }
+
+            const session = await getServerSession(authOptions) as sessionType
+            await dbConnect();
+            const user = await UserModel.findById(session.user._id).select('integrations').exec();
+            console.log("User", user);
+            if (!user) {
+                return Promise.reject("User not found");
+            }
+            if (!user.integrations) {
+                user.integrations = {};
+                user.integrations.github = {}
+            }
+            user.integrations.github = {
+                access_token: data.access_token,
+                lastAuthorized: new Date().toISOString(),
+                scope: this.scope,
+                integrated: true
+            }
+            await user.save();
+            console.log("Token saved");
+
+            return Promise.resolve(data);
+
         }
     },
     "gumroad": {
@@ -129,7 +170,7 @@ export const INTEGRATION_CONFIG: {
             }
             user.integrations.gumroad = {
                 access_token: data.access_token,
-                lastAuthorized:new Date().toISOString(),
+                lastAuthorized: new Date().toISOString(),
                 scope: this.scope,
                 integrated: true
             }
