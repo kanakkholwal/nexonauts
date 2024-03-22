@@ -14,7 +14,7 @@ const buttonVariants = cva(
         default_light: "bg-primary/10 text-primary hover:bg-primary/20 dark:bg-primary/20 dark:text-primary hover:dark:bg-primary/10 hover:dark:text-primary",
         success_light: "bg-green-500/10 text-green-500 hover:bg-green-500/20 dark:bg-green-500/20 dark:text-green-500 hover:dark:bg-green-500/10 hover:dark:text-green-500",
         warning_light: "bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 dark:bg-yellow-500/20 dark:text-yellow-500 hover:dark:bg-yellow-500/10 hover:dark:text-yellow-500",
-        destructive_light: "bg-red-500/10 text-red-500 hover:bg-red-500/20 dark:bg-red-500/20 dark:text-red-500 hover:dark:bg-red-500/10 hover:dark:text-red-500",
+        destructive_light: "bg-red-500/10 text-red-500 hover:bg-red-500/20 dark:bg-red-500/5 dark:text-red-500 hover:dark:bg-red-500/10 hover:dark:text-red-500",
         destructive:
           "bg-red-100 hover:bg-red-200 text-red-600	dark:bg-red-700 dark:text-red-200 dark:hover:bg-red-800 dark:hover:text-red-200",
         outline:

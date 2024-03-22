@@ -62,7 +62,7 @@
         "jsonwebtoken": "^9.0.0",
         "language-detect": "^1.1.0",
         "lodash.debounce": "^4.0.8",
-        "lucide-react": "^0.309.0",
+        "lucide-react": "^0.362.0",
         "markdown-to-jsx": "^7.3.2",
         "mongoose": "^8.0.4",
         "nexo-html2jsx": "^1.2.0",
