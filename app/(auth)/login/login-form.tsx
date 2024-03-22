@@ -52,7 +52,7 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const callbackUrl = searchParams?.get('redirect') || "/feed";
+    const redirect = searchParams?.get('redirect') || "/feed";
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -72,9 +72,9 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             success: (data) => {
                 console.log(data);
                 setIsLoading(false);
-                if(callbackUrl){
-                    router.push(callbackUrl);
-                    return `Logged in successfully to ${callbackUrl}`
+                if(redirect){
+                    router.push(redirect);
+                    return `Logged in successfully to ${redirect}`
                 }
                 router.push("/feed");
                 return `Logged in successfully to dashboard`
@@ -129,7 +129,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                     className='border-slate-200 gap-2 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200'
                     onClick={async () => {
                         setIsLoading(true);
-                        await signIn('google', { callbackUrl: "/feed" })
+                        await signIn('google', { callbackUrl: redirect })
                         setIsLoading(false);
 
                     }}            >
@@ -165,7 +165,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                             autoComplete="email"
                                             autoCorrect="off"
                                             disabled={isLoading}
-                                            variant="fluid"
+                                            variant="ghost"
                                             className='pl-12 !py-6 pr-5 !mt-0 border-2'
                                             {...field} />
                                     </FormControl>
@@ -193,7 +193,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                             autoComplete="password"
                                             autoCorrect="off"
                                             disabled={isLoading}
-                                            variant="fluid"
+                                            variant="ghost"
                                             className='pl-12 !py-6 pr-5 !mt-0  border-2'
 
                                             {...field} />
@@ -217,7 +217,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         Sign In with Email
                     </Button>
                     <p className='text-left text-sm font-medium text-slate-500 dark:text-slate-300'>
-                        Don't have an account? <Link href="/signup" className='text-primary hover:underline'>Sign Up</Link>
+                        Don't have an account? <Link href={"/signup?redirect=" + redirect} className='text-primary hover:underline'>Sign Up</Link>
                     </p>
                 </form>
             </Form>

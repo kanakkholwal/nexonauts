@@ -150,7 +150,7 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
 
     return (
         <div className="space-y-6">
-            <div className="flex items-center justify-between gap-2 w-full mb-5">
+            <div className="flex items-center justify-between gap-2 w-full mb-5 flex-wrap">
                 <div className=" flex items-center gap-2">
                     <Avatar className="h-20 w-20">
                         <AvatarImage alt={CurrentUser.name} src={user.profilePicture.toString()} height={180} width={180} />
