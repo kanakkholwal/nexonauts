@@ -29,7 +29,7 @@ export function ShareProfile({ profile }: {
 
     return (<Dialog>
         <DialogTrigger asChild>
-            <Button className="rounded-full px-6" variant="slate">Share <Share2 className="inline-block w-4 h-4 ml-2" /></Button>
+            <Button className="rounded-full px-6" variant="outline">Share <Share2 className="inline-block w-4 h-4 ml-2" /></Button>
         </DialogTrigger>
         <DialogContent>
             <DialogHeader>

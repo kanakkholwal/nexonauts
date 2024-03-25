@@ -20,6 +20,7 @@ import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { VscChevronDown } from "react-icons/vsc";
 import { SessionUserType } from "src/types/user";
+
 export default function Navbar({ user }: { user: SessionUserType }) {
     const pathname = usePathname();
 
@@ -38,7 +39,7 @@ export default function Navbar({ user }: { user: SessionUserType }) {
                         <button className="flex items-center space-x-2 px-3 py-1.5 rounded-lg">
                             <Avatar>
                                 <AvatarImage src={user.profilePicture.toString()} alt={"@" + user.username} height={80} width={80} className="" />
-                                <AvatarFallback className="uppercase hidden md:inline-block">
+                                <AvatarFallback className="uppercase hidden md:flex">
                                     {user.name[0] + user.name[1]}
                                 </AvatarFallback>
                             </Avatar>
@@ -49,7 +50,7 @@ export default function Navbar({ user }: { user: SessionUserType }) {
                         <DropdownMenuLabel>My Account</DropdownMenuLabel>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem asChild>
-                            <Link href={"/dashboard/settings?defaultTabprofile=profile"} className="w-full text-accent-foreground hover:text-slate-800">
+                            <Link href={`/devs/${user.username}`} target="_blank" className="w-full text-accent-foreground hover:text-slate-800 cursor-pointer">
                                 <FaRegUser className="w-3 h-3 mr-1" />
                                 Profile
                             </Link>
@@ -58,7 +59,7 @@ export default function Navbar({ user }: { user: SessionUserType }) {
                             <button onClick={(e) => {
                                 e.preventDefault();
                                 signOut();
-                            }} className="w-full text-accent-foreground hover:text-slate-800">
+                            }} className="w-full text-accent-foreground hover:text-red-800 cursor-pointer">
                                 <MdLogout className="w-3 h-3 mr-1" />
                                 Log Out
                             </button>

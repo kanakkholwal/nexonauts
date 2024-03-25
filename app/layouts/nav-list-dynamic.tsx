@@ -147,7 +147,7 @@ const list = [
 export function NavList() {
 
     return (
-        <div className="hidden lg:flex items-center justify-start flex-1 mx-auto " id="navlinks">
+        <div className="hidden xl:flex items-center justify-start flex-1 mx-auto " id="navlinks">
             {list.map((item, index) => {
                 return (<Link key={`navlink-${index}`}
                     className={cn(
