@@ -8,7 +8,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 const cardVariants = cva("rounded-lg border text-card-foreground shadow-sm backdrop-blur-sm", {
   variants: {
     variant: {
-      default: "bg-card dark:bg-slate-900 dark:border-slate-700",
+      default: "bg-card",
       glass: "bg-slate-50/15 dark:bg-slate-800/15 backdrop-blur-xl border-slate-500/10 dark:border-border/70",
     },
   },

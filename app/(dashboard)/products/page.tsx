@@ -1,10 +1,4 @@
 import { Button } from "@/components/ui/button";
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import { Plus } from 'lucide-react';
 import { Metadata } from "next";
 import Image from "next/image";
@@ -21,21 +15,7 @@ export const metadata: Metadata = {
 
 
 export default async function MyProducts() {
-    const products = await getProducts();
-
-    const getAuthorizeUrl = (scope: string) => {
-        const GUMROAD_CLIENT_ID = process.env.NEXT_PUBLIC_GUMROAD_APP_ID;
-        if (!GUMROAD_CLIENT_ID) {
-            throw new Error("GUMROAD_CLIENT_ID is not set");
-        }
-        const redirect_uri = process.env.NEXT_PUBLIC_WEBSITE_URL + "/products/import-from-gumroad?scope=" + scope;
-        // https://gumroad.com/oauth/authorize?client_id=CLIENT_ID&redirect_uri=REDIRECT_URI&scope=SCOPE
-        const url = new URL("https://gumroad.com/oauth/authorize");
-        url.searchParams.append("client_id", GUMROAD_CLIENT_ID);
-        url.searchParams.append("scope", scope);
-        url.searchParams.append("redirect_uri", redirect_uri);
-        return url.toString();
-    }
+    const {products,integrated} = await getProducts();
 
 
     return (<div className="space-y-6 p-4 md:p-10 pb-16 w-full mt-5">
@@ -49,27 +29,13 @@ export default async function MyProducts() {
                         New Product
                     </Link>
                 </Button>
-                <ProductSyncButton syncProducts={syncWithGumroad} />
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="outline" size="sm">
-                            Import from Gumroad
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent>
-                        <DropdownMenuItem asChild>
-                            <Link href={getAuthorizeUrl("edit_products")} className="cursor-pointer">
-                                View & Edit access
-                            </Link>
-                        </DropdownMenuItem>
-                        <DropdownMenuItem asChild>
-                            <Link href={getAuthorizeUrl("view_profile")} className="cursor-pointer">
-                                View Only access
-                            </Link>
-                        </DropdownMenuItem>
+                {integrated && <ProductSyncButton syncProducts={syncWithGumroad} />}
+                {!integrated && (<Button variant="outline" size="sm" asChild>
+                    <Link href={`/settings/integrations/gumroad`} >
+                        Connect Gumroad
+                    </Link>
+                </Button>)}
 
-                    </DropdownMenuContent>
-                </DropdownMenu>
             </div>
         </div>
 
@@ -78,18 +44,18 @@ export default async function MyProducts() {
                 {products.map((product) => {
                     return <div key={product._id} className="flex flex-col space-y-2 glassmorphism p-4 rounded-xl">
                         <Image width={256} height={160} src={product.preview_url!} alt={product.name} className="w-full h-auto aspect-video object-cover rounded-lg" />
-                            <h2 className="text-xl font-semibold truncate">{product.name}</h2>
-                            <div className="flex justify-end gap-2 p-2">
-                                <DeleteProductButton/>
-                                <Button variant="link" size="sm" asChild>
-                                    <Link href={`/products/${product.slug}/edit`} className="text-primary">Edit</Link>
-                                </Button>
-                                <Button variant="outline" size="sm" asChild>
-                                    <Link href={`/marketplace/products/${product.slug}`} target="_blank"
-                                        rel="noopener noreferrer" 
-                                    >View</Link>
-                                </Button>
-                            </div>
+                        <h2 className="text-xl font-semibold truncate">{product.name}</h2>
+                        <div className="flex justify-end gap-2 p-2">
+                            <DeleteProductButton />
+                            <Button variant="link" size="sm" asChild>
+                                <Link href={`/products/${product.slug}/edit`} className="text-primary">Edit</Link>
+                            </Button>
+                            <Button variant="outline" size="sm" asChild>
+                                <Link href={`/marketplace/products/${product.slug}`} target="_blank"
+                                    rel="noopener noreferrer"
+                                >View</Link>
+                            </Button>
+                        </div>
                     </div>
                 })}
             </Suspense>

@@ -224,7 +224,23 @@ userSchema.methods.comparePassword = async function (password) {
   } catch (err) {
     throw new Error(err);
   }
-};
+}
+userSchema.methods.followUnfollowUser = async function (userId: Types.ObjectId, follow: boolean) {
+  if (follow) {
+    if (this.following.includes(userId)) {
+      throw new Error('Already following');
+    }
+    this.following.push(userId);
+    await this.save();
+  } else {
+    if (!this.following.includes(userId)) {
+      throw new Error('Not following');
+    }
+    this.following = this.following.filter((_id) => _id.toString() !== userId.toString());
+    await this.save();
+  }
+} 
+
 userSchema.statics.findCommonFollowers = async function (
   userId1: Types.ObjectId,
   userId2: Types.ObjectId
