@@ -8,11 +8,28 @@ export function FollowButton({ isFollowing, followUser }) {
         <Button onClick={() =>{
             toast.promise(followUser(), {
                 loading: "Loading...",
-                success: "Success",
+                success: (data:any) => {
+                    return data.message;
+                },
                 error: "Error"
             });
-        }} variant={isFollowing ? "secondary" : "default"} className="rounded-full px-6">
-            {isFollowing ? "Unfollow" : "Follow"}
+        }} variant={isFollowing ? "outline" : "default"} className="rounded-full px-6 w-full max-w-xs">
+            {isFollowing ? "Following" : "Follow"}
+        </Button>
+    )
+}
+export function FollowToggle({ isFollowing, followUser }) {
+    return (
+        <Button onClick={() =>{
+            toast.promise(followUser(), {
+                loading: "Loading...",
+                success: (data:any) => {
+                    return data.message;
+                },
+                error: "Error"
+            });
+        }} size="sm" variant={isFollowing ? "outline" : "default"} >
+            {isFollowing ? "Following" : "Follow"}
         </Button>
     )
 }

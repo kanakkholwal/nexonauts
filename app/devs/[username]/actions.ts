@@ -7,40 +7,42 @@ import UserModel from "src/models/user";
 import { sessionType } from "src/types/session";
 
 
-export async function followUnfollowUser(username: string, follow: boolean) {
+export async function followUnfollowUser(username: string) {
     try {
         const session = await getServerSession(authOptions) as sessionType | null;
         if (!session) {
-            return Promise.resolve({
+            return Promise.reject({
                 isFollowing: false,
                 message: "Not authenticated"
             });
         }
+        console.log("user logged in , ")
 
         await dbConnect();
         const user = await UserModel.findOne({ username: username }).exec();
         if (!user) {
-            return Promise.resolve({
+            return Promise.reject({
                 success: false,
                 message: "User not found"
             });
         }
+        console.log("user found , ")
         const currentUser = await UserModel.findById(session.user._id).exec();
         if (!currentUser) {
-            return Promise.resolve({
+            return Promise.reject({
                 success: false,
                 message: "User not found"
             });
         }
-        await currentUser.followUnfollowUser(user._id, follow)
+        console.log("current user found , ")
+        const data = await currentUser.followUnfollowUser(user._id)
+        console.error(data.message)
         revalidatePath(`/devs/${username}`);
 
-        return Promise.resolve({
-            isFollowing: follow,
-            message: follow ? "Followed" : "Unfollowed"
-        });
+        return Promise.resolve(data);
     }catch(err){
-        return Promise.resolve({
+        console.log(err);
+        return Promise.reject({
             success: false,
             message: "An error occured"
         });
