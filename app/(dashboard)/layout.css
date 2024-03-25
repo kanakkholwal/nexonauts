@@ -1,0 +1,8 @@
+
+.pattern_feed{
+    background-size: calc(20px + 0.7vw);
+    background-repeat: repeat;
+    -webkit-mask-image: linear-gradient(to top, white, transparent);
+    mask-image: linear-gradient(to top, white, transparent);
+    background-image: url(/assets/backgrounds/square.svg);
+}

@@ -155,7 +155,7 @@ export const authOptions: NextAuthOptions = {
                             account_type: "free",
                             verificationToken: null,
                             verified: true,
-                            providers: ["google"],
+                            profile:null,
                             additional_info: {},
                         });
                         await user.save();
@@ -179,7 +179,6 @@ export const authOptions: NextAuthOptions = {
                     await UserModel.updateOne({ _id: userInDb._id }, {
                         $set: {
                             verified: true,
-                            providers: Array.from(new Set([...userInDb.providers, "google"]))
                         }
                     })
 
@@ -195,7 +194,7 @@ export const authOptions: NextAuthOptions = {
                         role: userInDb.role || "user",
                         verificationToken: userInDb.verificationToken || null,
                         verified: true,
-                        profile: userInDb.profile.toString() || null,
+                        profile: userInDb.profile?.toString() || null,
                         additional_info: userInDb.additional_info || {},
                     })
                 }

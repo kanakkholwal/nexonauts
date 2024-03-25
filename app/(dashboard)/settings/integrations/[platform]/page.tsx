@@ -2,12 +2,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { formatDistance } from "date-fns";
-import { getServerSession } from "next-auth/next";
 import Link from "next/link";
-import { sessionType } from "src/types/session";
-
 import { Icon, INTEGRATION_CONFIG, INTEGRATION_DESCRIPTIONS, INTEGRATION_USAGE_CASES } from "src/lib/integrations";
 import { Authorisor, RevokeTokenButton } from "./platform-client";
 
@@ -32,7 +28,6 @@ export default async function PlatformPage({ searchParams, params }: Props) {
 
     const code = searchParams?.code as string;
     // get the user session
-    const session = await getServerSession(authOptions) as sessionType;
 
     const integrationData = await getUserIntegrationData(params.platform);
 
