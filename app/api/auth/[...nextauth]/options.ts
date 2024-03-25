@@ -1,6 +1,5 @@
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import dbConnect from "src/lib/dbConnect";
 import UserModel from "src/models/user";
@@ -98,7 +97,6 @@ export const authOptions: NextAuthOptions = {
                                 success: false
                             })
                         const user = {
-                            id: userInDb._id.toString(),
                             _id: userInDb._id.toString(),
                             name: userInDb.name,
                             email: userInDb.email,
@@ -108,13 +106,13 @@ export const authOptions: NextAuthOptions = {
                             role: userInDb.role || "user",
                             verificationToken: userInDb.verificationToken || null,
                             verified: userInDb.verified || false,
-                            providers: Array.from(new Set(userInDb.providers)),
+                            profile: userInDb.profile.toString() || null,
                             additional_info: userInDb.additional_info || {},
                         }
 
 
                         console.log("user found", user)
-                        return resolve(user)
+                        return resolve(JSON.parse(JSON.stringify(user)))
 
                     }
                     catch (err) {
@@ -143,10 +141,14 @@ export const authOptions: NextAuthOptions = {
                     const userInDb = await UserModel.findOne({ email: profile.email })
                     if (!userInDb) {
                         console.log("user not found, creating new user", profile)
+                        const username= profile.email.split("@")[1] === "gmail.com" ? 
+                            profile.email.split("@")[0] + "_gmail"
+                            : profile.email.split("@")[0] + "_other"
+
                         const user = new UserModel({
                             name: profile.name,
                             email: profile.email,
-                            username: profile.email.split("@")[0],
+                            username: username,
                             profilePicture: profile.picture,
                             password: "google" + profile.sub,
                             role: "user",
@@ -161,7 +163,6 @@ export const authOptions: NextAuthOptions = {
                         return Promise.resolve({
                             id: user._id.toString(),
                             _id: userInDb._id.toString(),
-
                             name: user.name,
                             email: user.email,
                             username: user.username,
@@ -170,7 +171,7 @@ export const authOptions: NextAuthOptions = {
                             role: user.role || "user",
                             verificationToken: user.verificationToken || null,
                             verified: user.verified || false,
-                            providers: Array.from(new Set(user.providers)),
+                            profile: userInDb.profile.toString() || null,
                             additional_info: user.additional_info || {},
                         });
                     }
@@ -186,7 +187,6 @@ export const authOptions: NextAuthOptions = {
                     return Promise.resolve({
                         id: userInDb._id.toString(),
                         _id: userInDb._id.toString(),
-
                         name: userInDb.name,
                         email: userInDb.email,
                         username: userInDb.username,
@@ -195,7 +195,7 @@ export const authOptions: NextAuthOptions = {
                         role: userInDb.role || "user",
                         verificationToken: userInDb.verificationToken || null,
                         verified: true,
-                        providers: Array.from(new Set([...userInDb.providers, "google"])),
+                        profile: userInDb.profile.toString() || null,
                         additional_info: userInDb.additional_info || {},
                     })
                 }
@@ -205,45 +205,6 @@ export const authOptions: NextAuthOptions = {
                 }
 
 
-            },
-        }),
-        GithubProvider({
-            clientId: env.GITHUB_ID,
-            clientSecret: env.GITHUB_SECRET,
-            authorization: {
-                params: { scope: "read:user user:email" },
-            },
-            async profile(profile) {
-                console.log(profile);
-                const gotUser = {
-                    name: profile.name,
-                    email: profile.email,
-                    profilePicture: profile.avatar_url,
-                    password: "github" + profile.id,
-                    username: profile.login,
-                    role: "user",
-                    account_type: "free",
-                    verificationToken: null,
-                    verified: true,
-                    providers: ["github"],
-                    additional_info: {},
-                }
-                await dbConnect();
-                const isUser = await UserModel.findOne({ email: profile.email })
-                if (isUser) {
-                    await UserModel.updateOne({ _id: isUser._id }, {
-                        $set: {
-                            profilePicture: profile.avatar_url,
-                            verified: true,
-                            providers: [...isUser.providers, "github"]
-                        }
-                    })
-
-                    return Promise.resolve(isUser)
-                }
-                const user = new UserModel(gotUser);
-                await user.save();
-                return Promise.resolve(user);
             },
         })
     ],
@@ -265,7 +226,7 @@ export const authOptions: NextAuthOptions = {
                     profilePicture: user.profilePicture,
                     role: user.role || "user",
                     verified: user.verified || false,
-                    providers: user.providers,
+                    profile: user.profile,
                     additional_info: user.additional_info,
                 }
             }
