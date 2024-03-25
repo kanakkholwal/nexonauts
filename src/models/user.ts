@@ -4,6 +4,22 @@ import { customAlphabet } from 'nanoid';
 import validator from 'validator';
 
 // Define a user schema
+
+interface Integration {
+  gumroad: {
+    access_token: string;
+    scope: string;
+    integrated: boolean;
+    lastAuthorized: Date | null;
+  },
+  github: {
+    access_token: string;
+    refresh_token: string | null;
+    scope: string | null;
+    integrated: boolean;
+    lastAuthorized: Date | null;
+  },
+}
 interface User extends Document {
   name: string;
   username: string;
@@ -11,28 +27,71 @@ interface User extends Document {
   profilePicture: string;
   password: string;
   role: string;
-  profile:Types.ObjectId,
+  profile: Types.ObjectId,
   account_type: string;
-  integrations: {
-    gumroad: {
-      access_token: string;
-      scope: string;
-      integrated: boolean;
-      lastAuthorized: Date | null;
-    },
-    github: {
-      access_token: string;
-      refresh_token: string | null;
-      scope: string | null;
-      integrated: boolean;
-      lastAuthorized: Date | null;
-    },
-  }
+  integrations: Integration,
   additional_info: Record<string, string | null>
   verificationToken: string | null;
   verified: boolean;
 }
+interface IntegrationSchema extends Document {
+  gumroad: {
+    access_token: string;
+    scope: string;
+    integrated: boolean;
+    lastAuthorized: Date | null;
+  },
+  github: {
+    access_token: string;
+    refresh_token: string | null;
+    scope: string | null;
+    integrated: boolean;
+    lastAuthorized: Date | null;
+  },
+}
 
+
+const integrationSchema = new Schema<IntegrationSchema>({
+  gumroad: {
+    scope: {
+      type: String,
+      default: "edit_products",
+      enum: {
+        values: ["edit_products", "view_profile", "view_sales"],
+      }
+    },
+    access_token: {
+      type: String,
+      default: null,
+    },
+    integrated: {
+      type: Boolean,
+      default: true,
+    },
+    lastAuthorized: {
+      type: Date,
+      default: null,
+    },
+  },
+  github: {
+    scope: {
+      type: String,
+      default: "repo",
+    },
+    access_token: {
+      type: String,
+      default: null,
+    },
+    integrated: {
+      type: Boolean,
+      default: false,
+    },
+    lastAuthorized: {
+      type: Date,
+      default: null,
+    },
+  },
+})
 
 function generateRandomUsername(): string {
   // Generate a random UUID
@@ -89,7 +148,7 @@ const userSchema = new Schema<User>(
         values: ['free', 'pro', 'premium',],
       },
     },
-    profile:{
+    profile: {
       type: Schema.Types.ObjectId,
       ref: 'Profile',
       default: null,
@@ -103,52 +162,25 @@ const userSchema = new Schema<User>(
       default: false,
     },
     integrations: {
-      select: false,
-      type: {
+      // select: false,
+      type: integrationSchema,
+      default: {
         gumroad: {
-          scope: {
-            type: String,
-            default: "edit_products",
-            enum: {
-              values: ["edit_products", "view_profile", "view_sales"],
-            }
-          },
-          access_token: {
-            type: String,
-            default: null,
-          },
-          integrated: {
-            type: Boolean,
-            default: true,
-          },
-          lastAuthorized: {
-            type: Date,
-            default: null,
-          },
+          scope: "edit_products",
+          access_token: null,
+          integrated: false,
+          lastAuthorized: null,
         },
         github: {
-          scope: {
-            type: String,
-            default: "repo",
-
-
-          },
-          access_token: {
-            type: String,
-            default: null,
-          },
-          integrated: {
-            type: Boolean,
-            default: false,
-          },
-          lastAuthorized: {
-            type: Date,
-            default: null,
-          },
+          scope: "repo",
+          access_token: null,
+          integrated: false,
+          lastAuthorized: null,
         },
       },
     }
-  }, {
+  },
+  {
   timestamps: true,
 });
 
@@ -183,6 +215,26 @@ userSchema.pre<User>('save', async function (next) {
   }
   next();
 });
+// userSchema.pre<User>('save', async function (next) {
+//   if (this.isNew) {
+//     this.integrations = {
+//       gumroad: {
+//         scope: "edit_products",
+//         access_token: null,
+//         integrated: true,
+//         lastAuthorized: null,
+//       },
+//       github: {
+//         scope: "repo",
+//         access_token: null,
+//         integrated: false,
+//         lastAuthorized: null,
+//       },
+//     }
+//     await this.save();
+//   }
+//   next();
+// });
 
 // Method to compare password
 userSchema.methods.comparePassword = async function (password) {

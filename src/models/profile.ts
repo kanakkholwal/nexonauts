@@ -1,15 +1,23 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
 
 
+export type ProfileType = {
+    user: string;
+    username: string;
+    bio: string;
+    socials: Record<string, string>;
+    interests: string[];
+};
+
+
 interface Profile extends Document {
     user: Types.ObjectId;
     username: string;
     bio: string;
     socials: Record<string, string>;
-    bio_link: string;
-    dev_type: string;
     followers: Types.ObjectId[];
     following: Types.ObjectId[];
+    interests: string[];
 }
 
 const profileSchema = new Schema<Profile>(
@@ -34,16 +42,6 @@ const profileSchema = new Schema<Profile>(
             required: true,
             default: {}
         },
-        bio_link: {
-            type: String,
-            required: true,
-            default: ''
-        },
-        dev_type: {
-            type: String,
-            required: true,
-            default: 'developer'
-        },
         followers: {
             type: [Types.ObjectId],
             ref: 'User',
@@ -52,6 +50,10 @@ const profileSchema = new Schema<Profile>(
         following: {
             type: [Types.ObjectId],
             ref: 'User',
+            default: []
+        },
+        interests: {
+            type: [String],
             default: []
         }
     },

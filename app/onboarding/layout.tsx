@@ -4,6 +4,8 @@ import { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 
 
+export const dynamic = "force-dynamic";
+
 export const metadata :Metadata = {
     title: "OnBoarding - NexoNauts",
     description: "OnBoarding for NexoNauts",
