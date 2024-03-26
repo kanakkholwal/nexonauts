@@ -215,7 +215,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         </Link>
                     </p>
 
-                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" variant="gradient_blue" size="lg">
+                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" variant="default" size="lg">
                         {isLoading && (
                             <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
                         )}

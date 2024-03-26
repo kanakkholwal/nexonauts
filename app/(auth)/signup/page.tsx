@@ -2,11 +2,11 @@
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import dbConnect from "src/lib/dbConnect";
 import User from "src/models/user";
 import { RegisterForm } from './register-form';
-import Link from "next/link";
 
 export const metadata: Metadata = {
     title: "Signup | NexoNauts",
@@ -69,13 +69,16 @@ export default async function Page() {
             <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
 
             {!IsWaitingList ?  <RegisterForm validateEmail={validateEmail} validateUsername={validateUsername} />:<>
-                <div className="flex items-center justify-center space-x-2">
+                <div className="flex flex-col items-center justify-center space-x-2">
                     <p className="text-lg">Signup is currently by invitation only.</p>
-                    <Link href="/login" className="text-blue-600 underline">Login</Link>
+                    <p>
+
+                    <Link href="/login" className="text-primary underline">Login</Link>
                     or 
-                    <Link href="/waitlist" className="text-blue-600 underline">
+                    <Link href="/waitlist" className="text-primary underline">
                         Join the waiting list
                     </Link>
+                    </p>
                 </div>
             </>}
 

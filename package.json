@@ -81,6 +81,7 @@
         "react-day-picker": "^8.9.1",
         "react-dom": "^18.2.0",
         "react-dropzone": "^14.2.3",
+        "react-easy-sort": "^1.6.0",
         "react-editor-js": "latest",
         "react-email": "2.0.0",
         "react-google-recaptcha": "^2.1.0",
