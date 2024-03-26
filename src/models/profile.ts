@@ -150,4 +150,4 @@ profileSchema.statics.findCommonFollowersFollowing = async function (
     return commonFollowersFollowing;
 };
 const Profile = mongoose.models.Profile || mongoose.model<Profile>('Profile', profileSchema);
-
+export default Profile;
