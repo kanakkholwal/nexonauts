@@ -70,7 +70,7 @@ export default async function PlatformPage({ searchParams, params }: Props) {
         </div>)}
         {/* // This is the Authorisation component */}
         {(!integrationData.integrated && !isRedirected) && (<>
-            <div className="space-y-4 w-full flex flex-col items-center justify-center mx-auto glassmorphism_light mt-10 p-5 py-10 rounded-xl max-w-md shadow-xl">
+            <div className="space-y-4 w-full flex flex-col items-center justify-center mx-auto glassmorphism_light bg-white/5 mt-10 p-5 py-10 rounded-xl max-w-md shadow-xl">
                 <div>
                     <h3 className="text-lg font-bold">
                         Authorisation

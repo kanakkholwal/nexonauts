@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from 'react';
 import { UserRound } from 'lucide-react';
+import { useState } from 'react';
 
 import { Button } from "@/components/ui/button";
 import {
@@ -34,7 +34,7 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
     joinWaitList: (data: z.infer<typeof FormSchema>) => Promise<boolean>
 }
 
-export default function WaitListForm({ className, ...props }: UserAuthFormProps) {
+export default function WaitListForm({ className,joinWaitList, ...props }: UserAuthFormProps) {
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -48,7 +48,7 @@ export default function WaitListForm({ className, ...props }: UserAuthFormProps)
         console.log(data);
         setIsLoading(true)
 
-        toast.promise(props.joinWaitList(data), {
+        toast.promise(joinWaitList(data), {
             loading: 'Adding to Waitlist...',
             success: (data) => {
                 console.log(data);
@@ -125,7 +125,7 @@ export default function WaitListForm({ className, ...props }: UserAuthFormProps)
                         )}
                     />
 
-                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" variant="gradient_blue" size="lg">
+                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide"  size="lg">
                         {isLoading && (
                             <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
                         )}

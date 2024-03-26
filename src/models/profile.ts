@@ -5,7 +5,10 @@ export type ProfileType = {
     user: string;
     username: string;
     bio: string;
-    socials: Record<string, string>;
+    socials: {
+        name: string;
+        url: string;
+    }[];
     interests: string[];
 };
 
@@ -14,7 +17,10 @@ interface Profile extends Document {
     user: Types.ObjectId;
     username: string;
     bio: string;
-    socials: Record<string, string>;
+    socials: {
+        name: string;
+        url: string;
+    }[];
     followers: Types.ObjectId[];
     following: Types.ObjectId[];
     interests: string[];
@@ -38,9 +44,11 @@ const profileSchema = new Schema<Profile>(
             default: ''
         },
         socials: {
-            type: Object,
-            required: true,
-            default: {}
+            type: [{
+                name: String,
+                url: String
+            }],
+            default: [],
         },
         followers: {
             type: [Types.ObjectId],
