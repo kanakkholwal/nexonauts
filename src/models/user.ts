@@ -7,14 +7,13 @@ import validator from 'validator';
 
 interface Integration {
   gumroad: {
-    access_token: string;
-    scope: string;
+    access_token: string | null;
+    scope: string | null;
     integrated: boolean;
     lastAuthorized: Date | null;
   },
   github: {
-    access_token: string;
-    refresh_token: string | null;
+    access_token: string | null;
     scope: string | null;
     integrated: boolean;
     lastAuthorized: Date | null;
@@ -36,14 +35,13 @@ interface User extends Document {
 }
 interface IntegrationSchema extends Document {
   gumroad: {
-    access_token: string;
+    access_token: string | null;
     scope: string;
     integrated: boolean;
     lastAuthorized: Date | null;
   },
   github: {
-    access_token: string;
-    refresh_token: string | null;
+    access_token: string | null;
     scope: string | null;
     integrated: boolean;
     lastAuthorized: Date | null;
@@ -168,7 +166,7 @@ const userSchema = new Schema<User>(
         gumroad: {
           scope: "edit_products",
           access_token: null,
-          integrated: false,
+          integrated: true,
           lastAuthorized: null,
         },
         github: {
@@ -176,13 +174,13 @@ const userSchema = new Schema<User>(
           access_token: null,
           integrated: false,
           lastAuthorized: null,
-        },
+        }
       },
     }
   },
   {
-  timestamps: true,
-});
+    timestamps: true,
+  });
 
 
 // Middleware to hash password before saving
@@ -215,26 +213,26 @@ userSchema.pre<User>('save', async function (next) {
   }
   next();
 });
-// userSchema.pre<User>('save', async function (next) {
-//   if (this.isNew) {
-//     this.integrations = {
-//       gumroad: {
-//         scope: "edit_products",
-//         access_token: null,
-//         integrated: true,
-//         lastAuthorized: null,
-//       },
-//       github: {
-//         scope: "repo",
-//         access_token: null,
-//         integrated: false,
-//         lastAuthorized: null,
-//       },
-//     }
-//     await this.save();
-//   }
-//   next();
-// });
+userSchema.pre<User>('save', async function (next) {
+  if (this.isNew) {
+    this.integrations = {
+      gumroad: {
+        scope: "edit_products",
+        access_token: null,
+        integrated: true,
+        lastAuthorized: null,
+      },
+      github: {
+        scope: "repo",
+        access_token: null,
+        integrated: false,
+        lastAuthorized: null,
+      },
+    }
+    await this.save();
+  }
+  next();
+});
 
 // Method to compare password
 userSchema.methods.comparePassword = async function (password) {
