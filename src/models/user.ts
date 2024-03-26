@@ -4,44 +4,92 @@ import { customAlphabet } from 'nanoid';
 import validator from 'validator';
 
 // Define a user schema
+
+interface Integration {
+  gumroad: {
+    access_token: string | null;
+    scope: string | null;
+    integrated: boolean;
+    lastAuthorized: Date | null;
+  },
+  github: {
+    access_token: string | null;
+    scope: string | null;
+    integrated: boolean;
+    lastAuthorized: Date | null;
+  },
+}
 interface User extends Document {
   name: string;
   username: string;
   email: string;
   profilePicture: string;
   password: string;
-  providers: string[];
   role: string;
-  dev_account: {
-    bio: string;
-    socials: Record<string, string>;
-    bio_link: string;
-    dev_type: string;
-  }
+  profile: Types.ObjectId,
   account_type: string;
-  private: boolean;
-  integrations: {
-    gumroad: {
-      access_token: string;
-      scope: string;
-      integrated: boolean;
-      lastAuthorized: Date | null;
-    },
-    github: {
-      access_token: string;
-      refresh_token: string | null;
-      scope: string | null;
-      integrated: boolean;
-      lastAuthorized: Date | null;
-    },
-  }
+  integrations: Integration | null,
   additional_info: Record<string, string | null>
   verificationToken: string | null;
   verified: boolean;
-  followers: Types.ObjectId[];
-  following: Types.ObjectId[];
+}
+interface IntegrationSchema extends Document {
+  gumroad: {
+    access_token: string | null;
+    scope: string;
+    integrated: boolean;
+    lastAuthorized: Date | null;
+  },
+  github: {
+    access_token: string | null;
+    scope: string | null;
+    integrated: boolean;
+    lastAuthorized: Date | null;
+  },
 }
 
+
+const integrationSchema = new Schema<IntegrationSchema>({
+  gumroad: {
+    scope: {
+      type: String,
+      default: "edit_products",
+      enum: {
+        values: ["edit_products", "view_profile", "view_sales"],
+      }
+    },
+    access_token: {
+      type: String,
+      default: null,
+    },
+    integrated: {
+      type: Boolean,
+      default: true,
+    },
+    lastAuthorized: {
+      type: Date,
+      default: null,
+    },
+  },
+  github: {
+    scope: {
+      type: String,
+      default: "repo",
+    },
+    access_token: {
+      type: String,
+      default: null,
+    },
+    integrated: {
+      type: Boolean,
+      default: false,
+    },
+    lastAuthorized: {
+      type: Date,
+      default: null,
+    },
+  },
+})
 
 function generateRandomUsername(): string {
   // Generate a random UUID
@@ -77,20 +125,13 @@ const userSchema = new Schema<User>(
       type: String,
       default: 'https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png',
     },
-    private: {
-      type: Boolean,
-      default: false,
-    },
     password: {
       type: String,
       required: [true, "Please enter your password"],
       minLength: [6, "Your password must be at least 6 characters long"],
       select: false, // Don't send back password after request
     },
-    providers: {
-      type: [String],
-      default: [],
-    },
+
     role: {
       type: String,
       default: 'user',
@@ -102,28 +143,14 @@ const userSchema = new Schema<User>(
       type: String,
       default: 'free',
       enum: {
-        values: ['free', 'pro', 'premium'],
+        values: ['free', 'pro', 'premium',],
       },
     },
-    dev_account: {
-      bio: {
-        type: String,
-        default: '',
-      },
-      socials: {
-        type: Object,
-        default: {},
-      },
-      bio_link: {
-        type: String,
-        default: '',
-      },
-      dev_type: {
-        type: String,
-        default: 'developer',
-      },
+    profile: {
+      type: Schema.Types.ObjectId,
+      ref: 'Profile',
+      default: null,
     },
-
     verificationToken: {
       type: String,
       default: null,
@@ -132,58 +159,28 @@ const userSchema = new Schema<User>(
       type: Boolean,
       default: false,
     },
-    followers: [{ type: Types.ObjectId, ref: 'User' }],
-    following: [{ type: Types.ObjectId, ref: 'User' }],
     integrations: {
       select: false,
-      type: {
+      type: integrationSchema,
+      default: {
         gumroad: {
-          scope: {
-            type: String,
-            default: "edit_products",
-            enum: {
-              values: ["edit_products", "view_profile", "view_sales"],
-            }
-          },
-          access_token: {
-            type: String,
-            default: null,
-          },
-          integrated: {
-            type: Boolean,
-            default: true,
-          },
-          lastAuthorized: {
-            type: Date,
-            default: null,
-          },
+          scope: "edit_products",
+          access_token: null,
+          integrated: true,
+          lastAuthorized: null,
         },
         github: {
-          scope: {
-            type: String,
-            default: "repo",
-
-            
-          },
-          access_token: {
-            type: String,
-            default: null,
-          },
-          integrated: {
-            type: Boolean,
-            default: false,
-          },
-          lastAuthorized: {
-            type: Date,
-            default: null,
-          },
-        },
+          scope: "repo",
+          access_token: null,
+          integrated: false,
+          lastAuthorized: null,
+        }
       },
     }
-  }, {
-  timestamps: true,
-}
-);
+  },
+  {
+    timestamps: true,
+  });
 
 
 // Middleware to hash password before saving
@@ -216,6 +213,26 @@ userSchema.pre<User>('save', async function (next) {
   }
   next();
 });
+userSchema.pre<User>('save', async function (next) {
+  if (this.isNew) {
+    this.integrations = {
+      gumroad: {
+        scope: "edit_products",
+        access_token: null,
+        integrated: true,
+        lastAuthorized: null,
+      },
+      github: {
+        scope: "repo",
+        access_token: null,
+        integrated: false,
+        lastAuthorized: null,
+      },
+    }
+    await this.save();
+  }
+  next();
+});
 
 // Method to compare password
 userSchema.methods.comparePassword = async function (password) {
@@ -223,78 +240,6 @@ userSchema.methods.comparePassword = async function (password) {
     return await bcrypt.compare(password, this.password);
   } catch (err) {
     throw new Error(err);
-  }
-};
-userSchema.statics.findCommonFollowers = async function (
-  userId1: Types.ObjectId,
-  userId2: Types.ObjectId
-): Promise<Types.ObjectId[]> {
-  const user1 = await this.findById(userId1).select('followers').lean().exec();
-  const user2 = await this.findById(userId2).select('followers').lean().exec();
-
-  if (!user1 || !user2) {
-    throw new Error('One or both users not found.');
-  }
-
-  const commonFollowers = user1.followers.filter((follower) =>
-    user2.followers.includes(follower)
-  );
-
-  return commonFollowers;
-};
-userSchema.statics.findCommonFollowing = async function (
-  userId1: Types.ObjectId,
-  userId2: Types.ObjectId
-): Promise<Types.ObjectId[]> {
-  const user1 = await this.findById(userId1).select('following').lean().exec();
-  const user2 = await this.findById(userId2).select('following').lean().exec();
-
-  if (!user1 || !user2) {
-    throw new Error('One or both users not found.');
-  }
-
-  const commonFollowing = user1.following.filter((_following) =>
-    user2.following.includes(_following)
-  );
-
-  return commonFollowing;
-};
-userSchema.statics.searchUsersWithCommonFollowing = async function (
-  userId: Types.ObjectId,
-  query: string
-): Promise<User[]> {
-  try {
-    const currentUser = await this.findById(userId).select('following').exec();
-
-    if (!currentUser) {
-      throw new Error('User not found.');
-    }
-
-    const users = await this.find({
-      $and: [
-        { _id: { $ne: userId } }, // Exclude the current user from search results
-        {
-          $or: [
-            { username: { $regex: query, $options: 'i' } },
-            { name: { $regex: query, $options: 'i' } },
-          ],
-        },
-      ],
-    })
-      .select('username name profilePicture following')
-      .populate('following', 'username');
-
-    // Add a property to each user indicating common following
-    users.forEach((user) => {
-      const commonFollowing = currentUser.following.filter((userId) =>
-        user.following.includes(userId)
-      );
-      user._doc.commonFollowing = commonFollowing;
-    });
-
-    return users;
-  } catch (error) {
-    throw new Error(error);
   }
 };
 

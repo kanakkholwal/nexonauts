@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dialog";
 
 import { Button } from "@/components/ui/button";
-import { Pencil } from "lucide-react";
+import { Pencil, Save, X } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from 'react';
@@ -29,7 +29,7 @@ import { SessionUserType } from "src/types/user";
 const DEFAULT_PROFILE_URL = "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"
 
 type Props = {
-    user:SessionUserType,
+    user: SessionUserType,
     serverActions: {
         handleUpdateName: (newName: string) => Promise<{
             result: string,
@@ -41,8 +41,8 @@ type Props = {
         }>,
     }
 }
-export function AccountForm({ user: CurrentUser,serverActions }:Props) {
-    const {handleUpdateName} = serverActions;
+export function AccountForm({ user: CurrentUser, serverActions }: Props) {
+    const { handleUpdateName } = serverActions;
     const [user, setUser] = useState(CurrentUser);
     const { data: session, update } = useSession();
     const [currentPassword, setCurrentPassword] = useState("");
@@ -121,14 +121,14 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
             loading: 'Updating password..',
             success: 'Password updated successfully',
             error: 'Something went wrong',
-        }).finally(() =>{
+        }).finally(() => {
             setCurrentPassword("");
             setConfirmPassword("");
             setEditingPassword(false);
         })
     }
 
-    async function isImageURLValid(url:string):Promise<boolean> {
+    async function isImageURLValid(url: string): Promise<boolean> {
         return fetch(url)
             .then((response) => {
                 // Check if the HTTP status code is in the 200 range (success)
@@ -279,29 +279,34 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
                         variant="fluid"
                         disabled={!editingName}
                     />
-                    <Button size={editingName ? "sm" : "icon"}
-                    variant="slate" onClick={() => {
-                        if(!editingName){
-                            setEditingName(true);
-                            return;
-                        }
-
-                        handleUpdateName(user.name).then(res =>{
-                            if(res.result === "success"){
-                                toast.success(res.message);
-                                update({
-                                    ...session,
-                                    user: {
-                                        ...CurrentUser,
-                                        name: user.name
-                                    }
-                                })
-                                setEditingName(false);
+                    <Button size={"icon"}
+                        variant="default_light" onClick={() => {
+                            if (!editingName) {
+                                setEditingName(true);
+                                return;
                             }
-                        })
-                    }}>
-                        {editingName ? "Save": <Pencil className="w-4 h-4" /> }
+
+                            handleUpdateName(user.name).then(res => {
+                                if (res.result === "success") {
+                                    toast.success(res.message);
+                                    update({
+                                        ...session,
+                                        user: {
+                                            ...CurrentUser,
+                                            name: user.name
+                                        }
+                                    })
+                                    setEditingName(false);
+                                }
+                            })
+                        }}>
+                        {editingName ? <Save className="w-4 h-4" /> : <Pencil className="w-4 h-4" />}
                     </Button>
+                    {editingName && <Button size={"icon"}
+                        variant="destructive_light" onClick={() => {
+                            setEditingName(false);
+                        }}> <X className="w-4 h-4" />
+                    </Button>}
                 </div>
 
             </div>
@@ -340,22 +345,22 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
             </div> */}
             <div className="w-full mb-5">
                 <div className="flex items-center justify-between gap-4 flex-wrap">
-                <div>
+                    <div>
 
-                <h3 className="font-bold">
-                    Password
-                </h3>
-                <p className="text-sm text-muted-foreground">
-                    Change your password. Make sure it's at least 6 characters long.
-                </p>
-                </div>
-                <div>
-                <Button size="sm" variant="outline" onClick={() => {
-                    setEditingPassword(!editingPassword);
-                }}>
-                    Change Password
-                </Button>
-                </div>
+                        <h3 className="font-bold">
+                            Password
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                            Change your password. Make sure it's at least 6 characters long.
+                        </p>
+                    </div>
+                    <div>
+                        <Button size="sm" variant="outline" onClick={() => {
+                            setEditingPassword(!editingPassword);
+                        }}>
+                            Change Password
+                        </Button>
+                    </div>
                 </div>
                 {editingPassword && (<div className="flex items-center gap-2 mt-2">
                     <div className='relative grow'>
@@ -372,7 +377,7 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
                             className='pl-12 !py-3 pr-5 !mt-0'
                             value={currentPassword} required
                             onChange={(e) => setCurrentPassword(e.target.value)}
-                            variant="ghost"
+                            variant="fluid"
                         />
                     </div>
                     <div className='relative grow'>
@@ -389,14 +394,20 @@ export function AccountForm({ user: CurrentUser,serverActions }:Props) {
                             className='pl-12 !py-3 pr-5 !mt-0'
                             value={confirmPassword} required
                             onChange={(e) => setConfirmPassword(e.target.value)}
-                            variant="ghost"
+                            variant="fluid"
+
                         />
                     </div>
-                    <Button size="sm" variant="slate"
+                    <Button size="icon" variant="default_light"
                         onClick={changePassword}
-
-                        disabled={currentPassword === confirmPassword || currentPassword.trim() === "" || confirmPassword.trim().length < 6}>
-                        Save
+                        disabled={
+                            currentPassword === confirmPassword ||
+                            currentPassword.trim() === "" ||
+                            confirmPassword.trim() === "" ||
+                            confirmPassword.trim().length < 6 ||
+                            currentPassword.trim().length < 6 
+                        }>
+                        <Save className="w-4 h-4" />
                     </Button>
                 </div>)}
 

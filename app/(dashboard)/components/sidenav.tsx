@@ -75,7 +75,7 @@ export default function SideBar({ user }: { user: SessionUserType }) {
         <div className="flex-1 px-6">
             <div className="relative flex items-center mb-4 search group">
             <Input 
-                className="rounded-lg pl-8 focus:pl-3 transition-all peer focus:outline-0"
+                className="rounded-lg pl-8 focus:pl-3 transition-all peer focus:outline-0 ring-0 focus:border-primary"
                 type="search" placeholder="Search..." />
             
                 <Search className="h-4 w-4 absolute inset-y-0 my-3 left-2 scale-1 opacity-1 peer-focus:scale-0 peer-focus:opacity-0 transition-all"/>

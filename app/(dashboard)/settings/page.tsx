@@ -33,16 +33,20 @@ export default async function SettingsPage() {
 
     return (<div className="space-y-6 p-4 md:p-10 pb-16 w-full  rounded-3xl mt-5">
         <div className="space-y-0.5">
-            <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
-            <p className="text-muted-foreground">
+            <h2 className="text-2xl font-bold tracking-tight" data-aos="fade-right">Settings</h2>
+            <p className="text-muted-foreground"  data-aos="fade-right" data-aos-delay={100}>
                 Manage your account settings, site appearance and set e-mail preferences.
             </p>
         </div>
-        <Separator className="my-6" />
+        <Separator className="my-6"data-aos="fade-right" data-aos-delay={110} />
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-            {list.map((link) => {
-                return <Link key={link.href} href={link.href}>
-                    <Card variant="glass" className='transition transform duration-300 hover:translate-x-1 hover:-translate-y-1 hover:shadow-lg cursor-pointer border p-10 h-full flex content-center flex-wrap'>
+            {list.map((link,index) => {
+                return <Link key={link.href} href={link.href}
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+                data-aos-offset="200"
+                >
+                    <Card variant="glass"  className='transition transform duration-300 hover:translate-x-1 hover:-translate-y-1 hover:shadow-lg cursor-pointer border p-10 h-full flex content-center flex-wrap'>
                         <div className='h-fit w-full'>
                             <div className='flex justify-center w-full'>
                                 <link.icon className='h-10 w-10' />

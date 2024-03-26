@@ -14,7 +14,15 @@ export async function getProducts() {
     const session = await getServerSession(authOptions) as sessionType;
     await dbConnect();
     const products = await Product.find({ creator: session.user._id }).exec();
-    return Promise.resolve(JSON.parse(JSON.stringify(products)));
+
+    const user = await User.findById(session.user._id).select("integrations.gumroad").exec();
+    const { gumroad } = user.integrations;
+
+
+    return Promise.resolve({
+        products: JSON.parse(JSON.stringify(products)),
+        integrated: gumroad.access_token ? true : false
+    });
 }
 
 export async function syncWithGumroad() {
