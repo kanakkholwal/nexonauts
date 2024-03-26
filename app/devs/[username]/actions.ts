@@ -3,11 +3,25 @@ import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth/next";
 import { revalidatePath } from "next/cache";
 import dbConnect from "src/lib/dbConnect";
+import ProfileModel from "src/models/profile";
 import UserModel from "src/models/user";
 import { sessionType } from "src/types/session";
 
+export async function getProfile(username: string) {
+    await dbConnect();
+    const profile = await ProfileModel.findOne({ username: username })
+        .populate('user', 'username name profilePicture')
+        .populate('following', 'username name profilePicture')
+        .populate('followers', 'username name profilePicture')
+        .exec();
+    if (!profile) {
+        return null;
+    }
+    return JSON.parse(JSON.stringify(profile))
+    
+}
 
-export async function followUnfollowUser(username: string) {
+export async function followUnfollowProfile(username: string) {
     try {
         const session = await getServerSession(authOptions) as sessionType | null;
         if (!session) {
@@ -16,30 +30,58 @@ export async function followUnfollowUser(username: string) {
                 message: "Not authenticated"
             });
         }
-        console.log("user logged in , ")
-
-        await dbConnect();
-        const user = await UserModel.findOne({ username: username }).exec();
-        if (!user) {
+        if (session.user.username === username) {
             return Promise.reject({
                 success: false,
-                message: "User not found"
+                message: "You can't follow yourself"
+            }); 
+        }
+        if(!session.user.verified){
+            return Promise.reject({
+                success: false,
+                message: "You need to verify your account to follow users"
             });
         }
-        console.log("user found , ")
+        if(!session.user.profile){
+            return Promise.reject({
+                success: false,
+                message: "You need to create a profile to follow users"
+            });
+        }
+        
+        await dbConnect();
+        const profile = await ProfileModel.findOne({ username: username }).exec();
+        if (!profile) {
+            return Promise.reject({
+                success: false,
+                message:"Requested profile not found"
+            });
+        }
+        
         const currentUser = await UserModel.findById(session.user._id).exec();
         if (!currentUser) {
             return Promise.reject({
                 success: false,
-                message: "User not found"
+                message: "Your account not found"
             });
         }
-        console.log("current user found , ")
-        const data = await currentUser.followUnfollowUser(user._id)
-        console.error(data.message)
-        revalidatePath(`/devs/${username}`);
-
-        return Promise.resolve(data);
+        const currentProfile = await ProfileModel.findById(session.user.profile).exec();
+        if (!currentProfile) {
+            return Promise.reject({
+                success: false,
+                message: "Your profile not found"
+            });
+        }
+        
+        const data = await currentProfile.followUnfollowUser(profile._id)
+        if(data.success){
+            revalidatePath(`/devs/${username}`);
+            revalidatePath(`/devs/${session.user.username}`);
+        } else {
+            console.error(data?.message);
+            return Promise.reject(data);
+        }
+        
     }catch(err){
         console.log(err);
         return Promise.reject({

@@ -28,7 +28,7 @@ export default function Page403() {
             </p>
 
             <Button size="lg" className="mt-5 max-w-sm  rounded-3xl" variant="gradient_blue" asChild>
-                <Link href={`/login?redirect=${redirect}`}>
+                <Link href={`/login?next=${redirect}`}>
                     Login to continue
                     <ArrowRight className="w-5 h-5 ml-2" />
                 </Link>

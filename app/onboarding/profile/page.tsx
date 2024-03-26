@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function CreateProfile() {
     const session = await getServerSession(authOptions);
-    // console.log(session)
+
     if (!(session && session.user))
         return <WithoutSession />
 

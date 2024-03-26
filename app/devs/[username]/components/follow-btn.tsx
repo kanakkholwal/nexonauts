@@ -11,7 +11,10 @@ export function FollowButton({ isFollowing, followUser }) {
                 success: (data:any) => {
                     return data.message;
                 },
-                error: "Error"
+                error:  (error:any) => {
+                    console.log(error)
+                    return error.message || "Something went wrong"
+                }
             });
         }} variant={isFollowing ? "outline" : "default"} className="rounded-full px-6 w-full max-w-xs">
             {isFollowing ? "Following" : "Follow"}
@@ -24,9 +27,13 @@ export function FollowToggle({ isFollowing, followUser }) {
             toast.promise(followUser(), {
                 loading: "Loading...",
                 success: (data:any) => {
-                    return data.message;
+                    console.log(data);
+                    return data?.message;
                 },
-                error: "Error"
+                error: (error:any) => {
+                    console.log(error)
+                    return error?.message || "Something went wrong"
+                }
             });
         }} size="sm" variant={isFollowing ? "outline" : "default"} >
             {isFollowing ? "Following" : "Follow"}

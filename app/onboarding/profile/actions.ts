@@ -2,7 +2,7 @@
 import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth/next";
 import dbConnect from "src/lib/dbConnect";
-import Profile from "src/models/product";
+import Profile from "src/models/profile";
 import User from "src/models/user";
 import { sessionType } from "src/types/session";
 
@@ -18,7 +18,7 @@ export async function createProfile(payload: {
     try{
         const session = await getServerSession(authOptions) as sessionType;
         await dbConnect();
-        const user = await User.findById(session.user._id);
+        const user = await User.findById(session.user._id).select("profile username")
         if(!user){
             return Promise.reject({
                 success: false,
@@ -33,6 +33,7 @@ export async function createProfile(payload: {
             })
         }
         const profile = new Profile({
+            user: user._id,
             username: payload.username,
             bio: payload.bio,
             socials: payload.socials,
@@ -42,9 +43,11 @@ export async function createProfile(payload: {
         user.profile = profile._id;
         user.username = payload.username;
         await user.save();
+        // revalidatePath(`/onboarding/profile`,"page")
         return Promise.resolve({
             success: true,
-            message: "Profile created successfully"
+            message: "Profile created successfully",
+            data: JSON.parse(JSON.stringify(profile))
         })
 
 
@@ -52,7 +55,8 @@ export async function createProfile(payload: {
         console.log(e)
         return Promise.reject({
             success: false,
-            message: e.message
+            message: e.message,
+            data:null
         })
     }
 

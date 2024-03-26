@@ -40,14 +40,14 @@ export const authOptions: NextAuthOptions = {
     // Enable JSON Web Tokens since we will not store sessions in our DB
     session: {
         strategy: "jwt",
+        maxAge: 24 * 60 * 60 // 24 hours
+        // maxAge:60 // 1 min
+
     },
     secret: env.NEXT_AUTH_SECRET,
-    jwt: {
-        maxAge: 24 * 60 * 60 // 24 hours
-    },
     cookies: {
         sessionToken: {
-            name: `${useSecureCookies ? "__Secure-" : ""}next-auth.session-token`,
+            name: `${cookiePrefix}next-auth.session-token`,
             options: {
                 httpOnly: true,
                 sameSite: 'lax',
@@ -106,7 +106,7 @@ export const authOptions: NextAuthOptions = {
                             role: userInDb.role || "user",
                             verificationToken: userInDb.verificationToken || null,
                             verified: userInDb.verified || false,
-                            profile: userInDb.profile.toString() || null,
+                            profile: userInDb.profile?.toString() || null,
                             additional_info: userInDb.additional_info || {},
                         }
 
@@ -171,7 +171,7 @@ export const authOptions: NextAuthOptions = {
                             role: user.role || "user",
                             verificationToken: user.verificationToken || null,
                             verified: user.verified || false,
-                            profile: userInDb.profile.toString() || null,
+                            profile: userInDb.profile?.toString() || null,
                             additional_info: user.additional_info || {},
                         });
                     }

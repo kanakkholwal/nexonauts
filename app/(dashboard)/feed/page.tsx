@@ -26,7 +26,7 @@ export default async function FeedPage() {
                     Create a profile to connect with other developers
                 </p>
                 <Button className="mt-5 w-full max-w-sm" size="lg">
-                    <Link href={"/onboarding/profile?redirect=/feed"}>
+                    <Link href={"/onboarding/profile?next=/feed"}>
                         Create Profile Now 
                     </Link>
                 </Button>

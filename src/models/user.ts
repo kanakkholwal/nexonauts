@@ -29,7 +29,7 @@ interface User extends Document {
   role: string;
   profile: Types.ObjectId,
   account_type: string;
-  integrations: Integration,
+  integrations: Integration | null,
   additional_info: Record<string, string | null>
   verificationToken: string | null;
   verified: boolean;
@@ -162,7 +162,7 @@ const userSchema = new Schema<User>(
       default: false,
     },
     integrations: {
-      // select: false,
+      select: false,
       type: integrationSchema,
       default: {
         gumroad: {
