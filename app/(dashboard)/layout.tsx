@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import Navbar from "./components/navbar";
 import SideBar from "./components/sidenav";
+import "./layout.css";
 
 export const metadata :Metadata = {
     title: "Feed - NexoNauts",
@@ -21,7 +22,7 @@ export default async function FeedLayout({ children }: { children: React.ReactNo
             <SideBar user={session.user}  />
             <div className="lg:pl-80 flex flex-col flex-1 w-full relative z-0">
                 <Navbar user={session.user} />
-                <div aria-hidden="true" className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20 -z-[1]">
+                <div aria-hidden="true" className="absolute inset-0 grid grid-cols-2 -space-x-52 pattern_feed invert dark:invert-0 -z-[1]">
                 <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
                 <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
             </div>

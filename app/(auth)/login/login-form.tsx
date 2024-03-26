@@ -53,6 +53,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const redirect = searchParams?.get('redirect') || "/feed";
+    const callbackUrl = searchParams?.get('callbackUrl') || "/feed";
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const form = useForm<z.infer<typeof FormSchema>>({
@@ -75,6 +76,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                 if(redirect){
                     router.push(redirect);
                     return `Logged in successfully to ${redirect}`
+                }
+                else if (callbackUrl) {
+                    router.push(callbackUrl);
+                    return `Logged in successfully to ${callbackUrl}`
                 }
                 router.push("/feed");
                 return `Logged in successfully to dashboard`
@@ -210,7 +215,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         </Link>
                     </p>
 
-                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" variant="gradient_blue" size="lg">
+                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" variant="default" size="lg">
                         {isLoading && (
                             <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
                         )}
