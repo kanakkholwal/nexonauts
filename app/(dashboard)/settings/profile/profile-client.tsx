@@ -1,4 +1,5 @@
 "use client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -37,7 +38,7 @@ export function ProfileEditor() {
             </div>
             <div className="grid grid-cols-1 gap-2">
                 {profile.socials.map((social, index) => {
-                    return (<div key={index} className="grid grid-cols-1 gap-2">
+                    return (<div key={index} className="grid grid-cols-1 gap-1">
                         <div className="flex items-center justify-between">
                             <Label htmlFor={`social-${index}`} className="capitalize mb-0">{social.name}</Label>
                             <Button variant="link" size="sm" onClick={() => {
@@ -93,7 +94,33 @@ export function ProfileEditor() {
                 </div>)}
             </div>
 
-
+            <div className="flex justify-end">
+                <Button onClick={() => {
+                    console.log(profile);
+                }}>
+                    Save Changes
+                </Button>
+                </div>
         </div>
+    </>)
+}
+export function ProfileView() {
+    const profile = useProfileStore(state => state.profile) as profileType;
+
+    return (<> <div id="basic_info" className="w-full px-4 py-8 space-y-2 flex flex-col items-center justify-center">
+                <Avatar className="w-40 h-40 shadow-lg">
+                    <AvatarImage src={profile.user.profilePicture} alt={profile.username} width={320} height={320} className="w-40 h-40" />
+                    <AvatarFallback className="w-40 h-40 uppercase text-xl">{profile.username[0] + profile.username[1]}</AvatarFallback>
+                </Avatar>
+                <div className="flex flex-col items-center justify-center space-y-2">
+                    <h2 className="text-2xl font-bold">{profile.user.name}</h2>
+                    <h3 className="text-gray-500 dark:text-slate-400 text-lg">@{profile.username}</h3>
+                    
+                    <p className="text-slate-500 font-medium max-w-xl text-sm text-center">{profile.bio}</p>
+                    {/* <SocialLinks socials={developer.socials} /> */}
+
+                </div>
+            </div>
+
     </>)
 }

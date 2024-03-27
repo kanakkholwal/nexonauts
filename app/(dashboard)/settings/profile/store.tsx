@@ -1,9 +1,9 @@
-import { ProfileTypeWithId } from "src/models/profile";
+import { ProfileTypeWithIdUser } from "src/models/profile";
 import { create } from "zustand";
 
-export interface profileType extends ProfileTypeWithId {}
+export interface profileType extends ProfileTypeWithIdUser {}
 type State = {
-    profile:  ProfileTypeWithId | null
+    profile:  profileType | null
 }
 
 export const useProfileStore = create<State>((set) => ({
