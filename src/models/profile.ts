@@ -12,6 +12,9 @@ export type ProfileType = {
     interests: string[];
 };
 
+export type ProfileTypeWithId = ProfileType & {
+    _id: string;
+}
 
 interface Profile extends Document {
     user: Types.ObjectId;

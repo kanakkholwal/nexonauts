@@ -6,7 +6,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Metadata } from "next";
 //   import Image from "next/image";
-import { User, Workflow } from 'lucide-react';
+import { User, UserRoundCog, Workflow } from 'lucide-react';
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -15,9 +15,15 @@ export const metadata: Metadata = {
 }
 const list = [
     {
+        label: "Profile",
+        description: "Manage your profile settings",
+        icon: User,
+        href: "/settings/profile",
+    },
+    {
         label: "Account",
         description: "Manage your account settings",
-        icon: User,
+        icon: UserRoundCog,
         href: "/settings/account",
     },
     {
@@ -31,7 +37,7 @@ const list = [
 export default async function SettingsPage() {
 
 
-    return (<div className="space-y-6 p-4 md:p-10 pb-16 w-full  rounded-3xl mt-5">
+    return (<div className="space-y-6 p-4 md:p-10 pb-16 w-full  rounded-3xl mt-5 @container">
         <div className="space-y-0.5">
             <h2 className="text-2xl font-bold tracking-tight" data-aos="fade-right">Settings</h2>
             <p className="text-muted-foreground"  data-aos="fade-right" data-aos-delay={100}>
@@ -39,7 +45,7 @@ export default async function SettingsPage() {
             </p>
         </div>
         <Separator className="my-6"data-aos="fade-right" data-aos-delay={110} />
-        <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid gap-4 grid-cols-1 @5xl:grid-cols-4  @md:grid-cols-2">
             {list.map((link,index) => {
                 return <Link key={link.href} href={link.href}
                 data-aos="fade-up"

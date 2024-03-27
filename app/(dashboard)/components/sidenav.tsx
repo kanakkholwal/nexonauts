@@ -9,13 +9,14 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ThemeSwitcher from "app/layouts/theme-switcher";
-import { ChevronLeftCircle, ChevronRightCircle, LogOut, Rss, Search, Settings2, ShoppingCart, UserRoundCog } from 'lucide-react';
+import { ChevronLeftCircle, ChevronRightCircle, LogOut, Rss, Search, Settings2, ShoppingCart } from 'lucide-react';
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { useState } from "react";
 // import { RiApps2Line } from "react-icons/ri";
+import { UserRound } from 'lucide-react';
 import { SessionUserType } from "src/types/user";
 
 export type sideLinkType = {
@@ -41,9 +42,9 @@ const user_links: sideLinkType[] = [
     //     href: "/tools",
     // },
     {
-        label: "Account",
-        icon: UserRoundCog,
-        href: "/settings/account",
+        label: "Profile",
+        icon: UserRound,
+        href: "/settings/profile",
     },
     {
         label: "Settings",
