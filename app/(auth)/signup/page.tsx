@@ -1,5 +1,7 @@
 
+import { Button } from "@/components/ui/button";
 import { authOptions } from "app/api/auth/[...nextauth]/options";
+import { ArrowRight, ArrowRightToLine } from "lucide-react";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
 import Link from "next/link";
@@ -68,19 +70,30 @@ export default async function Page() {
             </header>
             <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
 
-            {!IsWaitingList ?  <RegisterForm validateEmail={validateEmail} validateUsername={validateUsername} />:<>
-                <div className="flex flex-col items-center justify-center space-x-2">
-                    <p className="text-lg">Signup is currently by invitation only.</p>
-                    <p>
+                {!IsWaitingList ? <RegisterForm validateEmail={validateEmail} validateUsername={validateUsername} /> : <>
+                    <div className="flex flex-col items-center justify-center space-x-2 gap-4">
+                        <p className="text-lg text-accent-foreground font-medium mb-5">
+                            Signup is currently by invitation only.
+                            </p>
 
-                    <Link href="/login" className="text-primary underline">Login</Link>
-                    or 
-                    <Link href="/waitlist" className="text-primary underline">
-                        Join the waiting list
-                    </Link>
-                    </p>
-                </div>
-            </>}
+
+                        <Button  size="lg" variant="default_light" asChild>
+                            <Link href="/login">
+                                Login to your account
+                                <ArrowRight className="w-6 h-6 ml-2" />
+                            </Link>
+                        </Button>
+                        <p>
+                            or
+                        </p>
+                        <Button size="lg" asChild>
+                            <Link href="/waitlist">
+                                Join the waiting list
+                                <ArrowRightToLine className="w-6 h-6 ml-2" />
+                            </Link>
+                        </Button>
+                    </div>
+                </>}
 
             </main>
 
