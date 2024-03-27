@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth/next";
 import Link from "next/link";
 import { sessionType } from "src/types/session";
 import { getProfile } from "./actions";
-import { ProfileEditor } from "./profile-client";
+import { ProfileEditor, ProfileView } from "./profile-client";
 import StoreInitializer from "./store-intializer";
 
 
@@ -28,6 +28,7 @@ export default async function ProfilePage() {
                 <CreateProfile />
             </div>
         </div>)
+    console.log(profile);
 
     return (<div className="space-y-6 my-5 @container">
         <h2 className="text-3xl font-semibold">
@@ -50,7 +51,7 @@ export default async function ProfilePage() {
                 <ProfileEditor />
             </div>
             <div className="glassmorphism_light p-5 rounded-xl">
-
+                <ProfileView />
             </div>
 
         </div>

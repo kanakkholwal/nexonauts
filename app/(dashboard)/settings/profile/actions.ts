@@ -1,4 +1,5 @@
 "use server";
+import { ProfileTypeWithIdUser } from "src/models/profile";
 
 import { revalidatePath } from "next/cache";
 import dbConnect from "src/lib/dbConnect";
@@ -30,7 +31,7 @@ export async function updateProfile({ username, data }: updateProfileInput) {
                 $set: data
             },
             { new: true }
-        );
+        )
         return JSON.parse(JSON.stringify(profile));
     } catch (err) {
         console.log(err);
@@ -41,11 +42,11 @@ export async function updateProfile({ username, data }: updateProfileInput) {
     }
 }
 
-export async function getProfile(profileId: string){
+export async function getProfile(profileId: string) : Promise<ProfileTypeWithIdUser | null> {
     try {
         await dbConnect();
 
-        const profile = await Profile.findById(profileId);
+        const profile = await Profile.findById(profileId).populate('user', 'name username profilePicture').exec();
         return JSON.parse(JSON.stringify(profile));
     }
     catch(err){
