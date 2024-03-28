@@ -80,7 +80,7 @@ export default function SimilarTools({ tools, toolName }: Props) {
         </CardContent>
 
       </Carousel>
-    </> : <div className="w-full flex flex-col items-center justify-center gap-4">
+    </> : <div className="w-full flex flex-col items-center justify-center gap-4 p-5">
       <Zap className="w-24 h-24 text-gray-400" />
       <h3 className="text-gray-500 text-xl font-semibold">No similar tools found</h3>
       <p className="text-gray-500 text-base">We couldn't find any similar tools for this category.</p>
