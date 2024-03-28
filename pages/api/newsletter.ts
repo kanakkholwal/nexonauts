@@ -12,8 +12,8 @@ export default nextConnect(handler)
                 email:string,
                 type?:string
             }
-            console.log(email,type);
 
+            
             return res.status(200).json({
                 success:true,
                 message:"Successfully registered for Newsletter"
