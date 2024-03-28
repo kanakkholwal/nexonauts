@@ -10,6 +10,12 @@ import { CgSpinner } from "react-icons/cg";
 import { FcGoogle } from "react-icons/fc";
 import { LuCheckCircle2 } from "react-icons/lu";
 import { RiErrorWarningLine } from "react-icons/ri";
+import { z } from "zod";
+
+
+const emailSchema = z.string().email();
+
+
 
 interface Props {
     validateEmail: (email: string) => Promise<boolean>,
@@ -93,16 +99,19 @@ export function RegisterForm({ validateEmail, validateUsername }: Props) {
                         value={email} onChange={(e) => {
                             setEmail(e.target.value);
                             //  check with regex if email is valid
-                            const regex = new RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$", "i");
-                            if (regex.test(e.target.value)) {
+                            // validate email with zod
+                            const valid = emailSchema.safeParse(e.target.value).success;
+                            setValidity({ ...validity, email: { ...validity.email, valid: valid } })
+                            if (e.target.value.length > 4 && !valid){
                                 setValidity({ ...validity, email: { ...validity.email, loading: true } })
                                 validateEmail(e.target.value)
-                                    .then((valid: boolean) => {
-                                        setValidity({ ...validity, email: { ...validity.email, loading: false, valid: valid } })
-                                    }).catch((err) => {
-                                        setValidity({ ...validity, email: { ...validity.email, loading: false, valid: false } })
-                                    })
+                                .then((valid: boolean) => {
+                                    setValidity({ ...validity, email: { ...validity.email, loading: false, valid: valid } })
+                                }).catch((err) => {
+                                    setValidity({ ...validity, email: { ...validity.email, loading: false, valid: false } })
+                                })
                             }
+                            
                         }}
                         className="pr-10" />
                     <span className="absolute inset-y-0 right-0 flex items-center pr-3">
