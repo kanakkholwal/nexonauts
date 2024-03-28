@@ -13,13 +13,24 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import React from 'react';
+import toast from "react-hot-toast";
+import {
+  ProductType
+} from "src/models/product";
 
-export default function DeleteProductButton() {
+interface Props {
+  deleteProduct: () => Promise<ProductType>
+}
+
+export default function DeleteProductButton({deleteProduct}:Props) {
+  const [deleting, setDeleting] = React.useState(false);
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          <Trash2 className="w-4 h-4" />
+        <Button variant="destructive_light" size="icon_sm">
+          <Trash2  />
         </Button>        
       </AlertDialogTrigger>
       <AlertDialogContent>
@@ -31,7 +42,18 @@ export default function DeleteProductButton() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Delete</AlertDialogAction>
+          <AlertDialogAction onClick={async () => {
+            setDeleting(true);
+            await toast.promise(deleteProduct(), {
+              loading: "Deleting...",
+              success:"Product deleted successfully",
+              error: "Failed to delete product"
+            }).finally(() => {
+              setDeleting(false);
+            });
+          }} disabled={deleting}>
+            {deleting ? "Deleting..." : "Delete"}
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
