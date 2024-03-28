@@ -1,8 +1,7 @@
 
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
+import { getSession } from "src/lib/auth";
 import { UserAuthForm } from './forgot-form';
 
 
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
 
 
 export default async function Page() {
-    const session = await getServerSession(authOptions);
+    const session = await getSession();
     if (session) return redirect("/feed");
 
     return (

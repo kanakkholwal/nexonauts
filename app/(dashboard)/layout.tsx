@@ -1,7 +1,6 @@
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import WithoutSession from "app/layouts/without-session";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth/next";
+import { getSession } from "src/lib/auth";
 import Navbar from "./components/navbar";
 import SideBar from "./components/sidenav";
 import "./layout.css";
@@ -12,8 +11,7 @@ export const metadata :Metadata = {
 }
 
 export default async function FeedLayout({ children }: { children: React.ReactNode }) {
-    const session = await getServerSession(authOptions);
-    // console.log(session)
+    const session = await getSession()
     if (!(session && session.user))
         return <WithoutSession/>
 

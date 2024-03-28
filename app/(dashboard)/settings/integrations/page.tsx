@@ -1,12 +1,11 @@
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { ChevronRight } from 'lucide-react';
 import { Metadata } from "next";
-import { getServerSession } from "next-auth/next";
 import Link from 'next/link';
 import { Suspense } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
 import { Icon, INTEGRATION_DESCRIPTIONS, INTEGRATIONS } from "src/lib/integrations";
 import User from "src/models/user";
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
 
 
 export default async function IntegrationPage() {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
 
     await dbConnect();
     const user = await User.findById(session.user._id).select('integrations').exec();
