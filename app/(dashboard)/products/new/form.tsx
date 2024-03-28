@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { LoaderCircle } from 'lucide-react'
 import Image from "next/image"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -283,7 +284,8 @@ export default function ProductForm(props: Props) {
                     <Button type="submit"
                         className="w-full max-w-sm"
                         disabled={loading}>
-                        Save Changes
+                            {loading && <LoaderCircle className="animate-spin" size={24} />}
+                            {loading ? "Saving..." : "Save Changes"}
                     </Button>
                 </div>
             </form>

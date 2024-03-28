@@ -14,7 +14,7 @@ type updateAbleData = {
     interests: string[];
 }
 
-type updateProfileInput = {
+export type updateProfileInput = {
     username: string,
     data: Partial<updateAbleData>,
 }
