@@ -87,3 +87,14 @@ export async function syncWithGumroad() {
     }
 
 }
+export async function deleteProduct(productId: string) {
+    const session = await getSession() as sessionType;
+    await dbConnect();
+    const product = await Product.findOneAndDelete({ _id: productId, creator: session.user._id }).exec();
+    if (product) {
+        revalidatePath("/products");
+        return Promise.resolve(JSON.parse(JSON.stringify(product)));
+    } else {
+        return Promise.reject("Product not found");
+    }
+}

@@ -4,7 +4,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { getProducts, syncWithGumroad } from "./actions";
+import { getProducts, syncWithGumroad,deleteProduct } from "./actions";
 import DeleteProductButton from "./delete-btn";
 import ProductSyncButton from "./sync-btn";
 
@@ -46,7 +46,7 @@ export default async function MyProducts() {
                         <Image width={256} height={160} src={product.preview_url!} alt={product.name} className="w-full h-auto aspect-video object-cover rounded-lg" />
                         <h2 className="text-xl font-semibold truncate">{product.name}</h2>
                         <div className="flex justify-end gap-2 p-2">
-                            <DeleteProductButton />
+                            <DeleteProductButton deleteProduct={deleteProduct.bind(null,product._id)}/>
                             <Button variant="link" size="sm" asChild>
                                 <Link href={`/products/${product.slug}/edit`} className="text-primary">Edit</Link>
                             </Button>
