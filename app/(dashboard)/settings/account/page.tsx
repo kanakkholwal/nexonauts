@@ -1,8 +1,7 @@
-import { authOptions } from "app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
 
 import { Separator } from "@/components/ui/separator";
 import { Metadata } from "next";
+import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
 import User from "src/models/user";
 import { sessionType } from "src/types/session";
@@ -15,7 +14,7 @@ export const metadata: Metadata = {
 
 
 export default async function AccountPage() {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
 
     await dbConnect();
 

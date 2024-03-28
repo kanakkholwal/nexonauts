@@ -1,17 +1,17 @@
 "use server";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import axios from "axios";
 import { customAlphabet } from 'nanoid';
-import { getServerSession } from "next-auth/next";
 import { revalidatePath } from "next/cache";
+import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
 import Product from "src/models/product";
 import User from "src/models/user";
 import { sessionType } from "src/types/session";
+
 const generateUrlSlug = (length = 16) => customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", length)();
 
 export async function getProducts() {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
     await dbConnect();
     const products = await Product.find({ creator: session.user._id }).exec();
 
@@ -26,7 +26,7 @@ export async function getProducts() {
 }
 
 export async function syncWithGumroad() {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
     await dbConnect();
     const user = await User.findById(session.user._id).select("integrations").exec();
     if (!user) {

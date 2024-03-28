@@ -2,6 +2,7 @@ import { authOptions } from "app/api/auth/[...nextauth]/options";
 import WithoutSession from "app/layouts/without-session";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth/next";
+import { getSession } from "src/lib/auth";
 
 
 export const dynamic = "force-dynamic";
@@ -12,9 +13,9 @@ export const metadata :Metadata = {
 }
 
 export default async function FeedLayout({ children }: { children: React.ReactNode }) {
-    const session = await getServerSession(authOptions);
+    const session = await getSession();
     // console.log(session)
-    if (!(session && session.user))
+    if (!(session && session?.user))
         return <WithoutSession/>
 
     return (<>

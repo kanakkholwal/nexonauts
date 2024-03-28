@@ -1,11 +1,10 @@
 
 import { Button } from "@/components/ui/button";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { ArrowRight, ArrowRightToLine } from "lucide-react";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth/next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
 import User from "src/models/user";
 import { RegisterForm } from './register-form';
@@ -19,7 +18,7 @@ export const metadata: Metadata = {
 const cache = new Map<string, boolean>();
 
 export default async function Page() {
-    const session = await getServerSession(authOptions);
+    const session = await getSession();
     if (session) return redirect("/feed")
     await dbConnect();
 

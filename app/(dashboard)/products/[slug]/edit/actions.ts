@@ -1,13 +1,12 @@
 "use server";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
 import { revalidatePath } from "next/cache";
+import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
 import Product, { ProductType } from "src/models/product";
 import { sessionType } from "src/types/session";
 
 export async function getProductBySlug(slug:string) : Promise<ProductType> {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
     
 
     await dbConnect();
@@ -20,7 +19,7 @@ export async function getProductBySlug(slug:string) : Promise<ProductType> {
     return Promise.resolve(JSON.parse(JSON.stringify(product)));
 }
 export async function updateProduct(productId:string,newData:Partial<ProductType>) : Promise<boolean> {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
     
 
     await dbConnect();

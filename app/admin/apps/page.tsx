@@ -7,22 +7,21 @@ import {
     CardFooter,
     CardTitle
 } from "@/components/ui/card";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { Eye, Pencil } from 'lucide-react';
 import AppModel from "models/app";
 import User from "models/user";
-import { getServerSession } from "next-auth/next";
 import { revalidatePath } from "next/cache";
 import Image from 'next/image';
 import Link from "next/link";
 import { Suspense } from "react";
+import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
 import { sessionType } from "src/types/session";
 import { CreateAppButton } from "./create";
 
 
 export default async function DashboardPage() {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
 
     await dbConnect();
     const apps = await AppModel.find({
@@ -31,7 +30,7 @@ export default async function DashboardPage() {
     console.log(apps);
     async function createApp(): Promise<boolean> {
         "use server"
-        const session = await getServerSession(authOptions) as sessionType;
+        const session = await getSession() as sessionType;
 
         return new Promise(async (resolve, reject) => {
             try{

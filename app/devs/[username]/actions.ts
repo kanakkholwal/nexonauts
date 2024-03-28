@@ -1,7 +1,6 @@
 "use server";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
 import { revalidatePath } from "next/cache";
+import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
 import ProfileModel from "src/models/profile";
 import UserModel from "src/models/user";
@@ -23,7 +22,7 @@ export async function getProfile(username: string) {
 
 export async function followUnfollowProfile(username: string) {
     try {
-        const session = await getServerSession(authOptions) as sessionType | null;
+        const session = await getSession() as sessionType | null;
         if (!session) {
             return Promise.reject({
                 isFollowing: false,

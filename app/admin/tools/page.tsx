@@ -1,7 +1,6 @@
 import { DataTable } from "@/components/ui/data-table";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
 import { Suspense } from "react";
+import { getSession } from "src/lib/auth";
 import { sessionType } from "src/types/session";
 import { getTools } from './actions';
 import { columns } from "./columns";
@@ -16,7 +15,7 @@ export default async function DashboardPage({
         page?: string,
     };
 }) {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
 
