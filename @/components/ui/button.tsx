@@ -6,7 +6,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 rounded-md text-sm font-semibold ring-offset-background transition-transform transition-duration-300 transition transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold ring-offset-background transition-transform transition-duration-300 transition transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -36,15 +36,13 @@ const buttonVariants = cva(
         gradient_purple: "text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:bg-gradient-to-br",
       },
       size: {
-        default: "h-10 px-4 px-5 py-2.5",
-        sm: "h-8 rounded-md px-3 py-2 text-sm",
-        xs: "px-3 py-2 text-xs h-4",
-        lg: "px-5 py-3 text-base h-12",
-        xl: "px-6 py-3.5 text-base",
-        icon: "h-10 w-10 p-3 [&>svg]:w-4 [&>svg]:h-4",
+        default: "h-10 px-4 px-5 py-2.5 [&>svg]:w-5 [&>svg]:h-5",
+        sm: "h-8 rounded-md px-3 py-2 text-xs [&>svg]:w-4 [&>svg]:h-4",
+        lg: "px-5 py-3 text-base h-12 [&>svg]:w-6 [&>svg]:h-6",
+        xl: "px-6 py-3.5 text-base [&>svg]:w-8 [&>svg]:h-8",
+        icon: "h-10 w-10 p-3 [&>svg]:w-5 [&>svg]:h-5",
         icon_sm: "h-8 w-8 p-2 [&>svg]:w-4 [&>svg]:h-4",
-        icon_xs: "h-6 w-6 p-1.5 [&>svg]:w-3 [&>svg]:h-3",
-        icon_lg: "h-12 w-12 p-3.5 [&>svg]:w-5 [&>svg]:h-5",
+        icon_lg: "h-12 w-12 p-3.5 [&>svg]:w-6 [&>svg]:h-6",
       },
       width: {
         default: "w-auto",
