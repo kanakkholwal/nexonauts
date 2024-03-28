@@ -10,7 +10,6 @@ import Link from "next/link";
 import { TracingBeam } from "src/components/animations/tracing-beam";
 import { PublicToolPricingType } from "src/models/tool";
 
-
 export const metadata: Metadata = {
     title: "Browse Nexo Scout - AI Tools, Services, and Resources",
     description: "Nexo Scout is a curated list of AI tools, services, and resources. Find the best AI tools for your business.",
@@ -38,7 +37,7 @@ export default async function BrowsePage({
         category: searchParams?.category || "all",
     }
 
-    const { tools, categories, totalPages, pricing_types } = await getTools(query, currentPage, filter,offset);
+    const { tools, categories, totalPages, pricing_types } = await getTools(query, currentPage, filter, offset);
 
 
     return (<>
@@ -62,7 +61,7 @@ export default async function BrowsePage({
                                 {query ? `Search results for "${query}"` : "Browse Tools"}
                             </h1>
                             <p className="text-sm text-muted-foreground">
-                            {query ? `Found ${tools.length} tools` : `Showing ${tools.length} of ${totalPages} pages`}
+                                {query ? `Found ${tools.length} tools` : `Showing ${tools.length} of ${totalPages} pages`}
                             </p>
                         </div>
                     </div>
@@ -73,15 +72,15 @@ export default async function BrowsePage({
                             {tools.map((tool) => {
                                 return (<div key={tool._id}>
                                     <Link href={`/scout/tools/${tool.slug}`} className="p-1">
-                                        <Card className="rounded-2xl backdrop-blur backdrop-saturate bg-opacity-75 bg-white-300 border-0" variant="glass">
+                                        <Card className="rounded-2xl backdrop-blur backdrop-saturate bg-opacity-75 bg-white-300 border-0 relative" variant="glass">
                                             <CardHeader className="p-2">
-                                                <div className="flex flex-col w-full aspect-video overflow-hidden bg-gray-100 dark:bg-slate-800 rounded-lg h-32 sm:h-36">
-                                                    <div className="relative flex items-center justify-center flex-shrink-0 h-full group">
-                                                        <LazyImage className="w-9/10 sm:w-10/12 lg:w-9/10 xl:w-10/12 h-auto rounded-lg shadow-md mx-auto object-cover object-left-top transition ease-in-out duration-300"
+                                                <div className="flex flex-col w-full aspect-video overflow-hidden bg-white/30 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70 rounded-lg h-32 sm:h-36">
+                                                    <div className="relative flex items-center justify-center flex-shrink-0 h-full group w-auto m-auto overflow-hidden">
+                                                        <LazyImage className="w-auto h-auto m-auto transition ease-in-out duration-300 group-hover:scale-105"
                                                             width={350}
                                                             height={200}
                                                             src={tool.coverImage} alt={tool.name} />
-                                                        <div className="absolute inset-0 transition duration-200 bg-gray-900 opacity-0 rounded-2xl group-hover:opacity-60"></div>
+                                                        <div className="absolute inset-0 transition duration-200 opacity-0 group-hover:opacity-60"></div>
                                                     </div>
                                                 </div>
                                             </CardHeader>
@@ -100,11 +99,16 @@ export default async function BrowsePage({
                                                     })}
                                                 </div>
                                             </CardContent>
+                                            <div aria-hidden="true" className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20 -z-10">
+                                                <div className="blur-[106px] h-56 bg-gradient-to-tl from-primary to-purple-400 dark:from-blue-700" />
+                                                <div className="blur-[106px] h-32 bg-gradient-to-l from-cyan-400 to-sky-300 dark:to-indigo-600" />
+                                            </div>
                                         </Card>
                                     </Link>
                                 </div>)
                             })}
                         </div>
+
                     </div>
                 </TracingBeam>
 
@@ -166,6 +170,7 @@ export default async function BrowsePage({
                 </div>
             </aside>
         </div>
+
 
     </>)
 
