@@ -5,6 +5,7 @@ import dbConnect from "src/lib/dbConnect";
 import Profile from "src/models/profile";
 import User from "src/models/user";
 import { sessionType } from "src/types/session";
+import { getSession } from "src/lib/auth";
 
 export async function createProfile(payload: {
     username: string;
@@ -16,7 +17,7 @@ export async function createProfile(payload: {
     interests: string[];
 }) {
     try{
-        const session = await getServerSession(authOptions) as sessionType;
+        const session = await getSession() as sessionType;
         await dbConnect();
         const user = await User.findById(session.user._id).select("profile username")
         if(!user){

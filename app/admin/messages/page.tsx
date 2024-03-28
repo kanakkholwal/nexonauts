@@ -6,9 +6,8 @@ import {
     TabsList,
     TabsTrigger,
 } from "@/components/ui/tabs";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { Search } from "lucide-react";
-import { getServerSession } from "next-auth/next";
+import { getSession } from "src/lib/auth";
 import { sessionType } from "src/types/session";
 import { getMessages } from "./actions";
 import { MessageDisplay } from "./components/message-display";
@@ -17,7 +16,7 @@ import { useMessagesStore } from "./store";
 import StoreInitializer from "./store-initializer";
 
 export default async function DashboardPage() {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
 
     const { messages, totalPages } = await getMessages("", 1, {});
 

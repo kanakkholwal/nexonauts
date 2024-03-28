@@ -1,10 +1,9 @@
 import CreateProfile from "app/(dashboard)/components/create-profile";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
+import { getSession } from "src/lib/auth";
 import { sessionType } from "src/types/session";
 
 export default async function FeedPage() {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
 
     console.log(session);
     if (!session.user.profile) {

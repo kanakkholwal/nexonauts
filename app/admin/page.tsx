@@ -5,16 +5,15 @@ import {
     CardHeader,
     CardTitle
 } from "@/components/ui/card";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { CircleDashed, TrendingDown, TrendingUp } from 'lucide-react';
-import { getServerSession } from "next-auth/next";
 import Link from "next/link";
+import { getSession } from "src/lib/auth";
 import { sessionType } from "src/types/session";
 import { apps_CountAndGrowth, tools_CountAndGrowth, users_CountAndGrowth } from "./actions";
 
 
 export default async function DashboardPage() {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
 
     console.log(session);
     const { count: userCount, growth: userGrowth, trend: userTrend } = await users_CountAndGrowth("this_month");
