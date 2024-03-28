@@ -187,7 +187,6 @@ export const INTEGRATION_CONFIG: {
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
     icon: keyof typeof icons;
-
 }
 
 export const Icon = ({ icon, ...props }: IconProps) => {

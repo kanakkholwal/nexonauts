@@ -3,6 +3,29 @@ import { customAlphabet } from 'nanoid';
 
 const generateUrlSlug = (length = 16) => customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", length)();
 
+export type rawProduct = {
+  name: string;
+  description: string;
+  published: boolean;
+  url: string;
+  slug: string;
+  preview_url: string;
+  tags: string[];
+  categories: string[];
+  price: number;
+  third_party: {
+    provider: string;
+    lastAsync: Date;
+    product_id: string
+  } | null;
+}
+export type rawProductThirdParty = Omit<rawProduct, "third_party"> & {
+  third_party: {
+    provider: string
+    lastAsync: Date;
+    product_id: string
+  } 
+}
 
 interface Product {
   name: string;
@@ -16,9 +39,9 @@ interface Product {
   price: number;
   creator: Types.ObjectId;
   third_party: {
-    provider: string | null;
-    lastAsync: Date | null;
-    product_id: string |null
+    provider: string;
+    lastAsync: Date;
+    product_id: string
   } | null;
 }
 export type ProductType = Product & {
