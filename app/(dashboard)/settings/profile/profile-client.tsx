@@ -11,7 +11,10 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { LoaderCircle } from 'lucide-react';
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { updateProfileInput } from "./actions";
 import { profileType, useProfileStore } from "./store";
 
 const SOCIALS = [
@@ -21,9 +24,14 @@ const SOCIALS = [
     { name: 'website', url: '' },
 ];
 
+type Props ={
+    updateProfile: (data: updateProfileInput) => Promise<any>
+}
 
-export function ProfileEditor() {
+
+export function ProfileEditor({updateProfile}: Props) {
     const profile = useProfileStore(state => state.profile) as profileType;
+    const [loading, setLoading] = useState<boolean>(false);
     const [selectedSocial, setSelectedSocial] = useState<string>(SOCIALS.filter((social) => {
         return !profile.socials.find(s => s.name === social.name);
     })[0]?.name || "none");
@@ -97,8 +105,21 @@ export function ProfileEditor() {
             <div className="flex justify-end">
                 <Button onClick={() => {
                     console.log(profile);
-                }}>
-                    Save Changes
+                    setLoading(true);
+                    toast.promise(updateProfile({username: profile.username, data: {
+                        bio: profile.bio,
+                        socials: profile.socials,
+                        interests: profile.interests
+                    }
+                    }), {
+                        loading: 'Updating profile...',
+                        success: 'Profile updated successfully',
+                        error: 'Failed to update profile'
+                    }).finally(() => setLoading(false));
+                    
+                }} disabled={loading}>
+                    {loading && <LoaderCircle className="animate-spin" size={16} />}
+                    {loading ? 'Saving...' : 'Save Changes'}
                 </Button>
                 </div>
         </div>

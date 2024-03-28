@@ -22,6 +22,7 @@ import { UploadImage } from "src/components/uploader"
 import { CATEGORIES as defaultCategories } from "src/constants/marketplace"
 import { ProductType } from "src/models/product"
 import { z } from "zod"
+import { LoaderCircle } from 'lucide-react';
 
 
 
@@ -278,7 +279,8 @@ export default function ProductForm(props: Props) {
                     <Button type="submit"
                         className="w-full max-w-sm"
                         disabled={loading}>
-                        Save Changes
+                            {loading && <LoaderCircle className="animate-spin" size={24} />}
+                            {loading ? "Saving..." : "Save Changes"}
                     </Button>
                 </div>
             </form>

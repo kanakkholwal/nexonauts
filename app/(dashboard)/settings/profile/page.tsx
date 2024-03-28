@@ -7,7 +7,7 @@ import { sessionType } from "src/types/session";
 import { getProfile } from "./actions";
 import { ProfileEditor, ProfileView } from "./profile-client";
 import StoreInitializer from "./store-intializer";
-
+import {updateProfile} from "./actions";
 
 export default async function ProfilePage() {
     const session = await getSession() as sessionType;
@@ -47,7 +47,7 @@ export default async function ProfilePage() {
                         </Link>
                     </Button>
                 </div>
-                <ProfileEditor />
+                <ProfileEditor updateProfile={updateProfile} />
             </div>
             <div className="glassmorphism_light p-5 rounded-xl">
                 <ProfileView />
