@@ -12,6 +12,18 @@ export type ProfileType = {
     interests: string[];
 };
 
+export type ProfileTypeWithId = ProfileType & {
+    _id: string;
+}
+export type ProfileTypeWithIdUser = Omit<ProfileTypeWithId, 'user'> & {
+    user:{
+        _id:string;
+        name:string;
+        username:string;
+        profilePicture:string;
+    },
+    _id: string;
+}
 
 interface Profile extends Document {
     user: Types.ObjectId;

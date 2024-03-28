@@ -1,6 +1,5 @@
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth/next";
+import { getSession } from "src/lib/auth";
 import { UserAuthForm } from './verify-form';
 
 
@@ -17,18 +16,9 @@ export default async function Page({ searchParams }: {
         token?: string
     };
 }) {
-    const session = await getServerSession(authOptions);
+    const session = await getSession();
 
     
 
-    return (
-        <>
-   
-!
-                <UserAuthForm className="flex-auto w-full" key={"form"} loggedIn={!!session?.user}/>
-
-
-
-        </>
-    )
+    return (<UserAuthForm className="flex-auto w-full" key={"form"} loggedIn={!!session?.user}/>)
 }

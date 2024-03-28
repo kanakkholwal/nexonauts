@@ -1,8 +1,7 @@
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import Page403 from "app/layouts/403";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
+import { getSession } from "src/lib/auth";
 import Navbar from "./components/navbar";
 import SideBar from "./components/sidenav";
 
@@ -12,9 +11,9 @@ export const metadata: Metadata = {
 }
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
-    const session = await getServerSession(authOptions);
+    const session = await getSession();
     console.log(session)
-    if (!(session && session.user)) return redirect("/login");
+    if (!(session && session?.user)) return redirect("/login");
     if (session.user.role !== "admin") return <Page403 />;
 
     return (<>

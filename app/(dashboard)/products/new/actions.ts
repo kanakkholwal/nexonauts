@@ -1,8 +1,7 @@
 "use server";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { customAlphabet } from 'nanoid';
-import { getServerSession } from "next-auth/next";
 import { revalidatePath } from "next/cache";
+import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
 import Product from "src/models/product";
 import { sessionType } from "src/types/session";
@@ -10,14 +9,14 @@ import { sessionType } from "src/types/session";
 const generateUrlSlug = (length = 16) => customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", length)();
 
 export async function getCatgories() {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
     await dbConnect();
     const products = await Product.find({ creator: session.user._id }).exec();
     return Promise.resolve(JSON.parse(JSON.stringify(products)));
 }
 
 export async function createProduct(product) {
-    const session = await getServerSession(authOptions) as sessionType;
+    const session = await getSession() as sessionType;
     try{
         await dbConnect();
 

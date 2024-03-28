@@ -6,6 +6,7 @@ import { getServerSession } from "next-auth/next";
 import AlreadyProfile from "./existing";
 import CreateProfileForm from "./form";
 import {createProfile} from "./actions";
+import { getSession } from "src/lib/auth";
 
 export const metadata: Metadata = {
     title: "Create Profile - NexoNauts",
@@ -13,9 +14,9 @@ export const metadata: Metadata = {
 }
 
 export default async function CreateProfile() {
-    const session = await getServerSession(authOptions);
+    const session = await getSession();
 
-    if (!(session && session.user))
+    if (!(session && session?.user))
         return <WithoutSession />
 
     if (session.user.profile) {

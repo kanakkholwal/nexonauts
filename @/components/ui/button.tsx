@@ -6,7 +6,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-md text-sm font-semibold ring-offset-background transition-transform duration-300 transition transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 rounded-lg transition-duration-300",
+  "inline-flex items-center justify-center rounded-md text-sm font-semibold ring-offset-background transition-transform transition-duration-300 transition transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -18,7 +18,7 @@ const buttonVariants = cva(
         destructive:
           "bg-red-100 hover:bg-red-200 text-red-600	dark:bg-red-700 dark:text-red-200 dark:hover:bg-red-800 dark:hover:text-red-200",
         outline:
-          "border border-input bg-accent hover:bg-accent/80 hover:text-accent-foreground dark:bg-gray-800 dark:border-gray-700  dark:text-white",
+          "border border-input bg-accent hover:bg-accent/80 hover:text-accent-foreground dark:bg-gray-800 dark:border-gray-700 dark:text-white",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/90",
         ghost: "bg-slate-100 hover:bg-slate-200 hover:text-accent-foreground dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white",
@@ -41,7 +41,23 @@ const buttonVariants = cva(
         xs: "px-3 py-2 text-xs h-4",
         lg: "px-5 py-3 text-base h-12",
         xl: "px-6 py-3.5 text-base",
-        icon: "h-10 w-10 p-3",
+        icon: "h-10 w-10 p-3 [&>svg]:w-4 h-4",
+        icon_sm: "h-8 w-8 p-2 [&>svg]:w-4 h-4",
+        icon_xs: "h-6 w-6 p-1.5 [&>svg]:w-3 h-3",
+        icon_lg: "h-12 w-12 p-3.5 [&>svg]:w-5 h-5",
+      },
+      width: {
+        default: "w-auto",
+        full: "w-full",
+        xs:"w-full max-w-xs mx-auto",
+        sm:"w-full max-w-sm mx-auto",
+        md:"w-full max-w-md mx-auto",
+        lg:"w-full max-w-lg mx-auto",
+      },
+      rounded: {
+        default: "rounded-md",
+        full: "rounded-full",
+        none: "rounded-none",
       },
       transition: {
         none: "",
@@ -63,11 +79,11 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false,transition, ...props }, ref) => {
+  ({ className, variant, size, asChild = false,rounded,transition,width, ...props }, ref) => {
     const Comp = asChild ? Slot : "button"
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className,transition }))}
+        className={cn(buttonVariants({ variant, size, className,transition,rounded,width }))}
         ref={ref}
         {...props}
       />
