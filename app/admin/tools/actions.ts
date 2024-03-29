@@ -4,10 +4,10 @@ import dbConnect from "src/lib/dbConnect";
 import PublicTool from "src/models/tool";
 
 
-export async function getTools(query: string, currentPage: number, filter: {
+export async function getTools(query: string, currentPage: number,perPage:number, filter: {
     [key: string]: any
 }) {
-    const resultsPerPage = 50;
+    const resultsPerPage = perPage || 32;
     const skip = currentPage * resultsPerPage - resultsPerPage;
     const filterQuery = {
         $or: [
