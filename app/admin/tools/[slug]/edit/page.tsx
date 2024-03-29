@@ -3,7 +3,7 @@ import { ArrowLeft, LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { getToolBySlug, updateTool } from "./actions";
+import { getToolBySlug, updateTool,deleteTool } from "./actions";
 import EditForm from "./form";
 import { useFormStore } from "./store";
 import StoreInitializer from "./store-initialzer";
@@ -36,7 +36,7 @@ export default async function DashboardPage({ params }: { params: { slug: string
                 <LoaderCircle className="animate-spin h-16 w-16 text-primary" />
             </div>}>
                 <StoreInitializer tool={tool} />
-                <EditForm updateTool={updateTool.bind(null,tool._id)} available_categories={available_categories} />
+                <EditForm updateTool={updateTool.bind(null,tool._id)} deleteTool={deleteTool.bind(null,tool._id)} available_categories={available_categories} />
             </Suspense>
         </div>
 
