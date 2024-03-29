@@ -30,7 +30,7 @@ export default async function DashboardPage({
                     <div>
                     <h2 className="text-2xl font-semibold">Tools</h2>
                     <p className="text-gray-500 text-sm">
-                        1 of {totalPages} pages 
+                        {currentPage} of {totalPages} pages 
                     </p>
                 </div>
                 <div>
