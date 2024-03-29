@@ -43,7 +43,7 @@ export default async function SubmitToolPage() {
                 </div>
                 <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 relative" >
                     <div className=" text-center mx-auto">
-                        <h1 className="text-gray-900 dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl relative bg-gradient-to-r from-primary to-violet-200 bg-clip-text text-transparent dark:from-primaryLight dark:to-secondaryLight">
+                        <h1 className="text-gray-900 dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl relative bg-gradient-to-r from-primary to-emerald-300 bg-clip-text text-transparent dark:from-primaryLight dark:to-secondaryLight">
                             Submit a Tool
                         </h1>
                         <p className="mt-8 text-gray-700 dark:text-gray-300">
@@ -53,7 +53,7 @@ export default async function SubmitToolPage() {
                 </div>
             </section>
             <section className="z-2 w-full grow mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0 pt-20 relative">
-                <Card >
+                <Card>
                     <CardHeader>
                         <CardTitle>
                             Submit a Tool
