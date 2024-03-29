@@ -213,26 +213,6 @@ userSchema.pre<User>('save', async function (next) {
   }
   next();
 });
-userSchema.pre<User>('save', async function (next) {
-  if (this.isNew) {
-    this.integrations = {
-      gumroad: {
-        scope: "edit_products",
-        access_token: null,
-        integrated: true,
-        lastAuthorized: null,
-      },
-      github: {
-        scope: "repo",
-        access_token: null,
-        integrated: false,
-        lastAuthorized: null,
-      },
-    }
-    await this.save();
-  }
-  next();
-});
 
 // Method to compare password
 userSchema.methods.comparePassword = async function (password) {

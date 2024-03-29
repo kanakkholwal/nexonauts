@@ -26,6 +26,7 @@ import { useState } from "react";
 import { RiAppsLine } from "react-icons/ri";
 import { TbDashboard } from "react-icons/tb";
 import { SessionUserType } from "src/types/user";
+import { Navigation } from 'lucide-react';
 
 export type sideLinkType = {
     label: string;
@@ -57,14 +58,19 @@ const admin_links: sideLinkType[] = [
         label: "Messages",
         icon: MessageSquareText,
         href: "/admin/messages",
-    }
+    },
+    {
+        label: "Navigate",
+        icon: Navigation,
+        href: "/admin/navigate",
+    },
 ];
 
 const user_links: sideLinkType[] = [
     {
         label: "Dashboard",
         icon: TbDashboard,
-        href: "/dashboard",
+        href: "/feed",
     },
     // {
     //     label: "Tools",
