@@ -70,7 +70,7 @@ export const tagVariants = cva(
 export type TagProps = {
   tagObj: TagType;
   variant: TagInputProps["variant"];
-  size: TagInputProps["size"];
+  size:  TagInputProps["size"];
   shape: TagInputProps["shape"];
   borderStyle: TagInputProps["borderStyle"];
   textCase: TagInputProps["textCase"];
@@ -79,6 +79,8 @@ export type TagProps = {
   textStyle: TagInputProps["textStyle"];
   onRemoveTag: (id: string) => void;
 } & Pick<TagInputProps, "direction" | "onTagClick" | "draggable">;
+
+type btnSizeType = "icon" | "icon_sm" | "icon_lg" | "icon_xl";
 
 export const Tag: React.FC<TagProps> = ({
   tagObj,
@@ -95,6 +97,9 @@ export const Tag: React.FC<TagProps> = ({
   animation,
   textStyle,
 }) => {
+
+  const btnSize: btnSizeType = size ? (size === "md" ? "icon" : "icon_" + size as btnSizeType) : "icon";
+
   return (
     <span
       key={tagObj.id}
@@ -121,11 +126,12 @@ export const Tag: React.FC<TagProps> = ({
       <Button
         type="button"
         variant="ghost"
+        size={btnSize}
         onClick={(e) => {
           e.stopPropagation(); // Prevent event from bubbling up to the tag span
           onRemoveTag(tagObj.id);
         }}
-        className={cn("py-1 px-3 h-full hover:bg-transparent")}
+        className={cn("h-full hover:bg-transparent")}
       >
         <X size={14} />
       </Button>

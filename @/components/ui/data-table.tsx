@@ -44,6 +44,7 @@ import {
     useReactTable
 } from "@tanstack/react-table";
 import { ScanSearch, Settings2 } from 'lucide-react';
+import { useRouter } from "next/navigation";
 import React from "react";
 
 
@@ -293,6 +294,7 @@ interface DataTablePaginationProps<TData> {
 export function DataTablePagination<TData>({
     table,
 }: DataTablePaginationProps<TData>) {
+    const router = useRouter()
     return <div className="flex items-center justify-between px-2">
         <div className="flex-1 text-sm text-muted-foreground">
             {table.getFilteredSelectedRowModel().rows.length} of{" "}
@@ -304,6 +306,7 @@ export function DataTablePagination<TData>({
                     value={`${table.getState().pagination.pageSize}`}
                     onValueChange={(value) => {
                         table.setPageSize(Number(value))
+                        router.push(`?page=${table.getPageCount()}&perPage=${value}`,{scroll:false})
                     }}
                 >
                     <SelectTrigger className="h-8 w-[70px]">

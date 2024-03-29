@@ -4,7 +4,6 @@ import { getSession } from "src/lib/auth";
 import { sessionType } from "src/types/session";
 import { getTools } from './actions';
 import { columns } from "./columns";
-import Search from './search';
 
 
 export default async function DashboardPage({
@@ -13,14 +12,16 @@ export default async function DashboardPage({
     searchParams?: {
         query?: string,
         page?: string,
+        perPage?: string,
     };
 }) {
     const session = await getSession() as sessionType;
     const query = searchParams?.query || '';
     const currentPage = Number(searchParams?.page) || 1;
+    const perPage = Number(searchParams?.perPage) || 10;
 
-    const { tools,totalPages } = await getTools(query, currentPage, {});
-    console.log(tools);
+    const { tools,totalPages } = await getTools(query, currentPage,perPage, {});
+    // console.log(tools);
 
 
     return (<div className="space-y-6 my-5">
@@ -30,11 +31,8 @@ export default async function DashboardPage({
                     <div>
                     <h2 className="text-2xl font-semibold">Tools</h2>
                     <p className="text-gray-500 text-sm">
-                        1 of {totalPages} pages 
+                        {currentPage} of {totalPages} pages 
                     </p>
-                </div>
-                <div>
-                    <Search />
                 </div>
 
                 </>}/>
