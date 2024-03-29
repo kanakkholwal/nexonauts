@@ -3,17 +3,8 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { DataTableColumnHeader } from "@/components/ui/data-table"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu"
 import { ColumnDef } from "@tanstack/react-table"
-import axios from "axios"
-import { MoreHorizontal } from "lucide-react"
 import Link from "next/link"
-import toast from "react-hot-toast"
 
 
 
@@ -148,38 +139,11 @@ export const columns: ColumnDef<userType>[] = [
     enableHiding: true,
     cell: ({ row }) => {
       const tool = row.original;
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem onClick={() => toast.promise(navigator.clipboard.writeText(tool._id), {
-              loading: 'Copying...',
-              success: 'ID copied to clipboard',
-              error: 'Failed to copy ID'
-            })}> Copy ID </DropdownMenuItem>
-            <DropdownMenuItem asChild> 
-            <Link href={`/admin/tools/${tool.slug}/edit`} className="cursor-pointer">
-              Edit 
-            </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => {
-              console.log("deleting tool ", tool);
-              toast.promise(axios.delete(`/api/tool/delete?userId=${tool._id}`), {
-                loading: 'Deleting...',
-                success: 'User deleted',
-                error: (error) => error.response.data.message
-              })
-            }}>
-              <span className="text-red-600">Delete</span>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
+      return (<Button variant="link" size="sm" asChild>
+        <Link href={`/admin/tools/${tool.slug}/edit`}>
+          Edit
+        </Link>
+      </Button>)
     },
   },
 ]

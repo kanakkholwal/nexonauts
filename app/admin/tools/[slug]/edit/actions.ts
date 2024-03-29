@@ -1,5 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 // import mongoose from "mongoose";
 import dbConnect from "src/lib/dbConnect";
 import PublicTool from "src/models/tool";
@@ -41,10 +42,23 @@ export async function updateTool(id: string, data: Record<string, any>) {
         }).exec();
         revalidatePath('/admin/tools/' + id + '/edit');
         revalidatePath('/admin/tools/' + id);
-        return Promise.resolve(JSON.parse(JSON.stringify(tool)));
+        return Promise.resolve(true);
     }
     catch (error) {
         console.error(error);
         return Promise.reject(error);
+    }
+}
+export async function deleteTool(id: string) {
+    try {
+        await dbConnect();
+        await PublicTool.findByIdAndDelete(id).exec();
+        return redirect('/admin/tools')
+    }
+    catch (error) {
+        console.error(error);
+        return Promise.reject(error);
+    } finally {
+        revalidatePath('/admin/tools');
     }
 }

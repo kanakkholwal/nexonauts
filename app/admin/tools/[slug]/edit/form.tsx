@@ -34,17 +34,19 @@ const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
     ssr: false
 });
 
-export default function Form({ updateTool,available_categories }: {
+export default function Form({ updateTool, available_categories, deleteTool }: {
     updateTool: (data: Record<string, any>) => Promise<any>,
-    available_categories: ICategory[]
+    available_categories: ICategory[],
+    deleteTool: () => Promise<any>
 }) {
     const tool = useFormStore((state) => state.tool) as PublicToolTypeWithId;
     const [loading, setLoading] = React.useState(false);
+    const [deleting, setDeleting] = React.useState(false);
     const editorRef = React.useRef(null);
     const [generating, setGenerating] = React.useState(false);
     const [tags, setTags] = React.useState<Tag[]>(tool?.tags.map((tag) => ({ id: nanoid(), text: tag })) || []);
 
-    
+
 
     return (<>
         <div className="flex gap-5 justify-around items-start flex-col @4xl:flex-row">
@@ -291,45 +293,30 @@ export default function Form({ updateTool,available_categories }: {
                     {loading ? <LoaderCircle className="animate-spin" /> : null}
                     {loading ? "Saving..." : "Save Changes"}
                 </Button>
+                <Button variant="destructive_light" size="lg" width="sm" disabled={loading}
+                    onClick={(e) => {
+                        e.preventDefault();
+
+                        setDeleting(true);
+                        toast.promise(deleteTool(), {
+                            loading: 'Deleting Tool...',
+                            success: (data) => {
+                                return 'Tool Deleted';
+                            },
+                            error: (error) => {
+                                console.error(error);
+                                return 'Error Deleting Tool';
+                            }
+                        })
+                            .finally(() => {
+                                setDeleting(false);
+                            });
+                    }}>
+                    {deleting ? <LoaderCircle className="animate-spin" /> : null}
+                    {deleting ? "Deleting..." : "Delete Tool"}
+                </Button>
             </div>
         </div>
-
-
-
-        {/* <div className="grid w-full items-center gap-1.5 my-4">
-            <Label htmlFor="coverImage">
-                Banner Image
-            </Label>
-            <Input id="bannerImage" name="bannerImage" type="url"
-                value={tool?.bannerImage}
-                disabled={loading}
-
-                placeholder="Banner Image URL"
-                onChange={(e) => {
-                    useFormStore.setState({ tool: { ...tool, bannerImage: e.target.value } })
-                }}
-            />
-            <div>
-
-                <UploadImage
-                    key={"bannerImage_upload"}
-                    onUpload={(fileUrl) => {
-                        useFormStore.setState({ tool: { ...tool, bannerImage: fileUrl } })
-                    }}
-                />
-            </div>
-            <div className="w-full h-40 bg-gray-200">
-                {tool?.bannerImage && <Image
-                    src={tool?.bannerImage}
-                    alt={tool?.name}
-                    width={800}
-                    height={400}
-                    className="rounded-lg shadow-md w-full h-full object-cover"
-                />}
-            </div>
-
-
-        </div> */}
 
     </>)
 }
