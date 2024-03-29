@@ -163,7 +163,7 @@ export const columns: ColumnDef<userType>[] = [
               error: 'Failed to copy ID'
             })}> Copy ID </DropdownMenuItem>
             <DropdownMenuItem asChild> 
-            <Link href={`/admin/tools/${tool._id}/edit`}>
+            <Link href={`/admin/tools/${tool.slug}/edit`} className="cursor-pointer">
               Edit 
             </Link>
             </DropdownMenuItem>
