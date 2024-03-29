@@ -34,7 +34,7 @@ export function PostReview({ tool,
 
     return (
         <>
-            <Card className="border-none w-full">
+            <Card className="border-none w-full bg-tranparent">
                 <CardHeader>
                     <CardTitle>Rate {tool.name}</CardTitle>
                     <CardDescription>Your review will help others decide if {tool.name} is right for them.</CardDescription>
@@ -71,6 +71,7 @@ export function PostReview({ tool,
                 </CardContent>
                 <CardFooter>
                     <Button type="submit"
+                    width="sm"
                         onClick={() => {
                             if (rating === 0) {
                                 toast.error("Please select a rating");
