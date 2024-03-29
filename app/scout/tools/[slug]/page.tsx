@@ -65,6 +65,14 @@ export default async function ToolPage({ params }: Props) {
     const ratings = await getRatingsAndReviews(tool._id);
     // console.log(ratings);
 
+    const bannerURL =  new URL(`https://api.microlink.io/`);
+    // ?url=https://codeium.com&screenshot=true&meta=false&embed=screenshot.url
+    bannerURL.searchParams.append("url", tool.link);
+    bannerURL.searchParams.append("screenshot", "true");
+    bannerURL.searchParams.append("meta", "false");
+    bannerURL.searchParams.append("embed", "screenshot.url");
+
+
     async function publishRating(data: {
         rating: number,
         comment: string
@@ -137,14 +145,15 @@ export default async function ToolPage({ params }: Props) {
                             <BookMarkButton tool={tool} toggleBookmark={toggleBookmark} userId={session?.user?._id! || null} />
                         </Suspense>
                         <Button
-                            variant="gradient_blue"
+                            variant="default"
+                            transition="damped"
                             className="rounded-full px-6 py-2"
                             asChild>
                             <Link href={tool.link + "?ref=nexonauts.com/scout&utm_source=nexonauts&utm_medium=nexoscout&utm_campaign=" + tool.name} target="_blank">
                                 <span>
                                     Check it out
                                 </span>
-                                <ExternalLink className="inline-block ml-2 w-4 h-4" />
+                                <ExternalLink className="inline-block" />
                             </Link>
                         </Button>
                     </div>
@@ -169,16 +178,12 @@ export default async function ToolPage({ params }: Props) {
                     </div>
                 </CardHeader>
                 <CardContent className=" border-y border-y-border pt-5 flex-col flex items-center justify-center gap-4">
-                    {tool.bannerImage === "https://via.placeholder.com/920" ? <>
-                        <Image width={900} height={384} src={tool.coverImage} alt={tool.name} className="w-full h-auto max-w-3xl  rounded-lg shadow-xl backdrop-blur-lg object-cover border border-border  mx-auto" />
-                    </> : <>
-                        <Image width={900} height={384} src={tool.bannerImage || tool.coverImage} alt={tool.name}
+                        <Image width={900} height={384} src={bannerURL.toString()} alt={tool.name}
                             className="w-full h-auto max-w-3xl object-cover rounded-lg shadow-xl backdrop-blur-lg border border-border mx-auto aspect-video" />
-                    </>}
                 </CardContent>
             </Card>
 
-            <Card id="overview">
+            <Card id="overview" className="backdrop-blur bg-white dark:bg-gray-600/30">
                 <CardHeader>
                     <CardTitle><Zap className="inline-block mr-2 w-5 h-5 text-teal-600" /> Overview</CardTitle>
                     <CardDescription>
@@ -189,12 +194,12 @@ export default async function ToolPage({ params }: Props) {
                     <MarkdownView className="prose dark:prose-invert prose-slate max-w-full">{tool.description}</MarkdownView>
                 </CardContent>
             </Card>
-            <Card id="similar-tools">
+            <Card id="similar-tools" className="backdrop-blur bg-white dark:bg-gray-600/30">
                 <Suspense fallback={<div>Loading...</div>}>
                     <SimilarTools tools={similarTools} toolName={tool.name} />
                 </Suspense>
             </Card>
-            <Card id="reviews">
+            <Card id="reviews" className="backdrop-blur bg-white dark:bg-gray-600/30">
                 <CardHeader className="flex items-center w-full gap-2 flex-col md:flex-row">
                     <div>
                         <CardTitle>
