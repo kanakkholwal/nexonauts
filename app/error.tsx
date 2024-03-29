@@ -68,7 +68,9 @@ export default function GlobalError({
                                 
                                 <div className="mt-4 flex justify-center items-center flex-wrap gap-5">
                                     <Button className="px-6 py-4 h-12"
-                                        size="lg" variant="dark" onClick={() => reset()}>Try again</Button>
+                                        size="lg" variant="dark" asChild>
+                                            <Link href="/">Go to Home</Link>
+                                        </Button>
                                     <Button className="px-6 py-4 h-12"
                                         size="lg" variant="outline" onClick={() => {
                                             window.location.reload();

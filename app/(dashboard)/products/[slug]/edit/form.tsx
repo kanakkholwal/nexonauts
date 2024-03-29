@@ -86,7 +86,7 @@ export default function ProductForm(props: Props) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 justify-around items-start flex-col md:flex-row">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 justify-around items-start flex-col @3xl:flex-row">
 
                 <div className="flex flex-col gap-4 w-full">
 

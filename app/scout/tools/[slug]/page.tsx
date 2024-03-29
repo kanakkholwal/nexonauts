@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
         keywords: tool.tags?.join(", ") || tool.categories.map((category) => category.name).join(", "),
         metadataBase: new URL((process.env.NEXT_PUBLIC_WEBSITE_URL || "https://nexonauts.com") + "/scout/tools/" + tool.slug),
         openGraph: {
-            images: [tool.coverImage, tool.bannerImage || tool.coverImage],
+            images: [tool.coverImage, tool?.bannerImage || tool.coverImage],
             title: tool.name,
             description: tool.description.substring(0, 160),
             url: (process.env.NEXT_PUBLIC_WEBSITE_URL || "https://nexonauts.com") + "/scout/tools/" + tool.slug,
