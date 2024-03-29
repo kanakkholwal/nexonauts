@@ -54,7 +54,7 @@ export default function SimilarTools({ tools, toolName }: Props) {
             {tools.map((tool) => (
               <CarouselItem key={tool._id} className="md:basis-1/3 lg:basis-1/4">
                 <Link href={`/scout/tools/${tool.slug}`} className="p-1">
-                  <Card className="rounded-3xl">
+                  <Card className="rounded-3xl bg-inherit">
                     <CardHeader>
                       <div className="flex flex-col w-full h-auto aspect-video overflow-hidden bg-gray-100 dark:bg-slate-800 rounded-xl">
                         <div className="relative flex items-center justify-center flex-shrink-0 h-full group">

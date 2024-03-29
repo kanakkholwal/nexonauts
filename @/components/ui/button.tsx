@@ -59,7 +59,7 @@ const buttonVariants = cva(
       },
       transition: {
         none: "",
-        damped:"transition hover:scale-105 active:duration-75 active:scale-95",
+        damped:"transition-all hover:scale-105 active:duration-75 active:scale-95",
       }
     },
     defaultVariants: {
