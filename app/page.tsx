@@ -1,13 +1,13 @@
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Footer from 'app/layouts/footer';
-import HeroSection from "app/layouts/hero";
 import Navbar from "app/layouts/navbar-static";
-import { ExternalLink, LineChart, ScanSearch } from 'lucide-react';
+import SquareGrid from 'app/layouts/patterns/square-grid';
+import { ArrowUpRight, ExternalLink, LineChart, ScanSearch } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Suspense } from 'react';
-import dbConnect from 'src/lib/dbConnect';
-import Post from 'src/models/post';
+// import dbConnect from 'src/lib/dbConnect';
+// import Post from 'src/models/post';
 
 const features = [
 	{
@@ -44,13 +44,13 @@ const features = [
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
-	await dbConnect();
+	// await dbConnect();
 	// get recent posts
-	const articles = await Post.find({ state: 'published' })
-		.sort({ createdAt: -1 })
-		.limit(3)
-		.select('title description slug image')
-		.exec();
+	// const articles = await Post.find({ state: 'published' })
+	// 	.sort({ createdAt: -1 })
+	// 	.limit(3)
+	// 	.select('title description slug image')
+	// 	.exec();
 
 
 
@@ -58,9 +58,32 @@ export default async function HomePage() {
 		<header>
 			<Navbar />
 		</header>
-		<main className="space-y-20 mb-40">
+		<SquareGrid />
+		<main className="space-y-20 mb-40 pt-24">
+			
+			{/* <HeroSection /> */}
+			<div className="flex flex-col text-center justify-center items-center gap-6 lg:gap-8 py-10">
+				<Badge variant="glass" className="font-normal text-sm leading-7 dark:text-neutral-200 -mb-3">
+					Welcome to {process.env.NEXT_PUBLIC_WEBSITE_NAME}
+				</Badge>
+				<span className="font-semibold text-[2.5rem] tracking-normal leading-none text-center dark:text-neutral-50 max-w-[12ch] sm:max-w-[18ch] lg:max-w-[18ch] lg:text-[4rem]">
+					The
+					<span className="leading-7 bg-gradient-to-l from-indigo-400 from-10% via-sky-400 via-30% to-emerald-300 to-90% bg-clip-text text-transparent mx-1">
+						Ultimate
+					</span>
+					platform for
+					<span className="leading-7 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mx-1">
+						Developers
+					</span>
+				</span>
+				<span className="text-lg lg:text-xl text-center dark:text-neutral-300 font-light leading-6 tracking-wide max-w-[30ch] sm:max-w-[45ch]" >
+					Discover, create, and collaborate effortlessly in one unified space. Fuel creativity, solve problems, innovate effortlessly.
+				</span>
+				<Button size="lg" rounded="full" width="xs" className="tracking-wide" transition="damped" asChild>
+					<Link href="/waitlist">Join Waitlist <ArrowUpRight/></Link>
+				</Button>
+			</div>
 
-			<HeroSection />
 			<div id="solutions">
 				<div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 w-full py-24 md:py-32">
 					<div className="space-y-6 max-w-[42rem]">
@@ -211,7 +234,7 @@ export default async function HomePage() {
 								</Link>
 								<a href="/about" className="relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max">
 									<span className="relative text-base font-semibold text-primary dark:text-white">
-										Learn More 
+										Learn More
 									</span>
 								</a>
 							</div>
@@ -219,7 +242,7 @@ export default async function HomePage() {
 					</div>
 				</div>
 			</div>
-			<div id="blog">
+			{/* <div id="blog">
 				<div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
 					<div className="mb-12 space-y-2 text-center">
 						<h2 className="text-3xl font-bold text-gray-800 md:text-4xl dark:text-white">Latest Articles</h2>
@@ -251,7 +274,7 @@ export default async function HomePage() {
 
 					</div>
 				</div>
-			</div>
+			</div> */}
 		</main>
 
 		<Footer />
