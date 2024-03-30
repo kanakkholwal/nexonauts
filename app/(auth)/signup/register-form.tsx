@@ -22,7 +22,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { CgSpinner } from "react-icons/cg";
 import { LuCheckCircle2 } from "react-icons/lu";
-import { toast } from "sonner";
+import toast from "react-hot-toast";
 import { z } from "zod";
 
 
@@ -73,23 +73,24 @@ export function RegisterForm({ registerUser }: Props) {
     async function onSubmit(data: z.infer<typeof formSchema>) {
         console.log(data);
         setLoading(true);
-            toast.promise(registerUser(data), {
-                loading: 'Creating account...',
-                success: (data: any) => {
-                    console.log(data);
-                    setState("registered");
-                    if (redirect) {
-                        router.push(`/login?redirect=${redirect}`);
-                        return `Account created successfully. Please check your email to verify your account`
-                    }
-                    router.push("/login");
+        toast.promise(registerUser(data), {
+            loading: 'Creating account...',
+            success: (data: any) => {
+                console.log(data);
+                setState("registered");
+                if (redirect) {
+                    router.push(`/login?redirect=${redirect}`);
                     return `Account created successfully. Please check your email to verify your account`
-                },
-                error: (err) => {
-                    console.log(err);
-                    return err.message || "An error occurred while creating account"
                 }
-            }).finally(() => setLoading(false));
+                router.push("/login");
+                return `Account created successfully. Please check your email to verify your account`
+            },
+            error: (err) => {
+                console.log(err);
+                return err.message || "An error occurred while creating account"
+            }
+        });
+        setLoading(false)
 
     }
 
@@ -99,14 +100,14 @@ export function RegisterForm({ registerUser }: Props) {
 
     return (<>
         {state === "onboarding" && <>
-        <div className="mb-2xl text-center mt-10 p-4 space-y-2">
-            <h1 className="text-[32px] font-extrabold leading-heading tracking-[-1px] lg:text-4xl lg:tracking-[-2px] mb-md">
-                Create an account
-            </h1>
-            <p className="text-concrete text-xl">
-                Start your journey with {process.env.NEXT_PUBLIC_WEBSITE_NAME}
-            </p>
-        </div>
+            <div className="mb-2xl text-center mt-10 p-4 space-y-2">
+                <h1 className="text-[32px] font-extrabold leading-heading tracking-[-1px] lg:text-4xl lg:tracking-[-2px] mb-md">
+                    Create an account
+                </h1>
+                <p className="text-concrete text-xl">
+                    Start your journey with {process.env.NEXT_PUBLIC_WEBSITE_NAME}
+                </p>
+            </div>
             <Form  {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="grid w-full max-w-lg items-center gap-1.5">
                     <FormField
@@ -188,10 +189,10 @@ export function RegisterForm({ registerUser }: Props) {
                         width={"full"}
                         disabled={loading}
                         className="mt-4"
-                        onClick={async () =>{
+                        onClick={async () => {
                             setLoading(true);
                             await form.handleSubmit(onSubmit)();
-                            setLoading(false);                            
+                            setLoading(false);
                         }}
                         type="submit">
                         {loading && <CgSpinner className="animate-spin mr-2" />}
