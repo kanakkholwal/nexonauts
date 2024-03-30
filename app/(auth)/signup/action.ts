@@ -1,4 +1,5 @@
 "use server";
+import { customAlphabet } from 'nanoid';
 
 import { render } from "@react-email/render";
 import { generateToken, handleEmailFire } from 'emails/helper';
@@ -7,23 +8,29 @@ import dbConnect from "src/lib/dbConnect";
 import UserModel from 'src/models/user';
 
 const dbcache = new Map<string, boolean>();
+function generateRandomUsername(): string {
+    // Generate a random UUID
+    const slug = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 10)()
 
+    // Add a prefix (e.g., 'user_') to the alphanumeric username
+    return `user_${slug}`;
+}
 
-export async function registerUser(data:{
-    name:string,
-    email:string,
-    password:string
-}){
-    try{
-        if(dbcache.has(data.email)){
+export async function registerUser(data: {
+    name: string,
+    email: string,
+    password: string
+}) {
+    try {
+        if (dbcache.has(data.email)) {
             return Promise.reject({
                 success: false,
                 message: "email already exists",
             })
         }
         await dbConnect();
-        const userExit = await UserModel.exists({email:data.email});
-        if(userExit){
+        const userExit = await UserModel.exists({ email: data.email });
+        if (userExit) {
             dbcache.set(data.email, true);
 
             return Promise.reject({
@@ -32,9 +39,10 @@ export async function registerUser(data:{
             })
         }
         const newUser = new UserModel({
-            name:data.name,
-            email:data.email,
-            password:data.password,
+            name: data.name,
+            email: data.email,
+            password: data.password,
+            username: generateRandomUsername(),
             verificationToken: generateToken({ email: data.email }),
         });
         await newUser.save();
@@ -57,13 +65,13 @@ export async function registerUser(data:{
         })
 
 
-    }catch(e){
+    } catch (e) {
         console.log(e);
         return Promise.reject({
             success: false,
             message: "An error occurred while creating user"
         })
-        
+
     }
 
 }
