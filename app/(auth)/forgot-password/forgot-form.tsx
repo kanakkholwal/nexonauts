@@ -42,7 +42,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     });
     async function onSubmit(data: z.infer<typeof FormSchema>) {
         console.log(data);
-        setIsLoading(true)
+        setIsLoading(true);
+        
 
 
 
@@ -70,15 +71,13 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                     </FormLabel>
                                     <FormControl className='relative'>
                                         <Input
-                                            id="email"
                                             placeholder="name@example.com"
                                             type="email"
                                             autoCapitalize="none"
                                             autoComplete="email"
                                             autoCorrect="off"
-                                            variant="fluid"
                                             disabled={isLoading}
-                                            className='pl-12 !py-6 pr-5 !mt-0'
+                                            className='pl-10 pr-5 !mt-0'
                                             {...field} />
                                     </FormControl>
 
@@ -89,14 +88,14 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                     />
 
 
-                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" size="lg">
+                    <Button disabled={isLoading} type="submit">
                         {isLoading && (
-                            <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
+                            <AiOutlineLoading className="animate-spin" />
                         )}
                         Send reset link
                     </Button>
                     <p className='text-left text-sm font-medium text-slate-500 dark:text-slate-300 mt-2'>
-                        Remembered your password? <Link href="/login" className='text-primary hover:underline'>Login</Link>
+                        Remember your password? <Link href="/login" className='text-primary hover:underline'>Login</Link>
                     </p>
                 </form>
             </Form>
