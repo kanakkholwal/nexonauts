@@ -72,8 +72,8 @@ export function RegisterForm({ registerUser }: Props) {
     });
     async function onSubmit(data: z.infer<typeof formSchema>) {
         console.log(data);
+        setLoading(true);
         try {
-            setLoading(true);
             toast.promise(registerUser(data), {
                 loading: 'Creating account...',
                 success: (data: any) => {
@@ -196,6 +196,11 @@ export function RegisterForm({ registerUser }: Props) {
                         width={"full"}
                         disabled={loading}
                         className="mt-4"
+                        onClick={async () =>{
+                            setLoading(true);
+                            await form.handleSubmit(onSubmit)();
+                            setLoading(false);                            
+                        }}
                         type="submit">
                         {loading && <CgSpinner className="animate-spin mr-2" />}
                         {loading ? "Creating account..." : "Create a new Account"}

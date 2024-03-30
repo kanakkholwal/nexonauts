@@ -3,7 +3,7 @@
 import { render } from "@react-email/render";
 import { generateToken, handleEmailFire } from 'emails/helper';
 import WelcomeVerify from "emails/templates/welcome-verify";
-import dbConnect from "lib/dbConnect";
+import dbConnect from "src/lib/dbConnect";
 import UserModel from 'src/models/user';
 
 const dbcache = new Map<string, boolean>();
