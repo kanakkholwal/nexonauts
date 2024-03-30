@@ -7,6 +7,8 @@
     :root {
         --background: 0, 0%, 98%;
         --foreground: 224 71.4% 4.1%;
+        --background-start-rgb: 214, 219, 220;
+        --background-end-rgb: 255, 255, 255;
         --card: 0 0% 100%;
         --card-foreground: 224 71.4% 4.1%;
         --popover: 0 0% 100%;
@@ -30,6 +32,8 @@
     .dark {
         --background: 224 71.4% 4.1%;
         --foreground: 210 20% 98%;
+        --background-start-rgb: 0, 0, 20%;
+        --background-end-rgb: 0, 0, 25%;
         --card: 224 71.4% 4.1%;
         --card-foreground: 210 20% 98%;
         --popover: 224 71.4% 4.1%;
@@ -146,7 +150,9 @@ a {
     /* glassmorphism  with tailwindcss  and dark mode */
     @apply bg-white/30 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70;
 }
-
+.bg-background-gradient{
+    background: linear-gradient(135deg, rgba(var(--background-start-rgb), 1) 0, rgba(var(--background-end-rgb), 1) 100%);
+}
 .or {
     display: flex;
     align-items: center;

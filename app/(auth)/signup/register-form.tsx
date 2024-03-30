@@ -6,24 +6,33 @@ import Link from "next/link";
 import { useState } from "react";
 import toast from "react-hot-toast";
 // import { FaApple } from "react-icons/fa";
+import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import { CgSpinner } from "react-icons/cg";
 import { FcGoogle } from "react-icons/fc";
 import { LuCheckCircle2 } from "react-icons/lu";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { z } from "zod";
 
+const INVALID_CHARACTERS = [" ", "-", "@", "#", "%", "^", "!", "~", "*", "(", ")", "=", "+", ".", ">", ",", "<", "?", `"`, `'`, "{", "}", "[", "]", "|", "$", ":", ";", "&"]
 
 const emailSchema = z.string().email();
-
-
+const usernameSchema = z.string().min(4).refine((username) => !username.includes(" "), {
+    message: "Username cannot contain spaces",
+}).refine((username) => 
+    !INVALID_CHARACTERS.filter(char => username.includes(char)).length
+, {
+    message: "Username cannot contain invalid characters",
+});
 
 interface Props {
     validateEmail: (email: string) => Promise<boolean>,
     validateUsername: (username: string) => Promise<boolean>,
 }
-const INVALID_CHARACTERS = [" ", "-", "@", "#", "%", "^", "!", "~", "*", "(", ")", "=", "+", ".", ">", ",", "<", "?", `"`, `'`, "{", "}", "[", "]", "|", "$", ":", ";", "&"]
 
 export function RegisterForm({ validateEmail, validateUsername }: Props) {
+    const searchParams = useSearchParams() as URLSearchParams;
+    const redirect = searchParams.get("redirect") ?? "/feed";
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -87,7 +96,7 @@ export function RegisterForm({ validateEmail, validateUsername }: Props) {
             <div className="grid w-full max-w-lg items-center gap-1.5">
                 <Label htmlFor="name">Enter your Name</Label>
 
-                <Input type="text" id="name" placeholder="e.g. John Doe"  value={name} onChange={(e) => setName(e.target.value)} />
+                <Input type="text" id="name" placeholder="e.g. John Doe" value={name} onChange={(e) => setName(e.target.value)} />
             </div>
             <div className="grid w-full max-w-lg items-center gap-1.5">
                 <Label htmlFor="email">Enter your Email</Label>
@@ -102,16 +111,16 @@ export function RegisterForm({ validateEmail, validateUsername }: Props) {
                             // validate email with zod
                             const valid = emailSchema.safeParse(e.target.value).success;
                             setValidity({ ...validity, email: { ...validity.email, valid: valid } })
-                            if (e.target.value.length > 4 && !valid){
+                            if (e.target.value.length > 4 && !valid) {
                                 setValidity({ ...validity, email: { ...validity.email, loading: true } })
                                 validateEmail(e.target.value)
-                                .then((valid: boolean) => {
-                                    setValidity({ ...validity, email: { ...validity.email, loading: false, valid: valid } })
-                                }).catch((err) => {
-                                    setValidity({ ...validity, email: { ...validity.email, loading: false, valid: false } })
-                                })
+                                    .then((valid: boolean) => {
+                                        setValidity({ ...validity, email: { ...validity.email, loading: false, valid: valid } })
+                                    }).catch((err) => {
+                                        setValidity({ ...validity, email: { ...validity.email, loading: false, valid: false } })
+                                    })
                             }
-                            
+
                         }}
                         className="pr-10" />
                     <span className="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -127,10 +136,12 @@ export function RegisterForm({ validateEmail, validateUsername }: Props) {
                         nexonauts.com/devs/
                     </span>
                     <Input type="text" id="username"
-                        pattern="^[a-zA-Z0-9_]" 
+                        pattern="^[a-zA-Z0-9_]"
                         value={username} onChange={(e) => {
                             // prevent invalid characters 
-
+                            const valid = usernameSchema.safeParse(e.target.value).success;
+                            setValidity({ ...validity, username: { ...validity.username, valid: valid } })
+                            
                             setUsername(e.target.value
                                 .split('')
                                 .filter(char => !INVALID_CHARACTERS.includes(char))
@@ -158,7 +169,7 @@ export function RegisterForm({ validateEmail, validateUsername }: Props) {
                 <Label htmlFor="password">Enter your password</Label>
                 <div className="relative">
                     <Input
-                        type={"text"} id="password" 
+                        type={"text"} id="password"
                         value={password} onChange={(e) => {
                             setPassword(e.target.value);
                             const { valid, message } = isStrongPassword(e.target.value);
@@ -170,11 +181,12 @@ export function RegisterForm({ validateEmail, validateUsername }: Props) {
                         {validity.password.valid && <LuCheckCircle2 className="h-5 w-5 text-green-500" />}
                     </span>
                 </div>
-            {validity.password.valid === false && <p className="text-red-500 text-sm font-semibold text-left">{validity.password.errorMessage}</p>}
+                {validity.password.valid === false && <p className="text-red-500 text-sm font-semibold text-left">{validity.password.errorMessage}</p>}
             </div>
             <div className="grid w-full max-w-lg items-center gap-1.5">
-                <Button className="w-full rounded-full"
-
+                <Button 
+                    width={"full"}
+                    
                     disabled={loading || (validity.password.valid === false || validity.email.valid === false || validity.username.valid === false)}
                     onClick={() => {
                         if (!isStrongPassword(password)) {
@@ -191,33 +203,38 @@ export function RegisterForm({ validateEmail, validateUsername }: Props) {
                                 return <>{err.message}</>
                             }
                         })
-
-                    }}
-                    size="lg">
-                    {loading && <CgSpinner className="animate-spin mr-2 h-5 w-5" />}
+                    }}>
+                    {loading && <CgSpinner className="animate-spin mr-2" />}
                     Create a new Account
                 </Button>
             </div>
-            <div className="pt-lg  max-w-lg text-center">
-                <p className="text-center my-4 capitalize text-sm text-concrete font-semibold">
-                    OR SIGN UP WITH
-                </p>
-                <div className="w-full max-w-lg flex flex-col gap-3">
-                    <Button variant="outline" size="lg" className="w-full rounded-full gap-2">
-                        {loading ? <CgSpinner className="animate-spin mr-2 h-5 w-5" /> : <FcGoogle className="mr-2 h-6 w-6" />}
+            <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                    <span className="px-2 text-muted-foreground">
+                        OR SIGN UP WITH
+                    </span>
+                </div>
+            </div>
+            <div className='grid w-full max-w-lg items-center gap-1.5'>
+                <Button variant="light" type="button" disabled={loading} width={"full"} 
+                    onClick={async () => {
+                        setLoading(true);
+                        await signIn('google', { callbackUrl: redirect })
+                        setLoading(false);
 
-                        Sign up with Google
-                    </Button>
-                    {/* <Button className="rounded-full ease-linear duration-300 text-base font-medium text-slate-100 bg-slate-700 hover:bg-slate-800 shadow-lg" size="lg">
-                <FaApple className="mr-2 h-6 w-6" />
-                Sign up with Apple
-              </Button> */}
-                </div>
-                <div className="flex justify-center mt-8">
-                    <p className="text-concrete">Already have an account ?&nbsp;</p>
-                    <Link className=" text-primary inline-flex hover:underline"
-                        href="/login" data-testid="login_redirect">Log in</Link>
-                </div>
+                    }}>
+                    {loading ? (
+                        <CgSpinner className=" animate-spin" />
+                    ) : (
+                        <FcGoogle  />
+                    )}
+                    {loading ? "Signing in..." : "Sign in with Google"}
+                </Button>
+            </div>
+            <div className="pt-lg  max-w-lg text-center">
                 <p className="text-concrete text-xs lg:text-sm pt-8">By clicking <span className="font-semibold">Create account / Sign up</span>, you agree to {process.env.NEXT_PUBLIC_WEBSITE_NAME}'s {" "}
                     <Link className="!text-concrete text-primary inline-flex hover:underline"
                         href={process.env.NEXT_PUBLIC_WEBSITE_URL + "/tos"}>Terms</Link> {" "}
@@ -249,44 +266,24 @@ function isStrongPassword(password: string) {
     const uppercaseRegex = /[A-Z]/g;
     const lowercaseRegex = /[a-z]/g;
     const numbersRegex = /[0-9]/g;
-
-    // Check minimum length
-    if (password.length < minLength) {
-        return {
-            valid: false,
-            message: `Password must contain at least ${minLength} characters`
-        }
-    }
-
-    // Check for minimum uppercase letters
-    if ((password.match(uppercaseRegex) || []).length < minUppercase) {
-        return {
-            valid: false,
+    const passwordSchema = z.string().min(minLength)
+        .refine((password) => (password.match(uppercaseRegex) || []).length >= minUppercase, {
             message: `Password must contain at least ${minUppercase} uppercase letter`
-        }
-    }
-
-    // Check for minimum lowercase letters
-    if ((password.match(lowercaseRegex) || []).length < minLowercase) {
-        return {
-            valid: false,
+        })
+        .refine((password) => (password.match(lowercaseRegex) || []).length >= minLowercase, {
             message: `Password must contain at least ${minLowercase} lowercase letter`
-        }
-    }
-
-    // Check for minimum numbers
-    if ((password.match(numbersRegex) || []).length < minNumbers) {
-        return {
-            valid: false,
+        })
+        .refine((password) => (password.match(numbersRegex) || []).length >= minNumbers, {
             message: `Password must contain at least ${minNumbers} number`
-        }
-    }
-
-    // Check for minimum special characters
-    if (!specialChars.test(password) || (password.match(specialChars) || []).length < minSpecialChars) {
+        })
+        .refine((password) => specialChars.test(password) && (password.match(specialChars) || []).length >= minSpecialChars, {
+            message: `Password must contain at least ${minSpecialChars} special character`
+        })
+    const result = passwordSchema.safeParse(password);
+    if (!result.success) {
         return {
             valid: false,
-            message: `Password must contain at least ${minSpecialChars} special character`
+            message: result.error.errors[0].message
         }
     }
 
