@@ -130,7 +130,7 @@ export function RegisterForm({ validateEmail, validateUsername }: Props) {
                 </div>
             </div>
             <div className="grid w-full max-w-lg items-center gap-1.5">
-                <Label htmlFor="password">Enter your username</Label>
+                <Label htmlFor="username">Enter your username</Label>
                 <div className="relative">
                     <span className="absolute inset-y-0 left-0 flex items-center pl-3 font-regular text-gray-500 dark:text-gray-500">
                         nexonauts.com/devs/
