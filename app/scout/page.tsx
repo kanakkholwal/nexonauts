@@ -112,7 +112,7 @@ export default async function Page() {
                     </p> */}
                     <div className="flex gap-4 items-center justify-start mt-10">
                         <Link href="/scout/browse"
-                            className="rounded-full flex items-center justify-center gap-2 font-semibold bg-blue-500 shadow-lg text-base h-14 shadow-blue-500/50  text-white py-3 px-6 hover:bg-primary-dark transition duration-200">
+                            className="rounded-full flex items-center justify-center gap-2 font-semibold bg-primary shadow-lg text-base h-14 shadow-primary/50  text-white py-3 px-6 hover:bg-primary-dark transition duration-200">
                             Start Searching Now
                             <ScanSearch className="w-6 h-6" />
                         </Link>
@@ -136,7 +136,7 @@ export default async function Page() {
         <section className="py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mx-auto max-w-2xl lg:text-center">
-                    <h2 className="text-base font-semibold leading-7 text-blue-600">Unlock the Power of Nexo Scout</h2>
+                    <h2 className="text-base font-semibold leading-7 text-primary">Unlock the Power of Nexo Scout</h2>
                     <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl">
                         Discover How Our Platform Can Enhance Your Workflow
                     </p>
