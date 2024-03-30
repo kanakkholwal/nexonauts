@@ -73,7 +73,6 @@ export function RegisterForm({ registerUser }: Props) {
     async function onSubmit(data: z.infer<typeof formSchema>) {
         console.log(data);
         setLoading(true);
-        try {
             toast.promise(registerUser(data), {
                 loading: 'Creating account...',
                 success: (data: any) => {
@@ -90,14 +89,7 @@ export function RegisterForm({ registerUser }: Props) {
                     console.log(err);
                     return err.message || "An error occurred while creating account"
                 }
-            })
-
-        } catch (err) {
-            console.error(err);
-            toast.error(err.message);
-        } finally {
-            setLoading(false);
-        }
+            }).finally(() => setLoading(false));
 
     }
 
