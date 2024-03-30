@@ -73,7 +73,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             success: (data) => {
                 console.log(data);
                 setIsLoading(false);
-                if(redirect){
+                if (redirect) {
                     router.push(redirect);
                     return `Logged in successfully to ${redirect}`
                 }
@@ -129,26 +129,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
     return (
         <div className={cn("grid gap-6 lg:max-w-lg text-left", className)} {...props}>
-            <div className='grid  grid-cols-1'>
-                <Button variant="outline" type="button" disabled={isLoading}
-                    className='border-slate-200 gap-2 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200'
-                    onClick={async () => {
-                        setIsLoading(true);
-                        await signIn('google', { callbackUrl: redirect })
-                        setIsLoading(false);
 
-                    }}            >
-                    {isLoading ? (
-                        <AiOutlineLoading className="h-6 w-6 animate-spin" />
-                    ) : (
-                        <FcGoogle className=" h-6 w-6" />
-                    )}
-                    {isLoading ? "Signing in..." : "Sign in with Google"}
-                </Button>
-            </div>
-                <p className="or my-5">
-                    Or sign in with email
-                </p>
             <Form  {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
 
@@ -163,15 +144,13 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                     </FormLabel>
                                     <FormControl className='relative'>
                                         <Input
-                                            id="email"
                                             placeholder="name@example.com"
                                             type="email"
                                             autoCapitalize="none"
                                             autoComplete="email"
-                                            autoCorrect="off"
                                             disabled={isLoading}
-                                            variant="ghost"
-                                            className='pl-12 !py-6 pr-5 !mt-0 border-2'
+                                            autoCorrect="off"
+                                            className='pl-10 pr-5'
                                             {...field} />
                                     </FormControl>
                                 </div>
@@ -191,15 +170,13 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                                     </FormLabel>
                                     <FormControl>
                                         <Input
-                                            id="password"
                                             placeholder="*********"
                                             type="password"
                                             autoCapitalize="none"
                                             autoComplete="password"
                                             autoCorrect="off"
                                             disabled={isLoading}
-                                            variant="ghost"
-                                            className='pl-12 !py-6 pr-5 !mt-0  border-2'
+                                            className='pl-10 pr-5 !mt-0'
 
                                             {...field} />
                                     </FormControl>
@@ -215,17 +192,40 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
                         </Link>
                     </p>
 
-                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" variant="default" size="lg">
+                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" variant="default">
                         {isLoading && (
                             <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
                         )}
                         Sign In with Email
                     </Button>
-                    <p className='text-left text-sm font-medium text-slate-500 dark:text-slate-300'>
-                        Don't have an account? <Link href={"/signup?redirect=" + redirect} className='text-primary hover:underline'>Sign Up</Link>
-                    </p>
                 </form>
             </Form>
+            <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                    <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                    <span className="px-2 text-muted-foreground">
+                        Or continue with
+                    </span>
+                </div>
+            </div>
+            <div className='grid  grid-cols-1'>
+                <Button variant="light" type="button" disabled={isLoading} width={"full"} 
+                    onClick={async () => {
+                        setIsLoading(true);
+                        await signIn('google', { callbackUrl: redirect })
+                        setIsLoading(false);
+
+                    }}            >
+                    {isLoading ? (
+                        <AiOutlineLoading className="h-6 w-6 animate-spin" />
+                    ) : (
+                        <FcGoogle className=" h-6 w-6" />
+                    )}
+                    {isLoading ? "Signing in..." : "Sign in with Google"}
+                </Button>
+            </div>
 
 
         </div>

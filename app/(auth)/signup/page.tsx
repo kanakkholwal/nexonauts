@@ -22,7 +22,7 @@ export default async function Page() {
     if (session) return redirect("/feed")
     await dbConnect();
 
-    const IsWaitingList = true;
+    const IsWaitingList = false;
 
     const validateEmail = async (email: string): Promise<boolean> => {
         "use server";
@@ -58,13 +58,18 @@ export default async function Page() {
     }
     return (
         <>
+            <Button className="absolute right-4 top-4 md:right-8 md:top-8" variant="link" asChild>
+                <Link href="/login">
+                    Sign Up
+                </Link>
+            </Button>
 
             <header className="mb-2xl text-center mt-10 p-4 space-y-2">
                 <h1 className="text-[32px] font-extrabold leading-heading tracking-[-1px] lg:text-4xl lg:tracking-[-2px] mb-md">
-                    Join {process.env.NEXT_PUBLIC_WEBSITE_NAME}
+                    Create an account
                 </h1>
                 <p className="text-concrete text-xl">
-                    It's quick and easy.
+                    Start your journey with {process.env.NEXT_PUBLIC_WEBSITE_NAME}
                 </p>
             </header>
             <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
@@ -73,10 +78,10 @@ export default async function Page() {
                     <div className="flex flex-col items-center justify-center space-x-2 gap-4">
                         <p className="text-lg text-accent-foreground font-medium mb-5">
                             Signup is currently by invitation only.
-                            </p>
+                        </p>
 
 
-                        <Button  size="lg" variant="default_light" asChild>
+                        <Button size="lg" variant="default_light" asChild>
                             <Link href="/login">
                                 Login to your account
                                 <ArrowRight className="w-6 h-6 ml-2" />
