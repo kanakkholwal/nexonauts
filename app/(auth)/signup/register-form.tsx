@@ -20,9 +20,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { CgSpinner } from "react-icons/cg";
 import { LuCheckCircle2 } from "react-icons/lu";
-import toast from "react-hot-toast";
 import { z } from "zod";
 
 
@@ -189,11 +189,6 @@ export function RegisterForm({ registerUser }: Props) {
                         width={"full"}
                         disabled={loading}
                         className="mt-4"
-                        onClick={async () => {
-                            setLoading(true);
-                            await form.handleSubmit(onSubmit)();
-                            setLoading(false);
-                        }}
                         type="submit">
                         {loading && <CgSpinner className="animate-spin mr-2" />}
                         {loading ? "Creating account..." : "Create a new Account"}
