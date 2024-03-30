@@ -126,8 +126,12 @@ export function ToolSubmitForm({ className,submit, ...props }: UserSubmitProps) 
 
             <CardFooter className="justify-center">
 
-                <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" variant="gradient_blue"
+                <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide" size="lg" width="sm"
                 onClick={async () => {
+                    if (!tool.name || !tool.description || !tool.link || !tool.coverImage) {
+                        toast.error("Please fill all the fields");
+                        return;
+                    }
                     setIsLoading(true);
                     toast.promise(submit(tool), {
                         loading: 'Submitting Tool...',

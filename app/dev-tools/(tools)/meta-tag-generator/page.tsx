@@ -1,3 +1,4 @@
+import { Badge } from "@/components/ui/badge"
 import { Metadata } from "next"
 import ToolComponent from "./tool"
 
@@ -28,10 +29,12 @@ export default function MetaTagGenerator() {
                 <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
                 <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
             </div>
-
             <h1 className="text-4xl font-bold mb-2">
                 {tool.title}
             </h1>
+            <Badge className="mb-4" variant="glass">
+                <img src={`https://visitor-badge.laobi.icu/badge?page_id=nexonauts.dev-tools.` + tool.id} alt="Visitors" />
+            </Badge>
             <p className="text-slate-600 font-semibold line-clamp-3">
                 {tool.description}
             </p>
