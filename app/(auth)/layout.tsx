@@ -10,7 +10,7 @@ export default function Layout({
     children: React.ReactNode
 }) {
     return (<>
-        <div className="w-full mx-auto px-4 relative h-[100vh] flex-col items-center justify-center lg:grid lg:items-stretch lg:max-w-none lg:grid-cols-2 lg:px-0 bg-background-gradient">
+        <div className="min-h-screen w-full mx-auto px-4 relative h-[100vh] flex-col items-center justify-center lg:grid lg:items-stretch lg:max-w-none lg:grid-cols-2 lg:px-0 bg-background-gradient">
 
             <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
                 <div className="absolute inset-0 bg-zinc-900" />
@@ -48,7 +48,7 @@ export default function Layout({
                     />
                     </Link>
                 </div>
-                <div className="m-auto flex flex-col justify-center space-y-6 @lg:max-w-[28rem] w-full min-h-screen">
+                <div className="m-auto flex flex-col justify-center space-y-6 @lg:max-w-[28rem] w-full h-full">
                     {children}
                 </div>
             </div>
