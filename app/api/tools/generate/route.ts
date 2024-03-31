@@ -55,8 +55,11 @@ async function generateDescription(model:GenerativeModel,toolName:string,toolSit
         topP: 1,
         maxOutputTokens: 2048,
     };
+    const prompt = `
+Write a description and an overview of ${toolName}, which has a website at ${toolSite}, providing details about the tool, its pricing model, and any other basic information I should know before using it. Please ensure the generated summary is comprehensive and includes relevant details. 
+`;
     const parts = [
-        { text: `Write an description and an overview of ${toolName} which has website this : ${toolSite} telling about it and it's pricing model and every basic thing I should know before using it.` },
+        { text:prompt },
     ];
 
     const result = await model.generateContent({
