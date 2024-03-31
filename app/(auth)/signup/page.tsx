@@ -25,7 +25,7 @@ export default async function Page({ searchParams }: PageProps) {
     const session = await getSession();
     if (session) return redirect("/feed")
 
-    const IsWaitingList = false;
+    const IsWaitingList = true;
 
     return (<>
         <Button className="absolute right-4 top-4 md:right-8 md:top-8" variant="link" asChild>
