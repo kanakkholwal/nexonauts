@@ -10,11 +10,10 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
 import { ColumnDef } from "@tanstack/react-table"
-import axios from "axios"
 import { MoreHorizontal } from "lucide-react"
 import Link from "next/link"
 import toast from "react-hot-toast"
-
+import { deleteUser } from './actions'
 
 
 
@@ -147,7 +146,7 @@ export const columns: ColumnDef<userType>[] = [
               error: 'Failed to copy ID' })}> Copy ID </DropdownMenuItem>
             <DropdownMenuItem onClick={()=>{
               console.log("deleting user ",user);
-              toast.promise(axios.delete(`/api/users/delete?userId=${user._id}`),{
+              toast.promise(deleteUser(user._id),{
                 loading: 'Deleting...',
                 success: 'User deleted',
                 error: (error) => error.response.data.message

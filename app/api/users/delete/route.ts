@@ -1,15 +1,15 @@
-import { authOptions } from "app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "src/lib/dbConnect";
+import ProfileModel from "src/models/profile";
 import UserModel from "src/models/user";
+import { getSession } from "src/lib/auth";
 
 export async function DELETE(request: NextRequest) {
     try {
         const userId = request.nextUrl.searchParams.get('userId')
 
-        const session = await getServerSession({ req: request, ...authOptions });
+        const session = await getSession();
         if (!session ) {
             return NextResponse.json({
                 result: "fail",
@@ -54,6 +54,7 @@ export async function DELETE(request: NextRequest) {
             }
         }
         await UserModel.findById(userId).deleteOne();
+        await ProfileModel.findOneAndDelete({user:userId});
         revalidatePath("/admin/users","page");
 
         return NextResponse.json({

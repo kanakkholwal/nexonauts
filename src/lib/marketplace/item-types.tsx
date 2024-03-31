@@ -10,13 +10,13 @@ import {
     SimpleIconsUikit
 } from "assets/icons"
 
-export type ItemType = {
+export type itemType = {
     label: string,
     href: string,
     id: string,
     icon: React.ElementType,
 }
-export const Item_types = [
+export const Item_types:itemType[] = [
     {
         label: 'Templates',
         href: '/marketplace/explore?type=template',
@@ -80,6 +80,6 @@ export const Item_types = [
     //     id: 'other',
     //     icon:MingcuteMore3Line
     // },
-] as ItemType[]
+]
 
 export const product_types = Item_types.map(item => item.id)

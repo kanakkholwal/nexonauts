@@ -1,5 +1,8 @@
 
+
+import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSession } from "src/lib/auth";
 import { UserAuthForm } from './forgot-form';
@@ -18,16 +21,21 @@ export default async function Page() {
 
     return (
         <>
-            <header className="mb-2xl text-center mt-10 p-4 space-y-2">
-                <h1 className="text-[32px] font-extrabold leading-heading tracking-[-1px] lg:text-4xl lg:tracking-[-2px] mb-md">
+            <Button className="absolute right-4 top-4 md:right-8 md:top-8" variant="link" asChild>
+                <Link href="/signup">
+                    Sign Up
+                </Link>
+            </Button>
+            <header className="flex flex-col space-y-2 text-center">
+                <h1 className="text-2xl font-semibold tracking-tight">
                     Forgot Password
                 </h1>
-                <p className="text-concrete text-xl">
-                    Enter your email to reset your password
+                <p className="text-sm text-muted-foreground">
+                    Enter your email to reset your password.
                 </p>
             </header>
             <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
-                <UserAuthForm className="flex-auto w-full" key={"form"} />
+                <UserAuthForm  key={"form"} />
             </main>
 
         </>

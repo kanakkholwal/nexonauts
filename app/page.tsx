@@ -66,7 +66,7 @@ export default async function HomePage() {
 				<Badge variant="glass" className="font-normal text-sm leading-7 dark:text-neutral-200 -mb-3">
 					Welcome to {process.env.NEXT_PUBLIC_WEBSITE_NAME}
 				</Badge>
-				<span className="font-semibold text-[2.5rem] tracking-normal leading-none text-center dark:text-neutral-50 max-w-[12ch] sm:max-w-[18ch] lg:max-w-[18ch] lg:text-[4rem]">
+				<h2 className="font-semibold text-[2.5rem] tracking-normal leading-none text-center dark:text-neutral-50 max-w-[12ch] sm:max-w-[18ch] lg:max-w-[18ch] lg:text-[4rem]">
 					The
 					<span className="leading-7 bg-gradient-to-l from-indigo-400 from-10% via-sky-400 via-30% to-emerald-300 to-90% bg-clip-text text-transparent mx-1">
 						Ultimate
@@ -75,10 +75,10 @@ export default async function HomePage() {
 					<span className="leading-7 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mx-1">
 						Developers
 					</span>
-				</span>
-				<span className="text-lg lg:text-xl text-center dark:text-neutral-300 font-light leading-6 tracking-wide max-w-[30ch] sm:max-w-[45ch]" >
+				</h2>
+				<h4 className="text-lg lg:text-xl text-center dark:text-neutral-300 font-light leading-6 tracking-wide max-w-[30ch] sm:max-w-[45ch]" >
 					Discover, create, and collaborate effortlessly in one unified space. Fuel creativity, solve problems, innovate effortlessly.
-				</span>
+				</h4>
 				<Button size="lg" rounded="full" width="xs" className="tracking-wide" transition="damped" asChild>
 					<Link href="/waitlist">Join Waitlist <ArrowUpRight/></Link>
 				</Button>
