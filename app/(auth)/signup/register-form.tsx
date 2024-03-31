@@ -1,13 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { UserRound } from 'lucide-react';
-import Link from "next/link";
-import { useState } from "react";
-import { BiLockOpenAlt } from "react-icons/bi";
-import { FcGoogle } from "react-icons/fc";
-import { LuMail } from "react-icons/lu";
-
 import {
     Form,
     FormControl,
@@ -16,13 +8,19 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowRight, UserRound } from 'lucide-react';
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { BiLockOpenAlt } from "react-icons/bi";
 import { CgSpinner } from "react-icons/cg";
-import { LuCheckCircle2 } from "react-icons/lu";
+import { FcGoogle } from "react-icons/fc";
+import { LuCheckCircle2, LuMail } from "react-icons/lu";
 import { z } from "zod";
 
 
@@ -30,7 +28,9 @@ const formSchema = z.object({
     name: z.string().min(4, {
         message: 'Name must be at least 4 characters long'
     }),
-    email: z.string().email(),
+    email: z.string().email(
+        { message: 'Please enter a valid email address' }
+    ),
     password: z
         .string()
         .min(8, { message: 'Password must be at least 8 characters long' })
@@ -78,20 +78,15 @@ export function RegisterForm({ registerUser }: Props) {
             success: (data: any) => {
                 console.log(data);
                 setState("registered");
-                if (redirect) {
-                    router.push(`/login?redirect=${redirect}`);
-                    return `Account created successfully. Please check your email to verify your account`
-                }
-                router.push("/login");
+                setLoading(false);
                 return `Account created successfully. Please check your email to verify your account`
             },
             error: (err) => {
                 console.log(err);
+                setLoading(false);
                 return err.message || "An error occurred while creating account"
             }
         });
-        setLoading(false)
-
     }
 
 
@@ -100,11 +95,11 @@ export function RegisterForm({ registerUser }: Props) {
 
     return (<>
         {state === "onboarding" && <>
-            <div className="mb-2xl text-center mt-10 p-4 space-y-2">
-                <h1 className="text-[32px] font-extrabold leading-heading tracking-[-1px] lg:text-4xl lg:tracking-[-2px] mb-md">
+            <div  className="flex flex-col space-y-2 text-center">
+                <h1 className="text-2xl font-semibold tracking-tight">
                     Create an account
                 </h1>
-                <p className="text-concrete text-xl">
+                <p className="text-sm text-muted-foreground">
                     Start your journey with {process.env.NEXT_PUBLIC_WEBSITE_NAME}
                 </p>
             </div>
@@ -240,8 +235,8 @@ export function RegisterForm({ registerUser }: Props) {
                     <h1 className="text-2xl font-semibold text-black">Account created successfully!</h1>
                     <p className="text-concrete text-sm">Please check your email to verify your account</p>
                 </div>
-                <Button width="full" className="mt-4" onClick={() => router.push("/login")}>
-                    Login to your account
+                <Button width="full" className="mt-4" onClick={() => router.push(`/login?redirect=${redirect}`)}>
+                    Login to your account <ArrowRight/>
                 </Button>
             </div>
         </>}

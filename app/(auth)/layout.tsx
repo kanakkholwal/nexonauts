@@ -10,7 +10,7 @@ export default function Layout({
     children: React.ReactNode
 }) {
     return (<>
-        <div className="container relative h-[100vh] flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0 bg-background-gradient">
+        <div className="w-full mx-auto px-4 relative h-[100vh] flex-col items-center justify-center lg:grid lg:items-stretch lg:max-w-none lg:grid-cols-2 lg:px-0 bg-background-gradient">
 
             <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
                 <div className="absolute inset-0 bg-zinc-900" />
@@ -31,20 +31,24 @@ export default function Layout({
                         <p className="text-lg">
                             "The only way to do great work is to love what you do."
                         </p>
-                        <footer className="text-sm">Aman Asrani</footer>
+                        <footer className="text-sm">
+                            - Kanak, Founder of {process.env.NEXT_PUBLIC_WEBSITE_NAME}
+                        </footer>
                     </blockquote>
                 </div>
             </div>
-            <div className="lg:p-8">
+            <div className="lg:p-8 @container flex flex-col justify-center items-center">
                 <div className="lg:hidden">
+                <Link href="/" className="absolute left-4 top-4 @lg:left-8 @lg:top-8">
                     <Image
                         width={280}
                         height={120}
                         alt="Authentication"
-                        className="dark:invert h-10 w-10 absolute left-4 top-4 lg:left-8 lg:top-8" src="/logo-square-with-bg.svg"
+                        className="dark:invert h-10 w-10" src="/logo-square-with-bg.svg"
                     />
+                    </Link>
                 </div>
-                <div className="mx-auto flex w-full flex-col justify-center space-y-6 pt-32 lg:pt-14 lg:w-[450px]">
+                <div className="m-auto flex flex-col justify-center space-y-6 @lg:max-w-[28rem] w-full min-h-screen">
                     {children}
                 </div>
             </div>

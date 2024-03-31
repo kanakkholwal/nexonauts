@@ -14,8 +14,14 @@ export const metadata: Metadata = {
     keywords: "register, account, " + process.env.NEXT_PUBLIC_APP_NAME,
 }
 
+interface PageProps {
+    searchParams: {
+        redirect?: string
+    }
+}
 
-export default async function Page() {
+
+export default async function Page({ searchParams }: PageProps) {
     const session = await getSession();
     if (session) return redirect("/feed")
 
@@ -23,36 +29,47 @@ export default async function Page() {
 
     return (<>
         <Button className="absolute right-4 top-4 md:right-8 md:top-8" variant="link" asChild>
-            <Link href="/login">
+            <Link href={`/login${searchParams?.redirect ? `?redirect=${searchParams?.redirect}` : ""}`}>
                 Log in
             </Link>
         </Button>
 
-       
+
         <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
 
             {!IsWaitingList ?
                 <RegisterForm registerUser={registerUser} /> :
                 <>
-                    <div className="flex flex-col items-center justify-center space-x-2 gap-4">
-                        <p className="text-lg text-accent-foreground font-medium mb-5">
+                    <div className="flex flex-col space-y-2 text-center">
+                        <h1 className="text-2xl font-semibold tracking-tight">
+                            Welcome to {process.env.NEXT_PUBLIC_WEBSITE_NAME}!
+                        </h1>
+                        <p className="text-sm text-muted-foreground">
                             Signup is currently by invitation only.
                         </p>
+                    </div>
+                    <div className="w-full flex flex-col items-center justify-center space-x-2 gap-4 mt-4">
 
-
-                        <Button size="lg" variant="default_light" asChild>
+                        <Button variant="default_light" width="sm" asChild>
                             <Link href="/login">
                                 Login to your account
-                                <ArrowRight className="w-6 h-6 ml-2" />
+                                <ArrowRight />
                             </Link>
                         </Button>
-                        <p>
-                            or
-                        </p>
-                        <Button size="lg" asChild>
+                        <div className="relative">
+                            <div className="absolute inset-0 flex items-center">
+                                <span className="w-full border-t" />
+                            </div>
+                            <div className="relative flex justify-center text-xs uppercase">
+                                <span className="px-2 text-muted-foreground">
+                                    Or join the waiting list
+                                </span>
+                            </div>
+                        </div>
+                        <Button width="sm" asChild>
                             <Link href="/waitlist">
                                 Join the waiting list
-                                <ArrowRightToLine className="w-6 h-6 ml-2" />
+                                <ArrowRightToLine />
                             </Link>
                         </Button>
                     </div>
