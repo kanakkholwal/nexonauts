@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { getSession } from "src/lib/auth";
 import { UserAuthForm } from './verify-form';
-
+import {verifyUser} from './action';
 
 export const metadata: Metadata = {
     title: "Verify Email | NexoNauts",
@@ -20,5 +20,5 @@ export default async function Page({ searchParams }: {
 
     
 
-    return (<UserAuthForm className="flex-auto w-full" key={"form"} loggedIn={!!session?.user}/>)
+    return (<UserAuthForm className="flex-auto w-full" key={"form"} loggedIn={!!session?.user} verifyUser={verifyUser}/>)
 }
