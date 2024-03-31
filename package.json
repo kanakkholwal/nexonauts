@@ -84,6 +84,7 @@
         "react-easy-sort": "^1.6.0",
         "react-editor-js": "latest",
         "react-email": "2.0.0",
+        "react-error-boundary": "^4.0.13",
         "react-google-recaptcha": "^2.1.0",
         "react-hook-form": "^7.47.0",
         "react-hot-toast": "^2.4.1",

@@ -12,16 +12,21 @@ export const metadata: Metadata = {
     description: "Login to an account on " + process.env.NEXT_PUBLIC_APP_NAME,
     keywords: "register, account, " + process.env.NEXT_PUBLIC_APP_NAME,
 }
+interface PageProps {
+    searchParams:{
+        redirect?: string
+    }
+}
 
 
-export default async function Page() {
+export default async function Page({searchParams}:PageProps) {
     const session = await getSession();
     if (session) return redirect("/feed")
 
     return (
         <>
             <Button className="absolute right-4 top-4 md:right-8 md:top-8" variant="link" asChild>
-                <Link href="/signup">
+            <Link href={`/signup${searchParams?.redirect ? `?redirect=${searchParams?.redirect}`:""}`}>
                     Sign Up
                 </Link>
             </Button>

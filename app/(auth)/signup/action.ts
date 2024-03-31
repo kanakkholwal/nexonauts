@@ -8,13 +8,8 @@ import dbConnect from "src/lib/dbConnect";
 import UserModel from 'src/models/user';
 
 const dbcache = new Map<string, boolean>();
-function generateRandomUsername(): string {
-    // Generate a random UUID
-    const slug = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 10)()
 
-    // Add a prefix (e.g., 'user_') to the alphanumeric username
-    return `user_${slug}`;
-}
+
 
 export async function registerUser(data: {
     name: string,
@@ -42,7 +37,7 @@ export async function registerUser(data: {
             name: data.name,
             email: data.email,
             password: data.password,
-            username: generateRandomUsername(),
+            username: customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 10)(),
             verificationToken: generateToken({ email: data.email }),
         });
         await newUser.save();

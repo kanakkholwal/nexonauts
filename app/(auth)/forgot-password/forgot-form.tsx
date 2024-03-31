@@ -23,9 +23,9 @@ import * as z from "zod";
 const FormSchema = z.object({
     email: z
         .string()
-        .min(5, { message: 'Email must be at least 5 characters long' })
-        .email({ message: 'Invalid email format' })
-        .max(100, { message: 'Email cannot exceed 100 characters' }),
+        .email({ 
+            message: 'Please enter a valid email address'
+        })
 });
 
 
@@ -54,7 +54,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
 
     return (
-        <div className={cn("grid gap-6 lg:max-w-lg text-left", className)} {...props}>
+        <div className={cn("grid gap-6 text-left w-full", className)} {...props}>
 
             <Form  {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">

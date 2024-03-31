@@ -58,9 +58,9 @@ export default async function Page() {
                     It's quick and easy.
                 </p>
             </header>
-            <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
+            <main className="flex flex-col items-center justify-center w-full p-4">
 
-                <WaitListForm className="flex-auto w-full" key={"form"} joinWaitList={joinWaitList} />
+                <WaitListForm key={"form"} joinWaitList={joinWaitList} />
 
             </main>
 

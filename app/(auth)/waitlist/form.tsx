@@ -26,7 +26,9 @@ const FormSchema = z.object({
     name: z.string().min(3, { message: 'Name must be at least 3 characters long' }).max(100, { message: 'Name cannot exceed 100 characters' }),
     email: z
         .string()
-        .email({ message: 'Invalid email format' })
+        .email({
+            message: 'Please enter a valid email address'
+        })
         .min(5, { message: 'Email must be at least 5 characters long' })
         .max(100, { message: 'Email cannot exceed 100 characters' }),
 });
@@ -64,9 +66,9 @@ export default function WaitListForm({ className,joinWaitList, ...props }: UserA
     }
 
     return (
-        <div className={cn("grid gap-6 lg:max-w-lg text-left", className)} {...props}>
+        <div className={cn("grid gap-6 w-full text-left", className)} {...props}>
             <Form  {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2 my-auto">
+                <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
 
                     <FormField
                         control={form.control}
@@ -79,14 +81,13 @@ export default function WaitListForm({ className,joinWaitList, ...props }: UserA
                                     </FormLabel>
                                     <FormControl>
                                         <Input
-                                            id="name"
                                             placeholder="Your Name"
                                             type="text"
                                             autoCapitalize="words"
                                             autoComplete="name"
                                             autoCorrect="off"   
                                             disabled={isLoading}
-                                            className='pl-12 !py-6 pr-5 !mt-0 border-2'
+                                            className='pl-10'
 
                                             {...field} />
                                     </FormControl>
@@ -108,14 +109,13 @@ export default function WaitListForm({ className,joinWaitList, ...props }: UserA
                                     </FormLabel>
                                     <FormControl className='relative'>
                                         <Input
-                                            id="email"
                                             placeholder="name@example.com"
                                             type="email"
                                             autoCapitalize="none"
                                             autoComplete="email"
                                             autoCorrect="off"
                                             disabled={isLoading}
-                                            className='pl-12 !py-6 pr-5 !mt-0 border-2'
+                                            className='pl-10'
                                             {...field} />
                                     </FormControl>
 
@@ -125,9 +125,9 @@ export default function WaitListForm({ className,joinWaitList, ...props }: UserA
                         )}
                     />
 
-                    <Button disabled={isLoading} type="submit" className="mt-2 tracking-wide"  size="lg">
+                    <Button disabled={isLoading} type="submit" className="mt-2" width="sm">
                         {isLoading && (
-                            <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
+                            <AiOutlineLoading className="animate-spin" />
                         )}
                         Join Waitlist
                     </Button>
