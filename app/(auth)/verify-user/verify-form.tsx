@@ -19,7 +19,7 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
     }>
 }
 
-export function UserAuthForm({ className, loggedIn,verifyUser,...props }: UserAuthFormProps) {
+export function UserAuthForm({ className, loggedIn, verifyUser, ...props }: UserAuthFormProps) {
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
@@ -29,35 +29,37 @@ export function UserAuthForm({ className, loggedIn,verifyUser,...props }: UserAu
     const searchParams = useSearchParams() as URLSearchParams;
     const token = searchParams.get('token') || null;
 
-    
+
     useEffect(() => {
-        if (!token && !loggedIn){
+        if (!token && !loggedIn) {
             router.push('/signup');
         }
-        else{
-            if(typeof token !== 'string'){
+        else {
+            if (typeof token !== 'string') {
                 console.log('Invalid token');
                 setError('Invalid token');
                 toast.error('Invalid token');
                 return;
             }
             verifyUser(token as string)
-            .then((response) => {
-                console.log(response.message);
-                // Handle successful verification
-                if(!loggedIn){
-                    router.push('/login');
-                }
-                else{
-                    router.push('/feed');
-                }
-                setSuccess(response.message);
-                toast.success(response.message);
-            }).catch((error) => {
-                console.log(error.message)
-                setError(error.message);
-                // Handle verification error
-            }).finally(() => setIsLoading(false))
+                .then((response) => {
+                    console.log(response.message);
+                    // Handle successful verification
+                    setTimeout(() => {
+                        if (!loggedIn) {
+                            router.push('/login');
+                        }
+                        else {
+                            router.push('/feed');
+                        }
+                    }, 3000);
+                    setSuccess(response.message);
+                    toast.success(response.message);
+                }).catch((error) => {
+                    console.log(error.message)
+                    setError(error.message);
+                    // Handle verification error
+                }).finally(() => setIsLoading(false))
         }
     }, [token]);
 
@@ -65,8 +67,8 @@ export function UserAuthForm({ className, loggedIn,verifyUser,...props }: UserAu
 
 
     return (<ErrorBoundary fallback={<div>Something went wrong</div>}>
-            <div  className="flex flex-col space-y-2 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">
+        <div className="flex flex-col space-y-2 text-center">
+            <h1 className="text-2xl font-semibold tracking-tight">
                 {isLoading ? 'Verifying' : 'Verify Email'}
 
             </h1>
