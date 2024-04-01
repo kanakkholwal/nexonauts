@@ -43,14 +43,14 @@ const list = [
     name: "Nexo Scout",
     links: [
       {
-        title: "Find Perfect Tools",
+        title: "Nexo Scout",
         href: "/scout",
-        description: `Find the perfect tools for your business.`,
+        description: `Discover Essential Tools & Resources`,
       },
       {
-        title: "Submit Your Tool",
-        href: "/scout/submit",
-        description: `Submit your tool to our toolbox.`,
+        title: "Find Perfect Tools",
+        href: "/scout/browse",
+        description: `Find the perfect tools for your business.`,
       }
     ]
   },
