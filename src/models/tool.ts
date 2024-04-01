@@ -1,25 +1,32 @@
 import mongoose, { Document, Model,Schema, Types } from 'mongoose';
 import { customAlphabet } from 'nanoid';
 
-export interface ICategory extends Document {
+
+export interface rawCategory {
     name: string;
     slug: string;
 }
+export interface ICategory extends Document , rawCategory {}
+
 
 export type PublicToolStatus = 'draft' | 'published' | 'archived' | 'deleted' | 'pending' | 'rejected';
 export type PublicToolPricingType = 'free' | 'paid' | 'freemium' | 'one_time_license' | 'subscription' | 'open_source' | 'other';
-export interface PublicToolType {
+
+export type rawPublicToolType = {
     name: string;
-    slug: string;
     coverImage: string;
     bannerImage?: string;
     description: string;
-    categories: ICategory[];
+    categories: rawCategory[];
     tags: string[];
     link: string;
+    slug: string;
     status: PublicToolStatus;
     pricing_type: PublicToolPricingType
     verified: boolean;
+}
+export interface PublicToolType extends rawPublicToolType {
+    categories: ICategory[];
     author: Types.ObjectId;
     createdAt?: Date;
     updatedAt?: Date;

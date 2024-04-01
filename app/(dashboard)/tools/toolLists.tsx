@@ -37,6 +37,8 @@ export default function ToolList({ initialTools }: ToolListProps) {
     //       loadMoreUsers()
     //     }
     //   }, [inView]) 32rem 48rem 64rem 80rem 96rem
+    if(tools.length === 0) 
+        return null
 
     return (
         <>
@@ -71,7 +73,7 @@ export default function ToolList({ initialTools }: ToolListProps) {
                 })}
             </div>
             <div className="flex justify-center items-center py-4 mb-10">
-            {loading ? <LoaderCircle className="w-8 h-8 animate-spin text-primary" />:<Button onClick={loadMoreUsers} width="sm">Load more <ChevronDown/></Button>}
+            {loading ? <LoaderCircle className="w-8 h-8 animate-spin text-primary" />:<Button onClick={loadMoreUsers} width="xs">Load more <ChevronDown/></Button>}
             </div>
         </>
     )

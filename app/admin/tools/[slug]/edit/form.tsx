@@ -27,7 +27,11 @@ import 'react-markdown-editor-lite/lib/index.css';
 import MarkdownView from 'src/components/markdown/view';
 import { UploadImage } from "src/components/uploader";
 import { ICategory, PublicToolPricingType, PublicToolStatus, PublicToolTypeWithId } from "src/models/tool";
+import { z } from 'zod';
 import { useFormStore } from "./store";
+const urlSchema = z.string().url().transform((value) => {
+    return value.trim();
+});
 
 const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
     loading: () => <p>Loading...</p>,
@@ -200,10 +204,10 @@ export default function Form({ updateTool, available_categories, deleteTool }: {
                             useFormStore.setState({ tool: { ...tool, coverImage: e.target.value } })
                         }}
                     />
-                    <div className="flex flex-row gap-3 items-center justify-center">
+                      {tool?.coverImage.length > 5 ? <>{urlSchema.safeParse(tool?.coverImage).success ? <div className="flex flex-row gap-3 items-center justify-center">
                         <Image width={320} height={320} src={tool.coverImage} alt={tool.name}
                             className="rounded-lg backdrop-blur-lg border border-border max-w-40 p-2" />
-                    </div>
+                    </div> : <p className="text-xs text-red-500">Invalid URL</p>}</>:null}
                 </div>
                 <div className="flex items-center justify-between gap-2">
                     <Label className="mb-0" htmlFor="verified">Verified</Label>

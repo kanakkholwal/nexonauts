@@ -2,17 +2,14 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 // import mongoose from "mongoose";
+import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
 import PublicTool from "src/models/tool";
-
-export async function getToolBySlug(slug: string) {
+export async function getCategories() {
     
     await dbConnect();
-    const tool = await PublicTool.findOne({slug}).exec();
-    if (!tool) return {
-        tool:null,
-        available_categories: [],
-    }
+
+    
     const categories = await PublicTool.aggregate([
         { $unwind: "$categories" },
         {
@@ -27,38 +24,36 @@ export async function getToolBySlug(slug: string) {
         { $sort: { name: 1 } },
     ]);
     return {
-        tool:JSON.parse(JSON.stringify(tool)),
         available_categories: JSON.parse(JSON.stringify(categories)),
     }
 }
 
-export async function updateTool(id: string, data: Record<string, any>) {
+export async function submitTool( data: Record<string, any>) {
 
     try {
+        const session = await getSession();
+        if (!session) return redirect('/login');
         await dbConnect();
-        await PublicTool.findByIdAndUpdate(id, data, {
-            new: true,
-            runValidators: true,
-        }).exec();
-        revalidatePath('/tools/' + id + '/edit');
-        revalidatePath('/tools/' + id);
+        const tool = new PublicTool({
+            name: data.name,
+            description: data.description,
+            coverImage: data.coverImage,
+            categories: data.categories,
+            tags: data.tags,
+            link: data.link,
+            slug: data.slug,
+            status: data.status,
+            pricing_type: data.pricing_type,
+            verified: false,
+            author:session.user._id,
+        });
+        await tool.save();
+        
+        revalidatePath('/tools/');
         return Promise.resolve(true);
     }
     catch (error) {
         console.error(error);
         return Promise.reject(error);
-    }
-}
-export async function deleteTool(id: string) {
-    try {
-        await dbConnect();
-        await PublicTool.findByIdAndDelete(id).exec();
-        return redirect('/tools')
-    }
-    catch (error) {
-        console.error(error);
-        return Promise.reject(error);
-    } finally {
-        revalidatePath('/tools');
     }
 }

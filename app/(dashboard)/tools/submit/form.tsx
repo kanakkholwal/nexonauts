@@ -15,8 +15,6 @@ import {
 import { ArrowUpRight, LoaderCircle } from 'lucide-react';
 
 import { Tag, TagInput } from "@/components/custom/tag-input";
-import axios from "axios";
-import { Loader2, Sparkles } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Image from "next/image";
 import Link from "next/link";
@@ -25,26 +23,25 @@ import toast from "react-hot-toast";
 import 'react-markdown-editor-lite/lib/index.css';
 import MarkdownView from 'src/components/markdown/view';
 import { UploadImage } from "src/components/uploader";
-import { ICategory, PublicToolPricingType, PublicToolStatus, PublicToolTypeWithId } from "src/models/tool";
+import { ICategory, PublicToolPricingType, PublicToolStatus, rawPublicToolType } from "src/models/tool";
 import { useFormStore } from "./store";
 
 import { z } from 'zod';
 const urlSchema = z.string().url().transform((value) => {
     return value.trim();
 })
+
 const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
     loading: () => <p>Loading...</p>,
     ssr: false
 });
 
-export default function Form({ updateTool, available_categories, deleteTool }: {
-    updateTool: (data: Record<string, any>) => Promise<any>,
+export default function Form({ submitTool, available_categories }: {
+    submitTool: (data: Record<string, any>) => Promise<any>,
     available_categories: ICategory[],
-    deleteTool: () => Promise<any>
 }) {
-    const tool = useFormStore((state) => state.tool) as PublicToolTypeWithId;
+    const tool = useFormStore((state) => state.tool) as rawPublicToolType;
     const [loading, setLoading] = React.useState(false);
-    const [deleting, setDeleting] = React.useState(false);
     const editorRef = React.useRef(null);
     const [generating, setGenerating] = React.useState(false);
     const [tags, setTags] = React.useState<Tag[]>(tool?.tags.map((tag) => ({ id: nanoid(), text: tag })) || []);
@@ -93,40 +90,6 @@ export default function Form({ updateTool, available_categories, deleteTool }: {
                         renderHTML={(text: string) => <MarkdownView className="prose lg:prose-xl">{text}</MarkdownView>}
                         ref={editorRef}
                     />
-                    <div className="flex justify-end gap-2">
-                        <Button
-                            variant="default_light"
-                            disabled={generating}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                const name = tool?.name;
-                                const link = tool?.link;
-                                if (!name || !link) {
-                                    toast.error('Name and Link are required');
-                                    return;
-                                }
-                                setGenerating(true);
-                                toast.promise(axios.post('/api/tools/generate', { name, link }), {
-                                    loading: 'Generating Description...',
-                                    success: (response) => {
-                                        useFormStore.setState({ tool: { ...tool, description: response.data.data } });
-                                        return 'Description Generated';
-                                    },
-                                    error: (error) => {
-                                        console.error(error);
-                                        return 'Error Generating Description';
-                                    }
-                                })
-                                    .finally(() => {
-                                        setGenerating(false);
-                                    });
-
-                            }}
-                        >
-                            {generating ? <Loader2 className="animate-spin" /> : <Sparkles />}
-                            {generating ? "Generating..." : "Generate with AI"}
-                        </Button>
-                    </div>
                 </div>
                 <div className="border rounded-lg p-4 grid">
                     <Label htmlFor="tags">
@@ -207,6 +170,8 @@ export default function Form({ updateTool, available_categories, deleteTool }: {
                         <Image width={320} height={320} src={tool.coverImage} alt={tool.name}
                             className="rounded-lg backdrop-blur-lg border border-border max-w-40 p-2" />
                     </div> : <p className="text-xs text-red-500">Invalid URL</p>}</>:null}
+
+
                 </div>
                 <div className="flex items-center justify-between gap-2">
                     <Label htmlFor="pricing_type" className="mb-0">Pricing Type</Label>
@@ -259,7 +224,7 @@ export default function Form({ updateTool, available_categories, deleteTool }: {
                         e.preventDefault();
                         console.log('Save Changes', tool);
                         setLoading(true);
-                        toast.promise(updateTool({
+                        toast.promise(submitTool({
                             name: tool.name,
                             slug: tool.slug,
                             link: tool.link,
@@ -270,7 +235,7 @@ export default function Form({ updateTool, available_categories, deleteTool }: {
                             categories: tool.categories,
                             coverImage: tool.coverImage,
                         }), {
-                            loading: 'Saving Changes...',
+                            loading: 'Submitting Changes...',
                             success: (data) => {
                                 return 'Changes Saved';
                             },
@@ -284,29 +249,7 @@ export default function Form({ updateTool, available_categories, deleteTool }: {
                             });
                     }}>
                     {loading ? <LoaderCircle className="animate-spin" /> : null}
-                    {loading ? "Saving..." : "Save Changes"}
-                </Button>
-                <Button variant="destructive_light" size="lg" width="sm" disabled={loading}
-                    onClick={(e) => {
-                        e.preventDefault();
-
-                        setDeleting(true);
-                        toast.promise(deleteTool(), {
-                            loading: 'Deleting Tool...',
-                            success: (data) => {
-                                return 'Tool Deleted';
-                            },
-                            error: (error) => {
-                                console.error(error);
-                                return 'Error Deleting Tool';
-                            }
-                        })
-                            .finally(() => {
-                                setDeleting(false);
-                            });
-                    }}>
-                    {deleting ? <LoaderCircle className="animate-spin" /> : null}
-                    {deleting ? "Deleting..." : "Delete Tool"}
+                    {loading ? "Submitting..." : "Submit Tool"}
                 </Button>
             </div>
         </div>
