@@ -15,7 +15,6 @@ import {
 import { ArrowUpRight, LoaderCircle } from 'lucide-react';
 
 import { Tag, TagInput } from "@/components/custom/tag-input";
-import { Switch } from "@/components/ui/switch";
 import axios from "axios";
 import { Loader2, Sparkles } from 'lucide-react';
 import dynamic from 'next/dynamic';
@@ -27,12 +26,12 @@ import 'react-markdown-editor-lite/lib/index.css';
 import MarkdownView from 'src/components/markdown/view';
 import { UploadImage } from "src/components/uploader";
 import { ICategory, PublicToolPricingType, PublicToolStatus, PublicToolTypeWithId } from "src/models/tool";
-import { z } from 'zod';
 import { useFormStore } from "./store";
+
+import { z } from 'zod';
 const urlSchema = z.string().url().transform((value) => {
     return value.trim();
-});
-
+})
 const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
     loading: () => <p>Loading...</p>,
     ssr: false
@@ -204,18 +203,10 @@ export default function Form({ updateTool, available_categories, deleteTool }: {
                             useFormStore.setState({ tool: { ...tool, coverImage: e.target.value } })
                         }}
                     />
-                      {tool?.coverImage.length > 5 ? <>{urlSchema.safeParse(tool?.coverImage).success ? <div className="flex flex-row gap-3 items-center justify-center">
+                    {tool?.coverImage.length > 5 ? <>{urlSchema.safeParse(tool?.coverImage).success ? <div className="flex flex-row gap-3 items-center justify-center">
                         <Image width={320} height={320} src={tool.coverImage} alt={tool.name}
                             className="rounded-lg backdrop-blur-lg border border-border max-w-40 p-2" />
                     </div> : <p className="text-xs text-red-500">Invalid URL</p>}</>:null}
-                </div>
-                <div className="flex items-center justify-between gap-2">
-                    <Label className="mb-0" htmlFor="verified">Verified</Label>
-                    <Switch id="verified" aria-label="Verified"
-                        checked={tool?.verified} disabled={loading}
-                        onCheckedChange={(checked) => {
-                            useFormStore.setState({ tool: { ...tool, verified: checked } })
-                        }} />
                 </div>
                 <div className="flex items-center justify-between gap-2">
                     <Label htmlFor="pricing_type" className="mb-0">Pricing Type</Label>
@@ -248,7 +239,7 @@ export default function Form({ updateTool, available_categories, deleteTool }: {
                             <SelectValue placeholder="Select Status" className="captialize" />
                         </SelectTrigger>
                         <SelectContent>
-                            {['draft', 'published', 'archived', 'deleted', 'pending', 'rejected'].map((status) => {
+                            {['draft', 'published'].map((status) => {
                                 return <SelectItem key={`tool_status_${status}`} value={status} className="captialize">{status}</SelectItem>
                             })}
                         </SelectContent>
@@ -274,12 +265,10 @@ export default function Form({ updateTool, available_categories, deleteTool }: {
                             link: tool.link,
                             status: tool.status,
                             pricing_type: tool.pricing_type,
-                            verified: tool.verified,
                             description: tool.description,
                             tags: tags.map((tag) => tag.text),
                             categories: tool.categories,
                             coverImage: tool.coverImage,
-                            bannerImage: tool?.bannerImage
                         }), {
                             loading: 'Saving Changes...',
                             success: (data) => {
