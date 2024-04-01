@@ -1,32 +1,33 @@
-import mongoose, { Document, Model, Types } from 'mongoose';
+import mongoose, { Document, Model,Schema, Types } from 'mongoose';
 import { customAlphabet } from 'nanoid';
 
-export interface ICategory extends Document {
+
+export interface rawCategory {
     name: string;
     slug: string;
 }
+export interface ICategory extends Document , rawCategory {}
 
-export interface IAuthor {
-    name: string;
-    email: string;
-    public_link: string;
-    userId: string | null;
-}
+
 export type PublicToolStatus = 'draft' | 'published' | 'archived' | 'deleted' | 'pending' | 'rejected';
 export type PublicToolPricingType = 'free' | 'paid' | 'freemium' | 'one_time_license' | 'subscription' | 'open_source' | 'other';
-export interface PublicToolType {
+
+export type rawPublicToolType = {
     name: string;
-    slug: string;
     coverImage: string;
     bannerImage?: string;
     description: string;
-    categories: ICategory[];
+    categories: rawCategory[];
     tags: string[];
     link: string;
+    slug: string;
     status: PublicToolStatus;
     pricing_type: PublicToolPricingType
     verified: boolean;
-    author: IAuthor;
+}
+export interface PublicToolType extends rawPublicToolType {
+    categories: ICategory[];
+    author: Types.ObjectId;
     createdAt?: Date;
     updatedAt?: Date;
 }
@@ -45,12 +46,7 @@ const categorySchema = new mongoose.Schema({
     slug: { type: String, unique: true, trim: true }
 });
 
-const authorSchema = new mongoose.Schema({
-    name: { type: String },
-    email: { type: String },
-    public_link: { type: String },
-    userId: { type: String }
-});
+
 
 const publicToolSchema = new mongoose.Schema<IPublicTool>({
     name: { type: String, required: true, trim: true },
@@ -66,10 +62,10 @@ const publicToolSchema = new mongoose.Schema<IPublicTool>({
     verified: { type: Boolean, default: false },
     views: { type: Number, default: 0 },
     bookmarks: {
-        type: [{ type: Types.ObjectId, ref: 'User' }],
+        type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
         default: [],
     },
-    author: { type: authorSchema, required: false, default: { name: 'Kanak', email: 'kanakkholwal@gmail.com', public_link: 'https://kanakkholwal.eu.org', userId: null } }
+    author: { type: Schema.Types.ObjectId, ref: 'User' } 
 },{ timestamps: true });
 
 const PublicTool: Model<IPublicTool> = mongoose.models.PublicTool || mongoose.model<IPublicTool>('PublicTool', publicToolSchema);
