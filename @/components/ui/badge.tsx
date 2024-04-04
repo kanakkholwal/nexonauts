@@ -33,7 +33,7 @@ const badgeVariants = cva(
         gradient_red: "text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br",
         gradient_pink: "text-white bg-gradient-to-r from-pink-400 via-pink-500 to-pink-600 hover:bg-gradient-to-br",
         gradient_purple: "text-white bg-gradient-to-r from-purple-400 via-purple-500 to-purple-600 hover:bg-gradient-to-br",
-        glass: "backdrop-blur-lg bg-white/30 dark:bg-white/5 border-white/10 dark:border-white/5",
+        glass: "backdrop-blur-lg bg-white/30 dark:bg-white/5 border-white/10 dark:border-white/5 dark:text-white",
         secondary:
           "border border-input bg-secondary hover:bg-secondary/80 hover:text-accent-foreground dark:bg-gray-800 dark:border-gray-700  dark:text-white",
         outline: "text-foreground",

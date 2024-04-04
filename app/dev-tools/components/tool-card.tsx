@@ -19,7 +19,7 @@ export function ToolCard({ title, description, path, category, online,index,styl
 }) {
 
     return (
-        <Card className="border-border hover:border-primary flex flex-col items-start dark:bg-slate-800" style={style}>
+        <Card className="border-border hover:border-primary flex flex-col items-start" variant="glass" style={style}>
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
             </CardHeader>

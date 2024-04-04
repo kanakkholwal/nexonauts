@@ -28,7 +28,7 @@ import { useEffect, useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 
 
-export default function HtmlParser() {
+export default function SchemaGenerator() {
     const [html, setHtml] = useState("");
     const [schema, setSchema] = useState("website");
 
