@@ -110,7 +110,7 @@ export default function Image2Webp() {
     <div className="p-2">
 
       <div className="flex items-center justify-center w-full">
-        <label htmlFor="dropzone-file" {...getRootProps()} className="flex flex-col items-center justify-center w-full h-64 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-slate-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+        <label htmlFor="dropzone-file" {...getRootProps()} className="flex flex-col items-center justify-center w-full h-64 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 dark:hover:bg-bray-800 dark:bg-white/5 hover:bg-white/10 backdrop-blur-lg dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <FiUpload className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" />
             <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
@@ -125,18 +125,18 @@ export default function Image2Webp() {
       <div className="w-full h-full gap-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-3 mt-8">
         {scaledImg.map(({ image, fileName,fileSize }, index) => {
           return (
-            <Card key={index} className="rounded-lg w-auto mb-4 " >
+            <Card key={index} className="rounded-lg w-auto mb-4 flex flex-col justify-between" >
               <CardHeader>
                 <CardTitle>{fileName}</CardTitle>
                 <CardDescription>{fileSize}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Image alt={fileName} width={480} height={320} src={image}  className="max-h-56"/>
+                <Image alt={fileName} width={480} height={320} src={image}  className="max-h-56 shadow"/>
               </CardContent>
               <CardFooter>
-                <Button className="w-full rounded-full" size="sm"  asChild>
+                <Button  size="sm" width="full" rounded="full"  asChild>
                   <a href={image} download={`${fileName}.[Converted by nexonauts.com].webp`} title="Download Image in WEBP Format">
-                    Download <HiDownload  className="w-4 h-5 ml-2"/>
+                    Download <HiDownload />
                   </a>
                 </Button>
 

@@ -13,7 +13,8 @@ const inputVarinats = cva(
       outline: "border border-input",
       ghost: "border border-solid border-transparent bg-gray-200/40 dark:bg-gray-800 text-gray-900 dark:text-gray-200 dark:border-gray-700  focus:border-primary/70 dark:focus:border-primary/70",
       fluid: "border border-solid border-transparent bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 dark:border-slate-700  focus:border-primary/70 dark:focus:border-primary/70",
-      border:" border-2 focus:border-primary/70 border-solid"
+      border:"border-2 focus:border-primary/70 border-solid",
+      glass:"bg-white/75 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70 focus:border-primary/70"
     },
     rounded: {
       default: "rounded-md",
