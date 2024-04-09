@@ -1,13 +1,22 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Link from "next/link";
+import { HiArrowLeft } from "react-icons/hi";
 import { ToolType } from '../collection';
 
 export default function RenderTool({tool}: {tool:ToolType}) {
 
-    const IconComponent = typeof tool.icon === "string" ? <Image src={tool.icon as string} height={120} width={120} alt={tool.title} className="rounded" /> : tool.icon
+    const IconComponent = typeof tool.icon === "string" ? <Image src={tool.icon as string} height={120} width={120} alt={tool.title} className="rounded-lg" /> : tool.icon
 
     return <>
         <section id="hero" className="relative my-8">
+            <Button size="sm" variant="link" asChild>
+                <Link href="/dev-tools" title="Back to Tools">
+                    <HiArrowLeft />
+                    Back to Tools
+                </Link>
+            </Button>
 
             <div className="flex gap-4 pb-3 mb-3 border-b items-center">
                 <div className="flex justify-center items-center w-28 h-28">

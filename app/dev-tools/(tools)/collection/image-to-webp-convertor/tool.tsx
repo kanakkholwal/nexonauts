@@ -125,18 +125,18 @@ export default function Image2Webp() {
       <div className="w-full h-full gap-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-3 mt-8">
         {scaledImg.map(({ image, fileName,fileSize }, index) => {
           return (
-            <Card key={index} className="rounded-lg w-auto mb-4 " >
+            <Card key={index} className="rounded-lg w-auto mb-4 flex flex-col justify-between" >
               <CardHeader>
                 <CardTitle>{fileName}</CardTitle>
                 <CardDescription>{fileSize}</CardDescription>
               </CardHeader>
               <CardContent>
-                <Image alt={fileName} width={480} height={320} src={image}  className="max-h-56"/>
+                <Image alt={fileName} width={480} height={320} src={image}  className="max-h-56 shadow"/>
               </CardContent>
               <CardFooter>
-                <Button className="w-full rounded-full" size="sm"  asChild>
+                <Button  size="sm" width="full" rounded="full"  asChild>
                   <a href={image} download={`${fileName}.[Converted by nexonauts.com].webp`} title="Download Image in WEBP Format">
-                    Download <HiDownload  className="w-4 h-5 ml-2"/>
+                    Download <HiDownload />
                   </a>
                 </Button>
 

@@ -35,13 +35,12 @@ export default function SchemaGenerator() {
 
 
     return (
-        <div className="p-2">
+        <>
 
-            <div className="d-flex g-2 align-items-start justify-content-evenly">
                 <Tabs defaultValue="website">
                     <Card>
                         <CardHeader>
-                            <TabsList className="py-3 h-12">
+                            <TabsList className="py-3 h-auto flex-wrap">
                                 {options.map((option, index) => {
                                     return <TabsTrigger key={index} value={option.value} className="h-10">{option.label}</TabsTrigger>
                                 })}
@@ -76,11 +75,7 @@ export default function SchemaGenerator() {
                     </Card>
                 </Tabs>
 
-            </div>
-
-
-
-        </div>
+        </>
     )
 }
 function Website({ setCode }) {
@@ -185,7 +180,7 @@ function Breadcrumbs({ setCode }) {
     }, [items])
 
     return (
-        <div>
+        <div className="space-y-4">
             {items.map((item, index) => {
                 return (<div key={index}>
 
@@ -695,7 +690,7 @@ function Product({ setCode }) {
                 </div>
                 <div>
                     <Label>Types</Label>
-                    <div className="flex gap-2 items-stretch justify-start w-full">
+                    <div className="flex gap-2 items-stretch justify-start w-full flex-wrap">
 
                         {PRODUCT_TYPES.map((item, index) => {
                             return (<div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm" key={index}>
