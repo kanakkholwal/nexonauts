@@ -8,18 +8,15 @@ import {
 import Link from "next/link";
 import { RiShareCircleFill } from "react-icons/ri";
 
-export function ToolCard({ title, description, path, category, online,index,style }:{
+export function ToolCard({ title, description, path,style }:{
     title:string,
     description:string,
     path:string,
-    category:string,
-    online:boolean,
-    index:number
     style?:Record<string,any>
 }) {
 
     return (
-        <Card className="border-border hover:border-primary flex flex-col items-start dark:bg-slate-800" style={style}>
+        <Card className="border-border hover:border-primary flex flex-col items-start" variant="glass" style={style}>
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
             </CardHeader>

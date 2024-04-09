@@ -17,8 +17,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
 
     return (<>
         <Navbar />
-        <main className="w-full grow mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0 pt-[70px] relative">
-
+        <main className="w-full grow mx-auto px-4 sm:px-12 xl:max-w-7xl xl:px-0 pt-[70px] relative @container">
         {children}
         </main>
         <Footer />
