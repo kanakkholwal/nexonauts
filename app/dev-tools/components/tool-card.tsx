@@ -8,13 +8,10 @@ import {
 import Link from "next/link";
 import { RiShareCircleFill } from "react-icons/ri";
 
-export function ToolCard({ title, description, path, category, online,index,style }:{
+export function ToolCard({ title, description, path,style }:{
     title:string,
     description:string,
     path:string,
-    category:string,
-    online:boolean,
-    index:number
     style?:Record<string,any>
 }) {
 
