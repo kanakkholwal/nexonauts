@@ -60,6 +60,7 @@
         "embla-carousel-react": "^8.0.0-rc22",
         "framer-motion": "^11.0.3",
         "html-react-parser": "^4.0.0",
+        "interweave": "^13.1.0",
         "jsonwebtoken": "^9.0.0",
         "language-detect": "^1.1.0",
         "lodash.debounce": "^4.0.8",
@@ -135,6 +136,7 @@
         "postcss": "^8.4.32",
         "postcss-nesting": "^12.0.2",
         "prop-types": "^15.6.0",
+        "shiki": "^1.3.0",
         "tailwindcss": "^3.4.0",
         "typescript": "^5.3.3"
     },

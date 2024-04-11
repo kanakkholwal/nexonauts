@@ -37,7 +37,9 @@ export default function RenderTool({tool}: {tool:ToolType}) {
                 </p>
             </div>
         </section>
+        <section id="tool" className="my-5 pb-10 border-b">
         <tool.Component/>
+        </section>
         
     </>;
 }
