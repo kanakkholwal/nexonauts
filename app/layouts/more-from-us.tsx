@@ -24,15 +24,16 @@ const features: FeatureType[] = [
     }
 ]
 
-export default function MoreFromUs() {
+export default function MoreFromUs({omit}: {omit?: string[]}) {
 
     return (
         <section id="more-from-us" className="w-full grow mx-auto px-4 sm:px-12 xl:max-w-7xl xl:px-0 relative @container my-10">
             <h2 className="text-center text-4xl font-bold mb-4">More From Us</h2>
 
-            {features.map((feature, index) => {
+            {features.map((feature) => {
+                if (omit && omit.includes(feature.url)) return null
                 return <div className="grid grid-cols-1 @2xl:grid-cols-2 gap-4 items-center" key={feature.url}>
-                    <div className="p-4 space-y-5">
+                    <div className="p-4 space-y-5 flex flex-col justify-around items-start">
                         <h3 className="text-2xl font-bold mb-2">{feature.title}</h3>
                         <p className="text-lg font-light">{feature.description}</p>
                         <hr />
