@@ -1,11 +1,14 @@
 import { Button } from "@/components/ui/button";
+import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
+import devToolsImg from "src/assets/images/dev-tools.png";
 
 type FeatureType = {
     title: string
     description: string
     list: React.ReactNode[]
     url: string
+    image: StaticImageData | string
 }
 const features: FeatureType[] = [
     {
@@ -16,7 +19,8 @@ const features: FeatureType[] = [
             "🔍 Search and filter tools",
             "🚀 Submit your own tool"
         ],
-        url: "/scout"
+        url: "/scout",
+        image:devToolsImg
     }
 ]
 
@@ -27,7 +31,7 @@ export default function MoreFromUs() {
             <h2 className="text-center text-4xl font-bold mb-4">More From Us</h2>
 
             {features.map((feature, index) => {
-                return <div className="grid grid-cols-1 @2xl:grid-cols-2 gap-4" key={feature.url}>
+                return <div className="grid grid-cols-1 @2xl:grid-cols-2 gap-4 items-center" key={feature.url}>
                     <div className="p-4 space-y-5">
                         <h3 className="text-2xl font-bold mb-2">{feature.title}</h3>
                         <p className="text-lg font-light">{feature.description}</p>
@@ -39,14 +43,14 @@ export default function MoreFromUs() {
                                 </div>
                             })}
                         </div>
-                        <Button asChild>
+                        <Button size="lg" width="sm" asChild>
                             <Link href={feature.url} title={feature.title}>
                                 Learn More
                             </Link>
                         </Button>
                     </div>
                     <div className="p-4">
-                        <img src="/images/undraw/undraw_developer_activity.svg" alt={feature.title} className="w-full" />
+                        <Image src={feature.image} alt={feature.title} className="w-full h-auto" width={720} height={480}/>
                     </div>
                 </div>
             })}

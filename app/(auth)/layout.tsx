@@ -48,7 +48,7 @@ export default function Layout({
                     />
                     </Link>
                 </div>
-                <div className="m-auto flex flex-col justify-center space-y-6 @lg:max-w-[28rem] w-full h-full">
+                <div className="m-auto flex flex-col justify-center space-y-6 @lg:max-w-[28rem] w-full h-full  mt-32 @lg:mt-0">
                     {children}
                 </div>
             </div>

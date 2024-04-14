@@ -391,10 +391,10 @@ function Article({ setCode }) {
 </script>`)
     }, [headline, image, author, publisher, datePublished, dateModified, description, articleBody, url, sameAs, type, width, height, isAMP])
     return (
-        <div className="w-full flex flex-wrap gap-4">
+        <div className="w-full grid gap-4">
 
             <div className="w-full flex flex-wrap gap-2">
-                {["NewsArticle", "BlogPosting"].map((item, index) => {
+                {["NewsArticole", "BlogPosting"].map((item, index) => {
                     return (<label key={index} className={RadioStyle.label}>
                         {item}
                         <input type="radio" onChange={(e) => setType(e.target.value)} name="type" value={item} className={RadioStyle.input} />
@@ -403,17 +403,8 @@ function Article({ setCode }) {
 
             </div>
 
-            <div className="flex items-center space-x-2 my-3">
-                <Switch
-                    checked={isAMP}
-                    onCheckedChange={(value) => {
-                        setIsAMP(value)
-                    }}
-                    id="isAmp"
-                />
-                <Label htmlFor="isAmp" className="mb-0">Accelerated Mobile Page (AMP)?</Label>
-            </div>
-            <>
+
+            <div className="w-full flex items-center gap-4 flex-wrap">
                 <div className="grid w-full max-w-sm">
                     <Label htmlFor="">Headline</Label>
                     <Input variant="glass" type="text" placeholder="Headline"
@@ -443,66 +434,77 @@ function Article({ setCode }) {
                         onChange={(e) => setHeight(e.target.value)}
                     />
                 </div>
-            </>
+            </div>
 
-            {isAMP ? <div className="grid w-full max-w-sm">
-                <div className="grid w-full max-w-sm">
-                    <Label htmlFor="">Author</Label>
-                    <Input variant="glass" type="text" placeholder="Author"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full max-w-sm">
-                    <Label htmlFor="">Publisher</Label>
-                    <Input variant="glass" type="text" placeholder="Publisher"
-                        value={publisher}
-                        onChange={(e) => setPublisher(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full max-w-sm">
-                    <Label htmlFor="">Date Published</Label>
-                    <Input variant="glass" type="date" placeholder="Date Published"
-                        value={datePublished}
-                        onChange={(e) => setDatePublished(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full max-w-sm">
-                    <Label htmlFor="">Date Modified</Label>
-                    <Input variant="glass" type="date" placeholder="Date Modified"
-                        value={dateModified}
-                        onChange={(e) => setDateModified(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full max-w-sm">
-                    <Label htmlFor="">Description</Label>
-                    <Input variant="glass" type="text" placeholder="Description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full max-w-sm">
-                    <Label htmlFor="">Article Body</Label>
-                    <Input variant="glass" type="text" placeholder="Article Body"
-                        value={articleBody}
-                        onChange={(e) => setArticleBody(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full max-w-sm">
-                    <Label htmlFor="">URL</Label>
-                    <Input variant="glass" type="url" placeholder="URL"
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full max-w-sm">
-                    <Label htmlFor="">Same As</Label>
-                    <Input variant="glass" type="url" placeholder="Same As"
-                        value={sameAs}
-                        onChange={(e) => setSameAs(e.target.value)}
-                    />
-                </div>
-            </div> : null}
+            <div className="flex items-center space-x-2 my-3">
+                <Switch
+                    checked={isAMP}
+                    onCheckedChange={(value) => {
+                        setIsAMP(value)
+                    }}
+                    id="isAmp"
+                />
+                <Label htmlFor="isAmp" className="mb-0">Accelerated Mobile Page (AMP)?</Label>
+            </div>
+            {isAMP ?
+                <div className="w-full flex items-center gap-4 flex-wrap">
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Author</Label>
+                        <Input variant="glass" type="text" placeholder="Author"
+                            value={author}
+                            onChange={(e) => setAuthor(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Publisher</Label>
+                        <Input variant="glass" type="text" placeholder="Publisher"
+                            value={publisher}
+                            onChange={(e) => setPublisher(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Date Published</Label>
+                        <Input variant="glass" type="date" placeholder="Date Published"
+                            value={datePublished}
+                            onChange={(e) => setDatePublished(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Date Modified</Label>
+                        <Input variant="glass" type="date" placeholder="Date Modified"
+                            value={dateModified}
+                            onChange={(e) => setDateModified(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Description</Label>
+                        <Input variant="glass" type="text" placeholder="Description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Article Body</Label>
+                        <Input variant="glass" type="text" placeholder="Article Body"
+                            value={articleBody}
+                            onChange={(e) => setArticleBody(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">URL</Label>
+                        <Input variant="glass" type="url" placeholder="URL"
+                            value={url}
+                            onChange={(e) => setUrl(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Same As</Label>
+                        <Input variant="glass" type="url" placeholder="Same As"
+                            value={sameAs}
+                            onChange={(e) => setSameAs(e.target.value)}
+                        />
+                    </div>
+                </div> : null}
 
         </div>
     )

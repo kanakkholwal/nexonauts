@@ -8,7 +8,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function DELETE(request: NextRequest) {
     try {
-        const appId = request.nextUrl.searchParams.get('appId')
+        const appId = request.nextUrl.searchParams.get('appId');
+        if (!appId) {
+            return NextResponse.json({
+                result: "fail",
+                message: 'App Id is required',
+            },{
+                status:400
+            })
+        }
 
         const session = await getServerSession({ req: request, ...authOptions });
         if (!session) {
@@ -30,10 +38,7 @@ export async function DELETE(request: NextRequest) {
                 status:404
             })
         }
-        const isExistingApp  = await AppModel.findOne({
-            appId: appId,
-            "developer.userId": session.user._id,
-        })
+        const isExistingApp  = await AppModel.findOne({ appId, user: existingUser._id });
         if(!isExistingApp){
             return NextResponse.json({
                 result: "fail",
