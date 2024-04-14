@@ -1,6 +1,6 @@
 {
     "name": "nexonauts",
-    "version": "0.1.0",
+    "version": "0.5.0",
     "private": true,
     "scripts": {
         "dev": "next dev",
@@ -112,8 +112,6 @@
         "zustand": "^4.4.7"
     },
     "devDependencies": {
-        "@aws-amplify/backend": "^0.12.1",
-        "@aws-amplify/backend-cli": "^0.11.1",
         "@tailwindcss/typography": "^0.5.10",
         "@types/aos": "^3.0.7",
         "@types/cssbeautify": "^0.3.2",
