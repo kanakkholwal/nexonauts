@@ -43,7 +43,7 @@ export default function MoreFromUs() {
                                 </div>
                             })}
                         </div>
-                        <Button size="lg" width="sm" asChild>
+                        <Button size="lg" width="xs" asChild>
                             <Link href={feature.url} title={feature.title}>
                                 Learn More
                             </Link>
