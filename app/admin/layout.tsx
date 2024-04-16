@@ -17,7 +17,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
     if (session.user.role !== "admin") return <Page403 />;
 
     return (<>
-        <div className="flex h-full min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900 bg-slate-200/80 z-0">
+        <div className="flex h-full min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-emerald-900 bg-slate-200/80 z-0">
             <SideBar user={session.user} />
             <div className="lg:pl-80 flex flex-col flex-1 w-full relative z-0">
                 <Navbar user={session.user} />

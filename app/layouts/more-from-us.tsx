@@ -34,7 +34,7 @@ export default function MoreFromUs({omit}: {omit?: string[]}) {
                 if (omit && omit.includes(feature.url)) return null
                 return <div className="grid grid-cols-1 @2xl:grid-cols-2 gap-4 items-center" key={feature.url}>
                     <div className="p-4 space-y-5 flex flex-col justify-around items-start">
-                        <h3 className="text-2xl font-bold mb-2">{feature.title}</h3>
+                        <h3 className="text-3xl font-bold mb-2">{feature.title}</h3>
                         <p className="text-lg font-light">{feature.description}</p>
                         <hr />
                         <div className="space-y-2">
