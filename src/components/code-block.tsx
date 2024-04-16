@@ -15,7 +15,7 @@ const CodeRenderer = ({ data,language,format }: Props) => {
   //the next lines will be reserved for the code itself.
   const [state, setState] = useState<string | "idle" | "copy">("idle")
 
-
+  
 
   useEffect(() => {
     //create an async function to load the languages using import

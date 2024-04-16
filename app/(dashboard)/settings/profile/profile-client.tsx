@@ -40,7 +40,7 @@ export function ProfileEditor({updateProfile}: Props) {
         <div className="space-y-6 my-5">
             <div className="grid grid-cols-1 gap-2">
                 <Label htmlFor="bio" className="mb-0">Bio</Label>
-                <Textarea id="bio" placeholder="Tell us about yourself" rows={5} variant="fluid"
+                <Textarea id="bio" placeholder="Tell us about yourself" rows={5} variant="glass"
                     value={profile?.bio}
                     onChange={e => useProfileStore.setState({ profile: { ...profile, bio: e.target.value } })} />
             </div>
@@ -56,7 +56,7 @@ export function ProfileEditor({updateProfile}: Props) {
                                 Remove
                             </Button>
                         </div>
-                        <Input id={`social-${index}`} placeholder="https://example.com"
+                        <Input id={`social-${index}`} placeholder="https://example.com" variant="glass"
                             value={social.url}
                             onChange={e => {
                                 const newSocials = [...profile.socials];

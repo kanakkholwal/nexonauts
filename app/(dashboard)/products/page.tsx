@@ -123,10 +123,10 @@ export default async function MyProducts({ searchParams }: PageProps) {
                         <h2 className="text-xl font-semibold truncate">{product.name}</h2>
                         <div className="flex justify-end gap-2 p-2">
                             <DeleteProductButton deleteProduct={deleteProduct.bind(null, product._id)} />
-                            <Button variant="link" size="sm" asChild>
+                            <Button variant="outline" size="sm" asChild>
                                 <Link href={`/products/${product.slug}/edit`} className="text-primary">Edit</Link>
                             </Button>
-                            <Button variant="outline" size="sm" asChild>
+                            <Button variant="link" size="sm" asChild>
                                 <Link href={`/marketplace/products/${product.slug}`} target="_blank"
                                     rel="noopener noreferrer"
                                 >View <ArrowUpRight /></Link>

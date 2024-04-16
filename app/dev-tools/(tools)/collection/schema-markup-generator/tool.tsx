@@ -23,57 +23,54 @@ import {
 } from "@/components/ui/select";
 
 import axios from "axios";
-import CodeBlock from "components/code-block";
 import { useEffect, useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
+import ShikiBlock from "src/components/shiki-block/shiki-block";
 
 
 export default function SchemaGenerator() {
     const [html, setHtml] = useState("");
-    const [schema, setSchema] = useState("website");
-
-
 
     return (
         <>
 
-                <Tabs defaultValue="website">
-                    <Card>
-                        <CardHeader>
-                            <TabsList className="py-3 h-auto flex-wrap">
-                                {options.map((option, index) => {
-                                    return <TabsTrigger key={index} value={option.value} className="h-10">{option.label}</TabsTrigger>
-                                })}
-                            </TabsList>
-                        </CardHeader>
-                        <CardContent>
-                            <TabsContent value="website">
-                                <Website setCode={setHtml} />
-                            </TabsContent>
-                            <TabsContent value="breadcrumbs">
-                                <Breadcrumbs setCode={setHtml} />
-                            </TabsContent>
-                            <TabsContent value="person">
-                                <Person setCode={setHtml} />
-                            </TabsContent>
-                            <TabsContent value="article">
-                                <Article setCode={setHtml} />
-                            </TabsContent>
-                            <TabsContent value="product">
-                                <Product setCode={setHtml} />
-                            </TabsContent>
-                        </CardContent>
-                        <CardFooter>
-                            <div className="w-full">
-                                <CodeBlock language="html" data={html}  />
-                                <p className="text-xs">
-                                    Using <span className="text-primary">React.js / Next.js App ?</span>  Try <Link href="/tools/html-to-jsx-convertor" className="hover:underline text-primary">HTML to JSX Convertor </Link>
-                                </p>
-                            </div>
+            <Tabs defaultValue="website">
+                <Card variant="glass">
+                    <CardHeader>
+                        <TabsList className="py-3 h-auto flex-wrap">
+                            {options.map((option, index) => {
+                                return <TabsTrigger key={index} value={option.value} className="h-10">{option.label}</TabsTrigger>
+                            })}
+                        </TabsList>
+                    </CardHeader>
+                    <CardContent>
+                        <TabsContent value="website">
+                            <Website setCode={setHtml} />
+                        </TabsContent>
+                        <TabsContent value="breadcrumbs">
+                            <Breadcrumbs setCode={setHtml} />
+                        </TabsContent>
+                        <TabsContent value="person">
+                            <Person setCode={setHtml} />
+                        </TabsContent>
+                        <TabsContent value="article">
+                            <Article setCode={setHtml} />
+                        </TabsContent>
+                        <TabsContent value="product">
+                            <Product setCode={setHtml} />
+                        </TabsContent>
+                    </CardContent>
+                    <CardFooter>
+                        <div className="w-full">
+                            <ShikiBlock lang="javascript" code={html} />
+                            <p className="text-sm mt-5">
+                                Using <span className="text-bold">React.js / Next.js App ?</span>  Try <Link href="/tools/html-to-jsx-convertor" className="hover:underline text-primary">HTML to JSX Convertor </Link>
+                            </p>
+                        </div>
 
-                        </CardFooter>
-                    </Card>
-                </Tabs>
+                    </CardFooter>
+                </Card>
+            </Tabs>
 
         </>
     )
@@ -103,46 +100,41 @@ function Website({ setCode }) {
 
 
     return (
-        <div>
-            <div className="w-full flex items-center gap-4 flex-wrap">
-                <div className="grid w-full gap-2">
-                    <Label>Website Name</Label>
-                    <Input variant="ghost" type="text" placeholder="Website Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
+        <div className="flex gap-4 flex-wrap">
+            <div className="grid w-full max-w-sm">
+                <Label htmlFor="name">Website Name</Label>
+                <Input variant="glass" id="name" type="text" placeholder="Website Name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
 
-                </div>
-                <div className="grid w-full gap-2">
-                    <Label>Alternate Name</Label>
-                    <Input variant="ghost" type="text" placeholder="Alternate Name"
-                        value={alternateName}
-                        onChange={(e) => setAlternateName(e.target.value)}
-
-                    />
-                </div>
             </div>
-            <div className="grid w-full gap-2">
-                <Label>Website URL</Label>
-                <Input variant="ghost" type="url" placeholder="Website URL (include the protocol)"
-                    value={url}
-                    onChange={(e) => setUrl(e.target.value)}
-
+            <div className="grid w-full max-w-sm">
+                <Label htmlFor="alternateName">Alternate Name</Label>
+                <Input variant="glass" id="alternateName" type="text" placeholder="Alternate Name"
+                    value={alternateName}
+                    onChange={(e) => setAlternateName(e.target.value)}
 
                 />
             </div>
+            <div className="grid w-full max-w-sm">
+                <Label htmlFor="url">Website URL</Label>
+                <Input variant="glass" id="url" type="url" placeholder="Website URL (include the protocol)"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)} />
+            </div>
 
-            <div className="grid w-full gap-2">
-                <Label>Search Query</Label>
-                <Input variant="ghost" type="text" placeholder="URL for internal site search before query (e.g. https://example.com/search?q=)"
+            <div className="grid w-full max-w-sm">
+                <Label htmlFor="searchQuery">Search Query</Label>
+                <Input variant="glass" id="searchQuery" type="text" placeholder="URL for internal site search before query (e.g. https://example.com/search?q=)"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
 
                 />
             </div>
-            <div className="grid w-full gap-2">
-                <Label>Query String</Label>
-                <Input variant="ghost" type="text" placeholder="Optional: string in the search URL occurring after the query"
+            <div className="grid w-full max-w-sm">
+                <Label htmlFor="queryString">Query String</Label>
+                <Input variant="glass" id="queryString" type="text" placeholder="Optional: string in the search URL occurring after the query"
                     value={queryString}
                     onChange={(e) => setQueryString(e.target.value)}
                     disabled={searchQuery === ""}
@@ -195,9 +187,9 @@ function Breadcrumbs({ setCode }) {
                         </button></h6>
                     <hr className="my-2 mb-3" />
                     <div className="w-full flex items-center gap-4 flex-wrap">
-                        <div className="grid w-full gap-2">
-                            <Label>Item Name</Label>
-                            <Input variant="ghost" type="text" placeholder="Item Name"
+                        <div className="grid w-full max-w-sm">
+                            <Label htmlFor="">Item Name</Label>
+                            <Input variant="glass" type="text" placeholder="Item Name"
                                 value={item.name}
                                 onChange={(e) => {
                                     let temp = [...items];
@@ -207,9 +199,9 @@ function Breadcrumbs({ setCode }) {
                             />
 
                         </div>
-                        <div className="grid w-full gap-2">
-                            <Label>Item URL</Label>
-                            <Input variant="ghost" type="url" placeholder="Item URL"
+                        <div className="grid w-full max-w-sm">
+                            <Label htmlFor="">Item URL</Label>
+                            <Input variant="glass" type="url" placeholder="Item URL"
                                 value={item.url}
                                 onChange={(e) => {
                                     let temp = [...items];
@@ -219,9 +211,9 @@ function Breadcrumbs({ setCode }) {
 
                             />
                         </div>
-                        <div className="grid w-full gap-2">
-                            <Label>Item Image</Label>
-                            <Input variant="ghost" type="url" placeholder="Item Image URL"
+                        <div className="grid w-full max-w-sm">
+                            <Label htmlFor="">Item Image</Label>
+                            <Input variant="glass" type="url" placeholder="Item Image URL"
                                 value={item.image}
                                 onChange={(e) => {
                                     let temp = [...items];
@@ -277,80 +269,80 @@ function Person({ setCode }) {
 </script>`)
     }, [name, alternateName, url, image, jobTitle, worksFor, telephone, email, address, sameAs])
     return (
-        <div>
-            <div className="flex gap-2 items-stretch justify-start w-full flex-wrap">
-                <div className="grid w-full gap-2">
-                    <Label>Name</Label>
-                    <Input variant="ghost" type="text" placeholder="Name"
+        <>
+            <div className="flex gap-4 w-full flex-wrap">
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Name</Label>
+                    <Input variant="glass" type="text" placeholder="Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>Alternate Name</Label>
-                    <Input variant="ghost" type="text" placeholder="Alternate Name"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Alternate Name</Label>
+                    <Input variant="glass" type="text" placeholder="Alternate Name"
                         value={alternateName}
                         onChange={(e) => setAlternateName(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>URL</Label>
-                    <Input variant="ghost" type="url" placeholder="URL"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">URL</Label>
+                    <Input variant="glass" type="url" placeholder="URL"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>Image</Label>
-                    <Input variant="ghost" type="url" placeholder="Image URL"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Image</Label>
+                    <Input variant="glass" type="url" placeholder="Image URL"
                         value={image}
                         onChange={(e) => setImage(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>Job Title</Label>
-                    <Input variant="ghost" type="text" placeholder="Job Title"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Job Title</Label>
+                    <Input variant="glass" type="text" placeholder="Job Title"
                         value={jobTitle}
                         onChange={(e) => setJobTitle(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>Works For</Label>
-                    <Input variant="ghost" type="text" placeholder="Works For"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Works For</Label>
+                    <Input variant="glass" type="text" placeholder="Works For"
                         value={worksFor}
                         onChange={(e) => setWorksFor(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>Telephone</Label>
-                    <Input variant="ghost" type="tel" placeholder="Telephone"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Telephone</Label>
+                    <Input variant="glass" type="tel" placeholder="Telephone"
                         value={telephone}
                         onChange={(e) => setTelephone(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>Email</Label>
-                    <Input variant="ghost" type="email" placeholder="Email"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Email</Label>
+                    <Input variant="glass" type="email" placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>Address</Label>
-                    <Input variant="ghost" type="text" placeholder="Address"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Address</Label>
+                    <Input variant="glass" type="text" placeholder="Address"
                         value={address}
                         onChange={(e) => setAddress(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>Same As</Label>
-                    <Input variant="ghost" type="url" placeholder="Same As"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Same As</Label>
+                    <Input variant="glass" type="url" placeholder="Same As"
                         value={sameAs}
                         onChange={(e) => setSameAs(e.target.value)}
                     />
                 </div>
             </div>
-        </div>
+        </>
     )
 
 }
@@ -399,19 +391,49 @@ function Article({ setCode }) {
 </script>`)
     }, [headline, image, author, publisher, datePublished, dateModified, description, articleBody, url, sameAs, type, width, height, isAMP])
     return (
-        <div>
+        <div className="w-full grid gap-4">
 
-            <div
-                className="w-full flex flex-wrap gap-2"
-
-            >
-                {["NewsArticle", "BlogPosting"].map((item, index) => {
-                    return (<label  key={index} className={RadioStyle.label}>
-                            {item}
-                            <input type="radio"  onChange={(e) => setType(e.target.value)} name="type" value={item} className={RadioStyle.input} />
-                        </label>)                  
+            <div className="w-full flex flex-wrap gap-2">
+                {["NewsArticole", "BlogPosting"].map((item, index) => {
+                    return (<label key={index} className={RadioStyle.label}>
+                        {item}
+                        <input type="radio" onChange={(e) => setType(e.target.value)} name="type" value={item} className={RadioStyle.input} />
+                    </label>)
                 })}
 
+            </div>
+
+
+            <div className="w-full flex items-center gap-4 flex-wrap">
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Headline</Label>
+                    <Input variant="glass" type="text" placeholder="Headline"
+                        value={headline}
+                        onChange={(e) => setHeadline(e.target.value)}
+                    />
+                </div>
+
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Image</Label>
+                    <Input variant="glass" type="url" placeholder="Image URL"
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
+                    />
+                </div>
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Width</Label>
+                    <Input variant="glass" type="number" placeholder="Image Width"
+                        value={width}
+                        onChange={(e) => setWidth(e.target.value)}
+                    />
+                </div>
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Height</Label>
+                    <Input variant="glass" type="number" placeholder="Image Height"
+                        value={height}
+                        onChange={(e) => setHeight(e.target.value)}
+                    />
+                </div>
             </div>
 
             <div className="flex items-center space-x-2 my-3">
@@ -424,96 +446,65 @@ function Article({ setCode }) {
                 />
                 <Label htmlFor="isAmp" className="mb-0">Accelerated Mobile Page (AMP)?</Label>
             </div>
-            <div className="grid w-full gap-2">
-                <div className="grid w-full gap-2">
-                    <Label>Headline</Label>
-                    <Input variant="ghost" type="text" placeholder="Headline"
-                        value={headline}
-                        onChange={(e) => setHeadline(e.target.value)}
-                    />
-                </div>
-
-                <div className="grid w-full gap-2">
-                    <Label>Image</Label>
-                    <Input variant="ghost" type="url" placeholder="Image URL"
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full gap-2">
-                    <Label>Width</Label>
-                    <Input variant="ghost" type="number" placeholder="Image Width"
-                        value={width}
-                        onChange={(e) => setWidth(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full gap-2">
-                    <Label>Height</Label>
-                    <Input variant="ghost" type="number" placeholder="Image Height"
-                        value={height}
-                        onChange={(e) => setHeight(e.target.value)}
-                    />
-                </div>
-            </div>
-
-            {isAMP ? <div className="grid w-full gap-2">
-                <div className="grid w-full gap-2">
-                    <Label>Author</Label>
-                    <Input variant="ghost" type="text" placeholder="Author"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full gap-2">
-                    <Label>Publisher</Label>
-                    <Input variant="ghost" type="text" placeholder="Publisher"
-                        value={publisher}
-                        onChange={(e) => setPublisher(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full gap-2">
-                    <Label>Date Published</Label>
-                    <Input variant="ghost" type="date" placeholder="Date Published"
-                        value={datePublished}
-                        onChange={(e) => setDatePublished(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full gap-2">
-                    <Label>Date Modified</Label>
-                    <Input variant="ghost" type="date" placeholder="Date Modified"
-                        value={dateModified}
-                        onChange={(e) => setDateModified(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full gap-2">
-                    <Label>Description</Label>
-                    <Input variant="ghost" type="text" placeholder="Description"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full gap-2">
-                    <Label>Article Body</Label>
-                    <Input variant="ghost" type="text" placeholder="Article Body"
-                        value={articleBody}
-                        onChange={(e) => setArticleBody(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full gap-2">
-                    <Label>URL</Label>
-                    <Input variant="ghost" type="url" placeholder="URL"
-                        value={url}
-                        onChange={(e) => setUrl(e.target.value)}
-                    />
-                </div>
-                <div className="grid w-full gap-2">
-                    <Label>Same As</Label>
-                    <Input variant="ghost" type="url" placeholder="Same As"
-                        value={sameAs}
-                        onChange={(e) => setSameAs(e.target.value)}
-                    />
-                </div>
-            </div> : null}
+            {isAMP ?
+                <div className="w-full flex items-center gap-4 flex-wrap">
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Author</Label>
+                        <Input variant="glass" type="text" placeholder="Author"
+                            value={author}
+                            onChange={(e) => setAuthor(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Publisher</Label>
+                        <Input variant="glass" type="text" placeholder="Publisher"
+                            value={publisher}
+                            onChange={(e) => setPublisher(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Date Published</Label>
+                        <Input variant="glass" type="date" placeholder="Date Published"
+                            value={datePublished}
+                            onChange={(e) => setDatePublished(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Date Modified</Label>
+                        <Input variant="glass" type="date" placeholder="Date Modified"
+                            value={dateModified}
+                            onChange={(e) => setDateModified(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Description</Label>
+                        <Input variant="glass" type="text" placeholder="Description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Article Body</Label>
+                        <Input variant="glass" type="text" placeholder="Article Body"
+                            value={articleBody}
+                            onChange={(e) => setArticleBody(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">URL</Label>
+                        <Input variant="glass" type="url" placeholder="URL"
+                            value={url}
+                            onChange={(e) => setUrl(e.target.value)}
+                        />
+                    </div>
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Same As</Label>
+                        <Input variant="glass" type="url" placeholder="Same As"
+                            value={sameAs}
+                            onChange={(e) => setSameAs(e.target.value)}
+                        />
+                    </div>
+                </div> : null}
 
         </div>
     )
@@ -653,51 +644,51 @@ function Product({ setCode }) {
         <div>
             <div className="w-full flex items-center gap-4 flex-wrap">
 
-                <div className="grid w-full gap-2">
-                    <Label>Name</Label>
-                    <Input variant="ghost" type="text" placeholder="Name"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Name</Label>
+                    <Input variant="glass" type="text" placeholder="Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>Image</Label>
-                    <Input variant="ghost" type="url" placeholder="Image URL"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Image</Label>
+                    <Input variant="glass" type="url" placeholder="Image URL"
                         value={image}
                         onChange={(e) => setImage(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>Description</Label>
-                    <Input variant="ghost" type="text" placeholder="Description"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Description</Label>
+                    <Input variant="glass" type="text" placeholder="Description"
                         value={description}
                         onChange={(e) => setDescription(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>Brand</Label>
-                    <Input variant="ghost" type="text" placeholder="Brand"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">Brand</Label>
+                    <Input variant="glass" type="text" placeholder="Brand"
                         value={brand}
                         onChange={(e) => setBrand(e.target.value)}
                     />
                 </div>
-                <div className="grid w-full gap-2">
-                    <Label>URL</Label>
-                    <Input variant="ghost" type="url" placeholder="URL"
+                <div className="grid w-full max-w-sm">
+                    <Label htmlFor="">URL</Label>
+                    <Input variant="glass" type="url" placeholder="URL"
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                     />
                 </div>
                 <div>
-                    <Label>Types</Label>
-                    <div className="flex gap-2 items-stretch justify-start w-full flex-wrap">
+                    <Label htmlFor="types">Types</Label>
+                    <div className="flex gap-4 items-stretch justify-start w-full flex-wrap mt-4">
 
                         {PRODUCT_TYPES.map((item, index) => {
-                            return (<div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm" key={index}>
+                            return (<div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-4" key={index}>
                                 <div className="space-y-0.5">
                                     <Label htmlFor={item.value}>{item.label}</Label>
                                     <div>
-                                        <Input variant="ghost" type="text" placeholder="GTIN-14"
+                                        <Input variant="glass" type="text" placeholder="GTIN-14"
                                             disabled={!types[item.value].enable}
                                             value={types[item.value].value}
                                             onChange={(e) => {
@@ -742,7 +733,7 @@ function Product({ setCode }) {
                 <div className="w-full flex items-center gap-4 flex-wrap">
 
                     <div className="mb-2">
-                        <Label>Offers</Label>
+                        <Label htmlFor="">Offers</Label>
                         <Select onValueChange={(value) => {
                             setOffers((offers) => {
                                 return {
@@ -764,7 +755,7 @@ function Product({ setCode }) {
 
                     </div>
                     <div className="mb-2">
-                        <Label>Select Currency</Label>
+                        <Label htmlFor="">Select Currency</Label>
                         {currencies.length > 0 ? <Select onValueChange={(value) => {
                             setOffers((offers) => {
                                 return {
@@ -788,9 +779,9 @@ function Product({ setCode }) {
                 </div>
 
                 {offers.type === "Offer" ? <div className="w-full flex items-center gap-4 flex-wrap">
-                    <div className="grid w-full gap-2">
-                        <Label>Offer Price</Label>
-                        <Input variant="ghost" type="number" placeholder="Offer Price"
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Offer Price</Label>
+                        <Input variant="glass" type="number" placeholder="Offer Price"
                             value={offers.price}
                             onChange={(e) => setOffers((offers) => {
                                 return {
@@ -801,9 +792,9 @@ function Product({ setCode }) {
                             )}
                         />
                     </div>
-                    <div className="grid w-full gap-2">
-                        <Label>Offer Price Valid Until</Label>
-                        <Input variant="ghost" type="date" placeholder="Offer Price Valid Until"
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Offer Price Valid Until</Label>
+                        <Input variant="glass" type="date" placeholder="Offer Price Valid Until"
                             value={offers.priceValidUntil}
                             onChange={(e) => setOffers((offers) => {
                                 return {
@@ -815,7 +806,7 @@ function Product({ setCode }) {
                         />
                     </div>
                     <div className="mb-2">
-                        <Label>Offer Item Condition</Label>
+                        <Label htmlFor="">Offer Item Condition</Label>
                         <Select onValueChange={(value) => {
                             setOffers((offers) => {
                                 return {
@@ -843,7 +834,7 @@ function Product({ setCode }) {
 
                     </div>
                     <div className="mb-2">
-                        <Label>Offer Availability</Label>
+                        <Label htmlFor="">Offer Availability</Label>
                         <Select onValueChange={(value) => {
                             setOffers((offers) => {
                                 return {
@@ -882,9 +873,9 @@ function Product({ setCode }) {
                 </div> : null}
 
                 {offers.type === "AggregateOffer" ? <div className="w-full flex items-center gap-4 flex-wrap">
-                    <div className="grid w-full gap-2">
-                        <Label>Aggregate rating value</Label>
-                        <Input variant="ghost" type="number" placeholder="Aggregate rating value"
+                    <div className="grid w-full max-w-sm">
+                        <Label htmlFor="">Aggregate rating value</Label>
+                        <Input variant="glass" type="number" placeholder="Aggregate rating value"
                             value={aggregateRating.ratingValue}
                             onChange={(e) => setAggregateRating((aggregateRating) => {
                                 return {
@@ -895,8 +886,8 @@ function Product({ setCode }) {
                         />
                     </div>
                     <div className="w-full flex items-center gap-4 flex-wrap">
-                        <Label>Aggregate rating review count</Label>
-                        <Input variant="ghost" type="number" placeholder="Aggregate rating review count"
+                        <Label htmlFor="">Aggregate rating review count</Label>
+                        <Input variant="glass" type="number" placeholder="Aggregate rating review count"
                             value={aggregateRating.ratingCount}
                             onChange={(e) => setAggregateRating((aggregateRating) => {
                                 return {
@@ -907,8 +898,8 @@ function Product({ setCode }) {
                         />
                     </div>
                     <div className="w-full flex items-center gap-4 flex-wrap">
-                        <Label>Aggregate rating best rating</Label>
-                        <Input variant="ghost" type="number" placeholder="Aggregate rating best rating"
+                        <Label htmlFor="">Aggregate rating best rating</Label>
+                        <Input variant="glass" type="number" placeholder="Aggregate rating best rating"
                             value={aggregateRating.bestRating}
                             onChange={(e) => setAggregateRating((aggregateRating) => {
                                 return {
@@ -919,8 +910,8 @@ function Product({ setCode }) {
                         />
                     </div>
                     <div className="w-full flex items-center gap-4 flex-wrap">
-                        <Label>Aggregate rating worst rating</Label>
-                        <Input variant="ghost" type="number" placeholder="Aggregate rating worst rating"
+                        <Label htmlFor="">Aggregate rating worst rating</Label>
+                        <Input variant="glass" type="number" placeholder="Aggregate rating worst rating"
                             value={aggregateRating.worstRating}
                             onChange={(e) => setAggregateRating((aggregateRating) => {
                                 return {

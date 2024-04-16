@@ -227,7 +227,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                                             })
 
                                         }}
-                                        variant="ghost"
+                                        variant="glass"
                                     />
                                 </div>
 
@@ -276,7 +276,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                         ...user,
                         name: e.target.value
                     })}
-                        variant="fluid"
+                        variant="glass"
                         disabled={!editingName}
                     />
                     <Button size={"icon"}
@@ -377,7 +377,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                             className='pl-12 !py-3 pr-5 !mt-0'
                             value={currentPassword} required
                             onChange={(e) => setCurrentPassword(e.target.value)}
-                            variant="fluid"
+                            variant="glass"
                         />
                     </div>
                     <div className='relative grow'>
@@ -394,7 +394,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                             className='pl-12 !py-3 pr-5 !mt-0'
                             value={confirmPassword} required
                             onChange={(e) => setConfirmPassword(e.target.value)}
-                            variant="fluid"
+                            variant="glass"
 
                         />
                     </div>
