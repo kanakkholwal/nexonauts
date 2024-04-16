@@ -2,7 +2,7 @@ import Footer from "app/layouts/footer";
 import Navbar from "app/layouts/navbar";
 import type { Metadata } from 'next';
 
-
+import MoreFromUs from "app/layouts/more-from-us";
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
@@ -20,6 +20,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
         <main className="w-full grow mx-auto px-4 sm:px-12 xl:max-w-7xl xl:px-0 pt-[70px] relative @container">
         {children}
         </main>
+        <MoreFromUs/>
         <Footer />
     </>)
 }

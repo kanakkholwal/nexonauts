@@ -1,6 +1,6 @@
 {
     "name": "nexonauts",
-    "version": "0.1.0",
+    "version": "0.5.0",
     "private": true,
     "scripts": {
         "dev": "next dev",
@@ -60,6 +60,7 @@
         "embla-carousel-react": "^8.0.0-rc22",
         "framer-motion": "^11.0.3",
         "html-react-parser": "^4.0.0",
+        "interweave": "^13.1.0",
         "jsonwebtoken": "^9.0.0",
         "language-detect": "^1.1.0",
         "lodash.debounce": "^4.0.8",
@@ -111,8 +112,6 @@
         "zustand": "^4.4.7"
     },
     "devDependencies": {
-        "@aws-amplify/backend": "^0.12.1",
-        "@aws-amplify/backend-cli": "^0.11.1",
         "@tailwindcss/typography": "^0.5.10",
         "@types/aos": "^3.0.7",
         "@types/cssbeautify": "^0.3.2",
@@ -135,6 +134,7 @@
         "postcss": "^8.4.32",
         "postcss-nesting": "^12.0.2",
         "prop-types": "^15.6.0",
+        "shiki": "^1.3.0",
         "tailwindcss": "^3.4.0",
         "typescript": "^5.3.3"
     },

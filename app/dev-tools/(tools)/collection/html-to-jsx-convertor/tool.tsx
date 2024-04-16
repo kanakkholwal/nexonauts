@@ -128,10 +128,10 @@ export default function HtmlToJsxTool() {
 
       <div className="flex flex-col w-full gap-1.5">
         <Label htmlFor="rawData">Enter Raw HTML Here</Label>
-        <Textarea variant="ghost" value={state.rawData}
+        <Textarea variant="outline" value={state.rawData}  className="shadow"
           rows={12} cols={8} id="rawData" onChange={(e) => setState({ ...state, rawData: e.target.value })} placeholder="Enter raw Html to convert " />
       </div>
-      <Card>
+      <Card variant="glass">
         <CardHeader>
           <CardTitle>
             Options
