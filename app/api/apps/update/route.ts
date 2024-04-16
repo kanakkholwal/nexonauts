@@ -8,8 +8,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function PUT(request: NextRequest) {
     try {
-        const appId = request.nextUrl.searchParams.get('appId')
-
+        const appId = request.nextUrl.searchParams.get('appId');
+        if (!appId) {
+            return NextResponse.json({
+                result: "fail",
+                message: 'App Id is required',
+            },{
+                status:400
+            })
+        }
         const session = await getServerSession({ req: request, ...authOptions });
         if (!session) {
             return NextResponse.json({
