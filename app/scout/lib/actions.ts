@@ -2,15 +2,15 @@
 import dbConnect from "lib/dbConnect";
 import mongoose from 'mongoose';
 import { revalidatePath } from 'next/cache';
-import PublicTool, { IPublicTool, PublicToolPricingType, PublicToolTypeWithId } from 'src/models/tool';
+import { getSession } from "src/lib/auth";
+import PublicTool, { PublicToolPricingType, PublicToolTypeWithId } from 'src/models/tool';
 import ToolRating, { RatingTypeWithId, rawRatingType } from 'src/models/tool-rating';
-
 
 
 export async function getTools(query: string, currentPage: number, filter: {
     pricing_type: PublicToolPricingType | "all",
     category: string,
-},offset:number): Promise<{
+}, offset: number): Promise<{
     tools: Partial<PublicToolTypeWithId>[],
     categories: {
         name: string;
@@ -79,15 +79,19 @@ export async function getTools(query: string, currentPage: number, filter: {
 
 export async function getToolMetaBySlug(slug: string): Promise<PublicToolTypeWithId> {
     await dbConnect();
-    const tool = await PublicTool.findOne({ slug , status: "published" || "approved" })
+    const tool = await PublicTool.findOne({ slug, status: "published" || "approved" })
         .populate('categories', 'name slug')
         .select('name slug coverImage description categories')
         .exec();
     return JSON.parse(JSON.stringify(tool));
 }
-export async function getPublicToolBySlug(slug: string): Promise<PublicToolTypeWithId> {
+export async function getPublicToolBySlug(slug: string,cached:boolean): Promise<PublicToolTypeWithId> {
     await dbConnect();
     const tool = await PublicTool.findOne({ slug, status: "published" || "approved" });
+    if (tool && !cached) {
+        tool.views = tool.views + 1;
+        await tool.save();
+    }
     return JSON.parse(JSON.stringify(tool));
 }
 
@@ -153,30 +157,44 @@ export async function postRatingAndReview(data: rawRatingType): Promise<RatingTy
     return JSON.parse(JSON.stringify(rating));
 }
 
-export async function toggleBookmark(toolId: string, userId: string): Promise<boolean> {
-    if (!userId || !toolId) {
-        return Promise.reject("Invalid user or tool");
-    }
-    await dbConnect();
-    const tool = await PublicTool.findById(toolId) as IPublicTool;
-    if (!tool) {
-        return Promise.reject("Invalid tool");
-    }
-    // Ensure tool.bookmarks is initialized as an empty array
-    if (!tool.bookmarks) {
-        tool.bookmarks = [];
-    }
+export async function toggleBookmark(toolId: string): Promise<boolean> {
+    try {
+        const session = await getSession();
+        if (!session) {
+            return Promise.reject("Unauthorized");
+        }
+        if (!toolId) {
+            return Promise.reject("Invalid user or tool");
+        }
+        await dbConnect();
+        const tool = await PublicTool.findById(toolId);
+        if (!tool) {
+            return Promise.reject("Invalid tool");
+        }
+        // Ensure tool.bookmarks is initialized as an empty array
+        if (!tool.bookmarks) {
+            tool.bookmarks = [];
+        }
 
-    const userIdObj = new mongoose.Types.ObjectId(userId);
-    if (tool.bookmarks.includes(userIdObj)) {
-        tool.bookmarks = tool.bookmarks.filter((id) => id !== userIdObj);
-        await tool.save();
+        const userIdObj = new mongoose.Types.ObjectId(session.user._id);
+        const updatededTool =
+            await PublicTool.findOneAndUpdate(
+                { _id: toolId },
+                {
+                    [tool.bookmarks.includes(userIdObj) ? '$pull' : '$addToSet']: {
+                        bookmarks: userIdObj
+                    }
+                },
+                { new: true }
+            )
+                .select('bookmarks')
+                .exec();
         revalidatePath(`/toolzen/tools/${tool.slug}`, "page");
-        return Promise.resolve(false);
-    } else {
-        tool.bookmarks.push(userIdObj);
-        await tool.save();
-        revalidatePath(`/toolzen/tools/${tool.slug}`, "page");
-        return Promise.resolve(true);
+        if (!updatededTool) {
+            return Promise.reject("An error occurred while updating the tool");
+        }
+        return Promise.resolve(updatededTool.bookmarks.includes(userIdObj));
+    } catch (error) {
+        return Promise.reject(error);
     }
 }
