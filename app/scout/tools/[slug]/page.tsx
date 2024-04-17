@@ -9,18 +9,17 @@ import {
 } from "@/components/ui/card";
 import { Rating } from "@/components/ui/rating";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import Navbar from "app/layouts/navbar-static";
 import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools, getToolMetaBySlug, postRatingAndReview, toggleBookmark } from "app/scout/lib/actions";
 import { getAverageRating } from "app/scout/lib/utils";
-import { ExternalLink, Hash, Lock, MessageCircle, Star, Zap } from 'lucide-react';
+import { Bookmark, ExternalLink, Eye, Hash, Lock, MessageCircle, Star, Zap } from 'lucide-react';
 import type { Metadata, ResolvingMetadata } from 'next';
-import { getServerSession } from "next-auth/next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import MarkdownView from 'src/components/markdown/view';
+import { getSession } from "src/lib/auth";
 import { RatingTypeWithId } from 'src/models/tool-rating';
 import { formatNumber } from "src/utils/formaters";
 import { BookMarkButton } from './bookmark';
@@ -50,14 +49,18 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
         category: tool.categories.map((category) => category.name).join(", "),
     }
 }
+const cache = new Map<string, boolean>();
 
 export default async function ToolPage({ params }: Props) {
 
-    const tool = await getPublicToolBySlug(params.slug);
+    const tool = await getPublicToolBySlug(params.slug, cache.get(params.slug) || false);
     if (!tool) {
         return notFound();
     }
-    const session = await getServerSession(authOptions);
+    if (tool) {
+        cache.set(params.slug, true);
+    }
+    const session = await getSession();
     console.log(tool)
 
 
@@ -65,7 +68,7 @@ export default async function ToolPage({ params }: Props) {
     const ratings = await getRatingsAndReviews(tool._id);
     // console.log(ratings);
 
-    const bannerURL =  new URL(`https://api.microlink.io/`);
+    const bannerURL = new URL(`https://api.microlink.io/`);
     // ?url=https://codeium.com&screenshot=true&meta=false&embed=screenshot.url
     bannerURL.searchParams.append("url", tool.link);
     bannerURL.searchParams.append("screenshot", "true");
@@ -129,40 +132,49 @@ export default async function ToolPage({ params }: Props) {
                 </div>
             </div>
         </div>
-        <main className="w-full mx-auto xl:max-w-7xl xl:px-0 rounded-lg overflow-hidden pt-28 px-2 space-y-4">
+        <main className="w-full mx-auto xl:max-w-7xl xl:px-0 rounded-lg overflow-hidden pt-28 px-2 space-y-4 @container">
 
             <Card variant="glass">
                 <CardHeader className="flex flex-row gap-3 items-center flex-wrap">
                     <div className="flex-1 space-y-4">
-                        <div className="flex flex-row gap-3 items-center justify-start">
+                        <div className="flex  gap-3 items-center justify-start flex-col @xl:flex-row">
                             <Image width={320} height={320} src={tool.coverImage} alt={tool.name}
-                                className="rounded-lg backdrop-blur-lg border border-border max-w-40 p-2" />
-                            <CardTitle title={tool.name} className="text-5xl font-bold">{tool.name}</CardTitle>
+                                className="rounded-lg backdrop-blur-lg border border-border max-w-24 @xl:max-w-40 p-2" />
+                            <div>
+                                <CardTitle title={tool.name} className="text-2xl @xl:text-5xl font-bold mb-3">
+                                    {tool.name}
+                                    <Suspense fallback={null}>
+                                        <BookMarkButton tool={tool} toggleBookmark={toggleBookmark} userId={session?.user?._id! || null} />
+                                    </Suspense>
+                                </CardTitle>
+                                <Badge variant="default_light" size="sm">{tool.pricing_type}</Badge>
+                            </div>
                         </div>
                     </div>
                     <div className="flex items-center justify-center gap-2 ml-auto">
-                        <Suspense fallback={null}>
-                            <BookMarkButton tool={tool} toggleBookmark={toggleBookmark} userId={session?.user?._id! || null} />
-                        </Suspense>
+
                         <Button
                             variant="default"
                             transition="damped"
-                            className="rounded-full px-6 py-2"
+                            rounded="full"
                             asChild>
                             <Link href={tool.link + "?ref=nexonauts.com/scout&utm_source=nexonauts&utm_medium=nexoscout&utm_campaign=" + tool.name} target="_blank">
-                                <span>
-                                    Check it out
-                                </span>
-                                <ExternalLink className="inline-block" />
+                                Check it out
+                                <ExternalLink />
                             </Link>
                         </Button>
                     </div>
                     <div className="w-full space-y-4">
                         <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start">
-                            <Badge variant="default_light" size="sm">{tool.pricing_type}</Badge>
                             <div className="inline-flex items-center">
-                                <Star className="w-4 h-4 fill-yellow-300 text-yellow-300 me-1" />
-                                <p className="ms-2 text-sm font-bold text-gray-900 dark:text-white">{getAverageRating(ratings || [])}</p>
+                                <Eye className="w-4 h-4 me-1 text-emerald-500" />
+                                <span className="text-sm font-medium text-gray-900 dark:text-white">{formatNumber(tool.views)} views</span>
+                                <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400" />
+                                <Bookmark className="w-4 h-4 text-cyan-500 me-1" />
+                                {formatNumber(tool?.bookmarks?.length! || 0)}
+                                <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400" />
+                                <Star className="w-4 h-4  text-yellow-500 me-1" />
+                                {getAverageRating(ratings || [])}
                                 <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400" />
                                 <a href="#reviews" className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">{formatNumber(ratings.length)} reviews</a>
                             </div>
@@ -178,8 +190,8 @@ export default async function ToolPage({ params }: Props) {
                     </div>
                 </CardHeader>
                 <CardContent className=" border-y border-y-border pt-5 flex-col flex items-center justify-center gap-4">
-                        <Image width={900} height={384} src={bannerURL.toString()} alt={tool.name}
-                            className="w-full h-auto max-w-3xl object-cover rounded-lg shadow-xl backdrop-blur-lg border border-border mx-auto aspect-video" />
+                    <Image width={900} height={384} src={bannerURL.toString()} alt={tool.name}
+                        className="w-full h-auto max-w-3xl object-cover rounded-lg shadow-xl backdrop-blur-lg border border-border mx-auto aspect-video" />
                 </CardContent>
             </Card>
 
