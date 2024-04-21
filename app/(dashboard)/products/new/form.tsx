@@ -35,7 +35,7 @@ const formSchema = z.object({
     }),
     tags: z.array(z.string()),
     categories: z.array(z.string()),
-    price: z.string(),
+    price: z.number()
 })
 const defaultCategories = [
     "Design",
