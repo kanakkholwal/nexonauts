@@ -12,7 +12,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "app/layouts/navbar-static";
 import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools, getToolMetaBySlug, postRatingAndReview, toggleBookmark } from "app/scout/lib/actions";
 import { getAverageRating } from "app/scout/lib/utils";
-import { Bookmark, ExternalLink, Eye, Hash, Lock, MessageCircle, Star, Zap } from 'lucide-react';
+import { Bookmark, Eye, Hash, Lock, MessageCircle, Star, Zap } from 'lucide-react';
 import type { Metadata, ResolvingMetadata } from 'next';
 import Image from "next/image";
 import Link from "next/link";
@@ -31,6 +31,7 @@ import SimilarTools from "./similar-tools";
 type Props = {
     params: { slug: string }
 }
+
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
     const slug = params.slug
 
@@ -49,6 +50,7 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
         category: tool.categories.map((category) => category.name).join(", "),
     }
 }
+
 const cache = new Map<string, boolean>();
 
 export default async function ToolPage({ params }: Props) {
@@ -177,29 +179,19 @@ export default async function ToolPage({ params }: Props) {
                                 <a href="#reviews" className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">{formatNumber(ratings.length)} reviews</a>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div className="flex items-center justify-center gap-2 ml-auto">
-
-                    <Button variant="glass" asChild>
-                        <Link href={tool.link + "?ref=nexonauts.com/scout&utm_source=nexonauts&utm_medium=nexoscout&utm_campaign=" + tool.name} target="_blank">
-                            Check it out
-                            <ExternalLink />
-                        </Link>
-                    </Button>
-                </div>
-                <div className="w-full space-y-4">
-                    <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start">
-                        {tool.categories.map((category, index) => {
-                            return <Badge key={category.slug + "_" + index} variant="glass" size="sm">
-                                <Hash className="inline-block w-3 h-3" />
-                                {category.name}
-                            </Badge>
-                        })}
+                        <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start">
+                            {tool.categories.map((category, index) => {
+                                return <Badge key={category.slug + "_" + index} variant="success_light" className="font-medium">
+                                    <Hash className="inline-block w-4 h-4" />
+                                    {category.name}
+                                </Badge>
+                            })}
+                        </div>
                     </div>
                 </div>
             </div>
-            <Card id="overview" className="backdrop-blur bg-white dark:bg-gray-600/30 my-20">
+
+            <Card id="overview" className="backdrop-blur bg-white dark:bg-gray-600/30">
                 <CardHeader>
                     <CardTitle><Zap className="inline-block mr-2 w-5 h-5 text-teal-600" /> Overview</CardTitle>
                     <CardDescription>
