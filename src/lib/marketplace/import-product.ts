@@ -1,10 +1,9 @@
 "use server"
 import axios from "axios";
-import { NodeHtmlMarkdown } from 'node-html-markdown';
 import HTMLParser from "node-html-parser";
 import { rawProduct } from "src/models/product";
+import TurndownService from 'turndown';
 import * as z from "zod";
-import TurndownService  from 'turndown'
 
 
 const urlSchema = z.string().url();
