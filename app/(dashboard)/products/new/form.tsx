@@ -26,16 +26,21 @@ import { z } from "zod"
 
 
 const formSchema = z.object({
-    name: z.string().min(3).max(100),
-    description: z.string().min(10).max(1000),
+    name: z.string().min(3).max(100).transform((value) => value.trim()),
+    description: z.string().min(10).max(1500).transform((value) => value.trim()),
     published: z.boolean(),
-    url: z.string().url(),
+    url: z.string().url().transform((value) => value.trim()),
     preview_url: z.string().url({
         message: 'Preview URL must be a valid image URL'
-    }),
-    tags: z.array(z.string()),
-    categories: z.array(z.string()),
+    }).transform((value) => value.trim()),
+    tags: z.array(z.string().transform((value) => value.trim())),
+    categories: z.array(z.string().transform((value) => value.trim())),
     price: z.number()
+});
+const urlSchema = z.string().url({
+    message: 'URL must be a valid URL'
+}).transform((value) => {
+    return value.trim()
 })
 const defaultCategories = [
     "Design",
@@ -63,7 +68,7 @@ export default function ProductForm(props: Props) {
             preview_url: "",
             tags: [],
             categories: [],
-            price: "0",
+            price: 0,
         },
     })
 
@@ -225,7 +230,7 @@ export default function ProductForm(props: Props) {
                             <FormItem>
                                 <FormLabel>
                                     Preview URL
-                                    <span className="text-sm text-gray-500"> (preffered 16 / 9)</span>
+                                    <span className="text-sm text-gray-500"> (prefer 16 / 9)</span>
                                 </FormLabel>
                                 <FormControl>
                                     <Input placeholder="https://example.com/preview.png" {...field} />
@@ -236,7 +241,7 @@ export default function ProductForm(props: Props) {
                                         field.onChange(fileUrl)
                                     }}
                                 />
-                                {((fieldState.isTouched && !fieldState.isDirty && fieldState.invalid === false) || form.getValues("preview_url").length > 20) && (<>
+                                {(urlSchema.safeParse(form.getValues("preview_url")).success) && (<>
                                     <div>
                                         <Image src={field.value} width={512} height={320} alt={"preview image"} />
                                     </div>
@@ -284,8 +289,8 @@ export default function ProductForm(props: Props) {
                     <Button type="submit"
                         className="w-full max-w-sm"
                         disabled={loading}>
-                            {loading && <LoaderCircle className="animate-spin" size={24} />}
-                            {loading ? "Saving..." : "Save Changes"}
+                        {loading && <LoaderCircle className="animate-spin" size={24} />}
+                        {loading ? "Saving..." : "Save Changes"}
                     </Button>
                 </div>
             </form>
