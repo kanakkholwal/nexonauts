@@ -1,7 +1,7 @@
 "use client"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+// import { Checkbox } from "@/components/ui/checkbox"
 import { DataTableColumnHeader } from "@/components/ui/data-table"
 import { ColumnDef } from "@tanstack/react-table"
 import Link from "next/link"
@@ -9,7 +9,7 @@ import Link from "next/link"
 
 
 
-export type userType = {
+export type toolType = {
   _id: string,
   name: string,
   slug: string,
@@ -18,34 +18,35 @@ export type userType = {
   updatedAt: string,
   status: string,
   verified: boolean,
-  pricing_type: string,
+  views: number,
+  bookmarks: string[],
 }
 
 
-export const columns: ColumnDef<userType>[] = [
-  {
-    id: "select",
-    accessorKey: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+export const columns: ColumnDef<toolType>[] = [
+  // {
+  //   id: "select",
+  //   accessorKey: "select",
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       checked={
+  //         table.getIsAllPageRowsSelected() ||
+  //         (table.getIsSomePageRowsSelected() && "indeterminate")
+  //       }
+  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+  //       aria-label="Select all"
+  //     />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       checked={row.getIsSelected()}
+  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+  //       aria-label="Select row"
+  //     />
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
     id: "name",
     accessorKey: "name",
@@ -87,13 +88,13 @@ export const columns: ColumnDef<userType>[] = [
     enableHiding: true,
   },
   {
-    id: "pricing_type",
-    accessorKey: "pricing_type",
+    id: "views",
+    accessorKey: "views",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Pricing Type" />
+      <DataTableColumnHeader column={column} title="Views" />
     ),
     cell: ({ row }) => {
-      return <Badge className="text-left font-medium" variant="default_light">{row.getValue("pricing_type")}</Badge>
+      return <Badge className="text-left font-medium" variant="default_light">{row.getValue("views")}</Badge>
     },
     enableSorting: true,
     enableHiding: true,
