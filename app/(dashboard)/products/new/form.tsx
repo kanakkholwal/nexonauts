@@ -11,6 +11,11 @@ import {
     FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -20,8 +25,8 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import { UploadImage } from "src/components/uploader"
+import { importProductFromURL } from "src/lib/marketplace/import-product"
 import { z } from "zod"
-
 
 
 
@@ -57,7 +62,8 @@ interface Props {
 export default function ProductForm(props: Props) {
     // ...
     // 1. Define your form.
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [importUrl, setImportUrl] = useState<string>("")
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -94,9 +100,48 @@ export default function ProductForm(props: Props) {
 
 
     }
-    return (
+    return (<>
+        <div className="flex justify-between items-center flex-wrap">
+            <h1 className="text-3xl font-bold">
+                Create a new product
+            </h1>
+            <Popover>
+                <PopoverTrigger asChild>
+                    <Button size="sm" variant="default_light">Import with URL</Button>
+                </PopoverTrigger>
+                <PopoverContent className="grid gap-2" side="left">
+                    <Input
+                        placeholder="https://example.com/product" value={importUrl} onChange={(e) => setImportUrl(e.target.value)}  />
+                    <Button  size="sm"
+                        onClick={() => {
+                            console.log(importUrl)
+                            if(!urlSchema.safeParse(importUrl).success){
+                                toast.error("Invalid URL")
+                                return
+                            }
+                            toast.promise(importProductFromURL(importUrl), {
+                                loading: "Importing product...",
+                                success: (product) =>{
+                                    form.reset(product)
+                                    return "Product imported!"
+                                },
+                                error: (err) =>{
+                                    console.error(err)
+                                    return "Error importing product"
+                                }
+                            })
+                        }}
+                    >
+                        Import
+                    </Button>
+
+
+                </PopoverContent>
+            </Popover>
+
+        </div>
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 justify-around items-start flex-col md:flex-row">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 justify-around items-start flex-col @xl:flex-row">
 
                 <div className="flex flex-col gap-4 w-full">
 
@@ -295,5 +340,5 @@ export default function ProductForm(props: Props) {
                 </div>
             </form>
         </Form>
-    )
+    </>)
 }
