@@ -34,10 +34,8 @@ export function FilterButton({ filterKey, filterValue, active, children, ...prop
         router.push(`?${params.toString()}`);
     }
     return (
-        <Badge
-            size="sm"
-            className="cursor-pointer glassmorphism" 
-            variant={active ? "info_light" : "secondary"}
+        <Badge size="sm"
+            variant={active ? "default_light" : "glass"}
             onClick={() => {
                 // console.log("Filtering by", filterKey, filterValue)
                 handleFilter(filterValue)
