@@ -132,41 +132,39 @@ export default async function ToolPage({ params }: Props) {
                 </div>
             </div>
         </div>
-        <main className="w-full mx-auto xl:max-w-7xl xl:px-0 rounded-lg overflow-hidden pt-28 px-2 space-y-4 @container">
+        <main className="w-full mx-auto xl:max-w-7xl xl:px-0 rounded-lg overflow-hidden pt-56 px-2 @container">
 
-            <Card variant="glass">
-                <CardHeader className="flex flex-row gap-3 items-center flex-wrap">
-                    <div className="flex-1 space-y-4">
-                        <div className="flex  gap-3 items-center justify-start flex-col @xl:flex-row">
+            <div className="flex flex-row gap-3 items-center flex-wrap">
+                <div className="flex-1 space-y-4">
+                    <div className="flex gap-8 items-center justify-start flex-col @xl:flex-row">
+                        <div className="relative">
+                            <svg xmlns="http://www.w3.org/2000/svg" width={97} height={96} fill="none">
+                                <rect width={96} height={96} x="0.416" fill="url(#avatar-backdrop_svg__a)" rx={24} />
+                                <rect width={95} height={95} x="0.916" y="0.5" stroke="#fff" strokeOpacity="0.06" rx="23.5" style={{ stroke: 'rgb(255, 255, 255)', strokeOpacity: '0.06' }} />
+                                <defs>
+                                    <linearGradient id="avatar-backdrop_svg__a" x1="10.109" x2="75.794" y1={0} y2="70.487" gradientUnits="userSpaceOnUse">
+                                        <stop stopColor="#1B1C1E" style={{ stopColor: 'color(display-p3 0.1059 0.1098 0.1176)', stopOpacity: 1 }} />
+                                        <stop offset={1} stopColor="#111214" style={{ stopColor: 'color(display-p3 0.0667 0.0706 0.0784)', stopOpacity: 1 }} />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
                             <Image width={320} height={320} src={tool.coverImage} alt={tool.name}
-                                className="rounded-lg backdrop-blur-lg border border-border max-w-24 @xl:max-w-40 p-2" />
-                            <div>
-                                <CardTitle title={tool.name} className="text-2xl @xl:text-5xl font-bold mb-3">
-                                    {tool.name}
-                                    <Suspense fallback={null}>
-                                        <BookMarkButton tool={tool} toggleBookmark={toggleBookmark} userId={session?.user?._id! || null} />
-                                    </Suspense>
-                                </CardTitle>
-                                <Badge variant="default_light" size="sm">{tool.pricing_type}</Badge>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="flex items-center justify-center gap-2 ml-auto">
+                                // className="rounded-lg backdrop-blur-lg border border-border max-w-24 @xl:max-w-40 p-2" 
+                                className="absolute inset-0 w-full h-full object-cover rounded-lg backdrop-blur-lg "
+                            />
 
-                        <Button
-                            variant="default"
-                            transition="damped"
-                            rounded="full"
-                            asChild>
-                            <Link href={tool.link + "?ref=nexonauts.com/scout&utm_source=nexonauts&utm_medium=nexoscout&utm_campaign=" + tool.name} target="_blank">
-                                Check it out
-                                <ExternalLink />
-                            </Link>
-                        </Button>
-                    </div>
-                    <div className="w-full space-y-4">
-                        <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start">
-                            <div className="inline-flex items-center">
+                        </div>
+                        <div className="space-y-1">
+                            <CardTitle title={tool.name}>
+                                {tool.name}
+                                <Suspense fallback={null}>
+                                    <BookMarkButton tool={tool} toggleBookmark={toggleBookmark} userId={session?.user?._id! || null} />
+                                </Suspense>
+                            </CardTitle>
+                            <p className="text-sm text-muted-foreground">
+                                <Badge variant="default_light" size="sm">{tool.pricing_type}</Badge>
+                            </p>
+                            <div className="flex h-5 items-center text-sm">
                                 <Eye className="w-4 h-4 me-1 text-emerald-500" />
                                 <span className="text-sm font-medium text-gray-900 dark:text-white">{formatNumber(tool.views)} views</span>
                                 <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400" />
@@ -179,23 +177,29 @@ export default async function ToolPage({ params }: Props) {
                                 <a href="#reviews" className="text-sm font-medium text-gray-900 underline hover:no-underline dark:text-white">{formatNumber(ratings.length)} reviews</a>
                             </div>
                         </div>
-                        <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start">
-                            {tool.categories.map((category, index) => {
-                                return <Badge key={category.slug + "_" + index} variant="success_light" className="font-medium">
-                                    <Hash className="inline-block w-4 h-4" />
-                                    {category.name}
-                                </Badge>
-                            })}
-                        </div>
                     </div>
-                </CardHeader>
-                <CardContent className=" border-y border-y-border pt-5 flex-col flex items-center justify-center gap-4">
-                    <Image width={900} height={384} src={bannerURL.toString()} alt={tool.name}
-                        className="w-full h-auto max-w-3xl object-cover rounded-lg shadow-xl backdrop-blur-lg border border-border mx-auto aspect-video" />
-                </CardContent>
-            </Card>
+                </div>
+                <div className="flex items-center justify-center gap-2 ml-auto">
 
-            <Card id="overview" className="backdrop-blur bg-white dark:bg-gray-600/30">
+                    <Button variant="glass" asChild>
+                        <Link href={tool.link + "?ref=nexonauts.com/scout&utm_source=nexonauts&utm_medium=nexoscout&utm_campaign=" + tool.name} target="_blank">
+                            Check it out
+                            <ExternalLink />
+                        </Link>
+                    </Button>
+                </div>
+                <div className="w-full space-y-4">
+                    <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start">
+                        {tool.categories.map((category, index) => {
+                            return <Badge key={category.slug + "_" + index} variant="glass" size="sm">
+                                <Hash className="inline-block w-3 h-3" />
+                                {category.name}
+                            </Badge>
+                        })}
+                    </div>
+                </div>
+            </div>
+            <Card id="overview" className="backdrop-blur bg-white dark:bg-gray-600/30 my-20">
                 <CardHeader>
                     <CardTitle><Zap className="inline-block mr-2 w-5 h-5 text-teal-600" /> Overview</CardTitle>
                     <CardDescription>
@@ -211,7 +215,7 @@ export default async function ToolPage({ params }: Props) {
                     <SimilarTools tools={similarTools} toolName={tool.name} />
                 </Suspense>
             </Card>
-            <Card id="reviews" className="backdrop-blur bg-white dark:bg-gray-600/30">
+            <Card id="reviews" className="backdrop-blur bg-white dark:bg-gray-600/30 my-20">
                 <CardHeader className="flex items-center w-full gap-2 flex-col md:flex-row">
                     <div>
                         <CardTitle>

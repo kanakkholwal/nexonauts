@@ -27,8 +27,8 @@ import { z } from "zod"
 
 
 const formSchema = z.object({
-    name: z.string().min(3).max(100).transform((value) => value.trim()),,
-    description: z.string().min(10).max(1500).transform((value) => value.trim()),,
+    name: z.string().min(3).max(100).transform((value) => value.trim()),
+    description: z.string().min(10).max(1500).transform((value) => value.trim()),
     published: z.boolean(),
     url: z.string().url().transform((value) => value.trim()),
     preview_url: z.string().url({

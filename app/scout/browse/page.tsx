@@ -136,8 +136,7 @@ export default async function BrowsePage({
                             {categories.map((category) => (
                                 <FilterButton
                                     key={category.slug}
-                                    size="sm"
-                                    className="cursor-pointer"
+                                    // className="cursor-pointer"
                                     filterKey="category"
                                     filterValue={category.slug}
                                     active={filter.category === category.slug}
