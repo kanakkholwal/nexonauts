@@ -27,10 +27,10 @@ export default function Page403() {
                 You are not logged in
             </p>
 
-            <Button size="lg" className="mt-5 max-w-sm  rounded-3xl" variant="gradient_blue" asChild>
-                <Link href={`/login?next=${redirect}`}>
+            <Button size="lg" width="sm" className="mt-5" variant="gradient_blue" asChild>
+                <Link href={`/login?redirect=${redirect}`}>
                     Login to continue
-                    <ArrowRight className="w-5 h-5 ml-2" />
+                    <ArrowRight  />
                 </Link>
             </Button>
         </div>

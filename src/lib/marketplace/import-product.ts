@@ -8,7 +8,7 @@ import * as z from "zod";
 
 const urlSchema = z.string().url();
 
-export async function importProductFromURL(url: string) {
+export async function importProductFromURL(url: string) : Promise<rawProduct> {
     if (!urlSchema.safeParse(url).success) {
         return Promise.reject(new Error("Invalid URL"));
     }

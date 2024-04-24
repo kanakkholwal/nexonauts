@@ -20,7 +20,7 @@ export async function getProfile(username: string) {
     
 }
 
-export async function followUnfollowProfile(username: string) {
+export async function followUnFollowProfile(username: string) {
     try {
         const session = await getSession() as sessionType | null;
         if (!session) {
@@ -78,15 +78,12 @@ export async function followUnfollowProfile(username: string) {
             revalidatePath(`/devs/${session.user.username}`);
         } else {
             console.error(data?.message);
-            return Promise.reject(data);
+            return Promise.reject(data?.message);
         }
         
-    }catch(err){
+    }catch(err:any){
         console.log(err);
-        return Promise.reject({
-            success: false,
-            message: "An error occured"
-        });
+        return Promise.reject(err?.message || "An error occurred");
     }
     
 }
