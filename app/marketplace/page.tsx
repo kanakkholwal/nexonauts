@@ -4,8 +4,8 @@ import { ArrowUpRight } from 'lucide-react';
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import CatgeoryNavigation from "src/components/navigation/tabs";
-import CatgeoryNavigationMobile from "src/components/navigation/tabs-mobile";
+import CategoryNavigation from "src/components/navigation/tabs";
+import CategoryNavigationMobile from "src/components/navigation/tabs-mobile";
 import { CATEGORIES } from "src/constants/marketplace";
 import { getProducts } from "./actions";
 
@@ -27,8 +27,8 @@ export default async function Page() {
             </p>
         </div>
         <section className="mx-auto flex gap-2 items-center justify-center flex-col">
-            <CatgeoryNavigationMobile categories={CATEGORIES} />
-            <CatgeoryNavigation categories={CATEGORIES} />
+            <CategoryNavigationMobile categories={CATEGORIES} />
+            <CategoryNavigation categories={CATEGORIES} />
             <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <Suspense fallback={<div>Loading...</div>}>
                     {products.map((product) => {
@@ -47,7 +47,7 @@ export default async function Page() {
                                 )} />
                             </div>
                             <div className="flex items-start justify-between flex-nowrap gap-3">
-                                {product.price  ? <Badge variant="info_light">${product.price}</Badge> : <Badge>Free</Badge>}
+                                {product.price  ? <Badge variant="info_light">${product.price}</Badge> : <Badge variant="default_light">Free</Badge>}
                                 {product.categories!.length > 0  ? <Badge variant="secondary">{product.categories![0]}</Badge> : null}
                             </div>
                         </Link>

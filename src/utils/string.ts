@@ -1,5 +1,6 @@
 import { customAlphabet } from 'nanoid';
 import {z} from 'zod';
+import TurndownService from 'turndown';
 
 export function generateSlug(length = 8): string {
     
@@ -41,4 +42,8 @@ export function validatePassword(password: string) {
         valid: true,
         message: "Password is strong"
     }
+}
+export function HtmlToMarkdown(inputString: string): string {
+    const turndownService = new TurndownService()
+    return turndownService.turndown(inputString)
 }

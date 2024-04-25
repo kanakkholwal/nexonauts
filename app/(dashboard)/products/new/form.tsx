@@ -40,8 +40,8 @@ import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import { UploadImage } from "src/components/uploader"
 import { importProductFromURL } from "src/lib/marketplace/import-product"
+import { HtmlToMarkdown } from "src/utils/string"
 import { z } from "zod"
-
 
 const formSchema = z.object({
     name: z.string().min(3).max(100).transform((value) => value.trim()),
@@ -232,7 +232,11 @@ export default function ProductForm(props: Props) {
                                     Description (Markdown preferred)
                                 </FormLabel>
                                 <FormControl>
-                                    <Textarea placeholder="Description"
+                                    <Textarea placeholder="Description" onPaste={(e) => {
+                                        e.preventDefault();
+                                        const text = e.clipboardData.getData('text/plain');
+                                        form.setValue('description', (field.value + HtmlToMarkdown(text))); // Update the value of the 'description' field
+                                    }}
                                         rows={8} {...field} />
                                 </FormControl>
                                 <FormMessage />
