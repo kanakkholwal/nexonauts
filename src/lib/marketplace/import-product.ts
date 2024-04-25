@@ -8,7 +8,8 @@ import * as z from "zod";
 
 const urlSchema = z.string().url();
 
-export async function importProductFromURL(url: string) {
+export async function importProductFromURL(url: string) : Promise<rawProduct> {
+
     if (!urlSchema.safeParse(url).success) {
         return Promise.reject(new Error("Invalid URL"));
     }
@@ -21,7 +22,7 @@ export async function importProductFromURL(url: string) {
         const product: rawProduct = {
             name: root.querySelector("header>h1")?.innerText || "",
             description: turndownService.turndown(root.querySelector(".rich-text")?.innerHTML || ""),
-            published: false,
+            published: true,
             url,
             slug: url,
             preview_url: root.querySelector("meta[property='og:image']")?.getAttribute("content") || "",

@@ -24,11 +24,12 @@ import { CATEGORIES as defaultCategories } from "src/constants/marketplace"
 import { ProductType } from "src/models/product"
 import { z } from "zod"
 
+import { HtmlToMarkdown } from "src/utils/string"
 
 
 const formSchema = z.object({
     name: z.string().min(3).max(100).transform((value) => value.trim()),
-    description: z.string().min(10).max(1500).transform((value) => value.trim()),
+    description: z.string().min(10).max(5000).transform((value) => value.trim()),
     published: z.boolean(),
     url: z.string().url().transform((value) => value.trim()),
     preview_url: z.string().url({
@@ -90,7 +91,7 @@ export default function ProductForm(props: Props) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 justify-around items-start flex-col @3xl:flex-row">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 justify-around items-start flex-col @4xl:flex-row">
 
                 <div className="flex flex-col gap-4 w-full">
 
@@ -116,7 +117,11 @@ export default function ProductForm(props: Props) {
                                     Description (Markdown preferred)
                                 </FormLabel>
                                 <FormControl>
-                                    <Textarea placeholder="Description"
+                                    <Textarea placeholder="Description" onPaste={(e) => {
+                                        e.preventDefault();
+                                        const text = e.clipboardData.getData('text/plain');
+                                        form.setValue('description', (field.value + HtmlToMarkdown(text))); // Update the value of the 'description' field
+                                    }}
                                         rows={8} {...field} />
                                 </FormControl>
                                 <FormMessage />
@@ -235,7 +240,8 @@ export default function ProductForm(props: Props) {
                                         field.onChange(fileUrl)
                                     }}
                                 />
-                                  {(urlSchema.safeParse(form.getValues("preview_url")).success) && (<>
+                                {(urlSchema.safeParse(form.getValues("preview_url")).success) && (<>
+
                                     <div>
                                         <Image src={field.value} width={512} height={320} alt={"preview image"} />
                                     </div>
@@ -283,8 +289,8 @@ export default function ProductForm(props: Props) {
                     <Button type="submit"
                         className="w-full max-w-sm"
                         disabled={loading}>
-                            {loading && <LoaderCircle className="animate-spin" size={24} />}
-                            {loading ? "Saving..." : "Save Changes"}
+                        {loading && <LoaderCircle className="animate-spin" size={24} />}
+                        {loading ? "Saving..." : "Save Changes"}
                     </Button>
                 </div>
             </form>

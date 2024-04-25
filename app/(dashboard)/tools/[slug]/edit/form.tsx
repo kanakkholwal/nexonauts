@@ -253,7 +253,7 @@ export default function Form({ updateTool, available_categories, deleteTool }: {
                         </Link>
                     </Button>
                 </div>
-                <Button size="lg" width="sm" disabled={loading}
+                <Button  width="sm" disabled={loading}
 
                     onClick={(e) => {
                         e.preventDefault();
@@ -286,7 +286,7 @@ export default function Form({ updateTool, available_categories, deleteTool }: {
                     {loading ? <LoaderCircle className="animate-spin" /> : null}
                     {loading ? "Saving..." : "Save Changes"}
                 </Button>
-                <Button variant="destructive_light" size="lg" width="sm" disabled={loading}
+                <Button variant="destructive_light"  width="sm" disabled={loading}
                     onClick={(e) => {
                         e.preventDefault();
 
