@@ -241,6 +241,7 @@ export default function ProductForm(props: Props) {
                                     }}
                                 />
                                 {(urlSchema.safeParse(form.getValues("preview_url")).success) && (<>
+
                                     <div>
                                         <Image src={field.value} width={512} height={320} alt={"preview image"} />
                                     </div>

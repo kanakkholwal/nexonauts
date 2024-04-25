@@ -29,6 +29,11 @@ import {
     FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@/components/ui/popover"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import { useMediaQuery } from "@/hooks/use-media-query"
@@ -40,6 +45,7 @@ import { useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import { UploadImage } from "src/components/uploader"
 import { importProductFromURL } from "src/lib/marketplace/import-product"
+
 import { HtmlToMarkdown } from "src/utils/string"
 import { z } from "zod"
 
@@ -74,11 +80,13 @@ interface Props {
 }
 export default function ProductForm(props: Props) {
 
+
     const [loading, setLoading] = useState(false);
     const [importUrl, setImportUrl] = useState<string>("");
     const [importing, setImporting] = useState(false);
     const [open, setOpen] = useState(false)
     const isDesktop = useMediaQuery("(min-width: 768px)")
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -125,6 +133,7 @@ export default function ProductForm(props: Props) {
 
 
     }
+
 
     function ImportFromGumRoad() {
         // console.log(importUrl)
