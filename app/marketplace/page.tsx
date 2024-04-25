@@ -35,7 +35,7 @@ export default async function Page() {
                         return <Link key={product._id}
                             href={`/marketplace/products/${product.slug!}`}
                             className={cn(
-                                "flex flex-col gap-2 rounded-xl p-3 transition-all duration-300 ease-in-out transform hover:scale-103 shadow-sm hover:shadow-xl hover:translate-y-1 hover:translate-x",
+                                "flex flex-col justify-between gap-2 rounded-xl p-3 transition-all duration-300 ease-in-out transform hover:scale-103 shadow-sm hover:shadow-xl hover:translate-y-1 hover:translate-x",
                                 "group  dark:bg-transparent bg-white/30 dark:hover:bg-slate-100/5 backdrop-blur-lg"
                             )}>
                             <Image width={512} height={320} src={product.preview_url!} alt={product.name!} className="w-full h-auto aspect-video object-cover rounded-lg" />
@@ -49,7 +49,6 @@ export default async function Page() {
                             <div className="flex items-start justify-between flex-nowrap gap-3">
                                 {product.price  ? <Badge variant="info_light">${product.price}</Badge> : <Badge>Free</Badge>}
                                 {product.categories!.length > 0  ? <Badge variant="secondary">{product.categories![0]}</Badge> : null}
-
                             </div>
                         </Link>
                     })}

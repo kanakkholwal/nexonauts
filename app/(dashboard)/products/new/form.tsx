@@ -45,7 +45,7 @@ import { z } from "zod"
 
 const formSchema = z.object({
     name: z.string().min(3).max(100).transform((value) => value.trim()),
-    description: z.string().min(10).max(1500).transform((value) => value.trim()),
+    description: z.string().min(100).max(5000).transform((value) => value.trim()),
     published: z.boolean(),
     url: z.string().url().transform((value) => value.trim()),
     preview_url: z.string().url({
@@ -106,7 +106,17 @@ export default function ProductForm(props: Props) {
         })
             .then((result) => {
                 if (result) {
-                    form.reset()
+                    console.log("Product saved!")
+                    form.reset({
+                        name: "",
+                        description: "",
+                        published: false,
+                        url: "",
+                        preview_url: "",
+                        tags: [],
+                        categories: [],
+                        price: 0,
+                    })
                 }
             })
             .finally(() => {
@@ -159,7 +169,9 @@ export default function ProductForm(props: Props) {
                         </DialogHeader>
                         <div className="grid gap-2">
                             <Input placeholder="https://username.gumroad.com/l/product" value={importUrl} onChange={(e) => setImportUrl(e.target.value)} disabled={importing} />
-                            <Button size="sm" onClick={ImportFromGumRoad} disabled={importing}> Import </Button>
+                            <Button size="sm" onClick={ImportFromGumRoad} disabled={importing}> 
+                                {importing  ? "Importing":"Import"}
+                            </Button>
                         </div>
                     </DialogContent>
                 </Dialog>
@@ -181,7 +193,9 @@ export default function ProductForm(props: Props) {
                             <Input placeholder="https://username.gumroad.com/l/product" value={importUrl} onChange={(e) => setImportUrl(e.target.value)} disabled={importing} />
                         </div>
                         <DrawerFooter className="pt-2">
-                            <Button onClick={ImportFromGumRoad} disabled={importing}> Import </Button>
+                            <Button onClick={ImportFromGumRoad} disabled={importing}> 
+                                {importing  ? "Importing":"Import"}
+                            </Button>
                             <DrawerClose asChild>
                                 <Button variant="outline">Cancel</Button>
                             </DrawerClose>

@@ -21,7 +21,7 @@ export async function importProductFromURL(url: string) : Promise<rawProduct> {
         const product: rawProduct = {
             name: root.querySelector("header>h1")?.innerText || "",
             description: turndownService.turndown(root.querySelector(".rich-text")?.innerHTML || ""),
-            published: false,
+            published: true,
             url,
             slug: url,
             preview_url: root.querySelector("meta[property='og:image']")?.getAttribute("content") || "",
