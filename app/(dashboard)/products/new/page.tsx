@@ -13,13 +13,6 @@ export default async function CreateNewProduct() {
 
 
     return (<div className="space-y-6 p-10 pb-16 w-full mt-5">
-
-   
-
         <ProductForm saveProduct={createProduct}/>
-
-
-
-
-    </div>)
+  </div>)
 }
