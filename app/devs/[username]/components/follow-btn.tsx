@@ -9,11 +9,12 @@ export function FollowButton({ isFollowing, followUser }) {
             toast.promise(followUser(), {
                 loading: "Loading...",
                 success: (data:any) => {
+                    console.log(data);
                     return data.message;
                 },
-                error:  (error:any) => {
+                error: (error) => {
                     console.log(error)
-                    return error.message || "Something went wrong"
+                    return "Something went wrong"
                 }
             });
         }} variant={isFollowing ? "outline" : "default"} className="rounded-full px-6 w-full max-w-xs">

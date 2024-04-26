@@ -44,14 +44,6 @@ const features = [
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
-	// await dbConnect();
-	// get recent posts
-	// const articles = await Post.find({ state: 'published' })
-	// 	.sort({ createdAt: -1 })
-	// 	.limit(3)
-	// 	.select('title description slug image')
-	// 	.exec();
-
 
 
 	return (<>
