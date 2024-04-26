@@ -29,11 +29,6 @@ import {
     FormMessage
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import { useMediaQuery } from "@/hooks/use-media-query"
@@ -103,7 +98,6 @@ export default function ProductForm(props: Props) {
 
     // 2. Define a submit handler.
     function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
         // ✅ This will be type-safe and validated.
         console.log(values)
         setLoading(true)
@@ -111,27 +105,23 @@ export default function ProductForm(props: Props) {
             loading: "Saving product...",
             success: "Product saved!",
             error: "Error saving product",
+        }).then((result) => {
+            if (result) {
+                console.log("Product saved!")
+                form.reset({
+                    name: "",
+                    description: "",
+                    published: false,
+                    url: "",
+                    preview_url: "",
+                    tags: [],
+                    categories: [],
+                    price: 0,
+                })
+            }
+        }).finally(() => {
+            setLoading(false)
         })
-            .then((result) => {
-                if (result) {
-                    console.log("Product saved!")
-                    form.reset({
-                        name: "",
-                        description: "",
-                        published: false,
-                        url: "",
-                        preview_url: "",
-                        tags: [],
-                        categories: [],
-                        price: 0,
-                    })
-                }
-            })
-            .finally(() => {
-                setLoading(false)
-            })
-
-
     }
 
 
@@ -159,6 +149,8 @@ export default function ProductForm(props: Props) {
         })
     }
 
+
+
     return (<>
         <div className="flex justify-between items-center flex-wrap gap-2">
             <h1 className="text-3xl font-bold">
@@ -178,8 +170,9 @@ export default function ProductForm(props: Props) {
                         </DialogHeader>
                         <div className="grid gap-2">
                             <Input placeholder="https://username.gumroad.com/l/product" value={importUrl} onChange={(e) => setImportUrl(e.target.value)} disabled={importing} />
-                            <Button size="sm" onClick={ImportFromGumRoad} disabled={importing}> 
-                                {importing  ? "Importing":"Import"}
+                            <Button size="sm" onClick={ImportFromGumRoad} disabled={importing}>
+                                {importing ? "Importing" : "Import"}
+
                             </Button>
                         </div>
                     </DialogContent>
@@ -192,7 +185,7 @@ export default function ProductForm(props: Props) {
                     <DrawerContent>
                         <DrawerHeader className="text-left">
                             <DrawerTitle>
-                                Import Product with URL
+                                Import with URL
                             </DrawerTitle>
                             <DrawerDescription>
                                 Paste the URL of the product you want to import. We'll do the rest.
@@ -202,8 +195,8 @@ export default function ProductForm(props: Props) {
                             <Input placeholder="https://username.gumroad.com/l/product" value={importUrl} onChange={(e) => setImportUrl(e.target.value)} disabled={importing} />
                         </div>
                         <DrawerFooter className="pt-2">
-                            <Button onClick={ImportFromGumRoad} disabled={importing}> 
-                                {importing  ? "Importing":"Import"}
+                            <Button onClick={ImportFromGumRoad} disabled={importing}>
+                                {importing ? "Importing" : "Import"}
                             </Button>
                             <DrawerClose asChild>
                                 <Button variant="outline">Cancel</Button>

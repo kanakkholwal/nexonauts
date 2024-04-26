@@ -10,8 +10,6 @@ import Link from "next/link";
 import { useState } from 'react';
 import { getToolsByUser } from './actions';
 
-// import { useInView } from 'react-intersection-observer'
-
 
 type ToolListProps = {
     initialTools: Partial<PublicToolTypeWithId>[]
@@ -23,7 +21,6 @@ export default function ToolList({ initialTools }: ToolListProps) {
     const [offset, setOffset] = useState(NUMBER_OF_USERS_TO_FETCH)
     const [tools, setTools] = useState<Partial<PublicToolTypeWithId>[]>(initialTools);
     const [loading, setLoading] = useState(false)
-    // const { ref, inView } = useInView()
 
     const loadMoreUsers = async () => {
         setLoading(true)
@@ -32,12 +29,8 @@ export default function ToolList({ initialTools }: ToolListProps) {
         setOffset(offset + NUMBER_OF_USERS_TO_FETCH);
         setLoading(false);
     }
-    // useEffect(() => {
-    //     if (inView) {
-    //       loadMoreUsers()
-    //     }
-    //   }, [inView]) 32rem 48rem 64rem 80rem 96rem
-    if(tools.length === 0) 
+
+    if (tools.length === 0)
         return null
 
     return (
@@ -60,11 +53,11 @@ export default function ToolList({ initialTools }: ToolListProps) {
                                         </div>
                                     </CardHeader>
                                     <CardContent>
-                                        <div className="w-full text-xl font-semibold mb-2 inline-flex gap-2 justify-between items-center flex-wrap" title={tool.name}>
+                                        <div className="w-full text-xl font-semibold mb-2 inline-flex gap-2 justify-between items-center" title={tool.name}>
                                             {tool.name}
-                                            <Badge variant="default_light" size="sm" className="ml-auto">{tool.status}</Badge>
+                                            <Badge variant={tool.verified ? "success" : "warning_light"} size="sm">{tool.verified ? "Verified" : "Not verified"}</Badge>
                                         </div>
-                                        <Badge variant={tool.verified ? "success":"warning_light"} size="sm">{tool.verified ? "Verified" : "Not verified"}</Badge>
+                                        <Badge variant="default_light" size="sm" className="ml-auto">{tool.status}</Badge>
                                     </CardContent>
                                 </Card>
                             </Link>
@@ -73,7 +66,7 @@ export default function ToolList({ initialTools }: ToolListProps) {
                 })}
             </div>
             <div className="flex justify-center items-center py-4 mb-10">
-            {loading ? <LoaderCircle className="w-8 h-8 animate-spin text-primary" />:<Button onClick={loadMoreUsers} width="xs">Load more <ChevronDown/></Button>}
+                {loading ? <LoaderCircle className="w-8 h-8 animate-spin text-primary" /> : <Button onClick={loadMoreUsers} width="xs">Load more <ChevronDown /></Button>}
             </div>
         </>
     )

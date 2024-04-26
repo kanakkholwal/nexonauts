@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+
 import {
     Sheet,
     SheetContent,
@@ -15,8 +17,8 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Icon } from "src/lib/integrations/index";
 import { deleteProduct, fetchFromIntegration, getProducts, importProduct } from "./actions";
-import DeleteProductButton from "./delete-btn";
-import { ImportedProductCard } from "./products";
+import DeleteProductButton from "./components/delete-btn";
+import { FilterAndSort, ImportedProductCard } from "./components/products";
 
 export const metadata: Metadata = {
     title: "My Products",
@@ -25,12 +27,14 @@ export const metadata: Metadata = {
 type PageProps = {
     searchParams: {
         importFrom?: string;
+        filter?: string;
+        sort?: string;
     }
 }
 const availableIntegrations = ["gumroad"]
 
 export default async function MyProducts({ searchParams }: PageProps) {
-    const { products, integrated } = await getProducts();
+    const { products, integrated } = await getProducts(searchParams.filter ?? "all", searchParams.sort ?? "latest");
 
     const importFrom = availableIntegrations.includes(searchParams?.importFrom ?? "none") ? searchParams.importFrom : null;
 
@@ -50,7 +54,7 @@ export default async function MyProducts({ searchParams }: PageProps) {
     const productsIds = products.filter((product) => product.third_party !== null).map((product) => product.third_party.product_id);
 
 
-    return (<div className="space-y-6 p-4 md:p-10 pb-16 w-full mt-5 @container">
+    return (<div className="space-y-6 p-4 md:p-10 pb-16 w-full @container">
 
         <div className="flex justify-between items-center flex-wrap gap-4">
             <h1 className="text-3xl font-bold">My Products</h1>
@@ -61,6 +65,7 @@ export default async function MyProducts({ searchParams }: PageProps) {
                         New Product
                     </Link>
                 </Button>
+                <FilterAndSort />
                 <Sheet>
                     <SheetTrigger asChild>
                         <Button variant="outline" size="sm">
@@ -85,7 +90,7 @@ export default async function MyProducts({ searchParams }: PageProps) {
                                         <div className="grid grid-cols-1 divide-y">
                                             {productsFromIntegrations
                                                 .filter((product) => !productsIds.includes(product.third_party.product_id))
-                                                .map((product) => <ImportedProductCard key={product.third_party.product_id} product={product} importProduct={importProduct.bind(null,product)} />)}
+                                                .map((product) => <ImportedProductCard key={product.third_party.product_id} product={product} importProduct={importProduct.bind(null, product)} />)}
                                         </div>
                                     </ScrollArea>
                                 </Suspense>
@@ -113,8 +118,8 @@ export default async function MyProducts({ searchParams }: PageProps) {
                 </Sheet>
             </div>
         </div>
-
-        <div className="grid gap-4 grid-cols-1 @3xl:grid-cols-4 @xl:grid-cols-3 @sm:grid-cols-2">
+        <Separator />
+        <div className="grid gap-4 grid-cols-1 @4xl:grid-cols-4 @2xl:grid-cols-3 @sm:grid-cols-2">
             <Suspense fallback={<div>Loading...</div>}>
                 {products.map((product) => {
                     return <div key={product._id} className="flex flex-col space-y-2 glassmorphism p-4 rounded-xl">
@@ -126,9 +131,9 @@ export default async function MyProducts({ searchParams }: PageProps) {
                                 <Link href={`/products/${product.slug}/edit`} className="text-primary">Edit</Link>
                             </Button>
                             <Button variant="link" size="sm" asChild>
-                                <Link href={`/marketplace/products/${product.slug}`} target="_blank"
-                                    rel="noopener noreferrer"
-                                >View <ArrowUpRight /></Link>
+                                <Link href={`/marketplace/products/${product.slug}`} target="_blank" rel="noopener noreferrer">
+                                    View <ArrowUpRight />
+                                </Link>
                             </Button>
                         </div>
                     </div>
