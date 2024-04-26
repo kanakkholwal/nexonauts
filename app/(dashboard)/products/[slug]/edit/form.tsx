@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { LoaderCircle } from 'lucide-react'
 import Image from "next/image"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -22,23 +23,27 @@ import { UploadImage } from "src/components/uploader"
 import { CATEGORIES as defaultCategories } from "src/constants/marketplace"
 import { ProductType } from "src/models/product"
 import { z } from "zod"
-import { LoaderCircle } from 'lucide-react';
 
+import { HtmlToMarkdown } from "src/utils/string"
 
 
 const formSchema = z.object({
-    name: z.string().min(3).max(100),
-    description: z.string().min(10).max(1000),
+    name: z.string().min(3).max(100).transform((value) => value.trim()),
+    description: z.string().min(10).max(5000).transform((value) => value.trim()),
     published: z.boolean(),
-    url: z.string().url(),
+    url: z.string().url().transform((value) => value.trim()),
     preview_url: z.string().url({
         message: 'Preview URL must be a valid image URL'
-    }),
-    tags: z.array(z.string()),
-    categories: z.array(z.string()),
+    }).transform((value) => value.trim()),
+    tags: z.array(z.string().transform((value) => value.trim())),
+    categories: z.array(z.string().transform((value) => value.trim())),
     price: z.number()
+});
+const urlSchema = z.string().url({
+    message: 'URL must be a valid URL'
+}).transform((value) => {
+    return value.trim()
 })
-
 interface Props {
     product: ProductType
     updateProduct: (productId: string, newData: Partial<ProductType>) => Promise<boolean>
@@ -86,7 +91,7 @@ export default function ProductForm(props: Props) {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 justify-around items-start flex-col @3xl:flex-row">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex gap-5 justify-around items-start flex-col @4xl:flex-row">
 
                 <div className="flex flex-col gap-4 w-full">
 
@@ -112,7 +117,11 @@ export default function ProductForm(props: Props) {
                                     Description (Markdown preferred)
                                 </FormLabel>
                                 <FormControl>
-                                    <Textarea placeholder="Description"
+                                    <Textarea placeholder="Description" onPaste={(e) => {
+                                        e.preventDefault();
+                                        const text = e.clipboardData.getData('text/plain');
+                                        form.setValue('description', (field.value + HtmlToMarkdown(text))); // Update the value of the 'description' field
+                                    }}
                                         rows={8} {...field} />
                                 </FormControl>
                                 <FormMessage />
@@ -231,7 +240,8 @@ export default function ProductForm(props: Props) {
                                         field.onChange(fileUrl)
                                     }}
                                 />
-                                {((fieldState.isTouched && !fieldState.isDirty && fieldState.invalid === false) || form.getValues("preview_url").length > 20) && (<>
+                                {(urlSchema.safeParse(form.getValues("preview_url")).success) && (<>
+
                                     <div>
                                         <Image src={field.value} width={512} height={320} alt={"preview image"} />
                                     </div>
@@ -279,8 +289,8 @@ export default function ProductForm(props: Props) {
                     <Button type="submit"
                         className="w-full max-w-sm"
                         disabled={loading}>
-                            {loading && <LoaderCircle className="animate-spin" size={24} />}
-                            {loading ? "Saving..." : "Save Changes"}
+                        {loading && <LoaderCircle className="animate-spin" size={24} />}
+                        {loading ? "Saving..." : "Save Changes"}
                     </Button>
                 </div>
             </form>

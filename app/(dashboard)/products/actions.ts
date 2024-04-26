@@ -12,10 +12,19 @@ const generateUrlSlug = (length = 16) => customAlphabet("0123456789ABCDEFGHIJKLM
 
 const availableIntegrations = ["gumroad"]
 
-export async function getProducts() {
+export async function getProducts(filter: string, sort: string) {
     const session = await getSession() as sessionType;
+    const searchQuery = {
+        creator: session.user._id,
+    }
+    if(availableIntegrations.includes(filter)) {
+        searchQuery["third_party.provider"] = filter;
+    }
+
     await dbConnect();
-    const products = await Product.find({ creator: session.user._id }).exec();
+    const products = await Product.find(searchQuery)
+    .sort({ createdAt: sort === "latest" ? -1 : 1 })
+    .exec();
 
     const user = await User.findById(session.user._id).select("integrations.gumroad").exec();
     const { gumroad } = user.integrations;

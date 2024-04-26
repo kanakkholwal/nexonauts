@@ -4,7 +4,7 @@ import { authOptions } from "app/api/auth/[...nextauth]/options";
 import { getServerSession } from "next-auth/next";
 import { notFound } from "next/navigation";
 import { sessionType } from "src/types/session";
-import { followUnfollowProfile, getProfile } from "./actions";
+import { followUnFollowProfile, getProfile } from "./actions";
 import { FollowButton } from "./components/follow-btn";
 import FollowerFollow from "./components/follower-follow";
 import { ShareProfile } from "./components/share";
@@ -68,7 +68,7 @@ export default async function DeveloperPage({ params }: { params: { username: st
                     </div> */}
                     <FollowerFollow
                         developer={developer}
-                        followUnfollowUser={followUnfollowProfile}
+                        followUnfollowUser={followUnFollowProfile}
                         isFollowing={isFollowing}
                     />
                     <p className="text-slate-500 font-medium max-w-xl">{developer.bio}</p>
@@ -76,7 +76,7 @@ export default async function DeveloperPage({ params }: { params: { username: st
                     <div className="flex flex-row items-center justify-start space-x-2 w-full">
                         <FollowButton
                             isFollowing={isFollowing}
-                            followUser={followUnfollowProfile.bind(this, developer.username)}
+                            followUser={followUnFollowProfile.bind(this, developer.username)}
                         />
                         <ShareProfile profile={{ 
                             username: developer.username,

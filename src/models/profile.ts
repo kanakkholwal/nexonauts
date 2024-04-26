@@ -107,7 +107,7 @@ profileSchema.methods.followUnfollowUser = async function (profileId:string) {
 
         return { success: true, message: isFollowing ? 'Unfollowed successfully' : 'Followed successfully' };
     } catch (error) {
-        return { success: false, error: error.message };
+        return { success: false, error: error?.message };
     }
 }
 profileSchema.statics.findCommonFollowers = async function (

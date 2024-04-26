@@ -22,7 +22,7 @@ export async function getTools(query: string, currentPage: number,perPage:number
         .sort({ createdAt: -1 })
         .skip(skip)
         .limit(resultsPerPage)
-        .select("name slug coverImage link updatedAt status verified pricing_type")
+        .select("name slug coverImage link updatedAt status verified bookmarks views")
         .exec();
     const totalPages = Math.ceil((await PublicTool.countDocuments({})) / resultsPerPage);
 
