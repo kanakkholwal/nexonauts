@@ -50,6 +50,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
             <ThemeSwitcher />
         </div>}
         {/* <div
+        <div
             className="fixed inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
             aria-hidden="true"
         >
@@ -61,6 +62,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
                 }}
             />
         </div> */}
+
         {/* <div className="fixed inset-0 aspect-square rounded-full overflow-hidden will-change-transform m-auto -z-1 backdrop-blur-[100px]"
                 style={{
                     background:"linear-gradient(139deg,#233452 0%,rgba(35,52,82,0) 100%)",

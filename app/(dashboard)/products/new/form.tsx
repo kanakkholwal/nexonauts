@@ -149,6 +149,8 @@ export default function ProductForm(props: Props) {
         })
     }
 
+
+
     return (<>
         <div className="flex justify-between items-center flex-wrap gap-2">
             <h1 className="text-3xl font-bold">
@@ -170,6 +172,7 @@ export default function ProductForm(props: Props) {
                             <Input placeholder="https://username.gumroad.com/l/product" value={importUrl} onChange={(e) => setImportUrl(e.target.value)} disabled={importing} />
                             <Button size="sm" onClick={ImportFromGumRoad} disabled={importing}>
                                 {importing ? "Importing" : "Import"}
+
                             </Button>
                         </div>
                     </DialogContent>

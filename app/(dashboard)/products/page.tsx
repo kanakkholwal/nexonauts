@@ -38,6 +38,7 @@ export default async function MyProducts({ searchParams }: PageProps) {
 
     const importFrom = availableIntegrations.includes(searchParams?.importFrom ?? "none") ? searchParams.importFrom : null;
 
+
     const getFromIntegrations = async () => {
         "use server";
         if (importFrom === null) return Promise.resolve([]);
