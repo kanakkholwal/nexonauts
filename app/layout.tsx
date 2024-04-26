@@ -102,8 +102,6 @@ export default async function RootLayout({
         <html lang="en">
             <head>
                 <meta name="google-adsense-account" content="ca-pub-6988693445063744" />
-                {/* <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
-                    <link href='https://fonts.googleapis.com/css?family=Fira+Code:wght@300,400,500,600&display=swap' rel='stylesheet' /> */}
             </head>
             <body className={`${font.className}  min-h-screen selection:bg-primary/10 selection:text-primary bg-slate-100 dark:bg-neutral-900 antialiased`}>
                 <ThemeProvider
