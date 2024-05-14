@@ -10,7 +10,7 @@ if (!MONGODB_URI) {
         'Please define the MONGODB_URI environment variable'
     )
 }
-let newVersion = false;
+const DB_ENVIRONMENT = process.env.NODE_ENV === 'production' ? 'production' : 'development'
 
 /**
  * Global is used here to maintain a cached connection across hot reloads
@@ -27,7 +27,6 @@ async function dbConnect(db = "main") {
     if (cached.conn) {
         return cached.conn
     }
-    const collectionName = (newVersion ? (process.env.NODE_ENV !== "production" ? "test_":"prod_").concat(db ? db :"main") : "kkupgrader")
 
     if (!cached.promise) {
         const opts = {
@@ -35,7 +34,7 @@ async function dbConnect(db = "main") {
             // useUnifiedTopology: true,
         }
         mongoose.set('strictQuery', false);
-        cached.promise = mongoose.connect(MONGODB_URI + collectionName + "?retryWrites=true&w=majority", opts).then(mongoose => {
+        cached.promise = mongoose.connect(MONGODB_URI + DB_ENVIRONMENT +  "?retryWrites=true&w=majority", opts).then(mongoose => {
             console.log("Connected to MongoDB");
             return mongoose
         }).catch(error => console.log(error));
