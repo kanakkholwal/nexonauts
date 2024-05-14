@@ -5,9 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import MarkdownView, { defaultOptions } from "src/components/markdown/view";
-import { getProductBySlug } from "./actions";
+import { getProductBySlug, getSimilarProducts } from "./actions";
 
 import { Metadata } from 'next';
+import { Suspense } from "react";
 
 
 export async function generateMetadata({ params }: {
@@ -41,6 +42,7 @@ export default async function ProductPage({ params }: {
     if (!product) {
         return notFound();
     }
+    const similarProducts = await getSimilarProducts(params.slug);
 
 
 
@@ -49,10 +51,10 @@ export default async function ProductPage({ params }: {
         <>
 
             <div className="w-full max-w-7xl my-10 mx-auto">
-                <Button size="sm" variant="link"  asChild>
+                <Button size="sm" variant="link" asChild>
                     <Link href="/marketplace">
                         <MoveLeft className="w-4 h-4 mr-2" />
-                        Back 
+                        Back
                     </Link>
                 </Button>
                 <h1 className="text-5xl font-bold mb-4 text-center tracking-wider">{product.name}</h1>
@@ -85,11 +87,11 @@ export default async function ProductPage({ params }: {
                     })}
                 </div>
                 <div className="relative w-full gap-4 flex justify-around items-start flex-col lg:flex-row max-w-7xl mx-auto p-3">
-                    
+
                     <div className="w-full lg:w-2/3 rounded-lg border text-card-foreground shadow-sm backdrop-blur-sm bg-card dark:bg-[#30353c] dark:border-slate-700 p-6">
-                    <MarkdownView className="mt-4 prose dark:prose-invert" options={defaultOptions}>
-                        {product.description}
-                    </MarkdownView>
+                        <MarkdownView className="mt-4 prose dark:prose-invert" options={defaultOptions}>
+                            {product.description}
+                        </MarkdownView>
                     </div>
                     <div className="flex flex-col gap-4 w-full lg:w-1/3 lg:sticky lg:top-0">
                         <Button size="lg" className="rounded-full uppercase tracking-wider" asChild>
@@ -104,7 +106,32 @@ export default async function ProductPage({ params }: {
                         </Button>
                     </div>
                 </div>
-            </div>
+                <div className="mt-10">
+                    <h4 className="text-3xl font-bold text-center mb-4">Similar Products</h4>
+                    <Suspense fallback={<>loading...</>}>
+
+                    <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                            {similarProducts.map((product) => {
+                                return (
+                                    <div key={product.slug} className="rounded-lg border text-card-foreground shadow-sm backdrop-blur-sm bg-card dark:bg-[#30353c] dark:border-slate-700 p-4">
+                                        <Link href={`/marketplace/products/${product.slug}`}>
+                                            <Image src={product.preview_url} width={968} height={580} alt={product.name} className="w-full h-auto aspect-video object-cover rounded-lg" />
+                                        </Link>
+                                        <div className="mt-4 space-y-2">
+                                            <h4 className="text-xl font-semibold">{product.name}</h4>
+                                            <p className="text-sm text-slate-500 dark:text-slate-300">
+                                                <Badge>
+                                                    {product.price === 0 ? "Free" : `$ ${product.price}`}
+                                                </Badge>
+                                            </p>
+                                        </div>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </Suspense>
+                </div>
+            </div >
         </>
     )
 }
