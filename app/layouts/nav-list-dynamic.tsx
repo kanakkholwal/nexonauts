@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { LayoutDashboard } from 'lucide-react';
 import { useState } from "react";
 
@@ -71,22 +72,14 @@ export function QuickLinks() {
     return (
         <>
 
-            <button aria-label="search" role="button"
+            <Button aria-label="search" role="button"
                 onClick={() => setOpen(!open)}
-                className={cn(
-                    "font-medium  text-sm text-muted-foreground",
-                    "inline-flex items-center whitespace-nowrap rounded-full w-full max-w-60 transition-colors h-9 px-4 py-2 relative justify-start ml-auto",
-                    "backdrop-blur-sm bg-white/30 dark:bg-slate-100/5 border border-border/50",
-                )}>
-                <span className="inline-flex">
-                    <Search className="w-4 h-4 dark:text-gray-400" />
-                </span>
-                <span className="hidden ml-2 lg:inline-flex">
-                    Quick Links ...</span>
-                <span className="inline-flex lg:hidden">Quick Links...</span>
-                <kbd className="pointer-events-none absolute right-1.5 top-[50%] translate-y-[-50%] hidden h-5 select-none items-center gap-1 rounded border bg-muted text-slate-600 px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex">
-                    <span className="text-xs">⌘</span>J</kbd>
-            </button>
+                variant="glass"
+                title="Search for anything (Ctrl + J)" 
+                size="icon_sm"
+                rounded="full">
+                    <Search  />
+            </Button>
             <CommandDialog open={open} onOpenChange={setOpen}>
                 <CommandInput placeholder="Type a search..." />
                 <CommandList>
@@ -147,15 +140,12 @@ const list = [
 export function NavList() {
 
     return (
-        <div className="hidden xl:flex items-center justify-start flex-1 mx-auto " id="navlinks">
+        <div className="hidden xl:flex items-center justify-start flex-1 mx-auto gap-3" id="nav_links">
             {list.map((item, index) => {
-                return (<Link key={`navlink-${index}`}
+                return (<Link key={`nav_link-${index}`}
                     className={cn(
-                        "relative items-center justify-center py-1 px-3 rounded-full",
-                        "text-gray-600 dark:text-gray-100 hover:text-gray-800 dark:hover:text-white",
-                        "bg-transparent dark:bg-transparent hover:bg-white/30 dark:hover:bg-slate-100/5 backdrop-blur-lg",
-                        "transition-colors duration-300",
-                        "text-sm font-semibold"
+                        "text-sm leading-5 transition font-semibold whitespace-nowrap",
+                        "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white",
                     )}
                     href={item.path}>
                     {item.title}

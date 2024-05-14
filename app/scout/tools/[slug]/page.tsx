@@ -10,9 +10,10 @@ import {
 import { Rating } from "@/components/ui/rating";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "app/layouts/navbar-static";
+import { CircularGradient } from "app/layouts/patterns/gradient";
 import { getPublicToolBySlug, getRatingsAndReviews, getSimilarTools, getToolMetaBySlug, postRatingAndReview, toggleBookmark } from "app/scout/lib/actions";
 import { getAverageRating } from "app/scout/lib/utils";
-import { Bookmark, Eye, Hash, Lock, MessageCircle, Star, Zap } from 'lucide-react';
+import { Bookmark, ExternalLink, Eye, Hash, Lock, MessageCircle, Star, Zap } from 'lucide-react';
 import type { Metadata, ResolvingMetadata } from 'next';
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +27,6 @@ import { BookMarkButton } from './bookmark';
 import { PostReview } from "./post-review";
 import RatingComponent, { RatingSkeletonLoader } from './rating';
 import SimilarTools from "./similar-tools";
-
 
 type Props = {
     params: { slug: string }
@@ -103,69 +103,51 @@ export default async function ToolPage({ params }: Props) {
 
     return (<>
         <Navbar />
-        <div className="relative" id="home">
-            <div aria-hidden="true" className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20">
-                <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
-                <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
-            </div>
-            <div className="max-w-7xl mx-auto relative isolate px-6 md:px-12 lg:px-8">
-                <div
-                    className="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-                    aria-hidden="true"
-                >
-                    <div
-                        className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-                        style={{
-                            clipPath:
-                                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                        }}
-                    />
-                </div>
-                <div
-                    className="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
-                    aria-hidden="true">
-                    <div
-                        className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
-                        style={{
-                            clipPath:
-                                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
-                        }}
-                    />
-                </div>
-            </div>
-        </div>
-        <main className="w-full mx-auto xl:max-w-7xl xl:px-0 rounded-lg overflow-hidden pt-56 px-2 @container">
 
-            <div className="flex flex-row gap-3 items-center flex-wrap">
-                <div className="flex-1 space-y-4">
-                    <div className="flex gap-8 items-center justify-start flex-col @xl:flex-row">
-                        <div className="relative">
-                            <svg xmlns="http://www.w3.org/2000/svg" width={97} height={96} fill="none">
-                                <rect width={96} height={96} x="0.416" fill="url(#avatar-backdrop_svg__a)" rx={24} />
-                                <rect width={95} height={95} x="0.916" y="0.5" stroke="#fff" strokeOpacity="0.06" rx="23.5" style={{ stroke: 'rgb(255, 255, 255)', strokeOpacity: '0.06' }} />
-                                <defs>
-                                    <linearGradient id="avatar-backdrop_svg__a" x1="10.109" x2="75.794" y1={0} y2="70.487" gradientUnits="userSpaceOnUse">
-                                        <stop stopColor="#1B1C1E" style={{ stopColor: 'color(display-p3 0.1059 0.1098 0.1176)', stopOpacity: 1 }} />
-                                        <stop offset={1} stopColor="#111214" style={{ stopColor: 'color(display-p3 0.0667 0.0706 0.0784)', stopOpacity: 1 }} />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
-                            <Image width={320} height={320} src={tool.coverImage} alt={tool.name}
-                                // className="rounded-lg backdrop-blur-lg border border-border max-w-24 @xl:max-w-40 p-2" 
-                                className="absolute inset-0 w-full h-full object-cover rounded-lg backdrop-blur-lg "
-                            />
+        <CircularGradient />
+        <main className="w-full mx-auto xl:max-w-7xl xl:px-0 rounded-lg overflow-hidden pt-56 px-2 space-y-10 @container">
+            <Card variant="glass">
+                <CardHeader className="flex flex-row gap-3 items-center flex-wrap">
+                    <div className="flex-1 space-y-4">
+                        <div className="flex flex-row gap-3 items-center justify-start">
+                            <div className="relative">
+                                <svg xmlns="http://www.w3.org/2000/svg" width={97} height={96} fill="none">
+                                    <rect width={96} height={96} x="0.416" fill="url(#avatar-backdrop_svg__a)" rx={24} />
+                                    <rect width={95} height={95} x="0.916" y="0.5" stroke="#fff" strokeOpacity="0.06" rx="23.5" style={{ stroke: 'rgb(255, 255, 255)', strokeOpacity: '0.06' }} />
+                                    <defs>
+                                        <linearGradient id="avatar-backdrop_svg__a" x1="10.109" x2="75.794" y1={0} y2="70.487" gradientUnits="userSpaceOnUse">
+                                            <stop stopColor="#1B1C1E" style={{ stopColor: 'color(display-p3 0.1059 0.1098 0.1176)', stopOpacity: 1 }} />
+                                            <stop offset={1} stopColor="#111214" style={{ stopColor: 'color(display-p3 0.0667 0.0706 0.0784)', stopOpacity: 1 }} />
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <Image width={320} height={320} src={tool.coverImage} alt={tool.name}
+                                    // className="rounded-lg backdrop-blur-lg border border-border max-w-24 @xl:max-w-40 p-2" 
+                                    className="absolute inset-0 w-full h-full object-cover rounded-lg backdrop-blur-lg "
+                                />
 
+                            </div>
+                            <CardTitle title={tool.name} className="text-5xl font-bold">{tool.name}</CardTitle>
                         </div>
-                        <div className="space-y-1">
-                            <CardTitle title={tool.name}>
-                                {tool.name}
-                                <Suspense fallback={null}>
-                                    <BookMarkButton tool={tool} toggleBookmark={toggleBookmark} userId={session?.user?._id! || null} />
-                                </Suspense>
-                            </CardTitle>
-                            <p className="text-sm text-muted-foreground">
-                                <Badge variant="default_light" size="sm">{tool.pricing_type}</Badge>
-                            </p>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 ml-auto">
+                        <BookMarkButton tool={tool} toggleBookmark={toggleBookmark} userId={session?.user?._id! || null} />
+                        <Button
+                            variant="gradient_purple"
+                            width="xs"
+                            rounded={"full"}
+                            asChild>
+                            <Link href={tool.link + "?ref=nexonauts.com/scout"} target="_blank">
+                                <span>
+                                    Check it out
+                                </span>
+                                <ExternalLink className="inline-block ml-2 w-4 h-4" />
+                            </Link>
+                        </Button>
+                    </div>
+                    <div className="w-full space-y-4">
+                        <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start">
+                            <Badge variant="default_light" size="sm">{tool.pricing_type}</Badge>
                             <div className="flex h-5 items-center text-sm">
                                 <Eye className="w-4 h-4 me-1 text-emerald-500" />
                                 <span className="text-sm font-medium text-gray-900 dark:text-white">{formatNumber(tool.views)} views</span>
@@ -188,9 +170,8 @@ export default async function ToolPage({ params }: Props) {
                             })}
                         </div>
                     </div>
-                </div>
-            </div>
-
+                </CardHeader>
+            </Card>
             <Card id="overview" className="backdrop-blur bg-white dark:bg-gray-600/30">
                 <CardHeader>
                     <CardTitle><Zap className="inline-block mr-2 w-5 h-5 text-teal-600" /> Overview</CardTitle>

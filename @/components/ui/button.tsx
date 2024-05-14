@@ -11,7 +11,7 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 default: "bg-primary dark:bg-primary text-white hover:bg-primary/90",
-                default_light: "bg-primary/10 text-primary hover:bg-primary/20 dark:bg-primary/20 dark:text-primary hover:dark:bg-primary/10 hover:dark:text-primary",
+                default_light: "bg-primary/10 text-primary hover:bg-primary/20 dark:bg-primary/10 dark:text-primary hover:dark:bg-primary/5 hover:dark:text-primary",
                 success_light: "bg-green-500/10 text-green-500 hover:bg-green-500/20 dark:bg-green-500/20 dark:text-green-500 hover:dark:bg-green-500/10 hover:dark:text-green-500",
                 warning_light: "bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20 dark:bg-yellow-500/20 dark:text-yellow-500 hover:dark:bg-yellow-500/10 hover:dark:text-yellow-500",
                 destructive_light: "bg-red-500/10 text-red-500 hover:bg-red-500/20 dark:bg-red-500/5 dark:text-red-500 hover:dark:bg-red-500/10 hover:dark:text-red-500",
@@ -27,7 +27,7 @@ const buttonVariants = cva(
                 link: "text-primary underline-offset-4 hover:underline",
                 dark: "bg-slate-900 text-white hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 dark:text-slate-200",
                 light: "bg-white shadow text-gray-600 hover:text-gray-700 border border-border",
-                glass:"bg-white/90 dark:bg-white/15 backdrop-blur-xl border-slate-500/10 dark:border-border/70",
+                glass:"bg-white/90 dark:bg-white/5 backdrop-blur-xl border-slate-500/10 dark:border-border/70",
                 gradient_blue: "text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br",
                 gradient_green: "text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br",
                 gradient_cyan: "text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br",

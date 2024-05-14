@@ -29,7 +29,7 @@ export function ImportedProductCard({ product, importProduct }: ImportsProps) {
         <h4 className="text-base font-semibold">{product.name}</h4>
 
         <div className="flex w-full items-center gap-2">
-            <Button variant="outline" size="sm" className="w-full"
+            <Button variant="default_light" size="sm" className="w-full"
                 onClick={() => {
                     setImporting(true);
                     importProduct()
