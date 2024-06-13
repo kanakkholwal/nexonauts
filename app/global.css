@@ -26,10 +26,12 @@
     --input: 220 13% 91%;
     --ring: 262.1 83.3% 57.8%;
     --radius: 0.75rem;
+    --code-bg: 204 100% 77%/.1;
+  
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
+    --background: 0, 0%, 6%, 1;
     --foreground: 210 20% 98%;
     --background-start-rgb: 0, 0, 20%;
     --background-end-rgb: 0, 0, 25%;
@@ -50,6 +52,8 @@
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
     --ring: 263.4 70% 50.4%;
+    --code-bg: 212 100% 77%/.1;
+
   }
 }
 
@@ -173,6 +177,17 @@ a {
   min-width: 100vw;
   inset-inline: 0px;
   bottom: 0px;
+}
+.pattern-square_grid {
+  background-size: calc(20px + 0.7vw);
+  background-repeat: repeat;
+  -webkit-mask-image: linear-gradient(to top, white, transparent);
+  mask-image: linear-gradient(to top, white, transparent);
+  background-image: url(/assets/backgrounds/square.svg);
+}
+.pattern-square_grid.invert{
+  -webkit-mask-image: linear-gradient(to top, transparent, white);
+  mask-image: linear-gradient(to top, transparent, white);
 }
 
 /* lg: */

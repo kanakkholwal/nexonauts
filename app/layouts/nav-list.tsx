@@ -166,7 +166,7 @@ export const NavList = () => {
           {list.map((item) => {
             return (
               <NavigationMenuItem key={item.name}>
-                <NavigationMenuTrigger className="rounded-full h-auto p-0">
+                <NavigationMenuTrigger className="rounded-full">
                   {item.name}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>

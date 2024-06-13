@@ -1,10 +1,13 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap'); */
 
-:not(pre) > code[class*='language-'] {
+:not(pre)>code[class*='language-'] {
   padding: 0.1em;
   border-radius: 0.3em;
   white-space: normal;
-  @apply bg-slate-100 dark:bg-slate-800 text-slate-300 dark:text-slate-300;
+  @apply bg-codeBg  text-slate-300 dark:text-slate-300;
+
+
+
 }
 
 pre code.hljs {
@@ -33,7 +36,7 @@ pre:has(.hljs) {
   -moz-hyphens: none;
   -ms-hyphens: none;
   hyphens: none;
-  @apply bg-gray-800 text-gray-300 dark:bg-slate-800 dark:text-slate-300  text-left text-sm mb-10 mt-5 leading-7 font-normal overflow-x-auto rounded-lg p-4;
+  @apply bg-codeBg !text-inherit  dark:text-slate-300 text-left text-sm mb-10 mt-5 leading-7 font-normal overflow-x-auto rounded-lg p-4;
 }
 
 .hljs-comment,
