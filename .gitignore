@@ -6,6 +6,7 @@
 .pnp.js
 /temp
 /.vscode
+yarn.lock
 # testing
 /coverage
 .turbo
