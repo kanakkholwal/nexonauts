@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function NotFound() {
   return (
-    <div className="min-h-screen w-full relative overflow-hidden bg-primary/10">
+    <div className="min-h-screen w-full relative overflow-hidden">
       <header>
         <Navbar />
       </header>

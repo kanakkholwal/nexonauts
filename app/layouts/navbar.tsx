@@ -18,12 +18,12 @@ export default function Navbar() {
         aria-label="Global"
       >
         <div className="flex lg:flex-1">
-          <Link href="/" aria-label="Logo" className="p-1.5 max-w-20">
+          <Link href="/" aria-label="Logo" className="p-1.5">
             <span className="sr-only">Nexonauts</span>
             <Image
               height={40}
               width={280}
-              className="h-10 dark:invert w-auto"
+              className="h-8 dark:invert w-auto"
               src="/assets/logo.svg"
               alt="logo"
               priority

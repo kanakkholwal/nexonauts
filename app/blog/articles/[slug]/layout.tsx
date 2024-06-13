@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import Footer from "app/layouts/footer";
+import Navbar from "./components/navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -11,8 +12,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           "top-0"
         )}
       />
-      <div className="w-full max-w-[1440px] mx-auto @container">{children}</div>
-      <Footer />
+      <div className="w-full max-w-[1440px] mx-auto @container">
+        <Navbar />
+        {children}
+        <Footer />
+      </div>
     </>
   );
 }
