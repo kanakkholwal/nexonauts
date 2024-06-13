@@ -1,11 +1,15 @@
+"use server"
+import dbConnect from 'src/lib/dbConnect';
 import Post from 'src/models/post';
-import User from 'src/models/user';
 
-export const PUBLIC_VIEW_KEYS =
+const PUBLIC_VIEW_KEYS =
   'title description slug coverImage labels claps publishedAt author image';
-export const PUBLIC_POST_VIEW_KEYS =
+const PUBLIC_POST_VIEW_KEYS =
   'title description slug coverImage labels claps publishedAt content publishedAt comments author image';
+
+
 export async function getHomePagePosts() {
+   await dbConnect();
   const page = 1; // Default to page 1 if not provided
   const limit = 10; // Default to 10 posts per page
   const skip = (page - 1) * limit;
@@ -35,13 +39,14 @@ export async function getHomePagePosts() {
   return {
     success: true,
     message: 'Posts found!',
-    posts: posts,
+    posts: JSON.parse(JSON.stringify(posts)),
     totalPages,
     currentPage: page,
     total,
   };
 }
 export async function getPostBySlug(slug: string) {
+    await dbConnect();
   const post = await Post.findOne(
     {
       slug,
@@ -66,6 +71,7 @@ export async function getPostBySlug(slug: string) {
   };
 }
 export async function getRecentPosts(noOfPost: number) {
+    await dbConnect();
   const posts = await Post.find({ state: 'published' })
     .sort({ createdAt: -1 })
     .populate('author')
@@ -79,6 +85,7 @@ export async function getRecentPosts(noOfPost: number) {
 }
 
 export async function getAllPublishedPostsForMapping() {
+    await dbConnect();
   const posts = await Post.find({
     state: 'published',
   })
@@ -94,6 +101,6 @@ export async function getAllPublishedPostsForMapping() {
   return {
     success: true,
     message: 'Posts found!',
-    posts,
+    posts:JSON.parse(JSON.stringify(posts)),
   };
 }
