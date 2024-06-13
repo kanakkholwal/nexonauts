@@ -8,8 +8,8 @@ import {
   Section,
   Tailwind,
   Text,
-} from '@react-email/components';
-import tailwindConfig from '@root/tailwind.config';
+} from "@react-email/components";
+import tailwindConfig from "@root/tailwind.config";
 
 type Payload = {
   name: string;
@@ -23,10 +23,10 @@ export default function WelcomeEmail({ payload }: { payload: Payload }) {
       <Head>
         <Font
           fontFamily="DM Sans"
-          fallbackFontFamily={['Arial', 'Helvetica', 'sans-serif']}
+          fallbackFontFamily={["Arial", "Helvetica", "sans-serif"]}
           webFont={{
-            url: 'https://fonts.gstatic.com/s/dmsans/v14/rP2Yp2ywxg089UriI5-g7M8btVsD8Ck0q7u6-K6h9Q.woff2',
-            format: 'woff2',
+            url: "https://fonts.gstatic.com/s/dmsans/v14/rP2Yp2ywxg089UriI5-g7M8btVsD8Ck0q7u6-K6h9Q.woff2",
+            format: "woff2",
           }}
           fontWeight={500}
           fontStyle="normal"
@@ -34,14 +34,14 @@ export default function WelcomeEmail({ payload }: { payload: Payload }) {
       </Head>
 
       <Preview>
-        {`🌟 Welcome to ${process.env.NEXT_PUBLIC_WEBSITE_NAME} - Verify Your Account! 🌟 `}{' '}
+        {`🌟 Welcome to ${process.env.NEXT_PUBLIC_WEBSITE_NAME} - Verify Your Account! 🌟 `}{" "}
       </Preview>
 
       <Tailwind config={tailwindConfig}>
         <Section
           className="max-w-screen-md mx-auto p-8 bg-white dark:bg-slate-900 rounded-md shadow-md"
           style={{
-            fontFamily: 'DM Sans, sans-serif',
+            fontFamily: "DM Sans, sans-serif",
           }}
         >
           {/* <Container className="w-full flex items-center justify-center p-4 bg-slate-700 text-white" key="header">
@@ -84,7 +84,7 @@ export default function WelcomeEmail({ payload }: { payload: Payload }) {
           </Section>
           <Text className="text-gray-600 mt-6">
             If you ever need assistance or have questions, don't hesitate to
-            reach out to our stellar support team at{' '}
+            reach out to our stellar support team at{" "}
             <Button
               href="mailto:support@nexonauts.com"
               className="text-blue-500"

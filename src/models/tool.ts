@@ -1,5 +1,5 @@
-import mongoose, { Document, Model, Schema, Types } from 'mongoose';
-import { customAlphabet } from 'nanoid';
+import mongoose, { Document, Model, Schema, Types } from "mongoose";
+import { customAlphabet } from "nanoid";
 
 export interface rawCategory {
   name: string;
@@ -8,20 +8,20 @@ export interface rawCategory {
 export interface ICategory extends Document, rawCategory {}
 
 export type PublicToolStatus =
-  | 'draft'
-  | 'published'
-  | 'archived'
-  | 'deleted'
-  | 'pending'
-  | 'rejected';
+  | "draft"
+  | "published"
+  | "archived"
+  | "deleted"
+  | "pending"
+  | "rejected";
 export type PublicToolPricingType =
-  | 'free'
-  | 'paid'
-  | 'freemium'
-  | 'one_time_license'
-  | 'subscription'
-  | 'open_source'
-  | 'other';
+  | "free"
+  | "paid"
+  | "freemium"
+  | "one_time_license"
+  | "subscription"
+  | "open_source"
+  | "other";
 
 export type rawPublicToolType = {
   name: string;
@@ -65,52 +65,52 @@ const publicToolSchema = new mongoose.Schema<IPublicTool>(
       unique: true,
       trim: true,
       default: customAlphabet(
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+        "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
         16
       )(),
     },
     coverImage: {
       type: String,
       required: true,
-      default: 'https://via.placeholder.com/150',
+      default: "https://via.placeholder.com/150",
     },
-    bannerImage: { type: String, default: 'https://via.placeholder.com/920' },
-    description: { type: String, required: true, default: '' },
+    bannerImage: { type: String, default: "https://via.placeholder.com/920" },
+    description: { type: String, required: true, default: "" },
     categories: [categorySchema],
     link: { type: String, required: true },
     status: {
       type: String,
       required: true,
       enum: [
-        'draft',
-        'published',
-        'archived',
-        'deleted',
-        'pending',
-        'rejected',
+        "draft",
+        "published",
+        "archived",
+        "deleted",
+        "pending",
+        "rejected",
       ],
-      default: 'draft',
+      default: "draft",
     },
     tags: { type: [String], default: [] },
     pricing_type: {
       type: String,
       required: true,
       trim: true,
-      default: 'other',
+      default: "other",
     },
     verified: { type: Boolean, default: false },
     views: { type: Number, default: 0 },
     bookmarks: {
-      type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
       default: [],
     },
-    author: { type: Schema.Types.ObjectId, ref: 'User' },
+    author: { type: Schema.Types.ObjectId, ref: "User" },
   },
   { timestamps: true }
 );
 
 const PublicTool: Model<IPublicTool> =
   mongoose.models.PublicTool ||
-  mongoose.model<IPublicTool>('PublicTool', publicToolSchema);
+  mongoose.model<IPublicTool>("PublicTool", publicToolSchema);
 
 export default PublicTool;

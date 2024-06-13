@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from "next/link";
 export default function Page() {
   return (
     <>
@@ -23,7 +23,7 @@ export default function Page() {
 
       <section className="font-medium text-base space-y-4 text-slate-600 dark:text-slate-400">
         <p className="mb-3 mt-8">
-          At{' '}
+          At{" "}
           <span className="font-bold">
             {process.env.NEXT_PUBLIC_WEBSITE_NAME}
           </span>
@@ -140,7 +140,7 @@ export default function Page() {
         </h4>
         <p>
           If you have any questions or concerns about our privacy policy,please
-          contact us at{' '}
+          contact us at{" "}
           <Link
             href="/contact"
             className="font-bold italic text-primary hover:underline"

@@ -1,11 +1,11 @@
-import { useRef, useState } from 'react';
+import { useRef, useState } from "react";
 
 export default function SharePage({ size = 24, ...props }) {
   const [share, setShare] = useState(false);
   const CopyBtn = useRef(null);
   const Share = () => {
-    if (typeof navigator.share === 'undefined') {
-      console.log('No share API available!');
+    if (typeof navigator.share === "undefined") {
+      console.log("No share API available!");
       setShare(true);
     } else {
       navigator.share({
@@ -20,10 +20,10 @@ export default function SharePage({ size = 24, ...props }) {
     const text = window.location.href;
 
     if (!navigator.clipboard) {
-      const textarea = document.createElement('textarea');
+      const textarea = document.createElement("textarea");
 
       textarea.value = text;
-      textarea.style.fontSize = '20px';
+      textarea.style.fontSize = "20px";
       document.body.appendChild(textarea);
 
       const range = document.createRange();
@@ -34,15 +34,15 @@ export default function SharePage({ size = 24, ...props }) {
       selection.addRange(range);
       textarea.setSelectionRange(0, 999999);
 
-      document.execCommand('copy');
+      document.execCommand("copy");
 
       document.body.removeChild(textarea);
     }
 
     navigator.clipboard.writeText(text);
-    CopyBtn.current.setAttribute('data-text', 'Copied');
+    CopyBtn.current.setAttribute("data-text", "Copied");
     setTimeout(() => {
-      CopyBtn.current.setAttribute('data-text', 'Copy Link');
+      CopyBtn.current.setAttribute("data-text", "Copy Link");
     }, 800);
   };
 
@@ -92,7 +92,7 @@ export default function SharePage({ size = 24, ...props }) {
                   <div data-text="Facebook">
                     <a
                       href={
-                        'https://www.facebook.com/sharer.php?u=' +
+                        "https://www.facebook.com/sharer.php?u=" +
                         window.location.href
                       }
                       rel="noreferrer"
@@ -107,7 +107,7 @@ export default function SharePage({ size = 24, ...props }) {
                     <a
                       aria-label="Whatsapp"
                       href={
-                        'https://api.whatsapp.com/send?text=' +
+                        "https://api.whatsapp.com/send?text=" +
                         window.location.href
                       }
                       rel="noreferrer"
@@ -122,7 +122,7 @@ export default function SharePage({ size = 24, ...props }) {
                     <a
                       aria-label="Twitter"
                       href={
-                        'https://twitter.com/share?url=' + window.location.href
+                        "https://twitter.com/share?url=" + window.location.href
                       }
                       rel="noreferrer"
                       target="_blank"
@@ -136,7 +136,7 @@ export default function SharePage({ size = 24, ...props }) {
                     <a
                       aria-label="Telegram"
                       href={
-                        'https://t.me/share/url?url=' + window.location.href
+                        "https://t.me/share/url?url=" + window.location.href
                       }
                       rel="noreferrer"
                       target="_blank"
@@ -151,7 +151,7 @@ export default function SharePage({ size = 24, ...props }) {
                       aria-label="Pinterest"
                       data-pin-config="beside"
                       href={
-                        'https://pinterest.com/pin/create/button/?url=' +
+                        "https://pinterest.com/pin/create/button/?url=" +
                         window.location.href
                       }
                       rel="noreferrer"
@@ -166,7 +166,7 @@ export default function SharePage({ size = 24, ...props }) {
                     <a
                       aria-label="Linkedin"
                       href={
-                        'https://www.linkedin.com/sharing/share-offsite/?url=' +
+                        "https://www.linkedin.com/sharing/share-offsite/?url=" +
                         window.location.href
                       }
                       rel="noreferrer"
@@ -183,7 +183,7 @@ export default function SharePage({ size = 24, ...props }) {
                     <a
                       aria-label="Line"
                       href={
-                        'https://timeline.line.me/social-plugin/share?url=' +
+                        "https://timeline.line.me/social-plugin/share?url=" +
                         window.location.href
                       }
                       rel="noreferrer"
@@ -197,7 +197,7 @@ export default function SharePage({ size = 24, ...props }) {
                   <div data-text="Email">
                     <a
                       aria-label="Email"
-                      href={'mailto:?body=' + window.location.href}
+                      href={"mailto:?body=" + window.location.href}
                       rel="noreferrer"
                       target="_blank"
                     >

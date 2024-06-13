@@ -1,7 +1,7 @@
 // components/InputField.tsx
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { inputType } from 'src/models/app';
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { inputType } from "src/models/app";
 
 interface InputFieldProps {
   input: inputType;

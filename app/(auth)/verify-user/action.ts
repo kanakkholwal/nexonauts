@@ -1,7 +1,7 @@
-'use server';
-import dbConnect from 'src/lib/dbConnect';
-import UserModel from 'src/models/user';
-import { verifyToken } from 'emails/helper';
+"use server";
+import dbConnect from "src/lib/dbConnect";
+import UserModel from "src/models/user";
+import { verifyToken } from "emails/helper";
 
 export async function verifyUser(token: string) {
   const payload = verifyToken(token);
@@ -9,17 +9,17 @@ export async function verifyUser(token: string) {
   if (!payload) {
     return {
       success: false,
-      message: 'invalid token',
+      message: "invalid token",
     };
   }
   //  check if token is expired
   if (payload && payload?.exp && Date.now() >= payload.exp * 1000) {
     return {
       success: false,
-      message: 'token expired',
+      message: "token expired",
     };
   }
-  console.log('Token is valid. payload:', payload);
+  console.log("Token is valid. payload:", payload);
   // verify user
   await dbConnect();
   const user = await UserModel.findOneAndUpdate(
@@ -34,12 +34,12 @@ export async function verifyUser(token: string) {
   if (!user) {
     return {
       success: false,
-      message: 'user not found',
+      message: "user not found",
     };
   }
-  console.log('User verified successfully');
+  console.log("User verified successfully");
   return {
     success: true,
-    message: 'User verified successfully',
+    message: "User verified successfully",
   };
 }

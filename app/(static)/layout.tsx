@@ -1,7 +1,7 @@
-import Footer from 'app/layouts/footer';
-import Navbar from 'app/layouts/navbar-static';
+import Footer from "app/layouts/footer";
+import Navbar from "app/layouts/navbar-static";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default async function Layout({
   children,

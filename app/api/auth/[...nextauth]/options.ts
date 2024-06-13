@@ -1,9 +1,9 @@
-import { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import GoogleProvider from 'next-auth/providers/google';
-import dbConnect from 'src/lib/dbConnect';
-import UserModel from 'src/models/user';
-import { SessionUserType } from 'src/types/user';
+import { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
+import dbConnect from "src/lib/dbConnect";
+import UserModel from "src/models/user";
+import { SessionUserType } from "src/types/user";
 // Define types for environment variables
 interface AuthEnv {
   GOOGLE_ID: string;
@@ -18,12 +18,12 @@ interface AuthEnv {
 interface User extends SessionUserType {}
 // Read environment variables
 const env: AuthEnv = {
-  GOOGLE_ID: process.env.GOOGLE_ID || '',
-  GOOGLE_SECRET: process.env.GOOGLE_SECRET || '',
-  NEXT_AUTH_SECRET: process.env.NEXT_AUTH_SECRET || '',
-  NEXTAUTH_URL: process.env.NEXTAUTH_URL || '',
-  GITHUB_ID: process.env.GITHUB_ID || '',
-  GITHUB_SECRET: process.env.GITHUB_SECRET || '',
+  GOOGLE_ID: process.env.GOOGLE_ID || "",
+  GOOGLE_SECRET: process.env.GOOGLE_SECRET || "",
+  NEXT_AUTH_SECRET: process.env.NEXT_AUTH_SECRET || "",
+  NEXTAUTH_URL: process.env.NEXTAUTH_URL || "",
+  GITHUB_ID: process.env.GITHUB_ID || "",
+  GITHUB_SECRET: process.env.GITHUB_SECRET || "",
 };
 
 // Check if all required environment variables are defined
@@ -32,14 +32,14 @@ Object.values(env).forEach((value) => {
     throw new Error(`Environment variable ${value} is not defined`);
   }
 });
-const useSecureCookies = env.NEXTAUTH_URL.startsWith('https://');
-const cookiePrefix = useSecureCookies ? '__Secure-' : '';
+const useSecureCookies = env.NEXTAUTH_URL.startsWith("https://");
+const cookiePrefix = useSecureCookies ? "__Secure-" : "";
 const hostName = new URL(env.NEXTAUTH_URL).hostname;
 
 export const authOptions: NextAuthOptions = {
   // Enable JSON Web Tokens since we will not store sessions in our DB
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
     maxAge: 24 * 60 * 60, // 24 hours
     // maxAge:60 // 1 min
   },
@@ -49,10 +49,10 @@ export const authOptions: NextAuthOptions = {
       name: `${cookiePrefix}next-auth.session-token`,
       options: {
         httpOnly: true,
-        sameSite: 'lax',
-        path: '/',
+        sameSite: "lax",
+        path: "/",
         secure: useSecureCookies,
-        domain: hostName == 'localhost' ? hostName : '.' + 'nexonauts.com', // add a . in front so that subdomains are included
+        domain: hostName == "localhost" ? hostName : "." + "nexonauts.com", // add a . in front so that subdomains are included
       },
     },
   },
@@ -60,11 +60,11 @@ export const authOptions: NextAuthOptions = {
   // Here we add our login providers - this is where you could add Google or Github SSO as well
   providers: [
     CredentialsProvider({
-      name: 'credentials',
+      name: "credentials",
       // The credentials object is what's used to generate Next Auth default login page - We will not use it however.
       credentials: {
-        email: { label: 'Email', type: 'email' },
-        password: { label: 'Password', type: 'password' },
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
       },
       // Authorize callback is ran upon calling the sign-in function
       authorize: async (credentials) => {
@@ -72,7 +72,7 @@ export const authOptions: NextAuthOptions = {
           if (!credentials || !credentials.email || !credentials.password) {
             return reject({
               status: 401,
-              message: 'Credentials not provided',
+              message: "Credentials not provided",
               success: false,
             });
           }
@@ -80,12 +80,12 @@ export const authOptions: NextAuthOptions = {
             await dbConnect();
             const userInDb = await UserModel.findOne({
               email: credentials.email,
-            }).select('+password');
+            }).select("+password");
 
             if (!userInDb)
               return reject({
                 status: 401,
-                message: 'User not found',
+                message: "User not found",
                 success: false,
               });
             const pwValid = await userInDb.comparePassword(
@@ -95,7 +95,7 @@ export const authOptions: NextAuthOptions = {
             if (!pwValid)
               return reject({
                 status: 401,
-                message: 'Wrong Password',
+                message: "Wrong Password",
                 success: false,
               });
             const user = {
@@ -103,16 +103,16 @@ export const authOptions: NextAuthOptions = {
               name: userInDb.name,
               email: userInDb.email,
               username: userInDb.username,
-              account_type: userInDb.account_type || 'free',
+              account_type: userInDb.account_type || "free",
               profilePicture: userInDb.profilePicture,
-              role: userInDb.role || 'user',
+              role: userInDb.role || "user",
               verificationToken: userInDb.verificationToken || null,
               verified: userInDb.verified || false,
               profile: userInDb.profile?.toString() || null,
               additional_info: userInDb.additional_info || {},
             };
 
-            console.log('user found', user);
+            console.log("user found", user);
             return resolve(JSON.parse(JSON.stringify(user)));
           } catch (err) {
             console.log(err);
@@ -122,13 +122,13 @@ export const authOptions: NextAuthOptions = {
       },
     }),
     GoogleProvider({
-      clientId: env.GOOGLE_ID || '',
-      clientSecret: env.GOOGLE_SECRET || '',
+      clientId: env.GOOGLE_ID || "",
+      clientSecret: env.GOOGLE_SECRET || "",
       authorization: {
         params: {
-          prompt: 'consent',
-          access_type: 'offline',
-          response_type: 'code',
+          prompt: "consent",
+          access_type: "offline",
+          response_type: "code",
         },
       },
       async profile(profile) {
@@ -137,20 +137,20 @@ export const authOptions: NextAuthOptions = {
           await dbConnect();
           const userInDb = await UserModel.findOne({ email: profile.email });
           if (!userInDb) {
-            console.log('user not found, creating new user', profile);
+            console.log("user not found, creating new user", profile);
             const username =
-              profile.email.split('@')[1] === 'gmail.com'
-                ? profile.email.split('@')[0] + '_gmail'
-                : profile.email.split('@')[0] + '_other';
+              profile.email.split("@")[1] === "gmail.com"
+                ? profile.email.split("@")[0] + "_gmail"
+                : profile.email.split("@")[0] + "_other";
 
             const user = new UserModel({
               name: profile.name,
               email: profile.email,
               username: username,
               profilePicture: profile.picture,
-              password: 'google' + profile.sub,
-              role: 'user',
-              account_type: 'free',
+              password: "google" + profile.sub,
+              role: "user",
+              account_type: "free",
               verificationToken: null,
               verified: true,
               profile: null,
@@ -164,16 +164,16 @@ export const authOptions: NextAuthOptions = {
               name: user.name,
               email: user.email,
               username: user.username,
-              account_type: user.account_type || 'free',
+              account_type: user.account_type || "free",
               profilePicture: user.profilePicture,
-              role: user.role || 'user',
+              role: user.role || "user",
               verificationToken: user.verificationToken || null,
               verified: user.verified || false,
               profile: userInDb.profile?.toString() || null,
               additional_info: user.additional_info || {},
             });
           }
-          console.log('user found', userInDb);
+          console.log("user found", userInDb);
           await UserModel.updateOne(
             { _id: userInDb._id },
             {
@@ -189,9 +189,9 @@ export const authOptions: NextAuthOptions = {
             name: userInDb.name,
             email: userInDb.email,
             username: userInDb.username,
-            account_type: userInDb.account_type || 'free',
+            account_type: userInDb.account_type || "free",
             profilePicture: userInDb.profilePicture,
-            role: userInDb.role || 'user',
+            role: userInDb.role || "user",
             verificationToken: userInDb.verificationToken || null,
             verified: true,
             profile: userInDb.profile?.toString() || null,
@@ -199,7 +199,7 @@ export const authOptions: NextAuthOptions = {
           });
         } catch (err) {
           console.log(err);
-          return Promise.reject('/login?error=google_error');
+          return Promise.reject("/login?error=google_error");
         }
       },
     }),
@@ -215,9 +215,9 @@ export const authOptions: NextAuthOptions = {
           name: user.name,
           email: user.email,
           username: user.username,
-          account_type: user.account_type || 'free',
+          account_type: user.account_type || "free",
           profilePicture: user.profilePicture,
-          role: user.role || 'user',
+          role: user.role || "user",
           verified: user.verified || false,
           profile: user.profile,
           additional_info: user.additional_info,
@@ -236,8 +236,8 @@ export const authOptions: NextAuthOptions = {
 
   pages: {
     // Here you can define your own custom pages for login, recover password, etc.
-    signIn: '/login', // Displays sign in buttons
-    newUser: '/signup',
+    signIn: "/login", // Displays sign in buttons
+    newUser: "/signup",
     // signOut: '/auth/sign out',
     // error: '/auth/error',
     // verifyRequest: '/auth/verify-request',

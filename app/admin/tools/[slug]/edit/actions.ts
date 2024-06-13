@@ -1,9 +1,9 @@
-'use server';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+"use server";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 // import mongoose from "mongoose";
-import dbConnect from 'src/lib/dbConnect';
-import PublicTool from 'src/models/tool';
+import dbConnect from "src/lib/dbConnect";
+import PublicTool from "src/models/tool";
 
 export async function getToolBySlug(slug: string) {
   await dbConnect();
@@ -14,12 +14,12 @@ export async function getToolBySlug(slug: string) {
       available_categories: [],
     };
   const categories = await PublicTool.aggregate([
-    { $unwind: '$categories' },
+    { $unwind: "$categories" },
     {
       $group: {
-        _id: '$categories.slug',
-        name: { $first: '$categories.name' },
-        slug: { $first: '$categories.slug' },
+        _id: "$categories.slug",
+        name: { $first: "$categories.name" },
+        slug: { $first: "$categories.slug" },
       },
     },
     { $project: { _id: 0, name: 1, slug: 1 } },
@@ -39,8 +39,8 @@ export async function updateTool(id: string, data: Record<string, any>) {
       new: true,
       runValidators: true,
     }).exec();
-    revalidatePath('/admin/tools/' + id + '/edit');
-    revalidatePath('/admin/tools/' + id);
+    revalidatePath("/admin/tools/" + id + "/edit");
+    revalidatePath("/admin/tools/" + id);
     return Promise.resolve(true);
   } catch (error) {
     console.error(error);
@@ -51,11 +51,11 @@ export async function deleteTool(id: string) {
   try {
     await dbConnect();
     await PublicTool.findByIdAndDelete(id).exec();
-    return redirect('/admin/tools');
+    return redirect("/admin/tools");
   } catch (error) {
     console.error(error);
     return Promise.reject(error);
   } finally {
-    revalidatePath('/admin/tools');
+    revalidatePath("/admin/tools");
   }
 }

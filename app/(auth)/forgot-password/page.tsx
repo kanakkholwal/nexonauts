@@ -1,19 +1,19 @@
-import { Button } from '@/components/ui/button';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { getSession } from 'src/lib/auth';
-import { UserAuthForm } from './forgot-form';
+import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { getSession } from "src/lib/auth";
+import { UserAuthForm } from "./forgot-form";
 
 export const metadata: Metadata = {
-  title: 'Signin | NexoNauts',
-  description: 'Login to an account on ' + process.env.NEXT_PUBLIC_APP_NAME,
-  keywords: 'register, account, ' + process.env.NEXT_PUBLIC_APP_NAME,
+  title: "Signin | NexoNauts",
+  description: "Login to an account on " + process.env.NEXT_PUBLIC_APP_NAME,
+  keywords: "register, account, " + process.env.NEXT_PUBLIC_APP_NAME,
 };
 
 export default async function Page() {
   const session = await getSession();
-  if (session) return redirect('/feed');
+  if (session) return redirect("/feed");
 
   return (
     <>
@@ -33,7 +33,7 @@ export default async function Page() {
         </p>
       </header>
       <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
-        <UserAuthForm key={'form'} />
+        <UserAuthForm key={"form"} />
       </main>
     </>
   );

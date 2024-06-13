@@ -1,13 +1,13 @@
-import { authOptions } from 'app/api/auth/[...nextauth]/options';
-import axios from 'axios';
-import dbConnect from 'lib/dbConnect';
-import { getServerSession } from 'next-auth/next';
-import React from 'react';
-import { DiGithubFull } from 'react-icons/di';
-import { TbBrandGumroad } from 'react-icons/tb';
-import UserModel from 'src/models/user';
-import { sessionType } from 'src/types/session';
-import { generateSlug } from 'src/utils/string';
+import { authOptions } from "app/api/auth/[...nextauth]/options";
+import axios from "axios";
+import dbConnect from "lib/dbConnect";
+import { getServerSession } from "next-auth/next";
+import React from "react";
+import { DiGithubFull } from "react-icons/di";
+import { TbBrandGumroad } from "react-icons/tb";
+import UserModel from "src/models/user";
+import { sessionType } from "src/types/session";
+import { generateSlug } from "src/utils/string";
 
 // Define the icons and descriptions for each integration
 const icons: { [key: string]: React.ElementType } = {
@@ -15,28 +15,28 @@ const icons: { [key: string]: React.ElementType } = {
   gumroad: TbBrandGumroad,
 };
 const descriptions: { [key: string]: string } = {
-  github: 'Import your GitHub repositories and activity.',
-  gumroad: 'Import your Gumroad products.',
+  github: "Import your GitHub repositories and activity.",
+  gumroad: "Import your Gumroad products.",
 };
 const usage_cases: { [key: string]: any[] } = {
   github: [
     {
-      name: 'Import repositories',
-      description: 'Import your repositories from GitHub to your dashboard.',
+      name: "Import repositories",
+      description: "Import your repositories from GitHub to your dashboard.",
     },
     {
-      name: 'Import activity',
-      description: 'Import your activity from GitHub to your dashboard.',
+      name: "Import activity",
+      description: "Import your activity from GitHub to your dashboard.",
     },
   ],
   gumroad: [
     {
-      name: 'Import products',
-      description: 'Import your products from Gumroad to your dashboard.',
+      name: "Import products",
+      description: "Import your products from Gumroad to your dashboard.",
     },
     {
-      name: 'Import sales',
-      description: 'Import your sales from Gumroad to your dashboard.',
+      name: "Import sales",
+      description: "Import your sales from Gumroad to your dashboard.",
     },
   ],
 };
@@ -60,10 +60,10 @@ export const INTEGRATION_CONFIG: {
 } = {
   github: {
     client_id: process.env.GITHUB_ID as string,
-    redirect_uri: process.env.NEXTAUTH_URL + '/settings/integrations/github',
-    scope: 'user%20public_repo',
+    redirect_uri: process.env.NEXTAUTH_URL + "/settings/integrations/github",
+    scope: "user%20public_repo",
     auth_url: `https://github.com/login/oauth/authorize`,
-    required: ['code'],
+    required: ["code"],
     getAuthUrl: function () {
       const params = new URLSearchParams({
         client_id: this.client_id,
@@ -74,7 +74,7 @@ export const INTEGRATION_CONFIG: {
       return `${this.auth_url}?${params.toString()}`;
     },
     saveToken: async function (options: Record<string, any>) {
-      const url = 'https://github.com/login/oauth/access_token';
+      const url = "https://github.com/login/oauth/access_token";
 
       const dataBody = {
         client_id: process.env.GITHUB_ID,
@@ -85,23 +85,23 @@ export const INTEGRATION_CONFIG: {
 
       const response = await axios.post(url, dataBody, {
         headers: {
-          Accept: 'application/json',
+          Accept: "application/json",
         },
       });
       const data = response.data;
 
       if (!data.access_token) {
-        return Promise.reject('Error getting token');
+        return Promise.reject("Error getting token");
       }
 
       const session = (await getServerSession(authOptions)) as sessionType;
       await dbConnect();
       const user = await UserModel.findById(session.user._id)
-        .select('integrations')
+        .select("integrations")
         .exec();
-      console.log('User', user);
+      console.log("User", user);
       if (!user) {
-        return Promise.reject('User not found');
+        return Promise.reject("User not found");
       }
       if (!user.integrations) {
         user.integrations = {};
@@ -114,15 +114,15 @@ export const INTEGRATION_CONFIG: {
         integrated: true,
       };
       await user.save();
-      console.log('Token saved');
+      console.log("Token saved");
 
       return Promise.resolve(data);
     },
   },
   gumroad: {
     client_id: process.env.GUMROAD_APP_ID as string,
-    redirect_uri: process.env.NEXTAUTH_URL + '/settings/integrations/gumroad',
-    scope: 'view_profile',
+    redirect_uri: process.env.NEXTAUTH_URL + "/settings/integrations/gumroad",
+    scope: "view_profile",
     auth_url: `https://gumroad.com/oauth/authorize`,
     getAuthUrl: function () {
       const params = new URLSearchParams({
@@ -132,9 +132,9 @@ export const INTEGRATION_CONFIG: {
       });
       return `${this.auth_url}?${params.toString()}`;
     },
-    required: ['code'],
+    required: ["code"],
     async saveToken(options: Record<string, any>) {
-      const url = 'https://api.gumroad.com/oauth/token';
+      const url = "https://api.gumroad.com/oauth/token";
 
       const dataBody = {
         code: options.code,
@@ -147,20 +147,20 @@ export const INTEGRATION_CONFIG: {
       const data = response.data;
 
       if (!data.access_token) {
-        console.log('Error saving token, data', data);
-        return Promise.reject('Error saving token');
+        console.log("Error saving token, data", data);
+        return Promise.reject("Error saving token");
       }
 
-      console.log('Success saving token', data);
+      console.log("Success saving token", data);
       const session = (await getServerSession(authOptions)) as sessionType;
 
       await dbConnect();
       const user = await UserModel.findById(session.user._id)
-        .select('integrations')
+        .select("integrations")
         .exec();
-      console.log('User', user);
+      console.log("User", user);
       if (!user) {
-        return Promise.reject('User not found');
+        return Promise.reject("User not found");
       }
       if (!user.integrations) {
         user.integrations = {};
@@ -173,7 +173,7 @@ export const INTEGRATION_CONFIG: {
         integrated: true,
       };
       await user.save();
-      console.log('Token saved');
+      console.log("Token saved");
 
       return Promise.resolve(data);
     },

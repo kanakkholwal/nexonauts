@@ -1,14 +1,14 @@
-export { NavBar } from './navbar';
-export { AllArticles } from './main';
-export { PostPageHero, HomePageHero } from './hero';
-export { SideBar } from './sidebar';
-export { Article } from './article';
-export { PostCard } from './postCard';
-export { FloatingMenu } from './floatingMenu';
+export { NavBar } from "./navbar";
+export { AllArticles } from "./main";
+export { PostPageHero, HomePageHero } from "./hero";
+export { SideBar } from "./sidebar";
+export { Article } from "./article";
+export { PostCard } from "./postCard";
+export { FloatingMenu } from "./floatingMenu";
 
-import styled from 'styled-components';
-import { SidebarWrapper } from './sidebar';
-import { ArticleWrapper } from './article';
+import styled from "styled-components";
+import { SidebarWrapper } from "./sidebar";
+import { ArticleWrapper } from "./article";
 
 export const Wrapper = styled.main`
   width: 100%;

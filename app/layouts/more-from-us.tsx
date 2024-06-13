@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
-import Image, { StaticImageData } from 'next/image';
-import Link from 'next/link';
-import devToolsImg from 'src/assets/images/dev-tools.png';
+import { Button } from "@/components/ui/button";
+import Image, { StaticImageData } from "next/image";
+import Link from "next/link";
+import devToolsImg from "src/assets/images/dev-tools.png";
 
 type FeatureType = {
   title: string;
@@ -12,15 +12,15 @@ type FeatureType = {
 };
 const features: FeatureType[] = [
   {
-    title: 'Tool Scout',
+    title: "Tool Scout",
     description:
-      'Discover new tools and resources to make your developer life easier. Search and filter tools to find the perfect one for your needs.',
+      "Discover new tools and resources to make your developer life easier. Search and filter tools to find the perfect one for your needs.",
     list: [
-      '🏆 Curated list of tools',
-      '🔍 Search and filter tools',
-      '🚀 Submit your own tool',
+      "🏆 Curated list of tools",
+      "🔍 Search and filter tools",
+      "🚀 Submit your own tool",
     ],
-    url: '/scout',
+    url: "/scout",
     image: devToolsImg,
   },
 ];

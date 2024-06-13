@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,17 +9,17 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { CgSpinner } from 'react-icons/cg';
-import { FaRegCircleCheck } from 'react-icons/fa6';
+} from "@/components/ui/alert-dialog";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { CgSpinner } from "react-icons/cg";
+import { FaRegCircleCheck } from "react-icons/fa6";
 
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export function Authorisor({
   options,
@@ -43,7 +43,7 @@ export function Authorisor({
     saveAccessToken({ ...options }, platform)
       .then((data) => {
         setData(data);
-        router.push('?', { scroll: false });
+        router.push("?", { scroll: false });
       })
       .catch((e) => {
         setError(e);
@@ -114,12 +114,12 @@ export function RevokeTokenButton({
               e.preventDefault();
               toast
                 .promise(revokeToken(platform), {
-                  loading: 'Revoking token...',
-                  success: 'Token revoked',
-                  error: 'Failed to revoke token',
+                  loading: "Revoking token...",
+                  success: "Token revoked",
+                  error: "Failed to revoke token",
                 })
                 .finally(() => {
-                  router.push('?', { scroll: false });
+                  router.push("?", { scroll: false });
                 });
             }}
           >
@@ -134,11 +134,11 @@ export function RevokeTokenButton({
 export function StatusBadge({
   status,
 }: {
-  status: 'connected' | 'disconnected';
+  status: "connected" | "disconnected";
 }) {
   return (
-    <Badge variant={status === 'connected' ? 'success' : 'secondary'}>
-      {status === 'connected' ? 'Connected' : 'Disconnected'}
+    <Badge variant={status === "connected" ? "success" : "secondary"}>
+      {status === "connected" ? "Connected" : "Disconnected"}
     </Badge>
   );
 }

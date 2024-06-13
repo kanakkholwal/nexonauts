@@ -1,11 +1,11 @@
-import Link from 'next/link';
-import React from 'react';
-import { MdFormatListNumbered } from 'react-icons/md';
+import Link from "next/link";
+import React from "react";
+import { MdFormatListNumbered } from "react-icons/md";
 // import Collapse from "components/collapse";
-import HTMLReactParser from 'html-react-parser';
+import HTMLReactParser from "html-react-parser";
 
 const remapHeadingsRecursive = (
-  headings: Omit<Heading, 'children'>[],
+  headings: Omit<Heading, "children">[],
   level: number = 1,
   lastIndex: number = -1
 ): Heading[] => {
@@ -31,16 +31,16 @@ const remapHeadingsRecursive = (
 };
 
 function extractHeadings(markdown: string) {
-  const headings: Omit<Heading, 'children'>[] = [];
+  const headings: Omit<Heading, "children">[] = [];
   const headingRegex = /^(#+)\s+(.*)$/gm;
   let match: RegExpExecArray | null;
 
   while ((match = headingRegex.exec(markdown)) !== null) {
     const level = match[1].length;
     let text = match[2].trim();
-    text = text.replace(/\*\*/g, '');
+    text = text.replace(/\*\*/g, "");
 
-    const heading: Omit<Heading, 'children'> = { text, level };
+    const heading: Omit<Heading, "children"> = { text, level };
 
     headings.push(heading);
   }
@@ -101,10 +101,10 @@ export const TOCMarkDown = ({ content }: { content: string }) => {
             return (
               <li key={i}>
                 <Link
-                  href={`#${heading.text?.toString().replace(/\.\s/, ' ').replaceAll(' ', '-').toLowerCase()}`}
+                  href={`#${heading.text?.toString().replace(/\.\s/, " ").replaceAll(" ", "-").toLowerCase()}`}
                 >
                   {heading.text &&
-                    HTMLReactParser(heading.text.replace(/\d+\.\s/, ''))}
+                    HTMLReactParser(heading.text.replace(/\d+\.\s/, ""))}
                 </Link>
                 {heading.children && <TOCListMD headings={heading.children} />}
               </li>
@@ -125,12 +125,12 @@ const TOCListMD = ({ headings }: { headings: Heading[] }) => {
             <Link
               href={`#${heading.text
                 ?.toString()
-                .replace(/\d+\.\s/, '')
-                .replaceAll(' ', '-')
+                .replace(/\d+\.\s/, "")
+                .replaceAll(" ", "-")
                 .toLowerCase()}`}
             >
               {heading.text &&
-                HTMLReactParser(heading.text.replace(/\d+\.\s/, ''))}
+                HTMLReactParser(heading.text.replace(/\d+\.\s/, ""))}
             </Link>
             {heading.children && <TOCListMD headings={heading.children} />}
           </li>
@@ -146,10 +146,10 @@ const TOCList = ({ blocks }) => {
         return (
           <li key={i}>
             <Link
-              href={`#${block.data.text?.toString().replace(/\s/g, '_').toLowerCase()}`}
+              href={`#${block.data.text?.toString().replace(/\s/g, "_").toLowerCase()}`}
             >
               {block.data.text &&
-                HTMLReactParser(block.data.text.replace(/\d+\.\s/, ''))}
+                HTMLReactParser(block.data.text.replace(/\d+\.\s/, ""))}
             </Link>
             {block.children && <TOCList blocks={block.children} />}
           </li>
@@ -185,12 +185,12 @@ export const HeaderToc = (data) => {
 
   const Tag = `h${data?.level || 1}` as keyof JSX.IntrinsicElements;
   return (
-    <Tag {...props} id={data.text.toString().replace(/\s/g, '_').toLowerCase()}>
+    <Tag {...props} id={data.text.toString().replace(/\s/g, "_").toLowerCase()}>
       {data?.text && HTMLReactParser(data.text)}
     </Tag>
   );
 };
-export const HeaderRenderer = ({ data, className = '' }) => {
+export const HeaderRenderer = ({ data, className = "" }) => {
   const props: {
     [s: string]: string;
   } = {};
@@ -201,7 +201,7 @@ export const HeaderRenderer = ({ data, className = '' }) => {
 
   const Tag = `h${data?.level || 1}` as keyof JSX.IntrinsicElements;
   return (
-    <Tag {...props} id={data.text.toString().replace(/\s/g, '_').toLowerCase()}>
+    <Tag {...props} id={data.text.toString().replace(/\s/g, "_").toLowerCase()}>
       {data?.text && HTMLReactParser(data.text)}
     </Tag>
   );

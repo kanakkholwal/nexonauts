@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   DropdownMenu,
@@ -7,16 +7,16 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { signOut } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { FaRegUser } from 'react-icons/fa';
-import { MdLogout } from 'react-icons/md';
-import { VscChevronDown } from 'react-icons/vsc';
-import { SessionUserType } from 'src/types/user';
-import ThemeSwitcher from './theme-switcher';
+} from "@/components/ui/dropdown-menu";
+import { signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FaRegUser } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
+import { VscChevronDown } from "react-icons/vsc";
+import { SessionUserType } from "src/types/user";
+import ThemeSwitcher from "./theme-switcher";
 
 export default function Navbar({ user }: { user: SessionUserType }) {
   const pathname = usePathname();
@@ -53,7 +53,7 @@ export default function Navbar({ user }: { user: SessionUserType }) {
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link
-                  href={'/dashboard/settings?defaultTabprofile=profile'}
+                  href={"/dashboard/settings?defaultTabprofile=profile"}
                   className="w-full text-accent-foreground hover:text-slate-800"
                 >
                   <FaRegUser className="w-3 h-3 mr-1" />

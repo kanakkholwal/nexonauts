@@ -1,7 +1,7 @@
-import bcrypt from 'bcryptjs';
-import mongoose, { Document, Schema, Types } from 'mongoose';
-import { customAlphabet } from 'nanoid';
-import validator from 'validator';
+import bcrypt from "bcryptjs";
+import mongoose, { Document, Schema, Types } from "mongoose";
+import { customAlphabet } from "nanoid";
+import validator from "validator";
 
 // Define a user schema
 
@@ -52,9 +52,9 @@ const integrationSchema = new Schema<IntegrationSchema>({
   gumroad: {
     scope: {
       type: String,
-      default: 'edit_products',
+      default: "edit_products",
       enum: {
-        values: ['edit_products', 'view_profile', 'view_sales'],
+        values: ["edit_products", "view_profile", "view_sales"],
       },
     },
     access_token: {
@@ -73,7 +73,7 @@ const integrationSchema = new Schema<IntegrationSchema>({
   github: {
     scope: {
       type: String,
-      default: 'repo',
+      default: "repo",
     },
     access_token: {
       type: String,
@@ -93,7 +93,7 @@ const integrationSchema = new Schema<IntegrationSchema>({
 function generateRandomUsername(): string {
   // Generate a random UUID
   const slug = customAlphabet(
-    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     8
   )();
 
@@ -114,7 +114,7 @@ const userSchema = new Schema<User>(
       unique: true,
       validate: [
         validator.isAlphanumeric,
-        'Username can only contain letters and numbers',
+        "Username can only contain letters and numbers",
       ],
       default: () => generateRandomUsername(),
     },
@@ -122,38 +122,38 @@ const userSchema = new Schema<User>(
       type: String,
       required: true,
       unique: true,
-      validate: [validator.isEmail, 'Please enter a valid email'],
+      validate: [validator.isEmail, "Please enter a valid email"],
       lowercase: true,
     },
     profilePicture: {
       type: String,
       default:
-        'https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png',
+        "https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png",
     },
     password: {
       type: String,
-      required: [true, 'Please enter your password'],
-      minLength: [6, 'Your password must be at least 6 characters long'],
+      required: [true, "Please enter your password"],
+      minLength: [6, "Your password must be at least 6 characters long"],
       select: false, // Don't send back password after request
     },
 
     role: {
       type: String,
-      default: 'user',
+      default: "user",
       enum: {
-        values: ['user', 'admin', 'waitlist'],
+        values: ["user", "admin", "waitlist"],
       },
     },
     account_type: {
       type: String,
-      default: 'free',
+      default: "free",
       enum: {
-        values: ['free', 'pro', 'premium'],
+        values: ["free", "pro", "premium"],
       },
     },
     profile: {
       type: Schema.Types.ObjectId,
-      ref: 'Profile',
+      ref: "Profile",
       default: null,
     },
     verificationToken: {
@@ -169,13 +169,13 @@ const userSchema = new Schema<User>(
       type: integrationSchema,
       default: {
         gumroad: {
-          scope: 'edit_products',
+          scope: "edit_products",
           access_token: null,
           integrated: true,
           lastAuthorized: null,
         },
         github: {
-          scope: 'repo',
+          scope: "repo",
           access_token: null,
           integrated: false,
           lastAuthorized: null,
@@ -189,8 +189,8 @@ const userSchema = new Schema<User>(
 );
 
 // Middleware to hash password before saving
-userSchema.pre<User>('save', async function (next) {
-  if (!this.isModified('password')) {
+userSchema.pre<User>("save", async function (next) {
+  if (!this.isModified("password")) {
     return next();
   }
 
@@ -204,14 +204,14 @@ userSchema.pre<User>('save', async function (next) {
   }
 });
 
-userSchema.pre<User>('save', async function (next) {
-  if (!this.isModified('verificationToken')) {
+userSchema.pre<User>("save", async function (next) {
+  if (!this.isModified("verificationToken")) {
     return next();
   }
-  if (this.isModified('email')) {
+  if (this.isModified("email")) {
     this.verified = false;
   }
-  if (this.isModified('verificationToken')) {
+  if (this.isModified("verificationToken")) {
     if (this.verificationToken === null) {
       this.verified = true;
     }
@@ -228,6 +228,6 @@ userSchema.methods.comparePassword = async function (password) {
   }
 };
 
-const User = mongoose.models.User || mongoose.model<User>('User', userSchema);
+const User = mongoose.models.User || mongoose.model<User>("User", userSchema);
 
 export default User;

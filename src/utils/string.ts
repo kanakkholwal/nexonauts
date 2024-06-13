@@ -1,10 +1,10 @@
-import { customAlphabet } from 'nanoid';
-import { z } from 'zod';
-import TurndownService from 'turndown';
+import { customAlphabet } from "nanoid";
+import { z } from "zod";
+import TurndownService from "turndown";
 
 export function generateSlug(length = 8): string {
   return customAlphabet(
-    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     length
   )();
 }
@@ -60,7 +60,7 @@ export function validatePassword(password: string) {
 
   return {
     valid: true,
-    message: 'Password is strong',
+    message: "Password is strong",
   };
 }
 export function HtmlToMarkdown(inputString: string): string {

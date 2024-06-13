@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import SideBarPostCard from './sidenavPostCard';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import SideBarPostCard from "./sidenavPostCard";
 
 export function SideBar() {
   const [posts, setPosts] = useState({
@@ -18,7 +18,7 @@ export function SideBar() {
 
       setPosts((prevPosts) => ({
         ...prevPosts,
-        [endpoint.includes('popular') ? 'popularPosts' : 'recentPosts']:
+        [endpoint.includes("popular") ? "popularPosts" : "recentPosts"]:
           data.posts,
         loading: false,
         error: false,
@@ -35,17 +35,17 @@ export function SideBar() {
   };
 
   useEffect(() => {
-    getPosts('/api/posts/popular');
-    getPosts('/api/posts/recent');
+    getPosts("/api/posts/popular");
+    getPosts("/api/posts/recent");
   }, []);
 
   const renderPosts = (postArray) => {
     if (posts.loading) {
-      return 'Loading...';
+      return "Loading...";
     }
 
     if (posts.error) {
-      return 'Some Error Occurred';
+      return "Some Error Occurred";
     }
 
     if (postArray.length === 0 && !posts.error && !posts.loading) {

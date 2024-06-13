@@ -1,16 +1,16 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { RadioStyle } from '@/components/ui/radio-group';
-import { Textarea } from '@/components/ui/textarea';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Building2, ExternalLink, Send } from 'lucide-react';
-import { useSession } from 'next-auth/react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { LuMail } from 'react-icons/lu';
-import * as z from 'zod';
-import toast from 'react-hot-toast';
+"use client";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { RadioStyle } from "@/components/ui/radio-group";
+import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Building2, ExternalLink, Send } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { LuMail } from "react-icons/lu";
+import * as z from "zod";
+import toast from "react-hot-toast";
 import {
   Form,
   FormControl,
@@ -18,33 +18,33 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { GoPerson } from 'react-icons/go';
+} from "@/components/ui/form";
+import { GoPerson } from "react-icons/go";
 
 const FormSchema = z.object({
   name: z
     .string()
-    .min(1, { message: 'Name must be between 1 and 100 characters' })
-    .max(100, { message: 'Name must be between 1 and 100 characters' }),
+    .min(1, { message: "Name must be between 1 and 100 characters" })
+    .max(100, { message: "Name must be between 1 and 100 characters" }),
   email: z
     .string()
-    .email({ message: 'Invalid email format' })
-    .min(5, { message: 'Email must be at least 5 characters long' })
-    .max(100, { message: 'Email cannot exceed 100 characters' }),
+    .email({ message: "Invalid email format" })
+    .min(5, { message: "Email must be at least 5 characters long" })
+    .max(100, { message: "Email cannot exceed 100 characters" }),
   message: z
     .string()
-    .min(30, { message: 'Message should be atleast 30 characters long' })
-    .max(5000, { message: 'Message cannot exceed 500 characters' }),
+    .min(30, { message: "Message should be atleast 30 characters long" })
+    .max(5000, { message: "Message cannot exceed 500 characters" }),
   category: z
     .string()
-    .min(1, { message: 'Please select a category' })
-    .max(100, { message: 'Please select a category' }),
+    .min(1, { message: "Please select a category" })
+    .max(100, { message: "Please select a category" }),
   companyName: z
     .string()
-    .max(100, { message: 'Company name cannot exceed 100 characters' }),
+    .max(100, { message: "Company name cannot exceed 100 characters" }),
   website: z
     .string()
-    .max(100, { message: 'Website cannot exceed 100 characters' }),
+    .max(100, { message: "Website cannot exceed 100 characters" }),
 });
 
 export function ContactForm() {
@@ -54,12 +54,12 @@ export function ContactForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      name: session?.user?.name || '',
-      email: session?.user?.email || '',
-      message: '',
-      category: '',
-      companyName: '',
-      website: '',
+      name: session?.user?.name || "",
+      email: session?.user?.email || "",
+      message: "",
+      category: "",
+      companyName: "",
+      website: "",
     },
   });
 
@@ -68,10 +68,10 @@ export function ContactForm() {
     console.log(data);
 
     toast.promise(
-      fetch('/api/contact', {
-        method: 'POST',
+      fetch("/api/contact", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: data.name,
@@ -85,9 +85,9 @@ export function ContactForm() {
         }),
       }),
       {
-        loading: 'Sending message...',
-        success: 'Message sent successfully',
-        error: 'An error occured while sending the message',
+        loading: "Sending message...",
+        success: "Message sent successfully",
+        error: "An error occured while sending the message",
       }
     );
   }
@@ -227,12 +227,12 @@ export function ContactForm() {
                 <FormControl className="flex flex-wrap gap-4 w-full justify-around">
                   <div className="flex flex-wrap gap-4 w-full justify-around">
                     {[
-                      'Brand Strategy',
-                      'Marketing / Ads',
-                      'Careers',
-                      'Development',
-                      'Design / UX&UI',
-                      'Other',
+                      "Brand Strategy",
+                      "Marketing / Ads",
+                      "Careers",
+                      "Development",
+                      "Design / UX&UI",
+                      "Other",
                     ].map((item, index) => {
                       return (
                         <label key={index} className={RadioStyle.label}>

@@ -1,7 +1,7 @@
-import { AiOutlineRead } from 'react-icons/ai';
-import { BsStars, BsTextareaT } from 'react-icons/bs';
-import { FcIdea, FcInspection, FcOpenedFolder } from 'react-icons/fc';
-import { TfiWrite } from 'react-icons/tfi';
+import { AiOutlineRead } from "react-icons/ai";
+import { BsStars, BsTextareaT } from "react-icons/bs";
+import { FcIdea, FcInspection, FcOpenedFolder } from "react-icons/fc";
+import { TfiWrite } from "react-icons/tfi";
 
 type FeatureType = {
   Icon: React.ElementType;
@@ -11,41 +11,41 @@ type FeatureType = {
 const features_for_generalpurpose = [
   {
     Icon: TfiWrite,
-    title: 'Writing Assistant',
+    title: "Writing Assistant",
     description:
-      'Our AI writing tool analyzes your content, suggests improvements',
+      "Our AI writing tool analyzes your content, suggests improvements",
   },
   {
     Icon: AiOutlineRead,
-    title: 'Reading Assistant',
+    title: "Reading Assistant",
     description:
-      'Our AI Reading tool analyzes your content, suggests improvements',
+      "Our AI Reading tool analyzes your content, suggests improvements",
   },
   {
     Icon: BsTextareaT,
-    title: 'Text Analysis',
+    title: "Text Analysis",
     description:
-      'Our AI Text Analysis tool analyzes your content, suggests improvements',
+      "Our AI Text Analysis tool analyzes your content, suggests improvements",
   },
 ] as FeatureType[];
 const features_for_devs = [
   {
     Icon: FcInspection,
-    title: 'Stuck on a Application Development?',
+    title: "Stuck on a Application Development?",
     description:
-      'Use our tools to automate your application development micro tasks',
+      "Use our tools to automate your application development micro tasks",
   },
   {
     Icon: FcIdea,
-    title: 'Create your own AI',
+    title: "Create your own AI",
     description:
       "Don't like our AI tool? Create your own AI tool with our AI Builder",
   },
   {
     Icon: FcOpenedFolder,
-    title: 'Need a generic Feature?',
+    title: "Need a generic Feature?",
     description:
-      'Use our open source CLI (CodeGenX) on Web to get boilerplate code',
+      "Use our open source CLI (CodeGenX) on Web to get boilerplate code",
   },
 ] as FeatureType[];
 

@@ -1,32 +1,32 @@
-import { Card, CardDescription, CardTitle } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { Metadata } from 'next';
+import { Card, CardDescription, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { Metadata } from "next";
 //   import Image from "next/image";
-import { User, UserRoundCog, Workflow } from 'lucide-react';
-import Link from 'next/link';
+import { User, UserRoundCog, Workflow } from "lucide-react";
+import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: 'Settings',
-  description: 'Settings page',
+  title: "Settings",
+  description: "Settings page",
 };
 const list = [
   {
-    label: 'Profile',
-    description: 'Manage your profile settings',
+    label: "Profile",
+    description: "Manage your profile settings",
     icon: User,
-    href: '/settings/profile',
+    href: "/settings/profile",
   },
   {
-    label: 'Account',
-    description: 'Manage your account settings',
+    label: "Account",
+    description: "Manage your account settings",
     icon: UserRoundCog,
-    href: '/settings/account',
+    href: "/settings/account",
   },
   {
-    label: 'Integrations',
-    description: 'Manage your integrations',
+    label: "Integrations",
+    description: "Manage your integrations",
     icon: Workflow,
-    href: '/settings/integrations',
+    href: "/settings/integrations",
   },
 ] as const;
 

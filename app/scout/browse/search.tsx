@@ -1,12 +1,12 @@
-'use client';
-import { Badge, BadgeProps } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
-import { Loader2, Search, X } from 'lucide-react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import React from 'react';
-import { useDebouncedCallback } from 'use-debounce';
+"use client";
+import { Badge, BadgeProps } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { Loader2, Search, X } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React from "react";
+import { useDebouncedCallback } from "use-debounce";
 
 export function FilterButton({
   filterKey,
@@ -41,7 +41,7 @@ export function FilterButton({
   return (
     <Badge
       size="sm"
-      variant={active ? 'default_light' : 'glass'}
+      variant={active ? "default_light" : "glass"}
       onClick={() => {
         // console.log("Filtering by", filterKey, filterValue)
         handleFilter(filterValue);
@@ -49,7 +49,7 @@ export function FilterButton({
       {...props}
     >
       {children}
-      {active && filterKey !== 'all' && (
+      {active && filterKey !== "all" && (
         <span
           className="cursor-pointer border-l border-border inline-flex justify-center items-center rounded-full pl-2"
           role="reset"
@@ -75,19 +75,19 @@ export function SearchBar({
 
   const router = useRouter();
   const [query, setQuery] = React.useState(
-    searchParams.get('query')?.toString()!
+    searchParams.get("query")?.toString()!
   );
 
   const handleSearch = useDebouncedCallback((term: string) => {
     console.log(`Searching... ${term}`);
     setLoading(true);
     const params = new URLSearchParams(searchParams);
-    params.set('page', '1');
+    params.set("page", "1");
 
     if (term) {
-      params.set('query', term);
+      params.set("query", term);
     } else {
-      params.delete('query');
+      params.delete("query");
     }
     router.push(`?${params.toString()}`);
     setLoading(false);
@@ -96,7 +96,7 @@ export function SearchBar({
   return (
     <div
       className={cn(
-        'flex w-full gap-4 items-center justify-start mx-auto mt-0',
+        "flex w-full gap-4 items-center justify-start mx-auto mt-0",
         className
       )}
       id="search"
@@ -105,7 +105,7 @@ export function SearchBar({
       <div className="relative w-full">
         <Search className="absolute top-1/2 left-4 transform -translate-y-1/2 w-5 h-5" />
         <React.Suspense
-          key={'search_key'}
+          key={"search_key"}
           fallback={
             <Input
               placeholder="Search for a AI, tools, services, and resources"
@@ -121,9 +121,9 @@ export function SearchBar({
             variant="fluid"
             placeholder="Search for a AI, tools, services, and resources"
             className="w-full pl-12 pr-4 py-2 h-14 rounded-xl bg-slate-50/15 dark:bg-slate-800/15 shadow border border-border"
-            defaultValue={searchParams.get('query')?.toString()?.trim()!}
+            defaultValue={searchParams.get("query")?.toString()?.trim()!}
             onChange={(e) => {
-              if (e.target.value.trim() === '') return;
+              if (e.target.value.trim() === "") return;
               setQuery(e.target.value.trim());
               handleSearch(e.target.value.trim());
             }}
@@ -134,11 +134,11 @@ export function SearchBar({
             variant="outline"
             className="rounded-full absolute z-20 top-1/2 right-2 transform -translate-y-1/2 border-none bg-transparent dark:bg-transparent  focus:outline-none"
             onClick={() => {
-              setQuery('');
-              handleSearch('');
+              setQuery("");
+              handleSearch("");
             }}
           >
-            {query?.trim() !== '' ? (
+            {query?.trim() !== "" ? (
               loading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
               ) : (

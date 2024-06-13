@@ -1,6 +1,6 @@
-import Footer from 'app/layouts/footer';
-import Navbar from 'app/layouts/navbar';
-import Link from 'next/link';
+import Footer from "app/layouts/footer";
+import Navbar from "app/layouts/navbar";
+import Link from "next/link";
 
 export default async function Page() {
   return (
@@ -26,7 +26,7 @@ export default async function Page() {
 
       <section className="font-medium text-base space-y-4 text-slate-600 dark:text-slate-400">
         <p className="mb-3 mt-8">
-          Welcome to{' '}
+          Welcome to{" "}
           <span className="font-bold">
             {process.env.NEXT_PUBLIC_WEBSITE_NAME}
           </span>
@@ -59,7 +59,7 @@ export default async function Page() {
         </h4>
         <p>
           We employ the use of cookies. By accessing Nexonauts.com, you agreed
-          to use cookies in agreement with the Nexonauts.com's{' '}
+          to use cookies in agreement with the Nexonauts.com's{" "}
           <Link
             href="/privacy"
             className="font-bold italic text-primary hover:underline"
@@ -148,7 +148,7 @@ export default async function Page() {
         </h4>
         <p>
           For any inquiries or concerns regarding our Terms of Service, please
-          contact us at{' '}
+          contact us at{" "}
           <Link
             href="/contact"
             className="font-bold italic text-primary hover:underline"

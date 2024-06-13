@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import { BiUser } from 'react-icons/bi';
-import { PiSignOut } from 'react-icons/pi';
-import { RiAppsLine } from 'react-icons/ri';
-import { TbDashboard, TbSmartHome, TbTools } from 'react-icons/tb';
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import { BiUser } from "react-icons/bi";
+import { PiSignOut } from "react-icons/pi";
+import { RiAppsLine } from "react-icons/ri";
+import { TbDashboard, TbSmartHome, TbTools } from "react-icons/tb";
 
 type LinkType = {
   title: string;
@@ -14,30 +14,30 @@ type LinkType = {
 };
 const userRoutes = [
   {
-    title: 'Home',
+    title: "Home",
     Icon: TbSmartHome,
-    path: '/',
+    path: "/",
   },
   {
-    title: 'Dashboard',
+    title: "Dashboard",
     Icon: TbDashboard,
-    path: '/dashboard',
+    path: "/dashboard",
     sessionRequired: true,
   },
   {
-    title: 'Apps',
+    title: "Apps",
     Icon: RiAppsLine,
-    path: '/apps',
+    path: "/apps",
   },
   {
-    title: 'Developer Tools',
+    title: "Developer Tools",
     Icon: TbTools,
-    path: '/dev-tools',
+    path: "/dev-tools",
   },
   {
-    title: 'Profile',
+    title: "Profile",
     Icon: BiUser,
-    path: '/dashboard/settings?defaultTab=profile',
+    path: "/dashboard/settings?defaultTab=profile",
     sessionRequired: true,
   },
 ] as LinkType[];
@@ -45,8 +45,8 @@ export default function Sidenav({ open }: { open: boolean }) {
   return (
     <div
       className={
-        ' min-h-screen h-full px-3 py-2 space-y-4 bg-slate-100  top-0  left-0 bottom-0  z-[999] transition-all w-[300px] translate-x-[-300px] xl:translate-x-0   fixed xl:sticky' +
-        (open ? ' !translate-x-0 shadow-lg' : '')
+        " min-h-screen h-full px-3 py-2 space-y-4 bg-slate-100  top-0  left-0 bottom-0  z-[999] transition-all w-[300px] translate-x-[-300px] xl:translate-x-0   fixed xl:sticky" +
+        (open ? " !translate-x-0 shadow-lg" : "")
       }
       id="nexo_sidenav"
     >
@@ -57,7 +57,7 @@ export default function Sidenav({ open }: { open: boolean }) {
         <Image
           height={120}
           width={280}
-          src={'/Logo.svg'}
+          src={"/Logo.svg"}
           alt="logo"
           className="w-64 h-12"
           draggable={false}

@@ -1,10 +1,10 @@
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, LoaderCircle } from 'lucide-react';
-import Link from 'next/link';
-import { Suspense } from 'react';
-import { getCategories, submitTool } from './actions';
-import EditForm from './form';
-import StoreInitializer from './store-initialzer';
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, LoaderCircle } from "lucide-react";
+import Link from "next/link";
+import { Suspense } from "react";
+import { getCategories, submitTool } from "./actions";
+import EditForm from "./form";
+import StoreInitializer from "./store-initialzer";
 
 export default async function DashboardPage() {
   const { available_categories } = await getCategories();

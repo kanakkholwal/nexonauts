@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import { ToolCard } from './components/tool-card';
+import { ToolCard } from "./components/tool-card";
 
-import { Input } from '@/components/ui/input';
-import { FAQs } from './faqs';
+import { Input } from "@/components/ui/input";
+import { FAQs } from "./faqs";
 // import bgImage from "./hero.png";
-import { useState } from 'react';
-import { allDevTools } from './list';
+import { useState } from "react";
+import { allDevTools } from "./list";
 
-import { Search } from 'lucide-react';
+import { Search } from "lucide-react";
 
 export default function Tools() {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [tools, setTools] = useState(allDevTools);
 
   const handleSearch = (query: string) => {
-    console.log('Search for:', query);
+    console.log("Search for:", query);
     setTools(
       allDevTools.filter((tool) => {
         return (
@@ -76,7 +76,7 @@ export default function Tools() {
           return (
             <ToolCard
               {...tool}
-              style={{ animationDelay: 0.1 * index + 's' }}
+              style={{ animationDelay: 0.1 * index + "s" }}
               key={index}
             />
           );

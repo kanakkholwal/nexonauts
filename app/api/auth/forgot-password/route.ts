@@ -1,12 +1,12 @@
-import { render } from '@react-email/render';
-import { generateToken, handleEmailFire } from 'emails/helper';
-import ResetPasswordEmail from 'emails/templates/reset-password';
-import dbConnect from 'lib/dbConnect';
-import { NextRequest, NextResponse } from 'next/server';
-import UserModel from 'src/models/user';
+import { render } from "@react-email/render";
+import { generateToken, handleEmailFire } from "emails/helper";
+import ResetPasswordEmail from "emails/templates/reset-password";
+import dbConnect from "lib/dbConnect";
+import { NextRequest, NextResponse } from "next/server";
+import UserModel from "src/models/user";
 
-import { authOptions } from 'app/api/auth/[...nextauth]/options';
-import { getServerSession } from 'next-auth/next';
+import { authOptions } from "app/api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth/next";
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,8 +14,8 @@ export async function POST(request: NextRequest) {
     if (!session) {
       return NextResponse.json(
         {
-          result: 'fail',
-          message: 'User is not authenticated',
+          result: "fail",
+          message: "User is not authenticated",
         },
         {
           status: 401,
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
 
     await dbConnect();
     const user = await UserModel.findOne({ email: session.user.email }).select(
-      'name email verificationToken'
+      "name email verificationToken"
     );
 
     user.verificationToken = generateToken(user.email);
@@ -45,12 +45,12 @@ export async function POST(request: NextRequest) {
         })
       ),
     });
-    console.log('Mail sent');
+    console.log("Mail sent");
 
     return NextResponse.json(
       {
-        result: 'success',
-        message: 'Please check your Email Now!!!',
+        result: "success",
+        message: "Please check your Email Now!!!",
       },
       {
         status: 200,
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        result: 'fail',
+        result: "fail",
         message: error.message,
       },
       {

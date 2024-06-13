@@ -1,5 +1,5 @@
-import { PublicToolTypeWithId } from 'src/models/tool';
-import { create } from 'zustand';
+import { PublicToolTypeWithId } from "src/models/tool";
+import { create } from "zustand";
 
 export interface toolType extends PublicToolTypeWithId {}
 type State = {

@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { BsStars } from 'react-icons/bs';
+import Link from "next/link";
+import { BsStars } from "react-icons/bs";
 
 export default function GetStarted() {
   return (
@@ -16,14 +16,14 @@ export default function GetStarted() {
                 data-nimg="fill"
                 className="max-w-none"
                 style={{
-                  position: 'absolute',
-                  height: '100%',
-                  width: '100%',
+                  position: "absolute",
+                  height: "100%",
+                  width: "100%",
                   left: 0,
                   top: 0,
                   right: 0,
                   bottom: 0,
-                  color: 'transparent',
+                  color: "transparent",
                 }}
                 src="https://ai-tool.nextjstemplates.com/images/blur/blur-22.svg"
               />
@@ -36,14 +36,14 @@ export default function GetStarted() {
                 data-nimg="fill"
                 className="max-w-none"
                 style={{
-                  position: 'absolute',
-                  height: '100%',
-                  width: '100%',
+                  position: "absolute",
+                  height: "100%",
+                  width: "100%",
                   left: 0,
                   top: 0,
                   right: 0,
                   bottom: 0,
-                  color: 'transparent',
+                  color: "transparent",
                 }}
                 src="https://ai-tool.nextjstemplates.com/images/blur/blur-23.svg"
               />
@@ -56,14 +56,14 @@ export default function GetStarted() {
                 data-nimg="fill"
                 className="max-w-none"
                 style={{
-                  position: 'absolute',
-                  height: '100%',
-                  width: '100%',
+                  position: "absolute",
+                  height: "100%",
+                  width: "100%",
                   left: 0,
                   top: 0,
                   right: 0,
                   bottom: 0,
-                  color: 'transparent',
+                  color: "transparent",
                 }}
                 src="/images/blur/blur-24.svg"
               />

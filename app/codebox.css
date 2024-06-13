@@ -1,13 +1,10 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap'); */
 
-:not(pre)>code[class*='language-'] {
+:not(pre) > code[class*="language-"] {
   padding: 0.1em;
   border-radius: 0.3em;
   white-space: normal;
   @apply bg-codeBg  text-slate-300 dark:text-slate-300;
-
-
-
 }
 
 pre code.hljs {
@@ -22,7 +19,7 @@ code.hljs {
 
 pre:has(.hljs) {
   overflow-x: auto;
-  font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono',
+  font-family: "Fira Code", Consolas, Monaco, "Andale Mono", "Ubuntu Mono",
     monospace;
   text-align: left;
   white-space: pre;

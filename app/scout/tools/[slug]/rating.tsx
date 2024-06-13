@@ -1,10 +1,10 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Rating } from '@/components/ui/rating';
-import { Skeleton } from '@/components/ui/skeleton';
-import MarkdownView from 'src/components/markdown/view';
-import { RatingTypeWithId } from 'src/models/tool-rating';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Rating } from "@/components/ui/rating";
+import { Skeleton } from "@/components/ui/skeleton";
+import MarkdownView from "src/components/markdown/view";
+import { RatingTypeWithId } from "src/models/tool-rating";
 
-import { format, parseISO } from 'date-fns';
+import { format, parseISO } from "date-fns";
 
 export default function RatingComponent({
   rating,
@@ -18,7 +18,7 @@ export default function RatingComponent({
           height={40}
           width={40}
           src={rating.userId.profilePicture}
-          alt={'@' + rating.userId.username}
+          alt={"@" + rating.userId.username}
           className="h-10 w-10"
         />
         <AvatarFallback className="uppercase">
@@ -30,7 +30,7 @@ export default function RatingComponent({
           <h4 className="prose-h2">{rating.userId.name}</h4>
           <Rating value={rating.rating} count={5} readonly={true} size="sm" />
           <time dateTime={rating.createdAt?.toString()!} className="text-sm">
-            {format(parseISO(rating.createdAt?.toString()!), 'dd MMM yyyy')}
+            {format(parseISO(rating.createdAt?.toString()!), "dd MMM yyyy")}
           </time>
         </div>
         <MarkdownView className="prose dark:prose-invert prose-slate">

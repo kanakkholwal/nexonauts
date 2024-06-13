@@ -1,12 +1,12 @@
-import { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Suspense } from 'react';
-import { BiSupport } from 'react-icons/bi';
-import { ErrorActions } from './error-layout';
+import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+import { BiSupport } from "react-icons/bi";
+import { ErrorActions } from "./error-layout";
 
 export const metadata: Metadata = {
-  title: 'UnAuthorised | Nexoauts',
+  title: "UnAuthorised | Nexoauts",
   description:
     "The page you're trying access has restricted access. Please refer to your system administrator",
 };

@@ -8,7 +8,7 @@ import {
   // MingcuteMore3Line,
   MingcutePluginLine,
   SimpleIconsUikit,
-} from 'assets/icons';
+} from "assets/icons";
 
 export type itemType = {
   label: string;
@@ -18,55 +18,55 @@ export type itemType = {
 };
 export const Item_types: itemType[] = [
   {
-    label: 'Templates',
-    href: '/marketplace/explore?type=template',
+    label: "Templates",
+    href: "/marketplace/explore?type=template",
     // sublinks: [
     //     { label: 'Landing Pages', href: '/marketplace/explore?type=template&category=landingpage' },
     //     { label: 'Admin Dashboards', href: '/marketplace/explore?type=template&category=admindashboard' },
     // ],
-    id: 'templates',
+    id: "templates",
     icon: HeroiconsOutlineTemplate,
   },
   {
-    label: 'UI Kits',
-    href: '/marketplace/explore?type=uikit',
-    id: 'uikits',
+    label: "UI Kits",
+    href: "/marketplace/explore?type=uikit",
+    id: "uikits",
     icon: SimpleIconsUikit,
   },
   {
-    label: 'E-Books',
-    href: '/marketplace/explore?type=ebook',
-    id: 'ebooks',
+    label: "E-Books",
+    href: "/marketplace/explore?type=ebook",
+    id: "ebooks",
     icon: CilBook,
   },
   {
-    label: 'Plugins',
-    href: '/marketplace/explore?type=plugin',
-    id: 'plugins',
+    label: "Plugins",
+    href: "/marketplace/explore?type=plugin",
+    id: "plugins",
     icon: MingcutePluginLine,
   },
   {
-    label: 'Extensions',
-    href: '/marketplace/explore?type=extensions',
-    id: 'extensions',
+    label: "Extensions",
+    href: "/marketplace/explore?type=extensions",
+    id: "extensions",
     icon: IonExtensionPuzzleOutline,
   },
   {
-    label: 'Themes',
-    href: '/marketplace/explore?type=theme',
-    id: 'themes',
+    label: "Themes",
+    href: "/marketplace/explore?type=theme",
+    id: "themes",
     icon: GridiconsThemes,
   },
   {
-    label: 'Graphics',
-    href: '/marketplace/explore?type=graphic',
-    id: 'graphics',
+    label: "Graphics",
+    href: "/marketplace/explore?type=graphic",
+    id: "graphics",
     icon: IconParkOutlineGraphicStitching,
   },
   {
-    label: 'Fonts',
-    href: '/marketplace/explore?type=font',
-    id: 'fonts',
+    label: "Fonts",
+    href: "/marketplace/explore?type=font",
+    id: "fonts",
     icon: ElFontsize,
   },
 

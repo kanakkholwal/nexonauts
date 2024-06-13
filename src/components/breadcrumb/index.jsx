@@ -1,13 +1,13 @@
-import { removeStringAfterWord } from 'lib/scripts';
-import Link from 'next/link';
+import { removeStringAfterWord } from "lib/scripts";
+import Link from "next/link";
 
-import { usePathname } from 'next/navigation';
-import React from 'react';
-import { GrFormNext } from 'react-icons/gr';
+import { usePathname } from "next/navigation";
+import React from "react";
+import { GrFormNext } from "react-icons/gr";
 
 export function BreadCrumb() {
   const path = usePathname();
-  const pathArray = path.split('/');
+  const pathArray = path.split("/");
 
   return (
     <nav
@@ -41,7 +41,7 @@ export function BreadCrumb() {
             <ItemListElement key={index}>
               <Item
                 href={`${removeStringAfterWord(path, item)}`}
-                active={index === list.length - 1 ? 'true' : 'false'}
+                active={index === list.length - 1 ? "true" : "false"}
               >
                 <ItemName>{item}</ItemName>
               </Item>
@@ -54,7 +54,7 @@ export function BreadCrumb() {
 }
 export function BlogBreadCrumb({ category, slug, title }) {
   return (
-    <BreadcrumbList style={{ marginBottom: '0' }}>
+    <BreadcrumbList style={{ marginBottom: "0" }}>
       <ItemListElement>
         <Item href="/blog">
           <ItemName>Blog</ItemName>
@@ -62,13 +62,13 @@ export function BlogBreadCrumb({ category, slug, title }) {
       </ItemListElement>
       <GrFormNext />
       <ItemListElement>
-        <Item href={`/blog/labels/category`} active={'false'}>
+        <Item href={`/blog/labels/category`} active={"false"}>
           <ItemName>{category}</ItemName>
         </Item>
       </ItemListElement>
       <GrFormNext />
       <ItemListElement>
-        <Item href={`/blog/posts/${slug}`} active={'true'}>
+        <Item href={`/blog/posts/${slug}`} active={"true"}>
           <ItemName>{title}</ItemName>
         </Item>
       </ItemListElement>

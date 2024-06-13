@@ -1,5 +1,5 @@
-import { ProfileTypeWithIdUser } from 'src/models/profile';
-import { create } from 'zustand';
+import { ProfileTypeWithIdUser } from "src/models/profile";
+import { create } from "zustand";
 
 export interface profileType extends ProfileTypeWithIdUser {}
 type State = {

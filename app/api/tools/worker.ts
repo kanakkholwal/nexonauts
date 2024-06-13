@@ -1,6 +1,6 @@
-import { GenerativeModel, GoogleGenerativeAI } from '@google/generative-ai';
-import PublicTool from 'src/models/tool';
-import { isMainThread, workerData } from 'worker_threads';
+import { GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai";
+import PublicTool from "src/models/tool";
+import { isMainThread, workerData } from "worker_threads";
 
 // Function to update a single public tool description
 async function updatePublicToolDescription(
@@ -40,7 +40,7 @@ async function generateDescription(
   ];
 
   const result = await model.generateContent({
-    contents: [{ role: 'user', parts }],
+    contents: [{ role: "user", parts }],
     generationConfig,
   });
   return result.response.text();
@@ -51,7 +51,7 @@ if (!isMainThread) {
   const { tool } = workerData;
 
   const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
-  const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
   const Action = async () => {
     const newDescription = await generateDescription(
       model,

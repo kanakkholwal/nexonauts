@@ -1,7 +1,7 @@
-'use server';
+"use server";
 // import mongoose from "mongoose";
-import dbConnect from 'src/lib/dbConnect';
-import PublicTool from 'src/models/tool';
+import dbConnect from "src/lib/dbConnect";
+import PublicTool from "src/models/tool";
 
 export async function getTools(
   query: string,
@@ -15,10 +15,10 @@ export async function getTools(
   const skip = currentPage * resultsPerPage - resultsPerPage;
   const filterQuery = {
     $or: [
-      { name: { $regex: query, $options: 'i' } },
-      { slug: { $regex: query, $options: 'i' } },
-      { description: { $regex: query, $options: 'i' } },
-      { categories: { $regex: query, $options: 'i' } },
+      { name: { $regex: query, $options: "i" } },
+      { slug: { $regex: query, $options: "i" } },
+      { description: { $regex: query, $options: "i" } },
+      { categories: { $regex: query, $options: "i" } },
     ],
   } as unknown as any;
   await dbConnect();
@@ -27,7 +27,7 @@ export async function getTools(
     .skip(skip)
     .limit(resultsPerPage)
     .select(
-      'name slug coverImage link updatedAt status verified bookmarks views'
+      "name slug coverImage link updatedAt status verified bookmarks views"
     )
     .exec();
   const totalPages = Math.ceil(

@@ -1,16 +1,16 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Skeleton } from '@/components/ui/skeleton';
-import { authOptions } from 'app/api/auth/[...nextauth]/options';
-import { getServerSession } from 'next-auth/next';
-import { notFound } from 'next/navigation';
-import { sessionType } from 'src/types/session';
-import { followUnFollowProfile, getProfile } from './actions';
-import { FollowButton } from './components/follow-btn';
-import FollowerFollow from './components/follower-follow';
-import { ShareProfile } from './components/share';
-import SocialLinks from './components/social-links';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Skeleton } from "@/components/ui/skeleton";
+import { authOptions } from "app/api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth/next";
+import { notFound } from "next/navigation";
+import { sessionType } from "src/types/session";
+import { followUnFollowProfile, getProfile } from "./actions";
+import { FollowButton } from "./components/follow-btn";
+import FollowerFollow from "./components/follower-follow";
+import { ShareProfile } from "./components/share";
+import SocialLinks from "./components/social-links";
 
-import { Metadata } from 'next';
+import { Metadata } from "next";
 
 export async function generateMetadata({
   params,
@@ -25,7 +25,7 @@ export async function generateMetadata({
     title: `${meta.user.name}'s profile on ${process.env.NEXT_PUBLIC_WEBSITE_NAME}`,
     description: meta.bio,
     openGraph: {
-      type: 'profile',
+      type: "profile",
       username: meta.username,
       title: `${meta.user.name}'s profile on ${process.env.NEXT_PUBLIC_WEBSITE_NAME}`,
       siteName: process.env.NEXT_PUBLIC_WEBSITE_NAME,

@@ -1,16 +1,16 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { authOptions } from 'app/api/auth/[...nextauth]/options';
-import { PostReview } from 'layouts/apps/view/review';
-import { getServerSession } from 'next-auth/next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { FiLock } from 'react-icons/fi';
-import workingApp from 'src/assets/animation/app-working.gif';
-import { getAppBySlug } from 'src/lib/apps/actions';
-import { sessionType } from 'src/types/session';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { authOptions } from "app/api/auth/[...nextauth]/options";
+import { PostReview } from "layouts/apps/view/review";
+import { getServerSession } from "next-auth/next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { FiLock } from "react-icons/fi";
+import workingApp from "src/assets/animation/app-working.gif";
+import { getAppBySlug } from "src/lib/apps/actions";
+import { sessionType } from "src/types/session";
 
-import AppplicationView from 'src/layouts/apps/app-view';
+import AppplicationView from "src/layouts/apps/app-view";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const session = (await getServerSession(authOptions)) as sessionType | null;
@@ -24,16 +24,16 @@ export default async function Page({ params }: { params: { slug: string } }) {
         <h1 className="text-3xl font-bold">{app.name}</h1>
         <p className="text-slate-500 mt-2 line-clamp-3">{app.description}</p>
         <div className="mt-2 text-sm font-medium w-full rounded-lg text-slate-500 bg-slate-100 p-2">
-          Created by{' '}
+          Created by{" "}
           <span className="text-accent-foreground font-semibold cursor-pointer hover:underline">
             {app.developer.name}
-          </span>{' '}
-          in{' '}
+          </span>{" "}
+          in{" "}
           <Link
             className="text-primary font-semibold px-2 py-1 rounded-md bg-primary/10 hover:bg-primary/20 capitalize ml-1"
             href={`/apps?category=${app.categories[0]}`}
           >
-            {app.categories[0].replaceAll('_', ' ')}
+            {app.categories[0].replaceAll("_", " ")}
           </Link>
         </div>
         {session?.user ? (
@@ -50,10 +50,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
             <div className="absolute inset-0  backdrop-blur-sm flex justify-center items-center z-10">
               <Link
-                href={'/login?continue=' + encodeURI('/apps/' + app.slug)}
+                href={"/login?continue=" + encodeURI("/apps/" + app.slug)}
                 className="w-full max-w-xs flex items-center justify-center border border-solid border-primary rounded-md p-2 bg-slate-100"
               >
-                <FiLock className="w-4 h-4 mr-2 text-primary inline-block" />{' '}
+                <FiLock className="w-4 h-4 mr-2 text-primary inline-block" />{" "}
                 Please login to use this app
               </Link>
             </div>
@@ -86,10 +86,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
               <PostReview app={app} user={session?.user} />
             ) : (
               <Link
-                href={'/login?continue=' + encodeURI('/apps/' + app.slug)}
+                href={"/login?continue=" + encodeURI("/apps/" + app.slug)}
                 className="w-full flex items-center justify-center border border-solid border-primary rounded-md p-2 bg-slate-100"
               >
-                <FiLock className="w-4 h-4 mr-2 text-primary inline-block" />{' '}
+                <FiLock className="w-4 h-4 mr-2 text-primary inline-block" />{" "}
                 Please login to Post a Review
               </Link>
             )}

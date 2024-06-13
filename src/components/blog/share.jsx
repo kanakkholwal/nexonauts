@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import styled from 'styled-components';
-import toast, { Toaster } from 'react-hot-toast';
-import { useState, useEffect } from 'react';
+import Link from "next/link";
+import styled from "styled-components";
+import toast, { Toaster } from "react-hot-toast";
+import { useState, useEffect } from "react";
 import {
   FaFacebookF,
   FaTwitter,
@@ -10,10 +10,10 @@ import {
   FaPinterestP,
   FaTelegramPlane,
   FaRedditAlien,
-} from 'react-icons/fa';
-import { LuCopy } from 'react-icons/lu';
-import { IoMailOutline } from 'react-icons/io5';
-import { BiShareAlt } from 'react-icons/bi';
+} from "react-icons/fa";
+import { LuCopy } from "react-icons/lu";
+import { IoMailOutline } from "react-icons/io5";
+import { BiShareAlt } from "react-icons/bi";
 
 const Wrapper = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const Wrapper = styled.div`
   padding: 20px 10px;
   border-radius: 10px;
   background: var(--card-bg);
-  ${'' /* box-shadow: var(--card-shadow); */}
+  ${"" /* box-shadow: var(--card-shadow); */}
   .shareIcons {
     display: flex;
     justify-content: center;
@@ -130,7 +130,7 @@ export default function ShareUI({ post }) {
           <button
             onClick={() => {
               toast.promise(copyLink(), {
-                loading: 'Copying link...',
+                loading: "Copying link...",
                 success: <p> Link copied</p>,
                 error: <p>Failed to copy link</p>,
               });

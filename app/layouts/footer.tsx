@@ -1,61 +1,61 @@
-import Link from 'next/link';
-import { FiLinkedin } from 'react-icons/fi';
+import Link from "next/link";
+import { FiLinkedin } from "react-icons/fi";
 //import { LuGithub } from "react-icons/lu";
-import { RiTwitterXFill } from 'react-icons/ri';
-import ThemeSwitcher from './theme-switcher';
+import { RiTwitterXFill } from "react-icons/ri";
+import ThemeSwitcher from "./theme-switcher";
 const footerLinks = [
   {
-    title: 'Product',
+    title: "Product",
     links: [
       {
-        title: 'Dev Tools',
-        href: '/dev-tools',
+        title: "Dev Tools",
+        href: "/dev-tools",
       },
       {
-        title: 'Dev Profiles',
-        href: '/devs',
+        title: "Dev Profiles",
+        href: "/devs",
       },
       {
-        title: 'Nexo Scout',
-        href: '/scout',
+        title: "Nexo Scout",
+        href: "/scout",
       },
       {
-        title: 'MarketPlace',
-        href: '/marketplace',
+        title: "MarketPlace",
+        href: "/marketplace",
       },
     ],
   },
   {
-    title: 'Company',
+    title: "Company",
     links: [
       {
-        title: 'About',
-        href: '/about',
+        title: "About",
+        href: "/about",
       },
       {
-        title: 'Pricing',
-        href: '/pricing',
+        title: "Pricing",
+        href: "/pricing",
       },
       {
-        title: 'Privacy',
-        href: '/privacy',
+        title: "Privacy",
+        href: "/privacy",
       },
       {
-        title: 'Term of Use',
-        href: '/tos',
+        title: "Term of Use",
+        href: "/tos",
       },
     ],
   },
   {
-    title: 'Support',
+    title: "Support",
     links: [
       {
-        title: 'Contact',
-        href: '/contact',
+        title: "Contact",
+        href: "/contact",
       },
       {
-        title: 'Disclaimer',
-        href: '/copyright',
+        title: "Disclaimer",
+        href: "/copyright",
       },
     ],
   },
@@ -84,7 +84,7 @@ export default function Footer() {
                 href="https://x.com/KanakKholwal"
                 title="Twitter / X"
                 className={
-                  'text-slate-500 hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon'
+                  "text-slate-500 hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon"
                 }
               >
                 <RiTwitterXFill className="w-5 h-5" />
@@ -93,7 +93,7 @@ export default function Footer() {
                 href="https://linkedin.com/NexoNauts"
                 title={"NexoNauts' Linkedin"}
                 className={
-                  'text-slate-500 hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon'
+                  "text-slate-500 hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon"
                 }
               >
                 <FiLinkedin className="w-5 h-5" />
@@ -119,14 +119,14 @@ export default function Footer() {
         </div>
         <div className="font-medium mt-4 mb-6 text-slate-600 flex justify-between gap-2 items-center">
           <div>
-            © {new Date().getFullYear()}{' '}
+            © {new Date().getFullYear()}{" "}
             <Link
               href="/"
               className="text-slate-900 dark:text-slate-200 font-semibold"
               title={process.env.NEXT_PUBLIC_WEBSITE_NAME}
             >
               {process.env.NEXT_PUBLIC_WEBSITE_NAME}
-            </Link>{' '}
+            </Link>{" "}
             . All rights reserved.
           </div>
           <div>

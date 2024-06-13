@@ -1,20 +1,20 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import {
   Input,
   TextArea,
   FormGroup,
   FormElement,
   Label,
-} from 'components/form-elements';
-import { timeAgo, getDateTime, getInitials } from 'lib/scripts';
-import { FiMoreVertical } from 'react-icons/fi';
-import Button from 'components/buttons';
-import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import useSWR from 'swr';
-import axios from 'axios';
-import { useSession } from 'next-auth/react';
-import toast, { Toaster } from 'react-hot-toast';
+} from "components/form-elements";
+import { timeAgo, getDateTime, getInitials } from "lib/scripts";
+import { FiMoreVertical } from "react-icons/fi";
+import Button from "components/buttons";
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import useSWR from "swr";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import toast, { Toaster } from "react-hot-toast";
 
 const CommentSection = styled.section`
   display: flex;
@@ -26,10 +26,10 @@ const CommentSection = styled.section`
   border-radius: 10px;
   background: var(--card-bg);
   ${
-    '' /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
+    "" /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
     0px 1px 1px rgba(0, 0, 0, 0.08); */
   }
-  ${'' /* box-shadow: var(--card-shadow); */}
+  ${"" /* box-shadow: var(--card-shadow); */}
 `;
 const InsertReply = styled.div`
   display: flex;
@@ -124,7 +124,7 @@ const MoreOptionCommentUl = styled.div`
     }
   }
   ${({ open }) => {
-    if (open === 'true') {
+    if (open === "true") {
       return `transform:scale(1);`;
     }
     return `
@@ -140,7 +140,7 @@ const CommentCard = styled.div`
   width: 100%;
   padding: 0.75rem;
   border-radius: 0.75rem;
-  ${'' /* border: 1px solid rgba(var(--mute-rgb), 0.25); */}
+  ${"" /* border: 1px solid rgba(var(--mute-rgb), 0.25); */}
 `;
 const CommenterProfile = styled.div`
   display: flex;
@@ -153,10 +153,10 @@ const CommenterProfile = styled.div`
   text-align: center;
   mix-blend-mode: multiply;
   background: rgba(
-    var(--${({ nature }) => (nature ? nature : 'theme')}-rgb),
+    var(--${({ nature }) => (nature ? nature : "theme")}-rgb),
     0.1
   );
-  color: rgba(var(--${({ nature }) => (nature ? nature : 'theme')}-rgb), 1);
+  color: rgba(var(--${({ nature }) => (nature ? nature : "theme")}-rgb), 1);
   img {
     object-fit: cover;
     width: 100%;
@@ -252,9 +252,9 @@ export default function Comments({ post }) {
   );
   const [allComments, setAllComments] = useState([]);
   const [canComment, setCanComment] = useState(false);
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [comment, setComment] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [comment, setComment] = useState("");
 
   const handleCommentSubmit = async (event) => {
     event.preventDefault();
@@ -273,11 +273,11 @@ export default function Comments({ post }) {
       console.log(response.data);
       mutate();
       // Reset the form fields
-      setName('');
-      setEmail('');
-      setComment('');
+      setName("");
+      setEmail("");
+      setComment("");
     } catch (error) {
-      console.error('Error adding comment:', error);
+      console.error("Error adding comment:", error);
     }
   };
 
@@ -301,7 +301,7 @@ export default function Comments({ post }) {
         <CommentFormComponent
           placeholder={
             <>
-              Leave a comment{' '}
+              Leave a comment{" "}
               {session?.user ? (
                 <>
                   as <strong>{session?.user?.name}</strong>
@@ -342,9 +342,9 @@ export default function Comments({ post }) {
 
 function Comment({ index, comment, postId, author, session }) {
   const user = session?.user;
-  const [replyName, setReplyName] = useState('');
-  const [replyEmail, setReplyEmail] = useState('');
-  const [replyComment, setReplyComment] = useState('');
+  const [replyName, setReplyName] = useState("");
+  const [replyEmail, setReplyEmail] = useState("");
+  const [replyComment, setReplyComment] = useState("");
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
@@ -365,17 +365,17 @@ function Comment({ index, comment, postId, author, session }) {
       console.log(response.data);
       mutate();
       // Reset the form fields
-      setReplyName('');
-      setReplyEmail('');
-      setReplyComment('');
+      setReplyName("");
+      setReplyEmail("");
+      setReplyComment("");
     } catch (error) {
-      console.error('Error adding reply:', error);
+      console.error("Error adding reply:", error);
     }
 
     // Reset the reply form fields
-    setReplyName('');
-    setReplyEmail('');
-    setReplyComment('');
+    setReplyName("");
+    setReplyEmail("");
+    setReplyComment("");
     setShowReplyForm(false);
   };
   const handleDelete = async (commentId) => {
@@ -389,11 +389,11 @@ function Comment({ index, comment, postId, author, session }) {
       console.log(response.data);
       mutate();
       // Reset the form fields
-      setReplyName('');
-      setReplyEmail('');
-      setReplyComment('');
+      setReplyName("");
+      setReplyEmail("");
+      setReplyComment("");
     } catch (error) {
-      console.error('Error adding reply:', error);
+      console.error("Error adding reply:", error);
     }
   };
 
@@ -401,12 +401,12 @@ function Comment({ index, comment, postId, author, session }) {
     <>
       <CommentCard
         id={comment._id}
-        ariaLabelledBy={comment.parentComment ? comment.parentComment : 'none'}
+        ariaLabelledBy={comment.parentComment ? comment.parentComment : "none"}
       >
         <CommentHeader>
           <CommenterProfile
             nature={
-              ['success', 'theme', 'warning', 'info', 'blog-theme', 'dark'][
+              ["success", "theme", "warning", "info", "blog-theme", "dark"][
                 index % 6
               ]
             }
@@ -425,19 +425,19 @@ function Comment({ index, comment, postId, author, session }) {
                   e.preventDefault();
                   e.stopPropagation();
                 }}
-                open={showOptions ? 'true' : 'false'}
+                open={showOptions ? "true" : "false"}
               >
                 <span>Report</span>
 
-                {user?.role === 'admin' || user?.id === author?.user?._id ? (
+                {user?.role === "admin" || user?.id === author?.user?._id ? (
                   <span
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
                       toast.promise(handleDelete(comment._id), {
-                        loading: 'Deleting comment to the post...',
-                        success: 'Comment deleted Successfully',
-                        error: 'Error deleting the Comment!!',
+                        loading: "Deleting comment to the post...",
+                        success: "Comment deleted Successfully",
+                        error: "Error deleting the Comment!!",
                       });
                     }}
                   >
@@ -467,7 +467,7 @@ function Comment({ index, comment, postId, author, session }) {
             setCanComment={setShowReplyForm}
             placeholder={
               <>
-                Add a reply{' '}
+                Add a reply{" "}
                 {session?.user ? (
                   <>
                     as <strong>{session?.user?.name}</strong>
@@ -518,7 +518,7 @@ function CommentFormComponent({
         <InsertReply onClick={() => setCanComment(!canComment)}>
           <CommenterProfile
             nature={
-              ['success', 'theme', 'warning', 'info', 'blog-theme', 'dark'][
+              ["success", "theme", "warning", "info", "blog-theme", "dark"][
                 69 % 6
               ]
             }
@@ -535,24 +535,24 @@ function CommentFormComponent({
                 getInitials(session?.user?.name)
               )
             ) : (
-              'A'
+              "A"
             )}
           </CommenterProfile>
-          <span> {placeholder ? placeholder : 'Leave a comment'}</span>
+          <span> {placeholder ? placeholder : "Leave a comment"}</span>
         </InsertReply>
       ) : (
         <CommentForm
           onSubmit={(event) =>
             toast.promise(handleCommentSubmit(event), {
-              loading: 'Adding comment to the post...',
-              success: 'Comment added Successfully',
-              error: 'Error creating the Comment!!',
+              loading: "Adding comment to the post...",
+              success: "Comment added Successfully",
+              error: "Error creating the Comment!!",
             })
           }
         >
           <CommenterProfile
             nature={
-              ['success', 'theme', 'warning', 'info', 'blog-theme', 'dark'][
+              ["success", "theme", "warning", "info", "blog-theme", "dark"][
                 69 % 6
               ]
             }
@@ -569,7 +569,7 @@ function CommentFormComponent({
                 getInitials(session?.user?.name)
               )
             ) : (
-              'A'
+              "A"
             )}
           </CommenterProfile>
           <div className="elements">

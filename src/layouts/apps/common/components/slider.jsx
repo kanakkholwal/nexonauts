@@ -1,8 +1,8 @@
 // components/InputField.tsx
 // import { InputType } from "../types"
 
-import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
+import { Label } from "@/components/ui/label";
+import { Slider } from "@/components/ui/slider";
 
 // interface SliderFieldProps {
 //     input: InputType;
@@ -26,7 +26,7 @@ const SliderField = ({ input, type, value, onChange }) => {
         <span className="text-sm text-gray-500">{value[input.id]}</span>
       </div>
       <Slider
-        defaultValue={[parseInt(input.constraints?.default_value ?? '0')]}
+        defaultValue={[parseInt(input.constraints?.default_value ?? "0")]}
         step={1}
         min={input.constraints?.min_value}
         max={input.constraints?.max_value}

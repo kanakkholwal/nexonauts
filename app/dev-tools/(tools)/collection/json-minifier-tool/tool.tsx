@@ -1,23 +1,23 @@
-'use client';
-import { Button } from '@/components/ui/button';
+"use client";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import CodeBlock from 'components/CodeBlock';
-import { useState } from 'react';
-import { FaCompressArrowsAlt, FaExpandArrowsAlt } from 'react-icons/fa';
-import { MdContentCopy, MdDeleteOutline } from 'react-icons/md';
-import { toast } from 'sonner';
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import CodeBlock from "components/CodeBlock";
+import { useState } from "react";
+import { FaCompressArrowsAlt, FaExpandArrowsAlt } from "react-icons/fa";
+import { MdContentCopy, MdDeleteOutline } from "react-icons/md";
+import { toast } from "sonner";
 
 export default function JsonMinifierPrettifier() {
-  const [value, setValue] = useState('');
-  const [output, setOutput] = useState('');
+  const [value, setValue] = useState("");
+  const [output, setOutput] = useState("");
 
   return (
     <div className="flex gap-2 justify-around items-start w-full flex-col lg:flex-row">
@@ -33,7 +33,7 @@ export default function JsonMinifierPrettifier() {
             rows={10}
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            style={{ fontFamily: 'var(--code-font)!important' }}
+            style={{ fontFamily: "var(--code-font)!important" }}
           />
         </CardContent>
 
@@ -42,12 +42,12 @@ export default function JsonMinifierPrettifier() {
             onClick={() => {
               setOutput(
                 value
-                  .replace(/([^0-9a-zA-Z\.#])\s+/g, '$1')
-                  .replace(/\s([^0-9a-zA-Z\.#]+)/g, '$1')
-                  .replace(/;}/g, '}')
-                  .replace(/\/\*.*?\*\//g, '')
+                  .replace(/([^0-9a-zA-Z\.#])\s+/g, "$1")
+                  .replace(/\s([^0-9a-zA-Z\.#]+)/g, "$1")
+                  .replace(/;}/g, "}")
+                  .replace(/\/\*.*?\*\//g, "")
               );
-              toast.success('Minified!!!');
+              toast.success("Minified!!!");
             }}
           >
             Minify <FaCompressArrowsAlt className="w-4 h-4 ml-2" />
@@ -69,7 +69,7 @@ export default function JsonMinifierPrettifier() {
           >
             Beautify <FaExpandArrowsAlt className="w-4 h-4 ml-2" />
           </Button>
-          <Button variant="destructive" onClick={() => setValue('')}>
+          <Button variant="destructive" onClick={() => setValue("")}>
             Clear <MdDeleteOutline className="w-4 h-4 ml-2" />
           </Button>
           <Button
@@ -78,10 +78,10 @@ export default function JsonMinifierPrettifier() {
               navigator.clipboard
                 .writeText(value)
                 .then(() => {
-                  toast.success('Copied!!');
+                  toast.success("Copied!!");
                 })
                 .catch(() => {
-                  toast.error('Something went wrong!!');
+                  toast.error("Something went wrong!!");
                 });
             }}
           >
@@ -97,7 +97,7 @@ export default function JsonMinifierPrettifier() {
           {output ? (
             <CodeBlock language="js" title="Output JSON" content={output} />
           ) : (
-            'Paste JSON in input box to get started'
+            "Paste JSON in input box to get started"
           )}
         </CardContent>
       </Card>

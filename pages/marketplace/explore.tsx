@@ -1,9 +1,9 @@
-import { getSession } from 'next-auth/react';
+import { getSession } from "next-auth/react";
 
-import Link from 'next/link';
-import { FULL_DESCRIPTION, NAME, TITLE } from 'src/constants/marketplace';
-import Wrapper from 'src/layouts/marketplace';
-import { Item_types } from 'src/lib/marketplace/item-types';
+import Link from "next/link";
+import { FULL_DESCRIPTION, NAME, TITLE } from "src/constants/marketplace";
+import Wrapper from "src/layouts/marketplace";
+import { Item_types } from "src/lib/marketplace/item-types";
 
 export default function Market({ user }) {
   return (
@@ -60,7 +60,7 @@ export async function getServerSideProps(context) {
   if (!session)
     return {
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
       },
     };

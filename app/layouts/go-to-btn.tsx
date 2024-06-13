@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { ArrowUpRight } from 'lucide-react';
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
+import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function GoToBtn() {
   const { data: session } = useSession();
@@ -11,13 +11,13 @@ export default function GoToBtn() {
 
   return (
     <Button variant="default_light" size="sm" rounded="full" asChild>
-      <Link href={isSignedIn ? '/feed' : '/login?ref=navbar-button'}>
+      <Link href={isSignedIn ? "/feed" : "/login?ref=navbar-button"}>
         {isSignedIn ? (
           <>
             Go to Feed <ArrowUpRight />
           </>
         ) : (
-          'Sign In'
+          "Sign In"
         )}
       </Link>
     </Button>

@@ -1,16 +1,16 @@
-'use client';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+"use client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Share2 } from 'lucide-react';
-import { FiMoreHorizontal } from 'react-icons/fi';
-import { useShare } from 'src/hooks/use-share';
+} from "@/components/ui/dialog";
+import { Share2 } from "lucide-react";
+import { FiMoreHorizontal } from "react-icons/fi";
+import { useShare } from "src/hooks/use-share";
 
 export function ShareProfile({
   profile,
@@ -67,7 +67,7 @@ export function ShareProfile({
               className="rounded-full"
               size="icon"
               variant="slate"
-              onClick={() => window.open(social.url, '_blank')}
+              onClick={() => window.open(social.url, "_blank")}
               title={`Share on ${social.name}`}
             >
               <social.icon className="w-4 h-4" />

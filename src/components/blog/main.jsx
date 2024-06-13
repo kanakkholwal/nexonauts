@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { PostCard } from './postCard';
+import styled from "styled-components";
+import { PostCard } from "./postCard";
 
 const MainWrapper = styled.div`
   display: flex;

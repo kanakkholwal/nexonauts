@@ -1,23 +1,23 @@
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { ChevronRight } from 'lucide-react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { Suspense } from 'react';
-import { CgSpinnerTwo } from 'react-icons/cg';
-import { getSession } from 'src/lib/auth';
-import dbConnect from 'src/lib/dbConnect';
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { ChevronRight } from "lucide-react";
+import { Metadata } from "next";
+import Link from "next/link";
+import { Suspense } from "react";
+import { CgSpinnerTwo } from "react-icons/cg";
+import { getSession } from "src/lib/auth";
+import dbConnect from "src/lib/dbConnect";
 import {
   Icon,
   INTEGRATION_DESCRIPTIONS,
   INTEGRATIONS,
-} from 'src/lib/integrations';
-import User from 'src/models/user';
-import { sessionType } from 'src/types/session';
+} from "src/lib/integrations";
+import User from "src/models/user";
+import { sessionType } from "src/types/session";
 
 export const metadata: Metadata = {
-  title: 'Integrations',
-  description: 'Integrations Settings page',
+  title: "Integrations",
+  description: "Integrations Settings page",
 };
 
 export default async function IntegrationPage() {
@@ -25,7 +25,7 @@ export default async function IntegrationPage() {
 
   await dbConnect();
   const user = await User.findById(session.user._id)
-    .select('integrations')
+    .select("integrations")
     .exec();
   console.log(user);
   // if (!user.integrations) {
@@ -61,7 +61,7 @@ export default async function IntegrationPage() {
         <Suspense
           fallback={
             <div className="flex items-center justify-center h-40">
-              <CgSpinnerTwo className="animate-spin h-10 w-10 text-primary" />{' '}
+              <CgSpinnerTwo className="animate-spin h-10 w-10 text-primary" />{" "}
             </div>
           }
         >
@@ -84,13 +84,13 @@ export default async function IntegrationPage() {
                       <Badge
                         variant={
                           integrations[integration].integrated
-                            ? 'success'
-                            : 'secondary'
+                            ? "success"
+                            : "secondary"
                         }
                       >
                         {integrations[integration].integrated
-                          ? 'Connected'
-                          : 'Connect'}
+                          ? "Connected"
+                          : "Connect"}
                       </Badge>
                     </div>
                   </div>

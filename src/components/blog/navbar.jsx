@@ -1,21 +1,21 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import styled from 'styled-components';
-import { CgMenu, CgSearch, CgClose } from 'react-icons/cg';
-import { IoSettingsOutline } from 'react-icons/io5';
-import { TbCrown } from 'react-icons/tb';
-import { FaRegUser } from 'react-icons/fa';
-import { MdLogout } from 'react-icons/md';
+import Link from "next/link";
+import Image from "next/image";
+import styled from "styled-components";
+import { CgMenu, CgSearch, CgClose } from "react-icons/cg";
+import { IoSettingsOutline } from "react-icons/io5";
+import { TbCrown } from "react-icons/tb";
+import { FaRegUser } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
   ProfileDropDownInfo,
   ProfileWrapper,
   Profile,
   ProfileDropDown,
   ProfileDropDownItem,
-} from 'components/navbar';
-import { useSession } from 'next-auth/react';
+} from "components/navbar";
+import { useSession } from "next-auth/react";
 
 const Wrapper = styled.div`
   position: sticky;
@@ -179,11 +179,11 @@ export function NavBar() {
                   src={
                     session?.user?.profileURL
                       ? session?.user?.profileURL
-                      : 'https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png'
+                      : "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"
                   }
                   height={40}
                   width={40}
-                  alt={session?.user?.name ?? 'User Profile'}
+                  alt={session?.user?.name ?? "User Profile"}
                 />
               </Profile>
               <ProfileDropDown open={open}>
@@ -193,19 +193,19 @@ export function NavBar() {
                       src={
                         session?.user?.profileURL
                           ? session?.user?.profileURL
-                          : 'https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png'
+                          : "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"
                       }
                       height={40}
                       width={40}
-                      alt={session?.user?.name ?? 'User Profile'}
+                      alt={session?.user?.name ?? "User Profile"}
                     />
                   </div>
                   <div className="Info">
-                    <h6>{session?.user?.name ?? 'User Name'}</h6>
-                    <p>@{session?.user?.username ?? 'User name'}</p>
+                    <h6>{session?.user?.name ?? "User Name"}</h6>
+                    <p>@{session?.user?.username ?? "User name"}</p>
                   </div>
                 </ProfileDropDownInfo>
-                <ProfileDropDownItem as={Link} href={'/dashboard/profile'}>
+                <ProfileDropDownItem as={Link} href={"/dashboard/profile"}>
                   <FaRegUser size={14} />
                   Your Profile
                 </ProfileDropDownItem>
@@ -222,7 +222,7 @@ export function NavBar() {
                   Upgrade Account
                 </ProfileDropDownItem>
                 <ProfileDropDownItem
-                  as={'button'}
+                  as={"button"}
                   onClick={(e) => {
                     e.preventDefault();
                     signOut();
@@ -252,7 +252,7 @@ const SearchWrapper = styled.form`
   --width: 300px;
 `;
 
-const SearchInput = styled.input.attrs({ type: 'text' })`
+const SearchInput = styled.input.attrs({ type: "text" })`
   height: 3rem;
   border: none;
   outline: none;
@@ -433,17 +433,17 @@ const shimmer = (w, h) => `
   <animate xlink:href="#r" attributeName="x" from="-${w}" to="${w}" dur="1s" repeatCount="indefinite"  />
 </svg>`;
 const toBase64 = (str) =>
-  typeof window === 'undefined'
-    ? Buffer.from(str).toString('base64')
+  typeof window === "undefined"
+    ? Buffer.from(str).toString("base64")
     : window.btoa(str);
 
 export default function NavBarSearch() {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   const [loading, setLoading] = useState(false);
   const [isDropOpen, setDropOpen] = useState(false);
   const [isSearchActive, setSearchActive] = useState(false);
   const [result, setResult] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -460,7 +460,7 @@ export default function NavBarSearch() {
       return;
     }
 
-    await fetch('')
+    await fetch("")
       .then((res) => res.json())
       .then((json) => {
         setResult(
@@ -595,7 +595,7 @@ function Result({ tool }) {
         loading="lazy"
         placeholder="blur"
         blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
-        src={'/icons/' + service_name + '.svg'}
+        src={"/icons/" + service_name + ".svg"}
       />
       <div>
         <h6>{title}</h6>

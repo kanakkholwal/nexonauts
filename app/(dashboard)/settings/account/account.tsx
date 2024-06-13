@@ -1,9 +1,9 @@
-'use client';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import axios from 'axios';
+"use client";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import axios from "axios";
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Dialog,
   DialogContent,
@@ -11,21 +11,21 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 
-import { Button } from '@/components/ui/button';
-import { Pencil, Save, X } from 'lucide-react';
-import { useSession } from 'next-auth/react';
-import Image from 'next/image';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { BiLockAlt } from 'react-icons/bi';
-import { CgSpinnerAlt } from 'react-icons/cg';
-import { LuImage } from 'react-icons/lu';
-import { SessionUserType } from 'src/types/user';
+import { Button } from "@/components/ui/button";
+import { Pencil, Save, X } from "lucide-react";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { BiLockAlt } from "react-icons/bi";
+import { CgSpinnerAlt } from "react-icons/cg";
+import { LuImage } from "react-icons/lu";
+import { SessionUserType } from "src/types/user";
 
 const DEFAULT_PROFILE_URL =
-  'https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png';
+  "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png";
 
 type Props = {
   user: SessionUserType;
@@ -47,43 +47,43 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
   const { handleUpdateName } = serverActions;
   const [user, setUser] = useState(CurrentUser);
   const { data: session, update } = useSession();
-  const [currentPassword, setCurrentPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [editingName, setEditingName] = useState(false);
   // const [editingEmail, setEditingEmail] = useState(false);
   const [editingPassword, setEditingPassword] = useState(false);
   const [imageStatus, setImageStatus] = useState(
-    'idle' as 'idle' | 'loading' | 'success' | 'error'
+    "idle" as "idle" | "loading" | "success" | "error"
   );
 
   const handleFiles = async (file) => {
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
     const CLOUDINARY_UPLOAD_PRESET =
       process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET;
     if (!CLOUDINARY_UPLOAD_PRESET) {
-      toast.error('CLOUDINARY_UPLOAD_PRESET is missing');
+      toast.error("CLOUDINARY_UPLOAD_PRESET is missing");
       return;
     }
     const CLOUDINARY_FOLDER = process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER;
     if (!CLOUDINARY_FOLDER) {
-      toast.error('CLOUDINARY_FOLDER is missing');
+      toast.error("CLOUDINARY_FOLDER is missing");
       return;
     }
     const CLOUDINARY_CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME;
     if (!CLOUDINARY_CLOUD_NAME) {
-      toast.error('CLOUDINARY_CLOUD_NAME is missing');
+      toast.error("CLOUDINARY_CLOUD_NAME is missing");
       return;
     }
-    formData.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-    formData.append('folder', CLOUDINARY_FOLDER);
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+    formData.append("folder", CLOUDINARY_FOLDER);
 
-    setImageStatus('loading');
+    setImageStatus("loading");
     // upload image to cloudinary and get url
     await axios(
       `https://api.cloudinary.com/v1_1/${CLOUDINARY_CLOUD_NAME}/image/upload`,
       {
-        method: 'POST',
+        method: "POST",
         data: formData,
       }
     )
@@ -91,14 +91,14 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
         const file = res.data;
         // console.log(file);
         setUser({ ...user, profilePicture: file.secure_url });
-        setImageStatus('success');
+        setImageStatus("success");
       })
       .catch((err) => {
         console.log(err);
-        setImageStatus('error');
+        setImageStatus("error");
       })
       .finally(() => {
-        setImageStatus('idle');
+        setImageStatus("idle");
       });
   };
 
@@ -108,9 +108,9 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
     if (files && files.length) {
       console.log(files);
       toast.promise(handleFiles(files[0]), {
-        loading: 'Uploading..',
-        success: 'Image uploaded successfully',
-        error: 'Something went wrong',
+        loading: "Uploading..",
+        success: "Image uploaded successfully",
+        error: "Something went wrong",
       });
     }
   };
@@ -121,22 +121,22 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
       toast.error("New password can't be same as old password");
       return;
     }
-    if (currentPassword.trim() === '' || confirmPassword.trim().length < 6) {
-      toast.error('Invalid password');
+    if (currentPassword.trim() === "" || confirmPassword.trim().length < 6) {
+      toast.error("Invalid password");
       return;
     }
     toast
       .promise(
         serverActions.handleUpdatePassword(currentPassword, confirmPassword),
         {
-          loading: 'Updating password..',
-          success: 'Password updated successfully',
-          error: 'Something went wrong',
+          loading: "Updating password..",
+          success: "Password updated successfully",
+          error: "Something went wrong",
         }
       )
       .finally(() => {
-        setCurrentPassword('');
-        setConfirmPassword('');
+        setCurrentPassword("");
+        setConfirmPassword("");
         setEditingPassword(false);
       });
   };
@@ -147,8 +147,8 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
         // Check if the HTTP status code is in the 200 range (success)
         if (response.status >= 200 && response.status < 300) {
           // Check the content type in the response headers
-          const contentType = response.headers.get('content-type');
-          if (contentType && contentType.startsWith('image/')) {
+          const contentType = response.headers.get("content-type");
+          if (contentType && contentType.startsWith("image/")) {
             return true; // It's a valid image URL
           }
         }
@@ -206,9 +206,9 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                   <Image
                     width={150}
                     height={150}
-                    alt={'user profile image'}
+                    alt={"user profile image"}
                     src={
-                      'https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png'
+                      "https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png"
                     }
                   />
                 )}
@@ -232,11 +232,11 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
               <div className="flex items-center gap-2 w-full">
                 <div className="relative grow">
                   <Label className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                    {imageStatus === 'loading' ? (
+                    {imageStatus === "loading" ? (
                       <CgSpinnerAlt className="w-4 h-4 animate-spin" />
                     ) : (
                       <LuImage
-                        className={`w-4 h-4 ${imageStatus === 'success' && 'text-green-500'} ${imageStatus === 'error' && 'text-red-500'}`}
+                        className={`w-4 h-4 ${imageStatus === "success" && "text-green-500"} ${imageStatus === "error" && "text-red-500"}`}
                       />
                     )}
                   </Label>
@@ -249,7 +249,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                     value={user.profilePicture.toString()}
                     onChange={async (e) => {
                       const url = e.target.value;
-                      setImageStatus('loading');
+                      setImageStatus("loading");
                       await isImageURLValid(url)
                         .then((valid) => {
                           if (valid) {
@@ -258,16 +258,16 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                               profilePicture: url,
                             });
                           } else {
-                            toast.error('Invalid Image URL');
+                            toast.error("Invalid Image URL");
                           }
                         })
                         .catch((err) => {
                           console.log(err);
-                          setImageStatus('error');
-                          toast.error('Invalid Image URL');
+                          setImageStatus("error");
+                          toast.error("Invalid Image URL");
                         })
                         .finally(() => {
-                          setImageStatus('idle');
+                          setImageStatus("idle");
                         });
                     }}
                     variant="glass"
@@ -286,15 +286,15 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                           profilePicture: user.profilePicture,
                         },
                       });
-                      toast.success('Profile picture updated successfully');
+                      toast.success("Profile picture updated successfully");
                     } catch (err) {
                       console.log(err);
-                      toast.error('Something went wrong');
+                      toast.error("Something went wrong");
                     }
                   }}
                   disabled={
-                    imageStatus === 'loading' ||
-                    imageStatus === 'error' ||
+                    imageStatus === "loading" ||
+                    imageStatus === "error" ||
                     user?.profilePicture === DEFAULT_PROFILE_URL
                   }
                 >
@@ -334,7 +334,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
             disabled={!editingName}
           />
           <Button
-            size={'icon'}
+            size={"icon"}
             variant="default_light"
             onClick={() => {
               if (!editingName) {
@@ -343,7 +343,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
               }
 
               handleUpdateName(user.name).then((res) => {
-                if (res.result === 'success') {
+                if (res.result === "success") {
                   toast.success(res.message);
                   update({
                     ...session,
@@ -365,13 +365,13 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
           </Button>
           {editingName && (
             <Button
-              size={'icon'}
+              size={"icon"}
               variant="destructive_light"
               onClick={() => {
                 setEditingName(false);
               }}
             >
-              {' '}
+              {" "}
               <X className="w-4 h-4" />
             </Button>
           )}
@@ -474,8 +474,8 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
               onClick={changePassword}
               disabled={
                 currentPassword === confirmPassword ||
-                currentPassword.trim() === '' ||
-                confirmPassword.trim() === '' ||
+                currentPassword.trim() === "" ||
+                confirmPassword.trim() === "" ||
                 confirmPassword.trim().length < 6 ||
                 currentPassword.trim().length < 6
               }

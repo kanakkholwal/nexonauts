@@ -1,5 +1,5 @@
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import nodemailer from 'nodemailer';
+import jwt, { JwtPayload } from "jsonwebtoken";
+import nodemailer from "nodemailer";
 
 type Payload = {
   to: string;
@@ -8,7 +8,7 @@ type Payload = {
 };
 
 const smtpSettings = {
-  host: 'smtp-relay.sendinblue.com', // "smtp.gmail.com", //replace with your email provider
+  host: "smtp-relay.sendinblue.com", // "smtp.gmail.com", //replace with your email provider
   port: 587,
   auth: {
     user: process.env.MAIL_EMAIL,

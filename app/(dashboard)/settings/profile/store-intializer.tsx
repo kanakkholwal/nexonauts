@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
+import { useRef } from "react";
 
-import { profileType, useProfileStore } from './store';
+import { profileType, useProfileStore } from "./store";
 
 function StoreInitializer({ profile }: { profile: profileType }) {
   const initialized = useRef(false);

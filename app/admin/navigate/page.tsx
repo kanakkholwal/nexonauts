@@ -1,15 +1,15 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 const links = [
   {
-    title: 'Deploymemt Dashboard',
-    description: 'Deployment and hosting for Application',
-    url: 'https://vercel.com/dashboard',
+    title: "Deploymemt Dashboard",
+    description: "Deployment and hosting for Application",
+    url: "https://vercel.com/dashboard",
   },
   {
-    title: 'Github Repository',
-    description: 'Source code for this project',
-    url: 'https://github.com/kanakkholwal/nexonauts',
+    title: "Github Repository",
+    description: "Source code for this project",
+    url: "https://github.com/kanakkholwal/nexonauts",
   },
 ];
 

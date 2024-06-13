@@ -1,10 +1,10 @@
-'use client';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+"use client";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 // import { Checkbox } from "@/components/ui/checkbox"
-import { DataTableColumnHeader } from '@/components/ui/data-table';
-import { ColumnDef } from '@tanstack/react-table';
-import Link from 'next/link';
+import { DataTableColumnHeader } from "@/components/ui/data-table";
+import { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
 
 export type toolType = {
   _id: string;
@@ -44,22 +44,22 @@ export const columns: ColumnDef<toolType>[] = [
   //   enableHiding: false,
   // },
   {
-    id: 'name',
-    accessorKey: 'name',
+    id: "name",
+    accessorKey: "name",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Name" />
     ),
     cell: ({ row }) => {
       return (
-        <div className="text-left font-medium">{row.getValue('name')}</div>
+        <div className="text-left font-medium">{row.getValue("name")}</div>
       );
     },
     enableSorting: true,
     enableHiding: true,
   },
   {
-    id: 'link',
-    accessorKey: 'link',
+    id: "link",
+    accessorKey: "link",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Links" />
     ),
@@ -67,10 +67,10 @@ export const columns: ColumnDef<toolType>[] = [
       return (
         <Link
           className="text-left font-medium text-primary hover:underline"
-          href={row.getValue('link')}
+          href={row.getValue("link")}
           target="_blank"
         >
-          {row.getValue('link')}
+          {row.getValue("link")}
         </Link>
       );
     },
@@ -78,8 +78,8 @@ export const columns: ColumnDef<toolType>[] = [
     enableHiding: true,
   },
   {
-    id: 'status',
-    accessorKey: 'status',
+    id: "status",
+    accessorKey: "status",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />
     ),
@@ -88,12 +88,12 @@ export const columns: ColumnDef<toolType>[] = [
         <div className="text-left font-medium">
           <Badge
             variant={
-              row.getValue('status') === 'published'
-                ? 'success_light'
-                : 'warning_light'
+              row.getValue("status") === "published"
+                ? "success_light"
+                : "warning_light"
             }
           >
-            {row.getValue('status')}
+            {row.getValue("status")}
           </Badge>
         </div>
       );
@@ -102,15 +102,15 @@ export const columns: ColumnDef<toolType>[] = [
     enableHiding: true,
   },
   {
-    id: 'views',
-    accessorKey: 'views',
+    id: "views",
+    accessorKey: "views",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Views" />
     ),
     cell: ({ row }) => {
       return (
         <Badge className="text-left font-medium" variant="default_light">
-          {row.getValue('views')}
+          {row.getValue("views")}
         </Badge>
       );
     },
@@ -118,8 +118,8 @@ export const columns: ColumnDef<toolType>[] = [
     enableHiding: true,
   },
   {
-    id: 'verified',
-    accessorKey: 'verified',
+    id: "verified",
+    accessorKey: "verified",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Verified" />
     ),
@@ -128,10 +128,10 @@ export const columns: ColumnDef<toolType>[] = [
         <div className="text-left font-medium">
           <Badge
             variant={
-              row.getValue('verified') ? 'success_light' : 'destructive_light'
+              row.getValue("verified") ? "success_light" : "destructive_light"
             }
           >
-            {row.getValue('verified') ? 'Yes' : 'No'}
+            {row.getValue("verified") ? "Yes" : "No"}
           </Badge>
         </div>
       );
@@ -140,18 +140,18 @@ export const columns: ColumnDef<toolType>[] = [
     enableHiding: true,
   },
   {
-    id: 'updatedAt',
-    accessorKey: 'updatedAt',
+    id: "updatedAt",
+    accessorKey: "updatedAt",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Updated At" />
     ),
     cell: ({ row }) => {
-      const formatted = new Date(row.getValue('updatedAt')).toLocaleDateString(
-        'en-US',
+      const formatted = new Date(row.getValue("updatedAt")).toLocaleDateString(
+        "en-US",
         {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
+          year: "numeric",
+          month: "long",
+          day: "numeric",
         }
       );
       return <div className="text-left font-medium">{formatted}</div>;
@@ -160,9 +160,9 @@ export const columns: ColumnDef<toolType>[] = [
     enableHiding: true,
   },
   {
-    id: 'actions',
-    accessorKey: 'actions',
-    header: 'Actions',
+    id: "actions",
+    accessorKey: "actions",
+    header: "Actions",
     enableSorting: false,
     enableHiding: true,
     cell: ({ row }) => {

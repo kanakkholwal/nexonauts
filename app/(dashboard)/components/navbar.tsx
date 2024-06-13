@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,14 +8,14 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { signOut } from 'next-auth/react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { FaRegUser } from 'react-icons/fa';
-import { MdLogout } from 'react-icons/md';
-import { VscChevronDown } from 'react-icons/vsc';
-import { SessionUserType } from 'src/types/user';
+} from "@/components/ui/dropdown-menu";
+import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FaRegUser } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
+import { VscChevronDown } from "react-icons/vsc";
+import { SessionUserType } from "src/types/user";
 
 export default function Navbar({ user }: { user: SessionUserType }) {
   const pathname = usePathname();
@@ -36,7 +36,7 @@ export default function Navbar({ user }: { user: SessionUserType }) {
                 <Avatar>
                   <AvatarImage
                     src={user.profilePicture.toString()}
-                    alt={'@' + user.username}
+                    alt={"@" + user.username}
                     height={80}
                     width={80}
                     className=""

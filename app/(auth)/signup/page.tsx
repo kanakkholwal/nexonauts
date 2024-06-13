@@ -1,16 +1,16 @@
-import { Button } from '@/components/ui/button';
-import { ArrowRight, ArrowRightToLine } from 'lucide-react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { getSession } from 'src/lib/auth';
-import { registerUser } from './action';
-import { RegisterForm } from './register-form';
+import { Button } from "@/components/ui/button";
+import { ArrowRight, ArrowRightToLine } from "lucide-react";
+import { Metadata } from "next";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { getSession } from "src/lib/auth";
+import { registerUser } from "./action";
+import { RegisterForm } from "./register-form";
 
 export const metadata: Metadata = {
-  title: 'Signup | NexoNauts',
-  description: 'Register for an account on ' + process.env.NEXT_PUBLIC_APP_NAME,
-  keywords: 'register, account, ' + process.env.NEXT_PUBLIC_APP_NAME,
+  title: "Signup | NexoNauts",
+  description: "Register for an account on " + process.env.NEXT_PUBLIC_APP_NAME,
+  keywords: "register, account, " + process.env.NEXT_PUBLIC_APP_NAME,
 };
 
 interface PageProps {
@@ -21,7 +21,7 @@ interface PageProps {
 
 export default async function Page({ searchParams }: PageProps) {
   const session = await getSession();
-  if (session) return redirect('/feed');
+  if (session) return redirect("/feed");
 
   const IsWaitingList = true;
 
@@ -33,7 +33,7 @@ export default async function Page({ searchParams }: PageProps) {
         asChild
       >
         <Link
-          href={`/login${searchParams?.redirect ? `?redirect=${searchParams?.redirect}` : ''}`}
+          href={`/login${searchParams?.redirect ? `?redirect=${searchParams?.redirect}` : ""}`}
         >
           Log in
         </Link>

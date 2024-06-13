@@ -1,12 +1,12 @@
-import { getSession } from 'next-auth/react';
+import { getSession } from "next-auth/react";
 
-import React from 'react';
-import { FULL_DESCRIPTION, TITLE } from 'src/constants/marketplace';
-import Wrapper from 'src/layouts/marketplace';
+import React from "react";
+import { FULL_DESCRIPTION, TITLE } from "src/constants/marketplace";
+import Wrapper from "src/layouts/marketplace";
 import ProductCard, {
   ProductCardSkeleton,
-} from 'src/layouts/marketplace/product-card';
-import { Item_types } from 'src/lib/marketplace/item-types';
+} from "src/layouts/marketplace/product-card";
+import { Item_types } from "src/lib/marketplace/item-types";
 const cache = new Map();
 const skeleton = new Array(4).fill(0);
 
@@ -74,7 +74,7 @@ export async function getServerSideProps(context) {
   if (!session)
     return {
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
       },
     };

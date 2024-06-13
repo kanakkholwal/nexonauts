@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 type State = {
   name: string;
@@ -9,9 +9,9 @@ type State = {
 };
 
 export const useFormStore = create<State>((set) => ({
-  name: '',
-  email: '',
-  website: '',
-  github_username: '',
-  github_repo: '',
+  name: "",
+  email: "",
+  website: "",
+  github_username: "",
+  github_repo: "",
 }));

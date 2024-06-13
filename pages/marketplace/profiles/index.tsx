@@ -1,14 +1,14 @@
-import { getSession } from 'next-auth/react';
+import { getSession } from "next-auth/react";
 
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 import {
   FULL_DESCRIPTION,
   NAME,
   SHORT_DESCRIPTION,
   TITLE,
-} from 'src/constants/marketplace';
-import Wrapper from 'src/layouts/marketplace';
+} from "src/constants/marketplace";
+import Wrapper from "src/layouts/marketplace";
 
 export default function Market({ user }) {
   return (
@@ -54,7 +54,7 @@ export default function Market({ user }) {
                 src="/assets/images/illustration_dashboard.png"
                 width={500}
                 height={500}
-                alt={'NexoMart'}
+                alt={"NexoMart"}
               />
             </div>
           </div>
@@ -87,7 +87,7 @@ export async function getServerSideProps(context) {
   if (!session)
     return {
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
       },
     };

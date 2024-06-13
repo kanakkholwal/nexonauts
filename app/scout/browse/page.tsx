@@ -1,19 +1,19 @@
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import Navbar from 'app/layouts/navbar';
-import { FilterButton, SearchBar } from 'app/scout/browse/search';
-import { getTools } from 'app/scout/lib/actions';
-import LazyImage from 'components/image';
-import { Hash } from 'lucide-react';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { TracingBeam } from 'src/components/animations/tracing-beam';
-import { PublicToolPricingType } from 'src/models/tool';
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import Navbar from "app/layouts/navbar";
+import { FilterButton, SearchBar } from "app/scout/browse/search";
+import { getTools } from "app/scout/lib/actions";
+import LazyImage from "components/image";
+import { Hash } from "lucide-react";
+import { Metadata } from "next";
+import Link from "next/link";
+import { TracingBeam } from "src/components/animations/tracing-beam";
+import { PublicToolPricingType } from "src/models/tool";
 
 export const metadata: Metadata = {
-  title: 'Browse Nexo Scout - AI Tools, Services, and Resources',
+  title: "Browse Nexo Scout - AI Tools, Services, and Resources",
   description:
-    'Nexo Scout is a curated list of AI tools, services, and resources. Find the best AI tools for your business.',
+    "Nexo Scout is a curated list of AI tools, services, and resources. Find the best AI tools for your business.",
 };
 
 export default async function BrowsePage({
@@ -27,13 +27,13 @@ export default async function BrowsePage({
     offset?: string;
   };
 }) {
-  const query = searchParams?.query || '';
+  const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   const offset = Number(searchParams?.offset) || 0;
   const filter = {
     pricing_type:
-      (searchParams?.pricing_type as PublicToolPricingType) || 'all',
-    category: searchParams?.category || 'all',
+      (searchParams?.pricing_type as PublicToolPricingType) || "all",
+    category: searchParams?.category || "all",
   };
 
   const { tools, categories, totalPages, pricing_types } = await getTools(
@@ -64,7 +64,7 @@ export default async function BrowsePage({
               <SearchBar />
               <div className="flex items-center justify-between w-full mt-4  z-10">
                 <h1 className="font-semibold text-foreground">
-                  {query ? `Search results for "${query}"` : 'Browse Tools'}
+                  {query ? `Search results for "${query}"` : "Browse Tools"}
                 </h1>
                 <p className="text-sm text-muted-foreground">
                   {query
@@ -118,7 +118,7 @@ export default async function BrowsePage({
                               {tool.categories?.map((category, index) => {
                                 return (
                                   <Badge
-                                    key={category.slug + '_' + index}
+                                    key={category.slug + "_" + index}
                                     variant="success_light"
                                     size="sm"
                                     className="text-xs px-1 leading-4 gap-1"
@@ -163,7 +163,7 @@ export default async function BrowsePage({
               </p>
               <div className="flex flex-wrap gap-2">
                 <FilterButton
-                  active={filter.category === 'all'}
+                  active={filter.category === "all"}
                   filterKey="category"
                   filterValue="all"
                 >
@@ -177,7 +177,7 @@ export default async function BrowsePage({
                     filterValue={category.slug}
                     active={filter.category === category.slug}
                   >
-                    {category.name.split('_').join(' ')}
+                    {category.name.split("_").join(" ")}
                   </FilterButton>
                 ))}
               </div>
@@ -197,7 +197,7 @@ export default async function BrowsePage({
                   filterValue={pricing_type}
                   active={filter?.pricing_type === pricing_type}
                 >
-                  {pricing_type.split('_').join(' ')}
+                  {pricing_type.split("_").join(" ")}
                 </FilterButton>
               ))}
             </div>

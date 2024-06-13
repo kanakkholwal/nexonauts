@@ -1,6 +1,6 @@
 // FormContext.tsx
-import { ReactNode, createContext, useContext, useState } from 'react';
-import { AppTypeEditable } from 'src/types/app';
+import { ReactNode, createContext, useContext, useState } from "react";
+import { AppTypeEditable } from "src/types/app";
 
 interface FormContextType {
   formData: AppTypeEditable;
@@ -12,7 +12,7 @@ const FormContext = createContext<FormContextType | undefined>(undefined);
 export const useFormContext = () => {
   const context = useContext(FormContext);
   if (!context) {
-    throw new Error('useFormContext must be used within a FormProvider');
+    throw new Error("useFormContext must be used within a FormProvider");
   }
   return context;
 };

@@ -1,5 +1,5 @@
-'use client';
-import { Button } from '@/components/ui/button';
+"use client";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetClose,
@@ -9,12 +9,12 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import ThemeSwitcher from 'app/layouts/theme-switcher';
-import { Search } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
-import React from 'react';
+} from "@/components/ui/sheet";
+import ThemeSwitcher from "app/layouts/theme-switcher";
+import { Search } from "lucide-react";
+import { useTheme } from "next-themes";
+import Link from "next/link";
+import React from "react";
 
 export default function Navbar() {
   const [open, setOpen] = React.useState(false);
@@ -47,31 +47,31 @@ export default function Navbar() {
               <div
                 aria-hidden="true"
                 className={
-                  'm-auto h-0.5 w-5 rounded bg-sky-900 transition duration-300 dark:bg-gray-300' +
-                  (open ? ' translate-y-[0.375rem] rotate-[45deg]' : '')
+                  "m-auto h-0.5 w-5 rounded bg-sky-900 transition duration-300 dark:bg-gray-300" +
+                  (open ? " translate-y-[0.375rem] rotate-[45deg]" : "")
                 }
               />
               <div
                 aria-hidden="true"
                 className={
-                  'm-auto mt-2 h-0.5 w-5 rounded bg-sky-900 transition duration-300 dark:bg-gray-300' +
-                  (open ? ' translate-y-[-0.25rem] rotate-[-45deg]' : '')
+                  "m-auto mt-2 h-0.5 w-5 rounded bg-sky-900 transition duration-300 dark:bg-gray-300" +
+                  (open ? " translate-y-[-0.25rem] rotate-[-45deg]" : "")
                 }
               />
             </button>
           </div>
           <div
             id="layer"
-            aria-hidden={open ? 'false' : 'true'}
+            aria-hidden={open ? "false" : "true"}
             className="fixed inset-0 z-10 h-screen w-screen origin-bottom scale-y-0 bg-white/70 backdrop-blur-2xl transition duration-500 dark:bg-gray-900/70 lg:hidden"
           />
           <div
             id="navlinks"
             className={
-              'invisible absolute top-full left-0 z-20 w-full origin-top-right translate-y-1 scale-90 flex-col flex-wrap justify-end gap-6 rounded-3xl border border-gray-100 bg-white p-8 opacity-0 shadow-2xl shadow-gray-600/10 transition-all duration-300 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none lg:visible lg:relative lg:flex lg:w-auto lg:translate-y-0 lg:scale-100 lg:flex-row lg:items-center lg:gap-0 lg:border-none lg:bg-transparent lg:p-0 lg:opacity-100 lg:shadow-none lg:peer-checked:translate-y-0 dark:lg:bg-transparent' +
+              "invisible absolute top-full left-0 z-20 w-full origin-top-right translate-y-1 scale-90 flex-col flex-wrap justify-end gap-6 rounded-3xl border border-gray-100 bg-white p-8 opacity-0 shadow-2xl shadow-gray-600/10 transition-all duration-300 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none lg:visible lg:relative lg:flex lg:w-auto lg:translate-y-0 lg:scale-100 lg:flex-row lg:items-center lg:gap-0 lg:border-none lg:bg-transparent lg:p-0 lg:opacity-100 lg:shadow-none lg:peer-checked:translate-y-0 dark:lg:bg-transparent" +
               (open
-                ? ' !visible !scale-100 !opacity-100 !lg:translate-y-0'
-                : '')
+                ? " !visible !scale-100 !opacity-100 !lg:translate-y-0"
+                : "")
             }
           >
             <div className="text-gray-600 dark:text-gray-300 lg:pr-4">
@@ -94,7 +94,7 @@ export default function Navbar() {
                     </kbd>
                   </button>
                 </SheetTrigger>
-                <SheetContent side={'left'}>
+                <SheetContent side={"left"}>
                   <SheetHeader>
                     <SheetTitle>Are you absolutely sure?</SheetTitle>
                     <SheetDescription>

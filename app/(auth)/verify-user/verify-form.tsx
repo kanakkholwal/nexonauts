@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import Image from 'next/image';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { CgSpinner } from 'react-icons/cg';
-import { MdOutlineReportGmailerrorred } from 'react-icons/md';
-import verifyPng from './verified.png';
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { CgSpinner } from "react-icons/cg";
+import { MdOutlineReportGmailerrorred } from "react-icons/md";
+import verifyPng from "./verified.png";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   loggedIn: boolean;
@@ -30,16 +30,16 @@ export function UserAuthForm({
 
   const router = useRouter();
   const searchParams = useSearchParams() as URLSearchParams;
-  const token = searchParams.get('token') || null;
+  const token = searchParams.get("token") || null;
 
   useEffect(() => {
     if (!token && !loggedIn) {
-      router.push('/signup');
+      router.push("/signup");
     } else {
-      if (typeof token !== 'string') {
-        console.log('Invalid token');
-        setError('Invalid token');
-        toast.error('Invalid token');
+      if (typeof token !== "string") {
+        console.log("Invalid token");
+        setError("Invalid token");
+        toast.error("Invalid token");
         return;
       }
       verifyUser(token as string)
@@ -48,9 +48,9 @@ export function UserAuthForm({
           // Handle successful verification
           setTimeout(() => {
             if (!loggedIn) {
-              router.push('/login');
+              router.push("/login");
             } else {
-              router.push('/feed');
+              router.push("/feed");
             }
           }, 3000);
           setSuccess(response.message);
@@ -69,21 +69,21 @@ export function UserAuthForm({
     <>
       <div className="flex flex-col space-y-2 text-center">
         <h1 className="text-2xl font-semibold tracking-tight">
-          {isLoading ? 'Verifying' : 'Verify Email'}
+          {isLoading ? "Verifying" : "Verify Email"}
         </h1>
         <p className="text-sm text-muted-foreground">
           {isLoading
-            ? 'Please wait while we verify your email'
+            ? "Please wait while we verify your email"
             : error
               ? error
               : success
                 ? success
-                : 'Verify your emai'}
+                : "Verify your emai"}
         </p>
       </div>
       <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
         <div
-          className={cn('grid gap-6 lg:max-w-lg text-left mb-5', className)}
+          className={cn("grid gap-6 lg:max-w-lg text-left mb-5", className)}
           {...props}
         >
           <div className="flex justify-center items-center w-full">
@@ -110,7 +110,7 @@ export function UserAuthForm({
               className="mt-2 tracking-wide"
               size="lg"
               onClick={() => {
-                router.push('/login');
+                router.push("/login");
               }}
             >
               Go to Login

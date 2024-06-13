@@ -1,16 +1,16 @@
-import { CircleIcon, StarIcon } from '@radix-ui/react-icons';
+import { CircleIcon, StarIcon } from "@radix-ui/react-icons";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { formatDistance } from 'date-fns';
-import { GoRepoForked } from 'react-icons/go';
+} from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { formatDistance } from "date-fns";
+import { GoRepoForked } from "react-icons/go";
 export function RepositoryCard({ repository }) {
   return (
     <Card className="flex flex-col justify-between">
@@ -18,7 +18,7 @@ export function RepositoryCard({ repository }) {
         <div className="space-y-1">
           <CardTitle>{repository.name}</CardTitle>
           <CardDescription>
-            {repository.description || 'No description provided.'}
+            {repository.description || "No description provided."}
           </CardDescription>
         </div>
         <div className="flex items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
@@ -47,7 +47,7 @@ export function RepositoryCard({ repository }) {
             {repository.stargazers_count}
           </div>
           <div className="ml-auto">
-            Updated{' '}
+            Updated{" "}
             {formatDistance(new Date(repository.updated_at), new Date(), {
               addSuffix: true,
             })}

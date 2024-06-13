@@ -1,12 +1,12 @@
-'use client';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Separator } from '@/components/ui/separator';
-import { Switch } from '@/components/ui/switch';
-import { Textarea } from '@/components/ui/textarea';
-import { format } from 'date-fns';
-import { useMessagesStore } from '../store';
+"use client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { format } from "date-fns";
+import { useMessagesStore } from "../store";
 
 export function MessageDisplay() {
   const message = useMessagesStore((state) =>
@@ -23,9 +23,9 @@ export function MessageDisplay() {
                 <AvatarImage alt={message.name} />
                 <AvatarFallback>
                   {message.name
-                    .split(' ')
+                    .split(" ")
                     .map((chunk) => chunk[0])
-                    .join('')}
+                    .join("")}
                 </AvatarFallback>
               </Avatar>
               <div className="grid gap-1">
@@ -38,7 +38,7 @@ export function MessageDisplay() {
             </div>
             {message.createdAt && (
               <div className="ml-auto text-xs text-muted-foreground">
-                {format(new Date(message.createdAt), 'PPpp')}
+                {format(new Date(message.createdAt), "PPpp")}
               </div>
             )}
           </div>
@@ -63,7 +63,7 @@ export function MessageDisplay() {
                       id="mute"
                       aria-label="Mute thread"
                       disabled={true}
-                    />{' '}
+                    />{" "}
                     Mute this thread
                   </Label>
                   <div className="ml-auto space-x-2">

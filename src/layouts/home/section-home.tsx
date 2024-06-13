@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { BsStars } from 'react-icons/bs';
+import Image from "next/image";
+import Link from "next/link";
+import { BsStars } from "react-icons/bs";
 
 export default function SectionHome() {
   return (
@@ -17,12 +17,12 @@ export default function SectionHome() {
               src="https://ai-tool.nextjstemplates.com/images/blur/blur-02.svg"
               className="max-w-none"
               style={{
-                position: 'absolute',
-                height: '100%',
-                width: '100%',
+                position: "absolute",
+                height: "100%",
+                width: "100%",
                 top: 0,
                 left: 0,
-                color: 'transparent',
+                color: "transparent",
               }}
               loading="lazy"
               decoding="async"

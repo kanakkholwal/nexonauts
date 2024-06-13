@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Suspense } from 'react';
-import { NavList, ToggleButton } from './nav-list';
-import ThemeSwitcher from './theme-switcher';
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+import { NavList, ToggleButton } from "./nav-list";
+import ThemeSwitcher from "./theme-switcher";
 
-import { Skeleton } from '@/components/ui/skeleton';
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Navbar() {
   return (

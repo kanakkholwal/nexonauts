@@ -1,10 +1,10 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { Suspense } from 'react';
-import { getProfiles } from './actions';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Metadata } from "next";
+import Link from "next/link";
+import { Suspense } from "react";
+import { getProfiles } from "./actions";
 
 type PageProps = {
   searchParams?: {
@@ -14,17 +14,17 @@ type PageProps = {
   };
 };
 export const metadata: Metadata = {
-  title: 'Explore Developers',
-  description: 'Find developers on the platform',
+  title: "Explore Developers",
+  description: "Find developers on the platform",
   openGraph: {
-    type: 'profile',
-    title: 'Explore Developers',
-    description: 'Find developers on the platform',
+    type: "profile",
+    title: "Explore Developers",
+    description: "Find developers on the platform",
   },
 };
 
 export default async function ExploreDevelopers({ searchParams }: PageProps) {
-  const query = searchParams?.query || '';
+  const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   const offset = Number(searchParams?.offset) || 0;
 

@@ -1,46 +1,46 @@
-import { customAlphabet } from 'nanoid';
+import { customAlphabet } from "nanoid";
 
-import { Button } from '@/components/ui/button';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import dbConnect from 'src/lib/dbConnect';
-import User from 'src/models/user';
-import WaitListForm from './form';
+import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
+import Link from "next/link";
+import dbConnect from "src/lib/dbConnect";
+import User from "src/models/user";
+import WaitListForm from "./form";
 
 export const metadata: Metadata = {
-  title: 'Waitlist | NexoNauts',
-  description: 'Waitlist for an account on ' + process.env.NEXT_PUBLIC_APP_NAME,
-  keywords: 'Waitlist, account, ' + process.env.NEXT_PUBLIC_APP_NAME,
+  title: "Waitlist | NexoNauts",
+  description: "Waitlist for an account on " + process.env.NEXT_PUBLIC_APP_NAME,
+  keywords: "Waitlist, account, " + process.env.NEXT_PUBLIC_APP_NAME,
 };
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default async function Page() {
   async function joinWaitList(data: {
     name: string;
     email: string;
   }): Promise<boolean> {
-    'use server';
+    "use server";
 
     await dbConnect();
     const existingUser = await User.findOne({
       email: data.email.toLowerCase(),
     });
     if (existingUser) {
-      return Promise.reject('Email already exists');
+      return Promise.reject("Email already exists");
     }
     const user = new User({
       name: data.name,
       email: data.email,
       username: customAlphabet(
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+        "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
         8
       )(),
-      role: 'waitlist',
-      account_type: 'free',
+      role: "waitlist",
+      account_type: "free",
       verificationToken: null,
       password: customAlphabet(
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+        "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
         8
       )(),
       verified: false,
@@ -68,7 +68,7 @@ export default async function Page() {
         <p className="text-sm text-muted-foreground">It's quick and easy.</p>
       </header>
       <main className="flex flex-col items-center justify-center w-full p-4">
-        <WaitListForm key={'form'} joinWaitList={joinWaitList} />
+        <WaitListForm key={"form"} joinWaitList={joinWaitList} />
       </main>
     </>
   );

@@ -1,5 +1,5 @@
-import mongoose, { ConnectOptions, Mongoose } from 'mongoose';
-import 'server-only';
+import mongoose, { ConnectOptions, Mongoose } from "mongoose";
+import "server-only";
 
 const MONGODB_URI = process.env.MONGODB_URI as string;
 
@@ -8,7 +8,7 @@ declare const global: {
 };
 
 if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable');
+  throw new Error("Please define the MONGODB_URI environment variable");
 }
 
 /**
@@ -22,7 +22,7 @@ if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 const defaultDb =
-  process.env.NODE_ENV === 'production' ? 'production' : 'testing';
+  process.env.NODE_ENV === "production" ? "production" : "testing";
 
 async function dbConnect(dbName: string = defaultDb): Promise<Mongoose> {
   if (cached.conn) {
@@ -35,18 +35,18 @@ async function dbConnect(dbName: string = defaultDb): Promise<Mongoose> {
     };
 
     try {
-      mongoose.set('strictQuery', false);
+      mongoose.set("strictQuery", false);
       cached.promise = mongoose
         .connect(
           `${MONGODB_URI} + "?retryWrites=true&w=majority&appName=nexonauts"`,
           opts
         )
         .then((mongoose) => {
-          console.log('Connected to MongoDB to database:', dbName);
+          console.log("Connected to MongoDB to database:", dbName);
           return mongoose;
         });
     } catch (err) {
-      console.error('Error connecting to MongoDB:', err);
+      console.error("Error connecting to MongoDB:", err);
       throw err;
     }
   }

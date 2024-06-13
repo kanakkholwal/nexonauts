@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Card,
@@ -7,26 +7,26 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { CATEGORIES } from 'lib/apps/utils';
-import { useRouter } from 'next/router';
-import { useCallback, useMemo, useState } from 'react';
+} from "@/components/ui/card";
+import { CATEGORIES } from "lib/apps/utils";
+import { useRouter } from "next/router";
+import { useCallback, useMemo, useState } from "react";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import SearchFilter, { filterType } from 'layouts/apps/search-filter';
-import dbConnect from 'lib/dbConnect';
-import { GetSessionParams, getSession } from 'next-auth/react';
-import Link from 'next/link';
-import toast from 'react-hot-toast';
-import { CgSpinnerAlt } from 'react-icons/cg';
-import { FaAngleRight } from 'react-icons/fa';
-import { GrFormClose } from 'react-icons/gr';
-import { RiSearch2Line } from 'react-icons/ri';
-import { AppType, MemberShipType } from 'src/types/app';
-import { sessionType } from 'src/types/session';
-import { SessionUserType } from 'src/types/user';
-import { getAllApps } from 'src/utils/app';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import SearchFilter, { filterType } from "layouts/apps/search-filter";
+import dbConnect from "lib/dbConnect";
+import { GetSessionParams, getSession } from "next-auth/react";
+import Link from "next/link";
+import toast from "react-hot-toast";
+import { CgSpinnerAlt } from "react-icons/cg";
+import { FaAngleRight } from "react-icons/fa";
+import { GrFormClose } from "react-icons/gr";
+import { RiSearch2Line } from "react-icons/ri";
+import { AppType, MemberShipType } from "src/types/app";
+import { sessionType } from "src/types/session";
+import { SessionUserType } from "src/types/user";
+import { getAllApps } from "src/utils/app";
 
 export function AppPageUI({
   apps,
@@ -37,7 +37,7 @@ export function AppPageUI({
   apps: AppType[];
   popularApps: AppType[];
 }) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [data, setData] = useState({
     apps: apps,
     total: apps.length,
@@ -49,18 +49,18 @@ export function AppPageUI({
   const { category } = router.query;
 
   const [filter, setFilter] = useState<filterType>({
-    categories: [category ? (category as string) : ''],
+    categories: [category ? (category as string) : ""],
     membership: [],
-    popularity: '',
+    popularity: "",
   });
 
   const handleFilters = useCallback(() => {
     router.push(
       {
-        pathname: '/apps',
+        pathname: "/apps",
         query: {
           query: query,
-          category: filter.categories.join(','),
+          category: filter.categories.join(","),
           membership: filter.membership,
           popularity: filter.popularity,
         },
@@ -72,22 +72,22 @@ export function AppPageUI({
   //  memoize apps with filters
   const filteredApps = useMemo(() => {
     let filteredApps = apps;
-    if (filter.categories.toString().trim() !== '') {
+    if (filter.categories.toString().trim() !== "") {
       filteredApps = filteredApps.filter((app) => {
         return filter.categories.every((category) =>
           app.categories.includes(category)
         );
       });
     }
-    if (filter.membership.toString().trim() !== '') {
+    if (filter.membership.toString().trim() !== "") {
       filteredApps = filteredApps.filter((app: AppType) => {
         return filter.membership.some((item) =>
           app.membership.includes(item as MemberShipType)
         );
       });
     }
-    if (filter.popularity.toString().trim() !== '') {
-      if (filter.popularity === 'new') {
+    if (filter.popularity.toString().trim() !== "") {
+      if (filter.popularity === "new") {
         filteredApps = filteredApps.sort((a, b) => {
           return (
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
@@ -115,7 +115,7 @@ export function AppPageUI({
         const data = await response.json();
         if (data.success === true) {
           if (data.total === 0) {
-            toast.error('No apps found');
+            toast.error("No apps found");
             return;
           }
           if (data.total > 0) {
@@ -143,16 +143,16 @@ export function AppPageUI({
         <div className="mt-5 group shadow-lg relative aiSearch-border-gredient border border-[#8f59ec] rounded-lg lg:py-2 lg:pl-6 p-4 flex gap-1 justify-center md:justify-between lg:flex-row items-center">
           <RiSearch2Line className="text-accent-foreground w-5 h-5" />
           <Input
-            placeholder={'Search for an app or what kind of work you need...'}
+            placeholder={"Search for an app or what kind of work you need..."}
             className="w-auto max-w-full grow"
             onChange={(e) => {
               setQuery(e.target.value);
               router.push(
                 {
-                  pathname: '/apps',
+                  pathname: "/apps",
                   query: {
                     query: e.target.value,
-                    category: filter.categories.join(','),
+                    category: filter.categories.join(","),
                     membership: filter.membership,
                     popularity: filter.popularity,
                   },
@@ -168,15 +168,15 @@ export function AppPageUI({
             variant="secondary"
             disabled={query.trim().length === 0}
             className={
-              'flex-shrink-0 !p-3 !rounded-full !bg-none ' +
-              (query.trim().length === 0 ? 'hidden' : '')
+              "flex-shrink-0 !p-3 !rounded-full !bg-none " +
+              (query.trim().length === 0 ? "hidden" : "")
             }
             onClick={() => {
               if (loading) {
                 return;
               }
               if (query.trim().length > 0) {
-                setQuery('');
+                setQuery("");
               }
             }}
           >

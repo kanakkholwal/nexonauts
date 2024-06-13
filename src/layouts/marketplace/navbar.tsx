@@ -1,14 +1,14 @@
-'use client';
+"use client";
 // import { Button } from "@/components/ui/button";
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import * as React from 'react';
-import { NAME } from 'src/constants/marketplace';
-import { SessionUserType } from 'src/types/user';
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import * as React from "react";
+import { NAME } from "src/constants/marketplace";
+import { SessionUserType } from "src/types/user";
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,7 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -27,91 +27,91 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
-import { cn } from '@/lib/utils';
+} from "@/components/ui/navigation-menu";
+import { cn } from "@/lib/utils";
 
-import { signOut } from 'next-auth/react';
+import { signOut } from "next-auth/react";
 
 const product_types = [
   {
-    title: 'Templates',
-    href: '/marketplace/explore?type=template',
+    title: "Templates",
+    href: "/marketplace/explore?type=template",
     description:
-      'Templates are pre-built websites that you can use as a starting point for your own website.',
+      "Templates are pre-built websites that you can use as a starting point for your own website.",
   },
   {
-    title: 'UI Kits',
-    href: '/marketplace/explore?type=uikit',
+    title: "UI Kits",
+    href: "/marketplace/explore?type=uikit",
     description:
-      'UI Kits are collections of components that can be used to build a website.',
+      "UI Kits are collections of components that can be used to build a website.",
   },
   {
-    title: 'E-Books',
-    href: '/marketplace/explore?type=ebook',
+    title: "E-Books",
+    href: "/marketplace/explore?type=ebook",
     description:
-      'E-Books are digital books that can be read on your computer, tablet, or phone.',
+      "E-Books are digital books that can be read on your computer, tablet, or phone.",
   },
   {
-    title: 'Plugins',
-    href: '/marketplace/explore?type=plugin',
+    title: "Plugins",
+    href: "/marketplace/explore?type=plugin",
     description:
-      'Plugins are software components that add specific features to an existing program.',
+      "Plugins are software components that add specific features to an existing program.",
   },
   {
-    title: 'Themes',
-    href: '/marketplace/explore?type=theme',
+    title: "Themes",
+    href: "/marketplace/explore?type=theme",
     description:
-      'Themes are pre-built websites that you can use as a starting point for your own website.',
+      "Themes are pre-built websites that you can use as a starting point for your own website.",
   },
   {
-    title: 'Graphics',
-    href: '/marketplace/explore?type=graphic',
+    title: "Graphics",
+    href: "/marketplace/explore?type=graphic",
     description:
-      'Graphics are pre-built websites that you can use as a starting point for your own website.',
+      "Graphics are pre-built websites that you can use as a starting point for your own website.",
   },
   {
-    title: 'Fonts',
-    href: '/marketplace/explore?type=font',
+    title: "Fonts",
+    href: "/marketplace/explore?type=font",
     description:
-      'Fonts are pre-built websites that you can use as a starting point for your own website.',
+      "Fonts are pre-built websites that you can use as a starting point for your own website.",
   },
   // { title: 'Videos', href: '/marketplace/explore?type=video',description:"Videos are pre-built websites that you can use as a starting point for your own website." },
   {
-    title: 'Courses',
-    href: '/marketplace/explore?type=course',
+    title: "Courses",
+    href: "/marketplace/explore?type=course",
     description:
-      'Courses are pre-built websites that you can use as a starting point for your own website.',
+      "Courses are pre-built websites that you can use as a starting point for your own website.",
   },
   // { title: 'Audio', href: '/marketplace/explore?type=audio' ,description:"Audio are pre-built websites that you can use as a starting point for your own website."},
   // { title: '3D Assets', href: '/marketplace/explore?type=3d' ,description:"3D Assets are pre-built websites that you can use as a starting point for your own website."},
   // { title: 'Tools', href: '/marketplace/explore?type=tool',description:"Tools are pre-built websites that you can use as a starting point for your own website." },
   {
-    title: 'Mobile Apps',
-    href: '/marketplace/explore?type=mobileapp',
+    title: "Mobile Apps",
+    href: "/marketplace/explore?type=mobileapp",
     description:
-      'Mobile Apps are pre-built websites that you can use as a starting point for your own website.',
+      "Mobile Apps are pre-built websites that you can use as a starting point for your own website.",
   },
   {
-    title: 'Desktop Apps',
-    href: '/marketplace/explore?type=desktopapp',
+    title: "Desktop Apps",
+    href: "/marketplace/explore?type=desktopapp",
     description:
-      'Desktop Apps are pre-built websites that you can use as a starting point for your own website.',
+      "Desktop Apps are pre-built websites that you can use as a starting point for your own website.",
   },
   // { title: 'SaaS', href: '/marketplace/explore?type=saas',description:"SaaS are pre-built websites that you can use as a starting point for your own website." },
   // { title: 'Games', href: '/marketplace/explore?type=game' ,description:"Games are pre-built websites that you can use as a starting point for your own website."},
   // { title: 'Websites', href: '/marketplace/explore?type=website' ,description:"Websites are pre-built websites that you can use as a starting point for your own website."},
   // { title: 'Jobs', href: '/marketplace/explore?type=job',description:"Jobs are pre-built websites that you can use as a starting point for your own website." },
   {
-    title: 'Services',
-    href: '/marketplace/explore?type=service',
+    title: "Services",
+    href: "/marketplace/explore?type=service",
     description:
-      'Services are pre-built websites that you can use as a starting point for your own website.',
+      "Services are pre-built websites that you can use as a starting point for your own website.",
   },
   {
-    title: 'Other',
-    href: '/marketplace/explore?type=other',
+    title: "Other",
+    href: "/marketplace/explore?type=other",
     description:
-      'Other are pre-built websites that you can use as a starting point for your own website.',
+      "Other are pre-built websites that you can use as a starting point for your own website.",
   },
 ];
 
@@ -340,7 +340,7 @@ export function NavigationMenuBar() {
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link
-            href={'/signup?continue=' + encodeURIComponent(router.asPath)}
+            href={"/signup?continue=" + encodeURIComponent(router.asPath)}
             legacyBehavior
             passHref
           >
@@ -355,8 +355,8 @@ export function NavigationMenuBar() {
 }
 
 const ListItem = React.forwardRef<
-  React.ElementRef<'a'>,
-  React.ComponentPropsWithoutRef<'a'>
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
 >(({ className, title, children, ...props }, ref) => {
   return (
     <li>
@@ -364,7 +364,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
           )}
           {...props}
@@ -378,4 +378,4 @@ const ListItem = React.forwardRef<
     </li>
   );
 });
-ListItem.displayName = 'ListItem';
+ListItem.displayName = "ListItem";

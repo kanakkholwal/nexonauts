@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
+import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 
 import {
   Sheet,
@@ -9,31 +9,31 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
+} from "@/components/ui/sheet";
 import {
   ArrowRight,
   ArrowUpRight,
   Import,
   LoaderCircle,
   Plus,
-} from 'lucide-react';
-import { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Suspense } from 'react';
-import { Icon } from 'src/lib/integrations/index';
+} from "lucide-react";
+import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+import { Icon } from "src/lib/integrations/index";
 import {
   deleteProduct,
   fetchFromIntegration,
   getProducts,
   importProduct,
-} from './actions';
-import DeleteProductButton from './components/delete-btn';
-import { FilterAndSort, ImportedProductCard } from './components/products';
+} from "./actions";
+import DeleteProductButton from "./components/delete-btn";
+import { FilterAndSort, ImportedProductCard } from "./components/products";
 
 export const metadata: Metadata = {
-  title: 'My Products',
-  description: 'My Products page',
+  title: "My Products",
+  description: "My Products page",
 };
 type PageProps = {
   searchParams: {
@@ -42,22 +42,22 @@ type PageProps = {
     sort?: string;
   };
 };
-const availableIntegrations = ['gumroad'];
+const availableIntegrations = ["gumroad"];
 
 export default async function MyProducts({ searchParams }: PageProps) {
   const { products, integrated } = await getProducts(
-    searchParams.filter ?? 'all',
-    searchParams.sort ?? 'latest'
+    searchParams.filter ?? "all",
+    searchParams.sort ?? "latest"
   );
 
   const importFrom = availableIntegrations.includes(
-    searchParams?.importFrom ?? 'none'
+    searchParams?.importFrom ?? "none"
   )
     ? searchParams.importFrom
     : null;
 
   const getFromIntegrations = async () => {
-    'use server';
+    "use server";
     if (importFrom === null) return Promise.resolve([]);
 
     if (!availableIntegrations.includes(importFrom as string)) {
@@ -150,7 +150,7 @@ export default async function MyProducts({ searchParams }: PageProps) {
                         ) : (
                           <Button asChild>
                             <Link
-                              href={`/settings/integrations/${integration}?next=${encodeURI('/products?importFrom=' + integration)}`}
+                              href={`/settings/integrations/${integration}?next=${encodeURI("/products?importFrom=" + integration)}`}
                             >
                               Connect {integration}
                               <ArrowUpRight className="h-5 w-5" />

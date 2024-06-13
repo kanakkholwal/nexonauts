@@ -1,12 +1,12 @@
-import { cn } from '@/lib/utils';
-import './square-grid.css';
+import { cn } from "@/lib/utils";
+import "./square-grid.css";
 
 export default function SquareGrid({ className }: { className?: string }) {
   return (
     <div
       aria-hidden="true"
       className={cn(
-        'absolute inset-0 grid grid-cols-2 -space-x-52 pattern-square_grid invert dark:invert-0 -z-[1]',
+        "absolute inset-0 grid grid-cols-2 -space-x-52 pattern-square_grid invert dark:invert-0 -z-[1]",
         className
       )}
     >

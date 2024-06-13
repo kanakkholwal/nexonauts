@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -6,17 +6,17 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { useState } from 'react';
-import { BiSliderAlt } from 'react-icons/bi';
+} from "@/components/ui/sheet";
+import { useState } from "react";
+import { BiSliderAlt } from "react-icons/bi";
 
 //  types
-import { MemberShipType } from 'src/types/app';
+import { MemberShipType } from "src/types/app";
 const MEMBERSHIP_TYPES: MemberShipType[] = [
-  'free',
-  'pro',
-  'premium',
-  'enterprise',
+  "free",
+  "pro",
+  "premium",
+  "enterprise",
 ];
 
 export type filterType = {
@@ -64,10 +64,10 @@ export default function SearchFilter({
                 variant="slate"
                 size="sm"
                 className={
-                  'text-xs !h-8 capitalize ' +
+                  "text-xs !h-8 capitalize " +
                   (filter.membership.includes(membership)
-                    ? 'bg-accent-foreground hover:bg-accent-foreground/90 text-white'
-                    : '')
+                    ? "bg-accent-foreground hover:bg-accent-foreground/90 text-white"
+                    : "")
                 }
                 onClick={() => {
                   if (filter.membership.includes(membership)) {
@@ -99,10 +99,10 @@ export default function SearchFilter({
               variant="slate"
               size="sm"
               className={
-                'text-xs !h-8 ' +
+                "text-xs !h-8 " +
                 (filter.categories.length === 0
-                  ? 'bg-accent-foreground hover:bg-accent-foreground/90 text-white'
-                  : '')
+                  ? "bg-accent-foreground hover:bg-accent-foreground/90 text-white"
+                  : "")
               }
               onClick={() => {
                 setFilter({ ...filter, categories: [] });
@@ -116,10 +116,10 @@ export default function SearchFilter({
                 variant="slate"
                 size="sm"
                 className={
-                  'text-xs !h-8 capitalize ' +
+                  "text-xs !h-8 capitalize " +
                   (filter.categories.includes(category)
-                    ? 'bg-accent-foreground hover:bg-accent-foreground/90 text-white'
-                    : '')
+                    ? "bg-accent-foreground hover:bg-accent-foreground/90 text-white"
+                    : "")
                 }
                 onClick={() => {
                   if (filter.categories.includes(category)) {
@@ -137,7 +137,7 @@ export default function SearchFilter({
                   }
                 }}
               >
-                {category.split('_').join(' ')}
+                {category.split("_").join(" ")}
               </Button>
             ))}
           </div>
@@ -151,13 +151,13 @@ export default function SearchFilter({
               variant="slate"
               size="sm"
               className={
-                'text-xs !h-8 ' +
-                (filter.popularity === 'new'
-                  ? 'bg-accent-foreground hover:bg-accent-foreground/90 text-white'
-                  : '')
+                "text-xs !h-8 " +
+                (filter.popularity === "new"
+                  ? "bg-accent-foreground hover:bg-accent-foreground/90 text-white"
+                  : "")
               }
               onClick={() => {
-                setFilter({ ...filter, popularity: 'new' });
+                setFilter({ ...filter, popularity: "new" });
               }}
             >
               Newly Added
@@ -166,13 +166,13 @@ export default function SearchFilter({
               variant="slate"
               size="sm"
               className={
-                'text-xs !h-8 ' +
-                (filter.popularity === 'popular'
-                  ? 'bg-accent-foreground hover:bg-accent-foreground/90 text-white'
-                  : '')
+                "text-xs !h-8 " +
+                (filter.popularity === "popular"
+                  ? "bg-accent-foreground hover:bg-accent-foreground/90 text-white"
+                  : "")
               }
               onClick={() => {
-                setFilter({ ...filter, popularity: 'popular' });
+                setFilter({ ...filter, popularity: "popular" });
               }}
             >
               Most Popular
@@ -192,7 +192,7 @@ export default function SearchFilter({
           <Button
             variant="secondary"
             onClick={() => {
-              setFilter({ categories: [], membership: [], popularity: '' });
+              setFilter({ categories: [], membership: [], popularity: "" });
               handleFilters();
               setOpen(false);
             }}

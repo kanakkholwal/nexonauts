@@ -1,21 +1,21 @@
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { formatDistance } from 'date-fns';
-import Link from 'next/link';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { formatDistance } from "date-fns";
+import Link from "next/link";
 import {
   Icon,
   INTEGRATION_CONFIG,
   INTEGRATION_DESCRIPTIONS,
   INTEGRATION_USAGE_CASES,
-} from 'src/lib/integrations';
-import { Authorisor, RevokeTokenButton } from './platform-client';
+} from "src/lib/integrations";
+import { Authorisor, RevokeTokenButton } from "./platform-client";
 
 import {
   getUserIntegrationData,
   revokeToken,
   saveAccessToken,
-} from './actions';
+} from "./actions";
 
 interface Props {
   searchParams: {
@@ -55,8 +55,8 @@ export default async function PlatformPage({ searchParams, params }: Props) {
           </div>
         </div>
         <div className="flex items-end flex-col gap-2">
-          <Badge variant={integrationData.integrated ? 'success' : 'secondary'}>
-            {integrationData.integrated ? 'Connected' : 'Connect'}
+          <Badge variant={integrationData.integrated ? "success" : "secondary"}>
+            {integrationData.integrated ? "Connected" : "Connect"}
           </Badge>
           {integrationData.integrated && (
             <small className="text-muted-foreground">

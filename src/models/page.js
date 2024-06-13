@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const analyticsSchema = new mongoose.Schema({
   sessionId: {
@@ -7,13 +7,13 @@ const analyticsSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
   action: {
     type: String,
     required: true,
     trim: true,
-    enum: ['view', 'share'],
+    enum: ["view", "share"],
   },
   timestamp: {
     type: Date,
@@ -38,20 +38,20 @@ const pageSchema = new mongoose.Schema({
     required: true,
     trim: true,
     enum: [
-      'article',
-      'tool',
-      'page',
-      'category',
-      'tag',
-      'author',
-      'search',
-      'home',
-      '404',
-      'dashboard',
-      'unnecessary',
+      "article",
+      "tool",
+      "page",
+      "category",
+      "tag",
+      "author",
+      "search",
+      "home",
+      "404",
+      "dashboard",
+      "unnecessary",
     ],
   },
   analytics: [analyticsSchema],
 });
 
-export default mongoose.models.Page || mongoose.model('Page', pageSchema);
+export default mongoose.models.Page || mongoose.model("Page", pageSchema);

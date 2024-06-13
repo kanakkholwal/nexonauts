@@ -1,8 +1,8 @@
-import dbConnect from 'lib/dbConnect';
-import handler from 'lib/handler';
-import { isAdminMiddleware } from 'middleware/checkUser';
-import App from 'models/app';
-import nextConnect from 'next-connect';
+import dbConnect from "lib/dbConnect";
+import handler from "lib/handler";
+import { isAdminMiddleware } from "middleware/checkUser";
+import App from "models/app";
+import nextConnect from "next-connect";
 
 const LIMIT = 5;
 
@@ -13,10 +13,10 @@ export default nextConnect(handler)
       // find all enabled apps
       const apps = await App.find({
         isPublic: true,
-        status: 'published',
+        status: "published",
       })
         .select(
-          'name shortDescription description appId type path coverImage recommended version ratings membership category tags author createdAt averageRating formFlow'
+          "name shortDescription description appId type path coverImage recommended version ratings membership category tags author createdAt averageRating formFlow"
         )
         .exec();
 
@@ -28,10 +28,10 @@ export default nextConnect(handler)
       // sort apps on the basis of recommended , usage , rating and reviews and send popular 5-10 (variable) apps
       const popularApps = await App.find({
         enabled: true,
-        state: 'published',
+        state: "published",
       })
         .sort({ recommended: -1, usage: -1, ratings: -1 })
-        .select('name appId type path recommended ratings')
+        .select("name appId type path recommended ratings")
         .limit(LIMIT);
 
       // return application
@@ -45,7 +45,7 @@ export default nextConnect(handler)
       console.log(error);
       return res.status(500).json({
         success: false,
-        message: error.message ?? 'Internal Server Error',
+        message: error.message ?? "Internal Server Error",
       });
     }
   })
@@ -56,7 +56,7 @@ export default nextConnect(handler)
       // find all enabled apps
       const apps = await App.find({})
         .select(
-          'name shortDescription appId path coverImage recommended version membership category tags author createdAt'
+          "name shortDescription appId path coverImage recommended version membership category tags author createdAt"
         )
         .exec();
       if (!apps) {
@@ -68,7 +68,7 @@ export default nextConnect(handler)
       console.log(error);
       return res.status(500).json({
         success: false,
-        message: error.message ?? 'Internal Server Error',
+        message: error.message ?? "Internal Server Error",
       });
     }
   });

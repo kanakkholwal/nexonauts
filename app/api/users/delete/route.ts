@@ -1,20 +1,20 @@
-import { revalidatePath } from 'next/cache';
-import { NextRequest, NextResponse } from 'next/server';
-import dbConnect from 'src/lib/dbConnect';
-import ProfileModel from 'src/models/profile';
-import UserModel from 'src/models/user';
-import { getSession } from 'src/lib/auth';
+import { revalidatePath } from "next/cache";
+import { NextRequest, NextResponse } from "next/server";
+import dbConnect from "src/lib/dbConnect";
+import ProfileModel from "src/models/profile";
+import UserModel from "src/models/user";
+import { getSession } from "src/lib/auth";
 
 export async function DELETE(request: NextRequest) {
   try {
-    const userId = request.nextUrl.searchParams.get('userId');
+    const userId = request.nextUrl.searchParams.get("userId");
 
     const session = await getSession();
     if (!session) {
       return NextResponse.json(
         {
-          result: 'fail',
-          message: 'Unauthorized',
+          result: "fail",
+          message: "Unauthorized",
         },
         {
           status: 401,
@@ -27,8 +27,8 @@ export async function DELETE(request: NextRequest) {
     if (!adminUser) {
       return NextResponse.json(
         {
-          result: 'fail',
-          message: 'User not found',
+          result: "fail",
+          message: "User not found",
         },
         {
           status: 404,
@@ -36,11 +36,11 @@ export async function DELETE(request: NextRequest) {
       );
     }
     // must be admin
-    if (adminUser.role !== 'admin') {
+    if (adminUser.role !== "admin") {
       return NextResponse.json(
         {
-          result: 'fail',
-          message: 'Unauthorized',
+          result: "fail",
+          message: "Unauthorized",
         },
         {
           status: 401,
@@ -48,15 +48,15 @@ export async function DELETE(request: NextRequest) {
       );
     }
     //  cannot delete user if it is the only admin
-    if (adminUser.role === 'admin') {
+    if (adminUser.role === "admin") {
       const user = await UserModel.findById(userId);
-      if (user.role === 'admin') {
-        const adminCount = await UserModel.countDocuments({ role: 'admin' });
+      if (user.role === "admin") {
+        const adminCount = await UserModel.countDocuments({ role: "admin" });
         if (adminCount === 1) {
           return NextResponse.json(
             {
-              result: 'fail',
-              message: 'Cannot delete the only admin',
+              result: "fail",
+              message: "Cannot delete the only admin",
             },
             {
               status: 400,
@@ -67,12 +67,12 @@ export async function DELETE(request: NextRequest) {
     }
     await UserModel.findById(userId).deleteOne();
     await ProfileModel.findOneAndDelete({ user: userId });
-    revalidatePath('/admin/users', 'page');
+    revalidatePath("/admin/users", "page");
 
     return NextResponse.json(
       {
-        result: 'success',
-        message: 'User deleted',
+        result: "success",
+        message: "User deleted",
       },
       {
         status: 200,
@@ -81,7 +81,7 @@ export async function DELETE(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        result: 'fail',
+        result: "fail",
         message: error.message,
       },
       {

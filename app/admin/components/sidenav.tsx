@@ -1,5 +1,5 @@
-'use client';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+"use client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,12 +7,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
-import { MessageSquareText } from 'lucide-react';
-import { LuMoreHorizontal } from 'react-icons/lu';
+} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
+import { MessageSquareText } from "lucide-react";
+import { LuMoreHorizontal } from "react-icons/lu";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   ArrowBigDown,
   ChevronLeftCircle,
@@ -22,16 +22,16 @@ import {
   Settings2,
   Swords,
   UserRoundCog,
-} from 'lucide-react';
-import { signOut } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { RiAppsLine } from 'react-icons/ri';
-import { TbDashboard } from 'react-icons/tb';
-import { SessionUserType } from 'src/types/user';
-import { Navigation } from 'lucide-react';
+} from "lucide-react";
+import { signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { RiAppsLine } from "react-icons/ri";
+import { TbDashboard } from "react-icons/tb";
+import { SessionUserType } from "src/types/user";
+import { Navigation } from "lucide-react";
 
 export type sideLinkType = {
   label: string;
@@ -40,42 +40,42 @@ export type sideLinkType = {
 };
 const admin_links: sideLinkType[] = [
   {
-    label: 'Dashboard',
+    label: "Dashboard",
     icon: LayoutGrid,
-    href: '/admin',
+    href: "/admin",
   },
   {
-    label: 'Apps',
+    label: "Apps",
     icon: RiAppsLine,
-    href: '/admin/apps',
+    href: "/admin/apps",
   },
   {
-    label: 'Users',
+    label: "Users",
     icon: UserRoundCog,
-    href: '/admin/users',
+    href: "/admin/users",
   },
   {
-    label: 'Tools',
+    label: "Tools",
     icon: Swords,
-    href: '/admin/tools',
+    href: "/admin/tools",
   },
   {
-    label: 'Messages',
+    label: "Messages",
     icon: MessageSquareText,
-    href: '/admin/messages',
+    href: "/admin/messages",
   },
   {
-    label: 'Navigate',
+    label: "Navigate",
     icon: Navigation,
-    href: '/admin/navigate',
+    href: "/admin/navigate",
   },
 ];
 
 const user_links: sideLinkType[] = [
   {
-    label: 'Dashboard',
+    label: "Dashboard",
     icon: TbDashboard,
-    href: '/feed',
+    href: "/feed",
   },
   // {
   //     label: "Tools",
@@ -83,37 +83,37 @@ const user_links: sideLinkType[] = [
   //     href: "/dashboard/tools",
   // },
   {
-    label: 'Account',
+    label: "Account",
     icon: UserRoundCog,
-    href: '/dashboard/settings/account',
+    href: "/dashboard/settings/account",
   },
   {
-    label: 'Settings',
+    label: "Settings",
     icon: Settings2,
-    href: '/dashboard/settings',
+    href: "/dashboard/settings",
   },
 ];
 
 export default function SideBar({ user }: { user: SessionUserType }) {
   const [open, setOpen] = useState(false);
   const pathname = usePathname() as string;
-  const links = pathname.startsWith('/admin') ? admin_links : user_links;
+  const links = pathname.startsWith("/admin") ? admin_links : user_links;
 
   return (
     <div
       aria-label="Sidenav"
       className={
-        'fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 glassmorphism ' +
-        (open ? ' translate-x-0' : ' -translate-x-full lg:translate-x-0') +
-        ' transition-transform duration-200 ease-in-out'
+        "fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 glassmorphism " +
+        (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") +
+        " transition-transform duration-200 ease-in-out"
       }
     >
       <button
         aria-label="Toggle Sidenav"
         className={
-          'absolute top-5 -right-3 p-2 rounded-xl bg-white dark:bg-slate-800 border border-transparent dark:border-slate-700 shadow-md transition-colors duration-200 ease-in-out' +
-          (open ? ' translate-x-0' : ' translate-x-full') +
-          ' lg:translate-x-0 lg:hidden'
+          "absolute top-5 -right-3 p-2 rounded-xl bg-white dark:bg-slate-800 border border-transparent dark:border-slate-700 shadow-md transition-colors duration-200 ease-in-out" +
+          (open ? " translate-x-0" : " translate-x-full") +
+          " lg:translate-x-0 lg:hidden"
         }
         onClick={() => setOpen(!open)}
       >
@@ -140,14 +140,14 @@ export default function SideBar({ user }: { user: SessionUserType }) {
               Go To <ArrowBigDown className="w-5 h-5 ml-2 inline-block" />
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            {user.role === 'admin' && pathname.startsWith('/admin') && (
+            {user.role === "admin" && pathname.startsWith("/admin") && (
               <DropdownMenuItem asChild>
                 <Link target="_blank" href="/dashboard">
                   User
                 </Link>
               </DropdownMenuItem>
             )}
-            {user.role === 'admin' && pathname.startsWith('/dashboard') && (
+            {user.role === "admin" && pathname.startsWith("/dashboard") && (
               <DropdownMenuItem asChild>
                 <Link target="_blank" href="/admin">
                   Admin
@@ -198,7 +198,7 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
       <Avatar>
         <AvatarImage
           src={user.profilePicture.toString()}
-          alt={'@' + user.username}
+          alt={"@" + user.username}
         />
         <AvatarFallback className="uppercase">
           {user.name[0] + user.name[1]}
@@ -209,7 +209,7 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
           {user.name}
         </h3>
         <p className="text-xs text-slate-600 dark:text-slate-300">
-          <Link href={'/devs/' + user.username} target="_blank">
+          <Link href={"/devs/" + user.username} target="_blank">
             @{user.username}
           </Link>
         </p>
@@ -220,7 +220,7 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
         className="rounded-full ml-auto"
         onClick={(e) => {
           e.preventDefault();
-          signOut({ callbackUrl: '/login' });
+          signOut({ callbackUrl: "/login" });
         }}
       >
         <LogOut className="w-5 h-5" />
@@ -241,11 +241,11 @@ export function SideBarLink({
       href={link.href}
       aria-label={link.label}
       className={cn(
-        'flex items-center justify-start gap-2 px-3 py-2 rounded-lg self-stretch font-semibold  group transition-colors duration-200 ease-in-out ',
-        ' text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300',
+        "flex items-center justify-start gap-2 px-3 py-2 rounded-lg self-stretch font-semibold  group transition-colors duration-200 ease-in-out ",
+        " text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300",
         active
-          ? 'text-primary/70 hover:text-primary dark:text-primary/70 dark:hover:text-primary'
-          : ''
+          ? "text-primary/70 hover:text-primary dark:text-primary/70 dark:hover:text-primary"
+          : ""
       )}
     >
       <link.icon className="w-5 h-5" />

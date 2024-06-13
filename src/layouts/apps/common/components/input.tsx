@@ -1,7 +1,7 @@
 // components/InputField.tsx
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { inputType } from 'src/models/app';
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { inputType } from "src/models/app";
 
 interface InputFieldProps {
   input: inputType;
@@ -18,7 +18,7 @@ const InputField = ({ input, type, value, onChange }: InputFieldProps) => {
         {input.field_required && <span className="text-red-500">*</span>}
       </Label>
       <Input
-        type={type ?? 'text'}
+        type={type ?? "text"}
         variant="ghost"
         name={input.field_name}
         id={input.field_id}

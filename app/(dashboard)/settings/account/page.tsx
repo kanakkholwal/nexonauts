@@ -1,14 +1,14 @@
-import { Separator } from '@/components/ui/separator';
-import { Metadata } from 'next';
-import { getSession } from 'src/lib/auth';
-import dbConnect from 'src/lib/dbConnect';
-import User from 'src/models/user';
-import { sessionType } from 'src/types/session';
-import { AccountForm } from './account';
+import { Separator } from "@/components/ui/separator";
+import { Metadata } from "next";
+import { getSession } from "src/lib/auth";
+import dbConnect from "src/lib/dbConnect";
+import User from "src/models/user";
+import { sessionType } from "src/types/session";
+import { AccountForm } from "./account";
 
 export const metadata: Metadata = {
-  title: 'Account',
-  description: 'Account Settings page',
+  title: "Account",
+  description: "Account Settings page",
 };
 
 export default async function AccountPage() {
@@ -20,21 +20,21 @@ export default async function AccountPage() {
     result: string;
     message: string;
   }> {
-    'use server';
+    "use server";
 
     const user = await User.findById(session.user._id);
     if (!user) {
       return Promise.reject({
-        result: 'fail',
-        message: 'User not found',
+        result: "fail",
+        message: "User not found",
       });
     }
     user.name = newName;
     await user.save();
 
     return Promise.resolve({
-      result: 'success',
-      message: 'Name updated successfully',
+      result: "success",
+      message: "Name updated successfully",
     });
   }
 
@@ -42,13 +42,13 @@ export default async function AccountPage() {
     result: string;
     message: string;
   }> {
-    'use server';
+    "use server";
 
     const user = await User.findById(session.user._id);
     if (!user) {
       return Promise.reject({
-        result: 'fail',
-        message: 'User not found',
+        result: "fail",
+        message: "User not found",
       });
     }
     user.email = newEmail;
@@ -57,8 +57,8 @@ export default async function AccountPage() {
     await user.save();
 
     return Promise.resolve({
-      result: 'success',
-      message: 'Email updated successfully',
+      result: "success",
+      message: "Email updated successfully",
     });
   }
   async function handleUpdatePassword(
@@ -68,19 +68,19 @@ export default async function AccountPage() {
     result: string;
     message: string;
   }> {
-    'use server';
+    "use server";
 
     const user = await User.findById(session.user._id);
     if (!user) {
       return Promise.reject({
-        result: 'fail',
-        message: 'User not found',
+        result: "fail",
+        message: "User not found",
       });
     }
     if (!user.comparePassword(oldPassword)) {
       return Promise.reject({
-        result: 'fail',
-        message: 'Invalid password',
+        result: "fail",
+        message: "Invalid password",
       });
     }
     user.password = newPassword;
@@ -88,8 +88,8 @@ export default async function AccountPage() {
     await user.save();
 
     return Promise.resolve({
-      result: 'success',
-      message: 'Password updated successfully',
+      result: "success",
+      message: "Password updated successfully",
     });
   }
 

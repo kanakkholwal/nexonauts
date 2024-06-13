@@ -9,8 +9,8 @@ import {
   Section,
   Tailwind,
   Text,
-} from '@react-email/components';
-import tailwindConfig from '@root/tailwind.config';
+} from "@react-email/components";
+import tailwindConfig from "@root/tailwind.config";
 
 type Payload = {
   name: string;
@@ -24,10 +24,10 @@ export default function ResetPasswordEmail({ payload }: { payload: Payload }) {
       <Head>
         <Font
           fontFamily="DM Sans"
-          fallbackFontFamily={['Arial', 'Helvetica', 'sans-serif']}
+          fallbackFontFamily={["Arial", "Helvetica", "sans-serif"]}
           webFont={{
-            url: 'https://fonts.gstatic.com/s/dmsans/v14/rP2Yp2ywxg089UriI5-g7M8btVsD8Ck0q7u6-K6h9Q.woff2',
-            format: 'woff2',
+            url: "https://fonts.gstatic.com/s/dmsans/v14/rP2Yp2ywxg089UriI5-g7M8btVsD8Ck0q7u6-K6h9Q.woff2",
+            format: "woff2",
           }}
           fontWeight={500}
           fontStyle="normal"
@@ -35,14 +35,14 @@ export default function ResetPasswordEmail({ payload }: { payload: Payload }) {
       </Head>
 
       <Preview>
-        {`🌟 Reset Your ${process.env.NEXT_PUBLIC_WEBSITE_NAME} Password 🛠️ `}{' '}
+        {`🌟 Reset Your ${process.env.NEXT_PUBLIC_WEBSITE_NAME} Password 🛠️ `}{" "}
       </Preview>
 
       <Tailwind config={tailwindConfig}>
         <Section
           className="max-w-screen-md mx-auto p-8 bg-white dark:bg-slate-900 rounded-md shadow-md"
           style={{
-            fontFamily: 'DM Sans, sans-serif',
+            fontFamily: "DM Sans, sans-serif",
           }}
         >
           <Heading as="h3">Dear {payload.name},</Heading>
@@ -78,13 +78,13 @@ export default function ResetPasswordEmail({ payload }: { payload: Payload }) {
             Best Practices for a Secure Password:
           </Heading>
           <Container>
-            <Text className="text-gray-600 mb-2" key={'tips-1'}>
+            <Text className="text-gray-600 mb-2" key={"tips-1"}>
               Use a combination of uppercase and lowercase letters.
             </Text>
-            <Text className="text-gray-600 mb-2" key={'tips-2'}>
+            <Text className="text-gray-600 mb-2" key={"tips-2"}>
               Include numbers and special characters.
             </Text>
-            <Text className="text-gray-600 mb-2" key={'tips-3'}>
+            <Text className="text-gray-600 mb-2" key={"tips-3"}>
               Avoid using easily guessable information, like your name or
               birthday.
             </Text>

@@ -1,6 +1,6 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+"use client";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -9,22 +9,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { Textarea } from '@/components/ui/textarea';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { LoaderCircle } from 'lucide-react';
-import Image from 'next/image';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { UploadImage } from 'src/components/uploader';
-import { CATEGORIES as defaultCategories } from 'src/constants/marketplace';
-import { ProductType } from 'src/models/product';
-import { z } from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { LoaderCircle } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { UploadImage } from "src/components/uploader";
+import { CATEGORIES as defaultCategories } from "src/constants/marketplace";
+import { ProductType } from "src/models/product";
+import { z } from "zod";
 
-import { HtmlToMarkdown } from 'src/utils/string';
+import { HtmlToMarkdown } from "src/utils/string";
 
 const formSchema = z.object({
   name: z
@@ -45,7 +45,7 @@ const formSchema = z.object({
   preview_url: z
     .string()
     .url({
-      message: 'Preview URL must be a valid image URL',
+      message: "Preview URL must be a valid image URL",
     })
     .transform((value) => value.trim()),
   tags: z.array(z.string().transform((value) => value.trim())),
@@ -55,7 +55,7 @@ const formSchema = z.object({
 const urlSchema = z
   .string()
   .url({
-    message: 'URL must be a valid URL',
+    message: "URL must be a valid URL",
   })
   .transform((value) => {
     return value.trim();
@@ -91,9 +91,9 @@ export default function ProductForm(props: Props) {
     setLoading(true);
     toast
       .promise(props.updateProduct(props.product._id, values), {
-        loading: 'Saving product...',
-        success: 'Product saved!',
-        error: 'Error saving product',
+        loading: "Saving product...",
+        success: "Product saved!",
+        error: "Error saving product",
       })
       .then((result) => {
         if (result) {
@@ -136,9 +136,9 @@ export default function ProductForm(props: Props) {
                     placeholder="Description"
                     onPaste={(e) => {
                       e.preventDefault();
-                      const text = e.clipboardData.getData('text/plain');
+                      const text = e.clipboardData.getData("text/plain");
                       form.setValue(
-                        'description',
+                        "description",
                         field.value + HtmlToMarkdown(text)
                       ); // Update the value of the 'description' field
                     }}
@@ -183,10 +183,10 @@ export default function ProductForm(props: Props) {
                   <Input
                     placeholder="tag1, tag2, tag3"
                     {...field}
-                    value={field.value?.join(', ')}
+                    value={field.value?.join(", ")}
                     onChange={(e) => {
                       field.onChange(
-                        e.target.value.split(',').map((tag) => tag.trim())
+                        e.target.value.split(",").map((tag) => tag.trim())
                       );
                     }}
                   />
@@ -210,7 +210,7 @@ export default function ProductForm(props: Props) {
                 <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
                   {defaultCategories.map((item, index) => (
                     <FormField
-                      key={item + '_' + index}
+                      key={item + "_" + index}
                       control={form.control}
                       name="categories"
                       render={({ field }) => {
@@ -256,7 +256,7 @@ export default function ProductForm(props: Props) {
                 <FormLabel>
                   Preview URL
                   <span className="text-sm text-gray-500">
-                    {' '}
+                    {" "}
                     (preffered 16 / 9)
                   </span>
                 </FormLabel>
@@ -267,19 +267,19 @@ export default function ProductForm(props: Props) {
                   />
                 </FormControl>
                 <UploadImage
-                  key={'preview_url'}
+                  key={"preview_url"}
                   onUpload={(fileUrl) => {
                     field.onChange(fileUrl);
                   }}
                 />
-                {urlSchema.safeParse(form.getValues('preview_url')).success && (
+                {urlSchema.safeParse(form.getValues("preview_url")).success && (
                   <>
                     <div>
                       <Image
                         src={field.value}
                         width={512}
                         height={320}
-                        alt={'preview image'}
+                        alt={"preview image"}
                       />
                     </div>
                   </>
@@ -296,7 +296,7 @@ export default function ProductForm(props: Props) {
                 <FormLabel>
                   Price (USD)
                   <span className="text-sm text-gray-500">
-                    {' '}
+                    {" "}
                     (leave blank for Free)
                   </span>
                 </FormLabel>
@@ -307,7 +307,7 @@ export default function ProductForm(props: Props) {
                     type="number"
                     step="0.01"
                     min="0"
-                    value={field.value?.toString() ?? ''}
+                    value={field.value?.toString() ?? ""}
                     onChange={(e) => {
                       field.onChange(parseFloat(e.target.value));
                     }}
@@ -335,7 +335,7 @@ export default function ProductForm(props: Props) {
           />
           <Button type="submit" className="w-full max-w-sm" disabled={loading}>
             {loading && <LoaderCircle className="animate-spin" size={24} />}
-            {loading ? 'Saving...' : 'Save Changes'}
+            {loading ? "Saving..." : "Save Changes"}
           </Button>
         </div>
       </form>

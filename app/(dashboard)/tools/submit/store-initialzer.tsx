@@ -1,24 +1,24 @@
-'use client';
+"use client";
 
-import { useRef } from 'react';
+import { useRef } from "react";
 
-import { useFormStore } from './store';
+import { useFormStore } from "./store";
 
 function StoreInitializer() {
   const initialized = useRef(false);
   if (!initialized.current) {
     useFormStore.setState({
       tool: {
-        name: '',
-        description: '',
-        coverImage: '',
+        name: "",
+        description: "",
+        coverImage: "",
         categories: [],
         tags: [],
-        link: '',
-        slug: '',
-        status: 'draft',
+        link: "",
+        slug: "",
+        status: "draft",
         verified: false,
-        pricing_type: 'other',
+        pricing_type: "other",
       },
     });
     initialized.current = true;

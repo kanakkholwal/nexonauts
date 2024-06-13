@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Dialog,
   DialogContent,
@@ -6,8 +6,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { FollowToggle } from './follow-btn';
+} from "@/components/ui/dialog";
+import { FollowToggle } from "./follow-btn";
 
 export default function FollowerFollow({
   developer,
@@ -16,7 +16,7 @@ export default function FollowerFollow({
 }) {
   return (
     <div className="flex flex-row items-center justify-start space-x-2">
-      <Dialog key={'followers-modal'}>
+      <Dialog key={"followers-modal"}>
         <DialogTrigger asChild>
           <span className="text-gray-600 hover:text-foreground cursor-pointer">
             {developer.followers.length} followers
@@ -32,7 +32,7 @@ export default function FollowerFollow({
           <ul className="flex flex-col gap-2">
             {developer.followers.map((follower) => {
               return (
-                <li key={'follower_' + follower.id}>
+                <li key={"follower_" + follower.id}>
                   <div className="flex items-center justify-between space-x-4">
                     <div className="flex items-center space-x-4">
                       <Avatar>
@@ -75,7 +75,7 @@ export default function FollowerFollow({
       </Dialog>
 
       <span className="text-gray-500">|</span>
-      <Dialog key={'following-modal'}>
+      <Dialog key={"following-modal"}>
         <DialogTrigger asChild>
           <span className="text-gray-500 hover:text-foreground cursor-pointer">
             {developer.following.length} following
@@ -90,7 +90,7 @@ export default function FollowerFollow({
           </DialogHeader>
           <ul className="flex flex-col gap-2">
             {developer.following.map((following) => (
-              <li key={'following_' + following._id}>
+              <li key={"following_" + following._id}>
                 <div className="flex flex-row items-center justify-start space-x-2">
                   <Avatar className="w-8 h-8 shadow-lg">
                     <AvatarImage

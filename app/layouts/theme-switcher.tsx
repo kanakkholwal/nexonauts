@@ -1,6 +1,6 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { useTheme } from 'next-themes';
+"use client";
+import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
 export default function ThemeSwitcher() {
   const { theme, setTheme } = useTheme();
 
@@ -9,7 +9,7 @@ export default function ThemeSwitcher() {
       variant="ghost"
       size="icon_sm"
       rounded="full"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       aria-label="switch theme"
       className="switcher group"
     >

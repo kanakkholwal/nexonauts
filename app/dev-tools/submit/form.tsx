@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Send } from 'lucide-react';
-import { useFormStore } from './store';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Send } from "lucide-react";
+import { useFormStore } from "./store";
 
 export default function SubmitForm() {
   return (

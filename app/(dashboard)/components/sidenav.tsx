@@ -1,10 +1,10 @@
-'use client';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { cn } from '@/lib/utils';
+"use client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { cn } from "@/lib/utils";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import ThemeSwitcher from 'app/layouts/theme-switcher';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import ThemeSwitcher from "app/layouts/theme-switcher";
 import {
   ChevronLeftCircle,
   ChevronRightCircle,
@@ -14,14 +14,14 @@ import {
   Settings2,
   ShoppingCart,
   UserRound,
-} from 'lucide-react';
-import { signOut } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { RiApps2Line } from 'react-icons/ri';
-import { SessionUserType } from 'src/types/user';
+} from "lucide-react";
+import { signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { RiApps2Line } from "react-icons/ri";
+import { SessionUserType } from "src/types/user";
 
 export type sideLinkType = {
   label: string;
@@ -31,29 +31,29 @@ export type sideLinkType = {
 
 const user_links: sideLinkType[] = [
   {
-    label: 'Feed',
+    label: "Feed",
     icon: Rss,
-    href: '/feed',
+    href: "/feed",
   },
   {
-    label: 'My Products',
+    label: "My Products",
     icon: ShoppingCart,
-    href: '/products',
+    href: "/products",
   },
   {
-    label: 'My Tools',
+    label: "My Tools",
     icon: RiApps2Line,
-    href: '/tools',
+    href: "/tools",
   },
   {
-    label: 'Profile',
+    label: "Profile",
     icon: UserRound,
-    href: '/settings/profile',
+    href: "/settings/profile",
   },
   {
-    label: 'Settings',
+    label: "Settings",
     icon: Settings2,
-    href: '/settings',
+    href: "/settings",
   },
 ];
 
@@ -66,17 +66,17 @@ export default function SideBar({ user }: { user: SessionUserType }) {
     <div
       aria-label="Sidenav"
       className={
-        'fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 glassmorphism ' +
-        (open ? ' translate-x-0' : ' -translate-x-full lg:translate-x-0') +
-        ' transition-transform duration-200 ease-in-out'
+        "fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 glassmorphism " +
+        (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") +
+        " transition-transform duration-200 ease-in-out"
       }
     >
       <button
         aria-label="Toggle Sidenav"
         className={
-          'absolute top-5 -right-3 p-2 rounded-xl bg-white dark:bg-slate-800 border border-transparent dark:border-slate-700 shadow-md transition-colors duration-200 ease-in-out' +
-          (open ? ' translate-x-0' : ' translate-x-full') +
-          ' lg:translate-x-0 lg:hidden'
+          "absolute top-5 -right-3 p-2 rounded-xl bg-white dark:bg-slate-800 border border-transparent dark:border-slate-700 shadow-md transition-colors duration-200 ease-in-out" +
+          (open ? " translate-x-0" : " translate-x-full") +
+          " lg:translate-x-0 lg:hidden"
         }
         onClick={() => setOpen(!open)}
       >
@@ -129,7 +129,7 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
       <Avatar>
         <AvatarImage
           src={user.profilePicture.toString()}
-          alt={'@' + user.username}
+          alt={"@" + user.username}
         />
         <AvatarFallback className="uppercase">
           {user.name[0] + user.name[1]}
@@ -140,7 +140,7 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
           {user.name}
         </h3>
         <p className="text-xs text-slate-600 dark:text-slate-300">
-          <Link href={'/devs/' + user.username} target="_blank">
+          <Link href={"/devs/" + user.username} target="_blank">
             @{user.username}
           </Link>
         </p>
@@ -153,7 +153,7 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
           className="rounded-full"
           onClick={(e) => {
             e.preventDefault();
-            signOut({ callbackUrl: '/login' });
+            signOut({ callbackUrl: "/login" });
           }}
         >
           <LogOut className="w-5 h-5" />
@@ -175,11 +175,11 @@ export function SideBarLink({
       href={link.href}
       aria-label={link.label}
       className={cn(
-        'flex items-center justify-start gap-2 px-3 py-2 rounded-lg self-stretch font-semibold  group transition-colors duration-200 ease-in-out ',
-        ' text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300',
+        "flex items-center justify-start gap-2 px-3 py-2 rounded-lg self-stretch font-semibold  group transition-colors duration-200 ease-in-out ",
+        " text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-300",
         active
-          ? 'text-primary/70 hover:text-primary dark:text-primary/70 dark:hover:text-primary'
-          : ''
+          ? "text-primary/70 hover:text-primary dark:text-primary/70 dark:hover:text-primary"
+          : ""
       )}
     >
       <link.icon className="w-5 h-5" />

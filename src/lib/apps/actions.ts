@@ -1,7 +1,7 @@
-'use server';
-import mongoose from 'mongoose';
-import dbConnect from 'src/lib/dbConnect';
-import AppModel, { AppReview, AppTypeWithId } from 'src/models/app';
+"use server";
+import mongoose from "mongoose";
+import dbConnect from "src/lib/dbConnect";
+import AppModel, { AppReview, AppTypeWithId } from "src/models/app";
 
 export async function getAppByAppId(
   appId: string,
@@ -10,7 +10,7 @@ export async function getAppByAppId(
   await dbConnect();
   const app = await AppModel.findOne({
     appId: appId,
-    'developer.userId': new mongoose.Types.ObjectId(developerId),
+    "developer.userId": new mongoose.Types.ObjectId(developerId),
   }).exec();
   return JSON.parse(JSON.stringify(app));
 }
@@ -25,15 +25,15 @@ export async function getPublicApps(
   const skip = currentPage * resultsPerPage - resultsPerPage;
   const filterQuery = {
     $or: [
-      { name: { $regex: query, $options: 'i' } },
-      { description: { $regex: query, $options: 'i' } },
-      { tags: { $regex: query, $options: 'i' } },
-      { categories: { $regex: query, $options: 'i' } },
+      { name: { $regex: query, $options: "i" } },
+      { description: { $regex: query, $options: "i" } },
+      { tags: { $regex: query, $options: "i" } },
+      { categories: { $regex: query, $options: "i" } },
     ],
   } as unknown as any;
   await dbConnect();
   const apps = await AppModel.find({
-    status: 'published',
+    status: "published",
   })
     .skip(skip)
     .limit(resultsPerPage)
@@ -52,7 +52,7 @@ export async function getAppBySlug(
   const app = await AppModel.findOne({
     slug: slug,
   })
-    .select('-config')
+    .select("-config")
     .exec();
   return JSON.parse(JSON.stringify(app));
 }
@@ -63,7 +63,7 @@ export async function getAppReviews(appId: string, currentPage: number) {
   const reviews = await AppReview.findOne({
     appId: appId,
   })
-    .populate('userId', 'name username profilePicture')
+    .populate("userId", "name username profilePicture")
     .sort({ createdAt: -1 })
     .skip(skip)
     .limit(resultsPerPage)

@@ -1,17 +1,17 @@
-'use server';
-import { revalidatePath } from 'next/cache';
-import { getSession } from 'src/lib/auth';
-import dbConnect from 'src/lib/dbConnect';
-import ProfileModel from 'src/models/profile';
-import UserModel from 'src/models/user';
-import { sessionType } from 'src/types/session';
+"use server";
+import { revalidatePath } from "next/cache";
+import { getSession } from "src/lib/auth";
+import dbConnect from "src/lib/dbConnect";
+import ProfileModel from "src/models/profile";
+import UserModel from "src/models/user";
+import { sessionType } from "src/types/session";
 
 export async function getProfile(username: string) {
   await dbConnect();
   const profile = await ProfileModel.findOne({ username: username })
-    .populate('user', 'username name profilePicture')
-    .populate('following', 'username name profilePicture')
-    .populate('followers', 'username name profilePicture')
+    .populate("user", "username name profilePicture")
+    .populate("following", "username name profilePicture")
+    .populate("followers", "username name profilePicture")
     .exec();
   if (!profile) {
     return null;
@@ -25,7 +25,7 @@ export async function followUnFollowProfile(username: string) {
     if (!session) {
       return Promise.reject({
         isFollowing: false,
-        message: 'Not authenticated',
+        message: "Not authenticated",
       });
     }
     if (session.user.username === username) {
@@ -37,13 +37,13 @@ export async function followUnFollowProfile(username: string) {
     if (!session.user.verified) {
       return Promise.reject({
         success: false,
-        message: 'You need to verify your account to follow users',
+        message: "You need to verify your account to follow users",
       });
     }
     if (!session.user.profile) {
       return Promise.reject({
         success: false,
-        message: 'You need to create a profile to follow users',
+        message: "You need to create a profile to follow users",
       });
     }
 
@@ -52,7 +52,7 @@ export async function followUnFollowProfile(username: string) {
     if (!profile) {
       return Promise.reject({
         success: false,
-        message: 'Requested profile not found',
+        message: "Requested profile not found",
       });
     }
 
@@ -60,7 +60,7 @@ export async function followUnFollowProfile(username: string) {
     if (!currentUser) {
       return Promise.reject({
         success: false,
-        message: 'Your account not found',
+        message: "Your account not found",
       });
     }
     const currentProfile = await ProfileModel.findById(
@@ -69,7 +69,7 @@ export async function followUnFollowProfile(username: string) {
     if (!currentProfile) {
       return Promise.reject({
         success: false,
-        message: 'Your profile not found',
+        message: "Your profile not found",
       });
     }
 
@@ -83,7 +83,7 @@ export async function followUnFollowProfile(username: string) {
     }
   } catch (err: any) {
     console.log(err);
-    return Promise.reject(err?.message || 'An error occurred');
+    return Promise.reject(err?.message || "An error occurred");
   }
 }
 
@@ -95,12 +95,12 @@ export async function getRepoByUserName(username: string) {
     verified: true,
     private: false,
   })
-    .select('integrations.github')
+    .select("integrations.github")
     .exec();
   if (developer.integrations.github.integrated === false) {
     return Promise.resolve({
       integrated: false,
-      message: 'Github integration not found',
+      message: "Github integration not found",
       repos: [],
     });
   }
@@ -122,7 +122,7 @@ function FilterRepos(repos: any[]) {
     .filter(
       (repo: any) =>
         !repo.private &&
-        repo.visibility === 'public' &&
+        repo.visibility === "public" &&
         !repo.fork &&
         !repo.archived &&
         !repo.disabled &&

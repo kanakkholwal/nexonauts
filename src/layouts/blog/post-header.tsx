@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
-import { AiOutlineFieldTime } from 'react-icons/ai';
+import { AiOutlineFieldTime } from "react-icons/ai";
 
-import { calculateReadTime } from 'lib/scripts';
+import { calculateReadTime } from "lib/scripts";
 
 export default function PostHeader({
   title,
@@ -47,7 +47,7 @@ export default function PostHeader({
             itemScope
           >
             resources
-          </Link>{' '}
+          </Link>{" "}
           |
           <Link
             href="/blog/"
@@ -84,7 +84,7 @@ export default function PostHeader({
             <div className="flex items-center gap-2 mt-2">
               <div className="flex items-center gap-2"></div>
               <span className="text-sm font-medium leading-none text-slate-600 flex items-center gap-1">
-                <AiOutlineFieldTime className="inline-block h-4 w-4" />{' '}
+                <AiOutlineFieldTime className="inline-block h-4 w-4" />{" "}
                 {readTime}
               </span>
             </div>

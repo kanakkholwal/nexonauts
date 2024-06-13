@@ -1,13 +1,13 @@
-import Page403 from 'app/layouts/403';
-import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
-import { getSession } from 'src/lib/auth';
-import Navbar from './components/navbar';
-import SideBar from './components/sidenav';
+import Page403 from "app/layouts/403";
+import { Metadata } from "next";
+import { redirect } from "next/navigation";
+import { getSession } from "src/lib/auth";
+import Navbar from "./components/navbar";
+import SideBar from "./components/sidenav";
 
 export const metadata: Metadata = {
-  title: 'Admin Dashboard - NexoNauts',
-  description: 'Admin Dashboard ',
+  title: "Admin Dashboard - NexoNauts",
+  description: "Admin Dashboard ",
 };
 
 export default async function DashboardLayout({
@@ -17,8 +17,8 @@ export default async function DashboardLayout({
 }) {
   const session = await getSession();
   // console.log(session)
-  if (!(session && session?.user)) return redirect('/login');
-  if (session.user.role !== 'admin') return <Page403 />;
+  if (!(session && session?.user)) return redirect("/login");
+  if (session.user.role !== "admin") return <Page403 />;
 
   return (
     <>
@@ -35,7 +35,7 @@ export default async function DashboardLayout({
           </div>
 
           <main className="content p-2 md:p-4 z-2 @container">{children}</main>
-          {process.env.NODE_ENV !== 'production' && (
+          {process.env.NODE_ENV !== "production" && (
             <div className="fixed bottom-0 right-0 p-2 text-xs text-gray-500 dark:text-slate-400">
               v0.0.1({process.env.NODE_ENV})
             </div>

@@ -1,6 +1,6 @@
-import { SessionUserType } from 'src/types/user';
-import FloatingMenu from './floating-menu';
-import { Navbar } from './navbar';
+import { SessionUserType } from "src/types/user";
+import FloatingMenu from "./floating-menu";
+import { Navbar } from "./navbar";
 
 export type WrapperProps = {
   children: React.ReactNode;

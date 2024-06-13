@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import LazyImage from 'components/image';
-import Badge from 'components/topography/badge';
-import Link from 'next/link';
+import styled from "styled-components";
+import LazyImage from "components/image";
+import Badge from "components/topography/badge";
+import Link from "next/link";
 
 const Image = styled(LazyImage).attrs({
-  itemProp: 'image',
+  itemProp: "image",
 })`
   width: 100%;
   height: auto;
@@ -14,7 +14,7 @@ const Image = styled(LazyImage).attrs({
 `;
 
 const Heading = styled.h5.attrs({
-  itemProp: 'headline',
+  itemProp: "headline",
 })`
   text-transform: capitalize;
   text-align: initial;
@@ -25,7 +25,7 @@ const Heading = styled.h5.attrs({
   }
 `;
 const Description = styled.p.attrs({
-  itemProp: 'headline',
+  itemProp: "headline",
 })`
   text-align: initial;
   font-size: 0.9375rem;
@@ -55,8 +55,8 @@ const Content = styled.div`
   align-items: flex-start;
 `;
 const Card = styled.article.attrs({
-  itemType: 'http://schema.org/BlogPosting',
-  itemScope: '',
+  itemType: "http://schema.org/BlogPosting",
+  itemScope: "",
 })`
   display: flex;
   flex-direction: column;
@@ -77,16 +77,16 @@ const Card = styled.article.attrs({
 export function PostCard({ post }) {
   return (
     <Card>
-      <Link title={post.title} href={'/blog/posts/' + post.slug}>
+      <Link title={post.title} href={"/blog/posts/" + post.slug}>
         <Image src={post.image} alt={post.title} width={600} height={400} />
       </Link>
       <Content>
         <PostInfo>
           <span>{post.author.name}</span>
-          <span>{' • ' + new Date(post.publishedAt).toDateString()}</span>
+          <span>{" • " + new Date(post.publishedAt).toDateString()}</span>
         </PostInfo>
         <Heading title={post.title}>
-          <Link title={post.title} href={'/blog/posts/' + post.slug}>
+          <Link title={post.title} href={"/blog/posts/" + post.slug}>
             {post.title}
           </Link>
         </Heading>
@@ -100,7 +100,7 @@ export function PostCard({ post }) {
                 key={tag}
                 title={tag}
                 nature={
-                  ['success', 'theme', 'warning', 'info', 'blog-theme'][
+                  ["success", "theme", "warning", "info", "blog-theme"][
                     Math.round(5 % Math.floor(Math.random() * 5))
                   ]
                 }

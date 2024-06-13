@@ -1,5 +1,5 @@
-'use client';
-import { Button } from '@/components/ui/button';
+"use client";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -7,13 +7,13 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 
-import { useCallback } from 'react';
-import { useDropzone } from 'react-dropzone';
-import toast from 'react-hot-toast';
-import { FiUpload } from 'react-icons/fi';
-import { uploadImagefromClient } from 'src/utils/cloudinary';
+import { useCallback } from "react";
+import { useDropzone } from "react-dropzone";
+import toast from "react-hot-toast";
+import { FiUpload } from "react-icons/fi";
+import { uploadImagefromClient } from "src/utils/cloudinary";
 
 export function UploadImage({
   onUpload,
@@ -24,21 +24,21 @@ export function UploadImage({
     // Do something with the files
     const file = acceptedFiles[0];
     if (!file) {
-      toast.error('Not a file');
-      console.error(file, ' was not a file');
+      toast.error("Not a file");
+      console.error(file, " was not a file");
       return;
     }
     console.log(file);
 
     toast.promise(uploadImagefromClient(file), {
-      loading: 'Uploading Image...',
+      loading: "Uploading Image...",
       success: (data) => {
         onUpload(data);
-        return 'Image Uploaded';
+        return "Image Uploaded";
       },
       error: (error) => {
         console.error(error);
-        return 'Error Uploading Image';
+        return "Error Uploading Image";
       },
     });
   }, []);

@@ -1,11 +1,11 @@
-'use client';
+"use client";
 import React, {
   ReactElement,
   ReactNode,
   Suspense,
   useEffect,
   useState,
-} from 'react';
+} from "react";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -23,10 +23,10 @@ export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
       setError(ev.error);
     };
 
-    window.addEventListener('error', errorHandler);
+    window.addEventListener("error", errorHandler);
 
     return () => {
-      window.removeEventListener('error', errorHandler);
+      window.removeEventListener("error", errorHandler);
     };
   }, []);
 
@@ -35,11 +35,11 @@ export const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({
       setError(ev.reason);
     };
 
-    window.addEventListener('unhandledrejection', unhandledRejectionHandler);
+    window.addEventListener("unhandledrejection", unhandledRejectionHandler);
 
     return () => {
       window.removeEventListener(
-        'unhandledrejection',
+        "unhandledrejection",
         unhandledRejectionHandler
       );
     };
@@ -67,10 +67,10 @@ export const ErrorBoundaryWithSuspense: React.FC<
       setError(ev.error);
     };
 
-    window.addEventListener('error', errorHandler);
+    window.addEventListener("error", errorHandler);
 
     return () => {
-      window.removeEventListener('error', errorHandler);
+      window.removeEventListener("error", errorHandler);
     };
   }, []);
 
@@ -79,11 +79,11 @@ export const ErrorBoundaryWithSuspense: React.FC<
       setError(ev.reason);
     };
 
-    window.addEventListener('unhandledrejection', unhandledRejectionHandler);
+    window.addEventListener("unhandledrejection", unhandledRejectionHandler);
 
     return () => {
       window.removeEventListener(
-        'unhandledrejection',
+        "unhandledrejection",
         unhandledRejectionHandler
       );
     };

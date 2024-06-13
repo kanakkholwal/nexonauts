@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button';
-import { ArrowUpRight } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { SessionUserType } from 'src/types/user';
+import { Button } from "@/components/ui/button";
+import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { SessionUserType } from "src/types/user";
 
 export default function AlreadyProfile({ user }: { user: SessionUserType }) {
   return (
@@ -26,7 +26,7 @@ export default function AlreadyProfile({ user }: { user: SessionUserType }) {
           <Link
             href={`/devs/${user.username}`}
             target="_blank"
-            rel={'noopener noreferrer'}
+            rel={"noopener noreferrer"}
           >
             View Profile
             <ArrowUpRight size={16} className="ml-2" />

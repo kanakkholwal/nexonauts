@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
 export default function Logo({
-  width = '258',
-  height = '60',
-  Color1 = '#',
-  Color2 = '#279df2',
+  width = "258",
+  height = "60",
+  Color1 = "#",
+  Color2 = "#279df2",
   ...props
 }) {
   return (

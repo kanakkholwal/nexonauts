@@ -1,8 +1,8 @@
-import { authOptions } from 'app/api/auth/[...nextauth]/options';
-import Footer from 'app/layouts/footer';
-import { getServerSession } from 'next-auth/next';
-import { sessionType } from 'src/types/session';
-import Navbar from './navbar';
+import { authOptions } from "app/api/auth/[...nextauth]/options";
+import Footer from "app/layouts/footer";
+import { getServerSession } from "next-auth/next";
+import { sessionType } from "src/types/session";
+import Navbar from "./navbar";
 
 export default async function Layout({
   children,

@@ -1,9 +1,9 @@
-'use server';
-import { getSession } from 'src/lib/auth';
+"use server";
+import { getSession } from "src/lib/auth";
 // import mongoose from "mongoose";
-import dbConnect from 'src/lib/dbConnect';
-import PublicTool, { PublicToolTypeWithId } from 'src/models/tool';
-import { sessionType } from 'src/types/session';
+import dbConnect from "src/lib/dbConnect";
+import PublicTool, { PublicToolTypeWithId } from "src/models/tool";
+import { sessionType } from "src/types/session";
 
 export async function getToolsByUser(offset: number, limit: number) {
   const session = (await getSession()) as sessionType;
@@ -12,7 +12,7 @@ export async function getToolsByUser(offset: number, limit: number) {
   const tools = await PublicTool.find({
     author: session.user._id,
   })
-    .select('name slug status coverImage verified author updatedAt')
+    .select("name slug status coverImage verified author updatedAt")
     .skip(offset)
     .limit(limit)
     .sort({ updatedAt: -1 })

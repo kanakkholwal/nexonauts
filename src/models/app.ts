@@ -1,5 +1,5 @@
-import mongoose, { Document, Model } from 'mongoose';
-import { customAlphabet } from 'nanoid';
+import mongoose, { Document, Model } from "mongoose";
+import { customAlphabet } from "nanoid";
 
 //  types for App, Review, and Usage models
 export interface inputType {
@@ -52,7 +52,7 @@ export interface MetaDataType {
     userId: mongoose.Schema.Types.ObjectId | string;
   };
   slug: string;
-  status: 'draft' | 'pending' | 'published' | 'declined' | 'archived';
+  status: "draft" | "pending" | "published" | "declined" | "archived";
   icon: string;
   bannerImage: string | null;
 }
@@ -60,7 +60,7 @@ export interface AppType extends MetaDataType {
   config: ConfigurationType | null;
   formFlow: formFlowType;
   version: string;
-  membership: ('free' | 'pro' | 'premium')[];
+  membership: ("free" | "pro" | "premium")[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -87,7 +87,7 @@ export interface UsageType {
   appId: string;
   userId: mongoose.Schema.Types.ObjectId;
   createdAt?: Date;
-  type: 'playground_usage' | 'free_usage' | 'pro_usage' | 'premium_usage';
+  type: "playground_usage" | "free_usage" | "pro_usage" | "premium_usage";
   usage: {
     [key: string]: any;
   };
@@ -102,7 +102,7 @@ interface IUsage extends Document, UsageType {}
 function generateRandomAppId(): string {
   // Generate a random 16-character alphanumeric string
   const slug = customAlphabet(
-    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     16
   )();
   return `${slug}`;
@@ -116,7 +116,7 @@ const reviewSchema = new mongoose.Schema<IReview>(
     rating: { type: Number, required: true },
     upvotes: { type: Number, required: true, default: 0 },
     downvotes: { type: Number, required: true, default: 0 },
-    review: { type: String, required: true, default: 'No review' },
+    review: { type: String, required: true, default: "No review" },
   },
   { timestamps: true }
 );
@@ -124,11 +124,11 @@ const reviewSchema = new mongoose.Schema<IReview>(
 // Usage schema definition
 const usageSchema = new mongoose.Schema<IUsage>({
   appId: { type: String, required: true, trim: true },
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
   usage: { type: mongoose.Schema.Types.Mixed, required: true, default: {} },
   type: {
     type: String,
-    default: 'free_usage',
+    default: "free_usage",
   },
   model_used: {
     type: String,
@@ -153,24 +153,24 @@ const appSchema = new mongoose.Schema<IApp>(
     config: {
       type: Object,
       default: {
-        prompt: 'Write a prompt here',
-        model: 'gemini-pro',
+        prompt: "Write a prompt here",
+        model: "gemini-pro",
       },
     },
     status: {
       type: String,
       trim: true,
-      default: 'draft',
-      enum: ['draft', 'pending', 'published', 'declined', 'archived'],
+      default: "draft",
+      enum: ["draft", "pending", "published", "declined", "archived"],
     },
-    version: { type: String, trim: true, default: '1.0.0' },
+    version: { type: String, trim: true, default: "1.0.0" },
     name: { type: String, required: true, trim: true },
     description: { type: String, required: true, trim: true },
     categories: {
       type: [String],
       required: true,
       trim: true,
-      default: ['productivity'],
+      default: ["productivity"],
     },
     tags: { type: [String], required: true, trim: true },
     developer: {
@@ -190,11 +190,11 @@ const appSchema = new mongoose.Schema<IApp>(
       default: () => `${generateRandomAppId()}`,
     },
     membership: {
-      default: ['free'],
+      default: ["free"],
       type: [
         {
           type: String,
-          enum: ['free', 'pro', 'premium'],
+          enum: ["free", "pro", "premium"],
         },
       ],
     },
@@ -202,14 +202,14 @@ const appSchema = new mongoose.Schema<IApp>(
     icon: {
       type: String,
       trim: true,
-      default: '/assets/images/default_app.png',
+      default: "/assets/images/default_app.png",
     },
     formFlow: {
       menuType: {
         type: String,
         required: true,
         trim: true,
-        default: 'text_input_to_text_output',
+        default: "text_input_to_text_output",
       },
       inputs: [
         {
@@ -250,7 +250,7 @@ const appSchema = new mongoose.Schema<IApp>(
       },
       output: {
         type: Object,
-        default: { render_type: 'markdown', save_to_db: false },
+        default: { render_type: "markdown", save_to_db: false },
       },
     },
   },
@@ -259,21 +259,21 @@ const appSchema = new mongoose.Schema<IApp>(
 
 // Define indexes for text search functionality
 appSchema.index({
-  name: 'text',
-  description: 'text',
-  tags: 'text',
-  categories: 'text',
-  'developer.name': 'text',
+  name: "text",
+  description: "text",
+  tags: "text",
+  categories: "text",
+  "developer.name": "text",
 });
 
 // Model creation for Review, Usage, and App
 const AppReview: Model<IReview> =
   mongoose.models.AppReview ||
-  mongoose.model<IReview>('AppReview', reviewSchema);
+  mongoose.model<IReview>("AppReview", reviewSchema);
 const AppUsage: Model<IUsage> =
-  mongoose.models.AppUsage || mongoose.model<IUsage>('AppUsage', usageSchema);
+  mongoose.models.AppUsage || mongoose.model<IUsage>("AppUsage", usageSchema);
 const App: Model<IApp> =
-  mongoose.models.App || mongoose.model<IApp>('App', appSchema);
+  mongoose.models.App || mongoose.model<IApp>("App", appSchema);
 
 export { App, AppReview, AppUsage };
 export default App;

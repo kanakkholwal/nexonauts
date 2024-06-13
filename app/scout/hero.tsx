@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
-import './hero.css';
+import { cn } from "@/lib/utils";
+import "./hero.css";
 
 export function HeroWrapper({
   children,
@@ -14,7 +14,7 @@ export function HeroWrapper({
       <section
         id="hero"
         className={cn(
-          'relative mb-16 pt-40 pb-20 min-h-[546px] lg:pt-56 lg:pb-32 lg:min-h-[770px] bg-primary/5',
+          "relative mb-16 pt-40 pb-20 min-h-[546px] lg:pt-56 lg:pb-32 lg:min-h-[770px] bg-primary/5",
           className
         )}
         {...props}

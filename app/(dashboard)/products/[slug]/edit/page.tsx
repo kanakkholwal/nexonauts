@@ -1,11 +1,11 @@
-import { Metadata } from 'next';
-import { getProductBySlug, updateProduct } from './actions';
-import { notFound } from 'next/navigation';
-import EditProductForm from './form';
+import { Metadata } from "next";
+import { getProductBySlug, updateProduct } from "./actions";
+import { notFound } from "next/navigation";
+import EditProductForm from "./form";
 
 export const metadata: Metadata = {
-  title: 'Edit product - NexoNauts',
-  description: 'Edit product for NexoNauts',
+  title: "Edit product - NexoNauts",
+  description: "Edit product for NexoNauts",
 };
 
 export default async function EditProductPage({

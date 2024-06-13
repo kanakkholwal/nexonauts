@@ -1,5 +1,5 @@
-'use client';
-import { Trash2 } from 'lucide-react';
+"use client";
+import { Trash2 } from "lucide-react";
 
 import {
   AlertDialog,
@@ -11,11 +11,11 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
-import React from 'react';
-import toast from 'react-hot-toast';
-import { ProductType } from 'src/models/product';
+} from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
+import React from "react";
+import toast from "react-hot-toast";
+import { ProductType } from "src/models/product";
 
 interface Props {
   deleteProduct: () => Promise<ProductType>;
@@ -46,9 +46,9 @@ export default function DeleteProductButton({ deleteProduct }: Props) {
               setDeleting(true);
               await toast
                 .promise(deleteProduct(), {
-                  loading: 'Deleting...',
-                  success: 'Product deleted successfully',
-                  error: 'Failed to delete product',
+                  loading: "Deleting...",
+                  success: "Product deleted successfully",
+                  error: "Failed to delete product",
                 })
                 .finally(() => {
                   setDeleting(false);
@@ -56,7 +56,7 @@ export default function DeleteProductButton({ deleteProduct }: Props) {
             }}
             disabled={deleting}
           >
-            {deleting ? 'Deleting...' : 'Delete'}
+            {deleting ? "Deleting..." : "Delete"}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

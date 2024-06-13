@@ -1,5 +1,5 @@
 // components/CustomDropdown.tsx
-import { Label } from '@/components/ui/label';
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -8,7 +8,7 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
 const CustomDropdown = (
   { input, onChange, value }

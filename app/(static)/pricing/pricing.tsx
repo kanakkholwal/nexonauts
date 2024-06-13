@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 
-import { BsStars } from 'react-icons/bs';
+import { BsStars } from "react-icons/bs";
 
-import Link from 'next/link';
+import Link from "next/link";
 
 export function Pricing() {
   return (

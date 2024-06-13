@@ -1,9 +1,9 @@
-import { DataTable } from '@/components/ui/data-table';
-import { Suspense } from 'react';
-import { getSession } from 'src/lib/auth';
-import { sessionType } from 'src/types/session';
-import { getTools } from './actions';
-import { columns } from './columns';
+import { DataTable } from "@/components/ui/data-table";
+import { Suspense } from "react";
+import { getSession } from "src/lib/auth";
+import { sessionType } from "src/types/session";
+import { getTools } from "./actions";
+import { columns } from "./columns";
 
 export default async function DashboardPage({
   searchParams,
@@ -15,7 +15,7 @@ export default async function DashboardPage({
   };
 }) {
   const session = (await getSession()) as sessionType;
-  const query = searchParams?.query || '';
+  const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   const perPage = Number(searchParams?.perPage) || 10;
 

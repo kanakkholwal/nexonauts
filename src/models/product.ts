@@ -1,9 +1,9 @@
-import mongoose, { Document, Schema, Types } from 'mongoose';
-import { customAlphabet } from 'nanoid';
+import mongoose, { Document, Schema, Types } from "mongoose";
+import { customAlphabet } from "nanoid";
 
 const generateUrlSlug = (length = 16) =>
   customAlphabet(
-    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     length
   )();
 
@@ -23,7 +23,7 @@ export type rawProduct = {
     product_id: string;
   } | null;
 };
-export type rawProductThirdParty = Omit<rawProduct, 'third_party'> & {
+export type rawProductThirdParty = Omit<rawProduct, "third_party"> & {
   third_party: {
     provider: string;
     lastAsync: Date;
@@ -102,7 +102,7 @@ const productSchema = new Schema<ProductDocument>(
     },
     creator: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
     third_party: {
@@ -130,6 +130,6 @@ const productSchema = new Schema<ProductDocument>(
 
 const Product =
   mongoose.models.Product ||
-  mongoose.model<ProductDocument>('Product', productSchema);
+  mongoose.model<ProductDocument>("Product", productSchema);
 
 export default Product;

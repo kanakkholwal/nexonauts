@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 // Define a user schema
 interface INotification extends Document {
@@ -50,16 +50,16 @@ const notificationSchema = new Schema<INotification>(
       type: String,
       required: true,
       enum: [
-        'comment',
-        'post',
-        'like',
-        'follow',
-        'mention',
-        'reply',
-        'message',
-        'system',
+        "comment",
+        "post",
+        "like",
+        "follow",
+        "mention",
+        "reply",
+        "message",
+        "system",
       ],
-      default: 'system',
+      default: "system",
     },
     read: {
       type: Boolean,
@@ -73,4 +73,4 @@ const notificationSchema = new Schema<INotification>(
 
 const Notification =
   mongoose.models.Notification ||
-  mongoose.model('Notification', notificationSchema);
+  mongoose.model("Notification", notificationSchema);

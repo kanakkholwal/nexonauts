@@ -1,9 +1,9 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { nanoid } from 'nanoid';
+"use client";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { nanoid } from "nanoid";
 
 import {
   Select,
@@ -11,29 +11,29 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { ArrowUpRight, LoaderCircle } from 'lucide-react';
+} from "@/components/ui/select";
+import { ArrowUpRight, LoaderCircle } from "lucide-react";
 
-import { Tag, TagInput } from '@/components/custom/tag-input';
-import { Switch } from '@/components/ui/switch';
-import axios from 'axios';
-import { Loader2, Sparkles } from 'lucide-react';
-import dynamic from 'next/dynamic';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import toast from 'react-hot-toast';
-import 'react-markdown-editor-lite/lib/index.css';
-import MarkdownView from 'src/components/markdown/view';
-import { UploadImage } from 'src/components/uploader';
+import { Tag, TagInput } from "@/components/custom/tag-input";
+import { Switch } from "@/components/ui/switch";
+import axios from "axios";
+import { Loader2, Sparkles } from "lucide-react";
+import dynamic from "next/dynamic";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import toast from "react-hot-toast";
+import "react-markdown-editor-lite/lib/index.css";
+import MarkdownView from "src/components/markdown/view";
+import { UploadImage } from "src/components/uploader";
 import {
   ICategory,
   PublicToolPricingType,
   PublicToolStatus,
   PublicToolTypeWithId,
-} from 'src/models/tool';
-import { z } from 'zod';
-import { useFormStore } from './store';
+} from "src/models/tool";
+import { z } from "zod";
+import { useFormStore } from "./store";
 const urlSchema = z
   .string()
   .url()
@@ -41,7 +41,7 @@ const urlSchema = z
     return value.trim();
   });
 
-const MdEditor = dynamic(() => import('react-markdown-editor-lite'), {
+const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
   loading: () => <p>Loading...</p>,
   ssr: false,
 });
@@ -105,7 +105,7 @@ export default function Form({
             <Label htmlFor="description">Description</Label>
             <MdEditor
               className="w-full h-96  rounded-lg shadow-md p-2"
-              value={tool?.description || ''}
+              value={tool?.description || ""}
               disabled={loading || generating}
               onChange={({ html, text }) => {
                 // console.log('onChange', html, text);
@@ -127,24 +127,24 @@ export default function Form({
                   const name = tool?.name;
                   const link = tool?.link;
                   if (!name || !link) {
-                    toast.error('Name and Link are required');
+                    toast.error("Name and Link are required");
                     return;
                   }
                   setGenerating(true);
                   toast
                     .promise(
-                      axios.post('/api/tools/generate', { name, link }),
+                      axios.post("/api/tools/generate", { name, link }),
                       {
-                        loading: 'Generating Description...',
+                        loading: "Generating Description...",
                         success: (response) => {
                           useFormStore.setState({
                             tool: { ...tool, description: response.data.data },
                           });
-                          return 'Description Generated';
+                          return "Description Generated";
                         },
                         error: (error) => {
                           console.error(error);
-                          return 'Error Generating Description';
+                          return "Error Generating Description";
                         },
                       }
                     )
@@ -158,7 +158,7 @@ export default function Form({
                 ) : (
                   <Sparkles />
                 )}
-                {generating ? 'Generating...' : 'Generate with AI'}
+                {generating ? "Generating..." : "Generate with AI"}
               </Button>
             </div>
           </div>
@@ -187,12 +187,12 @@ export default function Form({
               {available_categories.map((category, index) => {
                 return (
                   <div
-                    key={'category_' + index}
+                    key={"category_" + index}
                     className="flex flex-row items-start space-x-3 space-y-0"
                   >
                     <Checkbox
-                      id={'category_' + index}
-                      name={'category_' + index}
+                      id={"category_" + index}
+                      name={"category_" + index}
                       checked={tool.categories
                         .map((cat) => cat.slug)
                         .includes(category.slug)}
@@ -241,7 +241,7 @@ export default function Form({
                 Cover Image
               </Label>
               <UploadImage
-                key={'coverImage_upload'}
+                key={"coverImage_upload"}
                 onUpload={(fileUrl) => {
                   useFormStore.setState({
                     tool: { ...tool, coverImage: fileUrl },
@@ -316,13 +316,13 @@ export default function Form({
               </SelectTrigger>
               <SelectContent>
                 {[
-                  'free',
-                  'paid',
-                  'freemium',
-                  'one_time_license',
-                  'subscription',
-                  'open_source',
-                  'other',
+                  "free",
+                  "paid",
+                  "freemium",
+                  "one_time_license",
+                  "subscription",
+                  "open_source",
+                  "other",
                 ].map((pricing_type) => {
                   return (
                     <SelectItem
@@ -360,12 +360,12 @@ export default function Form({
               </SelectTrigger>
               <SelectContent>
                 {[
-                  'draft',
-                  'published',
-                  'archived',
-                  'deleted',
-                  'pending',
-                  'rejected',
+                  "draft",
+                  "published",
+                  "archived",
+                  "deleted",
+                  "pending",
+                  "rejected",
                 ].map((status) => {
                   return (
                     <SelectItem
@@ -382,7 +382,7 @@ export default function Form({
           </div>
           <div className="flex justify-center">
             <Button variant="link" asChild>
-              <Link href={'/scout/tools/' + tool.slug} target="_blank">
+              <Link href={"/scout/tools/" + tool.slug} target="_blank">
                 Live Preview
                 <ArrowUpRight />
               </Link>
@@ -394,7 +394,7 @@ export default function Form({
             disabled={loading}
             onClick={(e) => {
               e.preventDefault();
-              console.log('Save Changes', tool);
+              console.log("Save Changes", tool);
               setLoading(true);
               toast
                 .promise(
@@ -412,13 +412,13 @@ export default function Form({
                     bannerImage: tool?.bannerImage,
                   }),
                   {
-                    loading: 'Saving Changes...',
+                    loading: "Saving Changes...",
                     success: (data) => {
-                      return 'Changes Saved';
+                      return "Changes Saved";
                     },
                     error: (error) => {
                       console.error(error);
-                      return 'Error Saving Changes';
+                      return "Error Saving Changes";
                     },
                   }
                 )
@@ -428,7 +428,7 @@ export default function Form({
             }}
           >
             {loading ? <LoaderCircle className="animate-spin" /> : null}
-            {loading ? 'Saving...' : 'Save Changes'}
+            {loading ? "Saving..." : "Save Changes"}
           </Button>
           <Button
             variant="destructive_light"
@@ -441,13 +441,13 @@ export default function Form({
               setDeleting(true);
               toast
                 .promise(deleteTool(), {
-                  loading: 'Deleting Tool...',
+                  loading: "Deleting Tool...",
                   success: (data) => {
-                    return 'Tool Deleted';
+                    return "Tool Deleted";
                   },
                   error: (error) => {
                     console.error(error);
-                    return 'Error Deleting Tool';
+                    return "Error Deleting Tool";
                   },
                 })
                 .finally(() => {
@@ -456,7 +456,7 @@ export default function Form({
             }}
           >
             {deleting ? <LoaderCircle className="animate-spin" /> : null}
-            {deleting ? 'Deleting...' : 'Delete Tool'}
+            {deleting ? "Deleting..." : "Delete Tool"}
           </Button>
         </div>
       </div>

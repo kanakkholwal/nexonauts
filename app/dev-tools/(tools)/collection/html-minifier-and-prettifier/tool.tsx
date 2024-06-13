@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
-import { toast } from 'sonner';
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import { toast } from "sonner";
 
 import {
   Card,
@@ -13,14 +13,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import pretty from 'pretty';
-import { FaCompressArrowsAlt, FaExpandArrowsAlt } from 'react-icons/fa';
-import { MdContentCopy, MdDeleteOutline } from 'react-icons/md';
+} from "@/components/ui/card";
+import pretty from "pretty";
+import { FaCompressArrowsAlt, FaExpandArrowsAlt } from "react-icons/fa";
+import { MdContentCopy, MdDeleteOutline } from "react-icons/md";
 
 export default function HtmlMinifierPrettifier() {
-  const [value, SetValue] = useState('');
-  const [output, setOutput] = useState('');
+  const [value, SetValue] = useState("");
+  const [output, setOutput] = useState("");
 
   return (
     <div className="flex gap-2 justify-around items-start w-full flex-col lg:flex-row">
@@ -38,7 +38,7 @@ export default function HtmlMinifierPrettifier() {
             placeholder="Enter HTML Code Here"
             value={value}
             onChange={(e) => SetValue(e.target.value)}
-            style={{ fontFamily: 'var(--code-font)!important' }}
+            style={{ fontFamily: "var(--code-font)!important" }}
           />
         </CardContent>
         <CardFooter className="gap-4 justify-center">
@@ -46,12 +46,12 @@ export default function HtmlMinifierPrettifier() {
             onClick={() => {
               setOutput(
                 value
-                  .replace(/([^0-9a-zA-Z\.#])\s+/g, '$1')
-                  .replace(/\s([^0-9a-zA-Z\.#]+)/g, '$1')
-                  .replace(/;}/g, '}')
-                  .replace(/\/\*.*?\*\//g, '')
+                  .replace(/([^0-9a-zA-Z\.#])\s+/g, "$1")
+                  .replace(/\s([^0-9a-zA-Z\.#]+)/g, "$1")
+                  .replace(/;}/g, "}")
+                  .replace(/\/\*.*?\*\//g, "")
               );
-              toast.success('Minified!!!');
+              toast.success("Minified!!!");
             }}
           >
             Minify <FaCompressArrowsAlt className="w-4 h-4 ml-2" />
@@ -60,12 +60,12 @@ export default function HtmlMinifierPrettifier() {
             variant="dark"
             onClick={() => {
               setOutput(pretty(value, { ocd: true }));
-              toast.success('Beautified!!!');
+              toast.success("Beautified!!!");
             }}
           >
             Beautify <FaExpandArrowsAlt className="w-4 h-4 ml-2" />
           </Button>
-          <Button variant="destructive" onClick={() => SetValue('')}>
+          <Button variant="destructive" onClick={() => SetValue("")}>
             Clear <MdDeleteOutline className="w-4 h-4 ml-2" />
           </Button>
         </CardFooter>
@@ -92,10 +92,10 @@ export default function HtmlMinifierPrettifier() {
               navigator.clipboard
                 .writeText(output)
                 .then(() => {
-                  toast.success('Copied Successfully');
+                  toast.success("Copied Successfully");
                 })
                 .catch((err) => {
-                  toast.error('Something went wrong ' + err.message);
+                  toast.error("Something went wrong " + err.message);
                 });
             }}
           >

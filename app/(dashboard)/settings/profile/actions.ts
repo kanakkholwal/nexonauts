@@ -1,9 +1,9 @@
-'use server';
-import { ProfileTypeWithIdUser } from 'src/models/profile';
+"use server";
+import { ProfileTypeWithIdUser } from "src/models/profile";
 
-import { revalidatePath } from 'next/cache';
-import dbConnect from 'src/lib/dbConnect';
-import Profile from 'src/models/profile';
+import { revalidatePath } from "next/cache";
+import dbConnect from "src/lib/dbConnect";
+import Profile from "src/models/profile";
 
 type updateAbleData = {
   bio: string;
@@ -49,7 +49,7 @@ export async function getProfile(
     await dbConnect();
 
     const profile = await Profile.findById(profileId)
-      .populate('user', 'name username profilePicture')
+      .populate("user", "name username profilePicture")
       .exec();
     return JSON.parse(JSON.stringify(profile));
   } catch (err) {

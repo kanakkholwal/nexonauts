@@ -1,10 +1,10 @@
-import { NextPage } from 'next';
-import { authOptions } from 'app/api/auth/[...nextauth]/options';
-import { getServerSession } from 'next-auth/next';
-import { getPublicApps } from 'src/lib/apps/actions';
-import { Suspense } from 'react';
-import { Skeleton } from '@/components/ui/skeleton';
-import SearchBar from './components/search';
+import { NextPage } from "next";
+import { authOptions } from "app/api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth/next";
+import { getPublicApps } from "src/lib/apps/actions";
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import SearchBar from "./components/search";
 
 export default async function AppsPage({
   searchParams,
@@ -15,7 +15,7 @@ export default async function AppsPage({
   };
 }) {
   const session = await getServerSession(authOptions);
-  const query = searchParams?.query || '';
+  const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   const { apps, totalPages } = await getPublicApps(query, currentPage, {});
 
@@ -33,7 +33,7 @@ export default async function AppsPage({
           <div className="relative pt-36 ml-auto">
             <div className="lg:w-3/4 text-center mx-auto">
               <h1 className="text-gray-900 dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl">
-                Nexo{' '}
+                Nexo{" "}
                 <span className="relative bg-gradient-to-r from-primary to-violet-200 bg-clip-text text-transparent dark:from-primaryLight dark:to-secondaryLight md:px-2">
                   Apps
                 </span>

@@ -1,156 +1,156 @@
-import Header from 'components/layouts/header';
-import Footer from 'components/layouts/footer';
-import { BreadCrumb } from 'components/breadcrumb';
-import { MainWrapper, ContentWrapper } from 'components/layouts/wrapper';
-import SideNav from 'components/layouts/sidenav';
+import Header from "components/layouts/header";
+import Footer from "components/layouts/footer";
+import { BreadCrumb } from "components/breadcrumb";
+import { MainWrapper, ContentWrapper } from "components/layouts/wrapper";
+import SideNav from "components/layouts/sidenav";
 import {
   IoLogoInstagram,
   IoLogoGithub,
   IoLogoLinkedin,
   IoLogoTwitter,
-} from 'react-icons/io5';
-import { BiBell } from 'react-icons/bi';
-import { FiUsers } from 'react-icons/fi';
+} from "react-icons/io5";
+import { BiBell } from "react-icons/bi";
+import { FiUsers } from "react-icons/fi";
 import {
   TbTools,
   TbSmartHome,
   TbBrandBlogger,
   TbDashboard,
   TbMessageDots,
-} from 'react-icons/tb';
-import { RiAdminLine, RiPagesLine } from 'react-icons/ri';
-import { TbBrandGoogleAnalytics } from 'react-icons/tb';
-import { RiAppsLine } from 'react-icons/ri';
-import { MdOutlineArticle } from 'react-icons/md';
+} from "react-icons/tb";
+import { RiAdminLine, RiPagesLine } from "react-icons/ri";
+import { TbBrandGoogleAnalytics } from "react-icons/tb";
+import { RiAppsLine } from "react-icons/ri";
+import { MdOutlineArticle } from "react-icons/md";
 
 const SocialMedia = [
   {
-    name: 'Github',
+    name: "Github",
     icon: <IoLogoGithub />,
-    url: 'https://github.com/kkupgrader',
+    url: "https://github.com/kkupgrader",
   },
   {
-    name: 'Instagram',
+    name: "Instagram",
     icon: <IoLogoInstagram />,
-    url: 'https://www.instagram.com/kanakkholwal/',
+    url: "https://www.instagram.com/kanakkholwal/",
   },
   {
-    name: 'LinkedIn',
+    name: "LinkedIn",
     icon: <IoLogoLinkedin />,
-    url: 'https://www.linkedin.com/in/kanak-kholwal/',
+    url: "https://www.linkedin.com/in/kanak-kholwal/",
   },
   {
-    name: 'Twitter',
+    name: "Twitter",
     icon: <IoLogoTwitter />,
-    url: 'https://twitter.com/KanakKholwal',
+    url: "https://twitter.com/KanakKholwal",
   },
 ];
 const userRoutes = [
   {
-    title: 'Home',
+    title: "Home",
     icon: <TbSmartHome size={16} />,
-    path: '/',
+    path: "/",
   },
   {
-    title: 'Dashboard',
+    title: "Dashboard",
     icon: <TbDashboard size={16} />,
-    path: '/dashboard',
+    path: "/dashboard",
     sessionRequired: true,
   },
   {
-    title: 'Apps',
+    title: "Apps",
     icon: <RiAppsLine size={16} />,
-    path: '/apps',
+    path: "/apps",
   },
   {
-    title: 'Tools',
+    title: "Tools",
     icon: <TbTools size={16} />,
-    path: '/tools',
+    path: "/tools",
   },
   {
-    title: 'Blog',
+    title: "Blog",
     icon: <TbBrandBlogger size={16} />,
-    path: '/blog',
+    path: "/blog",
   },
   {
-    title: 'Profile',
+    title: "Profile",
     icon: <TbBrandBlogger size={16} />,
-    path: '/dashboard/profile',
+    path: "/dashboard/profile",
     sessionRequired: true,
   },
 ];
 
 const routes = (userRole) => {
-  if (userRole === 'admin')
+  if (userRole === "admin")
     return [
       {
-        title: 'Dashboard',
-        path: '/dashboard/admin',
+        title: "Dashboard",
+        path: "/dashboard/admin",
         icon: <RiAdminLine />,
       },
       {
-        title: 'Analytics',
-        path: '/dashboard/admin/analytics',
+        title: "Analytics",
+        path: "/dashboard/admin/analytics",
         icon: <TbBrandGoogleAnalytics />,
         children: [
           {
-            title: 'Pages',
-            path: '/dashboard/admin/analytics/pages',
+            title: "Pages",
+            path: "/dashboard/admin/analytics/pages",
           },
           {
-            title: 'Remove',
-            path: '/dashboard/admin/analytics/remove-unnecessary',
+            title: "Remove",
+            path: "/dashboard/admin/analytics/remove-unnecessary",
           },
         ],
       },
       {
-        title: 'Blog',
-        path: '/dashboard/admin/blog',
+        title: "Blog",
+        path: "/dashboard/admin/blog",
         icon: <TbBrandBlogger />,
         children: [
           {
             icon: <MdOutlineArticle />,
-            title: 'Posts',
-            path: '/dashboard/admin/blog/posts',
+            title: "Posts",
+            path: "/dashboard/admin/blog/posts",
           },
         ],
       },
       {
-        title: 'Apps',
-        path: '/dashboard/admin/apps',
+        title: "Apps",
+        path: "/dashboard/admin/apps",
         icon: <RiAppsLine />,
         children: [
           {
-            title: 'Submit',
-            path: '/dashboard/admin/apps/submit',
+            title: "Submit",
+            path: "/dashboard/admin/apps/submit",
           },
         ],
       },
       {
-        title: 'Public Tools',
-        path: '/dashboard/admin/public-tools',
+        title: "Public Tools",
+        path: "/dashboard/admin/public-tools",
         icon: <RiAppsLine />,
         children: [
           {
-            title: 'Add New Tools',
-            path: '/dashboard/admin/public-tools/add',
+            title: "Add New Tools",
+            path: "/dashboard/admin/public-tools/add",
           },
         ],
       },
       {
-        title: 'Users',
-        path: '/dashboard/admin/users',
+        title: "Users",
+        path: "/dashboard/admin/users",
         icon: <FiUsers />,
       },
       {
-        title: 'Messages',
-        path: '/dashboard/admin/messages',
+        title: "Messages",
+        path: "/dashboard/admin/messages",
         icon: <TbMessageDots />,
       },
 
       {
-        title: 'Notifications',
-        path: '/dashboard/admin/notifications',
+        title: "Notifications",
+        path: "/dashboard/admin/notifications",
         icon: <BiBell />,
       },
       // ...userRoutes

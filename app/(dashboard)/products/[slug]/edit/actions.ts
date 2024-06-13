@@ -1,9 +1,9 @@
-'use server';
-import { revalidatePath } from 'next/cache';
-import { getSession } from 'src/lib/auth';
-import dbConnect from 'src/lib/dbConnect';
-import Product, { ProductType } from 'src/models/product';
-import { sessionType } from 'src/types/session';
+"use server";
+import { revalidatePath } from "next/cache";
+import { getSession } from "src/lib/auth";
+import dbConnect from "src/lib/dbConnect";
+import Product, { ProductType } from "src/models/product";
+import { sessionType } from "src/types/session";
 
 export async function getProductBySlug(slug: string): Promise<ProductType> {
   const session = (await getSession()) as sessionType;
@@ -14,7 +14,7 @@ export async function getProductBySlug(slug: string): Promise<ProductType> {
     creator: session.user._id,
   }).exec();
 
-  revalidatePath(`/products/${slug}/edit`, 'page');
+  revalidatePath(`/products/${slug}/edit`, "page");
   return Promise.resolve(JSON.parse(JSON.stringify(product)));
 }
 export async function updateProduct(
@@ -35,6 +35,6 @@ export async function updateProduct(
     { new: true }
   ).exec();
 
-  revalidatePath(`/products/${product.slug}/edit`, 'page');
+  revalidatePath(`/products/${product.slug}/edit`, "page");
   return Promise.resolve(true);
 }

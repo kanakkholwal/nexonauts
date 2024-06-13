@@ -1,5 +1,5 @@
-import { Suspense } from 'react';
-import SideBarPostCard from '../../../src/layouts/blog/sidenavPostCard';
+import { Suspense } from "react";
+import SideBarPostCard from "../../../src/layouts/blog/sidenavPostCard";
 
 export function SideBar({ recentPosts }) {
   const renderPosts = (postArray) => {

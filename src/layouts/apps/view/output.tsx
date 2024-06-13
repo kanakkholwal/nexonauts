@@ -1,16 +1,16 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import Copy from 'copy-to-clipboard';
-import Markdown from 'markdown-to-jsx';
-import toast from 'react-hot-toast';
-import { outputsType } from 'src/types/app';
+} from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import Copy from "copy-to-clipboard";
+import Markdown from "markdown-to-jsx";
+import toast from "react-hot-toast";
+import { outputsType } from "src/types/app";
 
 export type RenderOutputType = {
   type: string;
@@ -39,17 +39,17 @@ export function RenderOutput({
             variant="gradient_blue"
             onClick={() => {
               if (
-                output.type !== 'text/plain' ||
-                typeof output.data !== 'string'
+                output.type !== "text/plain" ||
+                typeof output.data !== "string"
               )
                 return;
-              if (output.data === null || output.data.trim() === '') return;
+              if (output.data === null || output.data.trim() === "") return;
               Copy(output.data, {
                 // debug?: boolean;
-                message: 'Press #{key} to copy',
-                format: 'text/plain', // or text/html
+                message: "Press #{key} to copy",
+                format: "text/plain", // or text/html
                 onCopy(clipboardData) {
-                  toast.success('Copied to clipboard');
+                  toast.success("Copied to clipboard");
                 },
               });
             }}
@@ -70,16 +70,16 @@ export function RenderOutput({
             </>
           ) : (
             <>
-              {output.data === null || output.data?.trim() === '' ? (
+              {output.data === null || output.data?.trim() === "" ? (
                 <p className="text-foreground text-center">
                   No output generated
                 </p>
               ) : (
                 <>
-                  {outputConfig.render_type === 'text' && (
+                  {outputConfig.render_type === "text" && (
                     <p className="text-foreground text-center">{output.data}</p>
                   )}
-                  {outputConfig.render_type === 'markdown' && (
+                  {outputConfig.render_type === "markdown" && (
                     <Markdown className="text-foreground">
                       {output.data}
                     </Markdown>
