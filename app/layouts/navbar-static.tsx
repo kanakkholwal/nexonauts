@@ -18,8 +18,8 @@ export default function Navbar() {
         className="relative flex flex-wrap items-center justify-between gap-6 py-2 lg:gap-0 lg:py-4 mx-auto px-4 sm:px-12 xl:max-w-[1440px] xl:px-0 lg:px-8"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1 max-w-28 ml-auto">
-          <Link href="/" aria-label="Logo" className="p-1.5">
+        <div className="flex lg:flex-1 ml-auto">
+          <Link href="/" aria-label="Logo" className="p-1.5 max-w-28">
             <span className="sr-only">Nexonauts</span>
             <Image
               height={40}
