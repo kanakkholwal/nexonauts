@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { ErrorBoundary } from 'react-error-boundary';
 import toast from 'react-hot-toast';
 import { CgSpinner } from 'react-icons/cg';
 import { MdOutlineReportGmailerrorred } from 'react-icons/md';
@@ -67,7 +66,7 @@ export function UserAuthForm({
   }, [token]);
 
   return (
-    <ErrorBoundary fallback={<div>Something went wrong</div>}>
+    <>
       <div className="flex flex-col space-y-2 text-center">
         <h1 className="text-2xl font-semibold tracking-tight">
           {isLoading ? 'Verifying' : 'Verify Email'}
@@ -119,6 +118,6 @@ export function UserAuthForm({
           )}
         </div>
       </main>
-    </ErrorBoundary>
+    </>
   );
 }
