@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { cn } from "@/lib/utils";
-import { motion, stagger, useAnimate, useInView } from "framer-motion";
-import { useEffect } from "react";
+import { cn } from '@/lib/utils';
+import { motion, stagger, useAnimate, useInView } from 'framer-motion';
+import { useEffect } from 'react';
 
 export const TypewriterEffect = ({
   words,
@@ -20,7 +20,7 @@ export const TypewriterEffect = ({
   const wordsArray = words.map((word) => {
     return {
       ...word,
-      text: word.text.split(""),
+      text: word.text.split(''),
     };
   });
 
@@ -29,15 +29,15 @@ export const TypewriterEffect = ({
   useEffect(() => {
     if (isInView) {
       animate(
-        "span",
+        'span',
         {
-          display: "inline-block",
+          display: 'inline-block',
           opacity: 1,
         },
         {
           duration: 0.3,
           delay: stagger(0.1),
-          ease: "easeInOut",
+          ease: 'easeInOut',
         }
       );
     }
@@ -71,7 +71,7 @@ export const TypewriterEffect = ({
   return (
     <div
       className={cn(
-        "text-base sm:text-xl md:text-3xl lg:text-5xl font-bold text-center",
+        'text-base sm:text-xl md:text-3xl lg:text-5xl font-bold text-center',
         className
       )}
     >
@@ -86,10 +86,10 @@ export const TypewriterEffect = ({
         transition={{
           duration: 0.8,
           repeat: Infinity,
-          repeatType: "reverse",
+          repeatType: 'reverse',
         }}
         className={cn(
-          "inline-block rounded-sm w-[4px] h-4 md:h-6 lg:h-10 bg-blue-500",
+          'inline-block rounded-sm w-[4px] h-4 md:h-6 lg:h-10 bg-blue-500',
           cursorClassName
         )}
       ></motion.span>
@@ -113,7 +113,7 @@ export const TypewriterEffectSmooth = ({
   const wordsArray = words.map((word) => {
     return {
       ...word,
-      text: word.text.split(""),
+      text: word.text.split(''),
     };
   });
   const renderWords = () => {
@@ -125,7 +125,10 @@ export const TypewriterEffectSmooth = ({
               {word.text.map((char, index) => (
                 <span
                   key={`char-${index}`}
-                  className={cn(`dark:text-white text-black text-xl sm:text-2xl md:text-3xl lg:text:4xl xl:text-5xl font-bold`, word.className)}
+                  className={cn(
+                    `dark:text-white text-black text-xl sm:text-2xl md:text-3xl lg:text:4xl xl:text-5xl font-bold`,
+                    word.className
+                  )}
                 >
                   {char}
                 </span>
@@ -139,29 +142,34 @@ export const TypewriterEffectSmooth = ({
   };
 
   return (
-    <div className={cn("flex space-x-1 my-6 justify-center items-center", className)}>
+    <div
+      className={cn(
+        'flex space-x-1 my-6 justify-center items-center',
+        className
+      )}
+    >
       <motion.div
         className="overflow-hidden pb-2"
         initial={{
-          width: "0%",
+          width: '0%',
         }}
         whileInView={{
-          width: "fit-content",
+          width: 'fit-content',
         }}
         transition={{
           duration: 2,
-          ease: "linear",
+          ease: 'linear',
           delay: 1,
         }}
       >
         <div
           className="text-xl sm:text-2xl md:text-3xl lg:text:4xl xl:text-5xl font-bold"
           style={{
-            whiteSpace: "nowrap",
+            whiteSpace: 'nowrap',
           }}
         >
-          {renderWords()}{" "}
-        </div>{" "}
+          {renderWords()}{' '}
+        </div>{' '}
       </motion.div>
       <motion.span
         initial={{
@@ -174,10 +182,10 @@ export const TypewriterEffectSmooth = ({
           duration: 0.8,
 
           repeat: Infinity,
-          repeatType: "reverse",
+          repeatType: 'reverse',
         }}
         className={cn(
-          "block rounded-sm w-[4px]  h-4 sm:h-6 xl:h-12 bg-blue-500",
+          'block rounded-sm w-[4px]  h-4 sm:h-6 xl:h-12 bg-blue-500',
           cursorClassName
         )}
       ></motion.span>

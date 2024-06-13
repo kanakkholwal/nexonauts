@@ -1,9 +1,9 @@
 @media screen and (min-width: 1024px) {
-    .hero_image {
-        background-image: url(/assets/backgrounds/tools-search.jpg);
-    }
+  .hero_image {
+    background-image: url(/assets/backgrounds/tools-search.jpg);
+  }
 }
 
 .hero_image {
-    background-image: url(/assets/backgrounds/tools-search.jpg);
+  background-image: url(/assets/backgrounds/tools-search.jpg);
 }

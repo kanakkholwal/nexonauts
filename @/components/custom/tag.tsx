@@ -1,86 +1,86 @@
-import { cn } from "@/lib/utils";
-import { cva } from "class-variance-authority";
-import { X } from "lucide-react";
-import { Button } from "../ui/button";
-import { TagInputProps, type Tag as TagType } from "./tag-input";
+import { cn } from '@/lib/utils';
+import { cva } from 'class-variance-authority';
+import { X } from 'lucide-react';
+import { Button } from '../ui/button';
+import { TagInputProps, type Tag as TagType } from './tag-input';
 
 export const tagVariants = cva(
-  "transition-all border inline-flex items-center text-sm pl-2 rounded-md",
+  'transition-all border inline-flex items-center text-sm pl-2 rounded-md',
   {
     variants: {
       variant: {
-        default: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        default: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
         primary:
-          "bg-primary border-primary text-primary-foreground hover:bg-primary/90",
+          'bg-primary border-primary text-primary-foreground hover:bg-primary/90',
         destructive:
-          "bg-destructive border-destructive text-destructive-foreground hover:bg-destructive/90",
+          'bg-destructive border-destructive text-destructive-foreground hover:bg-destructive/90',
       },
       size: {
-        sm: "text-xs h-7",
-        md: "text-sm h-8",
-        lg: "text-base h-9",
-        xl: "text-lg h-10",
+        sm: 'text-xs h-7',
+        md: 'text-sm h-8',
+        lg: 'text-base h-9',
+        xl: 'text-lg h-10',
       },
       shape: {
-        default: "rounded-sm",
-        rounded: "rounded-lg",
-        square: "rounded-none",
-        pill: "rounded-full",
+        default: 'rounded-sm',
+        rounded: 'rounded-lg',
+        square: 'rounded-none',
+        pill: 'rounded-full',
       },
       borderStyle: {
-        default: "border-solid",
-        none: "border-none",
+        default: 'border-solid',
+        none: 'border-none',
       },
       textCase: {
-        uppercase: "uppercase",
-        lowercase: "lowercase",
-        capitalize: "capitalize",
+        uppercase: 'uppercase',
+        lowercase: 'lowercase',
+        capitalize: 'capitalize',
       },
       interaction: {
-        clickable: "cursor-pointer hover:shadow-md",
-        nonClickable: "cursor-default",
+        clickable: 'cursor-pointer hover:shadow-md',
+        nonClickable: 'cursor-default',
       },
       animation: {
-        none: "",
-        fadeIn: "animate-fadeIn",
-        slideIn: "animate-slideIn",
-        bounce: "animate-bounce",
+        none: '',
+        fadeIn: 'animate-fadeIn',
+        slideIn: 'animate-slideIn',
+        bounce: 'animate-bounce',
       },
       textStyle: {
-        normal: "font-normal",
-        bold: "font-bold",
-        italic: "italic",
-        underline: "underline",
-        lineThrough: "line-through",
+        normal: 'font-normal',
+        bold: 'font-bold',
+        italic: 'italic',
+        underline: 'underline',
+        lineThrough: 'line-through',
       },
     },
     defaultVariants: {
-      variant: "default",
-      size: "md",
-      shape: "default",
-      borderStyle: "default",
-      textCase: "capitalize",
-      interaction: "nonClickable",
-      animation: "fadeIn",
-      textStyle: "normal",
+      variant: 'default',
+      size: 'md',
+      shape: 'default',
+      borderStyle: 'default',
+      textCase: 'capitalize',
+      interaction: 'nonClickable',
+      animation: 'fadeIn',
+      textStyle: 'normal',
     },
   }
 );
 
 export type TagProps = {
   tagObj: TagType;
-  variant: TagInputProps["variant"];
-  size:  TagInputProps["size"];
-  shape: TagInputProps["shape"];
-  borderStyle: TagInputProps["borderStyle"];
-  textCase: TagInputProps["textCase"];
-  interaction: TagInputProps["interaction"];
-  animation: TagInputProps["animation"];
-  textStyle: TagInputProps["textStyle"];
+  variant: TagInputProps['variant'];
+  size: TagInputProps['size'];
+  shape: TagInputProps['shape'];
+  borderStyle: TagInputProps['borderStyle'];
+  textCase: TagInputProps['textCase'];
+  interaction: TagInputProps['interaction'];
+  animation: TagInputProps['animation'];
+  textStyle: TagInputProps['textStyle'];
   onRemoveTag: (id: string) => void;
-} & Pick<TagInputProps, "direction" | "onTagClick" | "draggable">;
+} & Pick<TagInputProps, 'direction' | 'onTagClick' | 'draggable'>;
 
-type btnSizeType = "icon" | "icon_sm" | "icon_lg" | "icon_xl";
+type btnSizeType = 'icon' | 'icon_sm' | 'icon_lg' | 'icon_xl';
 
 export const Tag: React.FC<TagProps> = ({
   tagObj,
@@ -97,8 +97,11 @@ export const Tag: React.FC<TagProps> = ({
   animation,
   textStyle,
 }) => {
-
-  const btnSize: btnSizeType = size ? (size === "md" ? "icon" : "icon_" + size as btnSizeType) : "icon";
+  const btnSize: btnSizeType = size
+    ? size === 'md'
+      ? 'icon'
+      : (('icon_' + size) as btnSizeType)
+    : 'icon';
 
   return (
     <span
@@ -116,8 +119,8 @@ export const Tag: React.FC<TagProps> = ({
           textStyle,
         }),
         {
-          "justify-between": direction === "column",
-          "cursor-pointer": draggable,
+          'justify-between': direction === 'column',
+          'cursor-pointer': draggable,
         }
       )}
       onClick={() => onTagClick?.(tagObj)}
@@ -131,7 +134,7 @@ export const Tag: React.FC<TagProps> = ({
           e.stopPropagation(); // Prevent event from bubbling up to the tag span
           onRemoveTag(tagObj.id);
         }}
-        className={cn("h-full hover:bg-transparent")}
+        className={cn('h-full hover:bg-transparent')}
       >
         <X size={14} />
       </Button>

@@ -1,5 +1,5 @@
 // "use client"
-export { };
+export {};
 // MDXEditor.tsx
 // import {
 //   type MDXEditorMethods,

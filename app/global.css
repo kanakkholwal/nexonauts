@@ -2,184 +2,187 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
-    :root {
-        --background: 0, 0%, 98%;
-        --foreground: 224 71.4% 4.1%;
-        --background-start-rgb: 214, 219, 220;
-        --background-end-rgb: 255, 255, 255;
-        --card: 0 0% 100%;
-        --card-foreground: 224 71.4% 4.1%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 224 71.4% 4.1%;
-        --primary: 262.1 83.3% 57.8%;
-        --primary-foreground: 210 20% 98%;
-        --secondary: 220 14.3% 95.9%;
-        --secondary-foreground: 220.9 39.3% 11%;
-        --muted: 220 14.3% 95.9%;
-        --muted-foreground: 220 8.9% 46.1%;
-        --accent: 220 14.3% 95.9%;
-        --accent-foreground: 220.9 39.3% 11%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 210 20% 98%;
-        --border: 220 13% 91%;
-        --input: 220 13% 91%;
-        --ring: 262.1 83.3% 57.8%;
-        --radius: 0.75rem;
-    }
+  :root {
+    --background: 0, 0%, 98%;
+    --foreground: 224 71.4% 4.1%;
+    --background-start-rgb: 214, 219, 220;
+    --background-end-rgb: 255, 255, 255;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 262.1 83.3% 57.8%;
+    --radius: 0.75rem;
+  }
 
-    .dark {
-        --background: 224 71.4% 4.1%;
-        --foreground: 210 20% 98%;
-        --background-start-rgb: 0, 0, 20%;
-        --background-end-rgb: 0, 0, 25%;
-        --card: 224 71.4% 4.1%;
-        --card-foreground: 210 20% 98%;
-        --popover: 224 71.4% 4.1%;
-        --popover-foreground: 210 20% 98%;
-        --primary: 262.1 83.3% 57.8%;
-        --primary-foreground: 210 20% 98%;
-        --secondary: 215 27.9% 16.9%;
-        --secondary-foreground: 210 20% 98%;
-        --muted: 215 27.9% 16.9%;
-        --muted-foreground: 217.9 10.6% 64.9%;
-        --accent: 215 27.9% 16.9%;
-        --accent-foreground: 210 20% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 210 20% 98%;
-        --border: 215 27.9% 16.9%;
-        --input: 215 27.9% 16.9%;
-        --ring: 263.4 70% 50.4%;
-    }
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    --background-start-rgb: 0, 0, 20%;
+    --background-end-rgb: 0, 0, 25%;
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 263.4 70% 50.4%;
+  }
 }
 
-
 @layer base {
-    * {
-        @apply border-border;
-    }
-
-
+  * {
+    @apply border-border;
+  }
 }
 
-*,*::before,*::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 *:autofill {
-    font: inherit;
+  font: inherit;
 }
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
 }
 
 html::-webkit-scrollbar {
-    width: 10px;
+  width: 10px;
 }
 
 html::-webkit-scrollbar-track {
-    background-color: #fafafa;
+  background-color: #fafafa;
 }
 
 html::-webkit-scrollbar-thumb {
-    background-color: #ccc;
+  background-color: #ccc;
 }
 
 html::-webkit-scrollbar-thumb:hover {
-    background-color: #b3b3b3;
+  background-color: #b3b3b3;
 }
 
 body {
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-    position: relative;
-    z-index: 1;
-    font-family: var(--plus-jakarta, '"DM Sans", "Plus Jakarta Sans", "Poppins", "Inter", "ManRope", "Google Sans", san-serif');
-    @apply bg-background text-foreground;
-
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
+  font-family: var(
+    --plus-jakarta,
+    '"DM Sans", "Plus Jakarta Sans", "Poppins", "Inter", "ManRope", "Google Sans", san-serif'
+  );
+  @apply bg-background text-foreground;
 }
 
 a,
 button {
-    outline: none;
-    text-decoration: none;
-    cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 a,
 button,
 input,
 textarea {
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
-    background-color: transparent;
+  color: inherit;
+  text-decoration: none;
+  background-color: transparent;
 }
 
 .glassmorphism {
-    /* glassmorphism  with tailwindcss  and dark mode */
-    @apply bg-slate-50/15 dark:bg-slate-800/15 backdrop-blur-xl border border-slate-500/10 dark:border-border;
+  /* glassmorphism  with tailwindcss  and dark mode */
+  @apply bg-slate-50/15 dark:bg-slate-800/15 backdrop-blur-xl border border-slate-500/10 dark:border-border;
 }
 
 .glassmorphism_light {
-    /* glassmorphism  with tailwindcss  and dark mode */
-    @apply bg-white/30 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70;
+  /* glassmorphism  with tailwindcss  and dark mode */
+  @apply bg-white/30 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70;
 }
-.bg-background-gradient{
-    background: linear-gradient(135deg, rgba(var(--background-start-rgb), 1) 0, rgba(var(--background-end-rgb), 1) 100%);
+.bg-background-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--background-start-rgb), 1) 0,
+    rgba(var(--background-end-rgb), 1) 100%
+  );
 }
 .or {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    gap: 0.5rem;
-    margin: 1rem 0;
-
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 0.5rem;
+  margin: 1rem 0;
 }
 
 .or::before,
 .or::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    @apply bg-border dark:bg-slate-700;
+  content: '';
+  flex: 1;
+  height: 1px;
+  @apply bg-border dark:bg-slate-700;
 }
 
 .staticWave {
-    background-repeat: no-repeat;
-    background-position-y: 100%;
-    background-size: contain;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='99' viewBox='0 0 1200 99' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 47.1131L50 51.437C100 55.7609 200 64.4087 300 60.0848C400 55.7609 500 38.4653 600 23.3316C700 8.1979 800 -4.77383 900 1.71204C1000 8.1979 1100 34.1414 1150 47.1131L1200 60.0848V99H1150C1100 99 1000 99 900 99C800 99 700 99 600 99C500 99 400 99 300 99C200 99 100 99 50 99H0V47.1131Z' fill='rgb(244, 247, 254)' /%3E%3C/svg%3E");
-    width: 100%;
-    height: 10rem;
-    position: absolute;
-    min-width: 100vw;
-    inset-inline: 0px;
-    bottom: 0px;
+  background-repeat: no-repeat;
+  background-position-y: 100%;
+  background-size: contain;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='99' viewBox='0 0 1200 99' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M0 47.1131L50 51.437C100 55.7609 200 64.4087 300 60.0848C400 55.7609 500 38.4653 600 23.3316C700 8.1979 800 -4.77383 900 1.71204C1000 8.1979 1100 34.1414 1150 47.1131L1200 60.0848V99H1150C1100 99 1000 99 900 99C800 99 700 99 600 99C500 99 400 99 300 99C200 99 100 99 50 99H0V47.1131Z' fill='rgb(244, 247, 254)' /%3E%3C/svg%3E");
+  width: 100%;
+  height: 10rem;
+  position: absolute;
+  min-width: 100vw;
+  inset-inline: 0px;
+  bottom: 0px;
 }
 
 /* lg: */
 @media (max-width: 1024px) {
-    .sidenav {
-        translate: -100% 0%;
-        transition: all 0.3s ease-in-out;
-    }
+  .sidenav {
+    translate: -100% 0%;
+    transition: all 0.3s ease-in-out;
+  }
 
-    .sidenav.open {
-        translate: 0% 0% !important;
-    }
+  .sidenav.open {
+    translate: 0% 0% !important;
+  }
 }

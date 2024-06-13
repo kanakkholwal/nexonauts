@@ -5,18 +5,20 @@ import { useFormContext } from './form-context';
 export const useForm = () => {
   const { formData, updateFormData } = useFormContext();
 
-  const handleInputChange = (e
-    : {
-    target: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | HTMLButtonElement & {
-      name: string;
-      value: string;
-    } | {
-      name: string;
-      value: string;
-    }
-
-  }
-  ) => {
+  const handleInputChange = (e: {
+    target:
+      | HTMLInputElement
+      | HTMLTextAreaElement
+      | HTMLSelectElement
+      | (HTMLButtonElement & {
+          name: string;
+          value: string;
+        })
+      | {
+          name: string;
+          value: string;
+        };
+  }) => {
     const { name, value } = e.target;
     // Update the form data
     updateFormData({

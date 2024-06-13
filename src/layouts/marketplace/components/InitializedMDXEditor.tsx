@@ -1,5 +1,5 @@
 // "use client"
-export { };
+export {};
 // InitializedMDXEditor.tsx
 // import {
 //   MDXEditor,
@@ -17,10 +17,6 @@ export { };
 //   type MDXEditorMethods,
 //   type MDXEditorProps
 // } from "@mdxeditor/editor";
-
-
-
-
 
 // Only import this to the next file
 // export default function InitializedMDXEditor({
@@ -41,7 +37,6 @@ export { };
 //         quotePlugin(),
 //         thematicBreakPlugin(),
 //         markdownShortcutPlugin(),
-
 
 //         toolbarPlugin({ toolbarContents: () => <div className="w-full flex items-center bg-slate-100">
 //               <UndoRedo />
