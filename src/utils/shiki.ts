@@ -10,7 +10,7 @@ export const codeToHtml = async ({
   theme: string;
 }) => {
   const highlighter = await getHighlighter({
-    themes: ['github-light', 'github-dark'],
+    themes: ['github-light-default','github-dark-default'],
     langs: [...Object.keys(bundledLanguages)],
   });
 
@@ -18,9 +18,9 @@ export const codeToHtml = async ({
     lang: language,
     theme:
       theme === ''
-        ? 'github-light'
+        ? 'github-light-default'
         : theme === 'dark'
-          ? 'github-dark'
-          : 'github-light',
+          ? 'github-dark-default'
+          : 'github-light-default',
   });
 };

@@ -53,15 +53,12 @@ export function RenderCodeBlock({ children, className, node, ...props }) {
   );
 }
 
-export function RenderPost({ post }) {
-  const isMarkdown =
-    typeof post?.content === 'string' && post?.content.includes('```');
+export function RenderPost({ content }:{content:string}) {
 
   return (
-    <article>
-      {isMarkdown ? (
+    <article className="flex-auto">
         <MarkdownView
-          className="prose lg:prose-xl dark:prose-invert"
+          className="prose dark:prose-invert max-w-full"
           options={{
             components: {
               pre: ({ children, className, node, ...props }) => (
@@ -104,7 +101,7 @@ export function RenderPost({ post }) {
               a: ({ children, href, node, ...props }) => (
                 <a
                   href={href}
-                  className="text-blue-600 hover:underline"
+                  className="text-primary hover:underline"
                   {...props}
                 >
                   {children}
@@ -118,7 +115,7 @@ export function RenderPost({ post }) {
                 <img
                   src={src}
                   alt={alt}
-                  className="w-full h-auto rounded-md"
+                  className="w-full h-auto rounded-lg"
                   {...props}
                 />
               ),
@@ -157,13 +154,9 @@ export function RenderPost({ post }) {
             },
           }}
         >
-          {post?.content}
+          {content}
         </MarkdownView>
-      ) : (
-        <p className="text-red-600 p-7 text-xl text-center">
-          Post content is not markdown
-        </p>
-      )}
+      
     </article>
   );
 }
