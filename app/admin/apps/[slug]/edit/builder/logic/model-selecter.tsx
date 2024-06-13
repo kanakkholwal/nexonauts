@@ -1,4 +1,4 @@
-export {}
+export {};
 // import { PopoverProps } from "@radix-ui/react-popover"
 // import { Check } from "lucide-react"
 // import * as React from "react"
@@ -44,13 +44,12 @@ export {}
 //   const [peekedModel, setPeekedModel] = React.useState<Model>(models[0])
 //   const { builderData, updateBuilderData } = useBuilderContext();
 
-
 //   return (
 //     <div className="grid gap-2">
 //       <HoverCard openDelay={200}>
 //         <HoverCardTrigger asChild>
 //           <div>
-//             <Label htmlFor="model">       
+//             <Label htmlFor="model">
 //                 <LuAtom className="h-4 w-4 mr-2 shrink-0 inline-block" />
 //               Model</Label>
 //             <p className="text-sm text-muted-foreground">

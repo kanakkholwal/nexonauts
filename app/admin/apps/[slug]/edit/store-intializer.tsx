@@ -1,13 +1,11 @@
-"use client";
+'use client';
 
-import { useRef } from "react";
+import { useRef } from 'react';
 
-import { AppTypeWithId } from "src/models/app";
-import { useAppStore } from "./store";
+import { AppTypeWithId } from 'src/models/app';
+import { useAppStore } from './store';
 
-function StoreInitializer({ app }: {
-    app: AppTypeWithId;
-}) {
+function StoreInitializer({ app }: { app: AppTypeWithId }) {
   const initialized = useRef(false);
   if (!initialized.current) {
     useAppStore.setState({ ...app });

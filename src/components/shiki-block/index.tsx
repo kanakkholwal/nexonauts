@@ -1,2 +1,2 @@
-import ShikiBlock from "./shiki-block";
+import ShikiBlock from './shiki-block';
 export default ShikiBlock;

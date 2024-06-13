@@ -1,4 +1,4 @@
-export { };
+export {};
 // import { SliderProps } from "@radix-ui/react-slider"
 // import * as React from "react"
 
@@ -45,7 +45,7 @@ export { };
 //                     "topP": value[0],
 //                   }
 //                 } as AppConfigType
-                
+
 //                 updateBuilderData({
 //                   ...builderData,
 //                   config

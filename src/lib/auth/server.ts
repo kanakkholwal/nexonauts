@@ -1,8 +1,8 @@
-import { authOptions } from "app/api/auth/[...nextauth]/options";
+import { authOptions } from 'app/api/auth/[...nextauth]/options';
 
-import { getServerSession } from "next-auth/next";
-import { sessionType } from "src/types/session";
+import { getServerSession } from 'next-auth/next';
+import { sessionType } from 'src/types/session';
 
 export const getSession = async (): Promise<sessionType | null> => {
-    return await getServerSession(authOptions);
-}
+  return await getServerSession(authOptions);
+};

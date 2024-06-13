@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import mongoose, { Document, Schema, Types } from "mongoose";
+import mongoose, { Document, Schema, Types } from 'mongoose';
 import { customAlphabet } from 'nanoid';
 import validator from 'validator';
 
@@ -11,13 +11,13 @@ interface Integration {
     scope: string | null;
     integrated: boolean;
     lastAuthorized: Date | null;
-  },
+  };
   github: {
     access_token: string | null;
     scope: string | null;
     integrated: boolean;
     lastAuthorized: Date | null;
-  },
+  };
 }
 interface User extends Document {
   name: string;
@@ -26,10 +26,10 @@ interface User extends Document {
   profilePicture: string;
   password: string;
   role: string;
-  profile: Types.ObjectId,
+  profile: Types.ObjectId;
   account_type: string;
-  integrations: Integration | null,
-  additional_info: Record<string, string | null>
+  integrations: Integration | null;
+  additional_info: Record<string, string | null>;
   verificationToken: string | null;
   verified: boolean;
 }
@@ -39,24 +39,23 @@ interface IntegrationSchema extends Document {
     scope: string;
     integrated: boolean;
     lastAuthorized: Date | null;
-  },
+  };
   github: {
     access_token: string | null;
     scope: string | null;
     integrated: boolean;
     lastAuthorized: Date | null;
-  },
+  };
 }
-
 
 const integrationSchema = new Schema<IntegrationSchema>({
   gumroad: {
     scope: {
       type: String,
-      default: "edit_products",
+      default: 'edit_products',
       enum: {
-        values: ["edit_products", "view_profile", "view_sales"],
-      }
+        values: ['edit_products', 'view_profile', 'view_sales'],
+      },
     },
     access_token: {
       type: String,
@@ -74,7 +73,7 @@ const integrationSchema = new Schema<IntegrationSchema>({
   github: {
     scope: {
       type: String,
-      default: "repo",
+      default: 'repo',
     },
     access_token: {
       type: String,
@@ -89,11 +88,14 @@ const integrationSchema = new Schema<IntegrationSchema>({
       default: null,
     },
   },
-})
+});
 
 function generateRandomUsername(): string {
   // Generate a random UUID
-  const slug = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 8)()
+  const slug = customAlphabet(
+    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+    8
+  )();
 
   // Add a prefix (e.g., 'user_') to the alphanumeric username
   return `user_${slug}`;
@@ -110,9 +112,11 @@ const userSchema = new Schema<User>(
       trim: true,
       required: true,
       unique: true,
-      validate: [validator.isAlphanumeric, 'Username can only contain letters and numbers'],
+      validate: [
+        validator.isAlphanumeric,
+        'Username can only contain letters and numbers',
+      ],
       default: () => generateRandomUsername(),
-
     },
     email: {
       type: String,
@@ -123,12 +127,13 @@ const userSchema = new Schema<User>(
     },
     profilePicture: {
       type: String,
-      default: 'https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png',
+      default:
+        'https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png',
     },
     password: {
       type: String,
-      required: [true, "Please enter your password"],
-      minLength: [6, "Your password must be at least 6 characters long"],
+      required: [true, 'Please enter your password'],
+      minLength: [6, 'Your password must be at least 6 characters long'],
       select: false, // Don't send back password after request
     },
 
@@ -136,14 +141,14 @@ const userSchema = new Schema<User>(
       type: String,
       default: 'user',
       enum: {
-        values: ['user', 'admin', "waitlist"],
+        values: ['user', 'admin', 'waitlist'],
       },
     },
     account_type: {
       type: String,
       default: 'free',
       enum: {
-        values: ['free', 'pro', 'premium',],
+        values: ['free', 'pro', 'premium'],
       },
     },
     profile: {
@@ -164,24 +169,24 @@ const userSchema = new Schema<User>(
       type: integrationSchema,
       default: {
         gumroad: {
-          scope: "edit_products",
+          scope: 'edit_products',
           access_token: null,
           integrated: true,
           lastAuthorized: null,
         },
         github: {
-          scope: "repo",
+          scope: 'repo',
           access_token: null,
           integrated: false,
           lastAuthorized: null,
-        }
+        },
       },
-    }
+    },
   },
   {
     timestamps: true,
-  });
-
+  }
+);
 
 // Middleware to hash password before saving
 userSchema.pre<User>('save', async function (next) {

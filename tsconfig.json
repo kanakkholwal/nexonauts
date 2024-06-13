@@ -1,32 +1,75 @@
 {
-
     "compilerOptions": {
+        "types": [
+            "next","next/babel",
+            "@serwist/next/typings"
+        ],
         "baseUrl": ".",
-        "paths": {          
-            "helper/*": ["src/helpers/*"],
-            "libs/*": ["src/libs/*"],
-            "src/*": ["./src/*"],
-            "app/*": ["./app/*"],
-            "emails/*": ["./emails/*"],
-            "backend/*": ["src/backend/*"],
-            "components/*": ["./src/components/*"],
-            "middleware/*": ["./src/middleware/*"],
-            "pages/*": ["./src/pages/*"],
-            "hooks/*": ["./src/hooks/*"],
-            "layouts/*": [ "./src/layouts/*"],
-            "store/*": ["./src/store/*"],
-            "assets/*": ["./src/assets/*"],
-            "types/*": ["./src/types/*"],
-            "lib/*": [ "./src/lib/*"],
-            "@/*": ["./@/*"],
-            "@root/*": ["./*"],
-            "models/*": ["./src/models/*"]
+        "paths": {
+            "data":[
+                "./data/*"
+            ],
+            "helper/*": [
+                "src/helpers/*"
+            ],
+            "libs/*": [
+                "src/libs/*"
+            ],
+            "src/*": [
+                "./src/*"
+            ],
+            "app/*": [
+                "./app/*"
+            ],
+            "emails/*": [
+                "./emails/*"
+            ],
+            "backend/*": [
+                "src/backend/*"
+            ],
+            "components/*": [
+                "./src/components/*"
+            ],
+            "middleware/*": [
+                "./src/middleware/*"
+            ],
+            "pages/*": [
+                "./src/pages/*"
+            ],
+            "hooks/*": [
+                "./src/hooks/*"
+            ],
+            "layouts/*": [
+                "./src/layouts/*"
+            ],
+            "store/*": [
+                "./src/store/*"
+            ],
+            "assets/*": [
+                "./src/assets/*"
+            ],
+            "types/*": [
+                "./src/types/*"
+            ],
+            "lib/*": [
+                "./src/lib/*"
+            ],
+            "@/*": [
+                "./@/*"
+            ],
+            "@root/*": [
+                "./*"
+            ],
+            "models/*": [
+                "./src/models/*"
+            ]
         },
         "target": "es5",
         "lib": [
             "dom",
             "dom.iterable",
-            "esnext"
+            "esnext",
+            "webworker"
         ],
         "allowJs": true,
         "downlevelIteration": true,
@@ -52,7 +95,8 @@
         "next-env.d.ts",
         "**/*.ts",
         "**/*.tsx",
-        ".next/types/**/*.ts"],
+        ".next/types/**/*.ts"
+    ],
     "exclude": [
         "node_modules",
         "./src/pages/admin/**/*",
