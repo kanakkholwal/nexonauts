@@ -1,19 +1,19 @@
-import styled from 'styled-components';
-import { BlogBreadCrumb } from 'components/breadcrumb';
-import Badge from 'components/topography/badge';
-import { calculateReadTime } from 'lib/scripts';
+import styled from "styled-components";
+import { BlogBreadCrumb } from "components/breadcrumb";
+import Badge from "components/topography/badge";
+import { calculateReadTime } from "lib/scripts";
 
-import { GrValidate } from 'react-icons/gr';
-import { MdOutlineDateRange, MdOutlineLabel } from 'react-icons/md';
-import { AiOutlineFieldTime } from 'react-icons/ai';
-import { BiCommentDetail } from 'react-icons/bi';
-import Image from 'next/image';
-import Comments from './comments';
-import ShareUI from './share';
-import RelatedPosts from './RelatedPosts';
-import { TOCMarkDown } from './toc';
-import { CodeBlockMarkdown } from './codeRender';
-import Markdown from 'markdown-to-jsx';
+import { GrValidate } from "react-icons/gr";
+import { MdOutlineDateRange, MdOutlineLabel } from "react-icons/md";
+import { AiOutlineFieldTime } from "react-icons/ai";
+import { BiCommentDetail } from "react-icons/bi";
+import Image from "next/image";
+import Comments from "./comments";
+import ShareUI from "./share";
+import RelatedPosts from "./RelatedPosts";
+import { TOCMarkDown } from "./toc";
+import { CodeBlockMarkdown } from "./codeRender";
+import Markdown from "markdown-to-jsx";
 
 const Tag = styled(Badge)`
   font-size: 0.75rem;
@@ -40,10 +40,10 @@ const ArticleBody = styled.div`
   border-radius: 10px;
   background: var(--card-bg);
   ${
-    '' /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
+    "" /* box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.06),
     0px 1px 1px rgba(0, 0, 0, 0.08); */
   }
-  ${'' /* box-shadow: var(--card-shadow); */}
+  ${"" /* box-shadow: var(--card-shadow); */}
  
     .Article {
     text-align: initial;
@@ -161,7 +161,7 @@ export function Article({ post }) {
                 </span>
                 <span>
                   <AiOutlineFieldTime />
-                  {calculateReadTime(JSON.stringify(post?.content)) + ' read'}
+                  {calculateReadTime(JSON.stringify(post?.content)) + " read"}
                 </span>
               </p>
             </div>
@@ -174,7 +174,7 @@ export function Article({ post }) {
         </MetaData>
         <TOCMarkDown content={post.content} />
         <div className="ArticleBody">
-          {typeof post?.content === 'string' ? (
+          {typeof post?.content === "string" ? (
             <Markdown
               options={{
                 overrides: {
@@ -196,7 +196,7 @@ export function Article({ post }) {
             <Tag
               key={index}
               nature={
-                ['success', 'theme', 'warning', 'info', 'secondary'][
+                ["success", "theme", "warning", "info", "secondary"][
                   index > 6 ? parseInt(index % 6) + 1 : index
                 ]
               }

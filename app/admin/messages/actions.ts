@@ -1,7 +1,7 @@
-'use server';
+"use server";
 // import mongoose from "mongoose";
-import dbConnect from 'src/lib/dbConnect';
-import Message from 'src/models/message';
+import dbConnect from "src/lib/dbConnect";
+import Message from "src/models/message";
 
 export async function getMessages(
   query: string,
@@ -14,10 +14,10 @@ export async function getMessages(
   const skip = currentPage * resultsPerPage - resultsPerPage;
   const filterQuery = {
     $or: [
-      { name: { $regex: query, $options: 'i' } },
-      { email: { $regex: query, $options: 'i' } },
-      { message: { $regex: query, $options: 'i' } },
-      { type: { $regex: query, $options: 'i' } },
+      { name: { $regex: query, $options: "i" } },
+      { email: { $regex: query, $options: "i" } },
+      { message: { $regex: query, $options: "i" } },
+      { type: { $regex: query, $options: "i" } },
     ],
   } as unknown as any;
   await dbConnect();
@@ -25,7 +25,7 @@ export async function getMessages(
     .sort({ createdAt: -1 })
     .skip(skip)
     .limit(resultsPerPage)
-    .select('name email message type read createdAt')
+    .select("name email message type read createdAt")
     .exec();
   const totalPages = Math.ceil(
     (await Message.countDocuments(filterQuery)) / resultsPerPage

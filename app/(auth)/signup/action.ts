@@ -1,11 +1,11 @@
-'use server';
-import { customAlphabet } from 'nanoid';
+"use server";
+import { customAlphabet } from "nanoid";
 
-import { render } from '@react-email/render';
-import { generateToken, handleEmailFire } from 'emails/helper';
-import WelcomeVerify from 'emails/templates/welcome-verify';
-import dbConnect from 'src/lib/dbConnect';
-import UserModel from 'src/models/user';
+import { render } from "@react-email/render";
+import { generateToken, handleEmailFire } from "emails/helper";
+import WelcomeVerify from "emails/templates/welcome-verify";
+import dbConnect from "src/lib/dbConnect";
+import UserModel from "src/models/user";
 
 const dbcache = new Map<string, boolean>();
 
@@ -18,7 +18,7 @@ export async function registerUser(data: {
     if (dbcache.has(data.email)) {
       return Promise.reject({
         success: false,
-        message: 'email already exists',
+        message: "email already exists",
       });
     }
     await dbConnect();
@@ -28,7 +28,7 @@ export async function registerUser(data: {
 
       return Promise.reject({
         success: false,
-        message: 'email already exists',
+        message: "email already exists",
       });
     }
     const newUser = new UserModel({
@@ -36,7 +36,7 @@ export async function registerUser(data: {
       email: data.email,
       password: data.password,
       username: customAlphabet(
-        '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+        "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
         10
       )(),
       verificationToken: generateToken({ email: data.email }),
@@ -55,17 +55,17 @@ export async function registerUser(data: {
         })
       ),
     });
-    console.log('Mail sent');
+    console.log("Mail sent");
 
     return Promise.resolve({
       success: true,
-      message: 'User created successfully and verification email sent',
+      message: "User created successfully and verification email sent",
     });
   } catch (e) {
     console.log(e);
     return Promise.reject({
       success: false,
-      message: 'An error occurred while creating user',
+      message: "An error occurred while creating user",
     });
   }
 }

@@ -1,6 +1,6 @@
-import { LRUCache } from 'lru-cache';
-import { headers } from 'next/headers';
-import type { NextResponse } from 'next/server';
+import { LRUCache } from "lru-cache";
+import { headers } from "next/headers";
+import type { NextResponse } from "next/server";
 
 type Options = {
   uniqueTokenPerInterval?: number;
@@ -25,9 +25,9 @@ export default function rateLimit(options?: Options) {
         const currentUsage = tokenCount[0];
         const isRateLimited = currentUsage >= limit;
         const headersList = headers();
-        headersList.set('X-RateLimit-Limit', limit);
+        headersList.set("X-RateLimit-Limit", limit);
         headersList.set(
-          'X-RateLimit-Remaining',
+          "X-RateLimit-Remaining",
           isRateLimited ? 0 : limit - currentUsage
         );
 

@@ -1,6 +1,6 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
+"use client";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Dialog,
   DialogContent,
@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
+} from "@/components/ui/dialog";
 import {
   Drawer,
   DrawerClose,
@@ -18,7 +18,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from '@/components/ui/drawer';
+} from "@/components/ui/drawer";
 import {
   Form,
   FormControl,
@@ -27,22 +27,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
-import { Textarea } from '@/components/ui/textarea';
-import { useMediaQuery } from '@/hooks/use-media-query';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Import, LoaderCircle } from 'lucide-react';
-import Image from 'next/image';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { UploadImage } from 'src/components/uploader';
-import { importProductFromURL } from 'src/lib/marketplace/import-product';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Import, LoaderCircle } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { UploadImage } from "src/components/uploader";
+import { importProductFromURL } from "src/lib/marketplace/import-product";
 
-import { HtmlToMarkdown } from 'src/utils/string';
-import { z } from 'zod';
+import { HtmlToMarkdown } from "src/utils/string";
+import { z } from "zod";
 
 const formSchema = z.object({
   name: z
@@ -63,7 +63,7 @@ const formSchema = z.object({
   preview_url: z
     .string()
     .url({
-      message: 'Preview URL must be a valid image URL',
+      message: "Preview URL must be a valid image URL",
     })
     .transform((value) => value.trim()),
   tags: z.array(z.string().transform((value) => value.trim())),
@@ -73,37 +73,37 @@ const formSchema = z.object({
 const urlSchema = z
   .string()
   .url({
-    message: 'URL must be a valid URL',
+    message: "URL must be a valid URL",
   })
   .transform((value) => {
     return value.trim();
   });
 const defaultCategories = [
-  'Design',
-  'Course',
-  'Productivity',
-  'Themes',
-  'Templates',
-  'UI Kits',
+  "Design",
+  "Course",
+  "Productivity",
+  "Themes",
+  "Templates",
+  "UI Kits",
 ] as const;
 interface Props {
   saveProduct: (product: z.infer<typeof formSchema>) => Promise<boolean>;
 }
 export default function ProductForm(props: Props) {
   const [loading, setLoading] = useState(false);
-  const [importUrl, setImportUrl] = useState<string>('');
+  const [importUrl, setImportUrl] = useState<string>("");
   const [importing, setImporting] = useState(false);
   const [open, setOpen] = useState(false);
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      description: '',
+      name: "",
+      description: "",
       published: false,
-      url: '',
-      preview_url: '',
+      url: "",
+      preview_url: "",
       tags: [],
       categories: [],
       price: 0,
@@ -117,19 +117,19 @@ export default function ProductForm(props: Props) {
     setLoading(true);
     toast
       .promise(props.saveProduct(values), {
-        loading: 'Saving product...',
-        success: 'Product saved!',
-        error: 'Error saving product',
+        loading: "Saving product...",
+        success: "Product saved!",
+        error: "Error saving product",
       })
       .then((result) => {
         if (result) {
-          console.log('Product saved!');
+          console.log("Product saved!");
           form.reset({
-            name: '',
-            description: '',
+            name: "",
+            description: "",
             published: false,
-            url: '',
-            preview_url: '',
+            url: "",
+            preview_url: "",
             tags: [],
             categories: [],
             price: 0,
@@ -144,23 +144,23 @@ export default function ProductForm(props: Props) {
   function ImportFromGumRoad() {
     // console.log(importUrl)
     if (!urlSchema.safeParse(importUrl).success) {
-      toast.error('Invalid URL');
+      toast.error("Invalid URL");
       return;
     }
     setImporting(true);
     toast.promise(importProductFromURL(importUrl), {
-      loading: 'Importing product...',
+      loading: "Importing product...",
       success: (product) => {
         form.reset(product);
-        setImportUrl('');
+        setImportUrl("");
         setOpen(false);
         setImporting(false);
-        return 'Product imported!';
+        return "Product imported!";
       },
       error: (err) => {
         console.error(err);
         setImporting(false);
-        return 'Error importing product';
+        return "Error importing product";
       },
     });
   }
@@ -197,7 +197,7 @@ export default function ProductForm(props: Props) {
                     onClick={ImportFromGumRoad}
                     disabled={importing}
                   >
-                    {importing ? 'Importing' : 'Import'}
+                    {importing ? "Importing" : "Import"}
                   </Button>
                 </div>
               </DialogContent>
@@ -208,7 +208,7 @@ export default function ProductForm(props: Props) {
             <Drawer open={open} onOpenChange={setOpen}>
               <DrawerTrigger asChild>
                 <Button size="sm" variant="default_light">
-                  <Import /> Import{' '}
+                  <Import /> Import{" "}
                 </Button>
               </DrawerTrigger>
               <DrawerContent>
@@ -229,7 +229,7 @@ export default function ProductForm(props: Props) {
                 </div>
                 <DrawerFooter className="pt-2">
                   <Button onClick={ImportFromGumRoad} disabled={importing}>
-                    {importing ? 'Importing' : 'Import'}
+                    {importing ? "Importing" : "Import"}
                   </Button>
                   <DrawerClose asChild>
                     <Button variant="outline">Cancel</Button>
@@ -270,9 +270,9 @@ export default function ProductForm(props: Props) {
                       placeholder="Description"
                       onPaste={(e) => {
                         e.preventDefault();
-                        const text = e.clipboardData.getData('text/plain');
+                        const text = e.clipboardData.getData("text/plain");
                         form.setValue(
-                          'description',
+                          "description",
                           field.value + HtmlToMarkdown(text)
                         ); // Update the value of the 'description' field
                       }}
@@ -317,10 +317,10 @@ export default function ProductForm(props: Props) {
                     <Input
                       placeholder="tag1, tag2, tag3"
                       {...field}
-                      value={field.value?.join(', ')}
+                      value={field.value?.join(", ")}
                       onChange={(e) => {
                         field.onChange(
-                          e.target.value.split(',').map((tag) => tag.trim())
+                          e.target.value.split(",").map((tag) => tag.trim())
                         );
                       }}
                     />
@@ -344,7 +344,7 @@ export default function ProductForm(props: Props) {
                   <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ">
                     {defaultCategories.map((item, index) => (
                       <FormField
-                        key={item + '_' + index}
+                        key={item + "_" + index}
                         control={form.control}
                         name="categories"
                         render={({ field }) => {
@@ -390,7 +390,7 @@ export default function ProductForm(props: Props) {
                   <FormLabel>
                     Preview URL
                     <span className="text-sm text-gray-500">
-                      {' '}
+                      {" "}
                       (prefer 16 / 9)
                     </span>
                   </FormLabel>
@@ -401,12 +401,12 @@ export default function ProductForm(props: Props) {
                     />
                   </FormControl>
                   <UploadImage
-                    key={'preview_url'}
+                    key={"preview_url"}
                     onUpload={(fileUrl) => {
                       field.onChange(fileUrl);
                     }}
                   />
-                  {urlSchema.safeParse(form.getValues('preview_url'))
+                  {urlSchema.safeParse(form.getValues("preview_url"))
                     .success && (
                     <>
                       <div>
@@ -414,7 +414,7 @@ export default function ProductForm(props: Props) {
                           src={field.value}
                           width={512}
                           height={320}
-                          alt={'preview image'}
+                          alt={"preview image"}
                         />
                       </div>
                     </>
@@ -431,7 +431,7 @@ export default function ProductForm(props: Props) {
                   <FormLabel>
                     Price (USD)
                     <span className="text-sm text-gray-500">
-                      {' '}
+                      {" "}
                       (leave blank for Free)
                     </span>
                   </FormLabel>
@@ -442,7 +442,7 @@ export default function ProductForm(props: Props) {
                       type="number"
                       step="0.01"
                       min="0"
-                      value={field.value?.toString() ?? ''}
+                      value={field.value?.toString() ?? ""}
                       onChange={(e) => {
                         field.onChange(parseFloat(e.target.value));
                       }}
@@ -474,7 +474,7 @@ export default function ProductForm(props: Props) {
               disabled={loading}
             >
               {loading && <LoaderCircle className="animate-spin" size={24} />}
-              {loading ? 'Saving...' : 'Save Changes'}
+              {loading ? "Saving..." : "Save Changes"}
             </Button>
           </div>
         </form>

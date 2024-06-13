@@ -1,7 +1,7 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+"use client";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface SyncBtnProps {
   syncProducts: () => Promise<any[]>; // TODO - Change to the correct return type
@@ -13,9 +13,9 @@ export default function SyncBtn({ syncProducts }: SyncBtnProps) {
     setLoading(true);
     toast
       .promise(syncProducts(), {
-        loading: 'Syncing...',
-        success: 'Synced with Gumroad',
-        error: 'Error syncing with Gumroad',
+        loading: "Syncing...",
+        success: "Synced with Gumroad",
+        error: "Error syncing with Gumroad",
       })
       .finally(() => {
         setLoading(false);
@@ -29,7 +29,7 @@ export default function SyncBtn({ syncProducts }: SyncBtnProps) {
       onClick={() => handleSync()}
       disabled={loading}
     >
-      {loading ? 'Syncing...' : 'Sync with Gumroad'}
+      {loading ? "Syncing..." : "Sync with Gumroad"}
     </Button>
   );
 }

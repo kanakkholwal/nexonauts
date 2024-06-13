@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 // Define a user schema
 interface IMessage extends Document {
@@ -24,7 +24,7 @@ const messageSchema = new Schema<IMessage>(
     subject: {
       type: String,
       required: true,
-      default: 'No Subject',
+      default: "No Subject",
     },
     message: {
       type: String,
@@ -34,16 +34,16 @@ const messageSchema = new Schema<IMessage>(
       type: String,
       required: true,
       enum: [
-        'contact',
-        'post',
-        'like',
-        'follow',
-        'mention',
-        'reply',
-        'message',
-        'system',
+        "contact",
+        "post",
+        "like",
+        "follow",
+        "mention",
+        "reply",
+        "message",
+        "system",
       ],
-      default: 'system',
+      default: "system",
     },
     read: {
       type: Boolean,
@@ -59,6 +59,6 @@ const messageSchema = new Schema<IMessage>(
 );
 
 const Message =
-  mongoose.models.Message || mongoose.model<IMessage>('Message', messageSchema);
+  mongoose.models.Message || mongoose.model<IMessage>("Message", messageSchema);
 
 export default Message;

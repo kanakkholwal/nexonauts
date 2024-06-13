@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
-import toast from 'react-hot-toast';
+import { Button } from "@/components/ui/button";
+import toast from "react-hot-toast";
 
 export default function Newsletter() {
   return (
@@ -17,7 +17,7 @@ export default function Newsletter() {
             onSubmit={(e) => {
               e.preventDefault();
               console.log(e.target);
-              toast.success('Will be implemented soon');
+              toast.success("Will be implemented soon");
             }}
           >
             <div className="items-center mx-auto mb-3 space-y-4 max-w-screen-sm sm:flex sm:space-y-0">
@@ -58,7 +58,7 @@ export default function Newsletter() {
               </div>
             </div>
             <div className="mx-auto max-w-screen-sm text-sm text-center text-slate-100 newsletter-form-footer dark:text-gray-300">
-              We care about the protection of your data.{' '}
+              We care about the protection of your data.{" "}
               <a
                 href="#"
                 className="font-medium text-indigo-600 dark:text-primary-500 hover:underline"

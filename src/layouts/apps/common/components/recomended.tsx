@@ -4,15 +4,15 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { AppType } from 'src/types/app';
+} from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import { AppType } from "src/types/app";
 
-import { Badge } from '@/components/ui/badge';
-import Link from 'next/link';
-import { AiFillStar } from 'react-icons/ai';
+import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { AiFillStar } from "react-icons/ai";
 
 export default function Recomended({ app }: { app: AppType }) {
   const [recommended, setRecommended] = useState([]);
@@ -21,7 +21,7 @@ export default function Recomended({ app }: { app: AppType }) {
 
   useEffect(() => {
     fetch(`api/apps/app-category?q=${app.categories[0]}`, {
-      method: 'GET',
+      method: "GET",
     })
       .then((res) => res.json())
       .then((data) => {
@@ -106,7 +106,7 @@ export default function Recomended({ app }: { app: AppType }) {
                   </CardTitle>
                   <CardDescription className="text-[16px] font-medium">
                     {app.shortDescription.length > 40
-                      ? app.shortDescription.trim().slice(0, 40) + ' ...'
+                      ? app.shortDescription.trim().slice(0, 40) + " ..."
                       : app.shortDescription.trim()}
                   </CardDescription>
                 </CardHeader>

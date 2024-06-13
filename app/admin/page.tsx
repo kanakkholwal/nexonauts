@@ -4,16 +4,16 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { CircleDashed, TrendingDown, TrendingUp } from 'lucide-react';
-import Link from 'next/link';
-import { getSession } from 'src/lib/auth';
-import { sessionType } from 'src/types/session';
+} from "@/components/ui/card";
+import { CircleDashed, TrendingDown, TrendingUp } from "lucide-react";
+import Link from "next/link";
+import { getSession } from "src/lib/auth";
+import { sessionType } from "src/types/session";
 import {
   apps_CountAndGrowth,
   tools_CountAndGrowth,
   users_CountAndGrowth,
-} from './actions';
+} from "./actions";
 
 export default async function DashboardPage() {
   const session = (await getSession()) as sessionType;
@@ -23,19 +23,19 @@ export default async function DashboardPage() {
     count: userCount,
     growth: userGrowth,
     trend: userTrend,
-  } = await users_CountAndGrowth('this_month');
+  } = await users_CountAndGrowth("this_month");
 
   const {
     count: appCount,
     growth: appGrowth,
     trend: appTrend,
-  } = await apps_CountAndGrowth('this_month');
+  } = await apps_CountAndGrowth("this_month");
 
   const {
     count: toolCount,
     growth: toolGrowth,
     trend: toolTrend,
-  } = await tools_CountAndGrowth('this_month');
+  } = await tools_CountAndGrowth("this_month");
 
   return (
     <div className="space-y-6 my-5">
@@ -54,22 +54,22 @@ export default async function DashboardPage() {
                 <CardDescription>
                   <span
                     className={
-                      (userTrend === 'increase'
-                        ? 'text-green-500'
-                        : userTrend === 'decrease'
-                          ? 'text-red-500'
-                          : 'text-primary/80') + ' text-base'
+                      (userTrend === "increase"
+                        ? "text-green-500"
+                        : userTrend === "decrease"
+                          ? "text-red-500"
+                          : "text-primary/80") + " text-base"
                     }
                   >
-                    {userTrend === 'increase' ? (
+                    {userTrend === "increase" ? (
                       <TrendingUp size={20} className="inline-block mr-2" />
-                    ) : userTrend === 'decrease' ? (
+                    ) : userTrend === "decrease" ? (
                       <TrendingDown size={20} className="inline-block mr-2" />
                     ) : (
                       <CircleDashed size={20} className="inline-block mr-2" />
                     )}
                     {userGrowth?.toFixed(2)}%
-                  </span>{' '}
+                  </span>{" "}
                   from last month
                 </CardDescription>
               </CardHeader>
@@ -83,22 +83,22 @@ export default async function DashboardPage() {
                 <CardDescription>
                   <span
                     className={
-                      (appTrend === 'increase'
-                        ? 'text-green-500'
-                        : appTrend === 'decrease'
-                          ? 'text-red-500'
-                          : 'text-primary/80') + ' text-base'
+                      (appTrend === "increase"
+                        ? "text-green-500"
+                        : appTrend === "decrease"
+                          ? "text-red-500"
+                          : "text-primary/80") + " text-base"
                     }
                   >
-                    {appTrend === 'increase' ? (
+                    {appTrend === "increase" ? (
                       <TrendingUp size={20} className="inline-block mr-2" />
-                    ) : appTrend === 'decrease' ? (
+                    ) : appTrend === "decrease" ? (
                       <TrendingDown size={20} className="inline-block mr-2" />
                     ) : (
                       <CircleDashed size={20} className="inline-block mr-2" />
                     )}
                     {appGrowth?.toFixed(2)}%
-                  </span>{' '}
+                  </span>{" "}
                   from last month
                 </CardDescription>
               </CardHeader>
@@ -112,22 +112,22 @@ export default async function DashboardPage() {
                 <CardDescription>
                   <span
                     className={
-                      (toolTrend === 'increase'
-                        ? 'text-green-500'
-                        : toolTrend === 'decrease'
-                          ? 'text-red-500'
-                          : 'text-primary/80') + ' text-base'
+                      (toolTrend === "increase"
+                        ? "text-green-500"
+                        : toolTrend === "decrease"
+                          ? "text-red-500"
+                          : "text-primary/80") + " text-base"
                     }
                   >
-                    {toolTrend === 'increase' ? (
+                    {toolTrend === "increase" ? (
                       <TrendingUp size={20} className="inline-block mr-2" />
-                    ) : toolTrend === 'decrease' ? (
+                    ) : toolTrend === "decrease" ? (
                       <TrendingDown size={20} className="inline-block mr-2" />
                     ) : (
                       <CircleDashed size={20} className="inline-block mr-2" />
                     )}
                     {toolGrowth?.toFixed(2)}%
-                  </span>{' '}
+                  </span>{" "}
                   from last month
                 </CardDescription>
               </CardHeader>

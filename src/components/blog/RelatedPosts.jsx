@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import styled from "styled-components";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -25,11 +25,11 @@ const Card = styled.div`
   justify-content: space-around;
   align-items: flex-start;
   background-color: var(--card-bg);
-  ${'' /* box-shadow: var(--card-shadow); */}
+  ${"" /* box-shadow: var(--card-shadow); */}
   border-radius: 8px;
   min-width: 30%;
   flex: 0 1 31%;
-  ${'' /* margin-right:auto; */}
+  ${"" /* margin-right:auto; */}
 
   @media (576px <= width <= 928px) {
     flex: 0 1 49%;
@@ -142,9 +142,9 @@ export default function RelatedPosts({ postId }) {
   return (
     <Wrapper>
       {related.loading ? (
-        'Loading...'
+        "Loading..."
       ) : related.error ? (
-        'Error occurred while fetching related posts.'
+        "Error occurred while fetching related posts."
       ) : (
         <>
           {related.posts.length > 0 ? (
@@ -188,10 +188,10 @@ function RelatedPostsCard({ post }) {
               <span className="AuthorName">{post.author.name}</span>
             </Author>
             <span className="date">
-              {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric',
+              {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                month: "long",
+                day: "numeric",
+                year: "numeric",
               })}
             </span>
           </div>

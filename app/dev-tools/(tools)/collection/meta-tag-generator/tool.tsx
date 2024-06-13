@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   Card,
   CardContent,
@@ -6,41 +6,41 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
-import CodeBlock from 'components/CodeBlock';
+import CodeBlock from "components/CodeBlock";
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from "react";
 
 const defaultData = {
   google: {
-    pageTitle: 'Meta Tag Generator Tool',
+    pageTitle: "Meta Tag Generator Tool",
     pageDescription:
-      'Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide',
+      "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide",
     siteImage:
-      'https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg',
+      "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
   },
   OG: {
-    pageTitle: 'Meta Tag Generator Tool',
+    pageTitle: "Meta Tag Generator Tool",
     pageDescription:
-      'Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide.',
+      "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide.",
     previewImage:
-      'https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg',
-    URL: 'https://kkupgrader.eu.org/',
-    siteName: 'K K UPGRADER',
-    locale: 'en_US',
+      "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
+    URL: "https://kkupgrader.eu.org/",
+    siteName: "K K UPGRADER",
+    locale: "en_US",
   },
   twitter: {
-    pageTitle: 'Meta Tag Generator Tool',
+    pageTitle: "Meta Tag Generator Tool",
     pageDescription:
-      'Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide.',
+      "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide.",
     previewImage:
-      'https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg',
+      "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
   },
 };
 
@@ -106,18 +106,18 @@ export default function MetaTagGenerator() {
   ]);
 
   const ResetData = () => {
-    SetGoogle_Title('');
-    SetGoogle_Description('');
-    SetGoogle_siteImage('');
-    SetOG_Title('');
-    SetOG_Description('');
-    SetOG_URL('');
-    SetOG_siteName('');
-    SetOG_previewImage('');
-    SetOG_locale('');
-    SetTwitter_Title('');
-    SetTwitter_Description('');
-    SetTwitter_previewImage('');
+    SetGoogle_Title("");
+    SetGoogle_Description("");
+    SetGoogle_siteImage("");
+    SetOG_Title("");
+    SetOG_Description("");
+    SetOG_URL("");
+    SetOG_siteName("");
+    SetOG_previewImage("");
+    SetOG_locale("");
+    SetTwitter_Title("");
+    SetTwitter_Description("");
+    SetTwitter_previewImage("");
   };
 
   return (
@@ -132,21 +132,21 @@ export default function MetaTagGenerator() {
             {/* Section: Preview */}
             <section
               className={
-                'rounded border border-solid border-slate-200 bg-white p-4 mb-4 max-w-[600px]'
+                "rounded border border-solid border-slate-200 bg-white p-4 mb-4 max-w-[600px]"
               }
             >
               <p className="text-slate-500 text-xs">
                 kkupgrader.eu.org &gt; tools &gt; Advance Meta Tag
               </p>
               <a target="_blank" href="#!" rel="noreferrer">
-                <h5 className={'text-xl text-primary font-semibold'}>
-                  {' '}
+                <h5 className={"text-xl text-primary font-semibold"}>
+                  {" "}
                   {Google_Title}
                 </h5>
               </a>
-              <p className={'text-muted-foreground text-sm mb-0'}>
-                {' '}
-                {Google_Description}{' '}
+              <p className={"text-muted-foreground text-sm mb-0"}>
+                {" "}
+                {Google_Description}{" "}
               </p>
             </section>
             {/* Section: Preview */}
@@ -202,7 +202,7 @@ export default function MetaTagGenerator() {
                   onChange={(e) => SetGoogle_siteImage(e.target.value)}
                 />
                 <p className="text-muted-foreground text-xs">
-                  {' '}
+                  {" "}
                   Valid URL address of the .jpg or .png image
                 </p>
               </div>
@@ -243,27 +243,27 @@ export default function MetaTagGenerator() {
             <section className="mb-4">
               <div
                 className={
-                  'rounded-lg overflow-hidden border border-solid border-slate-200  max-w-[480px]'
+                  "rounded-lg overflow-hidden border border-solid border-slate-200  max-w-[480px]"
                 }
               >
                 <div
                   className={
-                    'relative overflow-hidden bg-no-repeat bg-center bg-cover aspect-auto w-full h-[261px]  max-w-[480px] rounded-top'
+                    "relative overflow-hidden bg-no-repeat bg-center bg-cover aspect-auto w-full h-[261px]  max-w-[480px] rounded-top"
                   }
-                  style={{ backgroundImage: 'url(' + OG_previewImage + ')' }}
+                  style={{ backgroundImage: "url(" + OG_previewImage + ")" }}
                 />
-                <div className={'bg-slate-100 py-2 px-4'}>
+                <div className={"bg-slate-100 py-2 px-4"}>
                   <p
                     className={
-                      'uppercase text-slate-600 mb-2 text-sm  truncate'
+                      "uppercase text-slate-600 mb-2 text-sm  truncate"
                     }
                   >
                     {OG_URL}
                   </p>
-                  <p className={'font-semibold text-lg mb-1 truncate'}>
+                  <p className={"font-semibold text-lg mb-1 truncate"}>
                     {OG_Title}
                   </p>
-                  <p className={' text-slate-500 text-sm  truncate'}>
+                  <p className={" text-slate-500 text-sm  truncate"}>
                     {OG_Description}
                   </p>
                 </div>
@@ -391,22 +391,22 @@ export default function MetaTagGenerator() {
             <section>
               <div
                 className={
-                  'rounded-lg overflow-hidden border border-solid border-slate-200  max-w-[480px]'
+                  "rounded-lg overflow-hidden border border-solid border-slate-200  max-w-[480px]"
                 }
               >
                 <div
                   className={
-                    'relative overflow-hidden bg-no-repeat bg-center bg-cover aspect-auto w-full h-[261px]  max-w-[480px] rounded-top'
+                    "relative overflow-hidden bg-no-repeat bg-center bg-cover aspect-auto w-full h-[261px]  max-w-[480px] rounded-top"
                   }
                   style={{
-                    backgroundImage: 'url(' + Twitter_previewImage + ')',
+                    backgroundImage: "url(" + Twitter_previewImage + ")",
                   }}
                 />
-                <div className={'bg-slate-100 py-2 px-4'}>
-                  <p className={'font-semibold text-lg mb-1 truncate'}>
+                <div className={"bg-slate-100 py-2 px-4"}>
+                  <p className={"font-semibold text-lg mb-1 truncate"}>
                     {Twitter_Title}
                   </p>
-                  <p className={' text-slate-500 text-sm  truncate'}>
+                  <p className={" text-slate-500 text-sm  truncate"}>
                     {Twitter_Description}
                   </p>
                 </div>
@@ -487,7 +487,7 @@ export default function MetaTagGenerator() {
         </div>
       </section>
 
-      <section className={'w-full m-auto max-w-[720px]'}>
+      <section className={"w-full m-auto max-w-[720px]"}>
         <CodeBlock language="html" content={codeString} title="CodeBlock" />
       </section>
     </div>

@@ -1,20 +1,20 @@
-'use server';
-import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+"use server";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 // import mongoose from "mongoose";
-import { getSession } from 'src/lib/auth';
-import dbConnect from 'src/lib/dbConnect';
-import PublicTool from 'src/models/tool';
+import { getSession } from "src/lib/auth";
+import dbConnect from "src/lib/dbConnect";
+import PublicTool from "src/models/tool";
 export async function getCategories() {
   await dbConnect();
 
   const categories = await PublicTool.aggregate([
-    { $unwind: '$categories' },
+    { $unwind: "$categories" },
     {
       $group: {
-        _id: '$categories.slug',
-        name: { $first: '$categories.name' },
-        slug: { $first: '$categories.slug' },
+        _id: "$categories.slug",
+        name: { $first: "$categories.name" },
+        slug: { $first: "$categories.slug" },
       },
     },
     { $project: { _id: 0, name: 1, slug: 1 } },
@@ -29,7 +29,7 @@ export async function getCategories() {
 export async function submitTool(data: Record<string, any>) {
   try {
     const session = await getSession();
-    if (!session) return redirect('/login');
+    if (!session) return redirect("/login");
     await dbConnect();
     const tool = new PublicTool({
       name: data.name,
@@ -46,7 +46,7 @@ export async function submitTool(data: Record<string, any>) {
     });
     await tool.save();
 
-    revalidatePath('/tools/');
+    revalidatePath("/tools/");
     return Promise.resolve(true);
   } catch (error) {
     console.error(error);

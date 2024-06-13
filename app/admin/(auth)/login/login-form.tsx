@@ -1,13 +1,13 @@
-'use client';
-import { signIn } from 'next-auth/react';
+"use client";
+import { signIn } from "next-auth/react";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import { Button } from '@/components/ui/button';
-import { BiLockOpenAlt } from 'react-icons/bi';
-import { FcGoogle } from 'react-icons/fc';
-import { FiGithub } from 'react-icons/fi';
-import { LuMail } from 'react-icons/lu';
+import { Button } from "@/components/ui/button";
+import { BiLockOpenAlt } from "react-icons/bi";
+import { FcGoogle } from "react-icons/fc";
+import { FiGithub } from "react-icons/fi";
+import { LuMail } from "react-icons/lu";
 
 import {
   Form,
@@ -16,31 +16,31 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { AiOutlineLoading } from 'react-icons/ai';
-import { toast } from 'sonner';
-import * as z from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { AiOutlineLoading } from "react-icons/ai";
+import { toast } from "sonner";
+import * as z from "zod";
 
 const FormSchema = z.object({
   email: z
     .string()
-    .email({ message: 'Invalid email format' })
-    .min(5, { message: 'Email must be at least 5 characters long' })
-    .max(100, { message: 'Email cannot exceed 100 characters' }),
+    .email({ message: "Invalid email format" })
+    .min(5, { message: "Email must be at least 5 characters long" })
+    .max(100, { message: "Email cannot exceed 100 characters" }),
 
   password: z
     .string()
-    .min(8, { message: 'Password must be at least 8 characters long' })
-    .max(50, { message: 'Password cannot exceed 50 characters' })
+    .min(8, { message: "Password must be at least 8 characters long" })
+    .max(50, { message: "Password cannot exceed 50 characters" })
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/, {
       message:
-        'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+        "Password must contain at least one uppercase letter, one lowercase letter, and one number",
     }),
 });
 
@@ -53,8 +53,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
   async function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -63,7 +63,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     setIsLoading(true);
 
     toast.promise(signInPromise(data), {
-      loading: 'Logging in...',
+      loading: "Logging in...",
       success: (data) => {
         console.log(data);
         setIsLoading(false);
@@ -72,14 +72,14 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       error: (err) => {
         console.log(err);
         setIsLoading(false);
-        return err.message || 'An error occurred while logging in';
+        return err.message || "An error occurred while logging in";
       },
     });
   }
   const signInPromise = async (data: { email: string; password: string }) =>
     new Promise(async (resolve, reject) => {
       try {
-        signIn('credentials', {
+        signIn("credentials", {
           email: data.email,
           password: data.password,
           redirect: false,
@@ -91,7 +91,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               return;
             } else if (data && data.ok === true) {
               resolve(data);
-              router.push('/dashboard');
+              router.push("/dashboard");
               return;
             }
             resolve(data);
@@ -107,7 +107,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   return (
     <div
-      className={cn('grid gap-6 lg:max-w-lg text-left', className)}
+      className={cn("grid gap-6 lg:max-w-lg text-left", className)}
       {...props}
     >
       <div className="grid gap-2 grid-cols-2">
@@ -118,7 +118,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           className="border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200"
           onClick={async () => {
             setIsLoading(true);
-            await signIn('google', { callbackUrl: '/dashboard' });
+            await signIn("google", { callbackUrl: "/dashboard" });
             setIsLoading(false);
           }}
         >
@@ -135,7 +135,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           className="border-slate-200 shadow-sm border hover:border-primary/50 border-solid dark:bg-slate-800 dark:border-slate-700 dark:hover:border-primary/50 dark:hover:bg-slate-900 dark:text-slate-200"
           onClick={async () => {
             setIsLoading(true);
-            await signIn('github', { callbackUrl: '/dashboard' });
+            await signIn("github", { callbackUrl: "/dashboard" });
             setIsLoading(false);
           }}
         >
@@ -226,7 +226,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             Sign In with Email
           </Button>
           <p className="text-left text-sm font-medium text-slate-500 dark:text-slate-300">
-            Don't have an account?{' '}
+            Don't have an account?{" "}
             <Link href="/signup" className="text-primary hover:underline">
               Sign Up
             </Link>

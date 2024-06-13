@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function SideBarPostCard({ post }) {
   return (
@@ -18,18 +18,18 @@ export default function SideBarPostCard({ post }) {
         </div>
         <div>
           <h6 title={post.title}>
-            {' '}
-            <Link href={'/blog/posts/' + post.slug}>{post.title}</Link>
+            {" "}
+            <Link href={"/blog/posts/" + post.slug}>{post.title}</Link>
           </h6>
           <div>
             <span className="inline-block text-sm font-semibold">
               {post.labels[0]}
             </span>
             <span>
-              {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                month: 'long', // Full month name (e.g., September)
-                day: 'numeric', // Day of the month (e.g., 29)
-                year: 'numeric', // 4-digit year (e.g., 2021)
+              {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                month: "long", // Full month name (e.g., September)
+                day: "numeric", // Day of the month (e.g., 29)
+                year: "numeric", // 4-digit year (e.g., 2021)
               })}
             </span>
           </div>

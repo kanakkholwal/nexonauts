@@ -1,15 +1,15 @@
-'use server';
-import axios from 'axios';
-import HTMLParser from 'node-html-parser';
-import { rawProduct } from 'src/models/product';
-import TurndownService from 'turndown';
-import * as z from 'zod';
+"use server";
+import axios from "axios";
+import HTMLParser from "node-html-parser";
+import { rawProduct } from "src/models/product";
+import TurndownService from "turndown";
+import * as z from "zod";
 
 const urlSchema = z.string().url();
 
 export async function importProductFromURL(url: string): Promise<rawProduct> {
   if (!urlSchema.safeParse(url).success) {
-    return Promise.reject(new Error('Invalid URL'));
+    return Promise.reject(new Error("Invalid URL"));
   }
   try {
     const response = await axios.get(url);
@@ -18,9 +18,9 @@ export async function importProductFromURL(url: string): Promise<rawProduct> {
     const turndownService = new TurndownService();
 
     const product: rawProduct = {
-      name: root.querySelector('header>h1')?.innerText || '',
+      name: root.querySelector("header>h1")?.innerText || "",
       description: turndownService.turndown(
-        root.querySelector('.rich-text')?.innerHTML || ''
+        root.querySelector(".rich-text")?.innerHTML || ""
       ),
       published: true,
       url,
@@ -28,11 +28,11 @@ export async function importProductFromURL(url: string): Promise<rawProduct> {
       preview_url:
         root
           .querySelector("meta[property='og:image']")
-          ?.getAttribute('content') || '',
+          ?.getAttribute("content") || "",
       tags: [],
       categories: [],
       price: parseFloat(
-        root.querySelector('.price')?.getAttribute('content') || '0'
+        root.querySelector(".price")?.getAttribute("content") || "0"
       ),
       third_party: null,
     };

@@ -5,10 +5,10 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
-import Image from 'next/image';
-import Link from 'next/link';
+} from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function ProductCard({ product }) {
   return (
@@ -63,9 +63,9 @@ export function ProductCardOnDashboard({ product }) {
         </span>
         <span
           className="text-primary font-semibold bg-primary/20 uppercase px-3 py-1 text-sm rounded-md"
-          title={product.price.amount === 0 ? 'Free' : 'Paid'}
+          title={product.price.amount === 0 ? "Free" : "Paid"}
         >
-          {product.price.amount === 0 ? 'Free' : 'Paid'}
+          {product.price.amount === 0 ? "Free" : "Paid"}
         </span>
       </CardFooter>
     </Card>

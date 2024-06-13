@@ -1,27 +1,27 @@
-'use client';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+"use client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
-import { LoaderCircle } from 'lucide-react';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { updateProfileInput } from './actions';
-import { profileType, useProfileStore } from './store';
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { LoaderCircle } from "lucide-react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { updateProfileInput } from "./actions";
+import { profileType, useProfileStore } from "./store";
 
 const SOCIALS = [
-  { name: 'twitter', url: '' },
-  { name: 'gitHub', url: '' },
-  { name: 'linkedIn', url: '' },
-  { name: 'website', url: '' },
+  { name: "twitter", url: "" },
+  { name: "gitHub", url: "" },
+  { name: "linkedIn", url: "" },
+  { name: "website", url: "" },
 ];
 
 type Props = {
@@ -34,7 +34,7 @@ export function ProfileEditor({ updateProfile }: Props) {
   const [selectedSocial, setSelectedSocial] = useState<string>(
     SOCIALS.filter((social) => {
       return !profile.socials.find((s) => s.name === social.name);
-    })[0]?.name || 'none'
+    })[0]?.name || "none"
   );
 
   return (
@@ -102,7 +102,7 @@ export function ProfileEditor({ updateProfile }: Props) {
               </div>
             );
           })}
-          {selectedSocial !== 'none' && (
+          {selectedSocial !== "none" && (
             <div className="flex items-center justify-items-stretch gap-2">
               <Select
                 onValueChange={(value) => {
@@ -136,7 +136,7 @@ export function ProfileEditor({ updateProfile }: Props) {
                       ...profile,
                       socials: profile.socials
                         .filter((s) => s.name !== selectedSocial)
-                        .concat({ name: selectedSocial, url: '' }),
+                        .concat({ name: selectedSocial, url: "" }),
                     },
                   });
                   const availableSocials = SOCIALS.filter((social) => {
@@ -144,7 +144,7 @@ export function ProfileEditor({ updateProfile }: Props) {
                   });
                   if (availableSocials.length > 1)
                     setSelectedSocial(availableSocials[0].name);
-                  else setSelectedSocial('none');
+                  else setSelectedSocial("none");
                 }}
               >
                 Add
@@ -169,9 +169,9 @@ export function ProfileEditor({ updateProfile }: Props) {
                     },
                   }),
                   {
-                    loading: 'Updating profile...',
-                    success: 'Profile updated successfully',
-                    error: 'Failed to update profile',
+                    loading: "Updating profile...",
+                    success: "Profile updated successfully",
+                    error: "Failed to update profile",
                   }
                 )
                 .finally(() => setLoading(false));
@@ -179,7 +179,7 @@ export function ProfileEditor({ updateProfile }: Props) {
             disabled={loading}
           >
             {loading && <LoaderCircle className="animate-spin" size={16} />}
-            {loading ? 'Saving...' : 'Save Changes'}
+            {loading ? "Saving..." : "Save Changes"}
           </Button>
         </div>
       </div>
@@ -191,7 +191,7 @@ export function ProfileView() {
 
   return (
     <>
-      {' '}
+      {" "}
       <div
         id="basic_info"
         className="w-full px-4 py-8 space-y-2 flex flex-col items-center justify-center"

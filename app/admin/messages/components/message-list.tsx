@@ -1,13 +1,13 @@
-'use client';
-import formatDistanceToNow from 'date-fns/formatDistanceToNow';
-import { useMessagesStore } from '../store';
+"use client";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { useMessagesStore } from "../store";
 
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { cn } from '@/lib/utils';
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { cn } from "@/lib/utils";
 
-export function MessageList({ type }: { type: 'all' | 'unread' }) {
+export function MessageList({ type }: { type: "all" | "unread" }) {
   const [messages, selected] = useMessagesStore((state) => [
-    state.messages.filter((message) => type === 'all' || !message.read),
+    state.messages.filter((message) => type === "all" || !message.read),
     ,
     state.selected,
   ]);
@@ -18,8 +18,8 @@ export function MessageList({ type }: { type: 'all' | 'unread' }) {
           <button
             key={message._id}
             className={cn(
-              'flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent',
-              selected === message._id && 'bg-muted'
+              "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent",
+              selected === message._id && "bg-muted"
             )}
             onClick={() => useMessagesStore.setState({ selected: message._id })}
           >
@@ -33,10 +33,10 @@ export function MessageList({ type }: { type: 'all' | 'unread' }) {
                 </div>
                 <div
                   className={cn(
-                    'ml-auto text-xs',
+                    "ml-auto text-xs",
                     selected === message._id
-                      ? 'text-foreground'
-                      : 'text-muted-foreground'
+                      ? "text-foreground"
+                      : "text-muted-foreground"
                   )}
                 >
                   {formatDistanceToNow(new Date(message.createdAt), {

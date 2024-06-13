@@ -1,6 +1,6 @@
-'use server';
-import dbConnect from 'src/lib/dbConnect';
-import Product, { ProductType } from 'src/models/product';
+"use server";
+import dbConnect from "src/lib/dbConnect";
+import Product, { ProductType } from "src/models/product";
 
 export async function getProducts(): Promise<Partial<ProductType>[]> {
   await dbConnect();

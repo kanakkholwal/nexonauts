@@ -3,24 +3,24 @@ export function calculateReadTime(articleContent, averageReadingSpeed = 200) {
   var wordCount = countWords(articleContent);
   var readTimeMinutes = Math.ceil(wordCount / averageReadingSpeed);
   return readTimeMinutes === 1
-    ? readTimeMinutes + ' min'
-    : readTimeMinutes + ' mins';
+    ? readTimeMinutes + " min"
+    : readTimeMinutes + " mins";
 }
 export function createSlug(title) {
   // Convert the title to lowercase
   let slug = title.toLowerCase();
 
   // Remove non-alphanumeric characters
-  slug = slug.replace(/[^a-z0-9\s-]/g, '');
+  slug = slug.replace(/[^a-z0-9\s-]/g, "");
 
   // Replace whitespace with hyphens
-  slug = slug.replace(/\s+/g, '-');
+  slug = slug.replace(/\s+/g, "-");
 
   // Remove duplicate hyphens
-  slug = slug.replace(/-{2,}/g, '-');
+  slug = slug.replace(/-{2,}/g, "-");
 
   // Remove leading and trailing hyphens
-  slug = slug.replace(/^-+|-+$/g, '');
+  slug = slug.replace(/^-+|-+$/g, "");
 
   return slug;
 }
@@ -48,7 +48,7 @@ export function timeAgo(date) {
     }
   }
 
-  return 'Just now';
+  return "Just now";
 }
 function timeDifference(current, previous) {
   const milliSecondsPerMinute = 60 * 1000;
@@ -60,21 +60,21 @@ function timeDifference(current, previous) {
   const elapsed = current - previous;
 
   if (elapsed < milliSecondsPerMinute / 3) {
-    return 'just now';
+    return "just now";
   }
 
   if (elapsed < milliSecondsPerMinute) {
-    return 'less than 1 min ago';
+    return "less than 1 min ago";
   } else if (elapsed < milliSecondsPerHour) {
-    return Math.round(elapsed / milliSecondsPerMinute) + ' min ago';
+    return Math.round(elapsed / milliSecondsPerMinute) + " min ago";
   } else if (elapsed < milliSecondsPerDay) {
-    return Math.round(elapsed / milliSecondsPerHour) + ' h ago';
+    return Math.round(elapsed / milliSecondsPerHour) + " h ago";
   } else if (elapsed < milliSecondsPerMonth) {
-    return Math.round(elapsed / milliSecondsPerDay) + ' days ago';
+    return Math.round(elapsed / milliSecondsPerDay) + " days ago";
   } else if (elapsed < milliSecondsPerYear) {
-    return Math.round(elapsed / milliSecondsPerMonth) + ' mo ago';
+    return Math.round(elapsed / milliSecondsPerMonth) + " mo ago";
   } else {
-    return Math.round(elapsed / milliSecondsPerYear) + ' years ago';
+    return Math.round(elapsed / milliSecondsPerYear) + " years ago";
   }
 }
 export function timeDifferenceForDate(date) {
@@ -89,16 +89,16 @@ export function getDateTime(dateString) {
 
   // Options for formatting the date
   const options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
     hour12: true,
   };
 
   // Convert the date to the desired format
-  const customFormat = date.toLocaleString('en-US', options);
+  const customFormat = date.toLocaleString("en-US", options);
 
   return customFormat;
 }
@@ -107,7 +107,7 @@ export function getInitials(str) {
   str = str?.trim();
 
   // Split the string into words
-  const words = str.split(' ');
+  const words = str.split(" ");
 
   // Check if there are at least two words
   if (words.length >= 2) {
@@ -118,7 +118,7 @@ export function getInitials(str) {
     return words[0][0].toUpperCase();
   } else {
     // No words in the string
-    return '';
+    return "";
   }
 }
 
@@ -132,8 +132,8 @@ export function removeStringAfterWord(str, word) {
 
 export const checkEnvironment = () => {
   let base_url =
-    process.env.NEXT_PUBLIC_ENV === 'development'
-      ? 'http://localhost:3000'
+    process.env.NEXT_PUBLIC_ENV === "development"
+      ? "http://localhost:3000"
       : process.env.NEXT_PUBLIC_WEBSITE_URL;
 
   return base_url;

@@ -1,26 +1,26 @@
-import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Search } from 'lucide-react';
-import { getSession } from 'src/lib/auth';
-import { sessionType } from 'src/types/session';
-import { getMessages } from './actions';
-import { MessageDisplay } from './components/message-display';
-import { MessageList } from './components/message-list';
-import { useMessagesStore } from './store';
-import StoreInitializer from './store-initializer';
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Search } from "lucide-react";
+import { getSession } from "src/lib/auth";
+import { sessionType } from "src/types/session";
+import { getMessages } from "./actions";
+import { MessageDisplay } from "./components/message-display";
+import { MessageList } from "./components/message-list";
+import { useMessagesStore } from "./store";
+import StoreInitializer from "./store-initializer";
 
 export default async function DashboardPage() {
   const session = (await getSession()) as sessionType;
 
-  const { messages, totalPages } = await getMessages('', 1, {});
+  const { messages, totalPages } = await getMessages("", 1, {});
 
   useMessagesStore.setState({
     messages,
     selected: messages[0]._id,
     totalPages,
     currentPage: 1,
-    query: '',
+    query: "",
     filter: {},
   });
 

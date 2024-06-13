@@ -1,16 +1,16 @@
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Rating } from '@/components/ui/rating';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import Navbar from 'app/layouts/navbar-static';
-import { CircularGradient } from 'app/layouts/patterns/gradient';
+} from "@/components/ui/card";
+import { Rating } from "@/components/ui/rating";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import Navbar from "app/layouts/navbar-static";
+import { CircularGradient } from "app/layouts/patterns/gradient";
 import {
   getPublicToolBySlug,
   getRatingsAndReviews,
@@ -18,8 +18,8 @@ import {
   getToolMetaBySlug,
   postRatingAndReview,
   toggleBookmark,
-} from 'app/scout/lib/actions';
-import { getAverageRating } from 'app/scout/lib/utils';
+} from "app/scout/lib/actions";
+import { getAverageRating } from "app/scout/lib/utils";
 import {
   Bookmark,
   ExternalLink,
@@ -29,20 +29,20 @@ import {
   MessageCircle,
   Star,
   Zap,
-} from 'lucide-react';
-import type { Metadata, ResolvingMetadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
-import MarkdownView from 'src/components/markdown/view';
-import { getSession } from 'src/lib/auth';
-import { RatingTypeWithId } from 'src/models/tool-rating';
-import { formatNumber } from 'src/utils/formaters';
-import { BookMarkButton } from './bookmark';
-import { PostReview } from './post-review';
-import RatingComponent, { RatingSkeletonLoader } from './rating';
-import SimilarTools from './similar-tools';
+} from "lucide-react";
+import type { Metadata, ResolvingMetadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import MarkdownView from "src/components/markdown/view";
+import { getSession } from "src/lib/auth";
+import { RatingTypeWithId } from "src/models/tool-rating";
+import { formatNumber } from "src/utils/formaters";
+import { BookMarkButton } from "./bookmark";
+import { PostReview } from "./post-review";
+import RatingComponent, { RatingSkeletonLoader } from "./rating";
+import SimilarTools from "./similar-tools";
 
 type Props = {
   params: { slug: string };
@@ -59,11 +59,11 @@ export async function generateMetadata(
     title: tool.name,
     description: tool.description.substring(0, 160),
     keywords:
-      tool.tags?.join(', ') ||
-      tool.categories.map((category) => category.name).join(', '),
+      tool.tags?.join(", ") ||
+      tool.categories.map((category) => category.name).join(", "),
     metadataBase: new URL(
-      (process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://nexonauts.com') +
-        '/scout/tools/' +
+      (process.env.NEXT_PUBLIC_WEBSITE_URL || "https://nexonauts.com") +
+        "/scout/tools/" +
         tool.slug
     ),
     openGraph: {
@@ -71,11 +71,11 @@ export async function generateMetadata(
       title: tool.name,
       description: tool.description.substring(0, 160),
       url:
-        (process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://nexonauts.com') +
-        '/scout/tools/' +
+        (process.env.NEXT_PUBLIC_WEBSITE_URL || "https://nexonauts.com") +
+        "/scout/tools/" +
         tool.slug,
     },
-    category: tool.categories.map((category) => category.name).join(', '),
+    category: tool.categories.map((category) => category.name).join(", "),
   };
 }
 
@@ -101,16 +101,16 @@ export default async function ToolPage({ params }: Props) {
 
   const bannerURL = new URL(`https://api.microlink.io/`);
   // ?url=https://codeium.com&screenshot=true&meta=false&embed=screenshot.url
-  bannerURL.searchParams.append('url', tool.link);
-  bannerURL.searchParams.append('screenshot', 'true');
-  bannerURL.searchParams.append('meta', 'false');
-  bannerURL.searchParams.append('embed', 'screenshot.url');
+  bannerURL.searchParams.append("url", tool.link);
+  bannerURL.searchParams.append("screenshot", "true");
+  bannerURL.searchParams.append("meta", "false");
+  bannerURL.searchParams.append("embed", "screenshot.url");
 
   async function publishRating(data: { rating: number; comment: string }) {
-    'use server';
+    "use server";
     try {
       if (!session || !session?.user) {
-        return Promise.reject('You need to be logged in to rate a tool');
+        return Promise.reject("You need to be logged in to rate a tool");
       }
       const rating = await postRatingAndReview({
         toolId: tool._id!,
@@ -158,8 +158,8 @@ export default async function ToolPage({ params }: Props) {
                       strokeOpacity="0.06"
                       rx="23.5"
                       style={{
-                        stroke: 'rgb(255, 255, 255)',
-                        strokeOpacity: '0.06',
+                        stroke: "rgb(255, 255, 255)",
+                        strokeOpacity: "0.06",
                       }}
                     />
                     <defs>
@@ -174,7 +174,7 @@ export default async function ToolPage({ params }: Props) {
                         <stop
                           stopColor="#1B1C1E"
                           style={{
-                            stopColor: 'color(display-p3 0.1059 0.1098 0.1176)',
+                            stopColor: "color(display-p3 0.1059 0.1098 0.1176)",
                             stopOpacity: 1,
                           }}
                         />
@@ -182,7 +182,7 @@ export default async function ToolPage({ params }: Props) {
                           offset={1}
                           stopColor="#111214"
                           style={{
-                            stopColor: 'color(display-p3 0.0667 0.0706 0.0784)',
+                            stopColor: "color(display-p3 0.0667 0.0706 0.0784)",
                             stopOpacity: 1,
                           }}
                         />
@@ -212,11 +212,11 @@ export default async function ToolPage({ params }: Props) {
               <Button
                 variant="gradient_purple"
                 width="xs"
-                rounded={'full'}
+                rounded={"full"}
                 asChild
               >
                 <Link
-                  href={tool.link + '?ref=nexonauts.com/scout'}
+                  href={tool.link + "?ref=nexonauts.com/scout"}
                   target="_blank"
                 >
                   <span>Check it out</span>
@@ -253,7 +253,7 @@ export default async function ToolPage({ params }: Props) {
                 {tool.categories.map((category, index) => {
                   return (
                     <Badge
-                      key={category.slug + '_' + index}
+                      key={category.slug + "_" + index}
                       variant="success_light"
                       className="font-medium"
                     >
@@ -272,7 +272,7 @@ export default async function ToolPage({ params }: Props) {
         >
           <CardHeader>
             <CardTitle>
-              <Zap className="inline-block mr-2 w-5 h-5 text-teal-600" />{' '}
+              <Zap className="inline-block mr-2 w-5 h-5 text-teal-600" />{" "}
               Overview
             </CardTitle>
             <CardDescription>
@@ -305,7 +305,7 @@ export default async function ToolPage({ params }: Props) {
                 Ratings & Reviews
               </CardTitle>
               <CardDescription>
-                See what other users have to say about{' '}
+                See what other users have to say about{" "}
                 <strong>{tool.name}</strong>
               </CardDescription>
             </div>
@@ -390,10 +390,10 @@ export default async function ToolPage({ params }: Props) {
                         <Button asChild>
                           <Link
                             href={
-                              '/login?callbackUrl=' +
+                              "/login?callbackUrl=" +
                               encodeURI(
                                 process.env.NEXT_PUBLIC_WEBSITE_URL +
-                                  '/scout/tools/' +
+                                  "/scout/tools/" +
                                   tool.slug
                               )
                             }

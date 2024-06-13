@@ -1,14 +1,14 @@
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { ArrowUpRight, Heart, MoveLeft } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import MarkdownView, { defaultOptions } from 'src/components/markdown/view';
-import { getProductBySlug, getSimilarProducts } from './actions';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ArrowUpRight, Heart, MoveLeft } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import MarkdownView, { defaultOptions } from "src/components/markdown/view";
+import { getProductBySlug, getSimilarProducts } from "./actions";
 
-import { Metadata } from 'next';
-import { Suspense } from 'react';
+import { Metadata } from "next";
+import { Suspense } from "react";
 
 export async function generateMetadata({
   params,
@@ -21,11 +21,11 @@ export async function generateMetadata({
 
   return {
     title: `${product.name}`,
-    description: product.description.substring(0, 160) + '...',
+    description: product.description.substring(0, 160) + "...",
     openGraph: {
-      type: 'website',
+      type: "website",
       title: `${product.name}`,
-      description: product.description.substring(0, 160) + '...',
+      description: product.description.substring(0, 160) + "...",
       siteName: process.env.NEXT_PUBLIC_WEBSITE_NAME,
       url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/marketplace/products/${product.slug}`,
       images: [{ url: product.preview_url, alt: product.name }],
@@ -60,7 +60,7 @@ export default async function ProductPage({
         </h1>
         <div className="flex items-center mx-auto w-full justify-center gap-2 divide-x">
           <Badge variant="info" className="gap-1">
-            {product.price === 0 ? 'Free' : `$ ${product.price}`}
+            {product.price === 0 ? "Free" : `$ ${product.price}`}
           </Badge>
           <span className="text-sm font-semibold text-slate-500 dark:text-slate-300">
             Published on {new Date(product.createdAt).toLocaleDateString()}
@@ -151,7 +151,7 @@ export default async function ProductPage({
                       <h4 className="text-xl font-semibold">{product.name}</h4>
                       <p className="text-sm text-slate-500 dark:text-slate-300">
                         <Badge>
-                          {product.price === 0 ? 'Free' : `$ ${product.price}`}
+                          {product.price === 0 ? "Free" : `$ ${product.price}`}
                         </Badge>
                       </p>
                     </div>

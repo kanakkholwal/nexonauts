@@ -1,9 +1,9 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { NavList, QuickLinks } from './nav-list-dynamic';
-import ThemeSwitcher from './theme-switcher';
+import Image from "next/image";
+import Link from "next/link";
+import { NavList, QuickLinks } from "./nav-list-dynamic";
+import ThemeSwitcher from "./theme-switcher";
 
-import GoToBtn from './go-to-btn';
+import GoToBtn from "./go-to-btn";
 
 export default function Navbar() {
   return (

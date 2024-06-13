@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import { Button } from '@/components/ui/button';
-import { LuMail } from 'react-icons/lu';
+import { Button } from "@/components/ui/button";
+import { LuMail } from "react-icons/lu";
 
 import {
   Form,
@@ -12,17 +12,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
-import { useForm } from 'react-hook-form';
-import { AiOutlineLoading } from 'react-icons/ai';
-import * as z from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { AiOutlineLoading } from "react-icons/ai";
+import * as z from "zod";
 const FormSchema = z.object({
   email: z.string().email({
-    message: 'Please enter a valid email address',
+    message: "Please enter a valid email address",
   }),
 });
 
@@ -33,7 +33,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: '',
+      email: "",
     },
   });
   async function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -42,7 +42,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   }
 
   return (
-    <div className={cn('grid gap-6 text-left w-full', className)} {...props}>
+    <div className={cn("grid gap-6 text-left w-full", className)} {...props}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
           <FormField
@@ -77,7 +77,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             Send reset link
           </Button>
           <p className="text-left text-sm font-medium text-slate-500 dark:text-slate-300 mt-2">
-            Remember your password?{' '}
+            Remember your password?{" "}
             <Link href="/login" className="text-primary hover:underline">
               Login
             </Link>

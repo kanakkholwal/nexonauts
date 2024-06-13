@@ -1,6 +1,6 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { Tabs } from 'src/components/animations/tabs';
+import Image from "next/image";
+import Link from "next/link";
+import { Tabs } from "src/components/animations/tabs";
 
 interface CategorizedProps {
   categorized_tools: any[];

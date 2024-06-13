@@ -1,29 +1,29 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import dynamic from 'next/dynamic';
-import Prism from 'prismjs';
-import { useEffect, useState } from 'react';
-import { MdContentCopy, MdDoneAll, MdErrorOutline } from 'react-icons/md';
-import { toast } from 'sonner';
+"use client";
+import { Button } from "@/components/ui/button";
+import dynamic from "next/dynamic";
+import Prism from "prismjs";
+import { useEffect, useState } from "react";
+import { MdContentCopy, MdDoneAll, MdErrorOutline } from "react-icons/md";
+import { toast } from "sonner";
 
 const ParseString = (string) => {
   var replaced;
   replaced = string;
-  replaced = replaced.replace(/&/gi, '&amp;');
-  replaced = replaced.replace(/</gi, '&lt;');
-  replaced = replaced.replace(/>/gi, '&gt;');
-  replaced = replaced.replace(/"/gi, '&quot;');
-  replaced = replaced.replace(/'/gi, '&#039;');
-  replaced = replaced.replace(/&#177;/gi, '&plusmn;');
-  replaced = replaced.replace(/&#169;/gi, '&copy;');
-  replaced = replaced.replace(/&#174;/gi, '&reg;');
+  replaced = replaced.replace(/&/gi, "&amp;");
+  replaced = replaced.replace(/</gi, "&lt;");
+  replaced = replaced.replace(/>/gi, "&gt;");
+  replaced = replaced.replace(/"/gi, "&quot;");
+  replaced = replaced.replace(/'/gi, "&#039;");
+  replaced = replaced.replace(/&#177;/gi, "&plusmn;");
+  replaced = replaced.replace(/&#169;/gi, "&copy;");
+  replaced = replaced.replace(/&#174;/gi, "&reg;");
   replaced = replaced.replace(/ya'll/gi, "ya'll");
 
   return replaced;
 };
 
 function CodeBlock({ content, language, title, ...props }) {
-  const [CopyState, SetCopyState] = useState('normal');
+  const [CopyState, SetCopyState] = useState("normal");
 
   useEffect(() => {
     Prism.highlightAll();
@@ -36,19 +36,19 @@ function CodeBlock({ content, language, title, ...props }) {
       return navigator.clipboard.writeText(textToCopy);
     } else {
       // text area method
-      let textArea = document.createElement('textarea');
+      let textArea = document.createElement("textarea");
       textArea.value = textToCopy;
       // make the textarea out of viewport
-      textArea.style.position = 'fixed';
-      textArea.style.left = '-999999px';
-      textArea.style.top = '-999999px';
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
       document.body.appendChild(textArea);
       textArea.focus();
       textArea.select();
       return new Promise((res, rej) => {
         // here the magic happens
-        document.execCommand('copy') ? res() : rej();
-        toast.success('Copied to clipboard');
+        document.execCommand("copy") ? res() : rej();
+        toast.success("Copied to clipboard");
         textArea.remove();
       });
     }
@@ -57,46 +57,46 @@ function CodeBlock({ content, language, title, ...props }) {
   const Copy = (e, text) => {
     copyToClipboard(text)
       .then(() => {
-        SetCopyState('done');
-        toast.success('Copied to clipboard');
+        SetCopyState("done");
+        toast.success("Copied to clipboard");
       })
       .catch((error) => {
-        SetCopyState('error');
-        toast.error('Error copying to clipboard');
+        SetCopyState("error");
+        toast.error("Error copying to clipboard");
 
-        console.log('error', error);
+        console.log("error", error);
       })
       .finally(() => {
         setTimeout(() => {
-          SetCopyState('normal');
+          SetCopyState("normal");
         }, 800);
       });
   };
 
   const HandleCopyState = ({ state }) => {
-    if (state == 'error')
+    if (state == "error")
       return (
         <>
           Error <MdErrorOutline className="w-3 h-3 ml-2" />
         </>
       );
-    else if (state == 'done')
+    else if (state == "done")
       return (
         <>
-          Copied <MdDoneAll className="w-3 h-3 ml-2" />{' '}
+          Copied <MdDoneAll className="w-3 h-3 ml-2" />{" "}
         </>
       );
-    else if (state == 'normal')
+    else if (state == "normal")
       return (
         <>
-          Copy <MdContentCopy className="w-3 h-3 ml-2" />{' '}
+          Copy <MdContentCopy className="w-3 h-3 ml-2" />{" "}
         </>
       );
   };
   useEffect(() => {
     //create an async function to load the languages using import
     async function highlight() {
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         //import the language dynamically using import statement
         dynamic(() => import(`prismjs/components/prism-${language}`));
         Prism.highlightAll();
@@ -118,7 +118,7 @@ function CodeBlock({ content, language, title, ...props }) {
           <HandleCopyState state={CopyState} />
         </Button>
         <pre {...props} className="!m-0" tabIndex={0}>
-          <code className={'language-' + language}>{content}</code>
+          <code className={"language-" + language}>{content}</code>
         </pre>
       </div>
     </>

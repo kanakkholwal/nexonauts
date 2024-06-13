@@ -1,12 +1,12 @@
-'use client';
-import { signIn } from 'next-auth/react';
+"use client";
+import { signIn } from "next-auth/react";
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import { Button } from '@/components/ui/button';
-import { BiLockOpenAlt } from 'react-icons/bi';
-import { FcGoogle } from 'react-icons/fc';
-import { LuMail } from 'react-icons/lu';
+import { Button } from "@/components/ui/button";
+import { BiLockOpenAlt } from "react-icons/bi";
+import { FcGoogle } from "react-icons/fc";
+import { LuMail } from "react-icons/lu";
 
 import {
   Form,
@@ -15,31 +15,31 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
-import { zodResolver } from '@hookform/resolvers/zod';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useForm } from 'react-hook-form';
-import { AiOutlineLoading } from 'react-icons/ai';
-import { toast } from 'sonner';
-import * as z from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { AiOutlineLoading } from "react-icons/ai";
+import { toast } from "sonner";
+import * as z from "zod";
 
 const FormSchema = z.object({
   email: z
     .string()
-    .email({ message: 'Invalid email format' })
-    .min(5, { message: 'Email must be at least 5 characters long' })
-    .max(100, { message: 'Email cannot exceed 100 characters' }),
+    .email({ message: "Invalid email format" })
+    .min(5, { message: "Email must be at least 5 characters long" })
+    .max(100, { message: "Email cannot exceed 100 characters" }),
 
   password: z
     .string()
-    .min(8, { message: 'Password must be at least 8 characters long' })
-    .max(50, { message: 'Password cannot exceed 50 characters' })
+    .min(8, { message: "Password must be at least 8 characters long" })
+    .max(50, { message: "Password cannot exceed 50 characters" })
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/, {
       message:
-        'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+        "Password must contain at least one uppercase letter, one lowercase letter, and one number",
     }),
 });
 
@@ -48,15 +48,15 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams?.get('redirect') || '/feed';
-  const callbackUrl = searchParams?.get('callbackUrl') || '/feed';
+  const redirect = searchParams?.get("redirect") || "/feed";
+  const callbackUrl = searchParams?.get("callbackUrl") || "/feed";
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
   async function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -65,7 +65,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     setIsLoading(true);
 
     toast.promise(signInPromise(data), {
-      loading: 'Logging in...',
+      loading: "Logging in...",
       success: (data) => {
         console.log(data);
         setIsLoading(false);
@@ -76,20 +76,20 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           router.push(callbackUrl);
           return `Logged in successfully to ${callbackUrl}`;
         }
-        router.push('/feed');
+        router.push("/feed");
         return `Logged in successfully to dashboard`;
       },
       error: (err) => {
         console.log(err);
         setIsLoading(false);
-        return err.message || 'An error occurred while logging in';
+        return err.message || "An error occurred while logging in";
       },
     });
   }
   const signInPromise = async (data: { email: string; password: string }) =>
     new Promise(async (resolve, reject) => {
       try {
-        signIn('credentials', {
+        signIn("credentials", {
           email: data.email,
           password: data.password,
           redirect: false,
@@ -118,7 +118,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
   return (
     <div
-      className={cn('grid gap-6 lg:max-w-lg text-left', className)}
+      className={cn("grid gap-6 lg:max-w-lg text-left", className)}
       {...props}
     >
       <Form {...form}>
@@ -211,10 +211,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           variant="light"
           type="button"
           disabled={isLoading}
-          width={'full'}
+          width={"full"}
           onClick={async () => {
             setIsLoading(true);
-            await signIn('google', { callbackUrl: redirect });
+            await signIn("google", { callbackUrl: redirect });
             setIsLoading(false);
           }}
         >
@@ -223,7 +223,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           ) : (
             <FcGoogle className=" h-6 w-6" />
           )}
-          {isLoading ? 'Signing in...' : 'Sign in with Google'}
+          {isLoading ? "Signing in..." : "Sign in with Google"}
         </Button>
       </div>
     </div>

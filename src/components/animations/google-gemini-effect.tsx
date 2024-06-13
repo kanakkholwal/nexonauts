@@ -1,10 +1,10 @@
-'use client';
-import { cn } from '@/lib/utils';
-import { motion, MotionValue } from 'framer-motion';
+"use client";
+import { cn } from "@/lib/utils";
+import { motion, MotionValue } from "framer-motion";
 
 const transition = {
   duration: 0,
-  ease: 'linear',
+  ease: "linear",
 };
 
 export const GoogleGeminiEffect = ({
@@ -19,7 +19,7 @@ export const GoogleGeminiEffect = ({
   className?: string;
 }) => {
   return (
-    <div className={cn('sticky top-80', className)}>
+    <div className={cn("sticky top-80", className)}>
       <h4 className="text-3xl md:text-7xl font-bold pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-violet-200 to-primary  dark:from-cyan-400 dark:to-indigo-600">
         {title || `Grow with Nexonauts`}
       </h4>

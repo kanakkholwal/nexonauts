@@ -1,8 +1,8 @@
-import { authOptions } from 'app/api/auth/[...nextauth]/options';
+import { authOptions } from "app/api/auth/[...nextauth]/options";
 
-import { GenerativeModel, GoogleGenerativeAI } from '@google/generative-ai';
-import { getServerSession } from 'next-auth/next';
-import { NextRequest, NextResponse } from 'next/server';
+import { GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai";
+import { getServerSession } from "next-auth/next";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,8 +12,8 @@ export async function POST(request: NextRequest) {
     if (!session) {
       return NextResponse.json(
         {
-          result: 'fail',
-          message: 'Unauthorized',
+          result: "fail",
+          message: "Unauthorized",
         },
         {
           status: 401,
@@ -22,14 +22,14 @@ export async function POST(request: NextRequest) {
     }
 
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
-    const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
 
     const newDescription = await generateDescription(model, name, link);
 
     return NextResponse.json(
       {
-        result: 'success',
-        message: 'Description generated successfully',
+        result: "success",
+        message: "Description generated successfully",
         data: newDescription,
       },
       {
@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        result: 'fail',
+        result: "fail",
         message: error.message,
       },
       {
@@ -68,7 +68,7 @@ Write a description and an overview of ${toolName}, which has a website at ${too
   const parts = [{ text: prompt }];
 
   const result = await model.generateContent({
-    contents: [{ role: 'user', parts }],
+    contents: [{ role: "user", parts }],
     generationConfig,
   });
   return result.response.text();

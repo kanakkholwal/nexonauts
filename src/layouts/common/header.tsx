@@ -1,9 +1,9 @@
-'use client';
+"use client";
 // import { Button } from "@/components/ui/button";
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
-import { BiChevronDown } from 'react-icons/bi';
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { BiChevronDown } from "react-icons/bi";
 // import { RiMenuFill } from "react-icons/ri";
 
 type MenuLinkType = {
@@ -13,36 +13,36 @@ type MenuLinkType = {
 };
 const menu = [
   {
-    name: 'Home',
-    link: '/',
+    name: "Home",
+    link: "/",
   },
   {
-    name: 'About Us',
-    link: '/about',
+    name: "About Us",
+    link: "/about",
   },
   {
-    name: 'Contact',
-    link: '/contact',
+    name: "Contact",
+    link: "/contact",
   },
   {
-    name: 'Pricing',
-    link: '/pricing',
+    name: "Pricing",
+    link: "/pricing",
   },
   {
-    name: 'More',
-    link: '#',
+    name: "More",
+    link: "#",
     items: [
       {
-        name: 'Apps',
-        link: '/apps',
+        name: "Apps",
+        link: "/apps",
       },
       {
-        name: 'Tools',
-        link: '/apps',
+        name: "Tools",
+        link: "/apps",
       },
       {
-        name: 'ToolBox',
-        link: '/toolbox',
+        name: "ToolBox",
+        link: "/toolbox",
       },
       // {
       //     name: "Store",
@@ -63,16 +63,16 @@ export default function Header() {
     const scrollCallBack = (e) => {
       setIsScrolled(window.scrollY > sticky!);
     };
-    window.addEventListener('scroll', scrollCallBack);
+    window.addEventListener("scroll", scrollCallBack);
     return () => {
-      window.removeEventListener('scroll', scrollCallBack);
+      window.removeEventListener("scroll", scrollCallBack);
     };
   }, []);
   return (
     <header
       className={
-        'fixed left-0 top-0 w-full z-9999 py-7 lg:py-0 z-50 ' +
-        (isScrolled ? ' bg-slate-50 backdrop-blur-lg shadow' : '')
+        "fixed left-0 top-0 w-full z-9999 py-7 lg:py-0 z-50 " +
+        (isScrolled ? " bg-slate-50 backdrop-blur-lg shadow" : "")
       }
       ref={headerRef}
     >

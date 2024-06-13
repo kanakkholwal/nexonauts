@@ -1,13 +1,13 @@
-import WithoutSession from 'app/layouts/without-session';
-import { Metadata } from 'next';
-import { getSession } from 'src/lib/auth';
-import Navbar from './components/navbar';
-import SideBar from './components/sidenav';
-import './layout.css';
+import WithoutSession from "app/layouts/without-session";
+import { Metadata } from "next";
+import { getSession } from "src/lib/auth";
+import Navbar from "./components/navbar";
+import SideBar from "./components/sidenav";
+import "./layout.css";
 
 export const metadata: Metadata = {
-  title: 'Feed - NexoNauts',
-  description: 'Feed for NexoNauts',
+  title: "Feed - NexoNauts",
+  description: "Feed for NexoNauts",
 };
 
 export default async function FeedLayout({
@@ -32,7 +32,7 @@ export default async function FeedLayout({
             <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
           </div>
           <main className="content p-2 md:p-4 z-2 @container">{children}</main>
-          {process.env.NODE_ENV !== 'production' && (
+          {process.env.NODE_ENV !== "production" && (
             <div className="fixed bottom-0 right-0 p-2 text-xs text-gray-500 dark:text-slate-400">
               v0.1.1({process.env.NODE_ENV})
             </div>

@@ -5,7 +5,7 @@ export type newProductType = {
   category: string;
   price: {
     amount: number;
-    currency: string | 'USD';
+    currency: string | "USD";
   };
   product_type: string;
   coverImage: string;
@@ -24,7 +24,7 @@ export type editableProductType = newProductType & {
   updatedAt: string;
   likes?: string[];
   views?: number;
-  status: 'rejected' | 'pending' | 'approved';
+  status: "rejected" | "pending" | "approved";
   slug: string;
 };
 export type searhableProductType = {
@@ -33,7 +33,7 @@ export type searhableProductType = {
   short_description: string;
   price: {
     amount: number;
-    currency: string | 'USD';
+    currency: string | "USD";
   };
   product_type: string;
   coverImage: string;
@@ -54,7 +54,7 @@ export type publicProductType = {
   short_description: string;
   price: {
     amount: number;
-    currency: string | 'USD';
+    currency: string | "USD";
   };
   product_type: string;
   coverImage: string;
@@ -76,7 +76,7 @@ export type statsProductType = {
   title: string;
   price: {
     amount: number;
-    currency: string | 'USD';
+    currency: string | "USD";
   };
   product_type: string;
   coverImage: string;

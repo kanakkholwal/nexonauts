@@ -1,8 +1,8 @@
-import { Badge } from '@/components/ui/badge';
-import { Star, Zap } from 'lucide-react';
-import Link from 'next/link';
-import LazyImage from 'src/components/image';
-import { PublicToolTypeWithId } from 'src/models/tool';
+import { Badge } from "@/components/ui/badge";
+import { Star, Zap } from "lucide-react";
+import Link from "next/link";
+import LazyImage from "src/components/image";
+import { PublicToolTypeWithId } from "src/models/tool";
 
 import {
   Card,
@@ -10,14 +10,14 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@/components/ui/carousel';
+} from "@/components/ui/carousel";
 
 interface Props {
   tools: Partial<PublicToolTypeWithId>[];
@@ -30,7 +30,7 @@ export default function SimilarTools({ tools, toolName }: Props) {
         <>
           <Carousel
             opts={{
-              align: 'center',
+              align: "center",
             }}
             className="w-full"
           >
@@ -41,7 +41,7 @@ export default function SimilarTools({ tools, toolName }: Props) {
                   Similar Tools & Alternatives
                 </CardTitle>
                 <CardDescription>
-                  You might also like these tools that are similar to{' '}
+                  You might also like these tools that are similar to{" "}
                   <strong>{toolName}</strong>
                 </CardDescription>
               </div>

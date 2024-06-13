@@ -1,18 +1,18 @@
-import App from 'models/app';
-import User from 'models/user';
+import App from "models/app";
+import User from "models/user";
 
 export const DEV_VIEW_KEYS =
-  'name shortDescription description appId type path coverImage recommended version ratings membership categories tags developer createdAt averageRating';
+  "name shortDescription description appId type path coverImage recommended version ratings membership categories tags developer createdAt averageRating";
 export const PUBLIC_VIEW_KEYS =
-  'name shortDescription description appId type path coverImage recommended version ratings membership categories tags developer createdAt averageRating';
+  "name shortDescription description appId type path coverImage recommended version ratings membership categories tags developer createdAt averageRating";
 export const ADMIN_VIEW_KEYS =
-  'name shortDescription description appId type path coverImage recommended version ratings membership categories tags developer createdAt averageRating';
+  "name shortDescription description appId type path coverImage recommended version ratings membership categories tags developer createdAt averageRating";
 export const PUBLIC_RUN_KEYS =
-  'name shortDescription description appId type path coverImage recommended version ratings membership categories tags developer createdAt averageRating formFlow';
+  "name shortDescription description appId type path coverImage recommended version ratings membership categories tags developer createdAt averageRating formFlow";
 export const DEV_EDIT_KEYS =
-  'name shortDescription description appId type path coverImage categories version tags membership formFlow config';
+  "name shortDescription description appId type path coverImage categories version tags membership formFlow config";
 export const ADMIN_EDIT_KEYS =
-  'name shortDescription description appId type path coverImage categories version tags membership formFlow config';
+  "name shortDescription description appId type path coverImage categories version tags membership formFlow config";
 
 export async function getAppsOfUser(
   userId: string,
@@ -20,29 +20,29 @@ export async function getAppsOfUser(
 ) {
   const existingUser = await User.findById(userId);
   if (!existingUser) {
-    console.log('User not found!');
+    console.log("User not found!");
     return {
       sucess: false,
-      message: 'User not found!',
+      message: "User not found!",
       apps: [],
     };
   }
   const userApps = await App.find({
-    'developer.userId': existingUser._id,
+    "developer.userId": existingUser._id,
     ...options,
   }).exec();
   if (!userApps) {
-    console.log('No apps found!');
+    console.log("No apps found!");
     return {
       sucess: false,
-      message: 'No apps found!',
+      message: "No apps found!",
       apps: [],
     };
   }
 
   return {
     sucess: true,
-    message: 'Apps found!',
+    message: "Apps found!",
     apps: userApps,
   };
 }
@@ -53,32 +53,32 @@ export async function getAppOfUserByAPPID(
 ) {
   const existingUser = await User.findById(userId);
   if (!existingUser) {
-    console.log('User not found!');
+    console.log("User not found!");
     return {
       sucess: false,
-      message: 'User not found!',
+      message: "User not found!",
       app: null,
     };
   }
   const app = await App.findOne({
-    'developer.userId': userId,
+    "developer.userId": userId,
     appId: appId,
     ...options,
   })
     .lean()
     .exec();
   if (!app) {
-    console.log('No app found!');
+    console.log("No app found!");
     return {
       sucess: false,
-      message: 'No apps found!',
+      message: "No apps found!",
       app: null,
     };
   }
 
   return {
     sucess: true,
-    message: 'Apps found!',
+    message: "Apps found!",
     app: app,
   };
 }
@@ -87,13 +87,13 @@ export async function getAllApps(LIMIT = 5) {
   const [allApps, allPopularApps] = await Promise.allSettled([
     App.find({
       isPublic: true,
-      status: 'published',
+      status: "published",
     })
       .select(PUBLIC_VIEW_KEYS)
       .exec(),
     App.find({
       enabled: true,
-      state: 'published',
+      state: "published",
     })
       .sort({ recommended: -1, AppUsage: -1, ratings: -1 })
       .select(PUBLIC_VIEW_KEYS)
@@ -101,8 +101,8 @@ export async function getAllApps(LIMIT = 5) {
   ]);
 
   return {
-    apps: allApps.status === 'fulfilled' ? allApps.value ?? [] : [],
+    apps: allApps.status === "fulfilled" ? allApps.value ?? [] : [],
     popularApps:
-      allPopularApps.status === 'fulfilled' ? allPopularApps.value ?? [] : [],
+      allPopularApps.status === "fulfilled" ? allPopularApps.value ?? [] : [],
   };
 }

@@ -1,10 +1,10 @@
-import { render } from '@react-email/render';
-import { generateToken, handleEmailFire } from 'emails/helper';
-import WelcomeVerify from 'emails/templates/welcome-verify';
-import dbConnect from 'lib/dbConnect';
-import { NextRequest, NextResponse } from 'next/server';
-import UserModel from 'src/models/user';
-import validator from 'validator';
+import { render } from "@react-email/render";
+import { generateToken, handleEmailFire } from "emails/helper";
+import WelcomeVerify from "emails/templates/welcome-verify";
+import dbConnect from "lib/dbConnect";
+import { NextRequest, NextResponse } from "next/server";
+import UserModel from "src/models/user";
+import validator from "validator";
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,8 +15,8 @@ export async function POST(request: NextRequest) {
     if (!name || !email || !password) {
       return NextResponse.json(
         {
-          result: 'fail',
-          message: 'name, email and password are required',
+          result: "fail",
+          message: "name, email and password are required",
         },
         {
           status: 400,
@@ -27,8 +27,8 @@ export async function POST(request: NextRequest) {
     if (!validator.isEmail(email)) {
       return NextResponse.json(
         {
-          result: 'fail',
-          message: 'invalid email',
+          result: "fail",
+          message: "invalid email",
         },
         {
           status: 400,
@@ -38,8 +38,8 @@ export async function POST(request: NextRequest) {
     if (password.length < 6) {
       return NextResponse.json(
         {
-          result: 'fail',
-          message: 'password must be at least 6 characters long',
+          result: "fail",
+          message: "password must be at least 6 characters long",
         },
         {
           status: 400,
@@ -53,8 +53,8 @@ export async function POST(request: NextRequest) {
     if (user) {
       return NextResponse.json(
         {
-          result: 'fail',
-          message: 'user already exists',
+          result: "fail",
+          message: "user already exists",
         },
         {
           status: 400,
@@ -66,8 +66,8 @@ export async function POST(request: NextRequest) {
       name,
       email,
       password,
-      username: email.split('@')[0],
-      providers: ['email'],
+      username: email.split("@")[0],
+      providers: ["email"],
       verificationToken: generateToken({ email }),
     });
     // save user
@@ -86,13 +86,13 @@ export async function POST(request: NextRequest) {
         })
       ),
     });
-    console.log('Mail sent');
+    console.log("Mail sent");
 
     return NextResponse.json(
       {
-        result: 'success',
+        result: "success",
         message:
-          'User is registered Successfully, Please verify your Email Now!!!',
+          "User is registered Successfully, Please verify your Email Now!!!",
       },
       {
         status: 200,
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        result: 'fail',
+        result: "fail",
         message: error.message,
       },
       {

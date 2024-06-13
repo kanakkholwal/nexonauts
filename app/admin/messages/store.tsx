@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 export type Message = {
   _id: string;
@@ -15,7 +15,7 @@ export type Message = {
 
 type State = {
   messages: Message[];
-  selected: Message['_id'] | null;
+  selected: Message["_id"] | null;
   totalPages: number;
   currentPage: number;
   query: string;
@@ -26,9 +26,9 @@ type State = {
 
 export const useMessagesStore = create<State>((set) => ({
   messages: [],
-  selected: 'all',
+  selected: "all",
   totalPages: 0,
   currentPage: 1,
-  query: '',
+  query: "",
   filter: {},
 }));

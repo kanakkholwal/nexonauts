@@ -1,13 +1,13 @@
-import { Input } from '@/components/ui/input';
-import Footer from 'layouts/common/footer';
-import Image from 'next/image';
-import Link from 'next/link';
-import { CgSearch } from 'react-icons/cg';
-import { VscChevronDown } from 'react-icons/vsc';
-import { SessionUserType } from 'src/types/user';
-import Sidenav from '../common/sidenav';
+import { Input } from "@/components/ui/input";
+import Footer from "layouts/common/footer";
+import Image from "next/image";
+import Link from "next/link";
+import { CgSearch } from "react-icons/cg";
+import { VscChevronDown } from "react-icons/vsc";
+import { SessionUserType } from "src/types/user";
+import Sidenav from "../common/sidenav";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,17 +15,17 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import axios from 'axios';
-import debounce from 'lodash.debounce';
-import { signOut } from 'next-auth/react';
-import { useEffect, useRef, useState } from 'react';
-import { FaRegUser } from 'react-icons/fa';
-import { MdLogout } from 'react-icons/md';
+} from "@/components/ui/dropdown-menu";
+import axios from "axios";
+import debounce from "lodash.debounce";
+import { signOut } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
+import { FaRegUser } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
 import {
   TbLayoutSidebarRightCollapse,
   TbLayoutSidebarRightExpand,
-} from 'react-icons/tb';
+} from "react-icons/tb";
 
 export default function Layout({
   children,
@@ -36,7 +36,7 @@ export default function Layout({
 }) {
   const [isSidenavOpen, setSidenavOpen] = useState<boolean>(false);
   let NavRef = useRef<HTMLElement>(null);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -47,7 +47,7 @@ export default function Layout({
       console.log(response.data.result);
       setResults(response.data.result);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     } finally {
       setLoading(false);
     }
@@ -61,13 +61,13 @@ export default function Layout({
     debouncedSearch(searchText);
   };
   useEffect(() => {
-    let sidenavPanel = document.body.querySelector('#nexo_sidenav');
+    let sidenavPanel = document.body.querySelector("#nexo_sidenav");
     if (!sidenavPanel) return;
 
-    if (!sidenavPanel.classList.contains('isOpen')) {
-      sidenavPanel.classList.add('isOpen');
+    if (!sidenavPanel.classList.contains("isOpen")) {
+      sidenavPanel.classList.add("isOpen");
     } else {
-      sidenavPanel.classList.remove('isOpen');
+      sidenavPanel.classList.remove("isOpen");
     }
   }, [isSidenavOpen]);
   useEffect(() => {
@@ -79,8 +79,8 @@ export default function Layout({
       }
     ) => {
       if (
-        e.target.id === 'nexo_sidenav' ||
-        e.target.id === 'nexo_sidenav_toggler'
+        e.target.id === "nexo_sidenav" ||
+        e.target.id === "nexo_sidenav_toggler"
       ) {
         setSidenavOpen(false);
       }
@@ -88,10 +88,10 @@ export default function Layout({
         setSidenavOpen(false);
       }
     };
-    document.addEventListener('mousedown', HandleOutSide);
+    document.addEventListener("mousedown", HandleOutSide);
 
     return () => {
-      document.removeEventListener('mousedown', HandleOutSide);
+      document.removeEventListener("mousedown", HandleOutSide);
     };
   }, []);
   console.log(user);
@@ -158,7 +158,7 @@ export default function Layout({
                       <DropdownMenuSeparator />
                       <DropdownMenuItem asChild>
                         <Link
-                          href={'/dashboard/settings/profile'}
+                          href={"/dashboard/settings/profile"}
                           className="w-full text-accent-foreground hover:text-slate-800"
                         >
                           <FaRegUser className="w-3 h-3 mr-1" />

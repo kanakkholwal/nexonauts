@@ -1,28 +1,28 @@
-import dbConnect from 'lib/dbConnect';
-import { NextRequest, NextResponse } from 'next/server';
-import PublicTool from 'src/models/tool';
-import { Worker } from 'worker_threads';
+import dbConnect from "lib/dbConnect";
+import { NextRequest, NextResponse } from "next/server";
+import PublicTool from "src/models/tool";
+import { Worker } from "worker_threads";
 
 export async function PUT(request: NextRequest) {
   try {
     await dbConnect();
     const time = new Date().getTime();
 
-    const alTools = await PublicTool.find({}).select('name link').lean().exec();
+    const alTools = await PublicTool.find({}).select("name link").lean().exec();
 
     for await (const tool of alTools) {
       //  Create a new worker thread for each tool
-      const worker = new Worker('./worker.ts', { workerData: { tool } });
+      const worker = new Worker("./worker.ts", { workerData: { tool } });
       // Listen for messages from worker threads.
-      worker.on('message', (message) => {
+      worker.on("message", (message) => {
         console.log(message);
       });
       // Listen for errors from worker threads.
-      worker.on('error', (error) => {
+      worker.on("error", (error) => {
         console.error(error);
       });
       // Listen for exit events from worker threads.
-      worker.on('exit', () => {
+      worker.on("exit", () => {
         console.log(`Worker ${tool.name} stopped working.`);
       });
     }
@@ -31,7 +31,7 @@ export async function PUT(request: NextRequest) {
 
     return NextResponse.json(
       {
-        result: 'success',
+        result: "success",
         message: `Time taken : ${(newTime - time) / 100}seconds`,
       },
       {
@@ -41,7 +41,7 @@ export async function PUT(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        result: 'fail',
+        result: "fail",
         message: error.message,
       },
       {

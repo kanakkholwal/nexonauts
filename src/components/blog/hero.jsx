@@ -1,13 +1,13 @@
-import styled from 'styled-components';
-import { LuMail } from 'react-icons/lu';
+import styled from "styled-components";
+import { LuMail } from "react-icons/lu";
 import {
   Input,
   FormGroup,
   FormHelper,
   FormElement,
-} from 'components/form-elements';
-import { ResponsiveButton } from 'components/buttons';
-import toast, { Toaster } from 'react-hot-toast';
+} from "components/form-elements";
+import { ResponsiveButton } from "components/buttons";
+import toast, { Toaster } from "react-hot-toast";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -41,15 +41,15 @@ export function HomePageHero() {
       </p>
       <FormElement
         style={{
-          maxWidth: '480px',
-          margin: '1rem auto',
-          gap: '0.5rem',
+          maxWidth: "480px",
+          margin: "1rem auto",
+          gap: "0.5rem",
         }}
       >
         <FormGroup
           style={{
-            gap: '0.5rem',
-            flexWrap: 'nowrap',
+            gap: "0.5rem",
+            flexWrap: "nowrap",
           }}
         >
           <Input placeholder="Enter your email ..." noBorder="true" />
@@ -58,7 +58,7 @@ export function HomePageHero() {
             nature="blog-theme"
             low="true"
             onClick={() => {
-              toast.success('Will be Available Soon');
+              toast.success("Will be Available Soon");
             }}
           >
             Subscribe

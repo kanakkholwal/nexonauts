@@ -1,5 +1,5 @@
-'use client';
-import { Button } from '@/components/ui/button';
+"use client";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -7,34 +7,34 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { ArrowRight, UserRound } from 'lucide-react';
-import { signIn } from 'next-auth/react';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { BiLockOpenAlt } from 'react-icons/bi';
-import { CgSpinner } from 'react-icons/cg';
-import { FcGoogle } from 'react-icons/fc';
-import { LuCheckCircle2, LuMail } from 'react-icons/lu';
-import { z } from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ArrowRight, UserRound } from "lucide-react";
+import { signIn } from "next-auth/react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { BiLockOpenAlt } from "react-icons/bi";
+import { CgSpinner } from "react-icons/cg";
+import { FcGoogle } from "react-icons/fc";
+import { LuCheckCircle2, LuMail } from "react-icons/lu";
+import { z } from "zod";
 
 const formSchema = z.object({
   name: z.string().min(4, {
-    message: 'Name must be at least 4 characters long',
+    message: "Name must be at least 4 characters long",
   }),
-  email: z.string().email({ message: 'Please enter a valid email address' }),
+  email: z.string().email({ message: "Please enter a valid email address" }),
   password: z
     .string()
-    .min(8, { message: 'Password must be at least 8 characters long' })
-    .max(50, { message: 'Password cannot exceed 50 characters' })
+    .min(8, { message: "Password must be at least 8 characters long" })
+    .max(50, { message: "Password cannot exceed 50 characters" })
     .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/, {
       message:
-        'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+        "Password must contain at least one uppercase letter, one lowercase letter, and one number",
     }),
 });
 
@@ -52,41 +52,41 @@ interface Props {
 export function RegisterForm({ registerUser }: Props) {
   const searchParams = useSearchParams() as URLSearchParams;
   const router = useRouter();
-  const redirect = searchParams.get('redirect') ?? '/feed';
+  const redirect = searchParams.get("redirect") ?? "/feed";
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
+      name: "",
+      email: "",
+      password: "",
     },
   });
   async function onSubmit(data: z.infer<typeof formSchema>) {
     console.log(data);
     setLoading(true);
     toast.promise(registerUser(data), {
-      loading: 'Creating account...',
+      loading: "Creating account...",
       success: (data: any) => {
         console.log(data);
-        setState('registered');
+        setState("registered");
         setLoading(false);
         return `Account created successfully. Please check your email to verify your account`;
       },
       error: (err) => {
         console.log(err);
         setLoading(false);
-        return err.message || 'An error occurred while creating account';
+        return err.message || "An error occurred while creating account";
       },
     });
   }
 
-  const [state, setState] = useState<'onboarding' | 'registered'>('onboarding');
+  const [state, setState] = useState<"onboarding" | "registered">("onboarding");
 
   return (
     <>
-      {state === 'onboarding' && (
+      {state === "onboarding" && (
         <>
           <div className="flex flex-col space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
@@ -180,13 +180,13 @@ export function RegisterForm({ registerUser }: Props) {
                 )}
               />
               <Button
-                width={'full'}
+                width={"full"}
                 disabled={loading}
                 className="mt-4"
                 type="submit"
               >
                 {loading && <CgSpinner className="animate-spin mr-2" />}
-                {loading ? 'Creating account...' : 'Create a new Account'}
+                {loading ? "Creating account..." : "Create a new Account"}
               </Button>
             </form>
           </Form>
@@ -206,32 +206,32 @@ export function RegisterForm({ registerUser }: Props) {
               variant="light"
               type="button"
               disabled={loading}
-              width={'full'}
+              width={"full"}
               onClick={async () => {
                 setLoading(true);
-                await signIn('google', { callbackUrl: redirect });
+                await signIn("google", { callbackUrl: redirect });
                 setLoading(false);
               }}
             >
               {loading ? <CgSpinner className=" animate-spin" /> : <FcGoogle />}
-              {loading ? 'Signing in...' : 'Sign in with Google'}
+              {loading ? "Signing in..." : "Sign in with Google"}
             </Button>
           </div>
           <div className="pt-lg  max-w-lg text-center">
             <p className="text-concrete text-xs lg:text-sm pt-8">
-              By clicking{' '}
+              By clicking{" "}
               <span className="font-semibold">Create account / Sign up</span>,
-              you agree to {process.env.NEXT_PUBLIC_WEBSITE_NAME}'s{' '}
+              you agree to {process.env.NEXT_PUBLIC_WEBSITE_NAME}'s{" "}
               <Link
                 className="!text-concrete text-primary inline-flex hover:underline"
-                href={process.env.NEXT_PUBLIC_WEBSITE_URL + '/tos'}
+                href={process.env.NEXT_PUBLIC_WEBSITE_URL + "/tos"}
               >
                 Terms
-              </Link>{' '}
-              and confirm you have read our{' '}
+              </Link>{" "}
+              and confirm you have read our{" "}
               <Link
                 className="!text-concrete text-primary inline-flex hover:underline"
-                href={process.env.NEXT_PUBLIC_WEBSITE_URL + '/privacy'}
+                href={process.env.NEXT_PUBLIC_WEBSITE_URL + "/privacy"}
               >
                 Privacy Policy
               </Link>
@@ -240,7 +240,7 @@ export function RegisterForm({ registerUser }: Props) {
           </div>
         </>
       )}
-      {state === 'registered' && (
+      {state === "registered" && (
         <>
           <div className="grid w-full max-w-lg items-center gap-1.5">
             <div className="flex flex-col items-center justify-center">

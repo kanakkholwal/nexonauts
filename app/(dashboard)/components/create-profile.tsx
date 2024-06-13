@@ -1,7 +1,7 @@
-import { Button } from '@/components/ui/button';
-import Image from 'next/image';
-import Link from 'next/link';
-import NoProfile from './no-profile.svg';
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import Link from "next/link";
+import NoProfile from "./no-profile.svg";
 
 export default function CreateProfile() {
   return (
@@ -21,7 +21,7 @@ export default function CreateProfile() {
           Create a profile to connect with other developers
         </p>
         <Button className="mt-5 w-full max-w-sm" size="lg">
-          <Link href={'/onboarding/profile?next=/feed'}>
+          <Link href={"/onboarding/profile?next=/feed"}>
             Create Profile Now
           </Link>
         </Button>

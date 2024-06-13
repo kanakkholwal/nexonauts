@@ -1,5 +1,5 @@
-'use client';
-import { Button } from '@/components/ui/button';
+"use client";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,14 +7,14 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Rating } from '@/components/ui/rating';
-import { Textarea } from '@/components/ui/textarea';
-import React from 'react';
-import toast from 'react-hot-toast';
-import { PublicToolTypeWithId } from 'src/models/tool';
-import { RatingTypeWithId } from 'src/models/tool-rating';
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Rating } from "@/components/ui/rating";
+import { Textarea } from "@/components/ui/textarea";
+import React from "react";
+import toast from "react-hot-toast";
+import { PublicToolTypeWithId } from "src/models/tool";
+import { RatingTypeWithId } from "src/models/tool-rating";
 
 export function PostReview({
   tool,
@@ -28,7 +28,7 @@ export function PostReview({
 }) {
   const [loading, setLoading] = React.useState(false);
   const [rating, setRating] = React.useState(0);
-  const [comment, setComment] = React.useState('');
+  const [comment, setComment] = React.useState("");
 
   return (
     <>
@@ -74,15 +74,15 @@ export function PostReview({
             width="sm"
             onClick={() => {
               if (rating === 0) {
-                toast.error('Please select a rating');
+                toast.error("Please select a rating");
                 return;
               }
-              if (comment === '') {
-                toast.error('Please enter a comment');
+              if (comment === "") {
+                toast.error("Please enter a comment");
                 return;
               }
               if (comment.length < 10) {
-                toast.error('Comment should be at least 10 characters long');
+                toast.error("Comment should be at least 10 characters long");
                 return;
               }
               setLoading(true);
@@ -92,8 +92,8 @@ export function PostReview({
                   comment,
                 }),
                 {
-                  loading: 'Posting review...',
-                  success: 'Review posted',
+                  loading: "Posting review...",
+                  success: "Review posted",
                   error: (err) => {
                     return err.message;
                   },
@@ -103,8 +103,8 @@ export function PostReview({
             }}
             disabled={loading || rating === 0}
           >
-            {loading ? 'Posting review...' : 'Post Review'}
-          </Button>{' '}
+            {loading ? "Posting review..." : "Post Review"}
+          </Button>{" "}
         </CardFooter>
       </Card>
     </>

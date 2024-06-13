@@ -1,27 +1,27 @@
-import { cn } from '@/lib/utils';
-import React from 'react';
-import { BsTwitterX, BsYoutube } from 'react-icons/bs';
+import { cn } from "@/lib/utils";
+import React from "react";
+import { BsTwitterX, BsYoutube } from "react-icons/bs";
 // import { CgWebsite } from "react-icons/cg";
-import { LuGithub } from 'react-icons/lu';
-import { PiInstagramLogoBold } from 'react-icons/pi';
-import { TbBrandGumroad } from 'react-icons/tb';
+import { LuGithub } from "react-icons/lu";
+import { PiInstagramLogoBold } from "react-icons/pi";
+import { TbBrandGumroad } from "react-icons/tb";
 
 // Define the icons and descriptions for each integration
 export const IconComponents: { [key: string]: React.ElementType } = {
   github: ({ className, ...props }) => (
-    <LuGithub className={cn('', className)} {...props} />
+    <LuGithub className={cn("", className)} {...props} />
   ),
   gumroad: ({ className, ...props }) => (
-    <TbBrandGumroad className={cn('', className)} {...props} />
+    <TbBrandGumroad className={cn("", className)} {...props} />
   ),
   instagram: ({ className, ...props }) => (
-    <PiInstagramLogoBold className={cn('', className)} {...props} />
+    <PiInstagramLogoBold className={cn("", className)} {...props} />
   ),
   twitter: ({ className, ...props }) => (
-    <BsTwitterX className={cn('', className)} {...props} />
+    <BsTwitterX className={cn("", className)} {...props} />
   ),
   youtube: ({ className, ...props }) => (
-    <BsYoutube className={cn('', className)} {...props} />
+    <BsYoutube className={cn("", className)} {...props} />
   ),
   // "cal": ({ className, ...props }) => <svg viewBox="0 0 101 22" fill="none" xmlns="http://www.w3.org/2000/svg" className={cn("fill-black dark:invert dark:fill-white", className)} {...props} >
   //     <path d="M10.0582 20.817C4.32115 20.817 0 16.2763 0 10.6704C0 5.04589 4.1005 0.467773 10.0582 0.467773C13.2209 0.467773 15.409 1.43945 17.1191 3.66311L14.3609 5.96151C13.2025 4.72822 11.805 4.11158 10.0582 4.11158C6.17833 4.11158 4.04533 7.08268 4.04533 10.6704C4.04533 14.2582 6.38059 17.1732 10.0582 17.1732C11.7866 17.1732 13.2577 16.5566 14.4161 15.3233L17.1375 17.7151C15.501 19.8453 13.2577 20.817 10.0582 20.817Z" fill="#292929" />

@@ -1,23 +1,23 @@
-'use client';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+"use client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { useEffect, useState } from 'react';
-import { AiFillStar } from 'react-icons/ai';
-import { CgSpinner } from 'react-icons/cg';
-import { MdOutlineExpandMore } from 'react-icons/md';
-import { TbSend } from 'react-icons/tb';
-import { AppTypeWithId } from 'src/models/app';
-import { AppTypeWithFormFlow } from 'src/types/app';
-import { SessionUserType } from 'src/types/user';
+} from "@/components/ui/tooltip";
+import { useEffect, useState } from "react";
+import { AiFillStar } from "react-icons/ai";
+import { CgSpinner } from "react-icons/cg";
+import { MdOutlineExpandMore } from "react-icons/md";
+import { TbSend } from "react-icons/tb";
+import { AppTypeWithId } from "src/models/app";
+import { AppTypeWithFormFlow } from "src/types/app";
+import { SessionUserType } from "src/types/user";
 
 export function PostReview({
   app,
@@ -26,7 +26,7 @@ export function PostReview({
   app: AppTypeWithId;
   user: SessionUserType;
 }) {
-  const [review, setReview] = useState('');
+  const [review, setReview] = useState("");
   const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState(0);
 
@@ -34,10 +34,10 @@ export function PostReview({
     setLoading(true);
 
     await fetch(`/api/apps/${app._id}/reviews`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        accept: 'application/json',
-        'Content-Type': 'application/json',
+        accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         userId: user._id,
@@ -49,7 +49,7 @@ export function PostReview({
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setReview('');
+        setReview("");
         setRating(0);
       })
       .catch((err) => {
@@ -80,11 +80,11 @@ export function PostReview({
                         style={{
                           fill:
                             index < rating
-                              ? 'hsl(var(--primary))'
-                              : 'hsl(var(--border))', // Change star color based on rating
-                          width: '24px',
-                          height: '24px',
-                          cursor: 'pointer',
+                              ? "hsl(var(--primary))"
+                              : "hsl(var(--border))", // Change star color based on rating
+                          width: "24px",
+                          height: "24px",
+                          cursor: "pointer",
                         }}
                       />
                     </TooltipTrigger>
@@ -105,7 +105,7 @@ export function PostReview({
         />
         <div className="flex w-full justify-center items-center p-2">
           <Button onClick={() => handleSubmit()} disabled={loading}>
-            {loading ? 'Submitting' : 'Submit'}
+            {loading ? "Submitting" : "Submit"}
             {loading ? (
               <CgSpinner className="animate-spin w-4 h-4 ml-2" />
             ) : (
@@ -164,15 +164,15 @@ export default function AllReviews({ app }: { app: AppTypeWithFormFlow }) {
                   <Avatar>
                     <AvatarImage
                       src={review.userId.profileURL}
-                      alt={'@' + review.userId.username}
+                      alt={"@" + review.userId.username}
                     />
                     <AvatarFallback>
-                      {review.userId.name.trim().split('')[0]}
+                      {review.userId.name.trim().split("")[0]}
                     </AvatarFallback>
                   </Avatar>
-                  By{' '}
+                  By{" "}
                   <span className="font-semibold">
-                    {review.userId.name ? review.userId.name : 'A User'}
+                    {review.userId.name ? review.userId.name : "A User"}
                   </span>
                 </div>
                 <div className="flex ">
@@ -189,10 +189,10 @@ export default function AllReviews({ app }: { app: AppTypeWithFormFlow }) {
                               style={{
                                 fill:
                                   index < review.rating
-                                    ? 'hsl(var(--primary))'
-                                    : 'hsl(var(--border))', // Change star color based on rating
-                                width: '24px',
-                                height: '24px',
+                                    ? "hsl(var(--primary))"
+                                    : "hsl(var(--border))", // Change star color based on rating
+                                width: "24px",
+                                height: "24px",
                               }}
                             />
                           </TooltipTrigger>
@@ -205,13 +205,13 @@ export default function AllReviews({ app }: { app: AppTypeWithFormFlow }) {
               </div>
               <p
                 className={
-                  (review.review === null || review.review.trim() === ''
-                    ? 'italic font-light'
-                    : '') + ' p-3 bg-slate-100 rounded-md'
+                  (review.review === null || review.review.trim() === ""
+                    ? "italic font-light"
+                    : "") + " p-3 bg-slate-100 rounded-md"
                 }
               >
-                {review.review === null || review.review.trim() === ''
-                  ? 'No comment'
+                {review.review === null || review.review.trim() === ""
+                  ? "No comment"
                   : review.review}
               </p>
             </div>
@@ -236,4 +236,4 @@ export default function AllReviews({ app }: { app: AppTypeWithFormFlow }) {
   );
 }
 
-const STARS = ['Poor', 'Below Average', 'Average', 'Good', 'Excellent'];
+const STARS = ["Poor", "Below Average", "Average", "Good", "Excellent"];

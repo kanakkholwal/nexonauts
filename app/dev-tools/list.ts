@@ -1,4 +1,4 @@
-import collection from './(tools)/collection';
+import collection from "./(tools)/collection";
 interface ToolProp {
   title: string;
   description: string;

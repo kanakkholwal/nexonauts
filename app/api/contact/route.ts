@@ -1,6 +1,6 @@
-import dbConnect from 'lib/dbConnect';
-import { NextRequest, NextResponse } from 'next/server';
-import Message from 'src/models/message';
+import dbConnect from "lib/dbConnect";
+import { NextRequest, NextResponse } from "next/server";
+import Message from "src/models/message";
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
       name: data.name,
       email: data.email,
       message: data.message,
-      type: 'contact',
+      type: "contact",
       aditional_info: {
         ...data.aditional_info,
       },
@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(
       {
-        result: 'success',
+        result: "success",
       },
       {
         status: 200,
@@ -30,7 +30,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     return NextResponse.json(
       {
-        result: 'fail',
+        result: "fail",
         message: error.message,
       },
       {

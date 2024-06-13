@@ -1,14 +1,14 @@
-'use server';
-import { customAlphabet } from 'nanoid';
-import { revalidatePath } from 'next/cache';
-import { getSession } from 'src/lib/auth';
-import dbConnect from 'src/lib/dbConnect';
-import Product from 'src/models/product';
-import { sessionType } from 'src/types/session';
+"use server";
+import { customAlphabet } from "nanoid";
+import { revalidatePath } from "next/cache";
+import { getSession } from "src/lib/auth";
+import dbConnect from "src/lib/dbConnect";
+import Product from "src/models/product";
+import { sessionType } from "src/types/session";
 
 const generateUrlSlug = (length = 16) =>
   customAlphabet(
-    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     length
   )();
 
@@ -41,7 +41,7 @@ export async function createProduct(product) {
       },
     });
     await newProduct.save();
-    revalidatePath('/products');
+    revalidatePath("/products");
     return Promise.resolve(true);
   } catch (e) {
     console.log(e);

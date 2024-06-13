@@ -1,8 +1,8 @@
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 
 export function transport() {
   const _transport = nodemailer.createTransport({
-    host: 'smtp-relay.sendinblue.com',
+    host: "smtp-relay.sendinblue.com",
     port: 587,
     // secure: true,
     auth: {
@@ -10,7 +10,7 @@ export function transport() {
       pass: process.env.MAIL_PASSWORD,
     },
   });
-  console.log('Transporter created');
+  console.log("Transporter created");
 
   return _transport;
 }
@@ -22,7 +22,7 @@ function onError(err, req, res, next) {
 const handler = {
   onError: onError,
   onNoMatch: (req, res) => {
-    res.status(404).send('Page is not found');
+    res.status(404).send("Page is not found");
   },
 };
 

@@ -1,6 +1,6 @@
-import axios from 'axios';
-import handler from 'lib/handler';
-import nextConnect from 'next-connect';
+import axios from "axios";
+import handler from "lib/handler";
+import nextConnect from "next-connect";
 
 export default nextConnect(handler).post(async (req, res) => {
   try {
@@ -15,16 +15,16 @@ export default nextConnect(handler).post(async (req, res) => {
     if (data.success) {
       return res
         .status(200)
-        .json({ message: 'Success', verified: data.success, ...data });
+        .json({ message: "Success", verified: data.success, ...data });
     } else {
       return res
         .status(400)
-        .json({ message: 'Failed', verified: data.success });
+        .json({ message: "Failed", verified: data.success });
     }
   } catch (error) {
     console.log(error);
     return res
       .status(500)
-      .json({ message: error.message || 'Something went wrong' });
+      .json({ message: error.message || "Something went wrong" });
   }
 });

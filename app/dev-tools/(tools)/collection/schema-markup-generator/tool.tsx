@@ -1,18 +1,18 @@
-'use client';
+"use client";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
-} from '@/components/ui/card';
-import Link from 'next/link';
+} from "@/components/ui/card";
+import Link from "next/link";
 
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { RadioStyle } from '@/components/ui/radio-group';
-import { Switch } from '@/components/ui/switch';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioStyle } from "@/components/ui/radio-group";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 import {
   Select,
@@ -20,15 +20,15 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from "@/components/ui/select";
 
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { MdDeleteOutline } from 'react-icons/md';
-import ShikiBlock from 'src/components/shiki-block/shiki-block';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { MdDeleteOutline } from "react-icons/md";
+import ShikiBlock from "src/components/shiki-block/shiki-block";
 
 export default function SchemaGenerator() {
-  const [html, setHtml] = useState('');
+  const [html, setHtml] = useState("");
 
   return (
     <>
@@ -70,13 +70,13 @@ export default function SchemaGenerator() {
             <div className="w-full">
               <ShikiBlock lang="javascript" code={html} />
               <p className="text-sm mt-5">
-                Using{' '}
-                <span className="text-bold">React.js / Next.js App ?</span> Try{' '}
+                Using{" "}
+                <span className="text-bold">React.js / Next.js App ?</span> Try{" "}
                 <Link
                   href="/tools/html-to-jsx-convertor"
                   className="hover:underline text-primary"
                 >
-                  HTML to JSX Convertor{' '}
+                  HTML to JSX Convertor{" "}
                 </Link>
               </p>
             </div>
@@ -87,11 +87,11 @@ export default function SchemaGenerator() {
   );
 }
 function Website({ setCode }) {
-  const [name, setName] = useState('');
-  const [alternateName, setAlternateName] = useState('');
-  const [url, setUrl] = useState('');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [queryString, setQueryString] = useState('');
+  const [name, setName] = useState("");
+  const [alternateName, setAlternateName] = useState("");
+  const [url, setUrl] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [queryString, setQueryString] = useState("");
   useEffect(() => {
     setCode(`<script type="application/ld+json">
     {
@@ -107,7 +107,7 @@ function Website({ setCode }) {
             "target": "${searchQuery}{search_term_string}${queryString}",
             "query-input": "required name=search_term_string"
         }`
-            : ''
+            : ""
         }
     }
 </script>`);
@@ -169,7 +169,7 @@ function Website({ setCode }) {
           placeholder="Optional: string in the search URL occurring after the query"
           value={queryString}
           onChange={(e) => setQueryString(e.target.value)}
-          disabled={searchQuery === ''}
+          disabled={searchQuery === ""}
         />
       </div>
     </div>
@@ -178,9 +178,9 @@ function Website({ setCode }) {
 function Breadcrumbs({ setCode }) {
   const [items, setItems] = useState([
     {
-      name: '',
-      url: '',
-      image: '',
+      name: "",
+      url: "",
+      image: "",
     },
   ]);
   useEffect(() => {
@@ -212,10 +212,10 @@ function Breadcrumbs({ setCode }) {
               Item #{index + 1}
               <button
                 className={
-                  'p-1 ' +
+                  "p-1 " +
                   (items.length === 1
-                    ? ' text-red-200 cursor-not-allowed'
-                    : 'text-red-600 cursor-pointer ')
+                    ? " text-red-200 cursor-not-allowed"
+                    : "text-red-600 cursor-pointer ")
                 }
                 onClick={() => {
                   let temp = [...items];
@@ -280,9 +280,9 @@ function Breadcrumbs({ setCode }) {
         onClick={() => {
           let temp = [...items];
           temp.push({
-            name: '',
-            url: '',
-            image: '',
+            name: "",
+            url: "",
+            image: "",
           });
           setItems(temp);
         }}
@@ -294,16 +294,16 @@ function Breadcrumbs({ setCode }) {
 }
 
 function Person({ setCode }) {
-  const [name, setName] = useState('');
-  const [alternateName, setAlternateName] = useState('');
-  const [url, setUrl] = useState('');
-  const [image, setImage] = useState('');
-  const [jobTitle, setJobTitle] = useState('');
-  const [worksFor, setWorksFor] = useState('');
-  const [telephone, setTelephone] = useState('');
-  const [email, setEmail] = useState('');
-  const [address, setAddress] = useState('');
-  const [sameAs, setSameAs] = useState('');
+  const [name, setName] = useState("");
+  const [alternateName, setAlternateName] = useState("");
+  const [url, setUrl] = useState("");
+  const [image, setImage] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [worksFor, setWorksFor] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [sameAs, setSameAs] = useState("");
   useEffect(() => {
     setCode(`<script type="application/ld+json">
     {
@@ -318,7 +318,7 @@ function Person({ setCode }) {
         "telephone": "${telephone}",
         "email": "${email}",
         "address": "${address}",
-        "sameAs": [${sameAs.split(',').map((item) => `"${item.trim()}"`)}],
+        "sameAs": [${sameAs.split(",").map((item) => `"${item.trim()}"`)}],
     },
 </script>`);
   }, [
@@ -442,20 +442,20 @@ function Person({ setCode }) {
 }
 
 function Article({ setCode }) {
-  const [type, setType] = useState('Select Type...');
-  const [headline, setHeadline] = useState('');
+  const [type, setType] = useState("Select Type...");
+  const [headline, setHeadline] = useState("");
   const [isAMP, setIsAMP] = useState(false);
-  const [image, setImage] = useState('');
-  const [width, setWidth] = useState('');
-  const [height, setHeight] = useState('');
-  const [author, setAuthor] = useState('');
-  const [publisher, setPublisher] = useState('');
-  const [datePublished, setDatePublished] = useState('');
-  const [dateModified, setDateModified] = useState('');
-  const [description, setDescription] = useState('');
-  const [articleBody, setArticleBody] = useState('');
-  const [url, setUrl] = useState('');
-  const [sameAs, setSameAs] = useState('');
+  const [image, setImage] = useState("");
+  const [width, setWidth] = useState("");
+  const [height, setHeight] = useState("");
+  const [author, setAuthor] = useState("");
+  const [publisher, setPublisher] = useState("");
+  const [datePublished, setDatePublished] = useState("");
+  const [dateModified, setDateModified] = useState("");
+  const [description, setDescription] = useState("");
+  const [articleBody, setArticleBody] = useState("");
+  const [url, setUrl] = useState("");
+  const [sameAs, setSameAs] = useState("");
   useEffect(() => {
     setCode(`<script type="application/ld+json">
     {
@@ -481,8 +481,8 @@ function Article({ setCode }) {
         "description": "${description}",
         "articleBody": "${articleBody}",
         "url": "${url}",
-        "sameAs": [${sameAs.split(',').map((item) => `"${item.trim()}"`)}],`
-            : ''
+        "sameAs": [${sameAs.split(",").map((item) => `"${item.trim()}"`)}],`
+            : ""
         }
     },
 </script>`);
@@ -505,7 +505,7 @@ function Article({ setCode }) {
   return (
     <div className="w-full grid gap-4">
       <div className="w-full flex flex-wrap gap-2">
-        {['NewsArticole', 'BlogPosting'].map((item, index) => {
+        {["NewsArticole", "BlogPosting"].map((item, index) => {
           return (
             <label key={index} className={RadioStyle.label}>
               {item}
@@ -666,24 +666,24 @@ function Article({ setCode }) {
 }
 const PRODUCT_TYPES = [
   {
-    value: 'sku',
-    label: 'SKU',
+    value: "sku",
+    label: "SKU",
   },
   {
-    value: 'gtin8',
-    label: 'GTIN-8',
+    value: "gtin8",
+    label: "GTIN-8",
   },
   {
-    value: 'gtin13',
-    label: 'GTIN-13',
+    value: "gtin13",
+    label: "GTIN-13",
   },
   {
-    value: 'gtin14',
-    label: 'GTIN-14',
+    value: "gtin14",
+    label: "GTIN-14",
   },
   {
-    value: 'mpn',
-    label: 'MPN',
+    value: "mpn",
+    label: "MPN",
   },
 ] as {
   value: string;
@@ -691,51 +691,51 @@ const PRODUCT_TYPES = [
 }[];
 
 function Product({ setCode }) {
-  const [name, setName] = useState('');
-  const [image, setImage] = useState('');
-  const [description, setDescription] = useState('');
-  const [brand, setBrand] = useState('');
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [description, setDescription] = useState("");
+  const [brand, setBrand] = useState("");
 
   const [types, setTypes] = useState({
     sku: {
       enable: false,
-      value: '',
+      value: "",
     },
     gtin8: {
       enable: false,
-      value: '',
+      value: "",
     },
     gtin13: {
       enable: false,
-      value: '',
+      value: "",
     },
     gtin14: {
       enable: false,
-      value: '',
+      value: "",
     },
     mpn: {
       enable: false,
-      value: '',
+      value: "",
     },
   });
 
-  const [url, setUrl] = useState('');
+  const [url, setUrl] = useState("");
   const [currencies, setCurrencies] = useState<any[]>([]);
   const [offers, setOffers] = useState({
-    price: '',
-    priceCurrency: '',
-    priceValidUntil: '',
-    lowPrice: '',
-    type: 'Offer',
-    url: '',
-    itemCondition: '',
-    availability: '',
+    price: "",
+    priceCurrency: "",
+    priceValidUntil: "",
+    lowPrice: "",
+    type: "Offer",
+    url: "",
+    itemCondition: "",
+    availability: "",
   });
   const [aggregateRating, setAggregateRating] = useState({
-    ratingValue: '',
-    bestRating: '',
-    worstRating: '',
-    ratingCount: '',
+    ratingValue: "",
+    bestRating: "",
+    worstRating: "",
+    ratingCount: "",
   });
   useEffect(() => {
     setCode(`<script type="application/ld+json">
@@ -760,7 +760,7 @@ function Product({ setCode }) {
         "offers": {
             "@type": "${offers.type}",
             "priceCurrency": "${offers.priceCurrency}",
-            "lowPrice": "${offers.lowPrice}",${offers.type === 'Offer' ? `\n            "priceValidUntil": "${offers.priceValidUntil}",` : ''}${offers.type === 'Offer' ? `\n            "url": "${offers.url}",` : ''}${offers.type === 'Offer' ? `\n            "availability": "http://schema.org/${offers.availability}",` : ''}${offers.type === 'Offer' ? `\n            "itemCondition": "http://schema.org/${offers.itemCondition}",` : ''}
+            "lowPrice": "${offers.lowPrice}",${offers.type === "Offer" ? `\n            "priceValidUntil": "${offers.priceValidUntil}",` : ""}${offers.type === "Offer" ? `\n            "url": "${offers.url}",` : ""}${offers.type === "Offer" ? `\n            "availability": "http://schema.org/${offers.availability}",` : ""}${offers.type === "Offer" ? `\n            "itemCondition": "http://schema.org/${offers.itemCondition}",` : ""}
         },${Object.keys(types)
           .filter((key) => {
             return types[key].enable && types[key].value.trim().length > 0;
@@ -768,7 +768,7 @@ function Product({ setCode }) {
           .map((key) => {
             return `\n        "${key}": "${types[key].value.trim()}"`;
           })
-          .join(',')}
+          .join(",")}
     },
 </script>`);
   }, [name, image, description, brand, url, offers, types, aggregateRating]);
@@ -776,7 +776,7 @@ function Product({ setCode }) {
   useEffect(() => {
     (async () => {
       await axios
-        .get('https://openexchangerates.org/api/currencies.json')
+        .get("https://openexchangerates.org/api/currencies.json")
         .then(({ data }: { data: any }) => {
           setCurrencies(
             Object.entries(data).map(([key, value]) => {
@@ -949,12 +949,12 @@ function Product({ setCode }) {
                 </SelectContent>
               </Select>
             ) : (
-              <Input value={'Loading ...'} disabled={true} />
+              <Input value={"Loading ..."} disabled={true} />
             )}
           </div>
         </div>
 
-        {offers.type === 'Offer' ? (
+        {offers.type === "Offer" ? (
           <div className="w-full flex items-center gap-4 flex-wrap">
             <div className="grid w-full max-w-sm">
               <Label htmlFor="">Offer Price</Label>
@@ -1007,10 +1007,10 @@ function Product({ setCode }) {
                 </SelectTrigger>
                 <SelectContent>
                   {[
-                    { value: 'New', label: 'New' },
-                    { value: 'Used', label: 'Used' },
-                    { value: 'Damaged', label: 'Damaged' },
-                    { value: 'Refurbished', label: 'Refurbished' },
+                    { value: "New", label: "New" },
+                    { value: "Used", label: "Used" },
+                    { value: "Damaged", label: "Damaged" },
+                    { value: "Refurbished", label: "Refurbished" },
                   ].map((item, index) => {
                     return (
                       <SelectItem key={index} value={item.value}>
@@ -1038,18 +1038,18 @@ function Product({ setCode }) {
                 </SelectTrigger>
                 <SelectContent>
                   {[
-                    { value: 'InStock', label: 'InStock' },
-                    { value: 'InStoreOnly', label: 'InStoreOnly' },
-                    { value: 'OnlineOnly', label: 'OnlineOnly' },
-                    { value: 'OutOfStock', label: 'OutOfStock' },
-                    { value: 'PreOrder', label: 'PreOrder' },
-                    { value: 'PreSale', label: 'PreSale' },
+                    { value: "InStock", label: "InStock" },
+                    { value: "InStoreOnly", label: "InStoreOnly" },
+                    { value: "OnlineOnly", label: "OnlineOnly" },
+                    { value: "OutOfStock", label: "OutOfStock" },
+                    { value: "PreOrder", label: "PreOrder" },
+                    { value: "PreSale", label: "PreSale" },
                     {
-                      value: 'LimitedAvailability',
-                      label: 'LimitedAvailability',
+                      value: "LimitedAvailability",
+                      label: "LimitedAvailability",
                     },
-                    { value: 'Discontinued', label: 'Discontinued' },
-                    { value: 'SoldOut', label: 'SoldOut' },
+                    { value: "Discontinued", label: "Discontinued" },
+                    { value: "SoldOut", label: "SoldOut" },
                   ].map((item, index) => {
                     return (
                       <SelectItem key={index} value={item.value}>
@@ -1063,7 +1063,7 @@ function Product({ setCode }) {
           </div>
         ) : null}
 
-        {offers.type === 'AggregateOffer' ? (
+        {offers.type === "AggregateOffer" ? (
           <div className="w-full flex items-center gap-4 flex-wrap">
             <div className="grid w-full max-w-sm">
               <Label htmlFor="">Aggregate rating value</Label>
@@ -1141,18 +1141,18 @@ function Product({ setCode }) {
 }
 const options = [
   {
-    value: 'website',
-    label: 'Website',
+    value: "website",
+    label: "Website",
     Component: Website,
   },
   {
-    value: 'breadcrumbs',
-    label: 'Breadcrumbs',
+    value: "breadcrumbs",
+    label: "Breadcrumbs",
     Component: Breadcrumbs,
   },
   {
-    value: 'person',
-    label: 'Person',
+    value: "person",
+    label: "Person",
     Component: Person,
   },
   // {
@@ -1164,13 +1164,13 @@ const options = [
   //     label: "Local Business"
   // },
   {
-    value: 'article',
-    label: 'Article',
+    value: "article",
+    label: "Article",
     Component: Article,
   },
   {
-    value: 'product',
-    label: 'Product',
+    value: "product",
+    label: "Product",
     Component: Product,
   },
   // {

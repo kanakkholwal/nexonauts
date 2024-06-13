@@ -1,10 +1,10 @@
-'use client';
-import ReactMarkdown, { Options } from 'react-markdown';
-import rehypeHighlight from 'rehype-highlight';
-import rehypeRaw from 'rehype-raw';
-import remarkGfm from 'remark-gfm';
+"use client";
+import ReactMarkdown, { Options } from "react-markdown";
+import rehypeHighlight from "rehype-highlight";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
 
-export { defaultOptions } from './options';
+export { defaultOptions } from "./options";
 
 export default function MarkdownView({
   children,

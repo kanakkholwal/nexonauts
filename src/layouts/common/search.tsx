@@ -6,14 +6,14 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/command';
-import { PersonIcon } from '@radix-ui/react-icons';
-import Link from 'next/link';
-import React from 'react';
+} from "@/components/ui/command";
+import { PersonIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
+import React from "react";
 
 // searchable contents
 // import { CategoryList } from "pages/tools/ToolsList";
-import { CATEGORIES } from 'src/layouts/apps/common/constants';
+import { CATEGORIES } from "src/layouts/apps/common/constants";
 export default function Search() {
   const [open, setOpen] = React.useState(false);
   const [apps, setApps] = React.useState<
@@ -27,14 +27,14 @@ export default function Search() {
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === 'j' && (e.metaKey || e.ctrlKey)) {
+      if (e.key === "j" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((open) => !open);
       }
     };
 
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
   }, []);
 
   return (
@@ -64,7 +64,7 @@ export default function Search() {
               return (
                 <Link
                   href={`/apps?category=${category.value}`}
-                  key={'apps_category_' + index}
+                  key={"apps_category_" + index}
                   className="cursor-pointer"
                 >
                   <CommandItem>
@@ -90,7 +90,7 @@ export default function Search() {
           <CommandSeparator />
           <CommandGroup heading="Settings">
             <Link
-              href={'/dashboard/settings?defaultTab=profile'}
+              href={"/dashboard/settings?defaultTab=profile"}
               className="cursor-pointer"
             >
               <CommandItem>

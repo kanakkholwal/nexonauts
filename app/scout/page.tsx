@@ -1,64 +1,64 @@
-import { Skeleton } from '@/components/ui/skeleton';
-import Navbar from 'app/layouts/navbar-static';
-import dbConnect from 'lib/dbConnect';
-import { Search, ShieldCheck, Star } from 'lucide-react';
-import { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Suspense } from 'react';
-import PublicTool from 'src/models/tool';
-import { formatNumber } from 'src/utils/formaters';
-import illustration from './illustration.svg';
+import { Skeleton } from "@/components/ui/skeleton";
+import Navbar from "app/layouts/navbar-static";
+import dbConnect from "lib/dbConnect";
+import { Search, ShieldCheck, Star } from "lucide-react";
+import { Metadata } from "next";
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+import PublicTool from "src/models/tool";
+import { formatNumber } from "src/utils/formaters";
+import illustration from "./illustration.svg";
 // import Autoplay from "embla-carousel-autoplay"
 import {
   ArrowUpDown,
   FolderOpen,
   MonitorSmartphone,
   ScanSearch,
-} from 'lucide-react';
-import { Tabs } from 'src/components/animations/tabs';
+} from "lucide-react";
+import { Tabs } from "src/components/animations/tabs";
 
 export const metadata: Metadata = {
-  title: 'Nexo Scout - AI Tools, Services, and Resources',
+  title: "Nexo Scout - AI Tools, Services, and Resources",
   description:
-    'Nexo Scout is a curated list of AI tools, services, and resources. Find the best AI tools for your business.',
+    "Nexo Scout is a curated list of AI tools, services, and resources. Find the best AI tools for your business.",
 };
 
 const features = [
   {
-    name: 'Effortless Search',
+    name: "Effortless Search",
     description:
       "Quickly find the tools and resources you need with our intuitive search functionality. Nexo Scout's powerful search engine makes it easy to locate the perfect solution for your projects and tasks.",
     icon: Search,
   },
   {
-    name: 'Curated Recommendations',
+    name: "Curated Recommendations",
     description:
-      'Explore a handpicked selection of tools and resources tailored to your specific needs and interests. Our team constantly evaluates and updates the database to ensure you have access to the best-in-class solutions.',
+      "Explore a handpicked selection of tools and resources tailored to your specific needs and interests. Our team constantly evaluates and updates the database to ensure you have access to the best-in-class solutions.",
     icon: Star,
   },
   {
-    name: 'Regular Updates',
+    name: "Regular Updates",
     description:
       "Stay ahead of the curve with Nexo Scout's continuous updates. We're committed to keeping our database fresh and relevant, providing you with the latest tools, services, and useful websites to enhance your workflow.",
     icon: ShieldCheck,
   },
   {
-    name: 'User-Friendly Interface',
+    name: "User-Friendly Interface",
     description:
-      'Navigate our platform effortlessly with a user-friendly interface designed for seamless exploration. Discover new tools, services, and resources with just a few clicks, saving you time and effort in your search for productivity.',
+      "Navigate our platform effortlessly with a user-friendly interface designed for seamless exploration. Discover new tools, services, and resources with just a few clicks, saving you time and effort in your search for productivity.",
     icon: MonitorSmartphone,
   },
   {
-    name: 'Comprehensive Categories',
+    name: "Comprehensive Categories",
     description:
       "Dive into an extensive range of categories tailored to your field. Whether you're a developer, designer, student, or business owner, easily navigate through specialized categories to find precisely what you need, optimizing your search experience.",
     icon: FolderOpen,
   },
   {
-    name: 'Interactive Filters',
+    name: "Interactive Filters",
     description:
-      'Refine your search results with interactive filters designed to streamline your browsing experience. Sort by popularity, relevance, or newest additions, ensuring you discover the most relevant tools and resources tailored to your preferences and requirements.',
+      "Refine your search results with interactive filters designed to streamline your browsing experience. Sort by popularity, relevance, or newest additions, ensuring you discover the most relevant tools and resources tailored to your preferences and requirements.",
     icon: ArrowUpDown,
   },
 ] as {
@@ -73,15 +73,15 @@ export default async function Page() {
   // const tools = await PublicTool.find({ status: "published" || "approved" }).
   //     sort({ createdAt: -1 }).limit(10);
   const noOfTools = await PublicTool.countDocuments({
-    status: 'published' || 'approved',
+    status: "published" || "approved",
   });
   const categories = await PublicTool.aggregate([
-    { $unwind: '$categories' },
+    { $unwind: "$categories" },
     {
       $group: {
-        _id: '$categories.slug',
-        name: { $first: '$categories.name' },
-        slug: { $first: '$categories.slug' },
+        _id: "$categories.slug",
+        name: { $first: "$categories.name" },
+        slug: { $first: "$categories.slug" },
       },
     },
     { $project: { _id: 0, name: 1, slug: 1 } },
@@ -89,17 +89,17 @@ export default async function Page() {
   const slugs = categories.map((category) => category.slug);
   //  get 6 tools of each category
   const categorized_tools = await PublicTool.aggregate([
-    { $unwind: '$categories' },
+    { $unwind: "$categories" },
     {
       $group: {
-        _id: '$categories.slug',
-        name: { $first: '$categories.name' },
-        slug: { $first: '$categories.slug' },
-        tools: { $push: '$$ROOT' },
+        _id: "$categories.slug",
+        name: { $first: "$categories.name" },
+        slug: { $first: "$categories.slug" },
+        tools: { $push: "$$ROOT" },
       },
     },
     {
-      $project: { _id: 0, name: 1, slug: 1, tools: { $slice: ['$tools', 6] } },
+      $project: { _id: 0, name: 1, slug: 1, tools: { $slice: ["$tools", 6] } },
     },
     { $match: { slug: { $in: slugs } } },
     { $sort: { name: 1 } },
@@ -112,7 +112,7 @@ export default async function Page() {
         <div className="py-32 px-8  min-h-96  w-full flex items-center justify-between max-w-7xl mx-auto relative">
           <div className="max-w-6xl mx-auto text-left pt-5">
             <h2 className="text-4xl font-bold mb-8 text-slate-800 dark:text-slate-200 max-w-xl text-pretty">
-              Discover Essential Tools & Resources with{' '}
+              Discover Essential Tools & Resources with{" "}
               <span className="relative bg-gradient-to-r from-primary to-violet-600 bg-clip-text text-transparent  md:px-2">
                 Nexo Scout
               </span>
@@ -149,7 +149,7 @@ export default async function Page() {
               src={illustration}
               height={600}
               width={600}
-              alt={'Tool scout'}
+              alt={"Tool scout"}
               className="drop-shadow-2xl drop-shadow-primary"
             />
           </div>
@@ -174,13 +174,13 @@ export default async function Page() {
             {features.map((feature, index) => {
               return (
                 <div
-                  key={'solutions_' + index}
+                  key={"solutions_" + index}
                   className="hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
                   <div className="relative py-12 p-8">
                     <div className="space-y-8 mb-2">
                       <h5 className="text-lg font-bold text-gray-700 dark:text-white">
-                        <feature.icon className="w-5 h-5 text-primary mr-2 inline-block" />{' '}
+                        <feature.icon className="w-5 h-5 text-primary mr-2 inline-block" />{" "}
                         {feature.name}
                       </h5>
                     </div>

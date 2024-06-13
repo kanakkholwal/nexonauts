@@ -1,19 +1,19 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { Plus_Jakarta_Sans } from 'next/font/google';
-import Image from 'next/image';
-import Link from 'next/link';
-import { BiSupport } from 'react-icons/bi';
-import { Provider, ThemeProvider } from './client-provider';
-import './global.css';
+"use client";
+import { Button } from "@/components/ui/button";
+import { Plus_Jakarta_Sans } from "next/font/google";
+import Image from "next/image";
+import Link from "next/link";
+import { BiSupport } from "react-icons/bi";
+import { Provider, ThemeProvider } from "./client-provider";
+import "./global.css";
 
 const font = Plus_Jakarta_Sans({
-  weight: ['400', '500', '600', '700', '800'],
-  subsets: ['latin-ext', 'latin'],
-  display: 'swap',
+  weight: ["400", "500", "600", "700", "800"],
+  subsets: ["latin-ext", "latin"],
+  display: "swap",
   adjustFontFallback: false,
-  variable: '--plus-jakarta',
-  fallback: ['system-ui', 'sans-serif'],
+  variable: "--plus-jakarta",
+  fallback: ["system-ui", "sans-serif"],
 });
 
 export default function GlobalError({
@@ -34,14 +34,14 @@ export default function GlobalError({
       <body
         className={
           font.className +
-          ' min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900'
+          " min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900"
         }
       >
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
           enableSystem
-          themes={['light', 'dark']}
+          themes={["light", "dark"]}
         >
           <Provider>
             <div className="min-h-screen w-full relative overflow-hidden">

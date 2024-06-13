@@ -1,22 +1,22 @@
-import Link from 'next/link';
+import Link from "next/link";
 
 const navLinks = [
   {
-    name: 'Solution',
-    link: '/#solution',
+    name: "Solution",
+    link: "/#solution",
   },
 
   {
-    name: 'Pricing',
-    link: '/pricing',
+    name: "Pricing",
+    link: "/pricing",
   },
   {
-    name: 'Blog',
-    link: '/blog',
+    name: "Blog",
+    link: "/blog",
   },
   {
-    name: 'Company',
-    link: '/about',
+    name: "Company",
+    link: "/about",
   },
 ];
 

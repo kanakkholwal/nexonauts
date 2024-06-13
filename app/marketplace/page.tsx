@@ -1,13 +1,13 @@
-import { Badge } from '@/components/ui/badge';
-import { cn } from '@/lib/utils';
-import { ArrowUpRight } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Suspense } from 'react';
-import CategoryNavigation from 'src/components/navigation/tabs';
-import CategoryNavigationMobile from 'src/components/navigation/tabs-mobile';
-import { CATEGORIES } from 'src/constants/marketplace';
-import { getProducts } from './actions';
+import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
+import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
+import CategoryNavigation from "src/components/navigation/tabs";
+import CategoryNavigationMobile from "src/components/navigation/tabs-mobile";
+import { CATEGORIES } from "src/constants/marketplace";
+import { getProducts } from "./actions";
 
 export default async function Page() {
   const products = await getProducts();
@@ -38,8 +38,8 @@ export default async function Page() {
                   key={product._id}
                   href={`/marketplace/products/${product.slug!}`}
                   className={cn(
-                    'flex flex-col justify-between gap-2 rounded-xl p-3 transition-all duration-300 ease-in-out transform hover:scale-103 shadow-sm hover:shadow-xl hover:translate-y-1 hover:translate-x',
-                    'group  dark:bg-transparent bg-white/30 dark:hover:bg-slate-100/5 backdrop-blur-lg'
+                    "flex flex-col justify-between gap-2 rounded-xl p-3 transition-all duration-300 ease-in-out transform hover:scale-103 shadow-sm hover:shadow-xl hover:translate-y-1 hover:translate-x",
+                    "group  dark:bg-transparent bg-white/30 dark:hover:bg-slate-100/5 backdrop-blur-lg"
                   )}
                 >
                   <Image
@@ -53,8 +53,8 @@ export default async function Page() {
                     <h3 className="text-base font-semibold">{product.name}</h3>
                     <ArrowUpRight
                       className={cn(
-                        'w-6 h-6',
-                        'duration-300 ease-in-out translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0'
+                        "w-6 h-6",
+                        "duration-300 ease-in-out translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0"
                       )}
                     />
                   </div>

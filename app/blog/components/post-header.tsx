@@ -1,7 +1,7 @@
-import { Skeleton } from '@/components/ui/skeleton';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Suspense } from 'react';
+import { Skeleton } from "@/components/ui/skeleton";
+import Image from "next/image";
+import Link from "next/link";
+import { Suspense } from "react";
 
 export function PostHeader({
   title,
@@ -30,7 +30,7 @@ export function PostHeader({
             itemScope
           >
             resources
-          </Link>{' '}
+          </Link>{" "}
           |
           <Link
             href="/blog/"
@@ -70,9 +70,9 @@ export function PostHeader({
                     </>
                   }
                 >
-                  on{' '}
-                  {new Date(publishedAt).toLocaleDateString('en-US', {
-                    dateStyle: 'long',
+                  on{" "}
+                  {new Date(publishedAt).toLocaleDateString("en-US", {
+                    dateStyle: "long",
                   })}
                 </Suspense>
               </span>

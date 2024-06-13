@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils';
-import './loader.css';
+import { cn } from "@/lib/utils";
+import "./loader.css";
 
 export function RingLoader({
   className,
@@ -7,7 +7,7 @@ export function RingLoader({
 }: React.SVGProps<SVGSVGElement> & { className?: string }) {
   return (
     <svg
-      className={cn('w-60 h-60', className)}
+      className={cn("w-60 h-60", className)}
       width={240}
       height={240}
       viewBox="0 0 240 240"

@@ -12,7 +12,7 @@ export default async function InterviewQuestionsGenerator(data: any, openai) {
 
     try {
       const completion = await openai.createCompletion({
-        model: 'text-davinci-003',
+        model: "text-davinci-003",
         prompt: prompt,
         temperature: 0.5,
         max_tokens: 1000,
@@ -23,24 +23,24 @@ export default async function InterviewQuestionsGenerator(data: any, openai) {
       const response = completion.data;
 
       console.log(response);
-      if (response.choices[0].finish_reason === 'length')
+      if (response.choices[0].finish_reason === "length")
         return reject(
-          'Length of the prompt is too long. Please reduce the number of questions or the length of the prompt.'
+          "Length of the prompt is too long. Please reduce the number of questions or the length of the prompt."
         );
 
       const output: Output[] = [
         {
-          outputType: 'plaintext',
-          data: 'Here is the product description:\n\n',
+          outputType: "plaintext",
+          data: "Here is the product description:\n\n",
         },
         {
-          outputType: 'plaintext',
+          outputType: "plaintext",
           data: response.choices[0].text,
         },
       ];
       return resolve(output);
     } catch (error) {
-      console.error('Error generating interview questions:', error);
+      console.error("Error generating interview questions:", error);
       return reject(error);
     }
   });

@@ -1,5 +1,5 @@
-import { Badge } from '@/components/ui/badge';
-import { ArrowUpRight } from 'lucide-react';
+import { Badge } from "@/components/ui/badge";
+import { ArrowUpRight } from "lucide-react";
 
 interface SocialLink {
   name: string;

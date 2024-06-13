@@ -1,12 +1,12 @@
-import { Metadata } from 'next';
-import Image from 'next/image';
-import SubmitForm from './form';
-import illustration from './illustration.svg';
+import { Metadata } from "next";
+import Image from "next/image";
+import SubmitForm from "./form";
+import illustration from "./illustration.svg";
 
 export const metadata: Metadata = {
-  title: 'Submit Your Tool | Dev Tools',
+  title: "Submit Your Tool | Dev Tools",
   description:
-    'Submit your tool to the Dev Tools directory. Share your tool with the community and get feedback from developers.',
+    "Submit your tool to the Dev Tools directory. Share your tool with the community and get feedback from developers.",
 };
 
 export default function SubmitPage() {

@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Types } from 'mongoose';
+import mongoose, { Document, Schema, Types } from "mongoose";
 
 export interface rawRatingType {
   userId: string;
@@ -7,7 +7,7 @@ export interface rawRatingType {
   comment: string;
 }
 
-export type RatingTypeWithId = Omit<rawRatingType, 'userId'> & {
+export type RatingTypeWithId = Omit<rawRatingType, "userId"> & {
   _id: string;
   createdAt?: Date;
   updatedAt?: Date;
@@ -30,14 +30,14 @@ export interface RatingDocument extends Document {
 
 const ratingSchema = new Schema<RatingDocument>(
   {
-    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    toolId: { type: Schema.Types.ObjectId, ref: 'PublicTool', required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    toolId: { type: Schema.Types.ObjectId, ref: "PublicTool", required: true },
     rating: { type: Number, required: true, min: 1, max: 5 },
     comment: {
       type: String,
       minlength: 10,
       maxlength: 500,
-      default: 'No comment provided',
+      default: "No comment provided",
     },
   },
   { timestamps: true }
@@ -45,6 +45,6 @@ const ratingSchema = new Schema<RatingDocument>(
 
 const Rating =
   mongoose.models.Rating ||
-  mongoose.model<RatingDocument>('Rating', ratingSchema);
+  mongoose.model<RatingDocument>("Rating", ratingSchema);
 
 export default Rating;

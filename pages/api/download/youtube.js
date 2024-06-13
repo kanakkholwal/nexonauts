@@ -1,7 +1,7 @@
-import ytdl from 'ytdl-core';
+import ytdl from "ytdl-core";
 
 export default async function YouTubeDownloader(req, res) {
-  if (req.method === 'POST') {
+  if (req.method === "POST") {
     const { url } = req.body;
     const output = await ytdl.getInfo(url);
 
@@ -12,7 +12,7 @@ export default async function YouTubeDownloader(req, res) {
       });
     else
       res.status(404).json({
-        message: 'Error occurred',
+        message: "Error occurred",
       });
   } else return res.status(404);
 }

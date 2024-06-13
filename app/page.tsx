@@ -1,37 +1,37 @@
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import Footer from 'app/layouts/footer';
-import Navbar from 'app/layouts/navbar-static';
-import SquareGrid from 'app/layouts/patterns/square-grid';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import Footer from "app/layouts/footer";
+import Navbar from "app/layouts/navbar-static";
+import SquareGrid from "app/layouts/patterns/square-grid";
 import {
   ArrowUpRight,
   ExternalLink,
   LineChart,
   ScanSearch,
-} from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link';
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 // import dbConnect from 'src/lib/dbConnect';
 // import Post from 'src/models/post';
 
 const features = [
   {
-    name: 'Discover the Tools You Need',
+    name: "Discover the Tools You Need",
     description: `Say good-bye to endless searching. Our ingenious search engine scours the web for the most basic and advanced tools for every phase of your development process. From AI-powered solutions to tried-and-true classics, it's everything at your fingertips.`,
-    icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341139.png',
-    path: '/scout',
+    icon: "https://cdn-icons-png.flaticon.com/512/4341/4341139.png",
+    path: "/scout",
   },
   {
-    name: 'Marketplace for Digital Creators',
+    name: "Marketplace for Digital Creators",
     description: `Browse, purchase, sell, and promote digital products in our growing marketplace. Whether you're looking for themes, templates, e-books, Figma designs, designs, styles, or another product, our marketplace connects you to a global community of creators and buyers.`,
-    icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341134.png',
-    path: '/marketplace',
+    icon: "https://cdn-icons-png.flaticon.com/512/4341/4341134.png",
+    path: "/marketplace",
   },
   {
-    name: 'Developer Tools',
+    name: "Developer Tools",
     description: `Our curated catalogue of open-source tools can help you simplify your development process. Access a wide range of materials to help you accelerate your projects and collaborate with other developers smoothly.		`,
-    icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341160.png',
-    path: '/dev-tools',
+    icon: "https://cdn-icons-png.flaticon.com/512/4341/4341160.png",
+    path: "/dev-tools",
   },
   // {
   // 	name: 'No-Code AI App Builder',
@@ -45,7 +45,7 @@ const features = [
   // 	icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341025.png',
   // },
 ];
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
   return (
@@ -107,7 +107,7 @@ export default async function HomePage() {
             <div className="mt-16 grid lg:divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl grid-cols-1 lg:grid-cols-3 lg:divide-y-0">
               {features.map((feature, index) => {
                 return (
-                  <div key={'solutions_' + index} className="group transition">
+                  <div key={"solutions_" + index} className="group transition">
                     <div className="relative py-12 p-8">
                       <div className="space-y-8 mb-2">
                         <div className="w-12 h-12 bg-primary/10 p-2 rounded-lg flex items-center justify-center">
@@ -116,7 +116,7 @@ export default async function HomePage() {
                             className="w-8 h-8"
                             width={256}
                             height={256}
-                            alt={feature.name + ' | Nexonauts'}
+                            alt={feature.name + " | Nexonauts"}
                           />
                         </div>
                         <h5 className="text-lg font-bold text-gray-700 dark:text-white">
@@ -264,14 +264,14 @@ export default async function HomePage() {
                 </h2>
                 <p className="my-8 text-gray-600 dark:text-gray-300">
                   Whether you're aiming to streamline your workflow, enhance
-                  your skills, or explore groundbreaking technologies,{' '}
+                  your skills, or explore groundbreaking technologies,{" "}
                   {process.env.NEXT_PUBLIC_WEBSITE_NAME} is your ultimate
                   destination. Join us today and unlock a world of
                   possibilities.
                   <br />
                   <br />
                   Ready to revolutionize your development experience? Sign up
-                  now and embark on an exciting journey with{' '}
+                  now and embark on an exciting journey with{" "}
                   {process.env.NEXT_PUBLIC_WEBSITE_NAME}.
                 </p>
                 <div className="divide-y space-y-4 divide-gray-100 dark:divide-gray-800">
@@ -336,7 +336,7 @@ export default async function HomePage() {
                   Get Started now
                 </h1>
                 <p className="text-center text-xl text-gray-600 dark:text-gray-300">
-                  Start creating, collaborating, and innovating with{' '}
+                  Start creating, collaborating, and innovating with{" "}
                   {process.env.NEXT_PUBLIC_WEBSITE_NAME} today.
                 </p>
                 <div className="flex flex-wrap justify-center gap-6">

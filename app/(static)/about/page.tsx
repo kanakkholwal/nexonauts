@@ -1,10 +1,10 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
-import { Settings } from 'lucide-react';
+import { Settings } from "lucide-react";
 
-import { FaRegCircleCheck } from 'react-icons/fa6';
-import { IoAnalyticsSharp } from 'react-icons/io5';
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { IoAnalyticsSharp } from "react-icons/io5";
 
 export default async function Page() {
   return (
@@ -52,7 +52,7 @@ export default async function Page() {
             </p>
           </div>
           <Image
-            src={'/assets/images/about_1.png'}
+            src={"/assets/images/about_1.png"}
             alt="values"
             priority
             width={1380}
@@ -108,7 +108,7 @@ export default async function Page() {
                   Accountability
                 </h3>
                 <p className="text-gray-500 dark:text-gray-400">
-                  {' '}
+                  {" "}
                   As a solo founder, I take personal ownership of every aspect
                   of our platform. I keep you informed at every step, holding
                   myself accountable for the strategies implemented and the
@@ -137,7 +137,7 @@ export default async function Page() {
           </div>
           <div className="flex justify-center items-center mt-16 w-full  mx-auto p-4 rounded-lg">
             <Image
-              src={'/assets/images/about_2.png'}
+              src={"/assets/images/about_2.png"}
               alt="values"
               width={1380}
               height={720}

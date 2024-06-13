@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { UserRound } from 'lucide-react';
-import { useState } from 'react';
+import { UserRound } from "lucide-react";
+import { useState } from "react";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -11,28 +11,28 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { AiOutlineLoading } from 'react-icons/ai';
-import { LuMail } from 'react-icons/lu';
-import * as z from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { AiOutlineLoading } from "react-icons/ai";
+import { LuMail } from "react-icons/lu";
+import * as z from "zod";
 
 const FormSchema = z.object({
   name: z
     .string()
-    .min(3, { message: 'Name must be at least 3 characters long' })
-    .max(100, { message: 'Name cannot exceed 100 characters' }),
+    .min(3, { message: "Name must be at least 3 characters long" })
+    .max(100, { message: "Name cannot exceed 100 characters" }),
   email: z
     .string()
     .email({
-      message: 'Please enter a valid email address',
+      message: "Please enter a valid email address",
     })
-    .min(5, { message: 'Email must be at least 5 characters long' })
-    .max(100, { message: 'Email cannot exceed 100 characters' }),
+    .min(5, { message: "Email must be at least 5 characters long" })
+    .max(100, { message: "Email cannot exceed 100 characters" }),
 });
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   joinWaitList: (data: z.infer<typeof FormSchema>) => Promise<boolean>;
@@ -48,7 +48,7 @@ export default function WaitListForm({
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      email: '',
+      email: "",
     },
   });
   async function onSubmit(data: z.infer<typeof FormSchema>) {
@@ -56,22 +56,22 @@ export default function WaitListForm({
     setIsLoading(true);
 
     toast.promise(joinWaitList(data), {
-      loading: 'Adding to Waitlist...',
+      loading: "Adding to Waitlist...",
       success: (data) => {
         console.log(data);
         setIsLoading(false);
-        return 'Added to waitlist successfully';
+        return "Added to waitlist successfully";
       },
       error: (err) => {
         console.log(err);
         setIsLoading(false);
-        return err.message || 'An error occurred';
+        return err.message || "An error occurred";
       },
     });
   }
 
   return (
-    <div className={cn('grid gap-6 w-full text-left', className)} {...props}>
+    <div className={cn("grid gap-6 w-full text-left", className)} {...props}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
           <FormField

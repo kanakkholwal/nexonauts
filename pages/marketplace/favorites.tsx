@@ -1,11 +1,11 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { getSession } from 'next-auth/react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getSession } from "next-auth/react";
 
-import { FULL_DESCRIPTION, TITLE } from 'src/constants/marketplace';
-import Wrapper from 'src/layouts/marketplace';
-import { Item_types } from 'src/lib/marketplace/item-types';
+import { FULL_DESCRIPTION, TITLE } from "src/constants/marketplace";
+import Wrapper from "src/layouts/marketplace";
+import { Item_types } from "src/lib/marketplace/item-types";
 
-import ProductCard from 'src/layouts/marketplace/product-card';
+import ProductCard from "src/layouts/marketplace/product-card";
 
 export default function Market({ user, products }) {
   return (
@@ -64,7 +64,7 @@ export async function getServerSideProps(context) {
   if (!session)
     return {
       redirect: {
-        destination: '/login',
+        destination: "/login",
         permanent: false,
       },
     };

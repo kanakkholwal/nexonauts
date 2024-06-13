@@ -1,4 +1,4 @@
-import { ContactForm } from './form';
+import { ContactForm } from "./form";
 
 export default async function Contact() {
   return (

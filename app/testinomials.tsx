@@ -1,43 +1,43 @@
 const testinomials = [
   {
     id: 1,
-    name: 'Daniella Doe',
-    job: 'Mobile dev',
-    avatar: './images/avatars/avatar.webp',
+    name: "Daniella Doe",
+    job: "Mobile dev",
+    avatar: "./images/avatars/avatar.webp",
     review:
-      'Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum aliquid quo eum quae quos illo earum ipsa doloribus nostrum minus libero aspernatur laborum cum, a suscipit, ratione ea totam ullam! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rerum.',
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Illum aliquid quo eum quae quos illo earum ipsa doloribus nostrum minus libero aspernatur laborum cum, a suscipit, ratione ea totam ullam! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rerum.",
   },
   {
     id: 2,
-    name: 'Jane Doe',
-    job: 'Marketing',
-    avatar: './images/avatars/avatar-1.webp',
+    name: "Jane Doe",
+    job: "Marketing",
+    avatar: "./images/avatars/avatar-1.webp",
     review:
-      'Lorem ipsum dolor laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rerum.',
+      "Lorem ipsum dolor laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rerum.",
   },
   {
     id: 3,
-    name: 'Yanick Doe',
-    job: 'Developer',
-    avatar: './images/avatars/avatar-2.webp',
+    name: "Yanick Doe",
+    job: "Developer",
+    avatar: "./images/avatars/avatar-2.webp",
     review:
-      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rerum.',
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rerum.",
   },
   {
     id: 4,
-    name: 'Jane Doe',
-    job: 'Mobile dev',
-    avatar: './images/avatars/avatar-3.webp',
+    name: "Jane Doe",
+    job: "Mobile dev",
+    avatar: "./images/avatars/avatar-3.webp",
     review:
-      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rerum.',
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rerum.",
   },
   {
     id: 5,
-    name: 'Andy Doe',
-    job: 'Manager',
-    avatar: './images/avatars/avatar-4.webp',
+    name: "Andy Doe",
+    job: "Manager",
+    avatar: "./images/avatars/avatar-4.webp",
     review:
-      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rer',
+      "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto laboriosam deleniti aperiam ab veniam sint non cumque quis tempore cupiditate. Sint libero voluptas veniam at reprehenderit, veritatis harum et rer",
   },
 ];
 

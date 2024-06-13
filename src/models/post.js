@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { v4 as UuID4 } from 'uuid';
+import mongoose from "mongoose";
+import { v4 as UuID4 } from "uuid";
 
 const commentSchema = new mongoose.Schema({
   name: {
@@ -12,7 +12,7 @@ const commentSchema = new mongoose.Schema({
   },
   user: {
     type: mongoose.Schema.Types.Mixed,
-    ref: 'User',
+    ref: "User",
     default: null,
   },
   comment: {
@@ -29,17 +29,17 @@ const commentSchema = new mongoose.Schema({
   },
   post: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Post',
+    ref: "Post",
   },
   parentComment: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Comment',
+    ref: "Comment",
     default: null,
   },
   replies: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Comment',
+      ref: "Comment",
       default: [],
     },
   ],
@@ -50,7 +50,7 @@ const postSchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      default: 'Untitled',
+      default: "Untitled",
     },
     description: String,
     content: {
@@ -82,23 +82,23 @@ const postSchema = new mongoose.Schema(
       image: {
         type: String,
         default:
-          'https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp',
+          "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp",
       },
     },
     image: {
       type: String,
       default:
-        'https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp',
+        "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680811201/kkupgrader/default-article_ge2ny6.webp",
     },
     state: {
       type: String,
       required: true,
-      default: 'draft',
-      enum: ['draft', 'published'],
+      default: "draft",
+      enum: ["draft", "published"],
     },
     author: {
       type: mongoose.Schema.Types.Mixed,
-      ref: 'User',
+      ref: "User",
       // required: true,
       select: false,
     },
@@ -109,7 +109,7 @@ const postSchema = new mongoose.Schema(
     },
     analytics: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Page',
+      ref: "Page",
       default: null,
     },
     claps: {
@@ -128,8 +128,8 @@ const postSchema = new mongoose.Schema(
   }
 );
 
-postSchema.pre('save', async function (next) {
-  if (!this.isModified('image')) {
+postSchema.pre("save", async function (next) {
+  if (!this.isModified("image")) {
     return next();
   }
   this.metadata.image = this.image;
@@ -137,5 +137,5 @@ postSchema.pre('save', async function (next) {
 });
 
 export const Comment =
-  mongoose.models.Comment || mongoose.model('Comment', commentSchema);
-export default mongoose.models.Post || mongoose.model('Post', postSchema);
+  mongoose.models.Comment || mongoose.model("Comment", commentSchema);
+export default mongoose.models.Post || mongoose.model("Post", postSchema);

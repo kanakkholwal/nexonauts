@@ -1,16 +1,16 @@
-import { DataTable } from '@/components/ui/data-table';
-import { authOptions } from 'app/api/auth/[...nextauth]/options';
-import { getServerSession } from 'next-auth/next';
-import { Suspense } from 'react';
-import { sessionType } from 'src/types/session';
-import { getUsers } from './actions';
-import { columns } from './columns';
-import { getSession } from 'src/lib/auth';
+import { DataTable } from "@/components/ui/data-table";
+import { authOptions } from "app/api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth/next";
+import { Suspense } from "react";
+import { sessionType } from "src/types/session";
+import { getUsers } from "./actions";
+import { columns } from "./columns";
+import { getSession } from "src/lib/auth";
 
 export default async function DashboardPage() {
   const session = (await getSession()) as sessionType;
 
-  const { users } = await getUsers('', 1, {});
+  const { users } = await getUsers("", 1, {});
   console.log(users);
 
   return (

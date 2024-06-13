@@ -1,6 +1,6 @@
 // BuilderContext.tsx
-import { ReactNode, createContext, useContext, useState } from 'react';
-import { AppType } from 'src/types/app';
+import { ReactNode, createContext, useContext, useState } from "react";
+import { AppType } from "src/types/app";
 
 interface BuilderContextType {
   builderData: AppType;
@@ -12,7 +12,7 @@ const BuilderContext = createContext<BuilderContextType | undefined>(undefined);
 export const useBuilderContext = () => {
   const context = useContext(BuilderContext);
   if (!context) {
-    throw new Error('useBuilderContext must be used within a BuilderProvider');
+    throw new Error("useBuilderContext must be used within a BuilderProvider");
   }
   return context;
 };

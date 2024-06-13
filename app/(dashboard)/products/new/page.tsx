@@ -1,10 +1,10 @@
-import { Metadata } from 'next';
-import { createProduct } from './actions';
-import ProductForm from './form';
+import { Metadata } from "next";
+import { createProduct } from "./actions";
+import ProductForm from "./form";
 
 export const metadata: Metadata = {
-  title: 'Create a new product',
-  description: 'Create a new product page',
+  title: "Create a new product",
+  description: "Create a new product page",
 };
 
 export default async function CreateNewProduct() {

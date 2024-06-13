@@ -1,10 +1,10 @@
-import { Button } from '@/components/ui/button';
-import { ArrowBigRightDash, LoaderCircle, Plus } from 'lucide-react';
-import Link from 'next/link';
-import { Suspense } from 'react';
-import { BiSad } from 'react-icons/bi';
-import { getToolsByUser } from './actions';
-import ToolList from './toolLists';
+import { Button } from "@/components/ui/button";
+import { ArrowBigRightDash, LoaderCircle, Plus } from "lucide-react";
+import Link from "next/link";
+import { Suspense } from "react";
+import { BiSad } from "react-icons/bi";
+import { getToolsByUser } from "./actions";
+import ToolList from "./toolLists";
 
 const INITIAL_NUMBER_OF_USERS = 10;
 

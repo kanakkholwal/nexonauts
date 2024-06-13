@@ -1,9 +1,9 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { LayoutDashboard } from 'lucide-react';
-import { useState } from 'react';
+"use client";
+import { Button } from "@/components/ui/button";
+import { LayoutDashboard } from "lucide-react";
+import { useState } from "react";
 
-import { Search, Settings, User } from 'lucide-react';
+import { Search, Settings, User } from "lucide-react";
 
 import {
   CommandDialog,
@@ -13,36 +13,36 @@ import {
   CommandItem,
   CommandList,
   CommandSeparator,
-} from '@/components/ui/command';
-import { cn } from '@/lib/utils';
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import React from 'react';
+} from "@/components/ui/command";
+import { cn } from "@/lib/utils";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import React from "react";
 
 const loggedInList = [
   {
-    path: '/dashboard',
-    title: 'Dashboard',
+    path: "/dashboard",
+    title: "Dashboard",
     icon: LayoutDashboard,
   },
   {
-    path: '/dashboard/settings',
-    title: 'Settings',
+    path: "/dashboard/settings",
+    title: "Settings",
     icon: Settings,
   },
 ];
 const defaultList = [
   {
-    title: 'Nexo Scout',
-    path: '/scout',
+    title: "Nexo Scout",
+    path: "/scout",
   },
   {
-    title: 'Dev Tools',
-    path: '/marketplace',
+    title: "Dev Tools",
+    path: "/marketplace",
   },
   {
-    title: 'Discover Devs',
-    path: '/devs',
+    title: "Discover Devs",
+    path: "/devs",
   },
 ];
 
@@ -54,14 +54,14 @@ export function QuickLinks() {
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === 'j' && (e.metaKey || e.ctrlKey)) {
+      if (e.key === "j" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((open) => !open);
       }
     };
 
-    document.addEventListener('keydown', down);
-    return () => document.removeEventListener('keydown', down);
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
   }, []);
 
   return (
@@ -131,16 +131,16 @@ export function QuickLinks() {
 
 const list = [
   {
-    title: 'Nexo Scout',
-    path: '/scout',
+    title: "Nexo Scout",
+    path: "/scout",
   },
   {
-    title: 'Dev Tools',
-    path: '/marketplace',
+    title: "Dev Tools",
+    path: "/marketplace",
   },
   {
-    title: 'Discover Devs',
-    path: '/devs',
+    title: "Discover Devs",
+    path: "/devs",
   },
 ];
 export function NavList() {
@@ -154,8 +154,8 @@ export function NavList() {
           <Link
             key={`nav_link-${index}`}
             className={cn(
-              'text-sm leading-5 transition font-semibold whitespace-nowrap',
-              'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white'
+              "text-sm leading-5 transition font-semibold whitespace-nowrap",
+              "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
             )}
             href={item.path}
           >

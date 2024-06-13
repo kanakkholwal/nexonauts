@@ -1,6 +1,6 @@
-import CreateProfile from 'app/(dashboard)/components/create-profile';
-import { getSession } from 'src/lib/auth';
-import { sessionType } from 'src/types/session';
+import CreateProfile from "app/(dashboard)/components/create-profile";
+import { getSession } from "src/lib/auth";
+import { sessionType } from "src/types/session";
 
 export default async function FeedPage() {
   const session = (await getSession()) as sessionType;

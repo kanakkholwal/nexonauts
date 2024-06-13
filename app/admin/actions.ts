@@ -1,27 +1,27 @@
-'use server';
+"use server";
 // import mongoose from "mongoose";
-import dbConnect from 'src/lib/dbConnect';
-import AppModel from 'src/models/app';
-import PublicToolModel from 'src/models/tool';
-import UserModel from 'src/models/user';
+import dbConnect from "src/lib/dbConnect";
+import AppModel from "src/models/app";
+import PublicToolModel from "src/models/tool";
+import UserModel from "src/models/user";
 
 // Function to count users and calculate percent growth
 export async function users_CountAndGrowth(timeInterval: string): Promise<{
   count: number;
   growth: number;
-  trend: 'increase' | 'decrease' | 'stable';
+  trend: "increase" | "decrease" | "stable";
 }> {
   await dbConnect();
   let startTime: Date;
 
   switch (timeInterval) {
-    case 'last_hour':
+    case "last_hour":
       startTime = new Date(Date.now() - 60 * 60 * 1000);
       break;
-    case 'last_24_hours':
+    case "last_24_hours":
       startTime = new Date(Date.now() - 24 * 60 * 60 * 1000);
       break;
-    case 'this_week':
+    case "this_week":
       const today = new Date();
       const startOfWeek = new Date(
         today.getFullYear(),
@@ -30,7 +30,7 @@ export async function users_CountAndGrowth(timeInterval: string): Promise<{
       );
       startTime = startOfWeek;
       break;
-    case 'this_month':
+    case "this_month":
       const startOfMonth = new Date(
         new Date().getFullYear(),
         new Date().getMonth(),
@@ -38,12 +38,12 @@ export async function users_CountAndGrowth(timeInterval: string): Promise<{
       );
       startTime = startOfMonth;
       break;
-    case 'this_year':
+    case "this_year":
       const startOfYear = new Date(new Date().getFullYear(), 0, 1);
       startTime = startOfYear;
       break;
     default:
-      throw new Error('Invalid time interval provided');
+      throw new Error("Invalid time interval provided");
   }
 
   const count = await UserModel.countDocuments({});
@@ -62,11 +62,11 @@ export async function users_CountAndGrowth(timeInterval: string): Promise<{
   const growth =
     prevCount === 0 ? 100 : ((count - prevCount) / prevCount) * 100;
   // Determine trend
-  let trend: 'increase' | 'decrease' | 'stable' = 'stable';
+  let trend: "increase" | "decrease" | "stable" = "stable";
   if (growth > 0) {
-    trend = 'increase';
+    trend = "increase";
   } else if (growth < 0) {
-    trend = 'decrease';
+    trend = "decrease";
   }
 
   return { count, growth, trend };
@@ -75,19 +75,19 @@ export async function users_CountAndGrowth(timeInterval: string): Promise<{
 export async function apps_CountAndGrowth(timeInterval: string): Promise<{
   count: number;
   growth: number;
-  trend: 'increase' | 'decrease' | 'stable';
+  trend: "increase" | "decrease" | "stable";
 }> {
   await dbConnect();
   let startTime: Date;
 
   switch (timeInterval) {
-    case 'last_hour':
+    case "last_hour":
       startTime = new Date(Date.now() - 60 * 60 * 1000);
       break;
-    case 'last_24_hours':
+    case "last_24_hours":
       startTime = new Date(Date.now() - 24 * 60 * 60 * 1000);
       break;
-    case 'this_week':
+    case "this_week":
       const today = new Date();
       const startOfWeek = new Date(
         today.getFullYear(),
@@ -96,7 +96,7 @@ export async function apps_CountAndGrowth(timeInterval: string): Promise<{
       );
       startTime = startOfWeek;
       break;
-    case 'this_month':
+    case "this_month":
       const startOfMonth = new Date(
         new Date().getFullYear(),
         new Date().getMonth(),
@@ -104,12 +104,12 @@ export async function apps_CountAndGrowth(timeInterval: string): Promise<{
       );
       startTime = startOfMonth;
       break;
-    case 'this_year':
+    case "this_year":
       const startOfYear = new Date(new Date().getFullYear(), 0, 1);
       startTime = startOfYear;
       break;
     default:
-      throw new Error('Invalid time interval provided');
+      throw new Error("Invalid time interval provided");
   }
 
   // const count = await AppModel.countDocuments({ createdAt: { $gte: startTime } });
@@ -128,11 +128,11 @@ export async function apps_CountAndGrowth(timeInterval: string): Promise<{
   const growth =
     prevCount === 0 ? 100 : ((count - prevCount) / prevCount) * 100;
   // Determine trend
-  let trend: 'increase' | 'decrease' | 'stable' = 'stable';
+  let trend: "increase" | "decrease" | "stable" = "stable";
   if (growth > 0) {
-    trend = 'increase';
+    trend = "increase";
   } else if (growth < 0) {
-    trend = 'decrease';
+    trend = "decrease";
   }
 
   return { count, growth, trend };
@@ -141,19 +141,19 @@ export async function apps_CountAndGrowth(timeInterval: string): Promise<{
 export async function tools_CountAndGrowth(timeInterval: string): Promise<{
   count: number;
   growth: number;
-  trend: 'increase' | 'decrease' | 'stable';
+  trend: "increase" | "decrease" | "stable";
 }> {
   await dbConnect();
   let startTime: Date;
 
   switch (timeInterval) {
-    case 'last_hour':
+    case "last_hour":
       startTime = new Date(Date.now() - 60 * 60 * 1000);
       break;
-    case 'last_24_hours':
+    case "last_24_hours":
       startTime = new Date(Date.now() - 24 * 60 * 60 * 1000);
       break;
-    case 'this_week':
+    case "this_week":
       const today = new Date();
       const startOfWeek = new Date(
         today.getFullYear(),
@@ -162,7 +162,7 @@ export async function tools_CountAndGrowth(timeInterval: string): Promise<{
       );
       startTime = startOfWeek;
       break;
-    case 'this_month':
+    case "this_month":
       const startOfMonth = new Date(
         new Date().getFullYear(),
         new Date().getMonth(),
@@ -170,12 +170,12 @@ export async function tools_CountAndGrowth(timeInterval: string): Promise<{
       );
       startTime = startOfMonth;
       break;
-    case 'this_year':
+    case "this_year":
       const startOfYear = new Date(new Date().getFullYear(), 0, 1);
       startTime = startOfYear;
       break;
     default:
-      throw new Error('Invalid time interval provided');
+      throw new Error("Invalid time interval provided");
   }
 
   // const count = await PublicToolModel.countDocuments({ createdAt: { $gte: startTime } });
@@ -194,11 +194,11 @@ export async function tools_CountAndGrowth(timeInterval: string): Promise<{
   const growth =
     prevCount === 0 ? 100 : ((count - prevCount) / prevCount) * 100;
   // Determine trend
-  let trend: 'increase' | 'decrease' | 'stable' = 'stable';
+  let trend: "increase" | "decrease" | "stable" = "stable";
   if (growth > 0) {
-    trend = 'increase';
+    trend = "increase";
   } else if (growth < 0) {
-    trend = 'decrease';
+    trend = "decrease";
   }
 
   return { count, growth, trend };

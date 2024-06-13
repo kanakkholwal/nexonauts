@@ -1,5 +1,5 @@
-'use client';
-import { Button } from '@/components/ui/button';
+"use client";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,28 +7,28 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import ThemeSwitch from 'app/layouts/theme-switcher';
-import axios from 'axios';
-import debounce from 'lodash.debounce';
-import { signOut } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
-import { FaRegUser } from 'react-icons/fa';
-import { MdLogout } from 'react-icons/md';
+} from "@/components/ui/dropdown-menu";
+import ThemeSwitch from "app/layouts/theme-switcher";
+import axios from "axios";
+import debounce from "lodash.debounce";
+import { signOut } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
+import { FaRegUser } from "react-icons/fa";
+import { MdLogout } from "react-icons/md";
 import {
   TbLayoutSidebarRightCollapse,
   TbLayoutSidebarRightExpand,
-} from 'react-icons/tb';
-import { VscChevronDown } from 'react-icons/vsc';
-import { SessionUserType } from 'src/types/user';
-import Sidenav from './sidenav';
+} from "react-icons/tb";
+import { VscChevronDown } from "react-icons/vsc";
+import { SessionUserType } from "src/types/user";
+import Sidenav from "./sidenav";
 
 export default function Navbar({ user }: { user: SessionUserType | null }) {
   const [isSidenavOpen, setSidenavOpen] = useState<boolean>(false);
   let NavRef = useRef<HTMLElement>(null);
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -39,7 +39,7 @@ export default function Navbar({ user }: { user: SessionUserType | null }) {
       console.log(response.data.result);
       setResults(response.data.result);
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
     } finally {
       setLoading(false);
     }
@@ -53,13 +53,13 @@ export default function Navbar({ user }: { user: SessionUserType | null }) {
     debouncedSearch(searchText);
   };
   useEffect(() => {
-    let sidenavPanel = document.body.querySelector('#nexo_sidenav');
+    let sidenavPanel = document.body.querySelector("#nexo_sidenav");
     if (!sidenavPanel) return;
 
-    if (!sidenavPanel.classList.contains('isOpen')) {
-      sidenavPanel.classList.add('isOpen');
+    if (!sidenavPanel.classList.contains("isOpen")) {
+      sidenavPanel.classList.add("isOpen");
     } else {
-      sidenavPanel.classList.remove('isOpen');
+      sidenavPanel.classList.remove("isOpen");
     }
   }, [isSidenavOpen]);
   useEffect(() => {
@@ -73,19 +73,19 @@ export default function Navbar({ user }: { user: SessionUserType | null }) {
       if (
         (NavRef.current && !NavRef.current.contains(e.target as any)) ||
         document.body
-          .querySelector('#nexo_sidenav')
+          .querySelector("#nexo_sidenav")
           ?.contains(e.target as any) ||
         document.body
-          .querySelector('#nexo_sidenav_toggler')
+          .querySelector("#nexo_sidenav_toggler")
           ?.contains(e.target as any)
       ) {
         setSidenavOpen(false);
       }
     };
-    document.addEventListener('mousedown', HandleOutSide);
+    document.addEventListener("mousedown", HandleOutSide);
 
     return () => {
-      document.removeEventListener('mousedown', HandleOutSide);
+      document.removeEventListener("mousedown", HandleOutSide);
     };
   }, []);
   return (
@@ -151,7 +151,7 @@ export default function Navbar({ user }: { user: SessionUserType | null }) {
                       <DropdownMenuSeparator />
                       <DropdownMenuItem asChild>
                         <Link
-                          href={'/dashboard/settings'}
+                          href={"/dashboard/settings"}
                           className="w-full text-accent-foreground hover:text-slate-800"
                         >
                           <FaRegUser className="w-3 h-3 mr-1" />

@@ -1,11 +1,11 @@
-'use client';
-import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { IoMdOptions } from 'react-icons/io';
-import { useDebouncedCallback } from 'use-debounce';
+"use client";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { IoMdOptions } from "react-icons/io";
+import { useDebouncedCallback } from "use-debounce";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -13,9 +13,9 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
-import { Suspense, useState } from 'react';
-import { CATEGORIES } from 'src/constants/app';
+} from "@/components/ui/sheet";
+import { Suspense, useState } from "react";
+import { CATEGORIES } from "src/constants/app";
 type Props = {};
 
 export default function SearchBox({}: Props) {
@@ -29,12 +29,12 @@ export default function SearchBox({}: Props) {
 
     console.log(term);
     const params = new URLSearchParams(searchParams);
-    params.set('page', '1');
+    params.set("page", "1");
 
     if (term) {
-      params.set('query', term);
+      params.set("query", term);
     } else {
-      params.delete('query');
+      params.delete("query");
     }
     replace(`${pathname}?${params.toString()}`);
   }, 300);
@@ -54,7 +54,7 @@ export default function SearchBox({}: Props) {
     <div className="relative flex items-stretch w-full rounded-full">
       <div className="absolute top-0 bottom-0 left-0">
         <Suspense
-          key={'filter_key'}
+          key={"filter_key"}
           fallback={
             <button className="relative flex h-12 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max">
               <span className="relative text-base font-semibold text-primary dark:text-white">
@@ -85,13 +85,13 @@ export default function SearchBox({}: Props) {
                     variant="slate"
                     size="sm"
                     className={
-                      'text-xs !h-8 ' +
-                      (searchParams?.get('categories')?.toString() === 'all'
-                        ? 'bg-accent-foreground hover:bg-accent-foreground/90 text-white'
-                        : '')
+                      "text-xs !h-8 " +
+                      (searchParams?.get("categories")?.toString() === "all"
+                        ? "bg-accent-foreground hover:bg-accent-foreground/90 text-white"
+                        : "")
                     }
                     onClick={() => {
-                      handleFilter('categories', 'all');
+                      handleFilter("categories", "all");
                     }}
                   >
                     All
@@ -102,14 +102,14 @@ export default function SearchBox({}: Props) {
                       variant="slate"
                       size="sm"
                       className={
-                        'text-xs !h-8 capitalize ' +
-                        ((searchParams?.get('categories')?.toString() ??
-                          'all') === category.value
-                          ? 'bg-accent-foreground hover:bg-accent-foreground/90 text-white'
-                          : '')
+                        "text-xs !h-8 capitalize " +
+                        ((searchParams?.get("categories")?.toString() ??
+                          "all") === category.value
+                          ? "bg-accent-foreground hover:bg-accent-foreground/90 text-white"
+                          : "")
                       }
                       onClick={() => {
-                        handleFilter('categories', category.value);
+                        handleFilter("categories", category.value);
                       }}
                     >
                       {category.label}
@@ -133,7 +133,7 @@ export default function SearchBox({}: Props) {
         </Suspense>
       </div>
       <Suspense
-        key={'search_key'}
+        key={"search_key"}
         fallback={
           <Input
             placeholder="Search by Roll No. or Name "
@@ -144,7 +144,7 @@ export default function SearchBox({}: Props) {
         <Input
           placeholder="Search your needs"
           className="w-full rounded-full px-20 border border-border h-12 "
-          defaultValue={searchParams?.get('query')?.toString()}
+          defaultValue={searchParams?.get("query")?.toString()}
           onChange={(e) => {
             handleSearch(e.target.value);
           }}

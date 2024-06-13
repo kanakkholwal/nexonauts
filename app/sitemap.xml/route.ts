@@ -1,55 +1,55 @@
-import { NextRequest } from 'next/server';
-import dbConnect from 'src/lib/dbConnect';
-import Post from 'src/models/post';
+import { NextRequest } from "next/server";
+import dbConnect from "src/lib/dbConnect";
+import Post from "src/models/post";
 // import { getAllApps } from "src/utils/app";
-import { allDevTools } from 'app/dev-tools/list';
-import { getAllPublicTools } from 'src/utils/public-tool';
-const URL = process.env.WEBSITE_URL || 'https://nexonauts.com';
+import { allDevTools } from "app/dev-tools/list";
+import { getAllPublicTools } from "src/utils/public-tool";
+const URL = process.env.WEBSITE_URL || "https://nexonauts.com";
 
 export async function GET(request: NextRequest) {
   await dbConnect();
   const posts = await Post.find({
-    state: 'published',
+    state: "published",
   })
     .sort({ publishedAt: -1 })
-    .select('slug publishedAt')
+    .select("slug publishedAt")
     .exec();
 
   const manualRoutes = [
     {
-      path: '/',
+      path: "/",
       date: new Date().toISOString(),
     },
     {
-      path: '/contact',
+      path: "/contact",
       date: new Date().toISOString(),
     },
     {
-      path: '/about',
+      path: "/about",
       date: new Date().toISOString(),
     },
     {
-      path: '/copyright',
+      path: "/copyright",
       date: new Date().toISOString(),
     },
     {
-      path: '/pricing',
+      path: "/pricing",
       date: new Date().toISOString(),
     },
     {
-      path: '/privacy',
+      path: "/privacy",
       date: new Date().toISOString(),
     },
     {
-      path: '/tos',
+      path: "/tos",
       date: new Date().toISOString(),
     },
     {
-      path: '/login',
+      path: "/login",
       date: new Date().toISOString(),
     },
     {
-      path: '/signup',
+      path: "/signup",
       date: new Date().toISOString(),
     },
     // {
@@ -57,11 +57,11 @@ export async function GET(request: NextRequest) {
     //     date: new Date().toISOString(),
     // },
     {
-      path: '/apps',
+      path: "/apps",
       date: new Date().toISOString(),
     },
     {
-      path: '/dev-tools',
+      path: "/dev-tools",
       date: new Date().toISOString(),
     },
     ...allDevTools.map((tool) => {
@@ -99,7 +99,7 @@ export async function GET(request: NextRequest) {
   return new Response(sitemap, {
     status: 200,
     headers: {
-      'Content-Type': 'text/xml',
+      "Content-Type": "text/xml",
     },
   });
 }
@@ -108,18 +108,18 @@ export async function GET(request: NextRequest) {
 function escapeXml(unsafe: string) {
   return unsafe.replace(/[<>&'"]/g, (c) => {
     switch (c) {
-      case '<':
-        return '&lt;';
-      case '>':
-        return '&gt;';
-      case '&':
-        return '&amp;';
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
+      case "&":
+        return "&amp;";
       case "'":
-        return '&apos;';
+        return "&apos;";
       case '"':
-        return '&quot;';
+        return "&quot;";
       default:
-        return '';
+        return "";
     }
   });
 }
@@ -139,7 +139,7 @@ function generateSiteMap(pages: any[]) {
             </url>
         `;
       })
-      .join('')}
+      .join("")}
     </urlset>
     `;
 }

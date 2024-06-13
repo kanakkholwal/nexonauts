@@ -1,7 +1,7 @@
-import Link from 'next/link';
-import { FiLinkedin } from 'react-icons/fi';
+import Link from "next/link";
+import { FiLinkedin } from "react-icons/fi";
 //import { LuGithub } from "react-icons/lu";
-import { RiTwitterXFill } from 'react-icons/ri';
+import { RiTwitterXFill } from "react-icons/ri";
 
 export default function Footer() {
   return (
@@ -49,10 +49,10 @@ export default function Footer() {
                         </Link> */}
             </div>
             <p className="font-medium mt-6 text-slate-600">
-              © {new Date().getFullYear()}{' '}
+              © {new Date().getFullYear()}{" "}
               <Link href="/" className="text-slate-900">
                 {process.env.NEXT_PUBLIC_WEBSITE_NAME}
-              </Link>{' '}
+              </Link>{" "}
               . All rights reserved.
             </p>
           </div>

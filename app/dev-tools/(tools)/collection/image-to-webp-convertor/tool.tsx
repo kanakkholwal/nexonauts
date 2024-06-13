@@ -1,5 +1,5 @@
-'use client';
-import { Button } from '@/components/ui/button';
+"use client";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,26 +7,26 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from "@/components/ui/card";
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from "react";
 
-import Image from 'next/image';
-import { useDropzone } from 'react-dropzone';
+import Image from "next/image";
+import { useDropzone } from "react-dropzone";
 
-import { FiUpload } from 'react-icons/fi';
-import { HiDownload } from 'react-icons/hi';
+import { FiUpload } from "react-icons/fi";
+import { HiDownload } from "react-icons/hi";
 
 function formatFileSize(sizeInBytes) {
   const KB = 1024;
   const fileSizeInKB = sizeInBytes / KB;
-  return fileSizeInKB.toFixed(2) + ' KB';
+  return fileSizeInKB.toFixed(2) + " KB";
 }
 
 export default function Image2Webp() {
   const [progress, setProgress] = useState(0);
   const [file, setFile] = useState<File | null>(null);
-  const [fileUrl, setFileUrl] = useState('');
+  const [fileUrl, setFileUrl] = useState("");
   const [scaledImg, setScaledImg] = useState<
     {
       image: string;
@@ -48,17 +48,17 @@ export default function Image2Webp() {
       const reader = new FileReader();
 
       reader.readAsDataURL(file);
-      reader.addEventListener('progress', async (event) => {
+      reader.addEventListener("progress", async (event) => {
         if (event.loaded && event.total) {
           const percent = (event.loaded / event.total) * 100;
           setProgress(percent);
           if (percent === 100) {
-            console.log('complete');
+            console.log("complete");
 
             const { name } = file;
             let fileName = name;
             if (fileName.length >= 12) {
-              const splitName = fileName.split('.');
+              const splitName = fileName.split(".");
               fileName = splitName[0];
             }
             let fileSize = file.size;
@@ -66,7 +66,7 @@ export default function Image2Webp() {
             const processImage = async () => {
               const rawImage = new window.Image();
               return new Promise((resolve, reject) => {
-                rawImage.addEventListener('load', () => {
+                rawImage.addEventListener("load", () => {
                   resolve(rawImage);
                 });
                 rawImage.src = URL.createObjectURL(file);
@@ -74,10 +74,10 @@ export default function Image2Webp() {
                 .then((rawImage: any) => {
                   return new Promise((resolve, reject) => {
                     const canvas = document.createElement(
-                      'canvas'
+                      "canvas"
                     ) as HTMLCanvasElement;
                     const ctx = canvas.getContext(
-                      '2d'
+                      "2d"
                     ) as CanvasRenderingContext2D;
 
                     canvas.width = rawImage.width;
@@ -86,7 +86,7 @@ export default function Image2Webp() {
 
                     canvas.toBlob((blob) => {
                       return resolve(URL.createObjectURL(blob ?? new Blob()));
-                    }, 'image/webp');
+                    }, "image/webp");
                   });
                 })
                 .then((imageURL: string) => {

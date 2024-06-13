@@ -1,7 +1,7 @@
-'use client';
-import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
-import { useRouter, useSearchParams } from 'next/navigation';
+"use client";
+import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
+import { useRouter, useSearchParams } from "next/navigation";
 
 interface Props {
   categories: readonly string[];
@@ -14,7 +14,7 @@ interface Props {
 
 export default function CategoryNavigation({
   categories,
-  keyName = 'category',
+  keyName = "category",
   options = {
     mobile: false,
     uniqueTabs: false,
@@ -24,13 +24,13 @@ export default function CategoryNavigation({
   const searchParams = useSearchParams() as URLSearchParams;
 
   // Extract category from the URL query
-  const activeCategory = searchParams.get(keyName) || '';
+  const activeCategory = searchParams.get(keyName) || "";
 
   return (
     <div
       className={cn(
-        'mb-8 sticky top-6 z-50 justify-center gap-x-2 flex-wrap gap-y-2',
-        options?.mobile ? 'flex' : 'hidden md:flex'
+        "mb-8 sticky top-6 z-50 justify-center gap-x-2 flex-wrap gap-y-2",
+        options?.mobile ? "flex" : "hidden md:flex"
       )}
     >
       {!options?.uniqueTabs && (
@@ -38,15 +38,15 @@ export default function CategoryNavigation({
           <button
             aria-label="All categories"
             onClick={() => {
-              router.push('?', { scroll: false });
+              router.push("?", { scroll: false });
             }}
             className={cn(
               `py-2 px-4 h-11 flex gap-x-1 font-medium items-center border rounded-xl transition-all text-sm xl:text-h6 shadow`,
 
               `border-dim-gray  hover:border-text`,
-              activeCategory === ''
-                ? 'bg-white dark:bg-gray-800'
-                : 'bg-slate-100 dark:bg-gray-800/40'
+              activeCategory === ""
+                ? "bg-white dark:bg-gray-800"
+                : "bg-slate-100 dark:bg-gray-800/40"
             )}
           >
             All
@@ -64,7 +64,7 @@ export default function CategoryNavigation({
               }}
               className={cn(
                 `py-2 px-5 flex gap-x-1 font-medium  rounded-xl  transition-all relative`,
-                activeCategory === item ? '' : 'hover:text-gray'
+                activeCategory === item ? "" : "hover:text-gray"
               )}
             >
               {activeCategory === item && (

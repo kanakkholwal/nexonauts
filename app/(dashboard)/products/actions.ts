@@ -1,20 +1,20 @@
-'use server';
-import axios from 'axios';
-import { customAlphabet } from 'nanoid';
-import { revalidatePath } from 'next/cache';
-import { getSession } from 'src/lib/auth';
-import dbConnect from 'src/lib/dbConnect';
-import Product, { rawProductThirdParty } from 'src/models/product';
-import User from 'src/models/user';
-import { sessionType } from 'src/types/session';
+"use server";
+import axios from "axios";
+import { customAlphabet } from "nanoid";
+import { revalidatePath } from "next/cache";
+import { getSession } from "src/lib/auth";
+import dbConnect from "src/lib/dbConnect";
+import Product, { rawProductThirdParty } from "src/models/product";
+import User from "src/models/user";
+import { sessionType } from "src/types/session";
 
 const generateUrlSlug = (length = 16) =>
   customAlphabet(
-    '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     length
   )();
 
-const availableIntegrations = ['gumroad'];
+const availableIntegrations = ["gumroad"];
 
 export async function getProducts(filter: string, sort: string) {
   const session = (await getSession()) as sessionType;
@@ -22,16 +22,16 @@ export async function getProducts(filter: string, sort: string) {
     creator: session.user._id,
   };
   if (availableIntegrations.includes(filter)) {
-    searchQuery['third_party.provider'] = filter;
+    searchQuery["third_party.provider"] = filter;
   }
 
   await dbConnect();
   const products = await Product.find(searchQuery)
-    .sort({ createdAt: sort === 'latest' ? -1 : 1 })
+    .sort({ createdAt: sort === "latest" ? -1 : 1 })
     .exec();
 
   const user = await User.findById(session.user._id)
-    .select('integrations.gumroad')
+    .select("integrations.gumroad")
     .exec();
   const { gumroad } = user.integrations;
 
@@ -41,24 +41,24 @@ export async function getProducts(filter: string, sort: string) {
   });
 }
 export async function fetchFromIntegration(integration: string) {
-  if (integration === 'gumroad') {
+  if (integration === "gumroad") {
     return importFromGumroad();
   } else {
-    return Promise.reject('Integration not found');
+    return Promise.reject("Integration not found");
   }
 }
 export async function importFromGumroad() {
   const session = (await getSession()) as sessionType;
   await dbConnect();
   const user = await User.findById(session.user._id)
-    .select('integrations')
+    .select("integrations")
     .exec();
   if (!user) {
-    return Promise.reject('User not found');
+    return Promise.reject("User not found");
   }
   const { gumroad } = user.integrations;
-  const url = new URL('https://api.gumroad.com/v2/products');
-  url.searchParams.append('access_token', gumroad.access_token);
+  const url = new URL("https://api.gumroad.com/v2/products");
+  url.searchParams.append("access_token", gumroad.access_token);
   const response = await axios.get(url.toString());
   const data = await response.data;
   // console.log("Data", data);
@@ -78,23 +78,23 @@ export async function importFromGumroad() {
         categories: product.categories || [],
         published: product.published,
         third_party: {
-          provider: 'gumroad',
+          provider: "gumroad",
           product_id: product.id,
         },
       };
     });
     return Promise.resolve(JSON.parse(JSON.stringify(sanitizedProducts)));
   } else {
-    return Promise.reject('Error importing from Gumroad');
+    return Promise.reject("Error importing from Gumroad");
   }
 }
 export async function importProduct(product: rawProductThirdParty) {
   try {
     const session = (await getSession()) as sessionType;
     await dbConnect();
-    const user = await User.findById(session.user._id).select('_id').exec();
+    const user = await User.findById(session.user._id).select("_id").exec();
     if (!user) {
-      return Promise.reject('User not found');
+      return Promise.reject("User not found");
     }
     const newProduct = new Product({
       ...product,
@@ -104,9 +104,9 @@ export async function importProduct(product: rawProductThirdParty) {
     return Promise.resolve(JSON.parse(JSON.stringify(newProduct)));
   } catch (e) {
     console.error(e);
-    return Promise.reject('Error importing product');
+    return Promise.reject("Error importing product");
   } finally {
-    revalidatePath('/products');
+    revalidatePath("/products");
   }
 }
 
@@ -114,14 +114,14 @@ export async function syncWithGumroad() {
   const session = (await getSession()) as sessionType;
   await dbConnect();
   const user = await User.findById(session.user._id)
-    .select('integrations')
+    .select("integrations")
     .exec();
   if (!user) {
-    return Promise.reject('User not found');
+    return Promise.reject("User not found");
   }
   const { gumroad } = user.integrations;
-  const url = new URL('https://api.gumroad.com/v2/products');
-  url.searchParams.append('access_token', gumroad.access_token);
+  const url = new URL("https://api.gumroad.com/v2/products");
+  url.searchParams.append("access_token", gumroad.access_token);
   const response = await axios.get(url.toString());
   const data = await response.data;
   // console.log("Data", data);
@@ -131,8 +131,8 @@ export async function syncWithGumroad() {
     );
     for (const product of products) {
       const existingProduct = await Product.findOne({
-        'third_party.provider': 'gumroad',
-        'third_party.product_id': product.id,
+        "third_party.provider": "gumroad",
+        "third_party.product_id": product.id,
       }).exec();
       if (existingProduct) {
         existingProduct.name = product.name;
@@ -146,7 +146,7 @@ export async function syncWithGumroad() {
         existingProduct.categories = product.categories || [];
         await existingProduct.save();
       } else {
-        console.log('Creating new product', product);
+        console.log("Creating new product", product);
         const newProduct = new Product({
           name: product.name,
           description: product.description,
@@ -159,7 +159,7 @@ export async function syncWithGumroad() {
           categories: product?.categories || [],
           published: product.published,
           third_party: {
-            provider: 'gumroad',
+            provider: "gumroad",
             product_id: product.id,
           },
         });
@@ -168,11 +168,11 @@ export async function syncWithGumroad() {
     }
     gumroad.lastAsync = new Date();
     await user.save();
-    console.log('Synced with Gumroad');
-    revalidatePath('/products');
+    console.log("Synced with Gumroad");
+    revalidatePath("/products");
     return Promise.resolve(JSON.parse(JSON.stringify(products)));
   } else {
-    return Promise.reject('Error syncing with Gumroad');
+    return Promise.reject("Error syncing with Gumroad");
   }
 }
 export async function deleteProduct(productId: string) {
@@ -183,9 +183,9 @@ export async function deleteProduct(productId: string) {
     creator: session.user._id,
   }).exec();
   if (product) {
-    revalidatePath('/products');
+    revalidatePath("/products");
     return Promise.resolve(JSON.parse(JSON.stringify(product)));
   } else {
-    return Promise.reject('Product not found');
+    return Promise.reject("Product not found");
   }
 }

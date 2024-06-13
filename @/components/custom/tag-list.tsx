@@ -1,18 +1,18 @@
-import { cn } from '@/lib/utils';
-import React from 'react';
-import SortableList, { SortableItem } from 'react-easy-sort';
-import { Tag, TagProps } from './tag';
-import { type Tag as TagType } from './tag-input';
+import { cn } from "@/lib/utils";
+import React from "react";
+import SortableList, { SortableItem } from "react-easy-sort";
+import { Tag, TagProps } from "./tag";
+import { type Tag as TagType } from "./tag-input";
 
 export type TagListProps = {
   tags: TagType[];
   customTagRenderer?: (tag: TagType) => React.ReactNode;
-  direction?: TagProps['direction'];
+  direction?: TagProps["direction"];
   onSortEnd: (oldIndex: number, newIndex: number) => void;
-} & Omit<TagProps, 'tagObj'>;
+} & Omit<TagProps, "tagObj">;
 
 const DropTarget: React.FC = () => {
-  return <div className={cn('h-full rounded-md bg-secondary/50')} />;
+  return <div className={cn("h-full rounded-md bg-secondary/50")} />;
 };
 
 export const TagList: React.FC<TagListProps> = ({
@@ -35,9 +35,9 @@ export const TagList: React.FC<TagListProps> = ({
 
   return (
     <div
-      className={cn('rounded-md max-w-[450px]', {
-        'flex flex-wrap gap-2': direction === 'row',
-        'flex flex-col gap-2': direction === 'column',
+      className={cn("rounded-md max-w-[450px]", {
+        "flex flex-wrap gap-2": direction === "row",
+        "flex flex-col gap-2": direction === "column",
       })}
     >
       {draggable ? (
@@ -53,10 +53,10 @@ export const TagList: React.FC<TagListProps> = ({
                 onMouseLeave={handleMouseUp}
                 className={cn(
                   {
-                    'border border-solid border-primary rounded-md':
+                    "border border-solid border-primary rounded-md":
                       draggedTagId === tagObj.id,
                   },
-                  'transition-all duration-200 ease-in-out'
+                  "transition-all duration-200 ease-in-out"
                 )}
               >
                 {customTagRenderer ? (

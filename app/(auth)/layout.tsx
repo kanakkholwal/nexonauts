@@ -1,8 +1,8 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import gettingStarted from './getting-started.png';
+import Image from "next/image";
+import Link from "next/link";
+import gettingStarted from "./getting-started.png";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

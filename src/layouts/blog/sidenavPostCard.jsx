@@ -1,5 +1,5 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
 export default function SideBarPostCard({ post }) {
   return (
@@ -18,17 +18,17 @@ export default function SideBarPostCard({ post }) {
             </div> */}
         <div>
           <h6 title={post.title} className="group-hover:text-primary">
-            {' '}
-            <Link href={'/blog/posts/' + post.slug}>{post.title}</Link>
+            {" "}
+            <Link href={"/blog/posts/" + post.slug}>{post.title}</Link>
           </h6>
           <div>
             {/* <p className="font-medium text-sm text-primary/80 uppercase">{post.labels[0]}</p> */}
             <p className="font-medium text-xs text-slate-500 mt-3">
-              On{' '}
-              {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                month: 'long', // Full month name (e.g., September)
-                day: 'numeric', // Day of the month (e.g., 29)
-                year: 'numeric', // 4-digit year (e.g., 2021)
+              On{" "}
+              {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                month: "long", // Full month name (e.g., September)
+                day: "numeric", // Day of the month (e.g., 29)
+                year: "numeric", // 4-digit year (e.g., 2021)
               })}
             </p>
           </div>

@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Types } from 'mongoose';
+import mongoose, { Document, Schema, Types } from "mongoose";
 
 export type ProfileType = {
   user: string;
@@ -14,7 +14,7 @@ export type ProfileType = {
 export type ProfileTypeWithId = ProfileType & {
   _id: string;
 };
-export type ProfileTypeWithIdUser = Omit<ProfileTypeWithId, 'user'> & {
+export type ProfileTypeWithIdUser = Omit<ProfileTypeWithId, "user"> & {
   user: {
     _id: string;
     name: string;
@@ -41,7 +41,7 @@ const profileSchema = new Schema<Profile>(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
     },
     username: {
@@ -52,7 +52,7 @@ const profileSchema = new Schema<Profile>(
     bio: {
       type: String,
       required: true,
-      default: '',
+      default: "",
     },
     socials: {
       type: [
@@ -65,12 +65,12 @@ const profileSchema = new Schema<Profile>(
     },
     followers: {
       type: [Types.ObjectId],
-      ref: 'User',
+      ref: "User",
       default: [],
     },
     following: {
       type: [Types.ObjectId],
-      ref: 'User',
+      ref: "User",
       default: [],
     },
     interests: {
@@ -84,9 +84,9 @@ const profileSchema = new Schema<Profile>(
 profileSchema.index({ username: 1 }, { unique: true });
 profileSchema.methods.followUnfollowUser = async function (profileId: string) {
   try {
-    const profileToFollow = await this.model('Profile').findById(profileId);
+    const profileToFollow = await this.model("Profile").findById(profileId);
     if (!profileToFollow) {
-      throw new Error('Profile not found');
+      throw new Error("Profile not found");
     }
 
     const isFollowing = this.following.includes(profileId);
@@ -110,8 +110,8 @@ profileSchema.methods.followUnfollowUser = async function (profileId: string) {
     return {
       success: true,
       message: isFollowing
-        ? 'Unfollowed successfully'
-        : 'Followed successfully',
+        ? "Unfollowed successfully"
+        : "Followed successfully",
     };
   } catch (error) {
     return { success: false, error: error?.message };
@@ -122,16 +122,16 @@ profileSchema.statics.findCommonFollowers = async function (
   profileId2: Types.ObjectId
 ): Promise<Types.ObjectId[]> {
   const profile1 = await this.findById(profileId1)
-    .select('followers')
+    .select("followers")
     .lean()
     .exec();
   const profile2 = await this.findById(profileId2)
-    .select('followers')
+    .select("followers")
     .lean()
     .exec();
 
   if (!profile1 || !profile2) {
-    throw new Error('One or both profiles not found.');
+    throw new Error("One or both profiles not found.");
   }
 
   const commonFollowers = profile1.followers.filter((follower) =>
@@ -145,16 +145,16 @@ profileSchema.statics.findCommonFollowing = async function (
   profileId2: Types.ObjectId
 ): Promise<Types.ObjectId[]> {
   const profile1 = await this.findById(profileId1)
-    .select('following')
+    .select("following")
     .lean()
     .exec();
   const profile2 = await this.findById(profileId2)
-    .select('following')
+    .select("following")
     .lean()
     .exec();
 
   if (!profile1 || !profile2) {
-    throw new Error('One or both profiles not found.');
+    throw new Error("One or both profiles not found.");
   }
 
   const commonFollowing = profile1.following.filter((following) =>
@@ -168,16 +168,16 @@ profileSchema.statics.findCommonFollowersFollowing = async function (
   profileId2: Types.ObjectId
 ): Promise<Types.ObjectId[]> {
   const profile1 = await this.findById(profileId1)
-    .select('followers following')
+    .select("followers following")
     .lean()
     .exec();
   const profile2 = await this.findById(profileId2)
-    .select('followers following')
+    .select("followers following")
     .lean()
     .exec();
 
   if (!profile1 || !profile2) {
-    throw new Error('One or both profiles not found.');
+    throw new Error("One or both profiles not found.");
   }
 
   const commonFollowersFollowing = profile1.followers.filter((follower) =>
@@ -187,5 +187,5 @@ profileSchema.statics.findCommonFollowersFollowing = async function (
   return commonFollowersFollowing;
 };
 const Profile =
-  mongoose.models.Profile || mongoose.model<Profile>('Profile', profileSchema);
+  mongoose.models.Profile || mongoose.model<Profile>("Profile", profileSchema);
 export default Profile;

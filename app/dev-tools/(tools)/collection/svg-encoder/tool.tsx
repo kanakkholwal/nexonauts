@@ -1,12 +1,12 @@
-'use client';
-import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { Textarea } from '@/components/ui/textarea';
-import copy from 'copy-to-clipboard';
-import toast from 'react-hot-toast';
+"use client";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import copy from "copy-to-clipboard";
+import toast from "react-hot-toast";
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 interface QuoteType {
   level1: string;
   level2: string;
@@ -25,10 +25,10 @@ const ContrastButton: React.FC<{
   return (
     <button
       type="button"
-      className={`w-7 h-7 rounded-full ${current ? ' shadow-lg' : ''}
-            ${color === 'white' ? 'bg-white border border-slate-200 border-solid' : ''}
-            ${color === 'silver' ? 'bg-slate-500' : ''}
-            ${color === 'black' ? 'bg-black' : ''}
+      className={`w-7 h-7 rounded-full ${current ? " shadow-lg" : ""}
+            ${color === "white" ? "bg-white border border-slate-200 border-solid" : ""}
+            ${color === "silver" ? "bg-slate-500" : ""}
+            ${color === "black" ? "bg-black" : ""}
             `}
       data-color={color}
       onClick={onClick}
@@ -39,10 +39,10 @@ const ContrastButton: React.FC<{
 
 const SVGEncoder: React.FC = () => {
   const [quotes, setQuotes] = useState({ level1: '"', level2: "'" });
-  const [initValue, setInitValue] = useState('');
-  const [resultValue, setResultValue] = useState('');
-  const [cssValue, setCssValue] = useState('');
-  const [backgroundColor, setBackgroundColor] = useState('white');
+  const [initValue, setInitValue] = useState("");
+  const [resultValue, setResultValue] = useState("");
+  const [cssValue, setCssValue] = useState("");
+  const [backgroundColor, setBackgroundColor] = useState("white");
 
   const handleInputChange = (e) => {
     const value = e.target.value;
@@ -52,8 +52,8 @@ const SVGEncoder: React.FC = () => {
 
   const getResults = (data) => {
     if (!data) {
-      setResultValue('');
-      setCssValue('');
+      setResultValue("");
+      setCssValue("");
     } else {
       const namespaced = addNameSpace(data);
       const escaped = encodeSVG(namespaced);
@@ -68,7 +68,7 @@ const SVGEncoder: React.FC = () => {
   };
 
   const addNameSpace = (data) => {
-    if (data.indexOf('http://www.w3.org/2000/svg') < 0) {
+    if (data.indexOf("http://www.w3.org/2000/svg") < 0) {
       data = data.replace(
         /<svg/g,
         `<svg xmlns=${quotes.level2}http://www.w3.org/2000/svg${quotes.level2}`
@@ -85,14 +85,14 @@ const SVGEncoder: React.FC = () => {
       encodedData = data.replace(/'/g, '"');
     }
     encodedData = encodedData
-      .replace(/>\s{1,}</g, '><')
-      .replace(/\s{2,}/g, ' ');
+      .replace(/>\s{1,}</g, "><")
+      .replace(/\s{2,}/g, " ");
     return encodedData.replace(/[\r\n%#()<>?[\\]^`{|}]/g, encodeURIComponent);
   };
 
   const handleCopyToClipboard = (value) => {
     copy(value);
-    toast.success('Copied to clipboard');
+    toast.success("Copied to clipboard");
   };
 
   return (
@@ -110,13 +110,13 @@ const SVGEncoder: React.FC = () => {
             }}
           />
           <Label htmlFor="quote" className="mb-0">
-            {quotes.level1 === '"' ? 'Double quotes' : 'Single quotes'}
+            {quotes.level1 === '"' ? "Double quotes" : "Single quotes"}
           </Label>
         </div>
         <Button
           onClick={() => {
-            setInitValue('');
-            setResultValue('');
+            setInitValue("");
+            setResultValue("");
           }}
           size="sm"
           variant="destructive"
@@ -154,7 +154,7 @@ const SVGEncoder: React.FC = () => {
                 e.stopPropagation();
                 copy(initValue, {
                   onCopy: () => {
-                    toast.success('Copied to clipboard');
+                    toast.success("Copied to clipboard");
                   },
                 });
               }}
@@ -183,7 +183,7 @@ const SVGEncoder: React.FC = () => {
                 e.stopPropagation();
                 copy(resultValue, {
                   onCopy: () => {
-                    toast.success('Copied to clipboard');
+                    toast.success("Copied to clipboard");
                   },
                 });
               }}
@@ -217,7 +217,7 @@ const SVGEncoder: React.FC = () => {
                 e.stopPropagation();
                 copy(cssValue, {
                   onCopy: () => {
-                    toast.success('Copied to clipboard');
+                    toast.success("Copied to clipboard");
                   },
                 });
               }}
@@ -244,18 +244,18 @@ const SVGEncoder: React.FC = () => {
               Background:
               <ContrastButton
                 color="white"
-                onClick={() => contrastButtonsSetCurrent('white')}
-                current={backgroundColor === 'white'}
+                onClick={() => contrastButtonsSetCurrent("white")}
+                current={backgroundColor === "white"}
               />
               <ContrastButton
                 color="silver"
-                onClick={() => contrastButtonsSetCurrent('silver')}
-                current={backgroundColor === 'silver'}
+                onClick={() => contrastButtonsSetCurrent("silver")}
+                current={backgroundColor === "silver"}
               />
               <ContrastButton
                 color="black"
-                onClick={() => contrastButtonsSetCurrent('black')}
-                current={backgroundColor === 'black'}
+                onClick={() => contrastButtonsSetCurrent("black")}
+                current={backgroundColor === "black"}
               />
             </div>
           </div>

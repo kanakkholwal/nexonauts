@@ -8,8 +8,8 @@ import {
   Section,
   Tailwind,
   Text,
-} from '@react-email/components';
-import tailwindConfig from '@root/tailwind.config';
+} from "@react-email/components";
+import tailwindConfig from "@root/tailwind.config";
 
 type Payload = {
   name: string;
@@ -23,10 +23,10 @@ export default function ApprovedTool({ payload }: { payload: Payload }) {
       <Head>
         <Font
           fontFamily="DM Sans"
-          fallbackFontFamily={['Arial', 'Helvetica', 'sans-serif']}
+          fallbackFontFamily={["Arial", "Helvetica", "sans-serif"]}
           webFont={{
-            url: 'https://fonts.gstatic.com/s/dmsans/v14/rP2Yp2ywxg089UriI5-g7M8btVsD8Ck0q7u6-K6h9Q.woff2',
-            format: 'woff2',
+            url: "https://fonts.gstatic.com/s/dmsans/v14/rP2Yp2ywxg089UriI5-g7M8btVsD8Ck0q7u6-K6h9Q.woff2",
+            format: "woff2",
           }}
           fontWeight={500}
           fontStyle="normal"
@@ -39,7 +39,7 @@ export default function ApprovedTool({ payload }: { payload: Payload }) {
         <Section
           className="max-w-screen-md mx-auto p-8 bg-white dark:bg-slate-900 rounded-md shadow-md"
           style={{
-            fontFamily: 'DM Sans, sans-serif',
+            fontFamily: "DM Sans, sans-serif",
           }}
         >
           <Heading as="h3">Hi {payload.name},</Heading>

@@ -1,23 +1,23 @@
-import { Button } from '@/components/ui/button';
-import { ChevronDown } from 'lucide-react';
-import Link from 'next/link';
-import { TypewriterEffectSmooth } from 'src/components/animations/typewriter-effect';
+import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { TypewriterEffectSmooth } from "src/components/animations/typewriter-effect";
 // import "./hero.css";
 
 export default function HeroLayout() {
   const words = [
     {
-      text: 'Supercharge',
+      text: "Supercharge",
     },
     {
-      text: 'Development ',
+      text: "Development ",
     },
     {
-      text: 'with ',
+      text: "with ",
     },
     {
-      text: 'Nexonauts.',
-      className: 'text-blue-500 dark:text-blue-500',
+      text: "Nexonauts.",
+      className: "text-blue-500 dark:text-blue-500",
     },
   ];
 
@@ -39,7 +39,7 @@ export default function HeroLayout() {
             className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
             style={{
               clipPath:
-                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
             }}
           />
         </div>
@@ -107,7 +107,7 @@ export default function HeroLayout() {
             className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
             style={{
               clipPath:
-                'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+                "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
             }}
           />
         </div>
@@ -123,11 +123,11 @@ function BgLines() {
       <div
         className="z-[100] absolute inset-0 [--gradient-stop-1:0px] [--gradient-stop-2:50%]"
         style={{
-          background: 'linear-gradient(to top, rgba(0,0,0,0) 0px, #000 50%)',
+          background: "linear-gradient(to top, rgba(0,0,0,0) 0px, #000 50%)",
         }}
       />
       <div
-        style={{ transform: 'rotateX(75deg)', position: 'absolute', inset: 0 }}
+        style={{ transform: "rotateX(75deg)", position: "absolute", inset: 0 }}
       >
         <div className="background_lines" />
       </div>

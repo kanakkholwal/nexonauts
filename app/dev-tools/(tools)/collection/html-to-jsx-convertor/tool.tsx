@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   Dialog,
@@ -7,15 +7,15 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Switch } from '@/components/ui/switch';
-import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
-import MarkdownView from 'src/components/markdown/view';
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { useState } from "react";
+import MarkdownView from "src/components/markdown/view";
 
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -23,52 +23,52 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { Check, Copy } from 'lucide-react';
-import HTMLtoJSX, { configType } from 'nexo-html2jsx';
-import { Fira_Code } from 'next/font/google';
-import React from 'react';
-import { MdDeleteOutline, MdOutlineCode } from 'react-icons/md';
+} from "@/components/ui/card";
+import { cn } from "@/lib/utils";
+import { Check, Copy } from "lucide-react";
+import HTMLtoJSX, { configType } from "nexo-html2jsx";
+import { Fira_Code } from "next/font/google";
+import React from "react";
+import { MdDeleteOutline, MdOutlineCode } from "react-icons/md";
 
 const monoFont = Fira_Code({
-  weight: ['300', '400', '500', '600'],
-  subsets: ['latin-ext', 'latin'],
-  display: 'swap',
+  weight: ["300", "400", "500", "600"],
+  subsets: ["latin-ext", "latin"],
+  display: "swap",
   adjustFontFallback: false,
-  variable: '--fira-code',
+  variable: "--fira-code",
 });
 function extractTextFromNode(node) {
-  if (node.type === 'text') {
+  if (node.type === "text") {
     return node.value;
   } else if (Array.isArray(node.children)) {
-    return node.children.map((child) => extractTextFromNode(child)).join('');
+    return node.children.map((child) => extractTextFromNode(child)).join("");
   } else {
-    return '';
+    return "";
   }
 }
 
 export function RenderCodeBlock({ children, className, node, ...props }) {
-  const [state, setState] = React.useState<'copy' | 'idle'>('idle');
+  const [state, setState] = React.useState<"copy" | "idle">("idle");
   const textContent = extractTextFromNode(node);
 
   return (
-    <pre className={cn('relative', monoFont.className, className)}>
+    <pre className={cn("relative", monoFont.className, className)}>
       <button
         className={cn(
-          'absolute top-2 right-2',
-          'transition-all active:opacity-50  rounded-md p-1.5',
-          'border  border-slate-700 bg-gray-800 hover:bg-slate-700  text-white/80  hover:text-white'
+          "absolute top-2 right-2",
+          "transition-all active:opacity-50  rounded-md p-1.5",
+          "border  border-slate-700 bg-gray-800 hover:bg-slate-700  text-white/80  hover:text-white"
         )}
         onClick={() => {
           navigator.clipboard
             .writeText(textContent)
-            .then(() => setState('copy'));
-          setTimeout(() => setState('idle'), 1000);
+            .then(() => setState("copy"));
+          setTimeout(() => setState("idle"), 1000);
         }}
         aria-label="Copy code"
       >
-        {state === 'copy' ? (
+        {state === "copy" ? (
           <Check className="w-4 h-4" />
         ) : (
           <Copy className="w-4 h-4" />
@@ -89,15 +89,15 @@ const rawHtml = `
 `;
 export default function HtmlToJsxTool() {
   const [settings, setSettings] = useState<configType>({
-    indent: '\t',
+    indent: "\t",
     hideComment: false,
     createClass: false,
     createFunction: false,
-    outputComponentName: 'MyAwesomeComponent',
+    outputComponentName: "MyAwesomeComponent",
   });
   const [state, setState] = useState({
     rawData: rawHtml,
-    convertedData: '',
+    convertedData: "",
     loading: false,
     copying: false,
     error: false,
@@ -222,7 +222,7 @@ export default function HtmlToJsxTool() {
                     pre: ({ children, className, node, ...props }) => (
                       <RenderCodeBlock
                         className={cn(
-                          'relative',
+                          "relative",
                           monoFont.className,
                           className
                         )}
@@ -235,7 +235,7 @@ export default function HtmlToJsxTool() {
                   },
                 }}
               >
-                {'```jsx\n' + state.convertedData + '\n```'}
+                {"```jsx\n" + state.convertedData + "\n```"}
               </MarkdownView>
             </DialogContent>
           </Dialog>
@@ -243,7 +243,7 @@ export default function HtmlToJsxTool() {
           <Button
             variant="outline"
             onClick={() =>
-              setState({ ...state, convertedData: '', rawData: rawHtml })
+              setState({ ...state, convertedData: "", rawData: rawHtml })
             }
           >
             Reset Raw Data <MdOutlineCode className="w-4 h-4 ml-2" />
@@ -251,7 +251,7 @@ export default function HtmlToJsxTool() {
           <Button
             variant="destructive_light"
             onClick={() =>
-              setState({ ...state, convertedData: '', rawData: '' })
+              setState({ ...state, convertedData: "", rawData: "" })
             }
           >
             Clear <MdDeleteOutline className="w-4 h-4 ml-2" />

@@ -4,9 +4,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import Link from 'next/link';
-import { RiShareCircleFill } from 'react-icons/ri';
+} from "@/components/ui/card";
+import Link from "next/link";
+import { RiShareCircleFill } from "react-icons/ri";
 
 export function ToolCard({
   title,

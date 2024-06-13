@@ -1,24 +1,24 @@
-'use client';
-import { Tag, TagInput } from '@/components/custom/tag-input';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Player } from '@lottiefiles/react-lottie-player';
-import { ArrowRight, ArrowUpRight, Undo2 } from 'lucide-react';
-import { useSession } from 'next-auth/react';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
-import toast from 'react-hot-toast';
-import { BiError } from 'react-icons/bi';
-import { FaRegCircleCheck } from 'react-icons/fa6';
-import { IconComponents, icons } from 'src/lib/profile/icons';
-import { SessionUserType } from 'src/types/user';
+"use client";
+import { Tag, TagInput } from "@/components/custom/tag-input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Player } from "@lottiefiles/react-lottie-player";
+import { ArrowRight, ArrowUpRight, Undo2 } from "lucide-react";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
+import Link from "next/link";
+import React from "react";
+import toast from "react-hot-toast";
+import { BiError } from "react-icons/bi";
+import { FaRegCircleCheck } from "react-icons/fa6";
+import { IconComponents, icons } from "src/lib/profile/icons";
+import { SessionUserType } from "src/types/user";
 const SOCIALS = icons;
 
 if (SOCIALS.length === 0) {
-  throw new Error('SOCIALS must contain at least one element');
+  throw new Error("SOCIALS must contain at least one element");
 }
 
 export default function CreateProfile({
@@ -44,18 +44,18 @@ export default function CreateProfile({
 
   const [profile, setProfile] = React.useState({
     username: user.username,
-    bio: '',
+    bio: "",
     socials: SOCIALS.map((key) => {
       return {
         name: key,
-        url: '',
+        url: "",
       };
     }),
   });
   const [step, setStep] = React.useState(0);
   const [status, setStatus] = React.useState<
-    'onboarding' | 'loading' | 'success' | 'error'
-  >('onboarding');
+    "onboarding" | "loading" | "success" | "error"
+  >("onboarding");
 
   const [tags, setTags] = React.useState<Tag[]>([]);
 
@@ -81,33 +81,33 @@ export default function CreateProfile({
               },
             }),
             {
-              loading: 'Updating User...',
+              loading: "Updating User...",
               success: (res: any) => {
                 console.log(res);
-                return res?.message || 'User Updated Successfully';
+                return res?.message || "User Updated Successfully";
               },
               error: (e) => {
-                setStatus('error');
+                setStatus("error");
                 return e.message;
               },
             }
           );
 
-          setStatus('success');
+          setStatus("success");
           toast.success(res.message);
         } else {
-          setStatus('error');
+          setStatus("error");
           toast.error(res.message);
         }
       }),
       {
-        loading: 'Creating Profile...',
+        loading: "Creating Profile...",
         success: (res: any) => {
           console.log(res);
-          return res?.message || 'Profile Created Successfully';
+          return res?.message || "Profile Created Successfully";
         },
         error: (e) => {
-          setStatus('error');
+          setStatus("error");
           return e.message;
         },
       }
@@ -177,17 +177,17 @@ export default function CreateProfile({
                   transition="damped"
                   onClick={() => {
                     if (profile.username.trim().length === 0) {
-                      toast.error('Please enter a username.');
+                      toast.error("Please enter a username.");
                       return;
                     }
                     if (profile.username.length < 5) {
                       toast.error(
-                        'Username must be at least 5 characters long.'
+                        "Username must be at least 5 characters long."
                       );
                       return;
                     }
                     if (profile.bio.length === 0) {
-                      toast.error('Please enter a bio.');
+                      toast.error("Please enter a bio.");
                       return;
                     }
                     setStep(step + 1);
@@ -241,7 +241,7 @@ export default function CreateProfile({
                         (social) => social.url.trim().length > 0
                       ).length === 0
                     ) {
-                      toast.error('Please add at least one social.');
+                      toast.error("Please add at least one social.");
                       return;
                     }
                     setStep(step + 1);
@@ -278,23 +278,23 @@ export default function CreateProfile({
                   type="submit"
                   onClick={(e) => {
                     if (tags.length === 0) {
-                      toast.error('Please add at least one interest.');
+                      toast.error("Please add at least one interest.");
                       return;
                     }
                     e.preventDefault();
                     if (tags.length === 0) {
-                      setStatus('error');
-                      toast.error('Please add at least one interest.');
+                      setStatus("error");
+                      toast.error("Please add at least one interest.");
                       return;
                     }
                     if (profile.socials.length === 0) {
-                      setStatus('error');
-                      toast.error('Please add at least one social.');
+                      setStatus("error");
+                      toast.error("Please add at least one social.");
                       return;
                     }
 
                     setStep(step + 1);
-                    setStatus('loading');
+                    setStatus("loading");
 
                     handleSubmit();
                   }}
@@ -307,14 +307,14 @@ export default function CreateProfile({
           {step === 3 ? (
             <>
               <div className="flex justify-center items-center gap-2 flex-col">
-                {status === 'success' ? (
+                {status === "success" ? (
                   <>
                     <FaRegCircleCheck className="text-green-500 h-16 w-16 mt-5" />
                     <h1 className="text-3xl font-semibold text-center">
                       Profile Created!
                     </h1>
                     <p className="text-center text-sm">
-                      Your profile is live now{' '}
+                      Your profile is live now{" "}
                       <Link
                         href={`/devs/${profile.username}`}
                         target="_blank"
@@ -325,7 +325,7 @@ export default function CreateProfile({
                     </p>
                   </>
                 ) : null}
-                {status === 'error' ? (
+                {status === "error" ? (
                   <>
                     <BiError className="text-red-500 h-16 w-16" />
                     <h1 className="text-3xl font-semibold text-center">
@@ -333,13 +333,13 @@ export default function CreateProfile({
                     </h1>
                   </>
                 ) : null}
-                {status === 'loading' ? (
+                {status === "loading" ? (
                   <>
                     <Player
                       autoplay
                       loop
                       src="https://lottie.host/e0889207-1cec-443b-82fb-092a7fb0a688/qlNwDc7orS.json"
-                      style={{ height: '300px', width: '300px' }}
+                      style={{ height: "300px", width: "300px" }}
                     />
                     <h1 className="text-3xl font-semibold text-center">
                       Creating Profile...
@@ -348,7 +348,7 @@ export default function CreateProfile({
                 ) : null}
               </div>
               <div className="flex justify-between  items-center mt-5 gap-2">
-                {status === 'success' ? (
+                {status === "success" ? (
                   <>
                     <Button className="w-full" variant="default_light" asChild>
                       <Link href={`/feed`}>
@@ -365,23 +365,23 @@ export default function CreateProfile({
                   </>
                 ) : null}
 
-                {status === 'loading' ? (
+                {status === "loading" ? (
                   <>
                     <Button
                       className="w-full"
                       variant="default_light"
-                      disabled={status === 'loading'}
+                      disabled={status === "loading"}
                     >
                       Creating Profile...
                     </Button>
                   </>
                 ) : null}
-                {status === 'error' ? (
+                {status === "error" ? (
                   <>
                     <Button
                       onClick={() => {
                         setStep(0);
-                        setStatus('onboarding');
+                        setStatus("onboarding");
                       }}
                       className="w-full"
                     >

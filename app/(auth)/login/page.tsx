@@ -1,14 +1,14 @@
-import { Button } from '@/components/ui/button';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { getSession } from 'src/lib/auth';
-import { UserAuthForm } from './login-form';
+import { Button } from "@/components/ui/button";
+import { Metadata } from "next";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { getSession } from "src/lib/auth";
+import { UserAuthForm } from "./login-form";
 
 export const metadata: Metadata = {
-  title: 'Signin | NexoNauts',
-  description: 'Login to an account on ' + process.env.NEXT_PUBLIC_APP_NAME,
-  keywords: 'register, account, ' + process.env.NEXT_PUBLIC_APP_NAME,
+  title: "Signin | NexoNauts",
+  description: "Login to an account on " + process.env.NEXT_PUBLIC_APP_NAME,
+  keywords: "register, account, " + process.env.NEXT_PUBLIC_APP_NAME,
 };
 interface PageProps {
   searchParams: {
@@ -18,7 +18,7 @@ interface PageProps {
 
 export default async function Page({ searchParams }: PageProps) {
   const session = await getSession();
-  if (session) return redirect('/feed');
+  if (session) return redirect("/feed");
 
   return (
     <>
@@ -28,7 +28,7 @@ export default async function Page({ searchParams }: PageProps) {
         asChild
       >
         <Link
-          href={`/signup${searchParams?.redirect ? `?redirect=${searchParams?.redirect}` : ''}`}
+          href={`/signup${searchParams?.redirect ? `?redirect=${searchParams?.redirect}` : ""}`}
         >
           Sign Up
         </Link>
@@ -40,17 +40,17 @@ export default async function Page({ searchParams }: PageProps) {
         </p>
       </header>
       <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
-        <UserAuthForm className="flex-auto w-full" key={'form'} />
+        <UserAuthForm className="flex-auto w-full" key={"form"} />
 
         <p className="px-8 text-center text-sm text-muted-foreground">
-          By logging in, you agree to our{' '}
+          By logging in, you agree to our{" "}
           <Link
             href="/terms"
             className="underline underline-offset-4 hover:text-primary"
           >
             Terms of Service
-          </Link>{' '}
-          and{' '}
+          </Link>{" "}
+          and{" "}
           <Link
             href="/privacy"
             className="underline underline-offset-4 hover:text-primary"

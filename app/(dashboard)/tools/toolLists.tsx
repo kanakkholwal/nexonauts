@@ -1,14 +1,14 @@
-'use client';
-import { PublicToolTypeWithId } from 'src/models/tool';
+"use client";
+import { PublicToolTypeWithId } from "src/models/tool";
 // import UserCard from './UserCard'
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import LazyImage from 'components/image';
-import { ChevronDown, LoaderCircle } from 'lucide-react';
-import Link from 'next/link';
-import { useState } from 'react';
-import { getToolsByUser } from './actions';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import LazyImage from "components/image";
+import { ChevronDown, LoaderCircle } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { getToolsByUser } from "./actions";
 
 type ToolListProps = {
   initialTools: Partial<PublicToolTypeWithId>[];
@@ -64,10 +64,10 @@ export default function ToolList({ initialTools }: ToolListProps) {
                     >
                       {tool.name}
                       <Badge
-                        variant={tool.verified ? 'success' : 'warning_light'}
+                        variant={tool.verified ? "success" : "warning_light"}
                         size="sm"
                       >
-                        {tool.verified ? 'Verified' : 'Not verified'}
+                        {tool.verified ? "Verified" : "Not verified"}
                       </Badge>
                     </div>
                     <Badge

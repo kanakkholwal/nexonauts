@@ -6,7 +6,7 @@ export default async function InterviewQuestionsGenerator(data: any, openai) {
 
     try {
       const completion = await openai.createCompletion({
-        model: 'text-davinci-003',
+        model: "text-davinci-003",
         prompt: prompt,
         temperature: 0.5,
         max_tokens: 200,
@@ -17,9 +17,9 @@ export default async function InterviewQuestionsGenerator(data: any, openai) {
       const response = completion.data;
 
       console.log(response);
-      if (response.choices[0].finish_reason === 'length')
+      if (response.choices[0].finish_reason === "length")
         return reject(
-          'Length of the prompt is too long. Please reduce the number of questions or the length of the prompt.'
+          "Length of the prompt is too long. Please reduce the number of questions or the length of the prompt."
         );
 
       const questions = splitString(response.choices[0].text);
@@ -27,17 +27,17 @@ export default async function InterviewQuestionsGenerator(data: any, openai) {
 
       const output: Output[] = [
         {
-          outputType: 'plaintext',
+          outputType: "plaintext",
           data: `Here are ${questions.length} interview questions for the role of ${roleType} at ${companyName ?? `a Company`}:\n\n`,
         },
         {
-          outputType: 'ordered_list',
+          outputType: "ordered_list",
           data: questions,
         },
       ];
       return resolve(output);
     } catch (error) {
-      console.error('Error generating interview questions:', error);
+      console.error("Error generating interview questions:", error);
       return reject(error);
     }
   });
@@ -46,7 +46,7 @@ function splitString(string: string | undefined) {
   if (string === undefined) return [];
   const pattern = /\n\d+\./;
   const splitted = string.split(pattern);
-  const filtered = splitted.filter((s) => s.trim() !== '').map((s) => s.trim());
+  const filtered = splitted.filter((s) => s.trim() !== "").map((s) => s.trim());
   return filtered;
 }
 

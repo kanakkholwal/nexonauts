@@ -1,6 +1,6 @@
-'use server';
-import dbConnect from 'src/lib/dbConnect';
-import Product, { ProductType } from 'src/models/product';
+"use server";
+import dbConnect from "src/lib/dbConnect";
+import Product, { ProductType } from "src/models/product";
 
 export async function getProductBySlug(slug: string): Promise<ProductType> {
   await dbConnect();
@@ -36,7 +36,7 @@ export async function getSimilarProducts(slug: string) {
         tags: 1,
         categories: 1,
         price: 1,
-        similarity: { $setIntersection: ['$tags', product.tags] },
+        similarity: { $setIntersection: ["$tags", product.tags] },
       },
     },
     {
@@ -49,7 +49,7 @@ export async function getSimilarProducts(slug: string) {
         tags: 1,
         categories: 1,
         price: 1,
-        similarityScore: { $size: '$similarity' },
+        similarityScore: { $size: "$similarity" },
       },
     },
     {

@@ -1,29 +1,29 @@
-import { AppUsage } from 'models/app';
-import mongoose from 'mongoose';
-import { CgWorkAlt } from 'react-icons/cg';
-import { FcSalesPerformance } from 'react-icons/fc';
-import { GoPerson } from 'react-icons/go';
-import { LiaMoneyBillWaveSolid } from 'react-icons/lia';
-import { MdBusiness, MdOutlineAutoGraph } from 'react-icons/md';
-import { PiStudentFill } from 'react-icons/pi';
-import { TbHealthRecognition, TbSocial } from 'react-icons/tb';
-import { AppType } from 'types/app';
+import { AppUsage } from "models/app";
+import mongoose from "mongoose";
+import { CgWorkAlt } from "react-icons/cg";
+import { FcSalesPerformance } from "react-icons/fc";
+import { GoPerson } from "react-icons/go";
+import { LiaMoneyBillWaveSolid } from "react-icons/lia";
+import { MdBusiness, MdOutlineAutoGraph } from "react-icons/md";
+import { PiStudentFill } from "react-icons/pi";
+import { TbHealthRecognition, TbSocial } from "react-icons/tb";
+import { AppType } from "types/app";
 
 export const CATEGORIES = [
-  { label: 'Education', value: 'education', Icon: PiStudentFill },
-  { label: 'Personal', value: 'personal', Icon: GoPerson },
-  { label: 'Career', value: 'career', Icon: CgWorkAlt },
-  { label: 'Business', value: 'business', Icon: MdBusiness },
-  { label: 'Health', value: 'health', Icon: TbHealthRecognition },
+  { label: "Education", value: "education", Icon: PiStudentFill },
+  { label: "Personal", value: "personal", Icon: GoPerson },
+  { label: "Career", value: "career", Icon: CgWorkAlt },
+  { label: "Business", value: "business", Icon: MdBusiness },
+  { label: "Health", value: "health", Icon: TbHealthRecognition },
   // { label: "Lifestyle", value: "lifestyle" },
   {
-    label: 'Sales & Marketing',
-    value: 'sales_and_marketing',
+    label: "Sales & Marketing",
+    value: "sales_and_marketing",
     Icon: FcSalesPerformance,
   },
-  { label: 'Finance', value: 'finance', Icon: LiaMoneyBillWaveSolid },
-  { label: 'Productivity', value: 'productivity', Icon: MdOutlineAutoGraph },
-  { label: 'Social', value: 'social', Icon: TbSocial },
+  { label: "Finance", value: "finance", Icon: LiaMoneyBillWaveSolid },
+  { label: "Productivity", value: "productivity", Icon: MdOutlineAutoGraph },
+  { label: "Social", value: "social", Icon: TbSocial },
 ] as {
   label: string;
   value: string;
@@ -31,7 +31,7 @@ export const CATEGORIES = [
 }[];
 
 export async function getUsageData(apps: AppType[], userId: string) {
-  const today = new Date().toISOString().split('T')[0]; // Get today's date
+  const today = new Date().toISOString().split("T")[0]; // Get today's date
 
   // Use MongoDB aggregation to aggregate userUsage data
   const userUsage = await AppUsage.aggregate([
@@ -46,8 +46,8 @@ export async function getUsageData(apps: AppType[], userId: string) {
     {
       $group: {
         _id: {
-          appId: '$appId',
-          date: { $dateToString: { format: '%Y-%m-%d', date: '$createdAt' } },
+          appId: "$appId",
+          date: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
         },
         count: { $sum: 1 },
       },
@@ -125,7 +125,7 @@ export async function getMostUsedApp(apps: AppType[], userId: string) {
     },
     {
       $addFields: {
-        totalUsage: { $sum: { $objectToArray: '$usage.v' } },
+        totalUsage: { $sum: { $objectToArray: "$usage.v" } },
       },
     },
     {
@@ -146,5 +146,5 @@ export async function getMostUsedApp(apps: AppType[], userId: string) {
     },
   ]);
 
-  return mostUsedApp[0] || { name: '', appId: '', totalUsage: 0 };
+  return mostUsedApp[0] || { name: "", appId: "", totalUsage: 0 };
 }

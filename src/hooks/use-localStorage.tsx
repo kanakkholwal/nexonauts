@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 type StateType = string | boolean | Record<string, any>;
 type StateValue = StateType | StateType[];
@@ -7,7 +7,7 @@ export function useLocalStorage(key: string, initialValue: StateValue) {
   const setState = (newValue: StateValue) => {
     window.localStorage.setItem(key, JSON.stringify(newValue));
     window.dispatchEvent(
-      new StorageEvent('storage', {
+      new StorageEvent("storage", {
         key: key,
         newValue: JSON.stringify(newValue),
       })
@@ -20,8 +20,8 @@ export function useLocalStorage(key: string, initialValue: StateValue) {
     ) as StateValue;
 
   const subscribe = (listener: () => void) => {
-    window.addEventListener('storage', listener);
-    return () => void window.removeEventListener('storage', listener);
+    window.addEventListener("storage", listener);
+    return () => void window.removeEventListener("storage", listener);
   };
 
   const store = React.useSyncExternalStore(subscribe, getSnapshot);

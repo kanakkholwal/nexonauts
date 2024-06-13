@@ -1,11 +1,11 @@
-import axios from 'axios';
-import crypto from 'crypto';
+import axios from "axios";
+import crypto from "crypto";
 
 const generateSHA = (data: any) => {
   // const hash = crypto.createHash("sha1");
-  const hash = crypto.createHash('sha256');
+  const hash = crypto.createHash("sha256");
   hash.update(data);
-  return hash.digest('hex');
+  return hash.digest("hex");
 };
 
 const generateSignature = (publicId: string, apiSecret: string) => {
@@ -46,14 +46,14 @@ export async function deleteImage(publicId: string) {
 }
 export async function uploadImagefromClient(file: File): Promise<string> {
   const formData = new FormData();
-  formData.append('file', file);
+  formData.append("file", file);
 
   formData.append(
-    'upload_preset',
+    "upload_preset",
     process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET as string
   );
   formData.append(
-    'folder',
+    "folder",
     process.env.NEXT_PUBLIC_CLOUDINARY_FOLDER as string
   );
 

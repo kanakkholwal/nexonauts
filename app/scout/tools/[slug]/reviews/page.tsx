@@ -1,34 +1,34 @@
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Rating } from '@/components/ui/rating';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { authOptions } from 'app/api/auth/[...nextauth]/options';
-import Navbar from 'app/layouts/navbar';
+} from "@/components/ui/card";
+import { Rating } from "@/components/ui/rating";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { authOptions } from "app/api/auth/[...nextauth]/options";
+import Navbar from "app/layouts/navbar";
 import {
   getPublicToolBySlugForRatingPage,
   getRatingsAndReviewsByPage,
   postRatingAndReview,
   toggleBookmark,
-} from 'app/scout/lib/actions';
-import { getAverageRating } from 'app/scout/lib/utils';
-import { ArrowLeftToLine, ExternalLink, Hash, Star } from 'lucide-react';
-import { getServerSession } from 'next-auth/next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
-import { RatingTypeWithId } from 'src/models/tool-rating';
-import { formatNumber } from 'src/utils/formaters';
-import { BookMarkButton } from '../bookmark';
-import { PostReview } from '../post-review';
-import RatingComponent, { RatingSkeletonLoader } from '../rating';
+} from "app/scout/lib/actions";
+import { getAverageRating } from "app/scout/lib/utils";
+import { ArrowLeftToLine, ExternalLink, Hash, Star } from "lucide-react";
+import { getServerSession } from "next-auth/next";
+import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { RatingTypeWithId } from "src/models/tool-rating";
+import { formatNumber } from "src/utils/formaters";
+import { BookMarkButton } from "../bookmark";
+import { PostReview } from "../post-review";
+import RatingComponent, { RatingSkeletonLoader } from "../rating";
 
 export default async function ToolPage({
   params,
@@ -47,10 +47,10 @@ export default async function ToolPage({
   const { ratings } = await getRatingsAndReviewsByPage(tool._id, 1);
 
   async function publishRating(data: { rating: number; comment: string }) {
-    'use server';
+    "use server";
     try {
       if (!session || !session.user) {
-        return Promise.reject('You need to be logged in to rate a tool');
+        return Promise.reject("You need to be logged in to rate a tool");
       }
       const rating = await postRatingAndReview({
         toolId: tool._id!,
@@ -78,7 +78,7 @@ export default async function ToolPage({
                 className="font-medium text-gray-500 dark:text-gray-400"
                 asChild
               >
-                <Link href={'/scout/tools/' + params.slug}>
+                <Link href={"/scout/tools/" + params.slug}>
                   <ArrowLeftToLine className="w-4 h-4 mr-2" />
                   <span>Back to tools</span>
                 </Link>
@@ -110,7 +110,7 @@ export default async function ToolPage({
                 asChild
               >
                 <Link
-                  href={tool.link + '?ref=nexonauts.com/scout'}
+                  href={tool.link + "?ref=nexonauts.com/scout"}
                   target="_blank"
                 >
                   <span>Check it out</span>
@@ -141,7 +141,7 @@ export default async function ToolPage({
                 {tool.categories.map((category, index) => {
                   return (
                     <Badge
-                      key={category.slug + '_' + index}
+                      key={category.slug + "_" + index}
                       variant="success_light"
                       className="font-medium"
                     >
@@ -163,7 +163,7 @@ export default async function ToolPage({
                 All Ratings & Reviews
               </CardTitle>
               <CardDescription>
-                See what other users have to say about{' '}
+                See what other users have to say about{" "}
                 <strong>{tool.name}</strong>
               </CardDescription>
             </div>

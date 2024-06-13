@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, LoaderCircle } from 'lucide-react';
-import Link from 'next/link';
-import { notFound } from 'next/navigation';
-import { Suspense } from 'react';
-import { getToolBySlug, updateTool, deleteTool } from './actions';
-import EditForm from './form';
-import { useFormStore } from './store';
-import StoreInitializer from './store-initialzer';
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, LoaderCircle } from "lucide-react";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { Suspense } from "react";
+import { getToolBySlug, updateTool, deleteTool } from "./actions";
+import EditForm from "./form";
+import { useFormStore } from "./store";
+import StoreInitializer from "./store-initialzer";
 
 export default async function DashboardPage({
   params,
@@ -19,7 +19,7 @@ export default async function DashboardPage({
   useFormStore.setState({
     tool: tool,
   });
-  console.log('Tool', tool);
+  console.log("Tool", tool);
 
   return (
     <div className="space-y-6 my-5">

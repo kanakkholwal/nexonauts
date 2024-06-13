@@ -1,4 +1,4 @@
-import { RatingTypeWithId } from 'src/models/tool-rating';
+import { RatingTypeWithId } from "src/models/tool-rating";
 
 export function getAverageRating(ratings: RatingTypeWithId[]): number {
   if (ratings.length === 0) return 0;

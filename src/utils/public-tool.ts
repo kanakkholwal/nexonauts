@@ -1,10 +1,10 @@
-import PublicTool from 'src/models/tool';
+import PublicTool from "src/models/tool";
 
 export async function getAllPublicTools() {
   const tools = await PublicTool.find({
-    status: 'published',
+    status: "published",
   })
-    .select('slug createdAt')
+    .select("slug createdAt")
     .sort({ createdAt: -1 })
     .lean();
   return tools;

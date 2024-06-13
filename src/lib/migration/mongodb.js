@@ -1,4 +1,4 @@
-const { MongoClient } = require('mongodb');
+const { MongoClient } = require("mongodb");
 
 // Connection URIs
 // const sourceURI = "mongodb+srv://<username>:<password>@<cluster>.<clusterId>.mongodb.net/kkupgrader";
@@ -36,11 +36,11 @@ async function initialize(sourceDB, targetDB) {
   const sourceClient = await MongoClient.connect(sourceURI);
   const targetClient = await MongoClient.connect(targetURI);
 
-  console.log('Connected to source and target databases');
+  console.log("Connected to source and target databases");
 
   const collections = await sourceClient.db(sourceDB).collections();
 
-  console.log('Collections found in source database', collections.length);
+  console.log("Collections found in source database", collections.length);
 
   for await (const collection of collections) {
     console.log(collection.collectionName);

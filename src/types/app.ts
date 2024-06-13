@@ -1,4 +1,4 @@
-import { UserType } from './user';
+import { UserType } from "./user";
 
 export type AppType = {
   _id?: string | any;
@@ -8,7 +8,7 @@ export type AppType = {
   enabled: boolean;
   hasCustomFunction: boolean;
   membership: MemberShipType[];
-  status: 'draft' | 'pending' | 'published' | 'declined' | 'archived';
+  status: "draft" | "pending" | "published" | "declined" | "archived";
   version: string;
   name: string;
   shortDescription: string;
@@ -36,22 +36,22 @@ export type AppConfigType = {
     [k: string]: string | number;
   };
 };
-export type MemberShipType = 'free' | 'pro' | 'premium' | 'enterprise';
-export type AppTypeWithConfig = Omit<AppType, 'config'> & {
+export type MemberShipType = "free" | "pro" | "premium" | "enterprise";
+export type AppTypeWithConfig = Omit<AppType, "config"> & {
   config: AppConfigType;
 };
 export type AppTypeViewOnly = Omit<
   AppType,
-  'config' | 'reviews' | 'usage' | 'formFlow'
+  "config" | "reviews" | "usage" | "formFlow"
 >;
 export type AppTypeWithFormFlow = Omit<
   AppType,
-  'config' | 'reviews' | 'usage'
+  "config" | "reviews" | "usage"
 > & { formFlow: FormFlowType };
 export type AppTypeEditable = AppType;
 export type AppTypeRenderable = Omit<
   AppType,
-  'config' | 'reviews' | 'usage'
+  "config" | "reviews" | "usage"
 > & { formFlow: FormFlowType };
 
 export type FormFlowType = {
@@ -61,7 +61,7 @@ export type FormFlowType = {
   output: outputsType;
 };
 export type outputsType = {
-  render_type: string | 'markdown' | 'html' | 'pdf' | 'plain/text';
+  render_type: string | "markdown" | "html" | "pdf" | "plain/text";
   save_to_db: boolean;
 };
 interface Controls {
@@ -92,13 +92,13 @@ export type OptionType = {
   value: string;
 };
 export type TypesOfApp =
-  | 'text_input_to_text_output'
-  | 'chatbot'
-  | 'text_input_to_image_output'
-  | 'text_input_to_video_output'
-  | 'text_input_to_audio_output'
-  | 'text_input_to_file_output'
-  | 'text_input_to_code_output';
+  | "text_input_to_text_output"
+  | "chatbot"
+  | "text_input_to_image_output"
+  | "text_input_to_video_output"
+  | "text_input_to_audio_output"
+  | "text_input_to_file_output"
+  | "text_input_to_code_output";
 
 export type AppReviewType = {
   appId: string;

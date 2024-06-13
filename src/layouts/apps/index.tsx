@@ -1,7 +1,7 @@
-import { FormProvider } from './form-context';
+import { FormProvider } from "./form-context";
 
-import { AppTypeEditable } from 'src/types/app';
-import { SessionUserType } from 'src/types/user';
+import { AppTypeEditable } from "src/types/app";
+import { SessionUserType } from "src/types/user";
 // import AppView from "./app-edit";
 
 export default function AppplicationLayout({

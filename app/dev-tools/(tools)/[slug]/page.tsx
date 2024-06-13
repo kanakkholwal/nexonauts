@@ -1,9 +1,9 @@
-import tools, { ToolType } from 'app/dev-tools/(tools)/collection';
-import { ToolCard } from 'app/dev-tools/components/tool-card';
-import { allDevTools } from 'app/dev-tools/list';
-import type { Metadata, ResolvingMetadata } from 'next';
-import { notFound } from 'next/navigation';
-import RenderTool from './render-tool';
+import tools, { ToolType } from "app/dev-tools/(tools)/collection";
+import { ToolCard } from "app/dev-tools/components/tool-card";
+import { allDevTools } from "app/dev-tools/list";
+import type { Metadata, ResolvingMetadata } from "next";
+import { notFound } from "next/navigation";
+import RenderTool from "./render-tool";
 type ToolPageProps = {
   params: {
     slug: string;
@@ -21,18 +21,18 @@ export async function generateMetadata(
   return {
     title: tool.title,
     description: tool.description.substring(0, 160),
-    keywords: tool.tags?.join(', '),
+    keywords: tool.tags?.join(", "),
     metadataBase: new URL(
-      (process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://nexonauts.com') +
-        '/dev-tools/' +
+      (process.env.NEXT_PUBLIC_WEBSITE_URL || "https://nexonauts.com") +
+        "/dev-tools/" +
         tool.slug
     ),
     openGraph: {
       title: tool.title,
       description: tool.description.substring(0, 160),
       url:
-        (process.env.NEXT_PUBLIC_WEBSITE_URL || 'https://nexonauts.com') +
-        '/dev-tools/' +
+        (process.env.NEXT_PUBLIC_WEBSITE_URL || "https://nexonauts.com") +
+        "/dev-tools/" +
         tool.slug,
     },
     category: tool.category,

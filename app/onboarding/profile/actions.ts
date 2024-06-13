@@ -1,11 +1,11 @@
-'use server';
-import { authOptions } from 'app/api/auth/[...nextauth]/options';
-import { getServerSession } from 'next-auth/next';
-import dbConnect from 'src/lib/dbConnect';
-import Profile from 'src/models/profile';
-import User from 'src/models/user';
-import { sessionType } from 'src/types/session';
-import { getSession } from 'src/lib/auth';
+"use server";
+import { authOptions } from "app/api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth/next";
+import dbConnect from "src/lib/dbConnect";
+import Profile from "src/models/profile";
+import User from "src/models/user";
+import { sessionType } from "src/types/session";
+import { getSession } from "src/lib/auth";
 
 export async function createProfile(payload: {
   username: string;
@@ -20,12 +20,12 @@ export async function createProfile(payload: {
     const session = (await getSession()) as sessionType;
     await dbConnect();
     const user = await User.findById(session.user._id).select(
-      'profile username'
+      "profile username"
     );
     if (!user) {
       return Promise.reject({
         success: false,
-        message: 'User not found',
+        message: "User not found",
       });
     }
     const existingProfile = await Profile.findOne({
@@ -34,7 +34,7 @@ export async function createProfile(payload: {
     if (existingProfile) {
       return Promise.reject({
         success: false,
-        message: 'Profile already exists',
+        message: "Profile already exists",
       });
     }
     const profile = new Profile({
@@ -51,7 +51,7 @@ export async function createProfile(payload: {
     // revalidatePath(`/onboarding/profile`,"page")
     return Promise.resolve({
       success: true,
-      message: 'Profile created successfully',
+      message: "Profile created successfully",
       data: JSON.parse(JSON.stringify(profile)),
     });
   } catch (e) {
