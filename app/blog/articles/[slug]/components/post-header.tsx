@@ -16,7 +16,7 @@ interface PostHeaderProps {
 export function PostHeader(props: PostHeaderProps) {
   return (
     <div className="relative overflow-hidden w-full mx-auto mt-40 space-y-10 mb-10 p-3">
-      <h1 className="text-6xl font-bold text-gray-900 dark:text-gray-100 w-full">
+      <h1 className="text-4xl @4xl:text-6xl font-bold text-gray-900 dark:text-gray-100 w-full">
         <Balancer>{props.title}</Balancer>
       </h1>
       <div className="flex items-center space-x-4 pb-5 border-b border-gray-300 dark:border-gray-800">
