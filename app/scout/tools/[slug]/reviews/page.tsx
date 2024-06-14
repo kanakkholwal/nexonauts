@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Rating } from "@/components/ui/rating";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import Navbar from "app/layouts/navbar";
 import {
   getPublicToolBySlugForRatingPage,
@@ -19,11 +18,11 @@ import {
 } from "app/scout/lib/actions";
 import { getAverageRating } from "app/scout/lib/utils";
 import { ArrowLeftToLine, ExternalLink, Hash, Star } from "lucide-react";
-import { getServerSession } from "next-auth/next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+import { getSession } from "src/lib/auth";
 import { RatingTypeWithId } from "src/models/tool-rating";
 import { formatNumber } from "src/utils/formaters";
 import { BookMarkButton } from "../bookmark";
@@ -41,7 +40,7 @@ export default async function ToolPage({
   if (!tool) {
     return notFound();
   }
-  const session = await getServerSession(authOptions);
+  const session = await getSession();
   console.log(tool);
 
   const { ratings } = await getRatingsAndReviewsByPage(tool._id, 1);

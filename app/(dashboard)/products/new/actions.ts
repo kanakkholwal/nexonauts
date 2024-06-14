@@ -1,16 +1,12 @@
 "use server";
-import { customAlphabet } from "nanoid";
 import { revalidatePath } from "next/cache";
 import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
 import Product from "src/models/product";
 import { sessionType } from "src/types/session";
+import { createSlug } from "src/utils/string";
 
-const generateUrlSlug = (length = 16) =>
-  customAlphabet(
-    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-    length
-  )();
+
 
 export async function getCatgories() {
   const session = (await getSession()) as sessionType;
@@ -28,10 +24,10 @@ export async function createProduct(product) {
       name: product.name,
       description: product.description,
       price: product.price,
-      slug: generateUrlSlug(),
+      slug: createSlug(product.name),
       preview_url: product.preview_url,
       url: product.url,
-      creator: session.user._id,
+      creator: session.user._id!,
       tags: product.tags,
       categories: product?.categories || [],
       published: product.published,

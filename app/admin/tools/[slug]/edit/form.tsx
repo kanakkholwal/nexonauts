@@ -23,8 +23,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
-import "react-markdown-editor-lite/lib/index.css";
-import MarkdownView from "src/components/markdown/view";
+import NexoEditor from "nexo-mdx"
+
 import { UploadImage } from "src/components/uploader";
 import {
   ICategory,
@@ -34,6 +34,8 @@ import {
 } from "src/models/tool";
 import { z } from "zod";
 import { useFormStore } from "./store";
+import MarkdownView from "src/components/markdown/view";
+
 const urlSchema = z
   .string()
   .url()
@@ -41,10 +43,7 @@ const urlSchema = z
     return value.trim();
   });
 
-const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
-  loading: () => <p>Loading...</p>,
-  ssr: false,
-});
+
 
 export default function Form({
   updateTool,
@@ -58,7 +57,6 @@ export default function Form({
   const tool = useFormStore((state) => state.tool) as PublicToolTypeWithId;
   const [loading, setLoading] = React.useState(false);
   const [deleting, setDeleting] = React.useState(false);
-  const editorRef = React.useRef(null);
   const [generating, setGenerating] = React.useState(false);
   const [tags, setTags] = React.useState<Tag[]>(
     tool?.tags.map((tag) => ({ id: nanoid(), text: tag })) || []
@@ -103,20 +101,18 @@ export default function Form({
 
           <div className="grid w-full items-center gap-1.5 my-4">
             <Label htmlFor="description">Description</Label>
-            <MdEditor
-              className="w-full h-96  rounded-lg shadow-md p-2"
+            <NexoEditor
+              id="description"
               value={tool?.description || ""}
               disabled={loading || generating}
-              onChange={({ html, text }) => {
-                // console.log('onChange', html, text);
-                useFormStore.setState({ tool: { ...tool, description: text } });
+              onChange={(value, _) => {
+                useFormStore.setState({ tool: { ...tool, description: value } });
               }}
-              renderHTML={(text: string) => (
+              renderHtml={(text: string) => (
                 <MarkdownView className="prose lg:prose-xl">
                   {text}
                 </MarkdownView>
               )}
-              ref={editorRef}
             />
             <div className="flex justify-end gap-2">
               <Button

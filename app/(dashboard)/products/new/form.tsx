@@ -30,7 +30,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
-import { Textarea } from "@/components/ui/textarea";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Import, LoaderCircle } from "lucide-react";
@@ -40,6 +39,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { UploadImage } from "src/components/uploader";
 import { importProductFromURL } from "src/lib/marketplace/import-product";
+import NexoEditor from 'nexo-mdx';
 
 import { HtmlToMarkdown } from "src/utils/string";
 import { z } from "zod";
@@ -266,7 +266,7 @@ export default function ProductForm(props: Props) {
                 <FormItem>
                   <FormLabel>Description (Markdown preferred)</FormLabel>
                   <FormControl>
-                    <Textarea
+                    <NexoEditor
                       placeholder="Description"
                       onPaste={(e) => {
                         e.preventDefault();

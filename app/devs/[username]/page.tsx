@@ -1,7 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
+import { getSession } from "src/lib/auth";
 import { notFound } from "next/navigation";
 import { sessionType } from "src/types/session";
 import { followUnFollowProfile, getProfile } from "./actions";
@@ -43,7 +42,7 @@ export default async function DeveloperPage({
   const developer = await getProfile(params.username);
 
   if (!developer) return notFound();
-  const session = (await getServerSession(authOptions)) as sessionType | null;
+  const session = (await getSession()) as sessionType | null;
 
   const isOwner = session?.user?.username === developer.username;
   const isFollowing =

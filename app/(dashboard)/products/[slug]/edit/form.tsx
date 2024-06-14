@@ -23,6 +23,7 @@ import { UploadImage } from "src/components/uploader";
 import { CATEGORIES as defaultCategories } from "src/constants/marketplace";
 import { ProductType } from "src/models/product";
 import { z } from "zod";
+import NexoEditor from 'nexo-mdx';
 
 import { HtmlToMarkdown } from "src/utils/string";
 
@@ -132,7 +133,7 @@ export default function ProductForm(props: Props) {
               <FormItem>
                 <FormLabel>Description (Markdown preferred)</FormLabel>
                 <FormControl>
-                  <Textarea
+                  <NexoEditor
                     placeholder="Description"
                     onPaste={(e) => {
                       e.preventDefault();

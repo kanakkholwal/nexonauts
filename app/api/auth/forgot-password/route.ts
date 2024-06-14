@@ -5,12 +5,13 @@ import dbConnect from "lib/dbConnect";
 import { NextRequest, NextResponse } from "next/server";
 import UserModel from "src/models/user";
 
-import { authOptions } from "app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
+import { getSession } from "src/lib/auth";
+
+
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getServerSession(authOptions);
+    const session = await getSession();
     if (!session) {
       return NextResponse.json(
         {
