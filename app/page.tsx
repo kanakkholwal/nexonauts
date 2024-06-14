@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Footer from "app/layouts/footer";
 import Navbar from "app/layouts/navbar-static";
-import SquareGrid from "app/layouts/patterns/square-grid";
+import { FEATURES_SECTION } from "data/landing";
 import {
   ArrowUpRight,
   ExternalLink,
@@ -11,40 +11,7 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-// import dbConnect from 'src/lib/dbConnect';
-// import Post from 'src/models/post';
 
-const features = [
-  {
-    name: "Discover the Tools You Need",
-    description: `Say good-bye to endless searching. Our ingenious search engine scours the web for the most basic and advanced tools for every phase of your development process. From AI-powered solutions to tried-and-true classics, it's everything at your fingertips.`,
-    icon: "https://cdn-icons-png.flaticon.com/512/4341/4341139.png",
-    path: "/scout",
-  },
-  {
-    name: "Marketplace for Digital Creators",
-    description: `Browse, purchase, sell, and promote digital products in our growing marketplace. Whether you're looking for themes, templates, e-books, Figma designs, designs, styles, or another product, our marketplace connects you to a global community of creators and buyers.`,
-    icon: "https://cdn-icons-png.flaticon.com/512/4341/4341134.png",
-    path: "/marketplace",
-  },
-  {
-    name: "Developer Tools",
-    description: `Our curated catalogue of open-source tools can help you simplify your development process. Access a wide range of materials to help you accelerate your projects and collaborate with other developers smoothly.		`,
-    icon: "https://cdn-icons-png.flaticon.com/512/4341/4341160.png",
-    path: "/dev-tools",
-  },
-  // {
-  // 	name: 'No-Code AI App Builder',
-  // 	description: `Unleash your creativity without boundaries. Our drag-and-drop AI app builder harnesses the power of LLMs APIs, allowing you to create and deploy applications effortlessly. Build, publish, and use your apps privately right from our platform.`,
-  // 	icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341025.png',
-  // 	path: '/apps',
-  // },
-  // {
-  // 	name: 'Resource Hub for Continuous Learning',
-  // 	description: `Stay ahead of the curve with our resource hub. Access a plethora of resources including tips, code snippets, useful website links, and insights to fuel continuous growth and learning.`,
-  // 	icon: 'https://cdn-icons-png.flaticon.com/512/4341/4341025.png',
-  // },
-];
 export const dynamic = "force-dynamic";
 
 export default async function HomePage() {
@@ -53,7 +20,6 @@ export default async function HomePage() {
       <header>
         <Navbar />
       </header>
-      <SquareGrid />
       <main className="space-y-20 mb-40 pt-24">
         {/* <HeroSection /> */}
         <div className="flex flex-col text-center justify-center items-center gap-6 lg:gap-8 py-10">
@@ -95,17 +61,14 @@ export default async function HomePage() {
           <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 w-full py-24 md:py-32">
             <div className="space-y-6 max-w-[42rem]">
               <h2 className="text-3xl font-bold text-start md:text-5xl">
-                Explore Our Developer-Centric Solutions
+                {FEATURES_SECTION.title}
               </h2>
               <p className="text-start text-lg">
-                {/* Welcome to our developer-centric platform, which is designed to help you create amazing digital products and services. */}
-                We've created a complete set of tools and resources that
-                prioritise developers, allowing you to experiment, collaborate,
-                and create without limitations.
+                {FEATURES_SECTION.description}
               </p>
             </div>
             <div className="mt-16 grid lg:divide-x divide-y divide-gray-100 dark:divide-gray-700 overflow-hidden rounded-3xl grid-cols-1 lg:grid-cols-3 lg:divide-y-0">
-              {features.map((feature, index) => {
+              {FEATURES_SECTION.features.map((feature, index) => {
                 return (
                   <div key={"solutions_" + index} className="group transition">
                     <div className="relative py-12 p-8">
