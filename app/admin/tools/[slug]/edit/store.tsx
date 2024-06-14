@@ -3,10 +3,9 @@ import { create } from "zustand";
 
 export interface toolType extends PublicToolTypeWithId {}
 type State = {
-    tool:  PublicToolTypeWithId | null
-
-}
+  tool: PublicToolTypeWithId | null;
+};
 
 export const useFormStore = create<State>((set) => ({
-    tool: null
-}))
+  tool: null,
+}));

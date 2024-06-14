@@ -1,7 +1,7 @@
-import {SessionUserType} from "./user";
+import { SessionUserType } from "./user";
 type sessionType = {
-    expires: Date,
-    user: SessionUserType
-}
+  expires: Date;
+  user: SessionUserType;
+};
 
-export type { sessionType }
+export type { sessionType };

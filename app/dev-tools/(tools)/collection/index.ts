@@ -8,27 +8,25 @@ import SchemaGenerator from "./schema-markup-generator";
 // import svgEncoder from "./svg-encoder";
 import HtmlToJsxTool from "./html-to-jsx-convertor";
 
-
 export type ToolType = {
-    slug: string;
-    title: string;
-    description: string;
-    category: string;
-    icon: string | React.ReactSVGElement,
-    tags: string[];
-    Component: React.FC;
-}
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  icon: string | React.ReactSVGElement;
+  tags: string[];
+  Component: React.FC;
+};
 
-const _allTools: ToolType[] =
-    [
-        Image2Webp,
-        SchemaGenerator,
-        metaTagGenerator,
-        HtmlMinifierPrettifier,
-        htmlParserTool,
-        jsonMinifierTool,
-        CssMinifierPrettifier,
-        // svgEncoder,
-        HtmlToJsxTool
-    ]
+const _allTools: ToolType[] = [
+  Image2Webp,
+  SchemaGenerator,
+  metaTagGenerator,
+  HtmlMinifierPrettifier,
+  htmlParserTool,
+  jsonMinifierTool,
+  CssMinifierPrettifier,
+  // svgEncoder,
+  HtmlToJsxTool,
+];
 export default _allTools;

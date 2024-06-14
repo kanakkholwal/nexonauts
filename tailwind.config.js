@@ -2,16 +2,16 @@
 const {
   default: flattenColorPalette,
 } = require("tailwindcss/lib/util/flattenColorPalette");
- 
+
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx,js,jsx}',
-    './components/**/*.{ts,tsx,js,jsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx,js,jsx}',
-    './@/**/*.{ts,tsx,js,jsx}',
-	],
+    "./pages/**/*.{ts,tsx,js,jsx}",
+    "./components/**/*.{ts,tsx,js,jsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx,js,jsx}",
+    "./@/**/*.{ts,tsx,js,jsx}",
+  ],
   theme: {
     container: {
       center: true,
@@ -22,12 +22,12 @@ module.exports = {
     },
     extend: {
       colors: {
-
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        codeBg: "hsl(var(--code-bg))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -73,12 +73,12 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "spotlight": "spotlight 2s ease .75s 1 forwards",
-        "moveVertical": "moveVertical 5s ease infinite",
+        spotlight: "spotlight 2s ease .75s 1 forwards",
+        moveVertical: "moveVertical 5s ease infinite",
         first: "moveVertical 30s ease infinite",
         second: "moveInCircle 20s reverse infinite",
         third: "moveInCircle 40s linear infinite",
-        "moveHorizontal": "moveHorizontal 4s ease infinite",
+        moveHorizontal: "moveHorizontal 4s ease infinite",
         fifth: "moveInCircle 20s ease infinite",
       },
       keyframes: {
@@ -123,7 +123,7 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
-        "spotlight": {
+        spotlight: {
           "0%": {
             opacity: 0,
             transform: "translate(-72%, -62%) scale(0.5)",
@@ -133,26 +133,27 @@ module.exports = {
             transform: "translate(-50%,-40%) scale(1)",
           },
         },
-        },
-        fontFamily: {
-          sans: ['var(--plus-jakarta)'],
-          mono: ['var(--font-code)'],
-          product: ['var(--font-product)'],
-        },
+      },
+      fontFamily: {
+        sans: ["var(--plus-jakarta)"],
+        mono: ["var(--font-code)"],
+        product: ["var(--font-product)"],
+      },
     },
   },
   plugins: [
-    require("tailwindcss-animate")
-    ,require('@tailwindcss/container-queries')
-    ,require('@tailwindcss/typography')
-    ,addVariablesForColors],
-}
+    require("tailwindcss-animate"),
+    require("@tailwindcss/container-queries"),
+    require("@tailwindcss/typography"),
+    addVariablesForColors,
+  ],
+};
 function addVariablesForColors({ addBase, theme }) {
   let allColors = flattenColorPalette(theme("colors"));
   let newVars = Object.fromEntries(
     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
   );
- 
+
   addBase({
     ":root": newVars,
   });

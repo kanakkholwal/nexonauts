@@ -125,7 +125,10 @@ export const TypewriterEffectSmooth = ({
               {word.text.map((char, index) => (
                 <span
                   key={`char-${index}`}
-                  className={cn(`dark:text-white text-black text-xl sm:text-2xl md:text-3xl lg:text:4xl xl:text-5xl font-bold`, word.className)}
+                  className={cn(
+                    `dark:text-white text-black text-xl sm:text-2xl md:text-3xl lg:text:4xl xl:text-5xl font-bold`,
+                    word.className
+                  )}
                 >
                   {char}
                 </span>
@@ -139,7 +142,12 @@ export const TypewriterEffectSmooth = ({
   };
 
   return (
-    <div className={cn("flex space-x-1 my-6 justify-center items-center", className)}>
+    <div
+      className={cn(
+        "flex space-x-1 my-6 justify-center items-center",
+        className
+      )}
+    >
       <motion.div
         className="overflow-hidden pb-2"
         initial={{
