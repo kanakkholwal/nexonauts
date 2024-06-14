@@ -1,65 +1,9 @@
 import Link from "next/link";
 import { FiLinkedin } from "react-icons/fi";
 //import { LuGithub } from "react-icons/lu";
+import { FOOTER_LINKS } from "data/root";
 import { RiTwitterXFill } from "react-icons/ri";
 import ThemeSwitcher from "./theme-switcher";
-const footerLinks = [
-  {
-    title: "Product",
-    links: [
-      {
-        title: "Dev Tools",
-        href: "/dev-tools",
-      },
-      {
-        title: "Dev Profiles",
-        href: "/devs",
-      },
-      {
-        title: "Nexo Scout",
-        href: "/scout",
-      },
-      {
-        title: "MarketPlace",
-        href: "/marketplace",
-      },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      {
-        title: "About",
-        href: "/about",
-      },
-      {
-        title: "Pricing",
-        href: "/pricing",
-      },
-      {
-        title: "Privacy",
-        href: "/privacy",
-      },
-      {
-        title: "Term of Use",
-        href: "/tos",
-      },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      {
-        title: "Contact",
-        href: "/contact",
-      },
-      {
-        title: "Disclaimer",
-        href: "/copyright",
-      },
-    ],
-  },
-];
 
 export default function Footer() {
   return (
@@ -105,7 +49,7 @@ export default function Footer() {
           </div>
           <div className="max-w-[571px] w-full">
             <div className="flex flex-col sm:flex-row sm:justify-between gap-10">
-              {footerLinks.map((footerLink) => {
+              {FOOTER_LINKS.map((footerLink) => {
                 return (
                   <LinkList
                     title={footerLink.title}

@@ -6,7 +6,7 @@ export default function SquareGrid({ className }: { className?: string }) {
     <div
       aria-hidden="true"
       className={cn(
-        "absolute inset-0 grid grid-cols-2 -space-x-52 pattern-square_grid invert dark:invert-0 -z-[1]",
+        "absolute inset-0 grid grid-cols-2 -space-x-52 pattern-square_grid dark:invert -z-[1]",
         className
       )}
     >

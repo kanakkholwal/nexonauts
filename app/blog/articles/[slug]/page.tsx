@@ -54,7 +54,7 @@ export default async function PostPage({
           content={post.content}
         />
       </main>
-      <div>
+      <div id="comments-section" className="w-full mx-auto max-w-5xl">
         <CommentsSection />
       </div>
     </>
