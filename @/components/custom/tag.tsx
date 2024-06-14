@@ -70,7 +70,7 @@ export const tagVariants = cva(
 export type TagProps = {
   tagObj: TagType;
   variant: TagInputProps["variant"];
-  size:  TagInputProps["size"];
+  size: TagInputProps["size"];
   shape: TagInputProps["shape"];
   borderStyle: TagInputProps["borderStyle"];
   textCase: TagInputProps["textCase"];
@@ -97,8 +97,11 @@ export const Tag: React.FC<TagProps> = ({
   animation,
   textStyle,
 }) => {
-
-  const btnSize: btnSizeType = size ? (size === "md" ? "icon" : "icon_" + size as btnSizeType) : "icon";
+  const btnSize: btnSizeType = size
+    ? size === "md"
+      ? "icon"
+      : (("icon_" + size) as btnSizeType)
+    : "icon";
 
   return (
     <span

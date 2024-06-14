@@ -1,53 +1,51 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap'); */
 
-:not(pre)>code[class*=language-] {
-    padding: 0.1em;
-    border-radius: 0.3em;
-    white-space: normal;
-    @apply bg-slate-100 dark:bg-slate-800 text-slate-300 dark:text-slate-300;
+:not(pre) > code[class*="language-"] {
+  padding: 0.1em;
+  border-radius: 0.3em;
+  white-space: normal;
+  @apply bg-codeBg  text-slate-300 dark:text-slate-300;
 }
 
-
 pre code.hljs {
-    display: block;
-    overflow-x: auto;
-    padding: 1em
+  display: block;
+  overflow-x: auto;
+  padding: 1em;
 }
 
 code.hljs {
-    padding: 3px 5px
+  padding: 3px 5px;
 }
 
 pre:has(.hljs) {
-    overflow-x: auto;
-    font-family: 'Fira Code', Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: break-all;
-    word-wrap: inherit;
-    -moz-tab-size: 4;
-    -o-tab-size: 4;
-    tab-size: 4;
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
-    @apply bg-gray-800 text-gray-300 dark:bg-slate-800 dark:text-slate-300  text-left text-sm mb-10 mt-5 leading-7 font-normal overflow-x-auto rounded-lg p-4;
-
+  overflow-x: auto;
+  font-family: "Fira Code", Consolas, Monaco, "Andale Mono", "Ubuntu Mono",
+    monospace;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: break-all;
+  word-wrap: inherit;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+  @apply bg-codeBg !text-inherit  dark:text-slate-300 text-left text-sm mb-10 mt-5 leading-7 font-normal overflow-x-auto rounded-lg p-4;
 }
-
 
 .hljs-comment,
 .hljs-quote {
-    color: #5c6370;
-    font-style: italic
+  color: #5c6370;
+  font-style: italic;
 }
 
 .hljs-doctag,
 .hljs-formula,
 .hljs-keyword {
-    color: #c678dd
+  color: #c678dd;
 }
 
 .hljs-deletion,
@@ -55,11 +53,11 @@ pre:has(.hljs) {
 .hljs-section,
 .hljs-selector-tag,
 .hljs-subst {
-    color: #e06c75
+  color: #e06c75;
 }
 
 .hljs-literal {
-    color: #56b6c2
+  color: #56b6c2;
 }
 
 .hljs-addition,
@@ -67,7 +65,7 @@ pre:has(.hljs) {
 .hljs-meta .hljs-string,
 .hljs-regexp,
 .hljs-string {
-    color: #98c379
+  color: #98c379;
 }
 
 .hljs-attr,
@@ -78,7 +76,7 @@ pre:has(.hljs) {
 .hljs-template-variable,
 .hljs-type,
 .hljs-variable {
-    color: #d19a66
+  color: #d19a66;
 }
 
 .hljs-bullet,
@@ -87,23 +85,23 @@ pre:has(.hljs) {
 .hljs-selector-id,
 .hljs-symbol,
 .hljs-title {
-    color: #61aeee
+  color: #61aeee;
 }
 
 .hljs-built_in,
 .hljs-class .hljs-title,
 .hljs-title.class_ {
-    color: #e6c07b
+  color: #e6c07b;
 }
 
 .hljs-emphasis {
-    font-style: italic
+  font-style: italic;
 }
 
 .hljs-strong {
-    font-weight: 700
+  font-weight: 700;
 }
 
 .hljs-link {
-    text-decoration: underline
+  text-decoration: underline;
 }

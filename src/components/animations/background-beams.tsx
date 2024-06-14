@@ -2,8 +2,6 @@
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
-
-
 export const BackgroundBeams = ({ className }: { className?: string }) => {
   const paths = [
     "M-380 -189C-380 -189 -312 216 152 343C616 470 684 875 684 875",

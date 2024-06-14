@@ -245,8 +245,8 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
           inputFieldPostion === "bottom"
             ? "flex-col"
             : inputFieldPostion === "top"
-            ? "flex-col-reverse"
-            : "flex-row"
+              ? "flex-col-reverse"
+              : "flex-row"
         }`}
       >
         {!usePopoverForTags ? (
@@ -416,4 +416,3 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
 TagInput.displayName = "TagInput";
 
 export { TagInput };
-

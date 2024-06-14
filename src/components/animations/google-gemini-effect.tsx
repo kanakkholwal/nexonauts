@@ -20,21 +20,22 @@ export const GoogleGeminiEffect = ({
 }) => {
   return (
     <div className={cn("sticky top-80", className)}>
-     
       <h4 className="text-3xl md:text-7xl font-bold pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-violet-200 to-primary  dark:from-cyan-400 dark:to-indigo-600">
         {title || `Grow with Nexonauts`}
       </h4>
       <p className="text-lg md:text-xl font-semibold text-center mt-2 md:mt-4 max-w-lg mx-auto text-accent-foreground">
-        {description ||
-          `Shaping a world with reimagination.`}
+        {description || `Shaping a world with reimagination.`}
       </p>
       <div className="w-full h-[890px] -top-60 md:-top-40  flex items-center justify-center bg-red-transparent absolute ">
         <button className="font-bold bg-white rounded-full md:px-4 md:py-2 px-2 py-1 md:mt-24 mt-8 z-30 md:text-base text-black text-xs  w-fit mx-auto ">
           nexonauts.com
         </button>
       </div>
-      <svg width="1440" height="890"
-        viewBox="0 0 1440 890" xmlns="http://www.w3.org/2000/svg"
+      <svg
+        width="1440"
+        height="890"
+        viewBox="0 0 1440 890"
+        xmlns="http://www.w3.org/2000/svg"
         className=" absolute -top-60  md:-top-40 w-full"
       >
         <motion.path

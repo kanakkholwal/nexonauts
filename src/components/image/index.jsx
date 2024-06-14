@@ -14,19 +14,19 @@ const shimmer = (w, h) => `
 </svg>`;
 
 const toBase64 = (str) =>
-    typeof window === 'undefined'
-        ? Buffer.from(str).toString('base64')
-        : window.btoa(str);
+  typeof window === "undefined"
+    ? Buffer.from(str).toString("base64")
+    : window.btoa(str);
 
-
-export default function LazyImage(props){
-
-    return <>
-        <Image 
-            loading="lazy"
-            placeholder="blur"
-            blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
-            {...props}
-            />
+export default function LazyImage(props) {
+  return (
+    <>
+      <Image
+        loading="lazy"
+        placeholder="blur"
+        blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(700, 475))}`}
+        {...props}
+      />
     </>
+  );
 }

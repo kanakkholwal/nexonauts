@@ -1,27 +1,23 @@
-"use client"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
+"use client";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 // import { Checkbox } from "@/components/ui/checkbox"
-import { DataTableColumnHeader } from "@/components/ui/data-table"
-import { ColumnDef } from "@tanstack/react-table"
-import Link from "next/link"
-
-
-
+import { DataTableColumnHeader } from "@/components/ui/data-table";
+import { ColumnDef } from "@tanstack/react-table";
+import Link from "next/link";
 
 export type toolType = {
-  _id: string,
-  name: string,
-  slug: string,
-  coverImage: string,
-  link: string,
-  updatedAt: string,
-  status: string,
-  verified: boolean,
-  views: number,
-  bookmarks: string[],
-}
-
+  _id: string;
+  name: string;
+  slug: string;
+  coverImage: string;
+  link: string;
+  updatedAt: string;
+  status: string;
+  verified: boolean;
+  views: number;
+  bookmarks: string[];
+};
 
 export const columns: ColumnDef<toolType>[] = [
   // {
@@ -54,7 +50,9 @@ export const columns: ColumnDef<toolType>[] = [
       <DataTableColumnHeader column={column} title="Name" />
     ),
     cell: ({ row }) => {
-      return <div className="text-left font-medium">{row.getValue("name")}</div>
+      return (
+        <div className="text-left font-medium">{row.getValue("name")}</div>
+      );
     },
     enableSorting: true,
     enableHiding: true,
@@ -66,7 +64,15 @@ export const columns: ColumnDef<toolType>[] = [
       <DataTableColumnHeader column={column} title="Links" />
     ),
     cell: ({ row }) => {
-      return <Link className="text-left font-medium text-primary hover:underline" href={row.getValue("link")} target="_blank" >{row.getValue("link")}</Link>
+      return (
+        <Link
+          className="text-left font-medium text-primary hover:underline"
+          href={row.getValue("link")}
+          target="_blank"
+        >
+          {row.getValue("link")}
+        </Link>
+      );
     },
     enableSorting: true,
     enableHiding: true,
@@ -78,11 +84,19 @@ export const columns: ColumnDef<toolType>[] = [
       <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
-      return <div className="text-left font-medium" >
-        <Badge variant={row.getValue("status") === "published" ? "success_light" : "warning_light"}>
-          {row.getValue("status")}
-        </Badge>
-      </div>
+      return (
+        <div className="text-left font-medium">
+          <Badge
+            variant={
+              row.getValue("status") === "published"
+                ? "success_light"
+                : "warning_light"
+            }
+          >
+            {row.getValue("status")}
+          </Badge>
+        </div>
+      );
     },
     enableSorting: true,
     enableHiding: true,
@@ -94,7 +108,11 @@ export const columns: ColumnDef<toolType>[] = [
       <DataTableColumnHeader column={column} title="Views" />
     ),
     cell: ({ row }) => {
-      return <Badge className="text-left font-medium" variant="default_light">{row.getValue("views")}</Badge>
+      return (
+        <Badge className="text-left font-medium" variant="default_light">
+          {row.getValue("views")}
+        </Badge>
+      );
     },
     enableSorting: true,
     enableHiding: true,
@@ -106,11 +124,17 @@ export const columns: ColumnDef<toolType>[] = [
       <DataTableColumnHeader column={column} title="Verified" />
     ),
     cell: ({ row }) => {
-      return <div className="text-left font-medium">
-        <Badge variant={row.getValue("verified") ? "success_light" : "destructive_light"}>
-          {row.getValue("verified") ? "Yes" : "No"}
-        </Badge>
-      </div>
+      return (
+        <div className="text-left font-medium">
+          <Badge
+            variant={
+              row.getValue("verified") ? "success_light" : "destructive_light"
+            }
+          >
+            {row.getValue("verified") ? "Yes" : "No"}
+          </Badge>
+        </div>
+      );
     },
     enableSorting: true,
     enableHiding: true,
@@ -122,12 +146,15 @@ export const columns: ColumnDef<toolType>[] = [
       <DataTableColumnHeader column={column} title="Updated At" />
     ),
     cell: ({ row }) => {
-      const formatted = new Date(row.getValue("updatedAt")).toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })
-      return <div className="text-left font-medium">{formatted}</div>
+      const formatted = new Date(row.getValue("updatedAt")).toLocaleDateString(
+        "en-US",
+        {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }
+      );
+      return <div className="text-left font-medium">{formatted}</div>;
     },
     enableSorting: true,
     enableHiding: true,
@@ -140,11 +167,11 @@ export const columns: ColumnDef<toolType>[] = [
     enableHiding: true,
     cell: ({ row }) => {
       const tool = row.original;
-      return (<Button variant="link" size="sm" asChild>
-        <Link href={`/admin/tools/${tool.slug}/edit`}>
-          Edit
-        </Link>
-      </Button>)
+      return (
+        <Button variant="link" size="sm" asChild>
+          <Link href={`/admin/tools/${tool.slug}/edit`}>Edit</Link>
+        </Button>
+      );
     },
   },
-]
+];

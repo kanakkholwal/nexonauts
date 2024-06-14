@@ -1,7 +1,7 @@
-import bcrypt from 'bcryptjs';
+import bcrypt from "bcryptjs";
 import mongoose, { Document, Schema, Types } from "mongoose";
-import { customAlphabet } from 'nanoid';
-import validator from 'validator';
+import { customAlphabet } from "nanoid";
+import validator from "validator";
 
 // Define a user schema
 
@@ -11,13 +11,13 @@ interface Integration {
     scope: string | null;
     integrated: boolean;
     lastAuthorized: Date | null;
-  },
+  };
   github: {
     access_token: string | null;
     scope: string | null;
     integrated: boolean;
     lastAuthorized: Date | null;
-  },
+  };
 }
 interface User extends Document {
   name: string;
@@ -26,10 +26,10 @@ interface User extends Document {
   profilePicture: string;
   password: string;
   role: string;
-  profile: Types.ObjectId,
+  profile: Types.ObjectId;
   account_type: string;
-  integrations: Integration | null,
-  additional_info: Record<string, string | null>
+  integrations: Integration | null;
+  additional_info: Record<string, string | null>;
   verificationToken: string | null;
   verified: boolean;
 }
@@ -39,15 +39,14 @@ interface IntegrationSchema extends Document {
     scope: string;
     integrated: boolean;
     lastAuthorized: Date | null;
-  },
+  };
   github: {
     access_token: string | null;
     scope: string | null;
     integrated: boolean;
     lastAuthorized: Date | null;
-  },
+  };
 }
-
 
 const integrationSchema = new Schema<IntegrationSchema>({
   gumroad: {
@@ -56,7 +55,7 @@ const integrationSchema = new Schema<IntegrationSchema>({
       default: "edit_products",
       enum: {
         values: ["edit_products", "view_profile", "view_sales"],
-      }
+      },
     },
     access_token: {
       type: String,
@@ -89,11 +88,14 @@ const integrationSchema = new Schema<IntegrationSchema>({
       default: null,
     },
   },
-})
+});
 
 function generateRandomUsername(): string {
   // Generate a random UUID
-  const slug = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 8)()
+  const slug = customAlphabet(
+    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
+    8
+  )();
 
   // Add a prefix (e.g., 'user_') to the alphanumeric username
   return `user_${slug}`;
@@ -110,20 +112,23 @@ const userSchema = new Schema<User>(
       trim: true,
       required: true,
       unique: true,
-      validate: [validator.isAlphanumeric, 'Username can only contain letters and numbers'],
+      validate: [
+        validator.isAlphanumeric,
+        "Username can only contain letters and numbers",
+      ],
       default: () => generateRandomUsername(),
-
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      validate: [validator.isEmail, 'Please enter a valid email'],
+      validate: [validator.isEmail, "Please enter a valid email"],
       lowercase: true,
     },
     profilePicture: {
       type: String,
-      default: 'https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png',
+      default:
+        "https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png",
     },
     password: {
       type: String,
@@ -134,21 +139,21 @@ const userSchema = new Schema<User>(
 
     role: {
       type: String,
-      default: 'user',
+      default: "user",
       enum: {
-        values: ['user', 'admin', "waitlist"],
+        values: ["user", "admin", "waitlist"],
       },
     },
     account_type: {
       type: String,
-      default: 'free',
+      default: "free",
       enum: {
-        values: ['free', 'pro', 'premium',],
+        values: ["free", "pro", "premium"],
       },
     },
     profile: {
       type: Schema.Types.ObjectId,
-      ref: 'Profile',
+      ref: "Profile",
       default: null,
     },
     verificationToken: {
@@ -174,18 +179,18 @@ const userSchema = new Schema<User>(
           access_token: null,
           integrated: false,
           lastAuthorized: null,
-        }
+        },
       },
-    }
+    },
   },
   {
     timestamps: true,
-  });
-
+  }
+);
 
 // Middleware to hash password before saving
-userSchema.pre<User>('save', async function (next) {
-  if (!this.isModified('password')) {
+userSchema.pre<User>("save", async function (next) {
+  if (!this.isModified("password")) {
     return next();
   }
 
@@ -199,14 +204,14 @@ userSchema.pre<User>('save', async function (next) {
   }
 });
 
-userSchema.pre<User>('save', async function (next) {
-  if (!this.isModified('verificationToken')) {
+userSchema.pre<User>("save", async function (next) {
+  if (!this.isModified("verificationToken")) {
     return next();
   }
-  if (this.isModified('email')) {
+  if (this.isModified("email")) {
     this.verified = false;
   }
-  if (this.isModified('verificationToken')) {
+  if (this.isModified("verificationToken")) {
     if (this.verificationToken === null) {
       this.verified = true;
     }
@@ -223,6 +228,6 @@ userSchema.methods.comparePassword = async function (password) {
   }
 };
 
-const User = mongoose.models.User || mongoose.model<User>('User', userSchema);
+const User = mongoose.models.User || mongoose.model<User>("User", userSchema);
 
 export default User;
