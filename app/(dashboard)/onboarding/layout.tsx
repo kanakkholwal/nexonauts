@@ -1,7 +1,5 @@
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import WithoutSession from "app/layouts/without-session";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth/next";
 import { getSession } from "src/lib/auth";
 
 export const dynamic = "force-dynamic";

@@ -1,13 +1,12 @@
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import axios from "axios";
 import dbConnect from "lib/dbConnect";
-import { getServerSession } from "next-auth/next";
+import { getSession } from "src/lib/auth";
 import React from "react";
 import { DiGithubFull } from "react-icons/di";
 import { TbBrandGumroad } from "react-icons/tb";
 import UserModel from "src/models/user";
 import { sessionType } from "src/types/session";
-import { generateSlug } from "src/utils/string";
+import { nanoid } from "nanoid";
 
 // Define the icons and descriptions for each integration
 const icons: { [key: string]: React.ElementType } = {
@@ -69,7 +68,7 @@ export const INTEGRATION_CONFIG: {
         client_id: this.client_id,
         redirect_uri: this.redirect_uri,
         scope: this.scope,
-        state: generateSlug(10),
+        state: nanoid(),
       });
       return `${this.auth_url}?${params.toString()}`;
     },
@@ -94,7 +93,7 @@ export const INTEGRATION_CONFIG: {
         return Promise.reject("Error getting token");
       }
 
-      const session = (await getServerSession(authOptions)) as sessionType;
+      const session = (await getSession()) as sessionType;
       await dbConnect();
       const user = await UserModel.findById(session.user._id)
         .select("integrations")
@@ -152,7 +151,7 @@ export const INTEGRATION_CONFIG: {
       }
 
       console.log("Success saving token", data);
-      const session = (await getServerSession(authOptions)) as sessionType;
+      const session = (await getSession()) as sessionType;
 
       await dbConnect();
       const user = await UserModel.findById(session.user._id)

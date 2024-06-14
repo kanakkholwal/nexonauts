@@ -1,8 +1,6 @@
-import { authOptions } from "app/api/auth/[...nextauth]/options";
 import SquareGrid from "app/layouts/patterns/square-grid";
 import WithoutSession from "app/layouts/without-session";
 import { Metadata } from "next";
-import { getServerSession } from "next-auth/next";
 import AlreadyProfile from "./existing";
 import CreateProfileForm from "./form";
 import { createProfile } from "./actions";

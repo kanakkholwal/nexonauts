@@ -1,6 +1,7 @@
 "use client";
-import { Badge, BadgeProps } from "@/components/ui/badge";
+import { BadgeProps } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Chip } from "@/components/ui/chips";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Loader2, Search, X } from "lucide-react";
@@ -39,31 +40,17 @@ export function FilterButton({
     router.push(`?${params.toString()}`);
   };
   return (
-    <Badge
+    <Chip
       size="sm"
-      variant={active ? "default_light" : "glass"}
+      // variant={active ? "default_light" : "glass"}
       onClick={() => {
-        // console.log("Filtering by", filterKey, filterValue)
         handleFilter(filterValue);
       }}
+      onRemove={removeFilter}
       {...props}
     >
       {children}
-      {active && filterKey !== "all" && (
-        <span
-          className="cursor-pointer border-l border-border inline-flex justify-center items-center rounded-full pl-2"
-          role="reset"
-          aria-label="Remove filter"
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            removeFilter();
-          }}
-        >
-          <X className="h-4 w-4" />
-        </span>
-      )}
-    </Badge>
+    </Chip>
   );
 }
 export function SearchBar({
