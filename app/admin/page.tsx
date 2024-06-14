@@ -9,11 +9,7 @@ import { CircleDashed, TrendingDown, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { getSession } from "src/lib/auth";
 import { sessionType } from "src/types/session";
-import {
-  apps_CountAndGrowth,
-  tools_CountAndGrowth,
-  users_CountAndGrowth,
-} from "./actions";
+import { tools_CountAndGrowth, users_CountAndGrowth } from "./actions";
 
 export default async function DashboardPage() {
   const session = (await getSession()) as sessionType;
@@ -24,12 +20,6 @@ export default async function DashboardPage() {
     growth: userGrowth,
     trend: userTrend,
   } = await users_CountAndGrowth("this_month");
-
-  const {
-    count: appCount,
-    growth: appGrowth,
-    trend: appTrend,
-  } = await apps_CountAndGrowth("this_month");
 
   const {
     count: toolCount,
@@ -75,35 +65,6 @@ export default async function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <h3 className="text-5xl font-semibold">{userCount}</h3>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardHeader>
-                <CardTitle>Total Apps</CardTitle>
-                <CardDescription>
-                  <span
-                    className={
-                      (appTrend === "increase"
-                        ? "text-green-500"
-                        : appTrend === "decrease"
-                          ? "text-red-500"
-                          : "text-primary/80") + " text-base"
-                    }
-                  >
-                    {appTrend === "increase" ? (
-                      <TrendingUp size={20} className="inline-block mr-2" />
-                    ) : appTrend === "decrease" ? (
-                      <TrendingDown size={20} className="inline-block mr-2" />
-                    ) : (
-                      <CircleDashed size={20} className="inline-block mr-2" />
-                    )}
-                    {appGrowth?.toFixed(2)}%
-                  </span>{" "}
-                  from last month
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <h3 className="text-5xl font-semibold">{appCount}</h3>
               </CardContent>
             </Card>
             <Card>

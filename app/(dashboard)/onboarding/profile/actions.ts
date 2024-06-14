@@ -1,6 +1,4 @@
 "use server";
-import { authOptions } from "app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
 import dbConnect from "src/lib/dbConnect";
 import Profile from "src/models/profile";
 import User from "src/models/user";
