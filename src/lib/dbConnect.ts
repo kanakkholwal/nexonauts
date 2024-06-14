@@ -22,7 +22,7 @@ if (!cached) {
   cached = global.mongoose = { conn: null, promise: null };
 }
 const defaultDb =
-  process.env.NODE_ENV === "production" ? "production" : "testing";
+  process.env.NODE_ENV === "production" ? "production" : "development";
 
 async function dbConnect(dbName: string = defaultDb): Promise<Mongoose> {
   if (cached.conn) {
@@ -36,15 +36,10 @@ async function dbConnect(dbName: string = defaultDb): Promise<Mongoose> {
 
     try {
       mongoose.set("strictQuery", false);
-      cached.promise = mongoose
-        .connect(
-          `${MONGODB_URI} + "?retryWrites=true&w=majority&appName=nexonauts"`,
-          opts
-        )
-        .then((mongoose) => {
-          console.log("Connected to MongoDB to database:", dbName);
-          return mongoose;
-        });
+      cached.promise = mongoose.connect(MONGODB_URI, opts).then((mongoose) => {
+        console.log("Connected to MongoDB to database:", dbName);
+        return mongoose;
+      });
     } catch (err) {
       console.error("Error connecting to MongoDB:", err);
       throw err;

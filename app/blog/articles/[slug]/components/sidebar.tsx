@@ -1,17 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
+import { Author } from "src/models/post";
 
 interface SidebarProps {
-  author: {
-    name: string;
-    username: string;
-    profilePicture: string;
-  };
+  author: Pick<Author, "name" | "username" | "profilePicture">;
   createdAt: string;
   content: string;
 }
 
 export function SideBar(props: SidebarProps) {
+  console.log(props.author);
   return (
     <aside className="@3xl:sticky @3xl:top-5 overflow-hidden space-y-10 p-5 rounded-lg border backdrop-blur-lg shadow w-full @4xl:w-max @4xl:ml-auto shrink-0">
       <div className="flex flex-col items-start space-y-4">

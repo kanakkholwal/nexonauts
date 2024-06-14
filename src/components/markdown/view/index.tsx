@@ -11,7 +11,7 @@ export default function MarkdownView({
   className,
   ...options
 }: {
-  children: string | null | undefined;
+  children: string;
   className?: string;
   options?: Options;
 }) {

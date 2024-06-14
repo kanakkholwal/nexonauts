@@ -1,15 +1,12 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Image from "next/image";
 import Balancer from "react-wrap-balancer";
+import { Author } from "src/models/post";
 
 interface PostHeaderProps {
   title: string;
   image: string;
-  author: {
-    name: string;
-    username: string;
-    profilePicture: string;
-  };
+  author: Pick<Author, "name" | "username" | "profilePicture">;
   createdAt: string;
 }
 
