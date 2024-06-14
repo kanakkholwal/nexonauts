@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     state: "published",
   })
     .sort({ publishedAt: -1 })
-    .select("slug publishedAt")
+    .select("slug createdAt")
     .exec();
 
   const manualRoutes = [
@@ -84,8 +84,8 @@ export async function GET(request: NextRequest) {
   const sitemap = generateSiteMap([
     ...manualRoutes,
     ...posts.map((post) => ({
-      path: `/blog/posts/${post.slug}`,
-      date: new Date(post.publishedAt).toISOString(),
+      path: `/blog/articles/${post.slug}`,
+      date: new Date(post.createdAt).toISOString(),
     })),
     ...publicTools.map((tool) => {
       return {
