@@ -15,7 +15,7 @@ import {
 import { ArrowUpRight, LoaderCircle } from "lucide-react";
 
 import { Tag, TagInput } from "@/components/custom/tag-input";
-import NexoEditor from 'nexo-mdx';
+import NexoEditor from "nexo-mdx";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -28,16 +28,14 @@ import {
   PublicToolStatus,
   rawPublicToolType,
 } from "src/models/tool";
-import { useFormStore } from "./store";
 import { z } from "zod";
+import { useFormStore } from "./store";
 const urlSchema = z
   .string()
   .url()
   .transform((value) => {
     return value.trim();
   });
-
-
 
 export default function Form({
   submitTool,
@@ -98,7 +96,9 @@ export default function Form({
               value={tool?.description || ""}
               disabled={loading || generating}
               onChange={(value, _) => {
-                useFormStore.setState({ tool: { ...tool, description: value } });
+                useFormStore.setState({
+                  tool: { ...tool, description: value },
+                });
               }}
               renderHtml={(text: string) => (
                 <MarkdownView className="prose lg:prose-xl">

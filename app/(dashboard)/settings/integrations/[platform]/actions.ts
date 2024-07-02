@@ -9,7 +9,7 @@ import { INTEGRATION_CONFIG } from "src/lib/integrations";
 import User from "src/models/user";
 
 export async function getUserIntegrationData(platform: string) {
-    const session = await getSession() as sessionType;
+  const session = (await getSession()) as sessionType;
   // connect to the database and get the user integrations data
   await dbConnect();
   const user = await User.findById(session.user._id)
@@ -28,7 +28,7 @@ export async function saveAccessToken(
   try {
     const integrationConfig = INTEGRATION_CONFIG[platform];
 
-      const session = await getSession() as sessionType;
+    const session = (await getSession()) as sessionType;
 
     const integrationData = await getUserIntegrationData(platform);
 
@@ -54,7 +54,7 @@ export async function saveAccessToken(
 export async function revokeToken(platform: string) {
   "use server";
   try {
-      const session = await getSession() as sessionType;
+    const session = (await getSession()) as sessionType;
 
     const integrationData = await getUserIntegrationData(platform);
 
