@@ -6,8 +6,6 @@ import Product from "src/models/product";
 import { sessionType } from "src/types/session";
 import { createSlug } from "src/utils/string";
 
-
-
 export async function getCatgories() {
   const session = (await getSession()) as sessionType;
   await dbConnect();

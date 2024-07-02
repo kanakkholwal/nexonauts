@@ -66,7 +66,7 @@
         "markdown-to-jsx": "^7.3.2",
         "mongoose": "^8.0.4",
         "nexo-html2jsx": "^1.2.0",
-        "nexo-mdx": "^0.5.9",
+        "nexo-mdx": "^0.7.5",
         "next": "^14.2.4",
         "next-auth": "^4.24.5",
         "next-themes": "^0.2.1",
@@ -137,5 +137,6 @@
     "resolutions": {
         "@types/react": "18.0.25",
         "@types/react-dom": "^18.2.19"
-    }
+    },
+    "packageManager": "npm@10.5.0"
 }
