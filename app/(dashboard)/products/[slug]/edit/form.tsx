@@ -23,7 +23,7 @@ import { UploadImage } from "src/components/uploader";
 import { CATEGORIES as defaultCategories } from "src/constants/marketplace";
 import { ProductType } from "src/models/product";
 import { z } from "zod";
-import NexoEditor from 'nexo-mdx';
+import NexoEditor from "nexo-mdx";
 
 import { HtmlToMarkdown } from "src/utils/string";
 

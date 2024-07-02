@@ -7,8 +7,6 @@ import UserModel from "src/models/user";
 
 import { getSession } from "src/lib/auth";
 
-
-
 export async function POST(request: NextRequest) {
   try {
     const session = await getSession();
