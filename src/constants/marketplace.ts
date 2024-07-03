@@ -6,10 +6,10 @@ export const SHORT_DESCRIPTION =
   "Discover an expansive universe of high-quality digital products and unleash your creative potential. Find everything from templates and UI kits to e-books, plugins, extensions, themes, graphics, and fonts. Join our thriving community and unlock the endless possibilities of the digital world.";
 
 export const CATEGORIES = [
-  "Design",
   "Course",
+  "Design",
   "Productivity",
-  "Themes",
   "Templates",
+  "Themes",
   "UI Kits",
 ] as const;

@@ -34,7 +34,7 @@
     --foreground: 210 20% 98%;
     --background-start-rgb: 0, 0, 20%;
     --background-end-rgb: 0, 0, 25%;
-    --card: 224 71.4% 4.1%;
+    --card: 0deg 0% 6.67%;
     --card-foreground: 210 20% 98%;
     --popover: 224 71.4% 4.1%;
     --popover-foreground: 210 20% 98%;
@@ -140,6 +140,7 @@ a {
   /* glassmorphism  with tailwindcss  and dark mode */
   @apply bg-white/30 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70;
 }
+
 .bg-background-gradient {
   background: linear-gradient(
     135deg,
@@ -162,6 +163,20 @@ a {
   flex: 1;
   height: 1px;
   @apply bg-border dark:bg-slate-700;
+}
+
+.max-w-container {
+  max-width: calc(100% - 2.5rem);
+}
+@media (min-width: 768px) {
+  .max-w-container {
+    max-width: calc(100% - 3rem);
+  }
+}
+@media (min-width: 992px) {
+  .max-w-container {
+    max-width: calc(100% - 10rem);
+  }
 }
 
 .staticWave {

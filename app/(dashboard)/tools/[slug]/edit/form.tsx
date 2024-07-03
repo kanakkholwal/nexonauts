@@ -22,7 +22,7 @@ import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
 
-import NexoEditor from 'nexo-mdx';
+import NexoEditor from "nexo-mdx";
 import MarkdownView from "src/components/markdown/view";
 import { UploadImage } from "src/components/uploader";
 import {
@@ -40,7 +40,6 @@ const urlSchema = z
   .transform((value) => {
     return value.trim();
   });
-
 
 export default function Form({
   updateTool,
@@ -101,17 +100,17 @@ export default function Form({
             <Label htmlFor="description">Description</Label>
             <NexoEditor
               id="description"
+              className="!h-auto p-0"
               value={tool?.description || ""}
               disabled={loading || generating}
               rows={8}
-              onChange={(value,_) => {
-                // console.log('onChange', html, text);
-                useFormStore.setState({ tool: { ...tool, description: value } });
+              onChange={(value, _) => {
+                useFormStore.setState({
+                  tool: { ...tool, description: value },
+                });
               }}
               renderHtml={(text: string) => (
-                <MarkdownView className="prose">
-                  {text}
-                </MarkdownView>
+                <MarkdownView className="prose">{text}</MarkdownView>
               )}
             />
             <div className="flex justify-end gap-2">

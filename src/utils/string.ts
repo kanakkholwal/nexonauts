@@ -3,7 +3,6 @@ import { z } from "zod";
 import TurndownService from "turndown";
 
 export function slugify(text: string): string {
-
   let slug = text.toString().toLowerCase().trim();
 
   // Remove non-alphanumeric characters
@@ -30,7 +29,6 @@ export function generateSlug(length = 8): string {
 
 export function createSlug(text: string): string {
   return slugify(text) + "-" + generateSlug();
-
 }
 
 export function validatePassword(password: string) {

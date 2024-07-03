@@ -1,11 +1,11 @@
-import { SessionUserType } from "src/types/user";
+import { sessionType } from "src/types/session";
 import FloatingMenu from "./floating-menu";
 import { Navbar } from "./navbar";
 
 export type WrapperProps = {
   children: React.ReactNode;
   title?: React.ReactNode | null;
-  user: SessionUserType | null;
+  user: sessionType["user"] | null;
 };
 
 export default function MarketWrapper({ children, user, title }: WrapperProps) {
