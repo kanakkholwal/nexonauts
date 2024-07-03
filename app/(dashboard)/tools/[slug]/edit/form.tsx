@@ -21,12 +21,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
-<<<<<<< HEAD
 
 import NexoEditor from "nexo-mdx";
-=======
->>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
 import MarkdownView from "src/components/markdown/view";
+import { UploadImage } from "src/components/uploader";
+import {
+  ICategory,
   PublicToolPricingType,
   PublicToolStatus,
   PublicToolTypeWithId,
@@ -40,13 +40,6 @@ const urlSchema = z
   .transform((value) => {
     return value.trim();
   });
-<<<<<<< HEAD
-=======
-const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
-  loading: () => <p>Loading...</p>,
-  ssr: false,
-});
->>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
 
 export default function Form({
   updateTool,
