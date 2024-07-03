@@ -37,7 +37,7 @@ const defaultList = [
     path: "/scout",
   },
   {
-    title:"Marketplace",
+    title: "Marketplace",
     path: "/marketplace",
   },
   {
