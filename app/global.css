@@ -29,29 +29,29 @@
     --code-bg: 204 100% 77%/0.1;
   }
 
-    .dark {
-        --background: 224 71.4% 4.1%;
-        --foreground: 210 20% 98%;
-        --background-start-rgb: 0, 0, 20%;
-        --background-end-rgb: 0, 0, 25%;
-        --card: 224 71.4% 4.1%;
-        --card-foreground: 210 20% 98%;
-        --popover: 224 71.4% 4.1%;
-        --popover-foreground: 210 20% 98%;
-        --primary: 262.1 83.3% 57.8%;
-        --primary-foreground: 210 20% 98%;
-        --secondary: 215 27.9% 16.9%;
-        --secondary-foreground: 210 20% 98%;
-        --muted: 215 27.9% 16.9%;
-        --muted-foreground: 217.9 10.6% 64.9%;
-        --accent: 215 27.9% 16.9%;
-        --accent-foreground: 210 20% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 210 20% 98%;
-        --border: 215 27.9% 16.9%;
-        --input: 215 27.9% 16.9%;
-        --ring: 263.4 70% 50.4%;
-    }
+  .dark {
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+    --background-start-rgb: 0, 0, 20%;
+    --background-end-rgb: 0, 0, 25%;
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 262.1 83.3% 57.8%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 263.4 70% 50.4%;
+  }
 }
 
 @layer base {
@@ -139,8 +139,12 @@ a {
   /* glassmorphism  with tailwindcss  and dark mode */
   @apply bg-white/30 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70;
 }
-.bg-background-gradient{
-    background: linear-gradient(135deg, rgba(var(--background-start-rgb), 1) 0, rgba(var(--background-end-rgb), 1) 100%);
+.bg-background-gradient {
+  background: linear-gradient(
+    135deg,
+    rgba(var(--background-start-rgb), 1) 0,
+    rgba(var(--background-end-rgb), 1) 100%
+  );
 }
 .or {
   display: flex;
