@@ -3,7 +3,6 @@ import { PipelineStage } from "mongoose";
 import dbConnect from "src/lib/dbConnect";
 import Product, { ProductType } from "src/models/product";
 
-<<<<<<< HEAD
 export async function getProductsByCategory(): Promise<
   {
     category: string;
@@ -46,15 +45,4 @@ export async function getProductsByCategory(): Promise<
   const result = await Product.aggregate(pipeline).exec();
 
   return Promise.resolve(JSON.parse(JSON.stringify(result)));
-=======
-export async function getProducts(): Promise<Partial<ProductType>[]> {
-  await dbConnect();
-  const products = await Product.find({
-    published: true,
-  })
-    .sort({ createdAt: -1 })
-    .limit(10)
-    .exec();
-  return Promise.resolve(JSON.parse(JSON.stringify(products)));
->>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
 }

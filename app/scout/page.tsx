@@ -10,10 +10,7 @@ import PublicTool from "src/models/tool";
 import { formatNumber } from "src/utils/formaters";
 import illustration from "./illustration.svg";
 // import Autoplay from "embla-carousel-autoplay"
-<<<<<<< HEAD
 import { Button } from "@/components/ui/button";
-=======
->>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
 import {
   ArrowUpDown,
   FolderOpen,
@@ -129,7 +126,6 @@ export default async function Page() {
                         Start Simplifying Your Work Today !!!
                     </p> */}
             <div className="flex gap-4 items-center justify-start mt-10">
-<<<<<<< HEAD
               <Button size="lg" width="sm" className="ml-0" asChild>
                 <Link
                   href="/scout/browse"
@@ -139,15 +135,6 @@ export default async function Page() {
                   <ScanSearch />
                 </Link>
               </Button>
-=======
-              <Link
-                href="/scout/browse"
-                className="rounded-full flex items-center justify-center gap-2 font-semibold bg-primary shadow-lg text-base h-14 shadow-primary/50  text-white py-3 px-6 hover:bg-primary-dark transition duration-200"
-              >
-                Start Searching Now
-                <ScanSearch className="w-6 h-6" />
-              </Link>
->>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
             </div>
             <p className="text-base mt-8 font-semibold text-gray-600 dark:text-slate-300 max-w-lg">
               Trusted by over 1000+ developers and businesses.

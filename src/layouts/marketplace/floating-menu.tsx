@@ -41,11 +41,7 @@ const navigations = [
 }[];
 
 export default function FloatingMenu() {
-<<<<<<< HEAD
   // const { pathname } = useRouter();
-=======
-  const { pathname } = useRouter();
->>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
 
   return (
     <div className="fixed z-10 left-0 bottom-0 lg:top-0 right-0 lg:right-auto lg:w-24 bg-slate-100 lg:bg-white shadow-md border-t border-slate-200 pt-1  flex flex-col justify-center">
@@ -62,17 +58,10 @@ export default function FloatingMenu() {
               <span
                 title={NavLink.label}
                 className={
-<<<<<<< HEAD
                   "px-6 py-2 rounded-full"
                   // (pathname === NavLink.href
                   //   ? " text-primary bg-primary/10 shadow-sm shadow-primary/10"
                   //   : " text-slate-700  hover:text-slate-900 hover:bg-white lg:hover:bg-slate-100")
-=======
-                  "px-6 py-2 rounded-full" +
-                  (pathname === NavLink.href
-                    ? " text-primary bg-primary/10 shadow-sm shadow-primary/10"
-                    : " text-slate-700  hover:text-slate-900 hover:bg-white lg:hover:bg-slate-100")
->>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
                 }
               >
                 <NavLink.icon
@@ -83,17 +72,10 @@ export default function FloatingMenu() {
               </span>
               <span
                 className={
-<<<<<<< HEAD
                   "lg:hidden text-xs"
                   // (pathname === NavLink.href
                   //   ? " font-semibold"
                   //   : " font-medium")
-=======
-                  "lg:hidden text-xs" +
-                  (pathname === NavLink.href
-                    ? " font-semibold"
-                    : " font-medium")
->>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
                 }
               >
                 {NavLink.label}
