@@ -40,6 +40,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { UploadImage } from "src/components/uploader";
 import { importProductFromURL } from "src/lib/marketplace/import-product";
+import { CATEGORIES as defaultCategories } from "src/constants/marketplace";
 
 import { HtmlToMarkdown } from "src/utils/string";
 import { z } from "zod";
@@ -78,14 +79,7 @@ const urlSchema = z
   .transform((value) => {
     return value.trim();
   });
-const defaultCategories = [
-  "Design",
-  "Course",
-  "Productivity",
-  "Themes",
-  "Templates",
-  "UI Kits",
-] as const;
+
 interface Props {
   saveProduct: (product: z.infer<typeof formSchema>) => Promise<boolean>;
 }
@@ -268,6 +262,7 @@ export default function ProductForm(props: Props) {
                   <FormControl>
                     <NexoEditor
                       placeholder="Description"
+                      className="!h-auto p-0"
                       onPaste={(e) => {
                         e.preventDefault();
                         const text = e.clipboardData.getData("text/plain");

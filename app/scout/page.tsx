@@ -126,7 +126,7 @@ export default async function Page() {
                         Start Simplifying Your Work Today !!!
                     </p> */}
             <div className="flex gap-4 items-center justify-start mt-10">
-              <Button size="lg" width="sm" asChild>
+              <Button size="lg" width="sm" className="ml-0" asChild>
                 <Link
                   href="/scout/browse"
                   // className="rounded-full flex items-center justify-center gap-2 font-semibold bg-primary shadow-lg text-base h-14  text-white py-3 px-6 hover:bg-primary-dark transition duration-200"

@@ -18,7 +18,7 @@ const badgeVariants = cva(
         warning_light:
           "bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20",
         info_light: "bg-sky-500/10 text-sky-500 hover:bg-sky-500/20",
-        info: "bg-sky-100 hover:bg-sky-200 text-sky-600 dark:bg-sky-700 dark:text-sky-200 dark:hover:bg-sky-800 dark:hover:text-sky-200",
+        info: "bg-sky-100 hover:bg-sky-200 text-sky-600 dark:bg-sky-700 dark:text-sky-200 dark:hover:bg-sky-800 dark:hover:text-sky-200 border-none",
         destructive_light:
           "bg-red-500/10 text-red-500 hover:bg-red-500/20 dark:bg-red-500/20 dark:text-red-500 hover:dark:bg-red-500/10 hover:dark:text-red-500",
         ghost:

@@ -93,6 +93,7 @@ export default function Form({
             <Label htmlFor="description">Description</Label>
             <NexoEditor
               id="description"
+              className="!h-auto p-0"
               value={tool?.description || ""}
               disabled={loading || generating}
               onChange={(value, _) => {
