@@ -1,15 +1,11 @@
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
-import { CATEGORIES } from "data/marketplace";
-import { itemTypes } from "data/marketplace/constants";
 import { ArrowUpRight, Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
-import { getProducts } from "./actions";
+import { getPopularMeta, getProducts } from "./actions";
+import { CategoryBoxes, FiltersCategory, FiltersPrice, FiltersTags, FiltersWrapper, SearchBar } from "./client";
 
 interface ExplorePageProps {
   searchParams?: {
@@ -17,74 +13,50 @@ interface ExplorePageProps {
     page?: string;
     perPage?: string;
     category?: string;
+    tags?: string;
+    price?: string;
   };
 }
 
 export default async function ExplorePage({ searchParams }: ExplorePageProps) {
   const category = searchParams?.category || "";
+  const initialTags = searchParams?.tags || "";
+  const initialPrice = searchParams?.price || "";
+  const initialQuery = searchParams?.query || "";
+
+  const { tags } = await getPopularMeta();
   const products = await getProducts();
 
   return (
-    <div className="flex items-start justify-center w-full gap-10 mx-auto p-3">
-      <aside className="bg-card w-full max-w-sm rounded-xl p-4">
+    <div className="flex items-start justify-center w-full gap-5 mx-auto p-3">
+      <aside className="bg-card w-full max-w-sm rounded-xl p-4 hidden lg:flex flex-col sticky top-20 [&>div]:pl-4">
         <h4 className="text-lg font-semibold">Categories</h4>
-        <RadioGroup defaultValue={category} className="flex flex-col gap-2 mt-4">
-          {CATEGORIES.map((category, i) => {
-            return (
-              <div key={i} className="items-top flex space-x-2">
-                <RadioGroupItem id={category} value={category} />
-                <Label htmlFor={category} className="mb-0">{category}</Label>
-              </div>
-            );
-          })}
-        </RadioGroup>
+        <FiltersCategory initialCategory={category} className="mt-4" />
+        <h4 className="text-lg font-semibold mt-4">Popular Tags</h4>
+        <FiltersTags defaultTags={tags} className="mt-4" initialTags={initialTags} />
+        <h4 className="text-lg font-semibold mt-4">Price</h4>
+        <FiltersPrice initialPrice={initialPrice} className="mt-4" />
       </aside>
       <main className="space-y-10 max-w-7xl w-full mx-auto @container/main">
-        <section id="category-labels" className="w-full mx-auto grid justify-items-center items-stretch px-3 gap-4 grid-cols-1 @4xl/main:grid-cols-4 @2xl/main:grid-cols-3 @sm/main:grid-cols-2">
-          {itemTypes.map((item, i) => {
-            return (
-              <Link
-                key={i}
-                href={`/marketplace/explore?category=${item.label}`}
-                className={cn(
-                  "flex items-center justify-center gap-3 p-3 rounded-xl transition-all duration-200 shadow-md border w-full aspect-[10/4]",
-                  " bg-card shadow-slate-200 dark:shadow-slate-800/20",
-                  category === item.label
-                    ? "border-primary"
-                    : "border-transparent"
-                )}
-                shallow
-              >
-                <div>
-                  <item.icon className="w-12 h-12  text-violet-600" />
-                </div>
-                <div>
-                  <h6 className="text-lg font-semibold">{item.label}</h6>
-                  <p className="text-sm font-medium text-slate-500 dark:text-gray-400">
-                    Trending in {item.label}
-                  </p>
-                </div>
-              </Link>
-            );
-          })}
-        </section>
+        <CategoryBoxes initialCategory={category} />
         <section id="search">
           <div>
-            <div className="relative w-full">
+            <div className="relative w-full flex gap-2">
               <Search className="absolute top-1/2 left-4 transform -translate-y-1/2 w-5 h-5" />
-              <Input
-                type="text"
-                name="query"
-                id="query"
-                variant="fluid"
-                placeholder="Search for products"
-                className="w-full pl-12 pr-4 py-2 h-14 rounded-xl bg-slate-50 dark:bg-slate-800/20 shadow border border-border"
-              />
+              <SearchBar initialQuery={initialQuery} />
+              <FiltersWrapper content={<div className="[&>div]:pl-4">
+                <h4 className="text-lg font-semibold">Categories</h4>
+                <FiltersCategory initialCategory={category} className="mt-4" />
+                <h4 className="text-lg font-semibold mt-4">Popular Tags</h4>
+                <FiltersTags defaultTags={tags} className="mt-4" initialTags={initialTags} />
+                <h4 className="text-lg font-semibold mt-4">Price</h4>
+                <FiltersPrice initialPrice={initialPrice} />
+              </div>} />
             </div>
           </div>
         </section>
         <section id="results" className="@container/results">
-          <div className="grid gap-4 grid-cols-1 @2xl/results:grid-cols-3 @sm/results:grid-cols-2">
+          <div className="grid gap-4 px-3 grid-cols-1 @2xl/results:grid-cols-3 @sm/results:grid-cols-2">
             <Suspense fallback={<div>Loading...</div>}>
               {products.map((product) => {
                 return (

@@ -13,7 +13,7 @@ export function useUrlState<T>(
   const router = useRouter();
   const searchParams = useSearchParams() as URLSearchParams;
   const initialValue = searchParams.has(key)
-    ? JSON.parse(searchParams.get(key) as string)
+    ? JSON.parse(JSON.stringify(searchParams.get(key)))
     : defaultValue;
 
   const [state, setState] = useState<T>(initialValue);
@@ -21,8 +21,12 @@ export function useUrlState<T>(
   const updateUrl = useCallback(
     (value: T) => {
       const params = new URLSearchParams(searchParams);
-      if (value !== undefined && value !== null) {
-        params.set(key, JSON.stringify(value));
+      if (
+        value !== undefined &&
+        value !== null &&
+        value?.toString()?.trim() !== ""
+      ) {
+        params.set(key, value.toString());
       } else {
         params.delete(key);
       }
@@ -48,7 +52,7 @@ export function useUrlState<T>(
 
   useEffect(() => {
     const paramValue = searchParams.has(key)
-      ? JSON.parse(searchParams.get(key) as string)
+      ? JSON.parse(JSON.stringify(searchParams.get(key)))
       : null;
     if (paramValue !== null && paramValue !== state) {
       setState(paramValue);
