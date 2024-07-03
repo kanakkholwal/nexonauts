@@ -1,0 +1,3337 @@
+[
+    {
+        "_createdAt": "2024-06-05T02:07:02Z",
+        "_id": "0f19cac1-e552-44ee-904c-d5695c2909f0",
+        "_rev": "XuV8pYxNBkQRr72QeShX6G",
+        "_type": "tool",
+        "_updatedAt": "2024-06-30T10:28:27Z",
+        "affiliateLink": false,
+        "affiliatePosition": -3008,
+        "defunct": {
+            "defunctReason": "No Longer Available",
+            "defunctStatus": false
+        },
+        "duplicate": false,
+        "favCount": 16,
+        "id": "0f19cac1-e552-44ee-904c-d5695c2909f0",
+        "mainImage": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-4b1b076f8133858a6784484ed3645293e6dcec2b-2497x1225-png",
+                "_type": "reference"
+            }
+        },
+        "popularityScore": 36,
+        "pricing": [
+            "Free Trial"
+        ],
+        "publishedAt": "2024-06-11T02:07:00.000Z",
+        "publishedAt_timestamp": 1718071620000,
+        "reviewStats": {
+            "reviewCount": 1,
+            "reviewScore": 5
+        },
+        "slug": {
+            "_type": "slug",
+            "current": "chatplayground"
+        },
+        "slugIndex": "chatplayground",
+        "socialLinks": [],
+        "sponsored": true,
+        "startingPrice": "19/mo",
+        "status": "In Review",
+        "tagsIndex": [
+            "students",
+            "chatbots",
+            "search-engine"
+        ],
+        "thumbnail": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-e4ec5ef055c38ab62dcc742feb0849238d22df01-128x128-png",
+                "_type": "reference"
+            }
+        },
+        "toolCategories": [
+            {
+                "_createdAt": "2023-12-19T21:59:42Z",
+                "_id": "5cb57bda-cf19-4cc3-99f8-21e07c99f2a6",
+                "_rev": "UPSdQ3D99n0q7yUgMtn9KI",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-11T03:58:14Z",
+                "categoryCode": "biz-12",
+                "categoryName": "students",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-ebf8969e512bbd52520a9c4d3e067a8dd0004151-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Discover AI Tools for Students",
+                "parentCategory": {
+                    "_ref": "iexqLQ1Ay2ySzDYapFDJwW",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "00fcbf39de0d",
+                        "_ref": "51dceb59-b72a-4dfe-a800-dce57c5c024b",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "845d71a7dcdc",
+                        "_ref": "faef9031-7681-4a78-9041-bc0135ea75df",
+                        "_type": "reference"
+                    }
+                ],
+                "seoHideFromLists": false,
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-ebf8969e512bbd52520a9c4d3e067a8dd0004151-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoNoIndex": false,
+                "seoTitle": "AI Tools & Software for Students in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "students"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "a63ec333fae2",
+                        "_ref": "0f19cac1-e552-44ee-904c-d5695c2909f0",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "fd677ece5c6d",
+                            "anchor": "#ai-tools-for-students",
+                            "label": "AI Tools for Students"
+                        },
+                        {
+                            "_key": "c4fe3383b4a0",
+                            "anchor": "#customizing-the-learning-experience-with-ai",
+                            "label": "Customizing the Learning Experience with AI "
+                        },
+                        {
+                            "_key": "c774ecc8e202",
+                            "anchor": "#boosting-engagement-through-interactive-ai-tools",
+                            "label": "Boosting Engagement Through Interactive AI Tools"
+                        },
+                        {
+                            "_key": "612f563492f4",
+                            "anchor": "#equipping-students-for-an-ai-driven-future",
+                            "label": "Equipping Students for an AI-Driven Future"
+                        },
+                        {
+                            "_key": "2755f2cd31b5",
+                            "anchor": "#embracing-ais-transformative-potential-in-education",
+                            "label": "Embracing AI's Transformative Potential in Education"
+                        }
+                    ]
+                },
+                "tagline": "Thrive in an AI-Enhanced Educational World with these [count] AI Tools for Students",
+                "title": "AI Tools for Students: Empowering Educational Success with Innovation"
+            },
+            {
+                "_createdAt": "2023-10-09T18:59:35Z",
+                "_id": "e9eaed2c-bcdc-4ac4-a519-5490c8e31117",
+                "_rev": "s5j6uXvCba5oURZ06FbkzR",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T09:41:51Z",
+                "businessFunctionCategory": {
+                    "_ref": "92d3a9d0-023a-47b9-b863-9b7e9055f5e0",
+                    "_type": "reference"
+                },
+                "categoryCode": "chatbot-1",
+                "categoryName": "ai chatbots",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-24524b531e3afdf9efd43650c6a634ce66596ab4-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Try These AI Chatbots",
+                "parentCategory": {
+                    "_ref": "iexqLQ1Ay2ySzDYapFDJwW",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "fb8833414081",
+                        "_ref": "UnZ2THkIAtRzfNq86WfuL0",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "7f718f1f8a59",
+                        "_ref": "UnZ2THkIAtRzfNq86WfjaE",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-24524b531e3afdf9efd43650c6a634ce66596ab4-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Powered Chatbots of [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "chatbots"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "e8265fec11fb",
+                        "_ref": "0ff4e515-1eba-49ad-ae02-06b208924732",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "81203cec132e",
+                        "_ref": "4a17873c-1521-4965-abca-f1f475df46e8",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "e5b47341ac03",
+                            "anchor": "#ai-chatbot-tools",
+                            "label": "AI Chatbot Tools"
+                        },
+                        {
+                            "_key": "918340d5c1c7",
+                            "anchor": "#enhancing-engagement-across-industries",
+                            "label": "Enhancing Engagement Across Industries"
+                        },
+                        {
+                            "_key": "d8ca4322ddfa",
+                            "anchor": "#the-technical-core-of-ai-chatbots",
+                            "label": "The Technical Core of AI Chatbots"
+                        },
+                        {
+                            "_key": "35ae32220f76",
+                            "anchor": "#embracing-the-future-with-ai-chatbots",
+                            "label": "Embracing the Future with AI Chatbots"
+                        }
+                    ]
+                },
+                "tagline": "Revolutionize Your Communication with These [count] AI Chatbot Tools",
+                "title": "AI Chatbot Tools: Elevating Conversations with Intelligent Interactions"
+            },
+            {
+                "_createdAt": "2023-01-01T18:46:10Z",
+                "_id": "kxHCIyVPfR3nkfRNFsIq36",
+                "_rev": "r1Ru63Q3CYeyGAJ807zsJB",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:42:30Z",
+                "businessFunctionCategory": {
+                    "_ref": "35ddf9f5-ccc9-4ae6-bdc7-c95796824269",
+                    "_type": "reference"
+                },
+                "categoryCode": "misc-1",
+                "categoryName": "search engine",
+                "parentCategory": {
+                    "_ref": "1vD6eDtgeKSQKjJSiByJSn",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "cZ82P73HmxHK8vAATxooi5",
+                        "_ref": "B8o7xf7Q4mKeMEiyAO3myQ",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-ebe2d096a5cf770428b187222375f9b785c14d33-1024x1024-webp",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Search Engine Tools in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "search-engine"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "14567e60cd95",
+                        "_ref": "0f19cac1-e552-44ee-904c-d5695c2909f0",
+                        "_type": "reference"
+                    }
+                ]
+            }
+        ],
+        "toolName": "ChatPlayground AI",
+        "toolShortDescription": "Multi-chatbot powerhouse for AI tasks.",
+        "verified": true,
+        "verifiedReason": "Recommended",
+        "websiteUrl": "https://www.chatplayground.ai/?utm_source=futurepedia&utm_medium=marketplace&utm_campaign=futurepedia",
+        "youtubeUrl": "https://www.youtube.com/embed/13CUOic-QHw?si=wvQnxCc3iBP6pJwf"
+    },
+    {
+        "_createdAt": "2024-06-05T02:47:51Z",
+        "_id": "27bb52d6-6416-4f0a-91c7-f949d0282aa3",
+        "_rev": "9ETorVJr8QDbowsR7MQDUw",
+        "_type": "tool",
+        "_updatedAt": "2024-06-26T11:13:02Z",
+        "affiliateLink": false,
+        "affiliatePosition": -3007,
+        "defunct": {
+            "defunctReason": "No Longer Available",
+            "defunctStatus": false
+        },
+        "duplicate": false,
+        "favCount": 8,
+        "id": "27bb52d6-6416-4f0a-91c7-f949d0282aa3",
+        "mainImage": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-15b2fdb92b1fd056afaf0be9e320d3d592fbbf45-2521x1238-png",
+                "_type": "reference"
+            }
+        },
+        "popularityScore": 8,
+        "pricing": [
+            "Free Trial"
+        ],
+        "publishedAt": "2024-06-05T02:47:51.641Z",
+        "publishedAt_timestamp": 1717555671641,
+        "reviewStats": {
+            "reviewCount": 0,
+            "reviewScore": 0
+        },
+        "slug": {
+            "_type": "slug",
+            "current": "divedeck-ai"
+        },
+        "slugIndex": "divedeck-ai",
+        "socialLinks": [
+            "https://www.reddit.com/r/DiveDeckAI/"
+        ],
+        "sponsored": true,
+        "startingPrice": "4.99/mo",
+        "status": "In Review",
+        "tagsIndex": [
+            "education",
+            "research-assistant",
+            "chatbots"
+        ],
+        "thumbnail": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-eacb44d90d24dce04d154c4c0900eba95c4c0b84-128x128-png",
+                "_type": "reference"
+            }
+        },
+        "toolCategories": [
+            {
+                "_createdAt": "2023-10-12T11:06:54Z",
+                "_id": "51dceb59-b72a-4dfe-a800-dce57c5c024b",
+                "_rev": "zGKkR8SwTw9KOsFiyCMFHV",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-05-10T22:47:01Z",
+                "categoryCode": "biz-1",
+                "categoryName": "education",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-ebf8969e512bbd52520a9c4d3e067a8dd0004151-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Education AI Tools",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-ebf8969e512bbd52520a9c4d3e067a8dd0004151-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Education Assistant Tools & Software of [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "education"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "f6fa675dfc58",
+                        "_ref": "54464e8a-6c68-4c12-a168-8693e155f80b",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "a4cf447e1065",
+                        "_ref": "a79b62af-2af8-4452-98a4-649f9403abc3",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "8ee54273a42f",
+                            "anchor": "#ai-education-tools",
+                            "label": "AI Education Tools"
+                        },
+                        {
+                            "_key": "6d232381c12f",
+                            "anchor": "#revolutionizing-education-with-ai",
+                            "label": "Revolutionizing Education with AI"
+                        },
+                        {
+                            "_key": "a227c0972d67",
+                            "anchor": "#ai-driven-educational-environments",
+                            "label": "AI-Driven Educational Environments"
+                        },
+                        {
+                            "_key": "5157ddb9182d",
+                            "anchor": "#future-ready-education",
+                            "label": "\"Future-Ready\" Education"
+                        }
+                    ]
+                },
+                "tagline": "[count] AI Education Tools to Reshape How We Teach & Learn",
+                "title": "AI Education Tools: Empowering Educators with Tailored Solutions"
+            },
+            {
+                "_createdAt": "2023-01-01T18:46:12Z",
+                "_id": "B8o7xf7Q4mKeMEiyAO3myQ",
+                "_rev": "r1Ru63Q3CYeyGAJ807zlA7",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:33:07Z",
+                "businessFunctionCategory": {
+                    "_ref": "bf29aee4-0862-4f8c-8ceb-e67b71c93da0",
+                    "_type": "reference"
+                },
+                "categoryCode": "misc-2",
+                "categoryName": "research",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-386346ea31d986ea9d0b81a8cb1b9a0d7a8513bf-1266x710-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Kevin testing AI research tools",
+                "parentCategory": {
+                    "_ref": "1vD6eDtgeKSQKjJSiByJSn",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "1aa139c23906",
+                        "_ref": "51dceb59-b72a-4dfe-a800-dce57c5c024b",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "dcFios7G8cgH6F3hvHR2us",
+                        "_ref": "kxHCIyVPfR3nkfRNFsIq36",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-386346ea31d986ea9d0b81a8cb1b9a0d7a8513bf-1266x710-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Research Tools & Software Using AI in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "research-assistant"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "e0496de3b20d",
+                        "_ref": "94df7685-6bdc-432a-abc3-3207c12b4f39",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "5002596aa3ee",
+                        "_ref": "4a17873c-1521-4965-abca-f1f475df46e8",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "2eab8dd0f5ae",
+                            "anchor": "#ai-research-tools",
+                            "label": "AI Research Tools"
+                        },
+                        {
+                            "_key": "dacf332f468c",
+                            "anchor": "#fueling-innovation-across-every-field",
+                            "label": "Fueling Innovation Across Every Field"
+                        },
+                        {
+                            "_key": "7f993f23cb67",
+                            "anchor": "#worldwide-collaboration-and-ingenuity",
+                            "label": "Worldwide Collaboration and Ingenuity"
+                        }
+                    ]
+                },
+                "tagline": "Rapidly Build & Analyze Data Using These [count] AI Research Tools",
+                "title": "AI Research Tools - Your Intelligent Partner in Discovery"
+            },
+            {
+                "_createdAt": "2023-10-09T18:59:35Z",
+                "_id": "e9eaed2c-bcdc-4ac4-a519-5490c8e31117",
+                "_rev": "s5j6uXvCba5oURZ06FbkzR",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T09:41:51Z",
+                "businessFunctionCategory": {
+                    "_ref": "92d3a9d0-023a-47b9-b863-9b7e9055f5e0",
+                    "_type": "reference"
+                },
+                "categoryCode": "chatbot-1",
+                "categoryName": "ai chatbots",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-24524b531e3afdf9efd43650c6a634ce66596ab4-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Try These AI Chatbots",
+                "parentCategory": {
+                    "_ref": "iexqLQ1Ay2ySzDYapFDJwW",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "fb8833414081",
+                        "_ref": "UnZ2THkIAtRzfNq86WfuL0",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "7f718f1f8a59",
+                        "_ref": "UnZ2THkIAtRzfNq86WfjaE",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-24524b531e3afdf9efd43650c6a634ce66596ab4-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Powered Chatbots of [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "chatbots"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "e8265fec11fb",
+                        "_ref": "0ff4e515-1eba-49ad-ae02-06b208924732",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "81203cec132e",
+                        "_ref": "4a17873c-1521-4965-abca-f1f475df46e8",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "e5b47341ac03",
+                            "anchor": "#ai-chatbot-tools",
+                            "label": "AI Chatbot Tools"
+                        },
+                        {
+                            "_key": "918340d5c1c7",
+                            "anchor": "#enhancing-engagement-across-industries",
+                            "label": "Enhancing Engagement Across Industries"
+                        },
+                        {
+                            "_key": "d8ca4322ddfa",
+                            "anchor": "#the-technical-core-of-ai-chatbots",
+                            "label": "The Technical Core of AI Chatbots"
+                        },
+                        {
+                            "_key": "35ae32220f76",
+                            "anchor": "#embracing-the-future-with-ai-chatbots",
+                            "label": "Embracing the Future with AI Chatbots"
+                        }
+                    ]
+                },
+                "tagline": "Revolutionize Your Communication with These [count] AI Chatbot Tools",
+                "title": "AI Chatbot Tools: Elevating Conversations with Intelligent Interactions"
+            }
+        ],
+        "toolName": "DiveDeck.AI",
+        "toolShortDescription": "Transform AI chats with structured, customizable deck-building.",
+        "verified": true,
+        "verifiedReason": "Recommended",
+        "websiteUrl": "https://divedeck.ai/?utm_source=futurepedia&utm_medium=marketplace&utm_campaign=futurepedia",
+        "youtubeUrl": "https://www.youtube.com/embed/8w1ZBeplzOc?si=HE19pk_RwzECxM8a"
+    },
+    {
+        "_createdAt": "2024-06-06T06:37:51Z",
+        "_id": "02a25982-fba2-49af-a8d4-0742b4dd7f4a",
+        "_rev": "6RcCvUPoGMxinG4vR6aHKi",
+        "_type": "tool",
+        "_updatedAt": "2024-06-26T11:13:08Z",
+        "affiliateLink": false,
+        "affiliatePosition": -3006,
+        "defunct": {
+            "defunctReason": "No Longer Available",
+            "defunctStatus": false
+        },
+        "duplicate": false,
+        "favCount": 10,
+        "id": "02a25982-fba2-49af-a8d4-0742b4dd7f4a",
+        "mainImage": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-d597cddedbfea2ad6fd8c286c262288baf11056a-2496x1232-png",
+                "_type": "reference"
+            }
+        },
+        "popularityScore": 10,
+        "pricing": [
+            "Freemium"
+        ],
+        "publishedAt": "2024-06-06T06:37:51.282Z",
+        "publishedAt_timestamp": 1717655871282,
+        "reviewStats": {
+            "reviewCount": 0,
+            "reviewScore": 0
+        },
+        "slug": {
+            "_type": "slug",
+            "current": "mimicpc"
+        },
+        "slugIndex": "mimicpc",
+        "socialLinks": [
+            "https://discord.gg/CdPbqFHJAr"
+        ],
+        "startingPrice": "0.49/hour",
+        "status": "In Review",
+        "tagsIndex": [
+            "image-generators",
+            "image-editing",
+            "video-editing"
+        ],
+        "thumbnail": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-d6c0fa11484a28a35726284fea760fe3b8ea5cf7-128x128-png",
+                "_type": "reference"
+            }
+        },
+        "toolCategories": [
+            {
+                "_createdAt": "2023-10-09T19:29:43Z",
+                "_id": "2650f8d3-164b-4c4b-bb51-aa0f91bf8c0d",
+                "_rev": "i5kvbbMW6pjkHmBhFaiT0F",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:17:42Z",
+                "businessFunctionCategory": {
+                    "_ref": "dc25203a-766c-42dd-9e18-72199dbcff5f",
+                    "_type": "reference"
+                },
+                "categoryCode": "image-1",
+                "categoryName": "image generators",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-9b2936006bee541fc1668aab51d9a1cc642f732b-3725x2095-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Find AI Image Generators",
+                "parentCategory": {
+                    "_ref": "8MM31Kxa78RqfoWPxffkKt",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "poZ8REiZtirufe9p6mVtMM",
+                        "_ref": "UnZ2THkIAtRzfNq86WfeWy",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "n9YH7BecQRyEJPXz4HLKyv",
+                        "_ref": "UnZ2THkIAtRzfNq86Wfgsu",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-9b2936006bee541fc1668aab51d9a1cc642f732b-3725x2095-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Image Generator Tools & Software for [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "image-generators"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "d20ea55cb61e",
+                        "_ref": "dc5f7870-ed03-4d5d-bf0e-fae3f160d28f",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "15b4b37c1eb1",
+                            "anchor": "#ai-image-generators",
+                            "label": "AI Image Generators"
+                        },
+                        {
+                            "_key": "9fd63624377a",
+                            "anchor": "#empowering-various-creatives-with-ai-visualization",
+                            "label": "Empowering Various Creatives with AI Visualization"
+                        },
+                        {
+                            "_key": "0cc935901d0f",
+                            "anchor": "#exploring-the-new-era-of-ai-driven-artistic-creation",
+                            "label": "Exploring the New Era of AI-Driven Artistic Creation"
+                        },
+                        {
+                            "_key": "87ad3279974a",
+                            "anchor": "#visual-renaissance-with-ai-at-the-helm",
+                            "label": "Visual Renaissance with AI at the Helm"
+                        }
+                    ]
+                },
+                "tagline": "Bring Your Vision to Life with these {{count}} AI Image Generators",
+                "title": "AI Image Generators - Painting Your Ideas into Reality"
+            },
+            {
+                "_createdAt": "2023-01-01T18:45:30Z",
+                "_id": "UnZ2THkIAtRzfNq86WfeWy",
+                "_rev": "6RcCvUPoGMxinG4vR6UwLC",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:18:05Z",
+                "businessFunctionCategory": {
+                    "_ref": "dc25203a-766c-42dd-9e18-72199dbcff5f",
+                    "_type": "reference"
+                },
+                "categoryCode": "image-3",
+                "categoryName": "image editing",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-3ae9ca70e502cf3d0b22a86617063e79b8c9f729-3643x2049-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Discover AI Image Editors",
+                "parentCategory": {
+                    "_ref": "8MM31Kxa78RqfoWPxffkKt",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "ogeScKmv83khEevZcZdGta",
+                        "_ref": "2650f8d3-164b-4c4b-bb51-aa0f91bf8c0d",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "528CbQkA3sHikFV1sbChzV",
+                        "_ref": "18c28701-ecbf-446d-a50d-29285561c411",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-3ae9ca70e502cf3d0b22a86617063e79b8c9f729-3643x2049-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Image Editing Tools & Software Using AI in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "image-editing"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "5c711c28ee50",
+                        "_ref": "70f3f249-5a76-4672-a508-0b05ba59078b",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "d043f87009c3",
+                            "anchor": "#ai-image-editors",
+                            "label": "AI Image Editors"
+                        },
+                        {
+                            "_key": "4515ee359ade",
+                            "anchor": "#empowering-creatives-and-professionals-with-ai",
+                            "label": "Empowering Creatives and Professionals with AI"
+                        },
+                        {
+                            "_key": "486b1489b0da",
+                            "anchor": "#harnessing-ai-for-transformative-image-editing",
+                            "label": "Harnessing AI for Transformative Image Editing"
+                        }
+                    ]
+                },
+                "tagline": "Quickly Refine Visuals with These [count] AI Image Editors",
+                "title": "AI Image Editors - Transforming Your Visuals with Precision"
+            },
+            {
+                "_createdAt": "2023-01-01T18:45:52Z",
+                "_id": "UnZ2THkIAtRzfNq86WfrII",
+                "_rev": "Cdu4mSM5vB47WlO9yuzTDe",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:07:11Z",
+                "businessFunctionCategory": {
+                    "_ref": "dc25203a-766c-42dd-9e18-72199dbcff5f",
+                    "_type": "reference"
+                },
+                "categoryCode": "video-2",
+                "categoryName": "video editing",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-46647727e970e8a23ff141e6c6573e38a4d4b671-2478x1394-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Research AI Video Editors",
+                "parentCategory": {
+                    "_ref": "45DxCNvEQNdNriBtbNYKMC",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "7Uq6HgUsYttekH7fErzVK3",
+                        "_ref": "a1ca8317-f0c1-4640-86d1-2b3872905e4d",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "14TwMfrhBc2xwAnczFdozk",
+                        "_ref": "B8o7xf7Q4mKeMEiyAO326s",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-46647727e970e8a23ff141e6c6573e38a4d4b671-2478x1394-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Video Editing Tools & Software in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "video-editing"
+                },
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "9aa3e86984da",
+                            "anchor": "#ai-video-editors",
+                            "label": "AI Video Editors"
+                        },
+                        {
+                            "_key": "d67a9e47da28",
+                            "anchor": "#why-ai-video-editors-are-a-game-changer",
+                            "label": "Why AI Video Editors Are a Game Changer"
+                        },
+                        {
+                            "_key": "11401f5ff617",
+                            "anchor": "#the-ai-driven-video-landscape",
+                            "label": "Looking Ahead: The AI-Driven Video Landscape"
+                        }
+                    ]
+                },
+                "tagline": "[count] AI Video Editor Tools That Speed Up the Editing Process",
+                "title": "AI Video Editors - Your Creative Catalyst"
+            }
+        ],
+        "toolName": "MimicPC",
+        "toolShortDescription": "Unlock AI tools instantly, browser-based, no installs needed.",
+        "verified": true,
+        "verifiedReason": "Recommended",
+        "websiteUrl": "https://www.mimicpc.com/?utm_source=futurepedia&utm_medium=marketplace&utm_campaign=futurepedia",
+        "youtubeUrl": "https://www.youtube.com/embed/_TiM1GebfSQ?si=NoReb0nU4aN1uPsS"
+    },
+    {
+        "_createdAt": "2023-02-06T01:32:11Z",
+        "_id": "ccefc3e6-969f-48d7-a938-48a98fd4c602",
+        "_rev": "kZk28u7rWdJGHvvCmcunK6",
+        "_type": "tool",
+        "_updatedAt": "2024-06-30T12:39:55Z",
+        "affiliateLink": false,
+        "affiliatePosition": -3005,
+        "defunct": {
+            "defunctReason": "No Longer Available",
+            "defunctStatus": false
+        },
+        "duplicate": false,
+        "favCount": 2927,
+        "id": "ccefc3e6-969f-48d7-a938-48a98fd4c602",
+        "mainImage": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-8a40ff4dabc1c0b66916fd4bc48b9ce3fdaf81a6-2512x1240-png",
+                "_type": "reference"
+            }
+        },
+        "newFeatures": [],
+        "popularityScore": 3047,
+        "pricing": [
+            "Freemium"
+        ],
+        "publishedAt": "2023-02-06T00:10:00.000Z",
+        "publishedAt_timestamp": 1675642200000,
+        "reviewStats": {
+            "reviewCount": 6,
+            "reviewScore": 28
+        },
+        "slug": {
+            "_type": "slug",
+            "current": "humata-ai"
+        },
+        "slugIndex": "humata-ai",
+        "socialLinks": [
+            "https://twitter.com/HumataAI",
+            "https://www.linkedin.com/company/humata/about/",
+            "https://www.youtube.com/@HumataAI"
+        ],
+        "sponsorOfTheDay": false,
+        "startingPrice": "",
+        "status": "In Review",
+        "tagsIndex": [
+            "human-resources",
+            "legal",
+            "chatbots"
+        ],
+        "thumbnail": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-98e68cf99dded6c8e83c8c280e87029a10549ce2-1024x1024-jpg",
+                "_type": "reference"
+            }
+        },
+        "thumbnailUrl": "https://www.google.com/s2/favicons?domain=https://www.humata.ai/?via=futurepedia&sz=128",
+        "toolCategories": [
+            {
+                "_createdAt": "2023-01-01T18:46:06Z",
+                "_id": "UnZ2THkIAtRzfNq86WfyUu",
+                "_rev": "w5W5yhCHeY4ixybwGdBzEM",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:31:55Z",
+                "businessFunctionCategory": {
+                    "_ref": "71e93cff-2f82-49df-8d7d-88ef9c410a12",
+                    "_type": "reference"
+                },
+                "categoryCode": "biz-7",
+                "categoryName": "human resources",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "relatedCategories": [],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-b5a31b7316fb89da0e7b207efe8495a61b39b62e-1024x1024-webp",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Human Resources Tools & Software using AI in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "human-resources"
+                },
+                "sponsoredTools": []
+            },
+            {
+                "_createdAt": "2023-10-09T18:53:02Z",
+                "_id": "e8b8c345-c640-4710-b67b-df76476b4a24",
+                "_rev": "i5kvbbMW6pjkHmBhFaib53",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:30:31Z",
+                "businessFunctionCategory": {
+                    "_ref": "71e93cff-2f82-49df-8d7d-88ef9c410a12",
+                    "_type": "reference"
+                },
+                "categoryCode": "biz-3",
+                "categoryName": "legal",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-99b5388c207e662be42f7541da674ab8196b186f-1024x1024-webp",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Use AI for Legal Work with These Tools in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "legal"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "0e19141b0816",
+                        "_ref": "5cbd500e-b927-4757-b242-152cc8836a20",
+                        "_type": "reference"
+                    }
+                ]
+            },
+            {
+                "_createdAt": "2023-10-09T18:59:35Z",
+                "_id": "e9eaed2c-bcdc-4ac4-a519-5490c8e31117",
+                "_rev": "s5j6uXvCba5oURZ06FbkzR",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T09:41:51Z",
+                "businessFunctionCategory": {
+                    "_ref": "92d3a9d0-023a-47b9-b863-9b7e9055f5e0",
+                    "_type": "reference"
+                },
+                "categoryCode": "chatbot-1",
+                "categoryName": "ai chatbots",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-24524b531e3afdf9efd43650c6a634ce66596ab4-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Try These AI Chatbots",
+                "parentCategory": {
+                    "_ref": "iexqLQ1Ay2ySzDYapFDJwW",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "fb8833414081",
+                        "_ref": "UnZ2THkIAtRzfNq86WfuL0",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "7f718f1f8a59",
+                        "_ref": "UnZ2THkIAtRzfNq86WfjaE",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-24524b531e3afdf9efd43650c6a634ce66596ab4-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Powered Chatbots of [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "chatbots"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "e8265fec11fb",
+                        "_ref": "0ff4e515-1eba-49ad-ae02-06b208924732",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "81203cec132e",
+                        "_ref": "4a17873c-1521-4965-abca-f1f475df46e8",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "e5b47341ac03",
+                            "anchor": "#ai-chatbot-tools",
+                            "label": "AI Chatbot Tools"
+                        },
+                        {
+                            "_key": "918340d5c1c7",
+                            "anchor": "#enhancing-engagement-across-industries",
+                            "label": "Enhancing Engagement Across Industries"
+                        },
+                        {
+                            "_key": "d8ca4322ddfa",
+                            "anchor": "#the-technical-core-of-ai-chatbots",
+                            "label": "The Technical Core of AI Chatbots"
+                        },
+                        {
+                            "_key": "35ae32220f76",
+                            "anchor": "#embracing-the-future-with-ai-chatbots",
+                            "label": "Embracing the Future with AI Chatbots"
+                        }
+                    ]
+                },
+                "tagline": "Revolutionize Your Communication with These [count] AI Chatbot Tools",
+                "title": "AI Chatbot Tools: Elevating Conversations with Intelligent Interactions"
+            }
+        ],
+        "toolLabel": "featured",
+        "toolName": "Humata AI",
+        "toolShortDescription": "ChatGPT for your files.",
+        "verified": true,
+        "verifiedReason": "Recommended",
+        "websiteUrl": "https://www.humata.ai/?via=futurepedia",
+        "youtubeUrl": "https://www.youtube.com/embed/smWlQ5u-0Jc"
+    },
+    {
+        "_createdAt": "2023-01-04T15:14:09Z",
+        "_id": "e837d675-12d5-4c24-b2b5-155db4d26d9d",
+        "_rev": "0k15mPeIL6qxT66ZGoyIJZ",
+        "_type": "tool",
+        "_updatedAt": "2024-06-29T23:45:27Z",
+        "affiliateLink": false,
+        "affiliatePosition": -3003,
+        "defunct": {
+            "defunctReason": "No Longer Available",
+            "defunctStatus": false
+        },
+        "duplicate": false,
+        "favCount": 131,
+        "id": "e837d675-12d5-4c24-b2b5-155db4d26d9d",
+        "mainImage": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-769df49b722b0cbb206bcad0323c08693785312e-1888x912-png",
+                "_type": "reference"
+            }
+        },
+        "newFeatures": [
+            "Browser Extension",
+            "API"
+        ],
+        "popularityScore": 131,
+        "pricing": [
+            "Freemium"
+        ],
+        "publishedAt": "2023-01-06T02:35:53.294Z",
+        "publishedAt_timestamp": 1672972553294,
+        "reviewStats": {
+            "reviewCount": 0,
+            "reviewScore": 0
+        },
+        "searchTermForReview": "Reply.io ai reviews",
+        "slug": {
+            "_type": "slug",
+            "current": "replyio"
+        },
+        "slugIndex": "replyio",
+        "socialLinks": [
+            "mailto:sales@reply.io",
+            "https://www.youtube-nocookie.com/embed/YAjufGFw0Yo?controls=0",
+            "https://twitter.com/ReplyAppTeam",
+            "https://www.facebook.com/reply.io/",
+            "https://www.linkedin.com/company/reply-io"
+        ],
+        "startingPrice": "59/mo",
+        "status": "Published",
+        "tagsIndex": [
+            "marketing",
+            "sales-assistant",
+            "email-assistant"
+        ],
+        "thumbnail": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-33541cd646c8b8e82b6924cfc6b314e93d04f25a-192x192-svg",
+                "_type": "reference"
+            }
+        },
+        "thumbnailUrl": "https://www.google.com/s2/favicons?domain=https://reply.io/sales-email-assistant/&sz=128",
+        "toolCategories": [
+            {
+                "_createdAt": "2023-10-09T18:57:16Z",
+                "_id": "33dbeadd-85a8-48ee-97ec-e6c54ba57d22",
+                "_rev": "qWV848d0v81xaegM6DM6bn",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-28T22:07:47Z",
+                "businessFunctionCategory": {
+                    "_ref": "e9e5001e-0256-4761-b0f9-6196e003e40f",
+                    "_type": "reference"
+                },
+                "categoryCode": "marketing-1",
+                "categoryName": "marketing",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-c7c2eeced46b107b137d812ca8e8a2aae109e86f-1828x1028-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Researching AI Marketing Tools",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "positionLockIn": [
+                    {
+                        "_key": "48bcb5d5d8f0",
+                        "_ref": "4cec7804-2cd0-4e51-9945-a0286b4f2139",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "1e264485ae5c",
+                        "_ref": "d18c3381-885a-4de3-aa67-6bb26a22a31c",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "38d34332a28f",
+                        "_ref": "ecb416c6-9796-4cb5-abbc-7efbcb76d2a1",
+                        "_type": "reference"
+                    }
+                ],
+                "relatedCategories": [
+                    {
+                        "_key": "4a244b59e89a",
+                        "_ref": "18c28701-ecbf-446d-a50d-29285561c411",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "8acfb005e917",
+                        "_ref": "2650f8d3-164b-4c4b-bb51-aa0f91bf8c0d",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-c7c2eeced46b107b137d812ca8e8a2aae109e86f-1828x1028-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Use AI for Marketing with These Tools & Software in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "marketing"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "fee46b8804e3",
+                        "_ref": "850a9961-9251-4ce9-92fa-1247d95fb3b7",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "e087b2b81857",
+                        "_ref": "89c9ac57-99f9-4490-bec5-8edb23857fe7",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "6c165aac495a",
+                            "anchor": "#ai-marketing-tools",
+                            "label": "AI Marketing Tools"
+                        },
+                        {
+                            "_key": "b47487358bbb",
+                            "anchor": "#transforming-marketing-strategies",
+                            "label": "Transforming Marketing Strategies"
+                        },
+                        {
+                            "_key": "58fb636e85b3",
+                            "anchor": "#enhancing-interactions-and-analytics",
+                            "label": "Enhancing Interactions and Analytics"
+                        },
+                        {
+                            "_key": "03ba9c19b5cd",
+                            "anchor": "#empowering-marketers-with-ai",
+                            "label": "Empowering Marketers with AI"
+                        },
+                        {
+                            "_key": "4a0201901ce0",
+                            "anchor": "#navigating-the-future-with-ai-driven-marketing",
+                            "label": "Navigating the Future with AI-Driven Marketing"
+                        }
+                    ]
+                },
+                "tagline": "[count] AI Marketing Tools to Grow Your Brand",
+                "title": "AI Marketing Tools - Elevate Your Brand Strategy"
+            },
+            {
+                "_createdAt": "2023-01-01T18:46:07Z",
+                "_id": "UnZ2THkIAtRzfNq86WfzKU",
+                "_rev": "r1Ru63Q3CYeyGAJ807zQVr",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:03:46Z",
+                "businessFunctionCategory": {
+                    "_ref": "e9e5001e-0256-4761-b0f9-6196e003e40f",
+                    "_type": "reference"
+                },
+                "categoryCode": "biz-8",
+                "categoryName": "sales",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-15d50f50dbaaaddbf7f2a21f7782d3e97c153259-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Boost Sales with AI Assistance",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "mb89hfp3S5P9KPWcRUAmmT",
+                        "_ref": "UnZ2THkIAtRzfNq86WfuL0",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-15d50f50dbaaaddbf7f2a21f7782d3e97c153259-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Sales Tools & Software of [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "sales-assistant"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "ce24a83b3e36",
+                        "_ref": "4a17873c-1521-4965-abca-f1f475df46e8",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "921f4b743f36",
+                        "_ref": "b9a4efa0-4e9c-4689-83d6-69ee8d9314ed",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "94648a4206e5",
+                            "anchor": "#ai-sales-tools",
+                            "label": "AI Sales Tools"
+                        },
+                        {
+                            "_key": "f49713945e34",
+                            "anchor": "#ethical-considerations-in-ai-sales-practices",
+                            "label": "Ethical Considerations in AI Sales Practices"
+                        },
+                        {
+                            "_key": "cd72633dcf6c",
+                            "anchor": "#revolutionizing-sales-training-with-ai",
+                            "label": "Revolutionizing Sales Training with AI"
+                        },
+                        {
+                            "_key": "97d36a21a961",
+                            "anchor": "#the-future-of-sales-in-the-ai-era",
+                            "label": "The Future of Sales in the AI Era"
+                        }
+                    ]
+                },
+                "tagline": "Skyrocket Sales with These [count] AI Tools",
+                "title": "AI Sales Tools: Empowering Sales Teams with Precision and Insight"
+            },
+            {
+                "_createdAt": "2023-01-01T18:45:23Z",
+                "_id": "kxHCIyVPfR3nkfRNFsIGZ6",
+                "_rev": "vkS2HejmSzNLgxkqNLn8Ow",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:34:15Z",
+                "businessFunctionCategory": {
+                    "_ref": "bf29aee4-0862-4f8c-8ceb-e67b71c93da0",
+                    "_type": "reference"
+                },
+                "categoryCode": "text-7",
+                "categoryName": "email assistant",
+                "parentCategory": {
+                    "_ref": "1vD6eDtgeKSQKjJSiByJSn",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "hvQY95CzDyEoJEzGg5fdyv",
+                        "_ref": "UnZ2THkIAtRzfNq86WfzKU",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "h57dEjuJKHHsA5YvqdUykS",
+                        "_ref": "kxHCIyVPfR3nkfRNFsIAzw",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "kpzFW2n66VMMSRibbanhtp",
+                        "_ref": "B8o7xf7Q4mKeMEiyAO1uto",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "a53xEAsRstpCjCtWgQmsA3",
+                        "_ref": "UnZ2THkIAtRzfNq86WfuL0",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-6f263c575f145907a54efc97853abf3737498728-1024x1024-webp",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Email Assistant Tools & Software in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "email-assistant"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "176174cabf4a",
+                        "_ref": "548c7cf9-4714-4c14-8e38-ae8ff7f7a0ed",
+                        "_type": "reference"
+                    }
+                ]
+            }
+        ],
+        "toolName": "Reply.io ",
+        "toolShortDescription": "Automate sales outreach, analyze performance, integrate seamlessly.",
+        "verified": true,
+        "verifiedReason": "Recommended",
+        "websiteUrl": "https://reply.io/?utm_source=futurepedia&utm_medium=marketplace&utm_campaign=futurepedia",
+        "youtubeUrl": "https://www.youtube.com/embed/Lsjp1d-y7zQ"
+    },
+    {
+        "_createdAt": "2023-08-24T04:34:24Z",
+        "_id": "5c9e375e-6acd-4014-8146-01c67791a224",
+        "_rev": "xR4sqImq24YI7PDNPBklDc",
+        "_type": "tool",
+        "_updatedAt": "2024-07-01T10:25:09Z",
+        "affiliateLink": true,
+        "affiliatePosition": -3002,
+        "defunct": {
+            "defunctReason": "No Longer Available",
+            "defunctStatus": false
+        },
+        "duplicate": false,
+        "favCount": 35,
+        "id": "5c9e375e-6acd-4014-8146-01c67791a224",
+        "mainImage": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-fee99aeb0beed0507233157fb3c47db7bcfe9741-2530x1256-jpg",
+                "_type": "reference"
+            }
+        },
+        "popularityScore": 55,
+        "pricing": [
+            "Paid"
+        ],
+        "publishedAt": "2023-08-25T00:10:00.000Z",
+        "publishedAt_timestamp": 1692922200000,
+        "reviewStats": {
+            "reviewCount": 1,
+            "reviewScore": 5
+        },
+        "slug": {
+            "_type": "slug",
+            "current": "ai-suitup"
+        },
+        "slugIndex": "ai-suitup",
+        "socialLinks": [
+            "https://twitter.com/AiSuitup",
+            "https://www.linkedin.com/company/90629721",
+            "https://www.instagram.com/aisuitup/"
+        ],
+        "sponsored": true,
+        "startingPrice": "19.95",
+        "status": "In Review",
+        "tagsIndex": [
+            "portrait-generators",
+            "design-generators",
+            "image-editing"
+        ],
+        "thumbnail": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-f471d9bf09c0d11c69f636ed4c99e8b36c516491-256x256-svg",
+                "_type": "reference"
+            }
+        },
+        "thumbnailUrl": "https://www.google.com/s2/favicons?domain=https://www.aisuitup.com/?via=futurepedia&sz=128",
+        "toolCategories": [
+            {
+                "_createdAt": "2023-10-09T18:43:38Z",
+                "_id": "16772460-a9da-4074-99fb-7b6b883173a0",
+                "_rev": "0k15mPeIL6qxT66ZGokP2X",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-28T08:47:04Z",
+                "businessFunctionCategory": {
+                    "_ref": "dc25203a-766c-42dd-9e18-72199dbcff5f",
+                    "_type": "reference"
+                },
+                "categoryCode": "portrait-1",
+                "categoryName": "portrait generators",
+                "parentCategory": {
+                    "_ref": "aPtufUS7s5KAcKW8czLV8y",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "a75a93ce67e3",
+                        "_ref": "2650f8d3-164b-4c4b-bb51-aa0f91bf8c0d",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "0581c52c5191",
+                        "_ref": "UnZ2THkIAtRzfNq86WfeWy",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-0e2e521504fcc5c36fcaa5629c245f766e637fae-1024x1024-webp",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Generate Portraits with these AI Tools & Software in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "portrait-generators"
+                },
+                "sponsoredTools": []
+            },
+            {
+                "_createdAt": "2023-10-09T18:39:02Z",
+                "_id": "18c28701-ecbf-446d-a50d-29285561c411",
+                "_rev": "w5W5yhCHeY4ixybwGdBL9g",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:06:20Z",
+                "businessFunctionCategory": {
+                    "_ref": "e9e5001e-0256-4761-b0f9-6196e003e40f",
+                    "_type": "reference"
+                },
+                "categoryCode": "image-4",
+                "categoryName": "design generators",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-83b76a9fed1e6c70e44d44a5346595b6717078d2-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Showcasing a Design Generator Tool",
+                "parentCategory": {
+                    "_ref": "8MM31Kxa78RqfoWPxffkKt",
+                    "_type": "reference"
+                },
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-83b76a9fed1e6c70e44d44a5346595b6717078d2-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Design Generator Tools & Software in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "design-generators"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "f4fa183f1d27",
+                        "_ref": "89c9ac57-99f9-4490-bec5-8edb23857fe7",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "4c20be51eaf9",
+                            "anchor": "#ai-design-generators",
+                            "label": "AI Design Generators"
+                        },
+                        {
+                            "_key": "2c4ce141dda8",
+                            "anchor": "#the-diverse-applications-of-ai-design-generators",
+                            "label": "Diverse Applications of AI Design Generators"
+                        },
+                        {
+                            "_key": "fe216e264531",
+                            "anchor": "#embracing-the-ai-design-evolution",
+                            "label": "Embracing the AI Design Evolution"
+                        }
+                    ]
+                },
+                "tagline": "Rapidly Create Designs with these [count] AI Design Generators",
+                "title": "AI Design Generators - Inspiring Your Creative Vision"
+            },
+            {
+                "_createdAt": "2023-01-01T18:45:30Z",
+                "_id": "UnZ2THkIAtRzfNq86WfeWy",
+                "_rev": "6RcCvUPoGMxinG4vR6UwLC",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:18:05Z",
+                "businessFunctionCategory": {
+                    "_ref": "dc25203a-766c-42dd-9e18-72199dbcff5f",
+                    "_type": "reference"
+                },
+                "categoryCode": "image-3",
+                "categoryName": "image editing",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-3ae9ca70e502cf3d0b22a86617063e79b8c9f729-3643x2049-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Discover AI Image Editors",
+                "parentCategory": {
+                    "_ref": "8MM31Kxa78RqfoWPxffkKt",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "ogeScKmv83khEevZcZdGta",
+                        "_ref": "2650f8d3-164b-4c4b-bb51-aa0f91bf8c0d",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "528CbQkA3sHikFV1sbChzV",
+                        "_ref": "18c28701-ecbf-446d-a50d-29285561c411",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-3ae9ca70e502cf3d0b22a86617063e79b8c9f729-3643x2049-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Image Editing Tools & Software Using AI in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "image-editing"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "5c711c28ee50",
+                        "_ref": "70f3f249-5a76-4672-a508-0b05ba59078b",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "d043f87009c3",
+                            "anchor": "#ai-image-editors",
+                            "label": "AI Image Editors"
+                        },
+                        {
+                            "_key": "4515ee359ade",
+                            "anchor": "#empowering-creatives-and-professionals-with-ai",
+                            "label": "Empowering Creatives and Professionals with AI"
+                        },
+                        {
+                            "_key": "486b1489b0da",
+                            "anchor": "#harnessing-ai-for-transformative-image-editing",
+                            "label": "Harnessing AI for Transformative Image Editing"
+                        }
+                    ]
+                },
+                "tagline": "Quickly Refine Visuals with These [count] AI Image Editors",
+                "title": "AI Image Editors - Transforming Your Visuals with Precision"
+            }
+        ],
+        "toolName": "AI SuitUp",
+        "toolShortDescription": "Generates high-quality and personalized headshots for professional purposes, such as LinkedIn profiles and business profiles.",
+        "verified": true,
+        "verifiedReason": "Recommended",
+        "websiteUrl": "https://www.aisuitup.com/?via=futurepedia"
+    },
+    {
+        "_createdAt": "2024-03-16T03:26:16Z",
+        "_id": "d3d65f98-becd-4f34-a42c-355967edd4a8",
+        "_rev": "0k15mPeIL6qxT66ZGp8Van",
+        "_type": "tool",
+        "_updatedAt": "2024-07-01T10:27:06Z",
+        "affiliateLink": false,
+        "affiliatePosition": -2998,
+        "defunct": {
+            "defunctReason": "No Longer Available",
+            "defunctStatus": false
+        },
+        "duplicate": false,
+        "favCount": 23,
+        "id": "d3d65f98-becd-4f34-a42c-355967edd4a8",
+        "mainImage": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-143e45f540e98dd2f0b01c9b3bad829ba8219eb6-2535x1250-png",
+                "_type": "reference"
+            }
+        },
+        "popularityScore": 23,
+        "pricing": [
+            "Freemium"
+        ],
+        "publishedAt": "2024-03-15T00:10:00.000Z",
+        "publishedAt_timestamp": 1710461400000,
+        "reviewStats": {
+            "reviewCount": 0,
+            "reviewScore": 0
+        },
+        "slug": {
+            "_type": "slug",
+            "current": "immersive-fox"
+        },
+        "slugIndex": "immersive-fox",
+        "socialLinks": [
+            "https://www.facebook.com/ImmersiveFoxAI",
+            "https://www.linkedin.com/company/immersive-fox",
+            "https://www.instagram.com/immersivefox",
+            "https://www.reddit.com/r/immersivefox",
+            "https://twitter.com/immersive_fox",
+            "https://www.youtube.com/@immersive-fox"
+        ],
+        "sponsored": true,
+        "startingPrice": "15/mo",
+        "status": "In Review",
+        "tagsIndex": [
+            "marketing",
+            "avatar-generator",
+            "text-to-video"
+        ],
+        "thumbnail": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-61a2152087e0173f8864311bc90fbb604656c7c6-50x54-png",
+                "_type": "reference"
+            }
+        },
+        "toolCategories": [
+            {
+                "_createdAt": "2023-10-09T18:57:16Z",
+                "_id": "33dbeadd-85a8-48ee-97ec-e6c54ba57d22",
+                "_rev": "kZk28u7rWdJGHvvCmcw9Xm",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-30T20:48:59Z",
+                "businessFunctionCategory": {
+                    "_ref": "e9e5001e-0256-4761-b0f9-6196e003e40f",
+                    "_type": "reference"
+                },
+                "categoryCode": "marketing-1",
+                "categoryName": "marketing",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-c7c2eeced46b107b137d812ca8e8a2aae109e86f-1828x1028-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Researching AI Marketing Tools",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "positionLockIn": [
+                    {
+                        "_key": "48bcb5d5d8f0",
+                        "_ref": "4cec7804-2cd0-4e51-9945-a0286b4f2139",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "1e264485ae5c",
+                        "_ref": "d18c3381-885a-4de3-aa67-6bb26a22a31c",
+                        "_type": "reference"
+                    }
+                ],
+                "relatedCategories": [
+                    {
+                        "_key": "4a244b59e89a",
+                        "_ref": "18c28701-ecbf-446d-a50d-29285561c411",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "8acfb005e917",
+                        "_ref": "2650f8d3-164b-4c4b-bb51-aa0f91bf8c0d",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-c7c2eeced46b107b137d812ca8e8a2aae109e86f-1828x1028-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Use AI for Marketing with These Tools & Software in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "marketing"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "fee46b8804e3",
+                        "_ref": "850a9961-9251-4ce9-92fa-1247d95fb3b7",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "e087b2b81857",
+                        "_ref": "89c9ac57-99f9-4490-bec5-8edb23857fe7",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "6c165aac495a",
+                            "anchor": "#ai-marketing-tools",
+                            "label": "AI Marketing Tools"
+                        },
+                        {
+                            "_key": "b47487358bbb",
+                            "anchor": "#transforming-marketing-strategies",
+                            "label": "Transforming Marketing Strategies"
+                        },
+                        {
+                            "_key": "58fb636e85b3",
+                            "anchor": "#enhancing-interactions-and-analytics",
+                            "label": "Enhancing Interactions and Analytics"
+                        },
+                        {
+                            "_key": "03ba9c19b5cd",
+                            "anchor": "#empowering-marketers-with-ai",
+                            "label": "Empowering Marketers with AI"
+                        },
+                        {
+                            "_key": "4a0201901ce0",
+                            "anchor": "#navigating-the-future-with-ai-driven-marketing",
+                            "label": "Navigating the Future with AI-Driven Marketing"
+                        }
+                    ]
+                },
+                "tagline": "[count] AI Marketing Tools to Grow Your Brand",
+                "title": "AI Marketing Tools - Elevate Your Brand Strategy"
+            },
+            {
+                "_createdAt": "2023-01-01T18:45:34Z",
+                "_id": "UnZ2THkIAtRzfNq86Wfgsu",
+                "_rev": "9ETorVJr8QDbowsR7MIjXa",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:13:14Z",
+                "businessFunctionCategory": {
+                    "_ref": "dc25203a-766c-42dd-9e18-72199dbcff5f",
+                    "_type": "reference"
+                },
+                "categoryCode": "image-5",
+                "categoryName": "avatars",
+                "parentCategory": {
+                    "_ref": "aPtufUS7s5KAcKW8czLV8y",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "pEZ9XZUHGSmH5QNJZZHAzj",
+                        "_ref": "kxHCIyVPfR3nkfRNFsItFU",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "5ucKumPktvUfLkhYpHzxrA",
+                        "_ref": "kxHCIyVPfR3nkfRNFsIuxw",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "qT4oVzKEGdCNGPsBybiq5h",
+                        "_ref": "2650f8d3-164b-4c4b-bb51-aa0f91bf8c0d",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-52b6afe8d4a774c152e951943f3d93c2a9349db5-1024x1024-webp",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Avatar Creation Tools & Software for [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "avatar-generator"
+                },
+                "sponsoredTools": []
+            },
+            {
+                "_createdAt": "2023-10-09T18:50:19Z",
+                "_id": "f09fa97a-de92-4713-8877-c1697fbbe687",
+                "_rev": "6RcCvUPoGMxinG4vR6UvPV",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:08:00Z",
+                "businessFunctionCategory": {
+                    "_ref": "dc25203a-766c-42dd-9e18-72199dbcff5f",
+                    "_type": "reference"
+                },
+                "categoryCode": "video-4",
+                "categoryName": "text to video",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-26e513e7687f3efd202a339d105a3dd09db94feb-2950x1660-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Unveiling the use of AI Text-to-Video Tools",
+                "parentCategory": {
+                    "_ref": "45DxCNvEQNdNriBtbNYKMC",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "afef46ec03d6",
+                        "_ref": "a1ca8317-f0c1-4640-86d1-2b3872905e4d",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "aba6410c423a",
+                        "_ref": "9a4c78dd-51e9-4714-86d1-07fba043a32d",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "2af5c6ccbe9f",
+                        "_ref": "UnZ2THkIAtRzfNq86WfrII",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-26e513e7687f3efd202a339d105a3dd09db94feb-2950x1660-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Text to Video Tools & Software for [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "text-to-video"
+                },
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "5537a6a62e7b",
+                            "anchor": "#ai-text-to-video-tools",
+                            "label": "AI Text-to-Video Tools"
+                        },
+                        {
+                            "_key": "71b79afaf293",
+                            "anchor": "#where-ai-text-to-video-shines",
+                            "label": "Where AI Text-to-Video Shines"
+                        },
+                        {
+                            "_key": "c0b7d30fa210",
+                            "anchor": "#ai-powered-video-editing-craft-customize-connect",
+                            "label": "AI-Powered Video Editing: Craft, Customize, Connect"
+                        },
+                        {
+                            "_key": "209d73be2df8",
+                            "anchor": "#your-catalyst-for-creative-and-efficient-video-production",
+                            "label": "AI: Your Catalyst for Creative & Efficient Video Production"
+                        }
+                    ]
+                },
+                "tagline": "Transform Your Words Into Videos with These [count] AI Text-to-Video Tools",
+                "title": "AI Text-to-Video Tools - Bringing Your Words to Life"
+            }
+        ],
+        "toolLabel": "editorsPick",
+        "toolName": "Immersive Fox",
+        "toolShortDescription": "Transform text to multilingual videos with AI avatars, rapidly and cost-effectively.",
+        "verified": true,
+        "verifiedReason": "Recommended",
+        "websiteUrl": "https://www.immersive-fox.com/?utm_source=futurepedia&utm_medium=marketplace&utm_campaign=futurepedia"
+    },
+    {
+        "_createdAt": "2024-04-27T02:38:31Z",
+        "_id": "57d8fa2d-4fbb-4129-b6ed-5edd0f2d6805",
+        "_rev": "cyRprTKKgs66KanA7boY0a",
+        "_type": "tool",
+        "_updatedAt": "2024-06-24T07:57:53Z",
+        "affiliateLink": false,
+        "affiliatePosition": -2996,
+        "defunct": {
+            "defunctReason": "No Longer Available",
+            "defunctStatus": false
+        },
+        "duplicate": false,
+        "favCount": 13,
+        "id": "57d8fa2d-4fbb-4129-b6ed-5edd0f2d6805",
+        "mainImage": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-6fef7969a4d688f4a07150501c9cfc3c9c46b97a-2466x1213-png",
+                "_type": "reference"
+            }
+        },
+        "popularityScore": 13,
+        "pricing": [
+            "Contact for Pricing"
+        ],
+        "publishedAt": "2024-04-27T02:38:30.879Z",
+        "publishedAt_timestamp": 1714185510879,
+        "reviewStats": {
+            "reviewCount": 0,
+            "reviewScore": 0
+        },
+        "slug": {
+            "_type": "slug",
+            "current": "ledgeriq"
+        },
+        "slugIndex": "ledgeriq",
+        "socialLinks": [
+            "https://successkeys.beehiiv.com/"
+        ],
+        "sponsored": true,
+        "status": "In Review",
+        "tagsIndex": [
+            "finance",
+            "e-commerce",
+            "startup-assistant"
+        ],
+        "thumbnail": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-bb389dcb14842636932c69b640f5d7acb870fc3e-128x128-png",
+                "_type": "reference"
+            }
+        },
+        "toolCategories": [
+            {
+                "_createdAt": "2023-01-13T09:21:11Z",
+                "_id": "410113a3-bfca-4874-aba3-2c9abd2a7a86",
+                "_rev": "xsFDdtCGs1CGERgpfPdemQ",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-05-16T22:12:18Z",
+                "categoryCode": "biz-10",
+                "categoryName": "finance",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "324735d7d768",
+                        "_ref": "e1d497ea-cec4-4780-9da1-43a221407ed5",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-9bb7b82b8b3316361d304f08878679fec4b089e1-1024x1024-webp",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Finance Tools & Software of [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "finance"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "25962b6736c5",
+                        "_ref": "8ba09ea6-138b-46af-9325-bf3a94fd76d2",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "0bde6653fa1e",
+                        "_ref": "57d8fa2d-4fbb-4129-b6ed-5edd0f2d6805",
+                        "_type": "reference"
+                    }
+                ]
+            },
+            {
+                "_createdAt": "2023-02-14T00:16:53Z",
+                "_id": "7d1502a2-f805-49f7-8544-4cc2c0c83ed1",
+                "_rev": "2yXnm4mew8QvsGqhdMhCVb",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-05-16T22:33:52Z",
+                "categoryCode": "biz-12",
+                "categoryName": "e-commerce",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-4fe39f1e7454a0362318836a0c275b051ce0c2d1-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "AI Tools for E-commerce",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "8acf0986e7e6",
+                        "_ref": "UnZ2THkIAtRzfNq86WfzKU",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "6ba93cf76896",
+                        "_ref": "kxHCIyVPfR3nkfRNFsIAzw",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-4fe39f1e7454a0362318836a0c275b051ce0c2d1-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "List of E-commerce Tools & Software Using AI in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "e-commerce"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "3395e481c900",
+                        "_ref": "b4427df1-ace6-43ea-87c4-f2b170d649a0",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "4feaa5f6a7fd",
+                        "_ref": "8ef4de39-a3ac-4209-86a6-f653a9bf4bd5",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "ed48177ce767",
+                            "anchor": "#ai-e-commerce-tools",
+                            "label": "AI E-commerce Tools"
+                        },
+                        {
+                            "_key": "14a69db4778b",
+                            "anchor": "#ais-role-in-revolutionizing-e-commerce",
+                            "label": "AI's Role in Revolutionizing E-commerce"
+                        },
+                        {
+                            "_key": "4e19ef9dd683",
+                            "anchor": "#exploring-ais-technological-backbone-in-e-commerce",
+                            "label": "Exploring AI's Technological Backbone in E-commerce"
+                        },
+                        {
+                            "_key": "7445ed92ad1c",
+                            "anchor": "#envisioning-ais-future-in-e-commerce",
+                            "label": "Envisioning AI's Future in E-commerce"
+                        }
+                    ]
+                },
+                "tagline": "Boost Your Online Store with these [count] AI E-Commerce Tools",
+                "title": "AI E-Commerce Tools: Elevating Retail Expertise"
+            },
+            {
+                "_createdAt": "2023-01-01T18:46:01Z",
+                "_id": "kxHCIyVPfR3nkfRNFsIige",
+                "_rev": "9q4DLwlx4GaCDdOE1fGiMQ",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-05-16T22:12:32Z",
+                "categoryCode": "biz-4",
+                "categoryName": "startup tools",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-f60ba3cb45ca2d6d6f65f62f15a9b03d1289dbfb-1024x1024-webp",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Startup Tools & Software of [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "startup-assistant"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "b7378ebfa71a",
+                        "_ref": "57d8fa2d-4fbb-4129-b6ed-5edd0f2d6805",
+                        "_type": "reference"
+                    }
+                ]
+            }
+        ],
+        "toolName": "LedgerIQ",
+        "toolShortDescription": "Revolutionize bookkeeping: AI-driven, intuitive, scalable for freelancers and SMBs.",
+        "verified": true,
+        "verifiedReason": "Recommended",
+        "websiteUrl": "https://www.kickstarter.com/projects/ledgeriq/free-ai-powered-bookkeeping-for-self-employed?utm_source=futurepedia&utm_medium=marketplace&utm_campaign=futurepedia"
+    },
+    {
+        "_createdAt": "2024-04-27T02:38:33Z",
+        "_id": "bb5524f5-069c-455b-90d2-9fc71ac3bc54",
+        "_rev": "0k15mPeIL6qxT66ZGowiTH",
+        "_type": "tool",
+        "_updatedAt": "2024-06-29T17:38:48Z",
+        "affiliateLink": false,
+        "affiliatePosition": -2995,
+        "defunct": {
+            "defunctReason": "No Longer Available",
+            "defunctStatus": false
+        },
+        "duplicate": false,
+        "favCount": 15,
+        "id": "bb5524f5-069c-455b-90d2-9fc71ac3bc54",
+        "mainImage": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-c919cd3a2d2247033164cf110d2fd4d060d9fad9-2505x1231-png",
+                "_type": "reference"
+            }
+        },
+        "popularityScore": 15,
+        "pricing": [
+            "Free Trial"
+        ],
+        "publishedAt": "2024-04-27T02:38:33.380Z",
+        "publishedAt_timestamp": 1714185513380,
+        "reviewStats": {
+            "reviewCount": 0,
+            "reviewScore": 0
+        },
+        "slug": {
+            "_type": "slug",
+            "current": "brand"
+        },
+        "slugIndex": "brand",
+        "socialLinks": [
+            "mailto:help@brand24.com",
+            "https://www.linkedin.com/company/brand24-s-a/",
+            "https://www.tiktok.com/@brand24app",
+            "https://www.facebook.com/brand24/",
+            "https://twitter.com/brand24"
+        ],
+        "sponsored": true,
+        "startingPrice": "99/mo",
+        "status": "In Review",
+        "tagsIndex": [
+            "marketing",
+            "social-media",
+            "research-assistant"
+        ],
+        "thumbnail": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-b3aa59aafca286701672748d186f883d6eadecc2-62x62-svg",
+                "_type": "reference"
+            }
+        },
+        "toolCategories": [
+            {
+                "_createdAt": "2023-10-09T18:57:16Z",
+                "_id": "33dbeadd-85a8-48ee-97ec-e6c54ba57d22",
+                "_rev": "qWV848d0v81xaegM6DM6bn",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-28T22:07:47Z",
+                "businessFunctionCategory": {
+                    "_ref": "e9e5001e-0256-4761-b0f9-6196e003e40f",
+                    "_type": "reference"
+                },
+                "categoryCode": "marketing-1",
+                "categoryName": "marketing",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-c7c2eeced46b107b137d812ca8e8a2aae109e86f-1828x1028-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Researching AI Marketing Tools",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "positionLockIn": [
+                    {
+                        "_key": "48bcb5d5d8f0",
+                        "_ref": "4cec7804-2cd0-4e51-9945-a0286b4f2139",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "1e264485ae5c",
+                        "_ref": "d18c3381-885a-4de3-aa67-6bb26a22a31c",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "38d34332a28f",
+                        "_ref": "ecb416c6-9796-4cb5-abbc-7efbcb76d2a1",
+                        "_type": "reference"
+                    }
+                ],
+                "relatedCategories": [
+                    {
+                        "_key": "4a244b59e89a",
+                        "_ref": "18c28701-ecbf-446d-a50d-29285561c411",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "8acfb005e917",
+                        "_ref": "2650f8d3-164b-4c4b-bb51-aa0f91bf8c0d",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-c7c2eeced46b107b137d812ca8e8a2aae109e86f-1828x1028-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Use AI for Marketing with These Tools & Software in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "marketing"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "fee46b8804e3",
+                        "_ref": "850a9961-9251-4ce9-92fa-1247d95fb3b7",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "e087b2b81857",
+                        "_ref": "89c9ac57-99f9-4490-bec5-8edb23857fe7",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "6c165aac495a",
+                            "anchor": "#ai-marketing-tools",
+                            "label": "AI Marketing Tools"
+                        },
+                        {
+                            "_key": "b47487358bbb",
+                            "anchor": "#transforming-marketing-strategies",
+                            "label": "Transforming Marketing Strategies"
+                        },
+                        {
+                            "_key": "58fb636e85b3",
+                            "anchor": "#enhancing-interactions-and-analytics",
+                            "label": "Enhancing Interactions and Analytics"
+                        },
+                        {
+                            "_key": "03ba9c19b5cd",
+                            "anchor": "#empowering-marketers-with-ai",
+                            "label": "Empowering Marketers with AI"
+                        },
+                        {
+                            "_key": "4a0201901ce0",
+                            "anchor": "#navigating-the-future-with-ai-driven-marketing",
+                            "label": "Navigating the Future with AI-Driven Marketing"
+                        }
+                    ]
+                },
+                "tagline": "[count] AI Marketing Tools to Grow Your Brand",
+                "title": "AI Marketing Tools - Elevate Your Brand Strategy"
+            },
+            {
+                "_createdAt": "2023-10-12T11:39:35Z",
+                "_id": "49222099-e48a-4a41-8a5c-1dfcd8f1639f",
+                "_rev": "qaaYE1jm2c98vvyRIj3UOj",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T09:38:06Z",
+                "businessFunctionCategory": {
+                    "_ref": "e9e5001e-0256-4761-b0f9-6196e003e40f",
+                    "_type": "reference"
+                },
+                "categoryCode": "text-8",
+                "categoryName": "social media",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "5DqsnpxEz53kpUQs41zL58",
+                        "_ref": "kxHCIyVPfR3nkfRNFsIAzw",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "dFb7gFyTYaohC7yaJbEBU8",
+                        "_ref": "B8o7xf7Q4mKeMEiyAO1uto",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "9Wt15qATqX9yUEM3jo8q48",
+                        "_ref": "kxHCIyVPfR3nkfRNFsIGZ6",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-3da2446ec6d382d135e2a2b7260d99bd4d72f9b8-1024x1024-webp",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Social Media Tools & Software of [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "social-media"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "094831f2a86a",
+                        "_ref": "c949fa76-f167-45ba-bdce-ea7ac07d5a10",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "6e9c7aae52e2",
+                        "_ref": "bb5524f5-069c-455b-90d2-9fc71ac3bc54",
+                        "_type": "reference"
+                    }
+                ]
+            },
+            {
+                "_createdAt": "2023-01-01T18:46:12Z",
+                "_id": "B8o7xf7Q4mKeMEiyAO3myQ",
+                "_rev": "r1Ru63Q3CYeyGAJ807zlA7",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:33:07Z",
+                "businessFunctionCategory": {
+                    "_ref": "bf29aee4-0862-4f8c-8ceb-e67b71c93da0",
+                    "_type": "reference"
+                },
+                "categoryCode": "misc-2",
+                "categoryName": "research",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-386346ea31d986ea9d0b81a8cb1b9a0d7a8513bf-1266x710-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Kevin testing AI research tools",
+                "parentCategory": {
+                    "_ref": "1vD6eDtgeKSQKjJSiByJSn",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "1aa139c23906",
+                        "_ref": "51dceb59-b72a-4dfe-a800-dce57c5c024b",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "dcFios7G8cgH6F3hvHR2us",
+                        "_ref": "kxHCIyVPfR3nkfRNFsIq36",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-386346ea31d986ea9d0b81a8cb1b9a0d7a8513bf-1266x710-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Research Tools & Software Using AI in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "research-assistant"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "e0496de3b20d",
+                        "_ref": "94df7685-6bdc-432a-abc3-3207c12b4f39",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "5002596aa3ee",
+                        "_ref": "4a17873c-1521-4965-abca-f1f475df46e8",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "2eab8dd0f5ae",
+                            "anchor": "#ai-research-tools",
+                            "label": "AI Research Tools"
+                        },
+                        {
+                            "_key": "dacf332f468c",
+                            "anchor": "#fueling-innovation-across-every-field",
+                            "label": "Fueling Innovation Across Every Field"
+                        },
+                        {
+                            "_key": "7f993f23cb67",
+                            "anchor": "#worldwide-collaboration-and-ingenuity",
+                            "label": "Worldwide Collaboration and Ingenuity"
+                        }
+                    ]
+                },
+                "tagline": "Rapidly Build & Analyze Data Using These [count] AI Research Tools",
+                "title": "AI Research Tools - Your Intelligent Partner in Discovery"
+            }
+        ],
+        "toolName": "Brand24",
+        "toolShortDescription": "Monitor, analyze, and engage with your brand's online presence effortlessly.",
+        "toolType": [
+            "webApp"
+        ],
+        "verified": true,
+        "verifiedReason": "Recommended",
+        "websiteUrl": "https://brand24.com/?utm_source=futurepedia&utm_medium=marketplace&utm_campaign=paidlisting",
+        "youtubeUrl": "https://www.youtube.com/embed/IuT7oM23Hcw?si=ZjYwQofn_Wsh_dyL"
+    },
+    {
+        "_createdAt": "2024-04-23T21:11:45Z",
+        "_id": "663a71a7-eb4b-486a-8e38-8479e0661745",
+        "_rev": "362UbnU20D47zysZdeA7Vs",
+        "_type": "tool",
+        "_updatedAt": "2024-06-25T07:44:48Z",
+        "affiliateLink": false,
+        "affiliatePosition": -2994,
+        "defunct": {
+            "defunctReason": "No Longer Available",
+            "defunctStatus": false
+        },
+        "duplicate": false,
+        "favCount": 13,
+        "id": "663a71a7-eb4b-486a-8e38-8479e0661745",
+        "mainImage": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-859f80af47ceea7fa033739e7b4587eb1524c533-2497x1234-png",
+                "_type": "reference"
+            }
+        },
+        "popularityScore": 33,
+        "pricing": [
+            "Freemium"
+        ],
+        "publishedAt": "2024-04-22T21:11:00.000Z",
+        "publishedAt_timestamp": 1713820260000,
+        "reviewStats": {
+            "reviewCount": 1,
+            "reviewScore": 5
+        },
+        "slug": {
+            "_type": "slug",
+            "current": "macky"
+        },
+        "slugIndex": "macky",
+        "socialLinks": [
+            "https://twitter.com/macky_ai",
+            "https://www.linkedin.com/company/mackyai"
+        ],
+        "sponsored": true,
+        "startingPrice": "17/mo",
+        "status": "In Review",
+        "tagsIndex": [
+            "marketing",
+            "writing-generators",
+            "education"
+        ],
+        "thumbnail": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-0f68e17ef54039e9896b825e922bcb0fe935c091-29x30-png",
+                "_type": "reference"
+            }
+        },
+        "toolCategories": [
+            {
+                "_createdAt": "2023-10-09T18:57:16Z",
+                "_id": "33dbeadd-85a8-48ee-97ec-e6c54ba57d22",
+                "_rev": "9P8O5dQvq3TRs2vkuzKFJE",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-18T07:38:00Z",
+                "categoryCode": "marketing-1",
+                "categoryName": "marketing",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-c7c2eeced46b107b137d812ca8e8a2aae109e86f-1828x1028-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Researching AI Marketing Tools",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "4a244b59e89a",
+                        "_ref": "18c28701-ecbf-446d-a50d-29285561c411",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "8acfb005e917",
+                        "_ref": "2650f8d3-164b-4c4b-bb51-aa0f91bf8c0d",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-c7c2eeced46b107b137d812ca8e8a2aae109e86f-1828x1028-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Use AI for Marketing with These Tools & Software in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "marketing"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "e087b2b81857",
+                        "_ref": "89c9ac57-99f9-4490-bec5-8edb23857fe7",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "6c165aac495a",
+                            "anchor": "#ai-marketing-tools",
+                            "label": "AI Marketing Tools"
+                        },
+                        {
+                            "_key": "b47487358bbb",
+                            "anchor": "#transforming-marketing-strategies",
+                            "label": "Transforming Marketing Strategies"
+                        },
+                        {
+                            "_key": "58fb636e85b3",
+                            "anchor": "#enhancing-interactions-and-analytics",
+                            "label": "Enhancing Interactions and Analytics"
+                        },
+                        {
+                            "_key": "03ba9c19b5cd",
+                            "anchor": "#empowering-marketers-with-ai",
+                            "label": "Empowering Marketers with AI"
+                        },
+                        {
+                            "_key": "4a0201901ce0",
+                            "anchor": "#navigating-the-future-with-ai-driven-marketing",
+                            "label": "Navigating the Future with AI-Driven Marketing"
+                        }
+                    ]
+                },
+                "tagline": "[count] AI Marketing Tools to Grow Your Brand",
+                "title": "AI Marketing Tools - Elevate Your Brand Strategy"
+            },
+            {
+                "_createdAt": "2023-10-09T17:54:28Z",
+                "_id": "3d3b8adf-2e0e-43eb-b41a-1e246aef944c",
+                "_rev": "9q4DLwlx4GaCDdOE1fGgaV",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-05-16T22:11:06Z",
+                "categoryCode": "text-1",
+                "categoryName": "writing generators",
+                "parentCategory": {
+                    "_ref": "52vmteKZvCHTmApSD6vEAb",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "440a3176ce09",
+                        "_ref": "B8o7xf7Q4mKeMEiyAO25kO",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "490edc46943e",
+                        "_ref": "kxHCIyVPfR3nkfRNFsICDk",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-16ca0677b18d22ff9ceb17ae752d4c6626ac7fe3-1024x1024-webp",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Writing Generators in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "writing-generators"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "23443e8e687e",
+                        "_ref": "663a71a7-eb4b-486a-8e38-8479e0661745",
+                        "_type": "reference"
+                    }
+                ]
+            },
+            {
+                "_createdAt": "2023-10-12T11:06:54Z",
+                "_id": "51dceb59-b72a-4dfe-a800-dce57c5c024b",
+                "_rev": "zGKkR8SwTw9KOsFiyCMFHV",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-05-10T22:47:01Z",
+                "categoryCode": "biz-1",
+                "categoryName": "education",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-ebf8969e512bbd52520a9c4d3e067a8dd0004151-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Education AI Tools",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-ebf8969e512bbd52520a9c4d3e067a8dd0004151-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Education Assistant Tools & Software of [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "education"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "f6fa675dfc58",
+                        "_ref": "54464e8a-6c68-4c12-a168-8693e155f80b",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "a4cf447e1065",
+                        "_ref": "a79b62af-2af8-4452-98a4-649f9403abc3",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "8ee54273a42f",
+                            "anchor": "#ai-education-tools",
+                            "label": "AI Education Tools"
+                        },
+                        {
+                            "_key": "6d232381c12f",
+                            "anchor": "#revolutionizing-education-with-ai",
+                            "label": "Revolutionizing Education with AI"
+                        },
+                        {
+                            "_key": "a227c0972d67",
+                            "anchor": "#ai-driven-educational-environments",
+                            "label": "AI-Driven Educational Environments"
+                        },
+                        {
+                            "_key": "5157ddb9182d",
+                            "anchor": "#future-ready-education",
+                            "label": "\"Future-Ready\" Education"
+                        }
+                    ]
+                },
+                "tagline": "[count] AI Education Tools to Reshape How We Teach & Learn",
+                "title": "AI Education Tools: Empowering Educators with Tailored Solutions"
+            }
+        ],
+        "toolName": "Macky",
+        "toolShortDescription": "Unlock actionable insights and streamline complex queries with cutting-edge AI-driven consulting solutions.",
+        "toolType": [
+            "webApp"
+        ],
+        "verified": true,
+        "verifiedReason": "Recommended",
+        "websiteUrl": "https://macky.ai/?utm_source=futurepedia&utm_medium=marketplace&utm_campaign=futurepedia",
+        "youtubeUrl": "https://www.youtube.com/embed/hhgExB3BRhI?si=ieMCRdco9K_fpmBA"
+    },
+    {
+        "_createdAt": "2024-05-08T07:54:59Z",
+        "_id": "33b4ed0d-d38a-43a8-ad75-321815c45eb5",
+        "_rev": "XIqIEayvLYLuKmfFuQIQbi",
+        "_type": "tool",
+        "_updatedAt": "2024-06-29T17:39:01Z",
+        "affiliateLink": false,
+        "affiliatePosition": -2993,
+        "defunct": {
+            "defunctReason": "No Longer Available",
+            "defunctStatus": false
+        },
+        "duplicate": false,
+        "favCount": 12,
+        "id": "33b4ed0d-d38a-43a8-ad75-321815c45eb5",
+        "mainImage": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-8962e7ba57b12ef569f21a21d1bc783941a4037b-2518x1194-png",
+                "_type": "reference"
+            }
+        },
+        "popularityScore": 12,
+        "pricing": [
+            "Paid"
+        ],
+        "publishedAt": "2024-05-08T07:54:59.623Z",
+        "publishedAt_timestamp": 1715154899623,
+        "reviewStats": {
+            "reviewCount": 0,
+            "reviewScore": 0
+        },
+        "slug": {
+            "_type": "slug",
+            "current": "kintext"
+        },
+        "slugIndex": "kintext",
+        "socialLinks": [
+            "https://twitter.com/KintextAI",
+            "https://www.youtube.com/channel/UC0eJfat7L9-maGBdReWaEPQ"
+        ],
+        "sponsored": true,
+        "startingPrice": "20/mo",
+        "status": "In Review",
+        "tagsIndex": [
+            "personal-assistant",
+            "ai-agents"
+        ],
+        "thumbnail": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-44d007ad1d9cbae983283ed997402c056ae02322-1024x1024-png",
+                "_type": "reference"
+            }
+        },
+        "toolCategories": [
+            {
+                "_createdAt": "2023-10-09T18:57:41Z",
+                "_id": "95d0198d-c882-445b-a2d4-e8cea9802139",
+                "_rev": "Cdu4mSM5vB47WlO9yv0kPj",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:35:13Z",
+                "businessFunctionCategory": {
+                    "_ref": "bf29aee4-0862-4f8c-8ceb-e67b71c93da0",
+                    "_type": "reference"
+                },
+                "categoryCode": "assistant-1",
+                "categoryName": "personal assistant",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-820785444a2f10c73cf5c66bdac11af422287a64-1833x1031-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Personal Assistant AI Tools",
+                "parentCategory": {
+                    "_ref": "1vD6eDtgeKSQKjJSiByJSn",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "820a1e284768",
+                        "_ref": "UnZ2THkIAtRzfNq86WfuL0",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "0dba02ea798b",
+                        "_ref": "UnZ2THkIAtRzfNq86Wfgsu",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-820785444a2f10c73cf5c66bdac11af422287a64-1833x1031-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Tools Leveraging AI for Personal Assistants in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "personal-assistant"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "3d6930a5b921",
+                        "_ref": "1a05eeda-ea96-4c04-9fed-9aba809724aa",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "d399c0bb63c6",
+                            "anchor": "#ai-personal-assistants",
+                            "label": "AI Personal Assistants"
+                        },
+                        {
+                            "_key": "b2886d73a666",
+                            "anchor": "#elevating-the-daily-grind",
+                            "label": "Elevating the Daily Grind"
+                        },
+                        {
+                            "_key": "d736822d465d",
+                            "anchor": "#kicking-productivity-into-high-gear",
+                            "label": "Kicking Productivity into High Gear with AI Assistants"
+                        },
+                        {
+                            "_key": "1f9bcb094fdf",
+                            "anchor": "#the-rise-of-ai-personal-assistants",
+                            "label": "The Rise of AI Personal Assistants"
+                        }
+                    ]
+                },
+                "tagline": "Get More Done, Faster with these {{count}} AI Personal Assistant Tools",
+                "title": "AI Personal Assistants - Your Essential Sidekick for Efficiency"
+            },
+            {
+                "_createdAt": "2024-02-26T20:56:33Z",
+                "_id": "cbebb50d-e5b0-47db-bb88-af51f877af37",
+                "_rev": "9ETorVJr8QDbowsR7MIuLA",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:29:53Z",
+                "businessFunctionCategory": {
+                    "_ref": "7caf5c87-ed15-4f88-8541-b4288050c678",
+                    "_type": "reference"
+                },
+                "categoryCode": "auto-2",
+                "categoryName": "ai agents",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-abc302fb93d07f0629712a8fa1916f28ff7aac79-1833x1031-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Showcasing AI Agent Tools",
+                "parentCategory": {
+                    "_ref": "98026c7c-e50d-4283-925a-13eac7e1c05c",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "16f40a50f89c",
+                        "_ref": "2cceb05c-d706-400a-95cb-c17daedb1c06",
+                        "_type": "reference"
+                    }
+                ],
+                "seoHideFromLists": false,
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-abc302fb93d07f0629712a8fa1916f28ff7aac79-1833x1031-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoNoIndex": false,
+                "seoTitle": "AI Agent Automations for [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "ai-agents"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "092474a7713f",
+                        "_ref": "0d91baf2-1a42-43e3-8a2a-0dba2af9f69a",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "10acf056d599",
+                        "_ref": "33b4ed0d-d38a-43a8-ad75-321815c45eb5",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "166ebf0ca97e",
+                            "anchor": "#ai-agent-automation-tools",
+                            "label": "AI Agent Automation Tools"
+                        },
+                        {
+                            "_key": "42071652bdf2",
+                            "anchor": "#ai-agents-elevating-business-operations",
+                            "label": "AI Agents Elevating Business Operations"
+                        },
+                        {
+                            "_key": "4c868eb20747",
+                            "anchor": "#future-prospects-expanding-ai-agent-functions",
+                            "label": "Future Prospects: Expanding AI Agent Functions"
+                        },
+                        {
+                            "_key": "586bd7feb026",
+                            "anchor": "#navigating-ai-agent-implementation-challenges",
+                            "label": "Navigating AI Agent Implementation Challenges"
+                        }
+                    ]
+                },
+                "tagline": "Supercharge Automation with {{count}} AI Agent Tools",
+                "title": "AI Agent Tools - Revolutionizing Automation & Productivity"
+            }
+        ],
+        "toolName": "Kintext",
+        "toolShortDescription": "AI-driven parenting assistant offering personalized advice, milestone tracking, and community support.",
+        "toolType": [
+            "mobileApp"
+        ],
+        "verified": true,
+        "verifiedReason": "Recommended",
+        "websiteUrl": "https://kintext.com/?utm_source=futurepedia&utm_medium=marketplace&utm_campaign=futurepedia"
+    },
+    {
+        "_createdAt": "2024-04-06T05:09:32Z",
+        "_id": "e026c13a-7482-452f-b352-42fa7c8485c5",
+        "_rev": "9ETorVJr8QDbowsR7MN118",
+        "_type": "tool",
+        "_updatedAt": "2024-06-26T04:06:52Z",
+        "affiliateLink": false,
+        "affiliatePosition": -2992,
+        "defunct": {
+            "defunctReason": "No Longer Available",
+            "defunctStatus": false
+        },
+        "duplicate": false,
+        "favCount": 46,
+        "id": "e026c13a-7482-452f-b352-42fa7c8485c5",
+        "mainImage": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-bef2987c1091c15ef762bae32cdedc356d3812b9-2516x1222-png",
+                "_type": "reference"
+            }
+        },
+        "newFeatures": [
+            "Discord Community"
+        ],
+        "popularityScore": 46,
+        "pricing": [
+            "Freemium"
+        ],
+        "publishedAt": "2024-04-05T05:09:00.000Z",
+        "publishedAt_timestamp": 1712293740000,
+        "reviewStats": {
+            "reviewCount": 0,
+            "reviewScore": 0
+        },
+        "slug": {
+            "_type": "slug",
+            "current": "dora-ai"
+        },
+        "slugIndex": "dora-ai",
+        "socialLinks": [
+            "https://s.dora.run/dora-discord",
+            "https://twitter.com/DoraTool",
+            "https://www.instagram.com/doraplatform/",
+            "https://www.youtube.com/@DoraTool"
+        ],
+        "sponsored": true,
+        "startingPrice": "18/mo",
+        "status": "In Review",
+        "tagsIndex": [
+            "website-builders",
+            "design-generators",
+            "marketing"
+        ],
+        "thumbnail": {
+            "_type": "image",
+            "asset": {
+                "_ref": "image-9e6f5df71e3a5d34054ac0c4550d6e048fb81595-128x128-png",
+                "_type": "reference"
+            }
+        },
+        "toolCategories": [
+            {
+                "_createdAt": "2023-10-09T18:55:42Z",
+                "_id": "0e4e1d6e-b1dd-45e0-b988-85e1633ff4fe",
+                "_rev": "i5kvbbMW6pjkHmBhFaicOf",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:40:48Z",
+                "businessFunctionCategory": {
+                    "_ref": "35ddf9f5-ccc9-4ae6-bdc7-c95796824269",
+                    "_type": "reference"
+                },
+                "categoryCode": "web-2",
+                "categoryName": "website builders",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-83b76a9fed1e6c70e44d44a5346595b6717078d2-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Using an AI Website Builder",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "1f59cff77b00",
+                        "_ref": "18c28701-ecbf-446d-a50d-29285561c411",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "b820584da30b",
+                        "_ref": "UnZ2THkIAtRzfNq86WfjaE",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "90b81ec40b93",
+                        "_ref": "kxHCIyVPfR3nkfRNFsIQzs",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-83b76a9fed1e6c70e44d44a5346595b6717078d2-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "List of AI Website Builders Available in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "website-builders"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "2d09a6ab4ef1",
+                        "_ref": "89c9ac57-99f9-4490-bec5-8edb23857fe7",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "1b62931c8ebd",
+                            "anchor": "#ai-website-builder-tools",
+                            "label": "AI Website Builder Tools"
+                        },
+                        {
+                            "_key": "e274393d7db6",
+                            "anchor": "#ai-for-seamless-web-creation",
+                            "label": "AI for Seamless Website Creation"
+                        },
+                        {
+                            "_key": "367da1a847f0",
+                            "anchor": "#professionals-benefiting-from-ai-website-builders",
+                            "label": "Professionals Turning to AI Website Builders"
+                        }
+                    ]
+                },
+                "tagline": "[count] AI Website Builder Tools to Design or Modify a Site in 5 Minutes",
+                "title": "AI Website Builders - Your Key to Innovation"
+            },
+            {
+                "_createdAt": "2023-10-09T18:39:02Z",
+                "_id": "18c28701-ecbf-446d-a50d-29285561c411",
+                "_rev": "w5W5yhCHeY4ixybwGdBL9g",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T18:06:20Z",
+                "businessFunctionCategory": {
+                    "_ref": "e9e5001e-0256-4761-b0f9-6196e003e40f",
+                    "_type": "reference"
+                },
+                "categoryCode": "image-4",
+                "categoryName": "design generators",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-83b76a9fed1e6c70e44d44a5346595b6717078d2-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Showcasing a Design Generator Tool",
+                "parentCategory": {
+                    "_ref": "8MM31Kxa78RqfoWPxffkKt",
+                    "_type": "reference"
+                },
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-83b76a9fed1e6c70e44d44a5346595b6717078d2-3901x2195-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "AI Design Generator Tools & Software in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "design-generators"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "f4fa183f1d27",
+                        "_ref": "89c9ac57-99f9-4490-bec5-8edb23857fe7",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "4c20be51eaf9",
+                            "anchor": "#ai-design-generators",
+                            "label": "AI Design Generators"
+                        },
+                        {
+                            "_key": "2c4ce141dda8",
+                            "anchor": "#the-diverse-applications-of-ai-design-generators",
+                            "label": "Diverse Applications of AI Design Generators"
+                        },
+                        {
+                            "_key": "fe216e264531",
+                            "anchor": "#embracing-the-ai-design-evolution",
+                            "label": "Embracing the AI Design Evolution"
+                        }
+                    ]
+                },
+                "tagline": "Rapidly Create Designs with these [count] AI Design Generators",
+                "title": "AI Design Generators - Inspiring Your Creative Vision"
+            },
+            {
+                "_createdAt": "2023-10-09T18:57:16Z",
+                "_id": "33dbeadd-85a8-48ee-97ec-e6c54ba57d22",
+                "_rev": "FbThDWPALdk5WpcnH9bIbd",
+                "_type": "toolCategory",
+                "_updatedAt": "2024-06-25T09:41:22Z",
+                "businessFunctionCategory": {
+                    "_ref": "e9e5001e-0256-4761-b0f9-6196e003e40f",
+                    "_type": "reference"
+                },
+                "categoryCode": "marketing-1",
+                "categoryName": "marketing",
+                "mainImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-c7c2eeced46b107b137d812ca8e8a2aae109e86f-1828x1028-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "mainImageAltText": "Researching AI Marketing Tools",
+                "parentCategory": {
+                    "_ref": "6f0cc24a-55e6-47a4-8f49-269200573b6b",
+                    "_type": "reference"
+                },
+                "relatedCategories": [
+                    {
+                        "_key": "4a244b59e89a",
+                        "_ref": "18c28701-ecbf-446d-a50d-29285561c411",
+                        "_type": "reference"
+                    },
+                    {
+                        "_key": "8acfb005e917",
+                        "_ref": "2650f8d3-164b-4c4b-bb51-aa0f91bf8c0d",
+                        "_type": "reference"
+                    }
+                ],
+                "seoImage": {
+                    "_type": "image",
+                    "asset": {
+                        "_ref": "image-c7c2eeced46b107b137d812ca8e8a2aae109e86f-1828x1028-jpg",
+                        "_type": "reference"
+                    }
+                },
+                "seoTitle": "Use AI for Marketing with These Tools & Software in [year]",
+                "slug": {
+                    "_type": "slug",
+                    "current": "marketing"
+                },
+                "sponsoredTools": [
+                    {
+                        "_key": "e087b2b81857",
+                        "_ref": "89c9ac57-99f9-4490-bec5-8edb23857fe7",
+                        "_type": "reference"
+                    }
+                ],
+                "tableOfContents": {
+                    "_type": "tableOfContents",
+                    "items": [
+                        {
+                            "_key": "6c165aac495a",
+                            "anchor": "#ai-marketing-tools",
+                            "label": "AI Marketing Tools"
+                        },
+                        {
+                            "_key": "b47487358bbb",
+                            "anchor": "#transforming-marketing-strategies",
+                            "label": "Transforming Marketing Strategies"
+                        },
+                        {
+                            "_key": "58fb636e85b3",
+                            "anchor": "#enhancing-interactions-and-analytics",
+                            "label": "Enhancing Interactions and Analytics"
+                        },
+                        {
+                            "_key": "03ba9c19b5cd",
+                            "anchor": "#empowering-marketers-with-ai",
+                            "label": "Empowering Marketers with AI"
+                        },
+                        {
+                            "_key": "4a0201901ce0",
+                            "anchor": "#navigating-the-future-with-ai-driven-marketing",
+                            "label": "Navigating the Future with AI-Driven Marketing"
+                        }
+                    ]
+                },
+                "tagline": "[count] AI Marketing Tools to Grow Your Brand",
+                "title": "AI Marketing Tools - Elevate Your Brand Strategy"
+            }
+        ],
+        "toolName": "Dora AI",
+        "toolShortDescription": "Revolutionize website creation with AI: unique, prompt-driven designs made simple.",
+        "verified": true,
+        "verifiedReason": "Recommended",
+        "websiteUrl": "https://a.dora.run/futurepedia?utm_source=futurepedia&utm_medium=marketplace&utm_campaign=futurepedia"
+    }
+]

@@ -1,16 +1,19 @@
-import { authOptions } from "app/api/auth/[...nextauth]/options";
-import { getServerSession } from "next-auth/next";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "src/lib/dbConnect";
 import PublicTool from "src/models/tool";
 import UserModel from "src/models/user";
+import { getSession } from "src/lib/auth";
 
 export async function DELETE(request: NextRequest) {
   try {
     const toolId = request.nextUrl.searchParams.get("toolId");
 
+<<<<<<< HEAD
+    const session = await getSession();
+=======
     const session = await getServerSession({ req: request, ...authOptions });
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
     if (!session) {
       return NextResponse.json(
         {

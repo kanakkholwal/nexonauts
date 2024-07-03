@@ -1,14 +1,17 @@
-import { authOptions } from "app/api/auth/[...nextauth]/options";
+import { getSession } from "src/lib/auth";
 
 import { GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai";
-import { getServerSession } from "next-auth/next";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
     const { name, link } = await request.json();
 
+<<<<<<< HEAD
+    const session = await getSession();
+=======
     const session = await getServerSession({ req: request, ...authOptions });
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
     if (!session) {
       return NextResponse.json(
         {
