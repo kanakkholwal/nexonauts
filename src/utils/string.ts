@@ -1,6 +1,7 @@
 import { customAlphabet } from "nanoid";
 import { z } from "zod";
 import TurndownService from "turndown";
+<<<<<<< HEAD
 
 export function slugify(text: string): string {
   let slug = text.toString().toLowerCase().trim();
@@ -19,6 +20,8 @@ export function slugify(text: string): string {
 
   return slug;
 }
+=======
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
 
 export function generateSlug(length = 8): string {
   return customAlphabet(
