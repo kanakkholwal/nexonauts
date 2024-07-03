@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import * as React from "react";
 import { NAME } from "src/constants/marketplace";
-import { SessionUserType } from "src/types/user";
+import { sessionType } from "src/types/session";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -119,7 +119,7 @@ export function Navbar({
   user,
   title,
 }: {
-  user: SessionUserType | null;
+  user: sessionType["user"] | null;
   title: React.ReactNode | null;
 }) {
   return (

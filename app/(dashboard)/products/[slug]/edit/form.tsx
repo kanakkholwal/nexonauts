@@ -135,6 +135,7 @@ export default function ProductForm(props: Props) {
                 <FormControl>
                   <NexoEditor
                     placeholder="Description"
+                    className="!h-auto p-0"
                     onPaste={(e) => {
                       e.preventDefault();
                       const text = e.clipboardData.getData("text/plain");

@@ -100,11 +100,11 @@ export default function Form({
             <Label htmlFor="description">Description</Label>
             <NexoEditor
               id="description"
+              className="!h-auto p-0"
               value={tool?.description || ""}
               disabled={loading || generating}
               rows={8}
               onChange={(value, _) => {
-                // console.log('onChange', html, text);
                 useFormStore.setState({
                   tool: { ...tool, description: value },
                 });

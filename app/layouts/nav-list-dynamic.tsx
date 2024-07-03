@@ -37,8 +37,12 @@ const defaultList = [
     path: "/scout",
   },
   {
-    title: "Dev Tools",
+    title: "Marketplace",
     path: "/marketplace",
+  },
+  {
+    title: "Dev Tools",
+    path: "/dev-tools",
   },
   {
     title: "Discover Devs",
@@ -129,20 +133,8 @@ export function QuickLinks() {
   );
 }
 
-const list = [
-  {
-    title: "Nexo Scout",
-    path: "/scout",
-  },
-  {
-    title: "Dev Tools",
-    path: "/marketplace",
-  },
-  {
-    title: "Discover Devs",
-    path: "/devs",
-  },
-];
+const list = [...defaultList];
+
 export function NavList() {
   return (
     <div
