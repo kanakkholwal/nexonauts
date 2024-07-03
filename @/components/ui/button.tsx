@@ -6,7 +6,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold tracking-wide ring-offset-background transition-transform transition-duration-300 transition transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold tracking-wide  ring-offset-background transition-transform transition-duration-300 transition transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -82,6 +82,14 @@ const buttonVariants = cva(
         damped:
           "transition-all hover:scale-105 active:duration-75 active:scale-95",
       },
+      svgTransition: {
+        none: "",
+        up: "[&>svg]:transform hover:[&>svg]:translate-y-[-1px] active:[&>svg]:translate-y-0",
+        rotate:
+          "[&>svg]:transform hover:[&>svg]:rotate-90 active:[&>svg]:rotate-0",
+        rotate_full:
+          "[&>svg]:transform hover:[&>svg]:rotate-180 active:[&>svg]:rotate-0",
+      },
     },
     defaultVariants: {
       variant: "default",
@@ -108,6 +116,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       rounded,
       transition,
       width,
+      svgTransition,
       ...props
     },
     ref
@@ -123,6 +132,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             transition,
             rounded,
             width,
+            svgTransition,
           })
         )}
         ref={ref}

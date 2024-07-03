@@ -15,12 +15,19 @@ import {
 import { ArrowUpRight, LoaderCircle } from "lucide-react";
 
 import { Tag, TagInput } from "@/components/custom/tag-input";
+<<<<<<< HEAD
+import NexoEditor from "nexo-mdx";
+=======
 import dynamic from "next/dynamic";
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
+<<<<<<< HEAD
+=======
 import "react-markdown-editor-lite/lib/index.css";
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
 import MarkdownView from "src/components/markdown/view";
 import { UploadImage } from "src/components/uploader";
 import {
@@ -29,9 +36,14 @@ import {
   PublicToolStatus,
   rawPublicToolType,
 } from "src/models/tool";
+<<<<<<< HEAD
+import { z } from "zod";
+import { useFormStore } from "./store";
+=======
 import { useFormStore } from "./store";
 
 import { z } from "zod";
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
 const urlSchema = z
   .string()
   .url()
@@ -39,11 +51,14 @@ const urlSchema = z
     return value.trim();
   });
 
+<<<<<<< HEAD
+=======
 const MdEditor = dynamic(() => import("react-markdown-editor-lite"), {
   loading: () => <p>Loading...</p>,
   ssr: false,
 });
 
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
 export default function Form({
   submitTool,
   available_categories,
@@ -98,6 +113,19 @@ export default function Form({
 
           <div className="grid w-full items-center gap-1.5 my-4">
             <Label htmlFor="description">Description</Label>
+<<<<<<< HEAD
+            <NexoEditor
+              id="description"
+              className="!h-auto p-0"
+              value={tool?.description || ""}
+              disabled={loading || generating}
+              onChange={(value, _) => {
+                useFormStore.setState({
+                  tool: { ...tool, description: value },
+                });
+              }}
+              renderHtml={(text: string) => (
+=======
             <MdEditor
               className="w-full h-96  rounded-lg shadow-md p-2"
               value={tool?.description || ""}
@@ -107,6 +135,7 @@ export default function Form({
                 useFormStore.setState({ tool: { ...tool, description: text } });
               }}
               renderHTML={(text: string) => (
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
                 <MarkdownView className="prose lg:prose-xl">
                   {text}
                 </MarkdownView>
