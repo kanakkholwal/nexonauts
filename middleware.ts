@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  //  SEO Redirects
   const toolPaths = ['/tool-scout/tools/', '/toolbox/tools/', '/toolzen/tools/'];
   const matchedPath = toolPaths.find(path => pathname.startsWith(path));
 
