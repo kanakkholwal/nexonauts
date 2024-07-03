@@ -7,7 +7,15 @@ export async function POST(request: NextRequest) {
   try {
     const { name, link } = await request.json();
 
+<<<<<<< HEAD
     const session = await getSession();
+=======
+<<<<<<< HEAD
+    const session = await getSession();
+=======
+    const session = await getServerSession({ req: request, ...authOptions });
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0
     if (!session) {
       return NextResponse.json(
         {

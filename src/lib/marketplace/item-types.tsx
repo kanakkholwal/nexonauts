@@ -16,7 +16,15 @@ export type itemType = {
   id: string;
   icon: React.ElementType;
 };
+<<<<<<< HEAD
 export const itemTypes: itemType[] = [
+=======
+<<<<<<< HEAD
+export const itemTypes: itemType[] = [
+=======
+export const Item_types: itemType[] = [
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0
   {
     label: "Templates",
     href: "/marketplace/explore?type=template",
@@ -88,4 +96,12 @@ export const itemTypes: itemType[] = [
   // },
 ];
 
+<<<<<<< HEAD
 export const product_types = itemTypes.map((item) => item.id);
+=======
+<<<<<<< HEAD
+export const product_types = itemTypes.map((item) => item.id);
+=======
+export const product_types = Item_types.map((item) => item.id);
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0

@@ -53,14 +53,25 @@ export type ProductType = Product & {
   createdAt: Date;
   updatedAt: Date;
 };
+<<<<<<< HEAD
 export type ProductTypeWithCreator = ProductType & {
   creator: {
     _id: string;
+=======
+<<<<<<< HEAD
+export type ProductTypeWithCreator = ProductType & {
+  creator: {
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0
     name: string;
     username: string;
     profilePicture: string;
   };
 };
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0
 
 type ProductDocument = Document & Product;
 
