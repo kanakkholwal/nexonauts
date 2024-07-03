@@ -1,4 +1,3 @@
-
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "src/lib/dbConnect";

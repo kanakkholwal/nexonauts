@@ -1,3 +1,4 @@
+"use client";
 import { BsSearch } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa6";
 // import { GoHomeFill } from "react-icons/go";
@@ -5,7 +6,7 @@ import { PiHeartStraightBold, PiTrendUpBold } from "react-icons/pi";
 import { TbLayoutGrid } from "react-icons/tb";
 
 import Link from "next/link";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 const navigations = [
   {
@@ -40,7 +41,7 @@ const navigations = [
 }[];
 
 export default function FloatingMenu() {
-  const { pathname } = useRouter();
+  // const { pathname } = useRouter();
 
   return (
     <div className="fixed z-10 left-0 bottom-0 lg:top-0 right-0 lg:right-auto lg:w-24 bg-slate-100 lg:bg-white shadow-md border-t border-slate-200 pt-1  flex flex-col justify-center">
@@ -57,10 +58,10 @@ export default function FloatingMenu() {
               <span
                 title={NavLink.label}
                 className={
-                  "px-6 py-2 rounded-full" +
-                  (pathname === NavLink.href
-                    ? " text-primary bg-primary/10 shadow-sm shadow-primary/10"
-                    : " text-slate-700  hover:text-slate-900 hover:bg-white lg:hover:bg-slate-100")
+                  "px-6 py-2 rounded-full"
+                  // (pathname === NavLink.href
+                  //   ? " text-primary bg-primary/10 shadow-sm shadow-primary/10"
+                  //   : " text-slate-700  hover:text-slate-900 hover:bg-white lg:hover:bg-slate-100")
                 }
               >
                 <NavLink.icon
@@ -71,10 +72,10 @@ export default function FloatingMenu() {
               </span>
               <span
                 className={
-                  "lg:hidden text-xs" +
-                  (pathname === NavLink.href
-                    ? " font-semibold"
-                    : " font-medium")
+                  "lg:hidden text-xs"
+                  // (pathname === NavLink.href
+                  //   ? " font-semibold"
+                  //   : " font-medium")
                 }
               >
                 {NavLink.label}

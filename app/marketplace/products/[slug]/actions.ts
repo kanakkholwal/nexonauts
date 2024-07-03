@@ -1,16 +1,24 @@
 "use server";
+import { PipelineStage } from "mongoose";
 import dbConnect from "src/lib/dbConnect";
-import Product, { ProductType } from "src/models/product";
+import Product, {
+  ProductType,
+  ProductTypeWithCreator,
+} from "src/models/product";
 
-export async function getProductBySlug(slug: string): Promise<ProductType> {
+export async function getProductBySlug(
+  slug: string
+): Promise<ProductTypeWithCreator> {
   await dbConnect();
   const product = await Product.findOne({
     published: true,
     slug,
-  }).exec();
+  })
+    .populate("creator", "name username profilePicture")
+    .exec();
   return Promise.resolve(JSON.parse(JSON.stringify(product)));
 }
-export async function getSimilarProducts(slug: string) {
+export async function getSimilarProducts(slug: string): Promise<ProductType[]> {
   await dbConnect();
   const product = await Product.findOne({ slug, published: true });
 
@@ -58,7 +66,7 @@ export async function getSimilarProducts(slug: string) {
     {
       $limit: 6,
     },
-  ] as unknown as any;
+  ] as PipelineStage[];
 
   const similarProducts = await Product.aggregate(pipeline);
 

@@ -33,13 +33,14 @@ import { Switch } from "@/components/ui/switch";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Import, LoaderCircle } from "lucide-react";
+import NexoEditor from "nexo-mdx";
 import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { UploadImage } from "src/components/uploader";
 import { importProductFromURL } from "src/lib/marketplace/import-product";
-import NexoEditor from 'nexo-mdx';
+import { CATEGORIES as defaultCategories } from "src/constants/marketplace";
 
 import { HtmlToMarkdown } from "src/utils/string";
 import { z } from "zod";
@@ -78,14 +79,7 @@ const urlSchema = z
   .transform((value) => {
     return value.trim();
   });
-const defaultCategories = [
-  "Design",
-  "Course",
-  "Productivity",
-  "Themes",
-  "Templates",
-  "UI Kits",
-] as const;
+
 interface Props {
   saveProduct: (product: z.infer<typeof formSchema>) => Promise<boolean>;
 }
@@ -268,6 +262,7 @@ export default function ProductForm(props: Props) {
                   <FormControl>
                     <NexoEditor
                       placeholder="Description"
+                      className="!h-auto p-0"
                       onPaste={(e) => {
                         e.preventDefault();
                         const text = e.clipboardData.getData("text/plain");

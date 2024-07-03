@@ -20,10 +20,6 @@ export const itemTypes: itemType[] = [
   {
     label: "Templates",
     href: "/marketplace/explore?type=template",
-    // sublinks: [
-    //     { label: 'Landing Pages', href: '/marketplace/explore?type=template&category=landingpage' },
-    //     { label: 'Admin Dashboards', href: '/marketplace/explore?type=template&category=admindashboard' },
-    // ],
     id: "templates",
     icon: HeroiconsOutlineTemplate,
   },
@@ -34,9 +30,9 @@ export const itemTypes: itemType[] = [
     icon: SimpleIconsUikit,
   },
   {
-    label: "E-Books",
-    href: "/marketplace/explore?type=ebook",
-    id: "ebooks",
+    label: "Course",
+    href: "/marketplace/explore?type=course",
+    id: "course",
     icon: CilBook,
   },
   {
@@ -58,9 +54,9 @@ export const itemTypes: itemType[] = [
     icon: GridiconsThemes,
   },
   {
-    label: "Graphics",
-    href: "/marketplace/explore?type=graphic",
-    id: "graphics",
+    label: "Design",
+    href: "/marketplace/explore?type=Design",
+    id: "design",
     icon: IconParkOutlineGraphicStitching,
   },
   {

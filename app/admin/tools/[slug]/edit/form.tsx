@@ -18,13 +18,13 @@ import { Tag, TagInput } from "@/components/custom/tag-input";
 import { Switch } from "@/components/ui/switch";
 import axios from "axios";
 import { Loader2, Sparkles } from "lucide-react";
-import dynamic from "next/dynamic";
+import NexoEditor from "nexo-mdx";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
-import NexoEditor from "nexo-mdx"
 
+import MarkdownView from "src/components/markdown/view";
 import { UploadImage } from "src/components/uploader";
 import {
   ICategory,
@@ -34,7 +34,6 @@ import {
 } from "src/models/tool";
 import { z } from "zod";
 import { useFormStore } from "./store";
-import MarkdownView from "src/components/markdown/view";
 
 const urlSchema = z
   .string()
@@ -42,8 +41,6 @@ const urlSchema = z
   .transform((value) => {
     return value.trim();
   });
-
-
 
 export default function Form({
   updateTool,
@@ -103,10 +100,13 @@ export default function Form({
             <Label htmlFor="description">Description</Label>
             <NexoEditor
               id="description"
+              className="!h-auto p-0"
               value={tool?.description || ""}
               disabled={loading || generating}
               onChange={(value, _) => {
-                useFormStore.setState({ tool: { ...tool, description: value } });
+                useFormStore.setState({
+                  tool: { ...tool, description: value },
+                });
               }}
               renderHtml={(text: string) => (
                 <MarkdownView className="prose lg:prose-xl">

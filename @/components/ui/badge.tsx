@@ -18,11 +18,11 @@ const badgeVariants = cva(
         warning_light:
           "bg-yellow-500/10 text-yellow-500 hover:bg-yellow-500/20",
         info_light: "bg-sky-500/10 text-sky-500 hover:bg-sky-500/20",
-        info: "bg-sky-100 hover:bg-sky-200 text-sky-600 dark:bg-sky-700 dark:text-sky-200 dark:hover:bg-sky-800 dark:hover:text-sky-200",
+        info: "bg-sky-100 hover:bg-sky-200 text-sky-600 dark:bg-sky-700 dark:text-sky-200 dark:hover:bg-sky-800 dark:hover:text-sky-200 border-none",
         destructive_light:
           "bg-red-500/10 text-red-500 hover:bg-red-500/20 dark:bg-red-500/20 dark:text-red-500 hover:dark:bg-red-500/10 hover:dark:text-red-500",
         ghost:
-          "bg-white hover:bg-white hover:text-accent-foreground  dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white",
+          "bg-slate-50/15 border border-border dark:bg-slate-800/15 hover:border-primary text-muted-foreground hover:text-primary",
         slate:
           "bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-950 dark:hover:text-slate-100",
         dark: "bg-slate-900 text-white hover:bg-slate-800 dark:bg-white/80 dark:hover:bg-white/70 dark:text-slate-200",
