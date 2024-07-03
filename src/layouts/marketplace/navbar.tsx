@@ -119,11 +119,7 @@ export function Navbar({
   user,
   title,
 }: {
-<<<<<<< HEAD
   user: sessionType["user"] | null;
-=======
-  user: SessionUserType | null;
->>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
   title: React.ReactNode | null;
 }) {
   return (

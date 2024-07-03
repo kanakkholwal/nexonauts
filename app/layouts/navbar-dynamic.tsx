@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 import GoToBtn from "./go-to-btn";
 
 export default function Navbar() {
-<<<<<<< HEAD
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -35,16 +34,6 @@ export default function Navbar() {
             ? "backdrop-blur-sm dark:backdrop-blur bg-white/50 dark:bg-zinc-900/20"
             : ""
         )}
-=======
-  return (
-    <div
-      aria-label="NavMenu"
-      id="navbar"
-      className="absolute inset-x-0 top-0 z-50  w-full"
-    >
-      <div
-        className="relative flex items-center justify-between gap-6 py-2 lg:gap-0 lg:py-4 mx-auto px-4 sm:px-12 lg:px-8 backdrop-blur-sm dark:backdrop-blur bg-white/50 dark:bg-zinc-900/20"
->>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
         aria-label="Navbar"
       >
         <div className="absolute inset-x-0 top-full h-px transition bg-zinc-900/7.5 dark:bg-white/7.5" />
