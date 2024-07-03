@@ -25,13 +25,13 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
   const products = await getProducts();
 
   return (
-    <div className="flex items-start justify-center w-full gap-10 mx-auto">
+    <div className="flex items-start justify-center w-full gap-10 mx-auto p-3">
       <aside className="bg-card w-full max-w-sm rounded-xl p-4">
         <h4 className="text-lg font-semibold">Categories</h4>
-        <RadioGroup defaultValue={category} className="flex flex-col space-y-3">
+        <RadioGroup defaultValue={category} className="flex flex-col gap-2 mt-4">
           {CATEGORIES.map((category, i) => {
             return (
-              <div key={i} className="items-top flex space-x-2 mb-2">
+              <div key={i} className="items-top flex space-x-2">
                 <RadioGroupItem id={category} value={category} />
                 <Label htmlFor={category} className="mb-0">{category}</Label>
               </div>
@@ -39,8 +39,8 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
           })}
         </RadioGroup>
       </aside>
-      <main className="space-y-10 max-w-7xl">
-        <section className="w-full mx-auto grid justify-items-center items-stretch px-3 gap-4 grid-cols-1 @sm:grid-cols-2 @2xl:grid-cols-3 @4xl:grid-cols-4">
+      <main className="space-y-10 max-w-7xl w-full mx-auto @container/main">
+        <section id="category-labels" className="w-full mx-auto grid justify-items-center items-stretch px-3 gap-4 grid-cols-1 @4xl/main:grid-cols-4 @2xl/main:grid-cols-3 @sm/main:grid-cols-2">
           {itemTypes.map((item, i) => {
             return (
               <Link
