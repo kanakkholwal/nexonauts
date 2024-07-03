@@ -5,14 +5,24 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   //  SEO Redirects
-  const toolPaths = ['/tool-scout/tools/', '/toolbox/tools/', '/toolzen/tools/'];
-  const matchedPath = toolPaths.find(path => pathname.startsWith(path));
+  const toolPaths = [
+    "/tool-scout/tools/",
+    "/toolbox/tools/",
+    "/toolzen/tools/",
+  ];
+  const matchedPath = toolPaths.find((path) => pathname.startsWith(path));
 
   if (matchedPath) {
-    const newUrl = new URL(pathname.replace(matchedPath, '/scout/tools/'), request.url);
+    const newUrl = new URL(
+      pathname.replace(matchedPath, "/scout/tools/"),
+      request.url
+    );
     return NextResponse.redirect(newUrl);
-  }else if (pathname.startsWith('/toolbox?query')) {
-    const newUrl = new URL(pathname.replace('/toolbox?query', '/scout/browse?query'), request.url);
+  } else if (pathname.startsWith("/toolbox?query")) {
+    const newUrl = new URL(
+      pathname.replace("/toolbox?query", "/scout/browse?query"),
+      request.url
+    );
     return NextResponse.redirect(newUrl);
   }
 
@@ -23,7 +33,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
-  ],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };
