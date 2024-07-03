@@ -42,7 +42,15 @@ export default async function DeveloperPage({
   const developer = await getProfile(params.username);
 
   if (!developer) return notFound();
+<<<<<<< HEAD
   const session = (await getSession()) as sessionType | null;
+=======
+<<<<<<< HEAD
+  const session = (await getSession()) as sessionType | null;
+=======
+  const session = (await getServerSession(authOptions)) as sessionType | null;
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0
 
   const isOwner = session?.user?.username === developer.username;
   const isFollowing =

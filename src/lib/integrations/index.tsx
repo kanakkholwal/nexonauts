@@ -6,7 +6,15 @@ import { DiGithubFull } from "react-icons/di";
 import { TbBrandGumroad } from "react-icons/tb";
 import UserModel from "src/models/user";
 import { sessionType } from "src/types/session";
+<<<<<<< HEAD
 import { nanoid } from "nanoid";
+=======
+<<<<<<< HEAD
+import { nanoid } from "nanoid";
+=======
+import { generateSlug } from "src/utils/string";
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0
 
 // Define the icons and descriptions for each integration
 const icons: { [key: string]: React.ElementType } = {
@@ -68,7 +76,15 @@ export const INTEGRATION_CONFIG: {
         client_id: this.client_id,
         redirect_uri: this.redirect_uri,
         scope: this.scope,
+<<<<<<< HEAD
         state: nanoid(),
+=======
+<<<<<<< HEAD
+        state: nanoid(),
+=======
+        state: generateSlug(10),
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0
       });
       return `${this.auth_url}?${params.toString()}`;
     },
@@ -93,7 +109,15 @@ export const INTEGRATION_CONFIG: {
         return Promise.reject("Error getting token");
       }
 
+<<<<<<< HEAD
       const session = (await getSession()) as sessionType;
+=======
+<<<<<<< HEAD
+      const session = (await getSession()) as sessionType;
+=======
+      const session = (await getServerSession(authOptions)) as sessionType;
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0
       await dbConnect();
       const user = await UserModel.findById(session.user._id)
         .select("integrations")
@@ -151,7 +175,15 @@ export const INTEGRATION_CONFIG: {
       }
 
       console.log("Success saving token", data);
+<<<<<<< HEAD
       const session = (await getSession()) as sessionType;
+=======
+<<<<<<< HEAD
+      const session = (await getSession()) as sessionType;
+=======
+      const session = (await getServerSession(authOptions)) as sessionType;
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0
 
       await dbConnect();
       const user = await UserModel.findById(session.user._id)

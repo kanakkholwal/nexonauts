@@ -18,11 +18,25 @@ import {
 } from "app/scout/lib/actions";
 import { getAverageRating } from "app/scout/lib/utils";
 import { ArrowLeftToLine, ExternalLink, Hash, Star } from "lucide-react";
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+import { getServerSession } from "next-auth/next";
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
+<<<<<<< HEAD
 import { getSession } from "src/lib/auth";
+=======
+<<<<<<< HEAD
+import { getSession } from "src/lib/auth";
+=======
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0
 import { RatingTypeWithId } from "src/models/tool-rating";
 import { formatNumber } from "src/utils/formaters";
 import { BookMarkButton } from "../bookmark";
@@ -40,7 +54,15 @@ export default async function ToolPage({
   if (!tool) {
     return notFound();
   }
+<<<<<<< HEAD
   const session = await getSession();
+=======
+<<<<<<< HEAD
+  const session = await getSession();
+=======
+  const session = await getServerSession(authOptions);
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
+>>>>>>> b1e235116848bde2fc0447918eff3e7aae2124e0
   console.log(tool);
 
   const { ratings } = await getRatingsAndReviewsByPage(tool._id, 1);
