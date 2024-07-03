@@ -79,7 +79,6 @@ const urlSchema = z
   .transform((value) => {
     return value.trim();
   });
-
 interface Props {
   saveProduct: (product: z.infer<typeof formSchema>) => Promise<boolean>;
 }

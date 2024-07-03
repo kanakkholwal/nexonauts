@@ -6,19 +6,30 @@ import Product, {
   ProductTypeWithCreator,
 } from "src/models/product";
 
+<<<<<<< HEAD
 export async function getProductBySlug(
   slug: string
 ): Promise<ProductTypeWithCreator> {
+=======
+export async function getProductBySlug(slug: string): Promise<ProductType> {
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
   await dbConnect();
   const product = await Product.findOne({
     published: true,
     slug,
+<<<<<<< HEAD
   })
     .populate("creator", "name username profilePicture")
     .exec();
   return Promise.resolve(JSON.parse(JSON.stringify(product)));
 }
 export async function getSimilarProducts(slug: string): Promise<ProductType[]> {
+=======
+  }).exec();
+  return Promise.resolve(JSON.parse(JSON.stringify(product)));
+}
+export async function getSimilarProducts(slug: string) {
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
   await dbConnect();
   const product = await Product.findOne({ slug, published: true });
 
@@ -66,7 +77,11 @@ export async function getSimilarProducts(slug: string): Promise<ProductType[]> {
     {
       $limit: 6,
     },
+<<<<<<< HEAD
   ] as PipelineStage[];
+=======
+  ] as unknown as any;
+>>>>>>> c4e3c5276137435e875f30efdcad3d899385f5b0
 
   const similarProducts = await Product.aggregate(pipeline);
 
