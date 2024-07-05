@@ -5,6 +5,8 @@ import { useCallback, useEffect, useState } from "react";
 
 type Callback<T> = (value: T) => void | Promise<void>;
 
+const INVALID_VALUES = [undefined, null, "", "null", "undefined"];
+
 export function useUrlState<T>(
   key: string,
   defaultValue: T,
@@ -12,7 +14,11 @@ export function useUrlState<T>(
 ) {
   const router = useRouter();
   const searchParams = useSearchParams() as URLSearchParams;
-  const initialValue = searchParams.has(key)
+  const isExist =
+    searchParams.has(key) &&
+    !INVALID_VALUES.includes(searchParams.get(key)!?.toString()?.trim());
+
+  const initialValue = isExist
     ? JSON.parse(JSON.stringify(searchParams.get(key)))
     : defaultValue;
 
@@ -47,8 +53,20 @@ export function useUrlState<T>(
         }
       }
     },
-    [callback, updateUrl]
+    [callback, updateUrl, defaultValue]
   );
+
+  const resetUrlState = useCallback(() => {
+    setState(defaultValue);
+    updateUrl(defaultValue);
+  }, [defaultValue, updateUrl]);
+
+  const clearUrlState = useCallback(() => {
+    setState(defaultValue);
+    const params = new URLSearchParams(searchParams);
+    params.delete(key);
+    router.push(`?${params.toString()}`);
+  }, [defaultValue, key, router, searchParams]);
 
   useEffect(() => {
     const paramValue = searchParams.has(key)
@@ -58,6 +76,5 @@ export function useUrlState<T>(
       setState(paramValue);
     }
   }, [key, searchParams, state]);
-
-  return [state, setUrlState] as const;
+  return [state, setUrlState, isExist, clearUrlState, resetUrlState] as const;
 }
