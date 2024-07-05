@@ -23,7 +23,7 @@
         "src/*": ["./src/*"],
         "app/*": ["./app/*"],
         "data/*": ["./data/*"],
-        "email/*": ["./email/*"],
+        "emails/*": ["./emails/*"],
         "root/*":["./*"]
       },
       
