@@ -1,6 +1,6 @@
 import { render } from "@react-email/render";
-import { generateToken, handleEmailFire } from "email/helper";
-import WelcomeVerify from "email/templates/welcome-verify";
+import { generateToken, handleEmailFire } from "emails/helper";
+import WelcomeVerify from "emails/templates/welcome-verify";
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "src/lib/dbConnect";
 import UserModel from "src/models/user";

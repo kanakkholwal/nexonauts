@@ -1,5 +1,5 @@
 "use server";
-import { verifyToken } from "email/helper";
+import { verifyToken } from "emails/helper";
 import dbConnect from "src/lib/dbConnect";
 import UserModel from "src/models/user";
 
