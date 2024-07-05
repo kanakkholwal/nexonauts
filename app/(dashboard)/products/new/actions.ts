@@ -2,18 +2,18 @@
 import { revalidatePath } from "next/cache";
 import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
-import Product from "src/models/product";
+import Product,{rawProduct} from "src/models/product";
 import { sessionType } from "src/types/session";
 import { createSlug } from "src/utils/string";
 
-export async function getCatgories() {
+export async function getCategories() {
   const session = (await getSession()) as sessionType;
   await dbConnect();
   const products = await Product.find({ creator: session.user._id }).exec();
   return Promise.resolve(JSON.parse(JSON.stringify(products)));
 }
 
-export async function createProduct(product) {
+export async function createProduct(product:rawProduct) {
   const session = (await getSession()) as sessionType;
   try {
     await dbConnect();

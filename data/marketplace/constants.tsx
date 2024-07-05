@@ -8,7 +8,7 @@ import {
   // MingcuteMore3Line,
   MingcutePluginLine,
   SimpleIconsUikit,
-} from "assets/icons";
+} from "src/assets/icons";
 
 export type itemType = {
   label: string;
