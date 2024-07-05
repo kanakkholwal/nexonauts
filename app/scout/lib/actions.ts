@@ -1,15 +1,15 @@
 "use server";
-import dbConnect from "lib/dbConnect";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
 import { getSession } from "src/lib/auth";
+import dbConnect from "src/lib/dbConnect";
 import PublicTool, {
-  PublicToolPricingType,
-  PublicToolTypeWithId,
+    PublicToolPricingType,
+    PublicToolTypeWithId,
 } from "src/models/tool";
 import ToolRating, {
-  RatingTypeWithId,
-  rawRatingType,
+    RatingTypeWithId,
+    rawRatingType,
 } from "src/models/tool-rating";
 
 export async function getTools(

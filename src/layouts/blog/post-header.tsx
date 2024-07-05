@@ -5,7 +5,6 @@ import Link from "next/link";
 
 import { AiOutlineFieldTime } from "react-icons/ai";
 
-import { calculateReadTime } from "lib/scripts";
 
 export default function PostHeader({
   title,

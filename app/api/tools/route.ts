@@ -1,4 +1,4 @@
-import dbConnect from "lib/dbConnect";
+import dbConnect from "src/lib/dbConnect";
 import { NextRequest, NextResponse } from "next/server";
 import PublicTool from "src/models/tool";
 import { Worker } from "worker_threads";
