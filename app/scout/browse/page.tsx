@@ -7,7 +7,7 @@ import { getTools } from "app/scout/lib/actions";
 import { Hash, SearchX } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
-import LazyImage from "src/componentsimage";
+import LazyImage from "src/components/image";
 import { PublicToolPricingType } from "src/models/tool";
 
 import { cn } from "@/lib/utils";
