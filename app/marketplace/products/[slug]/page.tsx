@@ -117,7 +117,7 @@ export default async function ProductPage({
             </Button>
             {isAuthenticated &&
               session?.user._id.toString() ===
-              product.creator?._id?.toString() && (
+                product.creator?._id?.toString() && (
                 <Button
                   size="lg"
                   variant="default_light"
@@ -163,9 +163,7 @@ export default async function ProductPage({
               </ConditionalRender>
               <ConditionalRender condition={similarProducts.length > 0}>
                 {similarProducts.map((product) => {
-                  return (
-                    <ProductCard product={product} key={product.slug} />
-                  )
+                  return <ProductCard product={product} key={product.slug} />;
                 })}
               </ConditionalRender>
             </SuspenseWithErrorBoundary>

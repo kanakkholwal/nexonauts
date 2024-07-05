@@ -37,9 +37,8 @@ export async function getMoreProductsByCreator(
   })
     .limit(6)
     .exec();
-  
-  return Promise.resolve(JSON.parse(JSON.stringify(moreFromCreator)));
 
+  return Promise.resolve(JSON.parse(JSON.stringify(moreFromCreator)));
 }
 export async function getSimilarProducts(slug: string): Promise<ProductType[]> {
   await dbConnect();

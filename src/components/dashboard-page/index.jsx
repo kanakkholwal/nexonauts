@@ -1,20 +1,20 @@
 import { BiBell } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
 import {
-    IoLogoGithub,
-    IoLogoInstagram,
-    IoLogoLinkedin,
-    IoLogoTwitter,
+  IoLogoGithub,
+  IoLogoInstagram,
+  IoLogoLinkedin,
+  IoLogoTwitter,
 } from "react-icons/io5";
 import { MdOutlineArticle } from "react-icons/md";
 import { RiAdminLine, RiAppsLine } from "react-icons/ri";
 import {
-    TbBrandBlogger,
-    TbBrandGoogleAnalytics,
-    TbDashboard,
-    TbMessageDots,
-    TbSmartHome,
-    TbTools,
+  TbBrandBlogger,
+  TbBrandGoogleAnalytics,
+  TbDashboard,
+  TbMessageDots,
+  TbSmartHome,
+  TbTools,
 } from "react-icons/tb";
 import { BreadCrumb } from "src/componentsbreadcrumb";
 import Footer from "src/componentslayouts/footer";
