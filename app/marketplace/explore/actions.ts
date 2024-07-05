@@ -1,17 +1,55 @@
-"use server";
 import { PipelineStage } from "mongoose";
 import dbConnect from "src/lib/dbConnect";
 import Product, { ProductType } from "src/models/product";
 
-export async function getProducts(): Promise<Partial<ProductType>[]> {
+export type searchParamsType = {
+  query?: string;
+  category?: string;
+  tags?: string;
+  price?: string;
+};
+
+export async function getProducts(searchParams: searchParamsType): Promise<{
+  products: ProductType[];
+}> {
   await dbConnect();
-  const products = await Product.find({
-    published: true,
-  })
+  const { query, category, tags, price } = searchParams;
+  const queryObj = {} as Record<string, any>;
+
+  if (query) {
+    // queryObj.$text = { $search: query };
+    queryObj.$or = [
+      { name: { $regex: query, $options: "i" } },
+      { description: { $regex: query, $options: "i" } },
+    ];
+  }
+  if (category) {
+    queryObj.category = category;
+  }
+  if (tags) {
+    queryObj.tags = { $all: tags.split(",") };
+  }
+  if (price) {
+    if (price === "free") {
+      queryObj.price = 0;
+    } else if (price === "paid") {
+      queryObj.price = { $gt: 0 };
+    } else if (price.includes("-")) {
+      const [min, max] = price.split("-")?.map(Number) || [];
+      queryObj.price = { $gte: min, $lte: max };
+    }
+  }
+
+  queryObj.published = true;
+
+  const products = await Product.find(queryObj)
     .sort({ createdAt: -1 })
     .limit(10)
     .exec();
-  return Promise.resolve(JSON.parse(JSON.stringify(products)));
+
+  return Promise.resolve({
+    products: JSON.parse(JSON.stringify(products)),
+  });
 }
 
 export async function getPopularMeta(): Promise<{

@@ -4,10 +4,10 @@ import ConditionalRender from "@/components/utils/conditional-render";
 import InfoArea from "@/components/utils/info-area";
 import Navbar from "app/layouts/navbar-dynamic";
 import { getTools } from "app/scout/lib/actions";
-import LazyImage from "components/image";
 import { Hash, SearchX } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
+import LazyImage from "src/componentsimage";
 import { PublicToolPricingType } from "src/models/tool";
 
 import { cn } from "@/lib/utils";

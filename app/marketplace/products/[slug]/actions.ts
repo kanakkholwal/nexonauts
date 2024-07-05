@@ -1,4 +1,3 @@
-"use server";
 import { PipelineStage } from "mongoose";
 import dbConnect from "src/lib/dbConnect";
 import Product, {
@@ -17,6 +16,30 @@ export async function getProductBySlug(
     .populate("creator", "name username profilePicture")
     .exec();
   return Promise.resolve(JSON.parse(JSON.stringify(product)));
+}
+export async function getMoreProductsByCreator(
+  slug: string
+): Promise<ProductType[]> {
+  await dbConnect();
+  const product = await Product.findOne({
+    published: true,
+    slug,
+  }).exec();
+
+  if (!product) {
+    return Promise.resolve([]);
+  }
+
+  const moreFromCreator = await Product.find({
+    published: true,
+    creator: product.creator,
+    _id: { $ne: product._id },
+  })
+    .limit(6)
+    .exec();
+  
+  return Promise.resolve(JSON.parse(JSON.stringify(moreFromCreator)));
+
 }
 export async function getSimilarProducts(slug: string): Promise<ProductType[]> {
   await dbConnect();

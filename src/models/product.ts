@@ -135,6 +135,7 @@ const productSchema = new Schema<ProductDocument>(
     timestamps: true,
   }
 );
+productSchema.index({ name: "text", description: "text" });
 
 const Product =
   mongoose.models.Product ||

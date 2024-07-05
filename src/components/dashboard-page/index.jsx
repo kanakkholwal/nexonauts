@@ -1,27 +1,26 @@
-import Header from "components/layouts/header";
-import Footer from "components/layouts/footer";
-import { BreadCrumb } from "components/breadcrumb";
-import { MainWrapper, ContentWrapper } from "components/layouts/wrapper";
-import SideNav from "components/layouts/sidenav";
-import {
-  IoLogoInstagram,
-  IoLogoGithub,
-  IoLogoLinkedin,
-  IoLogoTwitter,
-} from "react-icons/io5";
 import { BiBell } from "react-icons/bi";
 import { FiUsers } from "react-icons/fi";
 import {
-  TbTools,
-  TbSmartHome,
-  TbBrandBlogger,
-  TbDashboard,
-  TbMessageDots,
-} from "react-icons/tb";
-import { RiAdminLine, RiPagesLine } from "react-icons/ri";
-import { TbBrandGoogleAnalytics } from "react-icons/tb";
-import { RiAppsLine } from "react-icons/ri";
+    IoLogoGithub,
+    IoLogoInstagram,
+    IoLogoLinkedin,
+    IoLogoTwitter,
+} from "react-icons/io5";
 import { MdOutlineArticle } from "react-icons/md";
+import { RiAdminLine, RiAppsLine } from "react-icons/ri";
+import {
+    TbBrandBlogger,
+    TbBrandGoogleAnalytics,
+    TbDashboard,
+    TbMessageDots,
+    TbSmartHome,
+    TbTools,
+} from "react-icons/tb";
+import { BreadCrumb } from "src/componentsbreadcrumb";
+import Footer from "src/componentslayouts/footer";
+import Header from "src/componentslayouts/header";
+import SideNav from "src/componentslayouts/sidenav";
+import { ContentWrapper, MainWrapper } from "src/componentslayouts/wrapper";
 
 const SocialMedia = [
   {

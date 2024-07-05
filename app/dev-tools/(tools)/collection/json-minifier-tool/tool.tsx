@@ -1,19 +1,19 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import CodeBlock from "components/CodeBlock";
 import { useState } from "react";
 import { FaCompressArrowsAlt, FaExpandArrowsAlt } from "react-icons/fa";
 import { MdContentCopy, MdDeleteOutline } from "react-icons/md";
 import { toast } from "sonner";
+import CodeBlock from "src/components/CodeBlock";
 
 export default function JsonMinifierPrettifier() {
   const [value, setValue] = useState("");

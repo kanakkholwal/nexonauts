@@ -1,17 +1,20 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import ConditionalRender from "@/components/utils/conditional-render";
+import { SuspenseWithErrorBoundary } from "@/components/utils/error-boundary";
+import InfoArea from "@/components/utils/info-area";
 import { ArrowUpRight, Edit, Heart, LoaderCircle } from "lucide-react";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import MarkdownView, { defaultOptions } from "src/components/markdown/view";
-import { getProductBySlug, getSimilarProducts } from "./actions";
-
-import { SuspenseWithErrorBoundary } from "@/components/utils/error-boundary";
-import { Metadata } from "next";
 import { Fragment } from "react";
+import MarkdownView, { defaultOptions } from "src/components/markdown/view";
 import { getSession } from "src/lib/auth";
 import { sessionType } from "src/types/session";
+import { getProductBySlug, getSimilarProducts } from "./actions";
+import MoreFromCreator from "./more-from-creator";
+import { ProductCard } from "./product-card";
 
 export async function generateMetadata({
   params,
@@ -114,7 +117,7 @@ export default async function ProductPage({
             </Button>
             {isAuthenticated &&
               session?.user._id.toString() ===
-                product.creator?._id?.toString() && (
+              product.creator?._id?.toString() && (
                 <Button
                   size="lg"
                   variant="default_light"
@@ -135,6 +138,9 @@ export default async function ProductPage({
               {product.description}
             </MarkdownView>
           </section>
+          <section id="more-from-creator" className="w-full">
+            <MoreFromCreator slug={product.slug} />
+          </section>
         </main>
         <aside className="lg:max-w-sm w-full flex-1">
           <h3 className="text-2xl 3xl:text-4xl font-bold mb-4 text-left ml-4">
@@ -149,32 +155,19 @@ export default async function ProductPage({
               }
               errorFallback={<p>Failed to load similar products</p>}
             >
-              {similarProducts.map((product) => {
-                return (
-                  <div key={product.slug} className="rounded-lg bg-card p-4">
-                    <Link href={`/marketplace/products/${product.slug}`}>
-                      <figure className="w-full h-auto relative">
-                        <Image
-                          src={product.preview_url}
-                          width={968}
-                          height={580}
-                          alt={product.name}
-                          className="w-full h-auto aspect-video object-cover rounded-lg"
-                        />
-                        <Badge
-                          variant="info"
-                          className="gap-1 absolute top-4 right-4"
-                        >
-                          {product.price === 0 ? "Free" : `$ ${product.price}`}
-                        </Badge>
-                        <figcaption className="text-lg text-center mt-2 font-semibold">
-                          {product.name}
-                        </figcaption>
-                      </figure>
-                    </Link>
-                  </div>
-                );
-              })}
+              <ConditionalRender condition={similarProducts.length === 0}>
+                <InfoArea
+                  title="No similar products found"
+                  description="We couldn't find any similar products for this item."
+                />
+              </ConditionalRender>
+              <ConditionalRender condition={similarProducts.length > 0}>
+                {similarProducts.map((product) => {
+                  return (
+                    <ProductCard product={product} key={product.slug} />
+                  )
+                })}
+              </ConditionalRender>
             </SuspenseWithErrorBoundary>
           </div>
         </aside>

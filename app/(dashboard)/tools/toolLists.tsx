@@ -4,7 +4,7 @@ import { PublicToolTypeWithId } from "src/models/tool";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import LazyImage from "components/image";
+import LazyImage from "src/components/image";
 import { ChevronDown, LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
