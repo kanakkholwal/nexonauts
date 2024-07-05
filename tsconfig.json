@@ -1,104 +1,34 @@
 {
     "compilerOptions": {
-        "types": [
-            "next","next/babel",
-            "@serwist/next/typings"
-        ],
-        "baseUrl": ".",
-        "paths": {
-            "data":[
-                "./data/*"
-            ],
-            "helper/*": [
-                "src/helpers/*"
-            ],
-            "libs/*": [
-                "src/libs/*"
-            ],
-            "src/*": [
-                "./src/*"
-            ],
-            "app/*": [
-                "./app/*"
-            ],
-            "emails/*": [
-                "./emails/*"
-            ],
-            "backend/*": [
-                "src/backend/*"
-            ],
-            "components/*": [
-                "./src/components/*"
-            ],
-            "middleware/*": [
-                "./src/middleware/*"
-            ],
-            "pages/*": [
-                "./src/pages/*"
-            ],
-            "hooks/*": [
-                "./src/hooks/*"
-            ],
-            "layouts/*": [
-                "./src/layouts/*"
-            ],
-            "store/*": [
-                "./src/store/*"
-            ],
-            "assets/*": [
-                "./src/assets/*"
-            ],
-            "types/*": [
-                "./src/types/*"
-            ],
-            "lib/*": [
-                "./src/lib/*"
-            ],
-            "@/*": [
-                "./@/*"
-            ],
-            "@root/*": [
-                "./*"
-            ],
-            "models/*": [
-                "./src/models/*"
-            ]
-        },
-        "target": "es5",
-        "lib": [
-            "dom",
-            "dom.iterable",
-            "esnext",
-            "webworker"
-        ],
-        "allowJs": true,
-        "downlevelIteration": true,
-        "skipLibCheck": true,
-        "strict": false,
-        "forceConsistentCasingInFileNames": true,
-        "noEmit": true,
-        "incremental": true,
-        "esModuleInterop": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "jsx": "preserve",
-        "plugins": [
-            {
-                "name": "next"
-            }
-        ],
-        "strictNullChecks": true
+      "lib": ["dom", "dom.iterable", "esnext","webworker"],
+      "types": ["@serwist/next/typings"],
+      "allowJs": true,
+      "skipLibCheck": true,
+      "strict": true,
+      "noEmit": true,
+      "esModuleInterop": true,
+      "module": "esnext",
+      "moduleResolution": "bundler",
+      "resolveJsonModule": true,
+      "isolatedModules": true,
+      "jsx": "preserve",
+      "incremental": true,
+      "plugins": [
+        {
+          "name": "next"
+        }
+      ],
+      "paths": {
+        "@/*": ["./@/*"],
+        "src/*": ["./src/*"],
+        "app/*": ["./app/*"],
+        "data/*": ["./data/*"],
+        "root/*":["./*"]
+      },
+      
+  
     },
-    "include": [
-        "next-env.d.ts",
-        "**/*.ts",
-        "**/*.tsx",
-        ".next/types/**/*.ts"
-    ],
-    "exclude": [
-        "node_modules",
-        "./src/pages/admin/**/*",
-    ]
-}
+    "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+    "exclude": ["node_modules"]
+  }
+  
