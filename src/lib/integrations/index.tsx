@@ -1,12 +1,12 @@
 import axios from "axios";
-import dbConnect from "lib/dbConnect";
-import { getSession } from "src/lib/auth";
+import { nanoid } from "nanoid";
 import React from "react";
 import { DiGithubFull } from "react-icons/di";
 import { TbBrandGumroad } from "react-icons/tb";
+import { getSession } from "src/lib/auth";
+import dbConnect from "src/lib/dbConnect";
 import UserModel from "src/models/user";
 import { sessionType } from "src/types/session";
-import { nanoid } from "nanoid";
 
 // Define the icons and descriptions for each integration
 const icons: { [key: string]: React.ElementType } = {
