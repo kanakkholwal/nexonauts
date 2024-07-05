@@ -1,8 +1,8 @@
 import { render } from "@react-email/render";
-import dbConnect from "lib/dbConnect";
+import { generateToken, handleEmailFire } from "email/helper";
+import ResetPasswordEmail from "email/templates/reset-password";
+import dbConnect from "src/lib/dbConnect";
 import { NextRequest, NextResponse } from "next/server";
-import { generateToken, handleEmailFire } from "src/email/helper";
-import ResetPasswordEmail from "src/email/templates/reset-password";
 import UserModel from "src/models/user";
 
 import { getSession } from "src/lib/auth";

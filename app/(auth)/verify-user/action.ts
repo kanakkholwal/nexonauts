@@ -1,7 +1,7 @@
 "use server";
+import { verifyToken } from "email/helper";
 import dbConnect from "src/lib/dbConnect";
 import UserModel from "src/models/user";
-import { verifyToken } from "emails/helper";
 
 export async function verifyUser(token: string) {
   const payload = verifyToken(token);

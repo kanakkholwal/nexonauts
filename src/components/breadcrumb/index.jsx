@@ -1,5 +1,5 @@
-import { removeStringAfterWord } from "lib/scripts";
 import Link from "next/link";
+import { removeStringAfterWord } from "src/lib/scripts";
 
 import { usePathname } from "next/navigation";
 import React from "react";

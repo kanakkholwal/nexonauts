@@ -1,11 +1,11 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import Navbar from "app/layouts/navbar-static";
-import dbConnect from "lib/dbConnect";
 import { Search, ShieldCheck, Star } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
+import dbConnect from "src/lib/dbConnect";
 import PublicTool from "src/models/tool";
 import { formatNumber } from "src/utils/formaters";
 import illustration from "./illustration.svg";
