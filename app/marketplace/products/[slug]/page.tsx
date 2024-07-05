@@ -39,7 +39,7 @@ export async function generateMetadata({
   };
 }
 
-// TODO: Add a section for comments or More products by the creator
+// TODO: Add a section for comments
 
 export default async function ProductPage({
   params,
@@ -59,19 +59,19 @@ export default async function ProductPage({
 
   return (
     <>
-      <div className="w-full my-10 mx-auto flex items-start justify-center gap-6 flex-wrap px-3">
-        <main className="grow-0">
+      <div className="w-full my-10 mx-auto flex items-start justify-center gap-6 px-3 flex-col lg:flex-row max-w-[1440px]">
+        <main className="lg:max-w-[72%] w-full">
           <section className="space-y-5">
             <h1 className="text-3xl 3xl:text-5xl font-bold text-left">
               {product.name}
             </h1>
-            <figure className="w-full h-auto relative">
+            <figure className="mx-auto relative w-full h-auto aspect-video">
               <Image
                 src={product.preview_url}
                 width={1024}
                 height={720}
                 alt={product.name}
-                className="w-full h-auto aspect-video object-cover rounded-lg border border-border shadow-sm max-w-6xl"
+                className="w-full h-auto aspect-video object-cover rounded-lg border border-border shadow-sm"
               />
               <Badge variant="info" className="gap-1 absolute top-4 right-4">
                 {product.price === 0 ? "Free" : `$ ${product.price}`}
@@ -88,7 +88,7 @@ export default async function ProductPage({
                     <Fragment key={index}>
                       <Link
                         key={tag}
-                        href={`/marketplace?tag=${tag}`}
+                        href={`/marketplace/explore?tags=${tag}`}
                         className="text-primary hover:underline mr-1"
                       >
                         #{tag}
@@ -100,7 +100,6 @@ export default async function ProductPage({
               </figcaption>
             </figure>
           </section>
-
           <section className="p-3 w-full flex justify-center items-center gap-2">
             <Button size="icon_lg" variant="destructive_light">
               <Heart className="w-6 h-6" />
@@ -117,7 +116,7 @@ export default async function ProductPage({
             </Button>
             {isAuthenticated &&
               session?.user._id.toString() ===
-                product.creator?._id?.toString() && (
+              product.creator?._id?.toString() && (
                 <Button
                   size="lg"
                   variant="default_light"
@@ -132,17 +131,20 @@ export default async function ProductPage({
           </section>
           <section className="relative w-full p-3 bg-card rounded-xl">
             <MarkdownView
-              className="prose dark:prose-invert max-w-inherit"
+              className="prose dark:prose-invert max-w-full"
               options={defaultOptions}
             >
               {product.description}
             </MarkdownView>
           </section>
-          <section id="more-from-creator" className="w-full">
+          <section id="more-from-creator" className="w-full py-3">
+            <h3 className="text-2xl 3xl:text-4xl font-bold mb-4 text-left ml-4">
+              More from this creator         
+            </h3>
             <MoreFromCreator slug={product.slug} />
           </section>
         </main>
-        <aside className="lg:max-w-sm w-full flex-1">
+        <aside className="lg:max-w-[25%] w-full">
           <h3 className="text-2xl 3xl:text-4xl font-bold mb-4 text-left ml-4">
             Similar Products
           </h3>
@@ -159,6 +161,7 @@ export default async function ProductPage({
                 <InfoArea
                   title="No similar products found"
                   description="We couldn't find any similar products for this item."
+                  className="my-0"
                 />
               </ConditionalRender>
               <ConditionalRender condition={similarProducts.length > 0}>
