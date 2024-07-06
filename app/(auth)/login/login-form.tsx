@@ -109,7 +109,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             console.log(error);
             reject(error);
           });
-      } catch (error) {
+      } catch (error: any) {
         reject(error);
       }
     });

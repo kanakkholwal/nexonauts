@@ -30,7 +30,7 @@ export const useShare = (data: {
     if (navigator.share) {
       try {
         await navigator.share(data);
-      } catch (error) {
+      } catch (error: any) {
         console.error(error);
       }
     } else {

@@ -1,6 +1,6 @@
 import { render } from "@react-email/render";
 import { generateToken, handleEmailFire } from "emails/helper";
-import ResetPasswordEmail from "emails/templates/reset-password";
+import ResetPasswordEmail from "src/emails/templates/reset-password";
 import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "src/lib/dbConnect";
 import UserModel from "src/models/user";
@@ -55,11 +55,11 @@ export async function POST(request: NextRequest) {
         status: 200,
       }
     );
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json(
       {
         result: "fail",
-        message: error.message,
+        message: error?.message,
       },
       {
         status: 500,

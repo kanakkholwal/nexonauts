@@ -1,5 +1,5 @@
-import bcrypt from "bcryptjs";
-import mongoose, { Document, Schema, Types } from "mongoose";
+import * as argon2 from "argon2";
+import mongoose, { CallbackError, Document, Schema, Types } from "mongoose";
 import { customAlphabet } from "nanoid";
 import validator from "validator";
 
@@ -194,13 +194,12 @@ userSchema.pre<User>("save", async function (next) {
     return next();
   }
 
-  const saltRounds = 10;
   try {
-    const hash = await bcrypt.hash(this.password, saltRounds);
+    const hash = await argon2.hash(this.password);
     this.password = hash;
     next();
   } catch (err) {
-    return next(err);
+    return next(err as CallbackError);
   }
 });
 
@@ -220,10 +219,10 @@ userSchema.pre<User>("save", async function (next) {
 });
 
 // Method to compare password
-userSchema.methods.comparePassword = async function (password) {
+userSchema.methods.comparePassword = async function (password: string) {
   try {
-    return await bcrypt.compare(password, this.password);
-  } catch (err) {
+    return await argon2.verify(password, this.password);
+  } catch (err: any) {
     throw new Error(err);
   }
 };

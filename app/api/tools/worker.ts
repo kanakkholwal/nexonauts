@@ -15,8 +15,8 @@ async function updatePublicToolDescription(
     );
     console.log(`Updated tool with ID ${toolId}`);
     // You can do additional logging or error handling here
-  } catch (error) {
-    console.error(`Error updating tool with ID ${toolId}: ${error.message}`);
+  } catch (error: any) {
+    console.error(`Error updating tool with ID ${toolId}: ${error?.message}`);
   }
 }
 

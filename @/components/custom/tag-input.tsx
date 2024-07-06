@@ -2,8 +2,8 @@
 
 import { CommandInput } from "@/components/ui/command";
 import { type VariantProps } from "class-variance-authority";
+import { nanoid } from "nanoid";
 import React from "react";
-import { v4 as uuid } from "uuid";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { toast } from "../ui/use-toast";
@@ -188,7 +188,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
           return;
         }
 
-        const newTagId = uuid();
+        const newTagId = nanoid();
 
         if (
           newTagText &&

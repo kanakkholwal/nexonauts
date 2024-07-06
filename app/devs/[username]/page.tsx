@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { getSession } from "src/lib/auth";
 import { notFound } from "next/navigation";
 import { sessionType } from "src/types/session";
-import { followUnFollowProfile, getProfile } from "./actions";
+import { followUnFollowProfile, getProfile, ProfileType } from "./actions";
 import { FollowButton } from "./components/follow-btn";
 import FollowerFollow from "./components/follower-follow";
 import { ShareProfile } from "./components/share";
@@ -86,7 +86,7 @@ export default async function DeveloperPage({
           <div className="flex flex-row items-center justify-start space-x-2 w-full">
             <FollowButton
               isFollowing={isFollowing}
-              followUser={followUnFollowProfile.bind(this, developer.username)}
+              followUser={followUnFollowProfile.bind(null, developer.username)}
             />
             <ShareProfile
               profile={{

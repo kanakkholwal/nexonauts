@@ -18,7 +18,19 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
-export function FilterBar({ categories, pricing_types, filter, ...props }) {
+interface FilterBarProps {
+  categories: { name: string; slug: string }[];
+  pricing_types: string[];
+  filter: { category: string; pricing_type: string };
+  viewType: "grid" | "list" | "masonry";
+}
+
+export function FilterBar({
+  categories,
+  pricing_types,
+  filter,
+  ...props
+}: FilterBarProps) {
   const searchParams = useSearchParams() as URLSearchParams;
   const router = useRouter();
   const [viewType, setViewType] = useState<"grid" | "list" | "masonry">(

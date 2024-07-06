@@ -48,7 +48,7 @@ export function useUrlState<T>(
       if (callback) {
         try {
           await callback(value);
-        } catch (error) {
+        } catch (error: any) {
           console.error("Error in callback:", error);
         }
       }

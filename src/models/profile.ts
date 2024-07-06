@@ -81,7 +81,9 @@ const profileSchema = new Schema<Profile>(
   { timestamps: true }
 );
 //
+
 profileSchema.index({ username: 1 }, { unique: true });
+
 profileSchema.methods.followUnfollowUser = async function (profileId: string) {
   try {
     const profileToFollow = await this.model("Profile").findById(profileId);
@@ -94,10 +96,10 @@ profileSchema.methods.followUnfollowUser = async function (profileId: string) {
     if (isFollowing) {
       // Unfollow
       this.following = this.following.filter(
-        (id) => id.toString() !== profileId.toString()
+        (id: Types.ObjectId) => id.toString() !== profileId.toString()
       );
       profileToFollow.followers = profileToFollow.followers.filter(
-        (id) => id.toString() !== this._id.toString()
+        (id: Types.ObjectId) => id.toString() !== this._id.toString()
       );
     } else {
       // Follow
@@ -113,7 +115,7 @@ profileSchema.methods.followUnfollowUser = async function (profileId: string) {
         ? "Unfollowed successfully"
         : "Followed successfully",
     };
-  } catch (error) {
+  } catch (error: any) {
     return { success: false, error: error?.message };
   }
 };
@@ -134,8 +136,8 @@ profileSchema.statics.findCommonFollowers = async function (
     throw new Error("One or both profiles not found.");
   }
 
-  const commonFollowers = profile1.followers.filter((follower) =>
-    profile2.followers.includes(follower)
+  const commonFollowers = profile1.followers.filter(
+    (follower: Types.ObjectId) => profile2.followers.includes(follower)
   );
 
   return commonFollowers;
@@ -157,8 +159,8 @@ profileSchema.statics.findCommonFollowing = async function (
     throw new Error("One or both profiles not found.");
   }
 
-  const commonFollowing = profile1.following.filter((following) =>
-    profile2.following.includes(following)
+  const commonFollowing = profile1.following.filter(
+    (following: Types.ObjectId) => profile2.following.includes(following)
   );
 
   return commonFollowing;
@@ -180,8 +182,8 @@ profileSchema.statics.findCommonFollowersFollowing = async function (
     throw new Error("One or both profiles not found.");
   }
 
-  const commonFollowersFollowing = profile1.followers.filter((follower) =>
-    profile2.following.includes(follower)
+  const commonFollowersFollowing = profile1.followers.filter(
+    (follower: Types.ObjectId) => profile2.following.includes(follower)
   );
 
   return commonFollowersFollowing;

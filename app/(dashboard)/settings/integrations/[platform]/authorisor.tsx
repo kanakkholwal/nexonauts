@@ -29,7 +29,7 @@ export default function Authorisor({
   return (
     <>
       {loading && <div>Loading...</div>}
-      {error && <div>Error: {error.message}</div>}
+      {error && <div>Error: {error?.message}</div>}
       {data && <div>Token saved</div>}
     </>
   );

@@ -2,7 +2,7 @@
 import { revalidatePath } from "next/cache";
 import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
-import Product,{rawProduct} from "src/models/product";
+import Product, { rawProduct } from "src/models/product";
 import { sessionType } from "src/types/session";
 import { createSlug } from "src/utils/string";
 
@@ -13,7 +13,9 @@ export async function getCategories() {
   return Promise.resolve(JSON.parse(JSON.stringify(products)));
 }
 
-export async function createProduct(product:rawProduct) {
+export async function createProduct(
+  product: Omit<rawProduct, "third_party" | "slug">
+) {
   const session = (await getSession()) as sessionType;
   try {
     await dbConnect();

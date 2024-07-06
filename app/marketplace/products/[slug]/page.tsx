@@ -116,7 +116,7 @@ export default async function ProductPage({
             </Button>
             {isAuthenticated &&
               session?.user._id.toString() ===
-              product.creator?._id?.toString() && (
+                product.creator?._id?.toString() && (
                 <Button
                   size="lg"
                   variant="default_light"
@@ -139,7 +139,7 @@ export default async function ProductPage({
           </section>
           <section id="more-from-creator" className="w-full py-3">
             <h3 className="text-2xl 3xl:text-4xl font-bold mb-4 text-left ml-4">
-              More from this creator         
+              More from this creator
             </h3>
             <MoreFromCreator slug={product.slug} />
           </section>

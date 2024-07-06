@@ -44,13 +44,13 @@ const SVGEncoder: React.FC = () => {
   const [cssValue, setCssValue] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("white");
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     setInitValue(value);
     getResults(value);
   };
 
-  const getResults = (data) => {
+  const getResults = (data: string) => {
     if (!data) {
       setResultValue("");
       setCssValue("");
@@ -63,11 +63,11 @@ const SVGEncoder: React.FC = () => {
     }
   };
 
-  const contrastButtonsSetCurrent = (color) => {
+  const contrastButtonsSetCurrent = (color: string) => {
     setBackgroundColor(color);
   };
 
-  const addNameSpace = (data) => {
+  const addNameSpace = (data: string) => {
     if (data.indexOf("http://www.w3.org/2000/svg") < 0) {
       data = data.replace(
         /<svg/g,
@@ -77,7 +77,7 @@ const SVGEncoder: React.FC = () => {
     return data;
   };
 
-  const encodeSVG = (data) => {
+  const encodeSVG = (data: string) => {
     let encodedData = data;
     if (quotes.level1 === '"') {
       encodedData = data.replace(/"/g, "'");
@@ -90,7 +90,7 @@ const SVGEncoder: React.FC = () => {
     return encodedData.replace(/[\r\n%#()<>?[\\]^`{|}]/g, encodeURIComponent);
   };
 
-  const handleCopyToClipboard = (value) => {
+  const handleCopyToClipboard = (value: string) => {
     copy(value);
     toast.success("Copied to clipboard");
   };

@@ -39,7 +39,7 @@ export async function deleteImage(publicId: string) {
     });
     console.error(response);
     return Promise.resolve(response.data);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     return Promise.reject(error);
   }
@@ -63,7 +63,7 @@ export async function uploadImagefromClient(file: File): Promise<string> {
   try {
     const response = await axios.post(url, formData);
     return Promise.resolve(response.data.secure_url);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     return Promise.reject(error);
   }

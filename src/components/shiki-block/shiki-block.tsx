@@ -5,7 +5,12 @@ import React from "react";
 import { codeToHtml } from "src/utils/shiki";
 import "./shiki-block.css";
 
-function ShikiBlock({ code, lang }) {
+interface Props {
+  code: string;
+  lang: string;
+}
+
+function ShikiBlock({ code, lang }: Props) {
   const [innerHtml, setHtml] = React.useState("Loading...");
   const { theme } = useTheme();
   React.useEffect(() => {

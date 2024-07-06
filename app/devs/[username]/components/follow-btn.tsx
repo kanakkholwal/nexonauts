@@ -2,7 +2,12 @@
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 
-export function FollowButton({ isFollowing, followUser }) {
+interface FollowProps {
+  isFollowing: boolean;
+  followUser: () => Promise<any>;
+}
+
+export function FollowButton({ isFollowing, followUser }: FollowProps) {
   return (
     <Button
       onClick={() => {
@@ -25,7 +30,7 @@ export function FollowButton({ isFollowing, followUser }) {
     </Button>
   );
 }
-export function FollowToggle({ isFollowing, followUser }) {
+export function FollowToggle({ isFollowing, followUser }: FollowProps) {
   return (
     <Button
       onClick={() => {

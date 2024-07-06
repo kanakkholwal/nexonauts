@@ -12,17 +12,29 @@ const monoFont = Fira_Code({
   adjustFontFallback: false,
   variable: "--fira-code",
 });
-function extractTextFromNode(node) {
+function extractTextFromNode(node: any) {
   if (node.type === "text") {
     return node.value;
   } else if (Array.isArray(node.children)) {
-    return node.children.map((child) => extractTextFromNode(child)).join("");
+    return node.children
+      .map((child: any) => extractTextFromNode(child))
+      .join("");
   } else {
     return "";
   }
 }
+type RenderCodeBlockProps = {
+  children: React.ReactNode;
+  className: string;
+  node: any;
+};
 
-export function RenderCodeBlock({ children, className, node, ...props }) {
+export function RenderCodeBlock({
+  children,
+  className,
+  node,
+  ...props
+}: RenderCodeBlockProps) {
   const [state, setState] = React.useState<"copy" | "idle">("idle");
   const textContent = extractTextFromNode(node);
 

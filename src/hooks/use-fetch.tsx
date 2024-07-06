@@ -19,7 +19,7 @@ export function useFetch<T>(
         const res = await fetch(url, options);
         const json = await res.json();
         setData(json);
-      } catch (error) {
+      } catch (error: any) {
         setError(error);
       } finally {
         setLoading(false);

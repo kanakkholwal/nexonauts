@@ -1,4 +1,3 @@
-"use server";
 import { revalidatePath } from "next/cache";
 import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
@@ -16,10 +15,14 @@ export async function getProfile(username: string) {
   if (!profile) {
     return null;
   }
-  return JSON.parse(JSON.stringify(profile));
+  return Promise.resolve(JSON.parse(JSON.stringify(profile)));
 }
 
+export type ProfileType = Awaited<ReturnType<typeof getProfile>>;
+
 export async function followUnFollowProfile(username: string) {
+  "use server";
+
   try {
     const session = (await getSession()) as sessionType | null;
     if (!session) {

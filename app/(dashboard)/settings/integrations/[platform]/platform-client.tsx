@@ -68,7 +68,7 @@ export function Authorisor({
         <Alert variant="destructive">
           <ExclamationTriangleIcon className="h-6 w-6" />
           <AlertTitle>Error authorizing token</AlertTitle>
-          <AlertDescription>{error.message}</AlertDescription>
+          <AlertDescription>{error?.message}</AlertDescription>
         </Alert>
       )}
       {data && (

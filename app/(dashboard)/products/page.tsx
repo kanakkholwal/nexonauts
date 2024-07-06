@@ -69,8 +69,8 @@ export default async function MyProducts({ searchParams }: PageProps) {
   const productsFromIntegrations = await getFromIntegrations();
   // filter out third-party products that are already in the database
   const productsIds = products
-    .filter((product) => product.third_party !== null)
-    .map((product) => product.third_party.product_id);
+    .filter((product) => product?.third_party !== null)
+    .map((product) => product?.third_party?.product_id);
 
   return (
     <div className="space-y-6 p-4 md:p-10 pb-16 w-full @container">

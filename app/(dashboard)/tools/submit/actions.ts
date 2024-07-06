@@ -48,7 +48,7 @@ export async function submitTool(data: Record<string, any>) {
 
     revalidatePath("/tools/");
     return Promise.resolve(true);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     return Promise.reject(error);
   }
