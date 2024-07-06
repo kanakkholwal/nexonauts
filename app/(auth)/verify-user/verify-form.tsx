@@ -57,8 +57,8 @@ export function UserAuthForm({
           toast.success(response.message);
         })
         .catch((error) => {
-          console.log(error.message);
-          setError(error.message);
+          console.log(error?.message);
+          setError(error?.message);
           // Handle verification error
         })
         .finally(() => setIsLoading(false));

@@ -68,14 +68,7 @@ const features = [
   icon: React.ElementType;
 }[];
 
-export default async function Page() {
-  await dbConnect();
-
-  // const tools = await PublicTool.find({ status: "published" || "approved" }).
-  //     sort({ createdAt: -1 }).limit(10);
-  const noOfTools = await PublicTool.countDocuments({
-    status: "published" || "approved",
-  });
+async function getCategories() {
   const categories = await PublicTool.aggregate([
     { $unwind: "$categories" },
     {
@@ -105,6 +98,19 @@ export default async function Page() {
     { $match: { slug: { $in: slugs } } },
     { $sort: { name: 1 } },
   ]);
+  return Promise.resolve(JSON.parse(JSON.stringify(categorized_tools)));
+}
+
+type CategorizedToolType = Awaited<ReturnType<typeof getCategories>>[number];
+
+export default async function Page() {
+  await dbConnect();
+
+  const noOfTools = await PublicTool.countDocuments({
+    status: "published" || "approved",
+  });
+
+  const categorized_tools = (await getCategories()) as CategorizedToolType[];
 
   return (
     <>
@@ -203,7 +209,7 @@ export default async function Page() {
           <h2 className="text-3xl font-bold mb-2 text-center mx-auto">
             Browse Popular Categories
           </h2>
-          <h4 className="text-lg font-semibold mb-4 text-center text-gray-600 dark:text-slate-300  mx-auto mb-8">
+          <h4 className="text-lg font-semibold text-center text-gray-600 dark:text-slate-300  mx-auto mb-8">
             Explore in {formatNumber(noOfTools)}+ tools and resources
           </h4>
           <Suspense
@@ -219,37 +225,39 @@ export default async function Page() {
               containerClassName="justify-center gap-4"
               contentClassName="backdrop-filter backdrop-blur-md bg-white dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-50"
               tabClassName="hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold"
-              tabs={categorized_tools.map((category) => {
+              tabs={categorized_tools.map((category: CategorizedToolType) => {
                 return {
                   title: category.name,
                   value: category.slug,
                   content: (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {category.tools.map((tool) => {
-                        return (
-                          <Link
-                            href={`/scout/tools/${tool.slug}`}
-                            key={tool.slug}
-                            className="flex flex-col gap-4 items-start  p-4 rounded-lg border hover:bg-slate-100 dark:hover:bg-slate-800"
-                          >
-                            <div className="flex flex-col gap-1 shrink ">
-                              <h3 className="text-lg font-semibold">
-                                {tool.name}
-                              </h3>
-                              <p className="text-slate-600 text-md font-medium line-clamp-2">
-                                {tool.description}
-                              </p>
-                            </div>
-                            <Image
-                              src={tool.coverImage}
-                              alt={tool.name}
-                              height={128}
-                              width={320}
-                              className="max-h-32 object-cover  rounded-lg  w-full mx-auto mt-auto"
-                            />
-                          </Link>
-                        );
-                      })}
+                      {category.tools.map(
+                        (tool: CategorizedToolType["tools"][number]) => {
+                          return (
+                            <Link
+                              href={`/scout/tools/${tool.slug}`}
+                              key={tool.slug}
+                              className="flex flex-col gap-4 items-start  p-4 rounded-lg border hover:bg-slate-100 dark:hover:bg-slate-800"
+                            >
+                              <div className="flex flex-col gap-1 shrink ">
+                                <h3 className="text-lg font-semibold">
+                                  {tool.name}
+                                </h3>
+                                <p className="text-slate-600 text-md font-medium line-clamp-2">
+                                  {tool.description}
+                                </p>
+                              </div>
+                              <Image
+                                src={tool.coverImage}
+                                alt={tool.name}
+                                height={128}
+                                width={320}
+                                className="max-h-32 object-cover  rounded-lg  w-full mx-auto mt-auto"
+                              />
+                            </Link>
+                          );
+                        }
+                      )}
                     </div>
                   ),
                 };

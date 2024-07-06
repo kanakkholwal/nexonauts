@@ -5,7 +5,6 @@ import Link from "next/link";
 
 import { AiOutlineFieldTime } from "react-icons/ai";
 
-
 export default function PostHeader({
   title,
   image,

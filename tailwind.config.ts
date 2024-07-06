@@ -1,9 +1,8 @@
-/** @type {import('tailwindcss').Config} */
-const {
-  default: flattenColorPalette,
-} = require("tailwindcss/lib/util/flattenColorPalette");
+import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
+import colors from "tailwindcss/colors";
 
-module.exports = {
+const config = {
   darkMode: ["class"],
   content: [
     "./pages/**/*.{ts,tsx,js,jsx}",
@@ -116,20 +115,20 @@ module.exports = {
           },
         },
         "accordion-down": {
-          from: { height: 0 },
+          from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: 0 },
+          to: { height: "0" },
         },
         spotlight: {
           "0%": {
-            opacity: 0,
+            opacity: "0",
             transform: "translate(-72%, -62%) scale(0.5)",
           },
           "100%": {
-            opacity: 1,
+            opacity: "1",
             transform: "translate(-50%,-40%) scale(1)",
           },
         },
@@ -145,16 +144,7 @@ module.exports = {
     require("tailwindcss-animate"),
     require("@tailwindcss/container-queries"),
     require("@tailwindcss/typography"),
-    addVariablesForColors,
   ],
-};
-function addVariablesForColors({ addBase, theme }) {
-  let allColors = flattenColorPalette(theme("colors"));
-  let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-  );
+} satisfies Config;
 
-  addBase({
-    ":root": newVars,
-  });
-}
+export default config;

@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
+import { ProfileType } from "./[username]/actions";
 import { getProfiles } from "./actions";
 
 type PageProps = {
@@ -28,7 +29,12 @@ export default async function ExploreDevelopers({ searchParams }: PageProps) {
   const currentPage = Number(searchParams?.page) || 1;
   const offset = Number(searchParams?.offset) || 0;
 
-  const profiles = await getProfiles(query, currentPage, offset, {});
+  const profiles = (await getProfiles(
+    query,
+    currentPage,
+    offset,
+    {}
+  )) as ProfileType[];
   console.log(profiles);
 
   return (

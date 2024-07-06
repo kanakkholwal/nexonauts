@@ -34,8 +34,8 @@ export async function getMoreProductsByCreator(
     published: true,
     creator: product.creator,
     _id: { $ne: product._id },
-  }).
-    sort({createdAt:-1})
+  })
+    .sort({ createdAt: -1 })
     .limit(6)
     .exec();
 

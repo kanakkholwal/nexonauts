@@ -82,7 +82,7 @@ export async function deleteUser(userId: string) {
       success: true,
       message: "User deleted",
     };
-  } catch (error) {
+  } catch (error: any) {
     console.log(error);
     return {
       success: false,

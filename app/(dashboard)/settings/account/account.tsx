@@ -56,7 +56,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
     "idle" as "idle" | "loading" | "success" | "error"
   );
 
-  const handleFiles = async (file) => {
+  const handleFiles = async (file: File) => {
     const formData = new FormData();
     formData.append("file", file);
     const CLOUDINARY_UPLOAD_PRESET =
@@ -102,7 +102,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
       });
   };
 
-  const handleChange = async (event) => {
+  const handleChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
     const { files } = event.target;
 
     if (files && files.length) {
@@ -114,8 +114,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
       });
     }
   };
-
-  const changePassword = async (event) => {
+  const changePassword = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     if (currentPassword === confirmPassword) {
       toast.error("New password can't be same as old password");
@@ -471,7 +470,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
             <Button
               size="icon"
               variant="default_light"
-              onClick={changePassword}
+              onClick={(e) => changePassword(e)}
               disabled={
                 currentPassword === confirmPassword ||
                 currentPassword.trim() === "" ||

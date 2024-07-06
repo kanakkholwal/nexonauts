@@ -30,11 +30,11 @@ export async function GET(request: NextRequest) {
         status: 200,
       }
     );
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json(
       {
         result: "fail",
-        message: error.message,
+        message: error?.message,
       },
       {
         status: 500,

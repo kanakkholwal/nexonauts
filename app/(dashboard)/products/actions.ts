@@ -4,7 +4,7 @@ import { customAlphabet } from "nanoid";
 import { revalidatePath } from "next/cache";
 import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
-import Product, { rawProductThirdParty } from "src/models/product";
+import Product, { ProductType, rawProductThirdParty } from "src/models/product";
 import User from "src/models/user";
 import { sessionType } from "src/types/session";
 
@@ -16,11 +16,17 @@ const generateUrlSlug = (length = 16) =>
 
 const availableIntegrations = ["gumroad"];
 
-export async function getProducts(filter: string, sort: string) {
+export async function getProducts(
+  filter: string,
+  sort: string
+): Promise<{
+  products: ProductType[];
+  integrated: boolean;
+}> {
   const session = (await getSession()) as sessionType;
   const searchQuery = {
     creator: session.user._id,
-  };
+  } as Record<string, any>;
   if (availableIntegrations.includes(filter)) {
     searchQuery["third_party.provider"] = filter;
   }
@@ -47,7 +53,7 @@ export async function fetchFromIntegration(integration: string) {
     return Promise.reject("Integration not found");
   }
 }
-export async function importFromGumroad() {
+export async function importFromGumroad(): Promise<rawProductThirdParty[]> {
   const session = (await getSession()) as sessionType;
   await dbConnect();
   const user = await User.findById(session.user._id)
@@ -82,7 +88,7 @@ export async function importFromGumroad() {
           product_id: product.id,
         },
       };
-    });
+    }) as rawProductThirdParty[];
     return Promise.resolve(JSON.parse(JSON.stringify(sanitizedProducts)));
   } else {
     return Promise.reject("Error importing from Gumroad");

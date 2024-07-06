@@ -52,11 +52,11 @@ export async function createProfile(payload: {
       message: "Profile created successfully",
       data: JSON.parse(JSON.stringify(profile)),
     });
-  } catch (e) {
+  } catch (e: any) {
     console.log(e);
     return Promise.reject({
       success: false,
-      message: e.message,
+      message: e?.message,
       data: null,
     });
   }

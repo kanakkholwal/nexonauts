@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select";
 
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 import ShikiBlock from "src/components/shiki-block/shiki-block";
 
@@ -86,7 +86,11 @@ export default function SchemaGenerator() {
     </>
   );
 }
-function Website({ setCode }) {
+interface Props {
+  setCode: Dispatch<SetStateAction<string>>;
+}
+
+function Website({ setCode }: Props) {
   const [name, setName] = useState("");
   const [alternateName, setAlternateName] = useState("");
   const [url, setUrl] = useState("");
@@ -175,7 +179,7 @@ function Website({ setCode }) {
     </div>
   );
 }
-function Breadcrumbs({ setCode }) {
+function Breadcrumbs({ setCode }: Props) {
   const [items, setItems] = useState([
     {
       name: "",
@@ -293,7 +297,7 @@ function Breadcrumbs({ setCode }) {
   );
 }
 
-function Person({ setCode }) {
+function Person({ setCode }: Props) {
   const [name, setName] = useState("");
   const [alternateName, setAlternateName] = useState("");
   const [url, setUrl] = useState("");
@@ -441,7 +445,7 @@ function Person({ setCode }) {
   );
 }
 
-function Article({ setCode }) {
+function Article({ setCode }: Props) {
   const [type, setType] = useState("Select Type...");
   const [headline, setHeadline] = useState("");
   const [isAMP, setIsAMP] = useState(false);
@@ -690,13 +694,21 @@ const PRODUCT_TYPES = [
   label: string;
 }[];
 
-function Product({ setCode }) {
+function Product({ setCode }: Props) {
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
   const [brand, setBrand] = useState("");
 
-  const [types, setTypes] = useState({
+  const [types, setTypes] = useState<
+    Record<
+      string,
+      {
+        enable: boolean;
+        value: string;
+      }
+    >
+  >({
     sku: {
       enable: false,
       value: "",

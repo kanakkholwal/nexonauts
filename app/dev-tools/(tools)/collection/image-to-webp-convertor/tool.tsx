@@ -17,11 +17,44 @@ import { useDropzone } from "react-dropzone";
 import { FiUpload } from "react-icons/fi";
 import { HiDownload } from "react-icons/hi";
 
-function formatFileSize(sizeInBytes) {
+function formatFileSize(sizeInBytes: number): string {
   const KB = 1024;
   const fileSizeInKB = sizeInBytes / KB;
   return fileSizeInKB.toFixed(2) + " KB";
 }
+
+const loadImage = (file: File): Promise<HTMLImageElement> => {
+  return new Promise((resolve, reject) => {
+    const rawImage = new window.Image();
+    rawImage.onload = () => resolve(rawImage);
+    rawImage.onerror = reject;
+    rawImage.src = URL.createObjectURL(file);
+  });
+};
+
+const convertToWebp = (image: HTMLImageElement): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+
+    if (!ctx) {
+      reject(new Error("Failed to get canvas context"));
+      return;
+    }
+
+    canvas.width = image.width;
+    canvas.height = image.height;
+    ctx.drawImage(image, 0, 0);
+
+    canvas.toBlob((blob) => {
+      if (blob) {
+        resolve(URL.createObjectURL(blob));
+      } else {
+        reject(new Error("Failed to create blob"));
+      }
+    }, "image/webp");
+  });
+};
 
 export default function Image2Webp() {
   const [progress, setProgress] = useState(0);
@@ -36,7 +69,7 @@ export default function Image2Webp() {
   >([]);
   const inputRef = useRef(null);
 
-  const onDrop = useCallback((acceptedFiles) => {
+  const onDrop = useCallback((acceptedFiles: File[]) => {
     acceptedFiles.forEach((file: File) => {
       if (!file) {
         throw new Error(`${file} was not a file`);
@@ -63,42 +96,22 @@ export default function Image2Webp() {
             }
             let fileSize = file.size;
 
-            const processImage = async () => {
-              const rawImage = new window.Image();
-              return new Promise((resolve, reject) => {
-                rawImage.addEventListener("load", () => {
-                  resolve(rawImage);
-                });
-                rawImage.src = URL.createObjectURL(file);
-              })
-                .then((rawImage: any) => {
-                  return new Promise((resolve, reject) => {
-                    const canvas = document.createElement(
-                      "canvas"
-                    ) as HTMLCanvasElement;
-                    const ctx = canvas.getContext(
-                      "2d"
-                    ) as CanvasRenderingContext2D;
+            const processImage = async (): Promise<void> => {
+              try {
+                const rawImage = await loadImage(file);
+                const webpUrl = await convertToWebp(rawImage);
 
-                    canvas.width = rawImage.width;
-                    canvas.height = rawImage.height;
-                    ctx.drawImage(rawImage, 0, 0);
-
-                    canvas.toBlob((blob) => {
-                      return resolve(URL.createObjectURL(blob ?? new Blob()));
-                    }, "image/webp");
-                  });
-                })
-                .then((imageURL: string) => {
-                  setScaledImg((prev) => [
-                    ...prev,
-                    {
-                      image: imageURL,
-                      fileName: fileName,
-                      fileSize: formatFileSize(file.size),
-                    },
-                  ]);
-                });
+                setScaledImg((prev) => [
+                  ...prev,
+                  {
+                    image: webpUrl,
+                    fileName,
+                    fileSize: formatFileSize(file.size),
+                  },
+                ]);
+              } catch (error) {
+                console.error("Error processing image:", error);
+              }
             };
 
             await processImage();

@@ -42,7 +42,7 @@ export async function updateTool(id: string, data: Record<string, any>) {
     revalidatePath("/tools/" + id + "/edit");
     revalidatePath("/tools/" + id);
     return Promise.resolve(true);
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     return Promise.reject(error);
   }
@@ -52,7 +52,7 @@ export async function deleteTool(id: string) {
     await dbConnect();
     await PublicTool.findByIdAndDelete(id).exec();
     return redirect("/tools");
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
     return Promise.reject(error);
   } finally {

@@ -4,12 +4,12 @@ import { revalidatePath } from "next/cache";
 import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
 import PublicTool, {
-    PublicToolPricingType,
-    PublicToolTypeWithId,
+  PublicToolPricingType,
+  PublicToolTypeWithId,
 } from "src/models/tool";
 import ToolRating, {
-    RatingTypeWithId,
-    rawRatingType,
+  RatingTypeWithId,
+  rawRatingType,
 } from "src/models/tool-rating";
 
 export async function getTools(
@@ -227,7 +227,7 @@ export async function toggleBookmark(toolId: string): Promise<boolean> {
       return Promise.reject("An error occurred while updating the tool");
     }
     return Promise.resolve(updatededTool.bookmarks.includes(userIdObj));
-  } catch (error) {
+  } catch (error: any) {
     return Promise.reject(error);
   }
 }

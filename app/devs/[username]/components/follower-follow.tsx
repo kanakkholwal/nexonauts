@@ -7,13 +7,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ProfileType } from "../actions";
 import { FollowToggle } from "./follow-btn";
+
+interface Connection {
+  username: string;
+  name: string;
+  profilePicture: string;
+  _id: string;
+}
+
+interface Props {
+  developer: ProfileType;
+  followUnfollowUser: (username: string) => Promise<any>;
+  isFollowing: boolean;
+}
 
 export default function FollowerFollow({
   developer,
   followUnfollowUser,
   isFollowing,
-}) {
+}: Props) {
   return (
     <div className="flex flex-row items-center justify-start space-x-2">
       <Dialog key={"followers-modal"}>
@@ -30,9 +44,9 @@ export default function FollowerFollow({
             </DialogDescription>
           </DialogHeader>
           <ul className="flex flex-col gap-2">
-            {developer.followers.map((follower) => {
+            {developer.followers.map((follower: Connection) => {
               return (
-                <li key={"follower_" + follower.id}>
+                <li key={"follower_" + follower._id}>
                   <div className="flex items-center justify-between space-x-4">
                     <div className="flex items-center space-x-4">
                       <Avatar>
@@ -57,7 +71,7 @@ export default function FollowerFollow({
                     <FollowToggle
                       isFollowing={isFollowing}
                       followUser={followUnfollowUser.bind(
-                        this,
+                        null,
                         developer.username
                       )}
                     />
@@ -89,7 +103,7 @@ export default function FollowerFollow({
             </DialogDescription>
           </DialogHeader>
           <ul className="flex flex-col gap-2">
-            {developer.following.map((following) => (
+            {developer.following.map((following: Connection) => (
               <li key={"following_" + following._id}>
                 <div className="flex flex-row items-center justify-start space-x-2">
                   <Avatar className="w-8 h-8 shadow-lg">

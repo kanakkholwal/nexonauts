@@ -166,7 +166,7 @@ function PricingTable() {
   );
 }
 
-function IconCheck(props) {
+function IconCheck(props: any) {
   return (
     <svg
       {...props}

@@ -39,8 +39,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { UploadImage } from "src/components/uploader";
-import { importProductFromURL } from "src/lib/marketplace/import-product";
 import { CATEGORIES as defaultCategories } from "src/constants/marketplace";
+import { importProductFromURL } from "src/lib/marketplace/import-product";
 
 import { HtmlToMarkdown } from "src/utils/string";
 import { z } from "zod";

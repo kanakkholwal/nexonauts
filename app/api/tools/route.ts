@@ -1,5 +1,5 @@
-import dbConnect from "src/lib/dbConnect";
 import { NextRequest, NextResponse } from "next/server";
+import dbConnect from "src/lib/dbConnect";
 import PublicTool from "src/models/tool";
 import { Worker } from "worker_threads";
 
@@ -38,11 +38,11 @@ export async function PUT(request: NextRequest) {
         status: 200,
       }
     );
-  } catch (error) {
+  } catch (error: any) {
     return NextResponse.json(
       {
         result: "fail",
-        message: error.message,
+        message: error?.message,
       },
       {
         status: 500,
