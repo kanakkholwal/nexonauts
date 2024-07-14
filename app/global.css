@@ -4,7 +4,9 @@
 
 @layer base {
   :root {
-    --background: 0, 0%, 98%;
+    --background:264, 38%, 95%;
+    /* --background:45deg 28.57% 97.25%; */
+    /* --background: 0, 0%, 98%; */
     --foreground: 224 71.4% 4.1%;
     --background-start-rgb: 214, 219, 220;
     --background-end-rgb: 255, 255, 255;
@@ -30,11 +32,13 @@
   }
 
   .dark {
-    --background: 224 71.4% 4.1%;
+    --background: 225, 17%, 9%;
+    /* --background: 224 71.4% 4.1%; */
     --foreground: 210 20% 98%;
     --background-start-rgb: 0, 0, 20%;
     --background-end-rgb: 0, 0, 25%;
-    --card: 224 71.4% 4.1%;
+    --card:233, 11%, 15%;
+    /* --card: 224 71.4% 4.1%; */
     --card-foreground: 210 20% 98%;
     --popover: 224 71.4% 4.1%;
     --popover-foreground: 210 20% 98%;
@@ -104,7 +108,7 @@ body {
     --plus-jakarta,
     '"DM Sans", "Plus Jakarta Sans", "Poppins", "Inter", "ManRope", "Google Sans", san-serif'
   );
-  @apply bg-background text-foreground;
+  @apply bg-background text-foreground selection:bg-primary/10 selection:text-primary;
 }
 
 a,

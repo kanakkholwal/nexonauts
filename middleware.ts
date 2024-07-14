@@ -1,13 +1,18 @@
+import { authOptions } from "app/api/auth/[...nextauth]/options";
+import { getServerSession } from "next-auth";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-export function middleware(request: NextRequest) {
+const protectedRoutes = ["/dashboard", "/admin", "/feed"];
+
+
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   //  SEO Redirects
   const toolPaths = [
     "/tool-scout/tools/",
-    "/toolbox/tools/",
+    "/toolbox/",
     "/toolzen/tools/",
   ];
   const matchedPath = toolPaths.find((path) => pathname.startsWith(path));
@@ -29,6 +34,19 @@ export function middleware(request: NextRequest) {
   const headers = new Headers(request.headers);
   const rootUrl = process.env.NEXTAUTH_URL as string;
   headers.set("x-current-path", rootUrl + pathname);
+
+  const protectedRoute = protectedRoutes.find((route) => pathname.startsWith(route));
+  if (protectedRoute) {
+    headers.set("x-protected-route", "true");
+    const session = await getServerSession(authOptions);
+    const isAuthorized = !!session?.user;
+    if(!isAuthorized){
+      const newUrl = new URL(rootUrl + "/login");
+      newUrl.searchParams.set("redirect", pathname);
+      return NextResponse.redirect(newUrl, { headers });
+    }
+  }
+
   return NextResponse.next({ headers });
 }
 

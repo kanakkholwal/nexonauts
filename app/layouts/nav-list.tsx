@@ -118,15 +118,14 @@ export const NavList = () => {
       <NavigationMenu
         id="navlinks"
         className={cn(
-          "fixed lg:relative  lg:scale-y-100 inset-x-0 top-20 lg:top-auto z-20 origin-top scale-y-0 transform-gpu  transition duration-500",
-          "h-auto w-screen max-w-xl mx-auto rounded-lg sm:rounded-full py-4 lg:py-1.5 px-6 lg:px-3 ",
+          "fixed lg:relative  lg:scale-y-100 inset-x-0 lg:top-auto z-20 origin-top scale-y-0 transform-gpu  transition duration-500",
+          "h-auto w-screen max-w-xl mx-auto rounded-lg lg:px-3 ",
           open ? "scale-y-100 " : "",
-          "backdrop-blur-sm bg-white/10 dark:bg-slate-100/5 border border-border/50 shadow-lg md:shadow-none"
         )}
       >
         <NavigationMenuList className="flex-col sm:flex-row flex sm:justify-around w-full">
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="rounded-full">
+            <NavigationMenuTrigger className={cn("hover:bg-transparent dark:hover:bg-transparent")}>
               Getting started
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -166,7 +165,7 @@ export const NavList = () => {
           {list.map((item) => {
             return (
               <NavigationMenuItem key={item.name}>
-                <NavigationMenuTrigger className="rounded-full">
+                <NavigationMenuTrigger className={cn("hover:bg-transparent dark:hover:bg-transparent")}>
                   {item.name}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
@@ -200,7 +199,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-primary/10 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
           )}
           {...props}
