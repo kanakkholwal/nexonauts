@@ -1,30 +1,26 @@
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from 'lucide-react';
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
-import { NavList, ToggleButton } from "./nav-list";
-import ThemeSwitcher from "./theme-switcher";
-
-import { Skeleton } from "@/components/ui/skeleton";
-import GoToBtn from "./go-to-btn";
+import { NavList } from "./nav-list";
 
 export default function Navbar() {
   return (
     <div
-      aria-label="NavMenu"
       id="navbar"
-      className="absolute inset-x-0 top-0 z-50  w-full"
+      className="absolute inset-x-0 top-0 z-50 w-full md:w-[calc(100%-2rem)] max-w-4xl mx-auto md:mt-10 p-3 bg-card shadow-2xl md:rounded-full"
     >
-      <div
-        className="relative flex flex-wrap items-center justify-between gap-6 py-2 lg:gap-0 lg:py-4 mx-auto px-4 sm:px-12 xl:max-w-[1440px] xl:px-0 lg:px-8"
+      <nav
+        className="relative flex items-center justify-between gap-4"
         aria-label="Global"
       >
-        <div className="flex lg:flex-1 ml-auto">
+        <div className="flex">
           <Link href="/" aria-label="Logo" className="p-1.5">
             <span className="sr-only">Nexonauts</span>
             <Image
               height={40}
               width={280}
-              className="h-8 dark:invert w-auto"
+              className="h-6 dark:invert w-auto"
               src="/assets/logo.svg"
               alt="logo"
               priority
@@ -32,26 +28,13 @@ export default function Navbar() {
             />
           </Link>
         </div>
-        <Suspense
-          fallback={
-            <Skeleton className="w-full h-10  rounded-full animate-pulse" />
-          }
-        >
+        <div className="hidden md:flex gap-4 mx-auto">
           <NavList />
-        </Suspense>
-
-        <div className="flex gap-2 items-center justify-end flex-1">
-          <GoToBtn />
-          <Suspense
-            fallback={
-              <Skeleton className="w-10 h-10  rounded-full animate-pulse" />
-            }
-          >
-            <ThemeSwitcher />
-            <ToggleButton />
-          </Suspense>
         </div>
-      </div>
+        <Button rounded="full" className="" asChild>
+          <Link href="/login">Log In <ArrowRight /></Link>
+        </Button>
+      </nav>
     </div>
   );
 }
