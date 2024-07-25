@@ -22,18 +22,13 @@ type RootLayoutProps = Readonly<{
   children: React.ReactNode;
 }>;
 
-
 export default async function RootLayout({ children }: RootLayoutProps) {
-
-
   return (
     <html lang="en">
       <head>
         <meta name="google-adsense-account" content="ca-pub-6988693445063744" />
       </head>
-      <body
-        className={`${font.className}  min-h-screen antialiased`}
-      >
+      <body className={`${font.className}  min-h-screen antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

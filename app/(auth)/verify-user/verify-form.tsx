@@ -50,7 +50,7 @@ export function UserAuthForm({
             if (!loggedIn) {
               router.push("/login");
             } else {
-              router.push("/feed");
+              router.push("/dashboard");
             }
           }, 3000);
           setSuccess(response.message);

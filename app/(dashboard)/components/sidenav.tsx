@@ -33,7 +33,7 @@ const user_links: sideLinkType[] = [
   {
     label: "Feed",
     icon: Rss,
-    href: "/feed",
+    href: "/dashboard",
   },
   {
     label: "My Products",

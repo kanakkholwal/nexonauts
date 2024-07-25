@@ -351,7 +351,7 @@ export default function CreateProfile({
                 {status === "success" ? (
                   <>
                     <Button className="w-full" variant="default_light" asChild>
-                      <Link href={`/feed`}>
+                      <Link href={`/dashboard`}>
                         Go to Dashboard
                         <ArrowRight size={16} className="ml-2 h-4 w-4" />
                       </Link>

@@ -120,12 +120,14 @@ export const NavList = () => {
         className={cn(
           "fixed lg:relative  lg:scale-y-100 inset-x-0 lg:top-auto z-20 origin-top scale-y-0 transform-gpu  transition duration-500",
           "h-auto w-screen max-w-xl mx-auto rounded-lg lg:px-3 ",
-          open ? "scale-y-100 " : "",
+          open ? "scale-y-100 " : ""
         )}
       >
         <NavigationMenuList className="flex-col sm:flex-row flex sm:justify-around w-full">
           <NavigationMenuItem>
-            <NavigationMenuTrigger className={cn("hover:bg-transparent dark:hover:bg-transparent")}>
+            <NavigationMenuTrigger
+              className={cn("hover:bg-transparent dark:hover:bg-transparent")}
+            >
               Getting started
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -165,7 +167,11 @@ export const NavList = () => {
           {list.map((item) => {
             return (
               <NavigationMenuItem key={item.name}>
-                <NavigationMenuTrigger className={cn("hover:bg-transparent dark:hover:bg-transparent")}>
+                <NavigationMenuTrigger
+                  className={cn(
+                    "hover:bg-transparent dark:hover:bg-transparent"
+                  )}
+                >
                   {item.name}
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
