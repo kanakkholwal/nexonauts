@@ -1,4 +1,4 @@
-import CreateProfile from "app/(dashboard)/components/create-profile";
+import CreateProfile from "app/dashboard/components/create-profile";
 import { getSession } from "src/lib/auth";
 import { sessionType } from "src/types/session";
 
