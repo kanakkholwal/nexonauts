@@ -118,7 +118,7 @@ export const NavList = () => {
       <NavigationMenu
         id="navlinks"
         className={cn(
-          "fixed lg:relative  lg:scale-y-100 inset-x-0 lg:top-auto z-20 origin-top scale-y-0 transform-gpu  transition duration-500",
+          "fixed lg:relative  lg:scale-y-100 inset-x-0 lg:top-auto z-20 origin-top scale-y-0 transform-gpu transition duration-500",
           "h-auto w-screen max-w-xl mx-auto rounded-lg lg:px-3 ",
           open ? "scale-y-100 " : ""
         )}

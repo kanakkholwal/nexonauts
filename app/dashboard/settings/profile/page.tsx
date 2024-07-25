@@ -1,13 +1,12 @@
 import { Button } from "@/components/ui/button";
-import CreateProfile from "app/(dashboard)/components/create-profile";
+import CreateProfile from "app/dashboard/components/create-profile";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { getSession } from "src/lib/auth";
 import { sessionType } from "src/types/session";
-import { getProfile } from "./actions";
+import { getProfile, updateProfile } from "./actions";
 import { ProfileEditor, ProfileView } from "./profile-client";
 import StoreInitializer from "./store-intializer";
-import { updateProfile } from "./actions";
 
 export default async function ProfilePage() {
   const session = (await getSession()) as sessionType;

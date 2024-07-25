@@ -31,29 +31,29 @@ export type sideLinkType = {
 
 const user_links: sideLinkType[] = [
   {
-    label: "Feed",
+    label: "Dashboard",
     icon: Rss,
-    href: "/dashboard",
+    href: "/",
   },
   {
     label: "My Products",
     icon: ShoppingCart,
-    href: "/products",
+    href: "/dashboard/products",
   },
   {
     label: "My Tools",
     icon: RiApps2Line,
-    href: "/tools",
+    href: "/dashboard/tools",
   },
   {
     label: "Profile",
     icon: UserRound,
-    href: "/settings/profile",
+    href: "/dashboard/settings/profile",
   },
   {
     label: "Settings",
     icon: Settings2,
-    href: "/settings",
+    href: "/dashboard/settings",
   },
 ];
 
