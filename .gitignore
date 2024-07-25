@@ -10,6 +10,8 @@ yarn.lock
 # testing
 /coverage
 .turbo
+test*.js
+
 /.env
 .env
 .env.local
