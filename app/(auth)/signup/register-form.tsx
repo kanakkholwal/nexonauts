@@ -52,7 +52,7 @@ interface Props {
 export function RegisterForm({ registerUser }: Props) {
   const searchParams = useSearchParams() as URLSearchParams;
   const router = useRouter();
-  const redirect = searchParams.get("redirect") ?? "/feed";
+  const redirect = searchParams.get("redirect") ?? "/dashboard";
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({

@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { NavList } from "./nav-list";
@@ -32,7 +32,9 @@ export default function Navbar() {
           <NavList />
         </div>
         <Button rounded="full" className="" asChild>
-          <Link href="/login">Log In <ArrowRight /></Link>
+          <Link href="/login">
+            Log In <ArrowRight />
+          </Link>
         </Button>
       </nav>
     </div>

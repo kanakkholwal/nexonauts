@@ -19,6 +19,7 @@ import {
   ChevronRightCircle,
   LayoutGrid,
   LogOut,
+  Navigation,
   Settings2,
   Swords,
   UserRoundCog,
@@ -31,7 +32,6 @@ import { useState } from "react";
 import { RiAppsLine } from "react-icons/ri";
 import { TbDashboard } from "react-icons/tb";
 import { SessionUserType } from "src/types/user";
-import { Navigation } from "lucide-react";
 
 export type sideLinkType = {
   label: string;
@@ -75,7 +75,7 @@ const user_links: sideLinkType[] = [
   {
     label: "Dashboard",
     icon: TbDashboard,
-    href: "/feed",
+    href: "/dashboard",
   },
   // {
   //     label: "Tools",
