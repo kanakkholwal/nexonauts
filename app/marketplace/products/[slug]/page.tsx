@@ -55,6 +55,7 @@ export default async function ProductPage({
   if (!product) {
     return notFound();
   }
+
   const similarProducts = await getSimilarProducts(params.slug);
 
   return (
@@ -76,7 +77,7 @@ export default async function ProductPage({
               <Badge variant="info" className="gap-1 absolute top-4 right-4">
                 {product.price === 0 ? "Free" : `$ ${product.price}`}
               </Badge>
-              <figcaption className="text-sm font-semibold text-slate-500 dark:text-slate-300 p-3 bg-white dark:bg-black rounded-xl mt-2">
+              <figcaption className="text-sm font-semibold text-slate-500 dark:text-slate-300 p-3 bg-glasss rounded-xl mt-2">
                 By{" "}
                 <span className="text-primary/70 hover:text-primary underline cursor-pointer">
                   {product.creator.name}
@@ -84,7 +85,7 @@ export default async function ProductPage({
                 {" • "} Published on{" "}
                 {new Date(product.createdAt).toLocaleDateString()}
                 <p className="text-slate-500 dark:text-slate-300">
-                  {product.tags.map((tag, index) => (
+                  {product.tags.filter((tag) => tag.trim() !== "").map((tag, index) => (
                     <Fragment key={index}>
                       <Link
                         key={tag}

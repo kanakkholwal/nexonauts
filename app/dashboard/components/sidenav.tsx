@@ -6,14 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ThemeSwitcher from "app/layouts/theme-switcher";
 import {
-  ChevronLeftCircle,
-  ChevronRightCircle,
-  LogOut,
-  Rss,
-  Search,
-  Settings2,
-  ShoppingCart,
-  UserRound,
+    ChevronLeftCircle,
+    ChevronRightCircle,
+    LogOut,
+    Rss,
+    Search,
+    Settings2,
+    ShoppingCart,
+    UserRound,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
@@ -66,7 +66,7 @@ export default function SideBar({ user }: { user: SessionUserType }) {
     <div
       aria-label="Sidenav"
       className={
-        "fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 glassmorphism " +
+        "fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 bg-glasss " +
         (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") +
         " transition-transform duration-200 ease-in-out"
       }

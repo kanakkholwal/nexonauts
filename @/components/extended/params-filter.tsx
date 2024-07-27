@@ -7,7 +7,7 @@ import { useUrlState } from "@/hooks/use-url-state";
 import { cn } from "@/lib/utils";
 import React from "react";
 
-// TODO : Improve the type of options
+// TODO: Add support for multiple values and option types
 interface FiltersProps {
   initialValue: string;
   keyName: string;
@@ -33,27 +33,28 @@ export function ParamsFilter({
     initialValue
   );
 
+
+
   if (allowMultiple) {
     const arrayValues = value
-      .split(",")
+      ?.split(",")
       .filter(Boolean)
       .filter((v) => v.trim() !== "");
 
-    const addValue = (value: string) => {
-      if (!arrayValues.includes(value)) {
-        const newValues = [...arrayValues, value];
+    const addValue = (val: string) => {
+      if (!arrayValues.includes(val)) {
+        const newValues = [...arrayValues, val];
         setValue(newValues.join(","));
       }
     };
 
-    const removeValue = (value: string) => {
-      console.log("removeValue", value);
-      const newValues = arrayValues.filter((v) => v !== value);
+    const removeValue = (val: string) => {
+      const newValues = arrayValues.filter((v) => v !== val);
       setValue(newValues.join(","));
     };
 
     return (
-      <div className={cn(props?.className)}>
+      <div className={cn(props?.className)} key={`params-filter-for-${keyName}-[multiple]`}>
         <div className="flex items-center gap-2">
           <h4 className="text-lg font-semibold capitalize">
             {props?.title ? props.title : keyName}
@@ -62,7 +63,7 @@ export function ParamsFilter({
             <Button
               size="sm"
               variant="link"
-              onClick={() => clearUrlState()}
+              onClick={() => setValue("")}
               className={cn("ml-auto", props?.btnClassName)}
             >
               Clear
@@ -87,12 +88,12 @@ export function ParamsFilter({
                 <Checkbox
                   id={`${keyName}-${option}`}
                   value={option}
-                  onCheckedChange={(value) => {
-                    value ? addValue(option) : removeValue(option);
+                  onCheckedChange={(checked) => {
+                    checked ? addValue(option) : removeValue(option);
                   }}
                   checked={arrayValues.includes(option)}
                 />
-                <Label htmlFor={`${keyName}-${option}`} className="mb-0">
+                <Label htmlFor={`${keyName}-${option}`} className="mb-0 capitalize">
                   {props?.renderLabel
                     ? props.renderLabel(option, index)
                     : option}
@@ -104,8 +105,9 @@ export function ParamsFilter({
       </div>
     );
   }
+
   return (
-    <div className={cn(props?.className)}>
+    <div className={cn(props?.className)} key={`params-filter-for-${keyName}-[single]`}>
       <div className="flex items-center gap-2">
         <h4 className="text-lg font-semibold capitalize">
           {props?.title ? props.title : keyName}
@@ -127,7 +129,7 @@ export function ParamsFilter({
           "flex flex-col gap-2 [&>div]:pl-4 mt-4",
           props?.optionsClassName
         )}
-        onValueChange={(value) => setValue(value)}
+        onValueChange={(val) => setValue(val)}
       >
         {options.map((option: string) => {
           return (
@@ -136,8 +138,8 @@ export function ParamsFilter({
               className={cn("items-top flex space-x-2", props?.optionClassName)}
             >
               <RadioGroupItem id={option} value={option} />
-              <Label htmlFor={option} className="mb-0">
-                {option}
+              <Label htmlFor={option} className="mb-0 capitalize">
+                {props?.renderLabel ? props.renderLabel(option, 0) : option}
               </Label>
             </div>
           );

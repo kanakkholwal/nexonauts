@@ -134,14 +134,16 @@ a {
   background-color: transparent;
 }
 
-.glassmorphism {
-  /* glassmorphism  with tailwindcss  and dark mode */
-  @apply bg-slate-50/15 dark:bg-slate-800/15 backdrop-blur-xl border border-slate-500/10 dark:border-border;
+.bg-glass {
+  @apply bg-white/30 dark:bg-slate-800/30 backdrop-blur-2xl border border-slate-500/10 dark:border-border;
+}
+.border-glass {
+  @apply border border-slate-500/10 dark:border-border;
 }
 
 .glassmorphism_light {
-  /* glassmorphism  with tailwindcss  and dark mode */
-  @apply bg-white/30 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70;
+  /* bg-glass  with tailwindcss  and dark mode */
+  @apply bg-white/30 dark:bg-white/5 backdrop-blur-2xl border border-slate-500/10 dark:border-border/70;
 }
 .bg-background-gradient {
   background: linear-gradient(

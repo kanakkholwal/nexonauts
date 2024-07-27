@@ -21,7 +21,7 @@ export default async function DashboardPage() {
         </Button>
       </div>
 
-      <div className="glassmorphism p-5 rounded-lg">
+      <div className="bg-glasss p-5 rounded-lg">
         <Suspense
           fallback={
             <div className="flex justify-center items-center h-64">

@@ -6,11 +6,11 @@ import { Label } from "@/components/ui/label";
 import { nanoid } from "nanoid";
 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 import { ArrowUpRight, LoaderCircle } from "lucide-react";
 
@@ -26,10 +26,10 @@ import NexoEditor from "nexo-mdx";
 import MarkdownView from "src/components/markdown/view";
 import { UploadImage } from "src/components/uploader";
 import {
-  ICategory,
-  PublicToolPricingType,
-  PublicToolStatus,
-  PublicToolTypeWithId,
+    ICategory,
+    PublicToolPricingType,
+    PublicToolStatus,
+    PublicToolTypeWithId,
 } from "src/models/tool";
 import { useFormStore } from "./store";
 
@@ -229,7 +229,7 @@ export default function Form({
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-4 flex-0 glassmorphism p-5 rounded-xl w-full md:min-w-[24rem] md:max-w-md mx-auto">
+        <div className="grid grid-cols-1 gap-4 flex-0 bg-glasss p-5 rounded-xl w-full md:min-w-[24rem] md:max-w-md mx-auto">
           <div className="grid items-center gap-1.5 py-4">
             <div className="flex justify-between items-center flex-wrap gap-2">
               <Label htmlFor="coverImage" className="mb-0">

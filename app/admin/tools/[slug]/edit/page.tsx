@@ -3,7 +3,7 @@ import { ArrowLeft, LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { getToolBySlug, updateTool, deleteTool } from "./actions";
+import { deleteTool, getToolBySlug, updateTool } from "./actions";
 import EditForm from "./form";
 import { useFormStore } from "./store";
 import StoreInitializer from "./store-initialzer";
@@ -33,7 +33,7 @@ export default async function DashboardPage({
         </Button>
       </div>
 
-      <div className="glassmorphism p-5 rounded-lg">
+      <div className="bg-glasss p-5 rounded-lg">
         <Suspense
           fallback={
             <div className="flex justify-center items-center h-64">

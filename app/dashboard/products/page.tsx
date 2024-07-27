@@ -3,19 +3,19 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 
 import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
+    Sheet,
+    SheetContent,
+    SheetDescription,
+    SheetHeader,
+    SheetTitle,
+    SheetTrigger,
 } from "@/components/ui/sheet";
 import {
-  ArrowRight,
-  ArrowUpRight,
-  Import,
-  LoaderCircle,
-  Plus,
+    ArrowRight,
+    ArrowUpRight,
+    Import,
+    LoaderCircle,
+    Plus,
 } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -23,10 +23,10 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Icon } from "src/lib/integrations/index";
 import {
-  deleteProduct,
-  fetchFromIntegration,
-  getProducts,
-  importProduct,
+    deleteProduct,
+    fetchFromIntegration,
+    getProducts,
+    importProduct,
 } from "./actions";
 import DeleteProductButton from "./components/delete-btn";
 import { FilterAndSort, ImportedProductCard } from "./components/products";
@@ -173,7 +173,7 @@ export default async function MyProducts({ searchParams }: PageProps) {
             return (
               <div
                 key={product._id}
-                className="flex flex-col space-y-2 glassmorphism p-4 rounded-xl"
+                className="flex flex-col space-y-2 bg-glasss p-4 rounded-xl"
               >
                 <Image
                   width={256}
