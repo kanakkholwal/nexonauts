@@ -48,8 +48,11 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams?.get("redirect") || "/feed";
-  const callbackUrl = searchParams?.get("callbackUrl") || "/feed";
+  const callbackUrl = (
+    searchParams?.get("callbackUrl")
+      ? searchParams?.get("callbackUrl")
+      : searchParams?.get("redirect") || "/dashboard"
+  ) as string;
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -69,14 +72,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       success: (data) => {
         console.log(data);
         setIsLoading(false);
-        if (redirect) {
-          router.push(redirect);
-          return `Logged in successfully to ${redirect}`;
-        } else if (callbackUrl) {
+        if (callbackUrl) {
           router.push(callbackUrl);
           return `Logged in successfully to ${callbackUrl}`;
         }
-        router.push("/feed");
+        router.push("/dashboard");
         return `Logged in successfully to dashboard`;
       },
       error: (err) => {
@@ -214,7 +214,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           width={"full"}
           onClick={async () => {
             setIsLoading(true);
-            await signIn("google", { callbackUrl: redirect });
+            await signIn("google", { callbackUrl: callbackUrl! });
             setIsLoading(false);
           }}
         >

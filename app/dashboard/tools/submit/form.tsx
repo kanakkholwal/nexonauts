@@ -4,36 +4,32 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { nanoid } from "nanoid";
+import { UploadImage } from "src/components/uploader";
 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 import { ArrowUpRight, LoaderCircle } from "lucide-react";
 
 import { Tag, TagInput } from "@/components/custom/tag-input";
-import axios from "axios";
-import { Loader2, Sparkles } from "lucide-react";
+import NexoEditor from "nexo-mdx";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
-
-import NexoEditor from "nexo-mdx";
 import MarkdownView from "src/components/markdown/view";
-import { UploadImage } from "src/components/uploader";
 import {
-  ICategory,
-  PublicToolPricingType,
-  PublicToolStatus,
-  PublicToolTypeWithId,
+    ICategory,
+    PublicToolPricingType,
+    PublicToolStatus,
+    rawPublicToolType,
 } from "src/models/tool";
-import { useFormStore } from "./store";
-
 import { z } from "zod";
+import { useFormStore } from "./store";
 const urlSchema = z
   .string()
   .url()
@@ -42,18 +38,15 @@ const urlSchema = z
   });
 
 export default function Form({
-  updateTool,
+  submitTool,
   available_categories,
-  deleteTool,
 }: {
-  updateTool: (data: Record<string, any>) => Promise<any>;
+  submitTool: (data: Record<string, any>) => Promise<any>;
   available_categories: ICategory[];
-  deleteTool: () => Promise<any>;
 }) {
-  const tool = useFormStore((state) => state.tool) as PublicToolTypeWithId;
+  const tool = useFormStore((state) => state.tool) as rawPublicToolType;
   const [loading, setLoading] = React.useState(false);
-  const [deleting, setDeleting] = React.useState(false);
-
+  const editorRef = React.useRef(null);
   const [generating, setGenerating] = React.useState(false);
   const [tags, setTags] = React.useState<Tag[]>(
     tool?.tags.map((tag) => ({ id: nanoid(), text: tag })) || []
@@ -103,59 +96,18 @@ export default function Form({
               className="!h-auto p-0"
               value={tool?.description || ""}
               disabled={loading || generating}
-              rows={8}
               onChange={(value, _) => {
                 useFormStore.setState({
                   tool: { ...tool, description: value },
                 });
               }}
               renderHtml={(text: string) => (
-                <MarkdownView className="prose">{text}</MarkdownView>
+                <MarkdownView className="prose lg:prose-xl">
+                  {text}
+                </MarkdownView>
               )}
+              ref={editorRef}
             />
-            <div className="flex justify-end gap-2">
-              <Button
-                variant="default_light"
-                disabled={generating}
-                onClick={(e) => {
-                  e.preventDefault();
-                  const name = tool?.name;
-                  const link = tool?.link;
-                  if (!name || !link) {
-                    toast.error("Name and Link are required");
-                    return;
-                  }
-                  setGenerating(true);
-                  toast
-                    .promise(
-                      axios.post("/api/tools/generate", { name, link }),
-                      {
-                        loading: "Generating Description...",
-                        success: (response) => {
-                          useFormStore.setState({
-                            tool: { ...tool, description: response.data.data },
-                          });
-                          return "Description Generated";
-                        },
-                        error: (error) => {
-                          console.error(error);
-                          return "Error Generating Description";
-                        },
-                      }
-                    )
-                    .finally(() => {
-                      setGenerating(false);
-                    });
-                }}
-              >
-                {generating ? (
-                  <Loader2 className="animate-spin" />
-                ) : (
-                  <Sparkles />
-                )}
-                {generating ? "Generating..." : "Generate with AI"}
-              </Button>
-            </div>
           </div>
           <div className="border rounded-lg p-4 grid">
             <Label htmlFor="tags">Tags</Label>
@@ -229,7 +181,7 @@ export default function Form({
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-4 flex-0 glassmorphism p-5 rounded-xl w-full md:min-w-[24rem] md:max-w-md mx-auto">
+        <div className="grid grid-cols-1 gap-4 flex-0 bg-glasss p-5 rounded-xl w-full md:min-w-[24rem] md:max-w-md mx-auto">
           <div className="grid items-center gap-1.5 py-4">
             <div className="flex justify-between items-center flex-wrap gap-2">
               <Label htmlFor="coverImage" className="mb-0">
@@ -363,6 +315,7 @@ export default function Form({
             </Button>
           </div>
           <Button
+            size="lg"
             width="sm"
             disabled={loading}
             onClick={(e) => {
@@ -371,7 +324,7 @@ export default function Form({
               setLoading(true);
               toast
                 .promise(
-                  updateTool({
+                  submitTool({
                     name: tool.name,
                     slug: tool.slug,
                     link: tool.link,
@@ -383,7 +336,7 @@ export default function Form({
                     coverImage: tool.coverImage,
                   }),
                   {
-                    loading: "Saving Changes...",
+                    loading: "Submitting Changes...",
                     success: (data) => {
                       return "Changes Saved";
                     },
@@ -399,34 +352,7 @@ export default function Form({
             }}
           >
             {loading ? <LoaderCircle className="animate-spin" /> : null}
-            {loading ? "Saving..." : "Save Changes"}
-          </Button>
-          <Button
-            variant="destructive_light"
-            width="sm"
-            disabled={loading}
-            onClick={(e) => {
-              e.preventDefault();
-
-              setDeleting(true);
-              toast
-                .promise(deleteTool(), {
-                  loading: "Deleting Tool...",
-                  success: (data) => {
-                    return "Tool Deleted";
-                  },
-                  error: (error) => {
-                    console.error(error);
-                    return "Error Deleting Tool";
-                  },
-                })
-                .finally(() => {
-                  setDeleting(false);
-                });
-            }}
-          >
-            {deleting ? <LoaderCircle className="animate-spin" /> : null}
-            {deleting ? "Deleting..." : "Delete Tool"}
+            {loading ? "Submitting..." : "Submit Tool"}
           </Button>
         </div>
       </div>

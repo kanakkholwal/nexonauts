@@ -5,7 +5,7 @@ import { ProductType } from "src/models/product";
 
 export function ProductCard({ product }: { product: ProductType }) {
   return (
-    <div className="rounded-lg bg-card px-3 lg:p-4 border border-border">
+    <div className="rounded-lg bg-glass px-3 lg:p-4">
       <Link href={`/marketplace/products/${product.slug}`}>
         <figure className="w-full h-auto relative">
           <Image

@@ -27,7 +27,7 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6 my-5">
       <StoreInitializer messages={messages} />
-      <div className="flex items-stretch gap-2 container mx-auto glassmorphism p-4">
+      <div className="flex items-stretch gap-2 container mx-auto bg-glasss p-4">
         <div className="flex flex-col flex-auto max-w-lg">
           <Tabs defaultValue="all">
             <div className="flex items-center px-4 py-2">

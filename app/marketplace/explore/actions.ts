@@ -52,9 +52,12 @@ export async function getProducts(searchParams: searchParamsType): Promise<{
   });
 }
 
-export async function getPopularMeta(): Promise<{
+
+interface PopularMetaReturnType {
   tags: { tag: string; count: number }[];
-}> {
+}
+
+export async function getPopularMeta(): Promise<PopularMetaReturnType> {
   await dbConnect();
   const pipeline = [
     {
@@ -84,13 +87,13 @@ export async function getPopularMeta(): Promise<{
         tag: 1,
       },
     },
-    {
-      $limit: 10,
-    },
+    // {
+    //   $limit: 10,
+    // },
   ] as PipelineStage[];
   const result = await Product.aggregate(pipeline).exec();
 
   return Promise.resolve({
-    tags: JSON.parse(JSON.stringify(result)),
+    tags: JSON.parse(JSON.stringify(result)).filter((tag:PopularMetaReturnType["tags"][number]) => tag.tag.trim() !== ""),
   });
 }

@@ -5,9 +5,9 @@ export default function NewLetter() {
     <section
       id="newsletter"
       className="w-full h-[400px] max-w-7xl mx-auto flex flex-col items-center justify-center bg-center bg-cover bg-no-repeat relative overflow-hidden rounded-lg shadow-lg dark:shadow-neutral/50 my-10"
-      style={{
-        backgroundImage: `url(${newsletter.src})`,
-      }}
+      // style={{
+      //   backgroundImage: `url(${newsletter.src})`,
+      // }}
     >
       <h2 className="text-4xl font-bold text-neutral-200">
         Subscribe to our Newsletter
