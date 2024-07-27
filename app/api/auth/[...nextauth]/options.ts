@@ -40,8 +40,7 @@ export const authOptions: NextAuthOptions = {
   // Enable JSON Web Tokens since we will not store sessions in our DB
   session: {
     strategy: "jwt",
-    maxAge: 24 * 60 * 60, // 24 hours
-    // maxAge:60 // 1 min
+    maxAge: 3 * 24 * 60 * 60, // 72 hours
   },
   secret: env.NEXT_AUTH_SECRET,
   cookies: {

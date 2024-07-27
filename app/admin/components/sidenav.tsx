@@ -1,12 +1,12 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { MessageSquareText } from "lucide-react";
@@ -14,14 +14,15 @@ import { LuMoreHorizontal } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
 import {
-  ArrowBigDown,
-  ChevronLeftCircle,
-  ChevronRightCircle,
-  LayoutGrid,
-  LogOut,
-  Settings2,
-  Swords,
-  UserRoundCog,
+    ArrowBigDown,
+    ChevronLeftCircle,
+    ChevronRightCircle,
+    LayoutGrid,
+    LogOut,
+    Navigation,
+    Settings2,
+    Swords,
+    UserRoundCog,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
@@ -31,7 +32,6 @@ import { useState } from "react";
 import { RiAppsLine } from "react-icons/ri";
 import { TbDashboard } from "react-icons/tb";
 import { SessionUserType } from "src/types/user";
-import { Navigation } from "lucide-react";
 
 export type sideLinkType = {
   label: string;
@@ -75,7 +75,7 @@ const user_links: sideLinkType[] = [
   {
     label: "Dashboard",
     icon: TbDashboard,
-    href: "/feed",
+    href: "/dashboard",
   },
   // {
   //     label: "Tools",
@@ -103,7 +103,7 @@ export default function SideBar({ user }: { user: SessionUserType }) {
     <div
       aria-label="Sidenav"
       className={
-        "fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 glassmorphism " +
+        "fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 bg-glasss " +
         (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") +
         " transition-transform duration-200 ease-in-out"
       }

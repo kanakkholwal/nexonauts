@@ -18,19 +18,17 @@ const font = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = ROOT_METADATA;
 
-export default async function RootLayout({
-  children,
-}: {
+type RootLayoutProps = Readonly<{
   children: React.ReactNode;
-}) {
+}>;
+
+export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
       <head>
         <meta name="google-adsense-account" content="ca-pub-6988693445063744" />
       </head>
-      <body
-        className={`${font.className}  min-h-screen selection:bg-primary/10 selection:text-primary bg-slate-100 dark:bg-neutral-900 antialiased`}
-      >
+      <body className={`${font.className}  min-h-screen antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

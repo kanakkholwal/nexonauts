@@ -21,7 +21,7 @@ interface PageProps {
 
 export default async function Page({ searchParams }: PageProps) {
   const session = await getSession();
-  if (session) return redirect("/feed");
+  if (session) return redirect("/dashboard");
 
   const IsWaitingList = true;
 

@@ -23,7 +23,7 @@ export default async function NavigationPage() {
           return (
             <div
               key={index}
-              className="grid grid-cols-1 gap-1 glassmorphism p-3 rounded-xl"
+              className="grid grid-cols-1 gap-1 bg-glasss p-3 rounded-xl"
             >
               <h3 className="text-lg font-bold">{link.title}</h3>
               <Link

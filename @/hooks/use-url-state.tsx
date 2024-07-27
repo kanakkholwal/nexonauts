@@ -62,7 +62,7 @@ export function useUrlState<T>(
   }, [defaultValue, updateUrl]);
 
   const clearUrlState = useCallback(() => {
-    setState(defaultValue);
+    setState("" as T);
     const params = new URLSearchParams(searchParams);
     params.delete(key);
     router.push(`?${params.toString()}`);

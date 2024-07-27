@@ -21,7 +21,7 @@ export default function CreateProfile() {
           Create a profile to connect with other developers
         </p>
         <Button className="mt-5 w-full max-w-sm" size="lg">
-          <Link href={"/onboarding/profile?next=/feed"}>
+          <Link href={"/onboarding/profile?next=/dashboard"}>
             Create Profile Now
           </Link>
         </Button>

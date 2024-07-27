@@ -109,7 +109,7 @@ export function SearchBar({
           fallback={
             <Input
               placeholder="Search for a AI, tools, services, and resources"
-              className="w-full pl-12 pr-4 py-2 h-14 rounded-xl glassmorphism"
+              className="w-full pl-12 pr-4 py-2 h-14 rounded-xl bg-glasss"
             />
           }
         >

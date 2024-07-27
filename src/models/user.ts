@@ -195,7 +195,8 @@ userSchema.pre<User>("save", async function (next) {
   }
 
   try {
-    const hash = await bcrypt.hash(this.password,10);
+    const hash = await bcrypt.hash(this.password, 10);
+
     this.password = hash;
     next();
   } catch (err) {
@@ -227,6 +228,6 @@ userSchema.methods.comparePassword = async function (password: string) {
   }
 };
 
-const User = mongoose.models.User || mongoose.model<User>("User", userSchema);
+const User = mongoose.models?.User || mongoose.model<User>("User", userSchema);
 
 export default User;

@@ -20,6 +20,7 @@ interface ExplorePageProps {
   searchParams: searchParamsType;
 }
 
+
 export default async function ExplorePage({ searchParams }: ExplorePageProps) {
   const category = searchParams?.category || "";
   const initialTags = searchParams?.tags || "";
@@ -31,12 +32,12 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
 
   return (
     <div className="flex items-start justify-center w-full gap-5 mx-auto p-3">
-      <aside className="bg-card w-full max-w-sm rounded-xl p-4 hidden lg:flex flex-col sticky top-20 space-y-4">
+      <aside className="bg-glass w-full max-w-sm rounded-xl p-4 hidden lg:flex flex-col sticky top-20 space-y-4">
         <ParamsFilter
           keyName="category"
           initialValue={category}
           options={CATEGORIES}
-          key={category}
+          key="category"
         />
         <ParamsFilter
           keyName="tags"
@@ -44,13 +45,13 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
           options={tags.map((tag) => tag.tag)}
           title="Popular Tags"
           allowMultiple={true}
-          key={initialTags}
+          key="tags"
         />
         <ParamsFilter
           keyName="price"
           initialValue={initialPrice}
           options={["free", "paid", "0-10", "10-50", "50-100"]}
-          key={initialPrice}
+          key="price"
         />
       </aside>
       <main className="space-y-10 max-w-7xl w-full @container/main">
@@ -61,13 +62,13 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
               <Search className="absolute top-1/2 left-4 transform -translate-y-1/2 w-5 h-5" />
               <SearchBar initialQuery={initialQuery} />
               <FiltersWrapper
+                key="filters-mobile"
                 content={
                   <div className="space-y-4">
                     <ParamsFilter
                       keyName="category"
                       initialValue={category}
                       options={CATEGORIES}
-                      key={category}
                     />
                     <ParamsFilter
                       keyName="tags"
@@ -75,13 +76,11 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
                       options={tags.map((tag) => tag.tag)}
                       title="Popular Tags"
                       allowMultiple={true}
-                      key={initialTags}
                     />
                     <ParamsFilter
                       keyName="price"
                       initialValue={initialPrice}
                       options={["free", "paid", "0-10", "10-50", "50-100"]}
-                      key={initialPrice}
                     />
                   </div>
                 }
@@ -114,7 +113,7 @@ export default async function ExplorePage({ searchParams }: ExplorePageProps) {
                       href={`/marketplace/products/${product.slug!}`}
                       className={cn(
                         "flex flex-col justify-between gap-2 rounded-xl p-3 transition-all duration-300 ease-in-out transform hover:scale-103 shadow-sm hover:shadow-xl hover:translate-y-1 hover:translate-x",
-                        "group bg-card"
+                        "group bg-glass"
                       )}
                     >
                       <Image

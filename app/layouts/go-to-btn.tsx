@@ -11,7 +11,7 @@ export default function GoToBtn() {
 
   return (
     <Button variant="default_light" size="sm" rounded="full" asChild>
-      <Link href={isSignedIn ? "/feed" : "/login?ref=navbar-button"}>
+      <Link href={isSignedIn ? "/dashboard" : "/login?ref=navbar-button"}>
         {isSignedIn ? (
           <>
             Go to Feed <ArrowUpRight />
