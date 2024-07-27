@@ -10,7 +10,8 @@ yarn.lock
 # testing
 /coverage
 .turbo
-test*.js
+test.js
+data.json
 
 /.env
 .env

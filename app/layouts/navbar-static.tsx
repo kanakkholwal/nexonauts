@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <div
       id="navbar"
-      className="absolute inset-x-0 top-0 z-50 w-full md:w-[calc(100%-2rem)] max-w-4xl mx-auto md:mt-10 p-3 bg-card shadow-2xl md:rounded-full"
+      className="absolute inset-x-0 top-0 z-50 w-full md:w-[calc(100%-2rem)] max-w-4xl mx-auto md:mt-10 p-3 bg-glass md:rounded-full"
     >
       <nav
         className="relative flex items-center justify-between gap-4"

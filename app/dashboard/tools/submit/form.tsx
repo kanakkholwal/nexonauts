@@ -7,11 +7,11 @@ import { nanoid } from "nanoid";
 import { UploadImage } from "src/components/uploader";
 
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 import { ArrowUpRight, LoaderCircle } from "lucide-react";
 
@@ -23,10 +23,10 @@ import React from "react";
 import toast from "react-hot-toast";
 import MarkdownView from "src/components/markdown/view";
 import {
-  ICategory,
-  PublicToolPricingType,
-  PublicToolStatus,
-  rawPublicToolType,
+    ICategory,
+    PublicToolPricingType,
+    PublicToolStatus,
+    rawPublicToolType,
 } from "src/models/tool";
 import { z } from "zod";
 import { useFormStore } from "./store";
@@ -181,7 +181,7 @@ export default function Form({
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-1 gap-4 flex-0 glassmorphism p-5 rounded-xl w-full md:min-w-[24rem] md:max-w-md mx-auto">
+        <div className="grid grid-cols-1 gap-4 flex-0 bg-glasss p-5 rounded-xl w-full md:min-w-[24rem] md:max-w-md mx-auto">
           <div className="grid items-center gap-1.5 py-4">
             <div className="flex justify-between items-center flex-wrap gap-2">
               <Label htmlFor="coverImage" className="mb-0">

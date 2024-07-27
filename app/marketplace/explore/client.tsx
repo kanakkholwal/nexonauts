@@ -33,9 +33,9 @@ export function CategoryBoxes({
             htmlFor={item.label}
             className={cn(
               "flex items-center justify-center gap-3 p-3 rounded-xl transition-all duration-200 shadow-md border w-full aspect-[10/4]",
-              " bg-card shadow-slate-200 dark:shadow-slate-800/20",
+              "bg-glasss",
               selectedCategory === item.label
-                ? "border-primary"
+                ? "!border-primary"
                 : "border-transparent"
             )}
           >
