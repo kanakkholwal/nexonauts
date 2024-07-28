@@ -67,7 +67,7 @@
         "mongoose": "^8.0.4",
         "nanoid": "^5.0.7",
         "nexo-html2jsx": "^1.2.0",
-        "nexo-mdx": "^0.7.5",
+        "nexo-mdx": "^0.7.6",
         "next": "^14.2.5",
         "next-auth": "^4.24.5",
         "next-themes": "^0.2.1",
