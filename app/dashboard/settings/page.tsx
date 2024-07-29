@@ -14,19 +14,19 @@ const list = [
     label: "Profile",
     description: "Manage your profile settings",
     icon: User,
-    href: "/settings/profile",
+    href: "/dashboard/settings/profile",
   },
   {
     label: "Account",
     description: "Manage your account settings",
     icon: UserRoundCog,
-    href: "/settings/account",
+    href: "/dashboard/settings/account",
   },
   {
     label: "Integrations",
     description: "Manage your integrations",
     icon: Workflow,
-    href: "/settings/integrations",
+    href: "/dashboard/settings/integrations",
   },
 ] as const;
 

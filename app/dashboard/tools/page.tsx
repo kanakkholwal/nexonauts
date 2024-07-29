@@ -16,7 +16,7 @@ export default async function Page() {
       <div className="flex justify-between items-center flex-wrap gap-4">
         <h1 className="text-3xl font-bold">My Tools</h1>
         <Button variant="link" size="sm" asChild>
-          <Link href={`/tools/submit`}>
+          <Link href={`/dashboard/tools/submit`}>
             <Plus />
             New Tool
           </Link>
@@ -32,7 +32,7 @@ export default async function Page() {
               You have not submitted any tools yet.
             </p>
             <Button width="xs" asChild>
-              <Link href="/tools/submit">
+              <Link href="/dashboard/tools/submit">
                 Submit a Tool Now
                 <ArrowBigRightDash />
               </Link>

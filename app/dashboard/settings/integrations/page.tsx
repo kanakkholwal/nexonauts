@@ -69,7 +69,7 @@ export default async function IntegrationPage() {
             {INTEGRATIONS.map((integration) => {
               return (
                 <Link
-                  href={`/settings/integrations/${integration}`}
+                  href={`/dashboard/settings/integrations/${integration}`}
                   key={integration}
                   className="flex items-center border text-card-foreground backdrop-blur bg-white dark:bg-gray-600/30 shadow p-4 rounded-xl flex-col justify-center transition hover:scale-103 active:duration-75 active:scale-97"
                 >
