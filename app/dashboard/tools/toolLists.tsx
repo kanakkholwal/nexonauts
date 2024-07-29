@@ -38,7 +38,7 @@ export default function ToolList({ initialTools }: ToolListProps) {
         {tools.map((tool) => {
           return (
             <div key={tool._id}>
-              <Link href={`/tools/${tool.slug}/edit`} className="p-1">
+              <Link href={`/dashboard/tools/${tool.slug}/edit`} className="p-1">
                 <Card
                   className="rounded-2xl backdrop-blur backdrop-saturate bg-white border-0 relative"
                   variant="glass"

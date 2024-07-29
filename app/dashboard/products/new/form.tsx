@@ -314,7 +314,7 @@ export default function ProductForm(props: Props) {
                       value={field.value?.join(", ")}
                       onChange={(e) => {
                         field.onChange(
-                          e.target.value.split(",").map((tag) => tag.trim())
+                          e.target.value.split(",")
                         );
                       }}
                     />

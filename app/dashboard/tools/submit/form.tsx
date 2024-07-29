@@ -331,7 +331,7 @@ export default function Form({
                     status: tool.status,
                     pricing_type: tool.pricing_type,
                     description: tool.description,
-                    tags: tags.map((tag) => tag.text),
+                    tags: tags.filter((tag) => tag.text.trim() !== "").map((tag) => tag.text),
                     categories: tool.categories,
                     coverImage: tool.coverImage,
                   }),
