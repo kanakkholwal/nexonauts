@@ -191,7 +191,7 @@ export default async function MyProducts({ searchParams }: PageProps) {
                   />
                   <Button variant="outline" size="sm" asChild>
                     <Link
-                      href={`/products/${product.slug}/edit`}
+                      href={`/dashboard/products/${product.slug}/edit`}
                       className="text-primary"
                     >
                       Edit

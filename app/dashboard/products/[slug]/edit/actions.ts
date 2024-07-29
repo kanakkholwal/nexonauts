@@ -31,6 +31,11 @@ export async function updateProduct(
     },
     {
       ...newData,
+      ...(newData?.tags?.length ?? 0 > 0 ? {
+        tags: newData!.tags!.filter(
+          (tag) => tag.trim() !== "" && tag !== null && tag.trim().length > 2
+        ),
+      } : {})
     },
     { new: true }
   ).exec();

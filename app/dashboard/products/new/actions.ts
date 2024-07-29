@@ -28,7 +28,7 @@ export async function createProduct(
       preview_url: product.preview_url,
       url: product.url,
       creator: session.user._id!,
-      tags: product.tags,
+      tags: product.tags.filter((tag) => tag.trim() !== "" && tag !== null && tag.trim().length > 2),
       categories: product?.categories || [],
       published: product.published,
       third_party: {

@@ -24,7 +24,9 @@ export async function getProducts(searchParams: searchParamsType): Promise<{
     ];
   }
   if (category) {
-    queryObj.category = category;
+    // queryObj.category = category;
+    //  use regex and case-insensitive search
+    queryObj.category = { $regex: category, $options: "i" };
   }
   if (tags) {
     queryObj.tags = { $all: tags.split(",") };
