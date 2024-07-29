@@ -3,19 +3,19 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 
 import {
-    Sheet,
-    SheetContent,
-    SheetDescription,
-    SheetHeader,
-    SheetTitle,
-    SheetTrigger,
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
 } from "@/components/ui/sheet";
 import {
-    ArrowRight,
-    ArrowUpRight,
-    Import,
-    LoaderCircle,
-    Plus,
+  ArrowRight,
+  ArrowUpRight,
+  Import,
+  LoaderCircle,
+  Plus,
 } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -23,10 +23,10 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Icon } from "src/lib/integrations/index";
 import {
-    deleteProduct,
-    fetchFromIntegration,
-    getProducts,
-    importProduct,
+  deleteProduct,
+  fetchFromIntegration,
+  getProducts,
+  importProduct,
 } from "./actions";
 import DeleteProductButton from "./components/delete-btn";
 import { FilterAndSort, ImportedProductCard } from "./components/products";
@@ -77,9 +77,9 @@ export default async function MyProducts({ searchParams }: PageProps) {
       <div className="flex justify-between items-center flex-wrap gap-4">
         <h1 className="text-3xl font-bold">My Products</h1>
         <div className="flex gap-2 flex-wrap">
-          <Button variant="link" size="sm" asChild>
-            <Link href={`/products/new`}>
-              <Plus className="h-4 w-4" />
+          <Button variant="default_light" size="sm" rounded="full" asChild>
+            <Link href={`/dashboard/products/new`}>
+              <Plus />
               New Product
             </Link>
           </Button>

@@ -26,7 +26,7 @@ export default async function DashboardPage({
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-semibold">Edit Tool</h1>
         <Button variant="link" asChild>
-          <Link href="/tools">
+          <Link href="/dashboard/tools">
             <ArrowLeft />
             Back to Tools
           </Link>
