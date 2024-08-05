@@ -44,7 +44,6 @@
         "@tanstack/react-table": "^8.11.8",
         "@types/bcryptjs": "^2.4.6",
         "aos": "^2.3.4",
-        "apexcharts": "^3.40.0",
         "axios": "^1.2.1",
         "bcryptjs": "^2.4.3",
         "class-variance-authority": "^0.7.0",
@@ -78,7 +77,6 @@
         "pretty": "^2.0.0",
         "prismjs": "^1.29.0",
         "react": "^18.3.1",
-        "react-apexcharts": "^1.4.0",
         "react-day-picker": "^8.9.1",
         "react-dom": "^18.3.1",
         "react-dropzone": "^14.2.3",
@@ -138,6 +136,5 @@
     "resolutions": {
         "@types/react": "18.0.25",
         "@types/react-dom": "^18.2.19"
-    },
-    "packageManager": "npm@10.5.0"
+    }
 }

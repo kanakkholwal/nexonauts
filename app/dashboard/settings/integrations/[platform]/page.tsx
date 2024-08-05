@@ -8,6 +8,7 @@ import {
   INTEGRATION_CONFIG,
   INTEGRATION_DESCRIPTIONS,
   INTEGRATION_USAGE_CASES,
+  Integration,
 } from "src/lib/integrations";
 import { Authorisor, RevokeTokenButton } from "./platform-client";
 
@@ -29,14 +30,15 @@ export default async function PlatformPage({ searchParams, params }: Props) {
   if (!INTEGRATION_CONFIG[params.platform]) {
     return <div>Platform not found</div>;
   }
-  const integrationConfig = INTEGRATION_CONFIG[params.platform];
+
+  const integration = new Integration(params.platform);
 
   const isRedirected = !!searchParams?.code;
 
   const code = searchParams?.code as string;
   // get the user session
 
-  const integrationData = await getUserIntegrationData(params.platform);
+  const integrationData = await integration.getIntegrationData();
 
   console.log(integrationData);
 
@@ -97,7 +99,7 @@ export default async function PlatformPage({ searchParams, params }: Props) {
             </div>
             <div className="flex gap-4">
               <Button asChild>
-                <Link href={integrationConfig.getAuthUrl()}>Authorise</Link>
+                <Link href={integration.getAuthUrl()}>Authorise</Link>
               </Button>
               <Button variant="outline" asChild>
                 <Link href={`/settings/integrations`}>Go Back</Link>
@@ -120,9 +122,9 @@ export default async function PlatformPage({ searchParams, params }: Props) {
       <div className="space-y-4">
         <h3 className="text-lg font-bold">Usage Cases</h3>
         <div className="space-y-2">
-          {INTEGRATION_USAGE_CASES[params.platform].map((useCase) => {
+          {integration.usage_cases.map((useCase, index) => {
             return (
-              <div key={useCase}>
+              <div key={index}>
                 <h6 className="text-base font-medium">{useCase.name}</h6>
                 <p className="text-muted-foreground">{useCase.description}</p>
               </div>

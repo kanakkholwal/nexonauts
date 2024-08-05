@@ -10,6 +10,7 @@ yarn.lock
 # testing
 /coverage
 .turbo
+pnpm-*.yaml
 test.js
 data.json
 
