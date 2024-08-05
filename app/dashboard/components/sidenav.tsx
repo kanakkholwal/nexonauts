@@ -6,14 +6,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import ThemeSwitcher from "app/layouts/theme-switcher";
 import {
-    ChevronLeftCircle,
-    ChevronRightCircle,
-    LogOut,
-    Rss,
-    Search,
-    Settings2,
-    ShoppingCart,
-    UserRound,
+  ChevronLeftCircle,
+  ChevronRightCircle,
+  LogOut,
+  Rss,
+  Search,
+  Settings2,
+  ShoppingCart,
+  UserRound,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";

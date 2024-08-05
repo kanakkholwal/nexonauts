@@ -20,7 +20,6 @@ interface ExplorePageProps {
   searchParams: searchParamsType;
 }
 
-
 export default async function ExplorePage({ searchParams }: ExplorePageProps) {
   const category = searchParams?.category || "";
   const initialTags = searchParams?.tags || "";

@@ -17,7 +17,14 @@ const descriptions: { [key: string]: string } = {
   github: "Import your GitHub repositories and activity.",
   gumroad: "Import your Gumroad products.",
 };
-const usage_cases: { [key: string]: any[] } = {
+
+type usageCase = {
+  name: string;
+  description: string;
+};
+
+
+const usage_cases: { [key: string]: usageCase[] } = {
   github: [
     {
       name: "Import repositories",
@@ -178,6 +185,58 @@ export const INTEGRATION_CONFIG: {
     },
   },
 };
+
+export class Integration {
+  platform: string;
+  description: string;
+  usage_cases: usageCase[];
+
+  constructor(platform: string) {
+    this.platform = platform;
+    if(!INTEGRATION_CONFIG[platform]) {
+      throw new Error("Invalid platform");
+    }
+    this.description = descriptions[platform];
+    this.usage_cases = usage_cases[platform];
+  }
+
+  async saveToken(options: Record<string, any>) {
+    const integrationConfig = INTEGRATION_CONFIG[this.platform];
+    return integrationConfig.saveToken(options);
+  }
+
+  getAuthUrl() {
+    const integrationConfig = INTEGRATION_CONFIG[this.platform];
+    return integrationConfig.getAuthUrl();
+  }
+
+  async revokeToken() {
+    const session = (await getSession()) as sessionType;
+
+    const user = await UserModel.findById(session.user._id)
+      .select(`integrations.${this.platform}`)
+      .exec();
+    user.integrations[this.platform].integrated = false;
+    user.integrations[this.platform].access_token = null;
+    user.integrations[this.platform].lastAuthorized = null;
+    await user.save();
+  }
+
+  async getIntegrationData() {
+    const session = (await getSession()) as sessionType;
+    const user = await UserModel.findById(session.user._id)
+      .select(`integrations.${this.platform}`)
+      .exec();
+    return user.integrations[this.platform];
+  }
+
+  async isConnected() {
+    const integrationData = await this.getIntegrationData();
+    return integrationData.integrated;
+  }
+
+
+}
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   icon: keyof typeof icons;

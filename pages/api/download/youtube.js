@@ -7,8 +7,8 @@ export default async function YouTubeDownloader(req, res) {
 
     if (output)
       res.status(200).json({
-        videoDetails: output.videoDetails,
-        Downloadable: output.formats.sort((a, b) => a.mimeType < b.mimeType),
+        details: output.videoDetails,
+        outputs: output.formats.sort((a, b) => a.mimeType < b.mimeType),
       });
     else
       res.status(404).json({

@@ -71,9 +71,14 @@ export default function Tools() {
           </div>
         </div>
         <div className="flex-auto h-full hidden lg:block">
-          <Image src={heroImage} alt="hero" width={540} height={540} className="max-h-96 h-full w-max" />
+          <Image
+            src={heroImage}
+            alt="hero"
+            width={540}
+            height={540}
+            className="max-h-96 h-full w-max"
+          />
         </div>
-
       </section>
       <div className="w-full grow grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pt-5">
         {tools.map((tool, index) => {

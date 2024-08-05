@@ -54,7 +54,6 @@ export async function getProducts(searchParams: searchParamsType): Promise<{
   });
 }
 
-
 interface PopularMetaReturnType {
   tags: { tag: string; count: number }[];
 }
@@ -96,6 +95,8 @@ export async function getPopularMeta(): Promise<PopularMetaReturnType> {
   const result = await Product.aggregate(pipeline).exec();
 
   return Promise.resolve({
-    tags: JSON.parse(JSON.stringify(result)).filter((tag:PopularMetaReturnType["tags"][number]) => tag.tag.trim() !== ""),
+    tags: JSON.parse(JSON.stringify(result)).filter(
+      (tag: PopularMetaReturnType["tags"][number]) => tag.tag.trim() !== ""
+    ),
   });
 }

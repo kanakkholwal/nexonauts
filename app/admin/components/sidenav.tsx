@@ -1,12 +1,12 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { MessageSquareText } from "lucide-react";
@@ -14,15 +14,15 @@ import { LuMoreHorizontal } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
 import {
-    ArrowBigDown,
-    ChevronLeftCircle,
-    ChevronRightCircle,
-    LayoutGrid,
-    LogOut,
-    Navigation,
-    Settings2,
-    Swords,
-    UserRoundCog,
+  ArrowBigDown,
+  ChevronLeftCircle,
+  ChevronRightCircle,
+  LayoutGrid,
+  LogOut,
+  Navigation,
+  Settings2,
+  Swords,
+  UserRoundCog,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";

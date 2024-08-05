@@ -7,11 +7,11 @@ import { nanoid } from "nanoid";
 import { UploadImage } from "src/components/uploader";
 
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { ArrowUpRight, LoaderCircle } from "lucide-react";
 
@@ -23,10 +23,10 @@ import React from "react";
 import toast from "react-hot-toast";
 import MarkdownView from "src/components/markdown/view";
 import {
-    ICategory,
-    PublicToolPricingType,
-    PublicToolStatus,
-    rawPublicToolType,
+  ICategory,
+  PublicToolPricingType,
+  PublicToolStatus,
+  rawPublicToolType,
 } from "src/models/tool";
 import { z } from "zod";
 import { useFormStore } from "./store";
@@ -331,7 +331,9 @@ export default function Form({
                     status: tool.status,
                     pricing_type: tool.pricing_type,
                     description: tool.description,
-                    tags: tags.filter((tag) => tag.text.trim() !== "").map((tag) => tag.text),
+                    tags: tags
+                      .filter((tag) => tag.text.trim() !== "")
+                      .map((tag) => tag.text),
                     categories: tool.categories,
                     coverImage: tool.coverImage,
                   }),
