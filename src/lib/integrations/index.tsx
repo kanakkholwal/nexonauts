@@ -23,7 +23,6 @@ type usageCase = {
   description: string;
 };
 
-
 const usage_cases: { [key: string]: usageCase[] } = {
   github: [
     {
@@ -193,7 +192,7 @@ export class Integration {
 
   constructor(platform: string) {
     this.platform = platform;
-    if(!INTEGRATION_CONFIG[platform]) {
+    if (!INTEGRATION_CONFIG[platform]) {
       throw new Error("Invalid platform");
     }
     this.description = descriptions[platform];
@@ -234,8 +233,6 @@ export class Integration {
     const integrationData = await this.getIntegrationData();
     return integrationData.integrated;
   }
-
-
 }
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
