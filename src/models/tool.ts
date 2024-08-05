@@ -88,7 +88,7 @@ const publicToolSchema = new mongoose.Schema<IPublicTool>(
         "deleted",
         "pending",
         "rejected",
-        "expired"
+        "expired",
       ],
       default: "draft",
     },

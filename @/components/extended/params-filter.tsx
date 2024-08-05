@@ -33,8 +33,6 @@ export function ParamsFilter({
     initialValue
   );
 
-
-
   if (allowMultiple) {
     const arrayValues = value
       ?.split(",")
@@ -54,7 +52,10 @@ export function ParamsFilter({
     };
 
     return (
-      <div className={cn(props?.className)} key={`params-filter-for-${keyName}-[multiple]`}>
+      <div
+        className={cn(props?.className)}
+        key={`params-filter-for-${keyName}-[multiple]`}
+      >
         <div className="flex items-center gap-2">
           <h4 className="text-lg font-semibold capitalize">
             {props?.title ? props.title : keyName}
@@ -93,7 +94,10 @@ export function ParamsFilter({
                   }}
                   checked={arrayValues.includes(option)}
                 />
-                <Label htmlFor={`${keyName}-${option}`} className="mb-0 capitalize">
+                <Label
+                  htmlFor={`${keyName}-${option}`}
+                  className="mb-0 capitalize"
+                >
                   {props?.renderLabel
                     ? props.renderLabel(option, index)
                     : option}
@@ -107,7 +111,10 @@ export function ParamsFilter({
   }
 
   return (
-    <div className={cn(props?.className)} key={`params-filter-for-${keyName}-[single]`}>
+    <div
+      className={cn(props?.className)}
+      key={`params-filter-for-${keyName}-[single]`}
+    >
       <div className="flex items-center gap-2">
         <h4 className="text-lg font-semibold capitalize">
           {props?.title ? props.title : keyName}

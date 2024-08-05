@@ -85,18 +85,20 @@ export default async function ProductPage({
                 {" • "} Published on{" "}
                 {new Date(product.createdAt).toLocaleDateString()}
                 <p className="text-slate-500 dark:text-slate-300">
-                  {product.tags.filter((tag) => tag.trim() !== "").map((tag, index) => (
-                    <Fragment key={index}>
-                      <Link
-                        key={tag}
-                        href={`/marketplace/explore?tags=${tag}`}
-                        className="text-primary hover:underline mr-1"
-                      >
-                        #{tag}
-                      </Link>
-                      {/* {index < product.tags.length - 1 && " • "} */}
-                    </Fragment>
-                  ))}
+                  {product.tags
+                    .filter((tag) => tag.trim() !== "")
+                    .map((tag, index) => (
+                      <Fragment key={index}>
+                        <Link
+                          key={tag}
+                          href={`/marketplace/explore?tags=${tag}`}
+                          className="text-primary hover:underline mr-1"
+                        >
+                          #{tag}
+                        </Link>
+                        {/* {index < product.tags.length - 1 && " • "} */}
+                      </Fragment>
+                    ))}
                 </p>
               </figcaption>
             </figure>

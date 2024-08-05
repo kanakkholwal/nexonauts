@@ -313,9 +313,7 @@ export default function ProductForm(props: Props) {
                       {...field}
                       value={field.value?.join(", ")}
                       onChange={(e) => {
-                        field.onChange(
-                          e.target.value.split(",")
-                        );
+                        field.onChange(e.target.value.split(","));
                       }}
                     />
                   </FormControl>

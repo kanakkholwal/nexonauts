@@ -63,8 +63,8 @@ export async function generateMetadata(
       tool.categories.map((category) => category.name).join(", "),
     metadataBase: new URL(
       (process.env.NEXT_PUBLIC_WEBSITE_URL || "https://nexonauts.com") +
-      "/scout/tools/" +
-      tool.slug
+        "/scout/tools/" +
+        tool.slug
     ),
     openGraph: {
       images: [tool.coverImage, tool?.bannerImage || tool.coverImage],
@@ -210,10 +210,7 @@ export default async function ToolPage({ params }: Props) {
                 rounded={"full"}
                 asChild
               >
-                <Link
-                  href={marketwiseLink(tool.link)}
-                  target="_blank"
-                >
+                <Link href={marketwiseLink(tool.link)} target="_blank">
                   <span>Check it out</span>
                   <ExternalLink className="inline-block ml-2 w-4 h-4" />
                 </Link>
@@ -388,8 +385,8 @@ export default async function ToolPage({ params }: Props) {
                               "/login?callbackUrl=" +
                               encodeURI(
                                 process.env.NEXT_PUBLIC_WEBSITE_URL +
-                                "/scout/tools/" +
-                                tool.slug
+                                  "/scout/tools/" +
+                                  tool.slug
                               )
                             }
                           >
@@ -419,7 +416,6 @@ function marketwiseLink(link: string) {
 }
 
 function getImages(toolLink: string) {
-
   const bannerURL = new URL(`https://api.microlink.io/`);
   // ?url=https://codeium.com&screenshot=true&meta=false&embed=screenshot.url
   bannerURL.searchParams.append("url", toolLink);
@@ -433,6 +429,6 @@ function getImages(toolLink: string) {
 
   return {
     bannerURL: bannerURL.toString(),
-    iconURL: iconURL.toString()
-  }
+    iconURL: iconURL.toString(),
+  };
 }

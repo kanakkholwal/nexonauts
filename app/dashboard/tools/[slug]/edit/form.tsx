@@ -6,11 +6,11 @@ import { Label } from "@/components/ui/label";
 import { nanoid } from "nanoid";
 
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { ArrowUpRight, LoaderCircle } from "lucide-react";
 
@@ -26,10 +26,10 @@ import NexoEditor from "nexo-mdx";
 import MarkdownView from "src/components/markdown/view";
 import { UploadImage } from "src/components/uploader";
 import {
-    ICategory,
-    PublicToolPricingType,
-    PublicToolStatus,
-    PublicToolTypeWithId,
+  ICategory,
+  PublicToolPricingType,
+  PublicToolStatus,
+  PublicToolTypeWithId,
 } from "src/models/tool";
 import { useFormStore } from "./store";
 
