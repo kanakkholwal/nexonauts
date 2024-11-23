@@ -8,11 +8,11 @@ import { ProfileType } from "./[username]/actions";
 import { getProfiles } from "./actions";
 
 type PageProps = {
-  searchParams?: {
+  searchParams?: Promise<{
     query?: string;
     page?: string;
     offset?: string;
-  };
+  }>
 };
 export const metadata: Metadata = {
   title: "Explore Developers",
@@ -24,7 +24,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function ExploreDevelopers({ searchParams }: PageProps) {
+export default async function ExploreDevelopers(props: PageProps) {
+  const searchParams = await props.searchParams;
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   const offset = Number(searchParams?.offset) || 0;

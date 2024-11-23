@@ -52,7 +52,7 @@ export async function generateMetadata(
   props: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const params = await params;
+  const params = await props.params;
   const slug = params.slug;
 
   const tool = await getToolMetaBySlug(slug);
