@@ -52,8 +52,8 @@ export function PostCard({
         >
           <div className="flex h-6 w-6 overflow-hidden rounded-full">
             <Image
-              src={post.author!.profilePicture!}
-              alt={post.author!.name!}
+              src={post.author?.profilePicture!}
+              alt={post.author?.name!}
               width={24}
               height={24}
             />
