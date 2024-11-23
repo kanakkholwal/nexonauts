@@ -17,10 +17,11 @@ import {
 } from "./client";
 
 interface ExplorePageProps {
-  searchParams: searchParamsType;
+  searchParams: Promise<searchParamsType>;
 }
 
-export default async function ExplorePage({ searchParams }: ExplorePageProps) {
+export default async function ExplorePage(props: ExplorePageProps) {
+  const searchParams = await props.searchParams;
   const category = searchParams?.category || "";
   const initialTags = searchParams?.tags || "";
   const initialPrice = searchParams?.price || "";

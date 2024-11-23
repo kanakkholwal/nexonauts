@@ -45,13 +45,14 @@ import RatingComponent, { RatingSkeletonLoader } from "./rating";
 import SimilarTools from "./similar-tools";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{ slug: string }>
 };
 
 export async function generateMetadata(
-  { params }: Props,
+  props: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const params = await params;
   const slug = params.slug;
 
   const tool = await getToolMetaBySlug(slug);
@@ -81,7 +82,8 @@ export async function generateMetadata(
 
 const cache = new Map<string, boolean>();
 
-export default async function ToolPage({ params }: Props) {
+export default async function ToolPage(props: Props) {
+  const params = await props.params
   const tool = await getPublicToolBySlug(
     params.slug,
     cache.get(params.slug) || false

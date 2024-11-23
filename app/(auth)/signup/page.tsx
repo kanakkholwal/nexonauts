@@ -14,14 +14,15 @@ export const metadata: Metadata = {
 };
 
 interface PageProps {
-  searchParams: {
+  searchParams: Promise<{
     redirect?: string;
-  };
+  }>
 }
 
 export default async function Page({ searchParams }: PageProps) {
   const session = await getSession();
   if (session) return redirect("/dashboard");
+  const redirect_path = (await searchParams)?.redirect
 
   const IsWaitingList = true;
 
@@ -33,7 +34,7 @@ export default async function Page({ searchParams }: PageProps) {
         asChild
       >
         <Link
-          href={`/login${searchParams?.redirect ? `?redirect=${searchParams?.redirect}` : ""}`}
+          href={`/login${redirect_path ? `?redirect=${redirect_path}` : ""}`}
         >
           Log in
         </Link>

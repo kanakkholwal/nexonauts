@@ -29,13 +29,12 @@ import { BookMarkButton } from "../bookmark";
 import { PostReview } from "../post-review";
 import RatingComponent, { RatingSkeletonLoader } from "../rating";
 
-export default async function ToolPage({
-  params,
-}: {
-  params: {
+export default async function ToolPage(props: {
+  params: Promise<{
     slug: string;
-  };
+  }>
 }) {
+  const props = await params
   const tool = await getPublicToolBySlugForRatingPage(params.slug);
   if (!tool) {
     return notFound();

@@ -16,11 +16,10 @@ import { getProductBySlug, getSimilarProducts } from "./actions";
 import MoreFromCreator from "./more-from-creator";
 import { ProductCard } from "./product-card";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>
 }): Promise<Metadata> {
+  const params = await props.params;
   const product = await getProductBySlug(params.slug);
 
   if (!product) return notFound();
@@ -41,13 +40,12 @@ export async function generateMetadata({
 
 // TODO: Add a section for comments
 
-export default async function ProductPage({
-  params,
-}: {
-  params: {
+export default async function ProductPage(props: {
+  params: Promise<{
     slug: string;
-  };
+  }>
 }) {
+  const params = await props.params;
   const session = (await getSession()) as sessionType | null;
   const isAuthenticated = !!session?.user;
 

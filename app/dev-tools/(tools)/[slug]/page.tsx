@@ -5,14 +5,15 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { notFound } from "next/navigation";
 import RenderTool from "./render-tool";
 type ToolPageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>
 };
 export async function generateMetadata(
-  { params }: ToolPageProps,
+  props: ToolPageProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  const params = await params;
   const tool = tools.find(
     (tool) => tool.slug === params.slug
   ) as ToolType | null;
@@ -39,7 +40,8 @@ export async function generateMetadata(
   };
 }
 
-export default function ToolPage({ params }: ToolPageProps) {
+export default function ToolPage(props: ToolPageProps) {
+  const params = await props.params;
   const tool = tools.find(
     (tool) => tool.slug === params.slug
   ) as ToolType | null;

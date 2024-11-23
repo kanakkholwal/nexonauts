@@ -11,14 +11,15 @@ export const metadata: Metadata = {
   keywords: "register, account, " + process.env.NEXT_PUBLIC_APP_NAME,
 };
 interface PageProps {
-  searchParams: {
+  searchParams: Promise<{
     redirect?: string;
-  };
+  }>
 }
 
 export default async function Page({ searchParams }: PageProps) {
   const session = await getSession();
   if (session) return redirect("/dashboard");
+  const redirect_path = (await searchParams)?.redirect
 
   return (
     <>
@@ -28,7 +29,7 @@ export default async function Page({ searchParams }: PageProps) {
         asChild
       >
         <Link
-          href={`/signup${searchParams?.redirect ? `?redirect=${searchParams?.redirect}` : ""}`}
+          href={`/signup${redirect_path ? `?redirect=${redirect_path}` : ""}`}
         >
           Sign Up
         </Link>

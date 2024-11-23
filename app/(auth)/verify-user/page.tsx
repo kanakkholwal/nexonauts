@@ -10,13 +10,7 @@ export const metadata: Metadata = {
   publisher: "noindex, nofollow",
 };
 
-export default async function Page({
-  searchParams,
-}: {
-  searchParams: {
-    token?: string;
-  };
-}) {
+export default async function Page() {
   const session = await getSession();
 
   return (
