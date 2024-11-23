@@ -13,13 +13,13 @@ export const metadata: Metadata = {
 interface PageProps {
   searchParams: Promise<{
     redirect?: string;
-  }>
+  }>;
 }
 
 export default async function Page({ searchParams }: PageProps) {
   const session = await getSession();
   if (session) return redirect("/dashboard");
-  const redirect_path = (await searchParams)?.redirect
+  const redirect_path = (await searchParams)?.redirect;
 
   return (
     <>

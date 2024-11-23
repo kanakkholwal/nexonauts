@@ -5,16 +5,15 @@ import { sessionType } from "src/types/session";
 import { getTools } from "./actions";
 import { columns } from "./columns";
 
-export default async function DashboardPage({
-  searchParams,
-}: {
-  searchParams?: {
+export default async function DashboardPage(props: {
+  searchParams?: Promise<{
     query?: string;
     page?: string;
     perPage?: string;
-  };
+  }>
 }) {
   const session = (await getSession()) as sessionType;
+  const searchParams = await props.searchParams;
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   const perPage = Number(searchParams?.perPage) || 10;

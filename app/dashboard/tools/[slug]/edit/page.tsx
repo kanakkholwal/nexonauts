@@ -9,7 +9,7 @@ import { useFormStore } from "./store";
 import StoreInitializer from "./store-initialzer";
 
 export default async function DashboardPage(props: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }) {
   const params = await props.params;
   const { tool, available_categories } = await getToolBySlug(params.slug);

@@ -32,9 +32,9 @@ import RatingComponent, { RatingSkeletonLoader } from "../rating";
 export default async function ToolPage(props: {
   params: Promise<{
     slug: string;
-  }>
+  }>;
 }) {
-  const props = await params
+  const params = await props.params;
   const tool = await getPublicToolBySlugForRatingPage(params.slug);
   if (!tool) {
     return notFound();

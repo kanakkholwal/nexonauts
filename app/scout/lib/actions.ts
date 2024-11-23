@@ -94,9 +94,9 @@ export async function getToolMetaBySlug(
   await dbConnect();
   const tool = await PublicTool.findOne({
     slug,
-    status:{
+    status: {
       $in: ["published", "approved"],
-    }
+    },
   })
     .populate("categories", "name slug")
     .select("name slug coverImage description categories")
@@ -110,9 +110,10 @@ export async function getPublicToolBySlug(
   await dbConnect();
   const tool = await PublicTool.findOne({
     slug,
-    status:{
+    status: {
       $in: ["published", "approved"],
-    }  });
+    },
+  });
   if (tool && !cached) {
     tool.views = tool.views + 1;
     await tool.save();
@@ -126,9 +127,10 @@ export async function getPublicToolBySlugForRatingPage(
   await dbConnect();
   const tool = await PublicTool.findOne({
     slug,
-    status:{
+    status: {
       $in: ["published", "approved"],
-    }  }).select("name slug coverImage bookmarks categories pricing_type");
+    },
+  }).select("name slug coverImage bookmarks categories pricing_type");
   return JSON.parse(JSON.stringify(tool));
 }
 
