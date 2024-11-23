@@ -64,7 +64,7 @@ const postSchema = new Schema<IPost>(
       default: "draft",
       enum: ["draft", "published"],
     },
-    author: { type: Schema.Types.Mixed, ref: "User", select: false },
+    author: { type: Schema.Types.ObjectId, ref: "User", select: false },
     claps: { type: Number, default: 0 },
     comments: {
       enabled: { type: Boolean, default: true },
