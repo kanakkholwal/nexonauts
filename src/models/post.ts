@@ -80,4 +80,8 @@ postSchema.pre("save", async function (next) {
   next();
 });
 
-export default mongoose.models?.Post || model<IPost>("Post", postSchema);
+
+
+const Post = mongoose.models?.Post || model<IPost>("Post", postSchema);
+
+export default Post
