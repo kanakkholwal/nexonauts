@@ -40,12 +40,12 @@ type PageProps = {
     importFrom?: string;
     filter?: string;
     sort?: string;
-  }>
+  }>;
 };
 const availableIntegrations = ["gumroad"];
 
 export default async function MyProducts(props: PageProps) {
-  const searchParams = await props.searchParams
+  const searchParams = await props.searchParams;
 
   const { products, integrated } = await getProducts(
     searchParams.filter ?? "all",

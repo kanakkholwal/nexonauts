@@ -12,9 +12,9 @@ import SocialLinks from "./components/social-links";
 import { Metadata } from "next";
 
 export async function generateMetadata(props: {
-  params: Promise<{ username: string }>
+  params: Promise<{ username: string }>;
 }): Promise<Metadata> {
-  const params = await props.params
+  const params = await props.params;
   const meta = await getProfile(params.username);
 
   if (!meta) return notFound();
@@ -34,7 +34,7 @@ export async function generateMetadata(props: {
 }
 
 export default async function DeveloperPage(props: {
-  params: Promise<{ username: string }>
+  params: Promise<{ username: string }>;
 }) {
   const params = await props.params;
   const developer = await getProfile(params.username);

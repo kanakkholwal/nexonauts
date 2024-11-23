@@ -245,5 +245,5 @@ export const Icon = ({ icon, className, ...props }: IconProps) => {
 
   if (!IconComponent) return null; // Handle case where icon is not found
 
-  return <IconComponent {...props}  className={className}/>;
+  return <IconComponent {...props} className={className} />;
 };

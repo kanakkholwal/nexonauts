@@ -7,13 +7,13 @@ import RenderTool from "./render-tool";
 type ToolPageProps = {
   params: Promise<{
     slug: string;
-  }>
+  }>;
 };
 export async function generateMetadata(
   props: ToolPageProps,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
-  const params = await params;
+  const params = await props.params;
   const tool = tools.find(
     (tool) => tool.slug === params.slug
   ) as ToolType | null;
@@ -40,7 +40,7 @@ export async function generateMetadata(
   };
 }
 
-export default function ToolPage(props: ToolPageProps) {
+export default async function ToolPage(props: ToolPageProps) {
   const params = await props.params;
   const tool = tools.find(
     (tool) => tool.slug === params.slug

@@ -7,22 +7,19 @@ import {
   Icon,
   Integration,
   INTEGRATION_CONFIG,
-  INTEGRATION_DESCRIPTIONS
+  INTEGRATION_DESCRIPTIONS,
 } from "src/lib/integrations";
 import { Authorisor, RevokeTokenButton } from "./platform-client";
 
-import {
-  revokeToken,
-  saveAccessToken
-} from "./actions";
+import { revokeToken, saveAccessToken } from "./actions";
 
 interface Props {
   searchParams: Promise<{
     code?: string;
-  }>,
+  }>;
   params: Promise<{
     platform: string;
-  }>
+  }>;
 }
 export default async function PlatformPage(props: Props) {
   const params = await props.params;
