@@ -237,12 +237,13 @@ export class Integration {
 
 interface IconProps extends React.SVGProps<SVGSVGElement> {
   icon: keyof typeof icons;
+  className?: string;
 }
 
-export const Icon = ({ icon, ...props }: IconProps) => {
+export const Icon = ({ icon, className, ...props }: IconProps) => {
   const IconComponent = icons[icon];
 
   if (!IconComponent) return null; // Handle case where icon is not found
 
-  return <IconComponent {...props} />;
+  return <IconComponent {...props}  className={className}/>;
 };

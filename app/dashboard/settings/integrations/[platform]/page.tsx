@@ -5,28 +5,28 @@ import { formatDistance } from "date-fns";
 import Link from "next/link";
 import {
   Icon,
-  INTEGRATION_CONFIG,
-  INTEGRATION_DESCRIPTIONS,
-  INTEGRATION_USAGE_CASES,
   Integration,
+  INTEGRATION_CONFIG,
+  INTEGRATION_DESCRIPTIONS
 } from "src/lib/integrations";
 import { Authorisor, RevokeTokenButton } from "./platform-client";
 
 import {
-  getUserIntegrationData,
   revokeToken,
-  saveAccessToken,
+  saveAccessToken
 } from "./actions";
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     code?: string;
-  };
-  params: {
+  }>,
+  params: Promise<{
     platform: string;
-  };
+  }>
 }
-export default async function PlatformPage({ searchParams, params }: Props) {
+export default async function PlatformPage(props: Props) {
+  const params = await props.params;
+  const searchParams = await props.searchParams;
   if (!INTEGRATION_CONFIG[params.platform]) {
     return <div>Platform not found</div>;
   }

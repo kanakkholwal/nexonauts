@@ -1,9 +1,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getSession } from "src/lib/auth";
 import { notFound } from "next/navigation";
+import { getSession } from "src/lib/auth";
 import { sessionType } from "src/types/session";
-import { followUnFollowProfile, getProfile, ProfileType } from "./actions";
+import { followUnFollowProfile, getProfile } from "./actions";
 import { FollowButton } from "./components/follow-btn";
 import FollowerFollow from "./components/follower-follow";
 import { ShareProfile } from "./components/share";
@@ -11,11 +11,10 @@ import SocialLinks from "./components/social-links";
 
 import { Metadata } from "next";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { username: string };
+export async function generateMetadata(props: {
+  params: Promise<{ username: string }>
 }): Promise<Metadata> {
+  const params = await props.params
   const meta = await getProfile(params.username);
 
   if (!meta) return notFound();
@@ -34,11 +33,10 @@ export async function generateMetadata({
   };
 }
 
-export default async function DeveloperPage({
-  params,
-}: {
-  params: { username: string };
+export default async function DeveloperPage(props: {
+  params: Promise<{ username: string }>
 }) {
+  const params = await props.params;
   const developer = await getProfile(params.username);
 
   if (!developer) return notFound();

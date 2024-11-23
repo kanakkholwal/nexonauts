@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 
-import withSerwistInit from '@serwist/next';
+// import withSerwistInit from '@serwist/next';
 
-const withSerwist = withSerwistInit({
-    cacheOnNavigation: true,
-    swSrc: "app/sw.ts",
-    swDest: "public/sw.js",
-    disable: process.env.NODE_ENV !== "production"
-});
+// const withSerwist = withSerwistInit({
+//     cacheOnNavigation: true,
+//     swSrc: "app/sw.ts",
+//     swDest: "public/sw.js",
+//     disable: process.env.NODE_ENV !== "production"
+// });
 
 
 const nextConfig = {
@@ -54,4 +54,5 @@ const nextConfig = {
 }
 
 
-export default withSerwist(nextConfig);
+// export default withSerwist(nextConfig);
+export default (nextConfig);

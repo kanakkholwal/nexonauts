@@ -36,15 +36,17 @@ export const metadata: Metadata = {
   description: "My Products page",
 };
 type PageProps = {
-  searchParams: {
+  searchParams: Promise<{
     importFrom?: string;
     filter?: string;
     sort?: string;
-  };
+  }>
 };
 const availableIntegrations = ["gumroad"];
 
-export default async function MyProducts({ searchParams }: PageProps) {
+export default async function MyProducts(props: PageProps) {
+  const searchParams = await props.searchParams
+
   const { products, integrated } = await getProducts(
     searchParams.filter ?? "all",
     searchParams.sort ?? "latest"
