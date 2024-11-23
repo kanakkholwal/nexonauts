@@ -47,18 +47,18 @@ export function PostCard({
       </div>
       <div className="mt-4.5 flex flex-wrap items-center justify-between gap-3">
         <Link
-          href={`/blog/author/${post.author.username}`}
+          href={`/blog/author/${post.author?.username}`}
           className="flex items-center gap-3"
         >
           <div className="flex h-6 w-6 overflow-hidden rounded-full">
             <Image
-              src={post.author.profilePicture!}
-              alt={post.author.name!}
+              src={post.author!.profilePicture!}
+              alt={post.author!.name!}
               width={24}
               height={24}
             />
           </div>
-          <p className="text-sm">{post.author.name}</p>
+          <p className="text-sm">{post.author?.name}</p>
         </Link>
         <span className="flex h-[3px] w-[3px] rounded-full bg-dark-2" />
         <p className="text-sm">
