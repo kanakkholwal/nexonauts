@@ -8,13 +8,12 @@ export const metadata: Metadata = {
   description: "Edit product for NexoNauts",
 };
 
-export default async function EditProductPage({
-  params,
-}: {
-  params: {
+export default async function EditProductPage(props: {
+  params: Promise<{
     slug: string;
-  };
+  }>
 }) {
+  const params = await props.params;
   const product = await getProductBySlug(params.slug);
   if (!product) {
     return notFound();

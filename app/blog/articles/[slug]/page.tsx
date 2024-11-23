@@ -5,13 +5,12 @@ import { CommentsSection, PostHeader, RenderPost, SideBar } from "./components";
 
 export const revalidate = 60;
 
-export async function generateMetadata({
-  params,
-}: {
-  params: {
+export async function generateMetadata(props: {
+  params: Promise<{
     slug: string;
-  };
+  }>
 }) {
+  const params = await props.params
   const { post, success } = await getPostBySlug(params.slug);
   if (!post || success === false) {
     console.log("Post not found, Slug :", params.slug);
@@ -24,13 +23,13 @@ export async function generateMetadata({
   return metadata;
 }
 
-export default async function PostPage({
-  params,
-}: {
-  params: {
+export default async function PostPage(props: {
+  params: Promise<{
     slug: string;
-  };
+  }>
 }) {
+  const params = await props.params
+
   const { post, success } = await getPostBySlug(params.slug);
 
   if (!post || success === false) {

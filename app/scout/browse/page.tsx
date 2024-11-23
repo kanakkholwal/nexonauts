@@ -17,18 +17,17 @@ import { FilterBar, SearchBar } from "./client-components";
 export const metadata: Metadata = METADATA;
 
 // TODO: Pagination and infinite scroll
-export default async function BrowsePage({
-  searchParams,
-}: {
-  searchParams?: {
+export default async function BrowsePage(props: {
+  searchParams?: Promise<{
     query?: string;
     page?: string;
     pricing_type?: string;
     category?: string;
     offset?: string;
     view?: "grid" | "list" | "masonry";
-  };
+  }>
 }) {
+  const searchParams = await props.searchParams;
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;
   const offset = Number(searchParams?.offset) || 0;
