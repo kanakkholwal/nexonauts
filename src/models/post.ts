@@ -19,7 +19,10 @@ export interface PostType {
   labels: string[];
   image: string;
   state: "draft" | "published";
-  author: Partial<Author>;
+  author: Pick<
+    Author,
+    "name" | "username" | "profilePicture" | "profile"
+  >;
   claps: number;
   comments: {
     enabled: boolean;
@@ -30,7 +33,7 @@ export interface PostType {
 
 export type PostWithId = PostType & { _id: string };
 
-export interface IPost extends PostType, Document {}
+export interface IPost extends PostType, Document { }
 
 const postSchema = new Schema<IPost>(
   {
