@@ -6,7 +6,7 @@ import { Author } from "src/models/post";
 interface PostHeaderProps {
   title: string;
   image: string;
-  author: Pick<Author, "name" | "username" | "profilePicture">;
+  author: Author;
   createdAt: string;
 }
 
@@ -18,14 +18,14 @@ export function PostHeader(props: PostHeaderProps) {
       </h1>
       <div className="flex items-center space-x-4 pb-5 border-b border-gray-300 dark:border-gray-800">
         <Avatar className="size-16">
-          <AvatarImage src={props.author.profilePicture} />
+          <AvatarImage src={props.author.user?.profilePicture} />
           <AvatarFallback>
-            {props.author.username[0].toUpperCase()}
+            {props.author?.username?.split("")?.[0]?.toUpperCase()}
           </AvatarFallback>
         </Avatar>
         <div>
           <p className="text-sm font-semibold leading-none text-gray-700 dark:text-gray-200">
-            {props.author.name}
+            {props.author.user?.name}
           </p>
           <p className="text-sm text-gray-500 dark:text-gray-300">
             {" "}

@@ -1,6 +1,7 @@
 "use server";
 import dbConnect from "src/lib/dbConnect";
-import Post, { Author, PostWithId } from "src/models/post";
+import Post, { PostWithId } from "src/models/post";
+import Profile from "src/models/profile";
 
 const PUBLIC_VIEW_KEYS =
   "title description slug image labels claps author createdAt";
@@ -23,7 +24,15 @@ export async function getHomePagePosts(): Promise<getHomePagePostsReturnType> {
   const posts = await Post.find({
     state: "published",
   })
-    .populate("author", "name username profilePicture")
+    .populate({
+      path: "author",
+      select: "bio interests socials username", // specify profile fields you need
+      populate: {
+        path: "user",
+        model: "User",
+        select: "name username profilePicture"
+      }
+    })
     .select(PUBLIC_VIEW_KEYS)
     .sort({ createdAt: -1 })
     .skip(skip)
@@ -56,14 +65,7 @@ export async function getHomePagePosts(): Promise<getHomePagePostsReturnType> {
 type getPostBySlugReturnType = {
   success: boolean;
   message: string;
-  post:
-    | (Omit<PostWithId, "author"> & {
-        author: Pick<
-          Author,
-          "name" | "username" | "profilePicture" | "profile"
-        >;
-      })
-    | null;
+  post: PostWithId | null;
 };
 
 export async function getPostBySlug(
@@ -77,7 +79,15 @@ export async function getPostBySlug(
     },
     { lean: true }
   )
-    .populate("author", "name username profilePicture profile")
+    .populate({
+      path: "author",
+      select: "bio interests socials username", // specify profile fields you need
+      populate: {
+        path: "user",
+        model: "User",
+        select: "name username profilePicture"
+      }
+    })
     .select(PUBLIC_POST_VIEW_KEYS)
     .exec();
   if (!post) {
@@ -100,9 +110,42 @@ export async function getRecentPosts(
   await dbConnect();
   const posts = await Post.find({ state: "published" })
     .sort({ createdAt: -1 })
-    .populate("author", "name username profilePicture profile")
+    .populate({
+      path: "author",
+      select: "bio interests socials username", // specify profile fields you need
+      populate: {
+        path: "user",
+        model: "User",
+        select: "name username profilePicture"
+      }
+    })
     .limit(noOfPost)
     .select("title description slug labels image author createdAt comments")
+    .exec();
+
+  return JSON.parse(JSON.stringify(posts));
+}
+
+
+export async function getPostsByAuthor(
+  username: string
+): Promise<PostWithId[]> {
+  await dbConnect();
+  const profile = await Profile.find({ username })
+  const posts = await Post.find({
+    state: "published",
+  })
+    .populate({
+      path: "author",
+      select: "bio interests socials username", // specify profile fields you need
+      populate: {
+        path: "user",
+        model: "User",
+        select: "name username profilePicture"
+      }
+    })
+    .select(PUBLIC_VIEW_KEYS)
+    .sort({ createdAt: -1 })
     .exec();
 
   return JSON.parse(JSON.stringify(posts));
