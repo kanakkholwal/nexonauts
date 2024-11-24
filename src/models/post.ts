@@ -1,15 +1,8 @@
 import mongoose, { Schema, model } from "mongoose";
 import { nanoid } from "nanoid";
+import { ProfileTypeWithIdUser } from "./profile";
 
-export type Author = {
-  _id: string;
-  name: string;
-  username: string;
-  profilePicture: string;
-  profile: string | Record<string, any> | null;
-  verified: boolean;
-  createdAt: Date;
-};
+export type Author = ProfileTypeWithIdUser
 
 export interface PostType {
   title: string;
@@ -19,10 +12,7 @@ export interface PostType {
   labels: string[];
   image: string;
   state: "draft" | "published";
-  author: Pick<
-    Author,
-    "name" | "username" | "profilePicture" | "profile"
-  >;
+  author: Author;
   claps: number;
   comments: {
     enabled: boolean;
@@ -67,7 +57,7 @@ const postSchema = new Schema<IPost>(
       default: "draft",
       enum: ["draft", "published"],
     },
-    author: { type: Schema.Types.ObjectId, ref: "User", select: false },
+    author: { type: Schema.Types.ObjectId, ref: "Profile", select: false },
     claps: { type: Number, default: 0 },
     comments: {
       enabled: { type: Boolean, default: true },
