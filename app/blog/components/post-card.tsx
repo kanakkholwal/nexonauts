@@ -62,7 +62,7 @@ export function PostCard({
         </Link>
         <span className="flex h-[3px] w-[3px] rounded-full bg-dark-2" />
         <p className="text-sm">
-          {new Date(post.updatedAt).toLocaleDateString("en-US", {
+          {new Date(post.createdAt).toLocaleDateString("en-US", {
             month: "short",
             day: "numeric",
             year: "numeric",
