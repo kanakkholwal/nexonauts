@@ -57,7 +57,7 @@ const postSchema = new Schema<IPost>(
       default: "draft",
       enum: ["draft", "published"],
     },
-    author: { type: Schema.Types.ObjectId, ref: "Profile", select: false },
+    author: { type: Schema.Types.ObjectId, ref: "Profile", select: false,required: [true, 'Post must belong to a Author'] },
     claps: { type: Number, default: 0 },
     comments: {
       enabled: { type: Boolean, default: true },
