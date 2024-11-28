@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
+import User from "./user";
 
 export type ProfileType = {
   user: string;
