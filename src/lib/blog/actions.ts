@@ -1,7 +1,9 @@
 "use server";
+import { cache } from 'react';
 import dbConnect from "src/lib/dbConnect";
-import Post, { PostWithId } from "src/models/post";
-import Profile from "src/models/profile";
+import redis from "src/lib/redis";
+import { Profile } from "src/models";
+import Post, { Author, PostWithId } from "src/models/post";
 
 const PUBLIC_VIEW_KEYS =
   "title description slug image labels claps author createdAt";
@@ -16,7 +18,26 @@ type getHomePagePostsReturnType = {
   currentPage?: number;
   total?: number;
 };
-export async function getHomePagePosts(): Promise<getHomePagePostsReturnType> {
+export async function getHomePagePosts(new_cache: boolean = false): Promise<getHomePagePostsReturnType> {
+  const cacheKey = `posts_all`;
+  let cachedResults = null;
+  try {
+    if (!new_cache)
+      cachedResults = await redis.get<PostWithId[]>(cacheKey);
+    else {
+      await redis.del(cacheKey);
+    }
+  } catch (redisError) {
+    console.error("Redis connection error:", redisError);
+  }
+
+  if (cachedResults) {
+    return {
+      success: true,
+      message: "Posts found!",
+      posts: cachedResults,
+    }
+  }
   await dbConnect();
   const page = 1; // Default to page 1 if not provided
   const limit = 10; // Default to 10 posts per page
@@ -68,9 +89,29 @@ type getPostBySlugReturnType = {
   post: PostWithId | null;
 };
 
-export async function getPostBySlug(
-  slug: string
-): Promise<getPostBySlugReturnType> {
+export const getPostBySlug = cache(async (
+  slug: string,
+  new_cache: boolean = false
+): Promise<getPostBySlugReturnType> => {
+  const cacheKey = `post_${slug}`;
+  let cachedResults = null;
+  try {
+    if (!new_cache)
+      cachedResults = await redis.get<PostWithId>(cacheKey);
+    else {
+      await redis.del(cacheKey);
+    }
+  } catch (redisError) {
+    console.error("Redis connection error:", redisError);
+  }
+
+  if (cachedResults) {
+    return {
+      success: true,
+      message: "Post found!",
+      post: cachedResults,
+    }
+  }
   await dbConnect();
   const post = await Post.findOne(
     {
@@ -102,7 +143,7 @@ export async function getPostBySlug(
     message: "Post found!",
     post: JSON.parse(JSON.stringify(post)),
   };
-}
+})
 
 export async function getRecentPosts(
   noOfPost: number = 5
@@ -129,9 +170,18 @@ export async function getRecentPosts(
 
 export async function getPostsByAuthor(
   username: string
-): Promise<PostWithId[]> {
+): Promise<{
+  profile: Author | null;
+  posts: PostWithId[];
+}> {
   await dbConnect();
   const profile = await Profile.find({ username })
+  if (!profile) {
+    return {
+      profile: null,
+      posts: []
+    }
+  }
   const posts = await Post.find({
     state: "published",
   })
@@ -148,5 +198,8 @@ export async function getPostsByAuthor(
     .sort({ createdAt: -1 })
     .exec();
 
-  return JSON.parse(JSON.stringify(posts));
+  return JSON.parse(JSON.stringify({
+    profile,
+    posts
+  }));
 }
