@@ -27,6 +27,17 @@ const nextConfig = {
       },
     ],
   },
+  async headers() {
+    return [
+      {
+        source: "/dev-tools/:path*", 
+        headers: [
+          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
+          { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
+        ],
+      },
+    ];
+  },
   webpack: (config, { isServer }) => {
     // this will override the experiments
     config.experiments = { ...config.experiments, topLevelAwait: true };
