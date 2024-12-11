@@ -1,5 +1,5 @@
 import { revalidatePath } from "next/cache";
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/dbConnect";
 import ProfileModel from "src/models/profile";

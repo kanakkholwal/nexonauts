@@ -85,7 +85,8 @@ export default function Tools() {
           return (
             <ToolCard
               {...tool}
-              style={{ animationDelay: 0.1 * index + "s" }}
+              style={{ animationDelay: `${0.1 * index}s` }}
+              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
               key={index}
             />
           );

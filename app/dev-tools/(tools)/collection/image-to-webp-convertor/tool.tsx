@@ -9,18 +9,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 
 import Image from "next/image";
 import { useDropzone } from "react-dropzone";
 
+import { Badge } from "@/components/ui/badge";
 import { FiUpload } from "react-icons/fi";
-import { HiDownload } from "react-icons/hi";
+import { Download,LoaderCircle,Ban  } from "lucide-react";
 
 function formatFileSize(sizeInBytes: number): string {
   const KB = 1024;
   const fileSizeInKB = sizeInBytes / KB;
-  return fileSizeInKB.toFixed(2) + " KB";
+  return `${fileSizeInKB.toFixed(2)} KB`;
 }
 
 const loadImage = (file: File): Promise<HTMLImageElement> => {
@@ -57,68 +58,104 @@ const convertToWebp = (image: HTMLImageElement): Promise<string> => {
 };
 
 export default function Image2Webp() {
-  const [progress, setProgress] = useState(0);
-  const [file, setFile] = useState<File | null>(null);
-  const [fileUrl, setFileUrl] = useState("");
+
+
   const [scaledImg, setScaledImg] = useState<
     {
+      id:number,
       image: string;
-      fileName: string;
-      fileSize?: string;
+      name: string;
+      org_size?: string;
+      optimized_size?: string;
+      processing: boolean;
+      failed: boolean;
     }[]
   >([]);
-  const inputRef = useRef(null);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    acceptedFiles.forEach((file: File) => {
+    for (const file of acceptedFiles) {
       if (!file) {
         throw new Error(`${file} was not a file`);
       }
+      // console.log(file)
 
-      setFile(file);
-      setFileUrl(URL.createObjectURL(file));
+
 
       const reader = new FileReader();
 
       reader.readAsDataURL(file);
       reader.addEventListener("progress", async (event) => {
         if (event.loaded && event.total) {
-          const percent = (event.loaded / event.total) * 100;
-          setProgress(percent);
-          if (percent === 100) {
-            console.log("complete");
+          const progress = (event.loaded / event.total) * 100;
 
-            const { name } = file;
-            let fileName = name;
-            if (fileName.length >= 12) {
-              const splitName = fileName.split(".");
-              fileName = splitName[0];
+          if (progress === 100) {
+            // console.log("uploaded");
+
+            setScaledImg((prev) => [
+              ...prev, {
+                id: file.lastModified,
+                image: URL.createObjectURL(file),
+                name: file.name,
+                org_size: formatFileSize(file.size),
+                optimized_size: "",
+                processing: true,
+                failed: false
+              }]);
+            let name = file.name;
+            if (name.length >= 12) {
+              const splitName = name.split(".");
+              name = splitName[0];
             }
-            let fileSize = file.size;
 
-            const processImage = async (): Promise<void> => {
+            const processImage = async (file: File): Promise<[boolean, string]> => {
               try {
                 const rawImage = await loadImage(file);
                 const webpUrl = await convertToWebp(rawImage);
-
-                setScaledImg((prev) => [
-                  ...prev,
-                  {
-                    image: webpUrl,
-                    fileName,
-                    fileSize: formatFileSize(file.size),
-                  },
-                ]);
+                return [false, webpUrl];
               } catch (error) {
                 console.error("Error processing image:", error);
+                return [true, ""];
               }
             };
 
-            await processImage();
+            const [failed, webpUrl] = await processImage(file);
+            if (failed) {
+              setScaledImg((prev) => {
+                const updated = prev.map((img) => {
+                  if (img.id === file.lastModified) {
+                    return {
+                      ...img,
+                      processing: false,
+                      failed,name
+                    };
+                  }
+                  return img;
+                });
+                return updated;
+              });
+            } else {
+              setScaledImg((prev) => {
+                const updated = prev.map((img) => {
+                  if (img.id === file.lastModified) {
+                    return {
+                      ...img,
+                      image: webpUrl,
+                      processing: false,
+                      failed,name
+                    };
+                  }
+                  return img;
+                });
+                return updated;
+              });
+
+            }
+            console.log("completed");
+
           }
         }
       });
-    });
+    }
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -129,18 +166,18 @@ export default function Image2Webp() {
         <label
           htmlFor="dropzone-file"
           {...getRootProps()}
-          className="flex flex-col items-center justify-center w-full h-64 border-2 border-slate-300 border-dashed rounded-lg cursor-pointer bg-slate-50 dark:hover:bg-bray-800 dark:bg-white/5 hover:bg-white/10 backdrop-blur-lg dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+          className="flex flex-col items-center justify-center w-full h-64 border border-border border-dashed rounded-lg cursor-pointer bg-gray-100 dark:bg-white/5 hover:bg-primary/10 backdrop-blur-lg hover:border-primary group"
         >
           <div className="flex flex-col items-center justify-center pt-5 pb-6">
             <FiUpload
-              className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+              className="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400 group-hover:text-primary"
               aria-hidden="true"
             />
-            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400 group-hover:text-primary/80">
               <span className="font-semibold">Click to upload</span> or drag and
               drop
             </p>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-gray-500 dark:text-gray-400 group-hover:text-primary/80">
               SVG, PNG, JPG or GIF (MAX. 800x400px)
             </p>
           </div>
@@ -155,36 +192,49 @@ export default function Image2Webp() {
         </label>
       </div>
 
-      {/* {file && <ProgressCard progress={progress} file={file} url={fileUrl} />} */}
-
       <div className="w-full h-full gap-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 my-3 mt-8">
-        {scaledImg.map(({ image, fileName, fileSize }, index) => {
+        {scaledImg.map((element) => {
           return (
             <Card
-              key={index}
-              className="rounded-lg w-auto mb-4 flex flex-col justify-between"
+              key={element.id}
+              className="rounded-lg w-auto flex flex-col justify-between"
             >
-              <CardHeader>
-                <CardTitle>{fileName}</CardTitle>
-                <CardDescription>{fileSize}</CardDescription>
+              <CardHeader className="!p-4">
+                <CardTitle className="break-words text-md">{element.name}</CardTitle>
+                <CardDescription className="text-sm text-gray-500 font-semibold">
+                  <span>
+                    {element.org_size}
+                  </span>
+                  <Badge
+                    size="sm"
+                    variant={element.processing ?  "warning" : element.failed ?"destructive" : "success"}
+                    className="ml-2"
+                  >
+                    {element.processing ? "Processing" : element.failed ?  "Failed" : "Done"}
+                  </Badge>
+                </CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="!p-4">
                 <Image
-                  alt={fileName}
+                  alt={element.name}
                   width={480}
                   height={320}
-                  src={image}
-                  className="max-h-56 shadow"
+                  src={element.image}
+                  className="max-h-56 shadow rounded-md"
                 />
               </CardContent>
-              <CardFooter>
-                <Button size="sm" width="full" rounded="full" asChild>
+              <CardFooter className="!p-4">
+                <Button size="sm" width="full"
+                  disabled={element.processing}
+                  rounded="full" asChild>
                   <a
-                    href={image}
-                    download={`${fileName}.[Converted by nexonauts.com].webp`}
+                    href={element.image}
+                    download={`${element.name}.[Converted by nexonauts.com].webp`}
                     title="Download Image in WEBP Format"
+                    className={element.processing ? "pointer-events-none cursor-wait" : element.failed ?  "cursor-not-allowed" : "cursor-pointer"}
                   >
-                    Download <HiDownload />
+                    {element.processing ? <LoaderCircle className="animate-spin"/> : element.failed ?  <Ban/> :  <Download />}
+                    {element.processing ? "Processing" : element.failed ?  "Error !" : "Download"}
                   </a>
                 </Button>
               </CardFooter>

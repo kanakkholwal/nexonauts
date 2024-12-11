@@ -1,15 +1,17 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import type { StaticImageData } from "next/image";
 import Image from "next/image";
 import Link from "next/link";
 import { HiArrowLeft } from "react-icons/hi";
-import { ToolType } from "../collection";
+import type { ToolType } from "../collection/index";
+
 
 export default function RenderTool({ tool }: { tool: ToolType }) {
   const IconComponent =
-    typeof tool.icon === "string" ? (
+    typeof tool.icon === "string" || tool.icon instanceof Object ? (
       <Image
-        src={tool.icon as string}
+        src={tool.icon as StaticImageData}
         height={120}
         width={120}
         alt={tool.title}
@@ -20,8 +22,8 @@ export default function RenderTool({ tool }: { tool: ToolType }) {
     );
 
   return (
-    <>
-      <section id="hero" className="relative my-8">
+    <main className="p-4 space-y-8 py-8">
+      <section id="hero" className="relative">
         <Button size="sm" variant="link" asChild>
           <Link href="/dev-tools" title="Back to Tools">
             <HiArrowLeft />
@@ -51,6 +53,6 @@ export default function RenderTool({ tool }: { tool: ToolType }) {
       <section id="tool" className="my-5 pb-10 border-b">
         <tool.Component />
       </section>
-    </>
+    </main>
   );
 }
