@@ -38,30 +38,30 @@ const nextConfig = {
       },
     ];
   },
-  webpack: (config, { isServer }) => {
-    // this will override the experiments
-    config.experiments = { ...config.experiments, topLevelAwait: true };
-    // this will just update topLevelAwait property of config.experiments
-    // config.experiments.topLevelAwait = true 
-      if (!isServer) {
-        config.resolve.fallback = { 
-          ...config.resolve.fallback, 
-          net: false, os: false,fs:false,
-          tls:false,
-          canvas:false,
-          child_process:false
-        };
-      }
+  // webpack: (config, { isServer }) => {
+  //   // this will override the experiments
+  //   config.experiments = { ...config.experiments, topLevelAwait: true };
+  //   // this will just update topLevelAwait property of config.experiments
+  //   // config.experiments.topLevelAwait = true 
+  //     if (!isServer) {
+  //       config.resolve.fallback = { 
+  //         ...config.resolve.fallback, 
+  //         net: false, os: false,fs:false,
+  //         tls:false,
+  //         canvas:false,
+  //         child_process:false
+  //       };
+  //     }
 
-      // config.resolve.alias = {
-      //   ...config.resolve.alias,
-      //   '@': path.resolve(__dirname, './@'),
-      //   'src': path.resolve(__dirname, './components'),
-      // };
+  //     // config.resolve.alias = {
+  //     //   ...config.resolve.alias,
+  //     //   '@': path.resolve(__dirname, './@'),
+  //     //   'src': path.resolve(__dirname, './components'),
+  //     // };
       
 
-    return config;
-  },
+  //   return config;
+  // },
 }
 
 

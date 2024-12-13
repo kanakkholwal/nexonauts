@@ -1,10 +1,9 @@
 "use client";
-import { Tag, TagInput } from "@/components/custom/tag-input";
+import { TagInput, type Tag } from "@/components/custom/tag-input";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Player } from "@lottiefiles/react-lottie-player";
 import { ArrowRight, ArrowUpRight, Undo2 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -14,7 +13,8 @@ import toast from "react-hot-toast";
 import { BiError } from "react-icons/bi";
 import { FaRegCircleCheck } from "react-icons/fa6";
 import { IconComponents, icons } from "src/lib/profile/icons";
-import { SessionUserType } from "src/types/user";
+import type { SessionUserType } from "src/types/user";
+
 const SOCIALS = icons;
 
 if (SOCIALS.length === 0) {
@@ -37,6 +37,7 @@ export default function CreateProfile({
   }) => Promise<{
     success: boolean;
     message: string;
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     data: Record<string, any> | null;
   }>;
 }) {
@@ -82,13 +83,18 @@ export default function CreateProfile({
             }),
             {
               loading: "Updating User...",
+              // biome-ignore lint/suspicious/noExplicitAny: <explanation>
               success: (res: any) => {
                 console.log(res);
                 return res?.message || "User Updated Successfully";
               },
-              error: (e) => {
+              error: (e:unknown) => {
                 setStatus("error");
-                return e.message;
+                if (e instanceof Error) {
+                  return e.message;
+                }
+                console.log(e);
+                return "Error Updating User";
               },
             }
           );
@@ -102,13 +108,18 @@ export default function CreateProfile({
       }),
       {
         loading: "Creating Profile...",
+        // biome-ignore lint/suspicious/noExplicitAny: <explanation>
         success: (res: any) => {
           console.log(res);
           return res?.message || "Profile Created Successfully";
         },
-        error: (e) => {
+        error: (e:unknown) => {
           setStatus("error");
-          return e.message;
+          if(e instanceof Error) {
+            return e.message;
+          }
+          console.log(e);
+          return "Error Creating Profile";
         },
       }
     );
@@ -206,6 +217,7 @@ export default function CreateProfile({
               {SOCIALS.map((key, index) => {
                 const Icon = IconComponents[key];
                 return (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                   <div className="relative" key={`socials.${index}.url`}>
                     <Label className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
                       <Icon className="h-4 w-4" />
@@ -267,7 +279,8 @@ export default function CreateProfile({
                 <p className="text-[0.8rem] text-muted-foreground">
                   These are the topics that you&apos;re interested in. (e.g.
                   JavaScript, React, Node.js, etc.). You can add up to 5 topics.
-                  {`\n`}
+                  {/* biome-ignore lint/style/noUnusedTemplateLiteral: <explanation> */}
+                          {`\n`}
                   These will be used to recommend you posts and users.
                 </p>
               </div>
@@ -335,12 +348,12 @@ export default function CreateProfile({
                 ) : null}
                 {status === "loading" ? (
                   <>
-                    <Player
+                    {/* <Player
                       autoplay
                       loop
                       src="https://lottie.host/e0889207-1cec-443b-82fb-092a7fb0a688/qlNwDc7orS.json"
                       style={{ height: "300px", width: "300px" }}
-                    />
+                    /> */}
                     <h1 className="text-3xl font-semibold text-center">
                       Creating Profile...
                     </h1>
@@ -351,7 +364,7 @@ export default function CreateProfile({
                 {status === "success" ? (
                   <>
                     <Button className="w-full" variant="default_light" asChild>
-                      <Link href={`/dashboard`}>
+                      <Link href={"/dashboard"}>
                         Go to Dashboard
                         <ArrowRight size={16} className="ml-2 h-4 w-4" />
                       </Link>

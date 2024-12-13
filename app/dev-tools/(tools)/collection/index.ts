@@ -29,8 +29,8 @@ const _allTools: ToolType[] = [
   jsonMinifierTool,
   CssMinifierPrettifier,
   // svgEncoder,
-  HtmlToJsxTool,
-  bgRemovalTool,
+  // HtmlToJsxTool,
+  // bgRemovalTool,
   
 ];
 export default _allTools;

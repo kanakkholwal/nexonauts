@@ -26,7 +26,7 @@ import {
 } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { Check, Copy } from "lucide-react";
-import HTMLtoJSX, { configType } from "nexo-html2jsx";
+// import HTMLtoJSX, { type configType } from "nexo-html2jsx";
 import { Fira_Code } from "next/font/google";
 import React from "react";
 import { MdDeleteOutline, MdOutlineCode } from "react-icons/md";
@@ -38,13 +38,17 @@ const monoFont = Fira_Code({
   adjustFontFallback: false,
   variable: "--fira-code",
 });
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 function extractTextFromNode(node: any) {
   if (node.type === "text") {
     return node.value;
+  // biome-ignore lint/style/noUselessElse: <explanation>
   } else if (Array.isArray(node.children)) {
     return node.children
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       .map((child: any) => extractTextFromNode(child))
       .join("");
+  // biome-ignore lint/style/noUselessElse: <explanation>
   } else {
     return "";
   }
@@ -52,6 +56,7 @@ function extractTextFromNode(node: any) {
 type RenderCodeBlockProps = {
   children: React.ReactNode;
   className: string;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   node: any;
 };
 
@@ -67,6 +72,7 @@ export function RenderCodeBlock({
   return (
     <pre className={cn("relative", monoFont.className, className)}>
       <button
+        type="button"
         className={cn(
           "absolute top-2 right-2",
           "transition-all active:opacity-50  rounded-md p-1.5",
@@ -100,13 +106,13 @@ const rawHtml = `
 <p>Enter your HTML here</p>
 `;
 export default function HtmlToJsxTool() {
-  const [settings, setSettings] = useState<configType>({
-    indent: "\t",
-    hideComment: false,
-    createClass: false,
-    createFunction: false,
-    outputComponentName: "MyAwesomeComponent",
-  });
+  // const [settings, setSettings] = useState<configType>({
+  //   indent: "\t",
+  //   hideComment: false,
+  //   createClass: false,
+  //   createFunction: false,
+  //   outputComponentName: "MyAwesomeComponent",
+  // });
   const [state, setState] = useState({
     rawData: rawHtml,
     convertedData: "",
@@ -119,12 +125,12 @@ export default function HtmlToJsxTool() {
   const convertToJSX = async () => {
     setState({ ...state, loading: true, error: false, output: false });
     try {
-      const htmlToJsx = HTMLtoJSX(settings);
-      const convertor = new htmlToJsx();
+      // const htmlToJsx = HTMLtoJSX(settings);
+      // const convertor = new htmlToJsx();
 
       setState({
         ...state,
-        convertedData: convertor.convert(state.rawData),
+        // convertedData: convertor.convert(state.rawData),
         loading: false,
       });
     } catch (e) {
@@ -176,7 +182,7 @@ export default function HtmlToJsxTool() {
             <Switch
               id="hideComment"
               onCheckedChange={(value) => {
-                setSettings({ ...settings, hideComment: value });
+                // setSettings({ ...settings, hideComment: value });
               }}
             />
           </div>
@@ -185,7 +191,7 @@ export default function HtmlToJsxTool() {
             <Switch
               id="createClass"
               onCheckedChange={(value) => {
-                setSettings({ ...settings, createFunction: value });
+                // setSettings({ ...settings, createFunction: value });
               }}
             />
           </div>
@@ -197,14 +203,14 @@ export default function HtmlToJsxTool() {
               name="outputComponentName"
               variant="ghost"
               id="outputComponentName"
-              value={settings.outputComponentName}
-              onChange={(e) =>
-                setSettings({
-                  ...settings,
-                  outputComponentName: e.target.value,
-                })
+              // value={settings.outputComponentName}
+              onChange={(e) =>{}
+                // setSettings({
+                //   ...settings,
+                //   outputComponentName: e.target.value,
+                // })
               }
-              disabled={!settings.createFunction}
+              // disabled={!settings.createFunction}
             />
           </div>
         </CardContent>
@@ -247,7 +253,7 @@ export default function HtmlToJsxTool() {
                   },
                 }}
               >
-                {"```jsx\n" + state.convertedData + "\n```"}
+                {`\`\`\`jsx\n${state.convertedData}\n\`\`\``}
               </MarkdownView>
             </DialogContent>
           </Dialog>
