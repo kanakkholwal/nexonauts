@@ -7,7 +7,7 @@ import { MdContentCopy, MdDoneAll, MdErrorOutline } from "react-icons/md";
 import { toast } from "sonner";
 
 const ParseString = (string) => {
-  var replaced;
+  let replaced;
   replaced = string;
   replaced = replaced.replace(/&/gi, "&amp;");
   replaced = replaced.replace(/</gi, "&lt;");
@@ -25,18 +25,16 @@ const ParseString = (string) => {
 function CodeBlock({ content, language, title, ...props }) {
   const [CopyState, SetCopyState] = useState("normal");
 
-  useEffect(() => {
-    Prism.highlightAll();
-  }, [language, content]);
+
 
   function copyToClipboard(textToCopy) {
     // navigator clipboard api needs a secure context (https)
     if (navigator.clipboard && window.isSecureContext) {
       // navigator clipboard api method'
       return navigator.clipboard.writeText(textToCopy);
-    } else {
+    }
       // text area method
-      let textArea = document.createElement("textarea");
+      const textArea = document.createElement("textarea");
       textArea.value = textToCopy;
       // make the textarea out of viewport
       textArea.style.position = "fixed";
@@ -51,7 +49,6 @@ function CodeBlock({ content, language, title, ...props }) {
         toast.success("Copied to clipboard");
         textArea.remove();
       });
-    }
   }
 
   const Copy = (e, text) => {
@@ -74,25 +71,26 @@ function CodeBlock({ content, language, title, ...props }) {
   };
 
   const HandleCopyState = ({ state }) => {
-    if (state == "error")
+    if (state === "error")
       return (
         <>
           Error <MdErrorOutline className="w-3 h-3 ml-2" />
         </>
       );
-    else if (state == "done")
+    if (state === "done")
       return (
         <>
           Copied <MdDoneAll className="w-3 h-3 ml-2" />{" "}
         </>
       );
-    else if (state == "normal")
+    if (state === "normal")
       return (
         <>
           Copy <MdContentCopy className="w-3 h-3 ml-2" />{" "}
         </>
       );
   };
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     //create an async function to load the languages using import
     async function highlight() {
@@ -117,8 +115,8 @@ function CodeBlock({ content, language, title, ...props }) {
         >
           <HandleCopyState state={CopyState} />
         </Button>
-        <pre {...props} className="!m-0" tabIndex={0}>
-          <code className={"language-" + language}>{content}</code>
+        <pre {...props} className="!m-0" >
+          <code className={`language-${language}`}>{content}</code>
         </pre>
       </div>
     </>

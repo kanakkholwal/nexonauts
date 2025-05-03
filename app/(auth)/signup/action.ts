@@ -1,10 +1,9 @@
 "use server";
 import { customAlphabet } from "nanoid";
 
-import { render } from "@react-email/render";
-import { generateToken, handleEmailFire } from "emails/helper";
-import WelcomeVerify from "emails/templates/welcome-verify";
+import { generateToken } from "emails/helper";
 import dbConnect from "src/lib/dbConnect";
+import { mailFetch } from "src/lib/server-fetch";
 import UserModel from "src/models/user";
 
 const dbcache = new Map<string, boolean>();
@@ -42,19 +41,29 @@ export async function registerUser(data: {
       verificationToken: generateToken({ email: data.email }),
     });
     await newUser.save();
-    await handleEmailFire(`Nexonauts <no_reply@nexonauts.com>`, {
-      to: newUser.email,
-      subject: `🌟 Welcome to Nexonauts - Verify Your Account! 🌟`,
-      html: render(
-        WelcomeVerify({
-          payload: {
-            name: newUser.name,
-            email: newUser.email,
-            verifyUrl: `${process.env.NEXTAUTH_URL}/verify-user?token=${newUser.verificationToken}`,
-          },
-        })
-      ),
+    const response = await mailFetch<{
+      data: string[] | null;
+      error?: string | null | object;
+    }>("/api/send", {
+      method: "POST",
+      body: JSON.stringify({
+        template_key: "welcome_verify",
+        targets: [newUser.email],
+        subject: "🌟 Welcome to Nexonauts - Verify Your Account! 🌟",
+        payload: {
+          name: newUser.name,
+          email: newUser.email,
+          verifyUrl: `${process.env.NEXTAUTH_URL}/verify-user?token=${newUser.verificationToken}`,
+          platform_name: "Nexonauts",
+        },
+      }),
     });
+    if (response.error) {
+      return Promise.resolve({
+        success: true,
+        message: "User created successfully but Error sending email",
+      });
+    }
     console.log("Mail sent");
 
     return Promise.resolve({

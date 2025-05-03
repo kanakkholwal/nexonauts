@@ -1,5 +1,4 @@
-import mongoose, { Document, Schema, Types } from "mongoose";
-import User from "./user";
+import mongoose, { type Document, Schema, Types } from "mongoose";
 
 export type ProfileType = {
   user: string;
@@ -83,7 +82,7 @@ const profileSchema = new Schema<Profile>(
 );
 //
 
-profileSchema.index({ username: 1 }, { unique: true });
+// profileSchema.index({ username: 1 });
 
 profileSchema.methods.followUnfollowUser = async function (profileId: string) {
   try {
@@ -116,8 +115,8 @@ profileSchema.methods.followUnfollowUser = async function (profileId: string) {
         ? "Unfollowed successfully"
         : "Followed successfully",
     };
-  } catch (error: any) {
-    return { success: false, error: error?.message };
+  } catch (error) {
+    return { success: false, error: error instanceof Error ? error.message : "An error occurred" };
   }
 };
 profileSchema.statics.findCommonFollowers = async function (

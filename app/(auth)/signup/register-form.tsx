@@ -20,7 +20,8 @@ import toast from "react-hot-toast";
 import { BiLockOpenAlt } from "react-icons/bi";
 import { CgSpinner } from "react-icons/cg";
 import { FcGoogle } from "react-icons/fc";
-import { LuCheckCircle2, LuMail } from "react-icons/lu";
+import { LuMail } from "react-icons/lu";
+import { PiCheckCircleDuotone } from "react-icons/pi";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -68,11 +69,11 @@ export function RegisterForm({ registerUser }: Props) {
     setLoading(true);
     toast.promise(registerUser(data), {
       loading: "Creating account...",
-      success: (data: any) => {
+      success: (data) => {
         console.log(data);
         setState("registered");
         setLoading(false);
-        return `Account created successfully. Please check your email to verify your account`;
+        return "Account created successfully. Please check your email to verify your account";
       },
       error: (err) => {
         console.log(err);
@@ -224,14 +225,14 @@ export function RegisterForm({ registerUser }: Props) {
               you agree to {process.env.NEXT_PUBLIC_WEBSITE_NAME}'s{" "}
               <Link
                 className="!text-concrete text-primary inline-flex hover:underline"
-                href={process.env.NEXT_PUBLIC_WEBSITE_URL + "/tos"}
+                href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/tos`}
               >
                 Terms
               </Link>{" "}
               and confirm you have read our{" "}
               <Link
                 className="!text-concrete text-primary inline-flex hover:underline"
-                href={process.env.NEXT_PUBLIC_WEBSITE_URL + "/privacy"}
+                href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/privacy`}
               >
                 Privacy Policy
               </Link>
@@ -241,10 +242,9 @@ export function RegisterForm({ registerUser }: Props) {
         </>
       )}
       {state === "registered" && (
-        <>
           <div className="grid w-full max-w-lg items-center gap-1.5">
             <div className="flex flex-col items-center justify-center">
-              <LuCheckCircle2 className="h-16 w-16 text-green-500" />
+              <PiCheckCircleDuotone className="h-16 w-16 text-green-500" />
               <h1 className="text-2xl font-semibold text-black">
                 Account created successfully!
               </h1>
@@ -260,7 +260,6 @@ export function RegisterForm({ registerUser }: Props) {
               Login to your account <ArrowRight />
             </Button>
           </div>
-        </>
       )}
     </>
   );

@@ -1,14 +1,12 @@
 "use client";
 
-import { CommandInput } from "@/components/ui/command";
-import { type VariantProps } from "class-variance-authority";
+import type { VariantProps } from "class-variance-authority";
 import { nanoid } from "nanoid";
 import React from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { toast } from "../ui/use-toast";
-import { Autocomplete } from "./auto-complete";
-import { tagVariants } from "./tag";
+import type { tagVariants } from "./tag";
 import { TagList } from "./tag-list";
 import { TagPopover } from "./tag-popover";
 
@@ -270,20 +268,21 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
         ) : null}
         {enableAutocomplete ? (
           <div className="w-full max-w-[450px]">
-            <Autocomplete
-              tags={tags}
-              setTags={setTags}
-              autocompleteOptions={filteredAutocompleteOptions as Tag[]}
-              maxTags={maxTags}
-              onTagAdd={onTagAdd}
-              allowDuplicates={allowDuplicates ?? false}
+            <div
+              // tags={tags}
+              // setTags={setTags}
+              // autocompleteOptions={filteredAutocompleteOptions as Tag[]}
+              // maxTags={maxTags}
+              // onTagAdd={onTagAdd}
+              // allowDuplicates={allowDuplicates ?? false}
             >
               {!usePopoverForTags ? (
-                <CommandInput
+                <Input
+                  id={id} 
                   placeholder={
                     maxTags !== undefined && tags.length >= maxTags
                       ? placeholderWhenFull
-                      : placeholder
+                      :  placeholder ?? "Add a tag"
                   }
                   ref={inputRef}
                   value={inputValue}
@@ -292,7 +291,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
                   onKeyDown={handleKeyDown}
                   onFocus={onFocus}
                   onBlur={onBlur}
-                  className="w-full"
+                  className="flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
                 />
               ) : (
                 <TagPopover
@@ -312,7 +311,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
                   onRemoveTag={removeTag}
                   direction={direction}
                 >
-                  <CommandInput
+                  <Input
                     placeholder={
                       maxTags !== undefined && tags.length >= maxTags
                         ? placeholderWhenFull
@@ -325,11 +324,11 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
                     onKeyDown={handleKeyDown}
                     onFocus={onFocus}
                     onBlur={onBlur}
-                    className="w-full"
-                  />
+                    className="flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                    />
                 </TagPopover>
               )}
-            </Autocomplete>
+            </div>
           </div>
         ) : (
           <div className="w-full">
@@ -416,3 +415,4 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
 TagInput.displayName = "TagInput";
 
 export { TagInput };
+

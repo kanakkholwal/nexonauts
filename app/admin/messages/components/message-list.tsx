@@ -1,5 +1,5 @@
 "use client";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
+import { formatDistanceToNow } from "date-fns/formatDistanceToNow";
 import { useMessagesStore } from "../store";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 export function MessageList({ type }: { type: "all" | "unread" }) {
   const [messages, selected] = useMessagesStore((state) => [
-    state.messages.filter((message) => type === "all" || !message.read),
+    state.messages.filter((message) => type === "all" || !message.read), undefined
     ,
     state.selected,
   ]);
@@ -16,6 +16,7 @@ export function MessageList({ type }: { type: "all" | "unread" }) {
       <div className="flex flex-col gap-2 p-4 pt-0">
         {messages.map((message) => (
           <button
+          type="button"
             key={message._id}
             className={cn(
               "flex flex-col items-start gap-2 rounded-lg border p-3 text-left text-sm transition-all hover:bg-accent",
@@ -52,11 +53,9 @@ export function MessageList({ type }: { type: "all" | "unread" }) {
           </button>
         ))}
         {messages.length === 0 && (
-          <>
-            <div className="flex items-center justify-center h-32 text-muted-foreground">
+          <div className="flex items-center justify-center h-32 text-muted-foreground">
               No messages
             </div>
-          </>
         )}
       </div>
     </ScrollArea>

@@ -1,5 +1,5 @@
 "use client";
-import ReactMarkdown, { Options } from "react-markdown";
+import ReactMarkdown, { type Options } from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
@@ -18,7 +18,7 @@ export default function MarkdownView({
   return (
     <ReactMarkdown
       rehypePlugins={[rehypeRaw, remarkGfm, rehypeHighlight]}
-      className={className}
+      // className={className}
       {...options}
     >
       {children}
