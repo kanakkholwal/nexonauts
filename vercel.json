@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/docs",
+      "destination": "https://nexonauts.mintlify.app/"
+    },
+    {
+      "source": "/docs/:match*",
+      "destination": "https://nexonauts.mintlify.app/:match*"
+    }
+  ]
+}
