@@ -1,9 +1,8 @@
 "use server";
 import { cache } from 'react';
 import dbConnect from "src/lib/dbConnect";
-import redis from "src/lib/redis";
 import { Profile } from "src/models";
-import Post, { Author, PostWithId } from "src/models/post";
+import Post, { type Author, type PostWithId } from "src/models/post";
 
 const PUBLIC_VIEW_KEYS =
   "title description slug image labels claps author createdAt";
@@ -18,18 +17,10 @@ type getHomePagePostsReturnType = {
   currentPage?: number;
   total?: number;
 };
-export async function getHomePagePosts(new_cache: boolean = false): Promise<getHomePagePostsReturnType> {
-  const cacheKey = `posts_all`;
-  let cachedResults = null;
-  try {
-    if (!new_cache)
-      cachedResults = await redis.get<PostWithId[]>(cacheKey);
-    else {
-      await redis.del(cacheKey);
-    }
-  } catch (redisError) {
-    console.error("Redis connection error:", redisError);
-  }
+export async function getHomePagePosts(new_cache = false): Promise<getHomePagePostsReturnType> {
+  const cacheKey = "posts_all";
+  const cachedResults = null;
+
 
   if (cachedResults) {
     return {
@@ -91,19 +82,10 @@ type getPostBySlugReturnType = {
 
 export const getPostBySlug = cache(async (
   slug: string,
-  new_cache: boolean = false
+  new_cache = false
 ): Promise<getPostBySlugReturnType> => {
   const cacheKey = `post_${slug}`;
-  let cachedResults = null;
-  try {
-    if (!new_cache)
-      cachedResults = await redis.get<PostWithId>(cacheKey);
-    else {
-      await redis.del(cacheKey);
-    }
-  } catch (redisError) {
-    console.error("Redis connection error:", redisError);
-  }
+  const cachedResults = null;
 
   if (cachedResults) {
     return {
@@ -146,7 +128,7 @@ export const getPostBySlug = cache(async (
 })
 
 export async function getRecentPosts(
-  noOfPost: number = 5
+  noOfPost = 5
 ): Promise<PostWithId[]> {
   await dbConnect();
   const posts = await Post.find({ state: "published" })

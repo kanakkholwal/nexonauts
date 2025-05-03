@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { cn } from "@/lib/utils";
 import {
   motion,
   useAnimationFrame,
@@ -7,8 +7,8 @@ import {
   useMotionValue,
   useTransform,
 } from "framer-motion";
+import type React from "react";
 import { useRef } from "react";
-import { cn } from "@/lib/utils";
 
 export function MovingBorderButton({
   borderRadius = "1.75rem",
@@ -22,12 +22,11 @@ export function MovingBorderButton({
 }: {
   borderRadius?: string;
   children: React.ReactNode;
-  as?: any;
+  as?: React.ElementType;
   containerClassName?: string;
   borderClassName?: string;
   duration?: number;
   className?: string;
-  [key: string]: any;
 }) {
   return (
     <Component
@@ -80,9 +79,8 @@ export const MovingBorder = ({
   duration?: number;
   rx?: string;
   ry?: string;
-  [key: string]: any;
 }) => {
-  const pathRef = useRef<any>();
+  const pathRef = useRef<SVGRectElement>(null);
   const progress = useMotionValue<number>(0);
 
   useAnimationFrame((time) => {
@@ -114,6 +112,7 @@ export const MovingBorder = ({
         height="100%"
         {...otherProps}
       >
+        <title>Moving Border</title>
         <rect
           fill="none"
           width="100%"

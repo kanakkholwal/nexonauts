@@ -1,4 +1,4 @@
-import { bundledLanguages, getHighlighter } from "shiki/bundle/web";
+import { bundledLanguages, createHighlighter } from "shiki/bundle/web";
 
 export const codeToHtml = async ({
   code,
@@ -9,7 +9,7 @@ export const codeToHtml = async ({
   language: string;
   theme: string;
 }) => {
-  const highlighter = await getHighlighter({
+  const highlighter = await createHighlighter({
     themes: ["github-light-default", "github-dark-default"],
     langs: [...Object.keys(bundledLanguages)],
   });

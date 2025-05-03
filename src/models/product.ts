@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Types } from "mongoose";
+import mongoose, { type Document, Schema, type Types } from "mongoose";
 import { customAlphabet } from "nanoid";
 
 const generateUrlSlug = (length = 16) =>
@@ -135,7 +135,7 @@ const productSchema = new Schema<ProductDocument>(
     timestamps: true,
   }
 );
-productSchema.index({ name: "text", description: "text" });
+// productSchema.index({ name: "text", description: "text" });
 
 const Product =
   mongoose.models.Product ||

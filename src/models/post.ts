@@ -1,6 +1,6 @@
 import mongoose, { Schema, model } from "mongoose";
 import { nanoid } from "nanoid";
-import { ProfileTypeWithIdUser } from "./profile";
+import type { ProfileTypeWithIdUser } from "./profile";
 
 export type Author = ProfileTypeWithIdUser
 

@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import dbConnect from "src/lib/dbConnect";
 import Post from "src/models/post";
 // import { getAllApps } from "src/utils/app";
@@ -71,11 +71,11 @@ export async function GET(request: NextRequest) {
       };
     }),
     {
-      path: `/scout/`,
+      path: "/scout/",
       date: new Date().toISOString(),
     },
     {
-      path: `/scout/browse`,
+      path: "/scout/browse",
       date: new Date().toISOString(),
     },
   ];
@@ -124,7 +124,7 @@ function escapeXml(unsafe: string) {
   });
 }
 // This function will generate the robots.txt
-function generateSiteMap(pages: any[]) {
+function generateSiteMap(pages: { path: string; date: string }[]) {
   return `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
     <!-- Add the static URLs manually -->

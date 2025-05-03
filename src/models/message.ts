@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from "mongoose";
+import mongoose, { type Document, Schema } from "mongoose";
 
 // Define a user schema
 interface IMessage extends Document {
@@ -8,7 +8,7 @@ interface IMessage extends Document {
   subject: string;
   read: boolean;
   type: string;
-  aditional_info: Record<string, string | null>;
+  additional_info: Record<string, string | null>;
 }
 
 const messageSchema = new Schema<IMessage>(
@@ -49,7 +49,7 @@ const messageSchema = new Schema<IMessage>(
       type: Boolean,
       default: false,
     },
-    aditional_info: {
+    additional_info: {
       type: Schema.Types.Mixed,
     },
   },

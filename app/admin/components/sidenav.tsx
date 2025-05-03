@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { MessageSquareText } from "lucide-react";
-import { LuMoreHorizontal } from "react-icons/lu";
+import { FiMoreHorizontal } from "react-icons/fi";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -31,7 +31,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { RiAppsLine } from "react-icons/ri";
 import { TbDashboard } from "react-icons/tb";
-import { SessionUserType } from "src/types/user";
+import type { SessionUserType } from "src/types/user";
 
 export type sideLinkType = {
   label: string;
@@ -103,17 +103,14 @@ export default function SideBar({ user }: { user: SessionUserType }) {
     <div
       aria-label="Sidenav"
       className={
-        "fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 bg-glasss " +
-        (open ? " translate-x-0" : " -translate-x-full lg:translate-x-0") +
-        " transition-transform duration-200 ease-in-out"
+        `fixed top-0 left-0 bottom-0 z-50 flex flex-col w-80 min-h-screen space-y-6 bg-glass ${open ? " translate-x-0" : " -translate-x-full lg:translate-x-0"} transition-transform duration-200 ease-in-out`
       }
     >
       <button
+      type="button"
         aria-label="Toggle Sidenav"
         className={
-          "absolute top-5 -right-3 p-2 rounded-xl bg-white dark:bg-slate-800 border border-transparent dark:border-slate-700 shadow-md transition-colors duration-200 ease-in-out" +
-          (open ? " translate-x-0" : " translate-x-full") +
-          " lg:translate-x-0 lg:hidden"
+          `absolute top-5 -right-3 p-2 rounded-xl bg-white dark:bg-slate-800 border border-transparent dark:border-slate-700 shadow-md transition-colors duration-200 ease-in-out${open ? " translate-x-0" : " translate-x-full"} lg:translate-x-0 lg:hidden`
         }
         onClick={() => setOpen(!open)}
       >
@@ -133,7 +130,7 @@ export default function SideBar({ user }: { user: SessionUserType }) {
         />
         <DropdownMenu>
           <DropdownMenuTrigger>
-            <LuMoreHorizontal className="w-5 h-5" />
+            <FiMoreHorizontal className="w-5 h-5" />
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuLabel>
@@ -182,7 +179,7 @@ export default function SideBar({ user }: { user: SessionUserType }) {
             <SideBarLink
               link={link}
               active={pathname === link.href}
-              key={`sidenav_links_${index}`}
+              key={`sidenav_links_${index.toString()}`}
             />
           ))}
         </div>
@@ -198,7 +195,7 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
       <Avatar>
         <AvatarImage
           src={user.profilePicture.toString()}
-          alt={"@" + user.username}
+          alt={`@${user.username}`}
         />
         <AvatarFallback className="uppercase">
           {user.name[0] + user.name[1]}
@@ -209,7 +206,7 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
           {user.name}
         </h3>
         <p className="text-xs text-slate-600 dark:text-slate-300">
-          <Link href={"/devs/" + user.username} target="_blank">
+          <Link href={`/devs/${user.username}`} target="_blank">
             @{user.username}
           </Link>
         </p>

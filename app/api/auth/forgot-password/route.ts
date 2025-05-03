@@ -1,11 +1,10 @@
-import { render } from "@react-email/render";
-import { generateToken, handleEmailFire } from "emails/helper";
-import ResetPasswordEmail from "src/emails/templates/reset-password";
-import { NextRequest, NextResponse } from "next/server";
+import { generateToken } from "emails/helper";
+import { type NextRequest, NextResponse } from "next/server";
 import dbConnect from "src/lib/dbConnect";
 import UserModel from "src/models/user";
 
 import { getSession } from "src/lib/auth";
+import { mailFetch } from "src/lib/server-fetch";
 
 export async function POST(request: NextRequest) {
   try {
@@ -29,21 +28,31 @@ export async function POST(request: NextRequest) {
 
     user.verificationToken = generateToken(user.email);
     await user.save();
-
-    // send verification email
-    await handleEmailFire(`Nexonauts <no_reply@nexonauts.com>`, {
-      to: user.email,
-      subject: `🌟 Reset Your NexonautsPassword 🛠️ `,
-      html: render(
-        ResetPasswordEmail({
-          payload: {
-            name: user.name,
-            email: user.email,
-            resetUrl: `${process.env.NEXTAUTH_URL}/verify-user?token=${user.verificationToken}`,
-          },
-        })
-      ),
+    const response = await mailFetch<{
+      data: string[] | null;
+      error?: string | null | object;
+    }>("/api/send", {
+      method: "POST",
+      body: JSON.stringify({
+        template_key: "reset-password",
+        targets: [user.email],
+        subject: "Reset Password",
+        payload: {
+          name: user.name,
+          email: user.email,
+          resetUrl: `${process.env.NEXTAUTH_URL}/verify-user?token=${user.verificationToken}`,
+        },
+      }),
     });
+    if (response.error) {
+      return NextResponse.json({
+        result: "fail",
+        message: "Error sending email",
+      },{
+        status: 500,
+      });
+    }
+
     console.log("Mail sent");
 
     return NextResponse.json(
@@ -55,11 +64,11 @@ export async function POST(request: NextRequest) {
         status: 200,
       }
     );
-  } catch (error: any) {
+  } catch (error) {
     return NextResponse.json(
       {
         result: "fail",
-        message: error?.message,
+        message: error instanceof Error ? error.message : "Internal Server Error",
       },
       {
         status: 500,

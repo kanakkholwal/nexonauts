@@ -113,13 +113,17 @@ export function getInitials(str) {
   if (words.length >= 2) {
     // Return the first letter of the first two words
     return words[0][0].toUpperCase() + words[1][0].toUpperCase();
-  } else if (words.length === 1) {
+  } 
+   if (words.length === 1) {
     // Return the uppercase of the first letter of the only word
     return words[0][0].toUpperCase();
-  } else {
+  } 
+  
     // No words in the string
     return "";
-  }
+  
+
+
 }
 
 export function removeStringAfterWord(str, word) {
