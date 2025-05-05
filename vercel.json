@@ -2,11 +2,11 @@
   "rewrites": [
     {
       "source": "/docs",
-      "destination": "https://nexonauts.mintlify.app/"
+      "destination": "https://docs.nexonauts.com/"
     },
     {
       "source": "/docs/:match*",
-      "destination": "https://nexonauts.mintlify.app/:match*"
+      "destination": "https://docs.nexonauts.com/:match*"
     }
   ]
 }
