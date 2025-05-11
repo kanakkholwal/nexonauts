@@ -9,6 +9,7 @@ import Image2Webp from "./image-to-webp-convertor";
 import jsonMinifierTool from "./json-minifier-tool";
 import SchemaGenerator from "./schema-markup-generator";
 import metaTagGenerator from "./meta-tag-generator";
+import PdfPageStripper from "./pdf-stripper";
 
 export type ToolType = {
   slug: string;
@@ -21,6 +22,7 @@ export type ToolType = {
 };
 
 const _allTools: ToolType[] = [
+  PdfPageStripper,
   Image2Webp,
   SchemaGenerator,
   metaTagGenerator,
