@@ -24,7 +24,7 @@ type RootLayoutProps = Readonly<{
 
 export default async function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta name="google-adsense-account" content="ca-pub-6988693445063744" />
       </head>

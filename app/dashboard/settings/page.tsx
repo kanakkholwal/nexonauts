@@ -1,6 +1,6 @@
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 //   import Image from "next/image";
 import { User, UserRoundCog, Workflow } from "lucide-react";
 import Link from "next/link";
