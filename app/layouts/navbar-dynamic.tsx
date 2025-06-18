@@ -26,13 +26,16 @@ export default function Navbar() {
     };
   }, []);
   return (
-    <div id="navbar" className="fixed inset-x-0 top-0 z-50  w-full">
+    <div id="navbar" className={cn(
+      "fixed inset-x-0 top-0 z-50 w-full",
+      scrolled
+        ? "backdrop-blur-xs dark:backdrop-blur-sm bg-white/50 dark:bg-zinc-900/20"
+        : "",
+    )}>
       <div
         className={cn(
           "relative flex items-center justify-between gap-6 py-2 lg:gap-0 lg:py-4 mx-auto px-4 sm:px-12 lg:px-8 ",
-          scrolled
-            ? "backdrop-blur-xs dark:backdrop-blur-sm bg-white/50 dark:bg-zinc-900/20"
-            : ""
+          "max-w-(--max-app-width) mx-auto"
         )}
         aria-label="Navbar"
       >
