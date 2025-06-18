@@ -68,7 +68,7 @@ export function DragnDrop({ onFilesSelected }: DragnDropProps) {
         <span>
           Drag&apos;n drop or <button 
             type="button"
-            className="font-bold hover:underline focus:outline-none" 
+            className="font-bold hover:underline focus:outline-hidden" 
             onClick={handleClick}
           >
             select

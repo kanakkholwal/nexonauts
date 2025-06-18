@@ -35,14 +35,14 @@ export const ToggleButton = () => {
         aria-hidden="true"
         className={
           "m-auto h-0.5 w-5 rounded bg-sky-900 transition duration-300 dark:bg-gray-300" +
-          (open ? " translate-y-[0.375rem] rotate-[45deg]" : "")
+          (open ? " translate-y-1.5 rotate-45" : "")
         }
       />
       <div
         aria-hidden="true"
         className={
           "m-auto mt-2 h-0.5 w-5 rounded bg-sky-900 transition duration-300 dark:bg-gray-300" +
-          (open ? " translate-y-[-0.25rem] rotate-[-45deg]" : "")
+          (open ? " -translate-y-1 -rotate-45" : "")
         }
       />
     </button>
@@ -54,7 +54,7 @@ type NavLinksType = {
   description: string;
 };
 
-const list = [
+export const list = [
   {
     name: "Nexo Scout",
     links: [
@@ -135,7 +135,7 @@ export const NavList = () => {
                 <li className="row-span-3">
                   <NavigationMenuLink asChild>
                     <a
-                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
+                      className="flex h-full w-full select-none flex-col justify-end rounded-md bg-linear-to-b from-muted/50 to-muted p-6 no-underline outline-hidden focus:shadow-md"
                       href="/"
                     >
                       <img
@@ -205,7 +205,7 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-primary/10 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-hidden transition-colors hover:bg-primary/10 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
           )}
           {...props}

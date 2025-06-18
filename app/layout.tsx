@@ -28,12 +28,12 @@ export default async function RootLayout({ children }: RootLayoutProps) {
       <head>
         <meta name="google-adsense-account" content="ca-pub-6988693445063744" />
       </head>
-      <body className={`${font.className}  min-h-screen antialiased`}>
+      <body className={`${font.className} min-h-screen antialiased relative`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
-          themes={["light", "dark"]}
+          themes={["system", "light", "dark"]}
         >
           <Provider>{children}</Provider>
         </ThemeProvider>

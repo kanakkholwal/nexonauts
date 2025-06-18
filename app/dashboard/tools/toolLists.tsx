@@ -40,12 +40,12 @@ export default function ToolList({ initialTools }: ToolListProps) {
             <div key={tool._id}>
               <Link href={`/dashboard/tools/${tool.slug}/edit`} className="p-1">
                 <Card
-                  className="rounded-2xl backdrop-blur backdrop-saturate bg-white border-0 relative"
+                  className="rounded-2xl backdrop-blur-sm backdrop-saturate bg-white border-0 relative"
                   variant="glass"
                 >
                   <CardHeader className="p-2">
                     <div className="flex flex-col w-full aspect-video overflow-hidden bg-white/30 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70 rounded-lg">
-                      <div className="relative flex items-center justify-center flex-shrink-0 h-full group w-auto m-auto overflow-hidden">
+                      <div className="relative flex items-center justify-center shrink-0 h-full group w-auto m-auto overflow-hidden">
                         <LazyImage
                           className="w-auto h-auto m-auto transition ease-in-out duration-300 group-hover:scale-105"
                           width={350}

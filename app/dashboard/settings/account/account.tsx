@@ -213,7 +213,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                 )}
                 <label
                   htmlFor="imageUpload"
-                  className="absolute inset-0 flex justify-center items-center flex-col gap-1 text-xs cursor-pointer backdrop-blur-sm duration-300 text-slate-600 opacity-0 group-hover:opacity-100 visibility-hidden group-hover:visible"
+                  className="absolute inset-0 flex justify-center items-center flex-col gap-1 text-xs cursor-pointer backdrop-blur-xs duration-300 text-slate-600 opacity-0 group-hover:opacity-100 visibility-hidden group-hover:visible"
                 >
                   <span>Upload</span>
                   <span>Profile Picture</span>
@@ -244,7 +244,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                     placeholder="Enter image URL"
                     type="url"
                     autoCorrect="off"
-                    className="pl-12 !py-3 pr-5 !mt-0"
+                    className="pl-12 py-3! pr-5 mt-0!"
                     value={user.profilePicture.toString()}
                     onChange={async (e) => {
                       const url = e.target.value;
@@ -395,7 +395,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                             autoCapitalize="none"
                             autoComplete="email"
                             autoCorrect="off"
-                            className='pl-12 !py-3 pr-5 !mt-0'
+                            className='pl-12 py-3! pr-5 mt-0!'
                             value={user?.email} onChange={(e) => setUser({
                                 ...user,
                                 email: e.target.value
@@ -442,7 +442,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                 autoCapitalize="none"
                 autoComplete="email"
                 autoCorrect="off"
-                className="pl-12 !py-3 pr-5 !mt-0"
+                className="pl-12 py-3! pr-5 mt-0!"
                 value={currentPassword}
                 required
                 onChange={(e) => setCurrentPassword(e.target.value)}
@@ -460,7 +460,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                 autoCapitalize="none"
                 autoComplete="email"
                 autoCorrect="off"
-                className="pl-12 !py-3 pr-5 !mt-0"
+                className="pl-12 py-3! pr-5 mt-0!"
                 value={confirmPassword}
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}

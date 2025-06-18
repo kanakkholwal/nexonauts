@@ -25,7 +25,7 @@ export function HeroWrapper({
           className="absolute inset-0 h-full"
         >
           <div className="h-full relative">
-            <div className="absolute inset-0 mx-auto w-full h-full bg-full bg-cover bg-center bg-no-repeat z-[2] hero_image" />
+            <div className="absolute inset-0 mx-auto w-full h-full bg-full bg-cover bg-center bg-no-repeat z-2 hero_image" />
           </div>
         </div>
         <div className="relative flex flex-col justify-center z-10 w-full h-full mx-auto max-w-5xl p-6">

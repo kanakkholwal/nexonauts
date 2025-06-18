@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Navbar() {
   return (
     <div className="@4xl:px-3 @4xl:my-10 fixed top-0 left-0 right-0 @4xl:relative">
-      <nav className="py-4 px-5 w-full mx-auto rounded-lg flex justify-between items-center backdrop-blur border dark:border-transparent shadow-lg dark:shadow-neutral/50">
+      <nav className="py-4 px-5 w-full mx-auto rounded-lg flex justify-between items-center backdrop-blur-sm border dark:border-transparent shadow-lg dark:shadow-neutral/50">
         <Link href="/" aria-label="Logo">
           <span className="sr-only">Nexonauts</span>
           <Image

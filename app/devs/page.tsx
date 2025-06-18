@@ -47,7 +47,7 @@ export default async function ExploreDevelopers(props: PageProps) {
               <div key={profile._id}>
                 <Link href={`/devs/${profile.username}`} className="p-1">
                   <Card
-                    className="rounded-2xl backdrop-blur backdrop-saturate bg-opacity-75 bg-white border relative p-4"
+                    className="rounded-2xl backdrop-blur-sm backdrop-saturate bg-opacity-75 bg-white border relative p-4"
                     variant="glass"
                   >
                     <div className="flex items-center justify-between">

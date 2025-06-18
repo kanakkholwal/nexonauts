@@ -20,7 +20,7 @@ export const GoogleGeminiEffect = ({
 }) => {
   return (
     <div className={cn("sticky top-80", className)}>
-      <h4 className="text-3xl md:text-7xl font-bold pb-4 text-center bg-clip-text text-transparent bg-gradient-to-b from-violet-200 to-primary  dark:from-cyan-400 dark:to-indigo-600">
+      <h4 className="text-3xl md:text-7xl font-bold pb-4 text-center bg-clip-text text-transparent bg-linear-to-b from-violet-200 to-primary  dark:from-cyan-400 dark:to-indigo-600">
         {title || `Grow with Nexonauts`}
       </h4>
       <p className="text-lg md:text-xl font-semibold text-center mt-2 md:mt-4 max-w-lg mx-auto text-accent-foreground">

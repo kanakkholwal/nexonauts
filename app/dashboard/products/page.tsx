@@ -113,7 +113,7 @@ export default async function MyProducts(props: PageProps) {
                       </div>
                     }
                   >
-                    <ScrollArea className="h-[42rem] md:h-[50rem] border-b">
+                    <ScrollArea className="h-168 md:h-200 border-b">
                       <div className="grid grid-cols-1 divide-y">
                         {productsFromIntegrations
                           .filter(

@@ -17,7 +17,7 @@ export default function SoftNavigation({}: Props) {
         "mb-8 sticky top-6 z-50 justify-center gap-x-2 flex flex-wrap gap-y-2 w-full"
       )}
     >
-      <div className="flex gap-x-0 p-1 bg-card rounded-2xl border border-border dark:border-slate-100/10 backdrop-blur border-opacity-15 shadow">
+      <div className="flex gap-x-0 p-1 bg-card rounded-2xl border border-border dark:border-slate-100/10 backdrop-blur-sm border-opacity-15 shadow-sm">
         {ROUTES.map((item: string) => {
           return (
             <button
@@ -38,7 +38,7 @@ export default function SoftNavigation({}: Props) {
                     ease: [0.16, 1, 0.3, 1],
                   }}
                   layoutId="active"
-                  className="absolute inset-0 bg-white dark:bg-black rounded-xl shadow-sm"
+                  className="absolute inset-0 bg-white dark:bg-black rounded-xl shadow-xs"
                 />
               )}
               <span className="text-sm xl:text-h6 relative  z-10 capitalize">

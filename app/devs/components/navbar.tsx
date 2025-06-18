@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <nav
       id="navbar"
-      className="fixed inset-x-0 z-20 w-full border-b border-gray-100 backdrop-blur dark:border-gray-700/30 "
+      className="fixed inset-x-0 z-20 w-full border-b border-gray-100 backdrop-blur-sm dark:border-gray-700/30 "
     >
       <div className="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
         <div className="relative flex flex-wrap items-center justify-between gap-6 lg:gap-0 lg:py-4">
@@ -48,14 +48,14 @@ export default function Navbar() {
                 aria-hidden="true"
                 className={
                   "m-auto h-0.5 w-5 rounded bg-sky-900 transition duration-300 dark:bg-gray-300" +
-                  (open ? " translate-y-[0.375rem] rotate-[45deg]" : "")
+                  (open ? " translate-y-1.5 rotate-45" : "")
                 }
               />
               <div
                 aria-hidden="true"
                 className={
                   "m-auto mt-2 h-0.5 w-5 rounded bg-sky-900 transition duration-300 dark:bg-gray-300" +
-                  (open ? " translate-y-[-0.25rem] rotate-[-45deg]" : "")
+                  (open ? " -translate-y-1 -rotate-45" : "")
                 }
               />
             </button>
@@ -70,7 +70,7 @@ export default function Navbar() {
             className={
               "invisible absolute top-full left-0 z-20 w-full origin-top-right translate-y-1 scale-90 flex-col flex-wrap justify-end gap-6 rounded-3xl border border-gray-100 bg-white p-8 opacity-0 shadow-2xl shadow-gray-600/10 transition-all duration-300 dark:border-gray-700 dark:bg-gray-800 dark:shadow-none lg:visible lg:relative lg:flex lg:w-auto lg:translate-y-0 lg:scale-100 lg:flex-row lg:items-center lg:gap-0 lg:border-none lg:bg-transparent lg:p-0 lg:opacity-100 lg:shadow-none lg:peer-checked:translate-y-0 dark:lg:bg-transparent" +
               (open
-                ? " !visible !scale-100 !opacity-100 !lg:translate-y-0"
+                ? " visible! scale-100! opacity-100! !lg:translate-y-0"
                 : "")
             }
           >
@@ -80,7 +80,7 @@ export default function Navbar() {
                   <button
                     aria-label="search"
                     role="button"
-                    className="inline-flex w-full items-center whitespace-nowrap rounded-full font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-slate-100 dark:bg-slate-800 shadow-sm hover:bg-slate-200 dark:hover:bg-slate-700 h-9 px-4 py-2 relative justify-start text-sm text-muted-foreground md:pr-12 md:w-40 lg:w-64 "
+                    className="inline-flex w-full items-center whitespace-nowrap rounded-full font-medium transition-colors focus-visible:outline-hidden focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-slate-100 dark:bg-slate-800 shadow-xs hover:bg-slate-200 dark:hover:bg-slate-700 h-9 px-4 py-2 relative justify-start text-sm text-muted-foreground md:pr-12 md:w-40 lg:w-64 "
                   >
                     <span className="inline-flex">
                       <Search className="w-4 h-4 dark:text-gray-400" />
