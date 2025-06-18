@@ -102,8 +102,8 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         minWidth: "800px",
       }}
       className={cn(
-        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 sm:flex dark:bg-transparent",
-        visible && "bg-white/80 dark:bg-neutral-950/80",
+        "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-full bg-transparent px-4 py-2 sm:flex",
+        visible && "bg-card",
         className,
       )}
     >
@@ -123,7 +123,7 @@ export const NavItems = ({ items, className }: NavItemsProps) => {
         marginBottom: hovered !== null ? '-300px' : '0px',
       }}
       className={cn(
-        "relative inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-2 px-3",
+        "relative inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-muted-foreground transition duration-200 hover:text-foreground lg:flex lg:space-x-2 px-3",
         className
       )}
     >
@@ -181,6 +181,11 @@ const transition = {
   stiffness: 100,
   restDelta: 0.001,
   restSpeed: 0.001,
+  spring: {
+    type: "spring",
+    damping: 20,
+    stiffness: 300,
+  }
 };
 export const MenuItem = ({
   onMouseEnter,
@@ -197,12 +202,12 @@ export const MenuItem = ({
     <div onMouseEnter={() => onMouseEnter()} className="relative">
       <motion.div
         transition={{ duration: 0.3 }}
-        className="cursor-pointer relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
+        className="cursor-pointer relative px-4 py-2 text-muted-foreground hover:text-foreground"
       >
         {active && (
           <motion.div
             layoutId="hovered"
-            className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
+            className="absolute inset-0 h-full w-full rounded-full bg-accent/40 backdrop-blur dark:border"
           />
         )}
         <span className="relative z-20 whitespace-nowrap">
@@ -220,7 +225,7 @@ export const MenuItem = ({
             <motion.div
               transition={transition}
               layoutId="active" // layoutId ensures smooth animation
-              className="bg-white dark:bg-black backdrop-blur-sm rounded-2xl overflow-hidden border shadow-xl"
+              className="bg-popover/90 backdrop-blur-2xl rounded-lg overflow-hidden border shadow-xl"
             >
               <motion.div
                 layout // layout ensures smooth animation
@@ -298,12 +303,12 @@ export const DefaultLink = ({
   return <motion.div
     transition={{ duration: 0.3 }}
     onMouseEnter={onMouseEnter}
-    className="cursor-pointer relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
+    className="cursor-pointer relative px-4 py-2 text-muted-foreground hover:text-foreground"
   >
     {active && (
       <motion.div
         layoutId="hovered"
-        className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
+        className="absolute inset-0 h-full w-full rounded-full bg-accent/40 backdrop-blur dark:border"
       />
     )}
     <a href={href} className={cn("relative z-20 whitespace-nowrap", className)}>
@@ -332,7 +337,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
       }}
       className={cn(
         "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 sm:hidden rounded-2xl",
-        visible && "bg-white/80 dark:bg-neutral-950/80",
+        visible && "bg-popover",
         className,
       )}
     >
@@ -416,42 +421,3 @@ export const NavbarLogo = () => {
   );
 };
 
-export const NavbarButton = ({
-  href,
-  as: Tag = "a",
-  children,
-  className,
-  variant = "primary",
-  ...props
-}: {
-  href?: string;
-  as?: React.ElementType;
-  children: React.ReactNode;
-  className?: string;
-  variant?: "primary" | "secondary" | "dark" | "gradient";
-} & (
-    | React.ComponentPropsWithoutRef<"a">
-    | React.ComponentPropsWithoutRef<"button">
-  )) => {
-  const baseStyles =
-    "px-4 py-2 rounded-md bg-white button bg-white text-black text-sm font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center";
-
-  const variantStyles = {
-    primary:
-      "shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]",
-    secondary: "bg-transparent shadow-none dark:text-white",
-    dark: "bg-black text-white shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset]",
-    gradient:
-      "bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-[0px_2px_0px_0px_rgba(255,255,255,0.3)_inset]",
-  };
-
-  return (
-    <Tag
-      href={href || undefined}
-      className={cn(baseStyles, variantStyles[variant], className)}
-      {...props}
-    >
-      {children}
-    </Tag>
-  );
-};

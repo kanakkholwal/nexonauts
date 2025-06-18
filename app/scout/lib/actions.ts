@@ -143,7 +143,7 @@ export async function getSimilarTools(
     status: { $in: ["published", "approved"] },
   })
     .sort({ createdAt: -1 })
-    .select("name slug coverImage categories pricing_type")
+    .select("name slug coverImage categories pricing_type link")
     .limit(6);
   return JSON.parse(JSON.stringify(tools));
 }

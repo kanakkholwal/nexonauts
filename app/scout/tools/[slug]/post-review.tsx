@@ -62,7 +62,6 @@ export function PostReview({
               id="comment"
               name="comment"
               placeholder="Write a review"
-              variant="fluid"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
             />

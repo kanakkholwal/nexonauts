@@ -27,7 +27,7 @@ export default function HomePage() {
         <div className="flex flex-col text-center justify-center items-center gap-6 lg:gap-8 py-10">
           <div
             className={cn(
-              "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
+              "group rounded-full border bg-background",
             )}
           >
 
@@ -47,7 +47,7 @@ export default function HomePage() {
               Developers
             </span>
           </h2>
-          <p className="text-base lg:text-lg text-center text-muted-foreground font-light font-medium tracking-wide max-w-[30ch] sm:max-w-[45ch]">
+          <p className="text-base lg:text-lg text-center text-muted-foreground font-medium tracking-wide max-w-[30ch] sm:max-w-[45ch]">
             Discover, create, and collaborate effortlessly in one unified space.
             Fuel creativity, solve problems, innovate effortlessly.
           </p>

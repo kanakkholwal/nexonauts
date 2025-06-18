@@ -14,7 +14,7 @@ export async function getProductBySlug(slug: string): Promise<ProductType> {
     creator: session.user._id,
   }).exec();
 
-  revalidatePath(`/products/${slug}/edit`, "page");
+  // revalidatePath(`/products/${slug}/edit`, "page");
   return Promise.resolve(JSON.parse(JSON.stringify(product)));
 }
 export async function updateProduct(

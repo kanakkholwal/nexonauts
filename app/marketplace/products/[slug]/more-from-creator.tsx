@@ -1,5 +1,5 @@
 import ConditionalRender from "@/components/utils/conditional-render";
-import { SuspenseWithErrorBoundary } from "@/components/utils/error-boundary";
+import { ErrorBoundaryWithSuspense } from "@/components/utils/error-boundary";
 import InfoArea from "@/components/utils/info-area";
 import { getMoreProductsByCreator } from "./actions";
 
@@ -9,9 +9,9 @@ export default async function MoreFromCreator({ slug }: { slug: string }) {
   const products = await getMoreProductsByCreator(slug);
 
   return (
-    <SuspenseWithErrorBoundary
-      fallback={<div>Loading...</div>}
-      errorFallback={<div>Error</div>}
+    <ErrorBoundaryWithSuspense
+      loadingFallback={<div>Loading...</div>}
+      fallback={<div>Error</div>}
     >
       <ConditionalRender condition={products.length > 0}>
         <div className="grid gap-4 px-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full">
@@ -27,6 +27,6 @@ export default async function MoreFromCreator({ slug }: { slug: string }) {
           description="There are no more products from this creator"
         />
       </ConditionalRender>
-    </SuspenseWithErrorBoundary>
+    </ErrorBoundaryWithSuspense>
   );
 }

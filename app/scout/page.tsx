@@ -4,7 +4,7 @@ import { Search, ShieldCheck, Star } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
+import { cache, Suspense } from "react";
 import dbConnect from "src/lib/dbConnect";
 import PublicTool from "src/models/tool";
 import illustration from "./illustration.svg";
@@ -29,37 +29,37 @@ const features = [
   {
     name: "Effortless Search",
     description:
-      "Quickly find the tools and resources you need with our intuitive search functionality. Nexo Scout's powerful search engine makes it easy to locate the perfect solution for your projects and tasks.",
+      "Nexo Scout's powerful search engine makes it easy to locate the perfect solution for your projects and tasks.",
     icon: Search,
   },
   {
     name: "Curated Recommendations",
     description:
-      "Explore a handpicked selection of tools and resources tailored to your specific needs and interests. Our team constantly evaluates and updates the database to ensure you have access to the best-in-class solutions.",
+      "Our team constantly evaluates and updates the database to ensure you have access to the best-in-class solutions.",
     icon: Star,
   },
   {
     name: "Regular Updates",
     description:
-      "Stay ahead of the curve with Nexo Scout's continuous updates. We're committed to keeping our database fresh and relevant, providing you with the latest tools, services, and useful websites to enhance your workflow.",
+      "We're committed to keeping our database fresh and relevant, providing you with the latest tools, services, and useful websites to enhance your workflow.",
     icon: ShieldCheck,
   },
   {
     name: "User-Friendly Interface",
     description:
-      "Navigate our platform effortlessly with a user-friendly interface designed for seamless exploration. Discover new tools, services, and resources with just a few clicks, saving you time and effort in your search for productivity.",
+      " Discover new tools, services, and resources with just a few clicks, saving you time and effort in your search for productivity.",
     icon: MonitorSmartphone,
   },
   {
     name: "Comprehensive Categories",
     description:
-      "Dive into an extensive range of categories tailored to your field. Whether you're a developer, designer, student, or business owner, easily navigate through specialized categories to find precisely what you need, optimizing your search experience.",
+      "Whether you're a developer, designer, student, or business owner, easily navigate through specialized categories to find precisely what you need, optimizing your search experience.",
     icon: FolderOpen,
   },
   {
     name: "Interactive Filters",
     description:
-      "Refine your search results with interactive filters designed to streamline your browsing experience. Sort by popularity, relevance, or newest additions, ensuring you discover the most relevant tools and resources tailored to your preferences and requirements.",
+      "Sort by popularity, relevance, or newest additions, ensuring you discover the most relevant tools and resources tailored to your preferences and requirements.",
     icon: ArrowUpDown,
   },
 ] as {
@@ -100,7 +100,7 @@ async function getCategories() {
   ]);
   return Promise.resolve(JSON.parse(JSON.stringify(categorized_tools)));
 }
-
+const getCategoriesPromise = cache(getCategories);
 type CategorizedToolType = Awaited<ReturnType<typeof getCategories>>[number];
 
 export default async function Page() {
@@ -110,7 +110,7 @@ export default async function Page() {
     $or: [{ status: "published" }, { status: "approved" }],
   });
 
-  const categorized_tools = (await getCategories()) as CategorizedToolType[];
+  const categorized_tools = (await getCategoriesPromise()) as CategorizedToolType[];
 
   return (
     <>
@@ -118,7 +118,7 @@ export default async function Page() {
         <NavbarGlobal />
         <div className="py-32 px-8  min-h-96  w-full flex items-center justify-between max-w-7xl mx-auto relative">
           <div className="max-w-6xl mx-auto text-left pt-5">
-            <h2 className="text-4xl font-bold mb-8 text-slate-800 dark:text-slate-200 max-w-xl text-pretty">
+            <h2 className="text-4xl font-bold mb-8 text-foreground max-w-xl text-pretty">
               Discover Essential Tools & Resources with{" "}
               <span className="relative bg-linear-to-r from-primary to-violet-600 bg-clip-text text-transparent md:px-2">
                 Nexo Scout
@@ -140,7 +140,7 @@ export default async function Page() {
               </Button>
             </div>
             <p className="text-sm mt-4 font-medium text-muted-foreground max-w-lg">
-              Trusted by over 1000+ developers and businesses.
+              Explore more than <NumberTicker value={noOfTools} suffix="+" className="mx-2 font-bold" /> tools and resources
             </p>
           </div>
           <div className="hidden md:flex flex-col gap-4 items-center justify-center mt-8">
@@ -157,11 +157,13 @@ export default async function Page() {
               width={600}
               alt={"Tool scout"}
               className="drop-shadow-2xl drop-shadow-primary/20"
+              draggable={false}
+              priority
             />
           </div>
         </div>
       </header>
-      <section id="popular-categories" className="pb-24 sm:pb-32">
+      <section id="popular-categories" className="pb-24 sm:pb-28">
         <div className="h-80 md:h-160 perspective-[1000px] relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start my-40">
           <h2 className="text-3xl font-bold mb-2 text-center mx-auto" aria-label="Browse Popular Categories">
             Browse Popular Categories
@@ -178,7 +180,7 @@ export default async function Page() {
               </>
             }
           >
-            <Tabs defaultValue={categorized_tools[0].slug} className="w-full">
+            <Tabs defaultValue={categorized_tools[0].slug} className="w-full mx-1.5 md:mx-auto">
               <VercelTabsList
                 tabs={categorized_tools.map((category: CategorizedToolType) => {
                   return {
@@ -197,8 +199,9 @@ export default async function Page() {
                             <Link
                               href={`/scout/tools/${tool.slug}`}
                               key={tool.slug}
-                              className="flex flex-col gap-4 items-start  p-4 rounded-lg border backdrop-blur-md bg-accent/50"
+                              className="flex flex-col gap-4 items-start p-4 rounded-lg border backdrop-blur-md bg-card transition-all duration-500 hover:scale-[1.05] hover:shadow-lg hover:bg-card/80 border-muted-foreground/20 hover:border-primary/50 group"
                             >
+
                               <div className="flex flex-col gap-1 shrink">
                                 <h3 className="text-lg font-semibold">
                                   {tool.name}
@@ -247,7 +250,7 @@ export default async function Page() {
               return (
                 <div
                   key={"solutions_" + index}
-                  className="hover:bg-background/50 backdrop-blur"
+                  className="hover:bg-card backdrop-blur"
                 >
                   <div className="relative py-12 p-8">
                     <div className="space-y-8 mb-2">

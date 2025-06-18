@@ -33,7 +33,7 @@ export default async function Page() {
                   <h2 className="text-3xl 3xl:text-5xl font-bold text-left">
                     {result.category}
                   </h2>
-                  <p className="text-gray-500 dark:text-gray-400">
+                  <p className="text-muted-foreground">
                     {getCategoryByLabel(result.category)?.description}
                   </p>
                 </div>
@@ -52,8 +52,10 @@ export default async function Page() {
                       key={product._id}
                       href={`/marketplace/products/${product.slug!}`}
                       className={cn(
-                        "flex flex-col justify-between gap-2 rounded-xl p-3 transition-all duration-300 ease-in-out transform hover:scale-103 shadow-xs hover:shadow-xl hover:translate-y-1 hover:translate-x",
-                        "group bg-glass"
+                        "block h-full rounded-xl border border-border/50 bg-card overflow-hidden",
+                        "transition-all duration-300 ease-in-out transform hover:scale-102 hover:shadow-md hover:border-primary/40",
+                        "flex flex-col justify-between gap-2 rounded-xl p-3  shadow-xs hover:shadow-xl hover:translate-y-1 hover:translate-x",
+                        "group bg-glass",
                       )}
                     >
                       <Image
@@ -70,7 +72,7 @@ export default async function Page() {
                         <ArrowUpRight
                           className={cn(
                             "w-6 h-6",
-                            "duration-300 ease-in-out translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0"
+                            "duration-300 ease-in-out translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 group-hover:text-primary  "
                           )}
                         />
                       </div>

@@ -61,7 +61,7 @@ export function FilterBar({
       >
         <div className="w-full flex flex-col space-y-2 text-center sm:text-left mb-5">
           <div className="mb-4">
-            <p className="text-base font-semibold text-muted-foreground mb-4">
+            <p className="text-sm font-medium text-muted-foreground mb-4">
               By Categories
             </p>
             <div className="flex flex-wrap gap-2">
@@ -87,7 +87,7 @@ export function FilterBar({
           </div>
         </div>
         <div className="mb-4">
-          <p className="text-base font-semibold text-slate-600 mb-4">
+          <p className="text-sm font-medium text-muted-foreground mb-4">
             By Pricing
           </p>
           <div className="flex flex-wrap gap-2">
@@ -150,12 +150,8 @@ function FilterButton({
   return (
     <Chip
       size="sm"
-      variant="ghost"
-      className={
-        active
-          ? "border-primary text-primary bg-primary/5 cursor-pointer"
-          : "cursor-pointer"
-      }
+      variant="outline"
+      className="cursor-pointer"
       onClick={() => {
         handleFilter(filterValue);
       }}
@@ -219,9 +215,8 @@ export function SearchBar({
           name="query"
           id="query"
           value={query}
-          variant="fluid"
           placeholder="Search for a AI, tools, services, and resources"
-          className="w-full pl-12 pr-4 py-2 h-14 rounded-xl bg-slate-50/15 dark:bg-slate-800/15 shadow-sm border border-border"
+          className="w-full pl-12 pr-4 py-2 h-14 rounded-xl shadow-sm border border-border"
           onChange={handleInputChange}
           required
         />

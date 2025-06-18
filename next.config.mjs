@@ -26,6 +26,7 @@ const nextConfig = {
         hostname: "**",
       },
     ],
+    unoptimized: true, // Disable image optimization
   },
   async headers() {
     return [

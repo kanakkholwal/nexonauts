@@ -23,7 +23,7 @@ const badgeVariants = cva(
           "bg-white hover:bg-white hover:text-accent-foreground  dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white",
         slate:
           "bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-950 dark:hover:text-slate-100",
-        dark: "bg-slate-900 text-white hover:bg-slate-800 dark:bg-white/80 dark:hover:bg-white/70 dark:text-slate-200",
+        dark: "bg-neutral-900 text-white hover:bg-neutral-800 dark:bg-neutral-100 dark:hover:bg-neutral-200 dark:text-black",
         link: "text-primary underline-offset-4 hover:underline",
         success:
           "bg-green-100 text-green-600 border-green-400 dark:bg-green-500/20 dark:border-green-400/50",
@@ -49,7 +49,7 @@ const badgeVariants = cva(
           "backdrop-blur-lg bg-white/30 dark:bg-slate-800/15 backdrop-blur-xl border-white/5 dark:border-white/5 dark:text-white shadow",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/90",
-        outline: "border border-input bg-background shadow-sm hover:bg-accent",
+        outline: "border border-input bg-background hover:bg-accent hover:border-primary hover:text-primary",
       },
       size: {
         sm: "px-2 py-0.5 text-xs font-regular [&>svg]:size-3",
