@@ -112,7 +112,7 @@ export default async function ExplorePage(props: ExplorePageProps) {
                       key={product._id}
                       href={`/marketplace/products/${product.slug!}`}
                       className={cn(
-                        "flex flex-col justify-between gap-2 rounded-xl p-3 transition-all duration-300 ease-in-out transform hover:scale-103 shadow-sm hover:shadow-xl hover:translate-y-1 hover:translate-x",
+                        "flex flex-col justify-between gap-2 rounded-xl p-3 transition-all duration-300 ease-in-out transform hover:scale-103 shadow-xs hover:shadow-xl hover:translate-y-1 hover:translate-x",
                         "group bg-glass"
                       )}
                     >

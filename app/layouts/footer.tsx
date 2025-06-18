@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer className="relative z-10 pb-17 lg:pb-22 xl:pb-27 mt-10">
       <div className="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0 relative pt-17">
-        <div className="w-full h-[1px] footer-divider-gradient absolute top-0 left-0" />
+        <div className="w-full h-px footer-divider-gradient absolute top-0 left-0" />
         <div className="flex flex-wrap justify-between">
           <div className="mb-10 max-w-[520px] w-full prose dark:prose-invert">
             <Link

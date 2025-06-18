@@ -262,7 +262,7 @@ export default async function ToolPage(props: Props) {
         </Card>
         <Card
           id="overview"
-          className="backdrop-blur bg-white dark:bg-gray-600/30"
+          className="backdrop-blur-sm bg-white dark:bg-gray-600/30"
         >
           <CardHeader>
             <CardTitle>
@@ -282,7 +282,7 @@ export default async function ToolPage(props: Props) {
         </Card>
         <Card
           id="similar-tools"
-          className="backdrop-blur bg-white dark:bg-gray-600/30"
+          className="backdrop-blur-sm bg-white dark:bg-gray-600/30"
         >
           <Suspense fallback={<div>Loading...</div>}>
             <SimilarTools tools={similarTools} toolName={tool.name} />
@@ -290,7 +290,7 @@ export default async function ToolPage(props: Props) {
         </Card>
         <Card
           id="reviews"
-          className="backdrop-blur bg-white dark:bg-gray-600/30 my-20"
+          className="backdrop-blur-sm bg-white dark:bg-gray-600/30 my-20"
         >
           <CardHeader className="flex items-center w-full gap-2 flex-col md:flex-row">
             <div>

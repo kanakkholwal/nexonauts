@@ -1,20 +1,22 @@
-import { Badge } from "@/components/ui/badge";
+import { AnimatedShinyText } from "@/components/animated/animated-shiny-text";
+import Navbar from "@/components/common/navbar";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import Footer from "app/layouts/footer";
-import Navbar from "app/layouts/navbar-static";
 import { FEATURES_SECTION } from "data/landing";
 import {
   ArrowUpRight,
   ExternalLink,
   LineChart,
   ScanSearch,
+  Sparkle
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { projectConfig } from "~/project.config";
 
-export const dynamic = "force-dynamic";
 
-export default async function HomePage() {
+export default function HomePage() {
   return (
     <>
       <header>
@@ -23,30 +25,37 @@ export default async function HomePage() {
       <main className="space-y-20 mb-40 pt-24">
         {/* <HeroSection /> */}
         <div className="flex flex-col text-center justify-center items-center gap-6 lg:gap-8 py-10">
-          <Badge
-            variant="glass"
-            className="font-normal text-sm leading-7 dark:text-neutral-200 -mb-3"
+          <div
+            className={cn(
+              "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
+            )}
           >
-            Welcome to {process.env.NEXT_PUBLIC_WEBSITE_NAME}
-          </Badge>
+
+            <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+              <Sparkle className="inline-block size-4 mr-2 text-yellow-300 transition-transform duration-600 ease-in-out group-hover:rotate-180" />
+              <span> Welcome to {projectConfig.name}</span>
+            </AnimatedShinyText>
+          </div>
+
           <h2 className="font-semibold text-[2.5rem] tracking-normal leading-none text-center dark:text-neutral-50 max-w-[12ch] sm:max-w-[18ch] lg:max-w-[18ch] lg:text-[4rem]">
             The
-            <span className="leading-7 bg-gradient-to-l from-indigo-400 from-10% via-sky-400 via-30% to-emerald-300 to-90% bg-clip-text text-transparent mx-1">
+            <span className="leading-7 bg-linear-to-l from-indigo-400 from-10% via-sky-400 via-30% to-emerald-300 to-90% bg-clip-text text-transparent mx-1">
               Ultimate
             </span>
             platform for
-            <span className="leading-7 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mx-1">
+            <span className="leading-7 bg-linear-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mx-1">
               Developers
             </span>
           </h2>
-          <h4 className="text-lg lg:text-xl text-center dark:text-neutral-300 font-light leading-6 tracking-wide max-w-[30ch] sm:max-w-[45ch]">
+          <p className="text-base lg:text-lg text-center text-muted-foreground font-light font-medium tracking-wide max-w-[30ch] sm:max-w-[45ch]">
             Discover, create, and collaborate effortlessly in one unified space.
             Fuel creativity, solve problems, innovate effortlessly.
-          </h4>
+          </p>
           <Button
             size="lg"
             rounded="full"
             width="xs"
+            variant="rainbow"
             className="tracking-wide"
             transition="damped"
             asChild
@@ -59,7 +68,7 @@ export default async function HomePage() {
 
         <div id="solutions">
           <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6 w-full py-24 md:py-32">
-            <div className="space-y-6 max-w-[42rem]">
+            <div className="space-y-6 max-w-2xl">
               <h2 className="text-3xl font-bold text-start md:text-5xl">
                 {FEATURES_SECTION.title}
               </h2>
@@ -117,7 +126,7 @@ export default async function HomePage() {
           </div>
         </div>
         <div id="dev-solutions" className="px-5">
-          <div className="max-w-7xl mx-auto rounded-xl flex flex-col justify-center items-center w-full bg-cover relative overflow-hidden border border-transparent  bg-gradient-to-tr from-[#070523] from-[26.3%] to-[#0a0559] to-[91.13%] dark:bg-none dark:bg-slate-100/5 dark:border-border/50 shadow-xl backdrop-blur">
+          <div className="max-w-7xl mx-auto rounded-xl flex flex-col justify-center items-center w-full bg-cover relative overflow-hidden border border-transparent  bg-linear-to-tr from-[#070523] from-[26.3%] to-[#0a0559] to-[91.13%] dark:bg-none dark:bg-slate-100/5 dark:border-border/50 shadow-xl backdrop-blur-sm">
             <div className="flex justify-between items-stretch flex-col lg:flex-row">
               <div className="py-16 px-6 md:pl-12 md:py-40 lg:py-20 text-center lg:text-start">
                 <h3 className="text-base font-semibold tracking-wide uppercase text-cyan-600 mb-4">
@@ -282,8 +291,8 @@ export default async function HomePage() {
             aria-hidden="true"
             className="absolute inset-0 h-max w-full m-auto grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
           >
-            <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
-            <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+            <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-purple-400 dark:from-blue-700" />
+            <div className="blur-[106px] h-32 bg-linear-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
           </div>
           <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
             <div className="relative">
@@ -313,7 +322,7 @@ export default async function HomePage() {
                   </Link>
                   <a
                     href="/about"
-                    className="relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max"
+                    className="relative flex h-12 w-full items-center justify-center px-8 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-linear-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max"
                   >
                     <span className="relative text-base font-semibold text-primary dark:text-white">
                       Learn More

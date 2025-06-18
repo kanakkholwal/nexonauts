@@ -13,7 +13,7 @@ export default async function Page() {
   return (
     <>
       <div className="min-h-96 mx-auto flex flex-col items-center space-y-5 mt-20 mb-32">
-        <h1 className="text-[clamp(2.75rem,4.25vw,4.5rem)] max-w-[25ch] text-center font-bold text-gray-800 dark:bg-gradient-to-l  dark:from-indigo-400  dark:from-10%  dark:via-sky-400  dark:via-30%  dark:to-emerald-300  dark:to-90%  dark:bg-clip-text  dark:text-transparent leading-none">
+        <h1 className="text-[clamp(2.75rem,4.25vw,4.5rem)] max-w-[25ch] text-center font-bold text-gray-800 dark:bg-linear-to-l  dark:from-indigo-400  dark:from-10%  dark:via-sky-400  dark:via-30%  dark:to-emerald-300  dark:to-90%  dark:bg-clip-text  dark:text-transparent leading-none">
           Marketplace
           <span className="text-gray-600 dark:text-gray-400 ml-3">
             for frontend developers and web designers.
@@ -52,7 +52,7 @@ export default async function Page() {
                       key={product._id}
                       href={`/marketplace/products/${product.slug!}`}
                       className={cn(
-                        "flex flex-col justify-between gap-2 rounded-xl p-3 transition-all duration-300 ease-in-out transform hover:scale-103 shadow-sm hover:shadow-xl hover:translate-y-1 hover:translate-x",
+                        "flex flex-col justify-between gap-2 rounded-xl p-3 transition-all duration-300 ease-in-out transform hover:scale-103 shadow-xs hover:shadow-xl hover:translate-y-1 hover:translate-x",
                         "group bg-glass"
                       )}
                     >

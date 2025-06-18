@@ -4,8 +4,8 @@ import toast from "react-hot-toast";
 export default function Newsletter() {
   return (
     <section className="bg-indigo-300 dark:bg-gray-900">
-      <div className="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-        <div className="mx-auto max-w-screen-md sm:text-center">
+      <div className="py-8 px-4 mx-auto max-w-(--breakpoint-xl) lg:py-16 lg:px-6">
+        <div className="mx-auto max-w-(--breakpoint-md) sm:text-center">
           <h2 className="mb-4 text-3xl tracking-tight font-extrabold text-gray-900 sm:text-4xl dark:text-white">
             Sign up for our newsletter
           </h2>
@@ -20,7 +20,7 @@ export default function Newsletter() {
               toast.success("Will be implemented soon");
             }}
           >
-            <div className="items-center mx-auto mb-3 space-y-4 max-w-screen-sm sm:flex sm:space-y-0">
+            <div className="items-center mx-auto mb-3 space-y-4 max-w-(--breakpoint-sm) sm:flex sm:space-y-0">
               <div className="relative w-full">
                 <label
                   htmlFor="email"
@@ -57,7 +57,7 @@ export default function Newsletter() {
                 </Button>
               </div>
             </div>
-            <div className="mx-auto max-w-screen-sm text-sm text-center text-slate-100 newsletter-form-footer dark:text-gray-300">
+            <div className="mx-auto max-w-(--breakpoint-sm) text-sm text-center text-slate-100 newsletter-form-footer dark:text-gray-300">
               We care about the protection of your data.{" "}
               <a
                 href="#"

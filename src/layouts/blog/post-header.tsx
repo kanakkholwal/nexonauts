@@ -93,7 +93,7 @@ export default function PostHeader({
               height={400}
               width={600}
               alt={title}
-              className="h-auto w-full max-w-[38rem] rounded-3xl shadow-md shadow-slate-300"
+              className="h-auto w-full max-w-152 rounded-3xl shadow-md shadow-slate-300"
               priority
             />
           </div>

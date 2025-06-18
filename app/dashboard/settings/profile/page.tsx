@@ -38,7 +38,7 @@ export default async function ProfilePage() {
       <div className="grid grid-cols-1 @5xl:grid-cols-[1fr_38rem] gap-4 w-full">
         <div className="glassmorphism_light p-5 rounded-xl">
           <div className="flex items-center justify-between mb-5">
-            <h3 className="text-xl font-semibold relative bg-gradient-to-r from-primary to-blue-600 bg-clip-text text-transparent">
+            <h3 className="text-xl font-semibold relative bg-linear-to-r from-primary to-blue-600 bg-clip-text text-transparent">
               @{profile.username}
             </h3>
             <Button size="sm" variant="link" className="group" asChild>

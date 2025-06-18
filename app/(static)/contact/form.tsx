@@ -118,7 +118,7 @@ export function ContactForm() {
                       required
                       disabled={isLoading}
                       variant="fluid"
-                      className="pl-12 !py-6 pr-5 !mt-0"
+                      className="pl-12 py-6! pr-5 mt-0!"
                       {...field}
                     />
                   </FormControl>
@@ -148,7 +148,7 @@ export function ContactForm() {
                       autoCorrect="off"
                       disabled={isLoading}
                       variant="fluid"
-                      className="pl-12 !py-6 pr-5 !mt-0"
+                      className="pl-12 py-6! pr-5 mt-0!"
                       {...field}
                     />
                   </FormControl>
@@ -178,7 +178,7 @@ export function ContactForm() {
                       autoCorrect="off"
                       disabled={isLoading}
                       variant="fluid"
-                      className="pl-12 !py-6 pr-5 !mt-0"
+                      className="pl-12 py-6! pr-5 mt-0!"
                       {...field}
                     />
                   </FormControl>
@@ -207,7 +207,7 @@ export function ContactForm() {
                       autoCorrect="off"
                       disabled={isLoading}
                       variant="fluid"
-                      className="pl-12 !py-6 pr-5 !mt-0"
+                      className="pl-12 py-6! pr-5 mt-0!"
                       {...field}
                     />
                   </FormControl>
@@ -260,7 +260,7 @@ export function ContactForm() {
                 {[
                     "Brand Strategy", "Marketing / Ads", "Careers", "Development", "Design / UX&UI", "Other"
                 ].map((item, index) => {
-                    return (<label key={index} className="text-slate-700 cursor-pointer has-[:checked]:ring-primary/50 has-[:checked]:text-primary has-[:checked]:bg-primary/10 flex justify-between items-center gap-6 rounded-lg p-4 ring-1 ring-transparent hover:bg-slate-100">
+                    return (<label key={index} className="text-slate-700 cursor-pointer has-checked:ring-primary/50 has-checked:text-primary has-checked:bg-primary/10 flex justify-between items-center gap-6 rounded-lg p-4 ring-1 ring-transparent hover:bg-slate-100">
                         {item}
                         <input type="radio" onChange={(e) => {
 

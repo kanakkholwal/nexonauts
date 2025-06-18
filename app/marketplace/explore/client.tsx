@@ -32,10 +32,10 @@ export function CategoryBoxes({
             key={i}
             htmlFor={item.label}
             className={cn(
-              "flex items-center justify-center gap-3 p-3 rounded-xl transition-all duration-200 shadow-md border w-full aspect-[10/4]",
+              "flex items-center justify-center gap-3 p-3 rounded-xl transition-all duration-200 shadow-md border w-full aspect-10/4",
               "bg-glasss",
               selectedCategory === item.label
-                ? "!border-primary"
+                ? "border-primary!"
                 : "border-transparent"
             )}
           >
@@ -70,7 +70,7 @@ export function SearchBar({ initialQuery }: { initialQuery: string }) {
       id="query"
       variant="fluid"
       placeholder="Search for products"
-      className="w-full pl-12 pr-4 py-2 h-12 rounded-xl bg-slate-50 dark:bg-slate-800/20 shadow border border-border"
+      className="w-full pl-12 pr-4 py-2 h-12 rounded-xl bg-slate-50 dark:bg-slate-800/20 shadow-sm border border-border"
       // value={query}
       // onChange={(e) => {
       //   setQuery(e.target.value);

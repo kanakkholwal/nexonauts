@@ -14,8 +14,8 @@ export default async function Page() {
           aria-hidden="true"
           className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
         >
-          <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
-          <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+          <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-purple-400 dark:from-blue-700" />
+          <div className="blur-[106px] h-32 bg-linear-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
         </div>
         <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
           <div className="relative pt-36 ml-auto">
@@ -32,8 +32,8 @@ export default async function Page() {
           aria-hidden="true"
           className="absolute inset-0 grid grid-cols-2 space-x-52 opacity-40 dark:opacity-20"
         >
-          <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
-          <div className="blur-[106px] h-32 bg-gradient-to-r from-teal-400 to-sky-300 dark:to-indigo-600" />
+          <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-purple-400 dark:from-blue-700" />
+          <div className="blur-[106px] h-32 bg-linear-to-r from-teal-400 to-sky-300 dark:to-indigo-600" />
         </div>
         <div className="flex gap-6 items-start w-full flex-col lg:flex-row lg:items-center">
           <div className="space-y-4">
@@ -67,8 +67,8 @@ export default async function Page() {
           aria-hidden="true"
           className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
         >
-          <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
-          <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+          <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-purple-400 dark:from-blue-700" />
+          <div className="blur-[106px] h-32 bg-linear-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
         </div>
         <p className="text-lg md:text-xl xl:text-2xl text-primary font-semibold uppercase text-center">
           Our Value
@@ -153,8 +153,8 @@ export default async function Page() {
           aria-hidden="true"
           className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
         >
-          <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-red-400 dark:from-blue-700" />
-          <div className="blur-[106px] h-32 bg-gradient-to-r from-primary/30 to-sky-300 dark:to-indigo-600" />
+          <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-red-400 dark:from-blue-700" />
+          <div className="blur-[106px] h-32 bg-linear-to-r from-primary/30 to-sky-300 dark:to-indigo-600" />
         </div>
         <h4 className="text-2xl md:text-3xl xl:text-4xl text-gray-900 dark:text-white text-center font-bold">
           Join the Journey

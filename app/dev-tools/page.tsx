@@ -38,12 +38,12 @@ export default function Tools() {
           aria-hidden="true"
           className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
         >
-          <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
-          <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+          <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-purple-400 dark:from-blue-700" />
+          <div className="blur-[106px] h-32 bg-linear-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
         </div>
         <div className="max-w-7xl px-6 lg:px-12 relative flex-auto">
           <div className="text-left mx-auto">
-            <h1 className="text-gray-900 dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl relative bg-gradient-to-r from-primary to-violet-200 bg-clip-text text-transparent dark:from-primaryLight dark:to-secondaryLight">
+            <h1 className="text-gray-900 dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl relative bg-linear-to-r from-primary to-violet-200 bg-clip-text text-transparent dark:from-primaryLight dark:to-secondaryLight">
               Developer Tools
             </h1>
             <p className="mt-8 text-gray-700 dark:text-gray-300">
@@ -60,7 +60,7 @@ export default function Tools() {
               variant="glass"
               aria-label="Search Tools"
               id="search-tools"
-              className=" px-5 py-4 text-base h-12  pl-10 w-full max-w-3xl mx-auto rounded-lg shadow"
+              className=" px-5 py-4 text-base h-12  pl-10 w-full max-w-3xl mx-auto rounded-lg shadow-sm"
               type="search"
               value={query}
               onChange={(e) => {

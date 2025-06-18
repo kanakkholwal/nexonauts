@@ -66,8 +66,8 @@ export default function SectionFeatures() {
           </p>
         </div>
         <div className="relative">
-          <div className="features-row-border rotate-90 w-1/2 h-[1px] absolute top-1/2 left-1/2 -translate-y-1/2 lg:-translate-x-1/3 lg:left-1/4 hidden lg:block" />
-          <div className="features-row-border rotate-90 w-1/2 h-[1px] absolute top-1/2 right-1/2 -translate-y-1/2 lg:right-[8.3%] hidden lg:block" />
+          <div className="features-row-border rotate-90 w-1/2 h-px absolute top-1/2 left-1/2 -translate-y-1/2 lg:-translate-x-1/3 lg:left-1/4 hidden lg:block" />
+          <div className="features-row-border rotate-90 w-1/2 h-px absolute top-1/2 right-1/2 -translate-y-1/2 lg:right-[8.3%] hidden lg:block" />
 
           <div className="flex flex-wrap justify-center">
             {features_for_generalpurpose.map(
@@ -89,7 +89,7 @@ export default function SectionFeatures() {
               }
             )}
           </div>
-          <div className="features-row-border w-full h-[1px]"></div>
+          <div className="features-row-border w-full h-px"></div>
           <div className="flex flex-wrap justify-center">
             {features_for_devs.map((Feature: FeatureType, index: number) => {
               return (

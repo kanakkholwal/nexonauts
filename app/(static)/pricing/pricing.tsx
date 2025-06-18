@@ -9,7 +9,7 @@ export function Pricing() {
     <>
       <div className="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
         <div className="text-center">
-          <span className="bg-gradient-to-b from-cyan-500 to-sky-500 text-white shadow-md mt-4 text-primary relative mb-5 font-medium text-sm inline-flex items-center gap-2 py-2 px-3 rounded-full">
+          <span className="bg-linear-to-b from-cyan-500 to-sky-500 text-white shadow-md mt-4 text-primary relative mb-5 font-medium text-sm inline-flex items-center gap-2 py-2 px-3 rounded-full">
             <BsStars className="text-md" />
             <span className="hero-subtitle-text">
               Launch your Developer Career
@@ -93,7 +93,7 @@ function PricingTable() {
             </div>
           </div>
           <div className="relative flex flex-col p-6 bg-white  dark:bg-slate-800 shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-cyan-500 hover:border-sky-500 transition-all duration-300 hover:translate-y-[-16px]">
-            <div className="px-3 py-1 text-sm text-white bg-gradient-to-r from-cyan-500 to-sky-500 rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div className="px-3 py-1 text-sm text-white bg-linear-to-r from-cyan-500 to-sky-500 rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
               Popular
             </div>
             <div>
@@ -123,7 +123,7 @@ function PricingTable() {
             </div>
             <div className="mt-6">
               <Link href="/signup">
-                <Button className="w-full bg-gradient-to-r from-cyan-500 to-sky-500">
+                <Button className="w-full bg-linear-to-r from-cyan-500 to-sky-500">
                   Get Started
                 </Button>
               </Link>

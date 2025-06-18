@@ -70,7 +70,7 @@ export default async function ProductPage(props: {
                 width={1024}
                 height={720}
                 alt={product.name}
-                className="w-full h-auto aspect-video object-cover rounded-lg border border-border shadow-sm"
+                className="w-full h-auto aspect-video object-cover rounded-lg border border-border shadow-xs"
               />
               <Badge variant="info" className="gap-1 absolute top-4 right-4">
                 {product.price === 0 ? "Free" : `$ ${product.price}`}

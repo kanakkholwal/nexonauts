@@ -120,7 +120,7 @@ export function SearchBar({
             value={query}
             variant="fluid"
             placeholder="Search for a AI, tools, services, and resources"
-            className="w-full pl-12 pr-4 py-2 h-14 rounded-xl bg-slate-50/15 dark:bg-slate-800/15 shadow border border-border"
+            className="w-full pl-12 pr-4 py-2 h-14 rounded-xl bg-slate-50/15 dark:bg-slate-800/15 shadow-sm border border-border"
             defaultValue={searchParams.get("query")?.toString()?.trim()!}
             onChange={(e) => {
               if (e.target.value.trim() === "") return;
@@ -132,7 +132,7 @@ export function SearchBar({
           <Button
             size="icon"
             variant="outline"
-            className="rounded-full absolute z-20 top-1/2 right-2 transform -translate-y-1/2 border-none bg-transparent dark:bg-transparent  focus:outline-none"
+            className="rounded-full absolute z-20 top-1/2 right-2 transform -translate-y-1/2 border-none bg-transparent dark:bg-transparent  focus:outline-hidden"
             onClick={() => {
               setQuery("");
               handleSearch("");

@@ -11,7 +11,7 @@ interface SidebarProps {
 export function SideBar(props: SidebarProps) {
   console.log(props.author);
   return (
-    <aside className="@3xl:sticky @3xl:top-5 overflow-hidden space-y-10 p-5 rounded-lg border backdrop-blur-lg shadow w-full @4xl:w-max @4xl:ml-auto shrink-0">
+    <aside className="@3xl:sticky @3xl:top-5 overflow-hidden space-y-10 p-5 rounded-lg border backdrop-blur-lg shadow-sm w-full @4xl:w-max @4xl:ml-auto shrink-0">
       <div className="flex flex-col items-start space-y-4">
         <Avatar className="size-56">
           <AvatarImage src={props.author?.user?.profilePicture} className="size-56" />

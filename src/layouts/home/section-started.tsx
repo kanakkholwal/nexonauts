@@ -48,7 +48,7 @@ export default function GetStarted() {
                 src="https://ai-tool.nextjstemplates.com/images/blur/blur-23.svg"
               />
             </span>
-            <span className="absolute max-w-[530px] aspect-[530/253] left-1/2 bottom-0 -translate-x-1/2 -z-1">
+            <span className="absolute max-w-[530px] aspect-530/253 left-1/2 bottom-0 -translate-x-1/2 -z-1">
               <img
                 alt="blur"
                 loading="lazy"

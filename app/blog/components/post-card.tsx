@@ -13,11 +13,11 @@ export function PostCard({
   return (
     <div
       className={cn(
-        "rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-neutral-900 dark:border-white/[0.05] bg-white border border-transparent justify-between flex flex-col space-y-4",
+        "rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-neutral-900 dark:border-white/5 bg-white border border-transparent justify-between flex flex-col space-y-4",
         className
       )}
     >
-      <div className="relative mb-6 aspect-[370/280] w-full overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
+      <div className="relative mb-6 aspect-370/280 w-full overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
         {/* {isPro && <ProBadge />} */}
         <Link href={`/blog/articles/${post.slug}`}>
           <Image
@@ -36,7 +36,7 @@ export function PostCard({
             href={`/blog/articles/${post.slug}`}
             className="mb-3.5 block text-xl font-bold text-dark"
           >
-            <span className="bg-gradient-to-r from-primary/20 to-primary/10 bg-[length:0px_10px] bg-left-bottom bg-no-repeat transition-[background-size] duration-500 hover:bg-[length:100%_3px] group-hover:bg-[length:100%_10px]">
+            <span className="bg-linear-to-r from-primary/20 to-primary/10 bg-size-[0px_10px] bg-bottom-left bg-no-repeat transition-[background-size] duration-500 hover:bg-size-[100%_3px] group-hover:bg-size-[100%_10px]">
               {post.title}
             </span>
           </Link>

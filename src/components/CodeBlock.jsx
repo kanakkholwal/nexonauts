@@ -108,14 +108,14 @@ function CodeBlock({ content, language, title, ...props }) {
       <div className="relative p-0">
         <Button
           type="button"
-          className="absolute z-40 top-2 right-2 ml-auto left-auto h-8 bg-transparent text-slate-600 dark:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-white/5 backdrop-blur-sm"
+          className="absolute z-40 top-2 right-2 ml-auto left-auto h-8 bg-transparent text-slate-600 dark:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-white/5 backdrop-blur-xs"
           variant="secondary"
           size="sm"
           onClick={(e) => Copy(e, content.toString())}
         >
           <HandleCopyState state={CopyState} />
         </Button>
-        <pre {...props} className="!m-0" >
+        <pre {...props} className="m-0!" >
           <code className={`language-${language}`}>{content}</code>
         </pre>
       </div>

@@ -61,9 +61,9 @@ export default function SimilarTools({ tools, toolName }: Props) {
                       <Card className="rounded-3xl bg-inherit">
                         <CardHeader>
                           <div className="flex flex-col w-full h-auto aspect-video overflow-hidden bg-gray-100 dark:bg-slate-800 rounded-xl">
-                            <div className="relative flex items-center justify-center flex-shrink-0 h-full group">
+                            <div className="relative flex items-center justify-center shrink-0 h-full group">
                               <LazyImage
-                                className=" h-auto rounded-lg shadow-md mx-auto object-cover object-left-top transition ease-in-out duration-300"
+                                className=" h-auto rounded-lg shadow-md mx-auto object-cover object-top-left transition ease-in-out duration-300"
                                 width={350}
                                 height={200}
                                 src={tool.coverImage}

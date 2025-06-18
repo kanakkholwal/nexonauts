@@ -55,11 +55,11 @@ export default async function BrowsePage(props: {
             aria-hidden="true"
             className="fixed inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20 -z-1"
           >
-            <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
-            <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+            <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-purple-400 dark:from-blue-700" />
+            <div className="blur-[106px] h-32 bg-linear-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
           </div>
           <div className="relative flex flex-col justify-center gap-5 z-10 w-full h-full mx-auto max-w-7xl p-6 text-center pt-40">
-            <h1 className="text-4xl 4xl:text-6xl font-bold text-foreground dark:bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text dark:text-transparent">
+            <h1 className="text-4xl 4xl:text-6xl font-bold text-foreground dark:bg-linear-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text dark:text-transparent">
               {HERO_SECTION.title}
             </h1>
             <p className="text-lg text-muted-foreground">
@@ -68,7 +68,7 @@ export default async function BrowsePage(props: {
             <div className="p-3 mt-10 w-full mx-auto">
               <SearchBar />
               <div className="flex items-center justify-between w-full mt-4  z-10">
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground font-medium text-sm">
                   {query ? (
                     <>
                       Search results for "
@@ -92,9 +92,8 @@ export default async function BrowsePage(props: {
       </header>
       <main
         id="results"
-        className="@container h-full w-full max-w-[1440px] mx-auto px-3 "
+        className="@container h-full w-full max-w-(--max-app-width) mx-auto p-3 border-t "
       >
-        <hr className="my-4" />
         <ConditionalRender condition={tools.length > 0}>
           <div className={viewTypeToClassName(viewType)}>
             {tools.map((tool) => {
@@ -111,7 +110,7 @@ export default async function BrowsePage(props: {
                     >
                       <CardHeader className="p-2">
                         <figure className="flex flex-col w-full aspect-video overflow-hidden bg-white/30 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70 rounded-lg h-32 sm:h-36">
-                          <div className="relative flex items-center justify-center flex-shrink-0 h-full group w-auto m-auto overflow-hidden">
+                          <div className="relative flex items-center justify-center shrink-0 h-full group w-auto m-auto overflow-hidden">
                             <LazyImage
                               className="w-auto h-auto m-auto transition ease-in-out duration-300 group-hover:scale-105"
                               width={350}
@@ -138,26 +137,15 @@ export default async function BrowsePage(props: {
                           <Badge
                             variant="default_light"
                             size="sm"
-                            className="ml-auto"
+                            className="ml-auto capitalize"
                           >
                             {tool.pricing_type}
                           </Badge>
                         </div>
 
-                        <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start mt-2">
-                          {tool.categories?.map((category, index) => {
-                            return (
-                              <Badge
-                                key={category.slug + "_" + index}
-                                variant="success_light"
-                                size="sm"
-                                className="text-xs px-1 leading-4 gap-1"
-                              >
-                                <Hash className="inline-block w-3 h-3" />
-                                {category.name}
-                              </Badge>
-                            );
-                          })}
+                        <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start mt-2 text-xs text-muted-foreground">
+                          <Hash className="inline-block size-3" />
+                          {tool.categories?.map((category, index) => category.name).join(", ")}
                         </div>
                       </CardContent>
                     </Card>
@@ -182,7 +170,7 @@ export default async function BrowsePage(props: {
 function viewTypeToClassName(viewType: "grid" | "list" | "masonry") {
   switch (viewType) {
     case "grid":
-      return "grid gap-4 grid-cols-1 @xl:grid-cols-2 @4xl:grid-cols-3 @7xl:grid-cols-4";
+      return "grid grid-cols-1 @md:grid-cols-2 @lg:grid-cols-2 @2xl:grid-cols-3 @5xl:grid-cols-4 gap-4";
     case "list":
       return "grid gap-4 grid-cols-1 @4xl:grid-cols-2";
     case "masonry":

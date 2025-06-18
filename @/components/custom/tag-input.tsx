@@ -291,7 +291,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
                   onKeyDown={handleKeyDown}
                   onFocus={onFocus}
                   onBlur={onBlur}
-                  className="flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                  className="flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
                 />
               ) : (
                 <TagPopover
@@ -324,7 +324,7 @@ const TagInput = React.forwardRef<HTMLInputElement, TagInputProps>(
                     onKeyDown={handleKeyDown}
                     onFocus={onFocus}
                     onBlur={onBlur}
-                    className="flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50"
                     />
                 </TagPopover>
               )}
