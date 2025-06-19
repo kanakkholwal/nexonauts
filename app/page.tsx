@@ -1,6 +1,7 @@
 import { AnimatedShinyText } from "@/components/animated/animated-shiny-text";
 import Navbar from "@/components/common/navbar";
 import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/utils/link";
 import { cn } from "@/lib/utils";
 import Footer from "app/layouts/footer";
 import { FEATURES_SECTION } from "data/landing";
@@ -51,19 +52,17 @@ export default function HomePage() {
             Discover, create, and collaborate effortlessly in one unified space.
             Fuel creativity, solve problems, innovate effortlessly.
           </p>
-          <Button
+          <ButtonLink
             size="lg"
             rounded="full"
             width="xs"
             variant="rainbow"
             className="tracking-wide"
             transition="damped"
-            asChild
+            href="/waitlist"
           >
-            <Link href="/waitlist">
               Join Waitlist <ArrowUpRight />
-            </Link>
-          </Button>
+          </ButtonLink>
         </div>
 
         <div id="solutions">

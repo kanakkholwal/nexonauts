@@ -29,7 +29,7 @@ export default function Navbar() {
     <div id="navbar" className={cn(
       "fixed inset-x-0 top-0 z-50 w-full",
       scrolled
-        ? "backdrop-blur-xs dark:backdrop-blur-sm bg-white/50 dark:bg-zinc-900/20"
+        ? "backdrop-blur-xs dark:backdrop-blur-sm bg-card/50"
         : "",
     )}>
       <div

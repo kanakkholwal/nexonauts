@@ -23,7 +23,7 @@ export function FollowButton({ isFollowing, followUser }: FollowProps) {
           },
         });
       }}
-      variant={isFollowing ? "outline-solid" : "default"}
+      variant={isFollowing ? "outline" : "default"}
       className="rounded-full px-6 w-full max-w-xs"
     >
       {isFollowing ? "Following" : "Follow"}
@@ -47,7 +47,7 @@ export function FollowToggle({ isFollowing, followUser }: FollowProps) {
         });
       }}
       size="sm"
-      variant={isFollowing ? "outline-solid" : "default"}
+      variant={isFollowing ? "outline" : "default"}
     >
       {isFollowing ? "Following" : "Follow"}
     </Button>

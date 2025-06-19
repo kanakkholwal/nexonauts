@@ -60,6 +60,7 @@ export function CategoryBoxes({
   );
 }
 
+
 export function SearchBar({ initialQuery }: { initialQuery: string }) {
   const [_, setQuery] = useUrlState("query", initialQuery);
 
@@ -68,9 +69,9 @@ export function SearchBar({ initialQuery }: { initialQuery: string }) {
       type="search"
       name="query"
       id="query"
-      variant="fluid"
       placeholder="Search for products"
-      className="w-full pl-12 pr-4 py-2 h-12 rounded-xl bg-slate-50 dark:bg-slate-800/20 shadow-sm border border-border"
+      variant="glass"
+      className="w-full pl-12 pr-4 py-2 h-12 rounded-full"
       // value={query}
       // onChange={(e) => {
       //   setQuery(e.target.value);
@@ -85,13 +86,13 @@ export function SearchBar({ initialQuery }: { initialQuery: string }) {
 
 export function FiltersWrapper({ content }: { content: React.ReactNode }) {
   return (
-    <Sheet>
+    <Sheet >
       <SheetTrigger asChild>
-        <Button size="icon_lg" variant="ghost" className="lg:hidden">
+        <Button size="icon" variant="light" rounded="full" className="lg:hidden absolute top-1/2 right-2 transform -translate-y-1/2 z-50">
           <Settings2 />
         </Button>
       </SheetTrigger>
-      <SheetContent>{content}</SheetContent>
+      <SheetContent className="p-4">{content}</SheetContent>
     </Sheet>
   );
 }

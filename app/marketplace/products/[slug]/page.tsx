@@ -3,13 +3,15 @@ import { Button } from "@/components/ui/button";
 import ConditionalRender from "@/components/utils/conditional-render";
 import { ErrorBoundaryWithSuspense } from "@/components/utils/error-boundary";
 import InfoArea from "@/components/utils/info-area";
+import { ButtonLink } from "@/components/utils/link";
 import { ArrowUpRight, Edit, Heart, LoaderCircle } from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import MarkdownView, { defaultOptions } from "src/components/markdown/view";
+import MarkdownView from "src/components/markdown/view";
 import { getSession } from "src/lib/auth";
+import { marketwiseLink } from "src/lib/scout";
 import { sessionType } from "src/types/session";
 import { decodeHTMLEntities } from "src/utils/string";
 import { getProductBySlug, getSimilarProducts } from "./actions";
@@ -49,7 +51,8 @@ export default async function ProductPage(props: {
   if (!product) {
     return notFound();
   }
-
+  console.log("Product:", product);
+  const isCreator = isAuthenticated && session?.user._id.toString() === product.creator?._id?.toString();
   const similarProducts = await getSimilarProducts(params.slug);
 
   return (
@@ -73,7 +76,7 @@ export default async function ProductPage(props: {
                 sizes="(max-width: 768px) 100vw, 80vw"
               />
               <Badge
-                variant="info"
+                variant="default"
                 className="absolute top-4 right-4 py-1.5 px-3 text-sm"
               >
                 {product.price === 0 ? "Free" : `$${product.price}`}
@@ -85,14 +88,15 @@ export default async function ProductPage(props: {
               <div className="flex flex-col whitespace-nowrap">
                 <div className="text-sm text-muted-foreground">
                   By{" "}
-                  <Link
-                    href={`/profile/${product.creator.username}`}
-                    className="text-primary hover:underline"
+                  <span
+                    // href={`/profile/${product.creator.username}`}
+                    className="text-primary hover:underline font-semibold cursor-pointer"
+                    aria-disabled={true}
                   >
                     {product.creator.name}
-                  </Link>
+                  </span>
                 </div>
-                <div className="text-xs text-muted-foreground">
+                <div className="text-xs text-muted-foreground font-medium">
                   Published on {new Date(product.createdAt).toLocaleDateString()}
                 </div>
               </div>
@@ -131,37 +135,34 @@ export default async function ProductPage(props: {
               Favorite
             </Button>
 
-            <Button
-              asChild
+            <ButtonLink
               size="lg"
               className="flex-1 min-w-[200px] rounded-full"
-            >
-              <Link
-                href={product.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Get it now
-                <ArrowUpRight className="ml-2 w-5 h-5" />
-              </Link>
-            </Button>
 
-            {isAuthenticated &&
-              session?.user._id.toString() ===
-              product.creator?._id?.toString() && (
-                <Button
-                  variant="dark"
-                  size="lg"
-                  asChild
-                  className="ml-auto rounded-full"
-                >
-                  <Link href={`/dashboard/products/${product.slug}/edit`} target="_blank">
-                    <span className="sr-only">Edit Product</span>
-                    <Edit className="w-5 h-5 mr-2" />
-                    Edit
-                  </Link>
-                </Button>
-              )}
+              href={marketwiseLink(product.url,"/marketplace")}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="gradient_purple"
+              transition="damped"
+            >
+              Get it now
+              <ArrowUpRight />
+            </ButtonLink>
+
+            {isAuthenticated && isCreator && (
+              <Button
+                variant="dark"
+                size="lg"
+                asChild
+                className="ml-auto rounded-full"
+              >
+                <Link href={`/dashboard/products/${product.slug}/edit`} target="_blank">
+                  <span className="sr-only">Edit Product</span>
+                  <Edit className="w-5 h-5 mr-2" />
+                  Edit
+                </Link>
+              </Button>
+            )}
           </section>
 
           {/* Description */}
@@ -169,7 +170,7 @@ export default async function ProductPage(props: {
             <h2 className="text-lg font-semibold mb-4">Description</h2>
             <MarkdownView
               className="prose dark:prose-invert max-w-full"
-              options={defaultOptions}
+              // options={defaultOptions}
             >
               {product.description}
             </MarkdownView>
