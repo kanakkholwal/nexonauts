@@ -27,7 +27,7 @@ export default function DeleteProductButton({ deleteProduct }: Props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive_light" size="icon_sm">
+        <Button variant="destructive_light" size="icon_xs">
           <Trash2 />
         </Button>
       </AlertDialogTrigger>

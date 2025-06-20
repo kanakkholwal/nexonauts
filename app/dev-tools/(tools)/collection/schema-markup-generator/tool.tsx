@@ -863,7 +863,7 @@ function Product({ setCode }: Props) {
             {PRODUCT_TYPES.map((item, index) => {
               return (
                 <div
-                  className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm gap-4"
+                  className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-xs gap-4"
                   key={index}
                 >
                   <div className="space-y-0.5">

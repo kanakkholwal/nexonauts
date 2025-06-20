@@ -18,7 +18,7 @@ export default function InfoArea({
   return (
     <div
       className={cn(
-        "w-full mx-auto px-6 py-10 my-10 rounded-lg bg-white/50 dark:bg-black/10 backdrop-blur-md flex flex-col justify-center gap-2 items-center",
+        "w-full mx-auto px-6 py-10 my-10 max-w-4xl mx-auto rounded-lg bg-card border hover:border-primary/50 backdrop-blur-md flex flex-col justify-center gap-2 items-center",
         className
       )}
       {...props}

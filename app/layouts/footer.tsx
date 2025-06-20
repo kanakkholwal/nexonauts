@@ -7,13 +7,13 @@ import ThemeSwitcher from "./theme-switcher";
 
 export default function Footer() {
   return (
-    <footer className="relative z-10 pb-17 lg:pb-22 xl:pb-27 mt-10">
+    <footer className="relative z-10 pb-16 mt-10">
       <div className="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0 relative pt-17">
-        <div className="w-full h-[1px] footer-divider-gradient absolute top-0 left-0" />
+        <div className="w-full h-px footer-divider-gradient absolute top-0 left-0" />
         <div className="flex flex-wrap justify-between">
           <div className="mb-10 max-w-[520px] w-full prose dark:prose-invert">
             <Link
-              className="mb-8 inline-block  text-3xl font-extrabold sm:text-3xl xl:text-heading-3 not-prose"
+              className="mb-8 inline-block text-3xl font-extrabold sm:text-3xl xl:text-heading-3 not-prose"
               href="/"
             >
               {process.env.NEXT_PUBLIC_WEBSITE_NAME}
@@ -28,7 +28,7 @@ export default function Footer() {
                 href="https://x.com/KanakKholwal"
                 title="Twitter / X"
                 className={
-                  "text-slate-500 hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon"
+                  "text-muted-foreground hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon"
                 }
               >
                 <RiTwitterXFill className="w-5 h-5" />
@@ -37,12 +37,12 @@ export default function Footer() {
                 href="https://linkedin.com/NexoNauts"
                 title={"NexoNauts' Linkedin"}
                 className={
-                  "text-slate-500 hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon"
+                  "text-muted-foreground hover:text-primary hover:-translate-y-1 ease-in duration-300 flex justify-center items-center h-8 icon"
                 }
               >
                 <FiLinkedin className="w-5 h-5" />
               </Link>
-              {/*                         <Link href="https://github.com/NexoNauts" className={"text-slate-500 hover:text-primary ease-in duration-300 flex justify-center items-center h-16 icon"}>
+              {/*                         <Link href="https://github.com/NexoNauts" className={"text-muted-foreground hover:text-primary ease-in duration-300 flex justify-center items-center h-16 icon"}>
                             <LuGithub className="w-5 h-5" />
                         </Link> */}
             </div>
@@ -61,12 +61,12 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="font-medium mt-4 mb-6 text-slate-600 flex justify-between gap-2 items-center">
-          <div>
+        <div className="font-medium mt-4 mb-6 text-muted-foreground flex justify-between gap-2 items-center">
+          <div className="text-sm">
             © {new Date().getFullYear()}{" "}
             <Link
               href="/"
-              className="text-slate-900 dark:text-slate-200 font-semibold"
+              className="text-foreground font-semibold"
               title={process.env.NEXT_PUBLIC_WEBSITE_NAME}
             >
               {process.env.NEXT_PUBLIC_WEBSITE_NAME}
@@ -98,7 +98,7 @@ function LinkList({
             <Link
               href={link.href}
               title={link.title}
-              className="text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary font-semibold text-sm ease-in duration-300 inset-0 hover:left-2"
+              className="text-muted-foreground dark:text-gray-400 hover:text-primary dark:hover:text-primary font-semibold text-sm ease-in duration-300 inset-0 hover:left-2"
             >
               {link.title}
             </Link>

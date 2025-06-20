@@ -19,6 +19,14 @@ export function slugify(text: string): string {
 
   return slug;
 }
+// Utility to decode HTML entities
+export const decodeHTMLEntities = (text: string) => {
+  return text.replace(/&amp;/g, '&')
+             .replace(/&lt;/g, '<')
+             .replace(/&gt;/g, '>')
+             .replace(/&quot;/g, '"')
+             .replace(/&#039;/g, "'");
+};
 
 export function generateSlug(length = 8): string {
   return customAlphabet(

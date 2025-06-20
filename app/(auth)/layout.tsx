@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="min-h-screen w-full mx-auto px-4 relative h-[100vh] flex-col items-center justify-center lg:grid lg:items-stretch lg:max-w-none lg:grid-cols-2 lg:px-0 bg-background-gradient">
+      <div className="min-h-screen w-full mx-auto px-4 relative h-screen flex-col items-center justify-center lg:grid lg:items-stretch lg:max-w-none lg:grid-cols-2 lg:px-0 bg-background-gradient">
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
           <div className="absolute inset-0 bg-zinc-900" />
           <Link
@@ -52,7 +52,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               />
             </Link>
           </div>
-          <div className="m-auto flex flex-col justify-center space-y-6 @lg:max-w-[28rem] w-full h-full  mt-32 @lg:mt-0">
+          <div className="m-auto flex flex-col justify-center space-y-6 @lg:max-w-md w-full h-full  mt-32 @lg:mt-0">
             {children}
           </div>
         </div>

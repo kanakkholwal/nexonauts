@@ -71,7 +71,7 @@ export default async function IntegrationPage() {
                 <Link
                   href={`/dashboard/settings/integrations/${integration}`}
                   key={integration}
-                  className="flex items-center border text-card-foreground backdrop-blur bg-white dark:bg-gray-600/30 shadow p-4 rounded-xl flex-col justify-center transition hover:scale-103 active:duration-75 active:scale-97"
+                  className="flex items-center border text-card-foreground backdrop-blur-sm bg-white dark:bg-gray-600/30 shadow-sm p-4 rounded-xl flex-col justify-center transition hover:scale-103 active:duration-75 active:scale-97"
                 >
                   <div className="flex items-center justify-between w-full flex-auto h-20">
                     <div className="flex-auto max-h-20">

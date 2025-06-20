@@ -71,7 +71,7 @@ export default async function PlatformPage(props: Props) {
       <Separator className="my-6" />
       {/* // This is the RevokeTokenButton component */}
       {integrationData.integrated && (
-        <div className="bg-white/50 p-4 rounded-lg dark:bg-gray-800/50 flex justify-between items-center shadow">
+        <div className="bg-white/50 p-4 rounded-lg dark:bg-gray-800/50 flex justify-between items-center shadow-sm">
           <div>
             <p className="text-muted-foreground font-medium">
               Your account is connected with <strong>{params.platform}</strong>

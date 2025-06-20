@@ -48,7 +48,7 @@ export default async function DashboardPage() {
               </TabsList>
             </div>
             <Separator />
-            <div className=" p-4 backdrop-blur mb-5">
+            <div className=" p-4 backdrop-blur-sm mb-5">
               <form>
                 <div className="relative">
                   <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />

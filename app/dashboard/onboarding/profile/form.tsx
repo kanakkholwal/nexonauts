@@ -144,7 +144,7 @@ export default function CreateProfile({
           alt="logo"
         />
       </div>
-      <div className="w-full max-w-md bg-white/30 dark:bg-white/5 p-5 rounded-xl border">
+      <div className="w-full max-w-md bg-card p-5 rounded-xl border">
         <div className="grid grid-cols-1 gap-4">
           {step === 0 && (
             <>

@@ -3,17 +3,15 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import ThemeSwitcher from "app/layouts/theme-switcher";
 import {
   ChevronLeftCircle,
   ChevronRightCircle,
   LogOut,
   Rss,
-  Search,
   Settings2,
   ShoppingCart,
-  UserRound,
+  UserRound
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
@@ -96,16 +94,8 @@ export default function SideBar({ user }: { user: SessionUserType }) {
         />
       </div>
       <div className="flex-1 px-6">
-        <div className="relative flex items-center mb-4 search group">
-          <Input
-            className="rounded-lg pl-8 focus:pl-3 transition-all peer focus:outline-0 ring-0 focus:border-primary"
-            type="search"
-            placeholder="Search..."
-          />
-
-          <Search className="h-4 w-4 absolute inset-y-0 my-3 left-2 scale-1 opacity-1 peer-focus:scale-0 peer-focus:opacity-0 transition-all" />
-        </div>
-        <h6 className="mb-2 ml-2 font-semibold text-xs text-slate-500 dark:text-slate-400 uppercase">
+  
+        <h6 className="mb-2 ml-2 font-semibold text-xs text-muted-foreground uppercase">
           Dashboard
         </h6>
         <div className="flex flex-col justify-start items-start gap-1">
@@ -125,7 +115,7 @@ export default function SideBar({ user }: { user: SessionUserType }) {
 
 export function SidenavFooter({ user }: { user: SessionUserType }) {
   return (
-    <div className="flex self-stretch items-center gap-3 border-t border-t-border py-6 px-2 rounded-md mx-4 dark:border-t-slate-700">
+    <div className="flex self-stretch items-center gap-3 border-t border-t-border py-6 px-2 rounded-md mx-4 ">
       <Avatar>
         <AvatarImage
           src={user.profilePicture.toString()}
