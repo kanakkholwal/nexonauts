@@ -6,7 +6,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export const RadioStyle = {
-  label: `text-slate-700 dark:text-slate-200 grow cursor-pointer bg-slate-100 dark:bg-slate-800 hover:bg-primary/10 has-checked:ring-primary/50  has-checked:text-primary has-checked:bg-primary/10 flex justify-between items-center gap-6 rounded-lg p-4 ring-1 ring-transparent `,
+  label: `text-card-foreground grow cursor-pointer bg-input/30 hover:bg-primary/10 has-checked:ring-primary/50  has-checked:text-primary has-checked:bg-primary/10 flex justify-between items-center gap-6 rounded-lg p-4 ring-1 ring-transparent `,
   input: `box-content h-1.5 w-1.5 appearance-none rounded-full border-[5px] border-white bg-white dark:border-slate-400 bg-clip-padding outline-hidden ring-1 ring-primary/50 checked:border-primary checked:ring-primary`,
 };
 

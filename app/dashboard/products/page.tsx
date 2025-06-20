@@ -10,6 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { ButtonLink } from "@/components/utils/link";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -77,7 +78,7 @@ export default async function MyProducts(props: PageProps) {
   return (
     <div className="space-y-6 p-4 md:p-10 pb-16 w-full @container">
       <div className="flex justify-between items-center flex-wrap gap-4">
-        <h1 className="text-3xl font-bold">My Products</h1>
+        <h1 className="text-xl font-semibold">My Products</h1>
         <div className="flex gap-2 flex-wrap">
           <Button variant="default_light" size="sm" rounded="full" asChild>
             <Link href={`/dashboard/products/new`}>
@@ -89,7 +90,7 @@ export default async function MyProducts(props: PageProps) {
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline" size="sm">
-                <Import className="h-4 w-4" />
+                <Import />
                 Import Products
               </Button>
             </SheetTrigger>
@@ -103,13 +104,13 @@ export default async function MyProducts(props: PageProps) {
               </SheetHeader>
               {importFrom !== null ? (
                 <>
-                  <h2 className="text-xl font-bold tracking-tight capitalize mt-5 mb-3">
+                  <h2 className="text-lg font-semibold tracking-tight capitalize mt-5 mb-2">
                     {importFrom} Products
                   </h2>
                   <Suspense
                     fallback={
                       <div className="p-4 flex justify-center flex-col items-center gap-4 h-64">
-                        <LoaderCircle className="h-24 w-24 m-auto animate-spin text-primary" />
+                        <LoaderCircle className="size-24 m-auto animate-spin text-primary" />
                       </div>
                     }
                   >
@@ -139,25 +140,21 @@ export default async function MyProducts(props: PageProps) {
                     return (
                       <div
                         key={integration}
-                        className="p-4 flex justify-center flex-col items-center gap-4 h-64 rounded-lg bg-slate-100 dark:bg-neutral-800/40 mt-5"
+                        className="p-4 flex justify-center flex-col items-center gap-4 h-64 rounded-lg bg-muted mt-5"
                       >
-                        <Icon icon={integration} className="h-16 w-16" />
+                        <Icon icon={integration} className="size-16" />
                         {integrated ? (
-                          <Button asChild>
-                            <Link href={`?importFrom=${integration}`} shallow>
+                          <ButtonLink size="sm" href={`?importFrom=${integration}`} shallow>
                               Import Products
-                              <ArrowRight className="h-5 w-5" />
-                            </Link>
-                          </Button>
+                              <ArrowRight  />
+                          </ButtonLink>
                         ) : (
-                          <Button asChild>
-                            <Link
+                          <ButtonLink  
                               href={`/settings/integrations/${integration}?next=${encodeURI("/products?importFrom=" + integration)}`}
                             >
                               Connect {integration}
-                              <ArrowUpRight className="h-5 w-5" />
-                            </Link>
-                          </Button>
+                              <ArrowUpRight  />
+                          </ButtonLink>
                         )}
                       </div>
                     );
@@ -175,7 +172,7 @@ export default async function MyProducts(props: PageProps) {
             return (
               <div
                 key={product._id}
-                className="flex flex-col space-y-2 bg-glasss p-4 rounded-xl"
+                className="flex flex-col space-y-2 bg-card p-3 rounded-xl"
               >
                 <Image
                   width={256}
@@ -184,14 +181,14 @@ export default async function MyProducts(props: PageProps) {
                   alt={product.name}
                   className="w-full h-auto aspect-video object-cover rounded-lg"
                 />
-                <h2 className="text-xl font-semibold truncate">
+                <h2 className="text-base font-semibold truncate">
                   {product.name}
                 </h2>
                 <div className="flex justify-end gap-2 p-2">
                   <DeleteProductButton
                     deleteProduct={deleteProduct.bind(null, product._id)}
                   />
-                  <Button variant="outline" size="sm" asChild>
+                  <Button variant="outline" size="xs" asChild>
                     <Link
                       href={`/dashboard/products/${product.slug}/edit`}
                       className="text-primary"
@@ -199,7 +196,7 @@ export default async function MyProducts(props: PageProps) {
                       Edit
                     </Link>
                   </Button>
-                  <Button variant="link" size="sm" asChild>
+                  <Button variant="link" size="xs" asChild>
                     <Link
                       href={`/marketplace/products/${product.slug}`}
                       target="_blank"

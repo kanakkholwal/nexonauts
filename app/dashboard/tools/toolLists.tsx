@@ -1,17 +1,15 @@
 "use client";
 import { PublicToolTypeWithId } from "src/models/tool";
 // import UserCard from './UserCard'
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import LazyImage from "src/components/image";
 import { ChevronDown, LoaderCircle } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { getToolsByUser } from "./actions";
 
 type ToolListProps = {
-  initialTools: Partial<PublicToolTypeWithId>[];
+  initialTools: PublicToolTypeWithId[];
 };
 
 const NUMBER_OF_USERS_TO_FETCH = 10;
@@ -19,7 +17,7 @@ const NUMBER_OF_USERS_TO_FETCH = 10;
 export default function ToolList({ initialTools }: ToolListProps) {
   const [offset, setOffset] = useState(NUMBER_OF_USERS_TO_FETCH);
   const [tools, setTools] =
-    useState<Partial<PublicToolTypeWithId>[]>(initialTools);
+    useState<PublicToolTypeWithId[]>(initialTools);
   const [loading, setLoading] = useState(false);
 
   const loadMoreUsers = async () => {
@@ -38,48 +36,26 @@ export default function ToolList({ initialTools }: ToolListProps) {
         {tools.map((tool) => {
           return (
             <div key={tool._id}>
-              <Link href={`/dashboard/tools/${tool.slug}/edit`} className="p-1">
-                <Card
-                  className="rounded-2xl backdrop-blur-sm backdrop-saturate bg-white border-0 relative"
-                  variant="glass"
-                >
-                  <CardHeader className="p-2">
-                    <div className="flex flex-col w-full aspect-video overflow-hidden bg-white/30 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70 rounded-lg">
-                      <div className="relative flex items-center justify-center shrink-0 h-full group w-auto m-auto overflow-hidden">
-                        <LazyImage
-                          className="w-auto h-auto m-auto transition ease-in-out duration-300 group-hover:scale-105"
-                          width={350}
-                          height={200}
-                          src={tool.coverImage}
-                          alt={tool.name}
-                        />
-                        <div className="absolute inset-0 transition duration-200 opacity-0 group-hover:opacity-60"></div>
-                      </div>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <div
-                      className="w-full text-xl font-semibold mb-2 inline-flex gap-2 justify-between items-center"
-                      title={tool.name}
-                    >
-                      {tool.name}
-                      <Badge
-                        variant={tool.verified ? "success" : "warning_light"}
-                        size="sm"
-                      >
-                        {tool.verified ? "Verified" : "Not verified"}
-                      </Badge>
-                    </div>
-                    <Badge
-                      variant="default_light"
-                      size="sm"
-                      className="ml-auto"
-                    >
-                      {tool.status}
-                    </Badge>
-                  </CardContent>
-                </Card>
+              <Link href={`/dashboard/tools/${tool.slug}/edit`} className="h-full flex flex-col gap-4 items-start p-4 rounded-lg border backdrop-blur-md bg-card transition-all duration-500 hover:border-primary/50 group"
+              >
+
+                <div className="flex flex-col gap-1 shrink">
+                  <h3 className="text-lg font-semibold">
+                    {tool.name}
+                  </h3>
+                  <p className="text-muted-foreground text-sm font-medium line-clamp-2">
+                    {tool.description}
+                  </p>
+                </div>
+                <Image
+                  src={tool.coverImage}
+                  alt={tool.name}
+                  height={128}
+                  width={320}
+                  className="max-h-32 object-cover  rounded-lg  w-full mx-auto mt-auto"
+                />
               </Link>
+
             </div>
           );
         })}

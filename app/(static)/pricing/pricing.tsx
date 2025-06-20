@@ -1,23 +1,26 @@
-import { Button } from "@/components/ui/button";
 
 import { BsStars } from "react-icons/bs";
 
-import Link from "next/link";
+import { AnimatedShinyText } from "@/components/animated/animated-shiny-text";
+import { Badge } from "@/components/ui/badge";
+import { ButtonLink } from "@/components/utils/link";
+import { cn } from "@/lib/utils";
 
 export function Pricing() {
   return (
     <>
       <div className="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
-        <div className="text-center">
-          <span className="bg-linear-to-b from-cyan-500 to-sky-500 text-white shadow-md mt-4 text-primary relative mb-5 font-medium text-sm inline-flex items-center gap-2 py-2 px-3 rounded-full">
-            <BsStars className="text-md" />
-            <span className="hero-subtitle-text">
-              Launch your Developer Career
-            </span>
-          </span>
-
+        <div className="text-center space-y-3">
+          <div className="group rounded-full border bg-card max-w-fit mx-auto">
+            <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+              <BsStars className="inline-block size-4 mr-2 text-yellow-300 transition-transform duration-600 ease-in-out group-hover:rotate-180" />
+              <span>
+                Get started Now
+              </span>
+            </AnimatedShinyText>
+          </div>
           <p
-            className=" mx-auto mb-9 font-medium md:text-lg text-slate-600"
+            className="mx-auto font-medium text-base max-w-[38rem] text-muted-foreground"
             data-aos="zoom-in-up"
             data-aos-delay={100}
           >
@@ -27,139 +30,103 @@ export function Pricing() {
           </p>
         </div>
         <PricingTable />
-        <div className="text-center">
-          <h2 className="text-3xl font-bold text-center">
-            Additional Services
-          </h2>
-          <p
-            className=" mx-auto mb-9 font-medium md:text-lg text-slate-600"
-            data-aos="zoom-in-up"
-            data-aos-delay={100}
-          >
-            We offer additional services to help you grow your business. Contact
-            us for more information.
-          </p>
-          <ul className="my-4 space-y-2">
-            <li className="flex items-center">
-              <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-              Highlight your products in our marketplace for increased
-              visibility.
-            </li>
-            <li className="flex items-center">
-              <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-              Advertise your products on our platform.
-            </li>
-          </ul>
-        </div>
       </div>
     </>
   );
 }
+
+const pricing_plans = [
+  {
+    title: "Free",
+    price: "$0",
+    is_popular: false,
+    features: [
+      "Basic access to search engine for tool discovery",
+      "Limited marketplace browsing",
+      "Submission of one tool to our platform",
+      "Essential resource directory access",
+    ],
+  },
+  {
+    title: "Pro",
+    price: "$4.99",
+    is_popular: true,
+    features: [
+      "Full access to advanced search engine for comprehensive tool discovery",
+      "Expanded marketplace access with selling capabilities",
+      "Submission of up to five tools",
+      "Enhanced resource directory for learning",
+    ],
+  },
+  {
+    title: "Premium",
+    price: "$9.99",
+    is_popular: false,
+    features: [
+      "All features from Pro plan",
+      "Increased visibility in the marketplace.",
+      "Submission of up to fifteen tools",
+      "Priority support and exclusive resources",
+    ],
+  },
+]
 
 function PricingTable() {
   return (
     <section className=" w-full py-12  flex items-center justify-center">
       <div className="container px-4 md:px-6">
         <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-3 md:gap-8">
-          <div className="flex flex-col p-6 bg-white dark:bg-slate-800 shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-gray-200 dark:border-slate-700 hover:border-primary transition-all duration-300 hover:translate-y-[-16px]">
-            <div>
-              <h3 className="text-2xl font-bold text-center">Free</h3>
-              <div className="mt-4 text-center text-zinc-600 dark:text-zinc-400">
-                <span className="text-4xl font-bold">$0</span>/ month
+          {pricing_plans.map((plan, index) => {
+            return (
+              <div
+                key={index}
+                className={cn(
+                  'relative flex flex-col p-6 bg-card shadow-lg rounded-2xl justify-between border',
+                  plan.is_popular
+                    ? "border-primary hover:border-primary/80 shadow-primary/20 hover:shadow-xl"
+                    : "border-border hover:border-primary",
+                  'transition-all duration-300 hover:translate-y-[-16px]'
+                )}
+              >
+                {plan.is_popular && (
+                  <Badge variant="gradient_purple" className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    Popular
+                  </Badge>
+                )}
+                <div>
+                  <h3 className="text-2xl font-bold text-center">{plan.title}</h3>
+                  <div className="mt-4 text-center text-muted-foreground">
+                    <span className="text-4xl font-bold">{plan.price}</span>/ month
+                  </div>
+                  <ul className="my-4 space-y-2">
+                    {plan.features.map((feature, featureIndex) => (
+                      <li key={featureIndex} className="flex items-center">
+                        <span className="scale-[0.8] size-6 bg-green-500 rounded-full mr-2  aspect-square inline-flex items-center justify-center">
+                          <IconCheck className="text-white size-4" />
+                        </span>
+                        <span className="text-foreground/80 text-sm">
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="mt-6">
+                  <ButtonLink
+                    variant={plan.is_popular ? "gradient_purple" : "outline"}
+                    size="lg"
+                    rounded="full"
+                    width="full"
+                    href={`/signup?=plan${plan.title.toLowerCase()}`}
+
+                  >
+                    Get Started
+                  </ButtonLink>
+                </div>
               </div>
-              <ul className="my-4 space-y-2">
-                <li className="flex items-center">
-                  <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-                  Basic access to search engine for tool discovery
-                </li>
-                <li className="flex items-center">
-                  <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-                  Limited marketplace browsing
-                </li>
-                <li className="flex items-center">
-                  <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-                  Submission of one tool to our platform
-                </li>
-                <li className="flex items-center">
-                  <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-                  Essential resource directory access
-                </li>
-              </ul>
-            </div>
-            <div className="mt-6">
-              <Link href="/signup">
-                <Button className="w-full">Get Started</Button>
-              </Link>
-            </div>
-          </div>
-          <div className="relative flex flex-col p-6 bg-white  dark:bg-slate-800 shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-cyan-500 hover:border-sky-500 transition-all duration-300 hover:translate-y-[-16px]">
-            <div className="px-3 py-1 text-sm text-white bg-linear-to-r from-cyan-500 to-sky-500 rounded-full inline-block absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              Popular
-            </div>
-            <div>
-              <h3 className="text-2xl font-bold text-center">Pro</h3>
-              <div className="mt-4 text-center text-zinc-600 dark:text-zinc-400">
-                <span className="text-4xl font-bold">$9.99</span>/ month
-              </div>
-              <ul className="my-4 space-y-2">
-                <li className="flex items-center">
-                  <IconCheck className="text-white text-2xs bg-green-500 rounded-full mr-2 p-1" />
-                  Full access to advanced search engine for comprehensive tool
-                  discovery
-                </li>
-                <li className="flex items-center">
-                  <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-                  Expanded marketplace access with selling capabilities
-                </li>
-                <li className="flex items-center">
-                  <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-                  Submission of up to five tools
-                </li>
-                <li className="flex items-center">
-                  <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-                  Enhanced resource directory for learning
-                </li>
-              </ul>
-            </div>
-            <div className="mt-6">
-              <Link href="/signup">
-                <Button className="w-full bg-linear-to-r from-cyan-500 to-sky-500">
-                  Get Started
-                </Button>
-              </Link>
-            </div>
-          </div>
-          <div className="flex flex-col p-6 bg-white dark:bg-slate-800 shadow-lg rounded-lg dark:bg-zinc-850 justify-between border border-gray-200 dark:border-slate-700 hover:border-primary transition-all duration-300 hover:translate-y-[-16px]">
-            <div>
-              <h3 className="text-2xl font-bold text-center">Premium</h3>
-              <div className="mt-4 text-center text-zinc-600 dark:text-zinc-400">
-                <span className="text-4xl font-bold">$14.99</span>/ month
-              </div>
-              <ul className="my-4 space-y-2">
-                <li className="flex items-center">
-                  <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-                  All features from Pro plan
-                </li>
-                <li className="flex items-center">
-                  <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-                  Increased visibility in the marketplace.
-                </li>
-                <li className="flex items-center">
-                  <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-                  Submission of up to fifteen tools
-                </li>
-                <li className="flex items-center">
-                  <IconCheck className="text-white text-xs bg-green-500 rounded-full mr-2 p-1" />
-                  Priority support and exclusive resources
-                </li>
-              </ul>
-            </div>
-            <div className="mt-6">
-              <Link href="/signup">
-                <Button className="w-full">Get Started</Button>
-              </Link>
-            </div>
-          </div>
+            );
+          })}
+
         </div>
       </div>
     </section>
@@ -176,9 +143,9 @@ function IconCheck(props: any) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     >
       <polyline points="20 6 9 17 4 12" />
     </svg>

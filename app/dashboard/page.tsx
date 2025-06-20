@@ -43,10 +43,13 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6 p-4 md:p-10 pb-16 w-full @container">
-      <h1 className="text-3xl font-bold">Dashboard</h1>
-      <p className="text-lg font-medium text-muted-foreground">
-        Welcome back, {session?.user?.name}
-      </p>
+      <div>
+
+        <h1 className="text-lg font-semibold">Dashboard</h1>
+        <p className="text-sm font-medium text-muted-foreground">
+          Welcome back, {session?.user?.name}
+        </p>
+      </div>
       <Separator />
       <div className="grid gap-4 grid-cols-1 @4xl:grid-cols-4 @2xl:grid-cols-3 @sm:grid-cols-2">
         {ROUTES.map((route, index) => (

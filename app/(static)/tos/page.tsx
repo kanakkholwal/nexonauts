@@ -1,6 +1,5 @@
-import Footer from "app/layouts/footer";
-import Navbar from "app/layouts/navbar";
 import Link from "next/link";
+import { projectConfig } from "src/project.config";
 
 export default async function Page() {
   return (
@@ -16,7 +15,7 @@ export default async function Page() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
           <div className="relative pt-36 ml-auto">
             <div className="lg:w-2/3 text-center mx-auto">
-              <h1 className="text-gray-900 dark:text-white font-bold text-3xl md:text-4xl xl:text-5xl">
+              <h1 className="text-foreground font-bold text-xl md:text-4xl">
                 Terms of Service
               </h1>
             </div>
@@ -24,11 +23,11 @@ export default async function Page() {
         </div>
       </div>
 
-      <section className="font-medium text-base space-y-4 text-slate-600 dark:text-slate-400">
-        <p className="mb-3 mt-8">
+      <section className="font-medium text-base space-y-4 text-muted-foreground max-w-4xl mx-auto bg-card rounded-lg p-4">
+        <p className="mb-3 mt-5">
           Welcome to{" "}
           <span className="font-bold">
-            {process.env.NEXT_PUBLIC_WEBSITE_NAME}
+            {projectConfig.name}
           </span>
           ! These terms outline the rules and regulations for the use of our
           website. By accessing this website, we assume you accept these terms
@@ -36,7 +35,7 @@ export default async function Page() {
           agree to all the terms and conditions stated on this page.
         </p>
 
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           The following terminology applies to these Terms and Conditions,
           Privacy Statement, and Disclaimer Notice and all Agreements:
         </h4>
@@ -54,7 +53,7 @@ export default async function Page() {
             ourselves.
           </li>
         </ul>
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           Cookies
         </h4>
         <p>
@@ -68,7 +67,7 @@ export default async function Page() {
           </Link>
           .
         </p>
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           License
         </h4>
         <p>
@@ -78,7 +77,7 @@ export default async function Page() {
           Nexonauts.com for your own personal use subjected to restrictions set
           in these terms and conditions.
         </p>
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           You must not:
         </h4>
         <ul className="list-disc list-inside">
@@ -87,7 +86,7 @@ export default async function Page() {
           <li>Reproduce, duplicate, or copy material from Nexonauts.com</li>
           <li>Redistribute content from Nexonauts.com</li>
         </ul>
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           Reservation of Rights
         </h4>
         <p>
@@ -98,7 +97,7 @@ export default async function Page() {
           continuously linking to our website, you agree to be bound to and
           follow these linking terms and conditions.
         </p>
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           Removal of Links from Our Website
         </h4>
         <p>
@@ -107,7 +106,7 @@ export default async function Page() {
           requests to remove links but we are not obligated to do so or to
           respond to you directly.
         </p>
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           Content Liability
         </h4>
         <p>
@@ -118,7 +117,7 @@ export default async function Page() {
           infringes, otherwise violates, or advocates the infringement or other
           violation of, any third party rights.
         </p>
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           Disclaimer
         </h4>
         <p>
@@ -143,7 +142,7 @@ export default async function Page() {
             under applicable law
           </li>
         </ul>
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           Contact Us
         </h4>
         <p>

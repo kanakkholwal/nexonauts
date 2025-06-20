@@ -8,13 +8,13 @@ import {
 export function FAQs() {
   return (
     <div className="w-full grow mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0 pt-[70px] relative">
-      <h1 className="text-4xl font-bold mb-5">Frequently Asked Questions</h1>
-      <Accordion type="single" collapsible>
+      <h1 className="text-2xl font-semibold mb-4">Frequently Asked Questions</h1>
+      <Accordion type="single" collapsible className="max-w-4xl mx-auto">
         {faqs.map((faq, index) => {
           return (
             <AccordionItem key={index} value={"faq_" + index}>
-              <AccordionTrigger>{faq.question}</AccordionTrigger>
-              <AccordionContent>{faq.answer}</AccordionContent>
+              <AccordionTrigger className="hover:underline-0 text-base font-semibold">{faq.question}</AccordionTrigger>
+              <AccordionContent className="text-sm font-normal text-muted-foreground">{faq.answer}</AccordionContent>
             </AccordionItem>
           );
         })}

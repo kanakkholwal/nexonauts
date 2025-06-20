@@ -1,16 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { RadioStyle } from "@/components/ui/radio-group";
-import { Textarea } from "@/components/ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Building2, ExternalLink, Send } from "lucide-react";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { LuMail } from "react-icons/lu";
-import * as z from "zod";
-import toast from "react-hot-toast";
 import {
   Form,
   FormControl,
@@ -19,7 +8,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { RadioStyle } from "@/components/ui/radio-group";
+import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Building2, ExternalLink, Send } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { GoPerson } from "react-icons/go";
+import { LuMail } from "react-icons/lu";
+import * as z from "zod";
 
 const FormSchema = z.object({
   name: z
@@ -95,7 +95,8 @@ export function ContactForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="grid gap-4 w-full"
+        className="grid gap-4 w-full max-w-5xl mx-auto"
+        autoComplete="on"
       >
         <div className="flex gap-4 w-full items-center justify-evenly flex-col lg:flex-row">
           <FormField
@@ -105,7 +106,7 @@ export function ContactForm() {
               <FormItem className="grid gap-1.5 grow w-full">
                 <div className="relative group">
                   <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                    <GoPerson className="w-4 h-4" />
+                    <GoPerson className="size-4" />
                   </FormLabel>
                   <FormControl className="relative">
                     <Input
@@ -117,7 +118,7 @@ export function ContactForm() {
                       autoCorrect="off"
                       required
                       disabled={isLoading}
-                      variant="fluid"
+                      
                       className="pl-12 py-6! pr-5 mt-0!"
                       {...field}
                     />
@@ -135,7 +136,7 @@ export function ContactForm() {
               <FormItem className="grid gap-1.5 grow w-full">
                 <div className="relative group">
                   <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                    <LuMail className="w-4 h-4" />
+                    <LuMail className="size-4" />
                   </FormLabel>
                   <FormControl className="relative">
                     <Input
@@ -147,7 +148,7 @@ export function ContactForm() {
                       autoComplete="email"
                       autoCorrect="off"
                       disabled={isLoading}
-                      variant="fluid"
+                      
                       className="pl-12 py-6! pr-5 mt-0!"
                       {...field}
                     />
@@ -166,7 +167,7 @@ export function ContactForm() {
               <FormItem className="grid gap-1.5 grow w-full">
                 <div className="relative group">
                   <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                    <Building2 className="w-4 h-4" />
+                    <Building2 className="size-4" />
                   </FormLabel>
                   <FormControl className="relative">
                     <Input
@@ -177,7 +178,7 @@ export function ContactForm() {
                       autoComplete="name"
                       autoCorrect="off"
                       disabled={isLoading}
-                      variant="fluid"
+                      
                       className="pl-12 py-6! pr-5 mt-0!"
                       {...field}
                     />
@@ -195,7 +196,7 @@ export function ContactForm() {
               <FormItem className="grid gap-1.5 grow w-full">
                 <div className="relative group">
                   <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="size-4" />
                   </FormLabel>
                   <FormControl className="relative">
                     <Input
@@ -206,7 +207,7 @@ export function ContactForm() {
                       autoComplete="name"
                       autoCorrect="off"
                       disabled={isLoading}
-                      variant="fluid"
+                      
                       className="pl-12 py-6! pr-5 mt-0!"
                       {...field}
                     />
@@ -287,7 +288,7 @@ export function ContactForm() {
                     autoComplete="name"
                     autoCorrect="off"
                     disabled={isLoading}
-                    variant="fluid"
+                    
                     required
                     {...field}
                   />
@@ -302,12 +303,13 @@ export function ContactForm() {
           <Button
             type="submit"
             size="lg"
-            className="tracking-wide text-lg rounded-full mx-auto w-full max-w-md relative before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95"
+            variant="rainbow"
+            width="xs"
+            rounded="full"
+            transition="damped"
             disabled={isLoading}
           >
-            <span className="relative text-base font-semibold text-white">
-              Send Message <Send className="w-5 h-5 ml-2 inline-block" />
-            </span>
+              Send Message <Send  />
           </Button>
         </div>
       </form>

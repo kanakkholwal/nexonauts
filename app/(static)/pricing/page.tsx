@@ -1,5 +1,3 @@
-import Navbar from "app/layouts/navbar";
-import Footer from "app/layouts/footer";
 import { Pricing } from "./pricing";
 
 export default async function Page() {
@@ -16,10 +14,10 @@ export default async function Page() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
           <div className="relative pt-36 ml-auto">
             <div className="lg:w-2/3 text-center mx-auto">
-              <h1 className="text-gray-900 dark:text-white font-bold text-3xl md:text-4xl xl:text-5xl">
+              <h1 className="text-foreground font-bold text-2xl md:text-3xl xl:text-4xl">
                 Our Pricing Plan
               </h1>
-              <h5 className="text-gray-500 dark:text-gray-400 font-normal text-lg md:text-xl xl:text-2xl mt-4">
+              <h5 className="text-muted-foreground font-medium text-base md:text-lg mt-2">
                 Choose the plan that best suits your needs
               </h5>
             </div>

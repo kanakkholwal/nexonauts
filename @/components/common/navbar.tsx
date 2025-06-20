@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   MobileNav,
   MobileNavHeader,
@@ -9,6 +8,7 @@ import {
   NavItems
 } from "@/components/ui/resizable-navbar";
 import { nav_list } from "@/constants/links";
+import { ButtonLink } from "../utils/link";
 
 export default function NavbarGlobal() {
 
@@ -21,7 +21,7 @@ export default function NavbarGlobal() {
           <NavbarLogo />
           <NavItems items={nav_list} />
           <div className="flex items-center gap-4">
-            <Button variant="rainbow_outline" rounded="full">Register</Button>
+            <ButtonLink variant="rainbow_outline" rounded="full" href="/signup">Register</ButtonLink>
           </div>
         </NavBody>
 
@@ -30,7 +30,7 @@ export default function NavbarGlobal() {
           <MobileNavHeader>
             <NavbarLogo />
             <div className="flex items-center gap-4">
-              <Button variant="rainbow_outline" rounded="full">Register</Button>
+              <ButtonLink variant="rainbow_outline" rounded="full" href="/signup">Register</ButtonLink>
             </div>
           </MobileNavHeader>
         </MobileNav>
