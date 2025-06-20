@@ -12,7 +12,7 @@ export default function SectionHome() {
         <div className="absolute -z-10 pointer-events-none inset-0 overflow-hidden -mx-28">
           <div className="absolute -z-1 -top-[128%] sm:-top-[107%] xl:-top-[73%] left-1/2 -translate-x-1/2 -u-z-10 hero-circle-gradient w-full h-[1282px] rounded-full max-w-[1282px]" />
           <div className="absolute -z-1 -top-[112%] sm:-top-[93%] xl:-top-[62%] left-1/2 -translate-x-1/2 -u-z-10 hero-circle-gradient w-full h-[1046px] rounded-full max-w-[1046px]" />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 -u-z-10 max-w-[1204px] w-full aspect-[1204/394]">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 -u-z-10 max-w-[1204px] w-full aspect-1204/394">
             <img
               src="https://ai-tool.nextjstemplates.com/images/blur/blur-02.svg"
               className="max-w-none"
@@ -60,7 +60,7 @@ export default function SectionHome() {
         </div>
       </div>
       <div
-        className="mt-17 aspect-[1170/411] relative max-w-[1170px] w-full mx-auto backdrop-blur-2xl"
+        className="mt-17 aspect-1170/411 relative max-w-[1170px] w-full mx-auto backdrop-blur-2xl"
         data-aos-delay="0.1s"
       >
         <Image

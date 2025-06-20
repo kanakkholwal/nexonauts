@@ -28,7 +28,7 @@ export function RouterCard({
       className={cn(
         "group rounded-lg flex flex-col justify-between gap-3 px-5 py-4",
         "animate-in popup  transition-colors duration-200 ease-in-out",
-        "backdrop-blur-2xl border border-gray-50/30 bg-white/10 hover:bg-primary/5 hover:shadow hover:border-primary/50"
+        "backdrop-blur-2xl border border-gray-50/30 bg-white/10 hover:bg-primary/5 hover:shadow-sm hover:border-primary/50"
       )}
       target={external ? "_blank" : "_self"}
       rel={external ? "noopener noreferrer" : undefined}

@@ -22,14 +22,13 @@ export function ToolCard({
   return (
     <Card
       className="border-border hover:border-primary flex flex-col items-start"
-      variant="glass"
       style={style}
     >
       <CardHeader>
         <CardTitle>{title}</CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col justify-start grow">
-        <CardDescription className="line-clamp-3 mb-3">
+        <CardDescription className="line-clamp-3 mb-3 text-pretty text-sm">
           {description}
         </CardDescription>
         <Link

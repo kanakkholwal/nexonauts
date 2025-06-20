@@ -32,6 +32,14 @@ export async function generateMetadata(
       description: tool.description.substring(0, 160),
       url:
         `${process.env.NEXT_PUBLIC_WEBSITE_URL || "https://nexonauts.com"}/dev-tools/${tool.slug}`,
+      images: [
+        {
+          url: `https://api.dicebear.com/5.x/initials/svg?seed=${tool.title}`,
+          width: 1200,
+          height: 630,
+          alt: tool.title,
+        },
+      ]
     },
     category: tool.category,
   };

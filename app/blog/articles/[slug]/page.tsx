@@ -37,25 +37,32 @@ export default async function PostPage(props: {
     return notFound();
   }
 
-  return (
-    <>
+  return <div className="w-full">
       <PostHeader
         title={post.title}
         image={post.image}
         author={post.author}
         createdAt={post.createdAt.toString()}
       />
-      <main className="w-full mx-auto flex justify-around items-start gap-4 flex-col @4xl:flex-row px-4 lg:px-8 pt-8">
-        <RenderPost content={post.content} />
-        <SideBar
-          author={post.author}
-          createdAt={post.createdAt.toString()}
-          content={post.content}
-        />
+      
+      <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+          <div className="flex-1">
+            <RenderPost content={post.content} />
+          </div>
+          
+          <div className="lg:w-80">
+            <SideBar
+              author={post.author}
+              createdAt={post.createdAt.toString()}
+              content={post.content}
+            />
+          </div>
+        </div>
       </main>
-      <div id="comments-section" className="w-full mx-auto max-w-5xl">
+      
+      <div id="comments-section" className="w-full max-w-3xl mx-auto px-4 sm:px-6 py-16">
         <CommentsSection />
       </div>
-    </>
-  );
+    </div>
 }

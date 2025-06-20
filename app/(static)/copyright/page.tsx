@@ -1,6 +1,5 @@
-import Footer from "app/layouts/footer";
-import Navbar from "app/layouts/navbar";
 import Link from "next/link";
+import { projectConfig } from "src/project.config";
 
 export default async function Page() {
   return (
@@ -10,13 +9,13 @@ export default async function Page() {
           aria-hidden="true"
           className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
         >
-          <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
-          <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+          <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-purple-400 dark:from-blue-700" />
+          <div className="blur-[106px] h-32 bg-linear-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
         </div>
         <div className="max-w-7xl mx-auto px-6 md:px-12 xl:px-6">
           <div className="relative pt-36 ml-auto">
             <div className="lg:w-2/3 text-center mx-auto">
-              <h1 className="text-gray-900 dark:text-white font-bold text-3xl md:text-4xl xl:text-5xl">
+              <h1 className="text-foreground font-bold text-3xl md:text-4xl xl:text-5xl">
                 Copyright Disclaimer
               </h1>
             </div>
@@ -24,11 +23,11 @@ export default async function Page() {
         </div>
       </div>
 
-      <section className="font-medium text-base space-y-4 text-slate-600 dark:text-slate-400">
+      <section className="font-medium text-md space-y-4 text-muted-foreground bg-card rounded-lg p-4 max-w-4xl mx-auto">
         <p className="mb-3 mt-8">
           At{" "}
           <span className="font-bold">
-            {process.env.NEXT_PUBLIC_WEBSITE_NAME}
+            {projectConfig.name}
           </span>
           , we value intellectual property rights and strive to uphold copyright
           laws. The content, including images, graphics, and text, utilized on
@@ -36,7 +35,7 @@ export default async function Page() {
           Pexels, and other similar platforms, where the rights belong to their
           respective owners.
         </p>
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           Fair Use Statement
         </h4>
         <p className="mb-3">
@@ -45,7 +44,7 @@ export default async function Page() {
           purposes only, always attributing the content to its original creators
           or sources where applicable.
         </p>
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           Acknowledgment of Ownership
         </h4>
         <p>
@@ -53,7 +52,7 @@ export default async function Page() {
           respective owners. We do not claim ownership or rights over any
           copyrighted material that isn't developed or created by our team.
         </p>
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           DMCA Compliance
         </h4>
         <p>
@@ -63,7 +62,7 @@ export default async function Page() {
           contact us immediately with the necessary details for prompt removal
           or appropriate credit.
         </p>
-        <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
+        <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           Contact Information
         </h4>
         <p>

@@ -57,12 +57,12 @@ export function ParamsFilter({
         key={`params-filter-for-${keyName}-[multiple]`}
       >
         <div className="flex items-center gap-2">
-          <h4 className="text-lg font-semibold capitalize">
+          <h4 className="text-sm font-medium capitalize">
             {props?.title ? props.title : keyName}
           </h4>
           {isExist && (
             <Button
-              size="sm"
+              size="xs"
               variant="link"
               onClick={() => setValue("")}
               className={cn("ml-auto", props?.btnClassName)}
@@ -73,7 +73,7 @@ export function ParamsFilter({
         </div>
         <div
           className={cn(
-            "flex flex-col gap-2 [&>div]:pl-4 mt-4",
+            "flex flex-col gap-2 [&>div]:pl-2 mt-2",
             props?.optionsClassName
           )}
         >
@@ -116,14 +116,14 @@ export function ParamsFilter({
       key={`params-filter-for-${keyName}-[single]`}
     >
       <div className="flex items-center gap-2">
-        <h4 className="text-lg font-semibold capitalize">
+          <h4 className="text-sm font-medium capitalize">
           {props?.title ? props.title : keyName}
         </h4>
         {isExist && (
           <Button
-            size="sm"
+            size="xs"
             variant="link"
-            onClick={() => clearUrlState()}
+            onClick={() => setValue("")}
             className={cn("ml-auto", props?.btnClassName)}
           >
             Clear
@@ -133,7 +133,7 @@ export function ParamsFilter({
       <RadioGroup
         defaultValue={value}
         className={cn(
-          "flex flex-col gap-2 [&>div]:pl-4 mt-4",
+          "flex flex-col gap-2 [&>div]:pl-2 mt-2",
           props?.optionsClassName
         )}
         onValueChange={(val) => setValue(val)}
@@ -144,7 +144,7 @@ export function ParamsFilter({
               key={`${keyName}-${option}`}
               className={cn("items-top flex space-x-2", props?.optionClassName)}
             >
-              <RadioGroupItem id={option} value={option} />
+              <RadioGroupItem id={option} value={option}  />
               <Label htmlFor={option} className="mb-0 capitalize">
                 {props?.renderLabel ? props.renderLabel(option, 0) : option}
               </Label>

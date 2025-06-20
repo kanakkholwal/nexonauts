@@ -19,7 +19,7 @@ export default function SubsScribe() {
                     id="newsletterEmail"
                     type="email"
                     placeholder="Enter your Email"
-                    className="rounded-lg border border-white/[0.12] bg-slate-100 focus:border-purple w-full py-3 px-6 outline-none "
+                    className="rounded-lg border border-white/12 bg-slate-100 focus:border-purple w-full py-3 px-6 outline-hidden "
                     name="newsletterEmail"
                   />
                 </div>

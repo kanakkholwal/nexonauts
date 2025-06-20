@@ -41,7 +41,7 @@ export default function CategoryNavigation({
               router.push("?", { scroll: false });
             }}
             className={cn(
-              `py-2 px-4 h-11 flex gap-x-1 font-medium items-center border rounded-xl transition-all text-sm xl:text-h6 shadow`,
+              `py-2 px-4 h-11 flex gap-x-1 font-medium items-center border rounded-xl transition-all text-sm xl:text-h6 shadow-sm`,
 
               `border-dim-gray  hover:border-text`,
               activeCategory === ""
@@ -53,7 +53,7 @@ export default function CategoryNavigation({
           </button>
         </>
       )}
-      <div className="flex gap-x-0 p-1 bg-slate-200/80 dark:bg-slate-800/40 rounded-2xl border border-border dark:border-slate-100/10 backdrop-blur border-opacity-15 shadow">
+      <div className="flex gap-x-0 p-1 bg-slate-200/80 dark:bg-slate-800/40 rounded-2xl border border-border dark:border-slate-100/10 backdrop-blur-sm border-opacity-15 shadow-sm">
         {categories.map((item: string) => {
           return (
             <button
@@ -74,7 +74,7 @@ export default function CategoryNavigation({
                     ease: [0.16, 1, 0.3, 1],
                   }}
                   layoutId="active"
-                  className="absolute inset-0 bg-white dark:bg-black rounded-xl shadow-sm"
+                  className="absolute inset-0 bg-white dark:bg-black rounded-xl shadow-xs"
                 />
               )}
               <span className="text-sm xl:text-h6 relative  z-10 capitalize">

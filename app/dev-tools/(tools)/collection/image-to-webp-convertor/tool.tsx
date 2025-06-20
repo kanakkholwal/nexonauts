@@ -199,7 +199,7 @@ export default function Image2Webp() {
               key={element.id}
               className="rounded-lg w-auto flex flex-col justify-between"
             >
-              <CardHeader className="!p-4">
+              <CardHeader className="p-4!">
                 <CardTitle className="break-words text-md">{element.name}</CardTitle>
                 <CardDescription className="text-sm text-gray-500 font-semibold">
                   <span>
@@ -214,16 +214,16 @@ export default function Image2Webp() {
                   </Badge>
                 </CardDescription>
               </CardHeader>
-              <CardContent className="!p-4">
+              <CardContent className="p-4!">
                 <Image
                   alt={element.name}
                   width={480}
                   height={320}
                   src={element.image}
-                  className="max-h-56 shadow rounded-md"
+                  className="max-h-56 shadow-sm rounded-md"
                 />
               </CardContent>
-              <CardFooter className="!p-4">
+              <CardFooter className="p-4!">
                 <Button size="sm" width="full"
                   disabled={element.processing}
                   rounded="full" asChild>

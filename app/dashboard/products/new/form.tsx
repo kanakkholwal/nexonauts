@@ -1,24 +1,7 @@
 "use client";
+import { ResponsiveDialog } from "@/components/extended/responsive-dialog";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
 import {
   Form,
   FormControl,
@@ -161,82 +144,43 @@ export default function ProductForm(props: Props) {
   return (
     <>
       <div className="flex justify-between items-center flex-wrap gap-2">
-        <h1 className="text-3xl font-bold">Create a new product</h1>
-        {isDesktop ? (
-          <>
-            <Dialog open={open} onOpenChange={setOpen}>
-              <DialogTrigger asChild>
-                <Button size="sm" variant="default_light">
-                  <Import /> Import with URL
-                </Button>
-              </DialogTrigger>
-              <DialogContent className="sm:max-w-[425px]">
-                <DialogHeader>
-                  <DialogTitle>Import Product with URL</DialogTitle>
-                  <DialogDescription>
-                    Paste the URL of the product you want to import. We'll do
-                    the rest.
-                  </DialogDescription>
-                </DialogHeader>
-                <div className="grid gap-2">
-                  <Input
-                    placeholder="https://username.gumroad.com/l/product"
-                    value={importUrl}
-                    onChange={(e) => setImportUrl(e.target.value)}
-                    disabled={importing}
-                  />
-                  <Button
-                    size="sm"
-                    onClick={ImportFromGumRoad}
-                    disabled={importing}
-                  >
-                    {importing ? "Importing" : "Import"}
-                  </Button>
-                </div>
-              </DialogContent>
-            </Dialog>
-          </>
-        ) : (
-          <>
-            <Drawer open={open} onOpenChange={setOpen}>
-              <DrawerTrigger asChild>
-                <Button size="sm" variant="default_light">
-                  <Import /> Import{" "}
-                </Button>
-              </DrawerTrigger>
-              <DrawerContent>
-                <DrawerHeader className="text-left">
-                  <DrawerTitle>Import with URL</DrawerTitle>
-                  <DrawerDescription>
-                    Paste the URL of the product you want to import. We'll do
-                    the rest.
-                  </DrawerDescription>
-                </DrawerHeader>
-                <div className="px-4">
-                  <Input
-                    placeholder="https://username.gumroad.com/l/product"
-                    value={importUrl}
-                    onChange={(e) => setImportUrl(e.target.value)}
-                    disabled={importing}
-                  />
-                </div>
-                <DrawerFooter className="pt-2">
-                  <Button onClick={ImportFromGumRoad} disabled={importing}>
-                    {importing ? "Importing" : "Import"}
-                  </Button>
-                  <DrawerClose asChild>
-                    <Button variant="outline">Cancel</Button>
-                  </DrawerClose>
-                </DrawerFooter>
-              </DrawerContent>
-            </Drawer>
-          </>
-        )}
+        <h1 className="text-lg font-semibold">Create a new product</h1>
+        <ResponsiveDialog
+          btnProps={{
+            variant: "default_light",
+            size: "sm",
+            className: "flex items-center gap-2",
+            disabled: importing,
+            children: <>
+              <Import />
+              Import with URL
+            </>
+          }}
+          title="Import from Gumroad"
+          description="Import a product from Gumroad by providing the product URL."
+        >
+          <div className="px-4">
+            <Input
+              placeholder="https://username.gumroad.com/l/product"
+              value={importUrl}
+              onChange={(e) => setImportUrl(e.target.value)}
+              disabled={importing}
+            />
+          </div>
+          <Button
+            size="sm"
+            onClick={ImportFromGumRoad}
+            disabled={importing}
+          >
+            {importing ? "Importing" : "Import"}
+          </Button>
+        </ResponsiveDialog>
+
       </div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="flex gap-5 justify-around items-start flex-col @4xl:flex-row"
+          className="flex gap-5 justify-around items-start flex-col @4xl:flex-row bg-card p-4 rounded-lg"
         >
           <div className="flex flex-col gap-4 w-full">
             <FormField
@@ -261,7 +205,7 @@ export default function ProductForm(props: Props) {
                   <FormControl>
                     <NexoEditor
                       placeholder="Description"
-                      className="!h-auto p-0"
+                      className="h-auto! p-0"
                       onPaste={(e) => {
                         e.preventDefault();
                         const text = e.clipboardData.getData("text/plain");
@@ -352,10 +296,10 @@ export default function ProductForm(props: Props) {
                                     return checked
                                       ? field.onChange([...field.value, item])
                                       : field.onChange(
-                                          field.value?.filter(
-                                            (value) => value !== item
-                                          )
-                                        );
+                                        field.value?.filter(
+                                          (value) => value !== item
+                                        )
+                                      );
                                   }}
                                 />
                               </FormControl>
@@ -400,17 +344,17 @@ export default function ProductForm(props: Props) {
                   />
                   {urlSchema.safeParse(form.getValues("preview_url"))
                     .success && (
-                    <>
-                      <div>
-                        <Image
-                          src={field.value}
-                          width={512}
-                          height={320}
-                          alt={"preview image"}
-                        />
-                      </div>
-                    </>
-                  )}
+                      <>
+                        <div>
+                          <Image
+                            src={field.value}
+                            width={512}
+                            height={320}
+                            alt={"preview image"}
+                          />
+                        </div>
+                      </>
+                    )}
                   <FormMessage />
                 </FormItem>
               )}

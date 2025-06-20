@@ -1,10 +1,10 @@
 import { Metadata } from "next";
-import { getProductBySlug, updateProduct } from "./actions";
 import { notFound } from "next/navigation";
+import { getProductBySlug, updateProduct } from "./actions";
 import EditProductForm from "./form";
 
 export const metadata: Metadata = {
-  title: "Edit product - NexoNauts",
+  title: "Edit product",
   description: "Edit product for NexoNauts",
 };
 

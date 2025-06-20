@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/utils/link";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,25 +27,19 @@ export default function GlobalError({
   console.error(error);
 
   return (
-    <html>
-      <body>
-        <h2>Something went wrong!</h2>
-        <button onClick={() => reset()}>Try again</button>
-      </body>
-      <body
-        className={
-          font.className +
-          " min-h-screen selection:bg-primary/10 selection:text-primary dark:bg-gray-900"
-        }
-      >
-        <ThemeProvider
+   <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="google-adsense-account" content="ca-pub-6988693445063744" />
+      </head>
+      <body className={`${font.className} min-h-screen antialiased relative`}>
+         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
-          themes={["light", "dark"]}
+          themes={["system", "light", "dark"]}
         >
           <Provider>
-            <div className="min-h-screen w-full relative overflow-hidden">
+                <div className="min-h-screen w-full relative overflow-hidden">
               <nav className="flex justify-between items-center w-full py-3 px-4 md:px-6">
                 <Link href="/" aria-label="logo" className="p-1.5">
                   <span className="sr-only">Nexonauts</span>
@@ -195,16 +190,14 @@ export default function GlobalError({
                 </svg>
 
                 <div className="mt-4 flex justify-center items-center flex-wrap gap-5">
-                  <Button
-                    className="px-6 py-4 h-12"
+                  <ButtonLink
                     size="lg"
-                    variant="dark"
-                    asChild
+                    variant="light"
+                    href="/"
                   >
-                    <Link href="/">Go to Home</Link>
-                  </Button>
+                    Go to Home
+                  </ButtonLink>
                   <Button
-                    className="px-6 py-4 h-12"
                     size="lg"
                     variant="outline"
                     onClick={() => {
@@ -218,6 +211,7 @@ export default function GlobalError({
             </div>
           </Provider>
         </ThemeProvider>
+
       </body>
     </html>
   );

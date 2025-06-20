@@ -37,7 +37,7 @@ export default function CatgeoryNavigationMobile({
     <div
       className={cn(
         "fixed bottom-0 left-0 right-0  p-4 flex justify-center gap-x-2 gap-y-2 sm:hidden z-50",
-        " bg-white/30 dark:bg-slate-100/5 border-border dark:border-slate-100/10 backdrop-blur-xl border-opacity-15 shadow"
+        " bg-white/30 dark:bg-slate-100/5 border-border dark:border-slate-100/10 backdrop-blur-xl border-opacity-15 shadow-sm"
       )}
     >
       <DropdownMenu>

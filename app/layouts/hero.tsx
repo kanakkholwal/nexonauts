@@ -27,8 +27,8 @@ export default function HeroLayout() {
         aria-hidden="true"
         className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20"
       >
-        <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
-        <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+        <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-purple-400 dark:from-blue-700" />
+        <div className="blur-[106px] h-32 bg-linear-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
       </div>
       <div className="max-w-7xl mx-auto relative isolate px-6 md:px-12 lg:px-8">
         <div
@@ -36,7 +36,7 @@ export default function HeroLayout() {
           aria-hidden="true"
         >
           <div
-            className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+            className="relative left-[calc(50%-11rem)] aspect-1155/678 w-144.5 -translate-x-1/2 rotate-30 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-288.75"
             style={{
               clipPath:
                 "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
@@ -66,7 +66,7 @@ export default function HeroLayout() {
             <div className="mt-10 flex items-center justify-center flex-wrap  gap-6">
               <Button
                 size="lg"
-                className="rounded-full overflow-hidden relative flex h-12 w-full items-center justify-center px-6 sm:max-w-[12rem] shadow-lg shadow-primary/30 bg-primary/80 backdrop-blur"
+                className="rounded-full overflow-hidden relative flex h-12 w-full items-center justify-center px-6 sm:max-w-48 shadow-lg shadow-primary/30 bg-primary/80 backdrop-blur-sm"
                 asChild
               >
                 <Link href="/signup">Sign Up Now</Link>
@@ -74,7 +74,7 @@ export default function HeroLayout() {
               {/* <Button
 								size="lg"
 								variant="outline"
-								className='rounded-full relative flex h-12 w-full items-center justify-center px-6 sm:w-max shadow shadow-accent'
+								className='rounded-full relative flex h-12 w-full items-center justify-center px-6 sm:w-max shadow-sm shadow-accent'
 								asChild>
 								<Link href="/login">
 									Login
@@ -86,7 +86,7 @@ export default function HeroLayout() {
               <Button
                 size="icon"
                 variant="outline"
-                className="rounded-full relative flex h-12 items-center justify-center w-max bg-transparent animate-moveVertical"
+                className="rounded-full relative flex h-12 items-center justify-center w-max bg-transparent animate-move-vertical"
                 asChild
               >
                 <Link href="#solutions">
@@ -104,7 +104,7 @@ export default function HeroLayout() {
           aria-hidden="true"
         >
           <div
-            className="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+            className="relative left-[calc(50%+3rem)] aspect-1155/678 w-144.5 -translate-x-1/2 bg-linear-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%+36rem)] sm:w-288.75"
             style={{
               clipPath:
                 "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
@@ -119,9 +119,9 @@ export default function HeroLayout() {
 
 function BgLines() {
   return (
-    <div className="![perspective:1000px] sm:![perspective:1000px] md:![perspective:1000px] lg:![perspective:1000px] absolute overflow-hidden -z-[6] inset-0 transition-[perspective] ease">
+    <div className="perspective-[1000px]! sm:perspective-[1000px]! md:perspective-[1000px]! lg:perspective-[1000px]! absolute overflow-hidden -z-6 inset-0 transition-[perspective] ease">
       <div
-        className="z-[100] absolute inset-0 [--gradient-stop-1:0px] [--gradient-stop-2:50%]"
+        className="z-100 absolute inset-0 [--gradient-stop-1:0px] [--gradient-stop-2:50%]"
         style={{
           background: "linear-gradient(to top, rgba(0,0,0,0) 0px, #000 50%)",
         }}
@@ -138,9 +138,9 @@ function BgLines() {
   /* <div className="lg:w-3/4 text-center mx-auto"> */
 }
 {
-  /* <h1 className=" font-bold text-5xl md:text-6xl xl:text-7xl relative bg-clip-text text-transparent bg-gradient-to-r from-primary to-violet-300  dark:from-sky-600 dark:to-purple-300">
+  /* <h1 className=" font-bold text-5xl md:text-6xl xl:text-7xl relative bg-clip-text text-transparent bg-linear-to-r from-primary to-violet-300  dark:from-sky-600 dark:to-purple-300">
 							Develop with Confidence {`\n`} Innovate with Ease
-							<span className="relative bg-gradient-to-r from-primary to-violet-200 bg-clip-text text-transparent dark:from-primaryLight dark:to-secondaryLight md:px-2">reimagination.</span>
+							<span className="relative bg-linear-to-r from-primary to-violet-200 bg-clip-text text-transparent dark:from-primaryLight dark:to-secondaryLight md:px-2">reimagination.</span>
 						</h1> */
 }
 {
@@ -154,7 +154,7 @@ function BgLines() {
 							<Link href="/signup" className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 sm:w-max">
 								<span className="relative text-base font-semibold text-white">Get started</span>
 							</Link>
-							<Link href="#" className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-gradient-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max">
+							<Link href="#" className="relative flex h-11 w-full items-center justify-center px-6 before:absolute before:inset-0 before:rounded-full before:border before:border-transparent before:bg-primary/10 before:bg-linear-to-b before:transition before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 sm:w-max">
 								<span className="relative text-base font-semibold text-primary dark:text-white">Learn more</span>
 							</Link>
 						</div> */
