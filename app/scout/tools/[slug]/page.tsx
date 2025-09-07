@@ -18,7 +18,7 @@ import {
   getToolMetaBySlug,
   postRatingAndReview,
   toggleBookmark,
-} from "app/scout/lib/actions";
+} from "app/scout/lib/actions"; 
 import { getAverageRating } from "app/scout/lib/utils";
 import {
   Bookmark,
