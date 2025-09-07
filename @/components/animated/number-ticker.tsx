@@ -22,7 +22,7 @@ export function NumberTicker({
   delay = 0,
   className,
   decimalPlaces = 0,
-  suffix = "",
+  suffix,
   ...props
 }: NumberTickerProps) {
   const ref = useRef<HTMLSpanElement>(null);
