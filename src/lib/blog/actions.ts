@@ -157,7 +157,12 @@ export async function getPostsByAuthor(
   posts: PostWithId[];
 }> {
   await dbConnect();
-  const profile = await Profile.find({ username })
+  const profile = await Profile.findOne({ username })
+    .populate({
+      path: "user",
+      select: "name username profilePicture"
+    })
+    .exec();
   if (!profile) {
     return {
       profile: null,

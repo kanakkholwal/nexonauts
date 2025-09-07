@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button";
+import { ButtonLink } from "@/components/utils/link";
 import { ArrowLeft, LoaderCircle } from "lucide-react";
-import Link from "next/link";
 import { Suspense } from "react";
 import { getCategories, submitTool } from "./actions";
 import EditForm from "./form";
@@ -12,16 +11,14 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6 my-5">
       <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold">Edit Tool</h1>
-        <Button variant="link" asChild>
-          <Link href="/tools">
-            <ArrowLeft />
-            Back to Tools
-          </Link>
-        </Button>
+        <h1 className="text-lg font-semibold">Submit New Tool</h1>
+        <ButtonLink variant="link" href="/dashboard/tools">
+          <ArrowLeft />
+          Back to Tools
+        </ButtonLink>
       </div>
 
-      <div className="bg-glasss p-5 rounded-lg">
+      <div className="bg-card p-4 rounded-lg">
         <Suspense
           fallback={
             <div className="flex justify-center items-center h-64">

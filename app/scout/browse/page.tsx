@@ -1,22 +1,21 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import ConditionalRender from "@/components/utils/conditional-render";
 import InfoArea from "@/components/utils/info-area";
 import Navbar from "app/layouts/navbar-dynamic";
 import { getTools } from "app/scout/lib/actions";
-import { Hash, SearchX } from "lucide-react";
+import { Hash, SearchX, Verified } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import LazyImage from "src/components/image";
-import { PublicToolPricingType } from "src/models/tool";
+import { PublicToolPricingType, PublicToolTypeWithId } from "src/models/tool";
 
 import { cn } from "@/lib/utils";
 import { HERO_SECTION, METADATA } from "data/scout/browse";
+import { getImages } from "src/lib/scout";
 import { FilterBar, SearchBar } from "./client-components";
 
 export const metadata: Metadata = METADATA;
 
-// TODO: Pagination and infinite scroll
 export default async function BrowsePage(props: {
   searchParams?: Promise<{
     query?: string;
@@ -25,17 +24,16 @@ export default async function BrowsePage(props: {
     category?: string;
     offset?: string;
     view?: "grid" | "list" | "masonry";
-  }>
+  }>;
 }) {
-  const searchParams = await props.searchParams;
-  const query = searchParams?.query || "";
-  const currentPage = Number(searchParams?.page) || 1;
-  const offset = Number(searchParams?.offset) || 0;
-  const viewType = searchParams?.view || "grid";
+  const searchParams = await props.searchParams || {};
+  const query = searchParams.query || "";
+  const currentPage = Number(searchParams.page) || 1;
+  const offset = Number(searchParams.offset) || 0;
+  const viewType = searchParams.view || "grid";
   const filter = {
-    pricing_type:
-      (searchParams?.pricing_type as PublicToolPricingType) || "all",
-    category: searchParams?.category || "all",
+    pricing_type: (searchParams.pricing_type as PublicToolPricingType) || "all",
+    category: searchParams.category || "all",
   };
 
   const { tools, categories, pricing_types } = await getTools(
@@ -46,135 +44,173 @@ export default async function BrowsePage(props: {
   );
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <header>
         <Navbar />
 
-        <div className="relative" id="hero">
-          <div
+        <div className="relative isolate overflow-hidden" id="hero">
+          {/* <div
             aria-hidden="true"
-            className="fixed inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20 -z-1"
+            className="fixed inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20 -z-10 pointer-events-none"
           >
-            <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-purple-400 dark:from-blue-700" />
-            <div className="blur-[106px] h-32 bg-linear-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
-          </div>
-          <div className="relative flex flex-col justify-center gap-5 z-10 w-full h-full mx-auto max-w-7xl p-6 text-center pt-40">
-            <h1 className="text-4xl 4xl:text-6xl font-bold text-foreground dark:bg-linear-to-r from-indigo-400 via-purple-400 to-pink-400 bg-clip-text dark:text-transparent">
-              {HERO_SECTION.title}
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              {HERO_SECTION.description}
-            </p>
-            <div className="p-3 mt-10 w-full mx-auto">
-              <SearchBar />
-              <div className="flex items-center justify-between w-full mt-4  z-10">
-                <p className="text-muted-foreground font-medium text-sm">
-                  {query ? (
-                    <>
-                      Search results for "
-                      <span className="text-primary">{query}</span>" ($
-                      {tools.length})
-                    </>
-                  ) : (
-                    "Browse Tools"
-                  )}
-                </p>
-                <FilterBar
-                  categories={categories}
-                  pricing_types={pricing_types}
-                  filter={filter}
-                  viewType={viewType}
-                />
+            <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
+            <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+          </div> */}
+
+          <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-20 md:py-24 lg:py-28">
+            <div className="flex flex-col items-center text-center">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-400 from-10% via-sky-400 via-30% to-emerald-300 to-90% bg-clip-text text-transparent">
+                {HERO_SECTION.title}
+              </h1>
+              <p className="mt-4 max-w-2xl text-base md:text-lg text-muted-foreground">
+                {HERO_SECTION.description}
+              </p>
+
+              <div className="w-full max-w-3xl mt-8">
+                <SearchBar />
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full mt-4 gap-3">
+                  <p className="text-muted-foreground font-medium text-sm">
+                    {query ? (
+                      <>
+                        Search results for "
+                        <span className="text-primary font-semibold">{query}</span>"
+                        <span className="ml-1.5">({tools.length})</span>
+                      </>
+                    ) : (
+                      "Browse Tools"
+                    )}
+                  </p>
+                  <FilterBar
+                    categories={categories}
+                    pricing_types={pricing_types}
+                    filter={filter}
+                    viewType={viewType}
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </header>
+
       <main
         id="results"
-        className="@container h-full w-full max-w-(--max-app-width) mx-auto p-3 border-t "
+        className="flex-1 w-full max-w-(--max-app-width) mx-auto px-4 sm:px-6 py-6"
       >
         <ConditionalRender condition={tools.length > 0}>
           <div className={viewTypeToClassName(viewType)}>
-            {tools.map((tool) => {
-              return (
-                <div key={tool._id}>
-                  <Link href={`/scout/tools/${tool.slug}`} className="p-1">
-                    <Card
-                      className={cn(
-                        "rounded-2xl relative group",
-                        viewType === "list"
-                          ? "flex flex-row gap-3 items-stretch"
-                          : ""
-                      )}
-                    >
-                      <CardHeader className="p-2">
-                        <figure className="flex flex-col w-full aspect-video overflow-hidden bg-white/30 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70 rounded-lg h-32 sm:h-36">
-                          <div className="relative flex items-center justify-center shrink-0 h-full group w-auto m-auto overflow-hidden">
-                            <LazyImage
-                              className="w-auto h-auto m-auto transition ease-in-out duration-300 group-hover:scale-105"
-                              width={350}
-                              height={200}
-                              src={tool.coverImage}
-                              alt={tool.name}
-                            />
-                            <div className="absolute inset-0 transition duration-200 opacity-0 group-hover:opacity-60"></div>
-                          </div>
-                        </figure>
-                      </CardHeader>
-                      <CardContent
-                        className={cn(
-                          viewType === "list"
-                            ? "p-2 flex flex-col items-start justify-center"
-                            : ""
-                        )}
-                      >
-                        <div
-                          className="w-full text-xl font-semibold mb-2 inline-flex gap-2 justify-between items-center flex-wrap leading-normal"
-                          title={tool.name}
-                        >
-                          {tool.name}
-                          <Badge
-                            variant="default_light"
-                            size="sm"
-                            className="ml-auto capitalize"
-                          >
-                            {tool.pricing_type}
-                          </Badge>
-                        </div>
-
-                        <div className="inline-flex flex-wrap gap-2 w-full items-center justify-start mt-2 text-xs text-muted-foreground">
-                          <Hash className="inline-block size-3" />
-                          {tool.categories?.map((category, index) => category.name).join(", ")}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </Link>
-                </div>
-              );
-            })}
+            {tools.map((tool) => (
+              <ToolCard
+                key={tool._id}
+                tool={tool}
+                viewType={viewType}
+              />
+            ))}
           </div>
         </ConditionalRender>
+
         <ConditionalRender condition={tools.length === 0}>
-          <InfoArea
-            Icon={SearchX}
-            title="No tools found"
-            description="We couldn't find any tools matching your search criteria."
-          />
+          <div className="py-12 flex justify-center">
+            <InfoArea
+              Icon={SearchX}
+              title="No tools found"
+              description="We couldn't find any tools matching your search criteria."
+            />
+          </div>
         </ConditionalRender>
       </main>
-    </>
+    </div>
+  );
+}
+
+function ToolCard({ tool, viewType }: { tool: Partial<PublicToolTypeWithId>; viewType: string }) {
+  const images = getImages(tool?.link || "")
+  return (
+    <div
+      className={cn(
+        "h-full",
+        viewType === "masonry" && "mb-4 break-inside-avoid"
+      )}
+    >
+      <Link
+        href={`/scout/tools/${tool.slug}`}
+        className={cn(
+          "block h-full rounded-xl border border-border/50 bg-card overflow-hidden",
+          "transition-all duration-200 hover:shadow-md hover:border-primary/40",
+          viewType === "list" && "flex flex-col sm:flex-row"
+        )}
+      >
+        <div
+
+          className={cn(
+            "relative overflow-hidden bg-muted/20",
+            viewType === "list"
+              ? "sm:w-40 md:w-48 flex-shrink-0 aspect-square"
+              : "aspect-video"
+          )}
+        >
+          <LazyImage
+            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+            width={viewType === "list" ? 350 : 500}
+            height={viewType === "list" ? 350 : 350}
+            src={images?.bannerURL || tool.coverImage}
+            alt={tool.name}
+          />
+        </div>
+
+        <div
+          className={cn(
+            "p-4 flex flex-col h-full border-t border-border/25",
+            viewType === "list" && "flex-1"
+          )}
+        >
+          <div className="flex justify-between items-start gap-2">
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold text-base md:text-lg truncate flex items-center gap-1.5">
+                {tool.name}
+                {tool.verified && (
+                  <Verified className="inline-block text-emerald-500 w-4 h-4 flex-shrink-0" />
+                )}
+              </h3>
+            </div>
+
+            <Badge
+              variant="default_light"
+              size="sm"
+              className="capitalize flex-shrink-0"
+            >
+              {tool.pricing_type}
+            </Badge>
+          </div>
+
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {tool.categories?.map((category: any, idx: number) => (
+              <Badge
+                key={idx}
+                variant="default"
+                size="sm"
+                className="font-normal"
+              >
+                <Hash className="size-3" />
+                {category.name}
+              </Badge>
+            ))}
+          </div>
+        </div>
+      </Link>
+    </div>
   );
 }
 
 function viewTypeToClassName(viewType: "grid" | "list" | "masonry") {
   switch (viewType) {
     case "grid":
-      return "grid grid-cols-1 @md:grid-cols-2 @lg:grid-cols-2 @2xl:grid-cols-3 @5xl:grid-cols-4 gap-4";
+      return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5";
     case "list":
-      return "grid gap-4 grid-cols-1 @4xl:grid-cols-2";
+      return "grid grid-cols-1 sm:grid-cols-2 gap-5";
     case "masonry":
+      return "columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-5";
     default:
-      return "gap-4 columns-1 @xl:columns-2 @4xl:columns-3 @7xl:columns-4";
+      return "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5";
   }
 }

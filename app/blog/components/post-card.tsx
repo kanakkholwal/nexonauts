@@ -1,73 +1,71 @@
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import Link from "next/link";
 import { PostWithId } from "src/models/post";
 
-export function PostCard({
-  post,
-  className,
-}: {
+import { Badge } from "@/components/ui/badge";
+import { format } from "date-fns";
+import { ArrowUpRight } from "lucide-react";
+import { decodeHTMLEntities } from "src/utils/string";
+
+export function PostCard({ post, featured = false }: {
   post: PostWithId;
-  className?: string;
+
+  featured?: boolean
 }) {
   return (
     <div
       className={cn(
-        "rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 dark:bg-neutral-900 dark:border-white/5 bg-white border border-transparent justify-between flex flex-col space-y-4",
-        className
+        "flex flex-col rounded-xl overflow-hidden border border-border/50 bg-card group",
+        "transition-all duration-300 group-hover:shadow-lg group-hover:border-primary/30",
+        featured ? "h-auto" : "h-full",
       )}
     >
-      <div className="relative mb-6 aspect-370/280 w-full overflow-hidden rounded-[10px] transition-all group-hover:scale-105">
-        {/* {isPro && <ProBadge />} */}
-        <Link href={`/blog/articles/${post.slug}`}>
-          <Image
-            src={post.image}
-            alt={post.title}
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="w-full object-cover rounded-lg"
-          />
-        </Link>
+      <div className="relative aspect-video overflow-hidden">
+        <Image
+          fill
+          src={post.image || "/placeholder.svg"}
+          alt={post.title}
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
+          sizes={featured ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 100vw, 33vw"}
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-80" />
+
       </div>
-      <div className="group-hover/bento:translate-x-2 transition duration-200">
-        {/* {icon} */}
-        <h3>
-          <Link
-            href={`/blog/articles/${post.slug}`}
-            className="mb-3.5 block text-xl font-bold text-dark"
-          >
-            <span className="bg-linear-to-r from-primary/20 to-primary/10 bg-size-[0px_10px] bg-bottom-left bg-no-repeat transition-[background-size] duration-500 hover:bg-size-[100%_3px] group-hover:bg-size-[100%_10px]">
-              {post.title}
-            </span>
-          </Link>
-        </h3>
-        <div className="font-sans font-medium text-neutral-600 text-xs dark:text-neutral-300">
-          {post.description}
-        </div>
-      </div>
-      <div className="mt-4.5 flex flex-wrap items-center justify-between gap-3">
-        <Link
-          href={`/blog/authors/${post.author?.username}`}
-          className="flex items-center gap-3"
+
+      <div className={cn("p-4 flex-1 flex flex-col gap-2", featured ? "md:p-6" : "")}>
+        <h3
+          className={cn(
+            "text-foreground font-semibold line-clamp-2",
+            featured ? "text-xl md:text-2xl" : "text-lg"
+          )}
         >
-          <div className="flex h-6 w-6 overflow-hidden rounded-full">
-            <Image
-              src={post.author?.user?.profilePicture!}
-              alt={post.author?.user?.name!}
-              width={24}
-              height={24}
-            />
-          </div>
-          <p className="text-sm">{post.author?.user?.name}</p>
-        </Link>
-        <span className="flex h-[3px] w-[3px] rounded-full bg-dark-2" />
-        <p className="text-sm">
-          {new Date(post.createdAt).toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          })}
+          {decodeHTMLEntities(post.title)}
+        </h3>
+        <div className="mb-3 flex flex-wrap gap-2">
+          {post.labels.slice(0, 2).map((tag: string, index: number) => (
+            <Badge
+              key={index}
+              variant="default_light"
+              className="font-normal"
+            >
+              {tag}
+            </Badge>
+          ))}
+        </div>
+
+        <p className={cn(
+          "text-muted-foreground mb-4 flex-1 text-pretty",
+          featured ? "text-base md:text-lg" : "text-sm"
+        )}>
+          {post.description?.substring(0, featured ? 500 : 120) + "..."}
         </p>
+
+        <div className="flex justify-between items-center mt-auto">
+          <span className="text-sm text-muted-foreground">
+            {format(new Date(post.createdAt), "MMM dd, yyyy")}
+          </span>
+          <ArrowUpRight className="w-4 h-4 text-muted-foreground transition-transform duration-500 group-hover:text-primary group-hover:translate-x-1 group-hover:-translate-y-1" />
+        </div>
       </div>
     </div>
   );

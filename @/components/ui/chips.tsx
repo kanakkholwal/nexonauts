@@ -22,7 +22,6 @@ export function Chip(props: ChipProps) {
 
   return (
     <Badge
-      variant="secondary"
       className={cn("cursor-pointer", props.className)}
       onClick={(e) => {
         e.preventDefault();
@@ -35,7 +34,7 @@ export function Chip(props: ChipProps) {
       {showCloseIcon && (
         <div
           className={cn(
-            "p-0 bg-gray-500 border-none hover:bg-gray-600 hover:text-white rounded-full cursor-pointer transition",
+            "p-0 bg-accent border-none hover:bg-card hover:text-foreground rounded-full cursor-pointer transition",
             closeIconClassName
           )}
           onKeyDown={(e) => {
@@ -52,7 +51,7 @@ export function Chip(props: ChipProps) {
           {closeIcon ? (
             closeIcon
           ) : (
-            <X className="h-4 w-4 fill-gray-300 font-bold" />
+            <X className="h-4 w-4 fill-foregroundfont-bold" />
           )}
         </div>
       )}

@@ -8,6 +8,7 @@ import { FAQs } from "./faqs";
 import heroImage from "./hero.png";
 import { allDevTools } from "./list";
 
+import InfoArea from "@/components/utils/info-area";
 import { Search } from "lucide-react";
 import Image from "next/image";
 
@@ -32,7 +33,7 @@ export default function Tools() {
     <>
       <section
         id="hero"
-        className="relative mb-10 flex items-center justify-around w-full gap-16 py-24 backdrop-blur-xl min-h-96"
+        className="relative flex items-center justify-around w-full gap-16 py-24 backdrop-blur-xl min-h-96"
       >
         <div
           aria-hidden="true"
@@ -43,10 +44,10 @@ export default function Tools() {
         </div>
         <div className="max-w-7xl px-6 lg:px-12 relative flex-auto">
           <div className="text-left mx-auto">
-            <h1 className="text-gray-900 dark:text-white font-bold text-5xl md:text-6xl xl:text-7xl relative bg-linear-to-r from-primary to-violet-200 bg-clip-text text-transparent dark:from-primaryLight dark:to-secondaryLight">
+            <h1 className=" font-bold text-5xl md:text-6xl xl:text-7xl relative bg-linear-to-r from-primary to-violet-200 bg-clip-text text-transparent dark:from-primaryLight dark:to-secondaryLight">
               Developer Tools
             </h1>
-            <p className="mt-8 text-gray-700 dark:text-gray-300">
+            <p className="mt-4 text-muted-foreground">
               A collection of tools that I have made to make your developer life
               easier.
             </p>
@@ -60,7 +61,7 @@ export default function Tools() {
               variant="glass"
               aria-label="Search Tools"
               id="search-tools"
-              className=" px-5 py-4 text-base h-12  pl-10 w-full max-w-3xl mx-auto rounded-lg shadow-sm"
+              className="px-5 py-4 text-base h-12  pl-12 w-full max-w-3xl mx-auto rounded-full shadow-sm"
               type="search"
               value={query}
               onChange={(e) => {
@@ -86,14 +87,16 @@ export default function Tools() {
             <ToolCard
               {...tool}
               style={{ animationDelay: `${0.1 * index}s` }}
-              // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-              key={index}
+              key={`tool-${index}`}
             />
           );
         })}
       </div>
       {tools.length === 0 && (
-        <p className="text-center text-lg font-semibold">No tools found</p>
+        <InfoArea
+          title="No Tools Found"
+          description="We couldn't find any tools matching your search criteria. Please try a different search term."
+        />
       )}
       <FAQs />
     </>
