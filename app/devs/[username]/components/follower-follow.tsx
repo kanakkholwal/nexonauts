@@ -40,7 +40,7 @@ export default function FollowerFollow({
           <DialogHeader>
             <DialogTitle>Followers ({developer.followers.length})</DialogTitle>
             <DialogDescription>
-              {developer.username}'s followers
+              {developer.username}{`'`}s followers
             </DialogDescription>
           </DialogHeader>
           <ul className="flex flex-col gap-2">
@@ -99,7 +99,7 @@ export default function FollowerFollow({
           <DialogHeader>
             <DialogTitle>Following ({developer.following.length})</DialogTitle>
             <DialogDescription>
-              {developer.username}'s following
+              {developer.username}{`'`}s following
             </DialogDescription>
           </DialogHeader>
           <ul className="flex flex-col gap-2">

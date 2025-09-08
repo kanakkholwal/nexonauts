@@ -414,7 +414,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
           <div>
             <h3 className="font-bold">Password</h3>
             <p className="text-sm text-muted-foreground">
-              Change your password. Make sure it's at least 6 characters long.
+              Change your password. Make sure it{`'`}s at least 6 characters long.
             </p>
           </div>
           <div>

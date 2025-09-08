@@ -65,7 +65,7 @@ export default async function Page() {
         <h1 className="text-2xl font-semibold tracking-tight">
           Join {process.env.NEXT_PUBLIC_WEBSITE_NAME}
         </h1>
-        <p className="text-sm text-muted-foreground">It's quick and easy.</p>
+        <p className="text-sm text-muted-foreground">It{`'`}s quick and easy.</p>
       </header>
       <main className="flex flex-col items-center justify-center w-full p-4">
         <WaitListForm key={"form"} joinWaitList={joinWaitList} />

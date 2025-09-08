@@ -29,13 +29,13 @@ export default function Navbar() {
       <div className="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
         <div className="relative flex flex-wrap items-center justify-between gap-6 lg:gap-0 lg:py-4">
           <div className="relative z-20 flex w-full justify-between md:px-0 lg:w-max">
-            <a
+            <Link
               href="/"
               aria-label="logo"
               className="flex items-center space-x-2"
             >
               <img className="h-10" src="/logo.svg" alt="logo" />
-            </a>
+            </Link>
             <button
               aria-label="humburger"
               id="hamburger"
@@ -77,14 +77,14 @@ export default function Navbar() {
               </ul>
             </div>
             <div className="mt-12 -ml-1 flex w-full flex-col space-y-2 border-primary/10 dark:border-gray-700 sm:flex-row md:w-max lg:mt-0 lg:mr-6 lg:space-y-0 lg:border-l lg:pl-6">
-              <a
+              <Link
                 className="relative ml-auto flex h-9 w-full items-center justify-center before:absolute before:inset-0 before:rounded-full before:bg-primary before:transition-transform before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-primaryLight sm:px-4 lg:before:border lg:before:border-gray-200 lg:before:bg-primary/10 lg:dark:before:bg-gray-800"
                 href="/signup"
               >
                 <span className="relative text-sm font-semibold text-white dark:text-gray-900 lg:text-primary lg:dark:text-white">
                   Get started
                 </span>
-              </a>
+              </Link>
             </div>
             {/* <button aria-label="switch theme" className="switcher group relative hidden h-9 w-9 rounded-full before:absolute before:inset-0 before:rounded-full before:border before:border-gray-200 before:bg-gray-50 before:bg-linear-to-b before:transition-transform before:duration-300 hover:before:scale-105 active:duration-75 active:before:scale-95 dark:before:border-gray-700 dark:before:bg-gray-800 lg:flex">
                     <svg xmlns="http://www.w3.org/2000/svg" className="transistion relative m-auto hidden h-5 w-5 fill-gray-500 duration-300 group-hover:rotate-180 group-hover:fill-yellow-400 dark:block dark:fill-gray-300" viewBox="0 0 20 20" fill="currentColor">

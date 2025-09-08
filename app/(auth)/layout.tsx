@@ -29,7 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-lg">
-                "The only way to do great work is to love what you do."
+                {'"'}The only way to do great work is to love what you do.{'"'}
               </p>
               <footer className="text-sm">
                 - Kanak, Founder of {process.env.NEXT_PUBLIC_WEBSITE_NAME}

@@ -41,15 +41,15 @@ export default async function Page() {
         </h4>
         <ul className="list-disc list-inside">
           <li>
-            "Client", "You", and "Your" refer to you, the person accessing this
-            website and accepting the Company's terms and conditions.
+            {`"`}Client{`"`}, {`"`}You{`"`}, and {`"`}Your{`"`} refer to you, the person accessing this
+            website and accepting the Company{`'`}s terms and conditions.
           </li>
           <li>
-            "The Company", "Ourselves", "We", "Our", and "Us", refer to
+            {`"`}The Company{`"`}, {`"`}Ourselves{`"`}, {`"`}We{`"`}, {`"`}Our{`"`}, and {`"`}Us{`"`}, refer to
             Nexonauts.com.
           </li>
           <li>
-            "Party", "Parties", or "Us", refers to both the Client and
+            {`"`}Party{`"`}, {`"`}Parties{`"`}, or {`"`}Us{`"`}, refers to both the Client and
             ourselves.
           </li>
         </ul>
@@ -58,7 +58,7 @@ export default async function Page() {
         </h4>
         <p>
           We employ the use of cookies. By accessing Nexonauts.com, you agreed
-          to use cookies in agreement with the Nexonauts.com's{" "}
+          to use cookies in agreement with the Nexonauts.com{`'`}s{" "}
           <Link
             href="/privacy"
             className="font-bold italic text-primary hover:underline"
@@ -93,7 +93,7 @@ export default async function Page() {
           We reserve the right to request that you remove all links or any
           particular link to our website. You approve to immediately remove all
           links to our website upon request. We also reserve the right to amend
-          these terms and conditions and it's linking policy at any time. By
+          these terms and conditions and it{`'`}s linking policy at any time. By
           continuously linking to our website, you agree to be bound to and
           follow these linking terms and conditions.
         </p>

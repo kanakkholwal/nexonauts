@@ -50,7 +50,7 @@ export default function SimilarTools({ tools, toolName }: Props) {
             No similar tools found
           </h3>
           <p className="text-muted-foreground text-base">
-            We couldn't find any similar tools for this category.
+            We couldn{`'`}t find any similar tools for this category.
           </p>
         </div>
       )}

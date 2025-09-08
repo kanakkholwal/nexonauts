@@ -15,7 +15,7 @@ export default function CreateProfile() {
           draggable={false}
         />
         <h2 className="text-2xl font-semibold mt-5">
-          You don't have a profile yet
+          You don{`'`}t have a profile yet
         </h2>
         <p className="text-lg text-gray-500 dark:text-gray-400 mt-2">
           Create a profile to connect with other developers

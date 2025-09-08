@@ -32,7 +32,7 @@ export default async function DashboardPage() {
       <div>
         <h2 className="text-3xl font-semibold mb-2">Hi, {session.user.name}</h2>
         <p className="text-slate-600 dark:text-slate-400">
-          Let's check out your Platform today!
+          Let{`'`}s check out your Platform today!
         </p>
       </div>
       <div className="flex justify-between gap-2 w-full flex-col lg:flex-row">

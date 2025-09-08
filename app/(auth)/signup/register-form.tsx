@@ -222,7 +222,7 @@ export function RegisterForm({ registerUser }: Props) {
             <p className="text-concrete text-xs lg:text-sm pt-8">
               By clicking{" "}
               <span className="font-semibold">Create account / Sign up</span>,
-              you agree to {process.env.NEXT_PUBLIC_WEBSITE_NAME}'s{" "}
+              you agree to {process.env.NEXT_PUBLIC_WEBSITE_NAME}{`'`}s{" "}
               <Link
                 className="!text-concrete text-primary inline-flex hover:underline"
                 href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/tos`}

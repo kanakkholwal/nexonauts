@@ -77,7 +77,7 @@ export default function Page() {
           to store information about your preferences and the pages you visit on
           our website. Cookies are small data files that are stored on your
           device. We use cookies to personalize your experience and optimize our
-          website's performance.
+          website{`'`}s performance.
         </p>
         <h4 className="mb-4 text-xl font-semibold leading-7 tracking-wide text-slate-700 dark:text-slate-200">
           Our Advertising Partners

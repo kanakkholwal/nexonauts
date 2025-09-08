@@ -72,8 +72,8 @@ export default async function BrowsePage(props: {
                   <p className="text-muted-foreground font-medium text-sm">
                     {query ? (
                       <>
-                        Search results for "
-                        <span className="text-primary font-semibold">{query}</span>"
+                        Search results for {'"'}
+                        <span className="text-primary font-semibold">{query}</span>{'"'}
                         <span className="ml-1.5">({tools.length})</span>
                       </>
                     ) : (

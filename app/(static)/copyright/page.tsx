@@ -50,7 +50,7 @@ export default async function Page() {
         <p>
           All copyrighted material used on Nexonauts.com is acknowledged to its
           respective owners. We do not claim ownership or rights over any
-          copyrighted material that isn't developed or created by our team.
+          copyrighted material that isn{`'`}t developed or created by our team.
         </p>
         <h4 className="mb-2 text-lg font-semibold leading-7 tracking-wide text-card-foreground">
           DMCA Compliance

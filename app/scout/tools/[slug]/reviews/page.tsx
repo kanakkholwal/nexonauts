@@ -182,7 +182,7 @@ export default async function ToolPage(props: {
                 {formatNumber(ratings.length)} ratings
               </span>
               <span className="w-1 h-1 mx-1.5 bg-gray-500 rounded-full dark:bg-gray-400" />
-              We don't verify reviews.
+              We don{`'`}t verify reviews.
             </p>
 
             <Tabs defaultValue="all-reviews" className="w-full mt-5">

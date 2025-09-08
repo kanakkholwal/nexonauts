@@ -46,7 +46,7 @@ export default async function Page() {
             <p className="text-muted-foreground text-left">
               Welcome to Nexonauts.com, the brainchild of a passionate developer
               driven by the mission to simplify the development journey for
-              fellow creators. As the sole visionary behind this platform, I'm
+              fellow creators. As the sole visionary behind this platform, I{`'`}m
               committed to building a vibrant ecosystem that fuels creativity,
               collaboration, and growth for developers worldwide.
             </p>
@@ -90,7 +90,7 @@ export default async function Page() {
                   Execution
                 </h3>
                 <p className="text-muted-foreground">
-                  We're dedicated to making your development goals a reality,
+                  We{`'`}re dedicated to making your development goals a reality,
                   not just abstract concepts. From ideation to implementation,
                   we ensure effective execution that drives your online success.
                 </p>
@@ -128,7 +128,7 @@ export default async function Page() {
                   Result
                 </h3>
                 <p className="text-muted-foreground">
-                  Our ultimate goal isn't just about enhancing rankings; it's
+                  Our ultimate goal isn{`'`}t just about enhancing rankings; it{`'`}s
                   about bolstering your online presence, driving traffic, and
                   ensuring tangible, measurable outcomes for your projects.
                 </p>
@@ -160,9 +160,9 @@ export default async function Page() {
           Join the Journey
         </h4>
         <p className="text-base md:text-lg  text-muted-foreground text-center max-w-4xl mx-auto">
-          Whether you're a seasoned developer or just stepping into the world of
+          Whether you{`'`}re a seasoned developer or just stepping into the world of
           coding, Nexonauts.com is your partner in innovation. Join me on this
-          journey as we redefine what's possible in the realm of development.
+          journey as we redefine what{`'`}s possible in the realm of development.
         </p>
         <div className="mt-16 flex flex-wrap justify-center gap-y-4 gap-x-6">
           <ButtonLink

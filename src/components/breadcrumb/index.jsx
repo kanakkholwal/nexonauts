@@ -12,40 +12,40 @@ export function BreadCrumb() {
   return (
     <nav
       className="flex justify-start gap-1 truncate mb-5 px-4 py-3 w-full"
-      itemScope="itemscope"
+      itemScope
       itemType="https://schema.org/BreadcrumbList"
     >
       {pathArray.map((item, index, list) => {
         if (index === 0) {
           return (
-            <ItemListElement
+            <div
               key={`${pathArray[0]}_${pathArray[1]}_breadcrumbs_${index}`}
               itemProp="itemListElement"
-              itemScope="itemscope"
+              itemScope
               itemType="https://schema.org/ListItem"
             >
               <Link
                 href="/"
                 itemProp="item"
-                itemScope="itemscope"
+                itemScope
                 itemType="https://schema.org/Thing"
               >
-                <span name="name">Home</span>
+                <span title="name">Home</span>
               </Link>
-            </ItemListElement>
+            </div>
           );
         }
         return (
           <React.Fragment key={index}>
             <GrFormNext />
-            <ItemListElement key={index}>
-              <Item
+            <div key={index}>
+              <Link
                 href={`${removeStringAfterWord(path, item)}`}
-                active={index === list.length - 1 ? "true" : "false"}
+              data-active={index === list.length - 1 ? "true" : "false"}
               >
-                <ItemName>{item}</ItemName>
-              </Item>
-            </ItemListElement>
+                <span>{item}</span>
+              </Link>
+            </div>
           </React.Fragment>
         );
       })}
@@ -54,24 +54,24 @@ export function BreadCrumb() {
 }
 export function BlogBreadCrumb({ category, slug, title }) {
   return (
-    <BreadcrumbList style={{ marginBottom: "0" }}>
-      <ItemListElement>
-        <Item href="/blog">
-          <ItemName>Blog</ItemName>
-        </Item>
-      </ItemListElement>
+    <div style={{ marginBottom: "0" }}>
+      <div>
+        <Link href="/blog">
+          <span>Blog</span>
+        </Link>
+      </div>
       <GrFormNext />
-      <ItemListElement>
-        <Item href={`/blog/labels/category`} active={"false"}>
-          <ItemName>{category}</ItemName>
-        </Item>
-      </ItemListElement>
+      <div>
+        <Link href={`/blog/labels/category`} data-active={"false"}>
+          <span>{category}</span>
+        </Link>
+      </div>
       <GrFormNext />
-      <ItemListElement>
-        <Item href={`/blog/posts/${slug}`} active={"true"}>
-          <ItemName>{title}</ItemName>
-        </Item>
-      </ItemListElement>
-    </BreadcrumbList>
+      <div>
+        <Link href={`/blog/posts/${slug}`} data-active={"true"}>
+          <span>{title}</span>
+        </Link>
+      </div>
+    </div>
   );
 }

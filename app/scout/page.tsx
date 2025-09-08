@@ -240,7 +240,7 @@ export default async function Page() {
               Discover How Our Platform Can Enhance Your Workflow
             </p>
             <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Explore Nexo Scout's features: effortless search, curated
+              Explore Nexo Scout{`'`}s features: effortless search, curated
               recommendations, and regular updates. Streamline your workflow
               with ease and efficiency.
             </p>

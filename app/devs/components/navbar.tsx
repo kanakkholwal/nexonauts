@@ -12,7 +12,6 @@ import {
 } from "@/components/ui/sheet";
 import ThemeSwitcher from "app/layouts/theme-switcher";
 import { Search } from "lucide-react";
-import { useTheme } from "next-themes";
 import Link from "next/link";
 import React from "react";
 
@@ -27,7 +26,7 @@ export default function Navbar() {
       <div className="mx-auto px-4 sm:px-12 xl:max-w-6xl xl:px-0">
         <div className="relative flex flex-wrap items-center justify-between gap-6 lg:gap-0 lg:py-4">
           <div className="relative z-20 flex w-full justify-between md:px-0 lg:w-max">
-            <a
+            <Link
               href="/"
               aria-label="logo"
               className="flex items-center space-x-2"
@@ -37,7 +36,7 @@ export default function Navbar() {
                 src="/assets/logo.svg"
                 alt="logo"
               />
-            </a>
+            </Link>
             <button
               aria-label="humburger"
               id="hamburger"

@@ -25,7 +25,7 @@ export function Pricing() {
             data-aos-delay={100}
           >
             At Nexonauts, we offer flexible plans tailored to suit every
-            developer, whether you're an individual creator, a growing team, or
+            developer, whether you{`'`}re an individual creator, a growing team, or
             an enterprise seeking comprehensive solutions.
           </p>
         </div>
