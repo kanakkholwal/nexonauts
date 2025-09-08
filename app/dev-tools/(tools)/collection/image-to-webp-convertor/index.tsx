@@ -1,7 +1,7 @@
 import ToolComponent from "./tool";
 import thumbnailImg from "./thumbnail.webp";
 
-export default {
+const tool =  {
   title: "Image to Webp Convertor",
   icon: thumbnailImg,
   description:
@@ -11,3 +11,4 @@ export default {
   tags: [],
   Component: ToolComponent,
 };
+export default tool;

@@ -1,6 +1,6 @@
 import ToolComponent from "./tool";
 
-export default {
+const tool =  {
     title: "Text Behind Image",
     icon: "https://imgv3.fotor.com/images/homepage-feature-card/Webp-to-jpeg-conversion-icon.jpg",
     description: "Create text-behind-image designs easily",
@@ -9,3 +9,4 @@ export default {
     tags: ["text", "image", "design", "text behind image", "ai", "free"],
     Component: ToolComponent,
 };
+export default tool;

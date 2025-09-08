@@ -1,6 +1,6 @@
 import ToolComponent from "./tool";
 
-export default {
+const tool =  {
   title: "PDF Stripper",
   icon: "",
   description:
@@ -10,3 +10,4 @@ export default {
   tags: ["pdf", "stripper", "remove", "duplicate", "pages","ppt"],
   Component: ToolComponent,
 };
+export default tool;

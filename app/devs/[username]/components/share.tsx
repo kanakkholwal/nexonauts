@@ -39,7 +39,7 @@ export function ShareProfile({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            Share <strong>{profile.username}</strong>'s profile
+            Share <strong>{profile.username}</strong>{"'"}s profile
           </DialogTitle>
         </DialogHeader>
         <div className="flex flex-col items-center justify-center space-y-2">
@@ -55,8 +55,8 @@ export function ShareProfile({
               {profile.username[0] + profile.username[1]}
             </AvatarFallback>
           </Avatar>
-          <h5 className="text-slate-600 font-semibold">{profile.name}</h5>
-          <p className="text-gray-500 dark:text-slate-400">
+          <h5 className="text-foreground font-semibold">{profile.name}</h5>
+          <p className="text-muted-foreground text-sm">
             @{profile.username}
           </p>
         </div>
@@ -80,7 +80,7 @@ export function ShareProfile({
             onClick={() => share()}
             title={`More Options to share`}
           >
-            <FiMoreHorizontal className="inline-block w-4 h-4" />
+            <FiMoreHorizontal  />
           </Button>
         </div>
       </DialogContent>

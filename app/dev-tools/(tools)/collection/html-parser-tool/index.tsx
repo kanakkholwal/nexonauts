@@ -1,6 +1,6 @@
 import ToolComponent from "./tool";
 
-export default {
+const tool =  {
   title: "Html Parser Tool",
   icon: "https://imgv3.fotor.com/images/homepage-feature-card/Webp-to-jpeg-conversion-icon.jpg",
   description:
@@ -10,3 +10,4 @@ export default {
   tags: [],
   Component: ToolComponent,
 };
+export default tool;
