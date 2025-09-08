@@ -111,11 +111,11 @@
     "@types/csso": "^5.0.4",
     "@types/turndown": "^5.0.5",
     "@types/pretty": "^2.0.3",
+    "@types/prismjs": "^1.26.5",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
     "@types/jsonwebtoken": "^9.0.9",
-    "@types/prismjs": "^1.26.5",
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
     "constructs": "^10.4.2",
