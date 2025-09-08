@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import {
   AnimatePresence,
   motion,
+  Transition,
   useMotionValueEvent,
   useScroll,
 } from "framer-motion";
@@ -174,18 +175,18 @@ export const NavItems = ({ items, className }: NavItemsProps) => {
     </motion.div>
   );
 };
-const transition = {
+const transition:Transition = {
   type: "spring",
   mass: 0.5,
   damping: 11.5,
   stiffness: 100,
   restDelta: 0.001,
   restSpeed: 0.001,
-  spring: {
-    type: "spring",
-    damping: 20,
-    stiffness: 300,
-  }
+  // spring: {
+  //   type: "spring",
+  //   damping: 20,
+  //   stiffness: 300,
+  // }
 };
 export const MenuItem = ({
   onMouseEnter,

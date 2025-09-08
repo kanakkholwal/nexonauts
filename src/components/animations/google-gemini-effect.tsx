@@ -1,8 +1,8 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { motion, MotionValue } from "framer-motion";
+import { motion, MotionValue, Transition } from "framer-motion";
 
-const transition = {
+const transition:Transition = {
   duration: 0,
   ease: "linear",
 };

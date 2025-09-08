@@ -19,6 +19,7 @@ data.json
 .env.local
 .env.prod
 .env.dev
+.env.production
 # next.js
 /.next/
 /out/

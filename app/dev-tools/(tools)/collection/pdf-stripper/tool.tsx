@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { PDFDocument, type PDFDict, type PDFArray, PDFName, PDFNumber, type PDFObject } from 'pdf-lib';
-import JSZip from 'jszip';
-import { DragnDrop } from './DragnDrop';
-import { DownloadArea } from './DownloadArea';
 import { Progress } from '@/components/ui/progress';
+import JSZip from 'jszip';
+import { PDFDocument, PDFName, PDFNumber, type PDFArray, type PDFDict, type PDFObject } from 'pdf-lib';
+import { useState } from 'react';
+import { DownloadArea } from './DownloadArea';
+import { DragnDrop } from './DragnDrop';
 
 interface PDFResult {
   id: string;
@@ -107,6 +107,7 @@ export default function PdfPageStripper() {
       setProcessDone(((i + 0.7) / files.length) * 100);
 
       if (strippedPdf) {
+        // @ts-ignore
         const result = new Blob([await strippedPdf.save()], {
           type: "application/pdf",
         });
