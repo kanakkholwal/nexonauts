@@ -1,5 +1,4 @@
 {
-  "$schema": "https://json.schemastore.org/package.json",
   "name": "nexonauts",
   "version": "0.5.0",
   "private": true,
@@ -106,11 +105,11 @@
     "vaul": "^1.1.2",
     "zod": "^3.24.3",
     "@tailwindcss/postcss": "^4.1.10",
+    "@tailwindcss/typography": "^0.5.10",
     "shiki": "^3.3.0",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10",
     "@types/aos": "^3.0.7",
     "@types/cssbeautify": "^0.3.5",
     "@types/csso": "^5.0.4",
