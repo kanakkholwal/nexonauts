@@ -234,7 +234,7 @@ export default function HomePage() {
                   Start Your Journey Today
                 </h2>
                 <p className="my-8 text-gray-600 dark:text-gray-300">
-                  Whether you're aiming to streamline your workflow, enhance
+                  Whether you{"'"}re aiming to streamline your workflow, enhance
                   your skills, or explore groundbreaking technologies,{" "}
                   {process.env.NEXT_PUBLIC_WEBSITE_NAME} is your ultimate
                   destination. Join us today and unlock a world of
