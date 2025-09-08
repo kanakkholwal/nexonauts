@@ -1,10 +1,9 @@
 import * as bcrypt from "bcryptjs";
 import mongoose, { CallbackError, Document, Schema, Types } from "mongoose";
 import { customAlphabet } from "nanoid";
-import validator from "validator";
+import { z } from "zod";
 
-// Define a user schema
-
+// ---------------- Interfaces ----------------
 interface Integration {
   gumroad: {
     access_token: string | null;
@@ -19,6 +18,7 @@ interface Integration {
     lastAuthorized: Date | null;
   };
 }
+
 interface User extends Document {
   name: string;
   username: string;
@@ -33,6 +33,7 @@ interface User extends Document {
   verificationToken: string | null;
   verified: boolean;
 }
+
 interface IntegrationSchema extends Document {
   gumroad: {
     access_token: string | null;
@@ -48,58 +49,45 @@ interface IntegrationSchema extends Document {
   };
 }
 
+// ---------------- Zod Schemas ----------------
+const usernameSchema = z
+  .string()
+  .min(3, "Username must be at least 3 characters")
+  .max(30, "Username must be at most 30 characters")
+  .regex(/^[a-zA-Z0-9]+$/, "Username can only contain letters and numbers");
+
+const emailSchema = z.string().email("Please enter a valid email");
+
+// ---------------- Integration Schema ----------------
 const integrationSchema = new Schema<IntegrationSchema>({
   gumroad: {
     scope: {
       type: String,
       default: "edit_products",
-      enum: {
-        values: ["edit_products", "view_profile", "view_sales"],
-      },
+      enum: ["edit_products", "view_profile", "view_sales"],
     },
-    access_token: {
-      type: String,
-      default: null,
-    },
-    integrated: {
-      type: Boolean,
-      default: true,
-    },
-    lastAuthorized: {
-      type: Date,
-      default: null,
-    },
+    access_token: { type: String, default: null },
+    integrated: { type: Boolean, default: true },
+    lastAuthorized: { type: Date, default: null },
   },
   github: {
-    scope: {
-      type: String,
-      default: "repo",
-    },
-    access_token: {
-      type: String,
-      default: null,
-    },
-    integrated: {
-      type: Boolean,
-      default: false,
-    },
-    lastAuthorized: {
-      type: Date,
-      default: null,
-    },
+    scope: { type: String, default: "repo" },
+    access_token: { type: String, default: null },
+    integrated: { type: Boolean, default: false },
+    lastAuthorized: { type: Date, default: null },
   },
 });
 
+// ---------------- Helpers ----------------
 function generateRandomUsername(): string {
-  // Generate a random UUID
   const slug = customAlphabet(
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
     8
   )();
-
-  // Add a prefix (e.g., 'user_') to the alphanumeric username
   return `user_${slug}`;
 }
+
+// ---------------- User Schema ----------------
 const userSchema = new Schema<User>(
   {
     name: {
@@ -112,18 +100,24 @@ const userSchema = new Schema<User>(
       trim: true,
       required: true,
       unique: true,
-      validate: [
-        validator.isAlphanumeric,
-        "Username can only contain letters and numbers",
-      ],
       default: () => generateRandomUsername(),
+      validate: {
+        validator: (val: string) => {
+          const result = usernameSchema.safeParse(val);
+          return result.success;
+        },
+        message: "Username can only contain letters and numbers",
+      },
     },
     email: {
       type: String,
       required: true,
       unique: true,
-      validate: [validator.isEmail, "Please enter a valid email"],
       lowercase: true,
+      validate: {
+        validator: (val: string) => emailSchema.safeParse(val).success,
+        message: "Please enter a valid email",
+      },
     },
     profilePicture: {
       type: String,
@@ -134,22 +128,17 @@ const userSchema = new Schema<User>(
       type: String,
       required: [true, "Please enter your password"],
       minLength: [6, "Your password must be at least 6 characters long"],
-      select: false, // Don't send back password after request
+      select: false,
     },
-
     role: {
       type: String,
       default: "user",
-      enum: {
-        values: ["user", "admin", "waitlist"],
-      },
+      enum: ["user", "admin", "waitlist"],
     },
     account_type: {
       type: String,
       default: "free",
-      enum: {
-        values: ["free", "pro", "premium"],
-      },
+      enum: ["free", "pro", "premium"],
     },
     profile: {
       type: Schema.Types.ObjectId,
@@ -188,11 +177,9 @@ const userSchema = new Schema<User>(
   }
 );
 
-// Middleware to hash password before saving
+// ---------------- Middlewares ----------------
 userSchema.pre<User>("save", async function (next) {
-  if (!this.isModified("password")) {
-    return next();
-  }
+  if (!this.isModified("password")) return next();
 
   try {
     const hash = await bcrypt.hash(this.password, 10);
@@ -203,10 +190,7 @@ userSchema.pre<User>("save", async function (next) {
   }
 });
 
-userSchema.pre<User>("save", async function (next) {
-  if (!this.isModified("verificationToken")) {
-    return next();
-  }
+userSchema.pre<User>("save", function (next) {
   if (this.isModified("email")) {
     this.verified = false;
   }
@@ -218,15 +202,12 @@ userSchema.pre<User>("save", async function (next) {
   next();
 });
 
-// Method to compare password
+// ---------------- Methods ----------------
 userSchema.methods.comparePassword = async function (password: string) {
-  try {
-    return await bcrypt.compare(password, this.password);
-  } catch (err: any) {
-    throw new Error(err);
-  }
+  return bcrypt.compare(password, this.password);
 };
 
+// ---------------- Model ----------------
 const User = mongoose.models?.User || mongoose.model<User>("User", userSchema);
 
 export default User;

@@ -3,7 +3,7 @@ import { type NextRequest, NextResponse } from "next/server";
 import dbConnect from "src/lib/dbConnect";
 import { mailFetch } from "src/lib/server-fetch";
 import UserModel from "src/models/user";
-import validator from "validator";
+import z from "zod";
 
 export async function POST(request: NextRequest) {
   try {
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       );
     }
     // validate email and password
-    if (!validator.isEmail(email)) {
+    if (!z.string().email().safeParse(email).success) {
       return NextResponse.json(
         {
           result: "fail",
