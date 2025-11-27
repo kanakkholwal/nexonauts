@@ -13,6 +13,8 @@ export const metadata: Metadata = {
   description: "Feed for NexoNauts",
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function FeedLayout({
   children,
 }: {

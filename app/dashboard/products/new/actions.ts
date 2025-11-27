@@ -4,8 +4,8 @@ import dbConnect from "src/lib/db";
 import Product, { rawProduct } from "src/models/product";
 import { getSession } from "~/auth/server";
 
-import { createSlug } from "src/utils/string";
 import { Session } from "src/auth";
+import { createSlug } from "src/utils/string";
 
 export async function getCategories() {
   const session = (await getSession()) as Session;
@@ -17,8 +17,8 @@ export async function getCategories() {
 export async function createProduct(
   product: Omit<rawProduct, "third_party" | "slug">
 ) {
-  const session = (await getSession()) as Session;
   try {
+    const session = (await getSession()) as Session;
     await dbConnect();
 
     const newProduct = new Product({

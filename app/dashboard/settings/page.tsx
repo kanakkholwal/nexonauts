@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Settings",
   description: "Settings page",
 };
+
+export const dynamic = 'force-dynamic';
+
 const list = [
   {
     label: "Profile",

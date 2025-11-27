@@ -2,9 +2,11 @@ import { DataTable } from "@/components/ui/data-table";
 import { Suspense } from "react";
 import { getSession } from "~/auth/server";
 
+import { Session } from "~/auth";
 import { getTools } from "./actions";
 import { columns } from "./columns";
-import { Session } from "~/auth";
+
+export const dynamic = 'force-dynamic';
 
 export default async function DashboardPage(props: {
   searchParams?: Promise<{

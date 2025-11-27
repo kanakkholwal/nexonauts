@@ -8,9 +8,9 @@ import { CgSpinnerTwo } from "react-icons/cg";
 import { Session } from "src/auth";
 import dbConnect from "src/lib/db";
 import {
-    Icon,
-    INTEGRATION_DESCRIPTIONS,
-    INTEGRATIONS,
+  Icon,
+  INTEGRATION_DESCRIPTIONS,
+  INTEGRATIONS,
 } from "src/lib/integrations";
 import User from "src/models/user";
 import { getSession } from "~/auth/server";
@@ -20,6 +20,8 @@ export const metadata: Metadata = {
   title: "Integrations",
   description: "Integrations Settings page",
 };
+
+export const dynamic = 'force-dynamic';
 
 export default async function IntegrationPage() {
   const session = (await getSession()) as Session;

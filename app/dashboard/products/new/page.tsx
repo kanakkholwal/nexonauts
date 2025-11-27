@@ -7,7 +7,9 @@ export const metadata: Metadata = {
   description: "Create a new product page",
 };
 
-export default async function CreateNewProduct() {
+export const dynamic = 'force-dynamic';
+
+export default function CreateNewProduct() {
   return (
     <div className="space-y-6 p-10 pb-16 w-full mt-5">
       <ProductForm saveProduct={createProduct} />

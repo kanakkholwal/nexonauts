@@ -4,24 +4,26 @@ import dbConnect from "src/lib/db";
 import User from "src/models/user";
 import { getSession } from "~/auth/server";
 
-import { AccountForm } from "./account";
 import { Session } from "src/auth";
+import { AccountForm } from "./account";
 
 export const metadata: Metadata = {
   title: "Account",
   description: "Account Settings page",
 };
 
+export const dynamic = 'force-dynamic';
+
 export default async function AccountPage() {
   const session = (await getSession()) as Session;
 
-  await dbConnect();
 
   async function handleUpdateName(newName: string): Promise<{
     result: string;
     message: string;
   }> {
     "use server";
+  await dbConnect();
 
     const user = await User.findById(session.user.id);
     if (!user) {
@@ -39,29 +41,7 @@ export default async function AccountPage() {
     });
   }
 
-  async function handleUpdateEmail(newEmail: string): Promise<{
-    result: string;
-    message: string;
-  }> {
-    "use server";
-
-    const user = await User.findById(session.user.id);
-    if (!user) {
-      return Promise.reject({
-        result: "fail",
-        message: "User not found",
-      });
-    }
-    user.email = newEmail;
-    user.verified = false;
-
-    await user.save();
-
-    return Promise.resolve({
-      result: "success",
-      message: "Email updated successfully",
-    });
-  }
+ 
   async function handleUpdatePassword(
     oldPassword: string,
     newPassword: string
@@ -70,6 +50,7 @@ export default async function AccountPage() {
     message: string;
   }> {
     "use server";
+  await dbConnect();
 
     const user = await User.findById(session.user.id);
     if (!user) {

@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: "Dashboard page",
 };
 
+export const dynamic = 'force-dynamic';
+
 const ROUTES = [
   {
     href: "/dashboard/products",

@@ -4,13 +4,25 @@ import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { getSession } from "~/auth/server";
 
+import { Session } from "src/auth";
 import { getProfile, updateProfile } from "./actions";
 import { ProfileEditor, ProfileView } from "./profile-client";
 import StoreInitializer from "./store-intializer";
-import { Session } from "src/auth";
+
+export const dynamic = 'force-dynamic';
 
 export default async function ProfilePage() {
   const session = (await getSession()) as Session;
+  
+  if (!session) {
+    return (
+      <div className="space-y-6 my-5">
+        <div className="flex justify-center items-center w-full">
+          <p>Please log in to view your profile.</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!session.user.profile) {
     return (
