@@ -46,10 +46,10 @@ export default function AboutPage() {
               </h3>
               <div className="prose prose-lg text-muted-foreground">
                 <p>
-                  Welcome to Nexonauts.com. This isn't just a platform; it's the brainchild of a passionate developer driven by a singular mission: to simplify the development journey for fellow creators.
+                  Welcome to Nexonauts.com. This isn&apos;t just a platform; it&apos;s the brainchild of a passionate developer driven by a singular mission: to simplify the development journey for fellow creators.
                 </p>
                 <p>
-                  As the sole visionary behind this platform, I'm committed to building a vibrant ecosystem that fuels creativity. We aren't a faceless corporation; we are a toolset crafted with empathy for the coding process.
+                  As the sole visionary behind this platform, I&apos;m committed to building a vibrant ecosystem that fuels creativity. We aren&apos;t a faceless corporation; we are a toolset crafted with empathy for the coding process.
                 </p>
               </div>
             </div>
@@ -58,7 +58,7 @@ export default function AboutPage() {
             <div className="relative p-6 border-l-4 border-primary/30 bg-muted/20 rounded-r-xl">
               <Quote className="w-8 h-8 text-primary/20 absolute top-4 right-4" />
               <p className="italic text-foreground font-medium">
-                "I keep you informed at every step, holding myself accountable for the results delivered."
+                &quot;I keep you informed at every step, holding myself accountable for the results delivered.&quot;
               </p>
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function AboutPage() {
               </div>
               <h4 className="text-xl font-bold mb-3">Execution</h4>
               <p className="text-muted-foreground leading-relaxed">
-                We're dedicated to making your development goals a reality. From ideation to implementation, we ensure effective execution that drives your online success.
+                We&apos;re dedicated to making your development goals a reality. From ideation to implementation, we ensure effective execution that drives your online success.
               </p>
             </div>
 
@@ -120,7 +120,7 @@ export default function AboutPage() {
               </div>
               <h4 className="text-xl font-bold mb-3">Result</h4>
               <p className="text-muted-foreground leading-relaxed">
-                Our ultimate goal isn't just rankings; it's about bolstering your online presence and driving tangible, measurable outcomes for your projects.
+                Our ultimate goal isn&apos;t just rankings; it&apos;s about bolstering your online presence and driving tangible, measurable outcomes for your projects.
               </p>
             </div>
           </div>
@@ -159,7 +159,7 @@ export default function AboutPage() {
             </h2>
 
             <p className="text-lg md:text-xl text-zinc-400 max-w-2xl mb-10 leading-relaxed">
-              Whether you're a seasoned engineer or just committed your first line of code, Nexonauts provides the ecosystem you need to accelerate your growth.
+              Whether you&apos;re a seasoned engineer or just committed your first line of code, Nexonauts provides the ecosystem you need to accelerate your growth.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 w-full justify-center items-center">

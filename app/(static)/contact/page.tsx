@@ -17,7 +17,7 @@ export default async function Contact() {
           <div className="flex flex-col gap-10">
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
-                Let's start a <br />
+                Let&apos;s start a <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-violet-500">
                   conversation.
                 </span>

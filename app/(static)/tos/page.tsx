@@ -89,17 +89,17 @@ export default async function TermsPage() {
                 </p>
                 <ul className="grid gap-4 list-none pl-0">
                   <li className="bg-card/50 border border-border/50 p-4 rounded-lg">
-                    <span className="font-semibold text-foreground">"Client", "You", and "Your"</span>
+                    <span className="font-semibold text-foreground">&quot;Client&quot;, &quot;You&quot;, and &quot;Your&quot;</span>
                     <br />
-                    Refers to you, the person accessing this website and accepting the Company's terms and conditions.
+                    Refers to you, the person accessing this website and accepting the Company&apos;s terms and conditions.
                   </li>
                   <li className="bg-card/50 border border-border/50 p-4 rounded-lg">
-                    <span className="font-semibold text-foreground">"The Company", "Ourselves", "We", "Our", and "Us"</span>
+                    <span className="font-semibold text-foreground">&quot;The Company&quot;, &quot;Ourselves&quot;, &quot;We&quot;, &quot;Our&quot;, and &quot;Us&quot;</span>
                     <br />
                     Refers to {projectConfig.name}.
                   </li>
                   <li className="bg-card/50 border border-border/50 p-4 rounded-lg">
-                    <span className="font-semibold text-foreground">"Party", "Parties", or "Us"</span>
+                    <span className="font-semibold text-foreground">&quot;Party&quot;, &quot;Parties&quot;, or &quot;Us&quot;</span>
                     <br />
                     Refers to both the Client and ourselves.
                   </li>
@@ -109,7 +109,7 @@ export default async function TermsPage() {
               <section id="cookies">
                 <h3>Cookies</h3>
                 <p>
-                  We employ the use of cookies. By accessing {projectConfig.name}, you agreed to use cookies in agreement with the {projectConfig.name}'s <Link href="/privacy">Privacy Policy</Link>.
+                  We employ the use of cookies. By accessing {projectConfig.name}, you agreed to use cookies in agreement with the {projectConfig.name}&apos;s <Link href="/privacy">Privacy Policy</Link>.
                 </p>
               </section>
 
@@ -139,7 +139,7 @@ export default async function TermsPage() {
               <section id="hyperlinking">
                 <h3>Reservation of Rights & Links</h3>
                 <p>
-                  We reserve the right to request that you remove all links or any particular link to our website. You approve to immediately remove all links to our website upon request. We also reserve the right to amend these terms and conditions and it's linking policy at any time. By continuously linking to our website, you agree to be bound to and follow these linking terms and conditions.
+                  We reserve the right to request that you remove all links or any particular link to our website. You approve to immediately remove all links to our website upon request. We also reserve the right to amend these terms and conditions and it&apos;s linking policy at any time. By continuously linking to our website, you agree to be bound to and follow these linking terms and conditions.
                 </p>
                 <h4>Removal of links from our website</h4>
                 <p>

@@ -102,7 +102,7 @@ export default function PrivacyPolicy() {
               <section id="cookies">
                 <h3>Cookies and Web Beacons</h3>
                 <p>
-                  Like most websites, {WEBSITE_NAME} uses cookies to store information about your preferences and the pages you visit on our website. Cookies are small data files that are stored on your device. We use cookies to personalize your experience and optimize our website's performance.
+                  Like most websites, {WEBSITE_NAME} uses cookies to store information about your preferences and the pages you visit on our website. Cookies are small data files that are stored on your device. We use cookies to personalize your experience and optimize our website&apos;s performance.
                 </p>
               </section>
 

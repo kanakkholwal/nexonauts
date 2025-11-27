@@ -69,7 +69,7 @@ export default async function CopyrightPage() {
               </div>
               <h4 className="text-lg font-semibold text-foreground mb-2">Acknowledgment of Ownership</h4>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                All copyrighted material used on {projectConfig.name} is acknowledged to its respective owners. We do not claim ownership or rights over any copyrighted material that isn't developed or created by our team.
+                All copyrighted material used on {projectConfig.name} is acknowledged to its respective owners. We do not claim ownership or rights over any copyrighted material that isn&apos;t developed or created by our team.
               </p>
             </div>
           </div>

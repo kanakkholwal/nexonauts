@@ -51,7 +51,7 @@ export function FAQs() {
       <div className="mt-20 max-w-3xl mx-auto text-center bg-card border border-border/50 rounded-2xl p-8 shadow-sm">
         <h3 className="text-xl font-semibold mb-2">Still have questions?</h3>
         <p className="text-muted-foreground mb-6">
-          Can't find the answer you're looking for? Our team is here to help.
+          Can&apos;t find the answer you&apos;re looking for? Our team is here to help.
         </p>
         <div className="flex justify-center gap-4">
           <Button variant="outline" className="gap-2">

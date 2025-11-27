@@ -156,7 +156,7 @@ export default async function ExplorePage(props: ExplorePageProps) {
                     No matches found
                   </h3>
                   <p className="text-muted-foreground max-w-sm mx-auto mb-6">
-                    We couldn't find any assets matching your criteria.
+                    We couldn{"'"}t find any assets matching your criteria.
                   </p>
                   <Button variant="outline" asChild>
                     <Link href="/marketplace/explore">Clear Filters</Link>

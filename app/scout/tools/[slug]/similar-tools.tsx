@@ -80,7 +80,7 @@ function EmptyState({ toolName }: { toolName: string }) {
         No alternatives found
       </h3>
       <p className="text-xs text-muted-foreground mt-1 max-w-[20ch]">
-        We couldn't find similar tools to <span className="font-medium">{toolName}</span> yet.
+        We couldn&apos;t find similar tools to <span className="font-medium">{toolName}</span> yet.
       </p>
     </div>
   );

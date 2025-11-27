@@ -20,7 +20,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { cache, Suspense } from "react";
 import dbConnect from "src/lib/db";
-import PublicTool from "src/models/tool";
+import PublicTool, { PublicToolTypeWithId } from "src/models/tool";
 import heroDashboardImage from "./illustration.png";
 ;
 
@@ -104,7 +104,11 @@ async function getCategories() {
 }
 
 const getCategoriesPromise = cache(getCategories);
-type CategorizedToolType = Awaited<ReturnType<typeof getCategories>>[number];
+type CategorizedToolType = {
+  name: string;
+  slug: string;
+  tools: PublicToolTypeWithId[];
+}
 
 export default async function Page() {
   await dbConnect();

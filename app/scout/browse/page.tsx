@@ -113,7 +113,7 @@ export default async function BrowsePage(props: {
             {/* Results Info */}
             <div className="px-1 text-sm text-muted-foreground">
               {query ? (
-                <span>Found <span className="font-semibold text-foreground">{tools.length}</span> results for "{query}"</span>
+                <span>Found <span className="font-semibold text-foreground">{tools.length}</span> results for &quot;{query}&quot;</span>
               ) : (
                 <span>Showing all {tools.length} tools</span>
               )}

@@ -70,7 +70,7 @@ export default function SubmitForm() {
                 className="bg-background/50"
               />
             </FieldWrapper>
-            <p className="text-xs text-muted-foreground">We'll only use this to notify you about your submission.</p>
+            <p className="text-xs text-muted-foreground">We&apos;ll only use this to notify you about your submission.</p>
           </div>
         </div>
       </div>

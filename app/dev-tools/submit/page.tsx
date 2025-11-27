@@ -47,7 +47,7 @@ export default function SubmitPage() {
               Showcase your tool <br /> to the world.
             </h1>
             <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-              Whether you've built a handy open-source utility, a powerful AI agent,
+              Whether you&apos;ve built a handy open-source utility, a powerful AI agent,
               or a beautiful UI kit, Nexonauts is the place to share it. Fill out
               the form to get started.
             </p>
