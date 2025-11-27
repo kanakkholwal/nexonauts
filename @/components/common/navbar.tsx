@@ -21,7 +21,7 @@ export default function NavbarGlobal() {
           <NavbarLogo />
           <NavItems items={nav_list} />
           <div className="flex items-center gap-4">
-            <ButtonLink variant="rainbow_outline" rounded="full" href="/signup">Register</ButtonLink>
+            <ButtonLink variant="rainbow" rounded="full" href="/signup">Get Started</ButtonLink>
           </div>
         </NavBody>
 
@@ -30,7 +30,7 @@ export default function NavbarGlobal() {
           <MobileNavHeader>
             <NavbarLogo />
             <div className="flex items-center gap-4">
-              <ButtonLink variant="rainbow_outline" rounded="full" href="/signup">Register</ButtonLink>
+              <ButtonLink variant="rainbow" rounded="full" href="/signup">Get Started</ButtonLink>
             </div>
           </MobileNavHeader>
         </MobileNav>
