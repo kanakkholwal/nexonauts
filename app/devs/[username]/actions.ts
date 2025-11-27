@@ -1,6 +1,6 @@
 import { revalidatePath } from "next/cache";
 import { getSession } from "src/lib/auth";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import ProfileModel from "src/models/profile";
 import UserModel from "src/models/user";
 import { sessionType } from "src/types/session";

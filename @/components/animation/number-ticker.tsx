@@ -14,7 +14,6 @@ interface NumberTickerProps extends ComponentPropsWithoutRef<"span"> {
   suffix?: string;
 }
 
-
 export function NumberTicker({
   value,
   startValue = 0,
@@ -22,7 +21,7 @@ export function NumberTicker({
   delay = 0,
   className,
   decimalPlaces = 0,
-  suffix,
+  suffix = "",
   ...props
 }: NumberTickerProps) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -46,7 +45,7 @@ export function NumberTicker({
     () =>
       springValue.on("change", (latest) => {
         if (ref.current) {
-          ref.current.textContent = Intl.NumberFormat("en-US", {
+          ref.current.textContent = Intl.NumberFormat("en-IN", {
             minimumFractionDigits: decimalPlaces,
             maximumFractionDigits: decimalPlaces,
           }).format(Number(latest.toFixed(decimalPlaces)));
@@ -58,13 +57,14 @@ export function NumberTicker({
   return (
     <span
       ref={ref}
+      data-suffix={suffix}
       className={cn(
-        "inline-block tabular-nums tracking-wider text-primary",
+        "inline-block tabular-nums tracking-wider text-primary after:content-[attr(data-suffix)]",
         className
       )}
       {...props}
     >
-      {startValue} {suffix}
+      {startValue}
     </span>
   );
 }

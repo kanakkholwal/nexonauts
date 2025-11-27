@@ -2,7 +2,7 @@
 import { customAlphabet } from "nanoid";
 
 import { generateToken } from "emails/helper";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import { mailFetch } from "src/lib/server-fetch";
 import UserModel from "src/models/user";
 

@@ -1,5 +1,5 @@
 "use server";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import PublicToolModel from "src/models/tool";
 import UserModel from "src/models/user";
 

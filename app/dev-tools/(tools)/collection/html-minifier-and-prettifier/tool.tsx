@@ -32,7 +32,6 @@ export default function HtmlMinifierPrettifier() {
         <CardContent>
           <Label htmlFor="HtmlValue">Enter HTML Code Here</Label>
           <Textarea
-            variant="ghost"
             name="HtmlValue"
             rows={10}
             placeholder="Enter HTML Code Here"
@@ -77,7 +76,6 @@ export default function HtmlMinifierPrettifier() {
         <CardContent>
           <Label htmlFor="output">Here is your output Code</Label>
           <Textarea
-            variant="fluid"
             readOnly
             rows={10}
             placeholder="Paste your html code in input box and hit Minify or Beautify to see results"

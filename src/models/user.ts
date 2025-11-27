@@ -124,12 +124,6 @@ const userSchema = new Schema<User>(
       default:
         "https://res.cloudinary.com/nexonauts/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png",
     },
-    password: {
-      type: String,
-      required: [true, "Please enter your password"],
-      minLength: [6, "Your password must be at least 6 characters long"],
-      select: false,
-    },
     role: {
       type: String,
       default: "user",

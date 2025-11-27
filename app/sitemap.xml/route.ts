@@ -1,5 +1,5 @@
 import type { NextRequest } from "next/server";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import Post from "src/models/post";
 // import { getAllApps } from "src/utils/app";
 import { allDevTools } from "app/dev-tools/list";

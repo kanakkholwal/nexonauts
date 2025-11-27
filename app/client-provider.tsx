@@ -4,16 +4,27 @@ import { Toaster } from "@/components/ui/sonner";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import ThemeSwitcher from "app/layouts/theme-switcher";
-import { SessionProvider } from "next-auth/react";
 import type { ThemeProviderProps } from "next-themes";
 import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
 import { Next13ProgressBar } from "next13-progressbar";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { useEffect } from "react";
 import { Toaster as HotToaster } from "react-hot-toast";
+// import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+// const queryClient = new QueryClient({
+//   defaultOptions: {
+//     queries: {
+//       refetchOnWindowFocus: false,
+//       retry: false,
+//       refetchOnReconnect: true,
+//     },
+//   },
+// });
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }
+
 export function Provider({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
 
@@ -25,7 +36,7 @@ export function Provider({ children }: { children: React.ReactNode }) {
     });
   }, []);
   return (
-    <SessionProvider>
+    <NuqsAdapter>
       {children}
       <Next13ProgressBar
         height="4px"
@@ -79,6 +90,6 @@ export function Provider({ children }: { children: React.ReactNode }) {
                     transform:"perspective(1200px) translateX(-50%) rotate(-60deg)"
                 }}
     /> */}
-    </SessionProvider>
+    </NuqsAdapter>
   );
 }

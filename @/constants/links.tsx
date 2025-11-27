@@ -1,3 +1,116 @@
+import { MessageSquareText } from "lucide-react";
+
+import {
+    Settings,
+    Settings2,
+    Swords,
+    UserRoundCog,
+    Users
+} from "lucide-react";
+import { RiAppsLine } from "react-icons/ri";
+import { TbDashboard } from "react-icons/tb";
+// import { TbServer2 } from "react-icons/tb";
+
+
+export type AllowedRoleType = "admin" | "user" | "*"
+//   | Session["user"]["role"]
+//   | Session["user"]["other_roles"][number]
+//   | "*"
+//   | `!${Session["user"]["role"]}`
+//   | `!${Session["user"]["other_roles"][number]}`;
+
+export type rawLinkType = {
+    title: string;
+    path: string;
+    allowed_roles: AllowedRoleType[] | AllowedRoleType;
+    icon: React.FC<React.SVGProps<SVGSVGElement>>;
+    preserveParams?: boolean;
+    category: "none" | "metrics" | "action" | "view"
+    items?: {
+        title: string;
+        path: string;
+        allowed_roles: AllowedRoleType[] | AllowedRoleType;
+    }[];
+};
+
+export const sidebar_links: rawLinkType[] = [
+    {
+        title: "Dashboard",
+        icon: TbDashboard,
+        path: "",
+        allowed_roles: "user",
+        category: "none"
+    },
+    {
+        title: "Dashboard",
+        icon: TbDashboard,
+        path: "/admin",
+        allowed_roles: "admin",
+        category: "none"
+    },
+    {
+        title: "Users",
+        icon: Users,
+        path: "/users",
+        allowed_roles: "admin",
+        category: "metrics",
+        items: [
+            {
+                title: "Create User",
+                path: "/new",
+
+                allowed_roles: "admin",
+            },
+        ],
+    },
+    {
+        title: "Products",
+        icon: RiAppsLine,
+        path: "/products",
+        allowed_roles: "admin",
+        category: "view",
+    },
+
+    {
+        title: "Tools",
+        icon: Swords,
+        path: "/tools",
+        category: "view",
+        allowed_roles: "admin",
+    },
+    {
+        title: "Messages",
+        icon: MessageSquareText,
+        path: "/messages",
+        category: "view",
+        allowed_roles: "admin",
+    },
+
+    //   user roles links
+
+
+    {
+        title: "Settings",
+        icon: Settings,
+        path: "/settings",
+        category: "view",
+
+        allowed_roles: "*",
+        items: [
+            {
+                title: "Account",
+                path: "/account",
+                allowed_roles: "*",
+            },
+            {
+                title: "Appearance",
+                path: "/appearance",
+                allowed_roles: "*",
+            },
+        ],
+    },
+];
+
 type MegaMenuLinks = {
     title: string;
     href: string;
@@ -102,3 +215,34 @@ export const nav_list: NavLinksType[] = [
         href: "/about",
     }
 ]
+
+
+export type sideLinkType = {
+    label: string;
+    href: string;
+    icon: React.ElementType;
+};
+
+
+const user_links: sideLinkType[] = [
+    {
+        label: "Dashboard",
+        icon: TbDashboard,
+        href: "/dashboard",
+    },
+    // {
+    //     label: "Tools",
+    //     icon: Swords,
+    //     href: "/dashboard/tools",
+    // },
+    {
+        label: "Account",
+        icon: UserRoundCog,
+        href: "/dashboard/settings/account",
+    },
+    {
+        label: "Settings",
+        icon: Settings2,
+        href: "/dashboard/settings",
+    },
+];

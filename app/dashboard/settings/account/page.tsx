@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { Metadata } from "next";
 import { getSession } from "src/lib/auth";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import User from "src/models/user";
 import { sessionType } from "src/types/session";
 import { AccountForm } from "./account";

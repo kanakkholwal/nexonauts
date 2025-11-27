@@ -1,6 +1,7 @@
 import { customAlphabet } from "nanoid";
 import { z } from "zod";
 import TurndownService from "turndown";
+import { appConfig } from "@root/project.config";
 
 export function slugify(text: string): string {
   let slug = text.toString().toLowerCase().trim();
@@ -39,6 +40,65 @@ export function createSlug(text: string): string {
   return slugify(text) + "-" + generateSlug();
 }
 
+export function changeCase(
+  str: string,
+  type: "upper" | "lower" | "title" | "sentence" | "camel_to_title"
+) {
+  switch (type) {
+    case "upper":
+      return str.toUpperCase();
+    case "lower":
+      return str.toLowerCase();
+    case "title":
+      return str
+        .replaceAll("_", " ")
+        .replaceAll("-", " ")
+        .split(" ")
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(" ");
+    case "sentence":
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    case "camel_to_title": {
+      // Convert camelCase to Title Case
+      // Example: "helloWorld" -> "Hello World"
+      const result = str.replace(/([A-Z])/g, " $1");
+      return result.charAt(0).toUpperCase() + result.slice(1);
+    }
+
+    default:
+      return str;
+  }
+}
+const appUrl = new URL(appConfig.url);
+
+type UTMSource = string; // usually hostname or campaign source
+type UTMMedium = "app" | "email" | "social" | "cpc" | "affiliate";
+type UTMParams = {
+  utm_medium?: UTMMedium;
+  utm_campaign?: string;
+  utm_source?: UTMSource;
+  utm_path?: string;
+};
+
+export function marketwiseLink(link: string, options: UTMParams = {}) {
+  const url = new URL(link);
+
+  const {
+    utm_medium = "app",
+    utm_campaign = "/resources",
+    utm_source = appUrl.hostname,
+    utm_path = "/resources",
+  } = options;
+
+  const campaignPath = new URL(utm_path, appUrl).toString();
+
+  url.searchParams.set("utm_source", utm_source);
+  url.searchParams.set("utm_medium", utm_medium);
+  url.searchParams.set("utm_campaign", utm_campaign || campaignPath);
+  url.searchParams.set("ref", campaignPath);
+
+  return url.toString();
+}
 export function validatePassword(password: string) {
   const minLength = 8;
   const minUppercase = 1;

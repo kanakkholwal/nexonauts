@@ -3,7 +3,7 @@ import axios from "axios";
 import { customAlphabet } from "nanoid";
 import { revalidatePath } from "next/cache";
 import { getSession } from "src/lib/auth";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import Product, { ProductType, rawProductThirdParty } from "src/models/product";
 import User from "src/models/user";
 import { sessionType } from "src/types/session";

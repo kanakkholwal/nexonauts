@@ -33,7 +33,7 @@ export function ProductCard({ product, className }: { product: ProductType, clas
           <h3 className="font-semibold line-clamp-1 text-base">
             {decodeHTMLEntities(product.name)}
           </h3>
-          <ArrowUpRight className="size-4 flex-shrink-0 mt-1 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary group-hover:-translate-y-1 transition-transform duration-500" />
+          <ArrowUpRight className="size-4 shrink-0 mt-1 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary group-hover:-translate-y-1 transition-transform duration-500" />
         </div>
 
         <div className="flex justify-between items-center">

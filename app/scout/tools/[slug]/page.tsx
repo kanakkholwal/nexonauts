@@ -135,7 +135,7 @@ export default async function ToolPage(props: Props) {
           <main className="lg:col-span-8 space-y-6">
             {/* Tool Banner */}
             <Card className="overflow-hidden">
-              <div className="relative w-full aspect-video sm:aspect-[21/9]">
+              <div className="relative w-full aspect-video sm:aspect-21/9">
                 <Image
                   fill
                   src={bannerURL || tool.coverImage}
@@ -153,7 +153,7 @@ export default async function ToolPage(props: Props) {
                         {tool.name}
                       </CardTitle>
                       {tool.verified && (
-                        <Verified className="flex-shrink-0 mt-1 text-emerald-500 w-5 h-5" />
+                        <Verified className="shrink-0 mt-1 text-emerald-500 w-5 h-5" />
                       )}
                     </div>
 

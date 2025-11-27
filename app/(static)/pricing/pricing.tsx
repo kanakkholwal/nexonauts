@@ -1,7 +1,7 @@
 
 import { BsStars } from "react-icons/bs";
 
-import { AnimatedShinyText } from "@/components/animated/animated-shiny-text";
+import { AnimatedShinyText } from "@/components/animation/animated-shiny-text";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/utils/link";
 import { cn } from "@/lib/utils";
@@ -20,7 +20,7 @@ export function Pricing() {
             </AnimatedShinyText>
           </div>
           <p
-            className="mx-auto font-medium text-base max-w-[38rem] text-muted-foreground"
+            className="mx-auto font-medium text-base max-w-152 text-muted-foreground"
             data-aos="zoom-in-up"
             data-aos-delay={100}
           >

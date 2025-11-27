@@ -1,6 +1,6 @@
 "use server";
 // import mongoose from "mongoose";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import PublicTool from "src/models/tool";
 
 export async function getTools(

@@ -1,5 +1,5 @@
 import { PipelineStage } from "mongoose";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import Product, { ProductType } from "src/models/product";
 
 export type searchParamsType = {

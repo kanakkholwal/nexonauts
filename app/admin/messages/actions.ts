@@ -1,6 +1,6 @@
 "use server";
 // import mongoose from "mongoose";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import Message from "src/models/message";
 
 export async function getMessages(

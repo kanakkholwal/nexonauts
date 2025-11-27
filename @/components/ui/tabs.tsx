@@ -4,7 +4,7 @@ import * as TabsPrimitive from "@radix-ui/react-tabs";
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryState } from "nuqs";
 import { useEffect, useRef, useState } from "react";
 
 const Tabs = TabsPrimitive.Root;
@@ -57,6 +57,7 @@ TabsContent.displayName = TabsPrimitive.Content.displayName;
 interface Tab {
   id: string;
   label: string | React.ReactNode;
+  icon?: React.FC<React.SVGProps<SVGSVGElement>>;
 }
 
 interface TabsProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -81,8 +82,9 @@ const VercelTabsList = React.forwardRef<HTMLDivElement, TabsProps>(
     },
     ref
   ) => {
-    const searchParams = useSearchParams();
-    const router = useRouter();
+    const [tabsState, setTabsState] = useQueryState(onTabChangeQuery || "tab", {
+      defaultValue: activeTab || tabs[0]?.id,
+    });
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const [hoverStyle, setHoverStyle] = useState({});
@@ -177,14 +179,13 @@ const VercelTabsList = React.forwardRef<HTMLDivElement, TabsProps>(
               onClick={() => {
                 setActiveIndex(index);
                 if (onTabChangeQuery) {
-                  const params = new URLSearchParams(searchParams.toString());
-                  params.set(onTabChangeQuery, tab.id);
-                  router.push(`?${params.toString()}`);
+                  setTabsState(tab.id);
                 }
                 onTabChange?.(tab.id);
               }}
             >
-              <div className="text-sm font-medium leading-5 whitespace-nowrap flex items-center justify-center h-full z-10">
+              <div className="text-sm font-medium leading-5 whitespace-nowrap flex items-center justify-center h-full gap-2 z-10">
+                {tab.icon && <tab.icon className="size-4 text-[inherit]" />}
                 {tab.label}
               </div>
             </TabsTrigger>
@@ -197,4 +198,3 @@ const VercelTabsList = React.forwardRef<HTMLDivElement, TabsProps>(
 VercelTabsList.displayName = "VercelTabs";
 
 export { Tabs, TabsContent, TabsList, TabsTrigger, VercelTabsList };
-

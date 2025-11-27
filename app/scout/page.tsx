@@ -5,18 +5,18 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { cache, Suspense } from "react";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import PublicTool from "src/models/tool";
 import illustration from "./illustration.svg";
 
-import { NumberTicker } from "@/components/animated/number-ticker";
+import { NumberTicker } from "@/components/animation/number-ticker";
 import NavbarGlobal from "@/components/common/navbar";
 import { Button } from "@/components/ui/button";
 import {
-  ArrowUpDown,
-  FolderOpen,
-  MonitorSmartphone,
-  ScanSearch,
+	ArrowUpDown,
+	FolderOpen,
+	MonitorSmartphone,
+	ScanSearch,
 } from "lucide-react";
 
 export const metadata: Metadata = {

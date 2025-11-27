@@ -1,8 +1,8 @@
 import { PipelineStage } from "mongoose";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import Product, {
-  ProductType,
-  ProductTypeWithCreator,
+	ProductType,
+	ProductTypeWithCreator,
 } from "src/models/product";
 
 export async function getProductBySlug(

@@ -1,6 +1,7 @@
-import { getToken } from "next-auth/jwt";
+import { betterFetch } from "@better-fetch/fetch";
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import { Session } from "~/auth";
 
 const protectedRoutes = ["/dashboard", "/admin"];
 
@@ -26,19 +27,25 @@ export async function middleware(request: NextRequest) {
   }
 
   const headers = new Headers(request.headers);
-  const rootUrl = process.env.NEXTAUTH_URL as string;
+  const rootUrl = process.env.BASE_URL as string;
   headers.set("x-current-path", rootUrl + pathname);
 
   const protectedRoute = protectedRoutes.find((route) =>
     pathname.startsWith(route)
   );
   if (protectedRoute) {
-    const token = await getToken({
-      req: request,
-      secret: process.env.NEXT_AUTH_SECRET,
-    });
+    const { data: session } = await betterFetch<Session>(
+      "/api/auth/get-session",
+      {
+        baseURL: request.nextUrl.origin,
+        headers: {
+          //get the cookie from the request
+          cookie: request.headers.get("cookie") || "",
+        },
+      }
+    );
 
-    if (!token) {
+    if (!session?.user) {
       const redirectUrl = new URL("/login", request.url);
       redirectUrl.searchParams.set("callbackUrl", request.url);
       return NextResponse.redirect(redirectUrl);

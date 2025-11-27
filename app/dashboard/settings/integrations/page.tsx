@@ -6,11 +6,11 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
 import { getSession } from "src/lib/auth";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import {
-  Icon,
-  INTEGRATION_DESCRIPTIONS,
-  INTEGRATIONS,
+	Icon,
+	INTEGRATION_DESCRIPTIONS,
+	INTEGRATIONS,
 } from "src/lib/integrations";
 import User from "src/models/user";
 import { sessionType } from "src/types/session";

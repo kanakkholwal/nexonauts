@@ -1,5 +1,4 @@
 "use client";
-import { signIn } from "next-auth/react";
 
 import { useState } from "react";
 
@@ -24,6 +23,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { AiOutlineLoading } from "react-icons/ai";
 import { toast } from "sonner";
+import { authClient } from "src/auth/client";
 import * as z from "zod";
 
 const FormSchema = z.object({
@@ -41,9 +41,10 @@ const FormSchema = z.object({
       message:
         "Password must contain at least one uppercase letter, one lowercase letter, and one number",
     }),
+  rememberMe: z.boolean().optional(),
 });
 
-interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const router = useRouter();
@@ -66,53 +67,43 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     console.log(data);
 
     setIsLoading(true);
+    await authClient.signIn.email(
+      {
+        email: data.email,
+        password: data.password,
+        callbackURL: callbackUrl,
+        rememberMe: data.rememberMe,
+      },
+      {
+        credentials: 'include',
+        onRequest: () => {
+          setIsLoading(true);
+        },
+        onResponse: () => {
+          setIsLoading(false);
+        },
+        onSuccess: () => {
+          toast.success("Logged In successfully");
+          if (callbackUrl) {
+            router.push(callbackUrl);
+          } else
+            router.push("/dashboard");
 
-    toast.promise(signInPromise(data), {
-      loading: "Logging in...",
-      success: (data) => {
-        console.log(data);
-        setIsLoading(false);
-        if (callbackUrl) {
-          router.push(callbackUrl);
-          return `Logged in successfully to ${callbackUrl}`;
-        }
-        router.push("/dashboard");
-        return `Logged in successfully to dashboard`;
+        },
+        onError: (ctx) => {
+          console.log(ctx);
+          // Handle the error
+          if (ctx.error.status === 403) {
+            alert("Please verify your email address");
+          }
+          toast.error(ctx.error.message);
+        },
       },
-      error: (err) => {
-        console.log(err);
-        setIsLoading(false);
-        return err.message || "An error occurred while logging in";
-      },
-    });
+
+    );
+
   }
-  const signInPromise = async (data: { email: string; password: string }) =>
-    new Promise(async (resolve, reject) => {
-      try {
-        signIn("credentials", {
-          email: data.email,
-          password: data.password,
-          redirect: false,
-        })
-          .then((data) => {
-            console.log(data);
-            if (data && data.ok === false) {
-              reject(data.error);
-              return;
-            } else if (data && data.ok === true) {
-              resolve(data);
-              return;
-            }
-            resolve(data);
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error);
-          });
-      } catch (error: any) {
-        reject(error);
-      }
-    });
+
 
   // <div className="grid w-full max-w-lg items-center gap-1.5">
 
@@ -214,7 +205,11 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           width={"full"}
           onClick={async () => {
             setIsLoading(true);
-            await signIn("google", { callbackUrl: callbackUrl! });
+            await authClient.signIn.social({
+              provider: "google",
+              callbackURL: callbackUrl,
+              errorCallbackURL: "/auth/sign-in?social=google",
+            });
             setIsLoading(false);
           }}
         >

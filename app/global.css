@@ -10,7 +10,7 @@
 [data-theme="light"] {
     --max-app-width: 1280px;
 
-    --background: hsl(0deg 0% 96.08%);
+     --background: hsl(0deg 0% 96.08%);
     --foreground: hsl(0deg 0% 9.8%);
     --card: hsl(0, 0%, 100%);
     --card-foreground: hsl(0deg 0% 9.8%);
@@ -18,23 +18,25 @@
     --popover-foreground: hsl(0deg 0% 9.8%);
     --primary: hsla(262.1 83.3% 57.8%);
     --primary-foreground: hsl(0deg 0% 92.16%);
-    --secondary: hsla(217deg 61% 51%);
+    --secondary: hsl(158.11deg 64.37% 51.57%);
     --secondary-foreground: hsl(0deg 0% 92.16%);
+    --tertiary: hsl(199, 86%, 53%);
+    --tertiary-foreground: hsl(0deg 0% 92.16%);
 
     --muted: hsl(210deg 40% 98.04%);
     --muted-foreground: hsl(220 8.9% 46.1%);
 
-    --accent: hsl(0deg 0% 96.08%);
+    --accent: hsl(344.79deg 33.25% 96.34%);
     --accent-foreground: hsl(220.9 39.3% 11%);
     --destructive: hsl(0 84.2% 60.2%);
     --destructive-foreground: hsl(0deg 0% 92.16%);
+
     --border: hsl(220 13% 91%);
     --input: hsl(220 13% 91%);
     --input: oklch(.922 0 0);
 
     --ring: hsl(262.1 83.3% 57.8%);
-    --radius: 0.5rem;
-
+    --radius: 0.75rem;
 
     --sidebar: oklch(0.985 0 0);
 
@@ -76,10 +78,31 @@
     --chart-14: hsl(333.3 71.4% 50.6%);
     --chart-15: hsl(346.8 77.2% 49.8%);
 
+    /* syntax highlighting */
+    --sh-class: #4d9ef6;
+    /* Brighter blue for class */
+    --sh-identifier: #6caedd;
+    /* Lighter blue for identifiers */
+    --sh-sign: #cdd3de;
+    /* Lighter gray to ensure signs are visible */
+    --sh-property: #3182ce;
+    /* Brighter blue for properties */
+    --sh-entity: #2db1bc;
+    /* Lighter teal for entities */
+    --sh-jsxliterals: #939dfd;
+    /* Lighter purple for JSX literals */
+    --sh-string: #26dabd;
+    /* Lighter teal for strings */
+    --sh-keyword: #ff6b6b;
+    /* Brighter red for keywords */
+    --sh-comment: #cbc3c3;
+    /* Lighter gray for comments */
+
 }
 
 .dark,
-[data-theme="dark"] {
+[data-theme="dark"],
+[data-theme="glass_dark"] {
     --background: hsl(0deg 0% 7.06%);
     --foreground: hsl(0deg 0% 92.16%);
     --card: hsl(0deg 0% 9.8%);
@@ -89,17 +112,29 @@
 
     --primary: hsl(250deg 46.29% 54.26%);
     --primary-foreground: hsl(0deg 0% 92.16%);
-    --secondary: hsl(217deg 61% 51%);
-    --secondary-foreground: hsl(0deg 0% 92.16%);
 
     --warning: hsl(37deg, 87%, 41%);
     --muted: hsl(0deg 0.01% 12.16%);
     --muted-foreground: hsl(217.9 10.6% 64.9%);
 
-    --accent: hsl(0deg 0% 9.8%);
+    --accent: hsl(240 3.7% 15.9%);
     --accent-foreground: hsl(0, 0%, 61%);
     --destructive: hsl(0 62.8% 30.6%);
     --destructive-foreground: hsl(0deg 0% 92.16%);
+
+
+    /* proposed */
+    /* --destructive: oklch(0.704 0.191 22.216);
+    --destructive-foreground: oklch(0.985 0 0);
+    --success: oklch(0.488 0.243 142.495);
+    --success-foreground: oklch(0.985 0 0);
+    --warning: oklch(0.627 0.265 84.429);
+    --warning-foreground: oklch(0.145 0 0);
+    --info: oklch(0.696 0.17 184.704);
+    --info-foreground: oklch(0.985 0 0); */
+
+
+
     --border: hsl(0, 0%, 14%);
     /* --input: hsl(0, 0%, 14%); */
     --input: oklch(1 0 0/15%);
@@ -150,7 +185,6 @@
     --color-fd-accent-foreground: hsl(0, 0%, 90.2%);
     --color-fd-ring: hsl(0, 0%, 55%);
 }
-
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);

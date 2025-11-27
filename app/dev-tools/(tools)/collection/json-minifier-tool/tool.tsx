@@ -1,11 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -28,7 +28,7 @@ export default function JsonMinifierPrettifier() {
         <CardContent>
           <Label htmlFor="JsonValue">Enter Json Code Here</Label>
           <Textarea
-            variant="fluid"
+             
             name="JsonValue"
             rows={10}
             value={value}

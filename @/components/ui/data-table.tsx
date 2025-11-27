@@ -34,12 +34,12 @@ import {
   EyeNoneIcon,
 } from "@radix-ui/react-icons";
 import {
-  Column,
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  Table as TableType,
-  VisibilityState,
+  type Column,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type SortingState,
+  type Table as TableType,
+  type VisibilityState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -55,12 +55,17 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   header?: React.ReactNode;
+  options?: {
+    toolbar?: boolean;
+    paginated?: boolean;
+  };
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   header,
+  options,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -74,7 +79,9 @@ export function DataTable<TData, TValue>({
     columns,
     onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    ...(options?.paginated && {
+      getPaginationRowModel: getPaginationRowModel(),
+    }),
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
@@ -87,12 +94,11 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="bg-glasss px-2 sm:px-4 pb-2 pt-4 rounded-lg space-y-4">
+    <div className="glassmorphism px-2 sm:px-4 pb-2 pt-4 rounded-lg space-y-4">
       <div className="flex items-center justify-between gap-2 flex-col md:flex-row">
         {header}
       </div>
-      <DataTableToolbar table={table} />
-
+      {options?.toolbar && <DataTableToolbar table={table} />}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -115,10 +121,11 @@ export function DataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.map((row, i) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="animate-in popup"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -143,7 +150,7 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      {options?.paginated && <DataTablePagination table={table} />}
     </div>
   );
 }
@@ -166,7 +173,7 @@ export function DataTableColumnHeader<TData, TValue>({
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
             className="-ml-3 h-8 data-[state=open]:bg-accent"
           >
@@ -250,7 +257,7 @@ export function DataTableToolbar<TData>({
         />
         {isFiltered && (
           <Button
-            variant="ghost"
+            variant="outline"
             onClick={() => table.resetColumnFilters()}
             className="h-8 px-2 lg:px-3"
           >

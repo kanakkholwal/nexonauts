@@ -3,7 +3,7 @@ import { customAlphabet } from "nanoid";
 import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
 import Link from "next/link";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import User from "src/models/user";
 import WaitListForm from "./form";
 

@@ -7,7 +7,7 @@ export default function GetStarted() {
       <div className="max-w-[1170px] mx-auto px-4 my-8 sm:px-8 xl:px-0">
         <div className="cta-box-gradient bg-violet-50 rounded-[30px] relative overflow-hidden px-4 py-20 lg:py-25 z-50">
           <div className="absolute z-[-1] bg-no-repeat bg-cover bg-bottom w-full h-full bottom-0 left-0 bg-[url(https://ai-tool.nextjstemplates.com/images/cta/grid.svg)]" />
-          <div className="absolute z-[-10] pointer-events-none inset-0 overflow-hidden">
+          <div className="absolute -z-10 pointer-events-none inset-0 overflow-hidden">
             <span className="absolute w-full h-full left-1/2 bottom-0 -translate-x-1/2 z-[-1]">
               <img
                 alt="blur"

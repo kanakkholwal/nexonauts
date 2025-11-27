@@ -4,7 +4,7 @@ import { getSession } from "src/lib/auth";
 import { sessionType } from "src/types/session";
 
 import { revalidatePath } from "next/cache";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import { INTEGRATION_CONFIG } from "src/lib/integrations";
 import User from "src/models/user";
 

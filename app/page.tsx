@@ -1,4 +1,4 @@
-import { AnimatedShinyText } from "@/components/animated/animated-shiny-text";
+import { AnimatedShinyText } from "@/components/animation/animated-shiny-text";
 import Navbar from "@/components/common/navbar";
 import { Button } from "@/components/ui/button";
 import { ButtonLink } from "@/components/utils/link";

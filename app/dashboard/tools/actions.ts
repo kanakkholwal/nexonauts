@@ -1,7 +1,7 @@
 "use server";
 import { getSession } from "src/lib/auth";
 // import mongoose from "mongoose";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import PublicTool, { PublicToolTypeWithId } from "src/models/tool";
 import { sessionType } from "src/types/session";
 

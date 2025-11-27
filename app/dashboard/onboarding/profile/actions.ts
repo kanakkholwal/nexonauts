@@ -1,9 +1,9 @@
 "use server";
-import dbConnect from "src/lib/dbConnect";
+import { getSession } from "src/lib/auth";
+import dbConnect from "src/lib/db";
 import Profile from "src/models/profile";
 import User from "src/models/user";
 import { sessionType } from "src/types/session";
-import { getSession } from "src/lib/auth";
 
 export async function createProfile(payload: {
   username: string;

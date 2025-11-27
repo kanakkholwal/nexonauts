@@ -13,13 +13,13 @@ import { RadioStyle } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Building2, ExternalLink, Send } from "lucide-react";
-import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { GoPerson } from "react-icons/go";
 import { LuMail } from "react-icons/lu";
 import * as z from "zod";
+import { useSession } from "~/auth/client";
 
 const FormSchema = z.object({
   name: z
@@ -48,7 +48,7 @@ const FormSchema = z.object({
 });
 
 export function ContactForm() {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({

@@ -7,8 +7,8 @@ import {
   NavBody,
   NavItems
 } from "@/components/ui/resizable-navbar";
+import { ButtonLink } from "@/components/utils/link";
 import { nav_list } from "@/constants/links";
-import { ButtonLink } from "../utils/link";
 
 export default function NavbarGlobal() {
 

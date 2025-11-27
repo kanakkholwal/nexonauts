@@ -1,6 +1,6 @@
 import { generateToken } from "emails/helper";
 import { type NextRequest, NextResponse } from "next/server";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import UserModel from "src/models/user";
 
 import { getSession } from "src/lib/auth";

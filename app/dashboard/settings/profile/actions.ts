@@ -2,7 +2,7 @@
 import { ProfileTypeWithIdUser } from "src/models/profile";
 
 import { revalidatePath } from "next/cache";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import Profile from "src/models/profile";
 
 type updateAbleData = {

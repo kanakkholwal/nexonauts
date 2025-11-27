@@ -5,11 +5,11 @@ import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { useState } from "react";
 import { MdContentCopy, MdDeleteOutline } from "react-icons/md";
@@ -28,7 +28,7 @@ export default function HtmlParser() {
         <CardContent>
           <Label htmlFor="HtmlValue">Enter HTML Unparsed Code Here</Label>
           <Textarea
-            variant="fluid"
+             
             name="HtmlValue"
             placeholder="Enter or Paste pure HTML here"
             rows={10}
@@ -69,7 +69,7 @@ export default function HtmlParser() {
         <CardContent>
           <Label htmlFor="output">Here is your output code</Label>
           <Textarea
-            variant="fluid"
+             
             readOnly
             rows={10}
             placeholder="Paste your html code in input box and hit Convert to see results"

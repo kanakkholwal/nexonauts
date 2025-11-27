@@ -45,7 +45,7 @@ export function PostHeader(props: PostHeaderProps) {
           </div>
         </div>
 
-        <div className="relative w-full aspect-video md:aspect-[21/9] rounded-xl overflow-hidden border border-border/50 shadow-sm">
+        <div className="relative w-full aspect-video md:aspect-21/9 rounded-xl overflow-hidden border border-border/50 shadow-sm">
           <Image
             src={props.image}
             alt={cleanTitle}

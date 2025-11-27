@@ -14,8 +14,6 @@ const textareaVariants = cva(
         ghost:
           "border border-solid border-transparent bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-slate-200 dark:border-slate-700 focus:border-primary/70",
         border: " border-2 focus:border-primary/70 border-solid",
-        fluid:
-          "border border-solid border-transparent bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-slate-200 dark:border-slate-700 focus:border-primary/70",
         glass:
           "bg-white/75 dark:bg-white/5 backdrop-blur-lg border border-slate-500/10 dark:border-border/70 focus:border-primary/70",
       },
@@ -43,4 +41,3 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
 Textarea.displayName = "Textarea";
 
 export { Textarea };
-

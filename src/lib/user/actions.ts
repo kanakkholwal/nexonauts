@@ -1,5 +1,5 @@
 "use server";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import UserModel from "src/models/user";
 
 export async function getMetaByUserName(username: string) {

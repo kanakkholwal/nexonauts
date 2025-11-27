@@ -4,7 +4,7 @@ import React from "react";
 import { DiGithubFull } from "react-icons/di";
 import { TbBrandGumroad } from "react-icons/tb";
 import { getSession } from "src/lib/auth";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import UserModel from "src/models/user";
 import { sessionType } from "src/types/session";
 

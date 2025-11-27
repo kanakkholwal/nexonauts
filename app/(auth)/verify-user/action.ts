@@ -1,6 +1,6 @@
 "use server";
 import { verifyToken } from "emails/helper";
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import UserModel from "src/models/user";
 
 export async function verifyUser(token: string) {

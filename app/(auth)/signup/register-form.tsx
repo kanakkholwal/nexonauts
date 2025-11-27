@@ -11,7 +11,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, UserRound } from "lucide-react";
-import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -22,6 +21,7 @@ import { CgSpinner } from "react-icons/cg";
 import { FcGoogle } from "react-icons/fc";
 import { LuMail } from "react-icons/lu";
 import { PiCheckCircleDuotone } from "react-icons/pi";
+import { authClient } from "src/auth/client";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -81,6 +81,32 @@ export function RegisterForm({ registerUser }: Props) {
         return err.message || "An error occurred while creating account";
       },
     });
+    await authClient.signUp.email(
+      {
+        email: data.email,
+        password: data.password,
+        callbackURL: redirect,
+        name: data.name,
+        username: data.email.split("@")[0] + "." + data.email.split("@")[1],
+      },
+      {
+        credentials: 'include',
+        onRequest: () => {
+          setLoading(true);
+        },
+        onResponse: () => {
+          setLoading(false);
+        },
+        onSuccess(context) {
+          console.log(context);
+          toast.success("Account created successfully");
+        },
+        onError: (ctx: { error: { message: string } }) => {
+          console.log(ctx);
+          toast.error(ctx.error.message);
+        },
+      }
+    );
   }
 
   const [state, setState] = useState<"onboarding" | "registered">("onboarding");
@@ -210,7 +236,11 @@ export function RegisterForm({ registerUser }: Props) {
               width={"full"}
               onClick={async () => {
                 setLoading(true);
-                await signIn("google", { callbackUrl: redirect });
+                await authClient.signIn.social({
+                  provider: "google",
+                  callbackURL: redirect,
+                  errorCallbackURL: "/auth/sign-in?social=google",
+                });
                 setLoading(false);
               }}
             >
@@ -242,24 +272,24 @@ export function RegisterForm({ registerUser }: Props) {
         </>
       )}
       {state === "registered" && (
-          <div className="grid w-full max-w-lg items-center gap-1.5">
-            <div className="flex flex-col items-center justify-center">
-              <PiCheckCircleDuotone className="h-16 w-16 text-green-500" />
-              <h1 className="text-2xl font-semibold text-black">
-                Account created successfully!
-              </h1>
-              <p className="text-concrete text-sm">
-                Please check your email to verify your account
-              </p>
-            </div>
-            <Button
-              width="full"
-              className="mt-4"
-              onClick={() => router.push(`/login?redirect=${redirect}`)}
-            >
-              Login to your account <ArrowRight />
-            </Button>
+        <div className="grid w-full max-w-lg items-center gap-1.5">
+          <div className="flex flex-col items-center justify-center">
+            <PiCheckCircleDuotone className="h-16 w-16 text-green-500" />
+            <h1 className="text-2xl font-semibold text-black">
+              Account created successfully!
+            </h1>
+            <p className="text-concrete text-sm">
+              Please check your email to verify your account
+            </p>
           </div>
+          <Button
+            width="full"
+            className="mt-4"
+            onClick={() => router.push(`/login?redirect=${redirect}`)}
+          >
+            Login to your account <ArrowRight />
+          </Button>
+        </div>
       )}
     </>
   );

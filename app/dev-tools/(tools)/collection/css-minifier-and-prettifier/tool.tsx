@@ -29,7 +29,7 @@ export default function CssMinifierPrettifier() {
         <CardContent>
           <Label htmlFor="CssValue">Enter Css Code Here</Label>
           <Textarea
-            variant="fluid"
+            
             id="cssField"
             name="CssValue"
             rows={10}
@@ -88,7 +88,7 @@ export default function CssMinifierPrettifier() {
         <CardContent>
           <Label htmlFor="output">Here is your output CSS</Label>
           <Textarea
-            variant="fluid"
+             
             readOnly
             rows={10}
             placeholder="Paste your css code in input box and hit Minify or Beautify to see results"

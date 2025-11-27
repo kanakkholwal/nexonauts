@@ -28,7 +28,7 @@ export function PostCard({ post, featured = false }: {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
           sizes={featured ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 100vw, 33vw"}
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-80" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/70 to-transparent opacity-80" />
 
       </div>
 

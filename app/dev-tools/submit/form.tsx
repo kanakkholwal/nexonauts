@@ -16,7 +16,7 @@ export default function SubmitForm() {
             type="text"
             id="name"
             placeholder="Name"
-            variant="fluid"
+             
             value={useFormStore((state) => state.name)}
             onChange={(e) => useFormStore.setState({ name: e.target.value })}
           />
@@ -27,7 +27,7 @@ export default function SubmitForm() {
             type="email"
             id="email"
             placeholder="Email"
-            variant="fluid"
+             
             value={useFormStore((state) => state.email)}
             onChange={(e) => useFormStore.setState({ email: e.target.value })}
           />
@@ -38,7 +38,7 @@ export default function SubmitForm() {
             type="url"
             id="website"
             placeholder="Enter any of your website, twitter or linkedin url"
-            variant="fluid"
+             
             value={useFormStore((state) => state.website)}
             onChange={(e) => useFormStore.setState({ website: e.target.value })}
           />
@@ -49,7 +49,7 @@ export default function SubmitForm() {
             type="text"
             id="github_username"
             placeholder="Github Username"
-            variant="fluid"
+             
             value={useFormStore((state) => state.github_username)}
             onChange={(e) =>
               useFormStore.setState({ github_username: e.target.value })
@@ -62,7 +62,7 @@ export default function SubmitForm() {
             type="url"
             id="github_repo"
             placeholder="Github Repo Url"
-            variant="fluid"
+             
             value={useFormStore((state) => state.github_repo)}
             onChange={(e) =>
               useFormStore.setState({ github_repo: e.target.value })

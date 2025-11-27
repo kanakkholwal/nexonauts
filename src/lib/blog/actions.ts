@@ -1,6 +1,6 @@
 "use server";
 import { cache } from 'react';
-import dbConnect from "src/lib/dbConnect";
+import dbConnect from "src/lib/db";
 import { Profile } from "src/models";
 import Post, { type Author, type PostWithId } from "src/models/post";
 

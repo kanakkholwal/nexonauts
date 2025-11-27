@@ -53,13 +53,13 @@ export default async function BrowsePage(props: {
             aria-hidden="true"
             className="fixed inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20 -z-10 pointer-events-none"
           >
-            <div className="blur-[106px] h-56 bg-gradient-to-br from-primary to-purple-400 dark:from-blue-700" />
-            <div className="blur-[106px] h-32 bg-gradient-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+            <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-purple-400 dark:from-blue-700" />
+            <div className="blur-[106px] h-32 bg-linear-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
           </div> */}
 
           <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 py-20 md:py-24 lg:py-28">
             <div className="flex flex-col items-center text-center">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-400 from-10% via-sky-400 via-30% to-emerald-300 to-90% bg-clip-text text-transparent">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-linear-to-r from-indigo-400 from-10% via-sky-400 via-30% to-emerald-300 to-90% bg-clip-text text-transparent">
                 {HERO_SECTION.title}
               </h1>
               <p className="mt-4 max-w-2xl text-base md:text-lg text-muted-foreground">
@@ -145,7 +145,7 @@ function ToolCard({ tool, viewType }: { tool: Partial<PublicToolTypeWithId>; vie
           className={cn(
             "relative overflow-hidden bg-muted/20",
             viewType === "list"
-              ? "sm:w-40 md:w-48 flex-shrink-0 aspect-square"
+              ? "sm:w-40 md:w-48 shrink-0 aspect-square"
               : "aspect-video"
           )}
         >
@@ -169,7 +169,7 @@ function ToolCard({ tool, viewType }: { tool: Partial<PublicToolTypeWithId>; vie
               <h3 className="font-semibold text-base md:text-lg truncate flex items-center gap-1.5">
                 {tool.name}
                 {tool.verified && (
-                  <Verified className="inline-block text-emerald-500 w-4 h-4 flex-shrink-0" />
+                  <Verified className="inline-block text-emerald-500 w-4 h-4 shrink-0" />
                 )}
               </h3>
             </div>
@@ -177,7 +177,7 @@ function ToolCard({ tool, viewType }: { tool: Partial<PublicToolTypeWithId>; vie
             <Badge
               variant="default_light"
               size="sm"
-              className="capitalize flex-shrink-0"
+              className="capitalize shrink-0"
             >
               {tool.pricing_type}
             </Badge>

@@ -176,7 +176,7 @@ export default async function ExplorePage(props: ExplorePageProps) {
                           <h3 className="font-semibold line-clamp-1">
                             {product.name}
                           </h3>
-                          <ArrowUpRight className="w-4 h-4 flex-shrink-0 mt-1 text-muted-foreground group-hover:text-primary group-hover:-translate-y-1 transition-transform duration-200" />
+                          <ArrowUpRight className="w-4 h-4 shrink-0 mt-1 text-muted-foreground group-hover:text-primary group-hover:-translate-y-1 transition-transform duration-200" />
                         </div>
 
                         <div className="flex justify-between items-center">

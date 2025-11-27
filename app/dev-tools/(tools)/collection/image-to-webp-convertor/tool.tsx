@@ -200,7 +200,7 @@ export default function Image2Webp() {
               className="rounded-lg w-auto flex flex-col justify-between"
             >
               <CardHeader className="p-4!">
-                <CardTitle className="break-words text-md">{element.name}</CardTitle>
+                <CardTitle className="wrap-break-word text-md">{element.name}</CardTitle>
                 <CardDescription className="text-sm text-gray-500 font-semibold">
                   <span>
                     {element.org_size}
