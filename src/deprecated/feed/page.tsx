@@ -1,9 +1,9 @@
 import CreateProfile from "app/dashboard/components/create-profile";
-import { getSession } from "src/lib/auth";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 
 export default async function FeedPage() {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
 
   console.log(session);
   if (!session.user.profile) {

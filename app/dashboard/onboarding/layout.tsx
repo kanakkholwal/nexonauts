@@ -1,6 +1,6 @@
 import WithoutSession from "app/layouts/without-session";
 import { Metadata } from "next";
-import { getSession } from "src/lib/auth";
+import { getSession } from "~/auth/server";
 
 export const dynamic = "force-dynamic";
 

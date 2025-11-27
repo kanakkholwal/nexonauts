@@ -52,7 +52,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               />
             </Link>
           </div>
-          <div className="m-auto flex flex-col justify-center space-y-6 @lg:max-w-md w-full h-full  mt-32 @lg:mt-0">
+          <div className="m-auto flex flex-col justify-center space-y-6 @lg:max-w-md w-full min-h-screen h-full mt-32 @lg:mt-0">
             {children}
           </div>
         </div>

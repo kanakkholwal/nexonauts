@@ -17,9 +17,10 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { sessionType } from "src/types/session";
+import { Session } from "src/auth";
 
-export function NavUser({ user }: { user: sessionType["user"] }) {
+
+export function NavUser({ user }: { user: Session["user"] }) {
   const { isMobile } = useSidebar();
 
   return (
@@ -34,8 +35,8 @@ export function NavUser({ user }: { user: sessionType["user"] }) {
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage
                   src={
-                    user.profilePicture
-                      ? (user.profilePicture as string)
+                    user.image
+                      ? (user.image as string)
                       : user.role !== "non_specified"
                         ? `/assets/avatars/${user.role}_user.png`
                         : ""
@@ -64,8 +65,8 @@ export function NavUser({ user }: { user: sessionType["user"] }) {
                 <Avatar className="size-7 rounded-lg">
                   <AvatarImage
                     src={
-                      user.profilePicture
-                        ? (user.profilePicture as string)
+                      user.image
+                        ? (user.image as string)
                         : user.role !== "non_specified"
                           ? `/assets/avatars/${user.role}_user.png`
                           : ""

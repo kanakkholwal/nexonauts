@@ -150,6 +150,7 @@ export const betterAuthOptions = {
   ],
   // trustedOrigins: [appConfig.url, `https://${appConfig.appDomain}`,`https://*.nexonauts.com`],
   user: {
+    modelName:"users",
     fields: {
       image: "profilePicture",
       emailVerified: "verified",
@@ -239,4 +240,4 @@ export const auth = betterAuth(betterAuthOptions);
 
 
 export type Session = typeof auth.$Infer.Session;
-export type AuthUser = typeof auth.$Infer.Session.user;
+export type SessionUserType = typeof auth.$Infer.Session.user;

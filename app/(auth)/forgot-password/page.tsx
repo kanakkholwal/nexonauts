@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { getSession } from "src/lib/auth";
+import { getSession } from "~/auth/server";
 import { UserAuthForm } from "./forgot-form";
 
 export const metadata: Metadata = {

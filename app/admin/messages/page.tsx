@@ -2,8 +2,8 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search } from "lucide-react";
-import { getSession } from "src/lib/auth";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 import { getMessages } from "./actions";
 import { MessageDisplay } from "./components/message-display";
 import { MessageList } from "./components/message-list";
@@ -11,7 +11,7 @@ import { useMessagesStore } from "./store";
 import StoreInitializer from "./store-initializer";
 
 export default async function DashboardPage() {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
 
   const { messages, totalPages } = await getMessages("", 1, {});
 

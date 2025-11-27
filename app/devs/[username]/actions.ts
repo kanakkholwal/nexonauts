@@ -1,9 +1,9 @@
 import { revalidatePath } from "next/cache";
-import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/db";
 import ProfileModel from "src/models/profile";
 import UserModel from "src/models/user";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 
 export async function getProfile(username: string) {
   await dbConnect();
@@ -24,7 +24,7 @@ export async function followUnFollowProfile(username: string) {
   "use server";
 
   try {
-    const session = (await getSession()) as sessionType | null;
+    const session = (await getSession()) as Session | null;
     if (!session) {
       return Promise.reject({
         isFollowing: false,
@@ -59,7 +59,7 @@ export async function followUnFollowProfile(username: string) {
       });
     }
 
-    const currentUser = await UserModel.findById(session.user._id).exec();
+    const currentUser = await UserModel.findById(session.user.id).exec();
     if (!currentUser) {
       return Promise.reject({
         success: false,

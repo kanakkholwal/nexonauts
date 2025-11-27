@@ -1,7 +1,7 @@
 "use server";
 
-import { getSession } from "src/lib/auth";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 
 import { revalidatePath } from "next/cache";
 import dbConnect from "src/lib/db";
@@ -9,10 +9,10 @@ import { INTEGRATION_CONFIG } from "src/lib/integrations";
 import User from "src/models/user";
 
 export async function getUserIntegrationData(platform: string) {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
   // connect to the database and get the user integrations data
   await dbConnect();
-  const user = await User.findById(session.user._id)
+  const user = await User.findById(session.user.id)
     .select(`integrations.${platform}`)
     .exec();
   const integrationData = JSON.parse(
@@ -28,7 +28,7 @@ export async function saveAccessToken(
   try {
     const integrationConfig = INTEGRATION_CONFIG[platform];
 
-    const session = (await getSession()) as sessionType;
+    const session = (await getSession()) as Session;
 
     const integrationData = await getUserIntegrationData(platform);
 
@@ -54,7 +54,7 @@ export async function saveAccessToken(
 export async function revokeToken(platform: string) {
   "use server";
   try {
-    const session = (await getSession()) as sessionType;
+    const session = (await getSession()) as Session;
 
     const integrationData = await getUserIntegrationData(platform);
 
@@ -62,7 +62,7 @@ export async function revokeToken(platform: string) {
       return Promise.reject("Integration not connected");
     }
 
-    const user = await User.findById(session.user._id)
+    const user = await User.findById(session.user.id)
       .select(`integrations.${platform}`)
       .exec();
     user.integrations[platform].integrated = false;

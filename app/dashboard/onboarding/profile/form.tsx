@@ -5,15 +5,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { ArrowRight, ArrowUpRight, Undo2 } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import toast from "react-hot-toast";
 import { BiError } from "react-icons/bi";
 import { FaRegCircleCheck } from "react-icons/fa6";
+import { authClient, useSession } from "src/auth/client";
 import { IconComponents, icons } from "src/lib/profile/icons";
-import type { SessionUserType } from "src/types/user";
+import type { SessionUserType } from "~/auth";
 
 const SOCIALS = icons;
 
@@ -41,7 +41,7 @@ export default function CreateProfile({
     data: Record<string, any> | null;
   }>;
 }) {
-  const { data: session, update } = useSession();
+  const { data: session } = useSession();
 
   const [profile, setProfile] = React.useState({
     username: user.username,
@@ -72,14 +72,11 @@ export default function CreateProfile({
       }).then(async (res) => {
         if (res.success && res.data) {
           console.log(res.data);
-          toast.promise(
-            update({
-              expires: session?.expires,
-              user: {
-                ...user,
+          toast.promise(authClient.updateUser({
                 username: res.data?.username,
                 profile: res.data?._id,
-              },
+            },{
+
             }),
             {
               loading: "Updating User...",

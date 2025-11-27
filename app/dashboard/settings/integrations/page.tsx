@@ -5,15 +5,15 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
-import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/db";
 import {
-	Icon,
-	INTEGRATION_DESCRIPTIONS,
-	INTEGRATIONS,
+    Icon,
+    INTEGRATION_DESCRIPTIONS,
+    INTEGRATIONS,
 } from "src/lib/integrations";
 import User from "src/models/user";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 
 export const metadata: Metadata = {
   title: "Integrations",
@@ -21,10 +21,10 @@ export const metadata: Metadata = {
 };
 
 export default async function IntegrationPage() {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
 
   await dbConnect();
-  const user = await User.findById(session.user._id)
+  const user = await User.findById(session.user.id)
     .select("integrations")
     .exec();
   console.log(user);

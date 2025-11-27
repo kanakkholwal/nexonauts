@@ -2,11 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { authClient } from "~/auth/client";
 
 export default function GoToBtn() {
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
   const isSignedIn = !!session?.user;
 
   return (

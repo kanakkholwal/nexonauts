@@ -1,11 +1,12 @@
 import { FlickeringGrid } from "@/components/animation/flikering-grid";
+import AppNavbar from "@/components/common/sidebar/app-navbar";
 import { AppSidebar } from "@/components/common/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import Page403 from "app/layouts/403";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { getSession } from "src/lib/auth";
-import Navbar from "./components/navbar";
+import { getSession } from "~/auth/server";
+
 export const metadata: Metadata = {
   title: "Admin Dashboard - NexoNauts",
   description: "Admin Dashboard ",
@@ -26,8 +27,8 @@ export default async function DashboardLayout({
       <AppSidebar user={session.user} moderator={session.user.role} />
 
       <SidebarInset className="flex flex-col flex-1 w-full relative z-0">
-        <Navbar user={session.user} />
-        <div className="absolute top-0 left-0 z-0 w-full min-h-80 [mask-image:linear-gradient(to_top,transparent_25%,black_95%)]">
+        <AppNavbar user={session.user} impersonatedBy={session?.session?.impersonatedBy}/>
+        <div className="absolute top-0 left-0 z-0 w-full min-h-80 mask-[linear-gradient(to_top,transparent_25%,black_95%)]">
           <FlickeringGrid
             className="absolute top-0 left-0 size-full"
             squareSize={4}

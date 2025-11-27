@@ -22,7 +22,7 @@ declare const global: {
 
 
 const defaultDb =
-	process.env.NODE_ENV === "production" ? "muse-prod" : "muse-dev";
+	process.env.NODE_ENV === "production" ? "production" : "development";
 
 // Mongoose Connection Cache
 let mongooseCache = global.mongoose;
@@ -40,7 +40,7 @@ if (!mongoClientCache) {
 const mongoOptions: ConnectOptions = {
 	retryWrites: true,
 	w: "majority",
-	appName: "muse-mvp",
+	appName: "nexonauts",
 	serverApi: {
 		version: ServerApiVersion.v1,
 		strict: true,

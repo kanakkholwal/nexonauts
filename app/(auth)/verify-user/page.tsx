@@ -1,7 +1,7 @@
 import { Metadata } from "next";
-import { getSession } from "src/lib/auth";
-import { UserAuthForm } from "./verify-form";
+import { getSession } from "~/auth/server";
 import { verifyUser } from "./action";
+import { UserAuthForm } from "./verify-form";
 
 export const metadata: Metadata = {
   title: "Verify Email | NexoNauts",

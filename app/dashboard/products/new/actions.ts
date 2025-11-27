@@ -1,22 +1,22 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/db";
 import Product, { rawProduct } from "src/models/product";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 import { createSlug } from "src/utils/string";
 
 export async function getCategories() {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
   await dbConnect();
-  const products = await Product.find({ creator: session.user._id }).exec();
+  const products = await Product.find({ creator: session.user.id }).exec();
   return Promise.resolve(JSON.parse(JSON.stringify(products)));
 }
 
 export async function createProduct(
   product: Omit<rawProduct, "third_party" | "slug">
 ) {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
   try {
     await dbConnect();
 
@@ -27,7 +27,7 @@ export async function createProduct(
       slug: createSlug(product.name),
       preview_url: product.preview_url,
       url: product.url,
-      creator: session.user._id!,
+      creator: session.user.id!,
       tags: product.tags.filter(
         (tag) => tag.trim() !== "" && tag !== null && tag.trim().length > 2
       ),

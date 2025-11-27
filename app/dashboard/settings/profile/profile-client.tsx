@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { LoaderCircle } from "lucide-react";
@@ -198,7 +198,7 @@ export function ProfileView() {
       >
         <Avatar className="w-40 h-40 shadow-lg">
           <AvatarImage
-            src={profile.user.profilePicture}
+            src={profile.user.image}
             alt={profile.username}
             width={320}
             height={320}

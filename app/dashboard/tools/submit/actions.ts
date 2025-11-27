@@ -2,9 +2,9 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 // import mongoose from "mongoose";
-import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/db";
 import PublicTool from "src/models/tool";
+import { getSession } from "~/auth/server";
 export async function getCategories() {
   await dbConnect();
 
@@ -42,7 +42,7 @@ export async function submitTool(data: Record<string, any>) {
       status: data.status,
       pricing_type: data.pricing_type,
       verified: false,
-      author: session.user._id,
+      author: session.user.id,
     });
     await tool.save();
 

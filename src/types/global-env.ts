@@ -6,8 +6,7 @@ const envVariables = z.object({
   GOOGLE_SECRET: z.string(),
   //   GOOGLE_CLIENT_ID: z.string(),
   //   GOOGLE_CLIENT_SECRET: z.string(),
-  NEXTAUTH_URL: z.string(),
-  NEXT_AUTH_SECRET: z.string(),
+  BASE_URL: z.string(),
   MONGODB_URI: z.string(),
   NODE_ENV: z.string().default("testing"),
   GUMROAD_APP_ID: z.string(),
@@ -35,6 +34,7 @@ const envVariables = z.object({
   NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET: z.string(),
   NEXT_PUBLIC_CLOUDINARY_FOLDER: z.string(),
   NEXT_PUBLIC_GUMROAD_APP_ID: z.string(),
+  NEXT_PUBLIC_BASE_URL: z.string(),
 });
 
 envVariables.parse(process.env);

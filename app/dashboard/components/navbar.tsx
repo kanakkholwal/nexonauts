@@ -9,13 +9,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaRegUser } from "react-icons/fa";
 import { MdLogout } from "react-icons/md";
 import { VscChevronDown } from "react-icons/vsc";
-import { SessionUserType } from "src/types/user";
+import { SessionUserType } from "~/auth";
+import { authClient } from "~/auth/client";
 
 export default function Navbar({ user }: { user: SessionUserType }) {
   const pathname = usePathname();
@@ -35,7 +35,7 @@ export default function Navbar({ user }: { user: SessionUserType }) {
               <button className="flex items-center space-x-2 px-3 py-1.5 rounded-lg">
                 <Avatar>
                   <AvatarImage
-                    src={user.profilePicture.toString()}
+                    src={user.image!}
                     alt={"@" + user.username}
                     height={80}
                     width={80}
@@ -63,9 +63,9 @@ export default function Navbar({ user }: { user: SessionUserType }) {
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <button
-                  onClick={(e) => {
+                  onClick={async (e) => {
                     e.preventDefault();
-                    signOut();
+                    await authClient.signOut();
                   }}
                   className="w-full text-accent-foreground hover:text-red-800 cursor-pointer"
                 >

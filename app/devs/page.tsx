@@ -54,7 +54,7 @@ export default async function ExploreDevelopers(props: PageProps) {
                       <div className="flex items-center gap-2">
                         <Avatar className="w-20 h-20 border">
                           <AvatarImage
-                            src={profile.user.profilePicture}
+                            src={profile.user.image}
                             alt={profile.username}
                             width={320}
                             height={320}

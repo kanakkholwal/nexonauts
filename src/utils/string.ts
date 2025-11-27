@@ -1,7 +1,7 @@
-import { customAlphabet } from "nanoid";
-import { z } from "zod";
-import TurndownService from "turndown";
 import { appConfig } from "@root/project.config";
+import { customAlphabet } from "nanoid";
+import TurndownService from "turndown";
+import { z } from "zod";
 
 export function slugify(text: string): string {
   let slug = text.toString().toLowerCase().trim();
@@ -39,7 +39,27 @@ export function generateSlug(length = 8): string {
 export function createSlug(text: string): string {
   return slugify(text) + "-" + generateSlug();
 }
+export type RoutePattern = string | RegExp;
 
+export const toRegex = (route: RoutePattern): RegExp => {
+  if (route instanceof RegExp) return route;
+  if (route === "/") return /^\/?$/; // Special case for root
+
+  const parts = route.split("/").filter((part) => part !== ""); // Remove empty parts
+
+  if (parts.length === 0) return /^\/?$/; // Handle cases like empty string
+  // handle "!" as a negation
+
+  const regexStr = parts
+    .map((part) => {
+      if (part === "*") return ".*";
+      if (part.startsWith(":")) return "[a-z0-9-_]+";
+      return part.replace(/[-[\]{}()+?.,\\^$|#\s]/g, "\\$&");
+    })
+    .join("\\/");
+
+  return new RegExp(`^\\/${regexStr}\\/?$`, "i");
+};
 export function changeCase(
   str: string,
   type: "upper" | "lower" | "title" | "sentence" | "camel_to_title"

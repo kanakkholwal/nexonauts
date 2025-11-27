@@ -24,14 +24,14 @@ import {
   Swords,
   UserRoundCog,
 } from "lucide-react";
-import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { RiAppsLine } from "react-icons/ri";
 import { TbDashboard } from "react-icons/tb";
-import type { SessionUserType } from "src/types/user";
+import type { SessionUserType } from "~/auth";
+import { authClient } from "~/auth/client";
 
 export type sideLinkType = {
   label: string;
@@ -194,7 +194,7 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
     <div className="flex self-stretch items-center gap-3 border-t border-t-border py-6 px-2 rounded-md mx-4 dark:border-t-slate-700">
       <Avatar>
         <AvatarImage
-          src={user.profilePicture.toString()}
+          src={user.image!}
           alt={`@${user.username}`}
         />
         <AvatarFallback className="uppercase">
@@ -215,9 +215,15 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
         variant="destructive_light"
         size="icon"
         className="rounded-full ml-auto"
-        onClick={(e) => {
+        onClick={async (e) => {
           e.preventDefault();
-          signOut({ callbackUrl: "/login" });
+          await authClient.signOut({
+            fetchOptions: {
+              onSuccess: () => {
+                window.location.href = "/login";
+              },
+            },
+          });
         }}
       >
         <LogOut className="w-5 h-5" />

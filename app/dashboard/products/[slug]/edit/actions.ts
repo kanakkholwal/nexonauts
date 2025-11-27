@@ -1,17 +1,17 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/db";
 import Product, { ProductType } from "src/models/product";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 
 export async function getProductBySlug(slug: string): Promise<ProductType> {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
 
   await dbConnect();
   const product = await Product.findOne({
     slug: slug,
-    creator: session.user._id,
+    creator: session.user.id,
   }).exec();
 
   // revalidatePath(`/products/${slug}/edit`, "page");
@@ -21,13 +21,13 @@ export async function updateProduct(
   productId: string,
   newData: Partial<ProductType>
 ): Promise<boolean> {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
 
   await dbConnect();
   const product = await Product.findOneAndUpdate(
     {
       _id: productId,
-      creator: session.user._id,
+      creator: session.user.id,
     },
     {
       ...newData,

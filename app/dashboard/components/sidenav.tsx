@@ -13,13 +13,13 @@ import {
   ShoppingCart,
   UserRound
 } from "lucide-react";
-import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { RiApps2Line } from "react-icons/ri";
-import { SessionUserType } from "src/types/user";
+import { SessionUserType } from "~/auth";
+import { authClient } from "~/auth/client";
 
 export type sideLinkType = {
   label: string;
@@ -118,7 +118,7 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
     <div className="flex self-stretch items-center gap-3 border-t border-t-border py-6 px-2 rounded-md mx-4 ">
       <Avatar>
         <AvatarImage
-          src={user.profilePicture.toString()}
+          src={user.image!}
           alt={"@" + user.username}
         />
         <AvatarFallback className="uppercase">
@@ -141,9 +141,15 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
           variant="destructive_light"
           size="icon"
           className="rounded-full"
-          onClick={(e) => {
+          onClick={async (e) => {
             e.preventDefault();
-            signOut({ callbackUrl: "/login" });
+            await authClient.signOut({
+              fetchOptions: {
+                onSuccess: () => {
+                  window.location.href = "/login";
+                },
+              },
+            });
           }}
         >
           <LogOut className="w-5 h-5" />

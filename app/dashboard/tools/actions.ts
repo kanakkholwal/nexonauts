@@ -1,16 +1,16 @@
 "use server";
-import { getSession } from "src/lib/auth";
+import { getSession } from "~/auth/server";
 // import mongoose from "mongoose";
 import dbConnect from "src/lib/db";
 import PublicTool, { PublicToolTypeWithId } from "src/models/tool";
-import { sessionType } from "src/types/session";
+
 
 export async function getToolsByUser(offset: number, limit: number) {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
 
   await dbConnect();
   const tools = await PublicTool.find({
-    author: session.user._id,
+    author: session.user.id,
   })
     .select("name slug status coverImage verified author updatedAt")
     .skip(offset)

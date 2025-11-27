@@ -1,7 +1,7 @@
 
 // This file contains the configuration for the app and college
 export const appConfig = {
-  name: "College Platform",
+  name: "Nexonauts",
   appDomain: "nexonauts.com",
   otherAppDomains: [
     "app.nexonauts.com",

@@ -1,4 +1,4 @@
-import { getSession } from "src/lib/auth";
+import { getSession } from "~/auth/server";
 
 import { GenerativeModel, GoogleGenerativeAI } from "@google/generative-ai";
 import { NextRequest, NextResponse } from "next/server";

@@ -1,16 +1,16 @@
 "use server";
 import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
-import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/db";
 import PublicTool, {
-	PublicToolPricingType,
-	PublicToolTypeWithId,
+    PublicToolPricingType,
+    PublicToolTypeWithId,
 } from "src/models/tool";
 import ToolRating, {
-	RatingTypeWithId,
-	rawRatingType,
+    RatingTypeWithId,
+    rawRatingType,
 } from "src/models/tool-rating";
+import { getSession } from "~/auth/server";
 
 export async function getTools(
   query: string,
@@ -216,7 +216,7 @@ export async function toggleBookmark(toolId: string): Promise<boolean> {
       tool.bookmarks = [];
     }
 
-    const userIdObj = new mongoose.Types.ObjectId(session.user._id);
+    const userIdObj = new mongoose.Types.ObjectId(session.user.id);
     const updatededTool = await PublicTool.findOneAndUpdate(
       { _id: toolId },
       {

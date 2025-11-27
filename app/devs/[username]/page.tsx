@@ -1,8 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import { notFound } from "next/navigation";
-import { getSession } from "src/lib/auth";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 import { followUnFollowProfile, getProfile } from "./actions";
 import { FollowButton } from "./components/follow-btn";
 import FollowerFollow from "./components/follower-follow";
@@ -40,7 +40,7 @@ export default async function DeveloperPage(props: {
   const developer = await getProfile(params.username);
 
   if (!developer) return notFound();
-  const session = (await getSession()) as sessionType | null;
+  const session = (await getSession()) as Session | null;
 
   const isOwner = session?.user?.username === developer.username;
   const isFollowing =
@@ -56,7 +56,7 @@ export default async function DeveloperPage(props: {
       >
         <Avatar className="w-40 h-40 shadow-lg">
           <AvatarImage
-            src={developer.user.profilePicture}
+            src={developer.user.image}
             alt={developer.username}
             width={320}
             height={320}
@@ -90,7 +90,7 @@ export default async function DeveloperPage(props: {
               profile={{
                 username: developer.username,
                 name: developer.user.name,
-                profilePicture: developer.user.profilePicture,
+                profilePicture: developer.user.image,
                 bio: developer.bio,
               }}
             />

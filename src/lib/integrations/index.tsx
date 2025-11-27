@@ -3,10 +3,11 @@ import { nanoid } from "nanoid";
 import React from "react";
 import { DiGithubFull } from "react-icons/di";
 import { TbBrandGumroad } from "react-icons/tb";
-import { getSession } from "src/lib/auth";
+import { Session } from "src/auth";
 import dbConnect from "src/lib/db";
 import UserModel from "src/models/user";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 
 // Define the icons and descriptions for each integration
 const icons: { [key: string]: React.ElementType } = {
@@ -65,7 +66,7 @@ export const INTEGRATION_CONFIG: {
 } = {
   github: {
     client_id: process.env.GITHUB_ID as string,
-    redirect_uri: process.env.NEXTAUTH_URL + "/settings/integrations/github",
+    redirect_uri: process.env.BASE_URL + "/settings/integrations/github",
     scope: "user%20public_repo",
     auth_url: `https://github.com/login/oauth/authorize`,
     required: ["code"],
@@ -99,9 +100,9 @@ export const INTEGRATION_CONFIG: {
         return Promise.reject("Error getting token");
       }
 
-      const session = (await getSession()) as sessionType;
+      const session = (await getSession()) as Session;
       await dbConnect();
-      const user = await UserModel.findById(session.user._id)
+      const user = await UserModel.findById(session.user.id)
         .select("integrations")
         .exec();
       console.log("User", user);
@@ -126,7 +127,7 @@ export const INTEGRATION_CONFIG: {
   },
   gumroad: {
     client_id: process.env.GUMROAD_APP_ID as string,
-    redirect_uri: process.env.NEXTAUTH_URL + "/settings/integrations/gumroad",
+    redirect_uri: process.env.BASE_URL + "/settings/integrations/gumroad",
     scope: "view_profile",
     auth_url: `https://gumroad.com/oauth/authorize`,
     getAuthUrl: function () {
@@ -157,10 +158,10 @@ export const INTEGRATION_CONFIG: {
       }
 
       console.log("Success saving token", data);
-      const session = (await getSession()) as sessionType;
+      const session = (await getSession()) as Session;
 
       await dbConnect();
-      const user = await UserModel.findById(session.user._id)
+      const user = await UserModel.findById(session.user.id)
         .select("integrations")
         .exec();
       console.log("User", user);
@@ -210,9 +211,9 @@ export class Integration {
   }
 
   async revokeToken() {
-    const session = (await getSession()) as sessionType;
+    const session = (await getSession()) as Session;
 
-    const user = await UserModel.findById(session.user._id)
+    const user = await UserModel.findById(session.user.id)
       .select(`integrations.${this.platform}`)
       .exec();
     user.integrations[this.platform].integrated = false;
@@ -222,8 +223,8 @@ export class Integration {
   }
 
   async getIntegrationData() {
-    const session = (await getSession()) as sessionType;
-    const user = await UserModel.findById(session.user._id)
+    const session = (await getSession()) as Session;
+    const user = await UserModel.findById(session.user.id)
       .select(`integrations.${this.platform}`)
       .exec();
     return user.integrations[this.platform];

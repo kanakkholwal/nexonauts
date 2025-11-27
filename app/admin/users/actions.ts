@@ -1,9 +1,9 @@
 "use server";
 import { revalidatePath } from "next/cache";
-import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/db";
 import ProfileModel from "src/models/profile";
 import UserModel from "src/models/user";
+import { getSession } from "~/auth/server";
 
 // Function to count users and calculate percent growth
 export async function getUsers(
@@ -47,7 +47,7 @@ export async function deleteUser(userId: string) {
     }
 
     await dbConnect();
-    const adminUser = await UserModel.findById(session.user._id);
+    const adminUser = await UserModel.findById(session.user.id);
     if (!adminUser) {
       return {
         success: false,

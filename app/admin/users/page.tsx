@@ -1,12 +1,12 @@
 import { DataTable } from "@/components/ui/data-table";
 import { Suspense } from "react";
-import { sessionType } from "src/types/session";
+
+import { getSession } from "~/auth/server";
 import { getUsers } from "./actions";
 import { columns } from "./columns";
-import { getSession } from "src/lib/auth";
 
 export default async function DashboardPage() {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
 
   const { users } = await getUsers("", 1, {});
   console.log(users);

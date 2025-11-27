@@ -14,12 +14,12 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { sessionType } from "src/types/session";
+import { Session } from "~/auth";
 
 import { ApplicationSvgLogo } from "@/components/logo";
 import { sidebar_links } from "@/constants/links";
-import Link from "next/link";
 import { appConfig } from "@root/project.config";
+import Link from "next/link";
 
 const getSideNavLinks = (role: string, prefixPath?: string) => {
   return sidebar_links
@@ -48,7 +48,7 @@ const getSideNavLinks = (role: string, prefixPath?: string) => {
 };
 
 interface SidebarProps extends React.ComponentProps<typeof Sidebar> {
-  user: sessionType["user"];
+  user: Session["user"];
   moderator: string;
   prefixPath?: string; // Optional prefix path for links
 }
@@ -67,12 +67,12 @@ export function AppSidebar({
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
+              className="data-[slot=sidebar-menu-button]:p-1.5!"
               size="lg"
               asChild
             >
               <Link href={`/${prefixPath ? prefixPath : moderator}`}>
-                <ApplicationSvgLogo className="!size-8" />
+                <ApplicationSvgLogo className="size-8!" />
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">
                     {appConfig.name}

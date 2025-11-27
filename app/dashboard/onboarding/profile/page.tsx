@@ -1,10 +1,10 @@
 import SquareGrid from "app/layouts/patterns/square-grid";
 import WithoutSession from "app/layouts/without-session";
 import { Metadata } from "next";
+import { getSession } from "~/auth/server";
+import { createProfile } from "./actions";
 import AlreadyProfile from "./existing";
 import CreateProfileForm from "./form";
-import { createProfile } from "./actions";
-import { getSession } from "src/lib/auth";
 
 export const metadata: Metadata = {
   title: "Create Profile - NexoNauts",

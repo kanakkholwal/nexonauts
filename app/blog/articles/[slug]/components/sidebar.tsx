@@ -21,7 +21,7 @@ export function SideBar(props: SidebarProps) {
         <div className="flex flex-col items-center text-center gap-4">
           <Avatar className="size-24 md:size-32">
             <AvatarImage 
-              src={props.author?.user?.profilePicture} 
+              src={props.author?.user?.image} 
               alt={props.author?.user?.name || "Author"}
               className="size-24 md:size-32"
             />

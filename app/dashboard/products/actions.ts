@@ -2,11 +2,12 @@
 import axios from "axios";
 import { customAlphabet } from "nanoid";
 import { revalidatePath } from "next/cache";
-import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/db";
 import Product, { ProductType, rawProductThirdParty } from "src/models/product";
 import User from "src/models/user";
-import { sessionType } from "src/types/session";
+import { Session } from "~/auth";
+import { getSession } from "~/auth/server";
+
 
 const generateUrlSlug = (length = 16) =>
   customAlphabet(
@@ -23,9 +24,9 @@ export async function getProducts(
   products: ProductType[];
   integrated: boolean;
 }> {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
   const searchQuery = {
-    creator: session.user._id,
+    creator: session.user.id,
   } as Record<string, any>;
   if (availableIntegrations.includes(filter)) {
     searchQuery["third_party.provider"] = filter;
@@ -36,7 +37,7 @@ export async function getProducts(
     .sort({ createdAt: sort === "latest" ? -1 : 1 })
     .exec();
 
-  const user = await User.findById(session.user._id)
+  const user = await User.findById(session.user.id)
     .select("integrations.gumroad")
     .exec();
   const { gumroad } = user.integrations;
@@ -54,9 +55,9 @@ export async function fetchFromIntegration(integration: string) {
   }
 }
 export async function importFromGumroad(): Promise<rawProductThirdParty[]> {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
   await dbConnect();
-  const user = await User.findById(session.user._id)
+  const user = await User.findById(session.user.id)
     .select("integrations")
     .exec();
   if (!user) {
@@ -96,15 +97,15 @@ export async function importFromGumroad(): Promise<rawProductThirdParty[]> {
 }
 export async function importProduct(product: rawProductThirdParty) {
   try {
-    const session = (await getSession()) as sessionType;
+    const session = (await getSession()) as Session;
     await dbConnect();
-    const user = await User.findById(session.user._id).select("_id").exec();
+    const user = await User.findById(session.user.id).select("_id").exec();
     if (!user) {
       return Promise.reject("User not found");
     }
     const newProduct = new Product({
       ...product,
-      creator: session.user._id,
+      creator: session.user.id,
     });
     await newProduct.save();
     return Promise.resolve(JSON.parse(JSON.stringify(newProduct)));
@@ -117,9 +118,9 @@ export async function importProduct(product: rawProductThirdParty) {
 }
 
 export async function syncWithGumroad() {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
   await dbConnect();
-  const user = await User.findById(session.user._id)
+  const user = await User.findById(session.user.id)
     .select("integrations")
     .exec();
   if (!user) {
@@ -160,7 +161,7 @@ export async function syncWithGumroad() {
           slug: generateUrlSlug(),
           preview_url: product.preview_url,
           url: product.short_url,
-          creator: session.user._id,
+          creator: session.user.id,
           tags: product.tags,
           categories: product?.categories || [],
           published: product.published,
@@ -182,11 +183,11 @@ export async function syncWithGumroad() {
   }
 }
 export async function deleteProduct(productId: string) {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
   await dbConnect();
   const product = await Product.findOneAndDelete({
     _id: productId,
-    creator: session.user._id,
+    creator: session.user.id,
   }).exec();
   if (product) {
     revalidatePath("/products");

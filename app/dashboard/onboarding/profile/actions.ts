@@ -1,9 +1,9 @@
 "use server";
-import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/db";
 import Profile from "src/models/profile";
 import User from "src/models/user";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 
 export async function createProfile(payload: {
   username: string;
@@ -15,9 +15,9 @@ export async function createProfile(payload: {
   interests: string[];
 }) {
   try {
-    const session = (await getSession()) as sessionType;
+    const session = (await getSession()) as Session;
     await dbConnect();
-    const user = await User.findById(session.user._id).select(
+    const user = await User.findById(session.user.id).select(
       "profile username"
     );
     if (!user) {
@@ -36,7 +36,7 @@ export async function createProfile(payload: {
       });
     }
     const profile = new Profile({
-      user: user._id,
+      user: user.id,
       username: payload.username,
       bio: payload.bio,
       socials: payload.socials,

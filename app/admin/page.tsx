@@ -1,22 +1,16 @@
 import { NumberTicker } from "@/components/animation/number-ticker";
 import { StatsCard } from "@/components/application/stats-card";
 import { Icon } from "@/components/icons";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { CircleDashed, TrendingDown, TrendingUp } from "lucide-react";
-import { getSession } from "src/lib/auth";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 import { changeCase } from "src/utils/string";
 import { tools_CountAndGrowth, users_CountAndGrowth } from "./actions";
+import { Session } from "~/auth";
 
 export default async function DashboardPage() {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
 
   console.log(session);
   const usersStats = await users_CountAndGrowth("this_month");

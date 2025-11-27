@@ -1,7 +1,7 @@
 import { DataTable } from "@/components/ui/data-table";
 import { Suspense } from "react";
-import { getSession } from "src/lib/auth";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 import { getTools } from "./actions";
 import { columns } from "./columns";
 
@@ -12,7 +12,7 @@ export default async function DashboardPage(props: {
     perPage?: string;
   }>
 }) {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
   const searchParams = await props.searchParams;
   const query = searchParams?.query || "";
   const currentPage = Number(searchParams?.page) || 1;

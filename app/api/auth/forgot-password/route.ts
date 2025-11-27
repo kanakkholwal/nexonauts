@@ -3,8 +3,8 @@ import { type NextRequest, NextResponse } from "next/server";
 import dbConnect from "src/lib/db";
 import UserModel from "src/models/user";
 
-import { getSession } from "src/lib/auth";
 import { mailFetch } from "src/lib/server-fetch";
+import { getSession } from "~/auth/server";
 
 export async function POST(request: NextRequest) {
   try {

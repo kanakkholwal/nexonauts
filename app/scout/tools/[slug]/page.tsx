@@ -1,36 +1,36 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card";
 import { Rating } from "@/components/ui/rating";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "app/layouts/navbar-dynamic";
 import { CircularGradient } from "app/layouts/patterns/gradient";
 import {
-  getPublicToolBySlug,
-  getRatingsAndReviews,
-  getSimilarTools,
-  getToolMetaBySlug,
-  postRatingAndReview,
-  toggleBookmark,
+    getPublicToolBySlug,
+    getRatingsAndReviews,
+    getSimilarTools,
+    getToolMetaBySlug,
+    postRatingAndReview,
+    toggleBookmark,
 } from "app/scout/lib/actions";
 import { getAverageRating } from "app/scout/lib/utils";
 import {
-  Bookmark,
-  ExternalLink,
-  Eye,
-  Hash,
-  LoaderCircle,
-  Lock,
-  MessageCircle,
-  Star,
-  Verified,
-  Zap,
+    Bookmark,
+    ExternalLink,
+    Eye,
+    Hash,
+    LoaderCircle,
+    Lock,
+    MessageCircle,
+    Star,
+    Verified,
+    Zap,
 } from "lucide-react";
 import type { Metadata, ResolvingMetadata } from "next";
 import Image from "next/image";
@@ -38,10 +38,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import MarkdownView from "src/components/markdown/view";
-import { getSession } from "src/lib/auth";
 import { getImages, marketwiseLink } from "src/lib/scout";
 import { RatingTypeWithId } from "src/models/tool-rating";
 import { formatNumber } from "src/utils/formaters";
+import { getSession } from "~/auth/server";
 import { BookMarkButton } from "./bookmark";
 import { PostReview } from "./post-review";
 import RatingComponent from "./rating";

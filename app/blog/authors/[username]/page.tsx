@@ -26,7 +26,7 @@ export default async function AuthorPage(props: PageProps) {
             <div className="flex flex-col items-center text-center gap-4">
                 <Avatar className="size-24 md:size-32">
                     <AvatarImage
-                        src={profile.user?.profilePicture}
+                        src={profile.user?.image}
                         alt={profile.user?.name || "Author"}
                         className="size-24 md:size-32"
                     />

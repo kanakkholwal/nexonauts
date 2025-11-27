@@ -10,9 +10,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import MarkdownView from "src/components/markdown/view";
-import { getSession } from "src/lib/auth";
 import { marketwiseLink } from "src/lib/scout";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 import { decodeHTMLEntities } from "src/utils/string";
 import { getProductBySlug, getSimilarProducts } from "./actions";
 import MoreFromCreator from "./more-from-creator";
@@ -44,7 +44,7 @@ export default async function ProductPage(props: {
   params: Promise<{ slug: string }>;
 }) {
   const params = await props.params;
-  const session = (await getSession()) as sessionType | null;
+  const session = (await getSession()) as Session | null;
   const isAuthenticated = !!session?.user;
 
   const product = await getProductBySlug(params.slug);
@@ -52,7 +52,7 @@ export default async function ProductPage(props: {
     return notFound();
   }
   console.log("Product:", product);
-  const isCreator = isAuthenticated && session?.user._id.toString() === product.creator?._id?.toString();
+  const isCreator = isAuthenticated && session?.user.id.toString() === product.creator?._id?.toString();
   const similarProducts = await getSimilarProducts(params.slug);
 
   return (

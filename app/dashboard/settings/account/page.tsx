@@ -1,9 +1,9 @@
 import { Separator } from "@/components/ui/separator";
 import { Metadata } from "next";
-import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/db";
 import User from "src/models/user";
-import { sessionType } from "src/types/session";
+import { getSession } from "~/auth/server";
+
 import { AccountForm } from "./account";
 
 export const metadata: Metadata = {
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 
 export default async function AccountPage() {
-  const session = (await getSession()) as sessionType;
+  const session = (await getSession()) as Session;
 
   await dbConnect();
 
@@ -22,7 +22,7 @@ export default async function AccountPage() {
   }> {
     "use server";
 
-    const user = await User.findById(session.user._id);
+    const user = await User.findById(session.user.id);
     if (!user) {
       return Promise.reject({
         result: "fail",
@@ -44,7 +44,7 @@ export default async function AccountPage() {
   }> {
     "use server";
 
-    const user = await User.findById(session.user._id);
+    const user = await User.findById(session.user.id);
     if (!user) {
       return Promise.reject({
         result: "fail",
@@ -70,7 +70,7 @@ export default async function AccountPage() {
   }> {
     "use server";
 
-    const user = await User.findById(session.user._id);
+    const user = await User.findById(session.user.id);
     if (!user) {
       return Promise.reject({
         result: "fail",

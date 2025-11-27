@@ -15,9 +15,9 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { cn } from "@/lib/utils";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import React from "react";
+import { authClient } from "~/auth/client";
 
 const loggedInList = [
   {
@@ -48,7 +48,7 @@ const defaultList = [
 
 export function QuickLinks() {
   const [open, setOpen] = useState(false);
-  const { data: session } = useSession();
+  const { data: session } = authClient.useSession();
 
   const isLoggedIn = !!session?.user;
 

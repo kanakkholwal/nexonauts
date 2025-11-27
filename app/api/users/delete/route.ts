@@ -1,9 +1,9 @@
 import { revalidatePath } from "next/cache";
 import { type NextRequest, NextResponse } from "next/server";
-import { getSession } from "src/lib/auth";
 import dbConnect from "src/lib/db";
 import ProfileModel from "src/models/profile";
 import UserModel from "src/models/user";
+import { getSession } from "~/auth/server";
 
 export async function DELETE(request: NextRequest) {
   try {
@@ -23,7 +23,7 @@ export async function DELETE(request: NextRequest) {
     }
 
     await dbConnect();
-    const adminUser = await UserModel.findById(session.user._id);
+    const adminUser = await UserModel.findById(session.user.id);
     if (!adminUser) {
       return NextResponse.json(
         {

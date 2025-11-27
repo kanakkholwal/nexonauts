@@ -3,7 +3,7 @@ import { ArrowRight, ArrowRightToLine } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { getSession } from "src/lib/auth";
+import { getSession } from "~/auth/server";
 import { registerUser } from "./action";
 import { RegisterForm } from "./register-form";
 

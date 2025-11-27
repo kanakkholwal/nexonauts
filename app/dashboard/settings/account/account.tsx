@@ -15,14 +15,14 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Pencil, Save, X } from "lucide-react";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { BiLockAlt } from "react-icons/bi";
 import { CgSpinnerAlt } from "react-icons/cg";
 import { LuImage } from "react-icons/lu";
-import { SessionUserType } from "src/types/user";
+import { SessionUserType } from "~/auth";
+import { authClient } from "~/auth/client";
 
 const DEFAULT_PROFILE_URL =
   "https://res.cloudinary.com/kanakkholwal-portfolio/image/upload/v1680632194/kkupgrader/placeholder_rwezi6.png";
@@ -46,7 +46,7 @@ type Props = {
 export function AccountForm({ user: CurrentUser, serverActions }: Props) {
   const { handleUpdateName } = serverActions;
   const [user, setUser] = useState(CurrentUser);
-  const { data: session, update } = useSession();
+  const { data: session, refetch } = authClient.useSession();
   const [currentPassword, setCurrentPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [editingName, setEditingName] = useState(false);
@@ -165,7 +165,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
           <Avatar className="h-20 w-20">
             <AvatarImage
               alt={CurrentUser.name}
-              src={user.profilePicture.toString()}
+              src={user.image}
               height={180}
               width={180}
             />
@@ -194,12 +194,12 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                 </DialogDescription>
               </DialogHeader>
               <div className="group flex justify-center items-center relative overflow-hidden w-[150px] h-[150px] rounded-full border border-border bg-slate-100 dark:bg-slate-900 duration-300 hover:border-primary mx-auto cursor-pointer">
-                {user?.profilePicture ? (
+                {user?.image ? (
                   <Image
                     width={150}
                     height={150}
                     alt={user.name}
-                    src={user.profilePicture.toString()}
+                    src={user.image}
                   />
                 ) : (
                   <Image
@@ -245,7 +245,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                     type="url"
                     autoCorrect="off"
                     className="pl-12 py-3! pr-5 mt-0!"
-                    value={user.profilePicture.toString()}
+                    value={user.image}
                     onChange={async (e) => {
                       const url = e.target.value;
                       setImageStatus("loading");
@@ -278,13 +278,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                   variant="slate"
                   onClick={() => {
                     try {
-                      update({
-                        ...session,
-                        user: {
-                          ...CurrentUser,
-                          profilePicture: user.profilePicture,
-                        },
-                      });
+                      refetch();
                       toast.success("Profile picture updated successfully");
                     } catch (err) {
                       console.log(err);
@@ -294,7 +288,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                   disabled={
                     imageStatus === "loading" ||
                     imageStatus === "error" ||
-                    user?.profilePicture === DEFAULT_PROFILE_URL
+                    user?.image === DEFAULT_PROFILE_URL
                   }
                 >
                   Save
@@ -344,13 +338,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
               handleUpdateName(user.name).then((res) => {
                 if (res.result === "success") {
                   toast.success(res.message);
-                  update({
-                    ...session,
-                    user: {
-                      ...CurrentUser,
-                      name: user.name,
-                    },
-                  });
+                  refetch();
                   setEditingName(false);
                 }
               });

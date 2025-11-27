@@ -4,7 +4,7 @@ import { RouterCard } from "@/components/extended/router-card";
 import { Settings2, ShoppingCart, UserRound } from "lucide-react";
 import { Metadata } from "next";
 import { RiApps2Line } from "react-icons/ri";
-import { getSession } from "src/lib/auth";
+import { getSession } from "~/auth/server";
 
 export const metadata: Metadata = {
   title: "Dashboard | " + process.env.NEXT_PUBLIC_WEBSITE_NAME,

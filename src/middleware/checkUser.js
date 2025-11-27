@@ -1,65 +1,69 @@
-import { getToken, decode } from "next-auth/jwt";
-// import { getServerSession } from "next-auth/next"
-// import { authOptions } from "@pages/api/auth/[...nextauth]";
 import cookie from "cookie";
+import { auth } from "~/auth";
 
-const secret = process.env.NEXT_AUTH_SECRET;
+const cookiePrefix = process.env.NEXONAUTS_COOKIE_PREFIX || "nexonauts";
+const sessionCookieName =
+  process.env.NODE_ENV === "development"
+    ? `${cookiePrefix}.session_token`
+    : `__Secure-${cookiePrefix}.session_token`;
 
-const getTokenFromRequest = async (req) => {
+const getSessionFromRequest = async (req) => {
   const cookies = cookie.parse(req.headers.cookie || "");
-  const token =
-    process.env.NODE_ENV == "development"
-      ? cookies["next-auth.session-token"]
-      : cookies["__Secure-next-auth.session-token"];
-  return token;
+  const sessionToken = cookies[sessionCookieName];
+  
+  if (!sessionToken) {
+    return null;
+  }
+  
+  try {
+    const session = await auth.api.getSession({
+      headers: new Headers({
+        cookie: req.headers.cookie || "",
+      }),
+    });
+    return session;
+  } catch (error) {
+    console.error("Error getting session:", error);
+    return null;
+  }
 };
+
 // CHECKING FUNCTIONS
 export const hasToken = async (req) => {
-  const token = await getToken({ req, secret, raw: true });
-  if (!token) {
-    return false;
-  }
-  return true;
+  const session = await getSessionFromRequest(req);
+  return session !== null;
 };
 
 export const isAdmin = async (req) => {
-  const token = await getToken({ req, secret, raw: true });
-  if (!token || token.user.role !== "admin") {
+  const session = await getSessionFromRequest(req);
+  if (!session || session.user.role !== "admin") {
     return false;
   }
   return true;
 };
 export const getUser = async (req) => {
-  const token = await getToken({ req, secret, raw: true });
-  if (!token || !token.user) {
+  const session = await getSessionFromRequest(req);
+  if (!session || !session.user) {
     return null;
   }
-  return token.user;
+  return session.user;
 };
+
 
 // API MIDDLEWARE
 export const hasTokenMiddleware = async (req, res, next) => {
-  // const token = await getToken({ req, secret, raw: true })
-  // const session = await getServerSession(req, res, authOptions);
-  const cookies = cookie.parse(req.headers.cookie || "");
-  const token =
-    process.env.NODE_ENV == "development"
-      ? cookies["next-auth.session-token"]
-      : cookies["__Secure-next-auth.session-token"];
+  const session = await getSessionFromRequest(req);
 
-  if (!token) {
+  if (!session) {
     return next(new Error("Not Allowed - Not logged in"));
   }
   next();
 };
-export const isAdminMiddleware = async (req, res, next) => {
-  const cookies = cookie.parse(req.headers.cookie || "");
-  const token =
-    process.env.NODE_ENV == "development"
-      ? cookies["next-auth.session-token"]
-      : cookies["__Secure-next-auth.session-token"];
 
-  if (!token) {
+export const isAdminMiddleware = async (req, res, next) => {
+  const session = await getSessionFromRequest(req);
+
+  if (!session) {
     return next(
       new Error({
         code: 401,
@@ -68,12 +72,8 @@ export const isAdminMiddleware = async (req, res, next) => {
       })
     );
   }
-  let decoded = await decode({
-    token,
-    secret,
-  });
 
-  if (decoded.user.role !== "admin") {
+  if (session.user.role !== "admin") {
     return next(
       new Error({
         code: 401,
