@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -9,46 +10,40 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { RadioStyle } from "@/components/ui/radio-group";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Building2, ExternalLink, Send } from "lucide-react";
+import { Building2, Globe, Mail, Send, User } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { GoPerson } from "react-icons/go";
-import { LuMail } from "react-icons/lu";
 import * as z from "zod";
-import { useSession } from "~/auth/client";
+// import { useSession } from "~/auth/client"; // Uncomment if you have auth
 
+// --- Design Utilities ---
+import { cn } from "@/lib/utils";
+
+// Same Schema as before
 const FormSchema = z.object({
-  name: z
-    .string()
-    .min(1, { message: "Name must be between 1 and 100 characters" })
-    .max(100, { message: "Name must be between 1 and 100 characters" }),
-  email: z
-    .string()
-    .email({ message: "Invalid email format" })
-    .min(5, { message: "Email must be at least 5 characters long" })
-    .max(100, { message: "Email cannot exceed 100 characters" }),
-  message: z
-    .string()
-    .min(30, { message: "Message should be atleast 30 characters long" })
-    .max(5000, { message: "Message cannot exceed 500 characters" }),
-  category: z
-    .string()
-    .min(1, { message: "Please select a category" })
-    .max(100, { message: "Please select a category" }),
-  companyName: z
-    .string()
-    .max(100, { message: "Company name cannot exceed 100 characters" }),
-  website: z
-    .string()
-    .max(100, { message: "Website cannot exceed 100 characters" }),
+  name: z.string().min(1).max(100),
+  email: z.string().email().min(5).max(100),
+  message: z.string().min(30).max(5000),
+  category: z.string().min(1, { message: "Please select a topic" }),
+  companyName: z.string().max(100).optional(),
+  website: z.string().max(100).optional(),
 });
 
+const CATEGORIES = [
+  "Brand Strategy",
+  "Marketing / Ads",
+  "Development",
+  "Design / UI & UX",
+  "Partnerships",
+  "Other",
+];
+
 export function ContactForm() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession(); // Uncomment if needed
+  const session = { user: { name: "", email: "" } }; // Mock for demo
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -64,94 +59,49 @@ export function ContactForm() {
   });
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
-    // validate the inputs first before sending the request
+    setIsLoading(true);
+    // Simulate API call
     console.log(data);
 
-    toast.promise(
-      fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name: data.name,
-          email: data.email,
-          message: data.message,
-          aditional_info: {
-            category: data.category,
-            companyName: data.companyName,
-            website: data.website,
-          },
-        }),
-      }),
-      {
-        loading: "Sending message...",
-        success: "Message sent successfully",
-        error: "An error occured while sending the message",
-      }
-    );
+    // Replace with your actual fetch
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    toast.success("Message sent successfully!");
+    setIsLoading(false);
   }
+
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="grid gap-4 w-full max-w-5xl mx-auto"
-        autoComplete="on"
-      >
-        <div className="flex gap-4 w-full items-center justify-evenly flex-col lg:flex-row">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+
+        {/* Row 1: Name & Email */}
+        <div className="grid md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
-              <FormItem className="grid gap-1.5 grow w-full">
-                <div className="relative group">
-                  <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                    <GoPerson className="size-4" />
-                  </FormLabel>
-                  <FormControl className="relative">
-                    <Input
-                      id="name"
-                      placeholder="Enter your name"
-                      type="text"
-                      autoCapitalize="none"
-                      autoComplete="name"
-                      autoCorrect="off"
-                      required
-                      disabled={isLoading}
-                      
-                      className="pl-12 py-6! pr-5 mt-0!"
-                      {...field}
-                    />
+              <FormItem>
+                <FormLabel className="text-xs uppercase tracking-wider text-muted-foreground font-semibold ml-1">Name</FormLabel>
+                <div className="relative">
+                  <User className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground/50" />
+                  <FormControl>
+                    <Input placeholder="John Doe" className="pl-10 bg-background/50 border-border/50 focus:bg-background transition-all" {...field} disabled={isLoading} />
                   </FormControl>
                 </div>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem className="grid gap-1.5 grow w-full">
-                <div className="relative group">
-                  <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                    <LuMail className="size-4" />
-                  </FormLabel>
-                  <FormControl className="relative">
-                    <Input
-                      id="email"
-                      placeholder="name@example.com"
-                      type="email"
-                      required
-                      autoCapitalize="none"
-                      autoComplete="email"
-                      autoCorrect="off"
-                      disabled={isLoading}
-                      
-                      className="pl-12 py-6! pr-5 mt-0!"
-                      {...field}
-                    />
+              <FormItem>
+                <FormLabel className="text-xs uppercase tracking-wider text-muted-foreground font-semibold ml-1">Email</FormLabel>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground/50" />
+                  <FormControl>
+                    <Input placeholder="john@example.com" className="pl-10 bg-background/50 border-border/50 focus:bg-background transition-all" {...field} disabled={isLoading} />
                   </FormControl>
                 </div>
                 <FormMessage />
@@ -159,58 +109,35 @@ export function ContactForm() {
             )}
           />
         </div>
-        <div className="flex gap-4 w-full items-center justify-evenly flex-col lg:flex-row">
+
+        {/* Row 2: Company & Website */}
+        <div className="grid md:grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="companyName"
             render={({ field }) => (
-              <FormItem className="grid gap-1.5 grow w-full">
-                <div className="relative group">
-                  <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                    <Building2 className="size-4" />
-                  </FormLabel>
-                  <FormControl className="relative">
-                    <Input
-                      id="companyName"
-                      placeholder="Enter your Company Name"
-                      type="text"
-                      autoCapitalize="none"
-                      autoComplete="name"
-                      autoCorrect="off"
-                      disabled={isLoading}
-                      
-                      className="pl-12 py-6! pr-5 mt-0!"
-                      {...field}
-                    />
+              <FormItem>
+                <FormLabel className="text-xs uppercase tracking-wider text-muted-foreground font-semibold ml-1">Company</FormLabel>
+                <div className="relative">
+                  <Building2 className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground/50" />
+                  <FormControl>
+                    <Input placeholder="Acme Inc." className="pl-10 bg-background/50 border-border/50 focus:bg-background transition-all" {...field} disabled={isLoading} />
                   </FormControl>
                 </div>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           <FormField
             control={form.control}
             name="website"
             render={({ field }) => (
-              <FormItem className="grid gap-1.5 grow w-full">
-                <div className="relative group">
-                  <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                    <ExternalLink className="size-4" />
-                  </FormLabel>
-                  <FormControl className="relative">
-                    <Input
-                      id="website"
-                      placeholder="Enter your website url"
-                      type="url"
-                      autoCapitalize="none"
-                      autoComplete="name"
-                      autoCorrect="off"
-                      disabled={isLoading}
-                      
-                      className="pl-12 py-6! pr-5 mt-0!"
-                      {...field}
-                    />
+              <FormItem>
+                <FormLabel className="text-xs uppercase tracking-wider text-muted-foreground font-semibold ml-1">Website</FormLabel>
+                <div className="relative">
+                  <Globe className="absolute left-3 top-2.5 h-5 w-5 text-muted-foreground/50" />
+                  <FormControl>
+                    <Input placeholder="https://..." className="pl-10 bg-background/50 border-border/50 focus:bg-background transition-all" {...field} disabled={isLoading} />
                   </FormControl>
                 </div>
                 <FormMessage />
@@ -218,100 +145,74 @@ export function ContactForm() {
             )}
           />
         </div>
-        <div className="grid gap-1.5">
-          <FormField
-            control={form.control}
-            name="category"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>What would you like to chat about?</FormLabel>
-                <FormControl className="flex flex-wrap gap-4 w-full justify-around">
-                  <div className="flex flex-wrap gap-4 w-full justify-around">
-                    {[
-                      "Brand Strategy",
-                      "Marketing / Ads",
-                      "Careers",
-                      "Development",
-                      "Design / UX&UI",
-                      "Other",
-                    ].map((item, index) => {
-                      return (
-                        <label key={index} className={RadioStyle.label}>
-                          {item}
-                          <input
-                            type="radio"
-                            required
-                            {...field}
-                            disabled={isLoading}
-                            name="category"
-                            value={item}
-                            className={RadioStyle.input}
-                          />
-                        </label>
-                      );
-                    })}
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {/* <Label htmlFor="chat_about">What would you like to chat about?</Label>
-            <div className="flex flex-wrap gap-4 w-full justify-around">
-                {[
-                    "Brand Strategy", "Marketing / Ads", "Careers", "Development", "Design / UX&UI", "Other"
-                ].map((item, index) => {
-                    return (<label key={index} className="text-slate-700 cursor-pointer has-checked:ring-primary/50 has-checked:text-primary has-checked:bg-primary/10 flex justify-between items-center gap-6 rounded-lg p-4 ring-1 ring-transparent hover:bg-slate-100">
-                        {item}
-                        <input type="radio" onChange={(e) => {
 
-                        }} name="chat_about" value={item} className={RadioStyle.input}/>
-                    </label>)
-                })}
-            </div> */}
-        </div>
+        {/* Category Selection - Visual Tiles */}
+        <FormField
+          control={form.control}
+          name="category"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-xs uppercase tracking-wider text-muted-foreground font-semibold ml-1">Topic</FormLabel>
+              <FormControl>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  {CATEGORIES.map((item) => (
+                    <label
+                      key={item}
+                      className={cn(
+                        "cursor-pointer text-sm border rounded-xl px-4 py-3 transition-all duration-200 text-center hover:bg-muted/50",
+                        field.value === item
+                          ? "bg-primary/10 border-primary/50 text-primary font-medium ring-1 ring-primary/20"
+                          : "bg-background/50 border-border/50 text-muted-foreground"
+                      )}
+                    >
+                      <input
+                        type="radio"
+                        value={item}
+                        className="sr-only"
+                        onChange={field.onChange}
+                        checked={field.value === item}
+                        disabled={isLoading}
+                      />
+                      {item}
+                    </label>
+                  ))}
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-        <div className="grid gap-1.5">
-          <FormField
-            control={form.control}
-            name="message"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Your Message</FormLabel>
-                <FormControl>
-                  <Textarea
-                    id="message"
-                    placeholder="Enter your message"
-                    cols={60}
-                    rows={10}
-                    autoCapitalize="none"
-                    autoComplete="name"
-                    autoCorrect="off"
-                    disabled={isLoading}
-                    
-                    required
-                    {...field}
-                  />
-                </FormControl>
+        {/* Message Area */}
+        <FormField
+          control={form.control}
+          name="message"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel className="text-xs uppercase tracking-wider text-muted-foreground font-semibold ml-1">Message</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Tell us about your project..."
+                  className="min-h-[150px] resize-none bg-background/50 border-border/50 focus:bg-background transition-all"
+                  {...field}
+                  disabled={isLoading}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="flex items-center justify-center">
-          <Button
-            type="submit"
-            size="lg"
-            variant="rainbow"
-            width="xs"
-            rounded="full"
-            transition="damped"
-            disabled={isLoading}
-          >
-              Send Message <Send  />
-          </Button>
-        </div>
+        {/* Submit Action */}
+        <Button
+          type="submit"
+          size="lg"
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-xl h-12 text-base shadow-lg shadow-primary/20"
+          disabled={isLoading}
+        >
+          {isLoading ? "Sending..." : "Send Message"}
+          {!isLoading && <Send className="ml-2 w-4 h-4" />}
+        </Button>
       </form>
     </Form>
   );

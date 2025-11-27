@@ -1,8 +1,8 @@
 import { AnimatedShinyText } from "@/components/animation/animated-shiny-text";
 import Navbar from "@/components/common/navbar";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
 import { ButtonLink } from "@/components/utils/link";
 import Footer from "app/layouts/footer";
 import {
@@ -132,10 +132,10 @@ export default function HomePage() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-2 mt-2">
-                    <Badge variant="secondary">SEO Tools</Badge>
-                    <Badge variant="secondary">Converters</Badge>
-                    <Badge variant="secondary">Minifiers</Badge>
-                    <Badge variant="secondary">Generators</Badge>
+                    <Badge variant="default_light">SEO Tools</Badge>
+                    <Badge variant="default_light">Converters</Badge>
+                    <Badge variant="default_light">Minifiers</Badge>
+                    <Badge variant="default_light">Generators</Badge>
                   </div>
                 </CardContent>
               </Card>
@@ -163,6 +163,72 @@ export default function HomePage() {
                 </CardContent>
               </Card>
             </div>
+          </div>
+        </section>
+
+        {/* FAQ / Info Section - Accordion */}
+        <section className="py-20 bg-background">
+          <div className="container mx-auto px-4 max-w-4xl">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">Why Nexonauts?</h2>
+              <p className="text-muted-foreground text-lg">
+                Everything you need to know about our platform
+              </p>
+            </div>
+
+            <Accordion type="single" collapsible className="w-full space-y-4">
+              <AccordionItem value="item-1" className="border border-border rounded-xl px-6 bg-card">
+                <AccordionTrigger className="text-left hover:no-underline py-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                      <Sparkles className="h-5 w-5 text-indigo-500" />
+                    </div>
+                    <span className="text-lg font-semibold">Why Choose Nexonauts?</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-6">
+                  Nexonauts is designed to be the ultimate ecosystem for modern creators and developers.
+                  Unlike generic platforms, we focus on providing specialized tools that address specific pain points in your workflow.
+                  Whether you are looking to build a professional identity with our Developer Portfolio,
+                  monetize your design skills in our Marketplace, or leverage cutting-edge AI for specific tasks,
+                  Nexonauts offers a curated, high-quality environment for your growth.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-2" className="border border-border rounded-xl px-6 bg-card">
+                <AccordionTrigger className="text-left hover:no-underline py-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center flex-shrink-0">
+                      <Code2 className="h-5 w-5 text-green-500" />
+                    </div>
+                    <span className="text-lg font-semibold">Empowering the Open Source Community</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-6">
+                  We believe in the power of open source. Our Tools Directory features a wide array of open-source utilities
+                  that are free to use and modify. From essential web tools like minifiers and converters to complex
+                  SEO generators, we aim to provide resources that help you build better web experiences faster.
+                  By integrating these tools into a single platform, we reduce context switching and boost your productivity.
+                </AccordionContent>
+              </AccordionItem>
+
+              <AccordionItem value="item-3" className="border border-border rounded-xl px-6 bg-card">
+                <AccordionTrigger className="text-left hover:no-underline py-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center flex-shrink-0">
+                      <Zap className="h-5 w-5 text-purple-500" />
+                    </div>
+                    <span className="text-lg font-semibold">Future-Proof Your Workflow</span>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed pb-6">
+                  As we evolve into a specialized AI platform, Nexonauts will bring you tools that are not just wrappers around
+                  generic models, but fine-tuned applications designed for specific industries. Our upcoming Fashion Assistant
+                  and Automation tools are just the beginning. We are committed to staying at the forefront of technology
+                  to ensure you always have the best tools at your disposal.
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
           </div>
         </section>
 
@@ -233,48 +299,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Content / SEO Section */}
-        <section className="py-20 bg-background">
-          <div className="container mx-auto px-4 max-w-4xl">
-            <div className="space-y-12">
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Why Choose Nexonauts?</h2>
-                <p className="text-muted-foreground leading-relaxed">
-                  Nexonauts is designed to be the ultimate ecosystem for modern creators and developers.
-                  Unlike generic platforms, we focus on providing specialized tools that address specific pain points in your workflow.
-                  Whether you are looking to build a professional identity with our Developer Portfolio,
-                  monetize your design skills in our Marketplace, or leverage cutting-edge AI for specific tasks,
-                  Nexonauts offers a curated, high-quality environment for your growth.
-                </p>
-              </div>
-
-              <Separator />
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Empowering the Open Source Community</h2>
-                <p className="text-muted-foreground leading-relaxed">
-                  We believe in the power of open source. Our Tools Directory features a wide array of open-source utilities
-                  that are free to use and modify. From essential web tools like minifiers and converters to complex
-                  SEO generators, we aim to provide resources that help you build better web experiences faster.
-                  By integrating these tools into a single platform, we reduce context switching and boost your productivity.
-                </p>
-              </div>
-
-              <Separator />
-
-              <div>
-                <h2 className="text-2xl font-bold mb-4">Future-Proof Your Workflow</h2>
-                <p className="text-muted-foreground leading-relaxed">
-                  As we evolve into a specialized AI platform, Nexonauts will bring you tools that are not just wrappers around
-                  generic models, but fine-tuned applications designed for specific industries. Our upcoming Fashion Assistant
-                  and Automation tools are just the beginning. We are committed to staying at the forefront of technology
-                  to ensure you always have the best tools at your disposal.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* CTA Section */}
         <section className="py-24">
           <div className="container mx-auto px-4">
@@ -303,7 +327,7 @@ export default function HomePage() {
                   <ButtonLink
                     href="/contact"
                     size="lg"
-                    variant="outline"
+                    variant="ghost"
                     className="border-zinc-800 text-white hover:bg-zinc-900 hover:text-white font-medium px-8 h-12 rounded-full text-base transition-all"
                   >
                     Contact Sales

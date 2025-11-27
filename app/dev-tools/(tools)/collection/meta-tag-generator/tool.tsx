@@ -1,495 +1,448 @@
 "use client";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
+import {
+  Check,
+  Copy,
+  Globe,
+  ImageIcon,
+  LayoutTemplate,
+  RefreshCcw,
+  Search,
+  Share2,
+  Twitter
+} from "lucide-react";
+import { useCallback, useState } from "react";
+import ShikiBlock from "src/components/shiki-block/shiki-block"; // Ensure path is correct
 
-import CodeBlock from "src/components/CodeBlock";
-
-import { useCallback, useEffect, useState } from "react";
-
+// --- Types & Defaults ---
 const defaultData = {
   google: {
-    pageTitle: "Meta Tag Generator Tool",
-    pageDescription:
-      "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide",
-    siteImage:
-      "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
+    title: "Meta Tag Generator Tool",
+    description: "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide",
+    image: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
   },
-  OG: {
-    pageTitle: "Meta Tag Generator Tool",
-    pageDescription:
-      "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide.",
-    previewImage:
-      "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
-    URL: "https://kkupgrader.eu.org/",
+  og: {
+    title: "Meta Tag Generator Tool",
+    description: "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide.",
+    image: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
+    url: "https://kkupgrader.eu.org/",
     siteName: "K K UPGRADER",
     locale: "en_US",
   },
   twitter: {
-    pageTitle: "Meta Tag Generator Tool",
-    pageDescription:
-      "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide.",
-    previewImage:
-      "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
+    title: "Meta Tag Generator Tool",
+    description: "Meta tags are used by search engines to help index and to provide relevant content in their Google search results worldwide.",
+    image: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
   },
 };
 
 export default function MetaTagGenerator() {
-  // Google Meta Tags
-  const [Google_Title, SetGoogle_Title] = useState(
-    defaultData.google.pageTitle
-  );
-  const [Google_Description, SetGoogle_Description] = useState(
-    defaultData.google.pageDescription
-  );
-  const [Google_siteImage, SetGoogle_siteImage] = useState(
-    defaultData.google.siteImage
-  );
-  // OG Meta Tags
-  const [OG_Title, SetOG_Title] = useState(defaultData.OG.pageTitle);
-  const [OG_Description, SetOG_Description] = useState(
-    defaultData.OG.pageDescription
-  );
-  const [OG_URL, SetOG_URL] = useState(defaultData.OG.URL);
-  const [OG_siteName, SetOG_siteName] = useState(defaultData.OG.siteName);
-  const [OG_previewImage, SetOG_previewImage] = useState(
-    defaultData.OG.previewImage
-  );
-  const [OG_locale, SetOG_locale] = useState(defaultData.OG.locale);
-  // Twitter Meta Tags
-  const [Twitter_Title, SetTwitter_Title] = useState(
-    defaultData.twitter.pageTitle
-  );
-  const [Twitter_Description, SetTwitter_Description] = useState(
-    defaultData.twitter.pageDescription
-  );
-  const [Twitter_previewImage, SetTwitter_previewImage] = useState(
-    defaultData.twitter.previewImage
-  );
+  const [activeTab, setActiveTab] = useState("google");
+  const [copied, setCopied] = useState(false);
 
-  // Display Code
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const getString = useCallback(() => {
-    const RawHTML = `<!-- COMMON TAGS -->\n<meta charset="utf-8"/>\n<title>${Google_Title}</title>\n<!-- Search Engine -->\n<meta name="description" content="${Google_Description}"/>\n<meta name="image" content="${Google_siteImage}"/>\n<!-- Schema.org for Google -->\n<meta itemprop="name" content="${Google_Title}"/>\n<meta itemprop="description" content="${Google_Description}"/>\n<meta itemprop="image" content="${Google_siteImage}"/>\n<!-- Open Graph general (Facebook, Pinterest & LinkedIn) -->\n<meta property="og:title" content="${OG_Title}"/>\n<meta property="og:description" content="${OG_Description}"/>\n<meta property="og:image" content="${OG_previewImage}"/>\n<meta property="og:url" content="${OG_URL}"/>\n<meta property="og:site_name" content="${OG_siteName}"/>\n<meta property="og:locale" content="${OG_locale}"/>\n<meta property="og:type" content="website"/>\n<!-- Twitter -->\n<meta property="twitter:card" content="summary"/>\n<meta property="twitter:title" content="${Twitter_Title}"/>\n<meta property="twitter:description" content="${Twitter_Description}"/>\n<meta property="twitter:image:src" content="${Twitter_previewImage}"/>`;
+  // State
+  const [google, setGoogle] = useState(defaultData.google);
+  const [og, setOg] = useState(defaultData.og);
+  const [twitter, setTwitter] = useState(defaultData.twitter);
 
-    // return ParseString(RawHTML);
-    return RawHTML;
-  }, []);
-  const [codeString, SetCodeString] = useState(getString());
+  // Helper to update state
+  const updateGoogle = (field: string, value: string) => setGoogle(p => ({ ...p, [field]: value }));
+  const updateOg = (field: string, value: string) => setOg(p => ({ ...p, [field]: value }));
+  const updateTwitter = (field: string, value: string) => setTwitter(p => ({ ...p, [field]: value }));
 
-  useEffect(() => {
-    SetCodeString(getString());
-  }, [
-    getString,
-    Google_Description,
-    Google_Title,
-    Google_siteImage,
-    OG_Description,
-    OG_Title,
-    OG_URL,
-    OG_locale,
-    OG_previewImage,
-    OG_siteName,
-    Twitter_Description,
-    Twitter_Title,
-    Twitter_previewImage,
-  ]);
+  // Generate Code
+  const getCode = useCallback(() => {
+    return `<meta charset="utf-8" />
+<title>${google.title}</title>
+<meta name="description" content="${google.description}" />
+<meta name="image" content="${google.image}" />
 
-  const ResetData = () => {
-    SetGoogle_Title("");
-    SetGoogle_Description("");
-    SetGoogle_siteImage("");
-    SetOG_Title("");
-    SetOG_Description("");
-    SetOG_URL("");
-    SetOG_siteName("");
-    SetOG_previewImage("");
-    SetOG_locale("");
-    SetTwitter_Title("");
-    SetTwitter_Description("");
-    SetTwitter_previewImage("");
+<meta itemprop="name" content="${google.title}" />
+<meta itemprop="description" content="${google.description}" />
+<meta itemprop="image" content="${google.image}" />
+
+<meta property="og:title" content="${og.title}" />
+<meta property="og:description" content="${og.description}" />
+<meta property="og:image" content="${og.image}" />
+<meta property="og:url" content="${og.url}" />
+<meta property="og:site_name" content="${og.siteName}" />
+<meta property="og:locale" content="${og.locale}" />
+<meta property="og:type" content="website" />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:title" content="${twitter.title}" />
+<meta property="twitter:description" content="${twitter.description}" />
+<meta property="twitter:image:src" content="${twitter.image}" />`;
+  }, [google, og, twitter]);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(getCode());
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const resetAll = () => {
+    setGoogle(defaultData.google);
+    setOg(defaultData.og);
+    setTwitter(defaultData.twitter);
   };
 
   return (
-    <div className="grid gap-3">
-      {/* Section: Google */}
-      <section id="section-google">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-3 ">
-          <div className="w-full">
-            <p className="mb-3 ml-3">
-              <strong>Google search results:</strong>
+    <div className="min-h-screen w-full relative pb-20">
+      {/* Ambient Background */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-5%] w-[500px] h-[500px] bg-blue-500/5 blur-[120px] rounded-full mix-blend-screen" />
+        <div className="absolute bottom-[10%] right-[-10%] w-[500px] h-[500px] bg-purple-500/5 blur-[120px] rounded-full mix-blend-screen" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 pt-8">
+
+        {/* Header */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+          <div className="space-y-2">
+            <h1 className="text-3xl font-bold tracking-tight">Meta Tag Generator</h1>
+            <p className="text-muted-foreground">
+              Create SEO-friendly meta tags for Google, Facebook, and Twitter.
             </p>
-            {/* Section: Preview */}
-            <section
-              className={
-                "rounded border border-solid border-slate-200 bg-white p-4 mb-4 max-w-[600px]"
-              }
-            >
-              <p className="text-slate-500 text-xs">
-                kkupgrader.eu.org &gt; tools &gt; Advance Meta Tag
-              </p>
-              <a target="_blank" href="#!" rel="noreferrer">
-                <h5 className={"text-xl text-primary font-semibold"}>
-                  {" "}
-                  {Google_Title}
-                </h5>
-              </a>
-              <p className={"text-muted-foreground text-sm mb-0"}>
-                {" "}
-                {Google_Description}{" "}
-              </p>
-            </section>
-            {/* Section: Preview */}
           </div>
-          {/* Section: Controls */}
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Google search results</CardTitle>
-              <CardDescription>(Google, Yahoo, Bing, etc.)</CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-4">
-              {/* Page title */}
-              <div className="grid gap-1.5 items-center">
-                <Label htmlFor="Fui_FormPageTitleGoogle">Page title</Label>
-                <Input
-                  type="text"
-                  id="Fui_FormPageTitleGoogle"
-                  variant="ghost"
-                  maxLength={60}
-                  value={Google_Title}
-                  onChange={(e) => SetGoogle_Title(e.target.value)}
-                />
-                <p className="text-muted-foreground text-xs">
-                  60 characters maximum ({60 - Google_Title.length} are
-                  remaining)
-                </p>
-              </div>
-              {/* Page description */}
-              <div className="grid gap-1.5 items-center">
-                <Label htmlFor="DescriptionGoogle">Page description</Label>
-                <Textarea
-                  variant="ghost"
-                  id="DescriptionGoogle"
-                  rows={4}
-                  maxLength={160}
-                  value={Google_Description}
-                  onChange={(e) => SetGoogle_Description(e.target.value)}
-                />
-                <p className="text-muted-foreground text-xs">
-                  160 characters maximum ({160 - Google_Description.length} are
-                  remaining)
-                </p>
-              </div>
-              {/* Site image */}
-              <div className="grid gap-1.5 items-center">
-                <Label htmlFor="Fui_FormSiteImageGoogle">Site image</Label>
-                <Input
-                  type="text"
-                  id="Fui_FormSiteImageGoogle"
-                  variant="ghost"
-                  value={Google_siteImage}
-                  onChange={(e) => SetGoogle_siteImage(e.target.value)}
-                />
-                <p className="text-muted-foreground text-xs">
-                  {" "}
-                  Valid URL address of the .jpg or .png image
-                </p>
-              </div>
-            </CardContent>
-            <CardFooter className="justify-end">
-              <Button
-                type="button"
-                variant="secondary"
-                size="sm"
-                onClick={() => {
-                  SetGoogle_Title(defaultData.google.pageTitle);
-                  SetGoogle_Description(defaultData.google.pageDescription);
-                  SetGoogle_siteImage(defaultData.google.siteImage);
-                }}
-              >
-                Reset
-              </Button>
-            </CardFooter>
-          </Card>
-          {/* Section: Controls */}
+          <Button variant="outline" onClick={resetAll} size="sm" className="gap-2">
+            <RefreshCcw className="w-4 h-4" /> Reset to Defaults
+          </Button>
         </div>
-      </section>
 
-      {/* Section: Open Graph */}
-      <section id="section-open-graph" className="w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-3 ">
-          <div className="w-full">
-            <p className="mb-3 ml-3">
-              <strong>
-                Open graph
-                <small className="text-muted">
-                  (Facebook, Pinterest, LinkedIn)
-                </small>
-                :
-              </strong>
-            </p>
-            {/* Section: Preview */}
-            <section className="mb-4">
-              <div
-                className={
-                  "rounded-lg overflow-hidden border border-solid border-slate-200  max-w-[480px]"
-                }
-              >
-                <div
-                  className={
-                    "relative overflow-hidden bg-no-repeat bg-center bg-cover aspect-auto w-full h-[261px]  max-w-[480px] rounded-top"
-                  }
-                  style={{ backgroundImage: "url(" + OG_previewImage + ")" }}
-                />
-                <div className={"bg-slate-100 py-2 px-4"}>
-                  <p
-                    className={
-                      "uppercase text-slate-600 mb-2 text-sm  truncate"
-                    }
-                  >
-                    {OG_URL}
-                  </p>
-                  <p className={"font-semibold text-lg mb-1 truncate"}>
-                    {OG_Title}
-                  </p>
-                  <p className={" text-slate-500 text-sm  truncate"}>
-                    {OG_Description}
-                  </p>
-                </div>
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+
+          {/* --- LEFT COLUMN: Inputs --- */}
+          <div className="lg:col-span-7 space-y-6">
+            <Tabs defaultValue="google" value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <div className="mb-6 overflow-x-auto pb-2 scrollbar-hide">
+                <TabsList className="w-full justify-start h-auto bg-transparent p-0 gap-2">
+                  <TabButton value="google" icon={Search} label="Google / SEO" active={activeTab} />
+                  <TabButton value="og" icon={Share2} label="Social (OG)" active={activeTab} />
+                  <TabButton value="twitter" icon={Twitter} label="Twitter" active={activeTab} />
+                </TabsList>
               </div>
-            </section>
-            {/* Section: Preview */}
+
+              <Card className="border-border/50 bg-card/50 backdrop-blur-sm shadow-xl">
+                <CardContent className="p-6">
+
+                  {/* GOOGLE FORM */}
+                  <TabsContent value="google" className="mt-0 space-y-6">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2 border-b border-border/40 pb-2 mb-4">
+                        <Globe className="w-4 h-4 text-primary" />
+                        <h3 className="font-semibold text-lg">Search Engine Optimization</h3>
+                      </div>
+
+                      <SeoInput
+                        label="Page Title"
+                        value={google.title}
+                        onChange={(v) => updateGoogle('title', v)}
+                        limit={60}
+                        tip="Displays in browser tabs and search results."
+                      />
+
+                      <SeoTextarea
+                        label="Meta Description"
+                        value={google.description}
+                        onChange={(v) => updateGoogle('description', v)}
+                        limit={160}
+                        tip="A brief summary of the page content."
+                      />
+
+                      <div className="space-y-2">
+                        <Label>Site Image URL</Label>
+                        <div className="relative">
+                          <ImageIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                          <Input
+                            className="pl-9"
+                            value={google.image}
+                            onChange={(e) => updateGoogle('image', e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </TabsContent>
+
+                  {/* OG FORM */}
+                  <TabsContent value="og" className="mt-0 space-y-6">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2 border-b border-border/40 pb-2 mb-4">
+                        <LayoutTemplate className="w-4 h-4 text-primary" />
+                        <h3 className="font-semibold text-lg">Open Graph (Facebook / LinkedIn)</h3>
+                      </div>
+
+                      <SeoInput
+                        label="OG Title"
+                        value={og.title}
+                        onChange={(v) => updateOg('title', v)}
+                        limit={60}
+                      />
+
+                      <SeoTextarea
+                        label="OG Description"
+                        value={og.description}
+                        onChange={(v) => updateOg('description', v)}
+                        limit={68}
+                        tip="Facebook recommends shorter descriptions."
+                      />
+
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label>Site Name</Label>
+                          <Input value={og.siteName} onChange={(e) => updateOg('siteName', e.target.value)} />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Locale</Label>
+                          <Input value={og.locale} onChange={(e) => updateOg('locale', e.target.value)} />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>Canonical URL</Label>
+                        <Input value={og.url} onChange={(e) => updateOg('url', e.target.value)} />
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>OG Image URL</Label>
+                        <div className="relative">
+                          <ImageIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                          <Input
+                            className="pl-9"
+                            value={og.image}
+                            onChange={(e) => updateOg('image', e.target.value)}
+                          />
+                        </div>
+                        <p className="text-xs text-muted-foreground">Recommended: 1200x630px</p>
+                      </div>
+                    </div>
+                  </TabsContent>
+
+                  {/* TWITTER FORM */}
+                  <TabsContent value="twitter" className="mt-0 space-y-6">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-2 border-b border-border/40 pb-2 mb-4">
+                        <Twitter className="w-4 h-4 text-primary" />
+                        <h3 className="font-semibold text-lg">Twitter Card</h3>
+                      </div>
+
+                      <SeoInput
+                        label="Twitter Title"
+                        value={twitter.title}
+                        onChange={(v) => updateTwitter('title', v)}
+                        limit={60}
+                      />
+
+                      <SeoTextarea
+                        label="Twitter Description"
+                        value={twitter.description}
+                        onChange={(v) => updateTwitter('description', v)}
+                        limit={120}
+                      />
+
+                      <div className="space-y-2">
+                        <Label>Twitter Image URL</Label>
+                        <div className="relative">
+                          <ImageIcon className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                          <Input
+                            className="pl-9"
+                            value={twitter.image}
+                            onChange={(e) => updateTwitter('image', e.target.value)}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </TabsContent>
+
+                </CardContent>
+              </Card>
+            </Tabs>
           </div>
-          {/* Section: Controls */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Open graph</CardTitle>
-              <CardDescription>(Facebook, Pinterest, LinkedIn)</CardDescription>
-            </CardHeader>
 
-            <CardContent className="grid gap-4">
-              {/* Page title */}
-              <div className="grid gap-1.5 items-center">
-                <Label htmlFor="formPageTitleOG">Page title</Label>
-                <Input
-                  type="text"
-                  id="formPageTitleOG"
-                  variant="ghost"
-                  maxLength={60}
-                  value={OG_Title}
-                  onChange={(e) => SetOG_Title(e.target.value)}
-                />
-                <p className="text-muted-foreground text-xs">
-                  60 characters maximum ({60 - OG_Title.length} are remaining)
-                </p>
+          {/* --- RIGHT COLUMN: Live Preview & Code --- */}
+          <div className="lg:col-span-5 space-y-6 lg:sticky lg:top-8">
+
+            {/* Live Visual Preview */}
+            <div className="space-y-2">
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                Live Preview
+              </h3>
+
+              <div className="p-1 rounded-xl bg-muted/20 border border-border/50">
+                {activeTab === 'google' && (
+                  <GooglePreview title={google.title} desc={google.description} url={og.url} />
+                )}
+                {activeTab === 'og' && (
+                  <SocialPreview title={og.title} desc={og.description} image={og.image} site={og.siteName.toUpperCase()} />
+                )}
+                {activeTab === 'twitter' && (
+                  <TwitterPreview title={twitter.title} desc={twitter.description} image={twitter.image} url={og.url} />
+                )}
               </div>
-              {/* Page description */}
-              <div className="grid gap-1.5 items-center">
-                <Label htmlFor="pageDescriptionOG">Page description</Label>
-                <Textarea
-                  variant="ghost"
-                  id="pageDescriptionOG"
-                  rows={5}
-                  cols={32}
-                  maxLength={68}
-                  value={OG_Description}
-                  onChange={(e) => SetOG_Description(e.target.value)}
-                />
-                <p className="text-muted-foreground text-xs">
-                  68 characters maximum ({68 - OG_Description.length} are
-                  remaining)
-                </p>
-              </div>
-              {/* Preview image */}
-              <div className="grid gap-1.5 items-center">
-                <Label htmlFor="formPreviewImageOG">Preview image</Label>
-                <Input
-                  type="text"
-                  id="formPreviewImageOG"
-                  variant="ghost"
-                  value={OG_previewImage}
-                  onChange={(e) => SetOG_previewImage(e.target.value)}
-                />
-                <p className="text-muted-foreground text-xs">
-                  1200x628 px recommended
-                </p>
-              </div>
-              {/* URL */}
-              <div className="grid gap-1.5 items-center">
-                <Label htmlFor="URL_OG">URL</Label>
-                <Input
-                  type="text"
-                  id="URL_OG"
-                  variant="ghost"
-                  value={OG_URL}
-                  onChange={(e) => SetOG_URL(e.target.value)}
-                />
-              </div>
-              {/* Site name */}
-              <div className="grid gap-1.5 items-center">
-                <Label htmlFor="formSiteNameOG">Site name</Label>
-                <Input
-                  type="text"
-                  id="formSiteNameOG"
-                  variant="ghost"
-                  value={OG_siteName}
-                  onChange={(e) => SetOG_siteName(e.target.value)}
-                />
-              </div>
-              {/* Locale */}
-              <div className="grid gap-1.5 items-center">
-                <Label htmlFor="formLocaleOG">Locale</Label>
-                <Input
-                  type="text"
-                  id="formLocaleOG"
-                  variant="ghost"
-                  value={OG_locale}
-                  onChange={(e) => SetOG_locale(e.target.value)}
-                />
-              </div>
-            </CardContent>
-            <CardFooter className="justify-end">
-              <Button
-                type="button"
-                variant="secondary"
-                size="sm"
-                onClick={() => {
-                  SetOG_Title(defaultData.OG.pageTitle);
-                  SetOG_Description(defaultData.OG.pageDescription);
-                  SetOG_URL(defaultData.OG.URL);
-                  SetOG_siteName(defaultData.OG.siteName);
-                  SetOG_previewImage(defaultData.OG.previewImage);
-                  SetOG_locale(defaultData.OG.locale);
-                }}
-              >
-                Reset
-              </Button>
-            </CardFooter>
-          </Card>
-          {/* Section: Controls */}
-        </div>
-      </section>
-      {/* Section: Twitter */}
-      <section id="section-twitter" className="mb-5">
-        <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-3 ">
-          <div className="w-full">
-            <p className="mb-3 ml-3">
-              <strong>Twitter:</strong>
-            </p>
-            {/* Section: Preview */}
-            <section>
-              <div
-                className={
-                  "rounded-lg overflow-hidden border border-solid border-slate-200  max-w-[480px]"
-                }
-              >
-                <div
-                  className={
-                    "relative overflow-hidden bg-no-repeat bg-center bg-cover aspect-auto w-full h-[261px]  max-w-[480px] rounded-top"
-                  }
-                  style={{
-                    backgroundImage: "url(" + Twitter_previewImage + ")",
-                  }}
-                />
-                <div className={"bg-slate-100 py-2 px-4"}>
-                  <p className={"font-semibold text-lg mb-1 truncate"}>
-                    {Twitter_Title}
-                  </p>
-                  <p className={" text-slate-500 text-sm  truncate"}>
-                    {Twitter_Description}
-                  </p>
-                </div>
-              </div>
-            </section>
-            {/* Section: Preview */}
+
+            </div>
+
+
+
           </div>
-          {/* Section: Controls */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Twitter</CardTitle>
-              <CardDescription>(Twitter)</CardDescription>
-            </CardHeader>
-            <CardContent className="grid gap-4">
-              {/* Page title */}
-              <div className="grid gap-1.5 items-center">
-                <Label htmlFor="formPageTitleTwitter">Page title</Label>
-                <Input
-                  type="text"
-                  id="formPageTitleTwitter"
-                  variant="ghost"
-                  maxLength={60}
-                  value={Twitter_Title}
-                  onChange={(e) => SetTwitter_Title(e.target.value)}
-                />
-                <p className="text-muted-foreground text-xs">
-                  60 characters maximum ({60 - Twitter_Title.length} are
-                  remaining)
-                </p>
-              </div>
-              {/* Page description */}
-              <div className="grid gap-1.5 items-center">
-                <Label htmlFor="pageDescriptionTwitter">Page description</Label>
-                <Textarea
-                  variant="ghost"
-                  id="pageDescriptionTwitter"
-                  rows={8}
-                  value={Twitter_Description}
-                  onChange={(e) => SetTwitter_Description(e.target.value)}
-                  maxLength={120}
-                />
-                <p className="text-muted-foreground text-xs">
-                  120 characters maximum ({120 - Twitter_Description.length} are
-                  remaining)
-                </p>
-              </div>
-              {/* Site image */}
-              <div className="grid gap-1.5 items-center">
-                <Label htmlFor="formSiteImageTwitter">Site image</Label>
-                <Input
-                  type="text"
-                  id="formSiteImageTwitter"
-                  variant="ghost"
-                  value={Twitter_previewImage}
-                  onChange={(e) => SetTwitter_previewImage(e.target.value)}
-                />
-                <p className="text-muted-foreground text-xs">
-                  Valid URL address of the image
-                </p>
-              </div>
-            </CardContent>
-            <CardFooter className="justify-end">
+          {/* Code Output */}
+          <div className="space-y-2 lg:col-span-12">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                Generated HTML
+              </h3>
               <Button
-                type="button"
-                variant="secondary"
                 size="sm"
-                onClick={() => {
-                  SetTwitter_Title(defaultData.twitter.pageTitle);
-                  SetTwitter_Description(defaultData.twitter.pageDescription);
-                  SetTwitter_previewImage(defaultData.twitter.previewImage);
-                }}
+                variant="outline"
+                onClick={handleCopy}
+                className="gap-2 h-8 text-xs bg-background/50 hover:bg-background"
               >
-                Reset
+                {copied ? <Check className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3" />}
+                {copied ? "Copied" : "Copy Code"}
               </Button>
-            </CardFooter>
-          </Card>
-          {/* Section: Controls */}
-        </div>
-      </section>
+            </div>
 
-      <section className={"w-full m-auto max-w-[720px]"}>
-        <CodeBlock language="html" content={codeString} title="CodeBlock" />
-      </section>
+            <div className="relative rounded-xl border border-border/50 overflow-hidden shadow-2xl bg-[#1e1e1e]">
+              <div className="pt-4 overflow-x-auto max-h-[400px] overflow-y-auto custom-scrollbar">
+                <ShikiBlock lang="html" code={getCode()} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
+
+// --- SUB COMPONENTS ---
+
+// 1. Inputs with visual character counters
+const SeoInput = ({ label, value, onChange, limit, tip }: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  limit: number;
+  tip?: string;
+}) => {
+  const remaining = limit - value.length;
+  const percentage = (value.length / limit) * 100;
+  const color = percentage > 100 ? "bg-red-500" : percentage > 80 ? "bg-yellow-500" : "bg-green-500";
+
+  return (
+    <div className="space-y-2">
+      <div className="flex justify-between items-center">
+        <Label>{label}</Label>
+        <span className={`text-xs ${remaining < 0 ? 'text-red-500 font-bold' : 'text-muted-foreground'}`}>
+          {value.length} / {limit}
+        </span>
+      </div>
+      <Input value={value} onChange={(e) => onChange(e.target.value)} />
+      <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
+        <div className={`h-full transition-all duration-300 ${color}`} style={{ width: `${Math.min(percentage, 100)}%` }} />
+      </div>
+      {tip && <p className="text-[10px] text-muted-foreground">{tip}</p>}
+    </div>
+  );
+}
+
+const SeoTextarea = ({ label, value, onChange, limit, tip }: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  limit: number;
+  tip?: string;
+}) => {
+  const remaining = limit - value.length;
+  const percentage = (value.length / limit) * 100;
+  const color = percentage > 100 ? "bg-red-500" : percentage > 80 ? "bg-yellow-500" : "bg-green-500";
+
+  return (
+    <div className="space-y-2">
+      <div className="flex justify-between items-center">
+        <Label>{label}</Label>
+        <span className={`text-xs ${remaining < 0 ? 'text-red-500 font-bold' : 'text-muted-foreground'}`}>
+          {value.length} / {limit}
+        </span>
+      </div>
+      <Textarea rows={3} value={value} onChange={(e) => onChange(e.target.value)} />
+      <div className="h-1 w-full bg-muted rounded-full overflow-hidden">
+        <div className={`h-full transition-all duration-300 ${color}`} style={{ width: `${Math.min(percentage, 100)}%` }} />
+      </div>
+      {tip && <p className="text-[10px] text-muted-foreground">{tip}</p>}
+    </div>
+  );
+}
+
+// 2. Tab Button
+const TabButton = ({ value, icon: Icon, label, active }: any) => (
+  <TabsTrigger
+    value={value}
+    className={`
+      flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all duration-200
+      data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md
+      data-[state=inactive]:bg-background data-[state=inactive]:hover:bg-muted data-[state=inactive]:border-border
+    `}
+  >
+    <Icon className="w-4 h-4" />
+    {label}
+  </TabsTrigger>
+);
+
+// 3. Previews
+const GooglePreview = ({ title, desc, url }: any) => (
+  <div className="bg-white dark:bg-black p-4 rounded-lg shadow-sm border border-border/20 font-sans">
+    <div className="flex items-center gap-2 mb-1">
+      <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center text-[10px]">G</div>
+      <div className="flex flex-col">
+        <span className="text-xs text-foreground font-medium">Domain Name</span>
+        <span className="text-[10px] text-muted-foreground">{url || "https://example.com"}</span>
+      </div>
+    </div>
+    <div className="text-[#1a0dab] dark:text-[#8ab4f8] text-xl font-medium cursor-pointer hover:underline truncate">
+      {title || "Page Title"}
+    </div>
+    <div className="text-sm text-[#4d5156] dark:text-[#bdc1c6] mt-1 line-clamp-2">
+      {desc || "Meta description will appear here..."}
+    </div>
+  </div>
+);
+
+const SocialPreview = ({ title, desc, image, site }: any) => (
+  <div className="bg-muted/10 rounded-lg overflow-hidden border border-border/50">
+    <div
+      className="w-full aspect-[1.91/1] bg-gray-200 bg-cover bg-center relative"
+      style={{ backgroundImage: `url(${image})` }}
+    >
+      {!image && <div className="absolute inset-0 flex items-center justify-center text-muted-foreground text-xs">No Image</div>}
+    </div>
+    <div className="p-3 bg-card border-t border-border/10">
+      <div className="text-xs text-muted-foreground uppercase mb-1">{site || "SITE.COM"}</div>
+      <div className="font-bold text-foreground leading-tight mb-1 line-clamp-1">{title}</div>
+      <div className="text-xs text-muted-foreground line-clamp-1">{desc}</div>
+    </div>
+  </div>
+);
+
+const TwitterPreview = ({ title, desc, image, url }: any) => (
+  <div className="bg-card rounded-xl overflow-hidden border border-border/50 max-w-[400px] mx-auto">
+    <div
+      className="w-full aspect-[1.91/1] bg-gray-200 bg-cover bg-center relative"
+      style={{ backgroundImage: `url(${image})` }}
+    >
+      {!image && <div className="absolute inset-0 flex items-center justify-center text-muted-foreground text-xs">No Image</div>}
+    </div>
+    <div className="p-3">
+      <div className="text-sm font-bold text-foreground mb-1">{title}</div>
+      <div className="text-xs text-muted-foreground mb-2 line-clamp-2">{desc}</div>
+      <div className="text-xs text-muted-foreground flex items-center gap-1">
+        <span className="opacity-70">🔗</span> {url || "example.com"}
+      </div>
+    </div>
+  </div>
+);

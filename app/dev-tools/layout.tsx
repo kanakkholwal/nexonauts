@@ -1,6 +1,7 @@
 import Footer from "app/layouts/footer";
 import type { Metadata } from "next";
 
+import { FlickeringGrid } from "@/components/animation/flikering-grid";
 import NavbarGlobal from "@/components/common/navbar";
 import MoreFromUs from "app/layouts/more-from-us";
 export const dynamic = "force-dynamic";
@@ -20,7 +21,17 @@ export default async function Layout({
   return (
     <>
       <NavbarGlobal />
-      <main className="w-full grow mx-auto px-4 sm:px-12 xl:max-w-7xl xl:px-0 pt-[70px] relative @container">
+      <div className="absolute top-0 left-0 z-0 w-full min-h-80 mask-[linear-gradient(to_top,transparent_25%,black_95%)]">
+        <FlickeringGrid
+          className="absolute top-0 left-0 size-full"
+          squareSize={4}
+          gridGap={6}
+          color="#6B7280"
+          maxOpacity={0.2}
+          flickerChance={0.05}
+        />
+      </div>
+      <main className="w-full grow mx-auto px-4 sm:px-12 xl:px-0 pt-[70px] relative @container max-w-(--max-app-width)">
         {children}
       </main>
       <MoreFromUs />

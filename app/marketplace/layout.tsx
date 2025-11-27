@@ -1,3 +1,4 @@
+import { FlickeringGrid } from "@/components/animation/flikering-grid";
 import Footer from "app/layouts/footer";
 import Navbar from "app/layouts/navbar-dynamic";
 import localFont from "next/font/local";
@@ -14,20 +15,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className={satoshi.className}>
       <Navbar />
 
-      <div
-        className={
-          "w-full max-w-576 py-8 pt-24 mx-auto relative z-0 @container"
-        }
-      >
-        <div
-          aria-hidden="true"
-          className="fixed inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20 -z-1"
-        >
-          <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-purple-400 dark:from-blue-700" />
-          <div className="blur-[106px] h-32 bg-linear-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
-        </div>
-        {children}
+      <div className="absolute top-0 left-0 z-0 w-full min-h-80 mask-[linear-gradient(to_top,transparent_25%,black_95%)]">
+        <FlickeringGrid
+          className="absolute top-0 left-0 size-full"
+          squareSize={4}
+          gridGap={6}
+          color="#6B7280"
+          maxOpacity={0.2}
+          flickerChance={0.05}
+        />
       </div>
+      {children}
       <Footer />
     </div>
   );

@@ -1,153 +1,181 @@
+"use client";
 
-import { BsStars } from "react-icons/bs";
-
-import { AnimatedShinyText } from "@/components/animation/animated-shiny-text";
 import { Badge } from "@/components/ui/badge";
 import { ButtonLink } from "@/components/utils/link";
 import { cn } from "@/lib/utils";
-
-export function Pricing() {
-  return (
-    <>
-      <div className="max-w-[1170px] mx-auto px-4 sm:px-8 xl:px-0">
-        <div className="text-center space-y-3">
-          <div className="group rounded-full border bg-card max-w-fit mx-auto">
-            <AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
-              <BsStars className="inline-block size-4 mr-2 text-yellow-300 transition-transform duration-600 ease-in-out group-hover:rotate-180" />
-              <span>
-                Get started Now
-              </span>
-            </AnimatedShinyText>
-          </div>
-          <p
-            className="mx-auto font-medium text-base max-w-152 text-muted-foreground"
-            data-aos="zoom-in-up"
-            data-aos-delay={100}
-          >
-            At Nexonauts, we offer flexible plans tailored to suit every
-            developer, whether you{`'`}re an individual creator, a growing team, or
-            an enterprise seeking comprehensive solutions.
-          </p>
-        </div>
-        <PricingTable />
-      </div>
-    </>
-  );
-}
+import { Check, Shield, Sparkles, Zap } from "lucide-react";
+import { useState } from "react";
 
 const pricing_plans = [
   {
-    title: "Free",
-    price: "$0",
+    title: "Hobby",
+    price: "0",
+    description: "For individuals just getting started.",
     is_popular: false,
+    icon: Sparkles,
     features: [
-      "Basic access to search engine for tool discovery",
-      "Limited marketplace browsing",
-      "Submission of one tool to our platform",
-      "Essential resource directory access",
+      "Basic search engine access",
+      "Browse marketplace",
+      "Submit 1 tool to platform",
+      "Community support",
     ],
   },
   {
     title: "Pro",
-    price: "$4.99",
+    price: "4.99",
+    description: "For creators shipping daily.",
     is_popular: true,
+    icon: Zap,
     features: [
-      "Full access to advanced search engine for comprehensive tool discovery",
-      "Expanded marketplace access with selling capabilities",
-      "Submission of up to five tools",
-      "Enhanced resource directory for learning",
+      "Advanced search filters",
+      "Sell on marketplace",
+      "Submit up to 5 tools",
+      " Analytics dashboard",
+      "Priority support",
     ],
   },
   {
     title: "Premium",
-    price: "$9.99",
+    price: "9.99",
+    description: "For power users and teams.",
     is_popular: false,
+    icon: Shield,
     features: [
-      "All features from Pro plan",
-      "Increased visibility in the marketplace.",
-      "Submission of up to fifteen tools",
-      "Priority support and exclusive resources",
+      "Everything in Pro",
+      "Featured marketplace spots",
+      "Submit up to 15 tools",
+      "API access (Beta)",
+      "Dedicated account manager",
     ],
   },
-]
+];
 
-function PricingTable() {
+export function Pricing() {
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
+
   return (
-    <section className=" w-full py-12  flex items-center justify-center">
-      <div className="container px-4 md:px-6">
-        <div className="grid grid-cols-1 gap-6 mt-8 md:grid-cols-3 md:gap-8">
-          {pricing_plans.map((plan, index) => {
-            return (
-              <div
-                key={index}
-                className={cn(
-                  'relative flex flex-col p-6 bg-card shadow-lg rounded-2xl justify-between border',
-                  plan.is_popular
-                    ? "border-primary hover:border-primary/80 shadow-primary/20 hover:shadow-xl"
-                    : "border-border hover:border-primary",
-                  'transition-all duration-300 hover:translate-y-[-16px]'
-                )}
-              >
-                {plan.is_popular && (
-                  <Badge variant="gradient_purple" className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    Popular
-                  </Badge>
-                )}
-                <div>
-                  <h3 className="text-2xl font-bold text-center">{plan.title}</h3>
-                  <div className="mt-4 text-center text-muted-foreground">
-                    <span className="text-4xl font-bold">{plan.price}</span>/ month
-                  </div>
-                  <ul className="my-4 space-y-2">
-                    {plan.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-center">
-                        <span className="scale-[0.8] size-6 bg-green-500 rounded-full mr-2  aspect-square inline-flex items-center justify-center">
-                          <IconCheck className="text-white size-4" />
-                        </span>
-                        <span className="text-foreground/80 text-sm">
-                          {feature}
-                        </span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="mt-6">
-                  <ButtonLink
-                    variant={plan.is_popular ? "gradient_purple" : "outline"}
-                    size="lg"
-                    rounded="full"
-                    width="full"
-                    href={`/signup?=plan${plan.title.toLowerCase()}`}
+    <section className="w-full">
 
-                  >
-                    Get Started
-                  </ButtonLink>
-                </div>
-              </div>
-            );
-          })}
-
+      {/* Optional: Billing Toggle (Visual only for now) */}
+      <div className="flex justify-center mb-12">
+        <div className="bg-muted/50 p-1 rounded-full inline-flex items-center relative">
+          <button
+            onClick={() => setBillingCycle("monthly")}
+            className={cn(
+              "px-6 py-2 rounded-full text-sm font-medium transition-all duration-300",
+              billingCycle === "monthly" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Monthly
+          </button>
+          <button
+            onClick={() => setBillingCycle("yearly")}
+            className={cn(
+              "px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2",
+              billingCycle === "yearly" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"
+            )}
+          >
+            Yearly
+            <span className="text-[10px] bg-green-500/10 text-green-600 px-2 py-0.5 rounded-full font-bold uppercase tracking-wide">
+              -20%
+            </span>
+          </button>
         </div>
       </div>
-    </section>
-  );
-}
 
-function IconCheck(props: any) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+        {pricing_plans.map((plan, index) => {
+          const Icon = plan.icon;
+
+          return (
+            <div
+              key={index}
+              className={cn(
+                "relative flex flex-col p-8 rounded-3xl transition-all duration-300",
+                plan.is_popular
+                  ? "bg-card border-2 border-primary/50 shadow-2xl shadow-primary/10 z-10 scale-105"
+                  : "bg-card/40 backdrop-blur-sm border border-border/50 hover:border-primary/30 hover:bg-card/60"
+              )}
+            >
+              {plan.is_popular && (
+                <div className="absolute -top-4 left-0 right-0 flex justify-center">
+                  <Badge variant="default" className="bg-primary hover:bg-primary text-primary-foreground px-4 py-1 rounded-full shadow-lg shadow-primary/20">
+                    Most Popular
+                  </Badge>
+                </div>
+              )}
+
+              {/* Header */}
+              <div className="mb-8">
+                <div className="flex items-center justify-between mb-4">
+                  <div className={cn(
+                    "h-10 w-10 rounded-xl flex items-center justify-center",
+                    plan.is_popular ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"
+                  )}>
+                    <Icon className="w-5 h-5" />
+                  </div>
+                </div>
+
+                <h3 className="text-xl font-bold text-foreground">{plan.title}</h3>
+                <p className="text-sm text-muted-foreground mt-2 min-h-[40px]">
+                  {plan.description}
+                </p>
+              </div>
+
+              {/* Price */}
+              <div className="mb-8 flex items-baseline gap-1">
+                <span className="text-lg text-muted-foreground font-medium">$</span>
+                <span className="text-5xl font-bold text-foreground tracking-tight">{plan.price}</span>
+                <span className="text-muted-foreground">/mo</span>
+              </div>
+
+              {/* Features */}
+              <ul className="space-y-4 mb-8 flex-1">
+                {plan.features.map((feature, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm">
+                    <div className="mt-1 shrink-0">
+                      <Check className="w-4 h-4 text-primary" />
+                    </div>
+                    <span className="text-muted-foreground">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {/* CTA */}
+              <ButtonLink
+                href={`/signup?plan=${plan.title.toLowerCase()}`}
+                variant={plan.is_popular ? "default" : "outline"}
+                className={cn(
+                  "w-full rounded-xl h-12 font-semibold",
+                  plan.is_popular
+                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25 hover:bg-primary/90"
+                    : "bg-transparent border-border hover:bg-muted"
+                )}
+              >
+                {plan.price === "0" ? "Start for free" : "Subscribe Now"}
+              </ButtonLink>
+
+              {plan.price === "0" && (
+                <p className="text-xs text-center mt-4 text-muted-foreground">
+                  No credit card required
+                </p>
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* --- Trust / Enterprise Footer --- */}
+      <div className="mt-20 border-t border-border/50 pt-10 text-center">
+        <p className="text-muted-foreground">
+          Building something bigger?{" "}
+          <a href="/contact" className="text-primary font-medium hover:underline">
+            Contact our Enterprise team
+          </a>
+          {" "}for custom limits and volume pricing.
+        </p>
+      </div>
+
+    </section>
   );
 }

@@ -1,19 +1,13 @@
 "use client";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
-import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioStyle } from "@/components/ui/radio-group";
-import { Switch } from "@/components/ui/switch";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Select,
   SelectContent,
@@ -21,1188 +15,680 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import axios from "axios";
+import {
+  Check,
+  Copy,
+  FileText,
+  Globe,
+  Plus,
+  Search,
+  Settings2,
+  ShoppingBag,
+  Trash2,
+  User
+} from "lucide-react";
+import Link from "next/link";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { MdDeleteOutline } from "react-icons/md";
-import ShikiBlock from "src/components/shiki-block/shiki-block";
+import { SiGooglemaps as MapPath } from "react-icons/si";
+import ShikiBlock from "src/components/shiki-block/shiki-block"; // Ensure this path is correct
 
+// --- Main Component ---
 export default function SchemaGenerator() {
   const [html, setHtml] = useState("");
+  const [activeTab, setActiveTab] = useState("website");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(html);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   return (
-    <>
-      <Tabs defaultValue="website">
-        <Card variant="glass">
-          <CardHeader>
-            <TabsList className="py-3 h-auto flex-wrap">
-              {options.map((option, index) => {
-                return (
-                  <TabsTrigger
-                    key={index}
-                    value={option.value}
-                    className="h-10"
-                  >
-                    {option.label}
-                  </TabsTrigger>
-                );
-              })}
-            </TabsList>
-          </CardHeader>
-          <CardContent>
-            <TabsContent value="website">
-              <Website setCode={setHtml} />
-            </TabsContent>
-            <TabsContent value="breadcrumbs">
-              <Breadcrumbs setCode={setHtml} />
-            </TabsContent>
-            <TabsContent value="person">
-              <Person setCode={setHtml} />
-            </TabsContent>
-            <TabsContent value="article">
-              <Article setCode={setHtml} />
-            </TabsContent>
-            <TabsContent value="product">
-              <Product setCode={setHtml} />
-            </TabsContent>
-          </CardContent>
-          <CardFooter>
-            <div className="w-full">
-              <ShikiBlock lang="javascript" code={html} />
-              <p className="text-sm mt-5">
-                Using{" "}
-                <span className="text-bold">React.js / Next.js App ?</span> Try{" "}
-                <Link
-                  href="/tools/html-to-jsx-convertor"
-                  className="hover:underline text-primary"
+    <div className="min-h-screen w-full relative pb-20">
+      {/* Ambient Background */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-primary/5 blur-[120px] rounded-full mix-blend-screen" />
+        <div className="absolute bottom-[10%] left-[-10%] w-[500px] h-[500px] bg-blue-500/5 blur-[120px] rounded-full mix-blend-screen" />
+      </div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 lg:px-8 pt-8">
+
+        {/* Header */}
+        <div className="mb-8 space-y-2">
+          <h1 className="text-3xl font-bold tracking-tight">Schema Markup Generator</h1>
+          <p className="text-muted-foreground">
+            Boost your SEO by generating valid JSON-LD structured data for your website.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-12 gap-8 items-start">
+
+          {/* --- Left Column: Configuration --- */}
+          <div className="lg:col-span-12 space-y-6">
+            <Tabs defaultValue="website" value={activeTab} onValueChange={setActiveTab} className="w-full">
+              <div className="mb-6 overflow-x-auto pb-2 no-scrollbar">
+                <TabsList className="w-full justify-start h-auto bg-transparent p-0 gap-2">
+                  <TabButton value="website" icon={Globe} label="Website" active={activeTab} />
+                  <TabButton value="breadcrumbs" icon={MapPath} label="Breadcrumbs" active={activeTab} />
+                  <TabButton value="person" icon={User} label="Person" active={activeTab} />
+                  <TabButton value="article" icon={FileText} label="Article" active={activeTab} />
+                  <TabButton value="product" icon={ShoppingBag} label="Product" active={activeTab} />
+                </TabsList>
+              </div>
+
+              <Card className="border-border/50 bg-card/50 backdrop-blur-sm shadow-xl">
+                <CardContent className="p-6">
+                  <TabsContent value="website" className="mt-0">
+                    <Website setCode={setHtml} />
+                  </TabsContent>
+                  <TabsContent value="breadcrumbs" className="mt-0">
+                    <Breadcrumbs setCode={setHtml} />
+                  </TabsContent>
+                  <TabsContent value="person" className="mt-0">
+                    <Person setCode={setHtml} />
+                  </TabsContent>
+                  <TabsContent value="article" className="mt-0">
+                    <Article setCode={setHtml} />
+                  </TabsContent>
+                  <TabsContent value="product" className="mt-0">
+                    <Product setCode={setHtml} />
+                  </TabsContent>
+                </CardContent>
+              </Card>
+            </Tabs>
+          </div>
+
+          {/* --- Right Column: Preview (Sticky) --- */}
+          <div className="lg:col-span-12 lg:sticky lg:top-8">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider flex items-center gap-2">
+                  <Settings2 className="w-4 h-4" />
+                  JSON-LD Preview
+                </h3>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={handleCopy}
+                  className="gap-2 h-8 text-xs bg-background/50 hover:bg-background"
                 >
-                  HTML to JSX Convertor{" "}
-                </Link>
-              </p>
+                  {copied ? <Check className="w-3 h-3 text-green-500" /> : <Copy className="w-3 h-3" />}
+                  {copied ? "Copied" : "Copy Code"}
+                </Button>
+              </div>
+
+              <div className="relative rounded-xl border border-border/50 overflow-hidden shadow-2xl bg-[#1e1e1e]">
+                <div className="absolute top-0 left-0 right-0 h-10 bg-[#252526] border-b border-white/5 flex items-center px-4 gap-2">
+                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/80" />
+                </div>
+                <div className="pt-10 overflow-x-auto max-h-[calc(100vh-200px)] overflow-y-auto custom-scrollbar">
+                  {/* Assuming ShikiBlock handles its own padding/bg, if not wrap it */}
+                  <ShikiBlock lang="json" code={html} />
+                </div>
+              </div>
+
+              <div className="p-4 rounded-lg bg-primary/5 border border-primary/10 text-sm text-muted-foreground">
+                <p>
+                  Using <span className="font-semibold text-foreground">React or Next.js?</span>{" "}
+                  Convert this output using our{" "}
+                  <Link href="/tools/html-to-jsx-convertor" className="text-primary hover:underline font-medium">
+                    HTML to JSX Converter
+                  </Link>.
+                </p>
+              </div>
             </div>
-          </CardFooter>
-        </Card>
-      </Tabs>
-    </>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
+
+// --- Helper Components ---
+
+const TabButton = ({ value, icon: Icon, label, active }: any) => (
+  <TabsTrigger
+    value={value}
+    className={`
+      flex items-center gap-2 px-4 py-2.5 rounded-full border transition-all duration-200
+      data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:border-primary data-[state=active]:shadow-md
+      data-[state=inactive]:bg-background data-[state=inactive]:hover:bg-muted data-[state=inactive]:border-border
+    `}
+  >
+    <Icon className="w-4 h-4" />
+    {label}
+  </TabsTrigger>
+);
+
+
 interface Props {
   setCode: Dispatch<SetStateAction<string>>;
 }
 
+// --- 1. Website Form ---
 function Website({ setCode }: Props) {
   const [name, setName] = useState("");
   const [alternateName, setAlternateName] = useState("");
   const [url, setUrl] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [queryString, setQueryString] = useState("");
+
   useEffect(() => {
     setCode(`<script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "${name}",
-        "alternateName": "${alternateName}",
-        "url": "${url}",
-        ${
-          searchQuery.length > 0
-            ? `"potentialAction": {
-            "@type": "SearchAction",
-            "target": "${searchQuery}{search_term_string}${queryString}",
-            "query-input": "required name=search_term_string"
-        }`
-            : ""
-        }
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "${name}",
+      "alternateName": "${alternateName}",
+      "url": "${url}"${searchQuery.length > 0
+        ? `,
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "${searchQuery}{search_term_string}${queryString}",
+        "query-input": "required name=search_term_string"
+      }`
+        : ""
+      }
     }
 </script>`);
-  }, [name, alternateName, url, searchQuery, queryString]);
+  }, [name, alternateName, url, searchQuery, queryString, setCode]);
 
   return (
-    <div className="flex gap-4 flex-wrap">
-      <div className="grid w-full max-w-sm">
-        <Label htmlFor="name">Website Name</Label>
-        <Input
-          variant="glass"
-          id="name"
-          type="text"
-          placeholder="Website Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
-      <div className="grid w-full max-w-sm">
-        <Label htmlFor="alternateName">Alternate Name</Label>
-        <Input
-          variant="glass"
-          id="alternateName"
-          type="text"
-          placeholder="Alternate Name"
-          value={alternateName}
-          onChange={(e) => setAlternateName(e.target.value)}
-        />
-      </div>
-      <div className="grid w-full max-w-sm">
-        <Label htmlFor="url">Website URL</Label>
-        <Input
-          variant="glass"
-          id="url"
-          type="url"
-          placeholder="Website URL (include the protocol)"
-          value={url}
-          onChange={(e) => setUrl(e.target.value)}
-        />
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <h3 className="font-semibold text-lg border-b pb-2">Basic Identity</h3>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="name">Website Name</Label>
+            <Input id="name" placeholder="e.g. Nexonauts" value={name} onChange={(e) => setName(e.target.value)} />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="alternateName">Alternate Name</Label>
+            <Input id="alternateName" placeholder="e.g. NX Tools" value={alternateName} onChange={(e) => setAlternateName(e.target.value)} />
+          </div>
+          <div className="space-y-2 md:col-span-2">
+            <Label htmlFor="url">Website URL</Label>
+            <Input id="url" type="url" placeholder="https://..." value={url} onChange={(e) => setUrl(e.target.value)} />
+          </div>
+        </div>
       </div>
 
-      <div className="grid w-full max-w-sm">
-        <Label htmlFor="searchQuery">Search Query</Label>
-        <Input
-          variant="glass"
-          id="searchQuery"
-          type="text"
-          placeholder="URL for internal site search before query (e.g. https://example.com/search?q=)"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-      </div>
-      <div className="grid w-full max-w-sm">
-        <Label htmlFor="queryString">Query String</Label>
-        <Input
-          variant="glass"
-          id="queryString"
-          type="text"
-          placeholder="Optional: string in the search URL occurring after the query"
-          value={queryString}
-          onChange={(e) => setQueryString(e.target.value)}
-          disabled={searchQuery === ""}
-        />
+      <div className="space-y-4">
+        <div className="flex items-center gap-2 border-b pb-2">
+          <Search className="w-4 h-4 text-primary" />
+          <h3 className="font-semibold text-lg">Sitelinks Search Box</h3>
+        </div>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="searchQuery">Search Query URL</Label>
+            <Input id="searchQuery" placeholder="https://example.com/search?q=" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+            <p className="text-[10px] text-muted-foreground">The URL that handles internal searches.</p>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="queryString">Query String Parameter</Label>
+            <Input id="queryString" placeholder="Optional suffix" value={queryString} onChange={(e) => setQueryString(e.target.value)} disabled={searchQuery === ""} />
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+
+// --- 2. Breadcrumbs Form ---
 function Breadcrumbs({ setCode }: Props) {
-  const [items, setItems] = useState([
-    {
-      name: "",
-      url: "",
-      image: "",
-    },
-  ]);
+  const [items, setItems] = useState([{ name: "", url: "", image: "" }]);
+
   useEffect(() => {
     setCode(`<script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-            ${items.map((item, index) => {
-              return `{
-                "@type": "ListItem",
-                "position": ${index + 1},
-                "name": "${item.name}",
-                "item": "${item.url}",
-                "image": "${item?.image}"
-            }`;
-            })}
-        ]
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [${items.map((item, index) => `
+        {
+          "@type": "ListItem",
+          "position": ${index + 1},
+          "name": "${item.name}",
+          "item": "${item.url}",
+          "image": "${item?.image}"
+        }`).join(',')}
+      ]
     }
 </script>`);
-  }, [items]);
+  }, [items, setCode]);
+
+  const updateItem = (index: number, field: string, value: string) => {
+    const newItems: any = [...items];
+    newItems[index][field] = value;
+    setItems(newItems);
+  };
+
+  const removeItem = (index: number) => {
+    const newItems = [...items];
+    newItems.splice(index, 1);
+    setItems(newItems);
+  };
 
   return (
-    <div className="space-y-4">
-      {items.map((item, index) => {
-        return (
-          <div key={index}>
-            <h6 className="ms-3 text-lg flex items-center gap-2  font-semibold">
-              Item #{index + 1}
-              <button
-                className={
-                  "p-1 " +
-                  (items.length === 1
-                    ? " text-red-200 cursor-not-allowed"
-                    : "text-red-600 cursor-pointer ")
-                }
-                onClick={() => {
-                  let temp = [...items];
-                  temp.splice(index, 1);
-                  setItems(temp);
-                }}
-                disabled={items.length === 1}
-              >
-                <MdDeleteOutline className="w-4 h-4" />
-              </button>
-            </h6>
-            <hr className="my-2 mb-3" />
-            <div className="w-full flex items-center gap-4 flex-wrap">
-              <div className="grid w-full max-w-sm">
-                <Label htmlFor="">Item Name</Label>
-                <Input
-                  variant="glass"
-                  type="text"
-                  placeholder="Item Name"
-                  value={item.name}
-                  onChange={(e) => {
-                    let temp = [...items];
-                    temp[index].name = e.target.value;
-                    setItems(temp);
-                  }}
-                />
+    <div className="space-y-6">
+      <div className="flex items-center justify-between border-b pb-2">
+        <h3 className="font-semibold text-lg">Hierarchy Items</h3>
+        <Button size="sm" onClick={() => setItems([...items, { name: "", url: "", image: "" }])}>
+          <Plus className="w-4 h-4 mr-1" /> Add Item
+        </Button>
+      </div>
+
+      <div className="space-y-4">
+        {items.map((item, index) => (
+          <div key={index} className="relative p-4 rounded-xl border border-border/60 bg-muted/20 group hover:border-primary/30 transition-colors">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Position #{index + 1}</span>
+              {items.length > 1 && (
+                <Button size="icon" variant="ghost" className="h-6 w-6 text-destructive hover:bg-destructive/10" onClick={() => removeItem(index)}>
+                  <Trash2 className="w-3 h-3" />
+                </Button>
+              )}
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label>Name</Label>
+                <Input placeholder="Home" value={item.name} onChange={(e) => updateItem(index, 'name', e.target.value)} />
               </div>
-              <div className="grid w-full max-w-sm">
-                <Label htmlFor="">Item URL</Label>
-                <Input
-                  variant="glass"
-                  type="url"
-                  placeholder="Item URL"
-                  value={item.url}
-                  onChange={(e) => {
-                    let temp = [...items];
-                    temp[index].url = e.target.value;
-                    setItems(temp);
-                  }}
-                />
+              <div className="space-y-2">
+                <Label>URL</Label>
+                <Input placeholder="https://..." value={item.url} onChange={(e) => updateItem(index, 'url', e.target.value)} />
               </div>
-              <div className="grid w-full max-w-sm">
-                <Label htmlFor="">Item Image</Label>
-                <Input
-                  variant="glass"
-                  type="url"
-                  placeholder="Item Image URL"
-                  value={item.image}
-                  onChange={(e) => {
-                    let temp = [...items];
-                    temp[index].image = e.target.value;
-                    setItems(temp);
-                  }}
-                />
+              <div className="space-y-2 md:col-span-2">
+                <Label>Image (Optional)</Label>
+                <Input placeholder="https://..." value={item.image} onChange={(e) => updateItem(index, 'image', e.target.value)} />
               </div>
             </div>
           </div>
-        );
-      })}
-      <Button
-        size="sm"
-        onClick={() => {
-          let temp = [...items];
-          temp.push({
-            name: "",
-            url: "",
-            image: "",
-          });
-          setItems(temp);
-        }}
-      >
-        Add Item
-      </Button>
+        ))}
+      </div>
     </div>
   );
 }
 
+// --- 3. Person Form ---
 function Person({ setCode }: Props) {
-  const [name, setName] = useState("");
-  const [alternateName, setAlternateName] = useState("");
-  const [url, setUrl] = useState("");
-  const [image, setImage] = useState("");
-  const [jobTitle, setJobTitle] = useState("");
-  const [worksFor, setWorksFor] = useState("");
-  const [telephone, setTelephone] = useState("");
-  const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
-  const [sameAs, setSameAs] = useState("");
+  // Use a state object for cleaner handling
+  const [formData, setFormData] = useState({
+    name: "", alternateName: "", url: "", image: "", jobTitle: "",
+    worksFor: "", telephone: "", email: "", address: "", sameAs: ""
+  });
+
+  const handleChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
   useEffect(() => {
     setCode(`<script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "${name}",
-        "alternateName": "${alternateName}",
-        "url": "${url}",
-        "image": "${image}",
-        "jobTitle": "${jobTitle}",
-        "worksFor": "${worksFor}",
-        "telephone": "${telephone}",
-        "email": "${email}",
-        "address": "${address}",
-        "sameAs": [${sameAs.split(",").map((item) => `"${item.trim()}"`)}],
-    },
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "${formData.name}",
+      "alternateName": "${formData.alternateName}",
+      "url": "${formData.url}",
+      "image": "${formData.image}",
+      "jobTitle": "${formData.jobTitle}",
+      "worksFor": "${formData.worksFor}",
+      "telephone": "${formData.telephone}",
+      "email": "${formData.email}",
+      "address": "${formData.address}",
+      "sameAs": [${formData.sameAs.split(",").map((item) => `"${item.trim()}"`)}]
+    }
 </script>`);
-  }, [
-    name,
-    alternateName,
-    url,
-    image,
-    jobTitle,
-    worksFor,
-    telephone,
-    email,
-    address,
-    sameAs,
-  ]);
+  }, [formData, setCode]);
+
   return (
-    <>
-      <div className="flex gap-4 w-full flex-wrap">
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Name</Label>
-          <Input
-            variant="glass"
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+    <div className="space-y-6">
+      <h3 className="font-semibold text-lg border-b pb-2">Personal Information</h3>
+      <div className="grid md:grid-cols-2 gap-4">
+        <div className="space-y-2">
+          <Label>Name</Label>
+          <Input placeholder="John Doe" value={formData.name} onChange={(e) => handleChange('name', e.target.value)} />
         </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Alternate Name</Label>
-          <Input
-            variant="glass"
-            type="text"
-            placeholder="Alternate Name"
-            value={alternateName}
-            onChange={(e) => setAlternateName(e.target.value)}
-          />
+        <div className="space-y-2">
+          <Label>Job Title</Label>
+          <Input placeholder="Software Engineer" value={formData.jobTitle} onChange={(e) => handleChange('jobTitle', e.target.value)} />
         </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">URL</Label>
-          <Input
-            variant="glass"
-            type="url"
-            placeholder="URL"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
+        <div className="space-y-2">
+          <Label>Email</Label>
+          <Input type="email" placeholder="john@example.com" value={formData.email} onChange={(e) => handleChange('email', e.target.value)} />
         </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Image</Label>
-          <Input
-            variant="glass"
-            type="url"
-            placeholder="Image URL"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
+        <div className="space-y-2">
+          <Label>Phone</Label>
+          <Input type="tel" placeholder="+1-555-..." value={formData.telephone} onChange={(e) => handleChange('telephone', e.target.value)} />
         </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Job Title</Label>
-          <Input
-            variant="glass"
-            type="text"
-            placeholder="Job Title"
-            value={jobTitle}
-            onChange={(e) => setJobTitle(e.target.value)}
-          />
+        <div className="space-y-2">
+          <Label>Works For</Label>
+          <Input placeholder="Company Name" value={formData.worksFor} onChange={(e) => handleChange('worksFor', e.target.value)} />
         </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Works For</Label>
-          <Input
-            variant="glass"
-            type="text"
-            placeholder="Works For"
-            value={worksFor}
-            onChange={(e) => setWorksFor(e.target.value)}
-          />
+        <div className="space-y-2">
+          <Label>Website / URL</Label>
+          <Input placeholder="https://johndoe.com" value={formData.url} onChange={(e) => handleChange('url', e.target.value)} />
         </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Telephone</Label>
-          <Input
-            variant="glass"
-            type="tel"
-            placeholder="Telephone"
-            value={telephone}
-            onChange={(e) => setTelephone(e.target.value)}
-          />
+        <div className="space-y-2 md:col-span-2">
+          <Label>Address</Label>
+          <Input placeholder="123 Main St, City, Country" value={formData.address} onChange={(e) => handleChange('address', e.target.value)} />
         </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Email</Label>
-          <Input
-            variant="glass"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Address</Label>
-          <Input
-            variant="glass"
-            type="text"
-            placeholder="Address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-          />
-        </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Same As</Label>
-          <Input
-            variant="glass"
-            type="url"
-            placeholder="Same As"
-            value={sameAs}
-            onChange={(e) => setSameAs(e.target.value)}
-          />
+        <div className="space-y-2 md:col-span-2">
+          <Label>Social Profiles (Comma separated)</Label>
+          <Input placeholder="https://twitter.com/john, https://linkedin.com/in/john" value={formData.sameAs} onChange={(e) => handleChange('sameAs', e.target.value)} />
         </div>
       </div>
-    </>
-  );
-}
-
-function Article({ setCode }: Props) {
-  const [type, setType] = useState("Select Type...");
-  const [headline, setHeadline] = useState("");
-  const [isAMP, setIsAMP] = useState(false);
-  const [image, setImage] = useState("");
-  const [width, setWidth] = useState("");
-  const [height, setHeight] = useState("");
-  const [author, setAuthor] = useState("");
-  const [publisher, setPublisher] = useState("");
-  const [datePublished, setDatePublished] = useState("");
-  const [dateModified, setDateModified] = useState("");
-  const [description, setDescription] = useState("");
-  const [articleBody, setArticleBody] = useState("");
-  const [url, setUrl] = useState("");
-  const [sameAs, setSameAs] = useState("");
-  useEffect(() => {
-    setCode(`<script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "${type}",
-        "headline": "${headline}",
-        "image": {
-            "@type": "ImageObject",
-            "url": "${image}"
-            "width": "${width}",
-            "height": "${height}"
-        },
-        ${
-          isAMP
-            ? `
-        "author":{
-            "@type": "Person",
-            "name": "${author}"
-        },
-        "publisher": "${publisher}",
-        "datePublished": "${datePublished}",
-        "dateModified": "${dateModified}",
-        "description": "${description}",
-        "articleBody": "${articleBody}",
-        "url": "${url}",
-        "sameAs": [${sameAs.split(",").map((item) => `"${item.trim()}"`)}],`
-            : ""
-        }
-    },
-</script>`);
-  }, [
-    headline,
-    image,
-    author,
-    publisher,
-    datePublished,
-    dateModified,
-    description,
-    articleBody,
-    url,
-    sameAs,
-    type,
-    width,
-    height,
-    isAMP,
-  ]);
-  return (
-    <div className="w-full grid gap-4">
-      <div className="w-full flex flex-wrap gap-2">
-        {["NewsArticole", "BlogPosting"].map((item, index) => {
-          return (
-            <label key={index} className={RadioStyle.label}>
-              {item}
-              <input
-                type="radio"
-                onChange={(e) => setType(e.target.value)}
-                name="type"
-                value={item}
-                className={RadioStyle.input}
-              />
-            </label>
-          );
-        })}
-      </div>
-
-      <div className="w-full flex items-center gap-4 flex-wrap">
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Headline</Label>
-          <Input
-            variant="glass"
-            type="text"
-            placeholder="Headline"
-            value={headline}
-            onChange={(e) => setHeadline(e.target.value)}
-          />
-        </div>
-
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Image</Label>
-          <Input
-            variant="glass"
-            type="url"
-            placeholder="Image URL"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
-        </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Width</Label>
-          <Input
-            variant="glass"
-            type="number"
-            placeholder="Image Width"
-            value={width}
-            onChange={(e) => setWidth(e.target.value)}
-          />
-        </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Height</Label>
-          <Input
-            variant="glass"
-            type="number"
-            placeholder="Image Height"
-            value={height}
-            onChange={(e) => setHeight(e.target.value)}
-          />
-        </div>
-      </div>
-
-      <div className="flex items-center space-x-2 my-3">
-        <Switch
-          checked={isAMP}
-          onCheckedChange={(value) => {
-            setIsAMP(value);
-          }}
-          id="isAmp"
-        />
-        <Label htmlFor="isAmp" className="mb-0">
-          Accelerated Mobile Page (AMP)?
-        </Label>
-      </div>
-      {isAMP ? (
-        <div className="w-full flex items-center gap-4 flex-wrap">
-          <div className="grid w-full max-w-sm">
-            <Label htmlFor="">Author</Label>
-            <Input
-              variant="glass"
-              type="text"
-              placeholder="Author"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
-            />
-          </div>
-          <div className="grid w-full max-w-sm">
-            <Label htmlFor="">Publisher</Label>
-            <Input
-              variant="glass"
-              type="text"
-              placeholder="Publisher"
-              value={publisher}
-              onChange={(e) => setPublisher(e.target.value)}
-            />
-          </div>
-          <div className="grid w-full max-w-sm">
-            <Label htmlFor="">Date Published</Label>
-            <Input
-              variant="glass"
-              type="date"
-              placeholder="Date Published"
-              value={datePublished}
-              onChange={(e) => setDatePublished(e.target.value)}
-            />
-          </div>
-          <div className="grid w-full max-w-sm">
-            <Label htmlFor="">Date Modified</Label>
-            <Input
-              variant="glass"
-              type="date"
-              placeholder="Date Modified"
-              value={dateModified}
-              onChange={(e) => setDateModified(e.target.value)}
-            />
-          </div>
-          <div className="grid w-full max-w-sm">
-            <Label htmlFor="">Description</Label>
-            <Input
-              variant="glass"
-              type="text"
-              placeholder="Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </div>
-          <div className="grid w-full max-w-sm">
-            <Label htmlFor="">Article Body</Label>
-            <Input
-              variant="glass"
-              type="text"
-              placeholder="Article Body"
-              value={articleBody}
-              onChange={(e) => setArticleBody(e.target.value)}
-            />
-          </div>
-          <div className="grid w-full max-w-sm">
-            <Label htmlFor="">URL</Label>
-            <Input
-              variant="glass"
-              type="url"
-              placeholder="URL"
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-            />
-          </div>
-          <div className="grid w-full max-w-sm">
-            <Label htmlFor="">Same As</Label>
-            <Input
-              variant="glass"
-              type="url"
-              placeholder="Same As"
-              value={sameAs}
-              onChange={(e) => setSameAs(e.target.value)}
-            />
-          </div>
-        </div>
-      ) : null}
     </div>
   );
 }
-const PRODUCT_TYPES = [
-  {
-    value: "sku",
-    label: "SKU",
-  },
-  {
-    value: "gtin8",
-    label: "GTIN-8",
-  },
-  {
-    value: "gtin13",
-    label: "GTIN-13",
-  },
-  {
-    value: "gtin14",
-    label: "GTIN-14",
-  },
-  {
-    value: "mpn",
-    label: "MPN",
-  },
-] as {
-  value: string;
-  label: string;
-}[];
 
-function Product({ setCode }: Props) {
-  const [name, setName] = useState("");
-  const [image, setImage] = useState("");
-  const [description, setDescription] = useState("");
-  const [brand, setBrand] = useState("");
-
-  const [types, setTypes] = useState<
-    Record<
-      string,
-      {
-        enable: boolean;
-        value: string;
-      }
-    >
-  >({
-    sku: {
-      enable: false,
-      value: "",
-    },
-    gtin8: {
-      enable: false,
-      value: "",
-    },
-    gtin13: {
-      enable: false,
-      value: "",
-    },
-    gtin14: {
-      enable: false,
-      value: "",
-    },
-    mpn: {
-      enable: false,
-      value: "",
-    },
+// --- 4. Article Form ---
+function Article({ setCode }: Props) {
+  const [type, setType] = useState("NewsArticle"); // Fixed typo in original "NewsArticole"
+  const [data, setData] = useState({
+    headline: "", isAMP: false, image: "", width: "", height: "",
+    author: "", publisher: "", datePublished: "", dateModified: "",
+    description: "", articleBody: "", url: "", sameAs: ""
   });
 
-  const [url, setUrl] = useState("");
-  const [currencies, setCurrencies] = useState<any[]>([]);
-  const [offers, setOffers] = useState({
-    price: "",
-    priceCurrency: "",
-    priceValidUntil: "",
-    lowPrice: "",
-    type: "Offer",
-    url: "",
-    itemCondition: "",
-    availability: "",
-  });
-  const [aggregateRating, setAggregateRating] = useState({
-    ratingValue: "",
-    bestRating: "",
-    worstRating: "",
-    ratingCount: "",
-  });
+  const update = (field: string, value: any) => setData(prev => ({ ...prev, [field]: value }));
+
   useEffect(() => {
     setCode(`<script type="application/ld+json">
     {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "name": "${name}",
-        "image": "${image}",
-        "description": "${description}",
-        "brand": {
-            "@type": "Brand",
-            "name": "${brand}"
-        },
-        "url": "${url}",
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "${aggregateRating.ratingValue}",
-            "bestRating": "${aggregateRating.bestRating}",
-            "worstRating": "${aggregateRating.worstRating}",
-            "ratingCount": "${aggregateRating.ratingCount}"
-        },
-        "offers": {
-            "@type": "${offers.type}",
-            "priceCurrency": "${offers.priceCurrency}",
-            "lowPrice": "${offers.lowPrice}",${offers.type === "Offer" ? `\n            "priceValidUntil": "${offers.priceValidUntil}",` : ""}${offers.type === "Offer" ? `\n            "url": "${offers.url}",` : ""}${offers.type === "Offer" ? `\n            "availability": "http://schema.org/${offers.availability}",` : ""}${offers.type === "Offer" ? `\n            "itemCondition": "http://schema.org/${offers.itemCondition}",` : ""}
-        },${Object.keys(types)
-          .filter((key) => {
-            return types[key].enable && types[key].value.trim().length > 0;
-          })
-          .map((key) => {
-            return `\n        "${key}": "${types[key].value.trim()}"`;
-          })
-          .join(",")}
-    },
+      "@context": "https://schema.org",
+      "@type": "${type}",
+      "headline": "${data.headline}",
+      "image": {
+          "@type": "ImageObject",
+          "url": "${data.image}",
+          "width": "${data.width}",
+          "height": "${data.height}"
+      }${data.isAMP ? `,
+      "author": {
+          "@type": "Person",
+          "name": "${data.author}"
+      },
+      "publisher": "${data.publisher}",
+      "datePublished": "${data.datePublished}",
+      "dateModified": "${data.dateModified}",
+      "description": "${data.description}",
+      "articleBody": "${data.articleBody}",
+      "url": "${data.url}",
+      "sameAs": [${data.sameAs.split(",").map((item) => `"${item.trim()}"`)}]` : ""}
+    }
 </script>`);
-  }, [name, image, description, brand, url, offers, types, aggregateRating]);
+  }, [type, data, setCode]);
 
-  useEffect(() => {
-    (async () => {
-      await axios
-        .get("https://openexchangerates.org/api/currencies.json")
-        .then(({ data }: { data: any }) => {
-          setCurrencies(
-            Object.entries(data).map(([key, value]) => {
-              return {
-                value: key,
-                label: `${key} - ${value}`,
-              };
-            })
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    })();
-  }, []);
   return (
-    <div>
-      <div className="w-full flex items-center gap-4 flex-wrap">
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Name</Label>
-          <Input
-            variant="glass"
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Image</Label>
-          <Input
-            variant="glass"
-            type="url"
-            placeholder="Image URL"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
-          />
-        </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Description</Label>
-          <Input
-            variant="glass"
-            type="text"
-            placeholder="Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">Brand</Label>
-          <Input
-            variant="glass"
-            type="text"
-            placeholder="Brand"
-            value={brand}
-            onChange={(e) => setBrand(e.target.value)}
-          />
-        </div>
-        <div className="grid w-full max-w-sm">
-          <Label htmlFor="">URL</Label>
-          <Input
-            variant="glass"
-            type="url"
-            placeholder="URL"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
+    <div className="space-y-6">
+      <RadioGroup defaultValue="NewsArticle" onValueChange={setType} className="grid grid-cols-2 gap-4">
+        <div>
+          <RadioGroupItem value="NewsArticle" id="news" className="peer sr-only" />
+          <Label
+            htmlFor="news"
+            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+          >
+            News Article
+          </Label>
         </div>
         <div>
-          <Label htmlFor="types">Types</Label>
-          <div className="flex gap-4 items-stretch justify-start w-full flex-wrap mt-4">
-            {PRODUCT_TYPES.map((item, index) => {
-              return (
-                <div
-                  className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-xs gap-4"
-                  key={index}
-                >
-                  <div className="space-y-0.5">
-                    <Label htmlFor={item.value}>{item.label}</Label>
-                    <div>
-                      <Input
-                        variant="glass"
-                        type="text"
-                        placeholder="GTIN-14"
-                        disabled={!types[item.value].enable}
-                        value={types[item.value].value}
-                        onChange={(e) => {
-                          setTypes((types) => {
-                            return {
-                              ...types,
-                              [item.value]: {
-                                ...types[item.value],
-                                value: e.target.value,
-                              },
-                            };
-                          });
-                        }}
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Switch
-                      id={item.value}
-                      checked={types[item.value].enable}
-                      onCheckedChange={(value) => {
-                        setTypes((types) => {
-                          return {
-                            ...types,
-                            [item.value]: {
-                              ...types[item.value],
-                              enable: value,
-                            },
-                          };
-                        });
-                      }}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+          <RadioGroupItem value="BlogPosting" id="blog" className="peer sr-only" />
+          <Label
+            htmlFor="blog"
+            className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+          >
+            Blog Posting
+          </Label>
+        </div>
+      </RadioGroup>
+
+      <div className="space-y-2">
+        <Label>Headline</Label>
+        <Input placeholder="Article Title" value={data.headline} onChange={(e) => update('headline', e.target.value)} />
+      </div>
+
+      <div className="grid md:grid-cols-3 gap-4">
+        <div className="space-y-2 md:col-span-3">
+          <Label>Image URL</Label>
+          <Input placeholder="https://..." value={data.image} onChange={(e) => update('image', e.target.value)} />
+        </div>
+        <div className="space-y-2">
+          <Label>Width (px)</Label>
+          <Input type="number" placeholder="1200" value={data.width} onChange={(e) => update('width', e.target.value)} />
+        </div>
+        <div className="space-y-2">
+          <Label>Height (px)</Label>
+          <Input type="number" placeholder="630" value={data.height} onChange={(e) => update('height', e.target.value)} />
+        </div>
+      </div>
+
+      <div className="flex items-center space-x-2 py-4 border-y border-border/50">
+        <Switch id="isAmp" checked={data.isAMP} onCheckedChange={(v) => update('isAMP', v)} />
+        <Label htmlFor="isAmp">Enable Extended Fields (AMP/Rich Snippet)</Label>
+      </div>
+
+      {data.isAMP && (
+        <div className="grid md:grid-cols-2 gap-4 animate-in fade-in slide-in-from-top-4">
+          <div className="space-y-2">
+            <Label>Author</Label>
+            <Input value={data.author} onChange={(e) => update('author', e.target.value)} />
+          </div>
+          <div className="space-y-2">
+            <Label>Publisher</Label>
+            <Input value={data.publisher} onChange={(e) => update('publisher', e.target.value)} />
+          </div>
+          <div className="space-y-2">
+            <Label>Date Published</Label>
+            <Input type="date" value={data.datePublished} onChange={(e) => update('datePublished', e.target.value)} />
+          </div>
+          <div className="space-y-2">
+            <Label>Date Modified</Label>
+            <Input type="date" value={data.dateModified} onChange={(e) => update('dateModified', e.target.value)} />
+          </div>
+          <div className="space-y-2 md:col-span-2">
+            <Label>Description</Label>
+            <Input value={data.description} onChange={(e) => update('description', e.target.value)} />
+          </div>
+          <div className="space-y-2 md:col-span-2">
+            <Label>Canonical URL</Label>
+            <Input value={data.url} onChange={(e) => update('url', e.target.value)} />
           </div>
         </div>
+      )}
+    </div>
+  );
+}
 
-        <div className="w-full flex items-center gap-4 flex-wrap">
-          <div className="mb-2">
-            <Label htmlFor="">Offers</Label>
-            <Select
-              onValueChange={(value) => {
-                setOffers((offers) => {
-                  return {
-                    ...offers,
-                    type: value,
-                  };
-                });
-              }}
-            >
-              <SelectTrigger className="w-[180px] ">
-                <SelectValue placeholder="Offer" />
-              </SelectTrigger>
+// --- 5. Product Form ---
+const PRODUCT_IDENTIFIERS = [
+  { value: "sku", label: "SKU" },
+  { value: "gtin8", label: "GTIN-8" },
+  { value: "gtin13", label: "GTIN-13" },
+  { value: "gtin14", label: "GTIN-14" },
+  { value: "mpn", label: "MPN" },
+];
+
+function Product({ setCode }: Props) {
+  const [basic, setBasic] = useState({ name: "", image: "", description: "", brand: "", url: "" });
+  const [types, setTypes] = useState<Record<string, { enable: boolean; value: string }>>({
+    sku: { enable: false, value: "" },
+    gtin8: { enable: false, value: "" },
+    gtin13: { enable: false, value: "" },
+    gtin14: { enable: false, value: "" },
+    mpn: { enable: false, value: "" },
+  });
+  const [currencies, setCurrencies] = useState<any[]>([]);
+  const [offers, setOffers] = useState({
+    price: "", priceCurrency: "USD", priceValidUntil: "", lowPrice: "",
+    type: "Offer", url: "", itemCondition: "New", availability: "InStock"
+  });
+  const [ratings, setRatings] = useState({ ratingValue: "", bestRating: "5", worstRating: "1", ratingCount: "" });
+
+  // Load currencies only once
+  useEffect(() => {
+    axios.get("https://openexchangerates.org/api/currencies.json")
+      .then(({ data }) => {
+        setCurrencies(Object.entries(data).map(([key, value]) => ({ value: key, label: `${key} - ${value}` })));
+      })
+      .catch(() => setCurrencies([{ value: "USD", label: "USD - United States Dollar" }]));
+  }, []);
+
+  const updateBasic = (f: string, v: string) => setBasic(p => ({ ...p, [f]: v }));
+  const updateOffers = (f: string, v: string) => setOffers(p => ({ ...p, [f]: v }));
+  const updateRatings = (f: string, v: string) => setRatings(p => ({ ...p, [f]: v }));
+
+  useEffect(() => {
+    const identifiers = Object.keys(types)
+      .filter((k) => types[k].enable && types[k].value.trim().length > 0)
+      .map((k) => `"${k}": "${types[k].value.trim()}"`).join(",\n      ");
+
+    const offerStr = offers.type === "Offer"
+      ? `"priceValidUntil": "${offers.priceValidUntil}",\n      "url": "${offers.url}",\n      "availability": "http://schema.org/${offers.availability}",\n      "itemCondition": "http://schema.org/${offers.itemCondition}",`
+      : "";
+
+    setCode(`<script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "${basic.name}",
+      "image": "${basic.image}",
+      "description": "${basic.description}",
+      "brand": {
+          "@type": "Brand",
+          "name": "${basic.brand}"
+      },
+      "url": "${basic.url}",
+      "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "${ratings.ratingValue}",
+          "bestRating": "${ratings.bestRating}",
+          "worstRating": "${ratings.worstRating}",
+          "ratingCount": "${ratings.ratingCount}"
+      },
+      "offers": {
+          "@type": "${offers.type}",
+          "priceCurrency": "${offers.priceCurrency}",
+          "lowPrice": "${offers.lowPrice}",
+          ${offerStr}
+      }${identifiers ? ",\n      " + identifiers : ""}
+    }
+</script>`);
+  }, [basic, types, offers, ratings, setCode]);
+
+  return (
+    <div className="space-y-8">
+
+      {/* Basic Info */}
+      <div className="space-y-4">
+        <h3 className="font-semibold text-lg border-b pb-2">Product Details</h3>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-2"><Label>Product Name</Label><Input value={basic.name} onChange={e => updateBasic('name', e.target.value)} /></div>
+          <div className="space-y-2"><Label>Brand</Label><Input value={basic.brand} onChange={e => updateBasic('brand', e.target.value)} /></div>
+          <div className="space-y-2"><Label>Image URL</Label><Input value={basic.image} onChange={e => updateBasic('image', e.target.value)} /></div>
+          <div className="space-y-2"><Label>Product URL</Label><Input value={basic.url} onChange={e => updateBasic('url', e.target.value)} /></div>
+          <div className="space-y-2 md:col-span-2"><Label>Description</Label><Input value={basic.description} onChange={e => updateBasic('description', e.target.value)} /></div>
+        </div>
+      </div>
+
+      {/* Identifiers */}
+      <div className="space-y-4">
+        <h3 className="font-semibold text-lg border-b pb-2">Identifiers</h3>
+        <div className="grid md:grid-cols-2 gap-4">
+          {PRODUCT_IDENTIFIERS.map((item) => (
+            <div key={item.value} className="flex items-end gap-2 p-3 border rounded-md">
+              <div className="flex-1 space-y-2">
+                <Label className="text-xs uppercase text-muted-foreground">{item.label}</Label>
+                <Input
+                  className="h-8"
+                  placeholder="Value..."
+                  value={types[item.value].value}
+                  disabled={!types[item.value].enable}
+                  onChange={(e) => setTypes(p => ({ ...p, [item.value]: { ...p[item.value], value: e.target.value } }))}
+                />
+              </div>
+              <Switch
+                checked={types[item.value].enable}
+                onCheckedChange={(v) => setTypes(p => ({ ...p, [item.value]: { ...p[item.value], enable: v } }))}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Offers & Pricing */}
+      <div className="space-y-4">
+        <h3 className="font-semibold text-lg border-b pb-2">Pricing & Offers</h3>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label>Offer Type</Label>
+            <Select value={offers.type} onValueChange={v => updateOffers('type', v)}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
               <SelectContent>
-                <SelectItem value="Offer">Offer</SelectItem>
-                <SelectItem value="AggregateOffer">AggregateOffer</SelectItem>
+                <SelectItem value="Offer">Single Offer</SelectItem>
+                <SelectItem value="AggregateOffer">Aggregate Offer</SelectItem>
               </SelectContent>
             </Select>
           </div>
-          <div className="mb-2">
-            <Label htmlFor="">Select Currency</Label>
-            {currencies.length > 0 ? (
-              <Select
-                onValueChange={(value) => {
-                  setOffers((offers) => {
-                    return {
-                      ...offers,
-                      priceCurrency: value,
-                    };
-                  });
-                }}
-              >
-                <SelectTrigger className="w-[280px] bg-slate-100">
-                  <SelectValue placeholder="priceCurrency" />
-                </SelectTrigger>
-                <SelectContent>
-                  {currencies.map((currency, index) => {
-                    return (
-                      <SelectItem key={index} value={currency.value}>
-                        {currency.label}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectContent>
-              </Select>
-            ) : (
-              <Input value={"Loading ..."} disabled={true} />
-            )}
+          <div className="space-y-2">
+            <Label>Currency</Label>
+            <Select value={offers.priceCurrency} onValueChange={v => updateOffers('priceCurrency', v)}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>
+                {currencies.map((c, i) => <SelectItem key={i} value={c.value}>{c.value}</SelectItem>)}
+              </SelectContent>
+            </Select>
           </div>
+
+          {offers.type === "Offer" ? (
+            <>
+              <div className="space-y-2"><Label>Price</Label><Input type="number" value={offers.price} onChange={e => updateOffers('price', e.target.value)} /></div>
+              <div className="space-y-2"><Label>Valid Until</Label><Input type="date" value={offers.priceValidUntil} onChange={e => updateOffers('priceValidUntil', e.target.value)} /></div>
+              <div className="space-y-2">
+                <Label>Availability</Label>
+                <Select value={offers.availability} onValueChange={v => updateOffers('availability', v)}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {["InStock", "OutOfStock", "PreOrder", "SoldOut", "Discontinued"].map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="space-y-2">
+                <Label>Condition</Label>
+                <Select value={offers.itemCondition} onValueChange={v => updateOffers('itemCondition', v)}>
+                  <SelectTrigger><SelectValue /></SelectTrigger>
+                  <SelectContent>
+                    {["New", "Used", "Refurbished", "Damaged"].map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
+            </>
+          ) : (
+            <div className="space-y-2 md:col-span-2">
+              <Label>Low Price</Label>
+              <Input type="number" value={offers.lowPrice} onChange={e => updateOffers('lowPrice', e.target.value)} />
+            </div>
+          )}
         </div>
-
-        {offers.type === "Offer" ? (
-          <div className="w-full flex items-center gap-4 flex-wrap">
-            <div className="grid w-full max-w-sm">
-              <Label htmlFor="">Offer Price</Label>
-              <Input
-                variant="glass"
-                type="number"
-                placeholder="Offer Price"
-                value={offers.price}
-                onChange={(e) =>
-                  setOffers((offers) => {
-                    return {
-                      ...offers,
-                      price: e.target.value,
-                    };
-                  })
-                }
-              />
-            </div>
-            <div className="grid w-full max-w-sm">
-              <Label htmlFor="">Offer Price Valid Until</Label>
-              <Input
-                variant="glass"
-                type="date"
-                placeholder="Offer Price Valid Until"
-                value={offers.priceValidUntil}
-                onChange={(e) =>
-                  setOffers((offers) => {
-                    return {
-                      ...offers,
-                      priceValidUntil: e.target.value,
-                    };
-                  })
-                }
-              />
-            </div>
-            <div className="mb-2">
-              <Label htmlFor="">Offer Item Condition</Label>
-              <Select
-                onValueChange={(value) => {
-                  setOffers((offers) => {
-                    return {
-                      ...offers,
-                      itemCondition: value,
-                    };
-                  });
-                }}
-              >
-                <SelectTrigger className="w-[180px]  bg-slate-100">
-                  <SelectValue placeholder="itemCondition" />
-                </SelectTrigger>
-                <SelectContent>
-                  {[
-                    { value: "New", label: "New" },
-                    { value: "Used", label: "Used" },
-                    { value: "Damaged", label: "Damaged" },
-                    { value: "Refurbished", label: "Refurbished" },
-                  ].map((item, index) => {
-                    return (
-                      <SelectItem key={index} value={item.value}>
-                        {item.label}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="mb-2">
-              <Label htmlFor="">Offer Availability</Label>
-              <Select
-                onValueChange={(value) => {
-                  setOffers((offers) => {
-                    return {
-                      ...offers,
-                      availability: value,
-                    };
-                  });
-                }}
-              >
-                <SelectTrigger className="w-[220px]  bg-slate-100">
-                  <SelectValue placeholder="Availability" />
-                </SelectTrigger>
-                <SelectContent>
-                  {[
-                    { value: "InStock", label: "InStock" },
-                    { value: "InStoreOnly", label: "InStoreOnly" },
-                    { value: "OnlineOnly", label: "OnlineOnly" },
-                    { value: "OutOfStock", label: "OutOfStock" },
-                    { value: "PreOrder", label: "PreOrder" },
-                    { value: "PreSale", label: "PreSale" },
-                    {
-                      value: "LimitedAvailability",
-                      label: "LimitedAvailability",
-                    },
-                    { value: "Discontinued", label: "Discontinued" },
-                    { value: "SoldOut", label: "SoldOut" },
-                  ].map((item, index) => {
-                    return (
-                      <SelectItem key={index} value={item.value}>
-                        {item.label}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        ) : null}
-
-        {offers.type === "AggregateOffer" ? (
-          <div className="w-full flex items-center gap-4 flex-wrap">
-            <div className="grid w-full max-w-sm">
-              <Label htmlFor="">Aggregate rating value</Label>
-              <Input
-                variant="glass"
-                type="number"
-                placeholder="Aggregate rating value"
-                value={aggregateRating.ratingValue}
-                onChange={(e) =>
-                  setAggregateRating((aggregateRating) => {
-                    return {
-                      ...aggregateRating,
-                      ratingValue: e.target.value,
-                    };
-                  })
-                }
-              />
-            </div>
-            <div className="w-full flex items-center gap-4 flex-wrap">
-              <Label htmlFor="">Aggregate rating review count</Label>
-              <Input
-                variant="glass"
-                type="number"
-                placeholder="Aggregate rating review count"
-                value={aggregateRating.ratingCount}
-                onChange={(e) =>
-                  setAggregateRating((aggregateRating) => {
-                    return {
-                      ...aggregateRating,
-                      ratingCount: e.target.value,
-                    };
-                  })
-                }
-              />
-            </div>
-            <div className="w-full flex items-center gap-4 flex-wrap">
-              <Label htmlFor="">Aggregate rating best rating</Label>
-              <Input
-                variant="glass"
-                type="number"
-                placeholder="Aggregate rating best rating"
-                value={aggregateRating.bestRating}
-                onChange={(e) =>
-                  setAggregateRating((aggregateRating) => {
-                    return {
-                      ...aggregateRating,
-                      bestRating: e.target.value,
-                    };
-                  })
-                }
-              />
-            </div>
-            <div className="w-full flex items-center gap-4 flex-wrap">
-              <Label htmlFor="">Aggregate rating worst rating</Label>
-              <Input
-                variant="glass"
-                type="number"
-                placeholder="Aggregate rating worst rating"
-                value={aggregateRating.worstRating}
-                onChange={(e) =>
-                  setAggregateRating((aggregateRating) => {
-                    return {
-                      ...aggregateRating,
-                      worstRating: e.target.value,
-                    };
-                  })
-                }
-              />
-            </div>
-          </div>
-        ) : null}
       </div>
+
+      {/* Ratings */}
+      <div className="space-y-4">
+        <h3 className="font-semibold text-lg border-b pb-2">Reviews</h3>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="space-y-2"><Label>Score</Label><Input type="number" value={ratings.ratingValue} onChange={e => updateRatings('ratingValue', e.target.value)} /></div>
+          <div className="space-y-2"><Label>Count</Label><Input type="number" value={ratings.ratingCount} onChange={e => updateRatings('ratingCount', e.target.value)} /></div>
+          <div className="space-y-2"><Label>Best</Label><Input type="number" value={ratings.bestRating} onChange={e => updateRatings('bestRating', e.target.value)} /></div>
+          <div className="space-y-2"><Label>Worst</Label><Input type="number" value={ratings.worstRating} onChange={e => updateRatings('worstRating', e.target.value)} /></div>
+        </div>
+      </div>
+
     </div>
   );
 }
-const options = [
-  {
-    value: "website",
-    label: "Website",
-    Component: Website,
-  },
-  {
-    value: "breadcrumbs",
-    label: "Breadcrumbs",
-    Component: Breadcrumbs,
-  },
-  {
-    value: "person",
-    label: "Person",
-    Component: Person,
-  },
-  // {
-  //     value: "organization",
-  //     label: "Organization"
-  // },
-  // {
-  //     value: "local_business",
-  //     label: "Local Business"
-  // },
-  {
-    value: "article",
-    label: "Article",
-    Component: Article,
-  },
-  {
-    value: "product",
-    label: "Product",
-    Component: Product,
-  },
-  // {
-  //     value: "event",
-  //     label: "Event"
-  // },
-  // {
-  //     value: "recipe",
-  //     label: "Recipe"
-  // },
-  // {
-  //     value: "job_posting",
-  //     label: "Job Posting"
-  // },
-  // {
-  //     value: "video",
-  //     label: "Video"
-  // },
-  // {
-  //     value: "faqpage",
-  //     label: "FAQPage"
-  // }
-];

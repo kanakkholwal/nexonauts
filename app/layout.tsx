@@ -5,9 +5,9 @@ import { Provider, ThemeProvider } from "./client-provider";
 import "./codebox.css";
 import "./global.css";
 // import { Urbanist } from 'next/font/google';
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 
-const font = Plus_Jakarta_Sans({
+const font = Noto_Sans({
   weight: ["400", "500", "600", "700", "800"],
   subsets: ["latin-ext", "latin"],
   display: "swap",

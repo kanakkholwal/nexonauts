@@ -10,7 +10,7 @@
 [data-theme="light"] {
     --max-app-width: 1280px;
 
-     --background: hsl(0deg 0% 96.08%);
+    --background: hsl(0deg 0% 96.08%);
     --foreground: hsl(0deg 0% 9.8%);
     --card: hsl(0, 0%, 100%);
     --card-foreground: hsl(0deg 0% 9.8%);
@@ -185,6 +185,7 @@
     --color-fd-accent-foreground: hsl(0, 0%, 90.2%);
     --color-fd-ring: hsl(0, 0%, 55%);
 }
+
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
@@ -447,7 +448,7 @@ body {
        - starts from 1024px (for tablets/small desktops)
        - scales with viewport
        - grows reasonably beyond 1440px without a hard limit */
-    /* --max-app-width: clamp(1280px, 80vw, 1920px); */
+    --max-app-width: clamp(1460px, 80vw, 2480px);
 
 }
 
@@ -621,4 +622,3 @@ body {
     -webkit-mask-image: linear-gradient(to top, transparent, white);
     mask-image: linear-gradient(to top, transparent, white);
 }
-

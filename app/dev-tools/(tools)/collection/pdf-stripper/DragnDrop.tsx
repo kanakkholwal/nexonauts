@@ -1,7 +1,7 @@
 'use client';
 
-import { Card } from '@/components/ui/card';
-import { Upload } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { FileUp, Upload } from 'lucide-react';
 import { useRef, useState } from 'react';
 
 interface DragnDropProps {
@@ -18,71 +18,80 @@ export function DragnDrop({ onFilesSelected }: DragnDropProps) {
     onFilesSelected(fileList);
   };
 
-  const dragenter = (e: React.DragEvent<HTMLDivElement>) => {
-    setIsDragover(true);
-  };
-
-  const dragleave = (e: React.DragEvent<HTMLDivElement>) => {
-    setIsDragover(false);
+  const handleDrag = (e: React.DragEvent<HTMLDivElement>, isOver: boolean) => {
+    e.preventDefault();
+    setIsDragover(isOver);
   };
 
   const drop = (e: React.DragEvent<HTMLDivElement>) => {
-    // prevent from opening files in new tab
     e.preventDefault();
     setIsDragover(false);
-    
     if (!fileInputRef.current || !e.dataTransfer?.files) return;
-    
-    // Create a new DataTransfer object
+
     const dataTransfer = new DataTransfer();
-    
-    // Add all files from the drop event
     for (const file of e.dataTransfer.files) {
-      dataTransfer.items.add(file);
+      if (file.type === 'application/pdf') {
+        dataTransfer.items.add(file);
+      }
     }
 
-    // Set the files property on the input element
-    fileInputRef.current.files = dataTransfer.files;
-
-    onChange();
-  };
-
-  const handleClick = () => {
-    fileInputRef.current?.click();
+    if (dataTransfer.files.length > 0) {
+      fileInputRef.current.files = dataTransfer.files;
+      onChange();
+    }
   };
 
   return (
-    <Card 
-      className={`flex justify-center items-center h-20 transition-all duration-300 ${
-        isDragover 
-          ? 'bg-blue-900 text-white scale-105' 
-          : 'bg-white hover:bg-blue-50'
-      }`}
-      onDragOver={e => e.preventDefault()}
-      onDragEnter={dragenter}
-      onDragLeave={dragleave}
+    <div
+      className={`
+        relative group cursor-pointer
+        flex flex-col items-center justify-center
+        h-64 w-full rounded-xl
+        border-2 border-dashed transition-all duration-300 ease-in-out
+        ${isDragover
+          ? 'border-primary bg-primary/10 ring-4 ring-primary/20'
+          : 'border-muted-foreground/25 bg-muted/20 hover:bg-muted/40 hover:border-muted-foreground/50'
+        }
+      `}
+      onDragOver={(e) => handleDrag(e, true)}
+      onDragEnter={(e) => handleDrag(e, true)}
+      onDragLeave={(e) => handleDrag(e, false)}
       onDrop={drop}
+      onClick={() => fileInputRef.current?.click()}
     >
-      <div className="flex items-center gap-2">
-        <Upload size={20} />
-        <span>
-          Drag&apos;n drop or <button 
-            type="button"
-            className="font-bold hover:underline focus:outline-hidden" 
-            onClick={handleClick}
-          >
-            select
-          </button> PDF-files here
-        </span>
-        <input
-          type="file"
-          className="hidden"
-          accept="application/pdf,.pdf"
-          multiple
-          onChange={onChange}
-          ref={fileInputRef}
-        />
+      <div className="flex flex-col items-center gap-4 text-center p-6 relative z-10">
+        <div className={`
+          p-4 rounded-full transition-colors duration-300
+          ${isDragover
+            ? 'bg-background text-primary shadow-lg'
+            : 'bg-background shadow-sm text-muted-foreground group-hover:text-foreground border border-border'
+          }
+        `}>
+          {isDragover ? <FileUp size={32} /> : <Upload size={32} />}
+        </div>
+
+        <div className="space-y-1">
+          <p className="text-lg font-semibold text-foreground">
+            {isDragover ? 'Drop files here' : 'Click or drag PDF files here'}
+          </p>
+          <p className="text-sm text-muted-foreground">
+            Supports multiple PDF files
+          </p>
+        </div>
+
+        <Button variant="secondary" className="mt-4 pointer-events-none">
+          Select Files
+        </Button>
       </div>
-    </Card>
+
+      <input
+        type="file"
+        className="hidden"
+        accept="application/pdf,.pdf"
+        multiple
+        onChange={onChange}
+        ref={fileInputRef}
+      />
+    </div>
   );
 }

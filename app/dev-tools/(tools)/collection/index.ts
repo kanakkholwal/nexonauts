@@ -1,5 +1,5 @@
 import type { StaticImageData } from "next/image";
-import bgRemovalTool from "./bg-remover";
+// import bgRemovalTool from "./bg-remover";
 import CssMinifierPrettifier from "./css-minifier-and-prettifier";
 import HtmlMinifierPrettifier from "./html-minifier-and-prettifier";
 import htmlParserTool from "./html-parser-tool";
@@ -7,9 +7,9 @@ import htmlParserTool from "./html-parser-tool";
 import HtmlToJsxTool from "./html-to-jsx-convertor";
 import Image2Webp from "./image-to-webp-convertor";
 import jsonMinifierTool from "./json-minifier-tool";
-import SchemaGenerator from "./schema-markup-generator";
 import metaTagGenerator from "./meta-tag-generator";
 import PdfPageStripper from "./pdf-stripper";
+import SchemaGenerator from "./schema-markup-generator";
 
 export type ToolType = {
   slug: string;
@@ -31,8 +31,8 @@ const _allTools: ToolType[] = [
   jsonMinifierTool,
   CssMinifierPrettifier,
   // svgEncoder,
-  // HtmlToJsxTool,
+  HtmlToJsxTool,
   // bgRemovalTool,
-  
+
 ];
 export default _allTools;

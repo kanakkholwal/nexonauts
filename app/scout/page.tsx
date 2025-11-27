@@ -1,73 +1,77 @@
+import { NumberTicker } from "@/components/animation/number-ticker";
+import NavbarGlobal from "@/components/common/navbar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tabs, TabsContent, VercelTabsList } from "@/components/ui/tabs";
-import { Search, ShieldCheck, Star } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  ArrowRight,
+  ArrowUpDown,
+  FolderOpen,
+  MonitorSmartphone,
+  ScanSearch,
+  Search,
+  Sparkles,
+  Star,
+  Zap
+} from "lucide-react";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { cache, Suspense } from "react";
 import dbConnect from "src/lib/db";
 import PublicTool from "src/models/tool";
-import illustration from "./illustration.svg";
 
-import { NumberTicker } from "@/components/animation/number-ticker";
-import NavbarGlobal from "@/components/common/navbar";
-import { Button } from "@/components/ui/button";
-import {
-	ArrowUpDown,
-	FolderOpen,
-	MonitorSmartphone,
-	ScanSearch,
-} from "lucide-react";
+// The generated image is used here.
+// For a real project, you would save this image to your public folder.
+const heroDashboardImage = "/image_0.png";
 
 export const metadata: Metadata = {
-  title: "Nexo Scout - AI Tools, Services, and Resources",
+  title: "Nexo Scout - The AI Tool Directory",
   description:
-    "Nexo Scout is a curated list of AI tools, services, and resources. Find the best AI tools for your business.",
+    "Discover the best AI tools, services, and resources to supercharge your workflow.",
 };
 
 const features = [
   {
     name: "Effortless Search",
     description:
-      "Nexo Scout's powerful search engine makes it easy to locate the perfect solution for your projects and tasks.",
+      "Powerful semantic search makes locating the perfect solution for your specific stack instant.",
     icon: Search,
   },
   {
-    name: "Curated Recommendations",
+    name: "Curated Quality",
     description:
-      "Our team constantly evaluates and updates the database to ensure you have access to the best-in-class solutions.",
+      "We manually verify every tool to ensure you only see best-in-class solutions, no vaporware.",
     icon: Star,
   },
   {
-    name: "Regular Updates",
+    name: "Always Fresh",
     description:
-      "We're committed to keeping our database fresh and relevant, providing you with the latest tools, services, and useful websites to enhance your workflow.",
-    icon: ShieldCheck,
+      "Our database is updated daily with the latest AI breakthroughs and version updates.",
+    icon: Zap,
   },
   {
-    name: "User-Friendly Interface",
+    name: "Developer Focused",
     description:
-      " Discover new tools, services, and resources with just a few clicks, saving you time and effort in your search for productivity.",
+      "Filter by API availability, open-source license, and pricing models instantly.",
     icon: MonitorSmartphone,
   },
   {
-    name: "Comprehensive Categories",
+    name: "Smart Categories",
     description:
-      "Whether you're a developer, designer, student, or business owner, easily navigate through specialized categories to find precisely what you need, optimizing your search experience.",
+      "Navigate through specialized clusters like 'Generative Video', 'Code Assistants', and 'LLMOps'.",
     icon: FolderOpen,
   },
   {
-    name: "Interactive Filters",
+    name: "Community Ranked",
     description:
-      "Sort by popularity, relevance, or newest additions, ensuring you discover the most relevant tools and resources tailored to your preferences and requirements.",
+      "See what's trending based on real developer usage and popularity metrics.",
     icon: ArrowUpDown,
   },
-] as {
-  name: string;
-  description: string;
-  icon: React.ElementType;
-}[];
+];
 
+// --- Data Fetching (Preserved) ---
 async function getCategories() {
   const categories = await PublicTool.aggregate([
     { $unwind: "$categories" },
@@ -81,7 +85,7 @@ async function getCategories() {
     { $project: { _id: 0, name: 1, slug: 1 } },
   ]).limit(5);
   const slugs = categories.map((category) => category.slug);
-  //  get 6 tools of each category
+
   const categorized_tools = await PublicTool.aggregate([
     { $unwind: "$categories" },
     {
@@ -100,6 +104,7 @@ async function getCategories() {
   ]);
   return Promise.resolve(JSON.parse(JSON.stringify(categorized_tools)));
 }
+
 const getCategoriesPromise = cache(getCategories);
 type CategorizedToolType = Awaited<ReturnType<typeof getCategories>>[number];
 
@@ -113,164 +118,218 @@ export default async function Page() {
   const categorized_tools = (await getCategoriesPromise()) as CategorizedToolType[];
 
   return (
-    <>
-      <header>
+    <main className="min-h-screen bg-background text-foreground selection:bg-primary/20">
+      <header className="relative overflow-hidden">
         <NavbarGlobal />
-        <div className="py-32 px-8  min-h-96  w-full flex items-center justify-between max-w-7xl mx-auto relative">
-          <div className="max-w-6xl mx-auto text-left pt-5">
-            <h2 className="text-4xl font-bold mb-8 text-foreground max-w-xl text-pretty">
-              Discover Essential Tools & Resources with{" "}
-              <span className="relative bg-linear-to-r from-primary to-violet-600 bg-clip-text text-transparent md:px-2">
-                Nexo Scout
-              </span>
-            </h2>
 
-            <p className="text-lg font-medium mb-3 text-muted-foreground max-w-lg">
-              Streamline Your Workflow with Our Comprehensive Search Engine.
-            </p>
+        {/* --- Hero Background Effects --- */}
+        <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        <div className="absolute left-0 right-0 top-0 -z-10 m-auto h-[310px] w-[310px] rounded-full bg-primary/20 opacity-20 blur-[100px]"></div>
 
-            <div className="flex gap-4 items-center justify-start mt-10">
-              <Button size="lg" variant="rainbow" rounded="full" className="ml-0" asChild>
-                <Link
-                  href="/scout/browse"
-                >
-                  <ScanSearch />
-                  Start Searching Now
-                </Link>
-              </Button>
-            </div>
-            <p className="text-sm mt-4 font-medium text-muted-foreground max-w-lg">
-              Explore more than <NumberTicker value={noOfTools} suffix="+" className="mx-2 font-bold" /> tools and resources
-            </p>
+        {/* --- Hero Content --- */}
+        <div className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 px-6 max-w-7xl mx-auto flex flex-col items-center text-center">
+
+          <div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-sm font-medium text-primary mb-8 backdrop-blur-sm">
+            <Sparkles className="mr-2 h-3.5 w-3.5" />
+            <span className="flex items-center gap-1">
+              Database updated: <span className="font-bold">{new Date().toLocaleDateString()}</span>
+            </span>
           </div>
-          <div className="hidden md:flex flex-col gap-4 items-center justify-center mt-8">
-            <div
-              aria-hidden="true"
-              className="absolute inset-0 grid grid-cols-2 -space-x-52 opacity-40 dark:opacity-20 -z-10"
-            >
-              <div className="blur-[106px] h-56 bg-linear-to-br from-primary to-purple-400 dark:from-blue-700" />
-              <div className="blur-[106px] h-32 bg-linear-to-r from-cyan-400 to-sky-300 dark:to-indigo-600" />
+
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/60">
+            The Knowledge Base for <br className="hidden md:block" />
+            <span className="bg-linear-to-l from-indigo-400 from-10% via-sky-400 via-30% to-emerald-300 to-90% bg-clip-text text-transparent">
+              AI & Dev Tools
+            </span>
+          </h1>
+
+          <p className="text-xl text-muted-foreground max-w-2xl mb-10 leading-relaxed">
+            Nexo Scout is the search engine for builders. Discover over{" "}
+            <span className="font-semibold text-foreground">
+              <NumberTicker value={noOfTools} />+
+            </span>{" "}
+            curated tools, resources, and services to streamline your next project.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 items-center w-full justify-center mb-20">
+            <Button size="lg" className="h-12 px-8 text-base rounded-full shadow-lg shadow-primary/20" asChild>
+              <Link href="/scout/browse">
+                <ScanSearch className="mr-2 h-5 w-5" />
+                Start Exploring
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" className="h-12 px-8 text-base rounded-full bg-background/50 backdrop-blur-md" asChild>
+              <Link href="/scout/submit">
+                Submit a Tool
+              </Link>
+            </Button>
+          </div>
+
+          {/* --- Redesigned Abstract Hero Visual --- */}
+          <div className="w-full max-w-6xl relative perspective-[1000px] group">
+            {/* Animated Glow Effect */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-primary/40 via-violet-500/40 to-blue-500/40 rounded-[32px] blur-3xl opacity-30 -z-10 animate-pulse group-hover:opacity-50 transition-opacity duration-500" />
+
+            {/* Floating Dashboard Container */}
+            <div className="relative rounded-[24px] border border-white/10 bg-white/5 backdrop-blur-2xl p-3 shadow-2xl overflow-hidden transform transition-transform duration-500 hover:scale-[1.01] hover:rotate-x-[2deg]">
+              <div className="rounded-xl overflow-hidden relative aspect-[21/9] bg-muted/20">
+                <Image
+                  src={heroDashboardImage}
+                  alt="Nexo Scout AI Dashboard"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+                {/* Screen Reflection/Gloss */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none" />
+              </div>
             </div>
-            <Image
-              src={illustration}
-              height={600}
-              width={600}
-              alt={"Tool scout"}
-              className="drop-shadow-2xl drop-shadow-primary/20"
-              draggable={false}
-              priority
-            />
+
+            {/* Bottom Reflection */}
+            <div className="absolute -bottom-10 left-0 right-0 h-40 bg-gradient-to-b from-primary/20 to-transparent blur-3xl opacity-30 transform scale-x-90" />
           </div>
         </div>
       </header>
-      <section id="popular-categories" className="pb-24 sm:pb-28">
-        <div className="h-80 md:h-160 perspective-[1000px] relative b flex flex-col max-w-5xl mx-auto w-full  items-start justify-start my-40">
-          <h2 className="text-3xl font-bold mb-2 text-center mx-auto" aria-label="Browse Popular Categories">
-            Browse Popular Categories
-          </h2>
-          <h4 className="text-lg font-semibold text-center text-muted-foreground  mx-auto mb-8">
-            Explore in <NumberTicker value={noOfTools} suffix="+" className="mx-2 font-bold" /> tools and resources
-          </h4>
+
+      {/* --- Popular Categories Tabs --- */}
+      <section className="py-24 px-6 relative z-10 bg-muted/20 border-y border-border/50">
+        <div className="max-w-7xl mx-auto">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight mb-2">Trending Collections</h2>
+              <p className="text-muted-foreground">Most searched categories this week.</p>
+            </div>
+            <Link href="/scout/categories" className="text-primary font-medium hover:underline flex items-center gap-1">
+              View all categories <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
           <Suspense
             fallback={
-              <>
-                <Skeleton className="h-12 w-28 rounded-lg" />
-                <Skeleton className="h-12 w-28 rounded-lg" />
-                <Skeleton className="h-12 w-28 rounded-lg" />
-              </>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <Skeleton key={i} className="h-64 w-full rounded-2xl" />
+                ))}
+              </div>
             }
           >
-            <Tabs defaultValue={categorized_tools[0].slug} className="w-full mx-1.5 md:mx-auto">
-              <VercelTabsList
-                tabs={categorized_tools.map((category: CategorizedToolType) => {
-                  return {
-                    label: category.name,
-                    id: category.slug,
-                  };
-                })}
-              />
-              {categorized_tools.map((category: CategorizedToolType) => {
-                return (
-                  <TabsContent value={category.slug} key={category.slug}>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                      {category.tools.map(
-                        (tool: CategorizedToolType["tools"][number]) => {
-                          return (
-                            <Link
-                              href={`/scout/tools/${tool.slug}`}
-                              key={tool.slug}
-                              className="flex flex-col gap-4 items-start p-4 rounded-lg border backdrop-blur-md bg-card transition-all duration-500 hover:scale-[1.05] hover:shadow-lg hover:bg-card/80 border-muted-foreground/20 hover:border-primary/50 group"
-                            >
+            {categorized_tools.length > 0 && (
+              <Tabs defaultValue={categorized_tools[0].slug} className="w-full">
+                <div className="overflow-x-auto pb-4 mb-4 scrollbar-hide">
+                  <TabsList className="inline-flex h-12 items-center justify-start rounded-full bg-background border border-border/50 p-1 text-muted-foreground w-auto">
+                    {categorized_tools.map((category) => (
+                      <TabsTrigger
+                        key={category.slug}
+                        value={category.slug}
+                        className="rounded-full px-6 py-2 text-sm font-medium transition-all data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm"
+                      >
+                        {category.name}
+                      </TabsTrigger>
+                    ))}
+                  </TabsList>
+                </div>
 
-                              <div className="flex flex-col gap-1 shrink">
-                                <h3 className="text-lg font-semibold">
-                                  {tool.name}
-                                </h3>
-                                <p className="text-muted-foreground text-sm font-medium line-clamp-2">
-                                  {tool.description}
-                                </p>
-                              </div>
+                {categorized_tools.map((category) => (
+                  <TabsContent value={category.slug} key={category.slug} className="mt-0">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {category.tools.map((tool) => (
+                        <Link
+                          href={`/scout/tools/${tool.slug}`}
+                          key={tool.slug}
+                          className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/50 bg-background/50 backdrop-blur-sm transition-all hover:shadow-xl hover:-translate-y-1 hover:border-primary/30"
+                        >
+                          {/* Image Container */}
+                          <div className="aspect-[16/9] w-full overflow-hidden bg-muted relative">
+                            {tool.coverImage ? (
                               <Image
                                 src={tool.coverImage}
                                 alt={tool.name}
-                                height={128}
-                                width={320}
-                                className="max-h-32 object-cover  rounded-lg  w-full mx-auto mt-auto"
+                                fill
+                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                sizes="(max-width: 768px) 100vw, 33vw"
                               />
-                            </Link>
-                          );
-                        }
-                      )}
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-muted-foreground bg-secondary/30">
+                                <FolderOpen className="w-10 h-10 opacity-20" />
+                              </div>
+                            )}
+                            {/* Overlay Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent opacity-60" />
+                          </div>
+
+                          {/* Content */}
+                          <div className="flex flex-1 flex-col p-5">
+                            <div className="flex items-start justify-between gap-4 mb-3">
+                              <h3 className="text-xl font-bold tracking-tight text-foreground line-clamp-1 group-hover:text-primary transition-colors">
+                                {tool.name}
+                              </h3>
+                              <Badge variant="default_light" className="shrink-0 text-[10px] h-5">
+                                {category.name}
+                              </Badge>
+                            </div>
+
+                            <p className="text-muted-foreground text-sm leading-relaxed line-clamp-2 mb-4 flex-1">
+                              {tool.description}
+                            </p>
+
+                            <div className="flex items-center text-xs font-medium text-primary opacity-0 -translate-x-2 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-0">
+                              View Details <ArrowRight className="ml-1 w-3 h-3" />
+                            </div>
+                          </div>
+                        </Link>
+                      ))}
                     </div>
                   </TabsContent>
-                );
-              })}
-            </Tabs>
-
+                ))}
+              </Tabs>
+            )}
           </Suspense>
         </div>
       </section>
-      <section className="py-24 sm:py-32" id="features">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:text-center">
-            <h2 className="text-base font-semibold leading-7 text-primary">
-              Unlock the Power of Nexo Scout
+
+      {/* --- Features Grid --- */}
+      <section className="py-24 px-6 relative overflow-hidden">
+        <div className="absolute top-[20%] left-[10%] w-[400px] h-[400px] bg-primary/5 blur-[120px] rounded-full mix-blend-screen pointer-events-none" />
+
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-sm font-semibold text-primary uppercase tracking-widest mb-3">
+              Why Nexo Scout?
             </h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-              Discover How Our Platform Can Enhance Your Workflow
+            <p className="text-3xl md:text-4xl font-bold tracking-tight mb-6">
+              Built for the modern creator economy
             </p>
-            <p className="mt-6 text-lg leading-8 text-muted-foreground">
-              Explore Nexo Scout{`'`}s features: effortless search, curated
-              recommendations, and regular updates. Streamline your workflow
-              with ease and efficiency.
+            <p className="text-lg text-muted-foreground">
+              We stripped away the noise. No ads, no fluff—just the tools you need to build faster and better.
             </p>
           </div>
-          <div className="mt-16 grid  sm:grid-cols-2 lg:grid-cols-3 lg:divide-y-0 rounded-3xl overflow-hidden divide-y">
-            {features.map((feature, index) => {
-              return (
-                <div
-                  key={"solutions_" + index}
-                  className="hover:bg-card backdrop-blur"
-                >
-                  <div className="relative py-12 p-8">
-                    <div className="space-y-8 mb-2">
-                      <h5 className="text-lg font-semibold text-foreground">
-                        <feature.icon className="size-5 text-primary mr-2 inline-block" />{" "}
-                        {feature.name}
-                      </h5>
-                    </div>
-                    <p className="text-sm leading-6  text-muted-foreground">
-                      {feature.description}
-                    </p>
-                  </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="relative p-8 rounded-3xl border border-border/50 bg-card/30 backdrop-blur-sm transition-colors hover:bg-card/60 hover:border-primary/20 group"
+              >
+                <div className="absolute top-8 right-8 text-primary/10 group-hover:text-primary/20 transition-colors">
+                  <feature.icon className="w-24 h-24 rotate-12" />
                 </div>
-              );
-            })}
+
+                <div className="relative z-10">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 transition-transform duration-300">
+                    <feature.icon className="w-6 h-6" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3 text-foreground">
+                    {feature.name}
+                  </h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-
-
-    </>
+    </main>
   );
 }

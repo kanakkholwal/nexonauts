@@ -1,10 +1,8 @@
 'use client';
 
-import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Download, RefreshCw } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { CheckCircle2, Download, FileText, Package, RefreshCw } from "lucide-react";
 
 interface PDFResult {
   id: string;
@@ -23,75 +21,103 @@ interface DownloadAreaProps {
 }
 
 export function DownloadArea({ pdfFiles, zip, onReset }: DownloadAreaProps) {
+  const processedCount = pdfFiles.filter(f => f.result).length;
+
   return (
-    <div className="flex flex-col gap-4">
-      {zip.state === 1 && zip.result && (
-        <a
-          href={zip.result}
-          download="stripped-pdfs.zip"
-          className="no-underline"
-        >
-          <Button 
-            variant="outline" 
-            className="w-full relative h-auto py-4 group border-blue-900 hover:bg-blue-900 hover:text-white transition-all"
+    <div className="space-y-8 animate-in fade-in duration-500">
+
+      {/* Success Banner */}
+      <div className="flex flex-col items-center text-center space-y-4">
+        <div className="h-12 w-12 bg-green-500/15 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center">
+          <CheckCircle2 size={24} />
+        </div>
+        <div>
+          <h3 className="text-xl font-semibold text-foreground">Processing Complete!</h3>
+          <p className="text-muted-foreground">
+            Successfully processed {processedCount} of {pdfFiles.length} files.
+          </p>
+        </div>
+      </div>
+
+      {/* Primary Action: Download ZIP */}
+      <div className="flex flex-col gap-4">
+        {zip.state === 1 && zip.result ? (
+          <a
+            href={zip.result}
+            download="stripped-pdfs.zip"
+            className="w-full"
           >
-            <div className="flex flex-col items-center w-full">
-              <div className="flex items-center gap-2">
-                <Download size={18} />
-                <span>Download as .zip</span>
+            <Button
+              size="lg"
+              className="w-full h-20 text-lg shadow-lg shadow-primary/20"
+            >
+              <Package className="mr-3 h-6 w-6" />
+              <div className="flex flex-col items-start text-left gap-1">
+                <span className="font-bold leading-none">Download All as ZIP</span>
+                <span className="text-xs opacity-80 font-normal">
+                  Total Size: {Math.round((zip.size || 0) / 1024 / 1024 * 100) / 100} MB
+                </span>
               </div>
-              <div className="text-sm text-muted-foreground group-hover:text-blue-100 mt-1">
-                Size: {Math.round((zip.size || 0) / 10000) / 100} mb
-              </div>
-            </div>
+            </Button>
+          </a>
+        ) : (
+          <Button disabled className="w-full h-20" variant="secondary">
+            <span className="animate-pulse">Preparing ZIP archive...</span>
           </Button>
-        </a>
-      )}
-      
-      {zip.state === 0 && (
-        <Button 
-          variant="outline" 
-          disabled 
-          className="w-full relative h-auto py-4"
+        )}
+
+        <Button
+          variant="ghost"
+          onClick={onReset}
+          className="text-muted-foreground hover:text-foreground"
         >
-          <div className="flex flex-col items-center w-full">
-            <div>Loading .zip</div>
-            <div className="text-sm text-muted-foreground mt-1">Loading...</div>
-          </div>
+          <RefreshCw size={14} className="mr-2" />
+          Process different files
         </Button>
-      )}
+      </div>
 
-      <ScrollArea className="h-[calc(50vh-123px)] w-full rounded-md">
-        <Card className="p-1">
-          <ul className="divide-y">
+      {/* Individual File List */}
+      <div className="space-y-3 pt-4 border-t border-border">
+        <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider pl-1">
+          Individual Files
+        </div>
+        <ScrollArea className="h-72 w-full rounded-xl border border-border bg-muted/30">
+          <div className="p-3 space-y-2">
             {pdfFiles.map((item) => (
-              <li key={item.id} className="p-4 text-center text-sm">
-                <div className="flex justify-between items-center">
-                  <span className="truncate max-w-[70%]">{item.name}</span>
-                  {item.result && (
-                    <a
-                      href={item.result}
-                      download={item.name}
-                      className="text-blue-700 hover:text-blue-900 hover:underline"
-                    >
-                      Download
-                    </a>
-                  )}
+              <div
+                key={item.id}
+                className="bg-card p-3 rounded-lg border border-border/50 shadow-sm flex items-center justify-between group hover:border-primary/50 transition-colors"
+              >
+                <div className="flex items-center gap-3 overflow-hidden">
+                  <div className={`p-2.5 rounded-md ${item.result ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`}>
+                    <FileText size={18} />
+                  </div>
+                  <div className="flex flex-col min-w-0">
+                    <span className="text-sm font-medium text-foreground truncate block">
+                      {item.name}
+                    </span>
+                    {!item.result && (
+                      <span className="text-xs text-destructive">No pages stripped</span>
+                    )}
+                  </div>
                 </div>
-              </li>
-            ))}
-          </ul>
-        </Card>
-      </ScrollArea>
 
-      <Button 
-        variant="outline" 
-        onClick={onReset}
-        className="w-40 mx-auto mt-4 border-blue-900 text-blue-900 hover:bg-blue-900 hover:text-white transition-all"
-      >
-        <RefreshCw size={16} className="mr-2" />
-        Strip more
-      </Button>
+                {item.result && (
+                  <a
+                    href={item.result}
+                    download={item.name}
+                    title="Download single file"
+                  >
+                    <Button size="icon" variant="ghost" className="h-8 w-8 text-muted-foreground hover:text-primary">
+                      <Download size={16} />
+                    </Button>
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+        </ScrollArea>
+      </div>
     </div>
   );
 }
