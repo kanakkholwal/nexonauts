@@ -1,5 +1,5 @@
 // import "dotenv/config";
-import { Db, MongoClient, ServerApiVersion } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 import mongoose, { type ConnectOptions, type Mongoose } from "mongoose";
 
 
@@ -41,11 +41,7 @@ const mongoOptions: ConnectOptions = {
 	retryWrites: true,
 	w: "majority",
 	appName: "nexonauts",
-	serverApi: {
-		version: ServerApiVersion.v1,
-		strict: true,
-		deprecationErrors: true,
-	}
+
 };
 
 export default async function dbConnect(dbName: string = defaultDb): Promise<Mongoose> {

@@ -21,10 +21,8 @@ import Link from "next/link";
 import { cache, Suspense } from "react";
 import dbConnect from "src/lib/db";
 import PublicTool from "src/models/tool";
-
-// The generated image is used here.
-// For a real project, you would save this image to your public folder.
-const heroDashboardImage = "/image_0.png";
+import heroDashboardImage from "./illustration.png";
+;
 
 export const metadata: Metadata = {
   title: "Nexo Scout - The AI Tool Directory",

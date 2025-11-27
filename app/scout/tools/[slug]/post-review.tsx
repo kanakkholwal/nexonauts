@@ -32,7 +32,7 @@ export function PostReview({
 
   return (
     <>
-      <Card className="border-none w-full bg-tranparent">
+      <Card className="border-none w-full">
         <CardHeader>
           <CardTitle>Rate {tool.name}</CardTitle>
           <CardDescription>

@@ -2,13 +2,14 @@
 
 import { AnimatedShinyText } from "@/components/animation/animated-shiny-text";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Bot, Check, Layout, ShoppingBag, Sparkles, UserCircle } from "lucide-react";
+import { ArrowRight, Bot, Check, Code, Layout, ShoppingBag, Sparkles, UserCircle } from "lucide-react";
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
 // images
 import aiToolsImg from "./assets/more_from_us_ai_tools.png";
 import creatorsImg from "./assets/more_from_us_creators.png";
+import devToolsImg from "./assets/more_from_us_dev_tools.png";
 import portfolioImg from "./assets/more_from_us_portfolio.png";
 
 
@@ -58,6 +59,22 @@ const features: FeatureType[] = [
     color: "from-purple-500/20 to-pink-500/20",
   },
   {
+    id: "dev-tools",
+    badge: "For Developers",
+    badgeIcon: Code,
+    title: "Developer Tools",
+    description:
+      "A suite of powerful tools designed to streamline your development workflow, from code generation to project management integrations.",
+    list: [
+      "Code generation",
+      "Project management integrations",
+      "AI-powered code completion",
+    ],
+    url: "/dev-tools",
+    image: devToolsImg,
+    color: "from-emerald-500/20 to-sky-500/20",
+  },
+  {
     id: "ai-tools",
     badge: "Coming Soon",
     badgeIcon: Bot,
@@ -96,9 +113,7 @@ export default function MoreFromUs({ omit }: { omit?: string[] }) {
 
       {/* --- Features Loop --- */}
       <div className="max-w-7xl mx-auto space-y-24">
-        {features.map((feature, index) => {
-          if (omit && omit.includes(feature.url)) return null;
-
+        {features.filter((feature) => !omit?.includes(feature.id)).map((feature, index) => {
           const isEven = index % 2 === 0;
 
           return (

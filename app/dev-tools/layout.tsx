@@ -34,7 +34,7 @@ export default async function Layout({
       <main className="w-full grow mx-auto px-4 sm:px-12 xl:px-0 pt-[70px] relative @container max-w-(--max-app-width)">
         {children}
       </main>
-      <MoreFromUs />
+      <MoreFromUs omit={["dev-tools"]} />
       <Footer />
     </>
   );

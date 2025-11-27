@@ -1,240 +1,205 @@
 "use client";
-import { ResponsiveDialog } from "@/components/extended/responsive-dialog";
 
-import { BadgeProps } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Chip } from "@/components/ui/chips";
 import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import {
+  Check,
+  Columns,
+  Filter,
   Grid,
   List,
-  Loader2,
-  LayoutDashboard as Masonry,
+  Loader2, // For masonry icon
   Search,
-  X,
+  X
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
-interface FilterBarProps {
+// --- TYPES ---
+interface FilterProps {
   categories: { name: string; slug: string }[];
   pricing_types: string[];
-  filter: { category: string; pricing_type: string };
-  viewType: "grid" | "list" | "masonry";
+  currentFilter: { category: string; pricing_type: string };
 }
 
-export function FilterBar({
-  categories,
-  pricing_types,
-  filter,
-  ...props
-}: FilterBarProps) {
-  const searchParams = useSearchParams() as URLSearchParams;
+// --- SIDEBAR COMPONENT (Desktop) ---
+export function FilterSidebar({ categories, pricing_types, currentFilter }: FilterProps) {
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const [viewType, setViewType] = useState<"grid" | "list" | "masonry">(
-    props?.viewType || "masonry"
-  );
 
-  const handleViewChange = () => {
-    setViewType((prev) => {
-      if (prev === "grid") return "list";
-      if (prev === "list") return "masonry";
-      return "grid";
-    });
-    const params = new URLSearchParams(searchParams);
-    params.set("view", viewType);
+  const updateFilter = (key: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value === "all" || !value) {
+      params.delete(key);
+    } else {
+      params.set(key, value);
+    }
+    params.set("page", "1"); // Reset pagination
     router.push(`?${params.toString()}`);
   };
 
   return (
-    <div className="flex flex-wrap justify-end items-center gap-2">
-      <ResponsiveDialog
-        title="Filter Tools"
-        description="Filter Tools by category, pricing, and more."
-        btnProps={{
-          variant: "default_light",
-          size: "sm",
-          children: <>Filter</>,
-        }}
-      >
-        <div className="w-full flex flex-col space-y-2 text-center sm:text-left mb-5">
-          <div className="mb-4">
-            <p className="text-sm font-medium text-muted-foreground mb-4">
-              By Categories
-            </p>
-            <div className="flex flex-wrap gap-2">
-              <FilterButton
-                active={filter.category === "all"}
-                filterKey="category"
-                filterValue="all"
-              >
-                All
-              </FilterButton>
-              {categories.map((category) => (
-                <FilterButton
-                  key={category.slug}
-                  // className="cursor-pointer"
-                  filterKey="category"
-                  filterValue={category.slug}
-                  active={filter.category === category.slug}
-                >
-                  {category.name.split("_").join(" ")}
-                </FilterButton>
-              ))}
-            </div>
-          </div>
+    <div className="space-y-8">
+      <div>
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3 pl-1">
+          Pricing
+        </h3>
+        <div className="space-y-1">
+          <FilterOption
+            label="All Prices"
+            active={currentFilter.pricing_type === "all"}
+            onClick={() => updateFilter("pricing_type", "all")}
+          />
+          {pricing_types.map((type) => (
+            <FilterOption
+              key={type}
+              label={type.replace("_", " ")}
+              active={currentFilter.pricing_type === type}
+              onClick={() => updateFilter("pricing_type", type)}
+            />
+          ))}
         </div>
-        <div className="mb-4">
-          <p className="text-sm font-medium text-muted-foreground mb-4">
-            By Pricing
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {pricing_types.map((pricing_type) => (
-              <FilterButton
-                key={pricing_type}
-                size="sm"
-                filterKey="pricing_type"
-                filterValue={pricing_type}
-                active={filter?.pricing_type === pricing_type}
-              >
-                {pricing_type.split("_").join(" ")}
-              </FilterButton>
-            ))}
-          </div>
+      </div>
+
+      <div>
+        <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3 pl-1">
+          Categories
+        </h3>
+        <div className="space-y-1 max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin">
+          <FilterOption
+            label="All Categories"
+            active={currentFilter.category === "all"}
+            onClick={() => updateFilter("category", "all")}
+          />
+          {categories.map((cat) => (
+            <FilterOption
+              key={cat.slug}
+              label={cat.name}
+              active={currentFilter.category === cat.slug}
+              onClick={() => updateFilter("category", cat.slug)}
+            />
+          ))}
         </div>
-      </ResponsiveDialog>
-      <Button
-        variant="outline"
-        size="icon_sm"
-        onClick={handleViewChange}
-      >
-        {viewType === "grid" && <Grid />}
-        {viewType === "list" && <List />}
-        {viewType === "masonry" && <Masonry />}
-      </Button>
+      </div>
     </div>
   );
 }
-function FilterButton({
-  filterKey,
-  filterValue,
-  active,
-  children,
-  ...props
-}: {
-  filterKey: string;
-  filterValue: string;
-  active?: boolean;
-  children: React.ReactNode;
-} & BadgeProps) {
-  const searchParams = useSearchParams() as URLSearchParams;
 
-  const router = useRouter();
-
-  const handleFilter = (filterValue: string) => {
-    const params = new URLSearchParams(searchParams);
-    if (filterValue) {
-      params.set(filterKey, filterValue);
-    } else {
-      params.delete(filterKey);
-    }
-    router.push(`?${params.toString()}`);
-  };
-  const removeFilter = () => {
-    const params = new URLSearchParams(searchParams);
-    params.delete(filterKey);
-    router.push(`?${params.toString()}`);
-  };
+// --- MOBILE FILTER SHEET ---
+export function MobileFilterSheet(props: FilterProps) {
   return (
-    <Chip
-      size="sm"
-      variant="outline"
-      className="cursor-pointer"
-      onClick={() => {
-        handleFilter(filterValue);
-      }}
-      onRemove={removeFilter}
-      {...props}
-    >
-      {children}
-    </Chip>
+    <Sheet>
+      <SheetTrigger asChild>
+        <Button variant="outline" size="sm" className="h-9 gap-2">
+          <Filter className="w-3.5 h-3.5" />
+          Filters
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="left" className="w-[300px] sm:w-[400px]">
+        <SheetHeader className="mb-6 text-left">
+          <SheetTitle>Filter Tools</SheetTitle>
+        </SheetHeader>
+        <FilterSidebar {...props} />
+      </SheetContent>
+    </Sheet>
   );
 }
-export function SearchBar({
-  className,
-  ...props
-}: { className?: string } & React.HTMLAttributes<HTMLDivElement>) {
-  const [loading, setLoading] = useState(false);
-  const searchParams = useSearchParams() as URLSearchParams;
+
+// --- HELPER: Filter Option Row ---
+function FilterOption({ label, active, onClick }: { label: string, active: boolean, onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "w-full flex items-center justify-between px-3 py-2 rounded-md text-sm transition-colors",
+        active
+          ? "bg-primary/10 text-primary font-medium"
+          : "text-muted-foreground hover:bg-muted hover:text-foreground"
+      )}
+    >
+      <span className="capitalize">{label}</span>
+      {active && <Check className="w-3.5 h-3.5" />}
+    </button>
+  );
+}
+
+// --- VIEW TOGGLE ---
+export function ViewToggle({ currentView }: { currentView: string }) {
   const router = useRouter();
-  const [query, setQuery] = useState(searchParams.get("query") || "");
+  const searchParams = useSearchParams();
+
+  const setView = (view: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("view", view);
+    router.replace(`?${params.toString()}`, { scroll: false });
+  };
+
+  return (
+    <div className="flex items-center p-1 bg-muted/50 rounded-lg border border-border/50">
+      <ToggleBtn active={currentView === "grid"} onClick={() => setView("grid")} icon={Grid} />
+      <ToggleBtn active={currentView === "list"} onClick={() => setView("list")} icon={List} />
+      <ToggleBtn active={currentView === "masonry"} onClick={() => setView("masonry")} icon={Columns} />
+    </div>
+  );
+}
+
+function ToggleBtn({ active, onClick, icon: Icon }: any) {
+  return (
+    <button
+      onClick={onClick}
+      className={cn(
+        "p-1.5 rounded-md transition-all",
+        active ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"
+      )}
+    >
+      <Icon className="w-4 h-4" />
+    </button>
+  )
+}
+
+// --- SEARCH BAR ---
+export function SearchBar({ initialQuery }: { initialQuery: string }) {
+  const [loading, setLoading] = useState(false);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [query, setQuery] = useState(initialQuery);
 
   const handleSearch = useDebouncedCallback((term: string) => {
     setLoading(true);
-    const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams.toString());
     params.set("page", "1");
-
-    if (term) {
-      params.set("query", term);
-    } else {
-      params.delete("query");
-    }
+    if (term) params.set("query", term);
+    else params.delete("query");
 
     router.push(`?${params.toString()}`);
     setLoading(false);
   }, 300);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
-    setQuery(value);
-    if (value) {
-      handleSearch(value);
-    }
-  };
-
-  const handleClearSearch = () => {
-    setQuery("");
-    handleSearch("");
-  };
-
   return (
-    <div
-      className={cn(
-        "flex w-full gap-4 items-center justify-start mx-auto mt-0",
-        className
-      )}
-      id="search"
-      {...props}
-    >
-      <div className="relative w-full">
-        <Search className="absolute top-1/2 left-4 transform -translate-y-1/2 w-5 h-5" />
-        <Input
-          type="text"
-          name="query"
-          id="query"
-          value={query}
-          placeholder="Search for a AI, tools, services, and resources"
-          className="w-full pl-12 pr-4 py-2 h-14 rounded-xl shadow-sm border border-border"
-          onChange={handleInputChange}
-          required
-        />
-        <Button
-          size="icon"
-          variant="outline"
-          className="rounded-full absolute z-20 top-1/2 right-2 transform -translate-y-1/2 border-none bg-transparent dark:bg-transparent focus:outline-hidden"
-          onClick={handleClearSearch}
-        >
-          {query ? (
-            loading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <X className="h-4 w-4" />
-            )
-          ) : null}
-        </Button>
+    <div className="relative w-full group ">
+      <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within:text-primary transition-colors">
+        <Search className="w-4 h-4" />
       </div>
+      <Input
+        value={query}
+        placeholder="Search tools & resources..."
+        className="pl-9 pr-8 h-9 bg-transparent border-none shadow-none focus-visible:ring-0 text-sm"
+        onChange={(e) => {
+          setQuery(e.target.value);
+          handleSearch(e.target.value);
+        }}
+      />
+      {query && (
+        <button
+          onClick={() => { setQuery(""); handleSearch(""); }}
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+        >
+          {loading ? <Loader2 className="w-3 h-3 animate-spin" /> : <X className="w-3 h-3" />}
+        </button>
+      )}
     </div>
   );
 }

@@ -1,3 +1,4 @@
+// search.tsx
 "use client";
 import { Badge, BadgeProps } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -118,7 +119,7 @@ export function SearchBar({
             name="query"
             id="query"
             value={query}
-             
+
             placeholder="Search for a AI, tools, services, and resources"
             className="w-full pl-12 pr-4 py-2 h-14 rounded-xl bg-slate-50/15 dark:bg-slate-800/15 shadow-sm border border-border"
             defaultValue={searchParams.get("query")?.toString()?.trim()!}

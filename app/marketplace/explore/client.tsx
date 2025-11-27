@@ -1,85 +1,24 @@
-// client.tsx
 "use client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useUrlState } from "@/hooks/use-url-state";
-import { cn } from "@/lib/utils";
-import { itemTypes } from "data/marketplace/constants";
-import { Settings2 } from "lucide-react";
+import { SlidersHorizontal } from "lucide-react";
 import React from "react";
-
-export function CategoryBoxes({
-  initialCategory,
-}: {
-  initialCategory: string;
-}) {
-  const [selectedCategory, setSelectedCategory] = useUrlState(
-    "category",
-    initialCategory
-  );
-
-  return (
-    <RadioGroup
-      defaultValue={selectedCategory}
-      onValueChange={(value) => setSelectedCategory(value)}
-      className="w-full mx-auto grid justify-items-center items-stretch px-3 gap-4 grid-cols-1 @4xl/main:grid-cols-4 @2xl/main:grid-cols-3 @sm/main:grid-cols-2"
-    >
-      {itemTypes.map((item, i) => {
-        return (
-          <label
-            key={i}
-            htmlFor={item.label}
-            className={cn(
-              "flex items-center justify-center gap-3 p-3 rounded-xl transition-all duration-200 shadow-md border w-full aspect-10/4",
-              "bg-glasss",
-              selectedCategory === item.label
-                ? "border-primary!"
-                : "border-transparent"
-            )}
-          >
-            <div>
-              <item.icon className="w-12 h-12  text-violet-600" />
-            </div>
-            <div>
-              <h6 className="text-lg font-semibold">{item.label}</h6>
-              <p className="text-sm font-medium text-slate-500 dark:text-gray-400">
-                Trending in {item.label}
-              </p>
-            </div>
-            <RadioGroupItem
-              id={item.label}
-              value={item.label}
-              className="sr-only"
-            />
-          </label>
-        );
-      })}
-    </RadioGroup>
-  );
-}
-
 
 export function SearchBar({ initialQuery }: { initialQuery: string }) {
   const [_, setQuery] = useUrlState("query", initialQuery);
 
   return (
-    <Input
-      type="search"
+    <input
+      type="text"
       name="query"
-      id="query"
-      placeholder="Search for products"
-      variant="glass"
-      className="w-full pl-12 pr-4 py-2 h-12 rounded-full"
-      // value={query}
-      // onChange={(e) => {
-      //   setQuery(e.target.value);
-      // }}
+      placeholder="Search assets..."
+      className="w-full bg-transparent border-none outline-none text-sm h-10 px-10 text-foreground placeholder:text-muted-foreground/60"
       defaultValue={initialQuery}
-      onInput={(e) => {
-        setQuery(e.currentTarget.value);
+      autoComplete="off"
+      onChange={(e) => {
+        setQuery(e.target.value);
       }}
     />
   );
@@ -87,27 +26,29 @@ export function SearchBar({ initialQuery }: { initialQuery: string }) {
 
 export function FiltersWrapper({ content }: { content: React.ReactNode }) {
   return (
-    <Sheet >
+    <Sheet>
       <SheetTrigger asChild>
-        <Button size="icon" variant="light" rounded="full" className="lg:hidden absolute top-1/2 right-2 transform -translate-y-1/2 z-50">
-          <Settings2 />
+        <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg hover:bg-muted text-muted-foreground hover:text-foreground">
+          <SlidersHorizontal className="h-4 w-4" />
         </Button>
       </SheetTrigger>
-      <SheetContent className="p-4">{content}</SheetContent>
+      <SheetContent side="right" className="w-full sm:w-[400px] border-l border-border/50">
+        <SheetHeader className="mb-6 text-left">
+          <SheetTitle className="text-xl">Refine Results</SheetTitle>
+        </SheetHeader>
+        {content}
+      </SheetContent>
     </Sheet>
   );
 }
 
 export function ProductCardSkeleton() {
   return (
-    <div className="flex flex-col justify-between gap-2 rounded-xl p-3">
-      <Skeleton className="w-full h-48 aspect-video object-cover rounded-lg" />
-      <div className="flex items-start justify-between flex-nowrap gap-3 mt-2">
-        <Skeleton className="w-1/2 h-6" />
-        <Skeleton className="w-1/4 h-6" />
-      </div>
-      <div className="flex items-start justify-between flex-nowrap gap-3">
-        <Skeleton className="w-1/4 h-6" />
+    <div className="flex flex-col gap-4">
+      <Skeleton className="w-full aspect-[4/3] rounded-xl" />
+      <div className="space-y-2">
+        <Skeleton className="w-3/4 h-5 rounded-md" />
+        <Skeleton className="w-1/3 h-4 rounded-md" />
       </div>
     </div>
   );
