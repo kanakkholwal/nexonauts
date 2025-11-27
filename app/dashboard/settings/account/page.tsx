@@ -5,6 +5,7 @@ import User from "src/models/user";
 import { getSession } from "~/auth/server";
 
 import { AccountForm } from "./account";
+import { Session } from "src/auth";
 
 export const metadata: Metadata = {
   title: "Account",

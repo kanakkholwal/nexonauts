@@ -4,6 +4,7 @@ import { getSession } from "~/auth/server";
 
 import { getTools } from "./actions";
 import { columns } from "./columns";
+import { Session } from "~/auth";
 
 export default async function DashboardPage(props: {
   searchParams?: Promise<{

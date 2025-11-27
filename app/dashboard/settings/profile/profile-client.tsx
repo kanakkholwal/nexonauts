@@ -198,7 +198,7 @@ export function ProfileView() {
       >
         <Avatar className="w-40 h-40 shadow-lg">
           <AvatarImage
-            src={profile.user.image}
+            src={profile.user.profilePicture}
             alt={profile.username}
             width={320}
             height={320}

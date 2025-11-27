@@ -4,10 +4,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search } from "lucide-react";
 import { getSession } from "~/auth/server";
 
+import { Session } from "~/auth";
 import { getMessages } from "./actions";
 import { MessageDisplay } from "./components/message-display";
 import { MessageList } from "./components/message-list";
-import { useMessagesStore } from "./store";
 import StoreInitializer from "./store-initializer";
 
 export default async function DashboardPage() {
@@ -15,14 +15,7 @@ export default async function DashboardPage() {
 
   const { messages, totalPages } = await getMessages("", 1, {});
 
-  useMessagesStore.setState({
-    messages,
-    selected: messages[0]._id,
-    totalPages,
-    currentPage: 1,
-    query: "",
-    filter: {},
-  });
+ 
 
   return (
     <div className="space-y-6 my-5">

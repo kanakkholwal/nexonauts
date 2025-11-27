@@ -16,7 +16,6 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { type themeType } from "@/constants/theme";
 import useStorage from "@/hooks/useLocalStorage";
 import { cn } from "@/lib/utils";
 import { sendGAEvent } from "@next/third-parties/google";
@@ -43,7 +42,7 @@ const themes_modes = [
 ] as const;
 
 export type ThemeSwitcherProps = {
-  onChange?: (theme: themeType) => void;
+  onChange?: (theme: string) => void;
 
   className?: string;
 };
@@ -90,8 +89,8 @@ export const ThemeSwitcher = ({ onChange, className }: ThemeSwitcherProps) => {
                 width="full"
                 key={key}
                 onClick={() => {
-                  setTheme(key as themeType);
-                  onChange?.(key as themeType);
+                  setTheme(key);
+                  onChange?.(key);
                 }}
                 className={cn("justify-start relative text-xs")}
               >

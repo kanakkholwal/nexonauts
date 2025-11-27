@@ -114,7 +114,7 @@ export default async function ToolPage(props: Props) {
       }
       const rating = await postRatingAndReview({
         toolId: tool._id!,
-        userId: session?.user?._id!,
+        userId: session?.user?.id!,
         rating: data.rating,
         comment: data.comment,
       });
@@ -200,7 +200,7 @@ export default async function ToolPage(props: Props) {
                     <BookMarkButton
                       tool={tool}
                       toggleBookmark={toggleBookmark}
-                      userId={session?.user?._id! || null}
+                      userId={session?.user?.id! || null}
                     />
                     <Button
                       variant="gradient_purple"

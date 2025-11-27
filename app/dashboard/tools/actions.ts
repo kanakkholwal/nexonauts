@@ -3,6 +3,7 @@ import { getSession } from "~/auth/server";
 // import mongoose from "mongoose";
 import dbConnect from "src/lib/db";
 import PublicTool, { PublicToolTypeWithId } from "src/models/tool";
+import { Session } from "src/auth";
 
 
 export async function getToolsByUser(offset: number, limit: number) {

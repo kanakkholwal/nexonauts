@@ -100,7 +100,7 @@ export default async function ToolPage(props: {
               <BookMarkButton
                 tool={tool}
                 toggleBookmark={toggleBookmark}
-                userId={session?.user?._id! || null}
+                userId={session?.user?.id || null}
               />
               <Button
                 variant="gradient_blue"

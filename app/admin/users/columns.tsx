@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { DataTableColumnHeader } from "@/components/ui/data-table";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ColumnDef } from "@tanstack/react-table";
 import { MoreHorizontal } from "lucide-react";
@@ -159,7 +159,7 @@ export const columns: ColumnDef<userType>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuItem
               onClick={() =>
-                toast.promise(navigator.clipboard.writeText(user.id), {
+                toast.promise(navigator.clipboard.writeText(user._id), {
                   loading: "Copying...",
                   success: "ID copied to clipboard",
                   error: "Failed to copy ID",
@@ -172,7 +172,7 @@ export const columns: ColumnDef<userType>[] = [
             <DropdownMenuItem
               onClick={() => {
                 console.log("deleting user ", user);
-                toast.promise(deleteUser(user.id), {
+                toast.promise(deleteUser(user._id), {
                   loading: "Deleting...",
                   success: "User deleted",
                   error: (error) => error.response.data.message,

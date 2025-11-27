@@ -24,7 +24,7 @@ export function PostHeader(props: PostHeaderProps) {
         <div className="flex items-center gap-4 pb-6 border-b border-border">
           <Avatar className="size-12 md:size-16">
             <AvatarImage
-              src={props.author.user?.image}
+              src={props.author.user?.profilePicture}
               alt={props.author.user?.name || "Author"}
             />
             <AvatarFallback>

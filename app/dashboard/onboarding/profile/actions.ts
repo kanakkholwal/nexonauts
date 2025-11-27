@@ -2,6 +2,7 @@
 import dbConnect from "src/lib/db";
 import Profile from "src/models/profile";
 import User from "src/models/user";
+import { Session } from "~/auth";
 import { getSession } from "~/auth/server";
 
 

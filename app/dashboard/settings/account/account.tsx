@@ -5,12 +5,12 @@ import axios from "axios";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
 } from "@/components/ui/dialog";
 
 import { Button } from "@/components/ui/button";
@@ -90,7 +90,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
       .then((res) => {
         const file = res.data;
         // console.log(file);
-        setUser({ ...user, profilePicture: file.secure_url });
+        setUser({ ...user, image: file.secure_url });
         setImageStatus("success");
       })
       .catch((err) => {
@@ -165,7 +165,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
           <Avatar className="h-20 w-20">
             <AvatarImage
               alt={CurrentUser.name}
-              src={user.image}
+              src={user.image!}
               height={180}
               width={180}
             />
@@ -199,7 +199,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                     width={150}
                     height={150}
                     alt={user.name}
-                    src={user.image}
+                    src={user.image!}
                   />
                 ) : (
                   <Image
@@ -245,7 +245,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                     type="url"
                     autoCorrect="off"
                     className="pl-12 py-3! pr-5 mt-0!"
-                    value={user.image}
+                    value={user.image!}
                     onChange={async (e) => {
                       const url = e.target.value;
                       setImageStatus("loading");
@@ -254,7 +254,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
                           if (valid) {
                             setUser({
                               ...user,
-                              profilePicture: url,
+                              image: url,
                             });
                           } else {
                             toast.error("Invalid Image URL");
@@ -301,7 +301,7 @@ export function AccountForm({ user: CurrentUser, serverActions }: Props) {
             size="sm"
             variant="slate"
             onClick={() => {
-              setUser({ ...user, profilePicture: DEFAULT_PROFILE_URL });
+              setUser({ ...user, image: DEFAULT_PROFILE_URL });
             }}
           >
             Remove photo

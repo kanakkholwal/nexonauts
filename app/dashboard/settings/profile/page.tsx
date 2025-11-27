@@ -7,6 +7,7 @@ import { getSession } from "~/auth/server";
 import { getProfile, updateProfile } from "./actions";
 import { ProfileEditor, ProfileView } from "./profile-client";
 import StoreInitializer from "./store-intializer";
+import { Session } from "src/auth";
 
 export default async function ProfilePage() {
   const session = (await getSession()) as Session;

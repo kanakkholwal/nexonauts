@@ -34,7 +34,7 @@ export function TabsTransitionPanel({
     <div className={cn("space-y-4", className)}>
       <ToggleGroup
         defaultValue={"0"}
-        onValueChange={(value) =>
+        onValueChange={(value:string) =>
           setActiveIndex(items.findIndex((item) => item.id === value))
         }
         type="single"

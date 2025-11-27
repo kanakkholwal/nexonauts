@@ -10,6 +10,7 @@ import { ShareProfile } from "./components/share";
 import SocialLinks from "./components/social-links";
 
 import { Metadata } from "next";
+import { Session } from "src/auth";
 
 export async function generateMetadata(props: {
   params: Promise<{ username: string }>;

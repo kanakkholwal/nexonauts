@@ -1,4 +1,5 @@
 import { revalidatePath } from "next/cache";
+import { Session } from "src/auth";
 import dbConnect from "src/lib/db";
 import ProfileModel from "src/models/profile";
 import UserModel from "src/models/user";
@@ -37,7 +38,7 @@ export async function followUnFollowProfile(username: string) {
         message: "You can't follow yourself",
       });
     }
-    if (!session.user.verified) {
+    if (!session.user.emailVerified) {
       return Promise.reject({
         success: false,
         message: "You need to verify your account to follow users",

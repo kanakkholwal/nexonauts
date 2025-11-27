@@ -36,7 +36,7 @@ export default function Navbar({ user }: { user: SessionUserType }) {
             <DropdownMenuTrigger asChild>
               <button className="flex items-center space-x-2 px-3 py-1.5 rounded-lg">
                 <Image
-                  src={user.image}
+                  src={user.image!}
                   height={80}
                   width={80}
                   alt="avatar"

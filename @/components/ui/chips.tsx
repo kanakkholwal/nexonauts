@@ -26,7 +26,7 @@ export function Chip(props: ChipProps) {
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        props.onClick?.(e);
+        props.onClick?.(e as unknown as React.MouseEvent<HTMLDivElement>);
       }}
       {...rest}
     >

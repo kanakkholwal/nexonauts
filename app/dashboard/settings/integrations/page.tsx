@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
 import { CgSpinnerTwo } from "react-icons/cg";
+import { Session } from "src/auth";
 import dbConnect from "src/lib/db";
 import {
     Icon,

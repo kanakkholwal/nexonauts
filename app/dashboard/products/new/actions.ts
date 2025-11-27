@@ -5,6 +5,7 @@ import Product, { rawProduct } from "src/models/product";
 import { getSession } from "~/auth/server";
 
 import { createSlug } from "src/utils/string";
+import { Session } from "src/auth";
 
 export async function getCategories() {
   const session = (await getSession()) as Session;

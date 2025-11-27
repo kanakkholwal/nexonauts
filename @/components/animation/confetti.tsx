@@ -13,7 +13,7 @@ import {
 import useStorage from "@/hooks/useLocalStorage";
 // import confetti from "canvas-confetti";
 import { useEffect, useState } from "react";
-import { AnimatedGradientText } from "./animated-shiny-text";
+import { AnimatedShinyText } from "./animated-shiny-text";
 
 export function CelebrationDialog() {
   const [celebrated, setCelebrated] = useStorage(
@@ -111,14 +111,14 @@ export function CelebrationDialog() {
             <span className="animate-bounce">🎉</span>
           </div>
 
-          <DialogTitle className="text-2xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r from-secondary to-tertiary">
+          <DialogTitle className="text-2xl font-bold text-center text-transparent bg-clip-text bg-linear-to-r from-secondary to-tertiary">
             Amazing Milestone Reached!
           </DialogTitle>
 
           <DialogDescription className="mt-4 text-center ">
-            <AnimatedGradientText className="block text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-tertiary to-secondary mb-2">
+            <AnimatedShinyText className="block text-3xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-tertiary to-secondary mb-2">
               100,000+ Impressions
-            </AnimatedGradientText>
+            </AnimatedShinyText>
             <p className="mt-3 text-sm text-muted-foreground">
               Thank you for being part of this incredible journey! Your support
               means everything to us.

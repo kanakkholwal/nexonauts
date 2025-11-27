@@ -1,5 +1,6 @@
 "use server";
 import { revalidatePath } from "next/cache";
+import { Session } from "src/auth";
 import dbConnect from "src/lib/db";
 import Product, { ProductType } from "src/models/product";
 import { getSession } from "~/auth/server";

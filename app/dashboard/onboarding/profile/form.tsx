@@ -11,7 +11,7 @@ import React from "react";
 import toast from "react-hot-toast";
 import { BiError } from "react-icons/bi";
 import { FaRegCircleCheck } from "react-icons/fa6";
-import { authClient, useSession } from "src/auth/client";
+import { useSession } from "src/auth/client";
 import { IconComponents, icons } from "src/lib/profile/icons";
 import type { SessionUserType } from "~/auth";
 
@@ -41,7 +41,7 @@ export default function CreateProfile({
     data: Record<string, any> | null;
   }>;
 }) {
-  const { data: session } = useSession();
+  const { refetch } = useSession();
 
   const [profile, setProfile] = React.useState({
     username: user.username,
@@ -72,29 +72,30 @@ export default function CreateProfile({
       }).then(async (res) => {
         if (res.success && res.data) {
           console.log(res.data);
-          toast.promise(authClient.updateUser({
-                username: res.data?.username,
-                profile: res.data?._id,
-            },{
+          refetch();
+          // toast.promise(authClient.updateUser({
+          //       username: res.data?.username,
+          //       // profile: res.data?._id,
+          //   },{
 
-            }),
-            {
-              loading: "Updating User...",
-              // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-              success: (res: any) => {
-                console.log(res);
-                return res?.message || "User Updated Successfully";
-              },
-              error: (e:unknown) => {
-                setStatus("error");
-                if (e instanceof Error) {
-                  return e.message;
-                }
-                console.log(e);
-                return "Error Updating User";
-              },
-            }
-          );
+          //   }),
+          //   {
+          //     loading: "Updating User...",
+          //     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+          //     success: (res: any) => {
+          //       console.log(res);
+          //       return res?.message || "User Updated Successfully";
+          //     },
+          //     error: (e:unknown) => {
+          //       setStatus("error");
+          //       if (e instanceof Error) {
+          //         return e.message;
+          //       }
+          //       console.log(e);
+          //       return "Error Updating User";
+          //     },
+          //   }
+          // );
 
           setStatus("success");
           toast.success(res.message);

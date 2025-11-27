@@ -4,9 +4,10 @@ import { Suspense } from "react";
 import { getSession } from "~/auth/server";
 import { getUsers } from "./actions";
 import { columns } from "./columns";
+import { Session } from "src/auth";
 
 export default async function DashboardPage() {
-  const session = (await getSession()) as Session;
+  // const session = (await getSession()) as Session;
 
   const { users } = await getUsers("", 1, {});
   console.log(users);

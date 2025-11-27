@@ -17,6 +17,7 @@ import { decodeHTMLEntities } from "src/utils/string";
 import { getProductBySlug, getSimilarProducts } from "./actions";
 import MoreFromCreator from "./more-from-creator";
 import { ProductCard } from "./product-card";
+import { Session } from "src/auth";
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;

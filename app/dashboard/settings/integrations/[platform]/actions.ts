@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import dbConnect from "src/lib/db";
 import { INTEGRATION_CONFIG } from "src/lib/integrations";
 import User from "src/models/user";
+import { Session } from "src/auth";
 
 export async function getUserIntegrationData(platform: string) {
   const session = (await getSession()) as Session;
