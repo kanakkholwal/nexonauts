@@ -14,7 +14,6 @@
     "@better-fetch/fetch": "^1.1.18",
     "@google/generative-ai": "^0.24.1",
     "@hookform/resolvers": "^5.0.1",
-    "@imgly/background-removal": "^1.6.0",
     "@next/third-parties": "15.3.3",
     "@radix-ui/react-accordion": "^1.2.8",
     "@radix-ui/react-alert-dialog": "^1.1.11",

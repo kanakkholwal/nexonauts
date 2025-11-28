@@ -13,10 +13,10 @@
 const nextConfig = {
   reactStrictMode: true,
   crossOrigin: 'anonymous',
-  output:"standalone",
+  output: "standalone",
   logging: {
     fetches: {
-        fullUrl: false
+      fullUrl: false
     }
   },
   images: {
@@ -28,17 +28,8 @@ const nextConfig = {
     ],
     unoptimized: true, // Disable image optimization
   },
-  async headers() {
-    return [
-      {
-        source: "/dev-tools/:path*", 
-        headers: [
-          { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-          { key: "Cross-Origin-Embedder-Policy", value: "require-corp" },
-        ],
-      },
-    ];
-  },
+
+ 
   // webpack: (config, { isServer }) => {
   //   // this will override the experiments
   //   config.experiments = { ...config.experiments, topLevelAwait: true };
@@ -59,7 +50,7 @@ const nextConfig = {
   //     //   '@': path.resolve(__dirname, './@'),
   //     //   'src': path.resolve(__dirname, './components'),
   //     // };
-      
+
 
   //   return config;
   // },
