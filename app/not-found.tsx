@@ -1,6 +1,6 @@
+import Navbar from "@/components/common/navbar";
 import { ErrorActions } from "app/layouts/error-layout";
 import Footer from "app/layouts/footer";
-import Navbar from "app/layouts/navbar";
 import { ArrowRight, Box, Layout, Terminal } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
