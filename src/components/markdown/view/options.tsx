@@ -100,8 +100,18 @@ export const defaultOptions: Options = {
     hr: () => <hr className="my-4" />,
     img: ({ src, alt, node, ...props }) => (
       <img
-        src={src}
-        alt={alt}
+        src={src?.toString() || ""}
+        alt={alt || ""}
+        // height={
+        //   typeof props.height === "string"
+        //     ? Number(props.height) || 400
+        //     : props.height ?? 400
+        // }
+        // width={
+        //   typeof props.width === "string"
+        //     ? Number(props.width) || 720
+        //     : props.width ?? 720
+        // }
         className="w-full h-auto rounded-md"
         {...props}
       />

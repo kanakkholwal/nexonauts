@@ -31,7 +31,7 @@ export default async function LoginPage({ searchParams }: PageProps) {
           href={`/signup${redirect_path ? `?redirect=${redirect_path}` : ""}`}
           className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
         >
-          Don't have an account? <span className="font-semibold text-foreground hover:underline">Sign Up</span>
+          Don{"'"}t have an account? <span className="font-semibold text-foreground hover:underline">Sign Up</span>
         </Link>
       </div>
 

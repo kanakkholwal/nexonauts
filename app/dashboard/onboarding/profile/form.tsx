@@ -11,11 +11,10 @@ import {
   ArrowUpRight,
   Check,
   ChevronRight,
-  Loader2,
-  Undo2,
-  User,
   Globe,
-  Hash
+  Hash,
+  Undo2,
+  User
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -320,7 +319,7 @@ export default function CreateProfileForm({ user, createProfile }: CreateProfile
           </div>
           <div>
             <h3 className="font-semibold text-lg">Something went wrong</h3>
-            <p className="text-sm text-muted-foreground mt-1">We couldn't create your profile.</p>
+            <p className="text-sm text-muted-foreground mt-1">We couldn{"'"}t create your profile.</p>
           </div>
           <Button
             variant="secondary"

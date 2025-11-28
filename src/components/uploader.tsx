@@ -33,7 +33,7 @@ export function UploadImage({
     toast.promise(uploadImagefromClient(file), {
       loading: "Uploading Image...",
       success: (data) => {
-        onUpload(data);
+        onUpload?.(data);
         return "Image Uploaded";
       },
       error: (error) => {
@@ -41,7 +41,7 @@ export function UploadImage({
         return "Error Uploading Image";
       },
     });
-  }, []);
+  }, [onUpload]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 

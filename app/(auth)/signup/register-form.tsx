@@ -97,7 +97,7 @@ export function RegisterForm({ registerUser }: Props) {
         <div className="space-y-2">
           <h2 className="text-xl font-semibold text-foreground">Verify your email</h2>
           <p className="text-sm text-muted-foreground max-w-xs mx-auto">
-            We've sent a verification link to <span className="font-medium text-foreground">{form.getValues("email")}</span>. Please check your inbox.
+            We{"'"}ve sent a verification link to <span className="font-medium text-foreground">{form.getValues("email")}</span>. Please check your inbox.
           </p>
         </div>
         <Button className="w-full" asChild>

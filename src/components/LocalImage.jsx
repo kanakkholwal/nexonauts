@@ -23,5 +23,5 @@ const ImgLoader = ({ src, width, quality }) => {
 };
 
 export default function LocalImage({ src, width, ...props }) {
-  return <Image loader={ImgLoader} src={src} width={width} {...props} />;
+  return <Image loader={ImgLoader} src={src} width={width} alt="" {...props} />;
 }

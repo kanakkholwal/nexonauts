@@ -63,7 +63,7 @@ export function ForgotPasswordForm({ className, ...props }: UserAuthFormProps) {
         <div className="space-y-2">
           <h3 className="text-lg font-semibold">Check your email</h3>
           <p className="text-sm text-muted-foreground max-w-xs mx-auto">
-            We've sent a password reset link to <span className="font-medium text-foreground">{form.getValues("email")}</span>.
+            We{"'"}ve sent a password reset link to <span className="font-medium text-foreground">{form.getValues("email")}</span>.
           </p>
         </div>
         <Button variant="outline" className="w-full mt-4" onClick={() => setIsSuccess(false)}>
