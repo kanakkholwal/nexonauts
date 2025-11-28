@@ -1,12 +1,6 @@
 "use client";
 
-import { useState } from "react";
-
 import { Button } from "@/components/ui/button";
-import { BiLockOpenAlt } from "react-icons/bi";
-import { FcGoogle } from "react-icons/fc";
-import { LuMail } from "react-icons/lu";
-
 import {
   Form,
   FormControl,
@@ -18,10 +12,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2, Lock, Mail } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { AiOutlineLoading } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
 import { toast } from "sonner";
 import { authClient } from "src/auth/client";
 import * as z from "zod";
@@ -29,18 +25,12 @@ import * as z from "zod";
 const FormSchema = z.object({
   email: z
     .string()
-    .email({ message: "Invalid email format" })
-    .min(5, { message: "Email must be at least 5 characters long" })
-    .max(100, { message: "Email cannot exceed 100 characters" }),
-
+    .email({ message: "Please enter a valid email address." })
+    .min(5)
+    .max(100),
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters long" })
-    .max(50, { message: "Password cannot exceed 50 characters" })
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/, {
-      message:
-        "Password must contain at least one uppercase letter, one lowercase letter, and one number",
-    }),
+    .min(1, { message: "Password is required." }),
   rememberMe: z.boolean().optional(),
 });
 
@@ -49,23 +39,15 @@ interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> { }
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const callbackUrl = (
-    searchParams?.get("callbackUrl")
-      ? searchParams?.get("callbackUrl")
-      : searchParams?.get("redirect") || "/dashboard"
-  ) as string;
-
+  const callbackUrl = searchParams?.get("callbackUrl") || searchParams?.get("redirect") || "/dashboard";
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      email: "",
-      password: "",
-    },
+    defaultValues: { email: "", password: "" },
   });
-  async function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
 
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
     setIsLoading(true);
     await authClient.signIn.email(
       {
@@ -75,63 +57,57 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         rememberMe: data.rememberMe,
       },
       {
-        credentials: 'include',
-        onRequest: () => {
-          setIsLoading(true);
-        },
-        onResponse: () => {
-          setIsLoading(false);
-        },
+        onRequest: () => setIsLoading(true),
+        onResponse: () => setIsLoading(false),
         onSuccess: () => {
-          toast.success("Logged In successfully");
-          if (callbackUrl) {
-            router.push(callbackUrl);
-          } else
-            router.push("/dashboard");
-
+          toast.success("Welcome back!");
+          router.push(callbackUrl);
         },
         onError: (ctx) => {
-          console.log(ctx);
-          // Handle the error
           if (ctx.error.status === 403) {
-            alert("Please verify your email address");
+            toast.error("Please verify your email address first.");
+          } else {
+            toast.error(ctx.error.message || "Invalid credentials.");
           }
-          toast.error(ctx.error.message);
         },
-      },
-
+      }
     );
-
   }
 
-
-  // <div className="grid w-full max-w-lg items-center gap-1.5">
+  const handleGoogleSignIn = async () => {
+    setIsLoading(true);
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: callbackUrl,
+      errorCallbackURL: "/auth/sign-in?error=social",
+    });
+    // Loading state persists until redirect happens
+  };
 
   return (
-    <div
-      className={cn("grid gap-6 lg:max-w-lg text-left", className)}
-      {...props}
-    >
+    <div className={cn("grid gap-6 w-full max-w-sm mx-auto", className)} {...props}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-2">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
-              <FormItem>
-                <div className="relative group">
-                  <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                    <LuMail className="w-4 h-4" />
-                  </FormLabel>
-                  <FormControl className="relative">
+              <FormItem className="space-y-1">
+                <FormLabel className="sr-only">Email</FormLabel>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+                    <Mail className="h-4 w-4" />
+                  </div>
+                  <FormControl>
                     <Input
                       placeholder="name@example.com"
                       type="email"
                       autoCapitalize="none"
                       autoComplete="email"
-                      disabled={isLoading}
                       autoCorrect="off"
-                      className="pl-10 pr-5"
+                      disabled={isLoading}
+                      className="pl-9 h-10"
                       {...field}
                     />
                   </FormControl>
@@ -140,87 +116,75 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               </FormItem>
             )}
           />
+
           <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
-              <FormItem>
-                <div className="relative group">
-                  <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                    <BiLockOpenAlt className="w-4 h-4" />
-                  </FormLabel>
+              <FormItem className="space-y-1">
+                <FormLabel className="sr-only">Password</FormLabel>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+                    <Lock className="h-4 w-4" />
+                  </div>
                   <FormControl>
                     <Input
-                      placeholder="*********"
+                      placeholder="Password"
                       type="password"
                       autoCapitalize="none"
-                      autoComplete="password"
-                      autoCorrect="off"
+                      autoComplete="current-password"
                       disabled={isLoading}
-                      className="pl-10 pr-5 mt-0!"
+                      className="pl-9 h-10"
                       {...field}
                     />
                   </FormControl>
                 </div>
                 <FormMessage />
+                <div className="flex justify-end">
+                  <Link
+                    href="/forgot-password"
+                    className="text-xs text-muted-foreground hover:text-primary transition-colors"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
               </FormItem>
             )}
           />
 
-          <p className="text-right mt-2 text-sm font-medium">
-            <Link
-              href="/forgot-password"
-              className="text-primary hover:underline"
-            >
-              Forgot Password?
-            </Link>
-          </p>
-
-          <Button
-            disabled={isLoading}
-            type="submit"
-            className="mt-2 tracking-wide"
-            variant="default"
-          >
-            {isLoading && (
-              <AiOutlineLoading className="mr-2 h-4 w-4 animate-spin" />
+          <Button disabled={isLoading} type="submit" className="w-full h-10 font-semibold shadow-sm">
+            {isLoading ? (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Sign In with Email"
             )}
-            Sign In with Email
           </Button>
         </form>
       </Form>
+
       <div className="relative">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
+          <span className="w-full border-t border-border/50" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="px-2 text-muted-foreground">Or continue with</span>
+          <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
         </div>
       </div>
-      <div className="grid  grid-cols-1">
-        <Button
-          variant="light"
-          type="button"
-          disabled={isLoading}
-          width={"full"}
-          onClick={async () => {
-            setIsLoading(true);
-            await authClient.signIn.social({
-              provider: "google",
-              callbackURL: callbackUrl,
-              errorCallbackURL: "/auth/sign-in?social=google",
-            });
-            setIsLoading(false);
-          }}
-        >
-          {isLoading ? (
-            <AiOutlineLoading className="h-6 w-6 animate-spin" />
-          ) : (
-            <FcGoogle className=" h-6 w-6" />
-          )}
-          {isLoading ? "Signing in..." : "Sign in with Google"}
-        </Button>
-      </div>
+
+      <Button
+        variant="outline"
+        size="lg"
+        type="button"
+        disabled={isLoading}
+        onClick={handleGoogleSignIn}
+      >
+        {isLoading ? (
+          <Loader2 className="animate-spin" />
+        ) : (
+          <FcGoogle />
+        )}
+        Google
+      </Button>
     </div>
   );
 }

@@ -4,10 +4,10 @@ import { getSession } from "~/auth/server";
 
 
 import { revalidatePath } from "next/cache";
+import { Session } from "src/auth";
 import dbConnect from "src/lib/db";
 import { INTEGRATION_CONFIG } from "src/lib/integrations";
 import User from "src/models/user";
-import { Session } from "src/auth";
 
 export async function getUserIntegrationData(platform: string) {
   const session = (await getSession()) as Session;
@@ -70,7 +70,7 @@ export async function revokeToken(platform: string) {
     user.integrations[platform].access_token = null;
     user.integrations[platform].lastAuthorized = null;
     await user.save();
-    revalidatePath(`/settings/integrations/${platform}`, "page");
+    revalidatePath(`/dashboard/settings/integrations/${platform}`, "page");
     return Promise.resolve(true);
   } catch (e) {
     console.error(e);

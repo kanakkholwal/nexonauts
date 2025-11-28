@@ -91,9 +91,9 @@ export default function Tools() {
 
 
       {/* --- Header Section --- */}
-      <section className="relative z-10 pt-20 pb-12 px-6 lg:px-12 max-w-7xl mx-auto text-center">
+      <section className="relative z-10 pt-20 pb-12 px-2 sm:px-6 lg:px-12 max-w-7xl mx-auto text-center">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-medium tracking-wide border border-primary/20 mb-8">
-          <Sparkles className="w-3 h-3" />
+          <Sparkles className="size-3" />
           Developer Utilities & Resources
         </div>
 
@@ -113,7 +113,7 @@ export default function Tools() {
         <div className="max-w-2xl mx-auto relative group">
           <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-violet-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <div className="relative flex items-center bg-card/60 backdrop-blur-xl border border-border/60 rounded-full shadow-sm focus-within:shadow-md focus-within:border-primary/50 transition-all duration-300">
-            <Search className="ml-4 text-muted-foreground w-5 h-5" />
+            <Search className="ml-4 text-muted-foreground size-5" />
             <Input
               placeholder="Search tools (e.g. 'converter', 'seo', 'minifier')..."
               className="border-none shadow-none focus-visible:ring-0 !bg-transparent h-12 text-base px-4 w-full"

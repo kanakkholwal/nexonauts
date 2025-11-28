@@ -1,15 +1,17 @@
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { ChevronLeft } from "lucide-react";
 import { Metadata } from "next";
+import Link from "next/link";
+import { Session } from "src/auth";
 import dbConnect from "src/lib/db";
 import User from "src/models/user";
 import { getSession } from "~/auth/server";
-
-import { Session } from "src/auth";
 import { AccountForm } from "./account";
 
 export const metadata: Metadata = {
-  title: "Account",
-  description: "Account Settings page",
+  title: "Account Settings - NexoNauts",
+  description: "Manage your personal account details.",
 };
 
 export const dynamic = 'force-dynamic';
@@ -17,72 +19,49 @@ export const dynamic = 'force-dynamic';
 export default async function AccountPage() {
   const session = (await getSession()) as Session;
 
-
-  async function handleUpdateName(newName: string): Promise<{
-    result: string;
-    message: string;
-  }> {
+  // --- SERVER ACTIONS ---
+  async function handleUpdateName(newName: string) {
     "use server";
-  await dbConnect();
-
+    await dbConnect();
     const user = await User.findById(session.user.id);
-    if (!user) {
-      return Promise.reject({
-        result: "fail",
-        message: "User not found",
-      });
-    }
+    if (!user) throw new Error("User not found");
     user.name = newName;
     await user.save();
-
-    return Promise.resolve({
-      result: "success",
-      message: "Name updated successfully",
-    });
+    return { result: "success", message: "Name updated successfully" };
   }
 
- 
-  async function handleUpdatePassword(
-    oldPassword: string,
-    newPassword: string
-  ): Promise<{
-    result: string;
-    message: string;
-  }> {
+  async function handleUpdatePassword(oldPassword: string, newPassword: string) {
     "use server";
-  await dbConnect();
-
+    await dbConnect();
     const user = await User.findById(session.user.id);
-    if (!user) {
-      return Promise.reject({
-        result: "fail",
-        message: "User not found",
-      });
-    }
-    if (!user.comparePassword(oldPassword)) {
-      return Promise.reject({
-        result: "fail",
-        message: "Invalid password",
-      });
-    }
+    if (!user) throw new Error("User not found");
+    if (!user.comparePassword(oldPassword)) throw new Error("Invalid password");
     user.password = newPassword;
-
     await user.save();
-
-    return Promise.resolve({
-      result: "success",
-      message: "Password updated successfully",
-    });
+    return { result: "success", message: "Password updated successfully" };
   }
 
   return (
-    <div className="space-y-6 p-4 md:p-10 pb-16 w-full rounded-3xl mt-5">
-      <div className="space-y-0.5">
-        <h2 className="text-2xl font-bold tracking-tight">Account</h2>
-        <p className="text-muted-foreground">Manage your account settings.</p>
-      </div>
-      <Separator className="my-6" />
-      <div className="mt-5">
+    <div className="min-h-screen w-full">
+
+
+      <div className="relative z-10 max-w-4xl mx-auto px-6 py-12">
+
+        {/* --- Header --- */}
+        <div className="flex items-center gap-4 mb-8">
+          <Button variant="ghost" size="icon" asChild className="h-9 w-9 rounded-full border border-border/50">
+            <Link href="/dashboard/settings">
+              <ChevronLeft className="w-4 h-4 text-muted-foreground" />
+            </Link>
+          </Button>
+          <div>
+            <h1 className="text-2xl font-bold tracking-tight">Account</h1>
+            <p className="text-sm text-muted-foreground">Manage your personal details and security.</p>
+          </div>
+        </div>
+
+        <Separator className="mb-8 opacity-50" />
+
         <AccountForm
           user={session.user}
           serverActions={{ handleUpdateName, handleUpdatePassword }}

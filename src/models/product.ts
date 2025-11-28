@@ -1,6 +1,6 @@
 import mongoose, { type Document, Schema, type Types } from "mongoose";
 import { customAlphabet } from "nanoid";
-
+import "./user";
 const generateUrlSlug = (length = 16) =>
   customAlphabet(
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",

@@ -1,225 +1,278 @@
 "use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { Textarea } from "@/components/ui/textarea";
-import { LoaderCircle } from "lucide-react";
+import {
+  Github,
+  Globe,
+  Linkedin,
+  Loader2,
+  Plus,
+  Save,
+  Terminal,
+  Trash2,
+  Twitter
+} from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { updateProfileInput } from "./actions";
 import { profileType, useProfileStore } from "./store";
 
-const SOCIALS = [
-  { name: "twitter", url: "" },
-  { name: "gitHub", url: "" },
-  { name: "linkedIn", url: "" },
-  { name: "website", url: "" },
+// --- TYPES ---
+const AVAILABLE_SOCIALS = [
+  { name: "twitter", icon: Twitter },
+  { name: "gitHub", icon: Github },
+  { name: "linkedIn", icon: Linkedin },
+  { name: "website", icon: Globe },
 ];
 
 type Props = {
   updateProfile: (data: updateProfileInput) => Promise<any>;
 };
 
+// --- EDITOR COMPONENT ---
 export function ProfileEditor({ updateProfile }: Props) {
   const profile = useProfileStore((state) => state.profile) as profileType;
   const [loading, setLoading] = useState<boolean>(false);
-  const [selectedSocial, setSelectedSocial] = useState<string>(
-    SOCIALS.filter((social) => {
-      return !profile.socials.find((s) => s.name === social.name);
-    })[0]?.name || "none"
+  const [selectedSocialToAdd, setSelectedSocialToAdd] = useState<string>("");
+
+  const availableToAdd = AVAILABLE_SOCIALS.filter(
+    (s) => !profile.socials.find((ps) => ps.name === s.name)
   );
 
+  const handleSave = async () => {
+    setLoading(true);
+    try {
+      await updateProfile({
+        username: profile.username,
+        data: {
+          bio: profile.bio,
+          socials: profile.socials,
+          interests: profile.interests,
+        },
+      });
+      toast.success("Profile updated successfully");
+    } catch (error) {
+      toast.error("Failed to update profile");
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <>
-      <div className="space-y-6 my-5">
-        <div className="grid grid-cols-1 gap-2">
-          <Label htmlFor="bio" className="mb-0">
-            Bio
-          </Label>
-          <Textarea
-            id="bio"
-            placeholder="Tell us about yourself"
-            rows={5}
-            variant="glass"
-            value={profile?.bio}
-            onChange={(e) =>
-              useProfileStore.setState({
-                profile: { ...profile, bio: e.target.value },
-              })
-            }
-          />
+    <div className="space-y-8">
+
+      {/* Bio Section */}
+      <div className="space-y-3">
+        <Label htmlFor="bio" className="text-sm font-medium">Bio</Label>
+        <Textarea
+          id="bio"
+          placeholder="Tell the world who you are and what you build..."
+          rows={6}
+          className="resize-none transition-colors border-border/50 focus:border-primary/50"
+          value={profile?.bio || ""}
+          onChange={(e) =>
+            useProfileStore.setState({
+              profile: { ...profile, bio: e.target.value },
+            })
+          }
+        />
+        <p className="text-xs text-muted-foreground text-right">
+          {(profile?.bio || "").length}/500 characters
+        </p>
+      </div>
+
+      <Separator />
+
+      {/* Socials Section */}
+      <div className="space-y-4">
+        <div className="flex items-center justify-between">
+          <Label className="text-sm font-medium">Connected Accounts</Label>
         </div>
-        <div className="grid grid-cols-1 gap-2">
+
+        <div className="space-y-3">
           {profile.socials.map((social, index) => {
+            // Find icon dynamically
+            const socialDef = AVAILABLE_SOCIALS.find(s => s.name === social.name);
+            const Icon = socialDef?.icon || Globe;
+
             return (
-              <div key={index} className="grid grid-cols-1 gap-1">
-                <div className="flex items-center justify-between">
-                  <Label
-                    htmlFor={`social-${index}`}
-                    className="capitalize mb-0"
-                  >
-                    {social.name}
-                  </Label>
-                  <Button
-                    variant="link"
-                    size="sm"
-                    onClick={() => {
-                      const newSocials = profile.socials.filter(
-                        (_, i) => i !== index
-                      );
-                      useProfileStore.setState({
-                        profile: { ...profile, socials: newSocials },
-                      });
-                    }}
-                  >
-                    Remove
-                  </Button>
+              <div key={index} className="flex items-center gap-3 p-3 rounded-xl bg-muted/20 border border-border/50 group hover:border-primary/30 transition-colors">
+                <div className="h-10 w-10 rounded-lg bg-background flex items-center justify-center border border-border/50 shrink-0">
+                  <Icon className="w-5 h-5 text-muted-foreground" />
                 </div>
-                <Input
-                  id={`social-${index}`}
-                  placeholder="https://example.com"
-                  variant="glass"
-                  value={social.url}
-                  onChange={(e) => {
-                    const newSocials = [...profile.socials];
-                    newSocials[index] = {
-                      name: social.name,
-                      url: e.target.value,
-                    };
-                    useProfileStore.setState({
-                      profile: { ...profile, socials: newSocials },
-                    });
+
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs font-semibold capitalize mb-1">{social.name}</p>
+                  <Input
+                    variant="glass"
+                    placeholder="https://..."
+                    className="h-8 text-sm bg-transparent border-none shadow-none px-2 focus-visible:ring-0 placeholder:text-muted-foreground/50"
+                    value={social.url}
+                    onChange={(e) => {
+                      const newSocials = [...profile.socials];
+                      newSocials[index] = { ...social, url: e.target.value };
+                      useProfileStore.setState({ profile: { ...profile, socials: newSocials } });
+                    }}
+                  />
+                </div>
+
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="opacity-0 group-hover:opacity-100 transition-opacity text-destructive hover:text-destructive hover:bg-destructive/10"
+                  onClick={() => {
+                    const newSocials = profile.socials.filter((_, i) => i !== index);
+                    useProfileStore.setState({ profile: { ...profile, socials: newSocials } });
                   }}
-                />
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
               </div>
             );
           })}
-          {selectedSocial !== "none" && (
-            <div className="flex items-center justify-items-stretch gap-2">
-              <Select
-                onValueChange={(value) => {
-                  setSelectedSocial(value);
-                }}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="Add Social" />
-                </SelectTrigger>
-                <SelectContent>
-                  {SOCIALS.filter((social) => {
-                    return !profile.socials.find((s) => s.name === social.name);
-                  }).map((social, index) => {
-                    return (
-                      <SelectItem
-                        key={index}
-                        value={social.name}
-                        className="capitalize"
-                      >
-                        {social.name}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectContent>
-              </Select>
-              <Button
-                variant="outline"
-                onClick={() => {
-                  useProfileStore.setState({
-                    profile: {
-                      ...profile,
-                      socials: profile.socials
-                        .filter((s) => s.name !== selectedSocial)
-                        .concat({ name: selectedSocial, url: "" }),
-                    },
-                  });
-                  const availableSocials = SOCIALS.filter((social) => {
-                    return !profile.socials.find((s) => s.name === social.name);
-                  });
-                  if (availableSocials.length > 1)
-                    setSelectedSocial(availableSocials[0].name);
-                  else setSelectedSocial("none");
-                }}
-              >
-                Add
-              </Button>
+
+          {profile.socials.length === 0 && (
+            <div className="text-center py-8 border-2 border-dashed border-border/50 rounded-xl bg-muted/10 text-muted-foreground text-sm">
+              No social links added yet.
             </div>
           )}
         </div>
 
-        <div className="flex justify-end">
-          <Button
-            onClick={() => {
-              console.log(profile);
-              setLoading(true);
-              toast
-                .promise(
-                  updateProfile({
-                    username: profile.username,
-                    data: {
-                      bio: profile.bio,
-                      socials: profile.socials,
-                      interests: profile.interests,
-                    },
-                  }),
-                  {
-                    loading: "Updating profile...",
-                    success: "Profile updated successfully",
-                    error: "Failed to update profile",
-                  }
-                )
-                .finally(() => setLoading(false));
-            }}
-            disabled={loading}
-          >
-            {loading && <LoaderCircle className="animate-spin" size={16} />}
-            {loading ? "Saving..." : "Save Changes"}
-          </Button>
-        </div>
+        {/* Add Social Bar */}
+        {availableToAdd.length > 0 && (
+          <div className="flex items-center gap-2 mt-4">
+            <Select
+              value={selectedSocialToAdd}
+              onValueChange={setSelectedSocialToAdd}
+            >
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="Select platform" />
+              </SelectTrigger>
+              <SelectContent>
+                {availableToAdd.map((s) => (
+                  <SelectItem key={s.name} value={s.name} className="capitalize">
+                    {s.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Button
+              variant="secondary"
+              disabled={!selectedSocialToAdd}
+              onClick={() => {
+                if (!selectedSocialToAdd) return;
+                useProfileStore.setState({
+                  profile: {
+                    ...profile,
+                    socials: [...profile.socials, { name: selectedSocialToAdd, url: "" }],
+                  },
+                });
+                setSelectedSocialToAdd("");
+              }}
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add Link
+            </Button>
+          </div>
+        )}
       </div>
-    </>
+
+      <div className="pt-4 flex justify-end">
+        <Button
+          onClick={handleSave}
+          disabled={loading}
+          size="lg"
+          className="w-full sm:w-auto min-w-[150px] shadow-lg shadow-primary/20"
+        >
+          {loading ? <Loader2 className="animate-spin w-4 h-4 mr-2" /> : <Save className="w-4 h-4 mr-2" />}
+          {loading ? "Saving..." : "Save Changes"}
+        </Button>
+      </div>
+    </div>
   );
 }
+
+// --- PREVIEW COMPONENT ---
 export function ProfileView() {
   const profile = useProfileStore((state) => state.profile) as profileType;
 
   return (
-    <>
-      {" "}
-      <div
-        id="basic_info"
-        className="w-full px-4 py-8 space-y-2 flex flex-col items-center justify-center"
-      >
-        <Avatar className="w-40 h-40 shadow-lg">
+    <div className="w-full flex flex-col items-center text-center p-8 pb-12 bg-[url('/grid-pattern.svg')] bg-top bg-no-repeat bg-[length:100%_auto]">
+
+      {/* Status Badge */}
+      <div className="w-full flex justify-end mb-4">
+        <Badge variant="outline" className="bg-background/50 backdrop-blur text-xs font-mono gap-1.5">
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          PREVIEW_MODE
+        </Badge>
+      </div>
+
+      {/* Avatar */}
+      <div className="relative mb-6 group cursor-default">
+        <div className="absolute -inset-4 rounded-full border border-dashed border-border/60 animate-[spin_12s_linear_infinite]" />
+        <Avatar className="w-32 h-32 border-4 border-background shadow-2xl relative z-10">
           <AvatarImage
             src={profile.user.profilePicture}
             alt={profile.username}
-            width={320}
-            height={320}
-            className="w-40 h-40"
+            className="object-cover"
           />
-          <AvatarFallback className="w-40 h-40 uppercase text-xl">
-            {profile.username[0] + profile.username[1]}
+          <AvatarFallback className="text-4xl font-bold bg-primary/10 text-primary">
+            {profile.username?.slice(0, 2).toUpperCase()}
           </AvatarFallback>
         </Avatar>
-        <div className="flex flex-col items-center justify-center space-y-2">
-          <h2 className="text-2xl font-bold">{profile.user.name}</h2>
-          <h3 className="text-gray-500 dark:text-slate-400 text-lg">
-            @{profile.username}
-          </h3>
-
-          <p className="text-slate-500 font-medium max-w-xl text-sm text-center">
-            {profile.bio}
-          </p>
-          {/* <SocialLinks socials={developer.socials} /> */}
+        <div className="absolute bottom-1 right-1 z-20 bg-background text-foreground p-1.5 rounded-full border border-border shadow-sm">
+          <Terminal className="w-4 h-4" />
         </div>
       </div>
-    </>
+
+      {/* Identity */}
+      <div className="space-y-2 mb-8 max-w-xs mx-auto">
+        <h2 className="text-2xl font-bold tracking-tight text-foreground">{profile.user.name}</h2>
+        <p className="text-sm font-medium text-primary bg-primary/5 px-2 py-0.5 rounded-md inline-block">
+          @{profile.username}
+        </p>
+
+        <p className="text-sm text-muted-foreground leading-relaxed pt-2 min-h-[3rem]">
+          {profile.bio || <span className="italic opacity-50">No bio set...</span>}
+        </p>
+      </div>
+
+      {/* Socials Preview */}
+      <div className="flex flex-wrap justify-center gap-3">
+        {profile.socials.map((social, i) => {
+          const Icon = AVAILABLE_SOCIALS.find(s => s.name === social.name)?.icon || Globe;
+          return (
+            <div
+              key={i}
+              className="w-10 h-10 rounded-full bg-muted/50 flex items-center justify-center text-muted-foreground border border-transparent"
+              title={social.name}
+            >
+              <Icon className="w-5 h-5" />
+            </div>
+          )
+        })}
+        {profile.socials.length === 0 && (
+          <div className="text-xs text-muted-foreground/50 py-2">No active connections</div>
+        )}
+      </div>
+
+      {/* Footer Decor */}
+      <div className="w-16 h-1 bg-border/50 rounded-full mx-auto mt-10" />
+    </div>
   );
 }

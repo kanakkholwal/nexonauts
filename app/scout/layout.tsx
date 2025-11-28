@@ -1,5 +1,6 @@
 import { FlickeringGrid } from "@/components/animation/flikering-grid";
 import Footer from "app/layouts/footer";
+import MoreFromUs from "app/layouts/more-from-us";
 import SquareGrid from "app/layouts/patterns/square-grid";
 
 export const dynamic = "force-dynamic";
@@ -18,6 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </div>
 
       {children}
+      <MoreFromUs omit={["marketplace"]} />
       <Footer />
       <SquareGrid />
     </>

@@ -43,14 +43,17 @@ export default async function MarketplacePage() {
           {/* Search Bar Simulation */}
           <div className="w-full max-w-lg relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-violet-500/20 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-500" />
-            <div className="relative flex items-center bg-background/80 backdrop-blur-xl border border-border/50 rounded-full px-4 h-14 shadow-lg">
-              <Search className="w-5 h-5 text-muted-foreground ml-2" />
+            <div className="relative flex items-center bg-background/80 backdrop-blur-xl border border-border/50 rounded-full sm:px-4 h-10 sm:h-14 shadow-lg">
+              <Search className="hidden sm:inline-block size-4 text-muted-foreground ml-2 sm:size-5" />
               <input
                 type="text"
                 placeholder="Search for templates, icons, or UI kits..."
                 className="flex-1 bg-transparent border-none focus:ring-0 px-4 text-foreground placeholder:text-muted-foreground/70 outline-none h-full"
               />
-              <Button size="sm" rounded="full" className="h-9 px-4">Search</Button>
+              <Button size="sm" rounded="full" className="has-[>svg]:pl-2 h-8 w-8 px-2 sm:px-2 sm:h-10 sm:w-auto mr-2">
+                <Search className="size-4 inline-block sm:hidden" />
+                <span className="hidden sm:inline-block">Search</span>
+              </Button>
             </div>
           </div>
 

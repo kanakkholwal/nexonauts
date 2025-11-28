@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -6,61 +5,63 @@ import { getSession } from "~/auth/server";
 import { UserAuthForm } from "./login-form";
 
 export const metadata: Metadata = {
-  title: "Signin | NexoNauts",
-  description: "Login to an account on " + process.env.NEXT_PUBLIC_APP_NAME,
-  keywords: "register, account, " + process.env.NEXT_PUBLIC_APP_NAME,
+  title: "Sign In - NexoNauts",
+  description: "Access your developer dashboard.",
 };
+
 interface PageProps {
   searchParams: Promise<{
     redirect?: string;
   }>;
 }
 
-export default async function Page({ searchParams }: PageProps) {
+export default async function LoginPage({ searchParams }: PageProps) {
   const session = await getSession();
   if (session) return redirect("/dashboard");
-  const redirect_path = (await searchParams)?.redirect;
+
+  const params = await searchParams;
+  const redirect_path = params?.redirect;
 
   return (
-    <>
-      <Button
-        className="absolute right-4 top-4 md:right-8 md:top-8"
-        variant="link"
-        asChild
-      >
+    <div className="w-full flex flex-col gap-6">
+
+      {/* Top Navigation (Absolute relative to the right column container) */}
+      <div className="absolute right-4 top-4 md:right-8 md:top-8">
         <Link
           href={`/signup${redirect_path ? `?redirect=${redirect_path}` : ""}`}
+          className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
         >
-          Sign Up
+          Don't have an account? <span className="font-semibold text-foreground hover:underline">Sign Up</span>
         </Link>
-      </Button>
-      <header className="flex flex-col space-y-2 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">Welcome back!</h1>
-        <p className="text-sm text-muted-foreground">
-          Log in for a seamless experience.
-        </p>
-      </header>
-      <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
-        <UserAuthForm className="flex-auto w-full" key={"form"} />
+      </div>
 
-        <p className="px-8 text-center text-sm text-muted-foreground">
-          By logging in, you agree to our{" "}
-          <Link
-            href="/terms"
-            className="underline underline-offset-4 hover:text-primary"
-          >
-            Terms of Service
-          </Link>{" "}
-          and{" "}
-          <Link
-            href="/privacy"
-            className="underline underline-offset-4 hover:text-primary"
-          >
-            Privacy Policy
-          </Link>
-          .
+      {/* Header */}
+      <div className="flex flex-col space-y-2 text-center mb-4">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">
+          Welcome back
+        </h1>
+        <p className="text-sm text-muted-foreground">
+          Enter your credentials to access your workspace.
         </p>
-      </main>
-    </>
+      </div>
+
+      {/* Form */}
+      <div className="grid gap-6">
+        <UserAuthForm />
+      </div>
+
+      {/* Footer / Legal (Optional context) */}
+      <p className="px-8 text-center text-xs text-muted-foreground">
+        By clicking continue, you agree to our{" "}
+        <Link href="/terms" className="underline underline-offset-4 hover:text-primary">
+          Terms of Service
+        </Link>{" "}
+        and{" "}
+        <Link href="/privacy" className="underline underline-offset-4 hover:text-primary">
+          Privacy Policy
+        </Link>
+        .
+      </p>
+    </div>
   );
 }

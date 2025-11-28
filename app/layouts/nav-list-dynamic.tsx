@@ -5,6 +5,10 @@ import { useState } from "react";
 
 import { Search, Settings, User } from "lucide-react";
 
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import {
   CommandDialog,
   CommandEmpty,
@@ -14,8 +18,6 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { cn } from "@/lib/utils";
-import Link from "next/link";
 import React from "react";
 import { authClient } from "~/auth/client";
 
@@ -131,26 +133,58 @@ export function QuickLinks() {
 
 const list = [...defaultList];
 
-export function NavList() {
+// Centralized navigation data
+const NAV_ITEMS = [
+  { title: "Scout", path: "/scout" },
+  { title: "Marketplace", path: "/marketplace" },
+  { title: "Dev Tools", path: "/dev-tools" },
+];
+
+interface NavListProps {
+  className?: string;
+  mobile?: boolean;
+}
+
+export function NavList({ className, mobile = false }: NavListProps) {
+  const pathname = usePathname();
+
   return (
-    <div
-      className="hidden xl:flex items-center justify-start flex-1 mx-auto gap-3"
-      id="nav_links"
+    <nav
+      className={cn(
+        "flex",
+        mobile ? "flex-col space-y-1 w-full" : "items-center gap-6",
+        className
+      )}
     >
-      {list.map((item, index) => {
+      {NAV_ITEMS.map((item) => {
+        const isActive = pathname?.startsWith(item.path);
+
         return (
           <Link
-            key={`nav_link-${index}`}
-            className={cn(
-              "text-sm leading-5 transition font-semibold whitespace-nowrap",
-              "text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
-            )}
+            key={item.path}
             href={item.path}
+            className={cn(
+              "text-sm font-medium transition-colors duration-200",
+              mobile
+                ? "block py-3 px-4 rounded-xl w-full" // Mobile style
+                : "relative py-1", // Desktop style
+              isActive
+                ? mobile
+                  ? "bg-primary/10 text-primary"
+                  : "text-foreground"
+                : mobile
+                  ? "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+            )}
           >
             {item.title}
+            {/* Desktop Active Dot Indicator */}
+            {!mobile && isActive && (
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1 h-1 bg-primary rounded-full" />
+            )}
           </Link>
         );
       })}
-    </div>
+    </nav>
   );
 }

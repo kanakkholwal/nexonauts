@@ -2,20 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Image from "next/image";
+import { CheckCircle2, Loader2, XCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { CgSpinner } from "react-icons/cg";
-import { MdOutlineReportGmailerrorred } from "react-icons/md";
-import verifyPng from "./verified.png";
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {
   loggedIn: boolean;
-  verifyUser: (token: string) => Promise<{
-    success: boolean;
-    message: string;
-  }>;
+  verifyUser: (token: string) => Promise<{ success: boolean; message: string }>;
 }
 
 export function UserAuthForm({
@@ -24,100 +18,96 @@ export function UserAuthForm({
   verifyUser,
   ...props
 }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
+  const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
+  const [message, setMessage] = useState("Verifying your credentials...");
 
   const router = useRouter();
-  const searchParams = useSearchParams() as URLSearchParams;
-  const token = searchParams.get("token") || null;
+  const searchParams = useSearchParams();
+  const token = searchParams?.get("token");
 
   useEffect(() => {
+    let mounted = true;
+
     if (!token && !loggedIn) {
       router.push("/signup");
-    } else {
-      if (typeof token !== "string") {
-        console.log("Invalid token");
-        setError("Invalid token");
-        toast.error("Invalid token");
-        return;
-      }
-      verifyUser(token as string)
+      return;
+    }
+
+    if (token) {
+      verifyUser(token)
         .then((response) => {
-          console.log(response.message);
-          // Handle successful verification
-          setTimeout(() => {
-            if (!loggedIn) {
-              router.push("/login");
-            } else {
-              router.push("/dashboard");
-            }
-          }, 3000);
-          setSuccess(response.message);
-          toast.success(response.message);
+          if (mounted) {
+            setStatus("success");
+            setMessage(response.message || "Email verified successfully!");
+            toast.success("Verified!");
+
+            // Redirect logic
+            setTimeout(() => {
+              router.push(loggedIn ? "/dashboard" : "/login");
+            }, 2000);
+          }
         })
         .catch((error) => {
-          console.log(error?.message);
-          setError(error?.message);
-          // Handle verification error
-        })
-        .finally(() => setIsLoading(false));
+          if (mounted) {
+            setStatus("error");
+            setMessage(error?.message || "Invalid or expired token.");
+            toast.error("Verification failed");
+          }
+        });
     }
-  }, [token]);
+
+    return () => { mounted = false; };
+  }, [token, loggedIn, router, verifyUser]);
 
   return (
-    <>
-      <div className="flex flex-col space-y-2 text-center">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          {isLoading ? "Verifying" : "Verify Email"}
+    <div className={cn("w-full max-w-md mx-auto space-y-8 text-center", className)} {...props}>
+
+      {/* --- Visual Indicator --- */}
+      <div className="flex justify-center">
+        <div className={cn(
+          "h-20 w-20 rounded-full flex items-center justify-center border-4 transition-all duration-500",
+          status === "loading" && "border-muted text-muted-foreground",
+          status === "success" && "border-emerald-100 bg-emerald-50 text-emerald-600",
+          status === "error" && "border-red-100 bg-red-50 text-red-600"
+        )}>
+          {status === "loading" && <Loader2 className="w-8 h-8 animate-spin" />}
+          {status === "success" && <CheckCircle2 className="w-10 h-10 animate-in zoom-in duration-300" />}
+          {status === "error" && <XCircle className="w-10 h-10 animate-in zoom-in duration-300" />}
+        </div>
+      </div>
+
+      {/* --- Text Content --- */}
+      <div className="space-y-2 animate-in fade-in slide-in-from-bottom-2 duration-500">
+        <h1 className="text-2xl font-bold tracking-tight text-foreground">
+          {status === "loading" && "Verifying Email"}
+          {status === "success" && "You're all set!"}
+          {status === "error" && "Verification Failed"}
         </h1>
-        <p className="text-sm text-muted-foreground">
-          {isLoading
-            ? "Please wait while we verify your email"
-            : error
-              ? error
-              : success
-                ? success
-                : "Verify your emai"}
+        <p className="text-muted-foreground text-sm max-w-xs mx-auto">
+          {message}
         </p>
       </div>
-      <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
-        <div
-          className={cn("grid gap-6 lg:max-w-lg text-left mb-5", className)}
-          {...props}
-        >
-          <div className="flex justify-center items-center w-full">
-            {isLoading && (
-              <CgSpinner className="animate-spin text-5xl text-primary" />
-            )}
-            {error && (
-              <MdOutlineReportGmailerrorred className="text-5xl  text-red-500" />
-            )}
-            {success && (
-              <Image
-                src={verifyPng}
-                height={320}
-                width={320}
-                alt="Verify Email"
-                className="w-40 h-40"
-              />
-            )}
-          </div>
-          {!isLoading && (
-            <Button
-              disabled={isLoading}
-              type="submit"
-              className="mt-2 tracking-wide"
-              size="lg"
-              onClick={() => {
-                router.push("/login");
-              }}
-            >
-              Go to Login
+
+      {/* --- Actions --- */}
+      <div className="pt-4 animate-in fade-in delay-200 duration-500">
+        {status === "success" && (
+          <p className="text-xs text-muted-foreground">
+            Redirecting you in a moment...
+          </p>
+        )}
+
+        {status === "error" && (
+          <div className="flex flex-col gap-3">
+            <Button onClick={() => router.push("/login")} className="w-full">
+              Return to Login
             </Button>
-          )}
-        </div>
-      </main>
-    </>
+            <Button variant="ghost" onClick={() => router.push("/contact")} className="w-full text-xs">
+              Contact Support
+            </Button>
+          </div>
+        )}
+      </div>
+
+    </div>
   );
 }

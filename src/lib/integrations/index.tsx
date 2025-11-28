@@ -66,7 +66,7 @@ export const INTEGRATION_CONFIG: {
 } = {
   github: {
     client_id: process.env.GITHUB_ID as string,
-    redirect_uri: process.env.BASE_URL + "/settings/integrations/github",
+    redirect_uri: process.env.BASE_URL + "/dashboard/settings/integrations/github",
     scope: "user%20public_repo",
     auth_url: `https://github.com/login/oauth/authorize`,
     required: ["code"],
@@ -127,7 +127,7 @@ export const INTEGRATION_CONFIG: {
   },
   gumroad: {
     client_id: process.env.GUMROAD_APP_ID as string,
-    redirect_uri: process.env.BASE_URL + "/settings/integrations/gumroad",
+    redirect_uri: process.env.BASE_URL + "/dashboard/settings/integrations/gumroad",
     scope: "view_profile",
     auth_url: `https://gumroad.com/oauth/authorize`,
     getAuthUrl: function () {

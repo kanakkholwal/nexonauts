@@ -50,16 +50,12 @@ export default async function BrowsePage(props: {
   );
 
   return (
-    <div className="min-h-screen flex flex-col pt-20 selection:bg-primary/20 selection:text-primary">
+    <div className="min-h-screen flex flex-col pt-20 ">
       <Navbar />
 
-      {/* --- Global Background --- */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:32px_32px]" />
-      </div>
 
       {/* --- Header Section --- */}
-      <div className="relative z-10 w-full border-b border-border/40 bg-background/50 backdrop-blur-sm">
+      <div className="relative z-10 w-full border-b border-border/40">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-12 md:py-16">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-xs font-medium mb-4 border border-primary/10">

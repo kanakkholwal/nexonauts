@@ -74,7 +74,7 @@ export const sidebar_links: rawLinkType[] = [
         title: "Products",
         icon: RiAppsLine,
         path: "/products",
-        allowed_roles: ["admin","user"],
+        allowed_roles: ["admin", "user"],
         category: "view",
     },
 
@@ -83,7 +83,7 @@ export const sidebar_links: rawLinkType[] = [
         icon: Swords,
         path: "/tools",
         category: "view",
-        allowed_roles: "admin",
+        allowed_roles: ["admin", "user"],
     },
     {
         title: "Messages",
@@ -105,6 +105,11 @@ export const sidebar_links: rawLinkType[] = [
         allowed_roles: "*",
         items: [
             {
+                title: "Profile",
+                path: "/profile",
+                allowed_roles: "*",
+            },
+            {
                 title: "Account",
                 path: "/account",
                 allowed_roles: "*",
@@ -118,142 +123,142 @@ export const sidebar_links: rawLinkType[] = [
     },
 ];
 interface SocialLink {
-  href: string;
-  icon: React.ElementType;
+    href: string;
+    icon: React.ElementType;
 }
 
 export const socials: SocialLink[] = [
-  {
-    href: appConfig.socials.twitter,
-    icon: RiTwitterXFill,
-  },
-  {
-    href: appConfig.socials.linkedin,
-    icon: FiLinkedin,
-  },
-  {
-    href: appConfig.socials.github,
-    icon: LuGithub,
-  },
-  {
-    href: appConfig.socials.instagram,
-    icon: BsInstagram,
-  },
+    {
+        href: appConfig.socials.twitter,
+        icon: RiTwitterXFill,
+    },
+    {
+        href: appConfig.socials.linkedin,
+        icon: FiLinkedin,
+    },
+    {
+        href: appConfig.socials.github,
+        icon: LuGithub,
+    },
+    {
+        href: appConfig.socials.instagram,
+        icon: BsInstagram,
+    },
 ];
 export type RouterCardLink = {
-  href: string;
-  title: string;
-  description: string;
-  external?: boolean;
-  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
-  allowed_roles: AllowedRoleType[] | AllowedRoleType;
-  disabled?: boolean;
-  category: string;
-  isNew?: boolean;
+    href: string;
+    title: string;
+    description: string;
+    external?: boolean;
+    Icon: React.FC<React.SVGProps<SVGSVGElement>>;
+    allowed_roles: AllowedRoleType[] | AllowedRoleType;
+    disabled?: boolean;
+    category: string;
+    isNew?: boolean;
 };
 export const getLinksByRole = <T extends rawLinkType | RouterCardLink>(
-  role: string,
-  links: T[]
+    role: string,
+    links: T[]
 ): T[] => {
-  return links.filter((link) =>
-    checkRoleAccess(role, normalizeRoles(link.allowed_roles))
-  );
+    return links.filter((link) =>
+        checkRoleAccess(role, normalizeRoles(link.allowed_roles))
+    );
 };
 // Helper function to normalize allowed_roles to array
 const normalizeRoles = (
-  roles: AllowedRoleType | AllowedRoleType[]
+    roles: AllowedRoleType | AllowedRoleType[]
 ): string[] => {
-  return Array.isArray(roles)
-    ? ROLES.map((role) => String(role))
-    : [String(roles)];
+    return Array.isArray(roles)
+        ? ROLES.map((role) => String(role))
+        : [String(roles)];
 };
 // Helper function to check role access with negation support
 const checkRoleAccess = (userRole: string, allowedRoles: string[]): boolean => {
-  // If allowed_roles is "*", allow access to everyone
-  if (allowedRoles.includes("*")) return true;
+    // If allowed_roles is "*", allow access to everyone
+    if (allowedRoles.includes("*")) return true;
 
-  // Check for direct role match
-  if (allowedRoles.includes(userRole)) return true;
+    // Check for direct role match
+    if (allowedRoles.includes(userRole)) return true;
 
-  // Check for negation roles (starting with "!")
-  // const positiveRoles = allowedRoles.filter((role) => !role.startsWith("!"));
-  // const negatedRoles = allowedRoles.filter((role) => role.startsWith("!"));
+    // Check for negation roles (starting with "!")
+    // const positiveRoles = allowedRoles.filter((role) => !role.startsWith("!"));
+    // const negatedRoles = allowedRoles.filter((role) => role.startsWith("!"));
 
-  // // If there are positive roles specified, use standard inclusion logic
-  // if (positiveRoles.length > 0) {
-  //   return positiveRoles.includes(userRole);
-  // }
+    // // If there are positive roles specified, use standard inclusion logic
+    // if (positiveRoles.length > 0) {
+    //   return positiveRoles.includes(userRole);
+    // }
 
-  // If only negation roles are specified, allow access if user's role is not negated
-  return !allowedRoles.some((roles) => toRegex(roles).test(userRole));
+    // If only negation roles are specified, allow access if user's role is not negated
+    return !allowedRoles.some((roles) => toRegex(roles).test(userRole));
 };
 
 export const SUPPORT_LINKS = [];
 
 export type NavLink = RouterCardLink & {
-  items?: NavLink[];
+    items?: NavLink[];
 };
 
 export const getNavLinks = (user?: Session["user"]): NavLink[] => {
-  const linksByRole = []
-  // const linksByRole = [user?.role, ...(user?.other_roles || [])]
-  //   .map((role) => getLinksByRole("*", quick_links))
-  //   .flat() // filter out unique links
-  //   .filter(
-  //     (link, index, self) =>
-  //       index ===
-  //       self.findIndex((l) => l.href === link.href && l.title === link.title)
-  //   );
-  // console.log("Links by role:", linksByRole);
+    const linksByRole = []
+    // const linksByRole = [user?.role, ...(user?.other_roles || [])]
+    //   .map((role) => getLinksByRole("*", quick_links))
+    //   .flat() // filter out unique links
+    //   .filter(
+    //     (link, index, self) =>
+    //       index ===
+    //       self.findIndex((l) => l.href === link.href && l.title === link.title)
+    //   );
+    // console.log("Links by role:", linksByRole);
 
-  if (user) {
-    linksByRole.push({
-      title: "Dashboard",
-      href: "/" + user.other_roles?.[0],
-      description: "Manage your account settings.",
-      Icon: LuLayoutDashboard ,
-      category: "dashboard",
-      allowed_roles: ["*"],
-    })
-    linksByRole.push({
-      title: "Settings",
-      href: user.other_roles?.[0] + "/settings",
-      description: "Manage your account settings.",
-      Icon: Settings,
-      category: "dashboard",
-      allowed_roles: ["*"]
-    })
-    linksByRole.push({
-      title: "Account",
-      href: user.other_roles?.[0] + "/settings/account",
-      description: "Manage your account settings.",
-      Icon: UserRoundCog,
-      category: "dashboard",
-      allowed_roles: ["*"]
-    })
-    linksByRole.push({
-      title: "Appearance",
-      href: user.other_roles?.[0] + "/settings/appearance",
-      description: "Manage your account settings.",
-      Icon: Moon,
-      category: "dashboard",
-      allowed_roles: ["*"]
-    })
+    if (user) {
+        linksByRole.push({
+            title: "Dashboard",
+            href: "/" + user.other_roles?.[0],
+            description: "Manage your account settings.",
+            Icon: LuLayoutDashboard,
+            category: "dashboard",
+            allowed_roles: ["*"],
+        })
+        linksByRole.push({
+            title: "Settings",
+            href: user.other_roles?.[0] + "/settings",
+            description: "Manage your account settings.",
+            Icon: Settings,
+            category: "dashboard",
+            allowed_roles: ["*"]
+        })
+        linksByRole.push({
+            title: "Account",
+            href: user.other_roles?.[0] + "/settings/account",
+            description: "Manage your account settings.",
+            Icon: UserRoundCog,
+            category: "dashboard",
+            allowed_roles: ["*"]
+        })
+        linksByRole.push({
+            title: "Appearance",
+            href: user.other_roles?.[0] + "/settings/appearance",
+            description: "Manage your account settings.",
+            Icon: Moon,
+            category: "dashboard",
+            allowed_roles: ["*"]
+        })
 
 
-  }
-  // if(process.env.NODE_ENV !== "production"){
+    }
+    // if(process.env.NODE_ENV !== "production"){
     linksByRole.push({
-      title: "Whisper Room",
-      href: "/whisper-room",
-      description: "Anonymous discussion forum for students.",
-      Icon: Podcast,
-      category: "community",
-      allowed_roles: ["student"],
-      isNew:true
+        title: "Whisper Room",
+        href: "/whisper-room",
+        description: "Anonymous discussion forum for students.",
+        Icon: Podcast,
+        category: "community",
+        allowed_roles: ["student"],
+        isNew: true
     })
-  // }
-  return linksByRole
+    // }
+    return linksByRole
 
 };
 type MegaMenuLinks = {

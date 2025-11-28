@@ -2,6 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { formatDistance } from "date-fns";
+import { ArrowLeft, CheckCircle2, ShieldAlert, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import {
   Icon,
@@ -9,9 +10,8 @@ import {
   INTEGRATION_CONFIG,
   INTEGRATION_DESCRIPTIONS,
 } from "src/lib/integrations";
-import { Authorisor, RevokeTokenButton } from "./platform-client";
-
 import { revokeToken, saveAccessToken } from "./actions";
+import { Authorisor, RevokeTokenButton } from "./platform-client";
 
 interface Props {
   searchParams: Promise<{
@@ -21,120 +21,148 @@ interface Props {
     platform: string;
   }>;
 }
+
 export default async function PlatformPage(props: Props) {
   const params = await props.params;
   const searchParams = await props.searchParams;
+
   if (!INTEGRATION_CONFIG[params.platform]) {
-    return <div>Platform not found</div>;
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4">
+        <ShieldAlert className="w-12 h-12 text-destructive" />
+        <h2 className="text-xl font-semibold">Integration Not Found</h2>
+        <Button asChild variant="outline"><Link href="/dashboard/settings/integrations">Go Back</Link></Button>
+      </div>
+    );
   }
 
   const integration = new Integration(params.platform);
-
   const isRedirected = !!searchParams?.code;
-
   const code = searchParams?.code as string;
-  // get the user session
-
   const integrationData = await integration.getIntegrationData();
 
-  console.log(integrationData);
-
   return (
-    <div className="space-y-6 p-4 md:p-10 mt-5">
-      <div className="w-full flex items-center justify-between gap-4 flex-wrap">
-        <div className="space-y-0.5 flex gap-4">
-          <Icon icon={params.platform} className="h-16 w-16" />
-          <div>
-            <h2 className="text-2xl font-bold tracking-wide capitalize">
+    <div className="min-h-screen w-full">
+      <div className="relative z-10 max-w-5xl mx-auto px-6 py-12">
+
+        {/* --- Navigation --- */}
+        <div className="mb-8">
+          <Button variant="ghost" size="sm" asChild className="pl-0 text-muted-foreground hover:text-foreground">
+            <Link href="/dashboard/settings/integrations">
+              <ArrowLeft className="mr-2 w-4 h-4" />
+              Back to Integrations
+            </Link>
+          </Button>
+        </div>
+
+        {/* --- Header --- */}
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-6 mb-10">
+          <div className="h-20 w-20 rounded-2xl bg-muted/30 border border-border/50 flex items-center justify-center p-4 shadow-sm">
+            <Icon icon={params.platform} className="w-full h-full object-contain" />
+          </div>
+          <div className="space-y-1">
+            <h1 className="text-3xl font-bold tracking-tight capitalize flex items-center gap-3">
               {params.platform}
-            </h2>
-            <p className="text-muted-foreground">
+              {integrationData.integrated && (
+                <Badge variant="outline" className="bg-emerald-500/10 text-emerald-600 border-emerald-500/20 gap-1.5 py-0.5 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  Active
+                </Badge>
+              )}
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-2xl">
               {INTEGRATION_DESCRIPTIONS[params.platform]}
             </p>
           </div>
         </div>
-        <div className="flex items-end flex-col gap-2">
-          <Badge variant={integrationData.integrated ? "success" : "secondary"}>
-            {integrationData.integrated ? "Connected" : "Connect"}
-          </Badge>
-          {integrationData.integrated && (
-            <small className="text-muted-foreground">
-              {formatDistance(
-                new Date(integrationData.lastAuthorized),
-                new Date(),
-                { addSuffix: true }
-              )}
-            </small>
-          )}
-        </div>
-      </div>
-      <Separator className="my-6" />
-      {/* // This is the RevokeTokenButton component */}
-      {integrationData.integrated && (
-        <div className="bg-white/50 p-4 rounded-lg dark:bg-gray-800/50 flex justify-between items-center shadow-sm">
-          <div>
-            <p className="text-muted-foreground font-medium">
-              Your account is connected with <strong>{params.platform}</strong>
-            </p>
-          </div>
-          <RevokeTokenButton
-            revokeToken={revokeToken}
-            platform={params.platform}
-            key={params.platform}
-          />
-        </div>
-      )}
-      {/* // This is the Authorisation component */}
-      {!integrationData.integrated && !isRedirected && (
-        <>
-          <div className="space-y-4 w-full flex flex-col items-center justify-center mx-auto glassmorphism_light bg-white/5 mt-10 p-5 py-10 rounded-xl max-w-md shadow-xl">
-            <div>
-              <h3 className="text-lg font-bold">Authorisation</h3>
-              <p className="text-muted-foreground">
-                Authorise your account to connect with {params.platform}
-              </p>
-            </div>
-            <div className="flex gap-4">
-              <Button asChild>
-                <Link href={integration.getAuthUrl()}>Authorise</Link>
-              </Button>
-              <Button variant="outline" asChild>
-                <Link href={`/settings/integrations`}>Go Back</Link>
-              </Button>
-            </div>
-          </div>
-        </>
-      )}
-      {/* // This is the Redirected component and not integrated  */}
-      {!integrationData.integrated && isRedirected && (
-        <>
-          <Authorisor
-            options={{ code }}
-            saveAccessToken={saveAccessToken}
-            platform={params.platform}
-            key={params.platform + code}
-          />
-        </>
-      )}
-      <div className="space-y-4">
-        <h3 className="text-lg font-bold">Usage Cases</h3>
-        <div className="space-y-2">
-          {integration.usage_cases.map((useCase, index) => {
-            return (
-              <div key={index}>
-                <h6 className="text-base font-medium">{useCase.name}</h6>
-                <p className="text-muted-foreground">{useCase.description}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
 
-      {/* {Object.keys(searchParams!).map((key) => {
-            return <div key={key}>
-                {key}: {searchParams[key]}
+        <Separator className="mb-10 opacity-50" />
+
+        {/* --- Main Content Grid --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+
+          {/* Left Column: Context & Usage */}
+          <div className="lg:col-span-2 space-y-10">
+
+            {/* Auth Handler Area (Only shows if processing) */}
+            {isRedirected && !integrationData.integrated && (
+              <div className="p-6 rounded-2xl bg-card border border-border shadow-sm">
+                <Authorisor
+                  options={{ code }}
+                  saveAccessToken={saveAccessToken}
+                  platform={params.platform}
+                />
+              </div>
+            )}
+
+            <div>
+              <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-primary" />
+                Capabilities
+              </h3>
+              <div className="grid gap-4">
+                {integration.usage_cases.map((useCase, index) => (
+                  <div key={index} className="p-4 rounded-xl border border-border/50 bg-card/30">
+                    <h4 className="font-medium text-foreground mb-1">{useCase.name}</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {useCase.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
             </div>
-        })} */}
+          </div>
+
+          {/* Right Column: Status & Actions */}
+          <div className="lg:col-span-1 space-y-6">
+            <div className="p-6 rounded-2xl bg-card border border-border shadow-sm">
+              <h3 className="font-semibold text-sm uppercase tracking-wider text-muted-foreground mb-6">
+                Connection Status
+              </h3>
+
+              {integrationData.integrated ? (
+                <div className="space-y-6">
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground">Connected since</p>
+                    <p className="font-medium">
+                      {formatDistance(new Date(integrationData.lastAuthorized), new Date(), { addSuffix: true })}
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground">Permissions</p>
+                    <p className="font-medium capitalize">{params.platform} Access</p>
+                  </div>
+
+                  <Separator />
+
+                  <RevokeTokenButton
+                    revokeToken={revokeToken}
+                    platform={params.platform}
+                  />
+                </div>
+              ) : (
+                <div className="text-center space-y-6">
+                  <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mx-auto">
+                    <Icon icon={params.platform} className="w-6 h-6 opacity-50 grayscale" />
+                  </div>
+                  <div>
+                    <p className="font-medium mb-1">Not Connected</p>
+                    <p className="text-sm text-muted-foreground">
+                      Link your account to enable features.
+                    </p>
+                  </div>
+                  <Button className="w-full" asChild>
+                    <Link href={integration.getAuthUrl()}>
+                      Connect {params.platform}
+                    </Link>
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
   );
 }

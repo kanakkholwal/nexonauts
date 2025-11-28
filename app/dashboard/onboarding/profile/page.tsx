@@ -8,7 +8,7 @@ import CreateProfileForm from "./form";
 
 export const metadata: Metadata = {
   title: "Create Profile - NexoNauts",
-  description: "Create Profile for NexoNauts",
+  description: "Set up your developer identity.",
 };
 
 export default async function CreateProfile() {
@@ -21,9 +21,16 @@ export default async function CreateProfile() {
   }
 
   return (
-    <>
-      <CreateProfileForm user={session.user} createProfile={createProfile} />
-      <SquareGrid className="h-screen" />
-    </>
+    <div className="relative min-h-screen w-full flex items-center justify-center bg-background selection:bg-primary/20 selection:text-primary overflow-hidden">
+
+      {/* Background Ambience */}
+      <SquareGrid className="absolute inset-0 h-full w-full opacity-50" />
+      <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="relative z-10 w-full max-w-lg px-4">
+        <CreateProfileForm user={session.user} createProfile={createProfile} />
+      </div>
+    </div>
   );
 }

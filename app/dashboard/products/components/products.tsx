@@ -1,133 +1,150 @@
 "use client";
-import { Button } from "@/components/ui/button";
-import { ArrowUpRight, Import, ListFilter, LoaderCircle } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
-import toast from "react-hot-toast";
 
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Check, ExternalLink, ListFilter, Loader2 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import toast from "react-hot-toast";
 import { rawProductThirdParty } from "src/models/product";
 
+// --- IMPORT CARD ---
 type ImportsProps = {
   product: rawProductThirdParty;
   importProduct: () => Promise<any>;
 };
 
 export function ImportedProductCard({ product, importProduct }: ImportsProps) {
-  const [importing, setImporting] = React.useState(false);
+  const [loading, setLoading] = useState(false);
+  const [imported, setImported] = useState(false);
+
+  const handleImport = async () => {
+    setLoading(true);
+    try {
+      await importProduct();
+      toast.success("Imported successfully");
+      setImported(true);
+    } catch (error) {
+      toast.error("Import failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="p-3 flex justify-between items-center flex-col gap-2">
-      <Image
-        src={product.preview_url}
-        width={540}
-        height={320}
-        alt={product.name}
-        className="w-full h-auto aspect-video rounded-lg"
-      />
-      <h4 className="text-sm font-medium">{product.name}</h4>
+    <div className="flex items-center flex-wrap gap-3 p-3 rounded-xl border border-border/50 bg-card hover:bg-muted/30 transition-colors w-full overflow-hidden">
 
-      <div className="flex w-full items-center gap-2">
-        <Button
-          variant="default_light"
-          size="xs"
-          className="w-full"
-          onClick={() => {
-            setImporting(true);
-            importProduct()
-              .then(() => {
-                toast.success("Product imported successfully");
-              })
-              .catch((error) => {
-                console.error(error);
-                toast.error("Failed to import product");
-              })
-              .finally(() => {
-                setImporting(false);
-              });
-          }}
-          disabled={importing}
+      {/* Thumbnail - Fixed width, prevented from shrinking */}
+      <div className="relative w-16 h-12 shrink-0 bg-muted rounded-md overflow-hidden border border-border/50">
+        <Image
+          src={product.preview_url}
+          alt={product.name}
+          fill
+          className="object-cover"
+        />
+      </div>
+
+      {/* Content - flex-1 with min-w-0 forces truncation inside flex parent */}
+      <div className="flex-1 min-w-0 flex flex-col justify-center gap-0.5">
+        <h4 className="text-sm font-medium truncate" title={product.name}>
+          {product.name}
+        </h4>
+        <Link
+          href={product.url}
+          target="_blank"
+          className="text-xs text-muted-foreground hover:text-primary flex items-center gap-1 w-fit"
         >
-          {importing ? <LoaderCircle className="animate-spin" /> : <Import />}
-          {importing ? "Importing..." : "Import"}
-        </Button>
-        <Button variant="dark" size="xs" className="flex-1" asChild>
-          <Link href={product.url} target="_blank">
-            Check It Out <ArrowUpRight />
-          </Link>
-        </Button>
+          View Source <ExternalLink className="w-3 h-3" />
+        </Link>
+      </div>
+
+      {/* Button - shrink-0 ensures it never gets pushed out or squashed */}
+      <div className="shrink-0 flex items-center ml-2">
+        {imported ? (
+          <Button size="icon" variant="ghost" disabled className="h-8 w-8 text-emerald-500">
+            <Check className="w-4 h-4" />
+          </Button>
+        ) : (
+          <Button
+            size="sm"
+            variant="secondary"
+            disabled={loading}
+            onClick={handleImport}
+            className="h-8 px-3 text-xs"
+          >
+            {loading ? <Loader2 className="w-3 h-3 animate-spin" /> : "Import"}
+          </Button>
+        )}
       </div>
     </div>
   );
 }
-const SORT_AND_FILTER_OPTIONS = {
-  sort: ["latest", "oldest"],
-  filter: ["all", "gumroad"],
-};
+
+// --- FILTER & SORT ---
+const SORT_OPTIONS = [
+  { label: "Newest First", value: "latest" },
+  { label: "Oldest First", value: "oldest" },
+];
+
+const FILTER_OPTIONS = [
+  { label: "All Sources", value: "all" },
+  { label: "Gumroad", value: "gumroad" },
+];
 
 export function FilterAndSort() {
   const router = useRouter();
-  const searchParams = useSearchParams() as URLSearchParams;
+  const searchParams = useSearchParams();
   const filter = searchParams.get("filter") || "all";
   const sort = searchParams.get("sort") || "latest";
 
-  const handleFilterChange = (filter: string) => {
-    const _searchParams = new URLSearchParams(searchParams);
-    _searchParams.set("filter", filter);
-    router.push(`?${_searchParams.toString()}`);
-  };
-  const handleSortChange = (sort: string) => {
-    const _searchParams = new URLSearchParams(searchParams);
-    _searchParams.set("sort", sort);
-    router.push(`?${_searchParams.toString()}`);
+  const updateParam = (key: string, value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set(key, value);
+    router.push(`?${params.toString()}`);
   };
 
   return (
-    <>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline" size="sm">
-            <ListFilter />
-            Filter & Sort
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start">
-          {Object.entries(SORT_AND_FILTER_OPTIONS).map(([key, options]) => {
-            return (
-              <React.Fragment key={key}>
-                <DropdownMenuLabel key={key}>
-                  {key.replace(/^\w/, (c) => c.toUpperCase())}
-                </DropdownMenuLabel>
-                {options.map((option) => {
-                  const isSelected =
-                    key === "sort" ? sort === option : filter === option;
-                  return (
-                    <DropdownMenuCheckboxItem
-                      key={option}
-                      checked={isSelected}
-                      onCheckedChange={() =>
-                        key === "sort"
-                          ? handleSortChange(option)
-                          : handleFilterChange(option)
-                      }
-                    >
-                      {option.replace(/^\w/, (c) => c.toUpperCase())}
-                    </DropdownMenuCheckboxItem>
-                  );
-                })}
-              </React.Fragment>
-            );
-          })}
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="sm" className="gap-2 h-9">
+          <ListFilter className="w-4 h-4" />
+          Filter
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-48">
+        <DropdownMenuLabel>Sort By</DropdownMenuLabel>
+        {SORT_OPTIONS.map((option) => (
+          <DropdownMenuCheckboxItem
+            key={option.value}
+            checked={sort === option.value}
+            onCheckedChange={() => updateParam("sort", option.value)}
+          >
+            {option.label}
+          </DropdownMenuCheckboxItem>
+        ))}
+
+        <DropdownMenuSeparator />
+
+        <DropdownMenuLabel>Source</DropdownMenuLabel>
+        {FILTER_OPTIONS.map((option) => (
+          <DropdownMenuCheckboxItem
+            key={option.value}
+            checked={filter === option.value}
+            onCheckedChange={() => updateParam("filter", option.value)}
+          >
+            {option.label}
+          </DropdownMenuCheckboxItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

@@ -1,10 +1,10 @@
-import { customAlphabet } from "nanoid";
 
 import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
 import Link from "next/link";
 import dbConnect from "src/lib/db";
 import User from "src/models/user";
+import { generateSlug } from "src/utils/string";
 import WaitListForm from "./form";
 
 export const metadata: Metadata = {
@@ -32,17 +32,11 @@ export default async function Page() {
     const user = new User({
       name: data.name,
       email: data.email,
-      username: customAlphabet(
-        "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-        8
-      )(),
+      username: generateSlug(8),
       role: "waitlist",
       account_type: "free",
       verificationToken: null,
-      password: customAlphabet(
-        "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-        8
-      )(),
+      password: generateSlug(8),
       verified: false,
       providers: [],
       additional_info: {},

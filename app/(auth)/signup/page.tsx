@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowRightToLine } from "lucide-react";
+import { ArrowRight, Lock } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -8,9 +8,8 @@ import { registerUser } from "./action";
 import { RegisterForm } from "./register-form";
 
 export const metadata: Metadata = {
-  title: "Signup | NexoNauts",
-  description: "Register for an account on " + process.env.NEXT_PUBLIC_APP_NAME,
-  keywords: "register, account, " + process.env.NEXT_PUBLIC_APP_NAME,
+  title: "Sign Up - NexoNauts",
+  description: "Join the developer ecosystem.",
 };
 
 interface PageProps {
@@ -19,67 +18,82 @@ interface PageProps {
   }>;
 }
 
-export default async function Page({ searchParams }: PageProps) {
+export default async function SignupPage({ searchParams }: PageProps) {
   const session = await getSession();
   if (session) return redirect("/dashboard");
-  const redirect_path = (await searchParams)?.redirect;
 
-  const IsWaitingList = true;
+  const params = await searchParams;
+  const redirect_path = params?.redirect;
+
+  // Toggle this for waitlist mode
+  const IS_WAITLIST_MODE = false;
 
   return (
-    <>
-      <Button
-        className="absolute right-4 top-4 md:right-8 md:top-8"
-        variant="link"
-        asChild
-      >
+    <div className="w-full flex flex-col gap-6">
+
+      {/* Top Navigation */}
+      <div className="absolute right-4 top-4 md:right-8 md:top-8">
         <Link
           href={`/login${redirect_path ? `?redirect=${redirect_path}` : ""}`}
+          className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
         >
-          Log in
+          Already have an account? <span className="font-semibold text-foreground hover:underline">Log in</span>
         </Link>
-      </Button>
+      </div>
 
-      <main className="flex flex-col items-center justify-center w-full p-4 space-y-4">
-        {!IsWaitingList ? (
-          <RegisterForm registerUser={registerUser} />
-        ) : (
-          <>
-            <div className="flex flex-col space-y-2 text-center">
-              <h1 className="text-2xl font-semibold tracking-tight">
-                Welcome to {process.env.NEXT_PUBLIC_WEBSITE_NAME}!
-              </h1>
-              <p className="text-sm text-muted-foreground">
-                Signup is currently by invitation only.
-              </p>
-            </div>
-            <div className="w-full flex flex-col items-center justify-center space-x-2 gap-4 mt-4">
-              <Button variant="default_light" width="sm" asChild>
-                <Link href="/login">
-                  Login to your account
-                  <ArrowRight />
-                </Link>
-              </Button>
-              <div className="relative">
-                <div className="absolute inset-0 flex items-center">
-                  <span className="w-full border-t" />
-                </div>
-                <div className="relative flex justify-center text-xs uppercase">
-                  <span className="px-2 text-muted-foreground">
-                    Or join the waiting list
-                  </span>
-                </div>
-              </div>
-              <Button width="sm" asChild>
-                <Link href="/waitlist">
-                  Join the waiting list
-                  <ArrowRightToLine />
-                </Link>
-              </Button>
-            </div>
-          </>
-        )}
-      </main>
-    </>
+      {IS_WAITLIST_MODE ? (
+        // --- WAITLIST MODE ---
+        <div className="flex flex-col items-center text-center space-y-6 max-w-sm mx-auto py-10">
+          <div className="h-14 w-14 bg-muted/50 rounded-full flex items-center justify-center border border-white/10">
+            <Lock className="w-6 h-6 text-muted-foreground" />
+          </div>
+          <div className="space-y-2">
+            <h1 className="text-2xl font-bold tracking-tight">Private Beta</h1>
+            <p className="text-muted-foreground">
+              We are currently onboarding users by invitation only. Join the waitlist to secure your spot.
+            </p>
+          </div>
+
+          <div className="w-full space-y-3">
+            <Button className="w-full h-11" asChild>
+              <Link href="/waitlist">
+                Join Waitlist <ArrowRight className="ml-2 w-4 h-4" />
+              </Link>
+            </Button>
+            <Button variant="ghost" className="w-full" asChild>
+              <Link href="/">Back to Home</Link>
+            </Button>
+          </div>
+        </div>
+      ) : (
+        // --- STANDARD SIGNUP ---
+        <>
+          <div className="flex flex-col space-y-2 text-center mb-4">
+            <h1 className="text-3xl font-bold tracking-tight text-foreground">
+              Create an account
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Start building your developer identity today.
+            </p>
+          </div>
+
+          <div className="grid gap-6">
+            <RegisterForm registerUser={registerUser} />
+          </div>
+
+          <p className="px-8 text-center text-xs text-muted-foreground">
+            By creating an account, you agree to our{" "}
+            <Link href="/terms" className="underline underline-offset-4 hover:text-primary">
+              Terms of Service
+            </Link>{" "}
+            and{" "}
+            <Link href="/privacy" className="underline underline-offset-4 hover:text-primary">
+              Privacy Policy
+            </Link>
+            .
+          </p>
+        </>
+      )}
+    </div>
   );
 }

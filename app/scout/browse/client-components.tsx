@@ -68,7 +68,7 @@ export function FilterSidebar({ categories, pricing_types, currentFilter }: Filt
         <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3 pl-1">
           Categories
         </h3>
-        <div className="space-y-1 max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin">
+        <div className="space-y-1 max-h-[60vh] overflow-y-auto pr-2 scrollbar-thin no-scrollbar">
           <FilterOption
             label="All Categories"
             active={currentFilter.category === "all"}

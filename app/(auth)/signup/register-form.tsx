@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,287 +11,193 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, UserRound } from "lucide-react";
+import { ArrowRight, CheckCircle2, Loader2, Lock, Mail, User } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { BiLockOpenAlt } from "react-icons/bi";
-import { CgSpinner } from "react-icons/cg";
 import { FcGoogle } from "react-icons/fc";
-import { LuMail } from "react-icons/lu";
-import { PiCheckCircleDuotone } from "react-icons/pi";
 import { authClient } from "src/auth/client";
 import { z } from "zod";
 
 const formSchema = z.object({
-  name: z.string().min(4, {
-    message: "Name must be at least 4 characters long",
-  }),
-  email: z.string().email({ message: "Please enter a valid email address" }),
+  name: z.string().min(4, "Name must be at least 4 characters"),
+  email: z.string().email("Invalid email address"),
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters long" })
-    .max(50, { message: "Password cannot exceed 50 characters" })
-    .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{8,}$/, {
-      message:
-        "Password must contain at least one uppercase letter, one lowercase letter, and one number",
-    }),
+    .min(8, "Password must be at least 8 characters")
+    .regex(/[A-Z]/, "Must contain an uppercase letter")
+    .regex(/[0-9]/, "Must contain a number"),
 });
 
 interface Props {
-  registerUser: (data: {
-    name: string;
-    email: string;
-    password: string;
-  }) => Promise<{
-    success: boolean;
-    message: string;
-  }>;
+  registerUser: (data: { name: string; email: string; password: string }) => Promise<{ success: boolean; message: string }>;
 }
 
 export function RegisterForm({ registerUser }: Props) {
-  const searchParams = useSearchParams() as URLSearchParams;
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const redirect = searchParams.get("redirect") ?? "/dashboard";
+  const redirect = searchParams?.get("redirect") || "/dashboard";
+
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      password: "",
-    },
+    defaultValues: { name: "", email: "", password: "" },
   });
+
   async function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
     setLoading(true);
-    toast.promise(registerUser(data), {
-      loading: "Creating account...",
-      success: (data) => {
-        console.log(data);
-        setState("registered");
-        setLoading(false);
-        return "Account created successfully. Please check your email to verify your account";
-      },
-      error: (err) => {
-        console.log(err);
-        setLoading(false);
-        return err.message || "An error occurred while creating account";
-      },
-    });
-    await authClient.signUp.email(
-      {
+
+    // 1. Register User in DB
+    try {
+      await registerUser(data);
+
+      // 2. Trigger Auth Sign Up
+      await authClient.signUp.email({
         email: data.email,
         password: data.password,
-        callbackURL: redirect,
         name: data.name,
-        username: data.email.split("@")[0] + "." + data.email.split("@")[1],
-      },
-      {
-        credentials: 'include',
-        onRequest: () => {
-          setLoading(true);
+        username: data.email.split("@")[0], // Simple username derivation
+        callbackURL: redirect,
+      }, {
+        onSuccess: () => {
+          setSuccess(true);
+          toast.success("Account created!");
         },
-        onResponse: () => {
-          setLoading(false);
-        },
-        onSuccess(context) {
-          console.log(context);
-          toast.success("Account created successfully");
-        },
-        onError: (ctx: { error: { message: string } }) => {
-          console.log(ctx);
+        onError: (ctx) => {
           toast.error(ctx.error.message);
-        },
-      }
-    );
+          setLoading(false);
+        }
+      });
+    } catch (err: any) {
+      toast.error(err.message || "Registration failed");
+      setLoading(false);
+    }
   }
 
-  const [state, setState] = useState<"onboarding" | "registered">("onboarding");
+  const handleGoogleSignUp = async () => {
+    setLoading(true);
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: redirect,
+      errorCallbackURL: "/auth/sign-up?error=social",
+    });
+  };
 
-  return (
-    <>
-      {state === "onboarding" && (
-        <>
-          <div className="flex flex-col space-y-2 text-center">
-            <h1 className="text-2xl font-semibold tracking-tight">
-              Create an account
-            </h1>
-            <p className="text-sm text-muted-foreground">
-              Start your journey with {process.env.NEXT_PUBLIC_WEBSITE_NAME}
-            </p>
-          </div>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="grid w-full max-w-lg items-center gap-1.5"
-            >
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="relative group">
-                      <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                        <UserRound className="w-4 h-4" />
-                      </FormLabel>
-                      <FormControl className="relative">
-                        <Input
-                          placeholder="John Doe"
-                          type="text"
-                          autoCapitalize="none"
-                          autoComplete="name"
-                          disabled={loading}
-                          autoCorrect="off"
-                          className="pl-10 pr-5"
-                          {...field}
-                        />
-                      </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="relative group">
-                      <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                        <LuMail className="w-4 h-4" />
-                      </FormLabel>
-                      <FormControl className="relative">
-                        <Input
-                          placeholder="johndoe@acme.com"
-                          type="email"
-                          autoCapitalize="none"
-                          autoComplete="email"
-                          disabled={loading}
-                          autoCorrect="off"
-                          className="pl-10 pr-5"
-                          {...field}
-                        />
-                      </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <div className="relative group">
-                      <FormLabel className="absolute top-1/2 -translate-y-1/2 left-4 z-50">
-                        <BiLockOpenAlt className="w-4 h-4" />
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="*********"
-                          type="password"
-                          autoCapitalize="none"
-                          autoComplete="password"
-                          autoCorrect="off"
-                          disabled={loading}
-                          className="pl-10 pr-5"
-                          {...field}
-                        />
-                      </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button
-                width={"full"}
-                disabled={loading}
-                className="mt-4"
-                type="submit"
-              >
-                {loading && <CgSpinner className="animate-spin mr-2" />}
-                {loading ? "Creating account..." : "Create a new Account"}
-              </Button>
-            </form>
-          </Form>
-
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <span className="w-full border-t" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="px-2 text-muted-foreground">
-                OR SIGN UP WITH
-              </span>
-            </div>
-          </div>
-          <div className="grid w-full max-w-lg items-center gap-1.5">
-            <Button
-              variant="light"
-              type="button"
-              disabled={loading}
-              width={"full"}
-              onClick={async () => {
-                setLoading(true);
-                await authClient.signIn.social({
-                  provider: "google",
-                  callbackURL: redirect,
-                  errorCallbackURL: "/auth/sign-in?social=google",
-                });
-                setLoading(false);
-              }}
-            >
-              {loading ? <CgSpinner className=" animate-spin" /> : <FcGoogle />}
-              {loading ? "Signing in..." : "Sign in with Google"}
-            </Button>
-          </div>
-          <div className="pt-lg  max-w-lg text-center">
-            <p className="text-concrete text-xs lg:text-sm pt-8">
-              By clicking{" "}
-              <span className="font-semibold">Create account / Sign up</span>,
-              you agree to {process.env.NEXT_PUBLIC_WEBSITE_NAME}{`'`}s{" "}
-              <Link
-                className="!text-concrete text-primary inline-flex hover:underline"
-                href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/tos`}
-              >
-                Terms
-              </Link>{" "}
-              and confirm you have read our{" "}
-              <Link
-                className="!text-concrete text-primary inline-flex hover:underline"
-                href={`${process.env.NEXT_PUBLIC_WEBSITE_URL}/privacy`}
-              >
-                Privacy Policy
-              </Link>
-              . You may receive offers, news and updates from us.
-            </p>
-          </div>
-        </>
-      )}
-      {state === "registered" && (
-        <div className="grid w-full max-w-lg items-center gap-1.5">
-          <div className="flex flex-col items-center justify-center">
-            <PiCheckCircleDuotone className="h-16 w-16 text-green-500" />
-            <h1 className="text-2xl font-semibold text-black">
-              Account created successfully!
-            </h1>
-            <p className="text-concrete text-sm">
-              Please check your email to verify your account
-            </p>
-          </div>
-          <Button
-            width="full"
-            className="mt-4"
-            onClick={() => router.push(`/login?redirect=${redirect}`)}
-          >
-            Login to your account <ArrowRight />
-          </Button>
+  // --- SUCCESS STATE ---
+  if (success) {
+    return (
+      <div className="flex flex-col items-center text-center space-y-6 py-8 animate-in fade-in zoom-in-95 duration-300">
+        <div className="h-16 w-16 bg-emerald-500/10 text-emerald-500 rounded-full flex items-center justify-center border border-emerald-500/20">
+          <CheckCircle2 className="w-8 h-8" />
         </div>
-      )}
-    </>
+        <div className="space-y-2">
+          <h2 className="text-xl font-semibold text-foreground">Verify your email</h2>
+          <p className="text-sm text-muted-foreground max-w-xs mx-auto">
+            We've sent a verification link to <span className="font-medium text-foreground">{form.getValues("email")}</span>. Please check your inbox.
+          </p>
+        </div>
+        <Button className="w-full" asChild>
+          <Link href={`/login?redirect=${redirect}`}>
+            Proceed to Login <ArrowRight className="ml-2 w-4 h-4" />
+          </Link>
+        </Button>
+      </div>
+    )
+  }
+
+  // --- FORM STATE ---
+  return (
+    <div className="space-y-6 w-full max-w-sm mx-auto">
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem className="space-y-1">
+                <FormLabel className="sr-only">Full Name</FormLabel>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+                    <User className="h-4 w-4" />
+                  </div>
+                  <FormControl>
+                    <Input placeholder="John Doe" disabled={loading} className="pl-9 h-10" {...field} />
+                  </FormControl>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem className="space-y-1">
+                <FormLabel className="sr-only">Email</FormLabel>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+                    <Mail className="h-4 w-4" />
+                  </div>
+                  <FormControl>
+                    <Input type="email" placeholder="name@example.com" disabled={loading} className="pl-9 h-10" {...field} />
+                  </FormControl>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem className="space-y-1">
+                <FormLabel className="sr-only">Password</FormLabel>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-muted-foreground">
+                    <Lock className="h-4 w-4" />
+                  </div>
+                  <FormControl>
+                    <Input type="password" placeholder="Create a password" disabled={loading} className="pl-9  h-10" {...field} />
+                  </FormControl>
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button type="submit" disabled={loading} className="w-full h-10 font-semibold shadow-sm">
+            {loading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Create Account"}
+          </Button>
+        </form>
+      </Form>
+
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t border-border/50" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
+        </div>
+      </div>
+
+      <Button
+        variant="outline"
+        type="button"
+        size="lg"
+        width="full"
+        disabled={loading}
+        onClick={handleGoogleSignUp}
+      >
+        {loading ? <Loader2 className="animate-spin" /> : <FcGoogle />}
+        Google
+      </Button>
+    </div>
   );
 }

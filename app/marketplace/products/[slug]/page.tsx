@@ -29,6 +29,7 @@ import { ProductCard } from "./product-card";
 // Types
 import ShareButton from "@/components/common/share-button";
 import MoreFromUs from "app/layouts/more-from-us";
+import { ProductTypeWithCreator } from "src/models/product";
 import { Product } from "./types";
 
 export async function generateMetadata(props: {
@@ -61,7 +62,7 @@ export default async function ProductPage(props: {
   const isAuthenticated = !!session?.user;
 
   // Fetch Data
-  const product = (await getProductBySlug(params.slug)) as Product;
+  const product = (await getProductBySlug(params.slug)) as ProductTypeWithCreator;
 
   if (!product) {
     return notFound();
@@ -119,7 +120,7 @@ export default async function ProductPage(props: {
               </h1>
 
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <span>Created by</span>
+                <span>Added by</span>
                 <Link href={`/profile/${product.creator.username}`} className="flex items-center gap-2 text-foreground font-semibold hover:text-primary transition-colors group">
                   {/* Avatar Placeholder */}
                   <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-violet-500" />
@@ -189,42 +190,45 @@ export default async function ProductPage(props: {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 border-t border-border/40 pt-16">
 
           {/* Main Content (Description) */}
-          <main className="lg:col-span-8 space-y-12 bg-card rounded-2xl p-5">
-            <section>
-              <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
-                About this Asset
-              </h3>
-              <div className="prose prose-zinc dark:prose-invert max-w-none prose-headings:font-semibold prose-img:rounded-xl">
-                <MarkdownView>
-                  {product.description}
-                </MarkdownView>
-              </div>
-            </section>
+          <main className="lg:col-span-8 space-y-12">
+            <div className="bg-card rounded-2xl p-5 space-y-12">
+              <section>
 
-            <section>
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
-                Tags
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {product.tags.filter(t => t.trim() !== "").map((tag) => (
-                  <Link
-                    key={tag}
-                    href={`/marketplace/explore?tags=${tag}`}
-                    className="px-3 py-1.5 rounded-full border border-border/50 text-sm text-muted-foreground hover:text-foreground hover:border-primary/50 hover:bg-primary/5 transition-all"
-                  >
-                    #{tag}
-                  </Link>
-                ))}
-              </div>
-            </section>
+                <h3 className="text-xl font-bold mb-6 flex items-center gap-2">
+                  About this Asset
+                </h3>
+                <div className="prose prose-zinc dark:prose-invert max-w-none prose-headings:font-semibold prose-img:rounded-xl">
+                  <MarkdownView>
+                    {product.description}
+                  </MarkdownView>
+                </div>
+              </section>
+              <section>
+                <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">
+                  Tags
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {product.tags.filter(t => t.trim() !== "").map((tag) => (
+                    <Link
+                      key={tag}
+                      href={`/marketplace/explore?tags=${tag}`}
+                      className="px-3 py-1.5 rounded-full border border-border/50 text-sm text-muted-foreground hover:text-foreground hover:border-primary/50 hover:bg-primary/5 transition-all"
+                    >
+                      #{tag}
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            </div>
+
 
             {/* More From Creator Section */}
-            <section id="more-from-creator" className="pt-10 border-t border-border/40">
+            <section id="more-from-creator" className="pt-10 border-t border-border/40 bg-card rounded-2xl p-5">
               <div className="flex items-center justify-between mb-8">
-                <h2 className="text-2xl font-bold">More from {product.creator.name}</h2>
-                <Link href={`/profile/${product.creator.username}`} className="text-sm font-medium text-primary hover:underline">
+                <h2 className="text-xl font-bold">More from {product.creator.name}</h2>
+                <ButtonLink href={`/profile/${product.creator.username}`} variant="link">
                   View Profile
-                </Link>
+                </ButtonLink>
               </div>
               <MoreFromCreator slug={product.slug} />
             </section>

@@ -4,6 +4,7 @@ import { AppSidebar } from "@/components/common/sidebar/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import WithoutSession from "app/layouts/without-session";
 import { Metadata } from "next";
+import { SessionUserType } from "src/auth";
 import { getSession } from "~/auth/server";
 import "./layout.css";
 
@@ -25,10 +26,10 @@ export default async function FeedLayout({
 
   return (
     <SidebarProvider>
-      <AppSidebar user={session.user} moderator="user" />
+      <AppSidebar user={JSON.parse(JSON.stringify(session.user)) as SessionUserType} moderator="user" prefixPath="dashboard" />
 
       <SidebarInset className="flex flex-col flex-1 w-full relative z-0">
-        <AppNavbar user={session.user} impersonatedBy={session?.session?.impersonatedBy}/>
+        <AppNavbar user={session.user} impersonatedBy={session?.session?.impersonatedBy} />
         <div className="absolute top-0 left-0 z-0 w-full min-h-80 mask-[linear-gradient(to_top,transparent_25%,black_95%)]">
           <FlickeringGrid
             className="absolute top-0 left-0 size-full"
