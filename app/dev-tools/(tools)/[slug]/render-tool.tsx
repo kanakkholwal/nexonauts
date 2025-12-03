@@ -1,5 +1,6 @@
 "use client";
 
+import AdUnit from "@/components/common/adsense";
 import ShareButton from "@/components/common/share-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -52,10 +53,8 @@ export default function RenderTool({ tool }: { tool: ToolType }) {
   return (
     <main className="relative selection:bg-primary/20 pb-20">
       {/* Subtle background texture for the whole page */}
-      <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
 
       <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        {/* --- Navigation Bar (Unchanged) --- */}
         <nav className="flex items-center justify-between mb-12">
           <Link
             href="/dev-tools"
@@ -81,7 +80,11 @@ export default function RenderTool({ tool }: { tool: ToolType }) {
             </ShareButton>
           </div>
         </nav>
-
+        {/* --- [AD PLACEMENT 1]: Top Leaderboard --- */}
+        {/* Placed before the header to capture initial attention without pushing content too far down */}
+        <div className="w-full flex justify-center mb-8 min-h-[90px]">
+          <AdUnit adSlot="display-horizontal" className="w-full max-w-[728px]" />
+        </div>
         {/* --- Tool Header (Unchanged) --- */}
         <header className="flex flex-col md:flex-row gap-8 mb-12 items-start md:items-center">
           {/* Icon Container with Glow */}
@@ -102,7 +105,7 @@ export default function RenderTool({ tool }: { tool: ToolType }) {
                   {tool.category || "Utility"}
                 </Badge>
               </div>
-              <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-foreground to-foreground/70">
+              <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-linear-to-b from-foreground to-foreground/70">
                 {tool.title}
               </h1>
             </div>
@@ -113,7 +116,6 @@ export default function RenderTool({ tool }: { tool: ToolType }) {
           </div>
         </header>
 
-        {/* --- THE WORKSPACE (Redesigned) --- */}
         <section className="relative my-16 max-w-[--max-app-width] mx-auto">
           {/* Design Note: 
             Using a deep shadow and a crisp border instead of a blurry glow 
@@ -176,6 +178,20 @@ export default function RenderTool({ tool }: { tool: ToolType }) {
           </div>
           {/* <tool.Component /> */}
         </section>
+
+
+        {/* --- [AD PLACEMENT 2]: Bottom Multiplex --- */}
+        {/* Good for "What's Next" engagement after using the tool */}
+        <div className="mt-16 mb-8 w-full">
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
+              Suggested for you
+            </span>
+            <div className="h-px flex-1 bg-border/50" />
+          </div>
+          <AdUnit adSlot="multiplex_horizontal" />
+        </div>
+
 
         {/* --- Footer / Disclaimer (Unchanged) --- */}
         <div className="mt-12 text-center text-sm text-muted-foreground border-t border-border/40 pt-8">

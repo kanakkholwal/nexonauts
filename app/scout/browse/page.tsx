@@ -14,32 +14,33 @@ import Link from "next/link";
 import LazyImage from "src/components/image";
 import { PublicToolPricingType, PublicToolTypeWithId } from "src/models/tool";
 
+import AdUnit from "@/components/common/adsense";
 import { cn } from "@/lib/utils";
 import { HERO_SECTION, METADATA } from "data/scout/browse";
+import { SearchParams } from "nuqs/server";
+import { Fragment } from "react";
 import { getImages } from "src/lib/scout";
-import { FilterSidebar, MobileFilterSheet, SearchBar, ViewToggle } from "./client-components";
+import { FilterSidebar, MobileFilterSheet, SearchBar, ViewToggle, ViewWrapper } from "./client-components";
+import { loadSearchParams } from "./searchParams";
 
 export const metadata: Metadata = METADATA;
 
-export default async function BrowsePage(props: {
-  searchParams?: Promise<{
-    query?: string;
-    page?: string;
-    pricing_type?: string;
-    category?: string;
-    offset?: string;
-    view?: "grid" | "list" | "masonry";
-  }>;
-}) {
-  const searchParams = await props.searchParams || {};
-  const query = searchParams.query || "";
-  const currentPage = Number(searchParams.page) || 1;
-  const offset = Number(searchParams.offset) || 0;
-  const viewType = searchParams.view || "grid";
+type PageProps = {
+  searchParams: Promise<SearchParams>
+}
+export default async function BrowsePage({ searchParams }: PageProps) {
+  const {
+    query,
+    page: currentPage,
+    offset,
+    view: viewType,
+    category,
+    pricing_type
+  } = await loadSearchParams(searchParams)
 
   const filter = {
-    pricing_type: (searchParams.pricing_type as PublicToolPricingType) || "all",
-    category: searchParams.category || "all",
+    pricing_type: (pricing_type as PublicToolPricingType) || "all",
+    category: category || "all",
   };
 
   const { tools, categories, pricing_types } = await getTools(
@@ -71,7 +72,12 @@ export default async function BrowsePage(props: {
           </div>
         </div>
       </div>
-
+      <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 mt-6">
+        <AdUnit
+          adSlot="display-horizontal"
+          className="w-full min-h-[90px] flex justify-center bg-muted/20 rounded-lg overflow-hidden"
+        />
+      </div>
       <div className="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-6 py-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
@@ -82,6 +88,15 @@ export default async function BrowsePage(props: {
               pricing_types={pricing_types}
               currentFilter={filter}
             />
+            <div className="mt-8">
+              <span className="text-[10px] text-muted-foreground uppercase tracking-widest mb-2 block">
+                Sponsored
+              </span>
+              <AdUnit
+                adSlot="display-vertical"
+                className="min-h-[600px] w-full bg-muted/20 rounded-lg"
+              />
+            </div>
           </aside>
 
           {/* --- Main Content --- */}
@@ -102,7 +117,7 @@ export default async function BrowsePage(props: {
                   />
                 </div>
                 <div className="h-6 w-px bg-border/50 mx-2 hidden sm:block" />
-                <ViewToggle currentView={viewType} />
+                <ViewToggle />
               </div>
             </div>
 
@@ -118,17 +133,32 @@ export default async function BrowsePage(props: {
             {/* Grid */}
             <div id="results" className="min-h-[50vh]">
               <ConditionalRender condition={tools.length > 0}>
-                <div className={viewTypeToClassName(viewType)}>
-                  {tools.map((tool) => (
-                    <ToolCard
-                      key={tool._id}
-                      tool={tool}
-                      viewType={viewType}
-                    />
+                <ViewWrapper>
+                  {tools.map((tool, index) => (
+                    <Fragment key={tool._id}>
+                      <ToolCard
+                        tool={tool}
+                        viewType={viewType}
+                      />
+
+                      {/* [AD PLACEMENT 3]: In-Feed Ad every 6 items */}
+                      {/* This breaks the visual monotony and gets high attention */}
+                      {(index + 1) % 6 === 0 && index !== tools.length - 1 && (
+                          <AdUnit
+                            adSlot="in_feed"
+                            className="w-full"
+                          />
+                      )}
+                    </Fragment>
                   ))}
+                </ViewWrapper>
+              </ConditionalRender>
+              <ConditionalRender condition={tools.length > 0}>
+                <div className="mt-12 pt-8 border-t border-border/40">
+                  <h3 className="text-sm font-semibold text-muted-foreground mb-4">You might also like</h3>
+                  <AdUnit adSlot="multiplex_horizontal" />
                 </div>
               </ConditionalRender>
-
               <ConditionalRender condition={tools.length === 0}>
                 <div className="py-20 flex justify-center">
                   <InfoArea
@@ -166,7 +196,7 @@ function ToolCard({ tool, viewType }: { tool: Partial<PublicToolTypeWithId>; vie
         <div
           className={cn(
             "relative overflow-hidden bg-muted border-b border-border/50",
-            isList ? "w-48 md:w-64 shrink-0 border-b-0 border-r" : "aspect-[16/9] w-full"
+            isList ? "w-48 md:w-64 shrink-0 border-b-0 border-r" : "aspect-16/9 w-full"
           )}
         >
           <LazyImage

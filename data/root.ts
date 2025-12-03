@@ -50,10 +50,10 @@ export const FOOTER_LINKS = [
         title: "Dev Tools",
         href: "/dev-tools",
       },
-      {
-        title: "Dev Profiles",
-        href: "/devs",
-      },
+      // {
+      //   title: "Dev Profiles",
+      //   href: "/devs",
+      // },
       {
         title: "Nexo Scout",
         href: "/scout",

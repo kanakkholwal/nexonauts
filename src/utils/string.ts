@@ -105,7 +105,7 @@ export function marketwiseLink(link: string, options: UTMParams = {}) {
 
   const {
     utm_medium = "app",
-    utm_campaign = "/resources",
+    utm_campaign = "nexo_scout",
     utm_source = appUrl.hostname,
     utm_path = "/resources",
   } = options;
@@ -114,7 +114,7 @@ export function marketwiseLink(link: string, options: UTMParams = {}) {
 
   url.searchParams.set("utm_source", utm_source);
   url.searchParams.set("utm_medium", utm_medium);
-  url.searchParams.set("utm_campaign", utm_campaign || campaignPath);
+  url.searchParams.set("utm_campaign", utm_campaign );
   url.searchParams.set("ref", campaignPath);
 
   return url.toString();

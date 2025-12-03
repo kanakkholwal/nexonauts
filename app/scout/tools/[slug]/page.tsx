@@ -38,6 +38,7 @@ import { getSession } from "~/auth/server";
 import { PublicToolTypeWithId } from "~/models/tool";
 
 // Components
+import AdUnit from "@/components/common/adsense";
 import ShareButton from "@/components/common/share-button";
 import { BookMarkButton } from "./bookmark";
 import { PostReview } from "./post-review";
@@ -218,6 +219,7 @@ export default async function ToolPage(props: Props) {
                 ))}
               </div>
             </section>
+            <AdUnit adSlot="display-horizontal" />
 
             {/* Reviews Section */}
             <section id="reviews" className="space-y-6 pt-8 border-t border-border/40">
@@ -344,7 +346,7 @@ export default async function ToolPage(props: Props) {
                   </div>
                 </div>
               </div>
-
+              <AdUnit adSlot="display-square" />
               {/* Similar Tools Widget */}
               <div className="p-6 rounded-2xl bg-muted/20 border border-border/50">
                 <h3 className="font-bold mb-4">Alternatives</h3>

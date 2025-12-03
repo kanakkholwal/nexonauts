@@ -17,7 +17,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Session } from "src/auth"; // Adjust import path as needed
+import { Session } from "src/auth";
 import MarkdownView from "src/components/markdown/view";
 import { marketwiseLink } from "src/lib/scout";
 import { decodeHTMLEntities } from "src/utils/string";
@@ -31,6 +31,8 @@ import ShareButton from "@/components/common/share-button";
 import MoreFromUs from "app/layouts/more-from-us";
 import { ProductTypeWithCreator } from "src/models/product";
 import { Product } from "./types";
+
+import AdUnit from "@/components/common/adsense";
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
@@ -121,9 +123,9 @@ export default async function ProductPage(props: {
 
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <span>Added by</span>
-                <Link href={`/profile/${product.creator.username}`} className="flex items-center gap-2 text-foreground font-semibold hover:text-primary transition-colors group">
+                <Link href={`/profiles/${product.creator.username}`} className="flex items-center gap-2 text-foreground font-semibold hover:text-primary transition-colors group">
                   {/* Avatar Placeholder */}
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-violet-500" />
+                  <div className="w-6 h-6 rounded-full bg-linear-to-br from-primary to-violet-500" />
                   <span className="group-hover:underline decoration-primary/30 underline-offset-4">{product.creator.name}</span>
                 </Link>
               </div>
@@ -144,7 +146,7 @@ export default async function ProductPage(props: {
                   href={marketwiseLink(product.url, "/marketplace")}
                   target="_blank"
                   rel="noopener noreferrer"
-                  variant="default" // Assuming 'default' maps to primary
+                  variant="default" 
                 >
                   {product.price ? "Purchase License" : "Download Now"}
                   <ArrowUpRight className="w-4 h-4 ml-2" />
@@ -157,7 +159,7 @@ export default async function ProductPage(props: {
                   </Button>
                   <ShareButton
                     data={{
-                      url: product.url,
+                      url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}/marketplace/products/${product.slug}`,
                       title: product.name,
                       image: product.preview_url,
                     }}
@@ -221,22 +223,39 @@ export default async function ProductPage(props: {
               </section>
             </div>
 
+            {/* [AD PLACEMENT 1]: In-Content Ad */}
+            <div className="w-full py-4">
+               <AdUnit adSlot="in_article" className="w-full" />
+            </div>
 
             {/* More From Creator Section */}
             <section id="more-from-creator" className="pt-10 border-t border-border/40 bg-card rounded-2xl p-5">
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-xl font-bold">More from {product.creator.name}</h2>
-                <ButtonLink href={`/profile/${product.creator.username}`} variant="link">
+                <ButtonLink href={`/profiles/${product.creator.username}`} variant="link">
                   View Profile
                 </ButtonLink>
               </div>
               <MoreFromCreator slug={product.slug} />
             </section>
+            
+            {/* [AD PLACEMENT 2]: Bottom Multiplex */}
+            <div className="w-full pt-8">
+               <h3 className="text-sm font-semibold text-muted-foreground mb-4">You may also be interested in</h3>
+               <AdUnit adSlot="multiplex_horizontal" />
+            </div>
+
           </main>
 
           {/* Sticky Sidebar (Similar Products) */}
           <aside className="lg:col-span-4">
             <div className="sticky top-24 space-y-6">
+              
+              {/* [AD PLACEMENT 3]: Sidebar Top */}
+              <div className="w-full min-h-[250px] bg-muted/20 rounded-xl overflow-hidden flex justify-center items-center">
+                 <AdUnit adSlot="display-square" />
+              </div>
+
               <h3 className="font-bold text-lg">You might also like</h3>
 
               <ErrorBoundaryWithSuspense

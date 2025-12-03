@@ -42,7 +42,7 @@ export default async function MarketplacePage() {
 
           {/* Search Bar Simulation */}
           <div className="w-full max-w-lg relative group">
-            <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-violet-500/20 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-500" />
+            <div className="absolute -inset-1 bg-linear-to-r from-primary/20 to-violet-500/20 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-500" />
             <div className="relative flex items-center bg-background/80 backdrop-blur-xl border border-border/50 rounded-full sm:px-4 h-10 sm:h-14 shadow-lg">
               <Search className="hidden sm:inline-block size-4 text-muted-foreground ml-2 sm:size-5" />
               <input

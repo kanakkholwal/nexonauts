@@ -1,3 +1,4 @@
+import AdUnit from "@/components/common/adsense";
 import tools, { type ToolType } from "app/dev-tools/(tools)/collection";
 import { ToolCard } from "app/dev-tools/components/tool-card";
 import { allDevTools } from "app/dev-tools/list";
@@ -55,6 +56,7 @@ export default async function ToolPage(props: ToolPageProps) {
   return (
     <>
       <RenderTool tool={tool} />
+      <AdUnit adSlot="multiplex_horizontal" className="w-full" />
       <section id="similar-tools" className="p-6">
         <h2 className="text-2xl font-bold mb-4">Similar Tools</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

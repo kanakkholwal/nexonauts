@@ -1,5 +1,6 @@
 "use client";
 
+import AdUnit from "@/components/common/adsense";
 import { Input } from "@/components/ui/input";
 import InfoArea from "@/components/utils/info-area";
 import { cn } from "@/lib/utils";
@@ -8,50 +9,10 @@ import { useQueryState } from "nuqs";
 import { useMemo } from "react";
 import { ToolCard } from "./components/tool-card";
 import { FAQs } from "./faqs";
-import { allDevTools } from "./list"; // Importing your data structure
+import { allDevTools } from "./list";
 
 
 
-// --- SEO Content Component (Crucial for AdSense) ---
-// Focused strictly on "Developer Tools" keywords to match the page intent
-const DirectorySEO = () => (
-  <section className="py-16 px-6 border-t border-border/40 bg-muted/20">
-    <div className="max-w-4xl mx-auto space-y-8">
-      <div>
-        <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
-          <Terminal className="w-5 h-5 text-primary" />
-          About the Developer Ecosystem
-        </h2>
-        <p className="text-muted-foreground leading-relaxed">
-          The Nexonauts Developer Directory is a curated repository of open-source
-          utilities and web tools designed to streamline modern development workflows.
-          From <strong>SEO meta generators</strong> and <strong>file converters</strong> to
-          advanced <strong>code minifiers</strong>, this collection aims to reduce context
-          switching and enhance productivity.
-        </p>
-      </div>
-
-      <div className="grid md:grid-cols-2 gap-8">
-        <div className="bg-card/75 p-3 rounded-md">
-          <h3 className="font-medium text-foreground mb-2">For Developers</h3>
-          <p className="text-sm text-muted-foreground">
-            Access a suite of non-AI and AI-powered utilities. Whether you need to
-            format JSON, optimize images, or generate social preview cards, our
-            tools are built to be fast, client-side secure, and reliable.
-          </p>
-        </div>
-        <div className="bg-card/75 p-3 rounded-md">
-          <h3 className="font-medium text-foreground mb-2">Open Source & Community</h3>
-          <p className="text-sm text-muted-foreground">
-            This platform serves as a hub for community contributions. Developers can
-            submit their own tools, ensuring a constantly evolving library of
-            resources that adapts to the latest web standards and technologies.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-);
 
 export default function Tools() {
   const [query, setQuery] = useQueryState("q", {
@@ -151,7 +112,11 @@ export default function Tools() {
             {filteredTools.length}
           </span>
         </div>
-
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 relative z-10">
+          <div className="w-full min-h-[90px] rounded-xl overflow-hidden bg-muted/20 flex justify-center items-center border border-border/30">
+            <AdUnit adSlot="display-horizontal" className="w-full" />
+          </div>
+        </div>
         {filteredTools.length > 0 ? (
           <div className="w-full grow grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pt-5">
             {filteredTools.map((tool, index) => (
@@ -172,7 +137,9 @@ export default function Tools() {
           </div>
         )}
       </section>
-
+      <div className="max-w-7xl mx-auto px-4 pt-12">
+        <AdUnit adSlot="multiplex_horizontal" />
+      </div>
       {/* --- Content Strategy (AdSense) --- */}
       <DirectorySEO />
 
@@ -182,3 +149,41 @@ export default function Tools() {
     </>
   );
 }
+const DirectorySEO = () => (
+  <section className="py-16 px-6 border-t border-border/40 bg-muted/20">
+    <div className="max-w-4xl mx-auto space-y-8">
+      <div>
+        <h2 className="text-2xl font-semibold tracking-tight mb-4 flex items-center gap-2">
+          <Terminal className="w-5 h-5 text-primary" />
+          About the Developer Ecosystem
+        </h2>
+        <p className="text-muted-foreground leading-relaxed">
+          The Nexonauts Developer Directory is a curated repository of open-source
+          utilities and web tools designed to streamline modern development workflows.
+          From <strong>SEO meta generators</strong> and <strong>file converters</strong> to
+          advanced <strong>code minifiers</strong>, this collection aims to reduce context
+          switching and enhance productivity.
+        </p>
+      </div>
+
+      <div className="grid md:grid-cols-2 gap-8">
+        <div className="bg-card/75 p-3 rounded-md">
+          <h3 className="font-medium text-foreground mb-2">For Developers</h3>
+          <p className="text-sm text-muted-foreground">
+            Access a suite of non-AI and AI-powered utilities. Whether you need to
+            format JSON, optimize images, or generate social preview cards, our
+            tools are built to be fast, client-side secure, and reliable.
+          </p>
+        </div>
+        <div className="bg-card/75 p-3 rounded-md">
+          <h3 className="font-medium text-foreground mb-2">Open Source & Community</h3>
+          <p className="text-sm text-muted-foreground">
+            This platform serves as a hub for community contributions. Developers can
+            submit their own tools, ensuring a constantly evolving library of
+            resources that adapts to the latest web standards and technologies.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+);

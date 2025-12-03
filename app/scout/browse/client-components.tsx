@@ -15,6 +15,7 @@ import {
   X
 } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useQueryState } from "nuqs";
 import { useState } from "react";
 import { useDebouncedCallback } from "use-debounce";
 
@@ -127,23 +128,31 @@ function FilterOption({ label, active, onClick }: { label: string, active: boole
 }
 
 // --- VIEW TOGGLE ---
-export function ViewToggle({ currentView }: { currentView: string }) {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const setView = (view: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("view", view);
-    router.replace(`?${params.toString()}`, { scroll: false });
-  };
+export function ViewToggle() {
+  const [currentView, setCurrentView] = useQueryState("view", { defaultValue: "grid" });
 
   return (
     <div className="flex items-center p-1 bg-muted/50 rounded-lg border border-border/50">
-      <ToggleBtn active={currentView === "grid"} onClick={() => setView("grid")} icon={Grid} />
-      <ToggleBtn active={currentView === "list"} onClick={() => setView("list")} icon={List} />
-      <ToggleBtn active={currentView === "masonry"} onClick={() => setView("masonry")} icon={Columns} />
+      <ToggleBtn active={currentView === "grid"} onClick={() => setCurrentView("grid")} icon={Grid} />
+      <ToggleBtn active={currentView === "list"} onClick={() => setCurrentView("list")} icon={List} />
+      <ToggleBtn active={currentView === "masonry"} onClick={() => setCurrentView("masonry")} icon={Columns} />
     </div>
   );
+}
+
+export function ViewWrapper({ children }: { children: React.ReactNode }) {
+  const [view] = useQueryState("view", { defaultValue: "grid" });
+  return <div className={cn(viewTypeToClassName(view))}>{children}</div>;
+
+}
+
+function viewTypeToClassName(viewType: string) {
+  switch (viewType) {
+    case "list": return "grid grid-cols-1 lg:grid-cols-2 gap-4";
+    case "masonry": return "columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6";
+    case "grid":
+    default: return "grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 5xl:grid-cols-4 gap-6";
+  }
 }
 
 function ToggleBtn({ active, onClick, icon: Icon }: any) {

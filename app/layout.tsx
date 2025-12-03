@@ -6,6 +6,8 @@ import "./codebox.css";
 import "./global.css";
 // import { Urbanist } from 'next/font/google';
 import { Noto_Sans } from "next/font/google";
+import Script from "next/script";
+import { appConfig } from "@root/project.config";
 
 const font = Noto_Sans({
   weight: ["400", "500", "600", "700", "800"],
@@ -37,8 +39,16 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         >
           <Provider>{children}</Provider>
         </ThemeProvider>
-        {process.env.NODE_ENV !== "development" && (
-          <GoogleAnalytics gaId="G-DQ8920P13D" />
+        {process.env.NODE_ENV === "production" && (<>
+          <Script
+            id="adsense-script"
+            strategy="afterInteractive"
+            async
+            src={"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + appConfig.verifications.google_adsense}
+            crossOrigin="anonymous"
+          />
+          <GoogleAnalytics gaId={appConfig.verifications.google_analytics} />
+        </>
         )}
       </body>
     </html>
