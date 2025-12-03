@@ -1,3 +1,4 @@
+import AdUnit from "@/components/common/adsense";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostBySlug } from "src/lib/blog/actions";
@@ -48,7 +49,9 @@ export default async function PostPage(props: {
       <main className="w-full max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           <div className="flex-1">
+            <AdUnit adSlot="display-horizontal" />
             <RenderPost content={post.content} />
+            <AdUnit adSlot="in_article" />
           </div>
           
           <div className="lg:w-80">
@@ -57,11 +60,13 @@ export default async function PostPage(props: {
               createdAt={post.createdAt.toString()}
               content={post.content}
             />
+            <AdUnit adSlot="display-vertical" />
           </div>
         </div>
       </main>
       
       <div id="comments-section" className="w-full max-w-3xl mx-auto px-4 sm:px-6 py-16">
+         <AdUnit adSlot="multiplex_horizontal" />
         <CommentsSection />
       </div>
     </div>
