@@ -30,7 +30,7 @@ export interface RatingDocument extends Document {
 
 const ratingSchema = new Schema<RatingDocument>(
   {
-    userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
+    userId: { type: Schema.Types.ObjectId, ref: "Profile", required: true },
     toolId: { type: Schema.Types.ObjectId, ref: "PublicTool", required: true },
     rating: { type: Number, required: true, min: 1, max: 5 },
     comment: {

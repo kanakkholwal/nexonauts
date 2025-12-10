@@ -5,7 +5,7 @@ import {
   NavLink,
   getNavLinks
 } from "@/constants/links";
-import { LayoutDashboard, LogIn, Search, Settings, User } from "lucide-react";
+import { ArrowUpRight, LayoutDashboard, LogIn, Search, Settings, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -94,103 +94,104 @@ export default function AppNavbar({
     </nav>
   );
 }
+
+// --- QUICK LINKS (COMMAND PALETTE) ---
+
 interface QuickLinksProps extends NavbarProps {
   publicLinks: NavLink[];
 }
+
 export function QuickLinks({ user, publicLinks }: QuickLinksProps) {
   const [open, setOpen] = useState(false);
-
   const isLoggedIn = !!user;
 
+  // Handle Ctrl/Cmd + K
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
-      if (e.key === "j" && (e.metaKey || e.ctrlKey)) {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
         e.preventDefault();
         setOpen((open) => !open);
       }
     };
-
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
   }, []);
 
   return (
     <>
-      <Button
-        aria-label="Search for anything (Ctrl + J)"
-        role="button"
-        onClick={() => setOpen(!open)}
-        title="Search for anything (Ctrl + J)"
-        aria-labelledby="search"
-        size="icon_sm"
-        variant="outline"
-        rounded="full"
+      {/* Desktop Trigger (Input Look) */}
+      <button
+        onClick={() => setOpen(true)}
+        className="hidden md:flex items-center w-56 h-9 px-3 rounded-lg border border-border/50 bg-card/50 hover:bg-card/80 dark:bg-muted/20 dark:hover:bg-muted/50 hover:border-border transition-all text-sm text-muted-foreground group"
       >
-        <Search />
+        <Search className="size-3.5 mr-2 opacity-50 group-hover:opacity-100 transition-opacity" />
+        <span className="flex-1 text-left">Search...</span>
+        <kbd className="pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground opacity-100">
+          <span className="text-xs">⌘</span>K
+        </kbd>
+      </button>
+
+      {/* Mobile Trigger (Icon Only) */}
+      <Button
+        onClick={() => setOpen(true)}
+        size="icon_sm"
+        variant="ghost"
+        className="md:hidden text-muted-foreground"
+      >
+        <Search className="size-5" />
       </Button>
+
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a search..." />
-        <CommandList>
+        <CommandInput placeholder="Type to search ecosystem..." />
+        <CommandList className="py-2">
           <CommandEmpty>No results found.</CommandEmpty>
+          
           <CommandGroup heading="Suggestions">
-            {publicLinks.map((item, index) => {
-              return (
-                <CommandItem key={`command-item-${index}`} asChild>
-                  <Link
-                    href={item.href}
-                    className="flex items-center w-full flex-wrap cursor-pointer group"
-                  >
-                    {item.Icon && <item.Icon className="size-3 mr-2" />}
-                    <span>
-                      <span className="text-sm">{item.title}</span>
-                      <span className="block text-xs opacity-75 w-full">
-                        {item.description}
-                      </span>
-                    </span>
-                  </Link>
-                </CommandItem>
-              );
-            })}
-            {!isLoggedIn && (
-              <CommandItem>
+            {publicLinks.map((item, index) => (
+              <CommandItem key={`cmd-${index}`} asChild>
                 <Link
-                  href={`/auth/sign-in`}
-                  className="flex items-center w-full"
+                  href={item.href}
+                  onClick={() => setOpen(false)}
+                  className="flex items-center justify-between group cursor-pointer"
                 >
-                  <LogIn className="size-3 mr-3" />
-                  <span>
-                    <span className="text-sm">Sign In</span>
-                    <span className="block text-xs  opacity-75 w-full">
-                      Sign in to your account
-                    </span>
-                  </span>
+                  <div className="flex items-center">
+                    {item.Icon ? <item.Icon className="mr-3 size-4 text-muted-foreground group-hover:text-primary transition-colors" /> : <ArrowUpRight className="mr-3 size-4" />}
+                    <div className="flex flex-col">
+                        <span className="font-medium">{item.title}</span>
+                        {item.description && <span className="text-xs text-muted-foreground font-normal line-clamp-1">{item.description}</span>}
+                    </div>
+                  </div>
+                  <ArrowUpRight className="size-3 opacity-0 group-hover:opacity-50 -translate-x-2 group-hover:translate-x-0 transition-all" />
                 </Link>
               </CommandItem>
-            )}
+            ))}
           </CommandGroup>
-          <CommandSeparator />
-          {isLoggedIn && (
-            <CommandGroup heading="Go To">
-              <CommandItem>
-                <Link
-                  href={`/u/` + user?.username!}
-                  className="flex items-center  w-full"
-                >
-                  <User className="mr-2 h-4 w-4" />
-                  <span>Your Profile</span>
-                </Link>
-              </CommandItem>
-              {loggedInList.map((item, index) => {
-                return (
-                  <CommandItem key={`command-item-${index}`}>
-                    <Link href={item.path} className="flex items-center w-full">
-                      <item.icon className="mr-2 h-4 w-4" />
-                      <span>{item.title}</span>
+          
+          <CommandSeparator className="my-2"/>
+
+          {isLoggedIn ? (
+             <CommandGroup heading="Account">
+                <CommandItem onSelect={() => setOpen(false)}>
+                    <Link href={`/u/${user.username}`} className="flex items-center w-full">
+                        <User className="mr-2 size-4" /> Profile
                     </Link>
-                  </CommandItem>
-                );
-              })}
-            </CommandGroup>
+                </CommandItem>
+                {loggedInList.map((item, i) => (
+                    <CommandItem key={i} onSelect={() => setOpen(false)}>
+                        <Link href={item.path} className="flex items-center w-full">
+                            <item.icon className="mr-2 size-4" /> {item.title}
+                        </Link>
+                    </CommandItem>
+                ))}
+             </CommandGroup>
+          ) : (
+             <CommandGroup heading="Authentication">
+                <CommandItem onSelect={() => setOpen(false)}>
+                     <Link href="/auth/sign-in" className="flex items-center w-full">
+                        <LogIn className="mr-2 size-4" /> Sign In
+                     </Link>
+                </CommandItem>
+             </CommandGroup>
           )}
         </CommandList>
       </CommandDialog>

@@ -88,7 +88,6 @@ export function AppSidebar({
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={links} />
-
       </SidebarContent>
 
       <SidebarFooter>

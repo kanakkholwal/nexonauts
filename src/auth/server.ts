@@ -1,8 +1,8 @@
 "use server";
 import { headers } from "next/headers";
-import { auth } from ".";
+import { auth, Session } from ".";
 
-export const getSession = async () => {
+export const getSession = async ():Promise<Session | null> => {
   try {
     const headersList = await headers();
 
@@ -10,7 +10,7 @@ export const getSession = async () => {
       headers: headersList,
     });
     
-    return session;
+    return JSON.parse(JSON.stringify(session));
   } catch (error) {
     console.error("Error getting session:", error);
     return null;

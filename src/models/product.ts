@@ -110,7 +110,7 @@ const productSchema = new Schema<ProductDocument>(
     },
     creator: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Profile",
       required: true,
     },
     third_party: {

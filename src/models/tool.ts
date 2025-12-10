@@ -102,10 +102,10 @@ const publicToolSchema = new mongoose.Schema<IPublicTool>(
     verified: { type: Boolean, default: false },
     views: { type: Number, default: 0 },
     bookmarks: {
-      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+      type: [{ type: Schema.Types.ObjectId, ref: "Profile" }],
       default: [],
     },
-    author: { type: Schema.Types.ObjectId, ref: "User" },
+    author: { type: Schema.Types.ObjectId, ref: "Profile" },
   },
   { timestamps: true }
 );

@@ -51,7 +51,7 @@ export const sidebar_links: rawLinkType[] = [
     {
         title: "Dashboard",
         icon: TbDashboard,
-        path: "/admin",
+        path: "",
         allowed_roles: "admin",
         category: "none"
     },

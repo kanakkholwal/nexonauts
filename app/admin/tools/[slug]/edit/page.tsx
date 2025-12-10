@@ -32,7 +32,7 @@ export default async function DashboardPage(props: {
         </Button>
       </div>
 
-      <div className="bg-glasss p-5 rounded-lg">
+      <div className="bg-glass p-5 rounded-lg">
         <Suspense
           fallback={
             <div className="flex justify-center items-center h-64">
