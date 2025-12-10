@@ -1,7 +1,7 @@
 import dbConnect from "src/lib/db";
 import PublicTool from "src/models/tool";
 import { z } from "zod";
-import data from "./data.json";
+// import data from "./data.json";
 
 // ===== Types & Schemas =====
 
@@ -53,7 +53,7 @@ const IMAGE_EXTENSIONS = {
     webp: '.webp',
 } as const;
 
-const CDN_BASE_URL = 'https://cdn2.futurepedia.io/';
+const CDN_BASE_URL = 'https://cdn.<some-site>.com/';
 
 function extractImageReference(ref: string): string {
     let cleanRef = ref.replace('image-', '');
@@ -164,7 +164,7 @@ async function processTool(rawTool: RawToolData): Promise<{ success: boolean; me
 }
 
 // ===== Main Execution =====
-
+const data = [] as any[]; // TODO: Load your raw tool data here
 async function importTools(): Promise<void> {
     await dbConnect();
     
