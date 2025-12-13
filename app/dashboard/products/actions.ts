@@ -1,19 +1,13 @@
 "use server";
 import axios from "axios";
-import { customAlphabet } from "nanoid";
 import { revalidatePath } from "next/cache";
 import dbConnect from "src/lib/db";
 import Product, { ProductType, rawProductThirdParty } from "src/models/product";
 import User from "src/models/user";
+import { generateSlug } from "src/utils/string";
 import { Session } from "~/auth";
 import { getSession } from "~/auth/server";
 
-
-const generateUrlSlug = (length = 16) =>
-  customAlphabet(
-    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-    length
-  )();
 
 const availableIntegrations = ["gumroad"];
 
@@ -158,7 +152,7 @@ export async function syncWithGumroad() {
           name: product.name,
           description: product.description,
           price: (product.price / 100).toFixed(2),
-          slug: generateUrlSlug(),
+          slug: generateSlug(),
           preview_url: product.preview_url,
           url: product.short_url,
           creator: session.user.id,

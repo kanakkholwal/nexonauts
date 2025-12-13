@@ -23,10 +23,10 @@ export function slugify(text: string): string {
 // Utility to decode HTML entities
 export const decodeHTMLEntities = (text: string) => {
   return text.replace(/&amp;/g, '&')
-             .replace(/&lt;/g, '<')
-             .replace(/&gt;/g, '>')
-             .replace(/&quot;/g, '"')
-             .replace(/&#039;/g, "'");
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'");
 };
 
 export function generateSlug(length = 8): string {
@@ -92,7 +92,7 @@ export function changeCase(
 const appUrl = new URL(appConfig.url);
 
 type UTMSource = string; // usually hostname or campaign source
-type UTMMedium = "app" | "email" | "social" | "cpc" | "affiliate";
+type UTMMedium = ("app" | "email" | "social" | "cpc" | "affiliate" | "referral" | "organic") | string
 type UTMParams = {
   utm_medium?: UTMMedium;
   utm_campaign?: string;

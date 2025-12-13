@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 import { revalidatePath } from "next/cache";
 import dbConnect from "src/lib/db";
 import PublicTool, {
-    PublicToolPricingType,
-    PublicToolTypeWithId,
+  PublicToolPricingType,
+  PublicToolTypeWithId,
 } from "src/models/tool";
 import ToolRating, {
-    RatingTypeWithId,
-    rawRatingType,
+  RatingTypeWithId,
+  rawRatingType,
 } from "src/models/tool-rating";
 import { getSession } from "~/auth/server";
 
@@ -33,9 +33,9 @@ export async function getTools(
   await dbConnect();
 
   const resultsPerPage = 69;
-  // const skip = currentPage * resultsPerPage - resultsPerPage;
+  const page = Math.max(1, Number(currentPage) || 1);
   // calculate the number of items to skip
-  const skip = (currentPage - 1) * resultsPerPage + offset;
+  const skip = (page - 1) * resultsPerPage + offset;
 
   const filterQuery = {
     $or: [

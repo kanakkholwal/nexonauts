@@ -287,8 +287,7 @@ export type DropdownNavLinksType = {
 export type LinkNavLinksType = {
     title: string;
     type: "link";
-    href: string;
-
+    href: string;   
 
 }
 export type NavLinksType = MegaMenuNavLinksType | DropdownNavLinksType | LinkNavLinksType;
@@ -357,13 +356,12 @@ export const nav_list: NavLinksType[] = [
                 title: "Contact Support",
                 href: "/support/contact",
             },
+            {
+                title: "About Us",
+                href: "/about",
+            }
         ]
     },
-    {
-        title: "About Us",
-        type: "link",
-        href: "/about",
-    }
 ]
 
 

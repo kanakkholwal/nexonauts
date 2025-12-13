@@ -30,12 +30,3 @@ export const getImages = (toolLink: string) => {
 }
 
 
-export function marketwiseLink(link: string, path: string = "/scout") {
-    const url = new URL(link);
-    url.searchParams.append("ref", "nexonauts.com" + path);
-    url.searchParams.append("utm_source", "nexonauts.com");
-    url.searchParams.append("utm_medium", "referral");
-    url.searchParams.append("utm_campaign", "nexonauts.com" + path);
-    return url.toString();
-}
-

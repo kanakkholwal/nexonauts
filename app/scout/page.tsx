@@ -1,9 +1,9 @@
 import { NumberTicker } from "@/components/animation/number-ticker";
 import NavbarGlobal from "@/components/common/navbar";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { AuthButtonLink, ButtonLink } from "@/components/utils/link";
 import {
   ArrowRight,
   ArrowUpDown,
@@ -150,17 +150,15 @@ export default async function Page() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 items-center w-full justify-center mb-20">
-            <Button size="lg" className="h-12 px-8 text-base rounded-full shadow-lg shadow-primary/20" asChild>
-              <Link href="/scout/browse">
-                <ScanSearch className="mr-2 h-5 w-5" />
-                Start Exploring
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" className="h-12 px-8 text-base rounded-full bg-background/50 backdrop-blur-md" asChild>
-              <Link href="/scout/submit">
-                Submit a Tool
-              </Link>
-            </Button>
+            <ButtonLink size="lg" className="h-12 px-8 text-base rounded-full shadow-lg shadow-primary/20" href="/scout/browse">
+              <ScanSearch className="mr-2 h-5 w-5" />
+              Start Exploring
+            </ButtonLink>
+            <AuthButtonLink size="lg" variant="outline" className="h-12 px-8 text-base rounded-full bg-background/50 backdrop-blur-md"
+              href="/dashboard/tools/submit">
+                <Zap className="mr-2 h-5 w-5" />
+              Submit a Tool
+            </AuthButtonLink>
           </div>
 
           {/* --- Redesigned Abstract Hero Visual --- */}

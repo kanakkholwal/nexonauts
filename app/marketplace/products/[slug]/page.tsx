@@ -24,8 +24,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Session } from "src/auth";
 import MarkdownView from "src/components/markdown/view";
-import { marketwiseLink } from "src/lib/scout";
-import { decodeHTMLEntities } from "src/utils/string";
+import { decodeHTMLEntities, marketwiseLink } from "src/utils/string";
 import { getSession } from "~/auth/server";
 import { getProductBySlug, getSimilarProducts } from "./actions";
 import MoreFromCreator from "./more-from-creator";
@@ -250,7 +249,11 @@ export default async function ProductPage(props: {
                   <ButtonLink
                     size="lg"
                     className="w-full h-12 text-base font-semibold shadow-md"
-                    href={marketwiseLink(product.url, "/marketplace")}
+                    href={marketwiseLink(product.url,{
+                      utm_source: process.env.NEXT_PUBLIC_UTM_SOURCE || "nexonauts.com",
+                      utm_medium: "marketplace_product_page",
+                      utm_campaign: product.price ? "product_purchase" : "product_download",
+                    })}
                     target="_blank"
                     rel="noopener noreferrer"
                     variant="default"

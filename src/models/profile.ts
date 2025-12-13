@@ -25,7 +25,7 @@ export type ProfileTypeWithIdUser = Omit<ProfileTypeWithId, "user"> & {
 };
 
 interface Profile extends Document {
-  user: string;
+  user: Types.ObjectId;
   username: string;
   bio: string;
   socials: {
@@ -40,8 +40,9 @@ interface Profile extends Document {
 const profileSchema = new Schema<Profile>(
   {
     user: {
-      type: String,
+      type: Schema.Types.ObjectId,
       required: true,
+      ref: "User",
     },
     username: {
       type: String,
@@ -63,12 +64,12 @@ const profileSchema = new Schema<Profile>(
       default: [],
     },
     followers: {
-      type: [Types.ObjectId],
+      type: [Schema.Types.ObjectId],
       ref: "Profile",
       default: [],
     },
     following: {
-      type: [Types.ObjectId],
+      type: [Schema.Types.ObjectId],
       ref: "Profile",
       default: [],
     },

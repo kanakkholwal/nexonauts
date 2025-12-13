@@ -1,10 +1,8 @@
 import mongoose, { type Document, Schema, type Types } from "mongoose";
-import { customAlphabet } from "nanoid";
-const generateUrlSlug = (length = 16) =>
-  customAlphabet(
-    "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-    length
-  )();
+import { generateSlug } from "src/utils/string";
+import "./profile";
+import "./user";
+
 
 export type rawProduct = {
   name: string;
@@ -88,7 +86,7 @@ const productSchema = new Schema<ProductDocument>(
       trim: true,
       required: true,
       unique: true,
-      default: () => generateUrlSlug(8),
+      default: () => generateSlug(8),
     },
     preview_url: {
       type: String,

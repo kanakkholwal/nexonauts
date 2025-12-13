@@ -35,13 +35,14 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import MarkdownView from "src/components/markdown/view";
-import { getImages, marketwiseLink } from "src/lib/scout";
+import { getImages } from "src/lib/scout";
 import { RatingTypeWithId } from "src/models/tool-rating";
 import { formatNumber } from "src/utils/formaters";
 import { getSession } from "~/auth/server";
 import { PublicToolTypeWithId } from "~/models/tool";
 
 // Components
+import { marketwiseLink } from "src/utils/string";
 import { BookMarkButton } from "./bookmark";
 import { PostReview } from "./post-review";
 import RatingComponent from "./rating";
@@ -333,7 +334,11 @@ export default async function ToolPage(props: Props) {
                     size="lg"
                     className="w-full h-11 text-base font-semibold shadow-md"
                   >
-                    <Link href={marketwiseLink(tool.link)} target="_blank" rel="noopener noreferrer">
+                    <Link href={marketwiseLink(tool.link,{
+                      utm_medium: "referral",
+                      utm_campaign: "tool_cta_button",
+                      
+                    })} target="_blank" rel="noopener noreferrer">
                       Visit Website
                       <ArrowUpRight className="ml-2 w-4 h-4" />
                     </Link>

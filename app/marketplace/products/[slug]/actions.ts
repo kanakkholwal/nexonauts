@@ -9,21 +9,21 @@ export async function getProductBySlug(
   slug: string
 ): Promise<ProductTypeWithCreator> {
   await dbConnect();
-  const product = await Product.findOne({
+  const product = await Product.findOne<ProductTypeWithCreator>({
     published: true,
     slug,
   })
-  .populate("creator", "username")
-  //   .populate({
-  //   path: "creator",
-  //     // model: "Profile",
-  //   populate: {
-  //     path: "user",
-  //     // model: "User",
-  //     select: "name username profilePicture"
-  //   }
-  // })
-  .lean();
+  // .populate("creator", "_id username")
+    .populate({
+    path: "creator",
+      // model: "Profile",
+    populate: {
+      path: "user",
+      // model: "User",
+      select: "name username profilePicture"
+    }
+  })
+  .exec();
   console.log("PRODUCT", product);
 
 

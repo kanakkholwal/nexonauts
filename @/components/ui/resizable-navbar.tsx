@@ -9,10 +9,10 @@ import {
   useScroll,
 } from "framer-motion";
 import { Menu as IconMenu, X as IconX } from "lucide-react";
-import Image from "next/image";
 
 import Link from "next/link";
 import React, { useRef, useState } from "react";
+import { ApplicationSvgLogo } from "../logo";
 
 
 interface NavbarProps {
@@ -408,15 +408,7 @@ export const NavbarLogo = () => {
       href="/" aria-label="Logo"
       className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"
     >
-      <Image
-        height={40}
-        width={280}
-        className="h-8 dark:invert w-auto"
-        src="/logo-square-with-bg.svg"
-        alt="logo"
-        priority
-        loading="eager"
-      />
+      <ApplicationSvgLogo className="h-8 w-auto" />
       <span className="font-medium text-black dark:text-white">Nexonauts</span>
     </Link>
   );

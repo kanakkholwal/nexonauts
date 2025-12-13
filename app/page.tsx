@@ -51,7 +51,7 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <ButtonLink href="/signup" size="lg" rounded="full" className="w-full sm:w-auto px-8 h-12 text-base">
+              <ButtonLink href="/auth/signup" size="lg" rounded="full" className="w-full sm:w-auto px-8 h-12 text-base">
                 Get Started Free <ArrowRight className="ml-2 h-4 w-4" />
               </ButtonLink>
               <ButtonLink href="#features" variant="outline" size="lg" rounded="full" className="w-full sm:w-auto px-8 h-12 text-base">
