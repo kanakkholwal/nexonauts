@@ -21,7 +21,7 @@ export default async function CreateProfile() {
   }
 
   return (
-    <div className="relative min-h-screen w-full flex items-center justify-center bg-background selection:bg-primary/20 selection:text-primary overflow-hidden">
+    <div className="relative min-h-screen w-full flex items-center justify-center bg-background   20 selection:text-primary overflow-hidden">
 
       {/* Background Ambience */}
       <SquareGrid className="absolute inset-0 h-full w-full opacity-50" />

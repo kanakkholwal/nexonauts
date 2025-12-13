@@ -43,7 +43,7 @@ export function UserAuthForm({
 
             // Redirect logic
             setTimeout(() => {
-              router.push(loggedIn ? "/dashboard" : "/login");
+              router.push(loggedIn ? "/dashboard" : "/auth/sign-in");
             }, 2000);
           }
         })
@@ -98,7 +98,7 @@ export function UserAuthForm({
 
         {status === "error" && (
           <div className="flex flex-col gap-3">
-            <Button onClick={() => router.push("/login")} className="w-full">
+            <Button onClick={() => router.push("/auth/sign-in")} className="w-full">
               Return to Login
             </Button>
             <Button variant="ghost" onClick={() => router.push("/contact")} className="w-full text-xs">

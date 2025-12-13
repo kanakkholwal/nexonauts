@@ -16,11 +16,11 @@
     --card-foreground: hsl(0deg 0% 9.8%);
     --popover: hsl(0 0% 100%);
     --popover-foreground: hsl(0deg 0% 9.8%);
-    --primary: hsla(262.1 83.3% 57.8%);
+    --primary: hsl(161, 94%, 30%);
     --primary-foreground: hsl(0deg 0% 92.16%);
-    --secondary: hsl(158.11deg 64.37% 51.57%);
+    --secondary: hsl(200, 98%, 39%);
     --secondary-foreground: hsl(0deg 0% 92.16%);
-    --tertiary: hsl(199, 86%, 53%);
+    --tertiary: #475569;
     --tertiary-foreground: hsl(0deg 0% 92.16%);
 
     --muted: hsl(210deg 40% 98.04%);
@@ -35,7 +35,7 @@
     --input: hsl(220 13% 91%);
     --input: oklch(.922 0 0);
 
-    --ring: hsl(262.1 83.3% 57.8%);
+    --ring: var(--primary);
     --radius: 0.75rem;
 
     --sidebar: oklch(0.985 0 0);
@@ -110,7 +110,7 @@
     --popover: hsl(0deg 0% 9.8%);
     --popover-foreground: hsl(0deg 0% 92.16%);
 
-    --primary: hsl(250deg 46.29% 54.26%);
+    --primary: hsl(161, 94%, 30%);
     --primary-foreground: hsl(0deg 0% 92.16%);
 
     --warning: hsl(37deg, 87%, 41%);
@@ -138,7 +138,7 @@
     --border: hsl(0, 0%, 14%);
     /* --input: hsl(0, 0%, 14%); */
     --input: oklch(1 0 0/15%);
-    --ring: var(--primary, hsl(250deg 100% 80%));
+    --ring: var(--primary);
 
     /* dark:chart colors */
     --chart-1: hsl(238.73deg 83.53% 66.67%);

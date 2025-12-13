@@ -31,7 +31,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 
         {/* Hero Visual */}
         <div className="relative z-10 flex-1 flex items-center justify-center p-8">
-          <div className="relative w-full max-w-md aspect-square bg-gradient-to-tr from-white/5 to-white/0 rounded-3xl border border-white/10 backdrop-blur-sm p-2 shadow-2xl">
+          <div className="relative w-full max-w-md aspect-square bg-linear-to-tr from-white/5 to-white/0 rounded-3xl border border-white/10 backdrop-blur-sm p-2 shadow-2xl">
             {/* Inner container to hold image nicely */}
             <div className="relative w-full h-full rounded-2xl overflow-hidden bg-black/20">
               <Image
@@ -40,7 +40,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                 fill
                 className="object-cover opacity-90 hover:scale-105 transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent" />
 
               <div className="absolute bottom-6 left-6 right-6">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 border border-white/10 text-xs font-medium backdrop-blur-md mb-2">
@@ -64,7 +64,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
                 &ldquo;The only way to do great work is to love what you do. This platform helps me focus on exactly that.&rdquo;
               </p>
               <footer className="flex items-center gap-3">
-                <div className="h-8 w-8 rounded-full bg-gradient-to-br from-purple-500 to-indigo-500" />
+                <div className="h-8 w-8 rounded-full bg-linear-to-br from-purple-500 to-indigo-500" />
                 <div className="text-sm">
                   <div className="font-semibold text-white">Kanak</div>
                   <div className="text-white/60">Founder of {SITE_NAME}</div>
@@ -75,8 +75,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </div>
       </div>
 
-      {/* --- RIGHT COLUMN: Form Area --- */}
-      <div className="flex h-full flex-col items-center justify-center p-6 lg:p-8 relative">
+      <div className="flex min-h-screen h-full flex-col items-center justify-center p-6 lg:p-8 relative">
 
         {/* Mobile Header / Back Link */}
         <div className="absolute top-6 left-6 lg:top-8 lg:left-8">
@@ -91,7 +90,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         </div>
 
         <div className="absolute bottom-6 text-center text-xs text-muted-foreground w-full">
-          <Link href="/terms" className="hover:underline underline-offset-4">Terms</Link>
+          <Link href="/tos" className="hover:underline underline-offset-4">Terms</Link>
           <span className="mx-2">•</span>
           <Link href="/privacy" className="hover:underline underline-offset-4">Privacy</Link>
         </div>

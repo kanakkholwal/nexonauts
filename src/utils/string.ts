@@ -107,14 +107,14 @@ export function marketwiseLink(link: string, options: UTMParams = {}) {
     utm_medium = "app",
     utm_campaign = "nexo_scout",
     utm_source = appUrl.hostname,
-    utm_path = "/resources",
+    utm_path = "/scout",
   } = options;
 
   const campaignPath = new URL(utm_path, appUrl).toString();
 
   url.searchParams.set("utm_source", utm_source);
   url.searchParams.set("utm_medium", utm_medium);
-  url.searchParams.set("utm_campaign", utm_campaign );
+  url.searchParams.set("utm_campaign", utm_campaign);
   url.searchParams.set("ref", campaignPath);
 
   return url.toString();

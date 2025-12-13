@@ -38,7 +38,7 @@ export default function Page403() {
           variant="gradient_blue"
           asChild
         >
-          <Link href={`/login?redirect=${redirect}`}>
+          <Link href={`/auth/sign-in?redirect=${redirect}`}>
             Login to continue
             <ArrowRight />
           </Link>

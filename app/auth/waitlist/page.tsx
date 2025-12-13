@@ -53,7 +53,7 @@ export default async function Page() {
         variant="link"
         asChild
       >
-        <Link href="/login">Login</Link>
+        <Link href="/auth/sign-in">Login</Link>
       </Button>
       <header className="flex flex-col space-y-2 text-center">
         <h1 className="text-2xl font-semibold tracking-tight">

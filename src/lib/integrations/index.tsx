@@ -68,7 +68,7 @@ export const INTEGRATION_CONFIG: {
     client_id: process.env.GITHUB_ID as string,
     redirect_uri: process.env.BASE_URL + "/dashboard/settings/integrations/github",
     scope: "user%20public_repo",
-    auth_url: `https://github.com/login/oauth/authorize`,
+    auth_url: `https://github.com/auth/sign-in/oauth/authorize`,
     required: ["code"],
     getAuthUrl: function () {
       const params = new URLSearchParams({
@@ -80,7 +80,7 @@ export const INTEGRATION_CONFIG: {
       return `${this.auth_url}?${params.toString()}`;
     },
     saveToken: async function (options: Record<string, any>) {
-      const url = "https://github.com/login/oauth/access_token";
+      const url = "https://github.com/auth/sign-in/oauth/access_token";
 
       const dataBody = {
         client_id: process.env.GITHUB_ID,

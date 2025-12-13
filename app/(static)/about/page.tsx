@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <main className="relative min-h-screen bg-background selection:bg-primary/10 selection:text-primary overflow-hidden">
+    <main className="relative min-h-screen bg-background   selection:text-primary overflow-hidden">
 
       {/* Global Background Elements */}
       <div className="fixed inset-0 z-0 pointer-events-none">

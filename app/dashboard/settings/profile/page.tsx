@@ -21,7 +21,7 @@ export default async function ProfilePage() {
         <UserCircle className="w-16 h-16 text-muted-foreground/50" />
         <h2 className="text-xl font-semibold">Authentication Required</h2>
         <p className="text-muted-foreground">Please log in to manage your profile.</p>
-        <Button asChild><Link href="/login">Log In</Link></Button>
+        <Button asChild><Link href="/auth/sign-in">Log In</Link></Button>
       </div>
     );
   }

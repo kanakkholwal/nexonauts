@@ -60,7 +60,7 @@ export default function Tools() {
 
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6 text-foreground">
           Everything you need to <br className="hidden sm:block" />
-          <span className="bg-gradient-to-r from-primary via-violet-500 to-blue-500 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-primary via-violet-500 to-blue-500 bg-clip-text text-transparent">
             build faster.
           </span>
         </h1>
@@ -72,12 +72,12 @@ export default function Tools() {
 
         {/* --- Search Interface --- */}
         <div className="max-w-2xl mx-auto relative group">
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-violet-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-linear-to-r from-primary/20 to-violet-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           <div className="relative flex items-center bg-card/60 backdrop-blur-xl border border-border/60 rounded-full shadow-sm focus-within:shadow-md focus-within:border-primary/50 transition-all duration-300">
             <Search className="ml-4 text-muted-foreground size-5" />
             <Input
               placeholder="Search tools (e.g. 'converter', 'seo', 'minifier')..."
-              className="border-none shadow-none focus-visible:ring-0 !bg-transparent h-12 text-base px-4 w-full"
+              className="border-none shadow-none focus-visible:ring-0 bg-transparent! h-12 text-base px-4 w-full"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -90,7 +90,7 @@ export default function Tools() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={cn('px-4 py-1.5 rounded-full text-sm font-medium transition-all shadow duration-200 border bg-muted text-foreground border-2',
+              className={cn('px-4 py-1.5 rounded-full text-sm font-medium transition-all shadow duration-200  bg-muted text-foreground border-2',
                 activeCategory === cat
                   ? "border-primary/75"
                   : "border-muted")}

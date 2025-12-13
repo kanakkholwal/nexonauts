@@ -2,12 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -101,7 +101,7 @@ export function RegisterForm({ registerUser }: Props) {
           </p>
         </div>
         <Button className="w-full" asChild>
-          <Link href={`/login?redirect=${redirect}`}>
+          <Link href={`/auth/sign-in?redirect=${redirect}`}>
             Proceed to Login <ArrowRight className="ml-2 w-4 h-4" />
           </Link>
         </Button>

@@ -32,7 +32,7 @@ export default function Navbar() {
           <NavList />
         </div>
         <Button rounded="full" className="" asChild>
-          <Link href="/login">
+          <Link href="/auth/sign-in">
             Log In <ArrowRight />
           </Link>
         </Button>

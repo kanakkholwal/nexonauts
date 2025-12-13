@@ -2,12 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
@@ -117,7 +117,7 @@ export function ForgotPasswordForm({ className, ...props }: UserAuthFormProps) {
       </Form>
 
       <div className="text-center">
-        <Link href="/login" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors group">
+        <Link href="/auth/sign-in" className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors group">
           <ArrowLeft className="mr-2 w-3 h-3 transition-transform group-hover:-translate-x-1" />
           Back to Login
         </Link>

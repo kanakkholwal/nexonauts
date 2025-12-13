@@ -76,7 +76,7 @@ export default function HeroLayout() {
 								variant="outline"
 								className='rounded-full relative flex h-12 w-full items-center justify-center px-6 sm:w-max shadow-sm shadow-accent'
 								asChild>
-								<Link href="/login">
+								<Link href="/auth/sign-in">
 									Login
 									<ExternalLink className="w-5 h-5 ml-2" />
 								</Link>

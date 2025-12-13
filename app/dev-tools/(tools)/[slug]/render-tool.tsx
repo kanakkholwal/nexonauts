@@ -4,16 +4,21 @@ import AdUnit from "@/components/common/adsense";
 import ShareButton from "@/components/common/share-button";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ErrorBoundary } from "@/components/utils/error-boundary";
+import { ButtonLink } from "@/components/utils/link";
 import {
   ChevronLeft,
+  Info,
+  LayoutTemplate,
   Maximize2,
+  Minimize2,
   RotateCcw,
   Share2,
-  Sparkles,
+  ShieldCheck,
+  Sparkles
 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+import React, { useCallback, useRef, useState } from "react";
 import type { ToolType } from "../collection/index";
 
 // Type guard helper
@@ -21,16 +26,54 @@ const isUrl = (icon: string | any): icon is string =>
   typeof icon === "string" && (icon.startsWith("http") || icon.startsWith("/"));
 
 export default function RenderTool({ tool }: { tool: ToolType }) {
-  // Logic to render the icon nicely (Unchanged)
+  const [resetKey, setResetKey] = useState(0);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const toolSectionRef = useRef<HTMLElement>(null);
+
+  // Reset handler - forces component remount
+  const handleReset = useCallback(() => {
+    setResetKey(prev => prev + 1);
+  }, []);
+
+  // Fullscreen toggle handler
+  const handleFullscreen = useCallback(async () => {
+    if (!toolSectionRef.current) return;
+
+    try {
+      if (!document.fullscreenElement) {
+        await toolSectionRef.current.requestFullscreen();
+        setIsFullscreen(true);
+      } else {
+        await document.exitFullscreen();
+        setIsFullscreen(false);
+      }
+    } catch (error) {
+      console.error("Fullscreen error:", error);
+    }
+  }, []);
+
+  // Listen for fullscreen changes (e.g., pressing ESC)
+  React.useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, []);
+
+  // Logic to render the icon nicely
   const IconComponent = () => {
     if (isUrl(tool.icon)) {
       return (
         <Image
           src={tool.icon}
-          height={80}
-          width={80}
+          height={96}
+          width={96}
           alt={tool.title}
-          className="object-cover"
+          className="object-cover rounded-2xl"
         />
       );
     }
@@ -39,168 +82,248 @@ export default function RenderTool({ tool }: { tool: ToolType }) {
       return tool.icon;
     }
 
-    // Fallback if icon is missing or invalid type
     return (
       <Image
         src={`https://api.dicebear.com/7.x/initials/svg?seed=${tool.title}&backgroundColor=141A21`}
-        height={80}
-        width={80}
+        height={96}
+        width={96}
         alt={tool.title}
+        className="rounded-2xl"
       />
     );
   };
 
   return (
-    <main className="relative selection:bg-primary/20 pb-20">
-      {/* Subtle background texture for the whole page */}
+    <div className="relative min-h-screen w-full ">
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
-        <nav className="flex items-center justify-between mb-12">
-          <Link
+
+      {/* Main Container */}
+      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-20">
+
+        {/* Navigation */}
+        <nav className="flex items-center justify-between mb-8">
+          <ButtonLink
             href="/dev-tools"
-            className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-muted/50"
+            variant="ghost"
+            className="group pl-0 "
           >
-            <ChevronLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            Back to Directory
-          </Link>
+            <ChevronLeft className="transition-transform group-hover:-translate-x-0.5" />
+            <span className="font-medium">Back to Directory</span>
+          </ButtonLink>
 
           <div className="flex gap-2">
             <ShareButton
               variant="outline"
-              size="icon"
+              size="sm"
               data={{
                 title: tool.title,
                 text: tool.description,
                 url: `https://nexonauts.com/dev-tools/${tool.slug}`,
                 image: `https://api.dicebear.com/7.x/initials/svg?seed=${tool.title}&backgroundColor=141A21`,
               }}
-              className="h-9 w-9 text-muted-foreground hover:text-foreground"
             >
-              <Share2 className="w-4 h-4" />
+              <Share2 />
+              Share
             </ShareButton>
           </div>
         </nav>
-        {/* --- [AD PLACEMENT 1]: Top Leaderboard --- */}
-        {/* Placed before the header to capture initial attention without pushing content too far down */}
-        <div className="w-full flex justify-center mb-8 min-h-[90px]">
-          <AdUnit adSlot="display-horizontal" className="w-full max-w-[728px]" />
-        </div>
-        {/* --- Tool Header (Unchanged) --- */}
-        <header className="flex flex-col md:flex-row gap-8 mb-12 items-start md:items-center">
-          {/* Icon Container with Glow */}
-          <div className="relative group shrink-0">
-            <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full opacity-50 group-hover:opacity-70 transition-opacity" />
-            <div className="relative h-24 w-24 md:h-28 md:w-28 rounded-[2rem] bg-background/80 border border-border/50 shadow-xl backdrop-blur-md flex items-center justify-center overflow-hidden">
-              <IconComponent />
-            </div>
-          </div>
 
-          <div className="flex-1 space-y-4">
-            <div className="space-y-2">
-              <div className="flex items-center gap-3">
-                <Badge
-                  variant="secondary"
-                  className="px-3 py-1 text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border-primary/20"
-                >
-                  {tool.category || "Utility"}
-                </Badge>
-              </div>
-              <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-linear-to-b from-foreground to-foreground/70">
-                {tool.title}
-              </h1>
-            </div>
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
 
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-              {tool.description}
-            </p>
-          </div>
-        </header>
+          <div className="xl:col-span-9 w-full flex flex-col gap-8 min-w-0">
 
-        <section className="relative my-16 max-w-[--max-app-width] mx-auto">
-          {/* Design Note: 
-            Using a deep shadow and a crisp border instead of a blurry glow 
-            for a more professional, "application window" feel.
-          */}
-          <div
-            className="relative rounded-2xl border border-border/50 bg-background/40 backdrop-blur-xl shadow-[0_8px_30px_rgb(0,0,0,0.12)] dark:shadow-[0_8px_30px_rgb(255,255,255,0.05)] overflow-hidden min-h-[600px] flex flex-col"
-            style={{
-              // Optional: Subtle inner glow to define edges further
-              boxShadow:
-                "inset 0 0 0 1px rgba(255,255,255,0.05), 0 8px 30px rgba(0,0,0,0.12)",
-            }}
-          >
-            {/* Workspace Toolbar Header */}
-            <div className="h-14 border-b border-border/40 bg-muted/30 flex items-center justify-between px-6 select-none">
-              <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium text-foreground/80">
-                  Interactive Canvas
-                </span>
-                {tool.slug && (
-                  <code className="hidden sm:block ml-2 px-2 py-0.5 rounded-md bg-muted text-xs font-mono text-muted-foreground">
-                    {tool.slug}
-                  </code>
-                )}
-              </div>
-
-              {/* Toolbar Actions (Placeholders for future functionality) */}
-              <div className="flex items-center gap-1">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 text-muted-foreground hover:text-foreground"
-                  title="Reset Tool (Coming Soon)"
-                  disabled
-                >
-                  <RotateCcw className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 text-muted-foreground hover:text-foreground"
-                  title="Fullscreen (Coming Soon)"
-                  disabled
-                >
-                  <Maximize2 className="w-4 h-4" />
-                </Button>
+            {/* Ad Unit: Top Leaderboard */}
+            <div className="w-full min-h-[100px] rounded-2xl  border border-border/60 flex items-center justify-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-[radial-gradient(#00000005_1px,transparent_1px)] [background-size:16px_16px]" />
+              <div className="relative z-10">
+                <AdUnit adSlot="display-horizontal" />
               </div>
             </div>
 
-            {/* Tool Canvas Area */}
-            <div className="relative grow flex flex-col items-center justify-center w-full p-2 md:p-5 group">
-              {/* Subtle dot pattern background for the canvas area */}
-              <div className="absolute inset-0 opacity-[0.15] bg-[radial-gradient(#a1a1aa_1px,transparent_1px)] [background-size:20px_20px] pointer-events-none" />
+            {/* Header Section */}
+            <header className="flex flex-col sm:flex-row gap-8 items-start sm:items-center px-2">
+              <div className="relative group shrink-0">
 
-              <div className="w-full max-w-5xl z-10 relative">
-                <tool.Component />
+                <div className="absolute inset-0 bg-primary/20 blur-2xl rounded-full opacity-50 group-hover:opacity-70 transition-opacity" />
+
+                <div className="relative size-24 md:size-28 rounded-4xl bg-card/80 border border-border shadow-xl backdrop-blur-md flex items-center justify-center overflow-hidden">
+
+                  <IconComponent />
+
+                </div>
+
+              </div>
+
+              <div className="space-y-4 flex-1">
+                <div className="flex items-center gap-2 flex-wrap">
+                  <Badge variant="outline" className="px-3 py-1 text-xs font-semibold tracking-wide uppercase bg-primary/10 text-primary border-primary/20">
+                    {tool.category || "Utility"}
+                  </Badge>
+                  <div className="flex items-center text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full border border-green-200">
+                    <ShieldCheck className="size-3 mr-1" />
+                    Client-Side Secure
+                  </div>
+                </div>
+
+                <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight bg-clip-text text-transparent bg-linear-to-b from-foreground to-foreground/60">
+                  {tool.title}
+                </h1>
+
+                <p className="text-md text-muted-foreground leading-relaxed max-w-4xl">
+                  {tool.description}
+                </p>
+              </div>
+            </header>
+
+            {/* Tool Canvas (The Main Application) */}
+            <section 
+              className="relative w-full mt-4" 
+              id="tool-application"
+              ref={toolSectionRef}
+            >
+              {/* Application Window Frame */}
+              <div className="rounded-3xl border border-border bg-card/40 backdrop-blur-xl shadow-2xl shadow-border/50 overflow-hidden min-h-[700px] flex flex-col group/canvas ring-1 ring-slate-900/5">
+
+                {/* Mac-OS Style Toolbar */}
+                <div className="h-14 border-b border-border/60 bg-card/60 backdrop-blur-md flex items-center justify-between px-6 select-none">
+                  <div className="flex items-center gap-4">
+                    {/* Window Controls */}
+                    <div className="flex gap-2 group-hover/canvas:opacity-100 opacity-60 transition-opacity">
+                      <div className="size-3 rounded-full bg-[#FF5F56] border border-[#E0443E] shadow-inner" />
+                      <div className="size-3 rounded-full bg-[#FFBD2E] border border-[#DEA123] shadow-inner" />
+                      <div className="size-3 rounded-full bg-[#27C93F] border border-[#1AAB29] shadow-inner" />
+                    </div>
+                    <div className="h-5 w-px bg-accent/50" />
+
+                    {/* Title/Slug */}
+                    <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-muted/50 text-xs font-mono text-foreground/70 border border-border/50">
+                      <Sparkles className="size-3 text-primary" />
+                      <span>nexonauts.com/tools/{tool.slug || 'app'}</span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      title="Reset Tool"
+                      onClick={handleReset}
+                      className="hover:bg-muted/80 transition-colors"
+                    >
+                      <RotateCcw className="w-4 h-4" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
+                      onClick={handleFullscreen}
+                      className="hover:bg-muted/80 transition-colors"
+                    >
+                      {isFullscreen ? (
+                        <Minimize2 className="w-4 h-4" />
+                      ) : (
+                        <Maximize2 className="w-4 h-4" />
+                      )}
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Main Render Area */}
+                <div className="flex-1 relative w-full flex flex-col items-center justify-center p-4 sm:p-8 md:p-10">
+                  {/* Canvas Background Pattern */}
+                  <div className="absolute inset-0 bg-accent opacity-60" />
+                  <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] bg-size-[20px_20px] opacity-40 pointer-events-none" />
+
+                  {/* The Tool Component with Error Boundary */}
+                  <div className="relative z-10 w-full max-w-6xl shadow-sm bg-card rounded-xl border border-border/60 p-1 min-h-[400px]">
+                    <ErrorBoundary
+                      key={resetKey}
+                      fallback={
+                        <div className="flex flex-col items-center justify-center min-h-[400px] p-8 text-center">
+                          <div className="mb-4 p-4 bg-destructive/10 rounded-full">
+                            <Info className="w-8 h-8 text-destructive" />
+                          </div>
+                          <h3 className="text-lg font-semibold mb-2">Something went wrong</h3>
+                          <p className="text-sm text-muted-foreground mb-4">
+                            The tool encountered an error. Try resetting it.
+                          </p>
+                          <Button onClick={handleReset} variant="outline" size="sm">
+                            <RotateCcw className="w-4 h-4 mr-2" />
+                            Reset Tool
+                          </Button>
+                        </div>
+                      }
+                    >
+                      <tool.Component />
+                    </ErrorBoundary>
+                  </div>
+                </div>
+
+                {/* Canvas Footer / Status Bar */}
+                <div className="h-8 bg-card/80 border-t flex items-center px-4 text-[10px] text-muted-foreground font-medium justify-end gap-4">
+                  <span>Ready</span>
+                  <span className="flex items-center gap-1"><div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /> Connected</span>
+                </div>
+
+              </div>
+            </section>
+
+            {/* Ad Unit: Bottom Multiplex (Engagement) */}
+            <div className="mt-8">
+              <div className="flex items-center gap-4 mb-6">
+                <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest px-2">Recommended for you</span>
+                <div className="h-px flex-1 bg-border" />
+              </div>
+              <div className="min-h-[280px] w-full bg-card rounded-2xl border shadow-sm flex items-center justify-center p-4">
+                <AdUnit adSlot="multiplex_horizontal" />
               </div>
             </div>
+
+            {/* Footer Disclaimer */}
+            <div className="text-center py-10">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted text-muted-foreground text-xs font-medium">
+                <Info className="w-3.5 h-3.5" />
+                This tool runs entirely in your browser. No data is sent to our servers.
+              </div>
+            </div>
+
           </div>
-          {/* <tool.Component /> */}
-        </section>
 
+          {/* --- RIGHT COLUMN: Sidebar (Span 3) --- */}
+          {/* Visible only on XL screens (1280px+) */}
+          <aside className="hidden xl:flex xl:col-span-3 flex-col gap-6 sticky top-24">
 
-        {/* --- [AD PLACEMENT 2]: Bottom Multiplex --- */}
-        {/* Good for "What's Next" engagement after using the tool */}
-        <div className="mt-16 mb-8 w-full">
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-xs font-bold text-muted-foreground uppercase tracking-wider">
-              Suggested for you
-            </span>
-            <div className="h-px flex-1 bg-border/50" />
-          </div>
-          <AdUnit adSlot="multiplex_horizontal" />
-        </div>
+            {/* Ad Unit: Vertical Skyscraper */}
+            <div className="w-full min-h-[600px] rounded-2xl bg-card border shadow-sm flex flex-col items-center justify-start overflow-hidden relative">
+              <div className="w-full py-2 bg-muted border-b  text-center">
+                <span className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">Sponsored</span>
+              </div>
+              <div className="flex-1 w-full flex items-center justify-center p-4 bg-muted/30">
+                {/* Ensure this ad unit is configured for vertical sizes (160x600, 300x600) */}
+                <AdUnit adSlot="display-vertical" />
+              </div>
+            </div>
 
+            {/* Cross-Promotion Widget */}
+            <div className="rounded-2xl border border-primary/10 bg-linear-to-br from-primary/10 to-card p-5 shadow-sm">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-primary/20 rounded-lg text-primary">
+                  <LayoutTemplate className="w-5 h-5" />
+                </div>
+                <h4 className="font-semibold text-foreground text-sm">More Developer Tools</h4>
+              </div>
+              <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
+                Browse our collection of 100+ open source utilities to speed up your workflow.
+              </p>
+              <ButtonLink href="/dev-tools" variant="outline" size="sm" width="full">
+                Explore Directory
+              </ButtonLink>
+            </div>
 
-        {/* --- Footer / Disclaimer (Unchanged) --- */}
-        <div className="mt-12 text-center text-sm text-muted-foreground border-t border-border/40 pt-8">
-          <p>
-            This tool runs entirely in your browser. No data is sent to our
-            servers.
-          </p>
+          </aside>
+
         </div>
       </div>
-    </main>
+    </div>
   );
 }

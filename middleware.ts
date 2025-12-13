@@ -46,7 +46,7 @@ export async function middleware(request: NextRequest) {
     );
 
     if (!session?.user) {
-      const redirectUrl = new URL("/login", request.url);
+      const redirectUrl = new URL("/auth/sign-in", request.url);
       redirectUrl.searchParams.set("callbackUrl", request.url);
       return NextResponse.redirect(redirectUrl);
     }

@@ -21,7 +21,7 @@ export default async function DashboardLayout({
 }) {
   const session = await getSession();
   // console.log(session)
-  if (!(session && session?.user)) return redirect("/login");
+  if (!(session && session?.user)) return redirect("/auth/sign-in");
   if (session.user.role !== "admin") return <Page403 />;
 
   return (

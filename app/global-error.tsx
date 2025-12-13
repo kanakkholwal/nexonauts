@@ -30,7 +30,7 @@ export default function GlobalError({
       <head>
         <meta name="google-adsense-account" content="ca-pub-6988693445063744" />
       </head>
-      <body className={`${font.className} min-h-screen bg-background antialiased selection:bg-primary/20`}>
+      <body className={`${font.className} min-h-screen bg-background antialiased `}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

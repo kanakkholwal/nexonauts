@@ -1,8 +1,8 @@
 import { PipelineStage } from "mongoose";
 import dbConnect from "src/lib/db";
 import Product, {
-	ProductType,
-	ProductTypeWithCreator,
+  ProductType,
+  ProductTypeWithCreator,
 } from "src/models/product";
 
 export async function getProductBySlug(
@@ -13,8 +13,20 @@ export async function getProductBySlug(
     published: true,
     slug,
   })
-    .populate("creator", "name username profilePicture")
-    .exec();
+  .populate("creator", "username")
+  //   .populate({
+  //   path: "creator",
+  //     // model: "Profile",
+  //   populate: {
+  //     path: "user",
+  //     // model: "User",
+  //     select: "name username profilePicture"
+  //   }
+  // })
+  .lean();
+  console.log("PRODUCT", product);
+
+
   return Promise.resolve(JSON.parse(JSON.stringify(product)));
 }
 export async function getMoreProductsByCreator(

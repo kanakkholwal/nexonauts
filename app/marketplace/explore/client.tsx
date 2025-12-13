@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useUrlState } from "@/hooks/use-url-state";
@@ -10,11 +11,11 @@ export function SearchBar({ initialQuery }: { initialQuery: string }) {
   const [_, setQuery] = useUrlState("query", initialQuery);
 
   return (
-    <input
+    <Input
       type="text"
       name="query"
       placeholder="Search assets..."
-      className="w-full bg-transparent border-none outline-none text-sm h-10 px-10 text-foreground placeholder:text-muted-foreground/60"
+      className="w-full border-none outline-none text-sm h-10 px-10 text-foreground placeholder:text-muted-foreground/60"
       defaultValue={initialQuery}
       autoComplete="off"
       onChange={(e) => {

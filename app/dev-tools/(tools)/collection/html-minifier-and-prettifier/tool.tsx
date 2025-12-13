@@ -205,7 +205,7 @@ export default function HtmlMinifierPrettifier() {
               ) : (
                 <Textarea
                   readOnly
-                  className="absolute inset-0 w-full h-full resize-none rounded-none border-0 bg-transparent p-4 font-mono text-sm leading-relaxed text-gray-300 focus-visible:ring-0 custom-scrollbar selection:bg-primary/30"
+                  className="absolute inset-0 w-full h-full resize-none rounded-none border-0 bg-transparent p-4 font-mono text-sm leading-relaxed text-gray-300 focus-visible:ring-0 custom-scrollbar   30"
                   value={output}
                 />
               )}

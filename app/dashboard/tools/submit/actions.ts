@@ -29,7 +29,7 @@ export async function getCategories() {
 export async function submitTool(data: Record<string, any>) {
   try {
     const session = await getSession();
-    if (!session) return redirect("/login");
+    if (!session) return redirect("/auth/sign-in");
     await dbConnect();
     const tool = new PublicTool({
       name: data.name,

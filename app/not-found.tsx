@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen w-full relative flex flex-col bg-background selection:bg-primary/20">
+    <div className="min-h-screen w-full relative flex flex-col bg-background">
 
       {/* --- Ambient Background --- */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">

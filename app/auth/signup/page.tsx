@@ -34,7 +34,7 @@ export default async function SignupPage({ searchParams }: PageProps) {
       {/* Top Navigation */}
       <div className="absolute right-4 top-4 md:right-8 md:top-8">
         <Link
-          href={`/login${redirect_path ? `?redirect=${redirect_path}` : ""}`}
+          href={`/auth/sign-in${redirect_path ? `?redirect=${redirect_path}` : ""}`}
           className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
         >
           Already have an account? <span className="font-semibold text-foreground hover:underline">Log in</span>

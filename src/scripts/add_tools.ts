@@ -1,5 +1,6 @@
 import dbConnect from "src/lib/db";
 import PublicTool from "src/models/tool";
+import { changeCase } from "src/utils/string";
 import { z } from "zod";
 // import data from "./data.json";
 
@@ -19,8 +20,22 @@ const publicToolSchema = z.object({
     tags: z.array(z.string().min(1).max(30)).max(20),
     link: z.string().url(),
     slug: z.string().min(1).max(100),
-    status: z.enum(["public", "private", "draft"]),
-    pricing_type: z.enum(["free", "paid", "freemium", "other"]),
+    status: z.enum([
+        "draft",
+        "published",
+        "archived",
+        "deleted",
+        "pending",
+        "rejected",
+        "expired",
+    ]),
+    pricing_type: z.enum(["free",
+        "paid",
+        "freemium",
+        "one_time_license",
+        "subscription",
+        "open_source",
+        "other",]),
     verified: z.boolean(),
 });
 
@@ -53,22 +68,22 @@ const IMAGE_EXTENSIONS = {
     webp: '.webp',
 } as const;
 
-const CDN_BASE_URL = 'https://cdn.<some-site>.com/';
+const CDN_BASE_URL = 'https://cdn.futurepedia.com/';
 
 function extractImageReference(ref: string): string {
     let cleanRef = ref.replace('image-', '');
-    
+
     for (const ext of Object.values(IMAGE_EXTENSIONS)) {
         cleanRef = cleanRef.replace(`-${ext.slice(1)}`, ext);
     }
-    
+
     return cleanRef;
 }
 
 function convertImageAssetToUrl(imageObj: any): string {
     const assetRef = imageObj?.asset?._ref;
     if (!assetRef) return '';
-    
+
     const imageRef = extractImageReference(assetRef);
     return `${CDN_BASE_URL}${imageRef}`;
 }
@@ -77,34 +92,34 @@ function convertImageAssetToUrl(imageObj: any): string {
 
 function mapPricingType(pricing?: string[]): PricingType {
     if (!pricing?.length) return "other";
-    
+
     const pricingMap: Record<string, PricingType> = {
         "Free Trial": "freemium",
         "Free": "free",
         "Paid": "paid",
     };
-    
+
     for (const [key, value] of Object.entries(pricingMap)) {
         if (pricing.includes(key)) return value;
     }
-    
+
     return "other";
 }
 
 function mapStatus(status?: string): StatusType {
     const statusMap: Record<string, StatusType> = {
-        "In Review": "draft",
+        "In Review": "published",
     };
-    
-    return statusMap[status || ''] || "public";
+
+    return statusMap[status || ''] || "published";
 }
 
 function sanitizeToolData(rawTool: RawToolData): PublicTool {
     const tool = {
         name: rawTool.toolName || '',
         coverImage: convertImageAssetToUrl(rawTool.thumbnail),
-        bannerImage: rawTool.mainImage 
-            ? convertImageAssetToUrl(rawTool.mainImage) 
+        bannerImage: rawTool.mainImage
+            ? convertImageAssetToUrl(rawTool.mainImage)
             : undefined,
         description: rawTool.toolShortDescription || '',
         categories: (rawTool.toolCategories || []).map(cat => ({
@@ -113,7 +128,7 @@ function sanitizeToolData(rawTool: RawToolData): PublicTool {
         })),
         tags: rawTool.tagsIndex || [],
         link: rawTool.websiteUrl || '',
-        slug: rawTool.slug?.current || '',
+        slug: rawTool.slug?.current || changeCase(rawTool.toolName || "", "lower") + "-tool-" + Date.now(),
         status: mapStatus(rawTool.status),
         pricing_type: mapPricingType(rawTool.pricing),
         verified: rawTool.verified || false,
@@ -125,7 +140,11 @@ function sanitizeToolData(rawTool: RawToolData): PublicTool {
 // ===== Database Operations =====
 
 async function toolExists(slug: string): Promise<boolean> {
-    const existingTool = await PublicTool.findOne({ slug }).lean().exec();
+    const existingTool = await PublicTool.findOne({ slug }).exec();
+    if (existingTool && existingTool.status !== "published") {
+        existingTool.status = "published";
+        await existingTool.save();
+    }
     return !!existingTool;
 }
 
@@ -133,7 +152,7 @@ async function saveTool(tool: PublicTool): Promise<void> {
     const newTool = new PublicTool({
         ...tool,
         // TODO: Replace with actual author profile ID
-        author:"SOME_PROFILE_ID",
+        author: "6603142d76d7b0047eda2b1d",
     });
     await newTool.save();
 }
@@ -141,14 +160,14 @@ async function saveTool(tool: PublicTool): Promise<void> {
 async function processTool(rawTool: RawToolData): Promise<{ success: boolean; message: string }> {
     try {
         const sanitizedTool = sanitizeToolData(rawTool);
-        
+
         if (await toolExists(sanitizedTool.slug)) {
             return {
                 success: false,
                 message: `Tool "${sanitizedTool.name}" (${sanitizedTool.slug}) already exists. Skipped.`
             };
         }
-        
+
         await saveTool(sanitizedTool);
         return {
             success: true,
@@ -166,42 +185,45 @@ async function processTool(rawTool: RawToolData): Promise<{ success: boolean; me
 // ===== Main Execution =====
 const data = [] as any[]; // TODO: Load your raw tool data here
 async function importTools(): Promise<void> {
-    await dbConnect();
-    
-    console.log(`Starting import of ${data.length} tools...\n`);
-    
-    let successCount = 0;
-    let skipCount = 0;
-    let errorCount = 0;
-    
-    for (const rawTool of data) {
-        const result = await processTool(rawTool);
-        console.log(result.message);
-        
-        if (result.success) {
-            successCount++;
-        } else if (result.message.includes('already exists')) {
-            skipCount++;
-        } else {
-            errorCount++;
-        }
+    if (prompt("Are you sure you want to import tools? This action cannot be undone. (yes/no)") !== "yes") {
+        console.log("Import cancelled by user.");
+        process.exit(0);
     }
-    
-    console.log('\n===== Import Summary =====');
-    console.log(`✓ Successfully imported: ${successCount}`);
-    console.log(`⊘ Skipped (already exists): ${skipCount}`);
-    console.log(`✗ Failed: ${errorCount}`);
-    console.log(`Total processed: ${data.length}`);
+    try {
+        await dbConnect();
+
+        console.log(`Starting import of ${data.length} tools...\n`);
+
+        let successCount = 0;
+        let skipCount = 0;
+        let errorCount = 0;
+
+        for await (const rawTool of data) {
+            const result = await processTool(rawTool);
+            console.log(result.message);
+
+            if (result.success) {
+                successCount++;
+            } else if (result.message.includes('already exists')) {
+                skipCount++;
+            } else {
+                errorCount++;
+            }
+        }
+
+        console.log('\n===== Import Summary =====');
+        console.log(`✓ Successfully imported: ${successCount}`);
+        console.log(`⊘ Skipped (already exists): ${skipCount}`);
+        console.log(`✗ Failed: ${errorCount}`);
+        console.log(`Total processed: ${data.length}`);
+          console.log('\nImport completed successfully.');
+        process.exit(0);
+    } catch (error) {
+        console.error('Critical error during import:', error);
+        process.exit(1);
+    }
 }
 
 // ===== Entry Point =====
 
 importTools()
-    .then(() => {
-        console.log('\nImport completed successfully.');
-        process.exit(0);
-    })
-    .catch((error) => {
-        console.error('\nCritical error during import:', error);
-        process.exit(1);
-    });

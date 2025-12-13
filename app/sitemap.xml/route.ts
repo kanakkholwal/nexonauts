@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
       date: new Date().toISOString(),
     },
     {
-      path: "/login",
+      path: "/auth/sign-in",
       date: new Date().toISOString(),
     },
     {

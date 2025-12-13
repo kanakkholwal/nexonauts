@@ -166,11 +166,11 @@ export default async function Page() {
           {/* --- Redesigned Abstract Hero Visual --- */}
           <div className="w-full max-w-6xl relative perspective-[1000px] group">
             {/* Animated Glow Effect */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-primary/40 via-violet-500/40 to-blue-500/40 rounded-[32px] blur-3xl opacity-30 -z-10 animate-pulse group-hover:opacity-50 transition-opacity duration-500" />
+            <div className="absolute -inset-4 bg-linear-to-r from-primary/40 via-violet-500/40 to-blue-500/40 rounded-[32px] blur-3xl opacity-30 -z-10 animate-pulse group-hover:opacity-50 transition-opacity duration-500" />
 
             {/* Floating Dashboard Container */}
             <div className="relative rounded-[24px] border border-white/10 bg-white/5 backdrop-blur-2xl p-3 shadow-2xl overflow-hidden transform transition-transform duration-500 hover:scale-[1.01] hover:rotate-x-[2deg]">
-              <div className="rounded-xl overflow-hidden relative aspect-[21/9] bg-muted/20">
+              <div className="rounded-xl overflow-hidden relative aspect-21/9 bg-muted/20">
                 <Image
                   src={heroDashboardImage}
                   alt="Nexo Scout AI Dashboard"

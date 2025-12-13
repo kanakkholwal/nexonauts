@@ -79,7 +79,7 @@ const profileSchema = new Schema<Profile>(
   },
   { timestamps: true }
 );
-//
+
 
 // profileSchema.index({ username: 1 });
 
@@ -187,6 +187,6 @@ profileSchema.statics.findCommonFollowersFollowing = async function (
 
   return commonFollowersFollowing;
 };
-const Profile =
+const ProfileModel =
   mongoose.models.Profile || mongoose.model<Profile>("Profile", profileSchema);
-export default Profile;
+export default ProfileModel;

@@ -5,17 +5,17 @@ import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "app/layouts/navbar";
 import {
-  getPublicToolBySlugForRatingPage,
-  getRatingsAndReviewsByPage,
-  postRatingAndReview,
-  toggleBookmark,
+    getPublicToolBySlugForRatingPage,
+    getRatingsAndReviewsByPage,
+    postRatingAndReview,
+    toggleBookmark,
 } from "app/scout/lib/actions";
 import { getAverageRating } from "app/scout/lib/utils";
 import {
-  ArrowLeft,
-  ExternalLink,
-  MessageSquare,
-  Star
+    ArrowLeft,
+    ExternalLink,
+    MessageSquare,
+    Star
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -204,7 +204,7 @@ export default async function ToolPage(props: {
                        ) : (
                           <div className="text-center py-8">
                              <Button variant="outline" asChild>
-                                <Link href="/login">Sign in to write a review</Link>
+                                <Link href="/auth/sign-in">Sign in to write a review</Link>
                              </Button>
                           </div>
                        )}
@@ -245,7 +245,7 @@ export default async function ToolPage(props: {
                        <h4 className="text-sm font-medium mb-3">Rate this tool</h4>
                        <p className="text-xs text-muted-foreground mb-4">Share your thoughts with other customers</p>
                        <Button variant="outline" className="w-full rounded-full" asChild>
-                          <Link href="/login">Write a customer review</Link>
+                          <Link href="/auth/sign-in">Write a customer review</Link>
                        </Button>
                     </div>
                  </CardContent>

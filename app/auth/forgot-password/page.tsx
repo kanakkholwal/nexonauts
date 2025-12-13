@@ -19,7 +19,7 @@ export default async function ForgotPasswordPage() {
       {/* Top Navigation */}
       <div className="absolute right-4 top-4 md:right-8 md:top-8">
         <Link
-          href="/login"
+          href="/auth/sign-in"
           className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
         >
           Remember your password? <span className="font-semibold text-foreground hover:underline">Log in</span>

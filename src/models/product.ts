@@ -1,6 +1,5 @@
 import mongoose, { type Document, Schema, type Types } from "mongoose";
 import { customAlphabet } from "nanoid";
-import "./user";
 const generateUrlSlug = (length = 16) =>
   customAlphabet(
     "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
@@ -56,9 +55,8 @@ export type ProductType = Product & {
 export type ProductTypeWithCreator = ProductType & {
   creator: {
     _id: string;
-    name: string;
     username: string;
-    profilePicture: string;
+
   };
 };
 

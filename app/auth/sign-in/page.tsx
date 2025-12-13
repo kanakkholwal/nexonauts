@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getSession } from "~/auth/server";
-import { UserAuthForm } from "./login-form";
+import { UserAuthForm } from "./sign-in-form";
 
 export const metadata: Metadata = {
   title: "Sign In - NexoNauts",

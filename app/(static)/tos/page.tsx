@@ -1,10 +1,10 @@
 import {
-  AlertTriangle,
-  ArrowRight,
-  Ban,
-  Gavel,
-  ScrollText,
-  Shield
+    AlertTriangle,
+    ArrowRight,
+    Ban,
+    Gavel,
+    ScrollText,
+    Shield
 } from "lucide-react";
 import Link from "next/link";
 import { projectConfig } from "src/project.config";
@@ -23,7 +23,7 @@ const SECTIONS = [
 
 export default async function TermsPage() {
   return (
-    <main className="relative min-h-screen bg-background selection:bg-primary/10 selection:text-primary">
+    <main className="relative min-h-screen bg-background   selection:text-primary">
 
       {/* --- Background Texture --- */}
       <div className="fixed inset-0 z-0 pointer-events-none">

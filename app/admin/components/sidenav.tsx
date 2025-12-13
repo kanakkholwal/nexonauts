@@ -1,12 +1,12 @@
 "use client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
 import { MessageSquareText } from "lucide-react";
@@ -14,15 +14,15 @@ import { FiMoreHorizontal } from "react-icons/fi";
 
 import { Button } from "@/components/ui/button";
 import {
-  ArrowBigDown,
-  ChevronLeftCircle,
-  ChevronRightCircle,
-  LayoutGrid,
-  LogOut,
-  Navigation,
-  Settings2,
-  Swords,
-  UserRoundCog,
+    ArrowBigDown,
+    ChevronLeftCircle,
+    ChevronRightCircle,
+    LayoutGrid,
+    LogOut,
+    Navigation,
+    Settings2,
+    Swords,
+    UserRoundCog,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -220,7 +220,7 @@ export function SidenavFooter({ user }: { user: SessionUserType }) {
           await authClient.signOut({
             fetchOptions: {
               onSuccess: () => {
-                window.location.href = "/login";
+                window.location.href = "/auth/sign-in";
               },
             },
           });

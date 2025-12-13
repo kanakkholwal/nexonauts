@@ -36,7 +36,7 @@ export default function Navbar() {
             })}
           </div>
           <Button size="sm" variant="default_light" asChild>
-            <Link href="/login">Login</Link>
+            <Link href="/auth/sign-in">Login</Link>
           </Button>
         </div>
       </nav>

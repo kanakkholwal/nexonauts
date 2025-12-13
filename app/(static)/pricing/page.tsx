@@ -2,7 +2,7 @@ import { Pricing } from "./pricing";
 
 export default async function Page() {
   return (
-    <main className="relative min-h-screen bg-background selection:bg-primary/10 selection:text-primary overflow-hidden">
+    <main className="relative min-h-screen bg-background   selection:text-primary overflow-hidden">
 
       {/* --- Consistent Background --- */}
       <div className="fixed inset-0 z-0 pointer-events-none">

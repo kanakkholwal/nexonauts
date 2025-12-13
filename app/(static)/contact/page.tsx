@@ -3,7 +3,7 @@ import { ContactForm } from "./form";
 
 export default async function Contact() {
   return (
-    <div className="relative min-h-screen bg-background overflow-hidden selection:bg-primary/10 selection:text-primary">
+    <div className="relative min-h-screen bg-background overflow-hidden   selection:text-primary">
       {/* Background Gradients */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px] opacity-20" />
@@ -18,7 +18,7 @@ export default async function Contact() {
             <div className="space-y-4">
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
                 Let&apos;s start a <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-violet-500">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-violet-500">
                   conversation.
                 </span>
               </h1>
