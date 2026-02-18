@@ -116,7 +116,7 @@
   "devDependencies": {
     "@types/react": "19.1.8",
     "@types/react-dom": "19.1.6",
-    "globby": "^14.1.0",
+    "globby": "^16.1.1",
     "postcss": "^8.5.3",
     "postcss-nesting": "^13.0.1",
     "prettier": "^3.5.3",
