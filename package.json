@@ -87,7 +87,7 @@
     "react": "19.1.0",
     "react-day-picker": "^9.6.7",
     "react-dom": "19.1.0",
-    "react-dropzone": "^14.3.8",
+    "react-dropzone": "^15.0.0",
     "react-easy-sort": "^1.6.0",
     "react-hook-form": "^7.56.1",
     "react-hot-toast": "^2.5.2",
