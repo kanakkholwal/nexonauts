@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/sheet";
 import ThemeSwitcher from "app/layouts/theme-switcher";
 import { Search } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -31,10 +32,12 @@ export default function Navbar() {
               aria-label="logo"
               className="flex items-center space-x-2"
             >
-              <img
+              <Image
                 className="h-10 dark:invert"
                 src="/assets/logo.svg"
                 alt="logo"
+                width={40}
+                height={40}
               />
             </Link>
             <button

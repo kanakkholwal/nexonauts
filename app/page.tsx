@@ -108,7 +108,7 @@ export default function HomePage() {
 
             <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               A unified platform for developer portfolios, digital marketplaces,
-              and AI-powered tools. Everything you need, nothing you don't.
+              and AI-powered tools. Everything you need, nothing you don{`'`}t.
             </p>
 
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
@@ -282,7 +282,7 @@ export default function HomePage() {
 
               <div className="relative z-10 max-w-3xl mx-auto space-y-8">
                 <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white">
-                  Ready to Build the <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Future?</span>
+                  Ready to Build the <span className="text-transparent bg-clip-text bg-linear-to-r from-indigo-400 to-cyan-400">Future?</span>
                 </h2>
                 <p className="text-zinc-400 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
                   Join the ecosystem where innovation meets execution. Start your journey with Nexonauts today.
