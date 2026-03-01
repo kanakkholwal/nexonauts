@@ -3,22 +3,17 @@
 import AdUnit from "@/components/common/adsense";
 import ShareButton from "@/components/common/share-button";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { ErrorBoundary } from "@/components/utils/error-boundary";
 import { ButtonLink } from "@/components/utils/link";
 import {
   ChevronLeft,
   Info,
   LayoutTemplate,
-  Maximize2,
-  Minimize2,
-  RotateCcw,
   Share2,
-  ShieldCheck,
-  Sparkles
+  ShieldCheck
 } from "lucide-react";
 import Image from "next/image";
-import React, { useCallback, useRef, useState } from "react";
+import React from "react";
 import type { ToolType } from "../collection/index";
 
 // Type guard helper
@@ -26,43 +21,7 @@ const isUrl = (icon: string | any): icon is string =>
   typeof icon === "string" && (icon.startsWith("http") || icon.startsWith("/"));
 
 export default function RenderTool({ tool }: { tool: ToolType }) {
-  const [resetKey, setResetKey] = useState(0);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const toolSectionRef = useRef<HTMLElement>(null);
 
-  // Reset handler - forces component remount
-  const handleReset = useCallback(() => {
-    setResetKey(prev => prev + 1);
-  }, []);
-
-  // Fullscreen toggle handler
-  const handleFullscreen = useCallback(async () => {
-    if (!toolSectionRef.current) return;
-
-    try {
-      if (!document.fullscreenElement) {
-        await toolSectionRef.current.requestFullscreen();
-        setIsFullscreen(true);
-      } else {
-        await document.exitFullscreen();
-        setIsFullscreen(false);
-      }
-    } catch (error) {
-      console.error("Fullscreen error:", error);
-    }
-  }, []);
-
-  // Listen for fullscreen changes (e.g., pressing ESC)
-  React.useEffect(() => {
-    const handleFullscreenChange = () => {
-      setIsFullscreen(!!document.fullscreenElement);
-    };
-
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-    return () => {
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
-    };
-  }, []);
 
   // Logic to render the icon nicely
   const IconComponent = () => {
@@ -176,96 +135,26 @@ export default function RenderTool({ tool }: { tool: ToolType }) {
             </header>
 
             {/* Tool Canvas (The Main Application) */}
-            <section 
-              className="relative w-full mt-4" 
+            <section
+              className="relative w-full mt-4"
               id="tool-application"
-              ref={toolSectionRef}
             >
-              {/* Application Window Frame */}
-              <div className="rounded-3xl border border-border bg-card/40 backdrop-blur-xl shadow-2xl shadow-border/50 overflow-hidden min-h-[700px] flex flex-col group/canvas ring-1 ring-slate-900/5">
-
-                {/* Mac-OS Style Toolbar */}
-                <div className="h-14 border-b border-border/60 bg-card/60 backdrop-blur-md flex items-center justify-between px-6 select-none">
-                  <div className="flex items-center gap-4">
-                    {/* Window Controls */}
-                    <div className="flex gap-2 group-hover/canvas:opacity-100 opacity-60 transition-opacity">
-                      <div className="size-3 rounded-full bg-[#FF5F56] border border-[#E0443E] shadow-inner" />
-                      <div className="size-3 rounded-full bg-[#FFBD2E] border border-[#DEA123] shadow-inner" />
-                      <div className="size-3 rounded-full bg-[#27C93F] border border-[#1AAB29] shadow-inner" />
+              <ErrorBoundary
+                fallback={
+                  <div className="flex flex-col items-center justify-center min-h-[400px] p-8 text-center">
+                    <div className="mb-4 p-4 bg-destructive/10 rounded-full">
+                      <Info className="w-8 h-8 text-destructive" />
                     </div>
-                    <div className="h-5 w-px bg-accent/50" />
+                    <h3 className="text-lg font-semibold mb-2">Something went wrong</h3>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      The tool encountered an error. Try reloading it.
+                    </p>
 
-                    {/* Title/Slug */}
-                    <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-muted/50 text-xs font-mono text-foreground/70 border border-border/50">
-                      <Sparkles className="size-3 text-primary" />
-                      <span>nexonauts.com/tools/{tool.slug || 'app'}</span>
-                    </div>
                   </div>
-
-                  <div className="flex items-center gap-2">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      title="Reset Tool"
-                      onClick={handleReset}
-                      className="hover:bg-muted/80 transition-colors"
-                    >
-                      <RotateCcw className="w-4 h-4" />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}
-                      onClick={handleFullscreen}
-                      className="hover:bg-muted/80 transition-colors"
-                    >
-                      {isFullscreen ? (
-                        <Minimize2 className="w-4 h-4" />
-                      ) : (
-                        <Maximize2 className="w-4 h-4" />
-                      )}
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Main Render Area */}
-                <div className="flex-1 relative w-full flex flex-col items-center justify-center p-4 sm:p-8 md:p-10">
-                  {/* Canvas Background Pattern */}
-                  <div className="absolute inset-0 bg-accent opacity-60" />
-                  <div className="absolute inset-0 bg-[radial-gradient(#cbd5e1_1px,transparent_1px)] bg-size-[20px_20px] opacity-40 pointer-events-none" />
-
-                  {/* The Tool Component with Error Boundary */}
-                  <div className="relative z-10 w-full max-w-6xl shadow-sm bg-card rounded-xl border border-border/60 p-1 min-h-[400px]">
-                    <ErrorBoundary
-                      key={resetKey}
-                      fallback={
-                        <div className="flex flex-col items-center justify-center min-h-[400px] p-8 text-center">
-                          <div className="mb-4 p-4 bg-destructive/10 rounded-full">
-                            <Info className="w-8 h-8 text-destructive" />
-                          </div>
-                          <h3 className="text-lg font-semibold mb-2">Something went wrong</h3>
-                          <p className="text-sm text-muted-foreground mb-4">
-                            The tool encountered an error. Try resetting it.
-                          </p>
-                          <Button onClick={handleReset} variant="outline" size="sm">
-                            <RotateCcw className="w-4 h-4 mr-2" />
-                            Reset Tool
-                          </Button>
-                        </div>
-                      }
-                    >
-                      <tool.Component />
-                    </ErrorBoundary>
-                  </div>
-                </div>
-
-                {/* Canvas Footer / Status Bar */}
-                <div className="h-8 bg-card/80 border-t flex items-center px-4 text-[10px] text-muted-foreground font-medium justify-end gap-4">
-                  <span>Ready</span>
-                  <span className="flex items-center gap-1"><div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" /> Connected</span>
-                </div>
-
-              </div>
+                }
+              >
+                <tool.Component />
+              </ErrorBoundary>
             </section>
 
             {/* Ad Unit: Bottom Multiplex (Engagement) */}

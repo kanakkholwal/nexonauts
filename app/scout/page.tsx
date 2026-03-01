@@ -21,7 +21,6 @@ import Link from "next/link";
 import { cache, Suspense } from "react";
 import dbConnect from "src/lib/db";
 import PublicTool, { PublicToolTypeWithId } from "src/models/tool";
-import heroDashboardImage from "./illustration.png";
 ;
 
 export const metadata: Metadata = {
@@ -156,34 +155,12 @@ export default async function Page() {
             </ButtonLink>
             <AuthButtonLink size="lg" variant="outline" className="h-12 px-8 text-base rounded-full bg-background/50 backdrop-blur-md"
               href="/dashboard/tools/submit">
-                <Zap className="mr-2 h-5 w-5" />
+              <Zap className="mr-2 h-5 w-5" />
               Submit a Tool
             </AuthButtonLink>
           </div>
 
-          {/* --- Redesigned Abstract Hero Visual --- */}
-          <div className="w-full max-w-6xl relative perspective-[1000px] group">
-            {/* Animated Glow Effect */}
-            <div className="absolute -inset-4 bg-linear-to-r from-primary/40 via-violet-500/40 to-blue-500/40 rounded-[32px] blur-3xl opacity-30 -z-10 animate-pulse group-hover:opacity-50 transition-opacity duration-500" />
 
-            {/* Floating Dashboard Container */}
-            <div className="relative rounded-[24px] border border-white/10 bg-white/5 backdrop-blur-2xl p-3 shadow-2xl overflow-hidden transform transition-transform duration-500 hover:scale-[1.01] hover:rotate-x-[2deg]">
-              <div className="rounded-xl overflow-hidden relative aspect-21/9 bg-muted/20">
-                <Image
-                  src={heroDashboardImage}
-                  alt="Nexo Scout AI Dashboard"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                {/* Screen Reflection/Gloss */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none" />
-              </div>
-            </div>
-
-            {/* Bottom Reflection */}
-            <div className="absolute -bottom-10 left-0 right-0 h-40 bg-gradient-to-b from-primary/20 to-transparent blur-3xl opacity-30 transform scale-x-90" />
-          </div>
         </div>
       </header>
 
