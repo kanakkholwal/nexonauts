@@ -33,7 +33,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <meta name="google-adsense-account" content="ca-pub-6988693445063744" />
+        <meta name="google-adsense-account" content="ca-pub-2219281381026289" />
       </head>
       <body className={cn(" min-h-screen antialiased relative", 
       fontSans.variable,
