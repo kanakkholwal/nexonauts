@@ -26,6 +26,8 @@ This branch migrates the application from the Next.js App Router to SvelteKit us
 - `src/routes/(static)/*`: about, contact, copyright, pricing, privacy, tos are migrated.
 - `src/routes/blog/*`: listing, author pages, and article pages are migrated.
 - `src/routes/profiles/*`: directory and profile pages are migrated.
+- `src/routes/marketplace/*`: landing, explore, and product detail routes are migrated.
+- `src/routes/scout/*`: landing, browse, and tool detail routes are migrated, including bookmark and review actions on tool pages.
 - `src/routes/auth/*`: sign-in, signup, forgot-password, verify-user, waitlist are migrated.
 - `src/routes/dashboard/*`: layout and overview are migrated; products, tools, account, integrations, and profile settings now render live read-only data.
 - `src/routes/admin/*`: layout and overview are migrated; users, products, tools, and messages now render live read-only data.
@@ -40,6 +42,7 @@ This branch migrates the application from the Next.js App Router to SvelteKit us
 5. Public env vars now use the `PUBLIC_` prefix where SvelteKit requires compile-time exposure.
 6. The original Next.js dashboard/admin CRUD editors are not fully ported yet. This branch ships live read-only management views instead of placeholder text.
 7. The dev-tools collection pages route correctly, but the individual interactive tool UIs and submit workflow are still reduced compared with the original implementation.
+8. Scout review submission and bookmark flows are ported on public tool pages, but broader moderation and management parity for those records still remains in admin/dashboard areas.
 
 ## Environment variable renames
 
@@ -57,7 +60,6 @@ Server-side secrets keep their existing names.
 
 ## Remaining gaps
 
-- Marketplace and scout public sections are still not ported into SvelteKit routes.
 - Dashboard/admin pages currently favor read-only visibility over full form parity.
 - Dev-tools slug pages and submit flow still need the original interactive implementations ported.
 - Browser smoke testing and route-by-route visual QA are still pending.

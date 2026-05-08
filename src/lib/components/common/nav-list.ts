@@ -35,7 +35,7 @@ export const NAV_GROUPS: NavGroup[] = [
 			},
 			{
 				title: "Discover Digital Assets",
-				href: "/marketplace/discover",
+				href: "/marketplace/explore",
 				description: "Discover digital assets for your business."
 			}
 		]
