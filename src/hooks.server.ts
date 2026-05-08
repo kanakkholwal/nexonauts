@@ -1,6 +1,6 @@
 import { redirect, type Handle } from "@sveltejs/kit";
 import { sequence } from "@sveltejs/kit/hooks";
-import { svelteKitHandler } from "better-auth/integrations/svelte-kit";
+import { svelteKitHandler } from "better-auth/svelte-kit";
 import { auth } from "$lib/server/auth";
 
 const PROTECTED_ROUTES = ["/dashboard", "/admin"];

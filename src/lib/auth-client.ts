@@ -1,10 +1,10 @@
 import { createAuthClient } from "better-auth/svelte";
 import { adminClient, usernameClient, inferAdditionalFields } from "better-auth/client/plugins";
-import { PUBLIC_BASE_URL } from "$env/static/public";
+import { env } from "$env/dynamic/public";
 import type { auth } from "$lib/server/auth";
 
 export const authClient = createAuthClient({
-	baseURL: PUBLIC_BASE_URL,
+	baseURL: env.PUBLIC_BASE_URL ?? env.PUBLIC_NEXT_PUBLIC_BASE_URL,
 	plugins: [
 		usernameClient(),
 		adminClient(),

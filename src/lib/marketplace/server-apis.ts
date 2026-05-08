@@ -1,5 +1,5 @@
 import Product from "src/models/product";
-import { SessionUserType } from "~/auth";
+import type { SessionUserType } from "$lib/server/auth";
 
 export async function getProducts() {
   return await Product.find();

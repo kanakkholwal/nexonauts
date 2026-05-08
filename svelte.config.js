@@ -10,7 +10,8 @@ const config = {
 			'@/*': './src/*',
 			'~/*': './src/*',
 			'@root/*': './*',
-			'src/*': './src/*'
+			'src/*': './src/*',
+			'data/*': './data/*'
 		},
 		typescript: {
 			config: (cfg) => {

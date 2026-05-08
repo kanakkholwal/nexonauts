@@ -9,15 +9,6 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "moduleResolution": "bundler",
-    "paths": {
-      "@/*": ["./src/*"],
-      "~/*": ["./src/*"],
-      "src/*": ["./src/*"],
-      "data/*": ["./data/*"],
-      "@root/*": ["./*"]
-    }
-  },
-  "exclude": ["_legacy", "node_modules", ".svelte-kit", "build"],
-  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
+    "moduleResolution": "bundler"
+  }
 }

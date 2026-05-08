@@ -2,7 +2,7 @@ import { appConfig } from "@root/project.config";
 import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { APIError } from "better-auth/api";
-import { sveltekitCookies } from "better-auth/integrations/svelte-kit";
+import { sveltekitCookies } from "better-auth/svelte-kit";
 import { admin, haveIBeenPwned, username } from "better-auth/plugins";
 import { getRequestEvent } from "$app/server";
 import { mailFetch } from "src/lib/server-fetch";
