@@ -7,7 +7,7 @@ export type Author = ProfileTypeWithIdUser
 export interface PostType {
   title: string;
   description?: string;
-  content: any;
+  content: unknown;
   slug: string;
   labels: string[];
   image: string;

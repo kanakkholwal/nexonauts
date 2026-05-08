@@ -1,22 +1,22 @@
 <script lang="ts">
 	import { Badge } from "$lib/components/ui/badge";
+	import { Button } from "$lib/components/ui/button";
+	import * as Card from "$lib/components/ui/card";
 	import { Separator } from "$lib/components/ui/separator";
-	import Construction from "@lucide/svelte/icons/construction";
+	import Sparkles from "@lucide/svelte/icons/sparkles";
 	import Terminal from "@lucide/svelte/icons/terminal";
 
 	let { data } = $props();
 </script>
 
 <svelte:head>
-	<title>{data.tool.title} — Dev Tools</title>
+	<title>{data.tool.title} - Dev Tools</title>
 </svelte:head>
 
 <section class="space-y-8 py-12">
 	<div class="space-y-3">
 		<div class="flex items-center gap-3">
-			<div
-				class="bg-muted flex size-12 items-center justify-center rounded-xl"
-			>
+			<div class="bg-muted flex size-12 items-center justify-center rounded-xl">
 				<Terminal class="text-muted-foreground size-6" />
 			</div>
 			<Badge variant="secondary" class="rounded-full">{data.tool.category}</Badge>
@@ -40,21 +40,42 @@
 
 	<Separator />
 
-	<div class="bg-card flex flex-col items-start gap-3 rounded-2xl border p-8">
-		<Construction class="text-muted-foreground size-8" />
-		<h2 class="text-lg font-semibold">Tool UI being migrated</h2>
-		<p class="text-muted-foreground max-w-prose text-sm leading-relaxed">
-			This dev tool's UI is being ported from Next.js to SvelteKit. The legacy implementation lives
-			at
-			<code class="rounded bg-muted px-1 py-0.5 text-xs">_legacy/app/dev-tools/(tools)/collection/{data.tool.slug}/</code>
-			and uses browser APIs (canvas, FileReader, pdf-lib, etc.) that need a per-tool rewrite to
-			Svelte 5 runes.
-		</p>
-		<a
-			href="/dev-tools"
-			class="text-primary text-sm font-medium hover:underline"
-		>
-			← Back to all tools
-		</a>
+	<div class="grid gap-6 lg:grid-cols-[1.4fr_0.8fr]">
+		<Card.Root>
+			<Card.Header>
+				<Card.Title>Overview</Card.Title>
+				<Card.Description>Current SvelteKit migration status for this tool.</Card.Description>
+			</Card.Header>
+			<Card.Content class="space-y-4">
+				<p class="text-muted-foreground text-sm leading-relaxed">
+					This route is live in SvelteKit and preserves the catalog metadata for the tool. The
+					interactive browser implementation from the original Next.js app has not been ported yet,
+					so this page currently serves as the canonical landing state during migration.
+				</p>
+				<p class="text-muted-foreground text-sm leading-relaxed">
+					Tools in this collection depend on browser-only workflows such as file handling,
+					transforms, and client-side processing. Those UIs need tool-by-tool Svelte rewrites rather
+					than a direct framework translation.
+				</p>
+			</Card.Content>
+		</Card.Root>
+
+		<Card.Root>
+			<Card.Header>
+				<Card.Title>Next steps</Card.Title>
+				<Card.Description>Where to go from here.</Card.Description>
+			</Card.Header>
+			<Card.Content class="space-y-3">
+				<div class="flex items-center gap-2 text-sm">
+					<Sparkles class="text-primary size-4" />
+					<span>Catalog route is migrated</span>
+				</div>
+				<div class="flex items-center gap-2 text-sm">
+					<Sparkles class="text-primary size-4" />
+					<span>Interactive tool UI still pending</span>
+				</div>
+				<Button href="/dev-tools" variant="outline" class="w-full">Back to all tools</Button>
+			</Card.Content>
+		</Card.Root>
 	</div>
 </section>

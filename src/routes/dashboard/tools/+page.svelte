@@ -1,9 +1,14 @@
 <script lang="ts">
+	import { Badge } from "$lib/components/ui/badge";
+	import * as Card from "$lib/components/ui/card";
 	import { Separator } from "$lib/components/ui/separator";
+	import * as Table from "$lib/components/ui/table";
+
+	let { data } = $props();
 </script>
 
 <svelte:head>
-	<title>Tools — Dashboard</title>
+	<title>Tools - Dashboard</title>
 </svelte:head>
 
 <div class="space-y-6 p-4 pb-16 md:p-10">
@@ -14,9 +19,54 @@
 		</p>
 	</div>
 	<Separator />
-	<p class="text-muted-foreground text-sm">
-		Tool management UI is being migrated. The legacy implementation lives at
-		<code class="rounded bg-muted px-1 py-0.5 text-xs">_legacy/app/dashboard/tools/</code> and
-		will be ported in a follow-up commit.
-	</p>
+
+	<Card.Root>
+		<Card.Header>
+			<Card.Title>Your tools</Card.Title>
+			<Card.Description>Directory submissions owned by your profile.</Card.Description>
+		</Card.Header>
+		<Card.Content>
+			{#if data.tools.length === 0}
+				<p class="text-muted-foreground text-sm">No tools submitted yet.</p>
+			{:else}
+				<Table.Root>
+					<Table.Header>
+						<Table.Row>
+							<Table.Head>Name</Table.Head>
+							<Table.Head>Categories</Table.Head>
+							<Table.Head>Pricing</Table.Head>
+							<Table.Head>Verification</Table.Head>
+							<Table.Head>Status</Table.Head>
+						</Table.Row>
+					</Table.Header>
+					<Table.Body>
+						{#each data.tools as tool (tool._id)}
+							<Table.Row>
+								<Table.Cell>
+									<div class="flex flex-col">
+										<span class="font-medium">{tool.name}</span>
+										<span class="text-muted-foreground text-xs">{tool.slug}</span>
+									</div>
+								</Table.Cell>
+								<Table.Cell>
+									{tool.categories.map((category) => category.name).join(", ") || "Uncategorized"}
+								</Table.Cell>
+								<Table.Cell class="uppercase">{tool.pricing_type.replaceAll("_", " ")}</Table.Cell>
+								<Table.Cell>
+									<Badge variant={tool.verified ? "default" : "outline"}>
+										{tool.verified ? "Verified" : "Unverified"}
+									</Badge>
+								</Table.Cell>
+								<Table.Cell>
+									<Badge variant={tool.status === "published" ? "default" : "secondary"}>
+										{tool.status}
+									</Badge>
+								</Table.Cell>
+							</Table.Row>
+						{/each}
+					</Table.Body>
+				</Table.Root>
+			{/if}
+		</Card.Content>
+	</Card.Root>
 </div>

@@ -149,10 +149,10 @@ export async function getRecentPosts(
 
 
 export async function getPostsByAuthor(
-  username: string
+	username: string
 ): Promise<{
-  profile: Author | null;
-  posts: PostWithId[];
+	profile: Author | null;
+	posts: PostWithId[];
 }> {
   await dbConnect();
   const profile = await Profile.findOne({ username })
@@ -166,10 +166,11 @@ export async function getPostsByAuthor(
       profile: null,
       posts: []
     }
-  }
-  const posts = await Post.find({
-    state: "published",
-  })
+	}
+	const posts = await Post.find({
+		state: "published",
+		author: profile._id
+	})
     .populate({
       path: "author",
       select: "bio interests socials username", // specify profile fields you need
