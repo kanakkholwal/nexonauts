@@ -12,15 +12,15 @@ This document tracks the in-progress migration from Next.js (App Router) to Svel
 | - | ----- | ------ |
 | 0 | Branch + skeleton (config, app.html/css/d.ts, package.json) | done |
 | 1 | Server foundation (auth, db, env, hooks.server.ts) | done |
-| 2 | Component library + Svelte 5 hooks (`shadcn-svelte`, `bits-ui`, runes utilities) | not started |
-| 3 | Public routes (root, static, blog, profiles, marketplace, scout) | not started |
-| 4 | Auth flows (sign-in, signup, forgot-password, verify, waitlist) | not started |
-| 5 | User dashboard | not started |
-| 6 | Admin section | not started |
-| 7 | Dev-tools collection (9 tools) | not started |
-| 8 | API routes (catch-all auth handler done; remainder pending) | partial |
-| 9 | Sitemap, manifest, scripts | partial (manifest done) |
-| 10 | Production hardening (Dockerfile, lint, smoke tests) | not started |
+| 2 | Component library + Svelte 5 hooks (`shadcn-svelte`, `bits-ui`, runes utilities) | done |
+| 3 | Public routes — partial: home, navbar/footer/theme, `(static)` layout + pricing. About/contact/copyright/privacy/tos and blog/profiles/marketplace/scout deferred. | partial |
+| 4 | Auth flows (sign-in, signup, forgot-password, verify-user, waitlist) | done |
+| 5 | User dashboard — shell done (layout + sidebar + home + settings index). CRUD sub-routes (products/tools full forms, settings/profile editor) are placeholders pointing to `_legacy/`. | partial |
+| 6 | Admin section — shell done (layout with role guard + stats home + navigate). Data tables (users/products/tools/messages) are placeholders. | partial |
+| 7 | Dev-tools collection — index + filter + tool slug routing done. Each of the 9 tools shows a "being migrated" placeholder; per-tool ports (canvas, pdf-lib, FileReader, etc.) are deferred. | partial |
+| 8 | API routes — all 7 ported (`/api/auth/{[...all],signup,forgot-password,recaptcha}`, `/api/contact`, `/api/users/delete`, `/api/tools/{,delete,generate}`, `/api/helpers/token`). | done |
+| 9 | Sitemap (`/sitemap.xml`) + manifest (`/manifest.webmanifest`) | done |
+| 10 | Production hardening — Dockerfile rewritten for adapter-node + bun. Lint config + .prettierrc in place. Smoke tests deferred. | partial |
 
 ## Repository layout during migration
 
