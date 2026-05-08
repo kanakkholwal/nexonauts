@@ -1,63 +1,23 @@
 {
+  "extends": "./.svelte-kit/tsconfig.json",
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-      "webworker"
-    ],
-    // "types": [
-    //   "@serwist/next/typings"
-    // ],
     "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
+    "checkJs": false,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "bundler",
+    "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "moduleResolution": "bundler",
     "paths": {
-      "@/*": [
-        "./@/*"
-      ],
-      "src/*": [
-        "./src/*"
-      ],
-      "~/*": [
-        "./src/*"
-      ],
-      "app/*": [
-        "./app/*"
-      ],
-      "data/*": [
-        "./data/*"
-      ],
-      "emails/*": [
-        "./src/emails/*"
-      ],
-      "@root/*": [
-        "./*"
-      ]
-    },
-    "target": "ES2017"
+      "@/*": ["./src/*"],
+      "~/*": ["./src/*"],
+      "src/*": ["./src/*"],
+      "data/*": ["./data/*"],
+      "@root/*": ["./*"]
+    }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "./src/emails/templates/*.tsx"
-  ]
+  "exclude": ["_legacy", "node_modules", ".svelte-kit", "build"],
+  "include": ["src/**/*.ts", "src/**/*.js", "src/**/*.svelte"]
 }

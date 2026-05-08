@@ -1,5 +1,3 @@
-"use server";
-import { cache } from 'react';
 import dbConnect from "src/lib/db";
 import { Profile } from "src/models";
 import Post, { type Author, type PostWithId } from "src/models/post";
@@ -80,7 +78,7 @@ type getPostBySlugReturnType = {
   post: PostWithId | null;
 };
 
-export const getPostBySlug = cache(async (
+export const getPostBySlug = async (
   slug: string,
   new_cache = false
 ): Promise<getPostBySlugReturnType> => {
@@ -125,7 +123,7 @@ export const getPostBySlug = cache(async (
     message: "Post found!",
     post: JSON.parse(JSON.stringify(post)),
   };
-})
+};
 
 export async function getRecentPosts(
   noOfPost = 5

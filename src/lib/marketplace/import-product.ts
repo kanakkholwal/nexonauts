@@ -1,4 +1,3 @@
-"use server";
 import axios from "axios";
 import HTMLParser from "node-html-parser";
 import { rawProduct } from "src/models/product";

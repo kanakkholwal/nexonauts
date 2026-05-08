@@ -13,6 +13,7 @@ yarn.lock
 pnpm-*.yaml
 test.js
 data.json
+.claude
 
 /.env
 .env
@@ -36,6 +37,10 @@ workbox-*
 swe-worker-*
 # production
 /build
+
+# sveltekit
+.svelte-kit
+/build/
 
 # misc
 .DS_Store

@@ -1,4 +1,3 @@
-"use server";
 import dbConnect from "src/lib/db";
 import UserModel from "src/models/user";
 
