@@ -13,7 +13,7 @@ This document tracks the in-progress migration from Next.js (App Router) to Svel
 | 0 | Branch + skeleton (config, app.html/css/d.ts, package.json) | done |
 | 1 | Server foundation (auth, db, env, hooks.server.ts) | done |
 | 2 | Component library + Svelte 5 hooks (`shadcn-svelte`, `bits-ui`, runes utilities) | done |
-| 3 | Public routes — partial: home, navbar/footer/theme, `(static)` layout + pricing. About/contact/copyright/privacy/tos and blog/profiles/marketplace/scout deferred. | partial |
+| 3 | Public routes — `(static)` complete (home, layout, pricing, about, contact, copyright, privacy, tos). Blog / profiles / marketplace / scout still deferred. | partial |
 | 4 | Auth flows (sign-in, signup, forgot-password, verify-user, waitlist) | done |
 | 5 | User dashboard — shell done (layout + sidebar + home + settings index). CRUD sub-routes (products/tools full forms, settings/profile editor) are placeholders pointing to `_legacy/`. | partial |
 | 6 | Admin section — shell done (layout with role guard + stats home + navigate). Data tables (users/products/tools/messages) are placeholders. | partial |
