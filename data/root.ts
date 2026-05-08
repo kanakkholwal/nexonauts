@@ -1,6 +1,4 @@
-import type { Metadata } from "next";
-
-export const ROOT_METADATA: Metadata = {
+export const ROOT_METADATA = {
   title: "Nexonauts | The Ultimate AI Ecosystem for Developers & Creators",
   description:
     "Nexonauts is the next-generation platform for developers and creators. Access specialized AI tools, manage your portfolio, and explore a vast marketplace of digital assets.",
