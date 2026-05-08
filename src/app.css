@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
+
 @import 'tw-animate-css';
 @plugin "@tailwindcss/typography";
 
@@ -225,8 +228,8 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
 
-    --font-mono: 'Fira Code', 'Courier New', 'Courier', 'monospace';
-    --font-sans: 'Inter', 'Helvetica', 'Arial', sans-serif;
+    --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
     --shadow-button: 0px -1px 0px 0px hsla(0, 0%, 100%, 0.04), 0px 0px 0px 1px hsla(0, 0%, 100%, 0.12), 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 2px 2px 0px rgba(0, 0, 0, 0.04), 0px 4px 2px 0px rgba(0, 0, 0, 0.04), 0px 6px 3px 0px rgba(0, 0, 0, 0.04);
 
@@ -443,7 +446,7 @@ body {
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
     position: relative;
-    font-family: var(--font-sans, 'Inter', 'Helvetica', 'Arial', sans-serif);
+    font-family: var(--font-sans, 'Geist Variable', ui-sans-serif, system-ui, sans-serif);
     /* Fluid max width that:
        - starts from 1024px (for tablets/small desktops)
        - scales with viewport
