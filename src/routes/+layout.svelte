@@ -2,7 +2,7 @@
 	import "../app.css";
 	import "../codebox.css";
 	import { ModeWatcher } from "mode-watcher";
-	import { Toaster } from "svelte-sonner";
+	import { Toaster } from "$lib/components/ui/sonner";
 	import { page } from "$app/state";
 	import { beforeNavigate, afterNavigate } from "$app/navigation";
 	import nProgress from "nprogress";
@@ -13,7 +13,7 @@
 	beforeNavigate(() => nProgress.start());
 	afterNavigate(() => nProgress.done());
 
-	let { children, data } = $props();
+	let { children } = $props();
 </script>
 
 <svelte:head>
