@@ -29,6 +29,7 @@ This branch migrates the application from the Next.js App Router to SvelteKit us
 - `src/routes/marketplace/*`: landing, explore, and product detail routes are migrated.
 - `src/routes/scout/*`: landing, browse, and tool detail routes are migrated, including bookmark and review actions on tool pages.
 - `src/routes/auth/*`: sign-in, signup, forgot-password, verify-user, waitlist are migrated.
+- `src/routes/dev-tools/*`: index, submit flow, and selected interactive tool pages are migrated.
 - `src/routes/dashboard/*`: layout and overview are migrated; products, tools, account, integrations, and profile settings now render live read-only data.
 - `src/routes/admin/*`: layout and overview are migrated; users, products, tools, and messages now render live read-only data.
 - `src/routes/api/*`: auth, contact, tools, token helper, and user-delete endpoints are migrated.
@@ -41,7 +42,7 @@ This branch migrates the application from the Next.js App Router to SvelteKit us
 4. `next/link`, `next/navigation`, and `next/image` are removed. SvelteKit anchors, `$page` data, and static assets replace them.
 5. Public env vars now use the `PUBLIC_` prefix where SvelteKit requires compile-time exposure.
 6. The original Next.js dashboard/admin CRUD editors are not fully ported yet. This branch ships live read-only management views instead of placeholder text.
-7. The dev-tools collection pages route correctly, but the individual interactive tool UIs and submit workflow are still reduced compared with the original implementation.
+7. The dev-tools collection pages and submit intake are ported, and several interactive browser tools now run natively in SvelteKit. Remaining dev-tools still fall back to migration placeholder pages until their client UIs are rewritten.
 8. Scout review submission and bookmark flows are ported on public tool pages, but broader moderation and management parity for those records still remains in admin/dashboard areas.
 
 ## Environment variable renames
@@ -61,7 +62,7 @@ Server-side secrets keep their existing names.
 ## Remaining gaps
 
 - Dashboard/admin pages currently favor read-only visibility over full form parity.
-- Dev-tools slug pages and submit flow still need the original interactive implementations ported.
+- Some dev-tools slug pages still need their original interactive implementations ported tool-by-tool.
 - Browser smoke testing and route-by-route visual QA are still pending.
 
 ## Validation
