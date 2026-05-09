@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Badge } from "$lib/components/ui/badge";
+	import { buttonVariants } from "$lib/components/ui/button";
 	import * as Card from "$lib/components/ui/card";
 	import { Separator } from "$lib/components/ui/separator";
 
@@ -48,6 +49,12 @@
 								: "Never"}
 						</p>
 					</div>
+					<a
+						href={`/dashboard/settings/integrations/${provider}`}
+						class={buttonVariants({ variant: "outline", size: "sm" })}
+					>
+						{integration.integrated ? "Manage" : "Connect"}
+					</a>
 				</Card.Content>
 			</Card.Root>
 		{/each}

@@ -21,6 +21,8 @@ data.json
 .env.prod
 .env.dev
 .env.production
+.dev.vars
+.dev.vars.*
 # next.js
 /.next/
 /out/
@@ -37,7 +39,7 @@ workbox-*
 swe-worker-*
 # production
 /build
-
+.wrangler
 # sveltekit
 .svelte-kit
 /build/

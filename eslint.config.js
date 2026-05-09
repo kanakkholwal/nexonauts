@@ -6,7 +6,7 @@ import svelteConfig from './svelte.config.js';
 
 export default ts.config(
 	{
-		ignores: ['build', '.svelte-kit', 'dist', '_legacy', 'node_modules']
+		ignores: ['build', '.svelte-kit', 'dist', 'node_modules']
 	},
 	ts.configs.recommended,
 	prettier,

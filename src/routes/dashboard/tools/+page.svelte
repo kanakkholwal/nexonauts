@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
 	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
+	import { Button, buttonVariants } from "$lib/components/ui/button";
 	import * as Card from "$lib/components/ui/card";
 	import { Separator } from "$lib/components/ui/separator";
 	import * as Table from "$lib/components/ui/table";
+	import Pencil from "@lucide/svelte/icons/pencil";
 	import Trash2 from "@lucide/svelte/icons/trash-2";
 	import { toast } from "svelte-sonner";
 
@@ -75,29 +76,38 @@
 									</Badge>
 								</Table.Cell>
 								<Table.Cell class="text-right">
-									<form
-										method="POST"
-										action="?/delete"
-										use:enhance={() => async ({ update }) => {
-											await update();
-										}}
-										onsubmit={(event) => {
-											if (!confirm(`Delete "${tool.name}"? This cannot be undone.`)) {
-												event.preventDefault();
-											}
-										}}
-									>
-										<input type="hidden" name="toolId" value={tool._id} />
-										<Button
-											type="submit"
-											size="icon-sm"
-											variant="ghost"
-											class="text-destructive hover:bg-destructive/10"
-											title="Delete tool"
+									<div class="flex items-center justify-end gap-1">
+										<a
+											href="/dashboard/tools/{tool.slug}/edit"
+											class={buttonVariants({ variant: "ghost", size: "icon-sm" })}
+											title="Edit tool"
 										>
-											<Trash2 class="h-4 w-4" />
-										</Button>
-									</form>
+											<Pencil class="h-4 w-4" />
+										</a>
+										<form
+											method="POST"
+											action="?/delete"
+											use:enhance={() => async ({ update }) => {
+												await update();
+											}}
+											onsubmit={(event) => {
+												if (!confirm(`Delete "${tool.name}"? This cannot be undone.`)) {
+													event.preventDefault();
+												}
+											}}
+										>
+											<input type="hidden" name="toolId" value={tool._id} />
+											<Button
+												type="submit"
+												size="icon-sm"
+												variant="ghost"
+												class="text-destructive hover:bg-destructive/10"
+												title="Delete tool"
+											>
+												<Trash2 class="h-4 w-4" />
+											</Button>
+										</form>
+									</div>
 								</Table.Cell>
 							</Table.Row>
 						{/each}

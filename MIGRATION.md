@@ -2,7 +2,7 @@
 
 This branch migrates the application from the Next.js App Router to SvelteKit using Svelte 5 runes only.
 
-> Status on May 9, 2026: `npm run check` and `npm run build` pass on `feat/sveltekit-migration`. The app is deployable as a SvelteKit codebase. Public surface, auth, dev-tools, admin / dashboard moderation, rich product / tool authoring forms, the Gumroad import sheet, and the Cloudinary upload widget are all at parity with the legacy app. The only remaining recommended item is manual route-by-route smoke testing.
+> Status on May 9, 2026: `npm run check` and `npm run build` pass on `feat/sveltekit-migration`. End-to-end smoke tests across all migrated routes return the expected status codes (200 for public, 303→/auth/sign-in for protected, 405 for POST-only API endpoints). The legacy `_legacy/` tree has been deleted in full; `next.config.mjs`, `next-env.d.ts`, `middleware.ts`, and the old React/Next sources are gone. Adapter is `@sveltejs/adapter-cloudflare`.
 
 ## Phase tracker
 
@@ -30,7 +30,7 @@ This branch migrates the application from the Next.js App Router to SvelteKit us
 - `src/routes/scout/*`: landing, browse, and tool detail with bookmark / review actions.
 - `src/routes/auth/*`: sign-in, signup, forgot-password, verify-user, waitlist.
 - `src/routes/dev-tools/*`: index, submit flow, and every interactive tool from the legacy collection (CSS / HTML minify+prettify, HTML parser, HTML→JSX, Image→WebP, JSON minifier, Meta tag generator, PDF stripper, Schema markup generator).
-- `src/routes/dashboard/*`: layout, overview, account, integrations, profile, plus full authoring of products (`/new` + `/[slug]/edit`) and live management of tools.
+- `src/routes/dashboard/*`: layout, overview, account, profile, plus full authoring of products (`/new` + `/[slug]/edit`), tools (`/[slug]/edit`), and the integrations page **with the per-platform OAuth flow** at `settings/integrations/[platform]` (GitHub + Gumroad — connect, view scope, disconnect).
 - `src/routes/admin/*`: layout, overview, plus full moderation **and** authoring of products (`/new` + `/[slug]/edit`) and tools (`/[slug]/edit`). Users, messages support delete + status toggles. Tools support verify, delete, status, and edit.
 - `src/routes/api/*`: auth, contact, tools, token helper, user-delete.
 
@@ -77,12 +77,32 @@ The legacy app exposed multi-step product / tool builders. The SvelteKit ports c
 
 ## Integrations
 
-- **Gumroad import** — `/dashboard/products` ships a side sheet ("Import from Gumroad") that hits the user's stored Gumroad access token, lists their library, and imports any product into Nexonauts as a single form action. Backed by [`src/lib/server/integrations/gumroad.ts`](src/lib/server/integrations/gumroad.ts). Returns a clear error when the user hasn't connected Gumroad under Settings → Integrations.
+- **OAuth integrations** ([`src/lib/server/integrations/index.ts`](src/lib/server/integrations/index.ts)) — GitHub + Gumroad auth-code exchange, token storage, scope tracking, revoke. The `[platform]` page handles the OAuth callback (`?code=...`) inside the SvelteKit `load()`, exchanges the code for an access token, redirects to a clean URL, and renders connect / manage / disconnect controls.
+- **Gumroad import** — `/dashboard/products` ships a side sheet ("Import from Gumroad") that hits the user's stored Gumroad access token, lists their library, and imports any product into Nexonauts as a single form action. Backed by [`src/lib/server/integrations/gumroad.ts`](src/lib/server/integrations/gumroad.ts). Falls back to a clear error + deep link to Settings → Integrations when the user hasn't connected.
 - **Cloudinary uploads** — product `preview_url` and tool `coverImage` / `bannerImage` fields each render an inline upload button that posts unsigned multipart to Cloudinary and writes the resulting `secure_url` back into the form. Disabled with a friendly hint when the public envs aren't set.
+
+## End-to-end test results (May 9, 2026)
+
+Probed via `curl` against `npm run dev` on `localhost:3000`:
+
+| Group              | Routes                                                                                                        | Result |
+| ------------------ | ------------------------------------------------------------------------------------------------------------- | ------ |
+| Static             | `/`, `/about`, `/contact`, `/copyright`, `/pricing`, `/privacy`, `/tos`                                       | 200    |
+| Auth               | `/auth/sign-in`, `/auth/signup`, `/auth/forgot-password`, `/auth/verify-user`, `/auth/waitlist`               | 200    |
+| Public lists       | `/blog`, `/profiles`, `/dev-tools`, `/dev-tools/submit`, `/scout`, `/scout/browse`, `/marketplace`, `/marketplace/explore` | 200    |
+| Sitemap            | `/sitemap.xml`                                                                                                | 200    |
+| Dev-tools (slug)   | `/dev-tools/json-minifier-tool`, `/dev-tools/schema-markup-generator`                                         | 200    |
+| Dynamic 404 paths  | `/blog/articles/<unknown>`, `/profiles/<unknown>`, `/scout/tools/<unknown>`, `/marketplace/products/<unknown>` | 404 (expected) |
+| API (POST routes)  | `/api/contact`, `/api/tools`, `/api/users/delete`, `/api/tools/delete`, `/api/tools/generate`                 | 405 on GET (POST-only); 200 on valid POST for `/api/contact` |
+| API (helpers)      | `/api/helpers/token`, `/api/auth/get-session`                                                                 | 200    |
+| Protected (admin)  | `/admin`, `/admin/users`, `/admin/products`, `/admin/products/new`, `/admin/tools`, `/admin/messages`, `/admin/navigate` | 303 → `/auth/sign-in` |
+| Protected (dash)   | `/dashboard`, `/dashboard/products`, `/dashboard/products/new`, `/dashboard/tools`, `/dashboard/settings/account`, `/dashboard/settings/profile`, `/dashboard/settings/integrations`, `/dashboard/settings/integrations/{gumroad,github,unknown}`, `/dashboard/tools/{slug}/edit` | 303 → `/auth/sign-in` |
+
+Three `/api/auth/*` endpoints from the legacy port (`recaptcha`, `forgot-password`, `signup`) were deleted because they conflicted with better-auth's catchall and were never called from the app — the signup / password-reset flows go through `authClient` which uses better-auth directly.
 
 ## Remaining gaps
 
-- **Browser smoke testing**: route-by-route visual QA across the migrated app has not been recorded. Build and type-check are clean — but a manual pass through every dashboard / admin / dev-tools route is still recommended before a production cut.
+None blocking. Logged-in interaction (form submits, sheet opens, OAuth round-trips) needs a real session cookie to verify end-to-end and was outside the curl-only test pass.
 
 ## Validation
 
