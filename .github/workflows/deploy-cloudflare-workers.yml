@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - feat/sveltekit-migration
-      - main
+  #     - main
   workflow_dispatch:
 
 concurrency:
@@ -64,3 +64,21 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: deploy
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          NODE_ENV: production
+          BASE_URL: ${{ vars.BASE_URL }}
+          BASE_MAIL_SERVER_URL: ${{ vars.BASE_MAIL_SERVER_URL }}
+          INTEGRATION_GITHUB_ID: ${{ secrets.INTEGRATION_GITHUB_ID }}
+          INTEGRATION_GITHUB_SECRET: ${{ secrets.INTEGRATION_GITHUB_SECRET }}
+          GOOGLE_ID: ${{ secrets.GOOGLE_ID }}
+          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          SERVER_IDENTITY: ${{ secrets.SERVER_IDENTITY }}
+          CLOUDINARY_CLOUD_NAME: ${{ vars.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+          GUMROAD_APP_ID: ${{ vars.GUMROAD_APP_ID }}
+          GUMROAD_APP_SECRET: ${{ secrets.GUMROAD_APP_SECRET }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
