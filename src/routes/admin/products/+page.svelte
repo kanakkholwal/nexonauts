@@ -1,10 +1,12 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
 	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
+	import { Button, buttonVariants } from "$lib/components/ui/button";
 	import * as Card from "$lib/components/ui/card";
 	import { Separator } from "$lib/components/ui/separator";
 	import * as Table from "$lib/components/ui/table";
+	import Pencil from "@lucide/svelte/icons/pencil";
+	import Plus from "@lucide/svelte/icons/plus";
 	import Trash2 from "@lucide/svelte/icons/trash-2";
 	import { toast } from "svelte-sonner";
 
@@ -23,9 +25,15 @@
 </svelte:head>
 
 <div class="space-y-6 p-4 pb-16 md:p-10">
-	<div>
-		<h1 class="text-lg font-semibold">Products</h1>
-		<p class="text-muted-foreground text-sm font-medium">Moderate marketplace listings.</p>
+	<div class="flex flex-wrap items-start justify-between gap-3">
+		<div>
+			<h1 class="text-lg font-semibold">Products</h1>
+			<p class="text-muted-foreground text-sm font-medium">Moderate marketplace listings.</p>
+		</div>
+		<a href="/admin/products/new" class={buttonVariants({ size: "sm" })}>
+			<Plus class="mr-1 h-4 w-4" />
+			New product
+		</a>
 	</div>
 	<Separator />
 
@@ -64,29 +72,38 @@
 								</Badge>
 							</Table.Cell>
 							<Table.Cell class="text-right">
-								<form
-									method="POST"
-									action="?/delete"
-									use:enhance={() => async ({ update }) => {
-										await update();
-									}}
-									onsubmit={(event) => {
-										if (!confirm(`Delete "${product.name}"? This cannot be undone.`)) {
-											event.preventDefault();
-										}
-									}}
-								>
-									<input type="hidden" name="productId" value={product._id} />
-									<Button
-										type="submit"
-										size="icon-sm"
-										variant="ghost"
-										class="text-destructive hover:bg-destructive/10"
-										title="Delete product"
+								<div class="flex items-center justify-end gap-1">
+									<a
+										href="/admin/products/{product.slug}/edit"
+										class={buttonVariants({ variant: "ghost", size: "icon-sm" })}
+										title="Edit product"
 									>
-										<Trash2 class="h-4 w-4" />
-									</Button>
-								</form>
+										<Pencil class="h-4 w-4" />
+									</a>
+									<form
+										method="POST"
+										action="?/delete"
+										use:enhance={() => async ({ update }) => {
+											await update();
+										}}
+										onsubmit={(event) => {
+											if (!confirm(`Delete "${product.name}"? This cannot be undone.`)) {
+												event.preventDefault();
+											}
+										}}
+									>
+										<input type="hidden" name="productId" value={product._id} />
+										<Button
+											type="submit"
+											size="icon-sm"
+											variant="ghost"
+											class="text-destructive hover:bg-destructive/10"
+											title="Delete product"
+										>
+											<Trash2 class="h-4 w-4" />
+										</Button>
+									</form>
+								</div>
 							</Table.Cell>
 						</Table.Row>
 					{/each}

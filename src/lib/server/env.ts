@@ -1,29 +1,61 @@
-import { BASE_MAIL_SERVER_URL, BETTER_AUTH_URL, GITHUB_ID, GITHUB_SECRET, GOOGLE_ID, GOOGLE_SECRET, MONGODB_URI, NODE_ENV } from "$env/static/private";
+import {
+	BASE_MAIL_SERVER_URL,
+	BASE_URL,
+	BETTER_AUTH_SECRET,
+	BETTER_AUTH_URL,
+	CLOUDINARY_API_KEY,
+	CLOUDINARY_API_SECRET,
+	CLOUDINARY_CLOUD_NAME,
+	GEMINI_API_KEY,
+	GITHUB_ID,
+	GITHUB_SECRET,
+	GOOGLE_ID,
+	GOOGLE_SECRET,
+	JWT_SECRET,
+	MONGODB_URI,
+	NODE_ENV,
+	SERVER_IDENTITY
+} from "$env/static/private";
 import z from "zod";
 
-const envSchmema = z.object({
-    GITHUB_ID: z.string(),
-    GOOGLE_ID: z.string(),
-    GITHUB_SECRET: z.string().min(8),
-    GOOGLE_SECRET: z.string().min(8),
-    BASE_MAIL_SERVER_URL: z.url(),
-    NODE_ENV: z.enum(['development', 'production', 'test']),
-    BETTER_AUTH_URL: z.url().optional(),
-    MONGODB_URI: z.string().min(10),
+const envSchema = z.object({
+	NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+	BASE_URL: z.url().optional(),
+	GITHUB_ID: z.string(),
+	GITHUB_SECRET: z.string().min(8),
+	GOOGLE_ID: z.string(),
+	GOOGLE_SECRET: z.string().min(8),
+	JWT_SECRET: z.string().min(8).optional(),
+	BETTER_AUTH_SECRET: z.string().min(8).optional(),
+	BETTER_AUTH_URL: z.url().optional(),
+	BASE_MAIL_SERVER_URL: z.string().min(1),
+	SERVER_IDENTITY: z.string().optional(),
+	MONGODB_URI: z.string().min(10),
+	CLOUDINARY_CLOUD_NAME: z.string().optional(),
+	CLOUDINARY_API_KEY: z.string().optional(),
+	CLOUDINARY_API_SECRET: z.string().optional(),
+	GEMINI_API_KEY: z.string().optional()
 });
 
-const envraw = {
-    GITHUB_ID,
-    GOOGLE_ID,
-    GITHUB_SECRET,
-    GOOGLE_SECRET,
-    BASE_MAIL_SERVER_URL,
-    NODE_ENV,
-    BETTER_AUTH_URL,MONGODB_URI
-}
+const envRaw = {
+	NODE_ENV,
+	BASE_URL,
+	GITHUB_ID,
+	GITHUB_SECRET,
+	GOOGLE_ID,
+	GOOGLE_SECRET,
+	JWT_SECRET,
+	BETTER_AUTH_SECRET,
+	BETTER_AUTH_URL,
+	BASE_MAIL_SERVER_URL,
+	SERVER_IDENTITY,
+	MONGODB_URI,
+	CLOUDINARY_CLOUD_NAME,
+	CLOUDINARY_API_KEY,
+	CLOUDINARY_API_SECRET,
+	GEMINI_API_KEY
+};
 
-
-const env = envSchmema.parse(envraw);
+const env = envSchema.parse(envRaw);
 Object.freeze(env);
 export { env };
-

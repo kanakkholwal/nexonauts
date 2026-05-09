@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { enhance } from "$app/forms";
 	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
+	import { Button, buttonVariants } from "$lib/components/ui/button";
 	import * as Card from "$lib/components/ui/card";
 	import { Separator } from "$lib/components/ui/separator";
 	import * as Table from "$lib/components/ui/table";
 	import BadgeCheck from "@lucide/svelte/icons/badge-check";
+	import Pencil from "@lucide/svelte/icons/pencil";
 	import ShieldOff from "@lucide/svelte/icons/shield-off";
 	import Trash2 from "@lucide/svelte/icons/trash-2";
 	import { toast } from "svelte-sonner";
@@ -73,6 +74,13 @@
 							</Table.Cell>
 							<Table.Cell class="text-right">
 								<div class="flex items-center justify-end gap-1">
+									<a
+										href="/admin/tools/{tool.slug}/edit"
+										class={buttonVariants({ variant: "ghost", size: "icon-sm" })}
+										title="Edit tool"
+									>
+										<Pencil class="h-4 w-4" />
+									</a>
 									<form
 										method="POST"
 										action="?/verify"

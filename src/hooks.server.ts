@@ -2,6 +2,7 @@ import { redirect, type Handle } from "@sveltejs/kit";
 import { sequence } from "@sveltejs/kit/hooks";
 import { svelteKitHandler } from "better-auth/svelte-kit";
 import { auth } from "$lib/server/auth";
+import { env } from "$lib/server/env";
 
 const PROTECTED_ROUTES = ["/dashboard", "/admin"];
 
@@ -28,7 +29,7 @@ const seoRedirects: Handle = async ({ event, resolve }) => {
 };
 
 const sessionHook: Handle = async ({ event, resolve }) => {
-	const baseUrl = process.env.BASE_URL ?? event.url.origin;
+	const baseUrl = env.BASE_URL ?? event.url.origin;
 	event.locals.currentPath = baseUrl + event.url.pathname;
 
 	try {

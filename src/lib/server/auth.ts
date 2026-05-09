@@ -7,6 +7,7 @@ import { admin, haveIBeenPwned, username } from "better-auth/plugins";
 import { getRequestEvent } from "$app/server";
 import { mailFetch } from "src/lib/server-fetch";
 import { client, db } from "src/lib/db";
+import { env } from "src/lib/server/env";
 
 const VERIFY_EMAIL_PATH_PREFIX = "/auth/verify-mail";
 const RESET_PASSWORD_PATH_PREFIX = "/auth/reset-password";
@@ -26,7 +27,7 @@ export const betterAuthOptions = {
 		requireEmailVerification: true,
 		autoSignIn: true,
 		sendResetPassword: async ({ user, token }) => {
-			const reset_link = new URL(process.env.BASE_URL as string);
+			const reset_link = new URL(env.BASE_URL ?? env.BETTER_AUTH_URL ?? "http://localhost:3000");
 			reset_link.pathname = RESET_PASSWORD_PATH_PREFIX;
 			reset_link.searchParams.set("token", token);
 			try {
@@ -62,7 +63,9 @@ export const betterAuthOptions = {
 	emailVerification: {
 		sendOnSignUp: true,
 		sendVerificationEmail: async ({ user, token }) => {
-			const verification_url = new URL(process.env.BASE_URL as string);
+			const verification_url = new URL(
+				env.BASE_URL ?? env.BETTER_AUTH_URL ?? "http://localhost:3000"
+			);
 			verification_url.pathname = VERIFY_EMAIL_PATH_PREFIX;
 			verification_url.searchParams.set("token", token);
 			try {
@@ -98,19 +101,19 @@ export const betterAuthOptions = {
 	},
 	socialProviders: {
 		google: {
-			clientId: process.env.GOOGLE_ID!,
-			clientSecret: process.env.GOOGLE_SECRET!,
+			clientId: env.GOOGLE_ID,
+			clientSecret: env.GOOGLE_SECRET,
 			mapProfileToUser: async (profile) => ({ image: profile.picture })
 		},
 		github: {
-			clientId: process.env.GITHUB_ID!,
-			clientSecret: process.env.GITHUB_SECRET!,
+			clientId: env.GITHUB_ID,
+			clientSecret: env.GITHUB_SECRET,
 			mapProfileToUser: async (profile) => ({ image: profile.avatar_url })
 		}
 	},
 	advanced: {
 		crossSubDomainCookies: {
-			enabled: process.env.NODE_ENV === "production",
+			enabled: env.NODE_ENV === "production",
 			domain: appConfig.appDomain
 		},
 		cookiePrefix: "nexonauts"
