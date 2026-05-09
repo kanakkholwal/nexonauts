@@ -35,6 +35,74 @@ jobs:
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
+      - name: Check GitHub Actions env wiring
+        env:
+          BASE_URL: ${{ vars.BASE_URL }}
+          BASE_MAIL_SERVER_URL: ${{ vars.BASE_MAIL_SERVER_URL }}
+          BETTER_AUTH_URL: ${{ vars.BETTER_AUTH_URL }}
+          GITHUB_ID: ${{ secrets.GITHUB_ID }}
+          GITHUB_SECRET: ${{ secrets.GITHUB_SECRET }}
+          GOOGLE_ID: ${{ secrets.GOOGLE_ID }}
+          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          SERVER_IDENTITY: ${{ secrets.SERVER_IDENTITY }}
+          CLOUDINARY_CLOUD_NAME: ${{ vars.CLOUDINARY_CLOUD_NAME }}
+          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+          GUMROAD_APP_ID: ${{ vars.GUMROAD_APP_ID }}
+          GUMROAD_APP_SECRET: ${{ secrets.GUMROAD_APP_SECRET }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          node <<'EOF'
+          const checks = [
+            { name: "BASE_URL", value: process.env.BASE_URL, kind: "url" },
+            { name: "BASE_MAIL_SERVER_URL", value: process.env.BASE_MAIL_SERVER_URL, kind: "url" },
+            { name: "BETTER_AUTH_URL", value: process.env.BETTER_AUTH_URL, kind: "url" },
+            { name: "GITHUB_ID", value: process.env.GITHUB_ID, kind: "required" },
+            { name: "GITHUB_SECRET", value: process.env.GITHUB_SECRET, kind: "required" },
+            { name: "GOOGLE_ID", value: process.env.GOOGLE_ID, kind: "required" },
+            { name: "GOOGLE_SECRET", value: process.env.GOOGLE_SECRET, kind: "required" },
+            { name: "MONGODB_URI", value: process.env.MONGODB_URI, kind: "required" },
+            { name: "BETTER_AUTH_SECRET", value: process.env.BETTER_AUTH_SECRET, kind: "required" },
+            { name: "JWT_SECRET", value: process.env.JWT_SECRET, kind: "required" },
+            { name: "SERVER_IDENTITY", value: process.env.SERVER_IDENTITY, kind: "required" },
+            { name: "CLOUDINARY_CLOUD_NAME", value: process.env.CLOUDINARY_CLOUD_NAME, kind: "optional" },
+            { name: "CLOUDINARY_API_KEY", value: process.env.CLOUDINARY_API_KEY, kind: "optional" },
+            { name: "CLOUDINARY_API_SECRET", value: process.env.CLOUDINARY_API_SECRET, kind: "optional" },
+            { name: "GUMROAD_APP_ID", value: process.env.GUMROAD_APP_ID, kind: "optional" },
+            { name: "GUMROAD_APP_SECRET", value: process.env.GUMROAD_APP_SECRET, kind: "optional" },
+            { name: "GEMINI_API_KEY", value: process.env.GEMINI_API_KEY, kind: "optional" }
+          ];
+
+          let failed = false;
+
+          for (const check of checks) {
+            const value = check.value ?? "";
+            const present = value.length > 0;
+            let status = present ? "present" : "missing";
+
+            if (present && check.kind === "url") {
+              try {
+                new URL(value);
+                status = "present and valid URL";
+              } catch {
+                status = "present but invalid URL";
+                failed = true;
+              }
+            } else if (!present && check.kind !== "optional") {
+              failed = true;
+            }
+
+            console.log(`${check.name}: ${status}`);
+          }
+
+          if (failed) {
+            process.exit(1);
+          }
+          EOF
+
       - name: Build app
         run: bun run build
         env:
