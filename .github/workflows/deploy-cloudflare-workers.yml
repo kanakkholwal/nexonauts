@@ -1,10 +1,10 @@
 name: Deploy To Cloudflare Workers
 
 on:
-  push:
-    branches:
-      - feat/sveltekit-migration
-  #     - main
+  # push:
+  #   branches:
+  #     - feat/sveltekit-migration
+  # #     - main
   workflow_dispatch:
 
 concurrency:
@@ -39,8 +39,12 @@ jobs:
       - name: Build app
         run: bun run build
         env:
+          CF_PAGES: "1"
           NODE_ENV: production
           BASE_URL: ${{ vars.BASE_URL }}
+          PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL || vars.BASE_URL }}
+          PUBLIC_WEBSITE_URL: ${{ vars.PUBLIC_WEBSITE_URL || vars.BASE_URL }}
+          PUBLIC_WEBSITE_NAME: ${{ vars.PUBLIC_WEBSITE_NAME }}
           BASE_MAIL_SERVER_URL: ${{ vars.BASE_MAIL_SERVER_URL }}
           INTEGRATION_GITHUB_ID: ${{ secrets.INTEGRATION_GITHUB_ID }}
           INTEGRATION_GITHUB_SECRET: ${{ secrets.INTEGRATION_GITHUB_SECRET }}
@@ -65,8 +69,12 @@ jobs:
           command: deploy
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
         env:
+          CF_PAGES: "1"
           NODE_ENV: production
           BASE_URL: ${{ vars.BASE_URL }}
+          PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL || vars.BASE_URL }}
+          PUBLIC_WEBSITE_URL: ${{ vars.PUBLIC_WEBSITE_URL || vars.BASE_URL }}
+          PUBLIC_WEBSITE_NAME: ${{ vars.PUBLIC_WEBSITE_NAME }}
           BASE_MAIL_SERVER_URL: ${{ vars.BASE_MAIL_SERVER_URL }}
           INTEGRATION_GITHUB_ID: ${{ secrets.INTEGRATION_GITHUB_ID }}
           INTEGRATION_GITHUB_SECRET: ${{ secrets.INTEGRATION_GITHUB_SECRET }}
