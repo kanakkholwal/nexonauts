@@ -16,14 +16,14 @@ function resolveBaseUrl(event: { url: URL }): string {
 export const load: PageServerLoad = async ({ locals, params, url }) => {
 	const userId = locals.session?.user?.id;
 	if (!userId) {
-		throw redirect(
-			303,
-			`/auth/sign-in?callbackUrl=/dashboard/settings/integrations/${params.platform}`
-		);
+		redirect(
+        			303,
+        			`/auth/sign-in?callbackUrl=/dashboard/settings/integrations/${params.platform}`
+        		);
 	}
 
 	if (!isIntegrationPlatform(params.platform)) {
-		throw error(404, "Unknown integration");
+		error(404, "Unknown integration");
 	}
 
 	const descriptor = INTEGRATION_DESCRIPTORS[params.platform];
@@ -40,7 +40,7 @@ export const load: PageServerLoad = async ({ locals, params, url }) => {
 			code
 		);
 		if (exchangeResult.ok) {
-			throw redirect(303, `/dashboard/settings/integrations/${params.platform}`);
+			redirect(303, `/dashboard/settings/integrations/${params.platform}`);
 		}
 	}
 

@@ -24,7 +24,7 @@ const usernameAlphabet = customAlphabet(
 );
 
 export const load: PageServerLoad = async ({ locals }) => {
-	if (locals.session) throw redirect(303, "/dashboard");
+	if (locals.session) redirect(303, "/dashboard");
 	return {
 		meta: {
 			title: "Sign Up — Nexonauts",

@@ -4,7 +4,7 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params, setHeaders }) => {
 	const { post, success } = await getPostBySlug(params.slug);
-	if (!post || !success) throw error(404, "Post not found.");
+	if (!post || !success) error(404, "Post not found.");
 
 	setHeaders({ "cache-control": "public, max-age=0, s-maxage=60, stale-while-revalidate=300" });
 

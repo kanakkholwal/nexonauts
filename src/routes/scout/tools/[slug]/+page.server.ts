@@ -18,7 +18,7 @@ function getAverageRating(ratings: Array<{ rating: number }>) {
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	const tool = await getScoutToolBySlug(params.slug, { incrementView: true });
-	if (!tool) throw error(404, "Tool not found.");
+	if (!tool) error(404, "Tool not found.");
 
 	const [ratings, similarTools] = await Promise.all([
 		getScoutRatingsAndReviews(tool._id, { limit: 5 }),

@@ -10,14 +10,14 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const profileId = locals.session?.user?.profile;
 	if (!profileId) {
-		throw redirect(
-			303,
-			`/auth/sign-in?callbackUrl=/dashboard/products/${params.slug}/edit`
-		);
+		redirect(
+        			303,
+        			`/auth/sign-in?callbackUrl=/dashboard/products/${params.slug}/edit`
+        		);
 	}
 
 	const product = await getProductForCreator(params.slug, profileId);
-	if (!product) throw error(404, "Product not found");
+	if (!product) error(404, "Product not found");
 
 	return {
 		product,

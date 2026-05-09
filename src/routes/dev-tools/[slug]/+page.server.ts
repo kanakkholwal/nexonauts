@@ -4,7 +4,7 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params }) => {
 	const tool = findDevTool(params.slug);
-	if (!tool) throw error(404, "Tool not found.");
+	if (!tool) error(404, "Tool not found.");
 	return {
 		tool,
 		meta: {

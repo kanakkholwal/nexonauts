@@ -9,7 +9,7 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	const product = await getMarketplaceProductBySlug(params.slug);
-	if (!product) throw error(404, "Product not found.");
+	if (!product) error(404, "Product not found.");
 
 	const [moreFromCreator, similarProducts] = await Promise.all([
 		getMoreMarketplaceProductsByCreator(product),

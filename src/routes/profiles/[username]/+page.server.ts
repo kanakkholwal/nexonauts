@@ -8,7 +8,7 @@ type FollowerRef = {
 
 export const load: PageServerLoad = async ({ params, locals }) => {
 	const developer = await getProfile(params.username);
-	if (!developer) throw error(404, "Profile not found.");
+	if (!developer) error(404, "Profile not found.");
 
 	const sessionUser = locals.session?.user;
 	const isOwner = sessionUser?.username === developer.username;

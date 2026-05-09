@@ -7,7 +7,7 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		version:{
-			name: "nexonauts-" + process.env.GITHUB_SHA?.substring(0, 8) || "dev",
+			name: "nexonauts-" + (process.env.GITHUB_SHA?.substring(0, 8) || "dev"),
 		},
 		alias: {
 			'@/*': './src/*',

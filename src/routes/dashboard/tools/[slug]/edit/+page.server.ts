@@ -12,14 +12,14 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async ({ locals, params }) => {
 	const profileId = locals.session?.user?.profile;
 	if (!profileId) {
-		throw redirect(303, `/auth/sign-in?callbackUrl=/dashboard/tools/${params.slug}/edit`);
+		redirect(303, `/auth/sign-in?callbackUrl=/dashboard/tools/${params.slug}/edit`);
 	}
 
 	const tool = await getToolBySlug(params.slug);
-	if (!tool) throw error(404, "Tool not found");
+	if (!tool) error(404, "Tool not found");
 
 	if (String(tool.author) !== profileId) {
-		throw error(403, "You do not own this tool.");
+		error(403, "You do not own this tool.");
 	}
 
 	return {

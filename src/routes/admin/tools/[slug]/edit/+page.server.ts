@@ -11,11 +11,11 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	if (locals.session?.user?.role !== "admin") {
-		throw redirect(303, `/auth/sign-in?callbackUrl=/admin/tools/${params.slug}/edit`);
+		redirect(303, `/auth/sign-in?callbackUrl=/admin/tools/${params.slug}/edit`);
 	}
 
 	const tool = await getToolBySlug(params.slug);
-	if (!tool) throw error(404, "Tool not found");
+	if (!tool) error(404, "Tool not found");
 
 	return {
 		tool,

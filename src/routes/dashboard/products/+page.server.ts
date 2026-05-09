@@ -7,7 +7,7 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async ({ locals, url }) => {
 	const session = locals.session;
 	if (!session?.user) {
-		throw redirect(303, "/auth/sign-in?callbackUrl=/dashboard/products");
+		redirect(303, "/auth/sign-in?callbackUrl=/dashboard/products");
 	}
 
 	const importFrom = url.searchParams.get("importFrom");

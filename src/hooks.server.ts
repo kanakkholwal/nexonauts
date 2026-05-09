@@ -17,12 +17,12 @@ const seoRedirects: Handle = async ({ event, resolve }) => {
 
 	for (const [from, to] of SEO_REDIRECTS) {
 		if (pathname.startsWith(from)) {
-			throw redirect(308, pathname.replace(from, to) + search);
+			redirect(308, pathname.replace(from, to) + search);
 		}
 	}
 
 	if (pathname === "/toolbox" && search.startsWith("?query")) {
-		throw redirect(308, "/scout/browse" + search);
+		redirect(308, "/scout/browse" + search);
 	}
 
 	return resolve(event);
@@ -74,7 +74,7 @@ const protectedRouteGuard: Handle = async ({ event, resolve }) => {
 	const matched = PROTECTED_ROUTES.find((route) => event.url.pathname.startsWith(route));
 	if (matched && !event.locals.session?.user) {
 		const callback = encodeURIComponent(event.url.pathname + event.url.search);
-		throw redirect(303, `/auth/sign-in?callbackUrl=${callback}`);
+		redirect(303, `/auth/sign-in?callbackUrl=${callback}`);
 	}
 	return resolve(event);
 };

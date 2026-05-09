@@ -5,7 +5,7 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals }) => {
 	if (!locals.session?.user) {
-		throw redirect(303, "/auth/sign-in?callbackUrl=/dashboard/products/new");
+		redirect(303, "/auth/sign-in?callbackUrl=/dashboard/products/new");
 	}
 
 	return {
@@ -57,6 +57,6 @@ export const actions: Actions = {
 		const result = await createProduct(profileId, parsed.data);
 		if (!result.success) return fail(400, { message: result.message });
 
-		throw redirect(303, "/dashboard/products");
+		redirect(303, "/dashboard/products");
 	}
 };

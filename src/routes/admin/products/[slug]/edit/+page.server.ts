@@ -9,11 +9,11 @@ import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ locals, params }) => {
 	if (locals.session?.user?.role !== "admin") {
-		throw redirect(303, `/auth/sign-in?callbackUrl=/admin/products/${params.slug}/edit`);
+		redirect(303, `/auth/sign-in?callbackUrl=/admin/products/${params.slug}/edit`);
 	}
 
 	const product = await getProductBySlug(params.slug);
-	if (!product) throw error(404, "Product not found");
+	if (!product) error(404, "Product not found");
 
 	return {
 		product,

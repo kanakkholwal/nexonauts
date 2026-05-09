@@ -5,7 +5,7 @@ import type { PageServerLoad } from "./$types";
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = locals.session;
 	if (!session?.user) {
-		throw redirect(303, "/auth/sign-in?callbackUrl=/dashboard/settings/account");
+		redirect(303, "/auth/sign-in?callbackUrl=/dashboard/settings/account");
 	}
 
 	return {
