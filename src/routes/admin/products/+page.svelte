@@ -1,10 +1,21 @@
 <script lang="ts">
+	import { enhance } from "$app/forms";
 	import { Badge } from "$lib/components/ui/badge";
+	import { Button } from "$lib/components/ui/button";
 	import * as Card from "$lib/components/ui/card";
 	import { Separator } from "$lib/components/ui/separator";
 	import * as Table from "$lib/components/ui/table";
+	import Trash2 from "@lucide/svelte/icons/trash-2";
+	import { toast } from "svelte-sonner";
 
-	let { data } = $props();
+	let { data, form } = $props();
+
+	$effect(() => {
+		if (form?.message) {
+			if (form.success === false) toast.error(form.message);
+			else toast.success(form.message);
+		}
+	});
 </script>
 
 <svelte:head>
@@ -32,6 +43,7 @@
 						<Table.Head>Categories</Table.Head>
 						<Table.Head>Price</Table.Head>
 						<Table.Head>Status</Table.Head>
+						<Table.Head class="text-right">Actions</Table.Head>
 					</Table.Row>
 				</Table.Header>
 				<Table.Body>
@@ -50,6 +62,31 @@
 								<Badge variant={product.published ? "default" : "secondary"}>
 									{product.published ? "Published" : "Draft"}
 								</Badge>
+							</Table.Cell>
+							<Table.Cell class="text-right">
+								<form
+									method="POST"
+									action="?/delete"
+									use:enhance={() => async ({ update }) => {
+										await update();
+									}}
+									onsubmit={(event) => {
+										if (!confirm(`Delete "${product.name}"? This cannot be undone.`)) {
+											event.preventDefault();
+										}
+									}}
+								>
+									<input type="hidden" name="productId" value={product._id} />
+									<Button
+										type="submit"
+										size="icon-sm"
+										variant="ghost"
+										class="text-destructive hover:bg-destructive/10"
+										title="Delete product"
+									>
+										<Trash2 class="h-4 w-4" />
+									</Button>
+								</form>
 							</Table.Cell>
 						</Table.Row>
 					{/each}
