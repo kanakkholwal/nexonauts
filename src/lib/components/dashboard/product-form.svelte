@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { untrack } from "svelte";
 	import { enhance } from "$app/forms";
+	import ImageUpload from "$lib/components/common/image-upload.svelte";
 	import { Button } from "$lib/components/ui/button";
 	import { Checkbox } from "$lib/components/ui/checkbox";
 	import { Input } from "$lib/components/ui/input";
@@ -146,6 +147,7 @@
 				placeholder="https://example.com/preview.png"
 				required
 			/>
+			<ImageUpload onUpload={(url) => (preview_url = url)} label="Upload preview" />
 			{#if preview_url}
 				<img
 					src={preview_url}

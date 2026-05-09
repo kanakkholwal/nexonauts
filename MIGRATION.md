@@ -2,7 +2,7 @@
 
 This branch migrates the application from the Next.js App Router to SvelteKit using Svelte 5 runes only.
 
-> Status on May 9, 2026: `npm run check` and `npm run build` pass on `feat/sveltekit-migration`. The app is deployable as a SvelteKit codebase. Public surface, auth, dev-tools, admin / dashboard moderation, and rich product / tool authoring forms are all at parity with the legacy app. Remaining items are scoped, optional integrations (e.g. Gumroad import, Cloudinary upload widgets) documented under "Remaining gaps".
+> Status on May 9, 2026: `npm run check` and `npm run build` pass on `feat/sveltekit-migration`. The app is deployable as a SvelteKit codebase. Public surface, auth, dev-tools, admin / dashboard moderation, rich product / tool authoring forms, the Gumroad import sheet, and the Cloudinary upload widget are all at parity with the legacy app. The only remaining recommended item is manual route-by-route smoke testing.
 
 ## Phase tracker
 
@@ -63,7 +63,7 @@ Server-side secrets keep their existing names. Dead Next-era files that hard-cod
 5. Mutation flows use SvelteKit form actions (`+page.server.ts` `actions`) with progressive `use:enhance` instead of Next.js Server Actions; revalidation happens through SvelteKit's automatic re-run of `load` after a successful action.
 6. Form validation is server-authoritative via Zod inside each action — no `react-hook-form` / `zodResolver` client step. Browser-side guard rails (`required`, `minlength`, etc.) are kept on inputs as a UX shortcut.
 7. The Schema Markup Generator no longer fetches the live OpenExchangeRates currency list. It ships a curated static list of common currencies to keep the tool fully offline-capable; the legacy live fetch was an avoidable third-party dependency for an SEO authoring tool.
-8. Authoring forms accept image URLs directly (`preview_url`, `coverImage`, `bannerImage`) instead of bundling a Cloudinary upload widget. The legacy `UploadImage` component depended on a chain of `NEXT_PUBLIC_CLOUDINARY_*` envs and an inline signed-upload signature flow that was Next-specific. Re-introducing it on SvelteKit is a follow-up; teams that want the in-form upload widget can paste the resulting URL today.
+8. Authoring forms accept image URLs directly **and** offer an inline Cloudinary unsigned upload via [`$lib/components/common/image-upload.svelte`](src/lib/components/common/image-upload.svelte). The widget is enabled when `PUBLIC_CLOUDINARY_CLOUD_NAME` + `PUBLIC_CLOUDINARY_UPLOAD_PRESET` are set; otherwise it gracefully degrades to a "paste a URL" hint. Server-side delete / signed-upload helpers were intentionally not re-introduced — public unsigned uploads cover authoring needs without requiring `crypto.createHash` on the SvelteKit edge.
 9. The `BASE_MAIL_SERVER_URL` env is validated as a non-empty string (not a strict URL) since deployments commonly point at hostnames without a scheme; the consumer (`src/lib/server-fetch.ts`) attaches the protocol.
 
 ## Authoring surface (new in this turn)
@@ -75,11 +75,14 @@ The legacy app exposed multi-step product / tool builders. The SvelteKit ports c
 - Routes: `dashboard/products/new`, `dashboard/products/[slug]/edit`, `admin/products/new`, `admin/products/[slug]/edit`, `admin/tools/[slug]/edit`. Each `+page.server.ts` parses with Zod and dispatches to the typed authoring helper.
 - Listing pages now expose **New** + **Edit** entry points alongside the existing delete / verify / status actions.
 
+## Integrations
+
+- **Gumroad import** — `/dashboard/products` ships a side sheet ("Import from Gumroad") that hits the user's stored Gumroad access token, lists their library, and imports any product into Nexonauts as a single form action. Backed by [`src/lib/server/integrations/gumroad.ts`](src/lib/server/integrations/gumroad.ts). Returns a clear error when the user hasn't connected Gumroad under Settings → Integrations.
+- **Cloudinary uploads** — product `preview_url` and tool `coverImage` / `bannerImage` fields each render an inline upload button that posts unsigned multipart to Cloudinary and writes the resulting `secure_url` back into the form. Disabled with a friendly hint when the public envs aren't set.
+
 ## Remaining gaps
 
-- **Gumroad import sheet** on `/dashboard/products`. The legacy "Import from Gumroad" dialog (sync access tokens, fetch + map products) is not wired in. Manual create / edit covers the same outcome.
-- **Cloudinary upload widget** for in-form image uploads (see deviation 8). Image fields accept URLs.
-- **Browser smoke testing**: route-by-route visual QA across the migrated app has not been recorded. Build and type-check are clean.
+- **Browser smoke testing**: route-by-route visual QA across the migrated app has not been recorded. Build and type-check are clean — but a manual pass through every dashboard / admin / dev-tools route is still recommended before a production cut.
 
 ## Validation
 

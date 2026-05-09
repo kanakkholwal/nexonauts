@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { untrack } from "svelte";
 	import { enhance } from "$app/forms";
+	import ImageUpload from "$lib/components/common/image-upload.svelte";
 	import { Button } from "$lib/components/ui/button";
 	import { Input } from "$lib/components/ui/input";
 	import { Label } from "$lib/components/ui/label";
@@ -217,6 +218,7 @@
 				placeholder="https://example.com/cover.png"
 				required
 			/>
+			<ImageUpload onUpload={(url) => (coverImage = url)} label="Upload cover" />
 			{#if coverImage}
 				<img src={coverImage} alt="Cover" class="aspect-video w-full rounded-md border object-cover" />
 			{/if}
@@ -231,6 +233,7 @@
 				bind:value={bannerImage}
 				placeholder="https://example.com/banner.png"
 			/>
+			<ImageUpload onUpload={(url) => (bannerImage = url)} label="Upload banner" />
 		</div>
 
 		<div class="space-y-2">
