@@ -3,7 +3,8 @@ name: Deploy To Cloudflare Workers
 on:
   push:
     branches:
-      - main
+      - feat/sveltekit-migration
+      # - main
   workflow_dispatch:
 
 concurrency:
@@ -39,10 +40,9 @@ jobs:
         env:
           NODE_ENV: production
           BASE_URL: ${{ vars.BASE_URL }}
-          BETTER_AUTH_URL: ${{ vars.BETTER_AUTH_URL }}
           BASE_MAIL_SERVER_URL: ${{ vars.BASE_MAIL_SERVER_URL }}
-          GITHUB_ID: ${{ secrets.GITHUB_ID }}
-          GITHUB_SECRET: ${{ secrets.GITHUB_SECRET }}
+          INTEGRATION_GITHUB_ID: ${{ secrets.INTEGRATION_GITHUB_ID }}
+          INTEGRATION_GITHUB_SECRET: ${{ secrets.INTEGRATION_GITHUB_SECRET }}
           GOOGLE_ID: ${{ secrets.GOOGLE_ID }}
           GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
           MONGODB_URI: ${{ secrets.MONGODB_URI }}

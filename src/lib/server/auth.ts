@@ -1,12 +1,12 @@
+import { getRequestEvent } from "$app/server";
 import { appConfig } from "@root/project.config";
 import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { APIError } from "better-auth/api";
-import { sveltekitCookies } from "better-auth/svelte-kit";
 import { admin, haveIBeenPwned, username } from "better-auth/plugins";
-import { getRequestEvent } from "$app/server";
-import { mailFetch } from "src/lib/server-fetch";
+import { sveltekitCookies } from "better-auth/svelte-kit";
 import { client, db } from "src/lib/db";
+import { mailFetch } from "src/lib/server-fetch";
 import { env } from "src/lib/server/env";
 
 const VERIFY_EMAIL_PATH_PREFIX = "/auth/verify-mail";
@@ -15,7 +15,7 @@ const RESET_PASSWORD_PATH_PREFIX = "/auth/reset-password";
 export const betterAuthOptions = {
 	appName: appConfig.name,
 	database: mongodbAdapter(db, { client }),
-	baseURL: env.BASE_URL ?? env.BETTER_AUTH_URL ?? "http://localhost:3000",
+	baseURL: env.BASE_URL ?? "http://localhost:3000",
 	onAPIError: {
 		throw: true,
 		onError: (error, ctx) => {
@@ -28,7 +28,7 @@ export const betterAuthOptions = {
 		requireEmailVerification: true,
 		autoSignIn: true,
 		sendResetPassword: async ({ user, token }) => {
-			const reset_link = new URL(env.BASE_URL ?? env.BETTER_AUTH_URL ?? "http://localhost:3000");
+			const reset_link = new URL(env.BASE_URL ??  "http://localhost:3000");
 			reset_link.pathname = RESET_PASSWORD_PATH_PREFIX;
 			reset_link.searchParams.set("token", token);
 			try {
@@ -65,7 +65,7 @@ export const betterAuthOptions = {
 		sendOnSignUp: true,
 		sendVerificationEmail: async ({ user, token }) => {
 			const verification_url = new URL(
-				env.BASE_URL ?? env.BETTER_AUTH_URL ?? "http://localhost:3000"
+				env.BASE_URL ?? "http://localhost:3000"
 			);
 			verification_url.pathname = VERIFY_EMAIL_PATH_PREFIX;
 			verification_url.searchParams.set("token", token);
@@ -107,8 +107,8 @@ export const betterAuthOptions = {
 			mapProfileToUser: async (profile) => ({ image: profile.picture })
 		},
 		github: {
-			clientId: env.GITHUB_ID,
-			clientSecret: env.GITHUB_SECRET,
+			clientId: env.INTEGRATION_GITHUB_ID,
+			clientSecret: env.INTEGRATION_GITHUB_SECRET,
 			mapProfileToUser: async (profile) => ({ image: profile.avatar_url })
 		}
 	},
