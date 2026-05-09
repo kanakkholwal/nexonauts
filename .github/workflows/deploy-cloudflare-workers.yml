@@ -14,7 +14,6 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: Configure Cloudflare - Staging
 
     permissions:
       contents: read
