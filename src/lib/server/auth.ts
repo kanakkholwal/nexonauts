@@ -15,6 +15,7 @@ const RESET_PASSWORD_PATH_PREFIX = "/auth/reset-password";
 export const betterAuthOptions = {
 	appName: appConfig.name,
 	database: mongodbAdapter(db, { client }),
+	baseURL: env.BASE_URL ?? env.BETTER_AUTH_URL ?? "http://localhost:3000",
 	onAPIError: {
 		throw: true,
 		onError: (error, ctx) => {

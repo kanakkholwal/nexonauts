@@ -28,15 +28,40 @@ const seoRedirects: Handle = async ({ event, resolve }) => {
 	return resolve(event);
 };
 
+function coerceObjectIdLike(value: unknown): string | null {
+	if (value == null) return null;
+	if (typeof value === "string") return value || null;
+	if (typeof value !== "object") return null;
+
+	const buffer = (value as { buffer?: unknown }).buffer ?? value;
+	if (!buffer || typeof buffer !== "object") return null;
+
+	const bytes: number[] = [];
+	for (let i = 0; i < 12; i++) {
+		const byte = (buffer as Record<number, unknown>)[i];
+		if (typeof byte !== "number") return null;
+		bytes.push(byte);
+	}
+	return bytes.map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
 const sessionHook: Handle = async ({ event, resolve }) => {
 	const baseUrl = env.BASE_URL ?? event.url.origin;
 	event.locals.currentPath = baseUrl + event.url.pathname;
 
 	try {
 		const session = await auth.api.getSession({ headers: event.request.headers });
-		event.locals.session = session
-			? (JSON.parse(JSON.stringify(session)) as typeof session)
-			: null;
+		const cloned = session ? (JSON.parse(JSON.stringify(session)) as typeof session) : null;
+
+		if (cloned?.user) {
+			const user = cloned.user as Record<string, unknown>;
+			const profile = coerceObjectIdLike(user.profile);
+			user.profile = profile;
+			const id = coerceObjectIdLike(user.id) ?? user.id;
+			user.id = id;
+		}
+
+		event.locals.session = cloned;
 	} catch (err) {
 		console.error("hooks.server: getSession failed", err);
 		event.locals.session = null;
