@@ -10,7 +10,7 @@ const envSchema = z.object({
 	GOOGLE_SECRET: z.string(),
 	GUMROAD_APP_ID: z.string().optional(),
 	GUMROAD_APP_SECRET: z.string().optional(),
-	JWT_SECRET: z.string().min(8).optional(),
+	JWT_SECRET: z.string().optional(),
 	BETTER_AUTH_SECRET: z.string().optional(),
 	BASE_MAIL_SERVER_URL: z.url(),
 	SERVER_IDENTITY: z.string().optional(),
