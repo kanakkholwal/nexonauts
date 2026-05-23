@@ -143,9 +143,7 @@ export const betterAuthOptions = {
 			other_roles: { type: "string[]", required: false, input: false },
 			account_type: { type: "string", required: true, input: false, defaultValue: "free" },
 			gender: { type: "string", input: true, defaultValue: "not_specified" },
-			username: { type: "string", required: true, unique: true, input: true },
-			integrations: { type: "json", input: false, defaultValue: {} },
-			profile: { type: "string", input: false, defaultValue: null }
+			username: { type: "string", required: true, unique: true, input: true }
 		}
 	},
 	session: {

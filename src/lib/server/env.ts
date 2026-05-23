@@ -8,8 +8,6 @@ const envSchema = z.object({
 	INTEGRATION_GITHUB_SECRET: z.string(),
 	GOOGLE_ID: z.string(),
 	GOOGLE_SECRET: z.string(),
-	GUMROAD_APP_ID: z.string().optional(),
-	GUMROAD_APP_SECRET: z.string().optional(),
 	JWT_SECRET: z.string().optional(),
 	BETTER_AUTH_SECRET: z.string().optional(),
 	BASE_MAIL_SERVER_URL: z.url(),
@@ -28,8 +26,6 @@ const envRaw = {
 	INTEGRATION_GITHUB_SECRET: privateEnv.INTEGRATION_GITHUB_SECRET,
 	GOOGLE_ID: privateEnv.GOOGLE_ID,
 	GOOGLE_SECRET: privateEnv.GOOGLE_SECRET,
-	GUMROAD_APP_ID: privateEnv.GUMROAD_APP_ID,
-	GUMROAD_APP_SECRET: privateEnv.GUMROAD_APP_SECRET,
 	JWT_SECRET: privateEnv.JWT_SECRET,
 	BETTER_AUTH_SECRET: privateEnv.BETTER_AUTH_SECRET,
 

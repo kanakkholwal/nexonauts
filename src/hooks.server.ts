@@ -4,29 +4,7 @@ import { svelteKitHandler } from "better-auth/svelte-kit";
 import { auth } from "$lib/server/auth";
 import { env } from "$lib/server/env";
 
-const PROTECTED_ROUTES = ["/dashboard", "/admin"];
-
-const SEO_REDIRECTS: Array<[string, string]> = [
-	["/tool-scout/tools/", "/scout/tools/"],
-	["/toolzen/tools/", "/scout/tools/"],
-	["/toolbox/", "/scout/"]
-];
-
-const seoRedirects: Handle = async ({ event, resolve }) => {
-	const { pathname, search } = event.url;
-
-	for (const [from, to] of SEO_REDIRECTS) {
-		if (pathname.startsWith(from)) {
-			redirect(308, pathname.replace(from, to) + search);
-		}
-	}
-
-	if (pathname === "/toolbox" && search.startsWith("?query")) {
-		redirect(308, "/scout/browse" + search);
-	}
-
-	return resolve(event);
-};
+const PROTECTED_ROUTES = ["/admin"];
 
 function coerceObjectIdLike(value: unknown): string | null {
 	if (value == null) return null;
@@ -55,8 +33,6 @@ const sessionHook: Handle = async ({ event, resolve }) => {
 
 		if (cloned?.user) {
 			const user = cloned.user as Record<string, unknown>;
-			const profile = coerceObjectIdLike(user.profile);
-			user.profile = profile;
 			const id = coerceObjectIdLike(user.id) ?? user.id;
 			user.id = id;
 		}
@@ -82,9 +58,4 @@ const protectedRouteGuard: Handle = async ({ event, resolve }) => {
 const betterAuthHandler: Handle = async ({ event, resolve }) =>
 	svelteKitHandler({ auth, event, resolve, building: false });
 
-export const handle = sequence(
-	betterAuthHandler,
-	seoRedirects,
-	sessionHook,
-	protectedRouteGuard
-);
+export const handle = sequence(betterAuthHandler, sessionHook, protectedRouteGuard);

@@ -94,7 +94,7 @@
 			<Sidebar.MenuItem>
 				<Sidebar.MenuButton size="lg">
 					{#snippet child({ props })}
-						<a href="/dashboard/settings/profile" {...props}>
+						<a href="/admin" {...props}>
 							{#if user.image}
 								<img
 									src={user.image}

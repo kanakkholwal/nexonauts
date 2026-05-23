@@ -123,7 +123,7 @@
 
 			<div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
 				<a
-					href="/auth/signup"
+					href="/auth/sign-in"
 					class={cn(buttonVariants({ size: "lg" }), "h-11 rounded-full px-8 text-sm font-medium")}
 				>
 					Get Started
@@ -294,7 +294,7 @@
 					</p>
 					<div class="flex flex-col justify-center gap-4 pt-4 sm:flex-row">
 						<a
-							href="/signup"
+							href="/auth/sign-in"
 							class={cn(
 								buttonVariants({ size: "lg" }),
 								"h-12 rounded-full bg-white px-8 text-base font-semibold text-black transition-all hover:bg-zinc-200"

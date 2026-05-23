@@ -15,6 +15,7 @@ test.js
 data.json
 .claude
 
+memory
 /.env
 .env
 .env.local
