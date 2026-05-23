@@ -45,6 +45,7 @@
     "marked": "^14.1.4",
     "mode-watcher": "^1.1.0",
     "mongoose": "^8.23.1",
+    "motion": "^12.40.0",
     "nanoid": "^5.1.11",
     "node-html-parser": "^7.1.0",
     "nprogress": "^0.2.0",

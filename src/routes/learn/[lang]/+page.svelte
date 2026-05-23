@@ -21,7 +21,7 @@
 	<Navbar />
 </header>
 
-<main class="mx-auto min-h-screen max-w-3xl px-6 pt-24 pb-20">
+<main class="mx-auto min-h-screen max-w-4xl px-6 pt-24 pb-20">
 	<a
 		href="/learn"
 		class={cn(

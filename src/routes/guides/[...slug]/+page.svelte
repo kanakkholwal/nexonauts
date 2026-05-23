@@ -29,7 +29,7 @@
 	<Navbar />
 </header>
 
-<main class="mx-auto min-h-screen max-w-3xl px-6 pt-24 pb-20">
+<main class="mx-auto min-h-screen max-w-6xl px-6 pt-24 pb-20">
 	<a
 		href="/guides"
 		class={cn(

@@ -19,10 +19,14 @@
     --card-foreground: hsl(0deg 0% 9.8%);
     --popover: hsl(0 0% 100%);
     --popover-foreground: hsl(0deg 0% 9.8%);
-    --primary: hsl(161, 94%, 30%);
-    --primary-foreground: hsl(0deg 0% 92.16%);
-    --secondary: hsl(200, 98%, 39%);
-    --secondary-foreground: hsl(0deg 0% 92.16%);
+    /* Primary: sophisticated near-black with a faint cool undertone.
+     * Emerald belongs to Recast; Nexonauts is monochromatic. */
+    --primary: oklch(0.18 0.012 270);
+    --primary-foreground: oklch(0.98 0 0);
+    /* Secondary is no longer a chromatic accent — it's an alias of muted
+     * so existing `variant="secondary"` usages render as subtle neutrals. */
+    --secondary: hsl(210deg 40% 96%);
+    --secondary-foreground: hsl(0deg 0% 9.8%);
     --tertiary: #475569;
     --tertiary-foreground: hsl(0deg 0% 92.16%);
 
@@ -113,8 +117,11 @@
     --popover: hsl(0deg 0% 9.8%);
     --popover-foreground: hsl(0deg 0% 92.16%);
 
-    --primary: hsl(161, 94%, 30%);
-    --primary-foreground: hsl(0deg 0% 92.16%);
+    /* Dark-mode primary inverts to a near-white so CTAs read as light-on-dark. */
+    --primary: oklch(0.96 0.003 270);
+    --primary-foreground: oklch(0.18 0.012 270);
+    --secondary: hsl(0deg 0% 14%);
+    --secondary-foreground: hsl(0deg 0% 92.16%);
 
     --warning: hsl(37deg, 87%, 41%);
     --muted: hsl(0deg 0.01% 12.16%);
@@ -232,6 +239,11 @@
     --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 
     --shadow-button: 0px -1px 0px 0px hsla(0, 0%, 100%, 0.04), 0px 0px 0px 1px hsla(0, 0%, 100%, 0.12), 0px 0px 1px 0px rgba(0, 0, 0, 0.04), 0px 2px 2px 0px rgba(0, 0, 0, 0.04), 0px 4px 2px 0px rgba(0, 0, 0, 0.04), 0px 6px 3px 0px rgba(0, 0, 0, 0.04);
+
+    /* Elevation scale (see DESIGN.md §9) */
+    --shadow-elevation-1: 0 1px 2px rgb(0 0 0 / 0.06);
+    --shadow-elevation-2: 0 4px 16px rgb(0 0 0 / 0.08);
+    --shadow-elevation-3: 0 12px 40px rgb(0 0 0 / 0.10);
 
     --animate-accordion-down: accordion-down 0.2s ease-out;
     --animate-accordion-up: accordion-up 0.2s ease-out;

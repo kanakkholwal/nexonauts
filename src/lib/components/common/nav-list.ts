@@ -16,8 +16,9 @@ export const NAV_GROUPS: NavGroup[] = [
 		items: [
 			{
 				title: "Recast",
-				href: "/recast",
-				description: "Fast, local-first screen and webcam recorder. Windows desktop."
+				href: "https://recast.nexonauts.com",
+				description: "Fast, local-first screen and webcam recorder. Windows desktop.",
+				external: true
 			},
 			{
 				title: "Docvia",

@@ -39,9 +39,10 @@ export const FOOTER_LINKS = [
   {
     title: "Products",
     links: [
-      { title: "Recast", href: "/recast" },
+      { title: "Recast", href: "https://recast.nexonauts.com" },
       { title: "Docvia", href: "https://docvia.dev" },
       { title: "Dev Tools", href: "/dev-tools" },
+      { title: "Learn", href: "/learn" },
     ],
   },
   {

@@ -84,15 +84,17 @@ All tokens live as CSS variables on `:root` and `[data-theme="dark"]` in `src/ap
 | `--muted` | `hsl(210 40% 98%)` | `hsl(0 0% 12%)` | Subtle backgrounds (eyebrows, badges) |
 | `--muted-foreground` | `hsl(220 9% 46%)` | `hsl(218 11% 65%)` | Secondary text |
 | `--border` | `hsl(220 13% 91%)` | `hsl(0 0% 14%)` | Hairlines |
-| `--primary` | `hsl(161 94% 30%)` | same | Primary CTA, accent text |
+| `--primary` | `oklch(0.18 0.012 270)` (near-black) | `oklch(0.96 0.003 270)` (near-white) | Primary CTA, focus ring, accent text |
+| `--primary-foreground` | white | near-black | Text/icons on `bg-primary` |
 | `--destructive` | `hsl(0 84% 60%)` | `hsl(0 63% 31%)` | Destructive actions only |
 
 The full set is in `src/app.css` (sidebar, ring, popover, chart series, etc.). When in doubt, prefer `foreground` / `muted-foreground` / `border` over inventing greys.
 
-### 4.2. Open questions on color
+### 4.2. Resolved color decisions
 
-1. **Primary green or something else?** The current primary (`hsl(161 94% 30%)` — emerald) is from the old "developer ecosystem" branding. Does it survive into the new direction, or does Nexonauts want a different anchor (a slate, a deeper teal, a flat off-black)? `[open]`
-2. **Secondary** (`hsl(200 98% 39%)` — bright cyan) is currently in app.css but rarely used. Drop it, or assign it a purpose? `[open]`
+- Emerald (`hsl(161 94% 30%)`) is **Recast's brand color**, not Nexonauts'. Nexonauts adopts a sophisticated near-black primary that lets typography and spacing do the talking.
+- Secondary cyan (`hsl(200 98% 39%)`) is **removed completely** — it had no defined role and sat too close to other accents.
+- The `--shadow-button` multi-layer treatment is what makes the primary CTA feel "premium / shiny" without needing a chromatic accent. Keep it.
 
 ---
 
@@ -325,15 +327,16 @@ The redesign pass becomes:
 
 ## 16. Open questions (resolve before the redesign starts)
 
-1. **Brand palette** — keep `--primary: hsl(161 94% 30%)` (emerald) or change to something else? (§4.2)
-2. **Drop the warm-sand homepage palette** — confirmed? (§2.2)
-3. **Default theme** — light, dark, or system? Today it's system (via mode-watcher). Keep?
-4. **Motion library** — Motion One for Svelte confirmed, or do you have a preference? (§10.1)
-5. **`/recast` page** — delete the route entirely, or keep as a stub that 301s to `recast.nexonauts.com`? The former is cleaner; the latter is SEO-safer if the page already has external links.
-6. **`HeroGradient` intensity** — single style, or multiple variants (soft/strong, hero/CTA)? (§5)
-7. **`ContentShell` component** — useful abstraction, or YAGNI? Could live as a layout file instead. (§11.2)
-8. **`/about`, `/pricing`, `/contact`, `/tos`, `/privacy`** static pages — these still use Tailwind/UI but haven't been audited. Include them in the redesign pass or defer? (§7.2)
-9. **DESIGN.md custodianship** — keep this file as the human-readable source of truth, update on every PR that touches design tokens? Or move to Storybook / a docs site later?
+1. **Brand palette** — ~~keep `--primary: hsl(161 94% 30%)` (emerald) or change to something else?~~ **Resolved (2026-05-23): emerald is reserved for Recast.** Nexonauts adopts a sophisticated near-black primary: `--primary: oklch(0.18 0.012 270)` (≈ `#1a1c25`) in light mode, inverted to `oklch(0.96 0.003 270)` in dark mode. The "shiny" quality comes from the existing `--shadow-button` multi-layer treatment, not from the base hue. Monochromatic discipline — contrast comes from typography and spacing, color is restraint. [resolved]
+2. **Drop the warm-sand homepage palette** — ~~confirmed?~~ **Resolved: yes, drop completely.** The inline `<style>` block in `src/routes/+page.svelte` goes away. [resolved]
+3. **Drop secondary cyan** — ~~assign it a purpose or remove?~~ **Resolved: remove completely.** It sits too close to other accents and has no defined role. [resolved]
+4. **Motion library** — ~~Motion One for Svelte confirmed?~~ **Resolved: `motion` v12 (npm).** Note that this package has framework-agnostic primitives (`animate`, `inView`, `scroll`) but no Svelte-specific exports — we wrap them in a small Svelte action helper (`use:enterOnView`). [resolved]
+5. **`/recast` page** — ~~delete or 301?~~ **Resolved: delete the page, add a server-side 308 permanent redirect to `https://recast.nexonauts.com`.** Same effect as keeping a stub but cleaner. [resolved]
+6. **Default theme** — light, dark, or system? Today it's system (via mode-watcher). Keep system as default? [open]
+7. **`HeroGradient` intensity** — single style, or multiple variants? Going with one variant + a `padded` prop for now; can split later if a second use case demands different intensity. [proposed]
+8. **`ContentShell` component** — useful abstraction, or YAGNI? Skip for v1 — page-level layouts express widths directly. Revisit if a third route family appears with the same shell pattern. [proposed]
+9. **`/about`, `/pricing`, `/contact`, `/tos`, `/privacy`** static pages — defer to a follow-up pass. The redesign focuses on landing + content + auth + admin shell. [proposed]
+10. **DESIGN.md custodianship** — keep this file as the human-readable source of truth, update on every PR that touches design tokens. Revisit Storybook only when the component count justifies it. [proposed]
 
 ---
 

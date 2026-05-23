@@ -1,4 +1,5 @@
 import { env } from "$env/dynamic/private";
+import { docs } from "docvia/source";
 import { devTools } from "../dev-tools/tools";
 import type { RequestHandler } from "./$types";
 
@@ -52,10 +53,22 @@ export const GET: RequestHandler = async () => {
 		{ path: "/tos", date: now },
 		{ path: "/auth/sign-in", date: now },
 		{ path: "/dev-tools", date: now },
+		{ path: "/guides", date: now },
+		{ path: "/learn", date: now },
+		{ path: "/learn/go", date: now },
 		...devTools.map((t) => ({ path: `/dev-tools/${t.slug}`, date: now }))
 	];
 
-	const sitemap = generateSiteMap(manualRoutes);
+	// Pull every Docvia-served page (guides + by-example topics) into the sitemap.
+	const docviaPages = docs.getPages().map((p) => {
+		const slugPath = p.slugs.join("/");
+		if (!slugPath) return null;
+		const path =
+			p.slugs[0] === "learn" ? `/learn/${p.slugs.slice(1).join("/")}` : `/guides/${slugPath}`;
+		return { path, date: now };
+	}).filter((p): p is { path: string; date: string } => p !== null);
+
+	const sitemap = generateSiteMap([...manualRoutes, ...docviaPages]);
 
 	return new Response(sitemap, {
 		status: 200,

@@ -18,7 +18,7 @@
 	<Navbar />
 </header>
 
-<main class="mx-auto min-h-screen max-w-3xl px-6 pt-24 pb-20">
+<main class="mx-auto min-h-screen max-w-4xl px-6 pt-24 pb-20">
 	<div class="mb-12">
 		<h1 class="text-foreground text-4xl font-bold tracking-tight sm:text-5xl">Learn by example</h1>
 		<p class="text-muted-foreground mt-3 max-w-xl text-base">

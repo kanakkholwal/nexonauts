@@ -6,6 +6,20 @@ import { env } from "$lib/server/env";
 
 const PROTECTED_ROUTES = ["/admin"];
 
+const RECAST_EXTERNAL = "https://recast.nexonauts.com";
+
+/**
+ * /recast lives at its own subdomain. Any internal hit is 308'd out.
+ * Keeps SEO history and any external links working.
+ */
+const recastRedirect: Handle = async ({ event, resolve }) => {
+	if (event.url.pathname === "/recast" || event.url.pathname.startsWith("/recast/")) {
+		const tail = event.url.pathname.replace(/^\/recast/, "");
+		redirect(308, RECAST_EXTERNAL + tail + event.url.search);
+	}
+	return resolve(event);
+};
+
 function coerceObjectIdLike(value: unknown): string | null {
 	if (value == null) return null;
 	if (typeof value === "string") return value || null;
@@ -58,4 +72,4 @@ const protectedRouteGuard: Handle = async ({ event, resolve }) => {
 const betterAuthHandler: Handle = async ({ event, resolve }) =>
 	svelteKitHandler({ auth, event, resolve, building: false });
 
-export const handle = sequence(betterAuthHandler, sessionHook, protectedRouteGuard);
+export const handle = sequence(betterAuthHandler, recastRedirect, sessionHook, protectedRouteGuard);
