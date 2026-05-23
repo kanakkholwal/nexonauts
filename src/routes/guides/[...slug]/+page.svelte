@@ -2,6 +2,7 @@
 	import Navbar from "$lib/components/common/navbar.svelte";
 	import Footer from "$lib/components/common/footer.svelte";
 	import { Renderer } from "@docvia/renderer-svelte";
+	import { guideRegistry } from "$lib/guides/registry";
 	import { buttonVariants } from "$lib/components/ui/button";
 	import { cn } from "$lib/utils";
 	import ArrowLeft from "@lucide/svelte/icons/arrow-left";
@@ -48,7 +49,7 @@
 			{/if}
 		</header>
 
-		<Renderer nodes={data.content} />
+		<Renderer nodes={data.content} registry={guideRegistry} />
 	</article>
 
 	<footer class="border-border mt-16 border-t pt-8">

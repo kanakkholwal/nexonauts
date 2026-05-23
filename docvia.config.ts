@@ -6,10 +6,12 @@ export default defineConfig({
   sourceDir: "docs",
   outDir: ".docvia",
 
-  // Optional: register components referenced by ::: directives
-  // components: {
-  //   counter: { path: "./src/lib/components/Counter.svelte", hydrate: true },
-  // },
+  // Custom directives:
+  //   :::step                — gobyexample-style side-by-side: prose flows left,
+  //                             fenced code blocks float to the right column.
+  components: {
+    step: { path: "./src/lib/components/guides/step.svelte", hydrate: false }
+  },
 
   renderer: createSvelteRenderer(),
 
@@ -18,7 +20,18 @@ export default defineConfig({
   plugins: [
     shiki({
       theme: "github-dark",
-      langs: ["javascript", "typescript", "svelte", "html", "css", "bash", "json"],
-    }),
-  ],
+      langs: [
+        "javascript",
+        "typescript",
+        "svelte",
+        "html",
+        "css",
+        "bash",
+        "json",
+        "go",
+        "rust",
+        "python"
+      ]
+    })
+  ]
 });

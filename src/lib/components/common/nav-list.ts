@@ -28,10 +28,15 @@ export const NAV_GROUPS: NavGroup[] = [
 		]
 	},
 	{
-		title: "Guides",
+		title: "Learn",
 		items: [
 			{
-				title: "All guides",
+				title: "By example",
+				href: "/learn",
+				description: "Short, self-contained programs that show one idea at a time."
+			},
+			{
+				title: "Guides",
 				href: "/guides",
 				description: "Topic-by-topic walkthroughs. Code on one side, why-it-works on the other."
 			}

@@ -10,7 +10,7 @@ type GuideFrontmatter = {
 };
 
 export const load: PageServerLoad = async () => {
-	const entries = docs.getPages();
+	const entries = docs.getPages().filter((p) => p.slugs[0] !== "learn");
 
 	const pages = (
 		await Promise.all(
