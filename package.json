@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@better-fetch/fetch": "^1.1.21",
+    "@docvia/renderer-svelte": "^0.2.1",
     "@fontsource-variable/geist": "^5.2.8",
     "@fontsource-variable/geist-mono": "^5.2.7",
     "@google/generative-ai": "^0.24.1",
@@ -67,6 +68,9 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@docvia/cli": "^0.2.2",
+    "@docvia/plugin-shiki": "^0.2.0",
+    "@docvia/plugin-vite": "^0.2.1",
     "@internationalized/date": "^3.12.1",
     "@lucide/svelte": "^1.14.0",
     "@sveltejs/adapter-auto": "^7.0.1",

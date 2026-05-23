@@ -2,6 +2,7 @@ export type NavItem = {
 	title: string;
 	href: string;
 	description?: string;
+	external?: boolean;
 };
 
 export type NavGroup = {
@@ -10,6 +11,32 @@ export type NavGroup = {
 };
 
 export const NAV_GROUPS: NavGroup[] = [
+	{
+		title: "Products",
+		items: [
+			{
+				title: "Recast",
+				href: "/recast",
+				description: "Fast, local-first screen and webcam recorder. Windows desktop."
+			},
+			{
+				title: "Docvia",
+				href: "https://docvia.dev",
+				description: "Markdown documentation compiler. Same docs, any framework.",
+				external: true
+			}
+		]
+	},
+	{
+		title: "Guides",
+		items: [
+			{
+				title: "All guides",
+				href: "/guides",
+				description: "Topic-by-topic walkthroughs. Code on one side, why-it-works on the other."
+			}
+		]
+	},
 	{
 		title: "Dev Tools",
 		items: [

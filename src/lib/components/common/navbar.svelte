@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { appConfig } from "@root/project.config";
-	import { Button, buttonVariants } from "$lib/components/ui/button";
+	import { buttonVariants } from "$lib/components/ui/button";
 	import * as NavigationMenu from "$lib/components/ui/navigation-menu";
 	import * as Sheet from "$lib/components/ui/sheet";
 	import MenuIcon from "@lucide/svelte/icons/menu";
@@ -49,12 +49,9 @@
 		</NavigationMenu.Root>
 
 		<div class="flex items-center gap-2">
-			<a href="/auth/signup" class={cn(buttonVariants({ variant: "default" }), "rounded-full")}>
-				Register
-			</a>
-
 			<Sheet.Root bind:open={mobileOpen}>
-				<Sheet.Trigger class={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "md:hidden")}
+				<Sheet.Trigger
+					class={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "md:hidden")}
 					><MenuIcon class="size-4" /></Sheet.Trigger
 				>
 				<Sheet.Content side="right" class="w-72 p-6">
@@ -65,7 +62,9 @@
 					<nav class="mt-6 flex flex-col gap-6">
 						{#each NAV_GROUPS as group (group.title)}
 							<div>
-								<div class="text-muted-foreground mb-2 text-xs font-semibold tracking-wide uppercase">
+								<div
+									class="text-muted-foreground mb-2 text-xs font-semibold tracking-wide uppercase"
+								>
 									{group.title}
 								</div>
 								<ul class="space-y-1">
@@ -84,14 +83,6 @@
 							</div>
 						{/each}
 					</nav>
-
-					<a
-						href="/auth/signup"
-						onclick={() => (mobileOpen = false)}
-						class={cn(buttonVariants({ variant: "default" }), "mt-8 w-full rounded-full")}
-					>
-						Register
-					</a>
 				</Sheet.Content>
 			</Sheet.Root>
 		</div>

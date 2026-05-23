@@ -1,3 +1,4 @@
+/// <reference path="../docvia-env.d.ts" />
 import type { Session } from '$lib/server/auth';
 
 declare global {
