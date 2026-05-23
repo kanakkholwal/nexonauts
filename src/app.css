@@ -625,3 +625,102 @@ body {
     -webkit-mask-image: linear-gradient(to top, transparent, white);
     mask-image: linear-gradient(to top, transparent, white);
 }
+
+/* ---------------------------------------------------------------------------
+ * Guide-step (gobyexample-style side-by-side layout)
+ *
+ * Lives in the global stylesheet because the target elements (.docvia-code-block)
+ * are injected by Docvia's renderer outside the Step component's template — so
+ * Svelte's scoped styles + display:contents combo doesn't reliably hit them.
+ * Selectors here use unique BEM class names that won't clash with anything else.
+ * ------------------------------------------------------------------------- */
+
+.guide-step {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 2rem;
+    row-gap: 1rem;
+    margin: 2.5rem 0;
+    align-items: start;
+}
+
+@media (min-width: 768px) {
+    .guide-step {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    }
+}
+
+/* The inner wrapper disappears in layout; its children become grid items of .guide-step. */
+.guide-step__text {
+    display: contents;
+}
+
+.guide-step__title {
+    grid-column: 1;
+    color: var(--color-foreground, currentColor);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.25rem 0;
+}
+
+/* Catch-all: text-side children land in column 1. */
+.guide-step > .guide-step__text > * {
+    grid-column: 1;
+    min-width: 0;
+}
+
+/* Code blocks (Docvia wraps shiki output in this div) jump to column 2 on tablet+. */
+@media (min-width: 768px) {
+    .guide-step > .guide-step__text > .docvia-code-block {
+        grid-column: 2;
+        grid-row: span var(--guide-step-code-span, 4);
+        align-self: start;
+        margin: 0;
+    }
+}
+
+.guide-step > .guide-step__text > .docvia-code-block {
+    margin: 0.5rem 0 0 0;
+    min-width: 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.guide-step > .guide-step__text > .docvia-code-block > pre {
+    margin: 0;
+    overflow-x: auto;
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+/* Output variant: same grid, but the code-block panel reads as a terminal session. */
+.guide-step--output > .guide-step__text > .docvia-code-block {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.guide-step--output > .guide-step__text > .docvia-code-block::before {
+    content: "terminal";
+    display: block;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(212, 212, 212, 0.55);
+    background: #0a0a0a;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.guide-step--output > .guide-step__text > .docvia-code-block > pre {
+    background: #0a0a0a !important;
+    color: #d4d4d4 !important;
+    font-family: var(--font-mono);
+}
+
+.guide-step--output > .guide-step__text > .docvia-code-block > pre code {
+    background: transparent !important;
+    color: inherit !important;
+}
