@@ -22,8 +22,6 @@
 </svelte:head>
 
 <section class="relative isolate mx-auto max-w-4xl overflow-hidden">
-	<GradientOrb hue="sky" size="lg" opacity={0.28} class="-left-32 -top-16" />
-	<GradientOrb hue="mint" size="md" opacity={0.25} class="-right-24 top-40" />
 
 	<!-- Header -->
 	<div class="relative z-10 mb-12 space-y-5 pt-20 text-center sm:pt-24">

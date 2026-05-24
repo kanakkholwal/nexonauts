@@ -42,13 +42,13 @@ export const FOOTER_LINKS = [
       { title: "Recast", href: "https://recast.nexonauts.com" },
       { title: "Docvia", href: "https://docvia.dev" },
       { title: "Dev Tools", href: "/dev-tools" },
-      { title: "Learn", href: "/learn" },
     ],
   },
   {
     title: "Read",
     links: [
       { title: "Guides", href: "/guides" },
+      { title: "Learn", href: "/learn" },
     ],
   },
   {

@@ -9,6 +9,7 @@
 	import Download from "@lucide/svelte/icons/download";
 	import FileText from "@lucide/svelte/icons/file-text";
 	import Loader2 from "@lucide/svelte/icons/loader-2";
+	import Scissors from "@lucide/svelte/icons/scissors";
 	import Package from "@lucide/svelte/icons/package";
 	import RefreshCw from "@lucide/svelte/icons/refresh-cw";
 	import Upload from "@lucide/svelte/icons/upload";
@@ -147,7 +148,9 @@
 <ToolShell
 	title="PDF Page Stripper"
 	description="Strip labeled pages from PDFs entirely in the browser using pdf-lib, then download the results individually or as a ZIP."
-	icon="📄"
+	icon={Scissors}
+	category="Document Tools"
+	tags={["pdf", "privacy", "client-side"]}
 	clearLabel="Reset"
 	canClear={processDone > 0 || pdfFiles.length > 0}
 	onClear={resetProcess}

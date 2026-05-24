@@ -8,6 +8,7 @@
 	import Copy from "@lucide/svelte/icons/copy";
 	import ImageIcon from "@lucide/svelte/icons/image";
 	import LayoutTemplate from "@lucide/svelte/icons/layout-template";
+	import Tags from "@lucide/svelte/icons/tags";
 	import Search from "@lucide/svelte/icons/search";
 	import Share2 from "@lucide/svelte/icons/share-2";
 	import MessageCircle from "@lucide/svelte/icons/message-circle";
@@ -83,7 +84,9 @@
 <ToolShell
 	title="Meta Tag Generator"
 	description="Generate Google, Open Graph, and Twitter metadata from a single browser-side form."
-	icon="#"
+	icon={Tags}
+	category="SEO"
+	tags={["seo", "meta", "open-graph", "twitter-card"]}
 	clearLabel="Reset defaults"
 	canClear={true}
 	onClear={resetAll}

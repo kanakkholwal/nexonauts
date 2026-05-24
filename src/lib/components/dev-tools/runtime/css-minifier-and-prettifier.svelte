@@ -67,6 +67,9 @@
 <ToolShell
 	title="CSS Minifier & Beautifier"
 	description="Shrink stylesheets for production or expand them back into readable source."
+	icon={Palette}
+	category="Web Tools"
+	tags={["css", "format", "minify", "beautify"]}
 	clearLabel="Clear workspace"
 	canClear={Boolean(input)}
 	onClear={handleClear}

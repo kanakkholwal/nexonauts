@@ -80,6 +80,9 @@
 <ToolShell
 	title="JSON Minifier & Beautifier"
 	description="Validate, compact, and format JSON payloads without leaving the browser."
+	icon={Braces}
+	category="Web Tools"
+	tags={["json", "format", "minify", "validate"]}
 	clearLabel="Clear workspace"
 	canClear={Boolean(input)}
 	onClear={handleClear}

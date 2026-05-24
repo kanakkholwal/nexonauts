@@ -1,9 +1,9 @@
 <script lang="ts">
+	import Logo from "$lib/components/logo.svelte";
+	import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
 	import { appConfig } from "@root/project.config";
 	import { FOOTER_LINKS } from "data/root";
 	import ThemeSwitcher from "./theme-switcher.svelte";
-	import Logo from "$lib/components/logo.svelte";
-	import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
 
 	const year = new Date().getFullYear();
 
@@ -23,7 +23,7 @@
 			<div class="max-w-md">
 				<a href="/" class="inline-flex items-center gap-2.5 text-ink">
 					<Logo class="size-7" />
-					<span class="font-display text-lg font-light tracking-tight">{appConfig.name}</span>
+					<span class="font-sans text-lg font-medium tracking-wide">{appConfig.name}</span>
 				</a>
 				<p class="mt-5 text-sm leading-relaxed text-body">
 					A small studio of developer tools and technical writing. Home of Recast and Docvia.

@@ -7,6 +7,7 @@
 	import Copy from "@lucide/svelte/icons/copy";
 	import FileCode from "@lucide/svelte/icons/file-code";
 	import RefreshCcw from "@lucide/svelte/icons/refresh-ccw";
+	import CodeXml from "@lucide/svelte/icons/code-xml";
 	import { toast } from "svelte-sonner";
 	import ToolShell from "./tool-shell.svelte";
 
@@ -54,7 +55,9 @@
 <ToolShell
 	title="HTML Entity Encoder"
 	description="Escape raw markup for safe display, or decode HTML entities back into source."
-	icon="&lt;/&gt;"
+	icon={CodeXml}
+	category="Web Tools"
+	tags={["html", "entities", "escape", "decode"]}
 	clearLabel="Clear"
 	canClear={Boolean(input)}
 	onClear={handleClear}

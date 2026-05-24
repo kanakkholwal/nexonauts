@@ -7,6 +7,7 @@
 	import Copy from "@lucide/svelte/icons/copy";
 	import Flame from "@lucide/svelte/icons/flame";
 	import Trash2 from "@lucide/svelte/icons/trash-2";
+	import Atom from "@lucide/svelte/icons/atom";
 	import Wand2 from "@lucide/svelte/icons/wand-2";
 	import { toast } from "svelte-sonner";
 	import ToolShell from "./tool-shell.svelte";
@@ -80,7 +81,9 @@
 <ToolShell
 	title="HTML to JSX Converter"
 	description="Convert raw HTML into React-friendly JSX with browser-only transforms."
-	icon="⚛"
+	icon={Atom}
+	category="Web Tools"
+	tags={["html", "jsx", "react", "converter"]}
 	clearLabel="Clear"
 	canClear={Boolean(input)}
 	onClear={handleClear}

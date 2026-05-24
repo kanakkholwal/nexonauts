@@ -1,9 +1,9 @@
 <script lang="ts">
+	import Logo from "$lib/components/logo.svelte";
+	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
 	import { buttonVariants } from "$lib/components/ui/button";
 	import { cn } from "$lib/utils";
 	import ArrowLeft from "@lucide/svelte/icons/arrow-left";
-	import Logo from "$lib/components/logo.svelte";
-	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
 	import { appConfig } from "@root/project.config";
 
 	let { children } = $props();
@@ -20,7 +20,7 @@
 
 		<div class="relative z-10 inline-flex items-center gap-2.5 text-ink">
 			<Logo class="size-8" />
-			<span class="font-display text-xl font-light tracking-tight">{appConfig.name}</span>
+			<span class="font-sans text-xl font-light tracking-wide">{appConfig.name}</span>
 		</div>
 
 		<div class="relative z-10 max-w-md">
@@ -49,7 +49,7 @@
 		<!-- Mobile-only brand row -->
 		<div class="mb-10 inline-flex items-center gap-2 text-ink lg:hidden">
 			<Logo class="size-7" />
-			<span class="font-display text-lg font-light tracking-tight">{appConfig.name}</span>
+			<span class="font-sans text-lg font-medium tracking-wide">{appConfig.name}</span>
 		</div>
 
 		<div class="mx-auto w-full max-w-[400px]">

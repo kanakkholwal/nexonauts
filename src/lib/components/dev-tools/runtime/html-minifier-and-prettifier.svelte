@@ -8,6 +8,7 @@
 	import Maximize2 from "@lucide/svelte/icons/maximize-2";
 	import Minimize2 from "@lucide/svelte/icons/minimize-2";
 	import Wand2 from "@lucide/svelte/icons/wand-2";
+	import FileCode from "@lucide/svelte/icons/file-code";
 	import pretty from "pretty";
 	import { toast } from "svelte-sonner";
 	import ToolShell from "./tool-shell.svelte";
@@ -54,7 +55,9 @@
 <ToolShell
 	title="HTML Minifier & Beautifier"
 	description="Collapse markup for shipment or prettify it for edits and reviews."
-	icon="<>"
+	icon={FileCode}
+	category="Web Tools"
+	tags={["html", "format", "minify", "beautify"]}
 	clearLabel="Clear workspace"
 	canClear={Boolean(input)}
 	onClear={handleClear}

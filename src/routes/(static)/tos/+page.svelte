@@ -1,14 +1,13 @@
 <script lang="ts">
-	import { appConfig } from "@root/project.config";
+	import { Alert } from "$lib/components/ui/alert";
 	import { Badge } from "$lib/components/ui/badge";
 	import { Button } from "$lib/components/ui/button";
-	import { Alert } from "$lib/components/ui/alert";
-	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
 	import AlertTriangle from "@lucide/svelte/icons/alert-triangle";
 	import ArrowRight from "@lucide/svelte/icons/arrow-right";
 	import Ban from "@lucide/svelte/icons/ban";
 	import ScrollText from "@lucide/svelte/icons/scroll-text";
 	import Shield from "@lucide/svelte/icons/shield";
+	import { appConfig } from "@root/project.config";
 
 	const SITE = appConfig.name;
 
@@ -53,9 +52,6 @@
 </svelte:head>
 
 <section class="relative isolate overflow-hidden">
-	<GradientOrb hue="lavender" size="lg" opacity={0.3} class="-left-32 -top-16" />
-	<GradientOrb hue="rose" size="md" opacity={0.25} class="-right-24 top-40" />
-
 	<div class="relative z-10 mb-12 max-w-3xl pt-20 sm:pt-24">
 		<Badge variant="default" size="md" class="mb-5">Legal agreement</Badge>
 		<h1 class="display-xl text-ink">Terms of Service</h1>

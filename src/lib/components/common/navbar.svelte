@@ -1,13 +1,13 @@
 <script lang="ts">
-	import { appConfig } from "@root/project.config";
+	import Logo from "$lib/components/logo.svelte";
 	import { Button, buttonVariants } from "$lib/components/ui/button";
 	import * as NavigationMenu from "$lib/components/ui/navigation-menu";
 	import * as Sheet from "$lib/components/ui/sheet";
-	import MenuIcon from "@lucide/svelte/icons/menu";
-	import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
-	import { NAV_GROUPS } from "./nav-list";
 	import { cn } from "$lib/utils";
-	import Logo from "$lib/components/logo.svelte";
+	import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
+	import MenuIcon from "@lucide/svelte/icons/menu";
+	import { appConfig } from "@root/project.config";
+	import { NAV_GROUPS } from "./nav-list";
 
 	let mobileOpen = $state(false);
 
@@ -34,7 +34,7 @@
 			class="group/brand flex items-center gap-2.5 text-ink transition-opacity hover:opacity-85"
 		>
 			<Logo class="size-7" />
-			<span class="font-sans text-base font-bold tracking-tight">{appConfig.name}</span>
+			<span class="font-sans text-base font-medium tracking-wide">{appConfig.name}</span>
 		</a>
 
 		<NavigationMenu.Root class="hidden md:flex">

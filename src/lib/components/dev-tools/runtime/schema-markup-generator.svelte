@@ -17,6 +17,7 @@ https://svelte.dev/e/bind_invalid_expression -->
 	import Search from "@lucide/svelte/icons/search";
 	import Settings2 from "@lucide/svelte/icons/settings-2";
 	import ShoppingBag from "@lucide/svelte/icons/shopping-bag";
+	import Braces from "@lucide/svelte/icons/braces";
 	import Trash2 from "@lucide/svelte/icons/trash-2";
 	import User from "@lucide/svelte/icons/user";
 	import { toast } from "svelte-sonner";
@@ -402,7 +403,9 @@ https://svelte.dev/e/bind_invalid_expression -->
 <ToolShell
 	title="Schema Markup Generator"
 	description="Generate valid JSON-LD structured data for websites, breadcrumbs, people, articles, and products — all in your browser."
-	icon="🧬"
+	icon={Braces}
+	category="SEO"
+	tags={["seo", "schema", "json-ld", "structured-data"]}
 	clearLabel="Reset all"
 	canClear={true}
 	onClear={resetAll}

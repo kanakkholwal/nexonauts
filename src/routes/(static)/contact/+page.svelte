@@ -86,8 +86,6 @@
 </svelte:head>
 
 <section class="relative isolate overflow-hidden pt-20 pb-16 sm:pt-24">
-	<GradientOrb hue="peach" size="lg" opacity={0.35} class="-left-32 -top-20" />
-	<GradientOrb hue="lavender" size="lg" opacity={0.32} class="-right-32 top-1/3" />
 
 	<div class="relative z-10 grid items-start gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
 		<!-- Left: invitation + contact rows -->

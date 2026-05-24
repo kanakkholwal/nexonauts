@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Button } from "$lib/components/ui/button";
-	import { Badge } from "$lib/components/ui/badge";
-	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
 	import GradientOrbCard from "$lib/components/surfaces/gradient-orb-card.svelte";
+	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
+	import { Badge } from "$lib/components/ui/badge";
+	import { Button } from "$lib/components/ui/button";
 	import ArrowRight from "@lucide/svelte/icons/arrow-right";
 	import BarChart3 from "@lucide/svelte/icons/bar-chart-3";
 	import CheckCircle2 from "@lucide/svelte/icons/check-circle-2";
@@ -45,9 +45,6 @@
 
 <!-- HERO -->
 <section class="relative isolate overflow-hidden">
-	<GradientOrb hue="lavender" size="xl" opacity={0.5} class="-left-1/4 -top-1/4" />
-	<GradientOrb hue="peach" size="lg" opacity={0.4} class="-right-1/4 top-1/4" />
-	<GradientOrb hue="mint" size="md" opacity={0.3} class="left-1/3 -bottom-12" />
 
 	<div class="relative z-10 mx-auto max-w-3xl px-6 pt-24 pb-16 text-center sm:pt-32">
 		<Badge variant="default" size="md" class="mb-6">Our philosophy</Badge>

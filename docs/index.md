@@ -1,23 +1,9 @@
 ---
-title: Welcome to docvia
-description: Your documentation starts here
-tags: [getting-started]
+title: Guides
+description: Longer-form, opinionated walkthroughs of the languages and platform APIs we actually reach for.
+tags: [index]
 ---
 
-# Welcome to docvia
+# Guides
 
-This is your documentation home page. Edit `docs/index.md` to get started.
-
-## Features
-
-- **Build-time compilation** — Zero runtime markdown parsing
-- **Typed frontmatter** — Validated with Zod, generated to TypeScript
-- **Full-text search** — Powered by Orama
-- **Plugin system** — Extend with custom hooks
-
-## Quick Start
-
-```bash
-docvia build
-docvia dev
-```
+Longer-form, opinionated walkthroughs of the languages and platform APIs we actually reach for. Code on one side, why-it-works on the other. The list lives on the index page — pick one and read.

@@ -143,7 +143,7 @@
 	icon={ImageIcon}
 	clearLabel="Clear all"
 	tags={["image", "webp", "converter", "client-side"]}
-	category="Utilities"
+	category="Image Tools"
 	canClear={images.length > 0}
 	onClear={clearAll}
 >
