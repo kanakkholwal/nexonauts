@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { appConfig } from "@root/project.config";
+	import { Badge } from "$lib/components/ui/badge";
+	import { Button } from "$lib/components/ui/button";
+	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
 	import Copyright from "@lucide/svelte/icons/copyright";
 	import FileText from "@lucide/svelte/icons/file-text";
 	import Info from "@lucide/svelte/icons/info";
@@ -18,116 +21,116 @@
 	/>
 </svelte:head>
 
-<div class="bg-background relative min-h-screen selection:text-primary">
-	<div class="pointer-events-none fixed inset-0 z-0">
-		<div
-			class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"
-		></div>
-		<div
-			class="absolute top-0 right-1/2 h-96 w-[90%] translate-x-1/2 rounded-full bg-indigo-500/10 blur-[120px]"
-		></div>
+<section class="relative isolate mx-auto max-w-4xl overflow-hidden">
+	<GradientOrb hue="sky" size="lg" opacity={0.28} class="-left-32 -top-16" />
+	<GradientOrb hue="mint" size="md" opacity={0.25} class="-right-24 top-40" />
+
+	<!-- Header -->
+	<div class="relative z-10 mb-12 space-y-5 pt-20 text-center sm:pt-24">
+		<Badge variant="default" size="md">
+			<Copyright class="size-3" />
+			Intellectual property
+		</Badge>
+		<h1 class="display-xl text-ink">Copyright Disclaimer</h1>
+		<p class="mx-auto max-w-2xl text-base leading-relaxed text-body sm:text-lg">
+			Respecting rights, acknowledging sources, and maintaining compliance.
+		</p>
 	</div>
 
-	<div class="relative z-10 mx-auto max-w-4xl px-6 py-20 md:py-28">
-		<div class="mb-16 space-y-4 text-center">
-			<div
-				class="border-primary/20 bg-primary/5 text-primary inline-flex items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium backdrop-blur-xl"
-			>
-				<Copyright class="h-3 w-3" />
-				<span>Intellectual Property</span>
+	<div class="relative z-10 space-y-5">
+		<!-- Statement of intent -->
+		<article class="rounded-2xl border border-hairline bg-card p-7">
+			<div class="flex gap-4">
+				<div class="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-surface-strong text-ink">
+					<Info class="size-5" />
+				</div>
+				<div class="space-y-2">
+					<h3 class="font-display text-2xl font-light tracking-tight text-ink">
+						Statement of intent
+					</h3>
+					<p class="text-base leading-relaxed text-body">
+						At <span class="font-medium text-ink">{siteName}</span>, we value intellectual
+						property rights and strive to uphold copyright laws. Content used on this platform —
+						images, graphics, and text — is sourced from various free resources such as Freepik,
+						Pexels, and other similar platforms, where rights belong to their respective owners.
+					</p>
+				</div>
 			</div>
-			<h1 class="text-foreground text-4xl font-bold tracking-tight md:text-5xl">
-				Copyright Disclaimer
-			</h1>
-			<p class="text-muted-foreground mx-auto max-w-2xl text-lg">
-				Respecting rights, acknowledging sources, and maintaining compliance.
-			</p>
+		</article>
+
+		<!-- Two-up: fair use + acknowledgment -->
+		<div class="grid gap-5 md:grid-cols-2">
+			<article
+				class="group relative isolate overflow-hidden rounded-2xl border border-hairline bg-card p-7 transition-all hover:border-hairline-strong hover:shadow-(--shadow-soft-drop)"
+			>
+				<GradientOrb hue="mint" size="sm" opacity={0.22} class="-right-16 -top-12" />
+				<div class="relative z-10">
+					<div
+						class="mb-4 flex size-11 items-center justify-center rounded-2xl bg-surface-strong text-ink"
+					>
+						<Scale class="size-5" />
+					</div>
+					<h4 class="font-display text-xl font-light tracking-tight text-ink">
+						Fair use statement
+					</h4>
+					<p class="mt-3 text-sm leading-relaxed text-body">
+						Our platform operates under the principles of fair use. We utilize copyrighted
+						material for educational, informational, or illustrative purposes only, always
+						attributing the content to its original creators or sources where applicable.
+					</p>
+				</div>
+			</article>
+
+			<article
+				class="group relative isolate overflow-hidden rounded-2xl border border-hairline bg-card p-7 transition-all hover:border-hairline-strong hover:shadow-(--shadow-soft-drop)"
+			>
+				<GradientOrb hue="lavender" size="sm" opacity={0.22} class="-right-16 -top-12" />
+				<div class="relative z-10">
+					<div
+						class="mb-4 flex size-11 items-center justify-center rounded-2xl bg-surface-strong text-ink"
+					>
+						<FileText class="size-5" />
+					</div>
+					<h4 class="font-display text-xl font-light tracking-tight text-ink">
+						Acknowledgment of ownership
+					</h4>
+					<p class="mt-3 text-sm leading-relaxed text-body">
+						All copyrighted material used on {siteName} is acknowledged to its respective owners.
+						We do not claim ownership or rights over any copyrighted material that isn't developed
+						or created by our team.
+					</p>
+				</div>
+			</article>
 		</div>
 
-		<div class="space-y-6">
+		<!-- DMCA + CTA -->
+		<article class="overflow-hidden rounded-2xl border border-hairline bg-card">
+			<div class="border-b border-hairline-soft bg-canvas-soft p-7">
+				<div class="mb-4 flex items-center gap-3">
+					<div
+						class="flex size-10 items-center justify-center rounded-xl bg-destructive/10 text-destructive"
+					>
+						<ShieldAlert class="size-5" />
+					</div>
+					<h4 class="font-display text-xl font-light tracking-tight text-ink">
+						DMCA compliance
+					</h4>
+				</div>
+				<p class="text-base leading-relaxed text-body">
+					{siteName} complies with the Digital Millennium Copyright Act (DMCA). If you believe that
+					your copyrighted work has been used on our platform in a manner that constitutes
+					copyright infringement, please contact us immediately.
+				</p>
+			</div>
 			<div
-				class="bg-card/50 border-border/50 rounded-2xl border p-8 shadow-sm backdrop-blur-xl"
+				class="flex flex-col items-start justify-between gap-3 px-7 py-5 sm:flex-row sm:items-center"
 			>
-				<div class="flex gap-4">
-					<div class="shrink-0">
-						<div
-							class="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10 text-blue-600 dark:text-blue-400"
-						>
-							<Info class="h-5 w-5" />
-						</div>
-					</div>
-					<div class="space-y-2">
-						<h3 class="text-foreground text-xl font-semibold">Statement of Intent</h3>
-						<p class="text-muted-foreground leading-relaxed">
-							At <span class="text-foreground font-semibold">{siteName}</span>, we value
-							intellectual property rights and strive to uphold copyright laws. The content,
-							including images, graphics, and text, utilized on this platform, is sourced from
-							various free resources such as Freepik, Pexels, and other similar platforms, where
-							the rights belong to their respective owners.
-						</p>
-					</div>
-				</div>
+				<p class="text-sm text-body">Have a copyright concern or takedown request?</p>
+				<Button href="/contact" size="md">
+					<Mail class="size-4" />
+					Contact us
+				</Button>
 			</div>
-
-			<div class="grid gap-6 md:grid-cols-2">
-				<div
-					class="bg-card/50 border-border/50 hover:border-primary/20 rounded-2xl border p-8 backdrop-blur-xl transition-colors"
-				>
-					<div
-						class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-400"
-					>
-						<Scale class="h-5 w-5" />
-					</div>
-					<h4 class="text-foreground mb-2 text-lg font-semibold">Fair Use Statement</h4>
-					<p class="text-muted-foreground text-sm leading-relaxed">
-						Our platform operates under the principles of fair use. We utilize copyrighted material
-						for educational, informational, or illustrative purposes only, always attributing the
-						content to its original creators or sources where applicable.
-					</p>
-				</div>
-
-				<div
-					class="bg-card/50 border-border/50 hover:border-primary/20 rounded-2xl border p-8 backdrop-blur-xl transition-colors"
-				>
-					<div
-						class="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-violet-500/10 text-violet-600 dark:text-violet-400"
-					>
-						<FileText class="h-5 w-5" />
-					</div>
-					<h4 class="text-foreground mb-2 text-lg font-semibold">Acknowledgment of Ownership</h4>
-					<p class="text-muted-foreground text-sm leading-relaxed">
-						All copyrighted material used on {siteName} is acknowledged to its respective owners. We
-						do not claim ownership or rights over any copyrighted material that isn't developed or
-						created by our team.
-					</p>
-				</div>
-			</div>
-
-			<div class="bg-card overflow-hidden rounded-2xl border border-border">
-				<div class="bg-muted/30 border-border/50 border-b p-8">
-					<div class="mb-4 flex items-center gap-3">
-						<ShieldAlert class="h-5 w-5 text-red-500" />
-						<h4 class="text-foreground text-lg font-semibold">DMCA Compliance</h4>
-					</div>
-					<p class="text-muted-foreground leading-relaxed">
-						{siteName} complies with the Digital Millennium Copyright Act (DMCA). If you believe
-						that your copyrighted work has been used on our platform in a manner that constitutes
-						copyright infringement, please contact us immediately.
-					</p>
-				</div>
-				<div class="bg-muted/50 flex flex-col items-center justify-between gap-4 p-6 sm:flex-row">
-					<p class="text-muted-foreground text-sm">
-						Have a copyright concern or takedown request?
-					</p>
-					<a
-						href="/contact"
-						class="bg-primary text-primary-foreground hover:bg-primary/90 shadow-primary/20 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium shadow-lg transition-colors"
-					>
-						<Mail class="h-4 w-4" />
-						Contact Legal Team
-					</a>
-				</div>
-			</div>
-		</div>
+		</article>
 	</div>
-</div>
+</section>

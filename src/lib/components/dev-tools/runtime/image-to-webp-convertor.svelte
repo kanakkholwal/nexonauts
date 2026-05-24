@@ -6,7 +6,6 @@
 	import ImageIcon from "@lucide/svelte/icons/image";
 	import Loader2 from "@lucide/svelte/icons/loader-2";
 	import RefreshCw from "@lucide/svelte/icons/refresh-cw";
-	import Trash2 from "@lucide/svelte/icons/trash-2";
 	import Upload from "@lucide/svelte/icons/upload";
 	import XCircle from "@lucide/svelte/icons/x-circle";
 	import { toast } from "svelte-sonner";
@@ -141,8 +140,10 @@
 <ToolShell
 	title="Image to WebP Convertor"
 	description="Convert PNG, JPG, and similar image formats into compressed WebP files locally in the browser."
-	icon="🖼"
+	icon={ImageIcon}
 	clearLabel="Clear all"
+	tags={["image", "webp", "converter", "client-side"]}
+	category="Utilities"
 	canClear={images.length > 0}
 	onClear={clearAll}
 >

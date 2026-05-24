@@ -1,11 +1,8 @@
 <script lang="ts">
-	import { Badge } from "$lib/components/ui/badge";
+	import { hasRuntimeDevTool, runtimeDevToolComponents } from "$lib/components/dev-tools/runtime";
 	import { Button } from "$lib/components/ui/button";
 	import * as Card from "$lib/components/ui/card";
-	import { Separator } from "$lib/components/ui/separator";
-	import { runtimeDevToolComponents, hasRuntimeDevTool } from "$lib/components/dev-tools/runtime";
 	import Sparkles from "@lucide/svelte/icons/sparkles";
-	import Terminal from "@lucide/svelte/icons/terminal";
 
 	let { data } = $props();
 
@@ -19,53 +16,11 @@
 </svelte:head>
 
 <section class="space-y-8 py-12">
-	<div class="space-y-3">
-		<div class="flex items-center gap-3">
-			<div class="bg-muted flex size-12 items-center justify-center rounded-xl">
-				<Terminal class="text-muted-foreground size-6" />
-			</div>
-			<Badge variant="secondary" class="rounded-full">{data.tool.category}</Badge>
-		</div>
-		<h1 class="text-3xl font-bold tracking-tight">{data.tool.title}</h1>
-		<p class="text-muted-foreground max-w-2xl text-base leading-relaxed">
-			{data.tool.description}
-		</p>
-		{#if data.tool.tags.length}
-			<div class="flex flex-wrap gap-1.5 pt-1">
-				{#each data.tool.tags as tag (tag)}
-					<span
-						class="bg-muted text-muted-foreground rounded-full px-2 py-0.5 text-[11px] font-medium"
-					>
-						{tag}
-					</span>
-				{/each}
-			</div>
-		{/if}
-	</div>
 
-	<Separator />
 
 	{#if ToolComponent}
 		<div class="space-y-8">
 			<ToolComponent />
-
-			<Card.Root>
-				<Card.Header>
-					<Card.Title>Next steps</Card.Title>
-					<Card.Description>This tool is now running directly in the migrated SvelteKit app.</Card.Description>
-				</Card.Header>
-				<Card.Content class="space-y-3">
-					<div class="flex items-center gap-2 text-sm">
-						<Sparkles class="text-primary size-4" />
-						<span>Catalog route is migrated</span>
-					</div>
-					<div class="flex items-center gap-2 text-sm">
-						<Sparkles class="text-primary size-4" />
-						<span>Interactive browser UI is live</span>
-					</div>
-					<Button href="/dev-tools" variant="outline" class="w-full">Back to all tools</Button>
-				</Card.Content>
-			</Card.Root>
 		</div>
 	{:else}
 		<div class="grid gap-6 lg:grid-cols-[1.4fr_0.8fr]">

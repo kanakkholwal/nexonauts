@@ -29,9 +29,12 @@
 	)}
 >
 	<div class="mx-auto flex h-16 max-w-(--max-app-width) items-center justify-between gap-6 px-6 sm:px-8">
-		<a href="/" class="flex items-center gap-2.5 text-ink">
+		<a
+			href="/"
+			class="group/brand flex items-center gap-2.5 text-ink transition-opacity hover:opacity-85"
+		>
 			<Logo class="size-7" />
-			<span class="font-display text-lg font-light tracking-tight">{appConfig.name}</span>
+			<span class="font-sans text-base font-bold tracking-tight">{appConfig.name}</span>
 		</a>
 
 		<NavigationMenu.Root class="hidden md:flex">
@@ -41,8 +44,11 @@
 						<NavigationMenu.Trigger>{group.title}</NavigationMenu.Trigger>
 						<NavigationMenu.Content>
 							<ul class="grid w-[440px] gap-0.5 p-2">
-								{#each group.items as item (item.href)}
-									<li>
+								{#each group.items as item, i (item.href)}
+									<li
+										class="nav-item-in"
+										style="--nav-delay:{40 + i * 30}ms"
+									>
 										<NavigationMenu.Link
 											href={item.href}
 											target={isExternal(item.href) ? "_blank" : undefined}
@@ -145,3 +151,22 @@
 		</div>
 	</div>
 </header>
+
+<style>
+	/* Per-item stagger inside the open dropdown — pairs with the viewport's
+	   own fade+slide. Each item picks up its own --nav-delay via style="". */
+	.nav-item-in {
+		opacity: 0;
+		transform: translateY(4px);
+		animation: nav-item-in 280ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+		animation-delay: var(--nav-delay, 0ms);
+	}
+
+	@keyframes nav-item-in {
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+</style>
+

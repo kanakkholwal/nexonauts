@@ -3,6 +3,8 @@
 	import { Button } from "$lib/components/ui/button";
 	import { Input } from "$lib/components/ui/input";
 	import { Textarea } from "$lib/components/ui/textarea";
+	import { Badge } from "$lib/components/ui/badge";
+	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
 	import { cn } from "$lib/utils";
 	import Building2 from "@lucide/svelte/icons/building-2";
 	import Globe from "@lucide/svelte/icons/globe";
@@ -67,6 +69,12 @@
 			path: "M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.43v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"
 		}
 	];
+
+	const contactBlocks = [
+		{ icon: Mail, label: "Email us", value: "support@nexonauts.com" },
+		{ icon: MessageCircle, label: "Live support", value: "Mon–Fri, 9am–5pm" },
+		{ icon: MapPin, label: "Headquarters", value: "Worldwide" }
+	];
 </script>
 
 <svelte:head>
@@ -77,297 +85,230 @@
 	/>
 </svelte:head>
 
-<div class="bg-background relative min-h-screen overflow-hidden selection:text-primary">
-	<div class="pointer-events-none fixed inset-0 z-0">
-		<div
-			class="bg-primary/20 absolute top-0 left-1/4 h-96 w-96 rounded-full opacity-20 blur-[128px]"
-		></div>
-		<div
-			class="absolute right-1/4 bottom-0 h-96 w-96 rounded-full bg-violet-500/20 opacity-20 blur-[128px]"
-		></div>
-	</div>
+<section class="relative isolate overflow-hidden pt-20 pb-16 sm:pt-24">
+	<GradientOrb hue="peach" size="lg" opacity={0.35} class="-left-32 -top-20" />
+	<GradientOrb hue="lavender" size="lg" opacity={0.32} class="-right-32 top-1/3" />
 
-	<div class="relative z-10 mx-auto max-w-7xl px-6 py-20 md:py-32 lg:px-8">
-		<div class="grid items-start gap-12 lg:grid-cols-2 lg:gap-24">
-			<div class="flex flex-col gap-10">
-				<div class="space-y-4">
-					<h1 class="text-foreground text-4xl font-bold tracking-tight md:text-5xl">
-						Let's start a <br />
-						<span class="text-transparent bg-clip-text bg-linear-to-r from-primary to-violet-500">
-							conversation.
-						</span>
-					</h1>
-					<p class="text-muted-foreground max-w-md text-lg leading-relaxed">
-						Whether you have a question about features, pricing, or just want to say hello, our
-						team is ready to answer all your questions.
-					</p>
-				</div>
-
-				<div class="space-y-6">
-					<div
-						class="text-muted-foreground hover:text-foreground flex items-center gap-4 transition-colors"
-					>
-						<div
-							class="bg-muted/50 border-border/50 flex h-10 w-10 items-center justify-center rounded-lg border"
-						>
-							<Mail class="h-5 w-5" />
-						</div>
-						<div>
-							<p class="text-foreground font-medium">Email us</p>
-							<p class="text-sm">support@nexonauts.com</p>
-						</div>
-					</div>
-
-					<div
-						class="text-muted-foreground hover:text-foreground flex items-center gap-4 transition-colors"
-					>
-						<div
-							class="bg-muted/50 border-border/50 flex h-10 w-10 items-center justify-center rounded-lg border"
-						>
-							<MessageCircle class="h-5 w-5" />
-						</div>
-						<div>
-							<p class="text-foreground font-medium">Live Support</p>
-							<p class="text-sm">Available Mon-Fri, 9am-5pm</p>
-						</div>
-					</div>
-
-					<div
-						class="text-muted-foreground hover:text-foreground flex items-center gap-4 transition-colors"
-					>
-						<div
-							class="bg-muted/50 border-border/50 flex h-10 w-10 items-center justify-center rounded-lg border"
-						>
-							<MapPin class="h-5 w-5" />
-						</div>
-						<div>
-							<p class="text-foreground font-medium">Headquarters</p>
-							<p class="text-sm">Worldwide</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="bg-border/50 h-px w-full"></div>
-
-				<div class="space-y-3">
-					<p class="text-muted-foreground text-sm font-medium uppercase tracking-wider">
-						Follow us
-					</p>
-					<div class="flex gap-4">
-						{#each socials as social (social.href)}
-							<a
-								href={social.href}
-								aria-label={social.label}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="bg-muted/30 hover:bg-primary/10 hover:text-primary hover:border-primary/20 rounded-full border border-transparent p-2 transition-all"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									fill="currentColor"
-									class="h-5 w-5"
-								>
-									<path d={social.path} />
-								</svg>
-							</a>
-						{/each}
-					</div>
-				</div>
+	<div class="relative z-10 grid items-start gap-12 lg:grid-cols-[1fr_1.15fr] lg:gap-16">
+		<!-- Left: invitation + contact rows -->
+		<div class="flex flex-col gap-10">
+			<div class="space-y-5">
+				<Badge variant="default" size="md">Get in touch</Badge>
+				<h1 class="display-xl text-ink">
+					Let's start a<br />
+					<span class="text-muted-ink">conversation.</span>
+				</h1>
+				<p class="max-w-md text-base leading-relaxed text-body">
+					Whether you have a question about features, pricing, or just want to say hello, our team
+					is ready to answer.
+				</p>
 			</div>
 
-			<div
-				class="bg-card/30 rounded-3xl border border-white/10 p-6 shadow-2xl backdrop-blur-xl md:p-8 dark:border-white/5"
-			>
-				{#if form?.success}
-					<div class="flex flex-col items-center gap-4 py-8 text-center">
+			<div class="space-y-4">
+				{#each contactBlocks as block (block.label)}
+					{@const Icon = block.icon}
+					<div class="flex items-center gap-4">
 						<div
-							class="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/10 text-emerald-600"
+							class="flex size-11 items-center justify-center rounded-2xl border border-hairline bg-canvas-soft text-ink"
 						>
-							<Send class="h-6 w-6" />
+							<Icon class="size-5" />
 						</div>
-						<div class="space-y-1">
-							<h3 class="text-lg font-semibold">Message sent</h3>
-							<p class="text-muted-foreground text-sm">
-								We'll get back to you as soon as possible.
-							</p>
+						<div>
+							<p class="text-sm font-medium text-ink">{block.label}</p>
+							<p class="text-sm text-body">{block.value}</p>
 						</div>
 					</div>
-				{:else}
-					<form
-						method="POST"
-						class="space-y-6"
-						use:enhance={() => {
-							isLoading = true;
-							return async ({ result, update }) => {
-								if (result.type === "success" && result.data?.success) {
-									toast.success("Message sent successfully!");
-								} else if (result.type === "failure") {
-									const errs = (result.data as FormState)?.errors;
-									toast.error(errs?._ ?? "Could not send your message");
-								}
-								await update();
-								isLoading = false;
-							};
-						}}
-					>
-						<div class="grid gap-4 md:grid-cols-2">
-							<div class="space-y-1">
-								<label
-									for="contact-name"
-									class="text-muted-foreground ml-1 text-xs font-semibold uppercase tracking-wider"
-								>
-									Name
-								</label>
-								<div class="relative">
-									<User class="text-muted-foreground/50 absolute top-2.5 left-3 h-5 w-5" />
-									<Input
-										id="contact-name"
-										name="name"
-										placeholder="John Doe"
-										class="bg-background/50 border-border/50 focus:bg-background pl-10 transition-all"
-										disabled={isLoading}
-										value={form?.values?.name ?? data.defaults.name}
-									/>
-								</div>
-								{#if form?.errors?.name}
-									<p class="text-destructive text-xs">{form.errors.name}</p>
-								{/if}
-							</div>
+				{/each}
+			</div>
 
-							<div class="space-y-1">
-								<label
-									for="contact-email"
-									class="text-muted-foreground ml-1 text-xs font-semibold uppercase tracking-wider"
-								>
-									Email
-								</label>
-								<div class="relative">
-									<Mail class="text-muted-foreground/50 absolute top-2.5 left-3 h-5 w-5" />
-									<Input
-										id="contact-email"
-										name="email"
-										type="email"
-										placeholder="john@example.com"
-										class="bg-background/50 border-border/50 focus:bg-background pl-10 transition-all"
-										disabled={isLoading}
-										value={form?.values?.email ?? data.defaults.email}
-									/>
-								</div>
-								{#if form?.errors?.email}
-									<p class="text-destructive text-xs">{form.errors.email}</p>
-								{/if}
-							</div>
-						</div>
+			<div class="h-px w-full bg-hairline"></div>
 
-						<div class="grid gap-4 md:grid-cols-2">
-							<div class="space-y-1">
-								<label
-									for="contact-company"
-									class="text-muted-foreground ml-1 text-xs font-semibold uppercase tracking-wider"
-								>
-									Company
-								</label>
-								<div class="relative">
-									<Building2 class="text-muted-foreground/50 absolute top-2.5 left-3 h-5 w-5" />
-									<Input
-										id="contact-company"
-										name="companyName"
-										placeholder="Acme Inc."
-										class="bg-background/50 border-border/50 focus:bg-background pl-10 transition-all"
-										disabled={isLoading}
-										value={form?.values?.companyName ?? ""}
-									/>
-								</div>
-							</div>
-
-							<div class="space-y-1">
-								<label
-									for="contact-website"
-									class="text-muted-foreground ml-1 text-xs font-semibold uppercase tracking-wider"
-								>
-									Website
-								</label>
-								<div class="relative">
-									<Globe class="text-muted-foreground/50 absolute top-2.5 left-3 h-5 w-5" />
-									<Input
-										id="contact-website"
-										name="website"
-										placeholder="https://…"
-										class="bg-background/50 border-border/50 focus:bg-background pl-10 transition-all"
-										disabled={isLoading}
-										value={form?.values?.website ?? ""}
-									/>
-								</div>
-							</div>
-						</div>
-
-						<div class="space-y-1">
-							<p
-								class="text-muted-foreground ml-1 text-xs font-semibold uppercase tracking-wider"
-							>
-								Topic
-							</p>
-							<input type="hidden" name="category" value={category} />
-							<div class="grid grid-cols-2 gap-3 md:grid-cols-3">
-								{#each CATEGORIES as item (item)}
-									<button
-										type="button"
-										onclick={() => (category = item)}
-										disabled={isLoading}
-										class={cn(
-											"hover:bg-muted/50 cursor-pointer rounded-xl border px-4 py-3 text-center text-sm transition-all duration-200",
-											category === item
-												? "bg-primary/10 border-primary/50 text-primary ring-primary/20 font-medium ring-1"
-												: "bg-background/50 border-border/50 text-muted-foreground"
-										)}
-									>
-										{item}
-									</button>
-								{/each}
-							</div>
-							{#if form?.errors?.category}
-								<p class="text-destructive text-xs">{form.errors.category}</p>
-							{/if}
-						</div>
-
-						<div class="space-y-1">
-							<label
-								for="contact-message"
-								class="text-muted-foreground ml-1 text-xs font-semibold uppercase tracking-wider"
-							>
-								Message
-							</label>
-							<Textarea
-								id="contact-message"
-								name="message"
-								placeholder="Tell us about your project..."
-								class="bg-background/50 border-border/50 focus:bg-background min-h-[150px] resize-none transition-all"
-								disabled={isLoading}
-								value={form?.values?.message ?? ""}
-							/>
-							{#if form?.errors?.message}
-								<p class="text-destructive text-xs">{form.errors.message}</p>
-							{/if}
-						</div>
-
-						<Button
-							type="submit"
-							size="lg"
-							class="bg-primary hover:bg-primary/90 text-primary-foreground shadow-primary/20 h-12 w-full rounded-xl text-base font-semibold shadow-lg"
-							disabled={isLoading}
+			<div class="space-y-3">
+				<p class="eyebrow text-muted-ink">Follow us</p>
+				<div class="flex gap-2.5">
+					{#each socials as social (social.href)}
+						<a
+							href={social.href}
+							aria-label={social.label}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="flex size-10 items-center justify-center rounded-full border border-hairline-strong bg-canvas text-muted-ink transition-colors hover:bg-surface-strong hover:text-ink"
 						>
-							{#if isLoading}
-								<Loader2 class="mr-2 h-4 w-4 animate-spin" />
-								Sending…
-							{:else}
-								Send Message
-								<Send class="ml-2 h-4 w-4" />
-							{/if}
-						</Button>
-					</form>
-				{/if}
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								fill="currentColor"
+								class="size-4"
+							>
+								<path d={social.path} />
+							</svg>
+						</a>
+					{/each}
+				</div>
 			</div>
 		</div>
+
+		<!-- Right: form card -->
+		<div
+			class="relative rounded-3xl border border-hairline bg-canvas-soft p-6 sm:p-8 soft-drop"
+		>
+			{#if form?.success}
+				<div class="flex flex-col items-center gap-4 py-12 text-center">
+					<div
+						class="flex size-12 items-center justify-center rounded-full bg-success/12 text-success"
+					>
+						<Send class="size-6" />
+					</div>
+					<div class="space-y-1">
+						<h3 class="font-display text-2xl font-light text-ink">Message sent</h3>
+						<p class="text-sm text-body">We'll get back to you as soon as possible.</p>
+					</div>
+				</div>
+			{:else}
+				<form
+					method="POST"
+					class="space-y-6"
+					use:enhance={() => {
+						isLoading = true;
+						return async ({ result, update }) => {
+							if (result.type === "success" && result.data?.success) {
+								toast.success("Message sent successfully!");
+							} else if (result.type === "failure") {
+								const errs = (result.data as FormState)?.errors;
+								toast.error(errs?._ ?? "Could not send your message");
+							}
+							await update();
+							isLoading = false;
+						};
+					}}
+				>
+					<div class="grid gap-4 md:grid-cols-2">
+						<div class="space-y-1.5">
+							<label
+								for="contact-name"
+								class="eyebrow ml-1 text-muted-ink"
+							>
+								Name
+							</label>
+							<div class="relative">
+								<User class="absolute left-3.5 top-3 size-5 text-muted-soft" />
+								<Input
+									id="contact-name"
+									name="name"
+									placeholder="John Doe"
+									class="pl-11"
+									disabled={isLoading}
+									value={form?.values?.name ?? data.defaults.name}
+								/>
+							</div>
+							{#if form?.errors?.name}
+								<p class="text-xs text-destructive">{form.errors.name}</p>
+							{/if}
+						</div>
+
+						<div class="space-y-1.5">
+							<label for="contact-email" class="eyebrow ml-1 text-muted-ink">Email</label>
+							<div class="relative">
+								<Mail class="absolute left-3.5 top-3 size-5 text-muted-soft" />
+								<Input
+									id="contact-email"
+									name="email"
+									type="email"
+									placeholder="john@example.com"
+									class="pl-11"
+									disabled={isLoading}
+									value={form?.values?.email ?? data.defaults.email}
+								/>
+							</div>
+							{#if form?.errors?.email}
+								<p class="text-xs text-destructive">{form.errors.email}</p>
+							{/if}
+						</div>
+					</div>
+
+					<div class="grid gap-4 md:grid-cols-2">
+						<div class="space-y-1.5">
+							<label for="contact-company" class="eyebrow ml-1 text-muted-ink">Company</label>
+							<div class="relative">
+								<Building2 class="absolute left-3.5 top-3 size-5 text-muted-soft" />
+								<Input
+									id="contact-company"
+									name="companyName"
+									placeholder="Acme Inc."
+									class="pl-11"
+									disabled={isLoading}
+									value={form?.values?.companyName ?? ""}
+								/>
+							</div>
+						</div>
+
+						<div class="space-y-1.5">
+							<label for="contact-website" class="eyebrow ml-1 text-muted-ink">Website</label>
+							<div class="relative">
+								<Globe class="absolute left-3.5 top-3 size-5 text-muted-soft" />
+								<Input
+									id="contact-website"
+									name="website"
+									placeholder="https://…"
+									class="pl-11"
+									disabled={isLoading}
+									value={form?.values?.website ?? ""}
+								/>
+							</div>
+						</div>
+					</div>
+
+					<div class="space-y-1.5">
+						<p class="eyebrow ml-1 text-muted-ink">Topic</p>
+						<input type="hidden" name="category" value={category} />
+						<div class="grid grid-cols-2 gap-2.5 md:grid-cols-3">
+							{#each CATEGORIES as item (item)}
+								<button
+									type="button"
+									onclick={() => (category = item)}
+									disabled={isLoading}
+									class={cn(
+										"cursor-pointer rounded-pill border px-3.5 py-2 text-center text-xs font-medium uppercase tracking-[0.06em] transition-all",
+										category === item
+											? "border-transparent bg-primary text-primary-foreground"
+											: "border-hairline-strong bg-canvas text-body hover:bg-surface-strong hover:text-ink"
+									)}
+								>
+									{item}
+								</button>
+							{/each}
+						</div>
+						{#if form?.errors?.category}
+							<p class="text-xs text-destructive">{form.errors.category}</p>
+						{/if}
+					</div>
+
+					<div class="space-y-1.5">
+						<label for="contact-message" class="eyebrow ml-1 text-muted-ink">Message</label>
+						<Textarea
+							id="contact-message"
+							name="message"
+							placeholder="Tell us about your project..."
+							class="min-h-[160px] resize-none"
+							disabled={isLoading}
+							value={form?.values?.message ?? ""}
+						/>
+						{#if form?.errors?.message}
+							<p class="text-xs text-destructive">{form.errors.message}</p>
+						{/if}
+					</div>
+
+					<Button type="submit" size="lg" class="w-full" disabled={isLoading}>
+						{#if isLoading}
+							<Loader2 class="size-4 animate-spin" />
+							Sending…
+						{:else}
+							Send message
+							<Send class="size-4" />
+						{/if}
+					</Button>
+				</form>
+			{/if}
+		</div>
 	</div>
-</div>
+</section>
