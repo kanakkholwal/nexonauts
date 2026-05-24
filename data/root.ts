@@ -1,23 +1,16 @@
-import type { Metadata } from "next";
-
-export const ROOT_METADATA: Metadata = {
-  title: "Nexonauts | The Ultimate AI Ecosystem for Developers & Creators",
+export const ROOT_METADATA = {
+  title: "Nexonauts — Tools and writing for developers",
   description:
-    "Nexonauts is the next-generation platform for developers and creators. Access specialized AI tools, manage your portfolio, and explore a vast marketplace of digital assets.",
+    "A small studio of developer tools and technical writing. Home of Recast and Docvia.",
   applicationName: "Nexonauts",
   keywords: [
     "Nexonauts",
-    "AI Tools",
-    "Developer Portfolio",
-    "Digital Marketplace",
-    "Fashion AI",
-    "Content Automation",
-    "Thumbnail Generator",
-    "Open Source Tools",
-    "Web Utilities",
-    "SaaS",
-    "Next.js",
-    "React",
+    "Recast",
+    "Docvia",
+    "screen recorder",
+    "documentation compiler",
+    "developer tools",
+    "developer resources",
   ],
   authors: [{ name: "Kanak Kholwal", url: "https://kanakkholwal.eu.org" }],
   creator: "Kanak Kholwal",
@@ -44,62 +37,27 @@ export const ROOT_METADATA: Metadata = {
 
 export const FOOTER_LINKS = [
   {
-    title: "Product",
+    title: "Products",
     links: [
-      {
-        title: "Dev Tools",
-        href: "/dev-tools",
-      },
-      // {
-      //   title: "Dev Profiles",
-      //   href: "/devs",
-      // },
-      {
-        title: "Nexo Scout",
-        href: "/scout",
-      },
-      {
-        title: "MarketPlace",
-        href: "/marketplace",
-      },
+      { title: "Recast", href: "https://recast.nexonauts.com" },
+      { title: "Docvia", href: "https://docvia.dev" },
+      { title: "Dev Tools", href: "/dev-tools" },
+    ],
+  },
+  {
+    title: "Read",
+    links: [
+      { title: "Guides", href: "/guides" },
+      { title: "Learn", href: "/learn" },
     ],
   },
   {
     title: "Company",
     links: [
-      {
-        title: "About",
-        href: "/about",
-      },
-      {
-        title: "Pricing",
-        href: "/pricing",
-      },
-      {
-        title: "Privacy",
-        href: "/privacy",
-      },
-      {
-        title: "Term of Use",
-        href: "/tos",
-      },
-    ],
-  },
-  {
-    title: "Support",
-    links: [
-      {
-        title: "Contact",
-        href: "/contact",
-      },
-      {
-        title: "Disclaimer",
-        href: "/copyright",
-      },
-      {
-        title: "Blog",
-        href: "/blog",
-      },
+      { title: "About", href: "/about" },
+      { title: "Contact", href: "/contact" },
+      { title: "Privacy", href: "/privacy" },
+      { title: "Terms", href: "/tos" },
     ],
   },
 ];
