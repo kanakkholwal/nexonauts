@@ -29,9 +29,11 @@ export default defineConfig({
 		]
 	},
 	server: {
-		port: 2999
+		// Must match BASE_URL / PUBLIC_BASE_URL in .env (default 3000) — better-auth's
+		// CSRF check rejects requests whose origin doesn't match baseURL.
+		port: 3000
 	},
 	preview: {
-		port: 2999
+		port: 3000
 	}
 });
