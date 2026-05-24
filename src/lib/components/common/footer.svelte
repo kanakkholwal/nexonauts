@@ -2,6 +2,7 @@
 	import { appConfig } from "@root/project.config";
 	import { FOOTER_LINKS } from "data/root";
 	import ThemeSwitcher from "./theme-switcher.svelte";
+	import Logo from "$lib/components/logo.svelte";
 	import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
 
 	const year = new Date().getFullYear();
@@ -11,24 +12,29 @@
 	}
 </script>
 
-<footer class="border-border bg-background border-t">
-	<div class="mx-auto max-w-6xl px-6 py-14 sm:px-8 lg:px-10">
-		<div class="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+<!--
+  Footer per DESIGN.md §6 `footer`. Canvas background, body text,
+  brand block on the left + 5-column link list. Generous 64×48 padding,
+  hairline above the bottom row.
+-->
+<footer class="bg-canvas border-t border-hairline-soft">
+	<div class="mx-auto max-w-(--max-app-width) px-6 py-16 sm:px-8 sm:py-20">
+		<div class="grid gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,2.4fr)]">
 			<div class="max-w-md">
-				<a href="/" class="text-foreground inline-flex items-center gap-2 text-sm font-semibold">
-					<img src={appConfig.logoSquare} alt="" class="size-6" />
-					{appConfig.name}
+				<a href="/" class="inline-flex items-center gap-2.5 text-ink">
+					<Logo class="size-7" />
+					<span class="font-display text-lg font-light tracking-tight">{appConfig.name}</span>
 				</a>
-				<p class="text-muted-foreground mt-4 text-sm leading-relaxed">
+				<p class="mt-5 text-sm leading-relaxed text-body">
 					A small studio of developer tools and technical writing. Home of Recast and Docvia.
 				</p>
-				<div class="mt-5 flex items-center gap-3">
+				<div class="mt-6 flex items-center gap-4">
 					<a
 						href={appConfig.socials.twitter}
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="X / Twitter"
-						class="text-muted-foreground hover:text-foreground transition-colors"
+						class="text-muted-ink transition-colors hover:text-ink"
 					>
 						<svg viewBox="0 0 24 24" fill="currentColor" class="size-4">
 							<path
@@ -41,7 +47,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="GitHub"
-						class="text-muted-foreground hover:text-foreground transition-colors"
+						class="text-muted-ink transition-colors hover:text-ink"
 					>
 						<svg viewBox="0 0 24 24" fill="currentColor" class="size-4">
 							<path
@@ -52,20 +58,18 @@
 				</div>
 			</div>
 
-			<div class="grid grid-cols-2 gap-8 sm:grid-cols-3">
+			<div class="grid grid-cols-2 gap-10 sm:grid-cols-3">
 				{#each FOOTER_LINKS as group (group.title)}
 					<div>
-						<h5 class="text-foreground mb-3 text-xs font-semibold tracking-wide uppercase">
-							{group.title}
-						</h5>
-						<ul class="space-y-2">
+						<h5 class="eyebrow mb-4 text-muted-ink">{group.title}</h5>
+						<ul class="space-y-2.5">
 							{#each group.links as link (link.href)}
 								<li>
 									<a
 										href={link.href}
 										target={isExternal(link.href) ? "_blank" : undefined}
 										rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
-										class="text-muted-foreground hover:text-foreground inline-flex items-center gap-1 text-sm transition-colors"
+										class="inline-flex items-center gap-1 text-sm text-body transition-colors hover:text-ink"
 									>
 										{link.title}
 										{#if isExternal(link.href)}
@@ -81,11 +85,11 @@
 		</div>
 
 		<div
-			class="border-border mt-12 flex flex-col items-start justify-between gap-3 border-t pt-6 sm:flex-row sm:items-center"
+			class="mt-16 flex flex-col items-start justify-between gap-3 border-t border-hairline-soft pt-8 sm:flex-row sm:items-center"
 		>
-			<p class="text-muted-foreground text-xs">
+			<p class="text-xs text-muted-ink">
 				© {year}
-				<a href="/" class="text-foreground hover:underline">{appConfig.name}</a>. All rights reserved.
+				<a href="/" class="text-ink hover:underline">{appConfig.name}</a>. All rights reserved.
 			</p>
 			<ThemeSwitcher />
 		</div>

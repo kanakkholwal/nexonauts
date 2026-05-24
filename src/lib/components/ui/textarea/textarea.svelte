@@ -15,7 +15,15 @@
 	bind:this={ref}
 	data-slot={dataSlot}
 	class={cn(
-		"border-input dark:bg-input/30 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:aria-invalid:border-destructive/50 disabled:bg-input/50 dark:disabled:bg-input/80 rounded-lg border bg-transparent px-2.5 py-2 text-base transition-colors focus-visible:ring-3 aria-invalid:ring-3 md:text-sm placeholder:text-muted-foreground flex field-sizing-content min-h-16 w-full outline-none disabled:cursor-not-allowed disabled:opacity-50",
+		"flex w-full field-sizing-content min-h-24 px-4 py-3 outline-none",
+		"font-sans text-sm leading-relaxed tracking-[0.01em]",
+		"bg-card text-foreground placeholder:text-muted-soft",
+		"border border-hairline-strong rounded-md",
+		"transition-[border-color,box-shadow] duration-150",
+		"focus-visible:border-ink focus-visible:shadow-[inset_0_0_0_1px_var(--ink)]",
+		"aria-invalid:border-destructive aria-invalid:focus-visible:shadow-[inset_0_0_0_1px_var(--destructive)]",
+		"disabled:bg-surface-strong disabled:text-muted-soft disabled:cursor-not-allowed disabled:opacity-70",
+		"dark:bg-card/60",
 		className
 	)}
 	bind:value

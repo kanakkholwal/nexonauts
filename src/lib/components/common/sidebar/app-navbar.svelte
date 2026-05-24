@@ -15,14 +15,14 @@
 </script>
 
 <header
-	class="bg-background/80 sticky top-0 z-30 flex h-14 shrink-0 items-center gap-2 border-b px-4 backdrop-blur"
+	class="sticky top-0 z-30 flex h-14 shrink-0 items-center gap-2 border-b border-hairline-soft bg-canvas/85 px-4 backdrop-blur"
 >
 	<Sidebar.Trigger class="-ml-1" />
 	<Separator orientation="vertical" class="mx-2 h-4" />
-	<div class="flex-1 text-sm font-medium">
+	<div class="flex-1 text-sm font-medium text-ink">
 		{user.name ?? "Welcome back"}
 		{#if impersonatedBy}
-			<span class="text-muted-foreground ml-2 text-xs">(impersonated by {impersonatedBy})</span>
+			<span class="ml-2 text-xs text-muted-ink">(impersonated by {impersonatedBy})</span>
 		{/if}
 	</div>
 	<ThemeSwitcher />

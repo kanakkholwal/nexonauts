@@ -1,12 +1,32 @@
 <script lang="ts" module>
 	import { type VariantProps, tv } from "tailwind-variants";
 
+	/**
+	 * Alert — editorial inset notice.
+	 * Hairline border, soft tinted background, ink text.
+	 */
 	export const alertVariants = tv({
-		base: "grid gap-0.5 rounded-lg border px-2.5 py-2 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4 group/alert relative w-full",
+		base: [
+			"group/alert relative grid w-full gap-1 rounded-xl border px-4 py-3 text-left text-sm",
+			"has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-20",
+			"has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-3",
+			"*:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current",
+			"*:[svg:not([class*='size-'])]:size-4",
+		].join(" "),
 		variants: {
 			variant: {
-				default: "bg-card text-card-foreground",
-				destructive: "text-destructive bg-card *:data-[slot=alert-description]:text-destructive/90 *:[svg]:text-current",
+				default: "bg-canvas-soft text-ink border-hairline",
+				info: "bg-info/8 text-info border-info/25",
+				success: "bg-success/10 text-success border-success/25",
+				warning: "bg-warning/10 text-warning border-warning/25",
+				destructive:
+					"bg-destructive/8 text-destructive border-destructive/25 *:data-[slot=alert-description]:text-destructive/85",
+				// Atmospheric soft tints for editorial inline notes.
+				"soft-mint": "bg-gradient-mint/20 text-ink border-gradient-mint/35",
+				"soft-peach": "bg-gradient-peach/22 text-ink border-gradient-peach/35",
+				"soft-lavender": "bg-gradient-lavender/22 text-ink border-gradient-lavender/35",
+				"soft-sky": "bg-gradient-sky/20 text-ink border-gradient-sky/35",
+				"soft-rose": "bg-gradient-rose/22 text-ink border-gradient-rose/35",
 			},
 		},
 		defaultVariants: {

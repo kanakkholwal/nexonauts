@@ -2,7 +2,10 @@
 	import Navbar from "$lib/components/common/navbar.svelte";
 	import Footer from "$lib/components/common/footer.svelte";
 	import HeroGradient from "$lib/components/surfaces/hero-gradient.svelte";
-	import { buttonVariants } from "$lib/components/ui/button";
+	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
+	import GradientOrbCard from "$lib/components/surfaces/gradient-orb-card.svelte";
+	import { Button, buttonVariants } from "$lib/components/ui/button";
+	import { Badge } from "$lib/components/ui/badge";
 	import { cn } from "$lib/utils";
 	import { enterOnView } from "$lib/motion/enter";
 	import ArrowRight from "@lucide/svelte/icons/arrow-right";
@@ -10,7 +13,6 @@
 	import BookOpen from "@lucide/svelte/icons/book-open";
 	import FileText from "@lucide/svelte/icons/file-text";
 	import MonitorPlay from "@lucide/svelte/icons/monitor-play";
-	import Sparkles from "@lucide/svelte/icons/sparkles";
 
 	const products = [
 		{
@@ -21,6 +23,7 @@
 			href: "https://recast.nexonauts.com",
 			external: true,
 			icon: MonitorPlay,
+			hue: "peach" as const,
 			points: ["Windows desktop today", "Mac and Linux coming", "Cloud sharing in beta"]
 		},
 		{
@@ -31,6 +34,7 @@
 			href: "https://docvia.dev",
 			external: true,
 			icon: FileText,
+			hue: "mint" as const,
 			points: ["MIT licensed", "React + Svelte renderers", "Build, dev, and SSR modes"]
 		}
 	];
@@ -42,7 +46,8 @@
 			description:
 				"Goroutines, channels, select, waitgroups, mutex, context. Short programs, side-by-side explanations.",
 			href: "/learn/go",
-			topics: 6
+			topics: 6,
+			hue: "sky" as const
 		}
 	];
 </script>
@@ -55,74 +60,55 @@
 	/>
 </svelte:head>
 
-<header>
-	<Navbar />
-</header>
+<Navbar />
 
-<main>
-	<!-- Hero: blue-gradient accent surface -->
-	<HeroGradient as="section" intensity="strong" class="pt-20 sm:pt-24 lg:pt-28">
+<main class="bg-canvas">
+	<!-- Editorial hero: pastel orbs drifting through off-white. -->
+	<HeroGradient as="section" variant="editorial" intensity="strong">
 		<div class="mx-auto max-w-3xl text-center" use:enterOnView={{ y: 16, duration: 0.5 }}>
-			<span
-				class="border-white/15 bg-white/5 text-white/80 mb-6 inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium backdrop-blur-sm"
-			>
-				<Sparkles class="size-3" />
-				Studio, not platform
-			</span>
+			<Badge variant="default" size="md" class="mb-6">Studio, not platform</Badge>
 
-			<h1 class="text-4xl leading-[1.05] font-semibold tracking-tight sm:text-5xl lg:text-6xl">
-				Tools and writing
-				<br />
-				<span class="text-white/60">for the people who ship.</span>
+			<h1 class="display-mega text-ink">
+				Tools and writing<br />
+				<span class="text-muted-ink">for the people who ship.</span>
 			</h1>
 
-			<p class="mx-auto mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
+			<p class="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-body">
 				A small studio of developer tools and technical writing. Home of Recast and Docvia, plus
 				guides on the languages and patterns we actually use.
 			</p>
 
 			<div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-				<a
+				<Button
 					href="https://recast.nexonauts.com"
 					target="_blank"
 					rel="noopener noreferrer"
-					class={cn(
-						buttonVariants({ size: "lg" }),
-						"h-11 rounded-full bg-white px-7 text-sm font-semibold text-black shadow-[0_1px_2px_rgb(0_0_0/0.10)] hover:bg-white/95"
-					)}
+					size="lg"
 				>
 					Try Recast
-					<ArrowUpRight class="ml-1 size-4" />
-				</a>
-				<a
-					href="/learn"
-					class={cn(
-						buttonVariants({ variant: "ghost", size: "lg" }),
-						"h-11 rounded-full border border-white/15 bg-white/5 px-7 text-sm font-medium text-white/90 hover:bg-white/10 hover:text-white"
-					)}
-				>
+					<ArrowUpRight class="size-4" />
+				</Button>
+				<Button href="/learn" variant="outline" size="lg">
 					Read the guides
-					<ArrowRight class="ml-1 size-4" />
-				</a>
+					<ArrowRight class="size-4" />
+				</Button>
 			</div>
 		</div>
 	</HeroGradient>
 
-	<!-- Products -->
-	<section id="products" class="border-border bg-background border-t py-20 sm:py-24 lg:py-28">
-		<div class="mx-auto max-w-6xl px-6 sm:px-8 lg:px-10">
-			<div class="mb-10 max-w-2xl" use:enterOnView>
-				<p class="text-muted-foreground text-xs font-semibold tracking-wide uppercase">Products</p>
-				<h2 class="text-foreground mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
-					What we ship
-				</h2>
-				<p class="text-muted-foreground mt-3 text-base">
-					Tools we built for ourselves first, then opened up. Each one has a specific job and stops
-					there.
+	<!-- Products: editorial 2-up split with gradient orbs in each card. -->
+	<section id="products" class="border-t border-hairline-soft bg-canvas-soft">
+		<div class="mx-auto max-w-(--max-app-width) px-6 py-24 sm:px-8 sm:py-28">
+			<div class="mb-12 max-w-2xl" use:enterOnView>
+				<p class="eyebrow text-muted-ink">Products</p>
+				<h2 class="display-lg mt-3 text-ink">What we ship</h2>
+				<p class="mt-4 text-base leading-relaxed text-body">
+					Tools we built for ourselves first, then opened up. Each one has a specific job and
+					stops there.
 				</p>
 			</div>
 
-			<div class="grid gap-4 lg:grid-cols-2 lg:gap-5">
+			<div class="grid gap-5 lg:grid-cols-2">
 				{#each products as product, i (product.title)}
 					{@const Icon = product.icon}
 					<a
@@ -130,35 +116,38 @@
 						target={product.external ? "_blank" : undefined}
 						rel={product.external ? "noopener noreferrer" : undefined}
 						class={cn(
-							"group bg-card hover:border-foreground/20 relative flex flex-col gap-5 rounded-2xl border border-border p-7 transition-all hover:shadow-[0_4px_16px_rgb(0_0_0/0.06)]"
+							"group relative isolate flex flex-col gap-6 overflow-hidden rounded-3xl border border-hairline-soft bg-canvas p-8 transition-all duration-200",
+							"hover:border-hairline-strong hover:shadow-(--shadow-soft-drop)"
 						)}
 						use:enterOnView={{ delay: 0.05 * i, y: 16 }}
 					>
-						<div class="flex items-center justify-between">
+						<GradientOrb
+							hue={product.hue}
+							size="lg"
+							opacity={0.35}
+							class="-right-32 -top-24"
+						/>
+
+						<div class="relative z-10 flex items-center justify-between">
 							<div
-								class="bg-foreground/5 group-hover:bg-foreground/10 inline-flex size-11 items-center justify-center rounded-xl transition-colors"
+								class="inline-flex size-12 items-center justify-center rounded-2xl bg-surface-strong"
 							>
-								<Icon class="text-foreground size-5" />
+								<Icon class="size-5 text-ink" />
 							</div>
 							<ArrowUpRight
-								class="text-muted-foreground group-hover:text-foreground size-4 transition-colors"
+								class="size-4 text-muted-ink transition-colors group-hover:text-ink"
 							/>
 						</div>
-						<div>
-							<p class="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
-								{product.eyebrow}
-							</p>
-							<h3 class="text-foreground mt-2 text-2xl font-semibold tracking-tight">
-								{product.title}
-							</h3>
-							<p class="text-muted-foreground mt-3 text-sm leading-relaxed">
-								{product.description}
-							</p>
+						<div class="relative z-10">
+							<p class="eyebrow text-muted-ink">{product.eyebrow}</p>
+							<h3 class="display-md mt-3 text-ink">{product.title}</h3>
+							<p class="mt-4 text-base leading-relaxed text-body">{product.description}</p>
 						</div>
-						<ul class="border-border mt-auto space-y-1.5 border-t pt-4">
+						<ul class="relative z-10 mt-auto space-y-2 border-t border-hairline-soft pt-5">
 							{#each product.points as point (point)}
-								<li class="text-muted-foreground text-sm">
-									<span class="text-foreground mr-2">·</span>{point}
+								<li class="flex items-start gap-2 text-sm text-body">
+									<span class="mt-1.5 inline-block size-1 shrink-0 rounded-full bg-ink"></span>
+									{point}
 								</li>
 							{/each}
 						</ul>
@@ -168,44 +157,41 @@
 		</div>
 	</section>
 
-	<!-- Learn -->
-	<section id="guides" class="border-border bg-muted/30 border-t py-20 sm:py-24 lg:py-28">
-		<div class="mx-auto max-w-6xl px-6 sm:px-8 lg:px-10">
-			<div class="mb-10 max-w-2xl" use:enterOnView>
-				<p class="text-muted-foreground text-xs font-semibold tracking-wide uppercase">Learn</p>
-				<h2 class="text-foreground mt-2 text-3xl font-semibold tracking-tight sm:text-4xl">
+	<!-- Learn: smaller cards under a feature eyebrow. -->
+	<section id="guides" class="border-t border-hairline-soft bg-canvas">
+		<div class="mx-auto max-w-(--max-app-width) px-6 py-24 sm:px-8 sm:py-28">
+			<div class="mb-12 max-w-2xl" use:enterOnView>
+				<p class="eyebrow text-muted-ink">Learn</p>
+				<h2 class="display-lg mt-3 text-ink">
 					Short programs, side-by-side explanations
 				</h2>
-				<p class="text-muted-foreground mt-3 text-base">
+				<p class="mt-4 text-base leading-relaxed text-body">
 					Topic-by-topic walkthroughs of the languages we actually reach for. Code on one side,
 					why-it-works on the other.
 				</p>
 			</div>
 
-			<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
 				{#each guideHighlights as g (g.title)}
 					<a
 						href={g.href}
-						class="group bg-card hover:border-foreground/20 flex flex-col gap-4 rounded-2xl border border-border p-6 transition-all hover:shadow-[0_4px_16px_rgb(0_0_0/0.06)]"
+						class="group relative isolate flex flex-col gap-5 overflow-hidden rounded-2xl border border-hairline bg-card p-6 transition-all hover:border-hairline-strong hover:shadow-(--shadow-soft-drop)"
 						use:enterOnView
 					>
-						<div class="flex items-center justify-between">
-							<div
-								class="bg-foreground/5 inline-flex size-9 items-center justify-center rounded-lg"
-							>
-								<BookOpen class="text-foreground size-4" />
+						<GradientOrb hue={g.hue} size="md" opacity={0.25} class="-right-24 -top-16" />
+						<div class="relative z-10 flex items-center justify-between">
+							<div class="inline-flex size-10 items-center justify-center rounded-xl bg-surface-strong">
+								<BookOpen class="size-4 text-ink" />
 							</div>
-							<span class="text-muted-foreground text-xs">{g.topics} topics</span>
+							<Badge variant="soft-sky" size="sm">{g.topics} topics</Badge>
 						</div>
-						<div>
-							<p class="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
-								{g.eyebrow}
-							</p>
-							<h3 class="text-foreground mt-2 text-xl font-semibold">{g.title}</h3>
-							<p class="text-muted-foreground mt-2 text-sm leading-relaxed">{g.description}</p>
+						<div class="relative z-10">
+							<p class="eyebrow text-muted-ink">{g.eyebrow}</p>
+							<h3 class="display-sm mt-2 text-ink">{g.title}</h3>
+							<p class="mt-3 text-sm leading-relaxed text-body">{g.description}</p>
 						</div>
 						<div
-							class="text-muted-foreground group-hover:text-foreground mt-auto inline-flex items-center gap-1 text-sm transition-colors"
+							class="relative z-10 mt-auto inline-flex items-center gap-1 text-sm text-muted-ink transition-colors group-hover:text-ink"
 						>
 							Open <ArrowRight class="size-3.5" />
 						</div>
@@ -214,20 +200,18 @@
 
 				<a
 					href="/guides"
-					class="group bg-card hover:border-foreground/20 flex flex-col items-start justify-between rounded-2xl border border-border border-dashed p-6 transition-all hover:shadow-[0_4px_16px_rgb(0_0_0/0.06)]"
+					class="group flex flex-col items-start justify-between rounded-2xl border border-dashed border-hairline-strong bg-canvas-soft p-6 transition-colors hover:bg-surface-strong/60"
 					use:enterOnView={{ delay: 0.05 }}
 				>
 					<div>
-						<p class="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
-							Standalone
-						</p>
-						<h3 class="text-foreground mt-2 text-xl font-semibold">Guides</h3>
-						<p class="text-muted-foreground mt-2 text-sm leading-relaxed">
+						<p class="eyebrow text-muted-ink">Standalone</p>
+						<h3 class="display-sm mt-2 text-ink">Guides</h3>
+						<p class="mt-3 text-sm leading-relaxed text-body">
 							Longer-form walkthroughs that don't fit the by-example shape.
 						</p>
 					</div>
 					<div
-						class="text-muted-foreground group-hover:text-foreground mt-4 inline-flex items-center gap-1 text-sm transition-colors"
+						class="mt-5 inline-flex items-center gap-1 text-sm text-muted-ink transition-colors group-hover:text-ink"
 					>
 						Browse all <ArrowRight class="size-3.5" />
 					</div>
@@ -236,41 +220,34 @@
 		</div>
 	</section>
 
-	<!-- CTA: reuse HeroGradient as the closing accent -->
-	<HeroGradient as="section" class="py-20 sm:py-24">
-		<div class="mx-auto max-w-2xl text-center" use:enterOnView>
-			<h2 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-				Built for the people who actually ship.
-			</h2>
-			<p class="mx-auto mt-4 max-w-lg text-base leading-relaxed text-white/70">
-				Pick a tool, pick a guide, or read along on X.
-			</p>
-			<div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-				<a
-					href="/learn"
-					class={cn(
-						buttonVariants({ size: "lg" }),
-						"h-11 rounded-full bg-white px-7 text-sm font-semibold text-black shadow-[0_1px_2px_rgb(0_0_0/0.10)] hover:bg-white/95"
-					)}
-				>
-					Read the guides
-					<ArrowRight class="ml-1 size-4" />
-				</a>
-				<a
-					href="https://x.com/KanakKholwal"
-					target="_blank"
-					rel="noopener noreferrer"
-					class={cn(
-						buttonVariants({ variant: "ghost", size: "lg" }),
-						"h-11 rounded-full border border-white/15 bg-white/5 px-7 text-sm font-medium text-white/90 hover:bg-white/10 hover:text-white"
-					)}
-				>
-					Follow on X
-					<ArrowUpRight class="ml-1 size-4" />
-				</a>
-			</div>
+	<!-- Closing CTA: editorial gradient-orb card per DESIGN.md. -->
+	<section class="border-t border-hairline-soft bg-canvas">
+		<div class="mx-auto max-w-(--max-app-width) px-6 py-24 sm:px-8 sm:py-28">
+			<GradientOrbCard
+				hue="rose"
+				eyebrow="Get started"
+				title="Built for the people who actually ship."
+				description="Pick a tool, pick a guide, or read along on X."
+			>
+				<div class="mt-3 flex flex-col items-center justify-center gap-3 sm:flex-row">
+					<Button href="/learn" size="lg">
+						Read the guides
+						<ArrowRight class="size-4" />
+					</Button>
+					<Button
+						href="https://x.com/KanakKholwal"
+						target="_blank"
+						rel="noopener noreferrer"
+						variant="outline"
+						size="lg"
+					>
+						Follow on X
+						<ArrowUpRight class="size-4" />
+					</Button>
+				</div>
+			</GradientOrbCard>
 		</div>
-	</HeroGradient>
+	</section>
 </main>
 
 <Footer />

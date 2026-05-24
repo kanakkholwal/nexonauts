@@ -1,349 +1,250 @@
-# Nexonauts Design System
+## Overview
 
-A working document. Source of truth for tokens, components, motion, and layout discipline across the Nexonauts site and its sub-products. Updated in sync with the codebase — when something is described here and not present, it's a TODO; when something exists in code but isn't here, this doc is wrong.
+ElevenLabs reads like a quietly editorial print magazine that happens to be a voice-AI product. The base canvas is off-white `{colors.canvas}` (#f5f5f5) holding warm near-black ink `{colors.ink}` (#0c0a09). The brand voltage is **photographic, not chromatic**: soft pastel atmospheric gradient orbs (mint, peach, lavender, sky, rose) drift through the page as the only "color" moments. There is no neon accent, no saturated CTA color, no dark-canvas dev-tools atmosphere.
 
----
+Type pairs **Waldenburg Light** (custom serif at weight 300) for display with **Inter** for body, navigation, captions. The display weight at 300 is the editorial signature — never bold, never heavy.
 
-## 1. The state we're in
+CTAs are subtle: a near-black ink pill (`{component.button-primary}`) is the primary, a transparent outline (`{component.button-outline}`) is the secondary. The brand trusts atmospheric photography and modest type weights to carry brand work.
 
-The site has, today, **two coexisting visual systems**:
+**Key Characteristics:**
+- Off-white canvas, warm near-black ink. No saturated CTA color.
+- Single primary action: ink pill at `{rounded.pill}`. Atmospheric gradients carry visual brand voltage.
+- Display runs Waldenburg Light at weight 300 — editorial magazine voice.
+- Body runs Inter at 400 with subtle letter-spacing (+0.15-0.18px).
+- Pastel gradient orbs (5 tokens: mint, peach, lavender, sky, rose) used as atmospheric brand decoration only.
+- Soft pill geometry (`{rounded.pill}` for CTAs, `{rounded.xl}` for cards).
+- 96px section rhythm.
 
-| Surface | Palette | Defined where |
+## Colors
+
+### Brand & Accent
+- **Ink Primary** (`{colors.primary}` — #292524): The primary action color — warm near-black pill. Used scarcely.
+- **Ink Primary Active** (`{colors.primary-active}` — #0c0a09): Press state.
+
+### Surface
+- **Canvas** (`{colors.canvas}` — #f5f5f5): Off-white page floor.
+- **Canvas Soft** (`{colors.canvas-soft}` — #fafafa): Lighter band for subtle alternating sections.
+- **Canvas Deep** (`{colors.canvas-deep}` — #0c0a09): Same as ink — used for the rare dark-mode hero (Agents page).
+- **Surface Card** (`{colors.surface-card}` — #ffffff): Pure white card.
+- **Surface Strong** (`{colors.surface-strong}` — #f0efed): Badges, voice-icon plates.
+- **Surface Dark** (`{colors.surface-dark}` — #0c0a09): Dark hero/CTA band canvas.
+- **Surface Dark Elevated** (`{colors.surface-dark-elevated}` — #1c1917): Cards on dark canvas.
+
+### Hairlines
+- **Hairline** (`{colors.hairline}` — #e7e5e4): Default 1px divider.
+- **Hairline Soft** (`{colors.hairline-soft}` — #f0efed): Lighter divider.
+- **Hairline Strong** (`{colors.hairline-strong}` — #d6d3d1): Stronger panel outline.
+
+### Text
+- **Ink** (`{colors.ink}` — #0c0a09): Display, primary text.
+- **Body** (`{colors.body}` — #4e4e4e): Default running-text.
+- **Body Strong** (`{colors.body-strong}` — #292524): Same as primary — emphasis.
+- **Muted** (`{colors.muted}` — #777169): Sub-titles.
+- **Muted Soft** (`{colors.muted-soft}` — #a8a29e): Disabled text.
+- **On Primary** (`{colors.on-primary}` — #ffffff): White text on ink pill.
+- **On Dark** (`{colors.on-dark}` — #ffffff): White text on dark hero.
+- **On Dark Soft** (`{colors.on-dark-soft}` — #a8a29e): Muted off-white on dark.
+
+### Atmospheric Gradient Stops (signature)
+- **Gradient Mint** (`{colors.gradient-mint}` — #a7e5d3): Mint green orb.
+- **Gradient Peach** (`{colors.gradient-peach}` — #f4c5a8): Peach orb.
+- **Gradient Lavender** (`{colors.gradient-lavender}` — #c8b8e0): Lavender orb.
+- **Gradient Sky** (`{colors.gradient-sky}` — #a8c8e8): Sky-blue orb.
+- **Gradient Rose** (`{colors.gradient-rose}` — #e8b8c4): Rose orb.
+
+These appear ONLY as soft radial-gradient atmospheric orbs inside `{component.gradient-orb-card}` and as background atmospheric blooms behind hero copy. Never as button fills, never as text colors.
+
+### Semantic
+- **Success** (`{colors.semantic-success}` — #16a34a): Confirmation.
+- **Error** (`{colors.semantic-error}` — #dc2626): Validation errors.
+
+## Typography
+
+### Font Family
+**Waldenburg Light** is the licensed display serif at weight 300. **Inter** carries body, navigation, captions, and buttons. Fallback: `'Times New Roman', serif` for Waldenburg, `sans-serif` for Inter.
+
+### Hierarchy
+
+| Token | Size | Weight | Line Height | Letter Spacing | Use |
+|---|---|---|---|---|---|
+| `{typography.display-mega}` | 64px | 300 | 1.05 | -1.92px | Homepage hero h1 |
+| `{typography.display-xl}` | 48px | 300 | 1.08 | -0.96px | Subsidiary heroes |
+| `{typography.display-lg}` | 36px | 300 | 1.17 | -0.36px | Section heads |
+| `{typography.display-md}` | 32px | 300 | 1.13 | -0.32px | Sub-section heads |
+| `{typography.display-sm}` | 24px | 300 | 1.2 | 0 | Card group titles |
+| `{typography.title-md}` | 20px | 500 | 1.35 | 0 | Component titles — Inter |
+| `{typography.title-sm}` | 18px | 500 | 1.44 | 0.18px | List labels |
+| `{typography.body-md}` | 16px | 400 | 1.5 | 0.16px | Default body — Inter |
+| `{typography.body-strong}` | 16px | 500 | 1.5 | 0.16px | Emphasized body |
+| `{typography.body-sm}` | 15px | 400 | 1.47 | 0.15px | Footer body |
+| `{typography.caption}` | 14px | 400 | 1.5 | 0 | Photo captions |
+| `{typography.caption-uppercase}` | 12px | 600 | 1.4 | 0.96px | Section labels, badges |
+| `{typography.button}` | 15px | 500 | 1.0 | 0 | CTA pill |
+| `{typography.nav-link}` | 15px | 500 | 1.4 | 0 | Top-nav menu |
+
+### Principles
+- **Display weight stays at 300.** Waldenburg Light is the editorial signature. Never bold display copy.
+- **Subtle letter-spacing on body.** Inter at +0.15-0.18px tracking — slightly looser than default Inter for a more editorial feel.
+- **Negative letter-spacing on display.** Waldenburg pulls -0.32px to -1.92px tighter on display sizes.
+
+### Note on Font Substitutes
+Waldenburg is licensed. Open-source substitute: **EB Garamond** at weight 300 (slightly more humanist) or **GT Sectra** (closer to Waldenburg's modernity). Use Inter directly for body — it's the same family ElevenLabs uses.
+
+## Layout
+
+### Spacing System
+- **Base unit:** 4px.
+- **Tokens:** `{spacing.xxs}` 4px · `{spacing.xs}` 8px · `{spacing.sm}` 12px · `{spacing.base}` 16px · `{spacing.md}` 20px · `{spacing.lg}` 24px · `{spacing.xl}` 32px · `{spacing.xxl}` 48px · `{spacing.section}` 96px.
+- **Section padding:** 96px.
+
+### Grid & Container
+- Max content width: ~1200px.
+- Editorial body: 12-column grid.
+- Feature card grids: 2-up at desktop for hero splits, 3-up for benefit grids.
+- Footer: 5-column at desktop.
+
+### Whitespace Philosophy
+Generous editorial pacing — print-magazine feel. 96px between bands; cards inside bands sit close (16-24px gap). The atmospheric gradient orbs occupy generous breathing space without competing with copy.
+
+## Elevation & Depth
+
+The system uses **hairline + soft drop**. Cards float above the off-white canvas via 1px hairlines and a single subtle shadow tier. Atmospheric depth comes from gradient orbs.
+
+| Level | Treatment | Use |
 |---|---|---|
-| New homepage (`/`) | Warm sand / cream / sage. `--landing-bg: #f5f1ea`, `--landing-accent: #4a9168` | Inline in `src/routes/+page.svelte` `<style>` block |
-| Everything else (`/guides`, `/learn`, `/auth`, `/dev-tools`, `/admin`) | Cool neutral, green primary (`hsl(161 94% 30%)`), light/dark via `data-theme` | `src/app.css` CSS variables + Tailwind 4 `@theme` mapping |
+| Flat (canvas) | `{colors.canvas}` (#f5f5f5) | Body bands, footer |
+| Card | `{colors.surface-card}` (#ffffff) | Content cards |
+| Hairline border | 1px `{colors.hairline}` | Card outlines |
+| Soft drop | `0 4px 16px rgba(0, 0, 0, 0.04)` | Hovered cards (single shadow tier) |
+| Gradient orb | Radial gradient with one of `{colors.gradient-*}` | Atmospheric depth — never a card surface |
 
-There is also an inherited "blue gradient hero" treatment (dark background, blue radial glow, faint grid) that appeared in early phase-1 work and the auth `+layout.svelte` left rail. The user wants this preserved as a **reusable surface** for hero / CTA / accent sections — but it doesn't fit either of the two palettes above as currently configured.
+### Decorative Depth
+- **Pastel gradient orbs** are the brand's strongest atmospheric pattern. Soft radial blooms in mint, peach, lavender, sky, or rose drift through hero bands and feature sections without containing any content — they are pure atmosphere.
 
-**These three styles need to collapse into one system before the redesign pass.** This document proposes how.
+## Shapes
 
----
-
-## 2. Proposed direction
-
-> Everything from here down is a proposal. Each section ends with the implementation status — `[locked]`, `[proposed]`, `[open]`. The redesign pass shouldn't start until the `[proposed]`s in §3, §4, §10 are either accepted or replaced.
-
-### 2.1. Brand voice → visual treatment
-
-Nexonauts positions itself as a quiet, dev-focused studio that ships tools and writing. The visual language should read:
-
-- **Calm.** Generous whitespace, restrained color, no decorative motion.
-- **Tactile.** Real surfaces with real edges — borders and subtle shadow, not flat-everything.
-- **Considered.** Typography does the heavy lifting; color and motion are accents, not the message.
-- **Adaptive.** Light by default for content (read in daylight); dark accents for hero / CTA surfaces.
-
-`[proposed]`
-
-### 2.2. One palette, two surface treatments
-
-- **Content surface** — light by default, dark optional via `data-theme="dark"`. Used on `/guides`, `/learn`, `/dev-tools`, `/auth`, `/admin`, and the body sections of the homepage. This is the existing `app.css` system. **Keep it.**
-- **Accent surface** — dark background with a single blue radial glow and a faint grid. Used for the homepage hero, top-of-page CTA bands, and the left rail of `/auth`. Extracted to a `HeroGradient.svelte` (or similar) reusable component. Always dark, regardless of site theme.
-- **Drop the warm-sand homepage palette.** It's beautiful but it doesn't compose with anything else we have, and the user has signalled the blue-gradient style is what should live on across the site. The homepage gets a redesign that uses the content surface for body sections and the accent surface for hero + CTA.
-
-`[proposed]`
-
----
-
-## 3. Foundations
-
-### 3.1. Stack
-
-| Concern | Library / tool | Version |
-|---|---|---|
-| Utility CSS | Tailwind 4 (`@tailwindcss/vite`) | 4.x |
-| Component primitives | Bits UI (shadcn-svelte port) | 2.x |
-| Typography (UI) | Geist Variable | 5.x (`@fontsource-variable/geist`) |
-| Typography (code) | Geist Mono Variable | 5.x (`@fontsource-variable/geist-mono`) |
-| Icons | `@lucide/svelte` | 1.x |
-| Animation primitives | `tw-animate-css` (Tailwind-friendly keyframes) + `motion` (Motion One for Svelte) — see §10 | TBD |
-| Code highlighting | Shiki via `@docvia/plugin-shiki` (build-time) | 0.2.x |
-| Markdown / content | Docvia (`@docvia/cli`, `@docvia/renderer-svelte`, `@docvia/plugin-vite`) | 0.2.x |
-| Markdown prose styles | `@tailwindcss/typography` (`prose` classes) | 0.5.x |
-
-`[locked]` — these are what's installed today. Nothing here is up for replacement unless we hit a wall.
-
-### 3.2. Token surface
-
-All tokens live as CSS variables on `:root` and `[data-theme="dark"]` in `src/app.css`, then are mapped into Tailwind via `@theme inline { --color-foreground: var(--foreground); ... }`. Tailwind's `bg-foreground`, `text-muted-foreground`, `border-border`, etc. all resolve through these vars.
-
-**Add new tokens in app.css, not inline in components.** When a token needs to exist, it goes in both the `:root` block and the `[data-theme="dark"]` block, then gets mapped under `@theme inline`.
-
-`[locked]`
-
----
-
-## 4. Color
-
-### 4.1. Content surface tokens (already in app.css)
-
-| Token | Light | Dark | Use |
-|---|---|---|---|
-| `--background` | `hsl(0 0% 96%)` | `hsl(0 0% 7%)` | Page background |
-| `--foreground` | `hsl(0 0% 10%)` | `hsl(0 0% 92%)` | Body text, headings |
-| `--card` | `hsl(0 0% 100%)` | `hsl(0 0% 10%)` | Elevated surfaces |
-| `--muted` | `hsl(210 40% 98%)` | `hsl(0 0% 12%)` | Subtle backgrounds (eyebrows, badges) |
-| `--muted-foreground` | `hsl(220 9% 46%)` | `hsl(218 11% 65%)` | Secondary text |
-| `--border` | `hsl(220 13% 91%)` | `hsl(0 0% 14%)` | Hairlines |
-| `--primary` | `oklch(0.18 0.012 270)` (near-black) | `oklch(0.96 0.003 270)` (near-white) | Primary CTA, focus ring, accent text |
-| `--primary-foreground` | white | near-black | Text/icons on `bg-primary` |
-| `--destructive` | `hsl(0 84% 60%)` | `hsl(0 63% 31%)` | Destructive actions only |
-
-The full set is in `src/app.css` (sidebar, ring, popover, chart series, etc.). When in doubt, prefer `foreground` / `muted-foreground` / `border` over inventing greys.
-
-### 4.2. Resolved color decisions
-
-- Emerald (`hsl(161 94% 30%)`) is **Recast's brand color**, not Nexonauts'. Nexonauts adopts a sophisticated near-black primary that lets typography and spacing do the talking.
-- Secondary cyan (`hsl(200 98% 39%)`) is **removed completely** — it had no defined role and sat too close to other accents.
-- The `--shadow-button` multi-layer treatment is what makes the primary CTA feel "premium / shiny" without needing a chromatic accent. Keep it.
-
----
-
-## 5. The accent surface (blue gradient hero block)
-
-The block we want to canonicalize:
-
-```
-- Dark background (#0a0a0a-ish)
-- One large radial blue glow positioned top-center (`bg-primary/20` at ~120px blur)
-- Faint vertical+horizontal grid overlay, masked to fade at edges
-- Optional rounded outer container with a 1px white/10 border
-- White foreground text; muted-zinc supporting text
-```
-
-Used today (informally) in:
-- The old phase-1 homepage CTA section (deleted)
-- `src/routes/auth/+layout.svelte` left rail
-- A few inline blocks in the new homepage's dark panels
-
-**Extract as `src/lib/components/surfaces/HeroGradient.svelte`.** Props:
-- `as?: "section" | "div"` (default `section`)
-- `intensity?: "soft" | "strong"` — controls the blur radius / opacity of the radial
-- `padded?: boolean` — adds standard internal padding, default true
-- `children` snippet for content
-
-Then use it for: homepage hero, any future "Coming Soon" CTA bands, the auth left rail. One source of truth.
-
-`[proposed]` — implement in the redesign pass.
-
----
-
-## 6. Typography
-
-Geist for everything. Geist Mono for code.
-
-### 6.1. Scale
-
-| Role | Tailwind class | Size / line-height | Weight |
-|---|---|---|---|
-| Display | `text-5xl sm:text-6xl lg:text-7xl` | 48 / 60 / 72px | 600 |
-| H1 (page) | `text-4xl sm:text-5xl` | 36 / 48px | 700 |
-| H2 (section) | `text-3xl sm:text-4xl` | 30 / 36px | 600 |
-| H3 (subsection) | `text-lg` to `text-xl` | 18–20px | 600 |
-| Body | `text-base` | 16px / 1.6 | 400 |
-| Body small | `text-sm` | 14px / 1.5 | 400 |
-| Caption / eyebrow | `text-xs uppercase tracking-wide` | 12px | 600 |
-| Code | `font-mono text-sm` | 14px / 1.6 | 400 |
-
-`[proposed]` — these are the patterns used in the current codebase; codifying them.
-
-### 6.2. Prose
-
-Long-form content (guide bodies, blog posts) uses `@tailwindcss/typography` (`prose prose-zinc dark:prose-invert`). The Step component opts out of prose styling for layout reasons; check that the rest of long-form content still gets prose discipline.
-
-`[locked]`
-
----
-
-## 7. Spacing & layout
-
-### 7.1. Spacing scale
-
-Tailwind 4 default. Base unit `0.25rem` (4px). Use `gap-*`, `p-*`, `m-*`, never custom pixel values.
-
-`[locked]`
-
-### 7.2. Content widths per route family
-
-Current state is inconsistent — `/guides` and `/learn/[lang]` use `max-w-3xl`, `/learn/[lang]/[topic]` uses `max-w-5xl`, the homepage shell uses `max-w-6xl`, auth uses a 2-column full-width grid.
-
-Proposed:
-
-| Route family | Outer shell | Inner content |
-|---|---|---|
-| Homepage (`/`) | full-bleed | `max-w-6xl` per section |
-| Marketing (`/recast` if it stays, `/about`, `/pricing`) | full-bleed | `max-w-5xl` |
-| Content list (`/guides`, `/learn`, `/learn/[lang]`) | `max-w-4xl` | — |
-| Content detail (`/guides/[...slug]`, `/learn/[lang]/[topic]`) | `max-w-6xl` | the Step component handles its own 1.0fr / 1.15fr split |
-| Auth | full-bleed 2-col grid | `max-w-[400px]` for the form card |
-| Admin | sidebar shell | container, padded |
-
-The user flagged that the current `/guides` and `/learn` are too narrow. The detail pages going to `max-w-6xl` should fix that — the Step component already uses `minmax(0, 1fr) minmax(0, 1.15fr)` so it'll expand to fill.
-
-`[proposed]`
-
----
-
-## 8. Radius
-
-Defined in app.css as `--radius: 0.75rem` (12px), with Tailwind mappings:
+### Border Radius Scale
 
 | Token | Value | Use |
 |---|---|---|
-| `rounded-sm` (`--radius-sm`) | 8px | Inputs, small badges |
-| `rounded-md` (`--radius-md`) | 10px | Buttons |
-| `rounded-lg` (`--radius-lg`) | 12px | Cards, panels |
-| `rounded-xl` (`--radius-xl`) | 16px | Hero panels, large surfaces |
-| `rounded-full` | 9999px | Pills, pill-buttons, avatars |
+| `{rounded.none}` | 0px | Reserved |
+| `{rounded.xs}` | 4px | Inline tags |
+| `{rounded.sm}` | 6px | Compact rows |
+| `{rounded.md}` | 8px | Form inputs |
+| `{rounded.lg}` | 12px | Compact cards |
+| `{rounded.xl}` | 16px | Feature cards, pricing tiers |
+| `{rounded.xxl}` | 24px | Gradient orb cards (extra-soft) |
+| `{rounded.pill}` | 9999px | All CTA buttons, badges |
+| `{rounded.full}` | 9999px | Voice icon circles, avatars |
 
-`[locked]`
+## Components
 
----
+### Top Navigation
 
-## 9. Shadow / elevation
+**`top-nav`** — Background `{colors.canvas}`, text `{colors.ink}`, height 64px. Layout: ElevenLabs wordmark left, primary horizontal menu (Creative / Agents / Video / Pricing / Enterprise / Docs), Sign In + "Try free" primary CTA right.
 
-Three levels — defined informally today, codify them:
+### Buttons
 
-| Level | Value | Use |
+**`button-primary`** — Near-black ink pill. Background `{colors.primary}`, text `{colors.on-primary}`, type `{typography.button}` (15px / 500), padding 10px × 20px, height 40px, rounded `{rounded.pill}`.
+
+**`button-primary-active`** — Press state. Background `{colors.primary-active}`.
+
+**`button-outline`** — Transparent pill with 1px ink border. Background transparent, text `{colors.ink}`, 1px `{colors.hairline-strong}` border.
+
+**`button-tertiary-text`** — Inline ink text link.
+
+### Hero & Atmospheric
+
+**`hero-band`** — Background `{colors.canvas}`, full-width display headline in `{typography.display-mega}` (64px / 300 / -1.92px), subhead in `{typography.body-md}`, two CTAs, and an atmospheric gradient orb behind the centered headline.
+
+**`gradient-orb-card`** — A large card with a soft radial-gradient orb behind centered display copy. Background `{colors.canvas-soft}`, rounded `{rounded.xxl}` (24px), padding 32px. Each variant uses one of the five gradient tokens (`gradient-mint`, `gradient-peach`, `gradient-lavender`, `gradient-sky`, `gradient-rose`).
+
+**`audio-waveform-card`** — A waveform visualization card. Background `{colors.surface-card}`, rounded `{rounded.xl}`, padding 24px. Holds a play button + waveform glyph + voice metadata.
+
+### Cards
+
+**`feature-card`** — 2-up or 3-up grids. Background `{colors.surface-card}`, text `{colors.ink}`, rounded `{rounded.xl}`, padding 24px, 1px hairline border.
+
+**`product-card-stack`** — Stacked product preview cards. Background `{colors.surface-card}`, rounded `{rounded.xl}`, no padding (children fill the card edge-to-edge).
+
+**`testimonial-card`** — Quote card. Background `{colors.surface-card}`, text `{colors.body}`, rounded `{rounded.xl}`, padding 32px.
+
+### Voice Library
+
+**`voice-row`** — Horizontal row in voice list. Background transparent, 1px hairline divider. Layout: 32px circular voice icon (`{component.voice-icon-circular}`) left, voice name + accent stack, optional preview button right.
+
+**`voice-icon-circular`** — Background `{colors.surface-strong}`, rounded `{rounded.full}`, 32px diameter. Holds initials or voice glyph.
+
+### Pricing
+
+**`pricing-tier-card`** — Background `{colors.surface-card}`, rounded `{rounded.xl}`, padding 32px, 1px hairline border.
+
+**`pricing-tier-featured`** — Featured tier inverts. Background `{colors.surface-dark}`, text `{colors.on-dark}`. Same shape, dark inversion.
+
+### Forms & Tags
+
+**`text-input`** — Background `{colors.surface-card}`, text `{colors.ink}`, rounded `{rounded.md}` (8px), padding 12px × 16px, height 44px, 1px `{colors.hairline-strong}` border. On focus, border thickens to 2px ink.
+
+**`badge-pill`** — Background `{colors.surface-strong}`, text `{colors.ink}`, type `{typography.caption-uppercase}`, rounded `{rounded.pill}`, padding 4px × 10px.
+
+### CTA / Footer
+
+**`cta-band`** — Pre-footer. Background `{colors.canvas}`, centered display headline in `{typography.display-lg}`, single ink pill CTA. 96px padding.
+
+**`footer`** — Closing footer. Background `{colors.canvas}`, text `{colors.body}`. 5-column link list. 64×48px padding.
+
+**`footer-link`** — Background transparent, text `{colors.body}`, type `{typography.body-sm}`.
+
+## Do's and Don'ts
+
+### Do
+- Reserve `{colors.primary}` (ink pill) for primary CTAs.
+- Use Waldenburg Light at weight 300 for every display headline. Never bold.
+- Use Inter at +0.15-0.18px tracking for body — the editorial dialect.
+- Use atmospheric gradient orbs (mint/peach/lavender/sky/rose) as decoration only.
+- Use the pill shape for every CTA and badge.
+
+### Don't
+- Don't introduce a saturated brand action color. Ink pill is the only CTA color.
+- Don't bold display copy. Display sits at weight 300 — bolding shifts the brand voice from editorial to consumer-marketing.
+- Don't use gradient orbs as button fills, text colors, or component backgrounds. They are pure atmosphere.
+- Don't use sharp `{rounded.none}` (0px) on CTAs. Pill geometry is the brand button.
+- Don't drop body Inter to weight 300 to match Waldenburg — body stays at 400/500 for legibility.
+- Don't extract a CTA color from a third-party widget (cookie consent, OneTrust). The brand's CTA color is what appears on actual product CTAs.
+
+## Responsive Behavior
+
+### Breakpoints
+
+| Name | Width | Key Changes |
 |---|---|---|
-| 0 (flat) | none | Default for borders-only surfaces |
-| 1 (subtle) | `0 1px 2px rgb(0 0 0 / 0.06)` | Cards on hover, dropdowns |
-| 2 (raised) | `0 4px 16px rgb(0 0 0 / 0.08)` | Modals, popovers |
-| `--shadow-button` (existing) | multi-layer inset+drop | Primary buttons. Keep as-is. |
+| Mobile | < 640px | Hero h1 64→32px; feature cards 1-up; nav hamburger; gradient orbs shrink. |
+| Tablet | 640–1024px | Hero h1 48px; feature cards 2-up. |
+| Desktop | 1024–1280px | Full hero h1 64px; feature cards 3-up. |
+| Wide | > 1280px | Content caps at 1200px. |
 
-`[proposed]` — add these as tokens in app.css under `@theme inline`.
+### Touch Targets
+- Primary pill at 40px height — at WCAG AA, padded for AAA.
+- Voice icon circles 32px — padded row creates effective 48px tap zone.
 
----
+### Collapsing Strategy
+- Top nav switches to hamburger below 768px.
+- Feature grid: 3-up → 2-up → 1-up.
+- Gradient orbs reduce diameter at every breakpoint but never disappear.
 
-## 10. Motion
+## Iteration Guide
 
-### 10.1. Library choice
+1. Focus on a single component at a time.
+2. CTAs default to `{rounded.pill}`. Cards use `{rounded.xl}` (16px).
+3. Variants live as separate entries.
+4. Use `{token.refs}` everywhere — never inline hex.
+5. Hover state never documented.
+6. Waldenburg 300 for display, Inter 400/500 for body.
+7. Gradient orbs scoped to atmospheric decoration.
 
-**Proposed: Motion One for Svelte** (`motion` npm package, the Svelte adapter). Reasons:
+## Known Gaps
 
-- Built on the same engine as Framer Motion's web target — same mental model.
-- Native Svelte 5 ergonomics (`use:motion` action, runes-compatible).
-- Smaller bundle than `svelte-motion` (community port of FM).
-- Active maintenance by the Motion team.
-
-Install: `bun add motion`.
-
-Use cases: page enter (fade + slight Y translate), reveal on scroll, modal/drawer enter (already handled by Bits UI's tw-animate-css preset).
-
-**Do not** use motion for: button hovers, link underlines, color transitions, focus rings. Those are CSS `transition` territory.
-
-`[proposed]`
-
-### 10.2. Motion grammar
-
-| Interaction | Treatment | Timing |
-|---|---|---|
-| Page section enter | `opacity 0→1`, `translateY 8px→0` | 400ms ease-out, stagger 60ms |
-| Hover (button/card) | `scale 1→1.02`, `shadow 0→1` | 150ms ease-out |
-| Active (press) | `scale 1.02→0.98` | 80ms |
-| Link underline | `text-decoration` reveal | 120ms |
-| Reveal on scroll | once-only, threshold 0.2 | 600ms ease-out |
-| Dark/light toggle | smooth color transition on `--background`, `--foreground` | 250ms |
-| Reduced motion | respect `prefers-reduced-motion: reduce` everywhere; fall back to opacity only | — |
-
-`[proposed]`
-
----
-
-## 11. Components
-
-### 11.1. Inventory
-
-Already installed (Bits UI primitives in `src/lib/components/ui/`):
-
-`accordion · alert · alert-dialog · avatar · badge · breadcrumb · button · calendar · card · carousel · checkbox · command · dialog · drawer · dropdown-menu · form · hover-card · input · input-group · label · navigation-menu · pagination · popover · progress · radio-group · scroll-area · select · separator · sheet · sidebar · skeleton · slider · sonner · switch · table · tabs · textarea · toggle · toggle-group · tooltip`
-
-**Use these. Don't write custom replacements.** If a primitive is missing for a use case, add it via shadcn-svelte CLI rather than rolling your own.
-
-`[locked]`
-
-### 11.2. Custom components owned by the design system
-
-| Component | Path | Status |
-|---|---|---|
-| `Logo` | `src/lib/components/logo.svelte` | Exists |
-| `Navbar` | `src/lib/components/common/navbar.svelte` | Exists, needs redesign in pass |
-| `Footer` | `src/lib/components/common/footer.svelte` | Exists, needs link-update pass already done |
-| `Step` (gobyexample-style guide layout) | `src/lib/components/guides/step.svelte` | Done, CSS in app.css |
-| `HeroGradient` (reusable accent surface) | `src/lib/components/surfaces/HeroGradient.svelte` | **TBD** — see §5 |
-| `ContentShell` (page wrapper enforcing widths from §7.2) | `src/lib/components/surfaces/ContentShell.svelte` | **TBD** — consider |
-
-`[proposed]`
-
----
-
-## 12. Iconography
-
-`@lucide/svelte` only. Default size `size-4` (16px) inline with text; `size-5` (20px) for standalone. Stroke 2 (default). Don't mix icon sets.
-
-`[locked]`
-
----
-
-## 13. Code surfaces
-
-Code blocks in Markdown (Docvia + Shiki) render as `<div class="docvia-code-block"><pre class="shiki github-dark">…</pre></div>`.
-
-- Theme: `github-dark` (matches the dark accent surfaces).
-- Inline `<code>` in prose: rounded, subtle background — styled in app.css's existing `:not(pre) > code` rule.
-- Within a `:::step` directive: layout is controlled by `.guide-step` rules in app.css (see §7.2 detail row).
-- Output variant (`:::step{kind=output}`): adds a "terminal" eyebrow label and forces a dark panel regardless of theme.
-
-`[locked]`
-
----
-
-## 14. Accessibility floor
-
-- Color contrast: WCAG AA minimum. Body text against background must be ≥ 4.5:1 in both light and dark themes.
-- Focus indicators: visible ring on every interactive element. Bits UI provides this by default — don't override with `focus:outline-none` without replacement.
-- Touch targets: 44×44px minimum on mobile (already enforced by button height + Bits UI defaults).
-- `prefers-reduced-motion`: opt every page enter / scroll reveal out of motion when this is set.
-- `aria-*` on directive components: `Step` should have a sensible aria-label or section semantics; revisit when redesigning.
-
-`[locked]`
-
----
-
-## 15. What changes when this doc is approved
-
-The redesign pass becomes:
-
-1. **Add the `HeroGradient` component** (§5) so existing usages can be unified.
-2. **Strip the inline `<style>` block from `src/routes/+page.svelte`** — the warm-sand palette goes away.
-3. **Rewrite the homepage** using `HeroGradient` for the hero, content-surface body sections, and the `Navbar` / `Footer` defined here.
-4. **Widen `/guides` and `/learn` shells** per §7.2.
-5. **Remove the internal `/recast` route** and replace every reference with an external link to `recast.nexonauts.com` (target=_blank). See [project_recast](memory/project_recast.md).
-6. **Update `Navbar`** to match new system (remove the old NavigationMenu pattern if it doesn't fit, add proper mobile sheet).
-7. **Update `Footer`** to match.
-8. **Install `motion`** and adopt the §10.2 grammar on at least the homepage.
-9. **Add the shadow/elevation tokens from §9** to app.css under `@theme inline`.
-
----
-
-## 16. Open questions (resolve before the redesign starts)
-
-1. **Brand palette** — ~~keep `--primary: hsl(161 94% 30%)` (emerald) or change to something else?~~ **Resolved (2026-05-23): emerald is reserved for Recast.** Nexonauts adopts a sophisticated near-black primary: `--primary: oklch(0.18 0.012 270)` (≈ `#1a1c25`) in light mode, inverted to `oklch(0.96 0.003 270)` in dark mode. The "shiny" quality comes from the existing `--shadow-button` multi-layer treatment, not from the base hue. Monochromatic discipline — contrast comes from typography and spacing, color is restraint. [resolved]
-2. **Drop the warm-sand homepage palette** — ~~confirmed?~~ **Resolved: yes, drop completely.** The inline `<style>` block in `src/routes/+page.svelte` goes away. [resolved]
-3. **Drop secondary cyan** — ~~assign it a purpose or remove?~~ **Resolved: remove completely.** It sits too close to other accents and has no defined role. [resolved]
-4. **Motion library** — ~~Motion One for Svelte confirmed?~~ **Resolved: `motion` v12 (npm).** Note that this package has framework-agnostic primitives (`animate`, `inView`, `scroll`) but no Svelte-specific exports — we wrap them in a small Svelte action helper (`use:enterOnView`). [resolved]
-5. **`/recast` page** — ~~delete or 301?~~ **Resolved: delete the page, add a server-side 308 permanent redirect to `https://recast.nexonauts.com`.** Same effect as keeping a stub but cleaner. [resolved]
-6. **Default theme** — light, dark, or system? Today it's system (via mode-watcher). Keep system as default? [open]
-7. **`HeroGradient` intensity** — single style, or multiple variants? Going with one variant + a `padded` prop for now; can split later if a second use case demands different intensity. [proposed]
-8. **`ContentShell` component** — useful abstraction, or YAGNI? Skip for v1 — page-level layouts express widths directly. Revisit if a third route family appears with the same shell pattern. [proposed]
-9. **`/about`, `/pricing`, `/contact`, `/tos`, `/privacy`** static pages — defer to a follow-up pass. The redesign focuses on landing + content + auth + admin shell. [proposed]
-10. **DESIGN.md custodianship** — keep this file as the human-readable source of truth, update on every PR that touches design tokens. Revisit Storybook only when the component count justifies it. [proposed]
-
----
-
-## 17. Not in scope of the system (intentionally)
-
-- Marketing CMS / asset management
-- Email templates
-- The Cloudflare worker deployment config
-- Recast's own UI (lives in its own repo)
-- Docvia's own docs (lives at `docs.docvia.dev`)
+- Waldenburg is a licensed typeface; EB Garamond / GT Sectra are documented substitutes.
+- Animation timings (orb drift, waveform pulse, hero entrance) out of scope.
+- In-product surfaces (voice library editor, agent playground) only partially captured via marketing mockups.
+- Form validation states beyond focus not visible on captured surfaces.

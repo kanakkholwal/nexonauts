@@ -38,13 +38,13 @@
 					{#snippet child({ props })}
 						<a href="/" {...props}>
 							<div
-								class="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"
+								class="flex aspect-square size-8 items-center justify-center rounded-xl bg-surface-strong"
 							>
 								<Logo class="size-5" />
 							</div>
 							<div class="grid flex-1 text-left text-sm leading-tight">
-								<span class="truncate font-semibold">{appConfig.name}</span>
-								<span class="text-muted-foreground truncate text-xs font-medium">
+								<span class="font-display text-base font-light tracking-tight truncate text-ink">{appConfig.name}</span>
+								<span class="truncate text-xs text-muted-ink">
 									{appConfig.appDomain}
 								</span>
 							</div>
@@ -99,11 +99,11 @@
 								<img
 									src={user.image}
 									alt={user.name ?? "Profile"}
-									class="size-8 rounded-lg object-cover"
+									class="size-8 rounded-full object-cover"
 								/>
 							{:else}
 								<div
-									class="bg-muted flex size-8 items-center justify-center rounded-lg text-sm font-medium"
+									class="flex size-8 items-center justify-center rounded-full bg-surface-strong text-sm font-medium text-ink"
 								>
 									{user.name?.charAt(0).toUpperCase() ?? "?"}
 								</div>

@@ -12,13 +12,13 @@
 <Button
 	variant="ghost"
 	size="icon-sm"
-	class="switcher group rounded-full"
-	aria-label="switch theme"
+	class="switcher group"
+	aria-label="Toggle theme"
 	onclick={toggle}
 >
 	{#if mode.current === "dark"}
-		<SunIcon class="size-4 transition-transform duration-300 group-hover:rotate-180" />
+		<SunIcon class="size-4 transition-transform duration-300 group-hover:rotate-90" />
 	{:else}
-		<MoonIcon class="size-4 transition-transform duration-300 group-hover:-rotate-90" />
+		<MoonIcon class="size-4 transition-transform duration-300 group-hover:-rotate-12" />
 	{/if}
 </Button>
