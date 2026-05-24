@@ -13,6 +13,8 @@ yarn.lock
 pnpm-*.yaml
 test.js
 data.json
+.docvia
+.svelte-kit
 
 /.env
 .env

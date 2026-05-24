@@ -1,0 +1,9 @@
+- [User profile](user_profile.md) — solo indie developer, nights-and-weekends, brand-first over revenue
+- [Wants pushback](feedback_pushback.md) — wants real back-and-forth, not nodding; debunk impractical ideas directly
+- [Nexonauts direction](project_nexonauts_direction.md) — reframing from "everything for developers" platform → brand/content hub + product showcase
+- [Recast product](project_recast.md) — Loom/CapCut/Cap.so alternative, Windows desktop near-complete, ~2-3 word-of-mouth users
+- [Docs compiler product](project_docs_compiler.md) — Mintlify alternative, markdown-to-static-site, in beta on his own sites
+- [Bug: renderer-svelte exports](bug_docvia_renderer_svelte_exports.md) — Docvia 0.2.1 ships broken `svelte` export condition; workaround in vite.config.ts, fix upstream in Docvia repo
+- [Design brief](design_brief.md) — captured redesign direction: unified system, wider content workspace, subtle motion via motion-svelte, reuse blue-gradient hero, drop internal /recast (now at recast.nexonauts.com)
+- [Design system tokens](reference_design_system.md) — editorial token vocabulary (ink/canvas/hairline/orb hues), display utilities, full button/badge variant menu
+- [Tailwind v4 canonical classes](reference_tailwind_v4_canonical.md) — IDE warns on legacy `[var:val]`; use shorthand forms (`shadow-(--x)`, `data-disabled:`, `bg-size-[...]`)

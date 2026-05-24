@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path app -Recurse -File)",
+      "Bash(Measure-Object)",
+      "Bash(Select-Object -ExpandProperty Count)",
+      "PowerShell($app = Get-ChildItem -Path app -Recurse -File | Measure-Object; $src = Get-ChildItem -Path src -Recurse -File | Measure-Object; \"app files: $\\($app.Count\\)\"; \"src files: $\\($src.Count\\)\"; \"--- top-level dirs in app ---\"; Get-ChildItem -Path app -Directory | Select-Object -ExpandProperty Name; \"--- top-level dirs in src ---\"; Get-ChildItem -Path src -Directory | Select-Object -ExpandProperty Name)"
+    ]
+  }
+}
