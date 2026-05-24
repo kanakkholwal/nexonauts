@@ -1,0 +1,38 @@
+<script lang="ts">
+	import { Select as SelectPrimitive } from "bits-ui";
+	import { cn, type WithoutChild } from "$lib/utils.js";
+	import CheckIcon from '@lucide/svelte/icons/check';
+
+	let {
+		ref = $bindable(null),
+		class: className,
+		value,
+		label,
+		children: childrenProp,
+		...restProps
+	}: WithoutChild<SelectPrimitive.ItemProps> = $props();
+</script>
+
+<SelectPrimitive.Item
+	bind:ref
+	{value}
+	data-slot="select-item"
+	class={cn(
+		"relative flex w-full cursor-default items-center select-none gap-2 rounded-md py-1.5 pr-8 pl-2.5 text-sm outline-hidden text-foreground transition-colors focus:bg-surface-strong focus:text-ink data-highlighted:bg-surface-strong data-highlighted:text-ink data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+		className
+	)}
+	{...restProps}
+>
+	{#snippet children({ selected, highlighted })}
+		<span class="absolute end-2 flex size-3.5 items-center justify-center">
+			{#if selected}
+				<CheckIcon class="cn-select-item-indicator-icon" />
+			{/if}
+		</span>
+		{#if childrenProp}
+			{@render childrenProp({ selected, highlighted })}
+		{:else}
+			{label || value}
+		{/if}
+	{/snippet}
+</SelectPrimitive.Item>

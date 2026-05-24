@@ -1,0 +1,755 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/eb-garamond";
+@import "@fontsource-variable/geist-mono";
+
+@import "tw-animate-css";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
+
+/* ---------------------------------------------------------------------------
+ * Nexonauts Design Tokens
+ * Editorial-magazine aesthetic. See DESIGN.md.
+ *
+ *   - Off-white canvas (#f5f5f5) holds warm near-black ink (#0c0a09).
+ *   - One CTA color: the ink pill. No saturated brand accent.
+ *   - Atmospheric pastel orbs (mint/peach/lavender/sky/rose) are decoration only.
+ *   - Display: EB Garamond at weight 300 (Waldenburg substitute).
+ *   - Body: Inter at 400/500 with +0.15-0.18px tracking.
+ *   - CTAs are pills (rounded-full); cards are 16px; orb cards are 24px.
+ * ------------------------------------------------------------------------- */
+
+:root,
+[data-theme="light"] {
+    --max-app-width: 1200px;
+
+    /* —— Brand & action —— */
+    --primary: #292524;
+    --primary-active: #0c0a09;
+    --primary-foreground: #ffffff;
+    --on-primary: #ffffff;
+
+    /* —— Surfaces —— */
+    --canvas: #f5f5f5;
+    --canvas-soft: #fafafa;
+    --canvas-deep: #0c0a09;
+    --surface-card: #ffffff;
+    --surface-strong: #f0efed;
+    --surface-dark: #0c0a09;
+    --surface-dark-elevated: #1c1917;
+
+    /* —— Hairlines —— */
+    --hairline: #e7e5e4;
+    --hairline-soft: #f0efed;
+    --hairline-strong: #d6d3d1;
+
+    /* —— Text —— */
+    --ink: #0c0a09;
+    --body-text: #4e4e4e;
+    --body-strong: #292524;
+    --muted-text: #777169;
+    --muted-soft: #a8a29e;
+    --on-dark: #ffffff;
+    --on-dark-soft: #a8a29e;
+
+    /* —— Atmospheric gradient stops (decoration only) —— */
+    --gradient-mint: #a7e5d3;
+    --gradient-peach: #f4c5a8;
+    --gradient-lavender: #c8b8e0;
+    --gradient-sky: #a8c8e8;
+    --gradient-rose: #e8b8c4;
+
+    /* —— Semantic —— */
+    --semantic-success: #16a34a;
+    --semantic-success-soft: #dcfce7;
+    --semantic-error: #dc2626;
+    --semantic-error-soft: #fee2e2;
+    --semantic-warning: #d97706;
+    --semantic-warning-soft: #fef3c7;
+    --semantic-info: #2563eb;
+    --semantic-info-soft: #dbeafe;
+
+    /* —— shadcn aliases (mapped onto the editorial tokens) —— */
+    --background: var(--canvas);
+    --foreground: var(--ink);
+    --card: var(--surface-card);
+    --card-foreground: var(--ink);
+    --popover: var(--surface-card);
+    --popover-foreground: var(--ink);
+    --primary-foreground: var(--on-primary);
+    --secondary: var(--surface-strong);
+    --secondary-foreground: var(--ink);
+    --tertiary: var(--muted-text);
+    --tertiary-foreground: var(--on-dark);
+    --muted: var(--surface-strong);
+    --muted-foreground: var(--muted-text);
+    --accent: var(--surface-strong);
+    --accent-foreground: var(--ink);
+    --destructive: var(--semantic-error);
+    --destructive-foreground: #ffffff;
+    --success: var(--semantic-success);
+    --success-foreground: #ffffff;
+    --warning: var(--semantic-warning);
+    --warning-foreground: #ffffff;
+    --info: var(--semantic-info);
+    --info-foreground: #ffffff;
+    --border: var(--hairline);
+    --input: var(--hairline-strong);
+    --ring: var(--ink);
+
+    /* —— Radius scale (pill geometry baked in) —— */
+    --radius: 1rem;                  /* 16px — card default */
+    --radius-xs: 0.25rem;            /* 4px */
+    --radius-sm: 0.375rem;           /* 6px */
+    --radius-md: 0.5rem;             /* 8px — inputs */
+    --radius-lg: 0.75rem;            /* 12px */
+    --radius-xl: 1rem;               /* 16px — feature cards */
+    --radius-xxl: 1.5rem;            /* 24px — gradient orb cards */
+    --radius-pill: 9999px;           /* CTAs, badges, avatars */
+    --radius-full: 9999px;
+
+    /* —— Sidebar (chrome) —— */
+    --sidebar: var(--surface-card);
+    --sidebar-background: var(--surface-card);
+    --sidebar-foreground: var(--ink);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--on-primary);
+    --sidebar-accent: var(--surface-strong);
+    --sidebar-accent-foreground: var(--ink);
+    --sidebar-border: var(--hairline);
+    --sidebar-ring: var(--ink);
+
+    /* —— Elevation: hairline + soft drop —— */
+    --shadow-elevation-1: 0 1px 2px rgb(0 0 0 / 0.04);
+    --shadow-elevation-2: 0 4px 16px rgb(0 0 0 / 0.04);
+    --shadow-elevation-3: 0 12px 40px rgb(0 0 0 / 0.06);
+    --shadow-button: 0 1px 2px rgb(0 0 0 / 0.06);
+
+    /* —— Chart palette: pulled from the atmospheric stops —— */
+    --chart-1: var(--gradient-mint);
+    --chart-2: var(--gradient-peach);
+    --chart-3: var(--gradient-lavender);
+    --chart-4: var(--gradient-sky);
+    --chart-5: var(--gradient-rose);
+    --chart-6: var(--ink);
+    --chart-7: var(--muted-text);
+    --chart-8: var(--body-text);
+    --chart-9: var(--semantic-success);
+    --chart-10: var(--semantic-info);
+    --chart-11: var(--semantic-warning);
+    --chart-12: var(--semantic-error);
+    --chart-13: #b8d6c4;
+    --chart-14: #ddc6e3;
+    --chart-15: #eccab2;
+
+    /* —— Syntax highlighting (editorial palette) —— */
+    --sh-class: #2563eb;
+    --sh-identifier: #4f46e5;
+    --sh-sign: #6b7280;
+    --sh-property: #0891b2;
+    --sh-entity: #0d9488;
+    --sh-jsxliterals: #7c3aed;
+    --sh-string: #15803d;
+    --sh-keyword: #be123c;
+    --sh-comment: #9ca3af;
+}
+
+.dark,
+[data-theme="dark"],
+[data-theme="glass_dark"] {
+    /* Dark mode mirrors DESIGN.md's "rare dark hero" — surface-dark canvas with
+     * surface-dark-elevated for cards, near-white CTA pill (light-on-dark). */
+    --primary: #f5f5f5;
+    --primary-active: #ffffff;
+    --primary-foreground: #0c0a09;
+    --on-primary: #0c0a09;
+
+    --canvas: #0c0a09;
+    --canvas-soft: #1c1917;
+    --canvas-deep: #ffffff;
+    --surface-card: #1c1917;
+    --surface-strong: #292524;
+    --surface-dark: #f5f5f5;
+    --surface-dark-elevated: #ffffff;
+
+    --hairline: #292524;
+    --hairline-soft: #1c1917;
+    --hairline-strong: #44403c;
+
+    --ink: #fafaf9;
+    --body-text: #d6d3d1;
+    --body-strong: #fafaf9;
+    --muted-text: #a8a29e;
+    --muted-soft: #78716c;
+    --on-dark: #0c0a09;
+    --on-dark-soft: #44403c;
+
+    --background: var(--canvas);
+    --foreground: var(--ink);
+    --card: var(--surface-card);
+    --card-foreground: var(--ink);
+    --popover: var(--surface-card);
+    --popover-foreground: var(--ink);
+    --secondary: var(--surface-strong);
+    --secondary-foreground: var(--ink);
+    --muted: var(--surface-strong);
+    --muted-foreground: var(--muted-text);
+    --accent: var(--surface-strong);
+    --accent-foreground: var(--ink);
+    --destructive: #f87171;
+    --destructive-foreground: #0c0a09;
+    --success: #4ade80;
+    --success-foreground: #0c0a09;
+    --warning: #fbbf24;
+    --warning-foreground: #0c0a09;
+    --info: #60a5fa;
+    --info-foreground: #0c0a09;
+    --border: var(--hairline);
+    --input: var(--hairline-strong);
+    --ring: var(--ink);
+
+    --sidebar: var(--surface-card);
+    --sidebar-background: var(--surface-card);
+    --sidebar-foreground: var(--ink);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--on-primary);
+    --sidebar-accent: var(--surface-strong);
+    --sidebar-accent-foreground: var(--ink);
+    --sidebar-border: var(--hairline);
+    --sidebar-ring: var(--ink);
+
+    --shadow-elevation-1: 0 1px 2px rgb(0 0 0 / 0.30);
+    --shadow-elevation-2: 0 4px 16px rgb(0 0 0 / 0.30);
+    --shadow-elevation-3: 0 12px 40px rgb(0 0 0 / 0.40);
+
+    /* Atmospheric orbs read softer on dark — push opacity at use site. */
+    --gradient-mint: #355e51;
+    --gradient-peach: #6b4a37;
+    --gradient-lavender: #4f4163;
+    --gradient-sky: #2f4a66;
+    --gradient-rose: #6b3f4a;
+
+    --color-fd-background: var(--canvas);
+    --color-fd-foreground: var(--ink);
+    --color-fd-muted: var(--surface-strong);
+    --color-fd-muted-foreground: var(--muted-text);
+    --color-fd-popover: var(--surface-card);
+    --color-fd-popover-foreground: var(--ink);
+    --color-fd-card: var(--surface-card);
+    --color-fd-card-foreground: var(--ink);
+    --color-fd-border: var(--hairline);
+    --color-fd-primary: var(--primary);
+    --color-fd-primary-foreground: var(--on-primary);
+    --color-fd-secondary: var(--surface-strong);
+    --color-fd-secondary-foreground: var(--ink);
+    --color-fd-accent: var(--surface-strong);
+    --color-fd-accent-foreground: var(--ink);
+    --color-fd-ring: var(--ink);
+}
+
+@theme inline {
+    --radius-xs: 0.25rem;
+    --radius-sm: 0.375rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+    --radius-2xl: 1.5rem;
+    --radius-xxl: 1.5rem;
+    --radius-3xl: 2rem;
+    --radius-pill: 9999px;
+    --radius-full: 9999px;
+
+    --color-transparent: transparent;
+    --color-current: currentColor;
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-canvas: var(--canvas);
+    --color-canvas-soft: var(--canvas-soft);
+    --color-canvas-deep: var(--canvas-deep);
+    --color-surface-card: var(--surface-card);
+    --color-surface-strong: var(--surface-strong);
+    --color-surface-dark: var(--surface-dark);
+    --color-surface-dark-elevated: var(--surface-dark-elevated);
+
+    --color-card: var(--card);
+    --color-card-foreground: var(--card-foreground);
+    --color-popover: var(--popover);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-primary: var(--primary);
+    --color-primary-active: var(--primary-active);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-on-primary: var(--on-primary);
+    --color-secondary: var(--secondary);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-tertiary: var(--tertiary);
+    --color-tertiary-foreground: var(--tertiary-foreground);
+    --color-muted: var(--muted);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-accent: var(--accent);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-destructive: var(--destructive);
+    --color-destructive-foreground: var(--destructive-foreground);
+    --color-success: var(--success);
+    --color-success-foreground: var(--success-foreground);
+    --color-warning: var(--warning);
+    --color-warning-foreground: var(--warning-foreground);
+    --color-info: var(--info);
+    --color-info-foreground: var(--info-foreground);
+
+    --color-ink: var(--ink);
+    --color-body: var(--body-text);
+    --color-body-strong: var(--body-strong);
+    --color-muted-ink: var(--muted-text);
+    --color-muted-soft: var(--muted-soft);
+    --color-on-dark: var(--on-dark);
+    --color-on-dark-soft: var(--on-dark-soft);
+
+    --color-hairline: var(--hairline);
+    --color-hairline-soft: var(--hairline-soft);
+    --color-hairline-strong: var(--hairline-strong);
+
+    --color-gradient-mint: var(--gradient-mint);
+    --color-gradient-peach: var(--gradient-peach);
+    --color-gradient-lavender: var(--gradient-lavender);
+    --color-gradient-sky: var(--gradient-sky);
+    --color-gradient-rose: var(--gradient-rose);
+
+    --color-border: var(--border);
+    --color-input: var(--input);
+    --color-ring: var(--ring);
+
+    --color-chart-1: var(--chart-1);
+    --color-chart-2: var(--chart-2);
+    --color-chart-3: var(--chart-3);
+    --color-chart-4: var(--chart-4);
+    --color-chart-5: var(--chart-5);
+
+    --color-sidebar: var(--sidebar);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-ring: var(--sidebar-ring);
+
+    /* Typography — editorial pairing */
+    --font-serif: 'EB Garamond Variable', 'Times New Roman', Cambria, Georgia, serif;
+    --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', Consolas, 'Courier New', monospace;
+    --font-display: var(--font-serif);
+
+    --shadow-elevation-1: 0 1px 2px rgb(0 0 0 / 0.04);
+    --shadow-elevation-2: 0 4px 16px rgb(0 0 0 / 0.04);
+    --shadow-elevation-3: 0 12px 40px rgb(0 0 0 / 0.06);
+    --shadow-soft-drop: 0 4px 16px rgb(0 0 0 / 0.04);
+    --shadow-button: var(--shadow-button);
+
+    --animate-accordion-down: accordion-down 0.2s ease-out;
+    --animate-accordion-up: accordion-up 0.2s ease-out;
+    --animate-accordion-fade-in: accordion-fade-in 0.2s ease-out;
+    --animate-accordion-fade-out: accordion-fade-out 0.2s ease-out;
+    --animate-collapsible-down: collapsible-down 0.2s ease-out;
+    --animate-collapsible-up: collapsible-up 0.2s ease-out;
+    --animate-orb-drift: orb-drift 18s ease-in-out infinite;
+
+    --width-app: var(--max-app-width, 1200px);
+
+    @keyframes accordion-down {
+        0% { height: 0; }
+        100% { height: var(--radix-accordion-content-height); }
+    }
+
+    @keyframes accordion-up {
+        0% { height: var(--radix-accordion-content-height); }
+        100% { height: 0; }
+    }
+
+    @keyframes accordion-fade-in {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+    @keyframes accordion-fade-out {
+        0% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+
+    @keyframes collapsible-down {
+        0% { height: 0; opacity: 0; }
+        100% { height: var(--radix-collapsible-content-height); opacity: 1; }
+    }
+
+    @keyframes collapsible-up {
+        0% { height: var(--radix-collapsible-content-height); opacity: 1; }
+        100% { height: 0; opacity: 0; }
+    }
+
+    @keyframes orb-drift {
+        0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+        33%      { transform: translate3d(2%, -1.5%, 0) scale(1.05); }
+        66%      { transform: translate3d(-1.5%, 2%, 0) scale(0.98); }
+    }
+}
+
+@layer base {
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-border);
+    }
+
+    * {
+        @apply border-border;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        scrollbar-width: thin;
+        scrollbar-color: var(--hairline-strong) transparent;
+    }
+
+    html::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    html::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    html::-webkit-scrollbar-thumb {
+        background: var(--hairline-strong);
+        border-radius: 9999px;
+        border: 2px solid var(--canvas);
+    }
+
+    html::-webkit-scrollbar-thumb:hover {
+        background: var(--muted-text);
+    }
+
+    html::-webkit-scrollbar-corner {
+        background: transparent;
+    }
+
+    button:not(:disabled),
+    [role="button"]:not(:disabled),
+    a {
+        cursor: pointer;
+        outline: none;
+        text-decoration: none;
+    }
+
+    button:disabled,
+    [role="button"]:disabled {
+        cursor: not-allowed;
+    }
+
+    a,
+    button,
+    input,
+    textarea,
+    select {
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        color: inherit;
+    }
+
+    *:autofill,
+    *:-webkit-autofill {
+        font: inherit;
+        -webkit-box-shadow: 0 0 0 1000px var(--surface-card) inset !important;
+        box-shadow: 0 0 0 1000px var(--surface-card) inset !important;
+        -webkit-text-fill-color: var(--ink) !important;
+    }
+
+    /* Editorial display headings — Waldenburg substitute. Always weight 300. */
+    .font-display,
+    h1.editorial,
+    h2.editorial,
+    h3.editorial {
+        font-family: var(--font-display);
+        font-weight: 300;
+        letter-spacing: -0.02em;
+    }
+}
+
+body {
+    font-family: var(--font-sans);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    position: relative;
+    color: var(--body-text);
+    background-color: var(--canvas);
+    /* Fluid content cap. Editorial body holds at 1200px. */
+    --max-app-width: clamp(1024px, 75vw, 1200px);
+}
+
+/* ---------------------------------------------------------------------------
+ * Editorial type utilities — implementations of DESIGN.md §3.
+ * Use via class names. Pair with `.font-display` for the serif weight.
+ * ------------------------------------------------------------------------- */
+
+.display-mega {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(40px, 6.5vw, 64px);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+}
+
+.display-xl {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(36px, 4.5vw, 48px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+}
+
+.display-lg {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(28px, 3.2vw, 36px);
+    line-height: 1.17;
+    letter-spacing: -0.01em;
+}
+
+.display-md {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(24px, 2.8vw, 32px);
+    line-height: 1.13;
+    letter-spacing: -0.01em;
+}
+
+.display-sm {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: 0;
+}
+
+.eyebrow,
+.caption-uppercase {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* ---------------------------------------------------------------------------
+ * Atmospheric gradient orbs — pure decoration. Never as button fills,
+ * text colors, or component backgrounds. Use the .orb utility.
+ * ------------------------------------------------------------------------- */
+
+@layer components {
+    .orb {
+        position: absolute;
+        pointer-events: none;
+        border-radius: 9999px;
+        filter: blur(60px);
+        opacity: 0.6;
+        will-change: transform;
+    }
+
+    .orb-mint    { background: radial-gradient(circle, var(--gradient-mint) 0%, transparent 70%); }
+    .orb-peach   { background: radial-gradient(circle, var(--gradient-peach) 0%, transparent 70%); }
+    .orb-lavender{ background: radial-gradient(circle, var(--gradient-lavender) 0%, transparent 70%); }
+    .orb-sky     { background: radial-gradient(circle, var(--gradient-sky) 0%, transparent 70%); }
+    .orb-rose    { background: radial-gradient(circle, var(--gradient-rose) 0%, transparent 70%); }
+
+    .container {
+        max-width: var(--max-app-width, 1200px);
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    /* Editorial section rhythm — 96px between bands. */
+    .section-rhythm {
+        padding-top: 6rem;
+        padding-bottom: 6rem;
+    }
+
+    .glass {
+        background: color-mix(in srgb, var(--surface-card) 60%, transparent);
+        backdrop-filter: blur(12px) saturate(140%);
+        -webkit-backdrop-filter: blur(12px) saturate(140%);
+        border: 1px solid var(--hairline);
+        border-radius: var(--radius-xl);
+    }
+}
+
+@layer utilities {
+    .popup {
+        opacity: 0;
+        animation: pop 0.5s ease-in-out forwards;
+    }
+
+    @keyframes pop {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .hairline { border: 1px solid var(--hairline); }
+    .hairline-soft { border: 1px solid var(--hairline-soft); }
+    .hairline-strong { border: 1px solid var(--hairline-strong); }
+
+    .soft-drop { box-shadow: var(--shadow-soft-drop); }
+}
+
+/* Inline code keeps the editorial tone — no neon. */
+:not(pre) > code {
+    overflow-wrap: break-word;
+    border-radius: var(--radius-sm);
+    background-color: var(--surface-strong);
+    color: var(--body-strong);
+    padding: 0.125rem 0.375rem;
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+}
+
+.is-empty:not(.with-slash)[data-placeholder]:has(> .ProseMirror-trailingBreak:only-child):before {
+    content: attr(data-placeholder);
+    float: left;
+    color: var(--muted-text);
+    pointer-events: none;
+    height: 0;
+    user-select: none;
+    width: 100%;
+}
+
+@layer base {
+    * {
+        @apply border-border outline-ring/40;
+    }
+
+    body {
+        @apply bg-background text-body selection:bg-primary/85 selection:text-on-primary;
+    }
+}
+
+.nexo-mdx-editor .editor-container {
+    @apply p-0;
+}
+
+.nexo-mdx-editor .toolbar .button {
+    @apply border border-transparent bg-surface-strong text-muted-foreground shadow-none hover:shadow-none hover:text-foreground hover:bg-canvas focus-within:border-primary;
+}
+
+/* ---------------------------------------------------------------------------
+ * Guide-step (gobyexample-style side-by-side layout)
+ * Lives in the global stylesheet because the target elements (.docvia-code-block)
+ * are injected by Docvia's renderer outside the Step component's template.
+ * ------------------------------------------------------------------------- */
+
+.guide-step {
+    display: grid;
+    grid-template-columns: 1fr;
+    column-gap: 2rem;
+    row-gap: 1rem;
+    margin: 2.5rem 0;
+    align-items: start;
+}
+
+@media (min-width: 768px) {
+    .guide-step {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    }
+}
+
+.guide-step__text { display: contents; }
+
+.guide-step__title {
+    grid-column: 1;
+    font-family: var(--font-display);
+    color: var(--ink);
+    font-size: 1.25rem;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.25rem 0;
+}
+
+.guide-step > .guide-step__text > * {
+    grid-column: 1;
+    min-width: 0;
+}
+
+@media (min-width: 768px) {
+    .guide-step > .guide-step__text > .docvia-code-block {
+        grid-column: 2;
+        grid-row: span var(--guide-step-code-span, 4);
+        align-self: start;
+        margin: 0;
+    }
+}
+
+.guide-step > .guide-step__text > .docvia-code-block {
+    margin: 0.5rem 0 0 0;
+    min-width: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--hairline);
+}
+
+.guide-step > .guide-step__text > .docvia-code-block > pre {
+    margin: 0;
+    overflow-x: auto;
+    padding: 1rem 1.25rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.guide-step--output > .guide-step__text > .docvia-code-block {
+    position: relative;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+}
+
+.guide-step--output > .guide-step__text > .docvia-code-block::before {
+    content: "terminal";
+    display: block;
+    font-size: 0.6875rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(212, 212, 212, 0.55);
+    background: var(--surface-dark);
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.guide-step--output > .guide-step__text > .docvia-code-block > pre {
+    background: var(--surface-dark) !important;
+    color: #d4d4d4 !important;
+    font-family: var(--font-mono);
+}
+
+.guide-step--output > .guide-step__text > .docvia-code-block > pre code {
+    background: transparent !important;
+    color: inherit !important;
+}
