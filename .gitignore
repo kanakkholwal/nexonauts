@@ -17,6 +17,7 @@ data.json
 .svelte-kit
 
 memory
+/memory
 /.env
 .env
 .env.local
