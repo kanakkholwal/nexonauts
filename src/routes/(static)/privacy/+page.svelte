@@ -33,7 +33,7 @@
 	<div class="relative z-10 mb-12 max-w-3xl pt-20 sm:pt-24">
 		<Badge variant="default" size="md" class="mb-5">Legal center</Badge>
 		<h1 class="display-xl text-ink">Privacy Policy</h1>
-		<div class="mt-5 inline-flex items-center gap-2 text-sm text-muted-ink">
+		<div class="mt-4 inline-flex items-center gap-2 text-sm text-muted-ink">
 			<CalendarDays class="size-4" />
 			<span>Last updated: November 27, 2025</span>
 		</div>
@@ -60,13 +60,13 @@
 		<div class="col-span-12 lg:col-span-9">
 			<div
 				class="prose prose-zinc dark:prose-invert max-w-none
-					prose-headings:font-display prose-headings:font-light prose-headings:tracking-tight prose-headings:text-ink prose-headings:scroll-mt-28
-					prose-h2:text-3xl prose-h3:text-2xl
-					prose-p:text-body prose-p:leading-relaxed
+					prose-headings:font-display prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-ink prose-headings:scroll-mt-28
+					prose-h2:text-2xl prose-h3:text-2xl
+					prose-p:text-body prose-p:
 					prose-a:text-ink prose-a:underline-offset-4 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
 					prose-strong:text-ink"
 			>
-				<p class="lead text-lg text-body">
+				<p class="lead text-sm text-body">
 					At <span class="font-medium text-ink">{SITE}</span>, we take your privacy seriously. This
 					policy explains what we collect, how we use it, and how we protect it.
 				</p>
@@ -178,10 +178,10 @@
 						class="flex flex-col items-start justify-between gap-5 rounded-2xl border border-hairline bg-canvas-soft p-8 sm:flex-row sm:items-center"
 					>
 						<div class="max-w-md">
-							<h3 class="font-display text-2xl font-light tracking-tight text-ink">
+							<h3 class="font-display text-2xl font-medium tracking-tight text-ink">
 								Still have questions?
 							</h3>
-							<p class="mt-2 text-sm leading-relaxed text-body">
+							<p class="mt-2 text-sm text-body">
 								If you have any questions or concerns about our privacy policy, please don't
 								hesitate to reach out.
 							</p>

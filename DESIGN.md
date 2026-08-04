@@ -1,0 +1,380 @@
+# Nexonauts Web — Design System
+
+The marketing site for Nexonauts. This document captures the design language, voice,
+and component patterns so every page lands consistently.
+
+> **Stay opinionated.** Nexonauts is a tool for people who'd rather ship than fiddle.
+> The site should feel the same way: confident, clean, and never overwrought.
+
+---
+
+## Binding rules
+
+These override anything later in this file. Sections below predate them and have
+drifted; where they disagree, this list wins.
+
+**Type.** One typeface: `Geist Variable`. `Geist Mono Variable` only for code, file
+names and numeric UI. No italics anywhere. Nothing heavier than semibold. Every font
+size resolves to a Tailwind scale step with that step's paired line height — no
+`clamp()` between steps, no `text-[19px]`, no independent line heights.
+
+**Spacing.** Only 0, 2, 4, 8, 12, 16, 24, 32, 40, 48, 64, 80, 96px. In Tailwind that
+is `0 0.5 1 2 3 4 6 8 10 12 16 20 24`. Nothing between them. Main buttons are 8px
+vertical and 12px horizontal padding.
+
+**Backgrounds are flat.** No gradient backgrounds, no aurora, no ambient wash. The
+gradient orbs still exist as components for legacy pages but are not used on the
+landing page and should not be added to new work.
+
+**The one gradient** is `.heading-gradient` on hero text: `#000000 → #666666` on
+light, `#FFFFFF → #9B9B9B` on dark. Text only, never a surface.
+
+**Dark surfaces** come from a fixed ramp: `#000000`, `#181818`, `#1F1F1F`,
+`#272727`, `#313131`.
+
+**Borders** wrap a card completely or not at all. Never one side.
+
+**Nested radius**: when the gap between an inner and outer shape is under 32px,
+`inner = outer − gap`. Apply only when the result exceeds 2px.
+
+**Motion** always uses `cubic-bezier(0.32, 0.72, 0, 1)` (`--ease-fluid`). Never a
+default curve. Scroll reveals run through `IntersectionObserver` via
+`revealOnView` — never a scroll listener.
+
+**Icons** come from Phosphor (`phosphor-svelte`). Lucide remains in older chrome
+and is being replaced as files are touched.
+
+**Copy.** No hyphens inside sentences. No orphaned last-line words. Sentence case
+headings. Real names and organic numbers, never `99.99%` or placeholder brands.
+
+---
+
+## Audience
+
+Primary readers, in order of priority:
+
+1. **Solo founders** — building, demoing, and pitching weekly.
+2. **Indie hackers** — shipping launch videos, changelog clips, and Twitter cuts on their own schedule.
+3. **Product engineers** — demoing PRs, explaining bugs, documenting APIs.
+
+Every headline, microcopy line, and CTA should serve at least one of these readers.
+If a sentence reads as if it's targeting an enterprise procurement team, rewrite it.
+
+---
+
+## Voice
+
+| Do | Don't |
+| --- | --- |
+| Direct, opinionated, founder-to-founder. | Marketing-speak ("solutions", "synergy", "leverage"). |
+| Concrete verbs ("ship", "record", "trim"). | Vague abstractions ("empower", "transform"). |
+| Punchy, balanced two-line headlines. | Long paragraph hero copy. |
+| Emphasize *outcomes* the audience cares about (looking expensive, shipping fast). | Generic feature lists without a clear "so what?". |
+| Use "Skip the editor. Ship the demo." as the through-line. | Compete on feature checklists with kitchen-sink editors. |
+
+**Headline pattern:** *[Aspiration] that look [outcome word].*
+
+- Demos that look **expensive.**
+- Demos that look **cinematic.**
+- Demos that look **intentional.**
+- Demos that look **effortless.**
+- Demos that look **hand-edited.**
+
+The rotating word is always italic, lower opacity, primary-tinted, and lives on its
+**own line** (see "TextLoop" below) so the headline never reflows.
+
+---
+
+## Color & Theme
+
+Tokens live in [`@Nexonauts/design`](../../packages/design/src/index.css). Always use
+CSS variables — never hardcode colors.
+
+| Token | Use |
+| --- | --- |
+| `--background` / `--foreground` | Page background and primary text. |
+| `--card` / `--card-foreground` | Surface containers (glass cards, mockups). |
+| `--primary` (indigo) | The one accent. CTA, selection, focus ring, active route, toggle-on, primary chart series. |
+| `--muted-foreground` | Secondary copy, microlabels. |
+| `--border` / `--border-low` / `--border-strong` | Decorative separators and dividers. |
+| `--border-control` | Boundaries that *identify* a control — inputs, selects, checkboxes. |
+| `--destructive` / `--success` / `--warning` | Status only — never decorative. |
+
+### Colour ratio (60/30/10)
+
+Every surface budgets colour the same way. This is a hard rule, not a vibe:
+
+| Share | Role | Tokens |
+| --- | --- | --- |
+| **60%** | Canvas. The page ground. | `--background`, `--canvas` |
+| **30%** | Structure. Surfaces, borders, secondary text, chart neutrals — everything that builds hierarchy. | `glass-card`, `bg-foreground/5-10`, `--border*`, `--muted-foreground`, `--foreground` |
+| **10%** | Accent. `--primary` only. | see the reserved list below |
+
+**`--primary` is reserved for these, and nothing else:**
+
+1. The single main CTA on a view (default `<Button>`).
+2. The sidebar active-route indicator.
+3. The primary data series in a chart.
+4. Selection and drag-drop targets (checkboxes, drop zones, the upload dropzone).
+5. Toggle "on" states.
+6. Plan / upgrade affordances (the `Crown` surfaces) — the monetization signal.
+7. Focus rings and active-input borders (`--ring` is `--primary`).
+
+**Never** use `--primary` as a decorative tint. Section-header icons, `glass-chip`
+contents, avatars, play buttons, progress fills, tab underlines, and hover text
+are all **neutral**. If an icon just labels a heading, it takes
+`text-muted-foreground` — or no colour class at all, inheriting from its row.
+
+There is exactly one accent hue. If a surface seems to need a second, it needs
+hierarchy instead — weight, size, or spacing.
+
+Progress and meter fills are neutral (`bg-foreground/30-60`) and escalate to
+`--warning` / `--destructive` only on real thresholds, so a bar's colour always
+means something. See [UsageMeter.logic.ts](src/lib/dashboard/components/UsageMeter.logic.ts).
+
+### Contrast floors
+
+Non-negotiable, and cheaper to check than to relitigate:
+
+| Thing | Floor |
+| --- | --- |
+| Body text on its surface | 4.5:1 |
+| Focus ring, control boundary, meaningful icon | 3:1 |
+| Two controls distinguished by colour | 3:1 **luminance**, never hue alone |
+
+This section exists because the old lime `--primary` measured **1.95:1** as a
+focus ring in light mode. Hue-wheel distance is *not* colour-blind distance: red
+and green sit far apart on the wheel and collapse under deuteranopia, so lane and
+status identity must always be carried by label or shape as well as colour.
+
+### Dark mode
+
+`--primary` is defined per mode and holds its hue across both — `oklch(0.52 0.20
+264)` on light, `oklch(0.70 0.155 264)` on dark. Test new sections in both modes.
+The old lime could not do this: to stay legible on white it had to drop to L0.55,
+where sRGB's gamut collapses its chroma and it reads as olive rather than lime.
+
+---
+
+## Typography
+
+- **Sans / display:** `Geist Variable`. Tight tracking (`-0.02em`), `font-feature-settings: "ss01", "cv11"`.
+- **Mono:** `Geist Mono Variable`. Use for code blocks, file names, stat numbers.
+
+### Scale
+
+Every row lands on a Tailwind scale step. Nothing is interpolated between steps.
+
+| Use | Size |
+| --- | --- |
+| Hero h1 | `text-4xl sm:text-5xl lg:text-6xl`, `font-semibold`, `tracking-[-0.02em]`, `.heading-gradient` |
+| Section h2 | `text-3xl sm:text-4xl`, `font-semibold`, `tracking-[-0.02em]` |
+| Card h3 | `text-xl`, `font-semibold`, `tracking-[-0.02em]` |
+| Body | `text-base`, `text-body`. Lead paragraphs `text-lg`. |
+| Eyebrow | `.eyebrow` — `text-xs`, `font-semibold`, `uppercase`, `tracking-[0.08em]` |
+
+Hero heading and subheading both cap at 680px, with manual `<br />` where the
+thought breaks. `text-wrap: balance` on headings and `pretty` on body are applied
+globally in `app.css`, so do not repeat them per element.
+
+The `.display-*` utilities carry the same scale for older pages and step up at the
+`sm` and `lg` breakpoints.
+
+---
+
+## Layout
+
+- **Container:** `<Container>` — `max-w-6xl` default, `narrow` (3xl), `wide` (7xl), `full`.
+- **Section:** `<Section spacing="default | tight | loose | none">` — `py-24 md:py-32` default.
+- Pages always end with `<Footer />`.
+- Section dividers: `border-t border-border-low/60`. No solid horizontal rules.
+
+### Page rhythm
+
+A marketing page composes top to bottom in roughly this order:
+
+1. **Hero** — atmospheric background, eyebrow chip, two-line headline (with rotating word on its own line), one-paragraph subhead targeting the audience, primary + outline CTAs, beta line, then a glass-card preview screenshot with floating chips.
+2. **Trust strip** — short uppercase eyebrow ("Built on tools makers trust") plus the tech-stack logo row (see "Trust strip" below). Honest credibility for a beta product — never fake customer logos.
+3. **Triad cards** — three audience-targeted cards, each with a mini visual.
+4. **Conversion section** — two columns: checklist of outcomes + a product preview screenshot with floating chips.
+5. **Dual feature cards** — side-by-side mockup cards (e.g. command palette + activity bars).
+6. **Big showcase** — single hero screenshot with a wash of primary glow behind it.
+7. **Format / code section** — two columns: bullet list + code/config snippet styled like a tabbed editor.
+8. **Intelligent features** — triptych mockup row, then a 4-cell feature row.
+9. **Final CTA** — full-width glass card with eyebrow chip, hero-scale headline (with italic emphasis on second line), description, dual CTAs.
+10. **Footer**.
+
+Not every page needs every section, but ordering and visual rhythm must match.
+
+---
+
+## Components
+
+### Glass surfaces
+
+| Class | Use |
+| --- | --- |
+| `glass-card` | Feature cards, mockup containers, CTA cards. |
+| `glass-chip` | Floating labels, status pills, icon containers. |
+| `glass` / `glass-strong` | Navbar-style overlays. |
+
+Glass surfaces always sit on top of an atmospheric or grid background — never
+flat. Pair with `shadow-craft-md`, `shadow-craft-lg`, or `shadow-craft-xl` for
+depth, plus `rounded-2xl` (cards) or `rounded-[2rem]` (CTA hero card).
+
+### Eyebrows
+
+```svelte
+<Eyebrow icon={Sparkles} variant="primary">v0.2 beta · what's new</Eyebrow>
+```
+
+Always lead a section with an eyebrow chip when the section has a header.
+
+### Section header
+
+```svelte
+<SectionHeader
+  eyebrow="Built for modern makers"
+  title="A recorder shaped to your workflow."
+  description="…"
+  align="left | center"
+/>
+```
+
+### Buttons
+
+- Primary CTA: `<Button size="lg" class="gap-2.5">` with a leading icon.
+- Secondary CTA: `<Button variant="outline" size="lg">` with a trailing arrow.
+- **Avoid** `variant="ghost"` next to a solid button — visual weight is too uneven.
+- Trailing arrows use `transition-transform group-hover/cta:translate-x-0.5`.
+
+### Reveal
+
+Wrap any content that should fade-up on scroll in `<Reveal delay={i * 60}>`.
+Stagger lists by ~60–80ms per item. Use `as="li"` when wrapping list items.
+
+### Motion vocabulary
+
+Nexonauts has **one motion ease**: `cubic-bezier(0.625, 0.05, 0, 1)`, exported as
+`CRAFT_EASE` from `@Nexonauts/ui/utils`. It's snappy at the start and lands gently —
+the same curve the FloatingMenu uses for its open/close timeline.
+
+| Use | Duration | Notes |
+| --- | --- | --- |
+| Hover state changes | `duration-200` | bg/text/opacity shifts on buttons, links, chips |
+| Overlay enter (dropdown, popover, tooltip, hover-card, dialog) | `duration-200` | via `CRAFT_OVERLAY_ANIMATION` |
+| Overlay exit | `duration-150` | slightly faster than enter — feels responsive |
+| Sheet enter | `duration-300` | longer feels intentional for full-edge surfaces |
+| Backdrop fade | `duration-200` enter / `150` exit | via `CRAFT_OVERLAY_BACKDROP_ANIMATION` |
+
+**Subtlety rules:**
+- Scale: `0.98` (2% delta) — never `0.95` or smaller; that reads as "popping".
+- Slide: 4px (`slide-in-from-X-1`) for popovers, 24px (`slide-in-from-X-6`) for sheets.
+- Avoid `ease-in-out` and `ease-linear` for state transitions — use `CRAFT_EASE`.
+
+**For new bits-ui Content components**, import `CRAFT_OVERLAY_ANIMATION` from
+`@Nexonauts/ui/utils` and prepend it to the class list. Don't hand-roll `data-open:`
+animation classes per component — they will drift.
+
+```svelte
+<script>
+  import { CRAFT_OVERLAY_ANIMATION, cn } from "@Nexonauts/ui/utils";
+</script>
+
+<Primitive.Content class={cn(CRAFT_OVERLAY_ANIMATION, "rounded-lg ...", className)} />
+```
+
+**Svelte transitions** (`fly`, `fade`, `slide` from `svelte/transition`) are
+preferred for any in-app component you control directly. Use bits-ui's
+data-state CSS animations only for portal-mounted overlays where Svelte's
+`transition:` directives can't reach.
+
+### TextLoop (rotating word)
+
+Layout-shift safe pattern:
+
+```svelte
+<h1>
+  Demos that look
+  <span class="mt-2 flex justify-center font-medium italic text-foreground/40">
+    <span class="inline-grid overflow-hidden">
+      <TextLoop class="text-primary" texts={words} interval={3000} />
+    </span>
+  </span>
+</h1>
+```
+
+The rotating word **must** sit on its own block-level line (a `flex` row works);
+GSAP animates the inner width but the outer line is independent so the rest of
+the headline never reflows.
+
+### Trust strip
+
+Nexonauts is in beta — **don't fabricate customer logos**. Use the open-source tech
+stack as honest social proof. Logos render via [Simple Icons CDN](https://simpleicons.org)
+in a muted neutral (`9ca3af`) tone so they read as a strip, not a competing focal point.
+
+Each entry links to the project, has hover opacity transition, and shows a
+text label next to the icon for readers who don't recognize the mark.
+
+If you want to show real users in the future, switch the heading to
+"Loved by teams at" and use **only** companies that have explicitly opted in.
+
+### Section backgrounds
+
+Superseded. Backgrounds are flat. Alternate bands between `bg-canvas` and
+`bg-canvas-soft` for rhythm, and separate them with that tonal shift rather than a
+rule. `bg-aurora`, `bg-ambient` and the radial washes are retired.
+
+---
+
+## CTA pattern
+
+The "Skip the editor. Ship the demo." CTA is the canonical end-of-page card.
+Reuse this exact structure on every page that needs a closing CTA:
+
+- Pulsing beta chip ("v0.2 beta · ready when you are")
+- Hero-scale h2 with italic emphasis on the second line
+- One-line supporting copy ("Free during beta. No account required. Three platforms. One opinionated tool.")
+- Solid primary CTA (`Download Nexonauts`) + outline CTA (`See what's new` / `Explore features`)
+- Top-positioned radial primary glow (~22% opacity) + 1px hairline gradient on top edge
+
+---
+
+## Dos and Don'ts
+
+**Do**
+
+- Use markdown link syntax (`[file.svelte](src/lib/components/file.svelte)`) when referencing code.
+- Use [Lucide icons](https://lucide.dev) only.
+- Reference design tokens via Tailwind utilities (`bg-primary`, `text-muted-foreground`).
+- Reach for `glass-card` + `shadow-craft-*` for elevated surfaces.
+- Test new sections in **both** light and dark — primary saturation differs dramatically.
+
+**Don't**
+
+- Hardcode hex/rgb colors. Use CSS variables and `color-mix()` in `srgb`.
+- Use a different icon library mixed with Lucide.
+- Stack absolute-positioned cards inside a fixed-height container — they create
+  dead space and z-stack confusion with the next section. Use a grid instead.
+- Use `variant="ghost"` for a secondary CTA next to a solid one — pairs badly.
+- Let TextLoop animate inside an inline flow — it will shift adjacent text.
+
+---
+
+## Routes & section anchors
+
+| Route | Sections |
+| --- | --- |
+| `/` | `#why`, `#record`, `#polish`, `#share`, `#founders`, `#pricing-teaser`, `#cta` |
+| `/pricing` | hero, plan cards (Free / Cloud waitlist), comparison table |
+| `/gamers` | hero, flow, use cases, why-vs-OBS, `#cta` |
+| `/features` | pillars, supports, `#cta` |
+| `/download` | hero, `#all-platforms` |
+| `/changelog` | hero, release timeline |
+
+The homepage spine is **Record → Auto-polish → Share** (see `POSITIONING.md`).
+Nexonauts Cloud is not shipped — the `#share` section and `/pricing` Cloud card
+sell a waitlist, never a live product.
+
+Keep navbar/footer links in sync with these anchors. Stale anchors are silent UX bugs.

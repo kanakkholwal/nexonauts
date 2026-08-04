@@ -4,7 +4,6 @@
 	import { Input } from "$lib/components/ui/input";
 	import { Textarea } from "$lib/components/ui/textarea";
 	import { Badge } from "$lib/components/ui/badge";
-	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
 	import { cn } from "$lib/utils";
 	import Building2 from "@lucide/svelte/icons/building-2";
 	import Globe from "@lucide/svelte/icons/globe";
@@ -96,7 +95,7 @@
 					Let's start a<br />
 					<span class="text-muted-ink">conversation.</span>
 				</h1>
-				<p class="max-w-md text-base leading-relaxed text-body">
+				<p class="max-w-md text-sm text-body">
 					Whether you have a question about features, pricing, or just want to say hello, our team
 					is ready to answer.
 				</p>
@@ -158,7 +157,7 @@
 						<Send class="size-6" />
 					</div>
 					<div class="space-y-1">
-						<h3 class="font-display text-2xl font-light text-ink">Message sent</h3>
+						<h3 class="font-display text-2xl font-medium text-ink">Message sent</h3>
 						<p class="text-sm text-body">We'll get back to you as soon as possible.</p>
 					</div>
 				</div>

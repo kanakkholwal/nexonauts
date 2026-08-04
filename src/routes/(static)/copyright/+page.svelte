@@ -1,5 +1,4 @@
 <script lang="ts">
-	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
 	import { Badge } from "$lib/components/ui/badge";
 	import { Button } from "$lib/components/ui/button";
 	import { appConfig } from "@/project.config";
@@ -30,7 +29,7 @@
 			Intellectual property
 		</Badge>
 		<h1 class="display-xl text-ink">Copyright Disclaimer</h1>
-		<p class="mx-auto max-w-2xl text-base leading-relaxed text-body sm:text-lg">
+		<p class="mx-auto max-w-2xl text-sm text-body">
 			Respecting rights, acknowledging sources, and maintaining compliance.
 		</p>
 	</div>
@@ -43,10 +42,10 @@
 					<Info class="size-5" />
 				</div>
 				<div class="space-y-2">
-					<h3 class="font-display text-2xl font-light tracking-tight text-ink">
+					<h3 class="font-display text-2xl font-medium tracking-tight text-ink">
 						Statement of intent
 					</h3>
-					<p class="text-base leading-relaxed text-body">
+					<p class="text-sm text-body">
 						At <span class="font-medium text-ink">{siteName}</span>, we value intellectual
 						property rights and strive to uphold copyright laws. Content used on this platform —
 						images, graphics, and text — is sourced from various free resources such as Freepik,
@@ -61,17 +60,16 @@
 			<article
 				class="group relative isolate overflow-hidden rounded-2xl border border-hairline bg-card p-7 transition-all hover:border-hairline-strong hover:shadow-(--shadow-soft-drop)"
 			>
-				<GradientOrb hue="mint" size="sm" opacity={0.22} class="-right-16 -top-12" />
 				<div class="relative z-10">
 					<div
 						class="mb-4 flex size-11 items-center justify-center rounded-2xl bg-surface-strong text-ink"
 					>
 						<Scale class="size-5" />
 					</div>
-					<h4 class="font-display text-xl font-light tracking-tight text-ink">
+					<h4 class="font-display text-2xl font-medium tracking-tight text-ink">
 						Fair use statement
 					</h4>
-					<p class="mt-3 text-sm leading-relaxed text-body">
+					<p class="mt-3 text-sm text-body">
 						Our platform operates under the principles of fair use. We utilize copyrighted
 						material for educational, informational, or illustrative purposes only, always
 						attributing the content to its original creators or sources where applicable.
@@ -82,17 +80,16 @@
 			<article
 				class="group relative isolate overflow-hidden rounded-2xl border border-hairline bg-card p-7 transition-all hover:border-hairline-strong hover:shadow-(--shadow-soft-drop)"
 			>
-				<GradientOrb hue="lavender" size="sm" opacity={0.22} class="-right-16 -top-12" />
 				<div class="relative z-10">
 					<div
 						class="mb-4 flex size-11 items-center justify-center rounded-2xl bg-surface-strong text-ink"
 					>
 						<FileText class="size-5" />
 					</div>
-					<h4 class="font-display text-xl font-light tracking-tight text-ink">
+					<h4 class="font-display text-2xl font-medium tracking-tight text-ink">
 						Acknowledgment of ownership
 					</h4>
-					<p class="mt-3 text-sm leading-relaxed text-body">
+					<p class="mt-3 text-sm text-body">
 						All copyrighted material used on {siteName} is acknowledged to its respective owners.
 						We do not claim ownership or rights over any copyrighted material that isn't developed
 						or created by our team.
@@ -110,11 +107,11 @@
 					>
 						<ShieldAlert class="size-5" />
 					</div>
-					<h4 class="font-display text-xl font-light tracking-tight text-ink">
+					<h4 class="font-display text-2xl font-medium tracking-tight text-ink">
 						DMCA compliance
 					</h4>
 				</div>
-				<p class="text-base leading-relaxed text-body">
+				<p class="text-sm text-body">
 					{siteName} complies with the Digital Millennium Copyright Act (DMCA). If you believe that
 					your copyrighted work has been used on our platform in a manner that constitutes
 					copyright infringement, please contact us immediately.

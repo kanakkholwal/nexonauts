@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Logo from "$lib/components/logo.svelte";
-	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
 	import { buttonVariants } from "$lib/components/ui/button";
 	import { cn } from "$lib/utils";
 	import { appConfig } from "@/project.config";
@@ -14,9 +13,6 @@
 	<aside
 		class="relative hidden h-full overflow-hidden bg-canvas-soft border-r border-hairline-soft lg:flex lg:flex-col lg:justify-between lg:p-12"
 	>
-		<GradientOrb hue="lavender" size="xl" opacity={0.45} class="-left-1/4 -top-1/4" />
-		<GradientOrb hue="peach" size="lg" opacity={0.4} class="-right-1/4 bottom-1/4" />
-		<GradientOrb hue="mint" size="md" opacity={0.3} class="left-1/3 bottom-12" />
 
 		<div class="relative z-10 inline-flex items-center gap-2.5 text-ink">
 			<Logo class="size-8" />

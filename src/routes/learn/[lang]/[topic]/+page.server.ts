@@ -1,5 +1,5 @@
 import { error } from "@sveltejs/kit";
-import { docs } from "docvia/source";
+import { docs } from "virtual:docvia/source";
 import type { PageServerLoad } from "./$types";
 
 const LANGUAGE_NAMES: Record<string, string> = {

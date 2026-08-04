@@ -55,7 +55,7 @@
 	<div class="relative z-10 mb-12 max-w-3xl pt-20 sm:pt-24">
 		<Badge variant="default" size="md" class="mb-5">Legal agreement</Badge>
 		<h1 class="display-xl text-ink">Terms of Service</h1>
-		<p class="mt-5 text-base leading-relaxed text-body">
+		<p class="mt-4 text-sm text-body">
 			Please read these terms carefully before using our platform. They outline the rules for the
 			use of <span class="font-medium text-ink">{SITE}</span>.
 		</p>
@@ -81,14 +81,14 @@
 		<div class="col-span-12 lg:col-span-9">
 			<div
 				class="prose prose-zinc dark:prose-invert max-w-none
-					prose-headings:font-display prose-headings:font-light prose-headings:tracking-tight prose-headings:text-ink prose-headings:scroll-mt-28
-					prose-h2:text-3xl prose-h3:text-2xl prose-h4:text-xl
-					prose-p:text-body prose-p:leading-relaxed
+					prose-headings:font-display prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-ink prose-headings:scroll-mt-28
+					prose-h2:text-2xl prose-h3:text-2xl prose-h4:text-2xl
+					prose-p:text-body prose-p:
 					prose-a:text-ink prose-a:underline-offset-4 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
 					prose-strong:text-ink"
 			>
 				<section id="terms">
-					<p class="lead text-lg text-body">
+					<p class="lead text-sm text-body">
 						By accessing this website, we assume you accept these terms and conditions. Do not
 						continue to use {SITE} if you do not agree to all the terms and conditions stated on
 						this page.
@@ -171,7 +171,7 @@
 					<h3>Content liability</h3>
 					<div class="not-prose flex items-start gap-4 rounded-2xl border border-hairline bg-canvas-soft p-6">
 						<Shield class="mt-1 size-6 shrink-0 text-ink" />
-						<p class="m-0 text-sm leading-relaxed text-body">
+						<p class="m-0 text-sm text-body">
 							We shall not be held responsible for any content that appears on your website. You
 							agree to protect and defend us against all claims that arise on your website. No
 							link(s) should appear on any website that may be interpreted as libelous, obscene,
@@ -211,10 +211,10 @@
 						class="flex flex-col items-start justify-between gap-5 rounded-2xl border border-hairline bg-canvas-soft p-8 sm:flex-row sm:items-center"
 					>
 						<div class="max-w-md">
-							<h3 class="font-display text-2xl font-light tracking-tight text-ink">
+							<h3 class="font-display text-2xl font-medium tracking-tight text-ink">
 								Questions about the terms?
 							</h3>
-							<p class="mt-2 text-sm leading-relaxed text-body">
+							<p class="mt-2 text-sm text-body">
 								If you have any inquiries regarding our terms of service, please contact us.
 							</p>
 						</div>

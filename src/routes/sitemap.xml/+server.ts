@@ -1,5 +1,5 @@
 import { env } from "$env/dynamic/private";
-import { docs } from "docvia/source";
+import { docs } from "virtual:docvia/source";
 import { devTools } from "../dev-tools/tools";
 import type { RequestHandler } from "./$types";
 

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Footer from "$lib/components/common/footer.svelte";
 	import IslandNav from "$lib/components/common/island-nav.svelte";
+	import HeroShowcase from "$lib/components/surfaces/hero-showcase.svelte";
 	import TaglineReveal from "$lib/components/surfaces/tagline-reveal.svelte";
 	import * as Accordion from "$lib/components/ui/accordion";
 	import { Button } from "$lib/components/ui/button";
@@ -20,6 +21,17 @@
 	import ShieldCheck from "phosphor-svelte/lib/ShieldCheck";
 	import VideoCamera from "phosphor-svelte/lib/VideoCamera";
 	import Wrench from "phosphor-svelte/lib/Wrench";
+
+	const marqueeItems = [
+		{ label: "Orbit", mono: false },
+		{ label: "Recast", mono: false },
+		{ label: "Glyphtex", mono: false },
+		{ label: "Docvia", mono: false },
+		{ label: "nexo-mdx", mono: true },
+		{ label: "nexo-editor", mono: true },
+		{ label: "pdf-tables-parser", mono: true },
+		{ label: "custom-domain-sdk", mono: true }
+	];
 
 	const products = [
 		{
@@ -179,46 +191,99 @@
 <IslandNav />
 
 <main id="main" class="bg-canvas">
-	<!-- Hero -->
-	<section class="relative isolate overflow-hidden px-6 pt-24 pb-24">
-		<div class="bg-dots pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
-		<div class="mx-auto flex max-w-(--max-app-width) flex-col items-center text-center">
-			<h1
-				class="max-w-[680px] text-2xl font-medium text-ink"
-			>
-				Tools that run on your machine,<br />not on someone else's server.
-			</h1>
+	<!-- Hero. Shell, dot lattice and staggered entrance ported from originkit hero-02. -->
+	<section aria-label="Nexonauts" class="relative w-full">
+		<div
+			class="relative overflow-hidden rounded-b-3xl border-b border-hairline bg-canvas-soft shadow-[0_0_0_6px_#ffffff,0_7px_6px_rgba(140,150,169,0.12),0_22px_30px_rgba(140,150,169,0.1)]"
+		>
+			<div class="bg-dots pointer-events-none absolute inset-0" aria-hidden="true"></div>
 
-			<p class="mt-6 max-w-[680px] text-sm text-body">
-				Nexonauts is a small set of developer tools that share one habit. A PDF toolkit, a screen
-				recorder, a LaTeX engine and a docs compiler, each with its own home and its own
-				repository.
-			</p>
+			<div class="relative z-10 flex flex-col items-center px-6 pt-24 pb-12">
+				<a
+					href="https://glyphtex.nexonauts.com"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="animate-page-reveal mt-12 inline-flex items-center gap-2 rounded-pill border border-hairline bg-canvas py-1 pr-3 pl-1 shadow-[0_0_0_3px_#ffffff,0_4px_2px_rgba(140,150,169,0.25),0_8px_17px_rgba(140,150,169,0.1)] transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-hairline-strong hover:bg-surface-strong active:translate-y-px focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+					style="animation-delay: 80ms"
+				>
+					<span
+						class="inline-flex items-center rounded-pill bg-primary px-3 py-1 text-xs font-medium text-primary-foreground"
+					>
+						New
+					</span>
+					<span class="text-13 font-medium whitespace-nowrap text-ink">
+						Glyphtex compiles LaTeX in the browser
+					</span>
+					<ArrowUpRight class="size-3.5 text-muted-ink" />
+				</a>
 
-			<div class="mt-8">
-				<Button href="#products" size="cta">
-					Browse the products
-					<ArrowRight class="size-3.5" weight="bold" />
-				</Button>
+				<div
+					class="animate-page-reveal mt-8 flex flex-col items-center text-center"
+					style="animation-delay: 140ms"
+				>
+					<h1 class="max-w-[680px] text-2xl font-medium text-ink">
+						Tools that run on your machine,<br />not on someone else's server.
+					</h1>
+
+					<p class="mt-6 max-w-[680px] text-sm text-body">
+						Nexonauts is a small set of developer tools that share one habit. A PDF toolkit, a
+						screen recorder, a LaTeX engine and a docs compiler, each with its own home and its
+						own repository.
+					</p>
+				</div>
+
+				<div class="animate-page-reveal mt-8" style="animation-delay: 200ms">
+					<Button href="#products" size="cta">
+						Browse the products
+						<ArrowRight class="size-3.5" weight="bold" />
+					</Button>
+				</div>
+
+				<p
+					class="animate-page-reveal mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-13 text-muted-ink"
+					style="animation-delay: 260ms"
+				>
+					<span>Four apps</span>
+					<span aria-hidden="true">·</span>
+					<span>Four npm packages</span>
+					<span aria-hidden="true">·</span>
+					<span>Every repository public</span>
+				</p>
+
+				<div class="relative z-10 mx-auto mt-12 w-full max-w-[1440px]">
+					<HeroShowcase />
+				</div>
 			</div>
+		</div>
 
-			<p
-				class="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-13 text-muted-ink"
+		<!-- Marquee. Real properties, not a fabricated customer strip. -->
+		<div class="animate-page-reveal flex flex-col items-center gap-6 py-12" style="animation-delay: 360ms">
+			<p class="text-13 font-medium text-body">Everything under the Nexonauts umbrella</p>
+			<div
+				class="relative w-full max-w-[820px] overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)] [-webkit-mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
 			>
-				<span>Four apps</span>
-				<span aria-hidden="true">·</span>
-				<span>Four npm packages</span>
-				<span aria-hidden="true">·</span>
-				<span>Every repository public</span>
-			</p>
+				<ul class="animate-marquee flex w-max items-center gap-3 will-change-transform">
+					{#each [...marqueeItems, ...marqueeItems] as item, i (i)}
+						<li
+							aria-hidden={i >= marqueeItems.length ? "true" : undefined}
+							class={cn(
+								"shrink-0 rounded-pill border border-hairline bg-surface-card px-3 py-2 whitespace-nowrap",
+								item.mono ? "font-mono text-xs text-muted-ink" : "text-13 font-medium text-ink"
+							)}
+						>
+							{item.label}
+						</li>
+					{/each}
+				</ul>
+			</div>
 		</div>
 	</section>
 
 	<!-- Products: the conversion. Each card exits to its own domain. -->
 	<section id="products" class="scroll-mt-24 px-6 py-24">
 		<div class="mx-auto max-w-(--max-app-width)">
-			<div class="max-w-[680px]" use:revealOnView>
-				<p class="eyebrow text-muted-ink">Products</p>
+			<div class="mx-auto max-w-[680px] text-center" use:revealOnView>
+				<span class="inline-flex items-center rounded-pill border border-hairline bg-surface-card px-3 py-1 text-xs font-medium text-body shadow-[0_0_0_3px_#ffffff,0_4px_2px_rgba(140,150,169,0.25),0_8px_17px_rgba(140,150,169,0.1)]"></span>
 				<h2 class="mt-4 text-2xl font-medium text-ink">
 					Four tools, four homes
 				</h2>
@@ -236,10 +301,10 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						class={cn(
-							"group flex flex-col rounded-xl border border-hairline bg-surface-card p-6",
+							"group flex flex-col rounded-xl border border-hairline bg-surface-card p-6 shadow-[0_0_0_2px_#ffffff,0_10px_24px_rgba(140,150,169,0.10)]",
 							"transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]",
-							"hover:-translate-y-1 hover:border-hairline-strong hover:shadow-(--shadow-elevation-3)",
-							"active:translate-y-0 active:shadow-(--shadow-elevation-1)",
+							"hover:-translate-y-1 hover:border-hairline-strong hover:shadow-[0_0_0_2px_#ffffff,0_18px_36px_rgba(140,150,169,0.18)]",
+							"active:translate-y-0 active:shadow-[0_0_0_2px_#ffffff,0_4px_10px_rgba(140,150,169,0.10)]",
 							"focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
 						)}
 						use:revealOnView={{ delay: 0.05 * i }}
@@ -271,8 +336,8 @@
 	<!-- The thread -->
 	<section id="thread" class="scroll-mt-24 px-6 py-24">
 		<div class="mx-auto max-w-(--max-app-width)">
-			<div class="max-w-[680px]" use:revealOnView>
-				<p class="eyebrow text-muted-ink">What connects them</p>
+			<div class="mx-auto max-w-[680px] text-center" use:revealOnView>
+				<span class="inline-flex items-center rounded-pill border border-hairline bg-surface-card px-3 py-1 text-xs font-medium text-body shadow-[0_0_0_3px_#ffffff,0_4px_2px_rgba(140,150,169,0.25),0_8px_17px_rgba(140,150,169,0.1)]"></span>
 				<h2 class="mt-4 text-2xl font-medium text-ink">
 					Different jobs, same assumption
 				</h2>
@@ -282,7 +347,7 @@
 				{#each thread as item, i (item.title)}
 					{@const Icon = item.icon}
 					<div
-						class="rounded-xl border border-hairline bg-surface-card p-6"
+						class="rounded-xl border border-hairline bg-surface-card p-6 shadow-[0_0_0_2px_#ffffff,0_10px_24px_rgba(140,150,169,0.10)]"
 						use:revealOnView={{ delay: 0.05 * i }}
 					>
 						<Icon class="size-5 text-ink" />
@@ -297,8 +362,8 @@
 	<!-- Packages -->
 	<section id="packages" class="scroll-mt-24 px-6 py-24">
 		<div class="mx-auto max-w-(--max-app-width)">
-			<div class="max-w-[680px]" use:revealOnView>
-				<p class="eyebrow text-muted-ink">Packages</p>
+			<div class="mx-auto max-w-[680px] text-center" use:revealOnView>
+				<span class="inline-flex items-center rounded-pill border border-hairline bg-surface-card px-3 py-1 text-xs font-medium text-body shadow-[0_0_0_3px_#ffffff,0_4px_2px_rgba(140,150,169,0.25),0_8px_17px_rgba(140,150,169,0.1)]"></span>
 				<h2 class="mt-4 text-2xl font-medium text-ink">
 					The pieces that got reused
 				</h2>
@@ -309,7 +374,7 @@
 
 			<ul class="mt-12 grid gap-4 sm:grid-cols-2" use:revealOnView>
 				{#each packages as pkg (pkg.name)}
-					<li class="flex items-start gap-4 rounded-xl border border-hairline bg-surface-card p-6">
+					<li class="flex items-start gap-4 rounded-xl border border-hairline bg-surface-card p-6 shadow-[0_0_0_2px_#ffffff,0_10px_24px_rgba(140,150,169,0.10)]">
 						<Package class="mt-0.5 size-5 shrink-0 text-muted-ink" />
 						<div>
 							<p class="font-mono text-sm text-ink">{pkg.name}</p>
@@ -336,8 +401,8 @@
 	<!-- Writing -->
 	<section id="writing" class="scroll-mt-24 px-6 py-24">
 		<div class="mx-auto max-w-(--max-app-width)">
-			<div class="max-w-[680px]" use:revealOnView>
-				<p class="eyebrow text-muted-ink">Writing</p>
+			<div class="mx-auto max-w-[680px] text-center" use:revealOnView>
+				<span class="inline-flex items-center rounded-pill border border-hairline bg-surface-card px-3 py-1 text-xs font-medium text-body shadow-[0_0_0_3px_#ffffff,0_4px_2px_rgba(140,150,169,0.25),0_8px_17px_rgba(140,150,169,0.1)]"></span>
 				<h2 class="mt-4 text-2xl font-medium text-ink">
 					Notes from building the above
 				</h2>
@@ -349,10 +414,10 @@
 					<a
 						href={item.href}
 						class={cn(
-							"group flex flex-col rounded-xl border border-hairline bg-surface-card p-6",
+							"group flex flex-col rounded-xl border border-hairline bg-surface-card p-6 shadow-[0_0_0_2px_#ffffff,0_10px_24px_rgba(140,150,169,0.10)]",
 							"transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]",
-							"hover:-translate-y-1 hover:border-hairline-strong hover:shadow-(--shadow-elevation-3)",
-							"active:translate-y-0 active:shadow-(--shadow-elevation-1)",
+							"hover:-translate-y-1 hover:border-hairline-strong hover:shadow-[0_0_0_2px_#ffffff,0_18px_36px_rgba(140,150,169,0.18)]",
+							"active:translate-y-0 active:shadow-[0_0_0_2px_#ffffff,0_4px_10px_rgba(140,150,169,0.10)]",
 							"focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
 						)}
 						use:revealOnView={{ delay: 0.05 * i }}
@@ -374,8 +439,8 @@
 	<!-- FAQ -->
 	<section id="faq" class="scroll-mt-24 px-6 py-24">
 		<div class="mx-auto max-w-3xl">
-			<div use:revealOnView>
-				<p class="eyebrow text-muted-ink">Questions</p>
+			<div class="mx-auto max-w-[680px] text-center" use:revealOnView>
+				<span class="inline-flex items-center rounded-pill border border-hairline bg-surface-card px-3 py-1 text-xs font-medium text-body shadow-[0_0_0_3px_#ffffff,0_4px_2px_rgba(140,150,169,0.25),0_8px_17px_rgba(140,150,169,0.1)]"></span>
 				<h2 class="mt-4 text-2xl font-medium text-ink">
 					What people ask about the umbrella
 				</h2>
@@ -396,33 +461,40 @@
 		</div>
 	</section>
 
-	<!-- Final CTA -->
-	<section class="px-6 py-24">
-		<div class="mx-auto flex max-w-[680px] flex-col items-center text-center" use:revealOnView>
-			<h2 class="text-2xl font-medium text-ink">
-				Pick the one that matches today's problem.
-			</h2>
-			<p class="mt-6 text-sm text-body">
-				Nothing here asks for a card or an account before it does something useful. Open the one
-				you need, and if it does not help, close the tab and nothing of yours went anywhere.
-			</p>
+	<!-- Final CTA. Bookends the hero: same shell, same dot lattice, inverted corners. -->
+	<section class="px-6 pt-12 pb-24">
+		<div
+			class="relative mx-auto max-w-(--max-app-width) overflow-hidden rounded-3xl border border-hairline bg-canvas-soft shadow-[0_0_0_6px_#ffffff,0_7px_6px_rgba(140,150,169,0.12),0_22px_30px_rgba(140,150,169,0.1)]"
+		>
+			<div class="bg-dots pointer-events-none absolute inset-0" aria-hidden="true"></div>
 
-			<div class="mt-8">
-				<Button href="#products" size="cta">
-					Browse the products
-					<ArrowRight class="size-3.5" weight="bold" />
-				</Button>
-			</div>
-
-			<a
-				href={appConfig.githubRepo}
-				target="_blank"
-				rel="noopener noreferrer"
-				class="mt-6 inline-flex items-center gap-2 text-13 font-medium text-muted-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-ink focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+			<div
+				class="relative z-10 mx-auto flex max-w-[680px] flex-col items-center px-6 py-24 text-center"
+				use:revealOnView
 			>
-				Or read the source
-				<ArrowUpRight class="size-3.5" />
-			</a>
+				<h2 class="text-2xl font-medium text-ink">Pick the one that matches today's problem.</h2>
+				<p class="mt-6 text-sm text-body">
+					Nothing here asks for a card or an account before it does something useful. Open the one
+					you need, and if it does not help, close the tab and nothing of yours went anywhere.
+				</p>
+
+				<div class="mt-8">
+					<Button href="#products" size="cta">
+						Browse the products
+						<ArrowRight class="size-3.5" weight="bold" />
+					</Button>
+				</div>
+
+				<a
+					href={appConfig.githubRepo}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="mt-6 inline-flex items-center gap-2 text-13 font-medium text-muted-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-ink focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+				>
+					Or read the source
+					<ArrowUpRight class="size-3.5" />
+				</a>
+			</div>
 		</div>
 	</section>
 </main>

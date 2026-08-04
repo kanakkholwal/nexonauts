@@ -1,19 +1,15 @@
 import { sveltekit } from '@sveltejs/kit/vite';
 import tailwindcss from '@tailwindcss/vite';
 import { docvia } from '@docvia/plugin-vite';
-import { defineConfig, type PluginOption } from 'vite';
+import { defineConfig } from 'vite';
 import { fileURLToPath } from 'node:url';
 import docviaConfig from './docvia.config';
 
-// docvia plugin-vite (0.2.1) was built against an older Vite minor —
-// its Plugin<any> narrows DevEnvironment differently than Vite 8.
-// Runtime is fine; cast to silence the structural mismatch.
-const docviaPlugin = docvia(docviaConfig) as unknown as PluginOption;
+const docviaPlugin = docvia(docviaConfig);
 
-// @docvia/renderer-svelte 0.2.1 has a broken `svelte` export condition
-// pointing to ./src/index.ts, but src/ isn't shipped — only dist/ is.
-// Alias the bare specifier to the dist build until Docvia republishes.
-// See memory/bug_docvia_renderer_svelte_exports.md
+// @docvia/renderer-svelte still ships a broken `svelte` export condition
+// pointing at ./src/index.ts, which is not published — only dist/ is.
+// Still reproducing on 0.2.4. Alias the bare specifier to the dist build.
 const docviaRendererSvelteDist = fileURLToPath(
 	new URL('./node_modules/@docvia/renderer-svelte/dist/index.js', import.meta.url)
 );
