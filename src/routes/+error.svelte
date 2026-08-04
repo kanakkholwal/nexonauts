@@ -39,24 +39,24 @@
 
 <main id="main" class="flex min-h-screen flex-col items-center justify-center bg-canvas px-6 py-24">
 	<a href="/" class="flex items-center gap-2 text-ink">
-		<Logo class="size-6" />
-		<span class="text-sm font-semibold">{appConfig.name}</span>
+		<Logo class="size-5" />
+		<span class="text-sm font-medium">{appConfig.name}</span>
 	</a>
 
-	<p class="mt-16 font-mono text-sm text-muted-ink">{page.status}</p>
+	<p class="mt-16 font-mono text-xs text-muted-ink">{page.status}</p>
 
 	<h1
-		class="heading-gradient mt-3 max-w-[680px] text-center text-4xl font-semibold tracking-[-0.02em] sm:text-5xl"
+		class="mt-3 max-w-[680px] text-center text-2xl font-medium text-ink"
 	>
 		{title}
 	</h1>
 
-	<p class="mt-6 max-w-[680px] text-center text-base text-body">{body}</p>
+	<p class="mt-6 max-w-[680px] text-center text-sm text-body">{body}</p>
 
 	<div class="mt-8">
 		<Button href="/" size="cta">
 			Back to the homepage
-			<ArrowRight class="size-4" weight="bold" />
+			<ArrowRight class="size-3.5" weight="bold" />
 		</Button>
 	</div>
 
@@ -65,7 +65,7 @@
 			<li>
 				<a
 					href={route.href}
-					class="inline-flex rounded-full border border-hairline px-3 py-2 text-sm text-body transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-hairline-strong hover:text-ink active:translate-y-px focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+					class="inline-flex rounded-md border border-hairline px-3 py-2 text-13 text-body transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-hairline-strong hover:text-ink active:translate-y-px focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
 				>
 					{route.label}
 				</a>
@@ -76,10 +76,10 @@
 				href={appConfig.githubRepo}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="inline-flex items-center gap-2 rounded-full border border-hairline px-3 py-2 text-sm text-body transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-hairline-strong hover:text-ink active:translate-y-px focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+				class="inline-flex items-center gap-2 rounded-md border border-hairline px-3 py-2 text-13 text-body transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-hairline-strong hover:text-ink active:translate-y-px focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
 			>
 				Report it
-				<ArrowUpRight class="size-4" />
+				<ArrowUpRight class="size-3.5" />
 			</a>
 		</li>
 	</ul>

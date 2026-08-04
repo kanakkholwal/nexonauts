@@ -1,7 +1,6 @@
 <script lang="ts">
 	import * as Sidebar from "$lib/components/ui/sidebar";
 	import { Separator } from "$lib/components/ui/separator";
-	import ThemeSwitcher from "$lib/components/common/theme-switcher.svelte";
 
 	type SessionUser = { name?: string | null; email?: string | null };
 
@@ -25,5 +24,4 @@
 			<span class="ml-2 text-xs text-muted-ink">(impersonated by {impersonatedBy})</span>
 		{/if}
 	</div>
-	<ThemeSwitcher />
 </header>

@@ -1,7 +1,6 @@
 <script lang="ts">
 	import "../app.css";
 	import "../codebox.css";
-	import { ModeWatcher } from "mode-watcher";
 	import { Toaster } from "$lib/components/ui/sonner";
 	import { page } from "$app/state";
 	import { beforeNavigate, afterNavigate } from "$app/navigation";
@@ -23,12 +22,11 @@
 	{/if}
 </svelte:head>
 
-<ModeWatcher defaultMode="system" />
 <Toaster richColors closeButton position="top-right" />
 
 <a
 	href="#main"
-	class="sr-only rounded-full bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground focus:not-sr-only focus:fixed focus:top-6 focus:left-6 focus:z-100"
+	class="sr-only rounded-pill bg-primary px-3 py-2 text-sm font-medium text-primary-foreground focus:not-sr-only focus:fixed focus:top-6 focus:left-6 focus:z-100"
 >
 	Skip to content
 </a>

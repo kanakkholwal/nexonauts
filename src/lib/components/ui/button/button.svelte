@@ -20,7 +20,7 @@
 	export const buttonVariants = tv({
 		base: [
 			"group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap",
-			"font-sans text-sm font-medium tracking-[0.01em]",
+			"font-sans text-sm font-medium",
 			"border border-transparent bg-clip-padding",
 			"transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] outline-none select-none",
 			"focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
@@ -84,10 +84,10 @@
 			size: {
 				default: "h-10 gap-1.5 px-5 rounded-pill has-data-[icon=inline-end]:pr-4 has-data-[icon=inline-start]:pl-4",
 				xs: "h-7 gap-1 px-2.5 text-xs rounded-pill in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2 [&_svg:not([class*='size-'])]:size-3",
-				sm: "h-8 gap-1.5 px-3.5 text-[0.8125rem] rounded-pill in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5 [&_svg:not([class*='size-'])]:size-3.5",
+				sm: "h-8 gap-1.5 px-3.5 text-13 rounded-pill in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-2.5 has-data-[icon=inline-start]:pl-2.5 [&_svg:not([class*='size-'])]:size-3.5",
 				md: "h-9 gap-1.5 px-4 rounded-pill has-data-[icon=inline-end]:pr-3 has-data-[icon=inline-start]:pl-3",
-				lg: "h-11 gap-2 px-6 text-[0.9375rem] rounded-pill has-data-[icon=inline-end]:pr-5 has-data-[icon=inline-start]:pl-5",
-				xl: "h-12 gap-2 px-7 text-base rounded-pill has-data-[icon=inline-end]:pr-6 has-data-[icon=inline-start]:pl-6",
+				lg: "h-11 gap-2 px-6 text-sm rounded-pill has-data-[icon=inline-end]:pr-5 has-data-[icon=inline-start]:pl-5",
+				xl: "h-12 gap-2 px-7 text-sm rounded-pill has-data-[icon=inline-end]:pr-6 has-data-[icon=inline-start]:pl-6",
 				icon: "size-10 rounded-pill",
 				"icon-xs": "size-7 rounded-pill in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3",
 				"icon-sm": "size-8 rounded-pill in-data-[slot=button-group]:rounded-md",
@@ -96,8 +96,8 @@
 				// Square (non-pill) icon — for chrome inside dense toolbars.
 				"icon-square": "size-8 rounded-md",
 				// Landing-page CTAs. Padding is fixed by the spec: 8px vertical, 12px horizontal.
-				cta: "gap-2 px-3 py-2 text-base font-semibold rounded-pill",
-				"cta-sm": "gap-2 px-3 py-2 text-sm font-semibold rounded-pill",
+				cta: "gap-2 px-3 py-2 text-sm font-medium rounded-pill",
+				"cta-sm": "gap-2 px-3 py-2 text-13 font-medium rounded-pill",
 			},
 		},
 		defaultVariants: {

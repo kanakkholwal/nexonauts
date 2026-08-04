@@ -180,15 +180,16 @@
 
 <main id="main" class="bg-canvas">
 	<!-- Hero -->
-	<section class="px-6 pt-24 pb-24">
+	<section class="relative isolate overflow-hidden px-6 pt-24 pb-24">
+		<div class="bg-dots pointer-events-none absolute inset-0 -z-10" aria-hidden="true"></div>
 		<div class="mx-auto flex max-w-(--max-app-width) flex-col items-center text-center">
 			<h1
-				class="heading-gradient max-w-[680px] text-4xl font-semibold tracking-[-0.02em] sm:text-5xl lg:text-6xl"
+				class="max-w-[680px] text-2xl font-medium text-ink"
 			>
 				Tools that run on your machine,<br />not on someone else's server.
 			</h1>
 
-			<p class="mt-6 max-w-[680px] text-lg text-body">
+			<p class="mt-6 max-w-[680px] text-sm text-body">
 				Nexonauts is a small set of developer tools that share one habit. A PDF toolkit, a screen
 				recorder, a LaTeX engine and a docs compiler, each with its own home and its own
 				repository.
@@ -197,12 +198,12 @@
 			<div class="mt-8">
 				<Button href="#products" size="cta">
 					Browse the products
-					<ArrowRight class="size-4" weight="bold" />
+					<ArrowRight class="size-3.5" weight="bold" />
 				</Button>
 			</div>
 
 			<p
-				class="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-muted-ink"
+				class="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-13 text-muted-ink"
 			>
 				<span>Four apps</span>
 				<span aria-hidden="true">·</span>
@@ -214,14 +215,14 @@
 	</section>
 
 	<!-- Products: the conversion. Each card exits to its own domain. -->
-	<section id="products" class="scroll-mt-24 bg-canvas-soft px-6 py-24">
+	<section id="products" class="scroll-mt-24 px-6 py-24">
 		<div class="mx-auto max-w-(--max-app-width)">
 			<div class="max-w-[680px]" use:revealOnView>
 				<p class="eyebrow text-muted-ink">Products</p>
-				<h2 class="mt-4 text-3xl font-semibold tracking-[-0.02em] text-ink sm:text-4xl">
+				<h2 class="mt-4 text-2xl font-medium text-ink">
 					Four tools, four homes
 				</h2>
-				<p class="mt-6 text-base text-body">
+				<p class="mt-6 text-sm text-body">
 					Each one solves a single job and stops there. They do not share an account, a runtime or
 					a release cycle.
 				</p>
@@ -235,25 +236,26 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						class={cn(
-							"group flex flex-col rounded-2xl border border-hairline bg-canvas p-6",
+							"group flex flex-col rounded-xl border border-hairline bg-surface-card p-6",
 							"transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]",
-							"hover:border-hairline-strong hover:shadow-(--shadow-soft-drop) active:translate-y-px",
+							"hover:-translate-y-1 hover:border-hairline-strong hover:shadow-(--shadow-elevation-3)",
+							"active:translate-y-0 active:shadow-(--shadow-elevation-1)",
 							"focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
 						)}
 						use:revealOnView={{ delay: 0.05 * i }}
 					>
 						<div class="flex items-center justify-between">
-							<Icon class="size-6 text-ink" />
+							<Icon class="size-5 text-ink" />
 							<ArrowUpRight
-								class="size-4 text-muted-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:text-ink"
+								class="size-3.5 text-muted-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:text-ink"
 							/>
 						</div>
 
 						<p class="eyebrow mt-6 text-muted-ink">{product.kind}</p>
-						<h3 class="mt-2 text-2xl font-semibold tracking-[-0.02em] text-ink">
+						<h3 class="mt-2 text-sm font-medium text-ink">
 							{product.name}
 						</h3>
-						<p class="mt-3 text-base text-body">{product.body}</p>
+						<p class="mt-3 text-13 text-body">{product.body}</p>
 						<p class="mt-6 font-mono text-xs text-muted-ink">{product.meta}</p>
 					</a>
 				{/each}
@@ -267,11 +269,11 @@
 	</section>
 
 	<!-- The thread -->
-	<section id="thread" class="scroll-mt-24 bg-canvas-soft px-6 py-24">
+	<section id="thread" class="scroll-mt-24 px-6 py-24">
 		<div class="mx-auto max-w-(--max-app-width)">
 			<div class="max-w-[680px]" use:revealOnView>
 				<p class="eyebrow text-muted-ink">What connects them</p>
-				<h2 class="mt-4 text-3xl font-semibold tracking-[-0.02em] text-ink sm:text-4xl">
+				<h2 class="mt-4 text-2xl font-medium text-ink">
 					Different jobs, same assumption
 				</h2>
 			</div>
@@ -280,12 +282,12 @@
 				{#each thread as item, i (item.title)}
 					{@const Icon = item.icon}
 					<div
-						class="rounded-2xl border border-hairline bg-canvas p-6"
+						class="rounded-xl border border-hairline bg-surface-card p-6"
 						use:revealOnView={{ delay: 0.05 * i }}
 					>
-						<Icon class="size-6 text-ink" />
-						<h3 class="mt-4 text-xl font-semibold tracking-[-0.02em] text-ink">{item.title}</h3>
-						<p class="mt-3 text-base text-body">{item.body}</p>
+						<Icon class="size-5 text-ink" />
+						<h3 class="mt-4 text-sm font-medium text-ink">{item.title}</h3>
+						<p class="mt-3 text-13 text-body">{item.body}</p>
 					</div>
 				{/each}
 			</div>
@@ -297,21 +299,21 @@
 		<div class="mx-auto max-w-(--max-app-width)">
 			<div class="max-w-[680px]" use:revealOnView>
 				<p class="eyebrow text-muted-ink">Packages</p>
-				<h2 class="mt-4 text-3xl font-semibold tracking-[-0.02em] text-ink sm:text-4xl">
+				<h2 class="mt-4 text-2xl font-medium text-ink">
 					The pieces that got reused
 				</h2>
-				<p class="mt-6 text-base text-body">
+				<p class="mt-6 text-sm text-body">
 					Small npm libraries that came out of the apps once they earned their second use.
 				</p>
 			</div>
 
 			<ul class="mt-12 grid gap-4 sm:grid-cols-2" use:revealOnView>
 				{#each packages as pkg (pkg.name)}
-					<li class="flex items-start gap-4 rounded-2xl border border-hairline bg-canvas-soft p-6">
-						<Package class="mt-0.5 size-4 shrink-0 text-muted-ink" />
+					<li class="flex items-start gap-4 rounded-xl border border-hairline bg-surface-card p-6">
+						<Package class="mt-0.5 size-5 shrink-0 text-muted-ink" />
 						<div>
 							<p class="font-mono text-sm text-ink">{pkg.name}</p>
-							<p class="mt-2 text-sm text-body">{pkg.body}</p>
+							<p class="mt-2 text-13 text-body">{pkg.body}</p>
 						</div>
 					</li>
 				{/each}
@@ -322,21 +324,21 @@
 					href="https://docs.nexonauts.com"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="inline-flex items-center gap-2 text-sm font-medium text-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-muted-ink focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+					class="inline-flex items-center gap-2 text-13 font-medium text-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-muted-ink focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
 				>
 					Read the package docs
-					<ArrowUpRight class="size-4" />
+					<ArrowUpRight class="size-3.5" />
 				</a>
 			</div>
 		</div>
 	</section>
 
 	<!-- Writing -->
-	<section id="writing" class="scroll-mt-24 bg-canvas-soft px-6 py-24">
+	<section id="writing" class="scroll-mt-24 px-6 py-24">
 		<div class="mx-auto max-w-(--max-app-width)">
 			<div class="max-w-[680px]" use:revealOnView>
 				<p class="eyebrow text-muted-ink">Writing</p>
-				<h2 class="mt-4 text-3xl font-semibold tracking-[-0.02em] text-ink sm:text-4xl">
+				<h2 class="mt-4 text-2xl font-medium text-ink">
 					Notes from building the above
 				</h2>
 			</div>
@@ -347,21 +349,22 @@
 					<a
 						href={item.href}
 						class={cn(
-							"group flex flex-col rounded-2xl border border-hairline bg-canvas p-6",
+							"group flex flex-col rounded-xl border border-hairline bg-surface-card p-6",
 							"transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]",
-							"hover:border-hairline-strong hover:shadow-(--shadow-soft-drop) active:translate-y-px",
+							"hover:-translate-y-1 hover:border-hairline-strong hover:shadow-(--shadow-elevation-3)",
+							"active:translate-y-0 active:shadow-(--shadow-elevation-1)",
 							"focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
 						)}
 						use:revealOnView={{ delay: 0.05 * i }}
 					>
 						<div class="flex items-center justify-between">
-							<Icon class="size-6 text-ink" />
+							<Icon class="size-5 text-ink" />
 							<ArrowRight
-								class="size-4 text-muted-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:text-ink"
+								class="size-3.5 text-muted-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:text-ink"
 							/>
 						</div>
-						<h3 class="mt-6 text-xl font-semibold tracking-[-0.02em] text-ink">{item.title}</h3>
-						<p class="mt-3 text-sm text-body">{item.body}</p>
+						<h3 class="mt-6 text-sm font-medium text-ink">{item.title}</h3>
+						<p class="mt-3 text-13 text-body">{item.body}</p>
 					</a>
 				{/each}
 			</div>
@@ -373,7 +376,7 @@
 		<div class="mx-auto max-w-3xl">
 			<div use:revealOnView>
 				<p class="eyebrow text-muted-ink">Questions</p>
-				<h2 class="mt-4 text-3xl font-semibold tracking-[-0.02em] text-ink sm:text-4xl">
+				<h2 class="mt-4 text-2xl font-medium text-ink">
 					What people ask about the umbrella
 				</h2>
 			</div>
@@ -381,10 +384,10 @@
 			<Accordion.Root type="single" class="mt-12 w-full">
 				{#each faqs as faq (faq.q)}
 					<Accordion.Item value={faq.q} class="border-b border-hairline">
-						<Accordion.Trigger class="py-6 text-base font-medium text-ink hover:no-underline">
+						<Accordion.Trigger class="py-6 text-sm font-medium text-ink hover:no-underline">
 							{faq.q}
 						</Accordion.Trigger>
-						<Accordion.Content class="pb-6 text-base text-body">
+						<Accordion.Content class="pb-6 text-13 text-body">
 							{faq.a}
 						</Accordion.Content>
 					</Accordion.Item>
@@ -394,12 +397,12 @@
 	</section>
 
 	<!-- Final CTA -->
-	<section class="bg-canvas-soft px-6 py-24">
+	<section class="px-6 py-24">
 		<div class="mx-auto flex max-w-[680px] flex-col items-center text-center" use:revealOnView>
-			<h2 class="text-3xl font-semibold tracking-[-0.02em] text-ink sm:text-4xl">
+			<h2 class="text-2xl font-medium text-ink">
 				Pick the one that matches today's problem.
 			</h2>
-			<p class="mt-6 text-base text-body">
+			<p class="mt-6 text-sm text-body">
 				Nothing here asks for a card or an account before it does something useful. Open the one
 				you need, and if it does not help, close the tab and nothing of yours went anywhere.
 			</p>
@@ -407,7 +410,7 @@
 			<div class="mt-8">
 				<Button href="#products" size="cta">
 					Browse the products
-					<ArrowRight class="size-4" weight="bold" />
+					<ArrowRight class="size-3.5" weight="bold" />
 				</Button>
 			</div>
 
@@ -415,10 +418,10 @@
 				href={appConfig.githubRepo}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-muted-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-ink focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+				class="mt-6 inline-flex items-center gap-2 text-13 font-medium text-muted-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-ink focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
 			>
 				Or read the source
-				<ArrowUpRight class="size-4" />
+				<ArrowUpRight class="size-3.5" />
 			</a>
 		</div>
 	</section>

@@ -45,7 +45,6 @@
     "layerchart": "^1.0.13",
     "lucide-svelte": "^0.507.0",
     "marked": "^14.1.4",
-    "mode-watcher": "^1.1.0",
     "mongoose": "^8.24.1",
     "motion": "^12.42.2",
     "nanoid": "^5.1.16",

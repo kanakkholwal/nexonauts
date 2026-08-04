@@ -17,7 +17,7 @@
 <p
 	use:wordReveal
 	class={cn(
-		"mx-auto max-w-[680px] text-center text-4xl font-semibold tracking-[-0.02em] sm:text-5xl",
+		"mx-auto max-w-[680px] text-center text-2xl font-medium",
 		className
 	)}
 >

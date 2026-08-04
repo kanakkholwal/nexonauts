@@ -83,7 +83,7 @@
 	<nav
 		aria-label="Primary"
 		class={cn(
-			"pointer-events-auto mx-auto mt-6 flex w-max items-center gap-2 rounded-full",
+			"pointer-events-auto mx-auto mt-6 flex w-max items-center gap-2 rounded-md",
 			"border border-hairline bg-canvas/70 px-3 py-2 backdrop-blur-xl",
 			"shadow-(--shadow-elevation-2) transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]",
 			open && "border-transparent bg-transparent shadow-none backdrop-blur-none"
@@ -92,10 +92,10 @@
 		<a
 			href="/"
 			onclick={close}
-			class="flex items-center gap-2 rounded-full px-3 py-2 text-ink transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-surface-strong focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+			class="flex items-center gap-2 rounded-md px-3 py-2 text-ink transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-surface-strong focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
 		>
-			<Logo class="size-6" />
-			<span class="text-sm font-semibold">{appConfig.name}</span>
+			<Logo class="size-5" />
+			<span class="text-sm font-medium">{appConfig.name}</span>
 		</a>
 
 		<ul class="hidden items-center gap-1 md:flex">
@@ -105,7 +105,7 @@
 						href={link.href}
 						aria-current={isCurrent(link.href) ? "page" : undefined}
 						class={cn(
-							"rounded-full px-3 py-2 text-sm font-medium text-body",
+							"rounded-md px-3 py-2 text-13 font-medium text-body",
 							"transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
 							"hover:bg-surface-strong hover:text-ink active:translate-y-px",
 							"focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none",
@@ -120,7 +120,7 @@
 
 		<a href="#products" class={cn(buttonVariants({ size: "cta-sm" }), "hidden sm:inline-flex")}>
 			Browse products
-			<ArrowRight class="size-4" weight="bold" />
+			<ArrowRight class="size-3.5" weight="bold" />
 		</a>
 
 		<button
@@ -128,7 +128,7 @@
 			onclick={() => (open = !open)}
 			aria-expanded={open}
 			aria-label={open ? "Close menu" : "Open menu"}
-			class="relative size-10 shrink-0 rounded-full text-ink transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-surface-strong active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none md:hidden"
+			class="relative size-10 shrink-0 rounded-md text-ink transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-surface-strong active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none md:hidden"
 		>
 			<span
 				class={cn(
@@ -153,7 +153,7 @@
 	inert={!open}
 	class={cn(
 		"fixed inset-0 z-40 backdrop-blur-3xl",
-		"bg-white/80 dark:bg-black/80",
+		"bg-canvas/80",
 		"transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] md:hidden",
 		open ? "visible opacity-100" : "invisible opacity-0"
 	)}
@@ -170,7 +170,7 @@
 						onclick={close}
 						style="transition-delay: {open ? stagger(i) : '0ms'}"
 						class={cn(
-							"flex items-center gap-2 py-2 text-3xl font-semibold text-ink",
+							"flex items-center gap-2 py-2 text-2xl font-medium text-ink",
 							"transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]",
 							"aria-[current=page]:text-muted-ink",
 							open ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
@@ -178,7 +178,7 @@
 					>
 						{link.title}
 						{#if link.external}
-							<ArrowUpRight class="size-6 text-muted-ink" />
+							<ArrowUpRight class="size-3.5 text-muted-ink" />
 						{/if}
 					</a>
 				</li>
@@ -196,7 +196,7 @@
 			)}
 		>
 			Browse products
-			<ArrowRight class="size-4" weight="bold" />
+			<ArrowRight class="size-3.5" weight="bold" />
 		</a>
 	</div>
 </div>
