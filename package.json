@@ -44,7 +44,7 @@
     "jsonwebtoken": "^9.0.3",
     "jszip": "^3.10.1",
     "layerchart": "^1.0.13",
-    "lucide-svelte": "^0.507.0",
+    "lucide-svelte": "^1.0.1",
     "marked": "^14.1.4",
     "mongoose": "^8.24.1",
     "motion": "^12.42.2",
