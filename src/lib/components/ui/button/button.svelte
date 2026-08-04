@@ -22,7 +22,7 @@
 			"group/button inline-flex shrink-0 items-center justify-center whitespace-nowrap",
 			"font-sans text-sm font-medium tracking-[0.01em]",
 			"border border-transparent bg-clip-padding",
-			"transition-all duration-150 ease-out outline-none select-none",
+			"transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] outline-none select-none",
 			"focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
 			"active:not-aria-[haspopup]:translate-y-px",
 			"disabled:pointer-events-none disabled:opacity-50",
@@ -95,6 +95,9 @@
 				"icon-xl": "size-12 rounded-pill",
 				// Square (non-pill) icon — for chrome inside dense toolbars.
 				"icon-square": "size-8 rounded-md",
+				// Landing-page CTAs. Padding is fixed by the spec: 8px vertical, 12px horizontal.
+				cta: "gap-2 px-3 py-2 text-base font-semibold rounded-pill",
+				"cta-sm": "gap-2 px-3 py-2 text-sm font-semibold rounded-pill",
 			},
 		},
 		defaultVariants: {

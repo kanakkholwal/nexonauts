@@ -11,16 +11,19 @@ export const appConfig = {
   logo: "/logo.svg",
   logoDark: "/logo-dark.svg",
 description:
-    "A small studio of developer tools and technical writing. Home of Recast and Docvia.",
+    "An umbrella for developer tools that do their work on your machine. Orbit, Recast, Glyphtex and Docvia.",
   applicationName: "Nexonauts",
   keywords: [
     "Nexonauts",
+    "Orbit",
     "Recast",
+    "Glyphtex",
     "Docvia",
+    "PDF toolkit",
     "screen recorder",
+    "LaTeX WebAssembly",
     "documentation compiler",
     "developer tools",
-    "developer resources",
   ],
   githubRepo:
     "https://github.com/kanakkholwal/nexonauts",

@@ -39,14 +39,17 @@ export const FOOTER_LINKS = [
   {
     title: "Products",
     links: [
-      { title: "Recast", href: "https://recast.nexonauts.com" },
+      { title: "Orbit", href: "https://orbit.nexonauts.com" },
+      { title: "Recast", href: "https://recast.li" },
+      { title: "Glyphtex", href: "https://glyphtex.nexonauts.com" },
       { title: "Docvia", href: "https://docvia.dev" },
-      { title: "Dev Tools", href: "/dev-tools" },
     ],
   },
   {
     title: "Read",
     links: [
+      { title: "Package docs", href: "https://docs.nexonauts.com" },
+      { title: "Dev tools", href: "/dev-tools" },
       { title: "Guides", href: "/guides" },
       { title: "Learn", href: "/learn" },
     ],

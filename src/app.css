@@ -1,7 +1,6 @@
 @import "tailwindcss";
 
-@import "@fontsource-variable/inter";
-@import "@fontsource-variable/eb-garamond";
+@import "@fontsource-variable/geist";
 @import "@fontsource-variable/geist-mono";
 
 @import "tw-animate-css";
@@ -9,17 +8,8 @@
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
 
-/* ---------------------------------------------------------------------------
- * Nexonauts Design Tokens
- * Editorial-magazine aesthetic. See DESIGN.md.
- *
- *   - Off-white canvas (#f5f5f5) holds warm near-black ink (#0c0a09).
- *   - One CTA color: the ink pill. No saturated brand accent.
- *   - Atmospheric pastel orbs (mint/peach/lavender/sky/rose) are decoration only.
- *   - Display: EB Garamond at weight 300 (Waldenburg substitute).
- *   - Body: Inter at 400/500 with +0.15-0.18px tracking.
- *   - CTAs are pills (rounded-full); cards are 16px; orb cards are 24px.
- * ------------------------------------------------------------------------- */
+/* Nexonauts design tokens. One typeface (Geist), flat backgrounds, ink pill CTA.
+   Dark surfaces are locked to the approved neutral ramp. See DESIGN.md. */
 
 :root,
 [data-theme="light"] {
@@ -159,32 +149,32 @@
 .dark,
 [data-theme="dark"],
 [data-theme="glass_dark"] {
-    /* Dark mode mirrors DESIGN.md's "rare dark hero" — surface-dark canvas with
-     * surface-dark-elevated for cards, near-white CTA pill (light-on-dark). */
+    /* Surfaces are restricted to the approved dark ramp: #000 · #181818 · #1F1F1F
+     * · #272727 · #313131. No off-ramp browns, no gradients. */
     --primary: #f5f5f5;
     --primary-active: #ffffff;
-    --primary-foreground: #0c0a09;
-    --on-primary: #0c0a09;
+    --primary-foreground: #000000;
+    --on-primary: #000000;
 
-    --canvas: #0c0a09;
-    --canvas-soft: #1c1917;
+    --canvas: #000000;
+    --canvas-soft: #181818;
     --canvas-deep: #ffffff;
-    --surface-card: #1c1917;
-    --surface-strong: #292524;
+    --surface-card: #1f1f1f;
+    --surface-strong: #272727;
     --surface-dark: #f5f5f5;
     --surface-dark-elevated: #ffffff;
 
-    --hairline: #292524;
-    --hairline-soft: #1c1917;
-    --hairline-strong: #44403c;
+    --hairline: #272727;
+    --hairline-soft: #1f1f1f;
+    --hairline-strong: #313131;
 
-    --ink: #fafaf9;
-    --body-text: #d6d3d1;
-    --body-strong: #fafaf9;
-    --muted-text: #a8a29e;
-    --muted-soft: #78716c;
-    --on-dark: #0c0a09;
-    --on-dark-soft: #44403c;
+    --ink: #ffffff;
+    --body-text: #b4b4b4;
+    --body-strong: #ffffff;
+    --muted-text: #9b9b9b;
+    --muted-soft: #6f6f6f;
+    --on-dark: #000000;
+    --on-dark-soft: #313131;
 
     --background: var(--canvas);
     --foreground: var(--ink);
@@ -335,11 +325,14 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
 
-    /* Typography — editorial pairing */
-    --font-serif: 'EB Garamond Variable', 'Times New Roman', Cambria, Georgia, serif;
-    --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', 'Cascadia Mono', 'Roboto Mono', Consolas, 'Courier New', monospace;
-    --font-display: var(--font-serif);
+    /* One typeface. Geist Mono is scoped to code and numeric UI only. */
+    --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', 'Cascadia Mono', Consolas, monospace;
+    --font-display: var(--font-sans);
+    --font-serif: var(--font-sans);
+
+    /* Fluid-dynamics easing. Every transition on the site resolves through this. */
+    --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
 
     --shadow-elevation-1: 0 1px 2px rgb(0 0 0 / 0.04);
     --shadow-elevation-2: 0 4px 16px rgb(0 0 0 / 0.04);
@@ -476,23 +469,29 @@
         -webkit-text-fill-color: var(--ink) !important;
     }
 
-    /* Editorial display headings — Waldenburg substitute. Always weight 300. */
     .font-display,
     h1.editorial,
     h2.editorial,
     h3.editorial {
         font-family: var(--font-display);
-        font-weight: 300;
+        font-weight: 600;
         letter-spacing: -0.02em;
+    }
+
+    h1, h2, h3, h4 {
+        text-wrap: balance;
+    }
+
+    p, li {
+        text-wrap: pretty;
     }
 }
 
 body {
     font-family: var(--font-sans);
     font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: 0.01em;
+    font-size: 1rem;
+    line-height: 1.5rem;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
@@ -503,59 +502,63 @@ body {
     --max-app-width: clamp(1024px, 75vw, 1200px);
 }
 
-/* ---------------------------------------------------------------------------
- * Editorial type utilities — implementations of DESIGN.md §3.
- * Use via class names. Pair with `.font-display` for the serif weight.
- * ------------------------------------------------------------------------- */
+/* Display utilities. Every step below is a Tailwind type-scale value paired with
+   that step's own line height — never an interpolated size. */
 
-.display-mega {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(40px, 6.5vw, 64px);
-    line-height: 1.05;
-    letter-spacing: -0.03em;
-}
-
-.display-xl {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(36px, 4.5vw, 48px);
-    line-height: 1.08;
-    letter-spacing: -0.02em;
-}
-
-.display-lg {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(28px, 3.2vw, 36px);
-    line-height: 1.17;
-    letter-spacing: -0.01em;
-}
-
-.display-md {
-    font-family: var(--font-display);
-    font-weight: 300;
-    font-size: clamp(24px, 2.8vw, 32px);
-    line-height: 1.13;
-    letter-spacing: -0.01em;
-}
-
+.display-mega,
+.display-xl,
+.display-lg,
+.display-md,
 .display-sm {
     font-family: var(--font-display);
-    font-weight: 300;
-    font-size: 24px;
-    line-height: 1.2;
-    letter-spacing: 0;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+}
+
+.display-mega { font-size: 2.25rem; line-height: 2.5rem; }
+.display-xl   { font-size: 1.875rem; line-height: 2.25rem; }
+.display-lg   { font-size: 1.5rem; line-height: 2rem; }
+.display-md   { font-size: 1.25rem; line-height: 1.75rem; }
+.display-sm   { font-size: 1.125rem; line-height: 1.75rem; }
+
+@media (min-width: 640px) {
+    .display-mega { font-size: 3rem; line-height: 1; }
+    .display-xl   { font-size: 2.25rem; line-height: 2.5rem; }
+    .display-lg   { font-size: 1.875rem; line-height: 2.25rem; }
+    .display-md   { font-size: 1.5rem; line-height: 2rem; }
+    .display-sm   { font-size: 1.25rem; line-height: 1.75rem; }
+}
+
+@media (min-width: 1024px) {
+    .display-mega { font-size: 3.75rem; line-height: 1; }
+    .display-xl   { font-size: 3rem; line-height: 1; }
+    .display-lg   { font-size: 2.25rem; line-height: 2.5rem; }
+    .display-md   { font-size: 1.875rem; line-height: 2.25rem; }
+    .display-sm   { font-size: 1.5rem; line-height: 2rem; }
 }
 
 .eyebrow,
 .caption-uppercase {
     font-family: var(--font-sans);
     font-weight: 600;
-    font-size: 12px;
-    line-height: 1.4;
+    font-size: 0.75rem;
+    line-height: 1rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+}
+
+/* B5 hero heading. The only gradient on the site, and only ever on text. */
+.heading-gradient {
+    background-image: linear-gradient(to right, #000000, #666666);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.dark .heading-gradient,
+[data-theme="dark"] .heading-gradient {
+    background-image: linear-gradient(to right, #ffffff, #9b9b9b);
 }
 
 /* ---------------------------------------------------------------------------
@@ -599,6 +602,24 @@ body {
         -webkit-backdrop-filter: blur(12px) saturate(140%);
         border: 1px solid var(--hairline);
         border-radius: var(--radius-xl);
+    }
+
+    /* B11 tagline reveal. Words start muted and resolve one at a time in
+       reading order as they cross the trigger line. */
+    .reveal-word {
+        color: color-mix(in srgb, var(--ink) 30%, transparent);
+        transition: color 700ms var(--ease-fluid);
+    }
+
+    .reveal-word[data-lit="true"] {
+        color: var(--ink);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .reveal-word {
+        color: var(--ink);
+        transition: none;
     }
 }
 

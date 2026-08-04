@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { appConfig } from "@root/project.config";
+	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
 	import { Badge } from "$lib/components/ui/badge";
 	import { Button } from "$lib/components/ui/button";
-	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
+	import { appConfig } from "@/project.config";
 	import Copyright from "@lucide/svelte/icons/copyright";
 	import FileText from "@lucide/svelte/icons/file-text";
 	import Info from "@lucide/svelte/icons/info";

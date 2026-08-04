@@ -63,3 +63,99 @@ export function enterOnView(node: HTMLElement, options: EnterOptions = {}) {
 		}
 	};
 }
+
+/** Fluid-dynamics easing. Mass and spring, never a linear or default curve. */
+export const EASE_FLUID = [0.32, 0.72, 0, 1] as const;
+
+type RevealOptions = {
+	/** Vertical offset in px at rest. Default 64. */
+	y?: number;
+	/** Duration in seconds. Default 0.8. */
+	duration?: number;
+	/** Delay in seconds. Default 0. */
+	delay?: number;
+};
+
+/**
+ * Heavy fade-up used for every landing-page section reveal.
+ * Drives blur, translate and opacity off IntersectionObserver — never a scroll listener.
+ */
+export function revealOnView(node: HTMLElement, options: RevealOptions = {}) {
+	const { y = 64, duration = 0.8, delay = 0 } = options;
+
+	const reduced =
+		typeof window !== "undefined" &&
+		window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+	node.style.opacity = "0";
+	if (!reduced) {
+		node.style.transform = `translateY(${y}px)`;
+		node.style.filter = "blur(12px)";
+		node.style.willChange = "opacity, transform, filter";
+	}
+
+	const stop = inView(
+		node,
+		() => {
+			animate(
+				node,
+				reduced
+					? { opacity: 1 }
+					: { opacity: 1, transform: "translateY(0px)", filter: "blur(0px)" },
+				{ duration: reduced ? 0.2 : duration, delay, ease: [...EASE_FLUID] }
+			);
+			setTimeout(
+				() => {
+					node.style.willChange = "auto";
+				},
+				(duration + delay) * 1000 + 50
+			);
+		},
+		{ amount: 0.15 }
+	);
+
+	return {
+		destroy() {
+			stop();
+		}
+	};
+}
+
+/**
+ * Lights each child `[data-word]` from muted to full ink in reading order,
+ * one word at a time as it crosses the viewport trigger line.
+ */
+export function wordReveal(node: HTMLElement) {
+	const words = Array.from(node.querySelectorAll<HTMLElement>("[data-word]"));
+
+	if (
+		typeof window !== "undefined" &&
+		window.matchMedia("(prefers-reduced-motion: reduce)").matches
+	) {
+		words.forEach((w) => (w.dataset.lit = "true"));
+		return {};
+	}
+
+	// Trigger line sits at 70% viewport height so words light as they rise past it.
+	const observer = new IntersectionObserver(
+		(entries) => {
+			for (const entry of entries) {
+				if (!entry.isIntersecting) continue;
+				const el = entry.target as HTMLElement;
+				const index = words.indexOf(el);
+				el.style.transitionDelay = `${Math.max(0, index % 8) * 40}ms`;
+				el.dataset.lit = "true";
+				observer.unobserve(el);
+			}
+		},
+		{ rootMargin: "0px 0px -30% 0px", threshold: 0 }
+	);
+
+	words.forEach((w) => observer.observe(w));
+
+	return {
+		destroy() {
+			observer.disconnect();
+		}
+	};
+}

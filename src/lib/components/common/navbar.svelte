@@ -4,9 +4,9 @@
 	import * as NavigationMenu from "$lib/components/ui/navigation-menu";
 	import * as Sheet from "$lib/components/ui/sheet";
 	import { cn } from "$lib/utils";
+	import { appConfig } from "@/project.config";
 	import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
 	import MenuIcon from "@lucide/svelte/icons/menu";
-	import { appConfig } from "@root/project.config";
 	import { NAV_GROUPS } from "./nav-list";
 
 	let mobileOpen = $state(false);
@@ -84,7 +84,7 @@
 				Learn
 			</a>
 			<a
-				href="https://recast.nexonauts.com"
+				href="https://recast.li"
 				target="_blank"
 				rel="noopener noreferrer"
 				class={cn(buttonVariants({ size: "sm" }), "hidden md:inline-flex")}
@@ -136,7 +136,7 @@
 						<div class="mt-2 flex flex-col gap-2 border-t border-hairline pt-6">
 							<Button href="/learn" variant="outline" size="md">Read the guides</Button>
 							<Button
-								href="https://recast.nexonauts.com"
+								href="https://recast.li"
 								target="_blank"
 								rel="noopener noreferrer"
 								size="md"

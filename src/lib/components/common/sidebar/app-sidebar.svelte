@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { appConfig } from "@root/project.config";
 	import { page } from "$app/state";
-	import * as Sidebar from "$lib/components/ui/sidebar";
 	import Logo from "$lib/components/logo.svelte";
+	import * as Sidebar from "$lib/components/ui/sidebar";
+	import { appConfig } from "@/project.config";
 	import { getSideNavLinks } from "./sidebar-links";
 
 	type SessionUser = {

@@ -6,7 +6,7 @@ import { env } from "$lib/server/env";
 
 const PROTECTED_ROUTES = ["/admin"];
 
-const RECAST_EXTERNAL = "https://recast.nexonauts.com";
+const RECAST_EXTERNAL = "https://recast.li";
 
 /**
  * /recast lives at its own subdomain. Any internal hit is 308'd out.

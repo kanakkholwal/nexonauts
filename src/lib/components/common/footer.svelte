@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Logo from "$lib/components/logo.svelte";
-	import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
-	import { appConfig } from "@root/project.config";
+	import { appConfig } from "@/project.config";
 	import { FOOTER_LINKS } from "data/root";
+	import ArrowUpRight from "phosphor-svelte/lib/ArrowUpRight";
 	import ThemeSwitcher from "./theme-switcher.svelte";
 
 	const year = new Date().getFullYear();
@@ -21,12 +21,13 @@
 	<div class="mx-auto max-w-(--max-app-width) px-6 py-16 sm:px-8 sm:py-20">
 		<div class="grid gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,2.4fr)]">
 			<div class="max-w-md">
-				<a href="/" class="inline-flex items-center gap-2.5 text-ink">
-					<Logo class="size-7" />
-					<span class="font-sans text-lg font-medium tracking-wide">{appConfig.name}</span>
+				<a href="/" class="inline-flex items-center gap-2 text-ink">
+					<Logo class="size-6" />
+					<span class="font-sans text-lg font-semibold">{appConfig.name}</span>
 				</a>
-				<p class="mt-5 text-sm leading-relaxed text-body">
-					A small studio of developer tools and technical writing. Home of Recast and Docvia.
+				<p class="mt-4 text-sm text-body">
+					An umbrella for developer tools that do their work on your machine, plus the writing
+					that came out of building them.
 				</p>
 				<div class="mt-6 flex items-center gap-4">
 					<a
@@ -34,7 +35,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="X / Twitter"
-						class="text-muted-ink transition-colors hover:text-ink"
+						class="text-muted-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-ink"
 					>
 						<svg viewBox="0 0 24 24" fill="currentColor" class="size-4">
 							<path
@@ -47,7 +48,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="GitHub"
-						class="text-muted-ink transition-colors hover:text-ink"
+						class="text-muted-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-ink"
 					>
 						<svg viewBox="0 0 24 24" fill="currentColor" class="size-4">
 							<path
@@ -62,14 +63,14 @@
 				{#each FOOTER_LINKS as group (group.title)}
 					<div>
 						<h5 class="eyebrow mb-4 text-muted-ink">{group.title}</h5>
-						<ul class="space-y-2.5">
+						<ul class="space-y-2">
 							{#each group.links as link (link.href)}
 								<li>
 									<a
 										href={link.href}
 										target={isExternal(link.href) ? "_blank" : undefined}
 										rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
-										class="inline-flex items-center gap-1 text-sm text-body transition-colors hover:text-ink"
+										class="inline-flex items-center gap-1 text-sm text-body transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-ink"
 									>
 										{link.title}
 										{#if isExternal(link.href)}

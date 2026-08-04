@@ -2,12 +2,12 @@
 	import { Alert } from "$lib/components/ui/alert";
 	import { Badge } from "$lib/components/ui/badge";
 	import { Button } from "$lib/components/ui/button";
+	import { appConfig } from "@/project.config";
 	import AlertTriangle from "@lucide/svelte/icons/alert-triangle";
 	import ArrowRight from "@lucide/svelte/icons/arrow-right";
 	import Ban from "@lucide/svelte/icons/ban";
 	import ScrollText from "@lucide/svelte/icons/scroll-text";
 	import Shield from "@lucide/svelte/icons/shield";
-	import { appConfig } from "@root/project.config";
 
 	const SITE = appConfig.name;
 

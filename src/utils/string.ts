@@ -1,4 +1,4 @@
-import { appConfig } from "@root/project.config";
+import { appConfig } from "@/project.config";
 import { customAlphabet } from "nanoid";
 import TurndownService from "turndown";
 import { z } from "zod";

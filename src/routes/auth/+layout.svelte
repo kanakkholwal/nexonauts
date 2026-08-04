@@ -3,8 +3,8 @@
 	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
 	import { buttonVariants } from "$lib/components/ui/button";
 	import { cn } from "$lib/utils";
+	import { appConfig } from "@/project.config";
 	import ArrowLeft from "@lucide/svelte/icons/arrow-left";
-	import { appConfig } from "@root/project.config";
 
 	let { children } = $props();
 </script>

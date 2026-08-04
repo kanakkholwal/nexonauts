@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { appConfig } from "@root/project.config";
 	import { Badge } from "$lib/components/ui/badge";
 	import { Button } from "$lib/components/ui/button";
-	import GradientOrb from "$lib/components/surfaces/gradient-orb.svelte";
+	import { appConfig } from "@/project.config";
 	import ArrowRight from "@lucide/svelte/icons/arrow-right";
 	import CalendarDays from "@lucide/svelte/icons/calendar-days";
 

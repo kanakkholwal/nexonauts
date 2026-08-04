@@ -1,5 +1,5 @@
 import { getRequestEvent } from "$app/server";
-import { appConfig } from "@root/project.config";
+import { appConfig } from "@/project.config";
 import { betterAuth, type BetterAuthOptions } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { APIError } from "better-auth/api";

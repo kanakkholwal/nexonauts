@@ -26,4 +26,11 @@
 <ModeWatcher defaultMode="system" />
 <Toaster richColors closeButton position="top-right" />
 
+<a
+	href="#main"
+	class="sr-only rounded-full bg-primary px-3 py-2 text-sm font-semibold text-primary-foreground focus:not-sr-only focus:fixed focus:top-6 focus:left-6 focus:z-100"
+>
+	Skip to content
+</a>
+
 {@render children()}

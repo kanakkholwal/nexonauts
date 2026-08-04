@@ -2,11 +2,15 @@
 <html lang="en" %sveltekit.theme%>
 	<head>
 		<meta charset="utf-8" />
-		<!-- <link rel="icon" href="%sveltekit.assets%/favicon.ico" /> -->
+		<link rel="icon" type="image/svg+xml" href="%sveltekit.assets%/logo-square.svg" />
+		<link rel="icon" type="image/png" sizes="32x32" href="%sveltekit.assets%/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="%sveltekit.assets%/favicon-16x16.png" />
+		<link rel="apple-touch-icon" href="%sveltekit.assets%/apple-touch-icon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="google-adsense-account" content="ca-pub-2219281381026289" />
 		<link rel="manifest" href="%sveltekit.assets%/manifest.webmanifest" />
-		<meta name="theme-color" content="#7c3aed" />
+		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f5" />
+		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover" class="min-h-screen antialiased relative">

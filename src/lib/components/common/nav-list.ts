@@ -15,16 +15,44 @@ export const NAV_GROUPS: NavGroup[] = [
 		title: "Products",
 		items: [
 			{
+				title: "Orbit",
+				href: "https://orbit.nexonauts.com",
+				description: "PDF toolkit that runs entirely in the browser.",
+				external: true
+			},
+			{
 				title: "Recast",
-				href: "https://recast.nexonauts.com",
-				description: "Fast, local-first screen and webcam recorder. Windows desktop.",
+				href: "https://recast.li",
+				description: "Screen recorder that edits the demo while you capture it.",
+				external: true
+			},
+			{
+				title: "Glyphtex",
+				href: "https://glyphtex.nexonauts.com",
+				description: "LaTeX engine compiled to WebAssembly. No TeX install.",
 				external: true
 			},
 			{
 				title: "Docvia",
 				href: "https://docvia.dev",
-				description: "Markdown documentation compiler. Same docs, any framework.",
+				description: "Framework agnostic documentation compiler.",
 				external: true
+			}
+		]
+	},
+	{
+		title: "Developers",
+		items: [
+			{
+				title: "Package docs",
+				href: "https://docs.nexonauts.com",
+				description: "Reference for the nexo packages and the patterns behind them.",
+				external: true
+			},
+			{
+				title: "Dev tools",
+				href: "/dev-tools",
+				description: "Single purpose browser utilities. Runs locally, nothing uploaded."
 			}
 		]
 	},
@@ -34,22 +62,12 @@ export const NAV_GROUPS: NavGroup[] = [
 			{
 				title: "By example",
 				href: "/learn",
-				description: "Short, self-contained programs that show one idea at a time."
+				description: "Short, self contained programs that show one idea at a time."
 			},
 			{
 				title: "Guides",
 				href: "/guides",
-				description: "Topic-by-topic walkthroughs. Code on one side, why-it-works on the other."
-			}
-		]
-	},
-	{
-		title: "Dev Tools",
-		items: [
-			{
-				title: "Browse Dev Tools",
-				href: "/dev-tools",
-				description: "Single-purpose in-browser utilities — runs locally, nothing uploaded."
+				description: "Longer walkthroughs. Code on one side, why it works on the other."
 			}
 		]
 	}
