@@ -1,17 +1,17 @@
 <script lang="ts">
-	import { wordReveal } from "$lib/motion/enter";
-	import { cn } from "$lib/utils";
+import { wordReveal } from "$lib/motion/enter";
+import { cn } from "$lib/utils";
 
-	/** One entry per rendered line. Break where the thought breaks, not where the box ends. */
-	let { lines, class: className }: { lines: string[]; class?: string } = $props();
+/** One entry per rendered line. Break where the thought breaks, not where the box ends. */
+let { lines, class: className }: { lines: string[]; class?: string } = $props();
 
-	// Continuous index across lines keeps the stagger in reading order.
-	let offsets = $derived(
-		lines.reduce<number[]>((acc, line, i) => {
-			acc.push(i === 0 ? 0 : acc[i - 1] + lines[i - 1].split(" ").length);
-			return acc;
-		}, [])
-	);
+// Continuous index across lines keeps the stagger in reading order.
+let offsets = $derived(
+	lines.reduce<number[]>((acc, line, i) => {
+		acc.push(i === 0 ? 0 : acc[i - 1] + lines[i - 1].split(" ").length);
+		return acc;
+	}, [])
+);
 </script>
 
 <p

@@ -1,31 +1,31 @@
 <script lang="ts">
-	import { Input } from "$lib/components/ui/input";
-	import { Badge } from "$lib/components/ui/badge";
-	import { cn } from "$lib/utils";
-	import LayoutGrid from "@lucide/svelte/icons/layout-grid";
-	import Search from "@lucide/svelte/icons/search";
-	import Terminal from "@lucide/svelte/icons/terminal";
-	import { devTools, devToolCategories } from "./tools";
+import LayoutGrid from "@lucide/svelte/icons/layout-grid";
+import Search from "@lucide/svelte/icons/search";
+import Terminal from "@lucide/svelte/icons/terminal";
+import { Badge } from "$lib/components/ui/badge";
+import { Input } from "$lib/components/ui/input";
+import { cn } from "$lib/utils";
+import { devToolCategories, devTools } from "./tools";
 
-	let query = $state("");
-	let activeCategory = $state("All");
+let query = $state("");
+let activeCategory = $state("All");
 
-	const filteredTools = $derived(
-		devTools.filter((tool) => {
-			const matchesCategory = activeCategory === "All" || tool.category === activeCategory;
-			const q = query.trim().toLowerCase();
-			const matchesQuery =
-				q === "" ||
-				tool.title.toLowerCase().includes(q) ||
-				tool.description.toLowerCase().includes(q) ||
-				tool.tags.some((t) => t.toLowerCase().includes(q));
-			return matchesCategory && matchesQuery;
-		})
-	);
+const filteredTools = $derived(
+	devTools.filter((tool) => {
+		const matchesCategory = activeCategory === "All" || tool.category === activeCategory;
+		const q = query.trim().toLowerCase();
+		const matchesQuery =
+			q === "" ||
+			tool.title.toLowerCase().includes(q) ||
+			tool.description.toLowerCase().includes(q) ||
+			tool.tags.some((t) => t.toLowerCase().includes(q));
+		return matchesCategory && matchesQuery;
+	})
+);
 
-	// Rotating soft tints for category chips and tool tags
-	const hues = ["soft-mint", "soft-peach", "soft-lavender", "soft-sky", "soft-rose"] as const;
-	const orbHues = ["mint", "peach", "lavender", "sky", "rose"] as const;
+// Rotating soft tints for category chips and tool tags
+const hues = ["soft-mint", "soft-peach", "soft-lavender", "soft-sky", "soft-rose"] as const;
+const orbHues = ["mint", "peach", "lavender", "sky", "rose"] as const;
 </script>
 
 <svelte:head>

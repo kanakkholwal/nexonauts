@@ -1,19 +1,19 @@
 <script lang="ts">
-	import Logo from "$lib/components/logo.svelte";
-	import { Button, buttonVariants } from "$lib/components/ui/button";
-	import * as NavigationMenu from "$lib/components/ui/navigation-menu";
-	import * as Sheet from "$lib/components/ui/sheet";
-	import { cn } from "$lib/utils";
-	import { appConfig } from "@/project.config";
-	import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
-	import MenuIcon from "@lucide/svelte/icons/menu";
-	import { NAV_GROUPS } from "./nav-list";
+import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
+import MenuIcon from "@lucide/svelte/icons/menu";
+import { appConfig } from "@/project.config";
+import Logo from "$lib/components/logo.svelte";
+import { Button, buttonVariants } from "$lib/components/ui/button";
+import * as NavigationMenu from "$lib/components/ui/navigation-menu";
+import * as Sheet from "$lib/components/ui/sheet";
+import { cn } from "$lib/utils";
+import { NAV_GROUPS } from "./nav-list";
 
-	let mobileOpen = $state(false);
+let mobileOpen = $state(false);
 
-	function isExternal(href: string): boolean {
-		return /^https?:\/\//.test(href);
-	}
+function isExternal(href: string): boolean {
+	return /^https?:\/\//.test(href);
+}
 </script>
 
 <!--

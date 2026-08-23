@@ -1,148 +1,148 @@
 <script lang="ts">
-	import { Alert, AlertDescription, AlertTitle } from "$lib/components/ui/alert";
-	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
-	import { Progress } from "$lib/components/ui/progress";
-	import { ScrollArea } from "$lib/components/ui/scroll-area";
-	import AlertCircle from "@lucide/svelte/icons/alert-circle";
-	import CheckCircle2 from "@lucide/svelte/icons/check-circle-2";
-	import Download from "@lucide/svelte/icons/download";
-	import FileText from "@lucide/svelte/icons/file-text";
-	import Loader2 from "@lucide/svelte/icons/loader-2";
-	import Scissors from "@lucide/svelte/icons/scissors";
-	import Package from "@lucide/svelte/icons/package";
-	import RefreshCw from "@lucide/svelte/icons/refresh-cw";
-	import Upload from "@lucide/svelte/icons/upload";
-	import JSZip from "jszip";
-	import { PDFArray, PDFDict, PDFDocument, PDFName, PDFNumber } from "pdf-lib";
-	import ToolShell from "./tool-shell.svelte";
+import AlertCircle from "@lucide/svelte/icons/alert-circle";
+import CheckCircle2 from "@lucide/svelte/icons/check-circle-2";
+import Download from "@lucide/svelte/icons/download";
+import FileText from "@lucide/svelte/icons/file-text";
+import Loader2 from "@lucide/svelte/icons/loader-2";
+import Package from "@lucide/svelte/icons/package";
+import RefreshCw from "@lucide/svelte/icons/refresh-cw";
+import Scissors from "@lucide/svelte/icons/scissors";
+import Upload from "@lucide/svelte/icons/upload";
+import JSZip from "jszip";
+import { PDFArray, PDFDict, PDFDocument, PDFName, PDFNumber } from "pdf-lib";
+import { Alert, AlertDescription, AlertTitle } from "$lib/components/ui/alert";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
+import { Progress } from "$lib/components/ui/progress";
+import { ScrollArea } from "$lib/components/ui/scroll-area";
+import ToolShell from "./tool-shell.svelte";
 
-	type PDFResult = {
-		id: string;
-		name: string;
-		result?: string;
+type PDFResult = {
+	id: string;
+	name: string;
+	result?: string;
+};
+
+let pdfFiles = $state<PDFResult[]>([]);
+let zipState = $state<{ state: number; result?: string; size?: number }>({ state: -1 });
+let processDone = $state(0);
+let error = $state<string | null>(null);
+let isDragover = $state(false);
+
+async function stripPdf(bytes: ArrayBuffer) {
+	try {
+		const pdfFile = await PDFDocument.load(bytes);
+		const pageLabels = pdfFile.catalog.lookup(PDFName.of("PageLabels"));
+		if (!pageLabels || !(pageLabels instanceof PDFDict)) return;
+
+		const nums = pageLabels.lookup(PDFName.of("Nums"));
+		if (!nums || !(nums instanceof PDFArray)) return;
+
+		const pageNumbers = nums.asArray();
+		const pagesToKeep = new Set<number>();
+
+		for (let i = 1; i < pageNumbers.length; i++) {
+			const element = pageNumbers[i];
+			if (element instanceof PDFNumber) pagesToKeep.add(element.asNumber() - 1);
+		}
+
+		let deletedAnyPage = false;
+		const pageCount = pdfFile.getPageCount();
+		for (let i = pageCount - 2; i >= 0; i--) {
+			if (!pagesToKeep.has(i)) {
+				pdfFile.removePage(i);
+				deletedAnyPage = true;
+			}
+		}
+
+		if (!deletedAnyPage) return;
+		return pdfFile;
+	} catch {
+		return undefined;
+	}
+}
+
+async function zipFiles(files: PDFResult[]) {
+	const zip = new JSZip();
+
+	for (const file of files) {
+		if (!file.result) continue;
+		const blob = await fetch(file.result).then((response) => response.blob());
+		zip.file(file.name, blob);
+	}
+
+	const result = await zip.generateAsync({ type: "blob", compression: "DEFLATE" });
+	return {
+		url: window.URL.createObjectURL(result),
+		size: result.size
 	};
+}
 
-	let pdfFiles = $state<PDFResult[]>([]);
-	let zipState = $state<{ state: number; result?: string; size?: number }>({ state: -1 });
-	let processDone = $state(0);
-	let error = $state<string | null>(null);
-	let isDragover = $state(false);
+async function onFilesSelected(files: FileList | null) {
+	error = null;
+	processDone = 0.1;
+	pdfFiles = [];
+	zipState = { state: -1 };
+	if (!files || files.length === 0) return;
 
-	async function stripPdf(bytes: ArrayBuffer) {
-		try {
-			const pdfFile = await PDFDocument.load(bytes);
-			const pageLabels = pdfFile.catalog.lookup(PDFName.of("PageLabels"));
-			if (!pageLabels || !(pageLabels instanceof PDFDict)) return;
+	const newPdfFiles: PDFResult[] = [];
 
-			const nums = pageLabels.lookup(PDFName.of("Nums"));
-			if (!nums || !(nums instanceof PDFArray)) return;
+	for (let i = 0; i < files.length; i++) {
+		const file = files.item(i);
+		if (!file) continue;
 
-			const pageNumbers = nums.asArray();
-			const pagesToKeep = new Set<number>();
+		newPdfFiles.push({
+			id: `${i}-${file.lastModified}`,
+			name: `stripped-${file.name}`
+		});
 
-			for (let i = 1; i < pageNumbers.length; i++) {
-				const element = pageNumbers[i];
-				if (element instanceof PDFNumber) pagesToKeep.add(element.asNumber() - 1);
-			}
+		const fileBytes = await file.arrayBuffer();
+		processDone = ((i + 0.3) / files.length) * 100;
 
-			let deletedAnyPage = false;
-			const pageCount = pdfFile.getPageCount();
-			for (let i = pageCount - 2; i >= 0; i--) {
-				if (!pagesToKeep.has(i)) {
-					pdfFile.removePage(i);
-					deletedAnyPage = true;
-				}
-			}
+		const strippedPdf = await stripPdf(fileBytes);
+		processDone = ((i + 0.7) / files.length) * 100;
 
-			if (!deletedAnyPage) return;
-			return pdfFile;
-		} catch {
-			return undefined;
-		}
-	}
-
-	async function zipFiles(files: PDFResult[]) {
-		const zip = new JSZip();
-
-		for (const file of files) {
-			if (!file.result) continue;
-			const blob = await fetch(file.result).then((response) => response.blob());
-			zip.file(file.name, blob);
-		}
-
-		const result = await zip.generateAsync({ type: "blob", compression: "DEFLATE" });
-		return {
-			url: window.URL.createObjectURL(result),
-			size: result.size
-		};
-	}
-
-	async function onFilesSelected(files: FileList | null) {
-		error = null;
-		processDone = 0.1;
-		pdfFiles = [];
-		zipState = { state: -1 };
-		if (!files || files.length === 0) return;
-
-		const newPdfFiles: PDFResult[] = [];
-
-		for (let i = 0; i < files.length; i++) {
-			const file = files.item(i);
-			if (!file) continue;
-
-			newPdfFiles.push({
-				id: `${i}-${file.lastModified}`,
-				name: `stripped-${file.name}`
+		if (strippedPdf) {
+			const savedBytes = await strippedPdf.save();
+			const result = new Blob([savedBytes as unknown as BlobPart], {
+				type: "application/pdf"
 			});
-
-			const fileBytes = await file.arrayBuffer();
-			processDone = ((i + 0.3) / files.length) * 100;
-
-			const strippedPdf = await stripPdf(fileBytes);
-			processDone = ((i + 0.7) / files.length) * 100;
-
-			if (strippedPdf) {
-				const savedBytes = await strippedPdf.save();
-				const result = new Blob([savedBytes as unknown as BlobPart], {
-					type: "application/pdf"
-				});
-				newPdfFiles[i].result = window.URL.createObjectURL(result);
-				zipState = { state: 0 };
-			} else {
-				newPdfFiles[i].name += " (Skipped: No labels found)";
-			}
-
-			pdfFiles = [...newPdfFiles];
-			processDone = ((i + 1) / files.length) * 100;
-		}
-
-		processDone = 100;
-
-		if (newPdfFiles.some((file) => file.result)) {
-			const zipResult = await zipFiles(newPdfFiles);
-			zipState = { state: 1, result: zipResult.url, size: zipResult.size };
+			newPdfFiles[i].result = window.URL.createObjectURL(result);
+			zipState = { state: 0 };
 		} else {
-			error = "None of the uploaded PDFs contained valid page labels to process.";
+			newPdfFiles[i].name += " (Skipped: No labels found)";
 		}
+
+		pdfFiles = [...newPdfFiles];
+		processDone = ((i + 1) / files.length) * 100;
 	}
 
-	function resetProcess() {
-		processDone = 0;
-		error = null;
-		pdfFiles = [];
-		zipState = { state: -1 };
-	}
+	processDone = 100;
 
-	function onDrop(event: DragEvent) {
-		event.preventDefault();
-		isDragover = false;
-		const dataTransfer = event.dataTransfer;
-		if (!dataTransfer?.files?.length) return;
-		void onFilesSelected(dataTransfer.files);
+	if (newPdfFiles.some((file) => file.result)) {
+		const zipResult = await zipFiles(newPdfFiles);
+		zipState = { state: 1, result: zipResult.url, size: zipResult.size };
+	} else {
+		error = "None of the uploaded PDFs contained valid page labels to process.";
 	}
+}
 
-	const processedCount = $derived(pdfFiles.filter((file) => file.result).length);
+function resetProcess() {
+	processDone = 0;
+	error = null;
+	pdfFiles = [];
+	zipState = { state: -1 };
+}
+
+function onDrop(event: DragEvent) {
+	event.preventDefault();
+	isDragover = false;
+	const dataTransfer = event.dataTransfer;
+	if (!dataTransfer?.files?.length) return;
+	void onFilesSelected(dataTransfer.files);
+}
+
+const processedCount = $derived(pdfFiles.filter((file) => file.result).length);
 </script>
 
 <ToolShell

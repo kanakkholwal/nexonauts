@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Navbar from "$lib/components/common/navbar.svelte";
-	import Footer from "$lib/components/common/footer.svelte";
-	import ArrowRight from "@lucide/svelte/icons/arrow-right";
+import ArrowRight from "@lucide/svelte/icons/arrow-right";
+import Footer from "$lib/components/common/footer.svelte";
+import Navbar from "$lib/components/common/navbar.svelte";
 
-	let { data } = $props();
+let { data } = $props();
 </script>
 
 <svelte:head>

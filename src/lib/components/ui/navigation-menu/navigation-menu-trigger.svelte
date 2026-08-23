@@ -1,10 +1,10 @@
 <script lang="ts" module>
-	import { cn } from "$lib/utils.js";
-	import { tv } from "tailwind-variants";
+import { tv } from "tailwind-variants";
+import { cn } from "$lib/utils.js";
 
-	export const navigationMenuTriggerStyle = tv({
-		base: "hover:bg-surface-strong/70 focus:bg-surface-strong/70 data-open:hover:bg-surface-strong data-open:focus:bg-surface-strong data-open:bg-surface-strong focus-visible:ring-ring/30 data-popup-open:bg-surface-strong data-popup-open:hover:bg-surface-strong rounded-pill px-3.5 py-1.5 text-sm font-medium tracking-[0.01em] text-ink transition-all focus-visible:ring-2 focus-visible:outline-1 disabled:opacity-50 group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none",
-	});
+export const navigationMenuTriggerStyle = tv({
+	base: "hover:bg-surface-strong/70 focus:bg-surface-strong/70 data-open:hover:bg-surface-strong data-open:focus:bg-surface-strong data-open:bg-surface-strong focus-visible:ring-ring/30 data-popup-open:bg-surface-strong data-popup-open:hover:bg-surface-strong rounded-pill px-3.5 py-1.5 text-sm font-medium tracking-[0.01em] text-ink transition-all focus-visible:ring-2 focus-visible:outline-1 disabled:opacity-50 group/navigation-menu-trigger inline-flex h-9 w-max items-center justify-center outline-none disabled:pointer-events-none"
+});
 </script>
 
 <script lang="ts">

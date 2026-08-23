@@ -1,21 +1,21 @@
 <script lang="ts">
-	import Navbar from "$lib/components/common/navbar.svelte";
-	import Footer from "$lib/components/common/footer.svelte";
-	import { Renderer } from "@docvia/renderer-svelte";
-	import { guideRegistry } from "$lib/guides/registry";
-	import { buttonVariants } from "$lib/components/ui/button";
-	import { cn } from "$lib/utils";
-	import ArrowLeft from "@lucide/svelte/icons/arrow-left";
-	import { page as appPage } from "$app/state";
+import { Renderer } from "@docvia/renderer-svelte";
+import ArrowLeft from "@lucide/svelte/icons/arrow-left";
+import { page as appPage } from "$app/state";
+import Footer from "$lib/components/common/footer.svelte";
+import Navbar from "$lib/components/common/navbar.svelte";
+import { buttonVariants } from "$lib/components/ui/button";
+import { guideRegistry } from "$lib/guides/registry";
+import { cn } from "$lib/utils";
 
-	let { data } = $props();
+let { data } = $props();
 
-	const replyUrl = $derived(() => {
-		const url = new URL("https://x.com/intent/tweet");
-		const fullUrl = `${appPage.url.origin}${appPage.url.pathname}`;
-		url.searchParams.set("text", `Reading "${data.title}" on Nexonauts ${fullUrl}`);
-		return url.toString();
-	});
+const replyUrl = $derived(() => {
+	const url = new URL("https://x.com/intent/tweet");
+	const fullUrl = `${appPage.url.origin}${appPage.url.pathname}`;
+	url.searchParams.set("text", `Reading "${data.title}" on Nexonauts ${fullUrl}`);
+	return url.toString();
+});
 </script>
 
 <svelte:head>

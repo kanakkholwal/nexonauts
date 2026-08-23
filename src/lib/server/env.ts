@@ -1,5 +1,5 @@
-import { env as privateEnv } from "$env/dynamic/private";
 import z from "zod";
+import { env as privateEnv } from "$env/dynamic/private";
 
 const envSchema = z.object({
 	NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
@@ -40,4 +40,5 @@ const envRaw = {
 
 const env = envSchema.parse(envRaw);
 Object.freeze(env);
+
 export { env };

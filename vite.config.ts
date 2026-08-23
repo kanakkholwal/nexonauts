@@ -1,9 +1,9 @@
-import { sveltekit } from '@sveltejs/kit/vite';
-import tailwindcss from '@tailwindcss/vite';
-import { docvia } from '@docvia/plugin-vite';
-import { defineConfig } from 'vite';
-import { fileURLToPath } from 'node:url';
-import docviaConfig from './docvia.config';
+import { fileURLToPath } from "node:url";
+import { docvia } from "@docvia/plugin-vite";
+import { sveltekit } from "@sveltejs/kit/vite";
+import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from "vite";
+import docviaConfig from "./docvia.config.ts";
 
 const docviaPlugin = docvia(docviaConfig);
 
@@ -11,7 +11,7 @@ const docviaPlugin = docvia(docviaConfig);
 // pointing at ./src/index.ts, which is not published — only dist/ is.
 // Still reproducing on 0.2.4. Alias the bare specifier to the dist build.
 const docviaRendererSvelteDist = fileURLToPath(
-	new URL('./node_modules/@docvia/renderer-svelte/dist/index.js', import.meta.url)
+	new URL("./node_modules/@docvia/renderer-svelte/dist/index.js", import.meta.url)
 );
 
 export default defineConfig({

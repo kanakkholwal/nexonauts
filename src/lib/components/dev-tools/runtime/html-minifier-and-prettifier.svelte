@@ -1,55 +1,55 @@
 <script lang="ts">
-	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
-	import { Textarea } from "$lib/components/ui/textarea";
-	import Check from "@lucide/svelte/icons/check";
-	import Copy from "@lucide/svelte/icons/copy";
-	import FileCode2 from "@lucide/svelte/icons/file-code-2";
-	import Maximize2 from "@lucide/svelte/icons/maximize-2";
-	import Minimize2 from "@lucide/svelte/icons/minimize-2";
-	import Wand2 from "@lucide/svelte/icons/wand-2";
-	import FileCode from "@lucide/svelte/icons/file-code";
-	import pretty from "pretty";
-	import { toast } from "svelte-sonner";
-	import ToolShell from "./tool-shell.svelte";
+import Check from "@lucide/svelte/icons/check";
+import Copy from "@lucide/svelte/icons/copy";
+import FileCode from "@lucide/svelte/icons/file-code";
+import FileCode2 from "@lucide/svelte/icons/file-code-2";
+import Maximize2 from "@lucide/svelte/icons/maximize-2";
+import Minimize2 from "@lucide/svelte/icons/minimize-2";
+import Wand2 from "@lucide/svelte/icons/wand-2";
+import pretty from "pretty";
+import { toast } from "svelte-sonner";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
+import { Textarea } from "$lib/components/ui/textarea";
+import ToolShell from "./tool-shell.svelte";
 
-	let input = $state("");
-	let output = $state("");
-	let mode = $state<"minify" | "prettify" | "">("");
-	let copied = $state(false);
+let input = $state("");
+let output = $state("");
+let mode = $state<"minify" | "prettify" | "">("");
+let copied = $state(false);
 
-	function handleMinify() {
-		if (!input.trim()) return;
-		output = input.replace(/>\s+</g, "><").replace(/\n/g, "").trim();
-		mode = "minify";
-		toast.success("HTML minified");
-	}
+function handleMinify() {
+	if (!input.trim()) return;
+	output = input.replace(/>\s+</g, "><").replace(/\n/g, "").trim();
+	mode = "minify";
+	toast.success("HTML minified");
+}
 
-	function handlePrettify() {
-		if (!input.trim()) return;
-		output = pretty(input, { ocd: true });
-		mode = "prettify";
-		toast.success("HTML formatted");
-	}
+function handlePrettify() {
+	if (!input.trim()) return;
+	output = pretty(input, { ocd: true });
+	mode = "prettify";
+	toast.success("HTML formatted");
+}
 
-	async function handleCopy() {
-		if (!output) return;
-		await navigator.clipboard.writeText(output);
-		copied = true;
-		toast.success("Copied to clipboard");
-		setTimeout(() => (copied = false), 2000);
-	}
+async function handleCopy() {
+	if (!output) return;
+	await navigator.clipboard.writeText(output);
+	copied = true;
+	toast.success("Copied to clipboard");
+	setTimeout(() => (copied = false), 2000);
+}
 
-	function handleClear() {
-		input = "";
-		output = "";
-		mode = "";
-	}
+function handleClear() {
+	input = "";
+	output = "";
+	mode = "";
+}
 
-	function formatBytes(bytes: number) {
-		if (!bytes) return "0 B";
-		return bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).toFixed(2)} KB`;
-	}
+function formatBytes(bytes: number) {
+	if (!bytes) return "0 B";
+	return bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).toFixed(2)} KB`;
+}
 </script>
 
 <ToolShell

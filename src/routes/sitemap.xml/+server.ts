@@ -1,5 +1,5 @@
-import { env } from "$env/dynamic/private";
 import { docs } from "virtual:docvia/source";
+import { env } from "$env/dynamic/private";
 import { devTools } from "../dev-tools/tools";
 import type { RequestHandler } from "./$types";
 
@@ -60,13 +60,16 @@ export const GET: RequestHandler = async () => {
 	];
 
 	// Pull every Docvia-served page (guides + by-example topics) into the sitemap.
-	const docviaPages = docs.getPages().map((p) => {
-		const slugPath = p.slugs.join("/");
-		if (!slugPath) return null;
-		const path =
-			p.slugs[0] === "learn" ? `/learn/${p.slugs.slice(1).join("/")}` : `/guides/${slugPath}`;
-		return { path, date: now };
-	}).filter((p): p is { path: string; date: string } => p !== null);
+	const docviaPages = docs
+		.getPages()
+		.map((p) => {
+			const slugPath = p.slugs.join("/");
+			if (!slugPath) return null;
+			const path =
+				p.slugs[0] === "learn" ? `/learn/${p.slugs.slice(1).join("/")}` : `/guides/${slugPath}`;
+			return { path, date: now };
+		})
+		.filter((p): p is { path: string; date: string } => p !== null);
 
 	const sitemap = generateSiteMap([...manualRoutes, ...docviaPages]);
 

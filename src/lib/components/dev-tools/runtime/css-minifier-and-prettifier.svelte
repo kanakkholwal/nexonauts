@@ -1,67 +1,67 @@
 <script lang="ts">
-	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
-	import { Textarea } from "$lib/components/ui/textarea";
-	import Check from "@lucide/svelte/icons/check";
-	import Copy from "@lucide/svelte/icons/copy";
-	import FileCode from "@lucide/svelte/icons/file-code";
-	import Maximize2 from "@lucide/svelte/icons/maximize-2";
-	import Minimize2 from "@lucide/svelte/icons/minimize-2";
-	import Palette from "@lucide/svelte/icons/palette";
-	import Wand2 from "@lucide/svelte/icons/wand-2";
-	import cssbeautify from "cssbeautify";
-	import { toast } from "svelte-sonner";
-	import ToolShell from "./tool-shell.svelte";
+import Check from "@lucide/svelte/icons/check";
+import Copy from "@lucide/svelte/icons/copy";
+import FileCode from "@lucide/svelte/icons/file-code";
+import Maximize2 from "@lucide/svelte/icons/maximize-2";
+import Minimize2 from "@lucide/svelte/icons/minimize-2";
+import Palette from "@lucide/svelte/icons/palette";
+import Wand2 from "@lucide/svelte/icons/wand-2";
+import cssbeautify from "cssbeautify";
+import { toast } from "svelte-sonner";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
+import { Textarea } from "$lib/components/ui/textarea";
+import ToolShell from "./tool-shell.svelte";
 
-	let input = $state("");
-	let output = $state("");
-	let mode = $state<"minify" | "beautify" | "">("");
-	let copied = $state(false);
+let input = $state("");
+let output = $state("");
+let mode = $state<"minify" | "beautify" | "">("");
+let copied = $state(false);
 
-	const inputSize = $derived(new Blob([input]).size);
-	const outputSize = $derived(new Blob([output]).size);
+const inputSize = $derived(new Blob([input]).size);
+const outputSize = $derived(new Blob([output]).size);
 
-	function minifyCss(css: string) {
-		return css
-			.replace(/\/\*[\s\S]*?\*\//g, "")
-			.replace(/\s+/g, " ")
-			.replace(/\s*([{}:;,>])\s*/g, "$1")
-			.replace(/;}/g, "}")
-			.trim();
-	}
+function minifyCss(css: string) {
+	return css
+		.replace(/\/\*[\s\S]*?\*\//g, "")
+		.replace(/\s+/g, " ")
+		.replace(/\s*([{}:;,>])\s*/g, "$1")
+		.replace(/;}/g, "}")
+		.trim();
+}
 
-	function handleMinify() {
-		if (!input.trim()) return;
-		output = minifyCss(input);
-		mode = "minify";
-		toast.success("CSS minified");
-	}
+function handleMinify() {
+	if (!input.trim()) return;
+	output = minifyCss(input);
+	mode = "minify";
+	toast.success("CSS minified");
+}
 
-	function handleBeautify() {
-		if (!input.trim()) return;
-		output = cssbeautify(input, { indent: "  ", autosemicolon: true });
-		mode = "beautify";
-		toast.success("CSS formatted");
-	}
+function handleBeautify() {
+	if (!input.trim()) return;
+	output = cssbeautify(input, { indent: "  ", autosemicolon: true });
+	mode = "beautify";
+	toast.success("CSS formatted");
+}
 
-	async function handleCopy() {
-		if (!output) return;
-		await navigator.clipboard.writeText(output);
-		copied = true;
-		toast.success("Copied to clipboard");
-		setTimeout(() => (copied = false), 2000);
-	}
+async function handleCopy() {
+	if (!output) return;
+	await navigator.clipboard.writeText(output);
+	copied = true;
+	toast.success("Copied to clipboard");
+	setTimeout(() => (copied = false), 2000);
+}
 
-	function handleClear() {
-		input = "";
-		output = "";
-		mode = "";
-	}
+function handleClear() {
+	input = "";
+	output = "";
+	mode = "";
+}
 
-	function formatBytes(bytes: number) {
-		if (!bytes) return "0 B";
-		return bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).toFixed(2)} KB`;
-	}
+function formatBytes(bytes: number) {
+	if (!bytes) return "0 B";
+	return bytes < 1024 ? `${bytes} B` : `${(bytes / 1024).toFixed(2)} KB`;
+}
 </script>
 
 <ToolShell

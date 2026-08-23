@@ -8,21 +8,21 @@ import Trigger from "./navigation-menu-trigger.svelte";
 import Viewport from "./navigation-menu-viewport.svelte";
 
 export {
-	Root,
 	Content,
+	Content as NavigationMenuContent,
 	Indicator,
+	Indicator as NavigationMenuIndicator,
 	Item,
+	Item as NavigationMenuItem,
 	Link,
+	Link as NavigationMenuLink,
 	List,
-	Trigger,
-	Viewport,
+	List as NavigationMenuList,
+	Root,
 	//
 	Root as NavigationMenuRoot,
-	Content as NavigationMenuContent,
-	Indicator as NavigationMenuIndicator,
-	Item as NavigationMenuItem,
-	Link as NavigationMenuLink,
-	List as NavigationMenuList,
+	Trigger,
 	Trigger as NavigationMenuTrigger,
-	Viewport as NavigationMenuViewport,
+	Viewport,
+	Viewport as NavigationMenuViewport
 };

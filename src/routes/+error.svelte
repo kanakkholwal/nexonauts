@@ -1,35 +1,35 @@
 <script lang="ts">
-	import { page } from "$app/state";
-	import Logo from "$lib/components/logo.svelte";
-	import { Button } from "$lib/components/ui/button";
-	import { appConfig } from "@/project.config";
-	import ArrowRight from "phosphor-svelte/lib/ArrowRight";
-	import ArrowUpRight from "phosphor-svelte/lib/ArrowUpRight";
+import ArrowRight from "phosphor-svelte/lib/ArrowRight";
+import ArrowUpRight from "phosphor-svelte/lib/ArrowUpRight";
+import { appConfig } from "@/project.config";
+import { page } from "$app/state";
+import Logo from "$lib/components/logo.svelte";
+import { Button } from "$lib/components/ui/button";
 
-	const copy: Record<number, { title: string; body: string }> = {
-		404: {
-			title: "That page is not here",
-			body: "The link may be out of date, or the page moved when the site was rebuilt. The routes below all still work."
-		},
-		500: {
-			title: "Something broke on our side",
-			body: "This one is ours, not yours. Try again in a moment, and if it keeps happening the GitHub repository is the fastest way to tell us."
-		}
-	};
+const copy: Record<number, { title: string; body: string }> = {
+	404: {
+		title: "That page is not here",
+		body: "The link may be out of date, or the page moved when the site was rebuilt. The routes below all still work."
+	},
+	500: {
+		title: "Something broke on our side",
+		body: "This one is ours, not yours. Try again in a moment, and if it keeps happening the GitHub repository is the fastest way to tell us."
+	}
+};
 
-	let { title, body } = $derived(
-		copy[page.status] ?? {
-			title: "Something went wrong",
-			body: page.error?.message ?? "The request could not be completed. Try again from the homepage."
-		}
-	);
+let { title, body } = $derived(
+	copy[page.status] ?? {
+		title: "Something went wrong",
+		body: page.error?.message ?? "The request could not be completed. Try again from the homepage."
+	}
+);
 
-	const routes = [
-		{ label: "Homepage", href: "/" },
-		{ label: "Learn by example", href: "/learn" },
-		{ label: "Guides", href: "/guides" },
-		{ label: "Dev tools", href: "/dev-tools" }
-	];
+const routes = [
+	{ label: "Homepage", href: "/" },
+	{ label: "Learn by example", href: "/learn" },
+	{ label: "Guides", href: "/guides" },
+	{ label: "Dev tools", href: "/dev-tools" }
+];
 </script>
 
 <svelte:head>

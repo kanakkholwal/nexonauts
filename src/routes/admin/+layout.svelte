@@ -1,9 +1,9 @@
 <script lang="ts">
-	import * as Sidebar from "$lib/components/ui/sidebar";
-	import AppSidebar from "$lib/components/common/sidebar/app-sidebar.svelte";
-	import AppNavbar from "$lib/components/common/sidebar/app-navbar.svelte";
+import AppNavbar from "$lib/components/common/sidebar/app-navbar.svelte";
+import AppSidebar from "$lib/components/common/sidebar/app-sidebar.svelte";
+import * as Sidebar from "$lib/components/ui/sidebar";
 
-	let { data, children } = $props();
+let { data, children } = $props();
 </script>
 
 <Sidebar.Provider>

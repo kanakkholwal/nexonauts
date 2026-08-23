@@ -1,7 +1,7 @@
 import { fail } from "@sveltejs/kit";
+import Message from "src/models/message";
 import { z } from "zod";
 import dbConnect from "$lib/db";
-import Message from "src/models/message";
 import type { Actions, PageServerLoad } from "./$types";
 
 const contactSchema = z.object({

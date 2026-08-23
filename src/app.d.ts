@@ -1,5 +1,5 @@
 /// <reference path="../docvia-env.d.ts" />
-import type { Session } from '$lib/server/auth';
+import type { Session } from "$lib/server/auth";
 
 declare global {
 	namespace App {
@@ -24,5 +24,3 @@ declare global {
 		// interface Platform {}
 	}
 }
-
-export {};

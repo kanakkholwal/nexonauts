@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
-	import { appConfig } from "@/project.config";
-	import Copyright from "@lucide/svelte/icons/copyright";
-	import FileText from "@lucide/svelte/icons/file-text";
-	import Info from "@lucide/svelte/icons/info";
-	import Mail from "@lucide/svelte/icons/mail";
-	import Scale from "@lucide/svelte/icons/scale";
-	import ShieldAlert from "@lucide/svelte/icons/shield-alert";
+import Copyright from "@lucide/svelte/icons/copyright";
+import FileText from "@lucide/svelte/icons/file-text";
+import Info from "@lucide/svelte/icons/info";
+import Mail from "@lucide/svelte/icons/mail";
+import Scale from "@lucide/svelte/icons/scale";
+import ShieldAlert from "@lucide/svelte/icons/shield-alert";
+import { appConfig } from "@/project.config";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
 
-	const siteName = appConfig.name;
+const siteName = appConfig.name;
 </script>
 
 <svelte:head>

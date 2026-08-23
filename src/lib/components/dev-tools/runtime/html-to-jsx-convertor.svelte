@@ -1,81 +1,81 @@
 <script lang="ts">
-	import { Button } from "$lib/components/ui/button";
-	import { Input } from "$lib/components/ui/input";
-	import { Textarea } from "$lib/components/ui/textarea";
-	import Check from "@lucide/svelte/icons/check";
-	import Code2 from "@lucide/svelte/icons/code-2";
-	import Copy from "@lucide/svelte/icons/copy";
-	import Flame from "@lucide/svelte/icons/flame";
-	import Trash2 from "@lucide/svelte/icons/trash-2";
-	import Atom from "@lucide/svelte/icons/atom";
-	import Wand2 from "@lucide/svelte/icons/wand-2";
-	import { toast } from "svelte-sonner";
-	import ToolShell from "./tool-shell.svelte";
+import Atom from "@lucide/svelte/icons/atom";
+import Check from "@lucide/svelte/icons/check";
+import Code2 from "@lucide/svelte/icons/code-2";
+import Copy from "@lucide/svelte/icons/copy";
+import Flame from "@lucide/svelte/icons/flame";
+import Trash2 from "@lucide/svelte/icons/trash-2";
+import Wand2 from "@lucide/svelte/icons/wand-2";
+import { toast } from "svelte-sonner";
+import { Button } from "$lib/components/ui/button";
+import { Input } from "$lib/components/ui/input";
+import { Textarea } from "$lib/components/ui/textarea";
+import ToolShell from "./tool-shell.svelte";
 
-	const defaultHtml = `<!-- Hello world -->
+const defaultHtml = `<!-- Hello world -->
 <div class="awesome">
   <label for="name">Enter your name:</label>
   <input type="text" id="name" />
 </div>`;
 
-	let input = $state(defaultHtml);
-	let output = $state("");
-	let liveMode = $state(true);
-	let createComponent = $state(false);
-	let componentName = $state("MyComponent");
-	let hideComments = $state(false);
-	let copied = $state(false);
+let input = $state(defaultHtml);
+let output = $state("");
+let liveMode = $state(true);
+let createComponent = $state(false);
+let componentName = $state("MyComponent");
+let hideComments = $state(false);
+let copied = $state(false);
 
-	function convertHtmlToJsx(html: string) {
-		let jsx = html
-			.replace(/class=/g, "className=")
-			.replace(/for=/g, "htmlFor=")
-			.replace(/tabindex=/g, "tabIndex=")
-			.replace(/autoplay=/g, "autoPlay=")
-			.replace(/<!--/g, "{/*")
-			.replace(/-->/g, "*/}");
+function convertHtmlToJsx(html: string) {
+	let jsx = html
+		.replace(/class=/g, "className=")
+		.replace(/for=/g, "htmlFor=")
+		.replace(/tabindex=/g, "tabIndex=")
+		.replace(/autoplay=/g, "autoPlay=")
+		.replace(/<!--/g, "{/*")
+		.replace(/-->/g, "*/}");
 
-		for (const tag of ["img", "input", "br", "hr", "meta", "link"]) {
-			const regex = new RegExp(`<${tag}([^>]*?)(?<!/)>`, "g");
-			jsx = jsx.replace(regex, `<${tag}$1 />`);
-		}
-
-		if (hideComments) {
-			jsx = jsx.replace(/{\/\*[\s\S]*?\*\/}/g, "");
-		}
-
-		if (createComponent) {
-			jsx = `const ${componentName} = () => {\n  return (\n    <>\n${jsx
-				.split("\n")
-				.map((line) => `      ${line}`)
-				.join("\n")}\n    </>\n  );\n};`;
-		}
-
-		return jsx;
+	for (const tag of ["img", "input", "br", "hr", "meta", "link"]) {
+		const regex = new RegExp(`<${tag}([^>]*?)(?<!/)>`, "g");
+		jsx = jsx.replace(regex, `<${tag}$1 />`);
 	}
 
-	function handleConvert() {
-		output = convertHtmlToJsx(input);
+	if (hideComments) {
+		jsx = jsx.replace(/{\/\*[\s\S]*?\*\/}/g, "");
 	}
 
-	$effect(() => {
-		if (liveMode) {
-			handleConvert();
-		}
-	});
-
-	async function handleCopy() {
-		if (!output) return;
-		await navigator.clipboard.writeText(output);
-		copied = true;
-		toast.success("JSX copied");
-		setTimeout(() => (copied = false), 2000);
+	if (createComponent) {
+		jsx = `const ${componentName} = () => {\n  return (\n    <>\n${jsx
+			.split("\n")
+			.map((line) => `      ${line}`)
+			.join("\n")}\n    </>\n  );\n};`;
 	}
 
-	function handleClear() {
-		input = "";
-		output = "";
+	return jsx;
+}
+
+function handleConvert() {
+	output = convertHtmlToJsx(input);
+}
+
+$effect(() => {
+	if (liveMode) {
+		handleConvert();
 	}
+});
+
+async function handleCopy() {
+	if (!output) return;
+	await navigator.clipboard.writeText(output);
+	copied = true;
+	toast.success("JSX copied");
+	setTimeout(() => (copied = false), 2000);
+}
+
+function handleClear() {
+	input = "";
+	output = "";
+}
 </script>
 
 <ToolShell

@@ -1,15 +1,15 @@
 <script lang="ts">
-	import Navbar from "$lib/components/common/navbar.svelte";
-	import Footer from "$lib/components/common/footer.svelte";
-	import { Badge } from "$lib/components/ui/badge";
-	import ArrowRight from "@lucide/svelte/icons/arrow-right";
+import ArrowRight from "@lucide/svelte/icons/arrow-right";
+import Footer from "$lib/components/common/footer.svelte";
+import Navbar from "$lib/components/common/navbar.svelte";
+import { Badge } from "$lib/components/ui/badge";
 
-	let { data } = $props();
+let { data } = $props();
 
-	function guideHref(slugs: string[]): string {
-		const path = slugs.length > 0 ? slugs.join("/") : "";
-		return path ? `/guides/${path}` : "/guides";
-	}
+function guideHref(slugs: string[]): string {
+	const path = slugs.length > 0 ? slugs.join("/") : "";
+	return path ? `/guides/${path}` : "/guides";
+}
 </script>
 
 <svelte:head>

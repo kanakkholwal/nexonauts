@@ -1,18 +1,18 @@
 <script lang="ts">
-	import "../app.css";
-	import "../codebox.css";
-	import { Toaster } from "$lib/components/ui/sonner";
-	import { page } from "$app/state";
-	import { beforeNavigate, afterNavigate } from "$app/navigation";
-	import nProgress from "nprogress";
-	import "nprogress/nprogress.css";
+import "../app.css";
+import "../codebox.css";
+import nProgress from "nprogress";
+import { afterNavigate, beforeNavigate } from "$app/navigation";
+import { page } from "$app/state";
+import { Toaster } from "$lib/components/ui/sonner";
+import "nprogress/nprogress.css";
 
-	nProgress.configure({ showSpinner: false, minimum: 0.16 });
+nProgress.configure({ showSpinner: false, minimum: 0.16 });
 
-	beforeNavigate(() => nProgress.start());
-	afterNavigate(() => nProgress.done());
+beforeNavigate(() => nProgress.start());
+afterNavigate(() => nProgress.done());
 
-	let { children } = $props();
+let { children } = $props();
 </script>
 
 <svelte:head>

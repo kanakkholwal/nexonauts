@@ -1,36 +1,33 @@
 <script lang="ts">
-	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
-	import ArrowRight from "@lucide/svelte/icons/arrow-right";
-	import BarChart3 from "@lucide/svelte/icons/bar-chart-3";
-	import CheckCircle2 from "@lucide/svelte/icons/check-circle-2";
-	import Quote from "@lucide/svelte/icons/quote";
-	import Settings from "@lucide/svelte/icons/settings";
-	import Terminal from "@lucide/svelte/icons/terminal";
+import ArrowRight from "@lucide/svelte/icons/arrow-right";
+import BarChart3 from "@lucide/svelte/icons/bar-chart-3";
+import CheckCircle2 from "@lucide/svelte/icons/check-circle-2";
+import Quote from "@lucide/svelte/icons/quote";
+import Settings from "@lucide/svelte/icons/settings";
+import Terminal from "@lucide/svelte/icons/terminal";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
 
-	const values = [
-		{
-			icon: Settings,
-			title: "Execution",
-			body:
-				"From ideation to ship, we're focused on the steps that actually move work forward. No theatre, no busywork — just the next concrete thing.",
-			hue: "lavender" as const
-		},
-		{
-			icon: CheckCircle2,
-			title: "Accountability",
-			body:
-				"A studio of one means there's no committee to hide behind. The decisions are mine, the work is mine, the responsibility is mine.",
-			hue: "mint" as const
-		},
-		{
-			icon: BarChart3,
-			title: "Result",
-			body:
-				"Tools are judged by what they help you finish, not by how clever they look. We optimize for the artifact, not the engagement metric.",
-			hue: "peach" as const
-		}
-	];
+const values = [
+	{
+		icon: Settings,
+		title: "Execution",
+		body: "From ideation to ship, we're focused on the steps that actually move work forward. No theatre, no busywork — just the next concrete thing.",
+		hue: "lavender" as const
+	},
+	{
+		icon: CheckCircle2,
+		title: "Accountability",
+		body: "A studio of one means there's no committee to hide behind. The decisions are mine, the work is mine, the responsibility is mine.",
+		hue: "mint" as const
+	},
+	{
+		icon: BarChart3,
+		title: "Result",
+		body: "Tools are judged by what they help you finish, not by how clever they look. We optimize for the artifact, not the engagement metric.",
+		hue: "peach" as const
+	}
+];
 </script>
 
 <svelte:head>

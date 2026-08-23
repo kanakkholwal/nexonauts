@@ -1,5 +1,5 @@
-import { error } from "@sveltejs/kit";
 import { docs } from "virtual:docvia/source";
+import { error } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
 
 const LANGUAGE_NAMES: Record<string, string> = {
@@ -32,7 +32,8 @@ export const load: PageServerLoad = async ({ params }) => {
 
 	const currentIdx = enriched.findIndex((e) => e.topicSlug === topic);
 	const prev = currentIdx > 0 ? enriched[currentIdx - 1] : null;
-	const next = currentIdx >= 0 && currentIdx < enriched.length - 1 ? enriched[currentIdx + 1] : null;
+	const next =
+		currentIdx >= 0 && currentIdx < enriched.length - 1 ? enriched[currentIdx + 1] : null;
 
 	return {
 		lang,

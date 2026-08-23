@@ -1,5 +1,5 @@
-import type { Component } from "svelte";
 import LayoutDashboard from "@lucide/svelte/icons/layout-dashboard";
+import type { Component } from "svelte";
 
 export type AllowedRole = "admin" | "user" | "*" | string;
 

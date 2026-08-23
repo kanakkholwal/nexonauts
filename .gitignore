@@ -15,7 +15,7 @@ test.js
 data.json
 .docvia
 .svelte-kit
-
+docvia-env.d.ts
 memory
 /memory
 /.env

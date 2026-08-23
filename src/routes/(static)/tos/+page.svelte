@@ -1,49 +1,48 @@
 <script lang="ts">
-	import { Alert } from "$lib/components/ui/alert";
-	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
-	import { appConfig } from "@/project.config";
-	import AlertTriangle from "@lucide/svelte/icons/alert-triangle";
-	import ArrowRight from "@lucide/svelte/icons/arrow-right";
-	import Ban from "@lucide/svelte/icons/ban";
-	import ScrollText from "@lucide/svelte/icons/scroll-text";
-	import Shield from "@lucide/svelte/icons/shield";
+import AlertTriangle from "@lucide/svelte/icons/alert-triangle";
+import ArrowRight from "@lucide/svelte/icons/arrow-right";
+import Ban from "@lucide/svelte/icons/ban";
+import ScrollText from "@lucide/svelte/icons/scroll-text";
+import Shield from "@lucide/svelte/icons/shield";
+import { appConfig } from "@/project.config";
+import { Alert } from "$lib/components/ui/alert";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
 
-	const SITE = appConfig.name;
+const SITE = appConfig.name;
 
-	const sections = [
-		{ id: "terms", title: "General Terms" },
-		{ id: "definitions", title: "Definitions" },
-		{ id: "cookies", title: "Cookies" },
-		{ id: "license", title: "License & Restrictions" },
-		{ id: "hyperlinking", title: "Hyperlinking Policy" },
-		{ id: "liability", title: "Content Liability" },
-		{ id: "disclaimer", title: "Disclaimer" },
-		{ id: "contact", title: "Contact Us" }
-	];
+const sections = [
+	{ id: "terms", title: "General Terms" },
+	{ id: "definitions", title: "Definitions" },
+	{ id: "cookies", title: "Cookies" },
+	{ id: "license", title: "License & Restrictions" },
+	{ id: "hyperlinking", title: "Hyperlinking Policy" },
+	{ id: "liability", title: "Content Liability" },
+	{ id: "disclaimer", title: "Disclaimer" },
+	{ id: "contact", title: "Contact Us" }
+];
 
-	const prohibited = [
-		"Republish material from our website",
-		"Sell, rent, or sub-license material",
-		"Reproduce, duplicate, or copy material",
-		"Redistribute content from our platform"
-	];
+const prohibited = [
+	"Republish material from our website",
+	"Sell, rent, or sub-license material",
+	"Reproduce, duplicate, or copy material",
+	"Redistribute content from our platform"
+];
 
-	const definitions = [
-		{
-			term: '"Client", "You", and "Your"',
-			body:
-				"Refers to you, the person accessing this website and accepting the Company's terms and conditions."
-		},
-		{
-			term: '"The Company", "Ourselves", "We", "Our", and "Us"',
-			body: `Refers to ${SITE}.`
-		},
-		{
-			term: '"Party", "Parties", or "Us"',
-			body: "Refers to both the Client and ourselves."
-		}
-	];
+const definitions = [
+	{
+		term: '"Client", "You", and "Your"',
+		body: "Refers to you, the person accessing this website and accepting the Company's terms and conditions."
+	},
+	{
+		term: '"The Company", "Ourselves", "We", "Our", and "Us"',
+		body: `Refers to ${SITE}.`
+	},
+	{
+		term: '"Party", "Parties", or "Us"',
+		body: "Refers to both the Client and ourselves."
+	}
+];
 </script>
 
 <svelte:head>

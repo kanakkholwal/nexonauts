@@ -1,55 +1,55 @@
 <script lang="ts">
-	import { Button } from "$lib/components/ui/button";
-	import { Textarea } from "$lib/components/ui/textarea";
-	import ArrowRightLeft from "@lucide/svelte/icons/arrow-right-left";
-	import Check from "@lucide/svelte/icons/check";
-	import Code2 from "@lucide/svelte/icons/code-2";
-	import Copy from "@lucide/svelte/icons/copy";
-	import FileCode from "@lucide/svelte/icons/file-code";
-	import RefreshCcw from "@lucide/svelte/icons/refresh-ccw";
-	import CodeXml from "@lucide/svelte/icons/code-xml";
-	import { toast } from "svelte-sonner";
-	import ToolShell from "./tool-shell.svelte";
+import ArrowRightLeft from "@lucide/svelte/icons/arrow-right-left";
+import Check from "@lucide/svelte/icons/check";
+import Code2 from "@lucide/svelte/icons/code-2";
+import CodeXml from "@lucide/svelte/icons/code-xml";
+import Copy from "@lucide/svelte/icons/copy";
+import FileCode from "@lucide/svelte/icons/file-code";
+import RefreshCcw from "@lucide/svelte/icons/refresh-ccw";
+import { toast } from "svelte-sonner";
+import { Button } from "$lib/components/ui/button";
+import { Textarea } from "$lib/components/ui/textarea";
+import ToolShell from "./tool-shell.svelte";
 
-	let input = $state("");
-	let output = $state("");
-	let mode = $state<"encode" | "decode">("encode");
-	let copied = $state(false);
+let input = $state("");
+let output = $state("");
+let mode = $state<"encode" | "decode">("encode");
+let copied = $state(false);
 
-	function processValue(value: string) {
-		if (!value) return "";
-		if (mode === "encode") {
-			return value
-				.replace(/&/g, "&amp;")
-				.replace(/</g, "&lt;")
-				.replace(/>/g, "&gt;")
-				.replace(/"/g, "&quot;")
-				.replace(/'/g, "&#039;");
-		}
+function processValue(value: string) {
+	if (!value) return "";
+	if (mode === "encode") {
 		return value
-			.replace(/&lt;/g, "<")
-			.replace(/&gt;/g, ">")
-			.replace(/&quot;/g, '"')
-			.replace(/&#039;/g, "'")
-			.replace(/&amp;/g, "&");
+			.replace(/&/g, "&amp;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;")
+			.replace(/"/g, "&quot;")
+			.replace(/'/g, "&#039;");
 	}
+	return value
+		.replace(/&lt;/g, "<")
+		.replace(/&gt;/g, ">")
+		.replace(/&quot;/g, '"')
+		.replace(/&#039;/g, "'")
+		.replace(/&amp;/g, "&");
+}
 
-	$effect(() => {
-		output = processValue(input);
-	});
+$effect(() => {
+	output = processValue(input);
+});
 
-	async function handleCopy() {
-		if (!output) return;
-		await navigator.clipboard.writeText(output);
-		copied = true;
-		toast.success("Copied to clipboard");
-		setTimeout(() => (copied = false), 2000);
-	}
+async function handleCopy() {
+	if (!output) return;
+	await navigator.clipboard.writeText(output);
+	copied = true;
+	toast.success("Copied to clipboard");
+	setTimeout(() => (copied = false), 2000);
+}
 
-	function handleClear() {
-		input = "";
-		output = "";
-	}
+function handleClear() {
+	input = "";
+	output = "";
+}
 </script>
 
 <ToolShell

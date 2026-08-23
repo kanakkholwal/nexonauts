@@ -1,6 +1,6 @@
 import { json } from "@sveltejs/kit";
-import dbConnect from "$lib/db";
 import Message from "src/models/message";
+import dbConnect from "$lib/db";
 import type { RequestHandler } from "./$types";
 
 export const POST: RequestHandler = async ({ request }) => {
@@ -19,9 +19,6 @@ export const POST: RequestHandler = async ({ request }) => {
 
 		return json({ result: "success" }, { status: 200 });
 	} catch (err) {
-		return json(
-			{ result: "fail", message: (err as Error)?.message },
-			{ status: 500 }
-		);
+		return json({ result: "fail", message: (err as Error)?.message }, { status: 500 });
 	}
 };

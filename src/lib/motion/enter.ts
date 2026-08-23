@@ -24,8 +24,7 @@ export function enterOnView(node: HTMLElement, options: EnterOptions = {}) {
 	const { y = 12, duration = 0.4, delay = 0, once = true } = options;
 
 	const prefersReducedMotion =
-		typeof window !== "undefined" &&
-		window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 	// Set initial state immediately so the element doesn't flash visible.
 	node.style.opacity = "0";
@@ -84,8 +83,7 @@ export function revealOnView(node: HTMLElement, options: RevealOptions = {}) {
 	const { y = 64, duration = 0.8, delay = 0 } = options;
 
 	const reduced =
-		typeof window !== "undefined" &&
-		window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+		typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 	node.style.opacity = "0";
 	if (!reduced) {
@@ -132,7 +130,7 @@ export function wordReveal(node: HTMLElement) {
 		typeof window !== "undefined" &&
 		window.matchMedia("(prefers-reduced-motion: reduce)").matches
 	) {
-		words.forEach((w) => (w.dataset.lit = "true"));
+		for (const w of words) w.dataset.lit = "true";
 		return {};
 	}
 
@@ -151,7 +149,7 @@ export function wordReveal(node: HTMLElement) {
 		{ rootMargin: "0px 0px -30% 0px", threshold: 0 }
 	);
 
-	words.forEach((w) => observer.observe(w));
+	for (const w of words) observer.observe(w);
 
 	return {
 		destroy() {

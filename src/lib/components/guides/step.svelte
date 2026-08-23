@@ -1,15 +1,15 @@
 <script lang="ts">
-	import type { Snippet } from "svelte";
+import type { Snippet } from "svelte";
 
-	let {
-		title,
-		kind = "code",
-		children
-	}: {
-		title?: string;
-		kind?: "code" | "output";
-		children?: Snippet;
-	} = $props();
+let {
+	title,
+	kind = "code",
+	children
+}: {
+	title?: string;
+	kind?: "code" | "output";
+	children?: Snippet;
+} = $props();
 </script>
 
 <section class="guide-step" class:guide-step--output={kind === "output"}>

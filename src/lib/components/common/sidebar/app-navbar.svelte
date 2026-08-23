@@ -1,16 +1,16 @@
 <script lang="ts">
-	import * as Sidebar from "$lib/components/ui/sidebar";
-	import { Separator } from "$lib/components/ui/separator";
+import { Separator } from "$lib/components/ui/separator";
+import * as Sidebar from "$lib/components/ui/sidebar";
 
-	type SessionUser = { name?: string | null; email?: string | null };
+type SessionUser = { name?: string | null; email?: string | null };
 
-	let {
-		user,
-		impersonatedBy
-	}: {
-		user: SessionUser;
-		impersonatedBy?: string | null;
-	} = $props();
+let {
+	user,
+	impersonatedBy
+}: {
+	user: SessionUser;
+	impersonatedBy?: string | null;
+} = $props();
 </script>
 
 <header

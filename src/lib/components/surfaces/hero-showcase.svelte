@@ -1,48 +1,48 @@
 <script lang="ts">
-	import { cn } from "$lib/utils";
+import { cn } from "$lib/utils";
 
-	// Fixed artboards scaled to the container, so every absolute position below
-	// stays in one coordinate space instead of being re-tuned per breakpoint.
-	const DESKTOP = { width: 1440, height: 420 };
-	const TABLET = { width: 900, height: 460 };
-	const DESKTOP_MIN_WIDTH = 1024;
+// Fixed artboards scaled to the container, so every absolute position below
+// stays in one coordinate space instead of being re-tuned per breakpoint.
+const DESKTOP = { width: 1440, height: 420 };
+const TABLET = { width: 900, height: 460 };
+const DESKTOP_MIN_WIDTH = 1024;
 
-	const FRAME_STAGGER = 90;
-	const CARD_STAGGER = 70;
-	const CARD_DELAY_BASE = FRAME_STAGGER * 3 + 40;
+const FRAME_STAGGER = 90;
+const CARD_STAGGER = 70;
+const CARD_DELAY_BASE = FRAME_STAGGER * 3 + 40;
 
-	const frames = [
-		{ url: "orbit.nexonauts.com", label: "Orbit" },
-		{ url: "glyphtex.nexonauts.com", label: "Glyphtex" },
-		{ url: "docvia.dev", label: "Docvia" }
-	];
+const frames = [
+	{ url: "orbit.nexonauts.com", label: "Orbit" },
+	{ url: "glyphtex.nexonauts.com", label: "Glyphtex" },
+	{ url: "docvia.dev", label: "Docvia" }
+];
 
-	let wrap = $state<HTMLDivElement | null>(null);
-	let scale = $state(1);
-	let isDesktop = $state(false);
+let wrap = $state<HTMLDivElement | null>(null);
+let scale = $state(1);
+let isDesktop = $state(false);
 
-	let artboard = $derived(isDesktop ? DESKTOP : TABLET);
+let artboard = $derived(isDesktop ? DESKTOP : TABLET);
 
-	$effect(() => {
-		const el = wrap;
-		if (!el) return;
+$effect(() => {
+	const el = wrap;
+	if (!el) return;
 
-		const mql = window.matchMedia(`(min-width: ${DESKTOP_MIN_WIDTH}px)`);
-		const update = () => {
-			isDesktop = mql.matches;
-			scale = el.clientWidth / (mql.matches ? DESKTOP : TABLET).width;
-		};
+	const mql = window.matchMedia(`(min-width: ${DESKTOP_MIN_WIDTH}px)`);
+	const update = () => {
+		isDesktop = mql.matches;
+		scale = el.clientWidth / (mql.matches ? DESKTOP : TABLET).width;
+	};
 
-		update();
-		const observer = new ResizeObserver(update);
-		observer.observe(el);
-		mql.addEventListener("change", update);
+	update();
+	const observer = new ResizeObserver(update);
+	observer.observe(el);
+	mql.addEventListener("change", update);
 
-		return () => {
-			observer.disconnect();
-			mql.removeEventListener("change", update);
-		};
-	});
+	return () => {
+		observer.disconnect();
+		mql.removeEventListener("change", update);
+	};
+});
 </script>
 
 {#snippet browserFrame(url: string, rows: number)}

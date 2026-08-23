@@ -1,54 +1,52 @@
 <script lang="ts">
-	import { Button } from "$lib/components/ui/button";
-	import { Badge } from "$lib/components/ui/badge";
-	import { cn } from "$lib/utils";
-	import type { Component, Snippet } from "svelte";
+import type { Component, Snippet } from "svelte";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
+import { cn } from "$lib/utils";
 
-	/**
-	 * ToolShell — chrome for an individual dev tool page.
-	 *
-	 * `icon` accepts any of:
-	 *   - a string emoji or short glyph: `icon="📄"` / `icon="<>"` / `icon="🧬"`
-	 *     (rendered with `{@html}` so HTML entities like `&lt;/&gt;` work too)
-	 *   - a Lucide / Svelte component reference: `icon={ImageIcon}`
-	 *   - or, for fully-custom SVG markup, pass `iconSnippet` instead:
-	 *     `{#snippet iconSnippet()}<svg …>…</svg>{/snippet}`
-	 *
-	 * Whichever form is used, the icon sits in a 48px ink-tinted plate at the
-	 * top of the title block, next to the category badge.
-	 */
-	type IconComponent = Component<{ class?: string; size?: number | string }>;
+/**
+ * ToolShell — chrome for an individual dev tool page.
+ *
+ * `icon` accepts any of:
+ *   - a string emoji or short glyph: `icon="📄"` / `icon="<>"` / `icon="🧬"`
+ *     (rendered with `{@html}` so HTML entities like `&lt;/&gt;` work too)
+ *   - a Lucide / Svelte component reference: `icon={ImageIcon}`
+ *   - or, for fully-custom SVG markup, pass `iconSnippet` instead:
+ *     `{#snippet iconSnippet()}<svg …>…</svg>{/snippet}`
+ *
+ * Whichever form is used, the icon sits in a 48px ink-tinted plate at the
+ * top of the title block, next to the category badge.
+ */
+type IconComponent = Component<{ class?: string; size?: number | string }>;
 
-	let {
-		title,
-		description,
-		icon,
-		iconSnippet,
-		clearLabel = "Clear",
-		canClear = true,
-		onClear,
-		children,
-		class: className = "",
-		tags,
-		category
-	}: {
-		title: string;
-		description: string;
-		icon?: string | IconComponent;
-		iconSnippet?: Snippet;
-		clearLabel?: string;
-		canClear?: boolean;
-		onClear?: () => void;
-		children?: Snippet;
-		class?: string;
-		tags?: string[];
-		category: string;
-	} = $props();
+let {
+	title,
+	description,
+	icon,
+	iconSnippet,
+	clearLabel = "Clear",
+	canClear = true,
+	onClear,
+	children,
+	class: className = "",
+	tags,
+	category
+}: {
+	title: string;
+	description: string;
+	icon?: string | IconComponent;
+	iconSnippet?: Snippet;
+	clearLabel?: string;
+	canClear?: boolean;
+	onClear?: () => void;
+	children?: Snippet;
+	class?: string;
+	tags?: string[];
+	category: string;
+} = $props();
 
-	const isStringIcon = $derived(typeof icon === "string");
-	const IconComponent = $derived(
-		!isStringIcon && icon ? (icon as IconComponent) : null
-	);
+const isStringIcon = $derived(typeof icon === "string");
+const IconComponent = $derived(!isStringIcon && icon ? (icon as IconComponent) : null);
 </script>
 
 <div

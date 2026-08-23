@@ -1,85 +1,79 @@
 <script lang="ts">
-	import { goto } from "$app/navigation";
-	import { page } from "$app/state";
-	import { Button } from "$lib/components/ui/button";
-	import * as Card from "$lib/components/ui/card";
-	import { Input } from "$lib/components/ui/input";
-	import Logo from "$lib/components/logo.svelte";
-	import { authClient } from "$lib/auth-client";
-	import Loader2 from "@lucide/svelte/icons/loader-2";
-	import Lock from "@lucide/svelte/icons/lock";
-	import Mail from "@lucide/svelte/icons/mail";
-	import { toast } from "svelte-sonner";
-	import { z } from "zod";
+import Loader2 from "@lucide/svelte/icons/loader-2";
+import Lock from "@lucide/svelte/icons/lock";
+import Mail from "@lucide/svelte/icons/mail";
+import { toast } from "svelte-sonner";
+import { z } from "zod";
+import { goto } from "$app/navigation";
+import { page } from "$app/state";
+import { authClient } from "$lib/auth-client";
+import Logo from "$lib/components/logo.svelte";
+import { Button } from "$lib/components/ui/button";
+import * as Card from "$lib/components/ui/card";
+import { Input } from "$lib/components/ui/input";
 
-	const schema = z.object({
-		email: z
-			.string()
-			.email({ message: "Please enter a valid email address." })
-			.min(5)
-			.max(100),
-		password: z.string().min(1, { message: "Password is required." })
-	});
+const schema = z.object({
+	email: z.string().email({ message: "Please enter a valid email address." }).min(5).max(100),
+	password: z.string().min(1, { message: "Password is required." })
+});
 
-	let email = $state("");
-	let password = $state("");
-	let errors = $state<{ email?: string; password?: string }>({});
-	let isLoading = $state(false);
+let email = $state("");
+let password = $state("");
+let errors = $state<{ email?: string; password?: string }>({});
+let isLoading = $state(false);
 
-	const callbackUrl = $derived(
-		page.url.searchParams.get("callbackUrl") ??
-			page.url.searchParams.get("redirect") ??
-			"/admin"
-	);
+const callbackUrl = $derived(
+	page.url.searchParams.get("callbackUrl") ?? page.url.searchParams.get("redirect") ?? "/admin"
+);
 
-	async function onSubmit(event: SubmitEvent) {
-		event.preventDefault();
-		errors = {};
-		const parsed = schema.safeParse({ email, password });
-		if (!parsed.success) {
-			const fieldErrors: typeof errors = {};
-			for (const issue of parsed.error.issues) {
-				const key = issue.path[0] as "email" | "password";
-				fieldErrors[key] = issue.message;
-			}
-			errors = fieldErrors;
-			return;
+async function onSubmit(event: SubmitEvent) {
+	event.preventDefault();
+	errors = {};
+	const parsed = schema.safeParse({ email, password });
+	if (!parsed.success) {
+		const fieldErrors: typeof errors = {};
+		for (const issue of parsed.error.issues) {
+			const key = issue.path[0] as "email" | "password";
+			fieldErrors[key] = issue.message;
 		}
+		errors = fieldErrors;
+		return;
+	}
 
-		isLoading = true;
-		await authClient.signIn.email(
-			{
-				email: parsed.data.email,
-				password: parsed.data.password,
-				callbackURL: callbackUrl
+	isLoading = true;
+	await authClient.signIn.email(
+		{
+			email: parsed.data.email,
+			password: parsed.data.password,
+			callbackURL: callbackUrl
+		},
+		{
+			onSuccess: () => {
+				toast.success("Welcome back.");
+				goto(callbackUrl);
 			},
-			{
-				onSuccess: () => {
-					toast.success("Welcome back.");
-					goto(callbackUrl);
-				},
-				onError: (ctx) => {
-					if (ctx.error.status === 403) {
-						toast.error("Please verify your email address first.");
-					} else {
-						toast.error(ctx.error.message ?? "Invalid credentials.");
-					}
-				},
-				onResponse: () => {
-					isLoading = false;
+			onError: (ctx) => {
+				if (ctx.error.status === 403) {
+					toast.error("Please verify your email address first.");
+				} else {
+					toast.error(ctx.error.message ?? "Invalid credentials.");
 				}
+			},
+			onResponse: () => {
+				isLoading = false;
 			}
-		);
-	}
+		}
+	);
+}
 
-	async function onGoogle() {
-		isLoading = true;
-		await authClient.signIn.social({
-			provider: "google",
-			callbackURL: callbackUrl,
-			errorCallbackURL: "/auth/sign-in?error=social"
-		});
-	}
+async function onGoogle() {
+	isLoading = true;
+	await authClient.signIn.social({
+		provider: "google",
+		callbackURL: callbackUrl,
+		errorCallbackURL: "/auth/sign-in?error=social"
+	});
+}
 </script>
 
 <div class="flex w-full flex-col items-center gap-6">

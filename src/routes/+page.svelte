@@ -1,175 +1,174 @@
 <script lang="ts">
-	import Footer from "$lib/components/common/footer.svelte";
-	import IslandNav from "$lib/components/common/island-nav.svelte";
-	import HeroShowcase from "$lib/components/surfaces/hero-showcase.svelte";
-	import TaglineReveal from "$lib/components/surfaces/tagline-reveal.svelte";
-	import * as Accordion from "$lib/components/ui/accordion";
-	import { Button } from "$lib/components/ui/button";
-	import { revealOnView } from "$lib/motion/enter";
-	import { cn } from "$lib/utils";
-	import { appConfig } from "@/project.config";
+import ArrowRight from "phosphor-svelte/lib/ArrowRight";
+import ArrowUpRight from "phosphor-svelte/lib/ArrowUpRight";
+import BookOpen from "phosphor-svelte/lib/BookOpen";
+import Browsers from "phosphor-svelte/lib/Browsers";
+import Cpu from "phosphor-svelte/lib/Cpu";
+import FilePdf from "phosphor-svelte/lib/FilePdf";
+import FileText from "phosphor-svelte/lib/FileText";
+import MathOperations from "phosphor-svelte/lib/MathOperations";
+import Package from "phosphor-svelte/lib/Package";
+import ShieldCheck from "phosphor-svelte/lib/ShieldCheck";
+import VideoCamera from "phosphor-svelte/lib/VideoCamera";
+import Wrench from "phosphor-svelte/lib/Wrench";
+import { appConfig } from "@/project.config";
+import Footer from "$lib/components/common/footer.svelte";
+import IslandNav from "$lib/components/common/island-nav.svelte";
+import HeroShowcase from "$lib/components/surfaces/hero-showcase.svelte";
+import TaglineReveal from "$lib/components/surfaces/tagline-reveal.svelte";
+import * as Accordion from "$lib/components/ui/accordion";
+import { Button } from "$lib/components/ui/button";
+import { revealOnView } from "$lib/motion/enter";
+import { cn } from "$lib/utils";
 
-	import ArrowRight from "phosphor-svelte/lib/ArrowRight";
-	import ArrowUpRight from "phosphor-svelte/lib/ArrowUpRight";
-	import BookOpen from "phosphor-svelte/lib/BookOpen";
-	import Browsers from "phosphor-svelte/lib/Browsers";
-	import Cpu from "phosphor-svelte/lib/Cpu";
-	import FilePdf from "phosphor-svelte/lib/FilePdf";
-	import FileText from "phosphor-svelte/lib/FileText";
-	import MathOperations from "phosphor-svelte/lib/MathOperations";
-	import Package from "phosphor-svelte/lib/Package";
-	import ShieldCheck from "phosphor-svelte/lib/ShieldCheck";
-	import VideoCamera from "phosphor-svelte/lib/VideoCamera";
-	import Wrench from "phosphor-svelte/lib/Wrench";
+const marqueeItems = [
+	{ label: "Orbit", mono: false },
+	{ label: "Recast", mono: false },
+	{ label: "Glyphtex", mono: false },
+	{ label: "Docvia", mono: false },
+	{ label: "nexo-mdx", mono: true },
+	{ label: "nexo-editor", mono: true },
+	{ label: "pdf-tables-parser", mono: true },
+	{ label: "custom-domain-sdk", mono: true }
+];
 
-	const marqueeItems = [
-		{ label: "Orbit", mono: false },
-		{ label: "Recast", mono: false },
-		{ label: "Glyphtex", mono: false },
-		{ label: "Docvia", mono: false },
-		{ label: "nexo-mdx", mono: true },
-		{ label: "nexo-editor", mono: true },
-		{ label: "pdf-tables-parser", mono: true },
-		{ label: "custom-domain-sdk", mono: true }
-	];
+const products = [
+	{
+		icon: FilePdf,
+		name: "Orbit",
+		kind: "PDF toolkit",
+		body: "A full PDF workflow that never uploads a file. Merge, split, convert and compress, all inside the browser tab.",
+		meta: "Runs in the browser",
+		href: "https://orbit.nexonauts.com"
+	},
+	{
+		icon: VideoCamera,
+		name: "Recast",
+		kind: "Screen recorder",
+		body: "Record once, ship a demo. Cursor smoothing, zoom toward the click and silence trimming get applied while you capture.",
+		meta: "Windows stable · macOS and Linux in beta",
+		href: "https://recast.li"
+	},
+	{
+		icon: MathOperations,
+		name: "Glyphtex",
+		kind: "LaTeX engine",
+		body: "A LaTeX engine compiled to WebAssembly. Typeset a document in a browser tab without a TeX distribution on disk.",
+		meta: "Runs in the browser",
+		href: "https://glyphtex.nexonauts.com"
+	},
+	{
+		icon: FileText,
+		name: "Docvia",
+		kind: "Docs compiler",
+		body: "Framework agnostic documentation compiler. Write Markdown once with directive based components, render it through React or Svelte.",
+		meta: "Build step, MIT licensed",
+		href: "https://docvia.dev"
+	}
+];
 
-	const products = [
-		{
-			icon: FilePdf,
-			name: "Orbit",
-			kind: "PDF toolkit",
-			body: "A full PDF workflow that never uploads a file. Merge, split, convert and compress, all inside the browser tab.",
-			meta: "Runs in the browser",
-			href: "https://orbit.nexonauts.com"
-		},
-		{
-			icon: VideoCamera,
-			name: "Recast",
-			kind: "Screen recorder",
-			body: "Record once, ship a demo. Cursor smoothing, zoom toward the click and silence trimming get applied while you capture.",
-			meta: "Windows stable · macOS and Linux in beta",
-			href: "https://recast.li"
-		},
-		{
-			icon: MathOperations,
-			name: "Glyphtex",
-			kind: "LaTeX engine",
-			body: "A LaTeX engine compiled to WebAssembly. Typeset a document in a browser tab without a TeX distribution on disk.",
-			meta: "Runs in the browser",
-			href: "https://glyphtex.nexonauts.com"
-		},
-		{
-			icon: FileText,
-			name: "Docvia",
-			kind: "Docs compiler",
-			body: "Framework agnostic documentation compiler. Write Markdown once with directive based components, render it through React or Svelte.",
-			meta: "Build step, MIT licensed",
-			href: "https://docvia.dev"
-		}
-	];
+const thread = [
+	{
+		icon: Browsers,
+		title: "Your files stay put",
+		body: "Orbit and Glyphtex do their work inside the browser tab. Recast works in a desktop app. None of them need your document to reach a server before it becomes useful."
+	},
+	{
+		icon: Cpu,
+		title: "Fast because it is close",
+		body: "Nothing is queued behind an upload, a worker or someone else's rate limit. The slowest part of the job is your own machine."
+	},
+	{
+		icon: ShieldCheck,
+		title: "Public repositories",
+		body: "Every product has a repository you can read. Licenses differ per project, so check the one you care about before shipping it into something commercial."
+	}
+];
 
-	const thread = [
-		{
-			icon: Browsers,
-			title: "Your files stay put",
-			body: "Orbit and Glyphtex do their work inside the browser tab. Recast works in a desktop app. None of them need your document to reach a server before it becomes useful."
-		},
-		{
-			icon: Cpu,
-			title: "Fast because it is close",
-			body: "Nothing is queued behind an upload, a worker or someone else's rate limit. The slowest part of the job is your own machine."
-		},
-		{
-			icon: ShieldCheck,
-			title: "Public repositories",
-			body: "Every product has a repository you can read. Licenses differ per project, so check the one you care about before shipping it into something commercial."
-		}
-	];
+const packages = [
+	{
+		name: "nexo-mdx",
+		body: "Markdown editor for React, built on Tailwind and shadcn."
+	},
+	{
+		name: "nexo-editor",
+		body: "Lightweight, customizable rich text editor built on TipTap."
+	},
+	{
+		name: "pdf-tables-parser",
+		body: "Pulls structured tables out of PDF files in JavaScript and TypeScript."
+	},
+	{
+		name: "custom-domain-sdk",
+		body: "TypeScript SDK for managing custom domains through Cloudflare custom hostnames."
+	}
+];
 
-	const packages = [
-		{
-			name: "nexo-mdx",
-			body: "Markdown editor for React, built on Tailwind and shadcn."
-		},
-		{
-			name: "nexo-editor",
-			body: "Lightweight, customizable rich text editor built on TipTap."
-		},
-		{
-			name: "pdf-tables-parser",
-			body: "Pulls structured tables out of PDF files in JavaScript and TypeScript."
-		},
-		{
-			name: "custom-domain-sdk",
-			body: "TypeScript SDK for managing custom domains through Cloudflare custom hostnames."
-		}
-	];
+const writing = [
+	{
+		icon: BookOpen,
+		title: "Learn by example",
+		body: "Short, self contained programs that show one idea at a time. Code on one side, why it works on the other.",
+		href: "/learn"
+	},
+	{
+		icon: FileText,
+		title: "Guides",
+		body: "Longer walkthroughs for the topics that do not fit the by example shape.",
+		href: "/guides"
+	},
+	{
+		icon: Wrench,
+		title: "Dev tools",
+		body: "Single purpose browser utilities for the small jobs that interrupt real work.",
+		href: "/dev-tools"
+	}
+];
 
-	const writing = [
-		{
-			icon: BookOpen,
-			title: "Learn by example",
-			body: "Short, self contained programs that show one idea at a time. Code on one side, why it works on the other.",
-			href: "/learn"
-		},
-		{
-			icon: FileText,
-			title: "Guides",
-			body: "Longer walkthroughs for the topics that do not fit the by example shape.",
-			href: "/guides"
-		},
-		{
-			icon: Wrench,
-			title: "Dev tools",
-			body: "Single purpose browser utilities for the small jobs that interrupt real work.",
-			href: "/dev-tools"
-		}
-	];
+const faqs = [
+	{
+		q: "What is Nexonauts, exactly?",
+		a: "An umbrella for a set of developer tools. Each product has its own home, its own repository and its own release cycle. This site is the index and the place the writing lives."
+	},
+	{
+		q: "What does running locally actually mean here?",
+		a: "For Orbit and Glyphtex the work happens inside your browser tab. For Recast it happens in a desktop app on your machine. In each case the file does not have to be uploaded for the tool to do its job."
+	},
+	{
+		q: "Is everything open source?",
+		a: "Every repository is public, but the licenses differ per project. Recast is GPLv3 and Docvia is MIT, so check the specific repository before building it into something commercial."
+	},
+	{
+		q: "Do I need a Nexonauts account?",
+		a: "No. There is no shared login across the products. Recast offers an optional cloud tier with its own signup, and that is the only place an account comes up at all."
+	},
+	{
+		q: "What are the nexo packages?",
+		a: "Small npm libraries that got pulled out of the apps once they proved useful more than once. Editors, a PDF table parser, and a custom domain SDK. They are documented at docs.nexonauts.com."
+	},
+	{
+		q: "How finished are these?",
+		a: "It varies by product. Orbit and Docvia are stable. Recast is stable on Windows with macOS and Linux in beta. Glyphtex is the newest and moves fastest."
+	},
+	{
+		q: "How do I report a bug or ask for a feature?",
+		a: "Open an issue on that product's own repository. Each one is linked from its site, and they are read by the person who wrote the code."
+	}
+];
 
-	const faqs = [
-		{
-			q: "What is Nexonauts, exactly?",
-			a: "An umbrella for a set of developer tools. Each product has its own home, its own repository and its own release cycle. This site is the index and the place the writing lives."
-		},
-		{
-			q: "What does running locally actually mean here?",
-			a: "For Orbit and Glyphtex the work happens inside your browser tab. For Recast it happens in a desktop app on your machine. In each case the file does not have to be uploaded for the tool to do its job."
-		},
-		{
-			q: "Is everything open source?",
-			a: "Every repository is public, but the licenses differ per project. Recast is GPLv3 and Docvia is MIT, so check the specific repository before building it into something commercial."
-		},
-		{
-			q: "Do I need a Nexonauts account?",
-			a: "No. There is no shared login across the products. Recast offers an optional cloud tier with its own signup, and that is the only place an account comes up at all."
-		},
-		{
-			q: "What are the nexo packages?",
-			a: "Small npm libraries that got pulled out of the apps once they proved useful more than once. Editors, a PDF table parser, and a custom domain SDK. They are documented at docs.nexonauts.com."
-		},
-		{
-			q: "How finished are these?",
-			a: "It varies by product. Orbit and Docvia are stable. Recast is stable on Windows with macOS and Linux in beta. Glyphtex is the newest and moves fastest."
-		},
-		{
-			q: "How do I report a bug or ask for a feature?",
-			a: "Open an issue on that product's own repository. Each one is linked from its site, and they are read by the person who wrote the code."
-		}
-	];
+const faqSchema = JSON.stringify({
+	"@context": "https://schema.org",
+	"@type": "FAQPage",
+	mainEntity: faqs.map((f) => ({
+		"@type": "Question",
+		name: f.q,
+		acceptedAnswer: { "@type": "Answer", text: f.a }
+	}))
+});
 
-	const faqSchema = JSON.stringify({
-		"@context": "https://schema.org",
-		"@type": "FAQPage",
-		mainEntity: faqs.map((f) => ({
-			"@type": "Question",
-			name: f.q,
-			acceptedAnswer: { "@type": "Answer", text: f.a }
-		}))
-	});
-
-	const title = "Nexonauts · Developer tools that run on your machine";
-	const description =
-		"An umbrella for a small set of developer tools that do their work locally. Orbit for PDFs, Recast for screen recording, Glyphtex for LaTeX, Docvia for documentation.";
+const title = "Nexonauts · Developer tools that run on your machine";
+const description =
+	"An umbrella for a small set of developer tools that do their work locally. Orbit for PDFs, Recast for screen recording, Glyphtex for LaTeX, Docvia for documentation.";
 </script>
 
 <svelte:head>

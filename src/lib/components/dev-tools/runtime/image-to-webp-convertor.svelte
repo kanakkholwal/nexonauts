@@ -1,140 +1,138 @@
 <script lang="ts">
-	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
-	import * as Card from "$lib/components/ui/card";
-	import Download from "@lucide/svelte/icons/download";
-	import ImageIcon from "@lucide/svelte/icons/image";
-	import Loader2 from "@lucide/svelte/icons/loader-2";
-	import RefreshCw from "@lucide/svelte/icons/refresh-cw";
-	import Upload from "@lucide/svelte/icons/upload";
-	import XCircle from "@lucide/svelte/icons/x-circle";
-	import { toast } from "svelte-sonner";
-	import ToolShell from "./tool-shell.svelte";
+import Download from "@lucide/svelte/icons/download";
+import ImageIcon from "@lucide/svelte/icons/image";
+import Loader2 from "@lucide/svelte/icons/loader-2";
+import RefreshCw from "@lucide/svelte/icons/refresh-cw";
+import Upload from "@lucide/svelte/icons/upload";
+import XCircle from "@lucide/svelte/icons/x-circle";
+import { toast } from "svelte-sonner";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
+import * as Card from "$lib/components/ui/card";
+import ToolShell from "./tool-shell.svelte";
 
-	type ProcessedImage = {
-		id: number;
-		originalPreview: string;
-		convertedUrl: string;
-		name: string;
-		originalSize: number;
-		processing: boolean;
-		failed: boolean;
-	};
+type ProcessedImage = {
+	id: number;
+	originalPreview: string;
+	convertedUrl: string;
+	name: string;
+	originalSize: number;
+	processing: boolean;
+	failed: boolean;
+};
 
-	let images = $state<ProcessedImage[]>([]);
-	let isDragover = $state(false);
-	let isProcessing = $state(false);
+let images = $state<ProcessedImage[]>([]);
+let isDragover = $state(false);
+let isProcessing = $state(false);
 
-	function formatFileSize(sizeInBytes: number): string {
-		const kb = 1024;
-		const mb = kb * 1024;
-		if (sizeInBytes >= mb) return `${(sizeInBytes / mb).toFixed(2)} MB`;
-		return `${(sizeInBytes / kb).toFixed(2)} KB`;
-	}
+function formatFileSize(sizeInBytes: number): string {
+	const kb = 1024;
+	const mb = kb * 1024;
+	if (sizeInBytes >= mb) return `${(sizeInBytes / mb).toFixed(2)} MB`;
+	return `${(sizeInBytes / kb).toFixed(2)} KB`;
+}
 
-	function loadImage(url: string): Promise<HTMLImageElement> {
-		return new Promise((resolve, reject) => {
-			const rawImage = new Image();
-			rawImage.onload = () => resolve(rawImage);
-			rawImage.onerror = reject;
-			rawImage.src = url;
-		});
-	}
+function loadImage(url: string): Promise<HTMLImageElement> {
+	return new Promise((resolve, reject) => {
+		const rawImage = new Image();
+		rawImage.onload = () => resolve(rawImage);
+		rawImage.onerror = reject;
+		rawImage.src = url;
+	});
+}
 
-	function convertToWebp(image: HTMLImageElement): Promise<string> {
-		return new Promise((resolve, reject) => {
-			const canvas = document.createElement("canvas");
-			const ctx = canvas.getContext("2d");
-			if (!ctx) {
-				reject(new Error("Failed to create canvas context"));
-				return;
-			}
-
-			canvas.width = image.width;
-			canvas.height = image.height;
-			ctx.drawImage(image, 0, 0);
-
-			canvas.toBlob(
-				(blob) => {
-					if (!blob) {
-						reject(new Error("Failed to create WebP blob"));
-						return;
-					}
-					resolve(URL.createObjectURL(blob));
-				},
-				"image/webp",
-				0.8
-			);
-		});
-	}
-
-	async function processFile(file: File) {
-		const originalUrl = URL.createObjectURL(file);
-		const id = file.lastModified + Math.random();
-
-		images = [
-			...images,
-			{
-				id,
-				originalPreview: originalUrl,
-				convertedUrl: "",
-				name: file.name.replace(/\.[^.]+$/, ""),
-				originalSize: file.size,
-				processing: true,
-				failed: false
-			}
-		];
-
-		try {
-			const imgElement = await loadImage(originalUrl);
-			const webpUrl = await convertToWebp(imgElement);
-			images = images.map((image) =>
-				image.id === id
-					? { ...image, convertedUrl: webpUrl, processing: false }
-					: image
-			);
-		} catch {
-			images = images.map((image) =>
-				image.id === id ? { ...image, processing: false, failed: true } : image
-			);
-			toast.error(`Could not convert ${file.name}`);
-		}
-	}
-
-	async function handleFiles(fileList: FileList | null) {
-		if (!fileList || fileList.length === 0) return;
-		isProcessing = true;
-
-		for (const file of Array.from(fileList)) {
-			if (!file.type.startsWith("image/")) continue;
-			await processFile(file);
+function convertToWebp(image: HTMLImageElement): Promise<string> {
+	return new Promise((resolve, reject) => {
+		const canvas = document.createElement("canvas");
+		const ctx = canvas.getContext("2d");
+		if (!ctx) {
+			reject(new Error("Failed to create canvas context"));
+			return;
 		}
 
-		isProcessing = false;
-	}
+		canvas.width = image.width;
+		canvas.height = image.height;
+		ctx.drawImage(image, 0, 0);
 
-	function clearAll() {
-		for (const image of images) {
-			URL.revokeObjectURL(image.originalPreview);
-			if (image.convertedUrl) URL.revokeObjectURL(image.convertedUrl);
+		canvas.toBlob(
+			(blob) => {
+				if (!blob) {
+					reject(new Error("Failed to create WebP blob"));
+					return;
+				}
+				resolve(URL.createObjectURL(blob));
+			},
+			"image/webp",
+			0.8
+		);
+	});
+}
+
+async function processFile(file: File) {
+	const originalUrl = URL.createObjectURL(file);
+	const id = file.lastModified + Math.random();
+
+	images = [
+		...images,
+		{
+			id,
+			originalPreview: originalUrl,
+			convertedUrl: "",
+			name: file.name.replace(/\.[^.]+$/, ""),
+			originalSize: file.size,
+			processing: true,
+			failed: false
 		}
-		images = [];
+	];
+
+	try {
+		const imgElement = await loadImage(originalUrl);
+		const webpUrl = await convertToWebp(imgElement);
+		images = images.map((image) =>
+			image.id === id ? { ...image, convertedUrl: webpUrl, processing: false } : image
+		);
+	} catch {
+		images = images.map((image) =>
+			image.id === id ? { ...image, processing: false, failed: true } : image
+		);
+		toast.error(`Could not convert ${file.name}`);
+	}
+}
+
+async function handleFiles(fileList: FileList | null) {
+	if (!fileList || fileList.length === 0) return;
+	isProcessing = true;
+
+	for (const file of Array.from(fileList)) {
+		if (!file.type.startsWith("image/")) continue;
+		await processFile(file);
 	}
 
-	function removeImage(id: number) {
-		const current = images.find((image) => image.id === id);
-		if (current) {
-			URL.revokeObjectURL(current.originalPreview);
-			if (current.convertedUrl) URL.revokeObjectURL(current.convertedUrl);
-		}
-		images = images.filter((image) => image.id !== id);
-	}
+	isProcessing = false;
+}
 
-	function onDrop(event: DragEvent) {
-		event.preventDefault();
-		isDragover = false;
-		void handleFiles(event.dataTransfer?.files ?? null);
+function clearAll() {
+	for (const image of images) {
+		URL.revokeObjectURL(image.originalPreview);
+		if (image.convertedUrl) URL.revokeObjectURL(image.convertedUrl);
 	}
+	images = [];
+}
+
+function removeImage(id: number) {
+	const current = images.find((image) => image.id === id);
+	if (current) {
+		URL.revokeObjectURL(current.originalPreview);
+		if (current.convertedUrl) URL.revokeObjectURL(current.convertedUrl);
+	}
+	images = images.filter((image) => image.id !== id);
+}
+
+function onDrop(event: DragEvent) {
+	event.preventDefault();
+	isDragover = false;
+	void handleFiles(event.dataTransfer?.files ?? null);
+}
 </script>
 
 <ToolShell

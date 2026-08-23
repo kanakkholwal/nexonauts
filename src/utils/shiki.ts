@@ -1,26 +1,26 @@
 import { bundledLanguages, createHighlighter } from "shiki/bundle/web";
 
 export const codeToHtml = async ({
-  code,
-  language,
-  theme,
+	code,
+	language,
+	theme
 }: {
-  code: string;
-  language: string;
-  theme: string;
+	code: string;
+	language: string;
+	theme: string;
 }) => {
-  const highlighter = await createHighlighter({
-    themes: ["github-light-default", "github-dark-default"],
-    langs: [...Object.keys(bundledLanguages)],
-  });
+	const highlighter = await createHighlighter({
+		themes: ["github-light-default", "github-dark-default"],
+		langs: [...Object.keys(bundledLanguages)]
+	});
 
-  return highlighter.codeToHtml(code, {
-    lang: language,
-    theme:
-      theme === ""
-        ? "github-light-default"
-        : theme === "dark"
-          ? "github-dark-default"
-          : "github-light-default",
-  });
+	return highlighter.codeToHtml(code, {
+		lang: language,
+		theme:
+			theme === ""
+				? "github-light-default"
+				: theme === "dark"
+					? "github-dark-default"
+					: "github-light-default"
+	});
 };

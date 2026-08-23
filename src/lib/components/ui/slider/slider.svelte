@@ -1,16 +1,16 @@
 <!-- @migration-task Error while migrating Svelte code: Can only bind to an Identifier or MemberExpression or a `{get, set}` pair
 https://svelte.dev/e/bind_invalid_expression -->
 <script lang="ts">
-	import { Slider as SliderPrimitive } from "bits-ui";
-	import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
+import { Slider as SliderPrimitive } from "bits-ui";
+import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
 
-	let {
-		ref = $bindable(null),
-		value = $bindable(),
-		orientation = "horizontal",
-		class: className,
-		...restProps
-	}: WithoutChildrenOrChild<SliderPrimitive.RootProps> = $props();
+let {
+	ref = $bindable(null),
+	value = $bindable(),
+	orientation = "horizontal",
+	class: className,
+	...restProps
+}: WithoutChildrenOrChild<SliderPrimitive.RootProps> = $props();
 </script>
 
 <!--

@@ -1,14 +1,14 @@
 <script lang="ts">
-	import Logo from "$lib/components/logo.svelte";
-	import { appConfig } from "@/project.config";
-	import { FOOTER_LINKS } from "data/root";
-	import ArrowUpRight from "phosphor-svelte/lib/ArrowUpRight";
+import { FOOTER_LINKS } from "data/root";
+import ArrowUpRight from "phosphor-svelte/lib/ArrowUpRight";
+import { appConfig } from "@/project.config";
+import Logo from "$lib/components/logo.svelte";
 
-	const year = new Date().getFullYear();
+const year = new Date().getFullYear();
 
-	function isExternal(href: string): boolean {
-		return /^https?:\/\//.test(href);
-	}
+function isExternal(href: string): boolean {
+	return /^https?:\/\//.test(href);
+}
 </script>
 
 <!--

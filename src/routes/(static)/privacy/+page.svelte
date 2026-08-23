@@ -1,25 +1,25 @@
 <script lang="ts">
-	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
-	import { appConfig } from "@/project.config";
-	import ArrowRight from "@lucide/svelte/icons/arrow-right";
-	import CalendarDays from "@lucide/svelte/icons/calendar-days";
+import ArrowRight from "@lucide/svelte/icons/arrow-right";
+import CalendarDays from "@lucide/svelte/icons/calendar-days";
+import { appConfig } from "@/project.config";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
 
-	const SITE = appConfig.name;
+const SITE = appConfig.name;
 
-	const sections = [
-		{ id: "collection", title: "Information We Collect" },
-		{ id: "usage", title: "How We Use Information" },
-		{ id: "logs", title: "Log Files" },
-		{ id: "cookies", title: "Cookies & Web Beacons" },
-		{ id: "advertising", title: "Advertising Partners" },
-		{ id: "third-party", title: "Third-Party Policies" },
-		{ id: "ccpa", title: "CCPA Privacy Rights" },
-		{ id: "gdpr", title: "GDPR Data Protection" },
-		{ id: "security", title: "Data Security" },
-		{ id: "updates", title: "Updates to Policy" },
-		{ id: "contact", title: "Contact Us" }
-	];
+const sections = [
+	{ id: "collection", title: "Information We Collect" },
+	{ id: "usage", title: "How We Use Information" },
+	{ id: "logs", title: "Log Files" },
+	{ id: "cookies", title: "Cookies & Web Beacons" },
+	{ id: "advertising", title: "Advertising Partners" },
+	{ id: "third-party", title: "Third-Party Policies" },
+	{ id: "ccpa", title: "CCPA Privacy Rights" },
+	{ id: "gdpr", title: "GDPR Data Protection" },
+	{ id: "security", title: "Data Security" },
+	{ id: "updates", title: "Updates to Policy" },
+	{ id: "contact", title: "Contact Us" }
+];
 </script>
 
 <svelte:head>

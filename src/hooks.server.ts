@@ -1,4 +1,4 @@
-import { redirect, type Handle } from "@sveltejs/kit";
+import { type Handle, redirect } from "@sveltejs/kit";
 import { sequence } from "@sveltejs/kit/hooks";
 import { svelteKitHandler } from "better-auth/svelte-kit";
 import { auth } from "$lib/server/auth";

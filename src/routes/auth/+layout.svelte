@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Logo from "$lib/components/logo.svelte";
-	import { buttonVariants } from "$lib/components/ui/button";
-	import { cn } from "$lib/utils";
-	import { appConfig } from "@/project.config";
-	import ArrowLeft from "@lucide/svelte/icons/arrow-left";
+import ArrowLeft from "@lucide/svelte/icons/arrow-left";
+import { appConfig } from "@/project.config";
+import Logo from "$lib/components/logo.svelte";
+import { buttonVariants } from "$lib/components/ui/button";
+import { cn } from "$lib/utils";
 
-	let { children } = $props();
+let { children } = $props();
 </script>
 
 <div class="min-h-screen w-full bg-canvas lg:grid lg:grid-cols-[1.05fr_1fr]">

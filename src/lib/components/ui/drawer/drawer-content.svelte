@@ -1,20 +1,20 @@
 <script lang="ts">
-	import { Drawer as DrawerPrimitive } from "vaul-svelte";
-	import DrawerPortal from "./drawer-portal.svelte";
-	import DrawerOverlay from "./drawer-overlay.svelte";
-	import { cn } from "$lib/utils.js";
-	import type { ComponentProps } from "svelte";
-	import type { WithoutChildrenOrChild } from "$lib/utils.js";
+import type { ComponentProps } from "svelte";
+import { Drawer as DrawerPrimitive } from "vaul-svelte";
+import type { WithoutChildrenOrChild } from "$lib/utils.js";
+import { cn } from "$lib/utils.js";
+import DrawerOverlay from "./drawer-overlay.svelte";
+import DrawerPortal from "./drawer-portal.svelte";
 
-	let {
-		ref = $bindable(null),
-		class: className,
-		portalProps,
-		children,
-		...restProps
-	}: DrawerPrimitive.ContentProps & {
-		portalProps?: WithoutChildrenOrChild<ComponentProps<typeof DrawerPortal>>;
-	} = $props();
+let {
+	ref = $bindable(null),
+	class: className,
+	portalProps,
+	children,
+	...restProps
+}: DrawerPrimitive.ContentProps & {
+	portalProps?: WithoutChildrenOrChild<ComponentProps<typeof DrawerPortal>>;
+} = $props();
 </script>
 
 <DrawerPortal {...portalProps}>

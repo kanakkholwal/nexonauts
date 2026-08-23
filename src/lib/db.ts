@@ -1,4 +1,4 @@
-import { Db, MongoClient } from "mongodb";
+import { type Db, MongoClient, type MongoClientOptions } from "mongodb";
 import mongoose, { type ConnectOptions, type Mongoose } from "mongoose";
 import { env } from "$env/dynamic/private";
 
@@ -22,11 +22,13 @@ if (!mongoClientCache) {
 	mongoClientCache = global.mongoClient = { client: null, promise: null };
 }
 
-const mongoOptions: ConnectOptions = {
+// mongoose 9 ships its own driver types; `satisfies` keeps one literal usable
+// by both mongoose.connect and the native MongoClient.
+const mongoOptions = {
 	retryWrites: true,
 	w: "majority",
 	appName: "nexonauts"
-};
+} satisfies ConnectOptions & MongoClientOptions;
 
 function requireMongoUri(): string {
 	const uri = env.MONGODB_URI;

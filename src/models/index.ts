@@ -1,4 +1,4 @@
-import User from "./user";
 import Message from "./message";
+import User from "./user";
 
-export { User, Message };
+export { Message, User };

@@ -1,80 +1,80 @@
 <script lang="ts">
-	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
-	import { Textarea } from "$lib/components/ui/textarea";
-	import AlertCircle from "@lucide/svelte/icons/alert-circle";
-	import ArrowRightLeft from "@lucide/svelte/icons/arrow-right-left";
-	import Braces from "@lucide/svelte/icons/braces";
-	import Check from "@lucide/svelte/icons/check";
-	import Copy from "@lucide/svelte/icons/copy";
-	import FileJson from "@lucide/svelte/icons/file-json";
-	import Maximize2 from "@lucide/svelte/icons/maximize-2";
-	import Minimize2 from "@lucide/svelte/icons/minimize-2";
-	import Wand2 from "@lucide/svelte/icons/wand-2";
-	import { toast } from "svelte-sonner";
-	import ToolShell from "./tool-shell.svelte";
+import AlertCircle from "@lucide/svelte/icons/alert-circle";
+import ArrowRightLeft from "@lucide/svelte/icons/arrow-right-left";
+import Braces from "@lucide/svelte/icons/braces";
+import Check from "@lucide/svelte/icons/check";
+import Copy from "@lucide/svelte/icons/copy";
+import FileJson from "@lucide/svelte/icons/file-json";
+import Maximize2 from "@lucide/svelte/icons/maximize-2";
+import Minimize2 from "@lucide/svelte/icons/minimize-2";
+import Wand2 from "@lucide/svelte/icons/wand-2";
+import { toast } from "svelte-sonner";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
+import { Textarea } from "$lib/components/ui/textarea";
+import ToolShell from "./tool-shell.svelte";
 
-	let input = $state("");
-	let output = $state("");
-	let error = $state("");
-	let mode = $state<"minify" | "prettify" | "">("");
-	let copied = $state(false);
+let input = $state("");
+let output = $state("");
+let error = $state("");
+let mode = $state<"minify" | "prettify" | "">("");
+let copied = $state(false);
 
-	const inputSize = $derived(new Blob([input]).size);
-	const outputSize = $derived(new Blob([output]).size);
-	const savings = $derived(
-		inputSize > 0 ? (((inputSize - outputSize) / inputSize) * 100).toFixed(1) : "0.0"
-	);
+const inputSize = $derived(new Blob([input]).size);
+const outputSize = $derived(new Blob([output]).size);
+const savings = $derived(
+	inputSize > 0 ? (((inputSize - outputSize) / inputSize) * 100).toFixed(1) : "0.0"
+);
 
-	function handleMinify() {
-		if (!input.trim()) return;
-		error = "";
-		try {
-			output = JSON.stringify(JSON.parse(input));
-			mode = "minify";
-			toast.success("JSON minified");
-		} catch (err) {
-			error = err instanceof Error ? err.message : "Invalid JSON";
-			output = "";
-			toast.error("Invalid JSON format");
-		}
-	}
-
-	function handleBeautify() {
-		if (!input.trim()) return;
-		error = "";
-		try {
-			output = JSON.stringify(JSON.parse(input), null, 2);
-			mode = "prettify";
-			toast.success("JSON formatted");
-		} catch (err) {
-			error = err instanceof Error ? err.message : "Invalid JSON";
-			output = "";
-			toast.error("Invalid JSON format");
-		}
-	}
-
-	async function handleCopy() {
-		if (!output) return;
-		await navigator.clipboard.writeText(output);
-		copied = true;
-		toast.success("Copied to clipboard");
-		setTimeout(() => (copied = false), 2000);
-	}
-
-	function handleClear() {
-		input = "";
+function handleMinify() {
+	if (!input.trim()) return;
+	error = "";
+	try {
+		output = JSON.stringify(JSON.parse(input));
+		mode = "minify";
+		toast.success("JSON minified");
+	} catch (err) {
+		error = err instanceof Error ? err.message : "Invalid JSON";
 		output = "";
-		error = "";
-		mode = "";
+		toast.error("Invalid JSON format");
 	}
+}
 
-	function formatBytes(bytes: number) {
-		if (bytes === 0) return "0 B";
-		const units = ["B", "KB", "MB"];
-		const power = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
-		return `${(bytes / 1024 ** power).toFixed(power === 0 ? 0 : 2)} ${units[power]}`;
+function handleBeautify() {
+	if (!input.trim()) return;
+	error = "";
+	try {
+		output = JSON.stringify(JSON.parse(input), null, 2);
+		mode = "prettify";
+		toast.success("JSON formatted");
+	} catch (err) {
+		error = err instanceof Error ? err.message : "Invalid JSON";
+		output = "";
+		toast.error("Invalid JSON format");
 	}
+}
+
+async function handleCopy() {
+	if (!output) return;
+	await navigator.clipboard.writeText(output);
+	copied = true;
+	toast.success("Copied to clipboard");
+	setTimeout(() => (copied = false), 2000);
+}
+
+function handleClear() {
+	input = "";
+	output = "";
+	error = "";
+	mode = "";
+}
+
+function formatBytes(bytes: number) {
+	if (bytes === 0) return "0 B";
+	const units = ["B", "KB", "MB"];
+	const power = Math.min(Math.floor(Math.log(bytes) / Math.log(1024)), units.length - 1);
+	return `${(bytes / 1024 ** power).toFixed(power === 0 ? 0 : 2)} ${units[power]}`;
+}
 </script>
 
 <ToolShell

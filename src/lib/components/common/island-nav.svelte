@@ -1,76 +1,76 @@
 <script lang="ts">
-	import { page } from "$app/state";
-	import Logo from "$lib/components/logo.svelte";
-	import { buttonVariants } from "$lib/components/ui/button";
-	import { cn } from "$lib/utils";
-	import { appConfig } from "@/project.config";
-	import ArrowRight from "phosphor-svelte/lib/ArrowRight";
-	import ArrowUpRight from "phosphor-svelte/lib/ArrowUpRight";
+import ArrowRight from "phosphor-svelte/lib/ArrowRight";
+import ArrowUpRight from "phosphor-svelte/lib/ArrowUpRight";
+import { appConfig } from "@/project.config";
+import { page } from "$app/state";
+import Logo from "$lib/components/logo.svelte";
+import { buttonVariants } from "$lib/components/ui/button";
+import { cn } from "$lib/utils";
 
-	type Link = { title: string; href: string; external?: boolean };
+type Link = { title: string; href: string; external?: boolean };
 
-	const links: Link[] = [
-		{ title: "Products", href: "#products" },
-		{ title: "Packages", href: "#packages" },
-		{ title: "Writing", href: "#writing" },
-		{ title: "Questions", href: "#faq" }
-	];
+const links: Link[] = [
+	{ title: "Products", href: "#products" },
+	{ title: "Packages", href: "#packages" },
+	{ title: "Writing", href: "#writing" },
+	{ title: "Questions", href: "#faq" }
+];
 
-	const overlayLinks: Link[] = [
-		...links,
-		{ title: "Learn", href: "/learn" },
-		{ title: "Guides", href: "/guides" },
-		{ title: "Dev tools", href: "/dev-tools" },
-		{ title: "Docs", href: "https://docs.nexonauts.com", external: true }
-	];
+const overlayLinks: Link[] = [
+	...links,
+	{ title: "Learn", href: "/learn" },
+	{ title: "Guides", href: "/guides" },
+	{ title: "Dev tools", href: "/dev-tools" },
+	{ title: "Docs", href: "https://docs.nexonauts.com", external: true }
+];
 
-	let open = $state(false);
-	let activeSection = $state("");
+let open = $state(false);
+let activeSection = $state("");
 
-	// Stagger caps at the 8th item so a long list never lags behind the overlay.
-	const stagger = (i: number) => `${100 + Math.min(i, 7) * 50}ms`;
+// Stagger caps at the 8th item so a long list never lags behind the overlay.
+const stagger = (i: number) => `${100 + Math.min(i, 7) * 50}ms`;
 
-	function isCurrent(href: string) {
-		if (href.startsWith("#")) return activeSection === href.slice(1);
-		if (href.startsWith("http")) return false;
-		return page.url.pathname === href;
-	}
+function isCurrent(href: string) {
+	if (href.startsWith("#")) return activeSection === href.slice(1);
+	if (href.startsWith("http")) return false;
+	return page.url.pathname === href;
+}
 
-	// Scroll-spy for the in-page anchors. IntersectionObserver, never a scroll listener.
-	$effect(() => {
-		const ids = links.filter((l) => l.href.startsWith("#")).map((l) => l.href.slice(1));
-		const sections = ids
-			.map((id) => document.getElementById(id))
-			.filter((el): el is HTMLElement => el !== null);
-		if (!sections.length) return;
+// Scroll-spy for the in-page anchors. IntersectionObserver, never a scroll listener.
+$effect(() => {
+	const ids = links.filter((l) => l.href.startsWith("#")).map((l) => l.href.slice(1));
+	const sections = ids
+		.map((id) => document.getElementById(id))
+		.filter((el): el is HTMLElement => el !== null);
+	if (!sections.length) return;
 
-		const visible = new Set<string>();
-		const observer = new IntersectionObserver(
-			(entries) => {
-				for (const entry of entries) {
-					if (entry.isIntersecting) visible.add(entry.target.id);
-					else visible.delete(entry.target.id);
-				}
-				activeSection = ids.find((id) => visible.has(id)) ?? "";
-			},
-			{ rootMargin: "-20% 0px -70% 0px", threshold: 0 }
-		);
+	const visible = new Set<string>();
+	const observer = new IntersectionObserver(
+		(entries) => {
+			for (const entry of entries) {
+				if (entry.isIntersecting) visible.add(entry.target.id);
+				else visible.delete(entry.target.id);
+			}
+			activeSection = ids.find((id) => visible.has(id)) ?? "";
+		},
+		{ rootMargin: "-20% 0px -70% 0px", threshold: 0 }
+	);
 
-		sections.forEach((s) => observer.observe(s));
-		return () => observer.disconnect();
-	});
+	for (const s of sections) observer.observe(s);
+	return () => observer.disconnect();
+});
 
-	function close() {
-		open = false;
-	}
+function close() {
+	open = false;
+}
 
-	$effect(() => {
-		if (typeof document === "undefined") return;
-		document.body.style.overflow = open ? "hidden" : "";
-		return () => {
-			document.body.style.overflow = "";
-		};
-	});
+$effect(() => {
+	if (typeof document === "undefined") return;
+	document.body.style.overflow = open ? "hidden" : "";
+	return () => {
+		document.body.style.overflow = "";
+	};
+});
 </script>
 
 <svelte:window

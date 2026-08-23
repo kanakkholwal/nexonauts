@@ -1,12 +1,10 @@
 <script lang="ts">
-	import { page } from "$app/state";
-	import { env } from "$env/dynamic/public";
-	import { Button } from "$lib/components/ui/button";
-	import ArrowRight from "@lucide/svelte/icons/arrow-right";
+import ArrowRight from "@lucide/svelte/icons/arrow-right";
+import { page } from "$app/state";
+import { env } from "$env/dynamic/public";
+import { Button } from "$lib/components/ui/button";
 
-	const redirect = $derived(
-		encodeURIComponent((env.PUBLIC_WEBSITE_URL ?? "") + page.url.pathname)
-	);
+const redirect = $derived(encodeURIComponent((env.PUBLIC_WEBSITE_URL ?? "") + page.url.pathname));
 </script>
 
 <div

@@ -1,51 +1,51 @@
 <script lang="ts">
-	import { Badge } from "$lib/components/ui/badge";
-	import { Button } from "$lib/components/ui/button";
-	import { Input } from "$lib/components/ui/input";
-	import { Textarea } from "$lib/components/ui/textarea";
-	import * as Tabs from "$lib/components/ui/tabs";
-	import Check from "@lucide/svelte/icons/check";
-	import Copy from "@lucide/svelte/icons/copy";
-	import ImageIcon from "@lucide/svelte/icons/image";
-	import LayoutTemplate from "@lucide/svelte/icons/layout-template";
-	import Tags from "@lucide/svelte/icons/tags";
-	import Search from "@lucide/svelte/icons/search";
-	import Share2 from "@lucide/svelte/icons/share-2";
-	import MessageCircle from "@lucide/svelte/icons/message-circle";
-	import { toast } from "svelte-sonner";
-	import ToolShell from "./tool-shell.svelte";
+import Check from "@lucide/svelte/icons/check";
+import Copy from "@lucide/svelte/icons/copy";
+import ImageIcon from "@lucide/svelte/icons/image";
+import LayoutTemplate from "@lucide/svelte/icons/layout-template";
+import MessageCircle from "@lucide/svelte/icons/message-circle";
+import Search from "@lucide/svelte/icons/search";
+import Share2 from "@lucide/svelte/icons/share-2";
+import Tags from "@lucide/svelte/icons/tags";
+import { toast } from "svelte-sonner";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
+import { Input } from "$lib/components/ui/input";
+import * as Tabs from "$lib/components/ui/tabs";
+import { Textarea } from "$lib/components/ui/textarea";
+import ToolShell from "./tool-shell.svelte";
 
-	const defaultData = {
-		google: {
-			title: "Meta Tag Generator Tool",
-			description:
-				"Meta tags are used by search engines to help index and provide relevant search results.",
-			image: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg"
-		},
-		og: {
-			title: "Meta Tag Generator Tool",
-			description:
-				"Meta tags are used by search engines to help index and provide relevant search results.",
-			image: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
-			url: "https://nexonauts.com/",
-			siteName: "Nexonauts",
-			locale: "en_US"
-		},
-		twitter: {
-			title: "Meta Tag Generator Tool",
-			description:
-				"Meta tags are used by search engines to help index and provide relevant search results.",
-			image: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg"
-		}
-	};
+const defaultData = {
+	google: {
+		title: "Meta Tag Generator Tool",
+		description:
+			"Meta tags are used by search engines to help index and provide relevant search results.",
+		image: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg"
+	},
+	og: {
+		title: "Meta Tag Generator Tool",
+		description:
+			"Meta tags are used by search engines to help index and provide relevant search results.",
+		image: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg",
+		url: "https://nexonauts.com/",
+		siteName: "Nexonauts",
+		locale: "en_US"
+	},
+	twitter: {
+		title: "Meta Tag Generator Tool",
+		description:
+			"Meta tags are used by search engines to help index and provide relevant search results.",
+		image: "https://kkupgrader.github.io/tools/meta-tag-generator/meta-tag-generator.svg"
+	}
+};
 
-	let activeTab = $state("google");
-	let copied = $state(false);
-	let google = $state({ ...defaultData.google });
-	let og = $state({ ...defaultData.og });
-	let twitter = $state({ ...defaultData.twitter });
+let activeTab = $state("google");
+let copied = $state(false);
+let google = $state({ ...defaultData.google });
+let og = $state({ ...defaultData.og });
+let twitter = $state({ ...defaultData.twitter });
 
-	const code = $derived(` <meta charset="utf-8" />
+const code = $derived(` <meta charset="utf-8" />
 <title>${google.title}</title>
 <meta name="description" content="${google.description}" />
 <meta name="image" content="${google.image}" />
@@ -67,18 +67,18 @@
 <meta property="twitter:description" content="${twitter.description}" />
 <meta property="twitter:image:src" content="${twitter.image}" />`);
 
-	async function handleCopy() {
-		await navigator.clipboard.writeText(code);
-		copied = true;
-		toast.success("Meta tags copied");
-		setTimeout(() => (copied = false), 2000);
-	}
+async function handleCopy() {
+	await navigator.clipboard.writeText(code);
+	copied = true;
+	toast.success("Meta tags copied");
+	setTimeout(() => (copied = false), 2000);
+}
 
-	function resetAll() {
-		google = { ...defaultData.google };
-		og = { ...defaultData.og };
-		twitter = { ...defaultData.twitter };
-	}
+function resetAll() {
+	google = { ...defaultData.google };
+	og = { ...defaultData.og };
+	twitter = { ...defaultData.twitter };
+}
 </script>
 
 <ToolShell

@@ -1,192 +1,198 @@
 <!-- @migration-task Error while migrating Svelte code: Can only bind to an Identifier or MemberExpression or a `{get, set}` pair
 https://svelte.dev/e/bind_invalid_expression -->
 <script lang="ts">
-	import { Button } from "$lib/components/ui/button";
-	import { Input } from "$lib/components/ui/input";
-	import { Label } from "$lib/components/ui/label";
-	import { RadioGroup, RadioGroupItem } from "$lib/components/ui/radio-group";
-	import * as Select from "$lib/components/ui/select";
-	import { Switch } from "$lib/components/ui/switch";
-	import * as Tabs from "$lib/components/ui/tabs";
-	import Check from "@lucide/svelte/icons/check";
-	import Copy from "@lucide/svelte/icons/copy";
-	import FileText from "@lucide/svelte/icons/file-text";
-	import Globe from "@lucide/svelte/icons/globe";
-	import MapIcon from "@lucide/svelte/icons/map";
-	import Plus from "@lucide/svelte/icons/plus";
-	import Search from "@lucide/svelte/icons/search";
-	import Settings2 from "@lucide/svelte/icons/settings-2";
-	import ShoppingBag from "@lucide/svelte/icons/shopping-bag";
-	import Braces from "@lucide/svelte/icons/braces";
-	import Trash2 from "@lucide/svelte/icons/trash-2";
-	import User from "@lucide/svelte/icons/user";
-	import { toast } from "svelte-sonner";
-	import ToolShell from "./tool-shell.svelte";
+import Braces from "@lucide/svelte/icons/braces";
+import Check from "@lucide/svelte/icons/check";
+import Copy from "@lucide/svelte/icons/copy";
+import FileText from "@lucide/svelte/icons/file-text";
+import Globe from "@lucide/svelte/icons/globe";
+import MapIcon from "@lucide/svelte/icons/map";
+import Plus from "@lucide/svelte/icons/plus";
+import Search from "@lucide/svelte/icons/search";
+import Settings2 from "@lucide/svelte/icons/settings-2";
+import ShoppingBag from "@lucide/svelte/icons/shopping-bag";
+import Trash2 from "@lucide/svelte/icons/trash-2";
+import User from "@lucide/svelte/icons/user";
+import { toast } from "svelte-sonner";
+import { Button } from "$lib/components/ui/button";
+import { Input } from "$lib/components/ui/input";
+import { Label } from "$lib/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "$lib/components/ui/radio-group";
+import * as Select from "$lib/components/ui/select";
+import { Switch } from "$lib/components/ui/switch";
+import * as Tabs from "$lib/components/ui/tabs";
+import ToolShell from "./tool-shell.svelte";
 
-	type WebsiteState = {
-		name: string;
-		alternateName: string;
-		url: string;
-		searchQuery: string;
-		queryString: string;
-	};
+type WebsiteState = {
+	name: string;
+	alternateName: string;
+	url: string;
+	searchQuery: string;
+	queryString: string;
+};
 
-	type BreadcrumbItem = { name: string; url: string; image: string };
+type BreadcrumbItem = { name: string; url: string; image: string };
 
-	type PersonState = {
-		name: string;
-		alternateName: string;
-		url: string;
-		image: string;
-		jobTitle: string;
-		worksFor: string;
-		telephone: string;
-		email: string;
-		address: string;
-		sameAs: string;
-	};
+type PersonState = {
+	name: string;
+	alternateName: string;
+	url: string;
+	image: string;
+	jobTitle: string;
+	worksFor: string;
+	telephone: string;
+	email: string;
+	address: string;
+	sameAs: string;
+};
 
-	type ArticleState = {
-		headline: string;
-		isAMP: boolean;
-		image: string;
-		width: string;
-		height: string;
-		author: string;
-		publisher: string;
-		datePublished: string;
-		dateModified: string;
-		description: string;
-		articleBody: string;
-		url: string;
-		sameAs: string;
-	};
+type ArticleState = {
+	headline: string;
+	isAMP: boolean;
+	image: string;
+	width: string;
+	height: string;
+	author: string;
+	publisher: string;
+	datePublished: string;
+	dateModified: string;
+	description: string;
+	articleBody: string;
+	url: string;
+	sameAs: string;
+};
 
-	type IdentifierKey = "sku" | "gtin8" | "gtin13" | "gtin14" | "mpn";
+type IdentifierKey = "sku" | "gtin8" | "gtin13" | "gtin14" | "mpn";
 
-	type ProductIdentifier = { enable: boolean; value: string };
+type ProductIdentifier = { enable: boolean; value: string };
 
-	type ProductBasic = { name: string; image: string; description: string; brand: string; url: string };
+type ProductBasic = {
+	name: string;
+	image: string;
+	description: string;
+	brand: string;
+	url: string;
+};
 
-	type ProductOffers = {
-		price: string;
-		priceCurrency: string;
-		priceValidUntil: string;
-		lowPrice: string;
-		type: "Offer" | "AggregateOffer";
-		url: string;
-		itemCondition: "New" | "Used" | "Refurbished" | "Damaged";
-		availability: "InStock" | "OutOfStock" | "PreOrder" | "SoldOut" | "Discontinued";
-	};
+type ProductOffers = {
+	price: string;
+	priceCurrency: string;
+	priceValidUntil: string;
+	lowPrice: string;
+	type: "Offer" | "AggregateOffer";
+	url: string;
+	itemCondition: "New" | "Used" | "Refurbished" | "Damaged";
+	availability: "InStock" | "OutOfStock" | "PreOrder" | "SoldOut" | "Discontinued";
+};
 
-	type ProductRatings = {
-		ratingValue: string;
-		bestRating: string;
-		worstRating: string;
-		ratingCount: string;
-	};
+type ProductRatings = {
+	ratingValue: string;
+	bestRating: string;
+	worstRating: string;
+	ratingCount: string;
+};
 
-	const PRODUCT_IDENTIFIERS: { value: IdentifierKey; label: string }[] = [
-		{ value: "sku", label: "SKU" },
-		{ value: "gtin8", label: "GTIN-8" },
-		{ value: "gtin13", label: "GTIN-13" },
-		{ value: "gtin14", label: "GTIN-14" },
-		{ value: "mpn", label: "MPN" }
-	];
+const PRODUCT_IDENTIFIERS: { value: IdentifierKey; label: string }[] = [
+	{ value: "sku", label: "SKU" },
+	{ value: "gtin8", label: "GTIN-8" },
+	{ value: "gtin13", label: "GTIN-13" },
+	{ value: "gtin14", label: "GTIN-14" },
+	{ value: "mpn", label: "MPN" }
+];
 
-	const COMMON_CURRENCIES = [
-		"USD",
-		"EUR",
-		"GBP",
-		"INR",
-		"JPY",
-		"AUD",
-		"CAD",
-		"CHF",
-		"CNY",
-		"BRL",
-		"MXN",
-		"SGD",
-		"NZD",
-		"KRW",
-		"AED"
-	];
+const COMMON_CURRENCIES = [
+	"USD",
+	"EUR",
+	"GBP",
+	"INR",
+	"JPY",
+	"AUD",
+	"CAD",
+	"CHF",
+	"CNY",
+	"BRL",
+	"MXN",
+	"SGD",
+	"NZD",
+	"KRW",
+	"AED"
+];
 
-	let activeTab = $state("website");
-	let copied = $state(false);
+let activeTab = $state("website");
+let copied = $state(false);
 
-	let website = $state<WebsiteState>({
-		name: "",
-		alternateName: "",
-		url: "",
-		searchQuery: "",
-		queryString: ""
-	});
+let website = $state<WebsiteState>({
+	name: "",
+	alternateName: "",
+	url: "",
+	searchQuery: "",
+	queryString: ""
+});
 
-	let breadcrumbs = $state<BreadcrumbItem[]>([{ name: "", url: "", image: "" }]);
+let breadcrumbs = $state<BreadcrumbItem[]>([{ name: "", url: "", image: "" }]);
 
-	let person = $state<PersonState>({
-		name: "",
-		alternateName: "",
-		url: "",
-		image: "",
-		jobTitle: "",
-		worksFor: "",
-		telephone: "",
-		email: "",
-		address: "",
-		sameAs: ""
-	});
+let person = $state<PersonState>({
+	name: "",
+	alternateName: "",
+	url: "",
+	image: "",
+	jobTitle: "",
+	worksFor: "",
+	telephone: "",
+	email: "",
+	address: "",
+	sameAs: ""
+});
 
-	let articleType = $state<"NewsArticle" | "BlogPosting">("NewsArticle");
-	let article = $state<ArticleState>({
-		headline: "",
-		isAMP: false,
-		image: "",
-		width: "",
-		height: "",
-		author: "",
-		publisher: "",
-		datePublished: "",
-		dateModified: "",
-		description: "",
-		articleBody: "",
-		url: "",
-		sameAs: ""
-	});
+let articleType = $state<"NewsArticle" | "BlogPosting">("NewsArticle");
+let article = $state<ArticleState>({
+	headline: "",
+	isAMP: false,
+	image: "",
+	width: "",
+	height: "",
+	author: "",
+	publisher: "",
+	datePublished: "",
+	dateModified: "",
+	description: "",
+	articleBody: "",
+	url: "",
+	sameAs: ""
+});
 
-	let productBasic = $state<ProductBasic>({
-		name: "",
-		image: "",
-		description: "",
-		brand: "",
-		url: ""
-	});
-	let productIdentifiers = $state<Record<IdentifierKey, ProductIdentifier>>({
-		sku: { enable: false, value: "" },
-		gtin8: { enable: false, value: "" },
-		gtin13: { enable: false, value: "" },
-		gtin14: { enable: false, value: "" },
-		mpn: { enable: false, value: "" }
-	});
-	let productOffers = $state<ProductOffers>({
-		price: "",
-		priceCurrency: "USD",
-		priceValidUntil: "",
-		lowPrice: "",
-		type: "Offer",
-		url: "",
-		itemCondition: "New",
-		availability: "InStock"
-	});
-	let productRatings = $state<ProductRatings>({
-		ratingValue: "",
-		bestRating: "5",
-		worstRating: "1",
-		ratingCount: ""
-	});
+let productBasic = $state<ProductBasic>({
+	name: "",
+	image: "",
+	description: "",
+	brand: "",
+	url: ""
+});
+let productIdentifiers = $state<Record<IdentifierKey, ProductIdentifier>>({
+	sku: { enable: false, value: "" },
+	gtin8: { enable: false, value: "" },
+	gtin13: { enable: false, value: "" },
+	gtin14: { enable: false, value: "" },
+	mpn: { enable: false, value: "" }
+});
+let productOffers = $state<ProductOffers>({
+	price: "",
+	priceCurrency: "USD",
+	priceValidUntil: "",
+	lowPrice: "",
+	type: "Offer",
+	url: "",
+	itemCondition: "New",
+	availability: "InStock"
+});
+let productRatings = $state<ProductRatings>({
+	ratingValue: "",
+	bestRating: "5",
+	worstRating: "1",
+	ratingCount: ""
+});
 
-	const websiteCode = $derived(`<script type="application/ld+json">
+const websiteCode = $derived(`<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
@@ -205,7 +211,7 @@ https://svelte.dev/e/bind_invalid_expression -->
     }
 <\/script>`);
 
-	const breadcrumbsCode = $derived(`<script type="application/ld+json">
+const breadcrumbsCode = $derived(`<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -225,7 +231,7 @@ https://svelte.dev/e/bind_invalid_expression -->
     }
 <\/script>`);
 
-	const personCode = $derived(`<script type="application/ld+json">
+const personCode = $derived(`<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
@@ -245,7 +251,7 @@ https://svelte.dev/e/bind_invalid_expression -->
     }
 <\/script>`);
 
-	const articleCode = $derived(`<script type="application/ld+json">
+const articleCode = $derived(`<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "${articleType}",
@@ -277,18 +283,20 @@ https://svelte.dev/e/bind_invalid_expression -->
     }
 <\/script>`);
 
-	const productCode = $derived.by(() => {
-		const identifiers = (Object.keys(productIdentifiers) as IdentifierKey[])
-			.filter((key) => productIdentifiers[key].enable && productIdentifiers[key].value.trim().length > 0)
-			.map((key) => `"${key}": "${productIdentifiers[key].value.trim()}"`)
-			.join(",\n      ");
+const productCode = $derived.by(() => {
+	const identifiers = (Object.keys(productIdentifiers) as IdentifierKey[])
+		.filter(
+			(key) => productIdentifiers[key].enable && productIdentifiers[key].value.trim().length > 0
+		)
+		.map((key) => `"${key}": "${productIdentifiers[key].value.trim()}"`)
+		.join(",\n      ");
 
-		const offerStr =
-			productOffers.type === "Offer"
-				? `"priceValidUntil": "${productOffers.priceValidUntil}",\n      "url": "${productOffers.url}",\n      "availability": "http://schema.org/${productOffers.availability}",\n      "itemCondition": "http://schema.org/${productOffers.itemCondition}",`
-				: "";
+	const offerStr =
+		productOffers.type === "Offer"
+			? `"priceValidUntil": "${productOffers.priceValidUntil}",\n      "url": "${productOffers.url}",\n      "availability": "http://schema.org/${productOffers.availability}",\n      "itemCondition": "http://schema.org/${productOffers.itemCondition}",`
+			: "";
 
-		return `<script type="application/ld+json">
+	return `<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Product",
@@ -315,89 +323,89 @@ https://svelte.dev/e/bind_invalid_expression -->
       }${identifiers ? ",\n      " + identifiers : ""}
     }
 <\/script>`;
-	});
+});
 
-	const code = $derived.by(() => {
-		switch (activeTab) {
-			case "breadcrumbs":
-				return breadcrumbsCode;
-			case "person":
-				return personCode;
-			case "article":
-				return articleCode;
-			case "product":
-				return productCode;
-			default:
-				return websiteCode;
-		}
-	});
-
-	async function handleCopy() {
-		await navigator.clipboard.writeText(code);
-		copied = true;
-		toast.success("Schema markup copied");
-		setTimeout(() => (copied = false), 2000);
+const code = $derived.by(() => {
+	switch (activeTab) {
+		case "breadcrumbs":
+			return breadcrumbsCode;
+		case "person":
+			return personCode;
+		case "article":
+			return articleCode;
+		case "product":
+			return productCode;
+		default:
+			return websiteCode;
 	}
+});
 
-	function resetAll() {
-		website = { name: "", alternateName: "", url: "", searchQuery: "", queryString: "" };
-		breadcrumbs = [{ name: "", url: "", image: "" }];
-		person = {
-			name: "",
-			alternateName: "",
-			url: "",
-			image: "",
-			jobTitle: "",
-			worksFor: "",
-			telephone: "",
-			email: "",
-			address: "",
-			sameAs: ""
-		};
-		articleType = "NewsArticle";
-		article = {
-			headline: "",
-			isAMP: false,
-			image: "",
-			width: "",
-			height: "",
-			author: "",
-			publisher: "",
-			datePublished: "",
-			dateModified: "",
-			description: "",
-			articleBody: "",
-			url: "",
-			sameAs: ""
-		};
-		productBasic = { name: "", image: "", description: "", brand: "", url: "" };
-		productIdentifiers = {
-			sku: { enable: false, value: "" },
-			gtin8: { enable: false, value: "" },
-			gtin13: { enable: false, value: "" },
-			gtin14: { enable: false, value: "" },
-			mpn: { enable: false, value: "" }
-		};
-		productOffers = {
-			price: "",
-			priceCurrency: "USD",
-			priceValidUntil: "",
-			lowPrice: "",
-			type: "Offer",
-			url: "",
-			itemCondition: "New",
-			availability: "InStock"
-		};
-		productRatings = { ratingValue: "", bestRating: "5", worstRating: "1", ratingCount: "" };
-	}
+async function handleCopy() {
+	await navigator.clipboard.writeText(code);
+	copied = true;
+	toast.success("Schema markup copied");
+	setTimeout(() => (copied = false), 2000);
+}
 
-	function addBreadcrumb() {
-		breadcrumbs = [...breadcrumbs, { name: "", url: "", image: "" }];
-	}
+function resetAll() {
+	website = { name: "", alternateName: "", url: "", searchQuery: "", queryString: "" };
+	breadcrumbs = [{ name: "", url: "", image: "" }];
+	person = {
+		name: "",
+		alternateName: "",
+		url: "",
+		image: "",
+		jobTitle: "",
+		worksFor: "",
+		telephone: "",
+		email: "",
+		address: "",
+		sameAs: ""
+	};
+	articleType = "NewsArticle";
+	article = {
+		headline: "",
+		isAMP: false,
+		image: "",
+		width: "",
+		height: "",
+		author: "",
+		publisher: "",
+		datePublished: "",
+		dateModified: "",
+		description: "",
+		articleBody: "",
+		url: "",
+		sameAs: ""
+	};
+	productBasic = { name: "", image: "", description: "", brand: "", url: "" };
+	productIdentifiers = {
+		sku: { enable: false, value: "" },
+		gtin8: { enable: false, value: "" },
+		gtin13: { enable: false, value: "" },
+		gtin14: { enable: false, value: "" },
+		mpn: { enable: false, value: "" }
+	};
+	productOffers = {
+		price: "",
+		priceCurrency: "USD",
+		priceValidUntil: "",
+		lowPrice: "",
+		type: "Offer",
+		url: "",
+		itemCondition: "New",
+		availability: "InStock"
+	};
+	productRatings = { ratingValue: "", bestRating: "5", worstRating: "1", ratingCount: "" };
+}
 
-	function removeBreadcrumb(index: number) {
-		breadcrumbs = breadcrumbs.filter((_, i) => i !== index);
-	}
+function addBreadcrumb() {
+	breadcrumbs = [...breadcrumbs, { name: "", url: "", image: "" }];
+}
+
+function removeBreadcrumb(index: number) {
+	breadcrumbs = breadcrumbs.filter((_, i) => i !== index);
+}
 </script>
 
 <ToolShell

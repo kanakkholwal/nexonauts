@@ -1,33 +1,33 @@
 <script lang="ts">
-	import { page } from "$app/state";
-	import Logo from "$lib/components/logo.svelte";
-	import * as Sidebar from "$lib/components/ui/sidebar";
-	import { appConfig } from "@/project.config";
-	import { getSideNavLinks } from "./sidebar-links";
+import { appConfig } from "@/project.config";
+import { page } from "$app/state";
+import Logo from "$lib/components/logo.svelte";
+import * as Sidebar from "$lib/components/ui/sidebar";
+import { getSideNavLinks } from "./sidebar-links";
 
-	type SessionUser = {
-		name?: string | null;
-		email?: string | null;
-		image?: string | null;
-		role?: string;
-	};
+type SessionUser = {
+	name?: string | null;
+	email?: string | null;
+	image?: string | null;
+	role?: string;
+};
 
-	let {
-		user,
-		moderator = "user",
-		prefixPath = "dashboard"
-	}: {
-		user: SessionUser;
-		moderator?: string;
-		prefixPath?: string;
-	} = $props();
+let {
+	user,
+	moderator = "user",
+	prefixPath = "dashboard"
+}: {
+	user: SessionUser;
+	moderator?: string;
+	prefixPath?: string;
+} = $props();
 
-	const links = $derived(getSideNavLinks(moderator, prefixPath));
+const links = $derived(getSideNavLinks(moderator, prefixPath));
 
-	function isActive(href: string) {
-		if (href === `/${prefixPath}`) return page.url.pathname === href;
-		return page.url.pathname === href || page.url.pathname.startsWith(href + "/");
-	}
+function isActive(href: string) {
+	if (href === `/${prefixPath}`) return page.url.pathname === href;
+	return page.url.pathname === href || page.url.pathname.startsWith(href + "/");
+}
 </script>
 
 <Sidebar.Root collapsible="icon">

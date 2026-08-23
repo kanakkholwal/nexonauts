@@ -1,19 +1,19 @@
 <script lang="ts">
-	import type { WithoutChildren } from "bits-ui";
-	import { getEmblaContext } from "./context.js";
-	import { cn } from "$lib/utils.js";
-	import { Button, type Props } from "$lib/components/ui/button/index.js";
-	import ChevronRightIcon from '@lucide/svelte/icons/chevron-right';
+import ChevronRightIcon from "@lucide/svelte/icons/chevron-right";
+import type { WithoutChildren } from "bits-ui";
+import { Button, type Props } from "$lib/components/ui/button/index.js";
+import { cn } from "$lib/utils.js";
+import { getEmblaContext } from "./context.js";
 
-	let {
-		ref = $bindable(null),
-		class: className,
-		variant = "outline",
-		size = "icon-sm",
-		...restProps
-	}: WithoutChildren<Props> = $props();
+let {
+	ref = $bindable(null),
+	class: className,
+	variant = "outline",
+	size = "icon-sm",
+	...restProps
+}: WithoutChildren<Props> = $props();
 
-	const emblaCtx = getEmblaContext("<Carousel.Next/>");
+const emblaCtx = getEmblaContext("<Carousel.Next/>");
 </script>
 
 <Button

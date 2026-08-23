@@ -1,79 +1,79 @@
 <script lang="ts">
-	import { enhance } from "$app/forms";
-	import { Button } from "$lib/components/ui/button";
-	import { Input } from "$lib/components/ui/input";
-	import { Textarea } from "$lib/components/ui/textarea";
-	import { Badge } from "$lib/components/ui/badge";
-	import { cn } from "$lib/utils";
-	import Building2 from "@lucide/svelte/icons/building-2";
-	import Globe from "@lucide/svelte/icons/globe";
-	import Loader2 from "@lucide/svelte/icons/loader-2";
-	import Mail from "@lucide/svelte/icons/mail";
-	import MapPin from "@lucide/svelte/icons/map-pin";
-	import MessageCircle from "@lucide/svelte/icons/message-circle";
-	import Send from "@lucide/svelte/icons/send";
-	import User from "@lucide/svelte/icons/user";
-	import { toast } from "svelte-sonner";
+import Building2 from "@lucide/svelte/icons/building-2";
+import Globe from "@lucide/svelte/icons/globe";
+import Loader2 from "@lucide/svelte/icons/loader-2";
+import Mail from "@lucide/svelte/icons/mail";
+import MapPin from "@lucide/svelte/icons/map-pin";
+import MessageCircle from "@lucide/svelte/icons/message-circle";
+import Send from "@lucide/svelte/icons/send";
+import User from "@lucide/svelte/icons/user";
+import { toast } from "svelte-sonner";
+import { enhance } from "$app/forms";
+import { Badge } from "$lib/components/ui/badge";
+import { Button } from "$lib/components/ui/button";
+import { Input } from "$lib/components/ui/input";
+import { Textarea } from "$lib/components/ui/textarea";
+import { cn } from "$lib/utils";
 
-	type FormState = {
-		errors?: Record<string, string>;
-		values?: {
-			name?: string;
-			email?: string;
-			message?: string;
-			category?: string;
-			companyName?: string;
-			website?: string;
-		};
-		success?: boolean;
+type FormState = {
+	errors?: Record<string, string>;
+	values?: {
+		name?: string;
+		email?: string;
+		message?: string;
+		category?: string;
+		companyName?: string;
+		website?: string;
 	};
+	success?: boolean;
+};
 
-	let { data, form } = $props<{
-		data: { defaults: { name: string; email: string } };
-		form?: FormState | null;
-	}>();
+let { data, form } = $props<{
+	data: { defaults: { name: string; email: string } };
+	form?: FormState | null;
+}>();
 
-	let isLoading = $state(false);
-	let category = $state("");
+let isLoading = $state(false);
+let category = $state("");
 
-	$effect(() => {
-		if (form?.values?.category) category = form.values.category;
-	});
+$effect(() => {
+	if (form?.values?.category) category = form.values.category;
+});
 
-	const CATEGORIES = [
-		"Brand Strategy",
-		"Marketing / Ads",
-		"Development",
-		"Design / UI & UX",
-		"Partnerships",
-		"Other"
-	];
+const CATEGORIES = [
+	"Brand Strategy",
+	"Marketing / Ads",
+	"Development",
+	"Design / UI & UX",
+	"Partnerships",
+	"Other"
+];
 
-	type SocialLink = { href: string; label: string; path: string };
+type SocialLink = { href: string; label: string; path: string };
 
-	const socials: SocialLink[] = [
-		{
-			href: "https://x.com/KanakKholwal",
-			label: "X (Twitter)",
-			path: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-		},
-		{
-			href: "https://github.com/kanakkholwal/nexonauts",
-			label: "GitHub",
-			path: "M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-.99-.02-1.95-3.2.69-3.87-1.54-3.87-1.54-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"
-		},
-		{
-			href: "https://linkedin.com/in/kanak-kholwal",
-			label: "LinkedIn",
-			path: "M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.43v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"
-		}
-	];
+const socials: SocialLink[] = [
+	{
+		href: "https://x.com/KanakKholwal",
+		label: "X (Twitter)",
+		path: "M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+	},
+	{
+		href: "https://github.com/kanakkholwal/nexonauts",
+		label: "GitHub",
+		path: "M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.55 0-.27-.01-.99-.02-1.95-3.2.69-3.87-1.54-3.87-1.54-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.25 3.34.95.1-.74.4-1.25.72-1.54-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18.91-.25 1.89-.38 2.86-.38.97 0 1.95.13 2.86.38 2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.06.78 2.13 0 1.54-.01 2.78-.01 3.16 0 .31.21.67.8.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"
+	},
+	{
+		href: "https://linkedin.com/in/kanak-kholwal",
+		label: "LinkedIn",
+		path: "M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.59 0 4.26 2.36 4.26 5.43v6.31zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"
+	}
+];
 
-	const contactBlocks = [
-		{ icon: Mail, label: "Email us", value: "support@nexonauts.com" },
-		{ icon: MessageCircle, label: "Live support", value: "Mon–Fri, 9am–5pm" },
-		{ icon: MapPin, label: "Headquarters", value: "Worldwide" }
-	];
+const contactBlocks = [
+	{ icon: Mail, label: "Email us", value: "support@nexonauts.com" },
+	{ icon: MessageCircle, label: "Live support", value: "Mon–Fri, 9am–5pm" },
+	{ icon: MapPin, label: "Headquarters", value: "Worldwide" }
+];
 </script>
 
 <svelte:head>

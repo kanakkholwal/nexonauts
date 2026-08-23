@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { hasRuntimeDevTool, runtimeDevToolComponents } from "$lib/components/dev-tools/runtime";
-	import { Button } from "$lib/components/ui/button";
-	import * as Card from "$lib/components/ui/card";
-	import Sparkles from "@lucide/svelte/icons/sparkles";
+import Sparkles from "@lucide/svelte/icons/sparkles";
+import { hasRuntimeDevTool, runtimeDevToolComponents } from "$lib/components/dev-tools/runtime";
+import { Button } from "$lib/components/ui/button";
+import * as Card from "$lib/components/ui/card";
 
-	let { data } = $props();
+let { data } = $props();
 
-	const ToolComponent = $derived(
-		hasRuntimeDevTool(data.tool.slug) ? runtimeDevToolComponents[data.tool.slug] : null
-	);
+const ToolComponent = $derived(
+	hasRuntimeDevTool(data.tool.slug) ? runtimeDevToolComponents[data.tool.slug] : null
+);
 </script>
 
 <svelte:head>

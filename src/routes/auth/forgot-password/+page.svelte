@@ -1,54 +1,54 @@
 <script lang="ts">
-	import { Button } from "$lib/components/ui/button";
-	import { Input } from "$lib/components/ui/input";
-	import { authClient } from "$lib/auth-client";
-	import ArrowLeft from "@lucide/svelte/icons/arrow-left";
-	import Loader2 from "@lucide/svelte/icons/loader-2";
-	import Mail from "@lucide/svelte/icons/mail";
-	import { toast } from "svelte-sonner";
-	import { z } from "zod";
+import ArrowLeft from "@lucide/svelte/icons/arrow-left";
+import Loader2 from "@lucide/svelte/icons/loader-2";
+import Mail from "@lucide/svelte/icons/mail";
+import { toast } from "svelte-sonner";
+import { z } from "zod";
+import { authClient } from "$lib/auth-client";
+import { Button } from "$lib/components/ui/button";
+import { Input } from "$lib/components/ui/input";
 
-	const schema = z.object({
-		email: z.string().email({ message: "Please enter a valid email address." })
-	});
+const schema = z.object({
+	email: z.string().email({ message: "Please enter a valid email address." })
+});
 
-	let email = $state("");
-	let isLoading = $state(false);
-	let isSuccess = $state(false);
-	let submittedEmail = $state("");
-	let error = $state<string | null>(null);
+let email = $state("");
+let isLoading = $state(false);
+let isSuccess = $state(false);
+let submittedEmail = $state("");
+let error = $state<string | null>(null);
 
-	async function onSubmit(event: SubmitEvent) {
-		event.preventDefault();
-		error = null;
+async function onSubmit(event: SubmitEvent) {
+	event.preventDefault();
+	error = null;
 
-		const parsed = schema.safeParse({ email });
-		if (!parsed.success) {
-			error = parsed.error.issues[0]?.message ?? "Invalid email";
-			return;
-		}
-
-		isLoading = true;
-		try {
-			await authClient.requestPasswordReset({
-				email: parsed.data.email,
-				redirectTo: "/auth/reset-password"
-			});
-			submittedEmail = parsed.data.email;
-			isSuccess = true;
-			toast.success("Reset link sent!");
-		} catch (err) {
-			toast.error((err as Error)?.message ?? "Something went wrong.");
-		} finally {
-			isLoading = false;
-		}
+	const parsed = schema.safeParse({ email });
+	if (!parsed.success) {
+		error = parsed.error.issues[0]?.message ?? "Invalid email";
+		return;
 	}
 
-	function reset() {
-		isSuccess = false;
-		email = "";
-		submittedEmail = "";
+	isLoading = true;
+	try {
+		await authClient.requestPasswordReset({
+			email: parsed.data.email,
+			redirectTo: "/auth/reset-password"
+		});
+		submittedEmail = parsed.data.email;
+		isSuccess = true;
+		toast.success("Reset link sent!");
+	} catch (err) {
+		toast.error((err as Error)?.message ?? "Something went wrong.");
+	} finally {
+		isLoading = false;
 	}
+}
+
+function reset() {
+	isSuccess = false;
+	email = "";
+	submittedEmail = "";
+}
 </script>
 
 <div class="flex w-full flex-col gap-6">
