@@ -1,14 +1,14 @@
 <script lang="ts">
 import Footer from "$lib/components/common/footer.svelte";
-import Navbar from "$lib/components/common/navbar.svelte";
+import IslandNav from "$lib/components/common/island-nav.svelte";
 
 let { children } = $props();
 </script>
 
-<Navbar />
-<main
-	class="@container relative mx-auto w-full max-w-(--max-app-width) grow px-4 pt-[70px] sm:px-12 xl:px-0"
->
+<IslandNav />
+
+<main id="main" class="relative">
 	{@render children()}
 </main>
+
 <Footer />

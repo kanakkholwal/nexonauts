@@ -524,6 +524,28 @@ stopping it.
 Phosphor (`phosphor-svelte`). `weight="duotone"` for section and card glyphs, `regular`
 elsewhere. 16px in UI, 20px in cards. Never accent-tinted.
 
+### Tool pages
+
+`/dev-tools` and `/dev-tools/[slug]` use the same vocabulary as the landing page, not a
+second one.
+
+- **Index.** Page header left-aligned in `max-w-xl`, then a filter rail that is a hairline
+  row (`border-b`, `py-5`) rather than a floating toolbar, then the hairline grid at three
+  columns. Category filters are pills with a live count; the active one is `bg-foreground`.
+  The empty state names the query and offers a reset.
+- **`ToolShell`.** One hairline header row: back link, category with its glyph, h1 at
+  `text-heading md:text-heading-lg`, description, tags in mono caption, and the clear action
+  as `variant="outline" size="sm"` on the right. No icon plate, no card, no badge stack.
+- **Tool body.** Panes are `rounded-xl border border-border-low bg-card` with a `bg-paper`
+  header bar. **There is no fake dark editor pane.** Seven tools shipped a hardcoded
+  `bg-[#1e1e1e]` output pane with `text-gray-300` and `text-blue-100` labels, which is a
+  third theme that follows neither mode. Output is the same pane with a `bg-paper` body and
+  mono type, which is what `.guide-step--output` already does on the learn pages.
+- **The primary action inside a tool is `variant="default"`** (accent fill). A tool is
+  product chrome, not a marketing surface, and that is the one place the accent fills.
+- Every tool page ends in a "More tools" hairline grid, same category first. A tool page
+  should return you to the catalogue, not dead-end.
+
 ### Trust and proof
 
 Nexonauts is a personal umbrella, not a company. **Do not fabricate customer logos.** The
@@ -574,8 +596,8 @@ in JS.
 
 **Still open.**
 
-- `/learn`, `/guides`, `/dev-tools/[slug]`, `/admin`, `/auth` and the static pages use the
-  legacy aliases and the old 14px scale. They render correctly in both themes but are not
+- `/learn`, `/guides`, `/admin`, `/auth` and the static pages use the legacy aliases and
+  the old 14px scale. They render correctly in both themes but are not
   on the ten-step scale.
 - `@lucide/svelte` remains in [learn/+page.svelte](src/routes/learn/+page.svelte) and
   [navbar.svelte](src/lib/components/common/navbar.svelte).

@@ -150,7 +150,7 @@ function onDrop(event: DragEvent) {
 			class={`relative flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center transition-all duration-300 ${
 				isDragover
 					? "border-primary bg-primary/5 ring-4 ring-primary/10"
-					: "border-muted-foreground/25 bg-card hover:border-primary/50 hover:bg-muted/50"
+					: "border-muted-foreground/25 bg-card hover:border-primary/50 hover:bg-paper"
 			}`}
 			ondragover={(event) => {
 				event.preventDefault();
@@ -168,14 +168,14 @@ function onDrop(event: DragEvent) {
 			/>
 
 			<div class="space-y-4">
-				<div class={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${isDragover ? "bg-background text-primary shadow-lg" : "bg-muted text-muted-foreground"}`}>
-					<Upload class="h-8 w-8" />
+				<div class={`mx-auto flex h-16 w-16 items-center justify-center rounded-full ${isDragover ? "bg-background text-primary" : "bg-muted text-muted-foreground"}`}>
+					<Upload class="size-8" />
 				</div>
 				<div class="space-y-1">
 					<p class="text-lg font-semibold text-foreground">
 						{isDragover ? "Drop images here" : "Click or drag images here"}
 					</p>
-					<p class="text-sm text-muted-foreground">Supports JPG, PNG, BMP, and GIF</p>
+					<p class="text-body-sm text-muted-foreground">Supports JPG, PNG, BMP, and GIF</p>
 				</div>
 			</div>
 		</label>
@@ -187,8 +187,8 @@ function onDrop(event: DragEvent) {
 					<Badge variant="secondary" class="rounded-full px-2.5">{images.length}</Badge>
 				</h3>
 				{#if isProcessing}
-					<div class="flex items-center gap-2 text-sm text-muted-foreground">
-						<Loader2 class="h-4 w-4 animate-spin" />
+					<div class="flex items-center gap-2 text-body-sm text-muted-foreground">
+						<Loader2 class="size-4 animate-spin" />
 						Processing...
 					</div>
 				{/if}
@@ -196,8 +196,8 @@ function onDrop(event: DragEvent) {
 
 			<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{#each images as img (img.id)}
-					<Card.Root class="group overflow-hidden border-border/50 bg-card transition-all duration-300 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5">
-						<div class="relative aspect-video overflow-hidden border-b border-border/50 bg-muted/50">
+					<Card.Root class="group overflow-hidden border-border-low bg-card transition-all duration-300 hover:border-primary/50 hover: hover:shadow-primary/5">
+						<div class="relative aspect-video overflow-hidden border-b border-border-low bg-paper">
 							<img
 								src={img.originalPreview}
 								alt={img.name}
@@ -207,16 +207,16 @@ function onDrop(event: DragEvent) {
 							<button
 								type="button"
 								onclick={() => removeImage(img.id)}
-								class="absolute top-2 right-2 rounded-full bg-black/50 p-1.5 text-white opacity-0 transition-opacity hover:bg-destructive group-hover:opacity-100"
+								class="absolute top-2 right-2 rounded-full bg-black/50 p-1.5 text-foreground opacity-0 transition-opacity hover:bg-destructive group-hover:opacity-100"
 								title="Remove image"
 							>
-								<XCircle class="h-4 w-4" />
+								<XCircle class="size-4" />
 							</button>
 
 							{#if img.processing}
 								<div class="absolute inset-0 z-10 flex items-center justify-center">
-									<div class="flex items-center gap-2 rounded-full border border-border bg-background/80 px-4 py-2 text-xs font-medium shadow-sm backdrop-blur-md">
-										<Loader2 class="h-4 w-4 animate-spin text-primary" />
+									<div class="flex items-center gap-2 rounded-full border border-border bg-background/80 px-4 py-2 text-xs font-medium shadow-sm">
+										<Loader2 class="size-4 animate-spin text-primary" />
 										Converting...
 									</div>
 								</div>
@@ -226,7 +226,7 @@ function onDrop(event: DragEvent) {
 						<Card.Content class="space-y-4 p-4">
 							<div class="flex items-start justify-between gap-2">
 								<div class="min-w-0 space-y-1">
-									<h4 class="truncate text-sm font-medium" title={img.name}>{img.name}</h4>
+									<h4 class="truncate text-body-sm font-medium" title={img.name}>{img.name}</h4>
 									<p class="text-xs text-muted-foreground">
 										Original: {formatFileSize(img.originalSize)}
 									</p>
@@ -242,7 +242,7 @@ function onDrop(event: DragEvent) {
 								<Button class="w-full" disabled>Processing</Button>
 							{:else}
 								<Button class="w-full gap-2" href={img.convertedUrl} download={`${img.name}.webp`}>
-									<Download class="h-4 w-4" />
+									<Download class="size-4" />
 									Download
 								</Button>
 							{/if}
@@ -251,8 +251,8 @@ function onDrop(event: DragEvent) {
 				{/each}
 			</div>
 
-			<div class="flex items-center justify-center gap-2 border-t border-border/50 pt-8 text-center text-xs text-muted-foreground opacity-70">
-				<RefreshCw class="h-3 w-3" />
+			<div class="flex items-center justify-center gap-2 border-t border-border-low pt-8 text-center text-xs text-muted-foreground opacity-70">
+				<RefreshCw class="size-3" />
 				All conversions happen locally in your browser. Nothing is uploaded.
 			</div>
 		{/if}

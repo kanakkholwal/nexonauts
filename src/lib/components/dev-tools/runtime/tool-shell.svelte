@@ -1,21 +1,19 @@
 <script lang="ts">
+import ArrowLeft from "phosphor-svelte/lib/ArrowLeft";
 import type { Component, Snippet } from "svelte";
-import { Badge } from "$lib/components/ui/badge";
+import { Container } from "$lib/components/surfaces";
 import { Button } from "$lib/components/ui/button";
 import { cn } from "$lib/utils";
 
 /**
- * ToolShell — chrome for an individual dev tool page.
+ * ToolShell — the chrome every dev tool page shares.
  *
- * `icon` accepts any of:
- *   - a string emoji or short glyph: `icon="📄"` / `icon="<>"` / `icon="🧬"`
- *     (rendered with `{@html}` so HTML entities like `&lt;/&gt;` work too)
- *   - a Lucide / Svelte component reference: `icon={ImageIcon}`
- *   - or, for fully-custom SVG markup, pass `iconSnippet` instead:
- *     `{#snippet iconSnippet()}<svg …>…</svg>{/snippet}`
+ * `icon` accepts a glyph string (`icon="📄"`, `icon="&lt;/&gt;"`, rendered with
+ * `{@html}` so entities work) or a component reference (`icon={ImageIcon}`).
+ * For custom SVG, pass `iconSnippet` instead.
  *
- * Whichever form is used, the icon sits in a 48px ink-tinted plate at the
- * top of the title block, next to the category badge.
+ * The header is one hairline row: back link and category above, title and
+ * description below, the clear action on the right. No icon plate, no card.
  */
 type IconComponent = Component<{ class?: string; size?: number | string }>;
 
@@ -49,58 +47,62 @@ const isStringIcon = $derived(typeof icon === "string");
 const IconComponent = $derived(!isStringIcon && icon ? (icon as IconComponent) : null);
 </script>
 
-<div
-	class={cn(
-		"relative isolate min-h-[720px] w-full overflow-hidden pb-12",
-		className
-	)}
->
-	<div class="relative z-10 space-y-8">
-		<header class="flex flex-col gap-5 md:flex-row md:items-start md:justify-between">
-			<div class="space-y-4">
-				<div class="flex items-center gap-3">
-					<!-- Single icon plate — no nested wrappers. -->
-					<div
-						class="flex size-12 shrink-0 items-center justify-center rounded-xl border border-hairline bg-canvas-soft text-ink"
-					>
+<div class={cn("relative w-full", className)}>
+	<div class="border-b border-border-low">
+		<Container class="pt-28 pb-10 md:pt-32 md:pb-12">
+			<a
+				href="/dev-tools"
+				class="ease-fluid inline-flex items-center gap-1.5 text-body-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+			>
+				<ArrowLeft class="size-3.5" />
+				All tools
+			</a>
+
+			<div class="mt-6 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+				<div class="max-w-xl">
+					<span class="inline-flex items-center gap-2 text-body-sm font-medium text-foreground">
 						{#if iconSnippet}
-							<span class="[&_svg]:size-6">{@render iconSnippet()}</span>
+							<span class="[&_svg]:size-4 [&_svg]:text-muted-foreground">
+								{@render iconSnippet()}
+							</span>
 						{:else if isStringIcon}
-							<span class="text-xl leading-none">{@html icon}</span>
+							<span class="text-body leading-none">{@html icon}</span>
 						{:else if IconComponent}
-							<IconComponent class="size-6" />
+							<IconComponent class="size-4 text-muted-foreground" />
 						{/if}
-					</div>
-					<Badge variant="secondary" size="md">{category}</Badge>
+						{category}
+					</span>
+
+					<h1 class="mt-4 text-balance text-heading text-ink-strong md:text-heading-lg">
+						{title}
+					</h1>
+					<p class="mt-3 text-pretty text-body-lg text-muted-foreground">
+						{description}
+					</p>
+
+					{#if tags?.length}
+						<p class="mt-4 flex flex-wrap gap-x-2 font-mono text-caption text-muted-foreground">
+							{#each tags as tag (tag)}
+								<span>{tag}</span>
+							{/each}
+						</p>
+					{/if}
 				</div>
 
-				<h1 class="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
-					{title}
-				</h1>
-				<p class="max-w-2xl text-base leading-relaxed text-muted-foreground">
-					{description}
-				</p>
-
-				{#if tags && tags.length}
-					<div class="flex flex-wrap gap-1.5 pt-1">
-						{#each tags as tag (tag)}
-							<Badge variant="outline" size="sm">{tag}</Badge>
-						{/each}
-					</div>
-				{/if}
+				<Button
+					variant="outline"
+					size="sm"
+					onclick={onClear}
+					disabled={!canClear}
+					class="shrink-0 self-start hover:border-destructive hover:text-destructive md:self-auto"
+				>
+					{clearLabel}
+				</Button>
 			</div>
-
-			<Button
-				variant="outline"
-				size="md"
-				onclick={onClear}
-				disabled={!canClear}
-				class="shrink-0 hover:border-destructive/40 hover:text-destructive"
-			>
-				{clearLabel}
-			</Button>
-		</header>
-
-		{@render children?.()}
+		</Container>
 	</div>
+
+	<Container class="py-10 md:py-12">
+		{@render children?.()}
+	</Container>
 </div>

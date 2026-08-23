@@ -1,16 +1,17 @@
 <script lang="ts">
-import LayoutGrid from "@lucide/svelte/icons/layout-grid";
-import Search from "@lucide/svelte/icons/search";
-import Terminal from "@lucide/svelte/icons/terminal";
-import { Badge } from "$lib/components/ui/badge";
-import { Input } from "$lib/components/ui/input";
+import ArrowRight from "phosphor-svelte/lib/ArrowRight";
+import MagnifyingGlass from "phosphor-svelte/lib/MagnifyingGlass";
+import Wrench from "phosphor-svelte/lib/Wrench";
+import { appConfig } from "@/project.config";
+import { Container, Reveal, Section, SectionLabel } from "$lib/components/surfaces";
 import { cn } from "$lib/utils";
+import { categoryIcon } from "./icons";
 import { devToolCategories, devTools } from "./tools";
 
 let query = $state("");
 let activeCategory = $state("All");
 
-const filteredTools = $derived(
+const filtered = $derived(
 	devTools.filter((tool) => {
 		const matchesCategory = activeCategory === "All" || tool.category === activeCategory;
 		const q = query.trim().toLowerCase();
@@ -23,82 +24,148 @@ const filteredTools = $derived(
 	})
 );
 
-// Rotating soft tints for category chips and tool tags
+// Counts sit next to the filter so the index says how big it is before you click.
+const countFor = (category: string) =>
+	category === "All" ? devTools.length : devTools.filter((t) => t.category === category).length;
+
+const title = "Dev tools · Nexonauts";
+const description =
+	"Single purpose browser utilities for the small jobs that interrupt real work. Nothing is uploaded.";
 </script>
 
 <svelte:head>
-	<title>Developer Tools — Nexonauts</title>
-	<meta
-		name="description"
-		content="A collection of tools to make your developer life easier."
-	/>
+	<title>{title}</title>
+	<meta name="description" content={description} />
+	<link rel="canonical" href="{appConfig.url}/dev-tools" />
+	<meta property="og:title" content={title} />
+	<meta property="og:description" content={description} />
 </svelte:head>
 
-<section class="relative isolate overflow-hidden py-20 md:py-24">
-
-	<div class="relative z-10 mx-auto max-w-3xl space-y-5 text-center">
-		<Badge variant="default" size="md">Browser-first dev utilities</Badge>
-		<h1 class="display-xl text-ink">Developer Tools</h1>
-		<p class="mx-auto max-w-2xl text-sm text-muted-foreground">
-			A curated set of fast, private, browser-based tools to streamline your day.
-		</p>
-	</div>
-
-	<div class="relative z-10 mt-12 flex w-full flex-col items-center gap-5">
-		<div class="relative w-full max-w-md">
-			<div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-4 text-muted-ink">
-				<Search class="size-4" />
-			</div>
-			<Input
-				type="search"
-				placeholder="Search tools…"
-				bind:value={query}
-				class="h-11 rounded-pill pl-11"
-			/>
+<Section spacing="none" class="border-b border-border-low">
+	<Container class="pt-28 pb-14 md:pt-32 md:pb-16">
+		<div class="max-w-xl">
+			<Reveal>
+				<SectionLabel icon={Wrench} label="Dev tools" />
+			</Reveal>
+			<Reveal delay={60} class="mt-5">
+				<h1 class="text-balance text-heading-lg text-ink-strong md:text-display">
+					Small jobs, done in the tab
+				</h1>
+			</Reveal>
+			<Reveal delay={120} class="mt-4">
+				<p class="text-pretty text-body-lg text-muted-foreground">
+					Single purpose utilities for the work that interrupts real work. Nothing is uploaded.
+				</p>
+			</Reveal>
 		</div>
+	</Container>
+</Section>
 
-		<div class="flex flex-wrap justify-center gap-2">
+<Section spacing="none" class="mx-auto max-w-6xl">
+	<!-- Filter rail. A hairline row, not a floating toolbar. -->
+	<Container class="flex flex-col gap-4 border-b border-border-low py-5 md:flex-row md:items-center">
+		<label class="relative w-full md:max-w-xs">
+			<span class="sr-only">Search tools</span>
+			<MagnifyingGlass
+				class="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground"
+			/>
+			<input
+				type="search"
+				placeholder="Search tools"
+				bind:value={query}
+				class={cn(
+					"h-9 w-full rounded-lg border border-border-control bg-card pr-3 pl-9",
+					"text-body-sm text-foreground placeholder:text-muted-foreground",
+					"ease-fluid transition-colors duration-200",
+					"focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+				)}
+			/>
+		</label>
+
+		<div class="flex flex-wrap items-center gap-1 md:ml-auto">
 			{#each devToolCategories as category (category)}
 				<button
 					type="button"
 					onclick={() => (activeCategory = category)}
+					aria-pressed={activeCategory === category}
 					class={cn(
-						"rounded-pill border px-3.5 py-1 text-xs font-medium uppercase tracking-[0.06em] transition-all",
+						"ease-fluid inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-body-sm font-medium",
+						"transition-colors duration-200 motion-reduce:transition-none",
+						"focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
 						activeCategory === category
-							? "bg-primary text-primary-foreground border-transparent"
-							: "border-hairline-strong bg-canvas text-muted-foreground hover:text-ink hover:bg-surface-strong"
+							? "bg-foreground text-background"
+							: "text-muted-foreground hover:bg-paper hover:text-foreground"
 					)}
 				>
 					{category}
+					<span class={cn("font-mono text-caption tabular-nums", activeCategory === category ? "opacity-70" : "opacity-60")}>
+						{countFor(category)}
+					</span>
 				</button>
 			{/each}
 		</div>
-	</div>
+	</Container>
 
-	{#if filteredTools.length === 0}
-		<div class="relative z-10 mt-20 flex flex-col items-center gap-2 text-sm text-muted-ink">
-			<LayoutGrid class="size-8 opacity-50" />
-			<p>No tools match your filters.</p>
-		</div>
-	{:else}
-		<div class="relative z-10 mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-			{#each filteredTools as tool, i (tool.slug)}
-				<a
-					href={`/dev-tools/${tool.slug}`}
-					class="surface group relative isolate flex flex-col gap-4 overflow-hidden p-6 transition-colors duration-200 ease-fluid hover:border-border-strong"
+	<Container>
+		{#if filtered.length === 0}
+			<div class="flex flex-col items-center gap-3 py-24 text-center">
+				<MagnifyingGlass class="size-6 text-muted-foreground" />
+				<p class="text-body text-foreground">Nothing matches "{query}"</p>
+				<p class="max-w-sm text-body-sm text-muted-foreground">
+					Try a shorter word, or clear the category filter.
+				</p>
+				<button
+					type="button"
+					onclick={() => {
+						query = "";
+						activeCategory = "All";
+					}}
+					class="ease-fluid mt-2 text-body-sm font-medium text-primary underline-offset-4 transition-colors duration-200 hover:underline"
 				>
-					<div class="relative z-10 flex items-center justify-between">
-						<div class="flex size-11 items-center justify-center rounded-xl bg-surface-strong">
-							<Terminal class="size-5 text-ink" />
-						</div>
-						<Badge variant="secondary" size="sm">{tool.category}</Badge>
-					</div>
-					<div class="relative z-10 space-y-2">
-						<h3 class="text-sm font-medium tracking-tight text-ink">{tool.title}</h3>
-						<p class="text-sm text-muted-foreground">{tool.description}</p>
-					</div>
-				</a>
-			{/each}
-		</div>
-	{/if}
-</section>
+					Reset filters
+				</button>
+			</div>
+		{:else}
+			<!-- Hairline grid, the same one the homepage uses. -->
+			<div
+				class="grid grid-cols-1 gap-px border-b border-border-low bg-border-low sm:grid-cols-2 lg:grid-cols-3"
+			>
+				{#each filtered as tool, i (tool.slug)}
+					{@const Icon = categoryIcon(tool.category)}
+					<Reveal as="article" delay={Math.min(i, 5) * 60} class="flex bg-background">
+						<a
+							href="/dev-tools/{tool.slug}"
+							class={cn(
+								"group ease-fluid flex w-full flex-col px-6 py-8 transition-colors duration-200",
+								"hover:bg-paper focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+							)}
+						>
+							<div class="flex items-center justify-between">
+								<Icon class="size-5 text-muted-foreground" weight="duotone" />
+								<ArrowRight
+									class="ease-fluid size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+								/>
+							</div>
+
+							<p class="mt-6 text-caption text-muted-foreground">{tool.category}</p>
+							<h2 class="mt-1 font-display text-body font-medium text-foreground">
+								{tool.title}
+							</h2>
+							<p class="mt-2 text-body-sm text-muted-foreground">{tool.description}</p>
+
+							<p class="mt-auto flex flex-wrap gap-x-2 pt-5 font-mono text-caption text-muted-foreground">
+								{#each tool.tags as tag (tag)}
+									<span>{tag}</span>
+								{/each}
+							</p>
+						</a>
+					</Reveal>
+				{/each}
+			</div>
+
+			<p class="py-6 font-mono text-caption text-muted-foreground tabular-nums">
+				{filtered.length} of {devTools.length} tools
+			</p>
+		{/if}
+	</Container>
+</Section>

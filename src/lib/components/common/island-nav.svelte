@@ -36,6 +36,11 @@ let activeSection = $state("");
 const linkClass =
 	"inline-flex items-center whitespace-nowrap rounded-full px-3.5 py-2 text-body-sm font-medium transition-colors ease-fluid hover:text-foreground motion-reduce:transition-none";
 
+// The in-page anchors only exist on the homepage. Everywhere else they have to
+// resolve to `/#anchor` or they scroll to nothing.
+const onHome = $derived(page.url.pathname === "/");
+const resolve = (href: string) => (href.startsWith("#") && !onHome ? `/${href}` : href);
+
 function isCurrent(href: string) {
 	if (href.startsWith("#")) return activeSection === href.slice(1);
 	if (href.startsWith("http")) return false;
@@ -114,7 +119,7 @@ $effect(() => {
 			{#each links as link (link.href)}
 				<li>
 					<a
-						href={link.href}
+						href={resolve(link.href)}
 						aria-current={isCurrent(link.href) ? "page" : undefined}
 						class={cn(
 							linkClass,
@@ -140,7 +145,7 @@ $effect(() => {
 
 			<ThemeToggle />
 
-			<Button href="#products" variant="dark" size="sm" class="hidden sm:inline-flex">
+			<Button href={resolve("#products")} variant="dark" size="sm" class="hidden sm:inline-flex">
 				Browse products
 			</Button>
 
@@ -175,7 +180,7 @@ $effect(() => {
 			{#each overlayLinks as link (link.href)}
 				<li>
 					<a
-						href={link.href}
+						href={resolve(link.href)}
 						target={link.external ? "_blank" : undefined}
 						rel={link.external ? "noopener noreferrer" : undefined}
 						aria-current={isCurrent(link.href) ? "page" : undefined}
@@ -191,7 +196,7 @@ $effect(() => {
 			{/each}
 		</ul>
 
-		<Button href="#products" onclick={close} variant="dark" size="lg" class="mt-8 w-full">
+		<Button href={resolve("#products")} onclick={close} variant="dark" size="lg" class="mt-8 w-full">
 			Browse products
 		</Button>
 	</div>

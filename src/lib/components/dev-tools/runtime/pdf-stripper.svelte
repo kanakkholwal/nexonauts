@@ -168,7 +168,7 @@ const processedCount = $derived(pdfFiles.filter((file) => file.result).length);
 			{#if processDone === 100 && !error}
 				<div class="space-y-8">
 					<div class="flex flex-col items-center space-y-4 text-center">
-						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-green-500/15 text-green-600 dark:text-green-400">
+						<div class="flex h-12 w-12 items-center justify-center rounded-full bg-success/15 text-success dark:text-success">
 							<CheckCircle2 class="h-6 w-6" />
 						</div>
 						<div>
@@ -182,7 +182,7 @@ const processedCount = $derived(pdfFiles.filter((file) => file.result).length);
 					<div class="flex flex-col gap-4">
 						{#if zipState.state === 1 && zipState.result}
 							<a href={zipState.result} download="stripped-pdfs.zip" class="w-full">
-								<Button size="lg" class="h-20 w-full text-lg shadow-lg shadow-primary/20">
+								<Button size="lg" class="h-20 w-full text-lg shadow-primary/20">
 									<Package class="mr-3 h-6 w-6" />
 									<div class="flex flex-col items-start gap-1 text-left">
 										<span class="leading-none font-bold">Download All as ZIP</span>
@@ -194,13 +194,13 @@ const processedCount = $derived(pdfFiles.filter((file) => file.result).length);
 							</a>
 						{:else}
 							<Button disabled variant="secondary" class="h-20 w-full">
-								<Loader2 class="mr-2 h-4 w-4 animate-spin" />
+								<Loader2 class="mr-2 size-4 animate-spin" />
 								Preparing ZIP archive...
 							</Button>
 						{/if}
 
 						<Button variant="ghost" onclick={resetProcess} class="text-muted-foreground hover:text-foreground">
-							<RefreshCw class="mr-2 h-4 w-4" />
+							<RefreshCw class="mr-2 size-4" />
 							Process different files
 						</Button>
 					</div>
@@ -209,16 +209,16 @@ const processedCount = $derived(pdfFiles.filter((file) => file.result).length);
 						<div class="pl-1 text-xs font-semibold tracking-wider text-muted-foreground uppercase">
 							Individual Files
 						</div>
-						<ScrollArea class="h-72 w-full rounded-xl border border-border bg-muted/30">
+						<ScrollArea class="h-72 w-full rounded-xl border border-border bg-paper">
 							<div class="space-y-2 p-3">
 								{#each pdfFiles as item (item.id)}
-									<div class="group flex items-center justify-between rounded-lg border border-border/50 bg-card p-3 shadow-sm transition-colors hover:border-primary/50">
+									<div class="group flex items-center justify-between rounded-lg border border-border-low bg-card p-3 shadow-sm transition-colors hover:border-primary/50">
 										<div class="flex items-center gap-3 overflow-hidden">
 											<div class={`rounded-md p-2.5 ${item.result ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>
-												<FileText class="h-4 w-4" />
+												<FileText class="size-4" />
 											</div>
 											<div class="min-w-0">
-												<span class="block truncate text-sm font-medium text-foreground">{item.name}</span>
+												<span class="block truncate text-body-sm font-medium text-foreground">{item.name}</span>
 												{#if !item.result}
 													<span class="text-xs text-destructive">No pages stripped</span>
 												{/if}
@@ -227,7 +227,7 @@ const processedCount = $derived(pdfFiles.filter((file) => file.result).length);
 
 										{#if item.result}
 											<Button size="icon-sm" variant="ghost" href={item.result} download={item.name} title="Download single file">
-												<Download class="h-4 w-4" />
+												<Download class="size-4" />
 											</Button>
 										{/if}
 									</div>
@@ -243,7 +243,7 @@ const processedCount = $derived(pdfFiles.filter((file) => file.result).length);
 							class={`relative flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 text-center transition-all duration-300 ${
 								isDragover
 									? "border-primary bg-primary/10 ring-4 ring-primary/20"
-									: "border-muted-foreground/25 bg-muted/20 hover:border-muted-foreground/50 hover:bg-muted/40"
+									: "border-muted-foreground/25 bg-paper hover:border-muted-foreground/50 hover:bg-paper"
 							}`}
 							ondragover={(event) => {
 								event.preventDefault();
@@ -267,16 +267,16 @@ const processedCount = $derived(pdfFiles.filter((file) => file.result).length);
 							<div class="relative z-10 flex flex-col items-center gap-4">
 								<div class={`rounded-full p-4 transition-colors duration-300 ${
 									isDragover
-										? "bg-background text-primary shadow-lg"
+										? "bg-background text-primary"
 										: "border border-border bg-background text-muted-foreground shadow-sm"
 								}`}>
-									<Upload class="h-8 w-8" />
+									<Upload class="size-8" />
 								</div>
 								<div class="space-y-1">
 									<p class="text-lg font-semibold text-foreground">
 										{isDragover ? "Drop files here" : "Click or drag PDF files here"}
 									</p>
-									<p class="text-sm text-muted-foreground">Supports multiple PDF files</p>
+									<p class="text-body-sm text-muted-foreground">Supports multiple PDF files</p>
 								</div>
 								<Button variant="secondary" class="pointer-events-none mt-4">Select Files</Button>
 							</div>
@@ -284,13 +284,13 @@ const processedCount = $derived(pdfFiles.filter((file) => file.result).length);
 					{:else}
 						<div class="space-y-6 px-4 py-12">
 							<div class="space-y-2">
-								<div class="flex justify-between text-sm font-medium text-muted-foreground">
+								<div class="flex justify-between text-body-sm font-medium text-muted-foreground">
 									<span>Processing files...</span>
 									<span>{Math.round(processDone)}%</span>
 								</div>
 								<Progress value={processDone} class="h-2 w-full" />
 							</div>
-							<p class="animate-pulse text-center text-sm text-muted-foreground">
+							<p class="animate-pulse text-center text-body-sm text-muted-foreground">
 								Analyzing page labels and stripping content...
 							</p>
 						</div>

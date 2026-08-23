@@ -64,48 +64,48 @@ function handleClear() {
 >
 	<div class="space-y-6">
 		<div class="flex items-center gap-3">
-			<div class="rounded-lg border border-border/50 bg-card p-1">
+			<div class="rounded-lg border border-border-low bg-card p-1">
 				<Button size="sm" variant={mode === "encode" ? "secondary" : "ghost"} onclick={() => (mode = "encode")}>Encode</Button>
 				<Button size="sm" variant={mode === "decode" ? "secondary" : "ghost"} onclick={() => (mode = "decode")}>Decode</Button>
 			</div>
 		</div>
 
 		<div class="grid min-h-[600px] gap-6 lg:grid-cols-2">
-			<div class="flex flex-col overflow-hidden rounded-xl border border-border/50 bg-card/50 shadow-xl backdrop-blur-sm">
-				<div class="flex h-12 items-center border-b border-border/50 bg-muted/30 px-4 text-sm font-semibold text-muted-foreground">
-					<FileCode class="mr-2 h-4 w-4" />
+			<div class="flex flex-col overflow-hidden rounded-xl border border-border-low bg-card">
+				<div class="flex h-12 items-center border-b border-border-low bg-paper px-4 text-body-sm font-medium text-muted-foreground">
+					<FileCode class="mr-2 size-4" />
 					{mode === "encode" ? "Raw HTML input" : "Escaped string input"}
 				</div>
-				<Textarea bind:value={input} class="min-h-[420px] flex-1 resize-none rounded-none border-0 bg-transparent p-4 font-mono text-sm focus-visible:ring-0" spellcheck={false} placeholder={mode === "encode" ? "<div>markup</div>" : "&lt;div&gt;markup&lt;/div&gt;"} />
+				<Textarea bind:value={input} class="min-h-[420px] flex-1 resize-none rounded-none border-0 bg-transparent p-4 font-mono text-body-sm focus-visible:ring-0" spellcheck={false} placeholder={mode === "encode" ? "<div>markup</div>" : "&lt;div&gt;markup&lt;/div&gt;"} />
 			</div>
 
-			<div class="flex flex-col overflow-hidden rounded-xl border border-border/50 bg-[#1e1e1e] shadow-2xl">
-				<div class="flex h-12 items-center justify-between border-b border-white/10 bg-white/5 px-4">
-					<div class="flex items-center gap-2 text-sm font-semibold text-gray-300">
-						<ArrowRightLeft class="h-4 w-4" />
+			<div class="flex flex-col overflow-hidden rounded-xl border border-border-low bg-card">
+				<div class="flex h-12 items-center justify-between border-b border-border-low bg-paper px-4">
+					<div class="flex items-center gap-2 text-body-sm font-medium text-muted-foreground">
+						<ArrowRightLeft class="size-4" />
 						{mode === "encode" ? "Escaped output" : "Decoded HTML"}
 					</div>
 					{#if output}
-						<Button size="sm" variant="ghost" class="gap-2 text-gray-300 hover:bg-white/10 hover:text-white" onclick={handleCopy}>
+						<Button size="sm" variant="ghost" class="gap-2 text-muted-foreground hover:bg-paper hover:text-foreground" onclick={handleCopy}>
 							{#if copied}
-								<Check class="h-3 w-3 text-green-500" />
+								<Check class="size-3 text-success" />
 								Copied
 							{:else}
-								<Copy class="h-3 w-3" />
+								<Copy class="size-3" />
 								Copy
 							{/if}
 						</Button>
 					{/if}
 				</div>
 				{#if !output}
-					<div class="flex min-h-[420px] flex-1 flex-col items-center justify-center gap-4 text-gray-600">
-						<div class="rounded-full bg-white/5 p-4">
-							<RefreshCcw class="h-8 w-8 opacity-50" />
+					<div class="flex min-h-[420px] flex-1 flex-col items-center justify-center gap-4 text-muted-foreground">
+						<div class="rounded-full bg-paper p-4">
+							<RefreshCcw class="size-8 opacity-50" />
 						</div>
-						<p class="text-sm">Result will appear here</p>
+						<p class="text-body-sm">Result will appear here</p>
 					</div>
 				{:else}
-					<Textarea value={output} readonly class="min-h-[420px] flex-1 resize-none rounded-none border-0 bg-transparent p-4 font-mono text-sm text-blue-100 focus-visible:ring-0" />
+					<Textarea value={output} readonly class="min-h-[420px] flex-1 resize-none rounded-none border-0 bg-transparent p-4 font-mono text-body-sm text-foreground focus-visible:ring-0" />
 				{/if}
 			</div>
 		</div>

@@ -424,29 +424,29 @@ function removeBreadcrumb(index: number) {
 				<div class="overflow-x-auto pb-2">
 					<Tabs.List class="h-auto justify-start gap-2 bg-transparent p-0">
 						<Tabs.Trigger value="website" class="rounded-full border data-[state=inactive]:bg-background">
-							<Globe class="mr-2 h-4 w-4" />
+							<Globe class="mr-2 size-4" />
 							Website
 						</Tabs.Trigger>
 						<Tabs.Trigger value="breadcrumbs" class="rounded-full border data-[state=inactive]:bg-background">
-							<MapIcon class="mr-2 h-4 w-4" />
+							<MapIcon class="mr-2 size-4" />
 							Breadcrumbs
 						</Tabs.Trigger>
 						<Tabs.Trigger value="person" class="rounded-full border data-[state=inactive]:bg-background">
-							<User class="mr-2 h-4 w-4" />
+							<User class="mr-2 size-4" />
 							Person
 						</Tabs.Trigger>
 						<Tabs.Trigger value="article" class="rounded-full border data-[state=inactive]:bg-background">
-							<FileText class="mr-2 h-4 w-4" />
+							<FileText class="mr-2 size-4" />
 							Article
 						</Tabs.Trigger>
 						<Tabs.Trigger value="product" class="rounded-full border data-[state=inactive]:bg-background">
-							<ShoppingBag class="mr-2 h-4 w-4" />
+							<ShoppingBag class="mr-2 size-4" />
 							Product
 						</Tabs.Trigger>
 					</Tabs.List>
 				</div>
 
-				<div class="rounded-xl border border-border/50 bg-card/50 p-6 shadow-xl backdrop-blur-sm">
+				<div class="rounded-xl border border-border-low bg-card p-6">
 					<Tabs.Content value="website" class="space-y-8">
 						<div class="space-y-4">
 							<h3 class="border-b pb-2 text-lg font-semibold">Basic Identity</h3>
@@ -468,7 +468,7 @@ function removeBreadcrumb(index: number) {
 
 						<div class="space-y-4">
 							<div class="flex items-center gap-2 border-b pb-2">
-								<Search class="h-4 w-4 text-primary" />
+								<Search class="size-4 text-primary" />
 								<h3 class="text-lg font-semibold">Sitelinks Search Box</h3>
 							</div>
 							<div class="grid gap-4 md:grid-cols-2">
@@ -479,7 +479,7 @@ function removeBreadcrumb(index: number) {
 										placeholder="https://example.com/search?q="
 										bind:value={website.searchQuery}
 									/>
-									<p class="text-[10px] text-muted-foreground">
+									<p class="text-caption text-muted-foreground">
 										The URL that handles internal searches.
 									</p>
 								</div>
@@ -500,7 +500,7 @@ function removeBreadcrumb(index: number) {
 						<div class="flex items-center justify-between border-b pb-2">
 							<h3 class="text-lg font-semibold">Hierarchy Items</h3>
 							<Button size="sm" onclick={addBreadcrumb}>
-								<Plus class="mr-1 h-4 w-4" />
+								<Plus class="mr-1 size-4" />
 								Add Item
 							</Button>
 						</div>
@@ -508,7 +508,7 @@ function removeBreadcrumb(index: number) {
 						<div class="space-y-4">
 							{#each breadcrumbs as item, index (index)}
 								<div
-									class="group relative rounded-xl border border-border/60 bg-muted/20 p-4 transition-colors hover:border-primary/30"
+									class="group relative rounded-xl border border-border-low bg-paper p-4 transition-colors hover:border-primary/30"
 								>
 									<div class="mb-4 flex items-center justify-between">
 										<span class="text-xs font-bold tracking-wider text-muted-foreground uppercase">
@@ -521,7 +521,7 @@ function removeBreadcrumb(index: number) {
 												class="h-6 w-6 text-destructive hover:bg-destructive/10"
 												onclick={() => removeBreadcrumb(index)}
 											>
-												<Trash2 class="h-3 w-3" />
+												<Trash2 class="size-3" />
 											</Button>
 										{/if}
 									</div>
@@ -628,7 +628,7 @@ function removeBreadcrumb(index: number) {
 							</div>
 						</div>
 
-						<div class="flex items-center space-x-2 border-y border-border/50 py-4">
+						<div class="flex items-center space-x-2 border-y border-border-low py-4">
 							<Switch id="isAmp" bind:checked={article.isAMP} />
 							<Label for="isAmp">Enable Extended Fields (AMP / Rich Snippet)</Label>
 						</div>
@@ -806,9 +806,9 @@ function removeBreadcrumb(index: number) {
 		<div class="space-y-4 lg:col-span-5 lg:sticky lg:top-8">
 			<div class="flex items-center justify-between">
 				<h3
-					class="flex items-center gap-2 text-sm font-semibold tracking-wider text-muted-foreground uppercase"
+					class="flex items-center gap-2 text-body-sm font-semibold tracking-wider text-muted-foreground uppercase"
 				>
-					<Settings2 class="h-4 w-4" />
+					<Settings2 class="size-4" />
 					JSON-LD Preview
 				</h3>
 				<Button
@@ -818,30 +818,30 @@ function removeBreadcrumb(index: number) {
 					class="h-8 gap-2 bg-background/50 text-xs hover:bg-background"
 				>
 					{#if copied}
-						<Check class="h-3 w-3 text-green-500" />
+						<Check class="size-3 text-success" />
 						Copied
 					{:else}
-						<Copy class="h-3 w-3" />
+						<Copy class="size-3" />
 						Copy Code
 					{/if}
 				</Button>
 			</div>
 
-			<div class="relative overflow-hidden rounded-xl border border-border/50 bg-[#1e1e1e] shadow-2xl">
+			<div class="relative overflow-hidden rounded-xl border border-border-low bg-paper">
 				<div
-					class="absolute top-0 right-0 left-0 flex h-10 items-center gap-2 border-b border-white/5 bg-[#252526] px-4"
+					class="absolute top-0 right-0 left-0 flex h-10 items-center gap-2 border-b border-border-low bg-paper px-4"
 				>
-					<div class="h-3 w-3 rounded-full bg-red-500/80"></div>
-					<div class="h-3 w-3 rounded-full bg-yellow-500/80"></div>
-					<div class="h-3 w-3 rounded-full bg-green-500/80"></div>
+					<div class="size-3 rounded-full bg-destructive/10"></div>
+					<div class="size-3 rounded-full bg-yellow-500/80"></div>
+					<div class="size-3 rounded-full bg-success/15"></div>
 				</div>
 				<pre
-					class="max-h-[calc(100vh-200px)] overflow-auto pt-12 pb-4 pr-4 pl-4 font-mono text-xs leading-relaxed text-blue-100"><code
+					class="max-h-[calc(100vh-200px)] overflow-auto pt-12 pb-4 pr-4 pl-4 font-mono text-xs leading-relaxed text-foreground"><code
 						>{code}</code
 					></pre>
 			</div>
 
-			<div class="rounded-lg border border-primary/10 bg-primary/5 p-4 text-sm text-muted-foreground">
+			<div class="rounded-lg border border-primary/10 bg-primary/5 p-4 text-body-sm text-muted-foreground">
 				<p>
 					Using
 					<span class="font-semibold text-foreground">React or Next.js?</span>
