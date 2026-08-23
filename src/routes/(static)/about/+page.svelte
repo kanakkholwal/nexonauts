@@ -47,7 +47,7 @@ const values = [
 			Empowering developers,<br />
 			<span class="text-muted-ink">one innovation at a time.</span>
 		</h1>
-		<p class="mx-auto mt-6 max-w-xl text-sm text-body">
+		<p class="mx-auto mt-6 max-w-xl text-sm text-muted-foreground">
 			Building the ecosystem that fuels creativity, collaboration, and growth for the next
 			generation of builders.
 		</p>
@@ -62,7 +62,7 @@ const values = [
 			<h2 class="display-lg text-ink">
 				Built by a developer,<br />for developers.
 			</h2>
-			<div class="space-y-4 text-sm text-body">
+			<div class="space-y-4 text-sm text-muted-foreground">
 				<p>
 					Welcome to Nexonauts. This isn't a platform; it's a small studio run by one passionate
 					developer with a singular mission: to simplify the development journey for fellow
@@ -107,7 +107,7 @@ const values = [
 	<div class="mb-12 max-w-2xl">
 		<p class="eyebrow text-muted-ink">Our values</p>
 		<h2 class="display-lg mt-3 text-ink">The principles guiding Nexonauts</h2>
-		<p class="mt-4 text-sm text-body">
+		<p class="mt-4 text-sm text-muted-foreground">
 			Three things, repeated until they're a default. They show up in the products we ship and the
 			writing we publish.
 		</p>
@@ -126,7 +126,7 @@ const values = [
 				</div>
 				<div class="relative z-10">
 					<h3 class="font-display text-2xl font-medium tracking-tight text-ink">{v.title}</h3>
-					<p class="mt-3 text-sm text-body">{v.body}</p>
+					<p class="mt-3 text-sm text-muted-foreground">{v.body}</p>
 				</div>
 			</article>
 		{/each}
@@ -144,13 +144,13 @@ const values = [
 			class="relative z-10 mx-auto flex max-w-[680px] flex-col items-center px-6 py-24 text-center"
 		>
 			<span
-				class="inline-flex items-center rounded-pill border border-hairline bg-surface-card px-3 py-1 text-xs font-medium text-body shadow-[0_0_0_3px_#ffffff,0_4px_2px_rgba(140,150,169,0.25),0_8px_17px_rgba(140,150,169,0.1)]"
+				class="inline-flex items-center rounded-pill border border-hairline bg-surface-card px-3 py-1 text-xs font-medium text-muted-foreground shadow-[0_0_0_3px_#ffffff,0_4px_2px_rgba(140,150,169,0.25),0_8px_17px_rgba(140,150,169,0.1)]"
 			>
 				Open in the open
 			</span>
 
 			<h2 class="mt-6 text-2xl font-medium text-ink">Everything here has a public repository.</h2>
-			<p class="mt-6 text-sm text-body">
+			<p class="mt-6 text-sm text-muted-foreground">
 				Four apps, four packages, and the writing that came out of building them. Start with the
 				tools, or read how they work.
 			</p>

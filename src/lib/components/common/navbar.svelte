@@ -62,7 +62,7 @@ function isExternal(href: string): boolean {
 												{/if}
 											</div>
 											{#if item.description}
-												<p class="mt-1 text-xs leading-snug text-body">
+												<p class="mt-1 text-xs leading-snug text-muted-foreground">
 													{item.description}
 												</p>
 											{/if}
@@ -79,7 +79,7 @@ function isExternal(href: string): boolean {
 		<div class="flex items-center gap-3">
 			<a
 				href="/learn"
-				class="hidden text-sm font-medium tracking-[0.01em] text-body transition-colors hover:text-ink md:inline"
+				class="hidden text-sm font-medium tracking-[0.01em] text-muted-foreground transition-colors hover:text-ink md:inline"
 			>
 				Learn
 			</a>

@@ -95,7 +95,7 @@ const contactBlocks = [
 					Let's start a<br />
 					<span class="text-muted-ink">conversation.</span>
 				</h1>
-				<p class="max-w-md text-sm text-body">
+				<p class="max-w-md text-sm text-muted-foreground">
 					Whether you have a question about features, pricing, or just want to say hello, our team
 					is ready to answer.
 				</p>
@@ -112,7 +112,7 @@ const contactBlocks = [
 						</div>
 						<div>
 							<p class="text-sm font-medium text-ink">{block.label}</p>
-							<p class="text-sm text-body">{block.value}</p>
+							<p class="text-sm text-muted-foreground">{block.value}</p>
 						</div>
 					</div>
 				{/each}
@@ -158,7 +158,7 @@ const contactBlocks = [
 					</div>
 					<div class="space-y-1">
 						<h3 class="font-display text-2xl font-medium text-ink">Message sent</h3>
-						<p class="text-sm text-body">We'll get back to you as soon as possible.</p>
+						<p class="text-sm text-muted-foreground">We'll get back to you as soon as possible.</p>
 					</div>
 				</div>
 			{:else}
@@ -268,7 +268,7 @@ const contactBlocks = [
 										"cursor-pointer rounded-pill border px-3.5 py-2 text-center text-xs font-medium uppercase tracking-[0.06em] transition-all",
 										category === item
 											? "border-transparent bg-primary text-primary-foreground"
-											: "border-hairline-strong bg-canvas text-body hover:bg-surface-strong hover:text-ink"
+											: "border-hairline-strong bg-canvas text-muted-foreground hover:bg-surface-strong hover:text-ink"
 									)}
 								>
 									{item}

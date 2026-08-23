@@ -67,20 +67,20 @@ export function enterOnView(node: HTMLElement, options: EnterOptions = {}) {
 export const EASE_FLUID = [0.32, 0.72, 0, 1] as const;
 
 type RevealOptions = {
-	/** Vertical offset in px at rest. Default 64. */
+	/** Vertical offset in px at rest. Default 16. */
 	y?: number;
-	/** Duration in seconds. Default 0.8. */
+	/** Duration in seconds. Default 0.4. */
 	duration?: number;
 	/** Delay in seconds. Default 0. */
 	delay?: number;
 };
 
 /**
- * Heavy fade-up used for every landing-page section reveal.
- * Drives blur, translate and opacity off IntersectionObserver — never a scroll listener.
+ * Fade-up used for every landing-page section reveal. Translate and opacity
+ * only, driven off IntersectionObserver — never a scroll listener, never blur.
  */
 export function revealOnView(node: HTMLElement, options: RevealOptions = {}) {
-	const { y = 64, duration = 0.8, delay = 0 } = options;
+	const { y = 16, duration = 0.4, delay = 0 } = options;
 
 	const reduced =
 		typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -88,20 +88,17 @@ export function revealOnView(node: HTMLElement, options: RevealOptions = {}) {
 	node.style.opacity = "0";
 	if (!reduced) {
 		node.style.transform = `translateY(${y}px)`;
-		node.style.filter = "blur(12px)";
-		node.style.willChange = "opacity, transform, filter";
+		node.style.willChange = "opacity, transform";
 	}
 
 	const stop = inView(
 		node,
 		() => {
-			animate(
-				node,
-				reduced
-					? { opacity: 1 }
-					: { opacity: 1, transform: "translateY(0px)", filter: "blur(0px)" },
-				{ duration: reduced ? 0.2 : duration, delay, ease: [...EASE_FLUID] }
-			);
+			animate(node, reduced ? { opacity: 1 } : { opacity: 1, transform: "translateY(0px)" }, {
+				duration: reduced ? 0.2 : duration,
+				delay,
+				ease: [...EASE_FLUID]
+			});
 			setTimeout(
 				() => {
 					node.style.willChange = "auto";

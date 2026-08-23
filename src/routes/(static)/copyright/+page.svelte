@@ -29,7 +29,7 @@ const siteName = appConfig.name;
 			Intellectual property
 		</Badge>
 		<h1 class="display-xl text-ink">Copyright Disclaimer</h1>
-		<p class="mx-auto max-w-2xl text-sm text-body">
+		<p class="mx-auto max-w-2xl text-sm text-muted-foreground">
 			Respecting rights, acknowledging sources, and maintaining compliance.
 		</p>
 	</div>
@@ -45,7 +45,7 @@ const siteName = appConfig.name;
 					<h3 class="font-display text-2xl font-medium tracking-tight text-ink">
 						Statement of intent
 					</h3>
-					<p class="text-sm text-body">
+					<p class="text-sm text-muted-foreground">
 						At <span class="font-medium text-ink">{siteName}</span>, we value intellectual
 						property rights and strive to uphold copyright laws. Content used on this platform —
 						images, graphics, and text — is sourced from various free resources such as Freepik,
@@ -69,7 +69,7 @@ const siteName = appConfig.name;
 					<h4 class="font-display text-2xl font-medium tracking-tight text-ink">
 						Fair use statement
 					</h4>
-					<p class="mt-3 text-sm text-body">
+					<p class="mt-3 text-sm text-muted-foreground">
 						Our platform operates under the principles of fair use. We utilize copyrighted
 						material for educational, informational, or illustrative purposes only, always
 						attributing the content to its original creators or sources where applicable.
@@ -89,7 +89,7 @@ const siteName = appConfig.name;
 					<h4 class="font-display text-2xl font-medium tracking-tight text-ink">
 						Acknowledgment of ownership
 					</h4>
-					<p class="mt-3 text-sm text-body">
+					<p class="mt-3 text-sm text-muted-foreground">
 						All copyrighted material used on {siteName} is acknowledged to its respective owners.
 						We do not claim ownership or rights over any copyrighted material that isn't developed
 						or created by our team.
@@ -111,7 +111,7 @@ const siteName = appConfig.name;
 						DMCA compliance
 					</h4>
 				</div>
-				<p class="text-sm text-body">
+				<p class="text-sm text-muted-foreground">
 					{siteName} complies with the Digital Millennium Copyright Act (DMCA). If you believe that
 					your copyrighted work has been used on our platform in a manner that constitutes
 					copyright infringement, please contact us immediately.
@@ -120,7 +120,7 @@ const siteName = appConfig.name;
 			<div
 				class="flex flex-col items-start justify-between gap-3 px-7 py-5 sm:flex-row sm:items-center"
 			>
-				<p class="text-sm text-body">Have a copyright concern or takedown request?</p>
+				<p class="text-sm text-muted-foreground">Have a copyright concern or takedown request?</p>
 				<Button href="/contact" size="md">
 					<Mail class="size-4" />
 					Contact us

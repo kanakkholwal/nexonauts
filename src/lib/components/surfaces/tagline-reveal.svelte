@@ -17,7 +17,7 @@ let offsets = $derived(
 <p
 	use:wordReveal
 	class={cn(
-		"mx-auto max-w-[680px] text-center text-2xl font-medium",
+		"mx-auto max-w-[680px] text-center font-display text-heading-lg font-bold tracking-[-0.01em]",
 		className
 	)}
 >

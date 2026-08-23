@@ -32,7 +32,7 @@ export const cardVariants = tv({
 			orb: "bg-canvas-soft rounded-3xl border border-hairline-soft",
 			feature:
 				"bg-card rounded-xl border border-hairline hover:shadow-(--shadow-soft-drop) hover:border-hairline-strong",
-			testimonial: "bg-card rounded-xl border border-hairline p-8 text-body",
+			testimonial: "bg-card rounded-xl border border-hairline p-8 text-muted-foreground",
 			dark: "bg-surface-dark text-on-dark rounded-xl border border-white/8",
 			"dark-elevated": "bg-surface-dark-elevated text-on-dark rounded-xl border border-white/8",
 			glass: "bg-card/70 backdrop-blur-md rounded-xl border border-hairline",

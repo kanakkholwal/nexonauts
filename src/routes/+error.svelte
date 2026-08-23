@@ -51,7 +51,7 @@ const routes = [
 		{title}
 	</h1>
 
-	<p class="mt-6 max-w-[680px] text-center text-sm text-body">{body}</p>
+	<p class="mt-6 max-w-[680px] text-center text-sm text-muted-foreground">{body}</p>
 
 	<div class="mt-8">
 		<Button href="/" size="cta">
@@ -65,7 +65,7 @@ const routes = [
 			<li>
 				<a
 					href={route.href}
-					class="inline-flex rounded-md border border-hairline px-3 py-2 text-13 text-body transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-hairline-strong hover:text-ink active:translate-y-px focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+					class="inline-flex rounded-md border border-hairline px-3 py-2 text-13 text-muted-foreground transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-hairline-strong hover:text-ink active:translate-y-px focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
 				>
 					{route.label}
 				</a>
@@ -76,7 +76,7 @@ const routes = [
 				href={appConfig.githubRepo}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="inline-flex items-center gap-2 rounded-md border border-hairline px-3 py-2 text-13 text-body transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-hairline-strong hover:text-ink active:translate-y-px focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+				class="inline-flex items-center gap-2 rounded-md border border-hairline px-3 py-2 text-13 text-muted-foreground transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:border-hairline-strong hover:text-ink active:translate-y-px focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
 			>
 				Report it
 				<ArrowUpRight class="size-3.5" />

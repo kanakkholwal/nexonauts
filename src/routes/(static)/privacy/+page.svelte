@@ -48,7 +48,7 @@ const sections = [
 					{#each sections as section (section.id)}
 						<a
 							href={`#${section.id}`}
-							class="-ml-px block border-l-2 border-transparent py-2 pl-4 text-sm text-body transition-all hover:border-ink hover:text-ink"
+							class="-ml-px block border-l-2 border-transparent py-2 pl-4 text-sm text-muted-foreground transition-all hover:border-ink hover:text-ink"
 						>
 							{section.title}
 						</a>
@@ -62,11 +62,11 @@ const sections = [
 				class="prose prose-zinc dark:prose-invert max-w-none
 					prose-headings:font-display prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-ink prose-headings:scroll-mt-28
 					prose-h2:text-2xl prose-h3:text-2xl
-					prose-p:text-body prose-p:
+					prose-p:text-muted-foreground prose-p:
 					prose-a:text-ink prose-a:underline-offset-4 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
 					prose-strong:text-ink"
 			>
-				<p class="lead text-sm text-body">
+				<p class="lead text-sm text-muted-foreground">
 					At <span class="font-medium text-ink">{SITE}</span>, we take your privacy seriously. This
 					policy explains what we collect, how we use it, and how we protect it.
 				</p>
@@ -181,7 +181,7 @@ const sections = [
 							<h3 class="font-display text-2xl font-medium tracking-tight text-ink">
 								Still have questions?
 							</h3>
-							<p class="mt-2 text-sm text-body">
+							<p class="mt-2 text-sm text-muted-foreground">
 								If you have any questions or concerns about our privacy policy, please don't
 								hesitate to reach out.
 							</p>

@@ -27,7 +27,7 @@ function guideHref(slugs: string[]): string {
 	<div class="relative z-10 mb-16">
 		<p class="eyebrow text-muted-ink">Guides</p>
 		<h1 class="display-xl mt-3 text-ink">Longer-form walkthroughs</h1>
-		<p class="mt-4 max-w-xl text-sm text-body">
+		<p class="mt-4 max-w-xl text-sm text-muted-foreground">
 			Code on one side, why-it-works on the other.
 		</p>
 	</div>
@@ -43,9 +43,9 @@ function guideHref(slugs: string[]): string {
 						class="group flex items-center justify-between gap-6 py-6 transition-colors"
 					>
 						<div>
-							<h2 class="font-display text-2xl font-medium tracking-tight text-ink transition-colors group-hover:text-body-strong">{page.title}</h2>
+							<h2 class="font-display text-2xl font-medium tracking-tight text-ink transition-colors group-hover:text-foreground">{page.title}</h2>
 							{#if page.description}
-								<p class="mt-2 text-sm text-body">{page.description}</p>
+								<p class="mt-2 text-sm text-muted-foreground">{page.description}</p>
 							{/if}
 							{#if page.tags.length > 0}
 								<div class="mt-3 flex flex-wrap gap-1.5">

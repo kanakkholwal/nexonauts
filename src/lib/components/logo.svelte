@@ -10,7 +10,7 @@ let { class: className, ...rest }: Props = $props();
 	id="Layer_1"
 	xmlns="http://www.w3.org/2000/svg"
 	viewBox="0 0 1080 1080"
-	style="fill: var(--primary, currentColor);"
+	style="fill: currentColor;"
 	class={cn(className)}
 	{...rest}
 >

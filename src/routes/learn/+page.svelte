@@ -21,7 +21,7 @@ let { data } = $props();
 	<div class="relative z-10 mb-16">
 		<p class="eyebrow text-muted-ink">Learn</p>
 		<h1 class="display-xl mt-3 text-ink">Learn by example</h1>
-		<p class="mt-4 max-w-xl text-sm text-body">
+		<p class="mt-4 max-w-xl text-sm text-muted-foreground">
 			Short, self-contained programs. One idea per page. Explanation on the left, code on the right,
 			output at the bottom.
 		</p>
@@ -39,12 +39,12 @@ let { data } = $props();
 					>
 						<div>
 							<div class="flex items-baseline gap-3">
-								<h2 class="font-display text-2xl font-medium tracking-tight text-ink group-hover:text-body-strong">{lang.name}</h2>
+								<h2 class="font-display text-2xl font-medium tracking-tight text-ink group-hover:text-foreground">{lang.name}</h2>
 								<span class="text-xs text-muted-ink"
 									>{lang.topicCount} {lang.topicCount === 1 ? "topic" : "topics"}</span
 								>
 							</div>
-							<p class="mt-2 text-sm text-body">{lang.tagline}</p>
+							<p class="mt-2 text-sm text-muted-foreground">{lang.tagline}</p>
 						</div>
 						<ArrowRight
 							class="size-4 shrink-0 text-muted-ink transition-all group-hover:text-ink group-hover:translate-x-1"

@@ -1,10 +1,13 @@
 <script lang="ts">
-import ArrowRight from "phosphor-svelte/lib/ArrowRight";
 import ArrowUpRight from "phosphor-svelte/lib/ArrowUpRight";
+import GithubLogo from "phosphor-svelte/lib/GithubLogo";
+import List from "phosphor-svelte/lib/List";
+import X from "phosphor-svelte/lib/X";
 import { appConfig } from "@/project.config";
 import { page } from "$app/state";
+import ThemeToggle from "$lib/components/common/theme-toggle.svelte";
 import Logo from "$lib/components/logo.svelte";
-import { buttonVariants } from "$lib/components/ui/button";
+import { Button } from "$lib/components/ui/button";
 import { cn } from "$lib/utils";
 
 type Link = { title: string; href: string; external?: boolean };
@@ -25,10 +28,13 @@ const overlayLinks: Link[] = [
 ];
 
 let open = $state(false);
+let scrolled = $state(false);
 let activeSection = $state("");
 
-// Stagger caps at the 8th item so a long list never lags behind the overlay.
-const stagger = (i: number) => `${100 + Math.min(i, 7) * 50}ms`;
+// The bar is transparent over the hero and only grows an edge once the page has
+// moved, so it reads as part of the hero rather than a lid sitting on top of it.
+const linkClass =
+	"inline-flex items-center whitespace-nowrap rounded-full px-3.5 py-2 text-body-sm font-medium transition-colors ease-fluid hover:text-foreground motion-reduce:transition-none";
 
 function isCurrent(href: string) {
 	if (href.startsWith("#")) return activeSection === href.slice(1);
@@ -74,42 +80,45 @@ $effect(() => {
 </script>
 
 <svelte:window
+	onscroll={() => (scrolled = window.scrollY > 8)}
 	onkeydown={(e) => {
 		if (e.key === "Escape" && open) close();
 	}}
 />
 
-<header class="pointer-events-none fixed inset-x-0 top-0 z-50">
+<div
+	class={cn(
+		"ease-fluid fixed inset-x-0 top-0 z-50 border-b transition-colors duration-200 motion-reduce:transition-none",
+		scrolled ? "border-border-low bg-background/85 backdrop-blur" : "border-transparent"
+	)}
+>
 	<nav
 		aria-label="Primary"
-		class={cn(
-			"pointer-events-auto mx-auto mt-6 flex w-max items-center gap-2 rounded-md",
-			"border border-hairline bg-canvas/70 px-3 py-2 backdrop-blur-xl",
-			"shadow-(--shadow-elevation-2) transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]",
-			open && "border-transparent bg-transparent shadow-none backdrop-blur-none"
-		)}
+		class="mx-auto flex h-16 w-full max-w-6xl items-center gap-2 px-6 sm:px-8 lg:px-10"
 	>
 		<a
 			href="/"
 			onclick={close}
-			class="flex items-center gap-2 rounded-md px-3 py-2 text-ink transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-surface-strong focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none"
+			class="flex shrink-0 items-center gap-2.5 rounded-lg py-1 pr-2"
+			aria-label="{appConfig.name} home"
 		>
-			<Logo class="size-5" />
-			<span class="text-sm font-medium">{appConfig.name}</span>
+			<span class="grid size-7 place-items-center rounded-lg bg-foreground p-1 text-background">
+				<Logo class="size-full" />
+			</span>
+			<span class="font-display text-lg font-semibold whitespace-nowrap text-foreground">
+				{appConfig.name}
+			</span>
 		</a>
 
-		<ul class="hidden items-center gap-1 md:flex">
+		<ul class="hidden flex-1 items-center justify-center gap-1 md:flex">
 			{#each links as link (link.href)}
 				<li>
 					<a
 						href={link.href}
 						aria-current={isCurrent(link.href) ? "page" : undefined}
 						class={cn(
-							"rounded-md px-3 py-2 text-13 font-medium text-body",
-							"transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]",
-							"hover:bg-surface-strong hover:text-ink active:translate-y-px",
-							"focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none",
-							"aria-[current=page]:bg-surface-strong aria-[current=page]:text-ink"
+							linkClass,
+							isCurrent(link.href) ? "text-foreground" : "text-muted-foreground"
 						)}
 					>
 						{link.title}
@@ -118,85 +127,72 @@ $effect(() => {
 			{/each}
 		</ul>
 
-		<a href="#products" class={cn(buttonVariants({ size: "cta-sm" }), "hidden sm:inline-flex")}>
-			Browse products
-			<ArrowRight class="size-3.5" weight="bold" />
-		</a>
+		<div class="ml-auto flex shrink-0 items-center gap-1 md:ml-0">
+			<a
+				href={appConfig.socials.github}
+				target="_blank"
+				rel="noopener noreferrer"
+				aria-label="{appConfig.name} on GitHub"
+				class="ease-fluid hidden size-9 place-items-center rounded-lg text-muted-foreground transition-colors hover:text-foreground motion-reduce:transition-none md:grid"
+			>
+				<GithubLogo class="size-4" />
+			</a>
 
-		<button
-			type="button"
-			onclick={() => (open = !open)}
-			aria-expanded={open}
-			aria-label={open ? "Close menu" : "Open menu"}
-			class="relative size-10 shrink-0 rounded-md text-ink transition-all duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:bg-surface-strong active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none md:hidden"
-		>
-			<span
-				class={cn(
-					"absolute top-1/2 left-1/2 block h-0.5 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-current",
-					"transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]",
-					open ? "mt-0 rotate-45" : "-mt-1"
-				)}
-			></span>
-			<span
-				class={cn(
-					"absolute top-1/2 left-1/2 block h-0.5 w-4 -translate-x-1/2 -translate-y-1/2 rounded-full bg-current",
-					"transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]",
-					open ? "mt-0 -rotate-45" : "mt-1"
-				)}
-			></span>
-		</button>
+			<ThemeToggle />
+
+			<Button href="#products" variant="dark" size="sm" class="hidden sm:inline-flex">
+				Browse products
+			</Button>
+
+			<button
+				type="button"
+				onclick={() => (open = !open)}
+				aria-expanded={open}
+				aria-label={open ? "Close menu" : "Open menu"}
+				class="ease-fluid grid size-9 place-items-center rounded-lg text-foreground transition-colors hover:bg-paper motion-reduce:transition-none md:hidden"
+			>
+				{#if open}
+					<X class="size-5" />
+				{:else}
+					<List class="size-5" />
+				{/if}
+			</button>
+		</div>
 	</nav>
-</header>
+</div>
 
-<!-- Screen-filling overlay. Heavy glass, staggered mask reveal per item. -->
+<!-- Mobile sheet. Hairline-divided rows, the same vocabulary as the FAQ list. -->
 <div
 	inert={!open}
 	class={cn(
-		"fixed inset-0 z-40 backdrop-blur-3xl",
-		"bg-canvas/80",
-		"transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)] md:hidden",
+		"ease-fluid fixed inset-0 z-40 bg-background transition-opacity duration-200 md:hidden",
+		"motion-reduce:transition-none",
 		open ? "visible opacity-100" : "invisible opacity-0"
 	)}
 >
-	<div class="flex h-full flex-col justify-center px-8 pt-24 pb-16">
-		<ul class="flex flex-col gap-2">
-			{#each overlayLinks as link, i (link.href)}
-				<li class="overflow-hidden">
+	<div class="flex h-full flex-col px-6 pt-24 pb-10">
+		<ul class="divide-y divide-border-low border-y border-border-low">
+			{#each overlayLinks as link (link.href)}
+				<li>
 					<a
 						href={link.href}
 						target={link.external ? "_blank" : undefined}
 						rel={link.external ? "noopener noreferrer" : undefined}
 						aria-current={isCurrent(link.href) ? "page" : undefined}
 						onclick={close}
-						style="transition-delay: {open ? stagger(i) : '0ms'}"
-						class={cn(
-							"flex items-center gap-2 py-2 text-2xl font-medium text-ink",
-							"transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]",
-							"aria-[current=page]:text-muted-ink",
-							open ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
-						)}
+						class="ease-fluid flex items-center justify-between gap-4 py-4 text-body font-medium text-muted-foreground transition-colors hover:text-foreground aria-[current=page]:text-foreground motion-reduce:transition-none"
 					>
 						{link.title}
 						{#if link.external}
-							<ArrowUpRight class="size-3.5 text-muted-ink" />
+							<ArrowUpRight class="size-4 shrink-0" />
 						{/if}
 					</a>
 				</li>
 			{/each}
 		</ul>
 
-		<a
-			href="#products"
-			onclick={close}
-			style="transition-delay: {open ? stagger(overlayLinks.length) : '0ms'}"
-			class={cn(
-				buttonVariants({ size: "cta" }),
-				"mt-12 w-full transition-all duration-700 ease-[cubic-bezier(0.32,0.72,0,1)]",
-				open ? "translate-y-0 opacity-100" : "translate-y-12 opacity-0"
-			)}
-		>
+		<Button href="#products" onclick={close} variant="dark" size="lg" class="mt-8 w-full">
 			Browse products
-			<ArrowRight class="size-3.5" weight="bold" />
-		</a>
+		</Button>
 	</div>
 </div>

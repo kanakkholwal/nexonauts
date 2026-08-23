@@ -24,8 +24,6 @@ const filteredTools = $derived(
 );
 
 // Rotating soft tints for category chips and tool tags
-const hues = ["soft-mint", "soft-peach", "soft-lavender", "soft-sky", "soft-rose"] as const;
-const orbHues = ["mint", "peach", "lavender", "sky", "rose"] as const;
 </script>
 
 <svelte:head>
@@ -41,7 +39,7 @@ const orbHues = ["mint", "peach", "lavender", "sky", "rose"] as const;
 	<div class="relative z-10 mx-auto max-w-3xl space-y-5 text-center">
 		<Badge variant="default" size="md">Browser-first dev utilities</Badge>
 		<h1 class="display-xl text-ink">Developer Tools</h1>
-		<p class="mx-auto max-w-2xl text-sm text-body">
+		<p class="mx-auto max-w-2xl text-sm text-muted-foreground">
 			A curated set of fast, private, browser-based tools to streamline your day.
 		</p>
 	</div>
@@ -68,7 +66,7 @@ const orbHues = ["mint", "peach", "lavender", "sky", "rose"] as const;
 						"rounded-pill border px-3.5 py-1 text-xs font-medium uppercase tracking-[0.06em] transition-all",
 						activeCategory === category
 							? "bg-primary text-primary-foreground border-transparent"
-							: "border-hairline-strong bg-canvas text-body hover:text-ink hover:bg-surface-strong"
+							: "border-hairline-strong bg-canvas text-muted-foreground hover:text-ink hover:bg-surface-strong"
 					)}
 				>
 					{category}
@@ -85,21 +83,19 @@ const orbHues = ["mint", "peach", "lavender", "sky", "rose"] as const;
 	{:else}
 		<div class="relative z-10 mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
 			{#each filteredTools as tool, i (tool.slug)}
-				{@const hue = hues[i % hues.length]}
-				{@const orbHue = orbHues[i % orbHues.length]}
 				<a
 					href={`/dev-tools/${tool.slug}`}
-					class="group relative isolate flex flex-col gap-4 overflow-hidden rounded-2xl border border-hairline bg-card p-6 transition-all hover:border-hairline-strong hover:shadow-(--shadow-soft-drop)"
+					class="surface group relative isolate flex flex-col gap-4 overflow-hidden p-6 transition-colors duration-200 ease-fluid hover:border-border-strong"
 				>
 					<div class="relative z-10 flex items-center justify-between">
 						<div class="flex size-11 items-center justify-center rounded-xl bg-surface-strong">
 							<Terminal class="size-5 text-ink" />
 						</div>
-						<Badge variant={hue} size="sm">{tool.category}</Badge>
+						<Badge variant="secondary" size="sm">{tool.category}</Badge>
 					</div>
 					<div class="relative z-10 space-y-2">
 						<h3 class="text-sm font-medium tracking-tight text-ink">{tool.title}</h3>
-						<p class="text-sm text-body">{tool.description}</p>
+						<p class="text-sm text-muted-foreground">{tool.description}</p>
 					</div>
 				</a>
 			{/each}

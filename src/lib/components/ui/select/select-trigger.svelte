@@ -22,7 +22,7 @@ let {
 		"flex w-fit items-center justify-between whitespace-nowrap gap-2 rounded-md border border-hairline-strong bg-card py-2 pr-2 pl-3.5 text-sm",
 		"font-sans tracking-[0.01em] text-foreground data-placeholder:text-muted-soft",
 		"transition-[border-color,box-shadow] duration-150 outline-none select-none",
-		"focus-visible:border-ink focus-visible:shadow-[inset_0_0_0_1px_var(--ink)]",
+		"focus-visible:border-primary focus-visible:shadow-[inset_0_0_0_1px_var(--primary)]",
 		"aria-invalid:border-destructive aria-invalid:focus-visible:shadow-[inset_0_0_0_1px_var(--destructive)]",
 		"disabled:cursor-not-allowed disabled:opacity-60",
 		"data-[size=default]:h-10 data-[size=sm]:h-8 data-[size=sm]:rounded-md",

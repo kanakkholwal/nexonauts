@@ -33,7 +33,7 @@ const base = [
 	"bg-card text-foreground placeholder:text-muted-soft",
 	"border border-hairline-strong rounded-md",
 	"transition-[border-color,box-shadow] duration-150",
-	"focus-visible:border-ink focus-visible:shadow-[inset_0_0_0_1px_var(--ink)]",
+	"focus-visible:border-primary focus-visible:shadow-[inset_0_0_0_1px_var(--primary)]",
 	"aria-invalid:border-destructive aria-invalid:focus-visible:shadow-[inset_0_0_0_1px_var(--destructive)]",
 	"disabled:bg-surface-strong disabled:text-muted-soft disabled:cursor-not-allowed disabled:opacity-70",
 	"file:inline-flex file:h-7 file:items-center file:rounded-pill file:border-0",

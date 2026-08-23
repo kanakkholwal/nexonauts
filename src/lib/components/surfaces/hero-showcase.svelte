@@ -47,20 +47,20 @@ $effect(() => {
 
 {#snippet browserFrame(url: string, rows: number)}
 	<div
-		class="flex h-full w-full flex-col overflow-hidden rounded-xl border border-hairline bg-surface-card shadow-[0_18px_36px_rgba(140,150,169,0.14)]"
+		class="flex h-full w-full flex-col overflow-hidden rounded-xl border border-border-low bg-card shadow-frame"
 	>
-		<div class="flex shrink-0 items-center gap-2 border-b border-hairline px-3 py-2">
-			<span class="size-2 rounded-full bg-hairline-strong"></span>
-			<span class="size-2 rounded-full bg-hairline-strong"></span>
-			<span class="size-2 rounded-full bg-hairline-strong"></span>
-			<span class="ml-2 truncate rounded-xs bg-canvas px-2 py-1 font-mono text-xs text-muted-ink">
+		<div class="flex shrink-0 items-center gap-2 border-b border-border-low px-3 py-2">
+			<span class="size-2 rounded-full bg-border-strong"></span>
+			<span class="size-2 rounded-full bg-border-strong"></span>
+			<span class="size-2 rounded-full bg-border-strong"></span>
+			<span class="ml-2 truncate rounded-sm bg-background px-2 py-1 font-mono text-caption text-muted-foreground">
 				{url}
 			</span>
 		</div>
 		<div class="flex flex-1 flex-col gap-2 p-4">
 			{#each Array(rows) as _, r (r)}
 				<span
-					class="block h-2 rounded-full bg-hairline"
+					class="block h-2 rounded-full bg-border-low"
 					style="width: {[92, 74, 58, 84, 46, 68][r % 6]}%"
 				></span>
 			{/each}
@@ -117,12 +117,12 @@ $effect(() => {
 			style="animation-delay: {CARD_DELAY_BASE}ms"
 		>
 			<div
-				class="flex items-center gap-2 rounded-pill border border-hairline bg-surface-card py-2 pr-3 pl-2 shadow-[0_0_0_2px_#ffffff,0_15px_28px_rgba(0,0,0,0.10)]"
+				class="flex items-center gap-2 rounded-pill border border-border-low bg-card py-2 pr-3 pl-2 shadow-frame"
 			>
-				<span class="rounded-pill bg-canvas px-2 py-1 font-mono text-xs text-muted-ink">
+				<span class="rounded-pill bg-background px-2 py-1 font-mono text-caption text-muted-foreground">
 					localhost
 				</span>
-				<span class="text-13 font-medium whitespace-nowrap text-ink">No upload step</span>
+				<span class="text-body-sm font-medium whitespace-nowrap text-foreground">No upload step</span>
 			</div>
 		</div>
 
@@ -134,15 +134,15 @@ $effect(() => {
 			style="animation-delay: {CARD_DELAY_BASE + CARD_STAGGER}ms"
 		>
 			<div
-				class="flex items-start gap-1 rounded-pill bg-surface-card p-1 shadow-[0_0_0_2px_#ffffff,0_15px_28px_rgba(0,0,0,0.10)]"
+				class="flex items-start gap-1 rounded-pill bg-card p-1 shadow-frame"
 			>
 				{#each [{ label: "Orbit", active: true }, { label: "Recast", active: false }, { label: "Glyphtex", active: false }] as chip (chip.label)}
 					<span
 						class={cn(
-							"inline-flex items-center rounded-pill px-3 py-2 text-xs font-medium whitespace-nowrap",
+							"inline-flex items-center rounded-pill px-3 py-2 text-caption font-medium whitespace-nowrap",
 							chip.active
 								? "bg-primary text-primary-foreground"
-								: "border border-hairline bg-surface-card text-ink"
+								: "border border-border-low bg-card text-foreground"
 						)}
 					>
 						{chip.label}
@@ -159,12 +159,12 @@ $effect(() => {
 			style="animation-delay: {CARD_DELAY_BASE + CARD_STAGGER * 2}ms"
 		>
 			<div
-				class="flex w-[216px] items-start justify-between rounded-xl border border-hairline bg-surface-card p-3 shadow-[0_0_0_2px_#ffffff,0_8px_32px_rgba(0,0,0,0.10)]"
+				class="flex w-[216px] items-start justify-between rounded-xl border border-border-low bg-card p-3 shadow-frame"
 			>
 				{#each [{ value: "4", label: "Apps" }, { value: "4", label: "Packages" }, { value: "0", label: "Uploads" }] as stat (stat.label)}
 					<div class="flex flex-col items-center gap-1">
-						<span class="text-sm font-medium text-ink">{stat.value}</span>
-						<span class="text-xs text-body">{stat.label}</span>
+						<span class="text-body-sm font-medium text-foreground">{stat.value}</span>
+						<span class="text-caption text-muted-foreground">{stat.label}</span>
 					</div>
 				{/each}
 			</div>

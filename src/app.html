@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" %sveltekit.theme%>
+<html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="%sveltekit.assets%/logo-square.svg" />
@@ -9,11 +9,32 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="google-adsense-account" content="ca-pub-2219281381026289" />
 		<link rel="manifest" href="%sveltekit.assets%/manifest.webmanifest" />
-		<meta name="theme-color" content="#f5f5f5" />
-		<meta name="color-scheme" content="light" />
+		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0a" />
+		<link
+			rel="preload"
+			as="font"
+			type="font/woff2"
+			href="%sveltekit.assets%/fonts/Satoshi-Bold.woff2"
+			crossorigin
+		/>
+		<script>
+			// Stamp the theme before first paint so the page never flashes the wrong mode.
+			(function () {
+				try {
+					var saved = localStorage.getItem("nx-theme");
+					var dark = saved
+						? saved === "dark"
+						: window.matchMedia("(prefers-color-scheme: dark)").matches;
+					document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+				} catch (e) {
+					document.documentElement.setAttribute("data-theme", "light");
+				}
+			})();
+		</script>
 		%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover" class="min-h-screen antialiased relative">
+	<body data-sveltekit-preload-data="hover" class="relative min-h-screen antialiased">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>

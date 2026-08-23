@@ -14,17 +14,17 @@ function isExternal(href: string): boolean {
 <!--
   Footer per DESIGN.md §6 `footer`. Canvas background, body text,
   brand block on the left + 5-column link list. Generous 64×48 padding,
-  hairline above the bottom row.
+  hairline above the bottom row (see DESIGN.md).
 -->
-<footer class="bg-canvas border-t border-hairline-soft">
+<footer class="bg-background border-t border-border-low">
 	<div class="mx-auto max-w-(--max-app-width) px-6 py-16 sm:px-8 sm:py-20">
 		<div class="grid gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,2.4fr)]">
 			<div class="max-w-md">
-				<a href="/" class="inline-flex items-center gap-2 text-ink">
+				<a href="/" class="inline-flex items-center gap-2 text-foreground">
 					<Logo class="size-5" />
-					<span class="font-sans text-sm font-medium">{appConfig.name}</span>
+					<span class="font-sans text-body-sm font-medium">{appConfig.name}</span>
 				</a>
-				<p class="mt-4 text-13 text-body">
+				<p class="mt-4 text-body-sm text-muted-foreground">
 					An umbrella for developer tools that do their work on your machine, plus the writing
 					that came out of building them.
 				</p>
@@ -34,7 +34,7 @@ function isExternal(href: string): boolean {
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="X / Twitter"
-						class="text-muted-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-ink"
+						class="text-muted-foreground transition-colors duration-200 ease-fluid hover:text-foreground"
 					>
 						<svg viewBox="0 0 24 24" fill="currentColor" class="size-3.5">
 							<path
@@ -47,7 +47,7 @@ function isExternal(href: string): boolean {
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label="GitHub"
-						class="text-muted-ink transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-ink"
+						class="text-muted-foreground transition-colors duration-200 ease-fluid hover:text-foreground"
 					>
 						<svg viewBox="0 0 24 24" fill="currentColor" class="size-3.5">
 							<path
@@ -61,7 +61,7 @@ function isExternal(href: string): boolean {
 			<div class="grid grid-cols-2 gap-10 sm:grid-cols-3">
 				{#each FOOTER_LINKS as group (group.title)}
 					<div>
-						<h5 class="eyebrow mb-4 text-muted-ink">{group.title}</h5>
+						<h5 class="eyebrow mb-4 text-muted-foreground">{group.title}</h5>
 						<ul class="space-y-2">
 							{#each group.links as link (link.href)}
 								<li>
@@ -69,7 +69,7 @@ function isExternal(href: string): boolean {
 										href={link.href}
 										target={isExternal(link.href) ? "_blank" : undefined}
 										rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
-										class="inline-flex items-center gap-1 text-13 text-body transition-colors duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] hover:text-ink"
+										class="inline-flex items-center gap-1 text-body-sm text-muted-foreground transition-colors duration-200 ease-fluid hover:text-foreground"
 									>
 										{link.title}
 										{#if isExternal(link.href)}
@@ -85,11 +85,11 @@ function isExternal(href: string): boolean {
 		</div>
 
 		<div
-			class="mt-16 flex flex-col items-start justify-between gap-3 border-t border-hairline-soft pt-8 sm:flex-row sm:items-center"
+			class="mt-16 flex flex-col items-start justify-between gap-3 border-t border-border-low pt-8 sm:flex-row sm:items-center"
 		>
-			<p class="text-xs text-muted-ink">
+			<p class="text-caption text-muted-foreground">
 				© {year}
-				<a href="/" class="text-ink hover:underline">{appConfig.name}</a>. All rights reserved.
+				<a href="/" class="text-foreground hover:underline">{appConfig.name}</a>. All rights reserved.
 			</p>
 		</div>
 	</div>

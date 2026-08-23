@@ -26,9 +26,17 @@ let { children } = $props();
 
 <a
 	href="#main"
-	class="sr-only rounded-pill bg-primary px-3 py-2 text-sm font-medium text-primary-foreground focus:not-sr-only focus:fixed focus:top-6 focus:left-6 focus:z-100"
+	class="sr-only rounded-lg bg-foreground px-3 py-2 text-body-sm font-medium text-background focus:not-sr-only focus:fixed focus:top-6 focus:left-6 focus:z-100"
 >
 	Skip to content
 </a>
+
+<!-- Column guides. Two hairlines at the content column's edges running the full
+     viewport height, so every section reads as sitting on one ruled page rather
+     than floating independently. -->
+<div
+	aria-hidden="true"
+	class="pointer-events-none fixed inset-y-0 left-1/2 -z-10 w-full max-w-6xl -translate-x-1/2 border-x border-border-low"
+></div>
 
 {@render children()}

@@ -2,12 +2,40 @@ import { type ClassValue, clsx } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
 import { createTV } from "tailwind-variants";
 
-/** `text-13` is a custom step. Without registering it, twMerge reads it as a
- *  colour and silently drops whichever text colour it is combined with. */
+/**
+ * Every custom `--text-*` step has to be registered here. tailwind-merge only
+ * knows Tailwind's built-in sizes, so an unregistered step is read as a text
+ * COLOUR: `cn("text-background", "text-body")` then looks like two colours and
+ * twMerge silently drops the first. That is how `variant="dark"` shipped with
+ * no `text-background` at all, giving a near-white button an inherited grey
+ * label. If a step is added to `@theme`, add it here in the same commit.
+ */
 const twMergeConfig = {
 	extend: {
 		classGroups: {
-			"font-size": [{ text: ["13"] }]
+			"font-size": [
+				{
+					text: [
+						"caption",
+						"body-sm",
+						"body",
+						"body-lg",
+						"subheading",
+						"heading-sm",
+						"heading",
+						"heading-lg",
+						"display",
+						"display-lg",
+						"13"
+					]
+				}
+			],
+			// Same reasoning: an unregistered name is not recognised as part of the
+			// group, so it never wins or loses a merge predictably.
+			rounded: [{ rounded: ["pill", "xxl"] }],
+			shadow: [
+				{ shadow: ["craft-sm", "craft-md", "craft-lg", "craft-xl", "craft-floating", "craft-inset"] }
+			]
 		}
 	}
 } as const;

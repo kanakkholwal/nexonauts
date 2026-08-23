@@ -2,20 +2,14 @@
 import { tv, type VariantProps } from "tailwind-variants";
 
 /**
- * Badge — Nexonauts editorial pill.
- *
- * The brand badge is a small uppercase pill on a neutral surface (DESIGN.md
- * §6 `badge-pill`). We expose a generous set of soft pastel variants —
- * mint / peach / lavender / sky / rose — for category tags, status
- * indicators, and the rare topical accent.
- *
- * Atmospheric soft tints stay non-saturated; they are the only place
- * pastel orbs touch text, and even then very lightly.
+ * Badge — sentence-case pill on a neutral surface. See DESIGN.md §Typography.
+ * Uppercase letter-spaced micro-labels are retired; at 11px they cost
+ * legibility and read as a tic when repeated down a page.
  */
 export const badgeVariants = tv({
 	base: [
 		"group/badge inline-flex w-fit shrink-0 items-center justify-center gap-1 whitespace-nowrap",
-		"font-sans font-medium uppercase tracking-[0.08em]",
+		"font-sans font-medium",
 		"border border-transparent",
 		"transition-colors outline-none",
 		"focus-visible:ring-2 focus-visible:ring-ring/30",
@@ -25,25 +19,18 @@ export const badgeVariants = tv({
 	].join(" "),
 	variants: {
 		variant: {
-			// Editorial DEFAULT — neutral surface-strong pill with ink text.
-			default: "bg-surface-strong text-ink [a]:hover:bg-hairline",
-			// Solid ink — the rare attention-grabber. Matches button-primary.
-			solid: "bg-primary text-primary-foreground [a]:hover:bg-primary-active",
-			// Outline — transparent with hairline border.
-			outline: "border-hairline-strong bg-transparent text-ink [a]:hover:bg-surface-strong/60",
+			// Neutral paper pill. The default everywhere.
+			default: "bg-paper text-foreground [a]:hover:bg-border-low",
+			// Solid ink — the rare attention-grabber. Matches the filled button.
+			solid: "bg-foreground text-background [a]:hover:bg-foreground/90",
+			// Outline — transparent with a visible control boundary.
+			outline: "border-border-control bg-transparent text-foreground [a]:hover:bg-paper",
 			// Secondary alias of default for shadcn parity.
-			secondary: "bg-surface-strong text-body-strong [a]:hover:bg-hairline",
+			secondary: "bg-paper text-foreground [a]:hover:bg-border-low",
 			// Ghost — invisible until hover.
-			ghost: "bg-transparent text-muted-ink [a]:hover:bg-surface-strong [a]:hover:text-ink",
+			ghost: "bg-transparent text-muted-foreground [a]:hover:bg-paper [a]:hover:text-foreground",
 			// Link-styled badge.
-			link: "bg-transparent text-ink underline-offset-2 hover:underline",
-
-			// Atmospheric soft tints — pure decoration, very low chroma.
-			"soft-mint": "bg-gradient-mint/30 text-ink",
-			"soft-peach": "bg-gradient-peach/35 text-ink",
-			"soft-lavender": "bg-gradient-lavender/35 text-ink",
-			"soft-sky": "bg-gradient-sky/30 text-ink",
-			"soft-rose": "bg-gradient-rose/30 text-ink",
+			link: "bg-transparent text-primary underline-offset-2 hover:underline",
 
 			// Semantic — soft tinted (default) and solid.
 			destructive: "bg-destructive/12 text-destructive",
@@ -56,17 +43,14 @@ export const badgeVariants = tv({
 			"info-solid": "bg-info text-info-foreground",
 
 			// Dot-style: subtle bg with leading dot — see badge-dot.svelte.
-			dot: "bg-surface-strong text-body-strong",
-
-			// Light-on-dark — for dark hero contexts.
-			"on-dark": "bg-white/10 text-on-dark border-white/15"
+			dot: "bg-paper text-foreground"
 		},
 		size: {
-			xs: "h-4 px-1.5 text-[10px] rounded-pill",
-			sm: "h-5 px-2 text-[11px] rounded-pill",
-			default: "h-5 px-2.5 py-0.5 text-[11px] rounded-pill",
-			md: "h-6 px-2.5 text-xs rounded-pill",
-			lg: "h-7 px-3 text-xs rounded-pill"
+			xs: "h-5 rounded-pill px-1.5 text-caption",
+			sm: "h-5 rounded-pill px-2 text-caption",
+			default: "h-6 rounded-pill px-2.5 text-caption",
+			md: "h-6 rounded-pill px-2.5 text-caption",
+			lg: "h-7 rounded-pill px-3 text-body-sm"
 		},
 		shape: {
 			pill: "rounded-pill",

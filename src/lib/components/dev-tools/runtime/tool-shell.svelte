@@ -77,7 +77,7 @@ const IconComponent = $derived(!isStringIcon && icon ? (icon as IconComponent) :
 				<h1 class="font-display text-3xl font-bold tracking-tight text-ink sm:text-4xl">
 					{title}
 				</h1>
-				<p class="max-w-2xl text-base leading-relaxed text-body">
+				<p class="max-w-2xl text-base leading-relaxed text-muted-foreground">
 					{description}
 				</p>
 

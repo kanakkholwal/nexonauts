@@ -15,18 +15,12 @@ export const alertVariants = tv({
 	].join(" "),
 	variants: {
 		variant: {
-			default: "bg-canvas-soft text-ink border-hairline",
+			default: "bg-paper text-foreground border-border-low",
 			info: "bg-info/8 text-info border-info/25",
 			success: "bg-success/10 text-success border-success/25",
 			warning: "bg-warning/10 text-warning border-warning/25",
 			destructive:
-				"bg-destructive/8 text-destructive border-destructive/25 *:data-[slot=alert-description]:text-destructive/85",
-			// Atmospheric soft tints for editorial inline notes.
-			"soft-mint": "bg-gradient-mint/20 text-ink border-gradient-mint/35",
-			"soft-peach": "bg-gradient-peach/22 text-ink border-gradient-peach/35",
-			"soft-lavender": "bg-gradient-lavender/22 text-ink border-gradient-lavender/35",
-			"soft-sky": "bg-gradient-sky/20 text-ink border-gradient-sky/35",
-			"soft-rose": "bg-gradient-rose/22 text-ink border-gradient-rose/35"
+				"bg-destructive/8 text-destructive border-destructive/25 *:data-[slot=alert-description]:text-destructive/85"
 		}
 	},
 	defaultVariants: {

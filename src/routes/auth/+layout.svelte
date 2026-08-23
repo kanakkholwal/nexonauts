@@ -23,7 +23,7 @@ let { children } = $props();
 			<p class="display-md text-ink">
 				Tools and writing<br />for the people who ship.
 			</p>
-			<p class="mt-4 text-base leading-relaxed text-body">
+			<p class="mt-4 text-base leading-relaxed text-muted-foreground">
 				A small studio of developer tools and technical writing — pick a tool, pick a guide, or
 				keep up on the work.
 			</p>
