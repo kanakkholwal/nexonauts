@@ -46,7 +46,7 @@ const definitions = [
 </script>
 
 <svelte:head>
-	<title>Terms of Service — {SITE}</title>
+	<title>Terms of Service | {SITE}</title>
 	<meta name="description" content="Terms of service governing the use of {SITE}." />
 </svelte:head>
 

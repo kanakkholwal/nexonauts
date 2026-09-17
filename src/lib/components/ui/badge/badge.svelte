@@ -2,7 +2,7 @@
 import { tv, type VariantProps } from "tailwind-variants";
 
 /**
- * Badge — sentence-case pill on a neutral surface. See DESIGN.md §Typography.
+ * Badge: sentence-case pill on a neutral surface. See DESIGN.md §Typography.
  * Uppercase letter-spaced micro-labels are retired; at 11px they cost
  * legibility and read as a tic when repeated down a page.
  */
@@ -12,8 +12,8 @@ export const badgeVariants = tv({
 		"font-sans font-medium",
 		"border border-transparent",
 		"transition-colors outline-none",
-		"focus-visible:ring-2 focus-visible:ring-ring/30",
-		"aria-invalid:ring-2 aria-invalid:ring-destructive/30",
+		"focus-visible:ring-2 focus-visible:ring-ring",
+		"aria-invalid:ring-2 aria-invalid:ring-destructive",
 		"[&>svg]:size-3 [&>svg]:pointer-events-none",
 		"has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2"
 	].join(" "),
@@ -21,18 +21,18 @@ export const badgeVariants = tv({
 		variant: {
 			// Neutral paper pill. The default everywhere.
 			default: "bg-paper text-foreground [a]:hover:bg-border-low",
-			// Solid ink — the rare attention-grabber. Matches the filled button.
+			// Solid ink: the rare attention-grabber. Matches the filled button.
 			solid: "bg-foreground text-background [a]:hover:bg-foreground/90",
-			// Outline — transparent with a visible control boundary.
+			// Outline: transparent with a visible control boundary.
 			outline: "border-border-control bg-transparent text-foreground [a]:hover:bg-paper",
 			// Secondary alias of default for shadcn parity.
 			secondary: "bg-paper text-foreground [a]:hover:bg-border-low",
-			// Ghost — invisible until hover.
+			// Ghost: invisible until hover.
 			ghost: "bg-transparent text-muted-foreground [a]:hover:bg-paper [a]:hover:text-foreground",
 			// Link-styled badge.
 			link: "bg-transparent text-primary underline-offset-2 hover:underline",
 
-			// Semantic — soft tinted (default) and solid.
+			// Semantic: soft tinted (default) and solid.
 			destructive: "bg-destructive/12 text-destructive",
 			"destructive-solid": "bg-destructive text-destructive-foreground",
 			success: "bg-success/12 text-success",
@@ -42,7 +42,7 @@ export const badgeVariants = tv({
 			info: "bg-info/12 text-info",
 			"info-solid": "bg-info text-info-foreground",
 
-			// Dot-style: subtle bg with leading dot — see badge-dot.svelte.
+			// Dot-style: subtle bg with leading dot, see badge-dot.svelte.
 			dot: "bg-paper text-foreground"
 		},
 		size: {

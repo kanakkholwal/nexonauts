@@ -166,8 +166,7 @@ const faqSchema = JSON.stringify({
 });
 
 // Hairline grid, not a row of rounded cards. `gap-px` over a border-coloured
-// background draws every separator, however the cells wrap, and the cell keeps
-// the canvas so nothing floats.
+// background draws every separator however the cells wrap.
 const grid = "grid grid-cols-1 gap-px border-y border-border-low bg-border-low";
 // `cell` carries no transition: it is also passed to <Reveal>, whose own
 // transition-[opacity,transform] would lose the merge to a transition-colors.
@@ -175,13 +174,13 @@ const cell = "flex h-full flex-col bg-background px-6 py-8";
 const cellLink = cn(
 	"group flex w-full flex-col px-6 py-8",
 	"ease-fluid transition-colors duration-200 hover:bg-paper",
-	"focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none focus-visible:-outline-offset-2"
+	"focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none focus-visible:-outline-offset-2"
 );
 const iconClass = "size-5 text-muted-foreground";
 const arrowClass =
 	"ease-fluid size-4 text-muted-foreground transition-colors duration-200 group-hover:text-foreground";
 const inlineLink =
-	"ease-fluid inline-flex items-center gap-1.5 text-body-sm font-medium text-primary underline-offset-4 transition-colors duration-200 hover:underline focus-visible:ring-2 focus-visible:ring-ring/40 focus-visible:outline-none";
+	"ease-fluid inline-flex items-center gap-1.5 text-body-sm font-medium text-primary underline-offset-4 transition-colors duration-200 hover:underline focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none";
 
 const title = "Nexonauts · Developer tools that run on your machine";
 const description =

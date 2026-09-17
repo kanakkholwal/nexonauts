@@ -242,8 +242,8 @@ const processedCount = $derived(pdfFiles.filter((file) => file.result).length);
 						<label
 							class={`relative flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-6 text-center transition-all duration-300 ${
 								isDragover
-									? "border-primary bg-primary/10 ring-4 ring-primary/20"
-									: "border-muted-foreground/25 bg-paper hover:border-muted-foreground/50 hover:bg-paper"
+									? "border-primary bg-primary/10"
+									: "border-border-control bg-muted hover:border-foreground hover:bg-muted"
 							}`}
 							ondragover={(event) => {
 								event.preventDefault();

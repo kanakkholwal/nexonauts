@@ -1,283 +1,304 @@
 @import "tailwindcss";
 
+@import "@fontsource-variable/google-sans";
 @import "@fontsource-variable/inter";
-@import "@fontsource-variable/geist-mono";
+@import "@fontsource-variable/source-code-pro";
 
 @import "tw-animate-css";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
 
-/* Satoshi is not on Fontsource (no @fontsource/satoshi package exists), so the
-   ITF-Free-Font-License woff2 files are vendored in static/fonts. */
-@font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-Regular.woff2") format("woff2");
-	font-weight: 400;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-Medium.woff2") format("woff2");
-	font-weight: 500;
-	font-style: normal;
-	font-display: swap;
-}
-@font-face {
-	font-family: "Satoshi";
-	src: url("/fonts/Satoshi-Bold.woff2") format("woff2");
-	font-weight: 700;
-	font-style: normal;
-	font-display: swap;
-}
-
-/* =============================================================
-   Nexonauts tokens
-
-   Borders, not depth. A container is a 1px hairline and a radius.
-   If a surface needs a shadow stack to read, it needs better
-   spacing instead.
-
-   Light canvas is pure white and cards are pure white. They are
-   told apart by the hairline, not by tone. Dark mirrors that, and
-   the mirror is the rule: card equals canvas there too, so a card
-   on a paper band reads by its border rather than by a lift. A
-   card sitting BETWEEN canvas and paper makes every panel on a
-   band look sunken, which is what "dark mode feels muddy" is.
-
-   Everything is oklch. Never hardcode a hex in a component, and
-   never fade a text token with an opacity modifier — there is a
-   token for quieter copy.
-   ============================================================= */
+/* The Nexonauts Design Standard. See .notes/DESIGN.md for the measured contrast
+   tables behind every value here. Never hardcode a hex in a component. */
 
 :root,
 [data-theme="light"] {
 	color-scheme: light;
 	--max-app-width: 1200px;
 
-	/* - Surfaces - */
-	--background: oklch(100% 0 0);
-	--card: oklch(100% 0 0);
-	--popover: oklch(100% 0 0);
-	/* Tonal band. The only section separation that is not a hairline. */
-	--paper: oklch(97% 0 0);
+	/* --- Surfaces --- */
+	--canvas: #f5f5f5;
+	--background: #ffffff;
+	--card: #ffffff;
+	--popover: #ffffff;
+	--muted: #f5f5f5;
+	--paper: #f5f5f5;
 
-	/* - Hairlines -
-	   Full strength by default. Diluted hairlines (border-low/30..70) measure
-	   around 1.03:1 and draw nothing, which is how a border-first system quietly
-	   loses its structure. */
-	--border-low: oklch(92.2% 0 0);
-	--border-strong: oklch(87% 0 0);
-	/* Boundaries that IDENTIFY a control (inputs, selects, checkboxes, outline
-	   buttons) must clear 3:1 per WCAG 1.4.11. The decorative hairline above is
-	   1.31:1 on a white card and cannot do that job. This is 3.64:1. */
-	--border-control: oklch(62% 0 0);
-	/* Input fill. Sits ~5% under the white card so a field reads as a subtle
-	   recess rather than a hard grey pill. */
-	--input-surface: oklch(94.5% 0 0);
+	/* --- Hairlines and boundaries --- */
+	--border: #e5e5e5;
+	--border-strong: #d4d4d4;
+	/* A decorative hairline is not a control boundary. --border measures 1.26:1
+	   on a card; WCAG 1.4.11 needs 3:1. This is 3.64:1. */
+	--border-control: #868686;
+	--input: #868686;
+	--placeholder: #737373;
 
-	/* - Ink -
-	   Binary hierarchy plus one strong step. --ink-strong is the hero headline. */
-	--ink-strong: oklch(14.5% 0 0);
-	--foreground: oklch(20.5% 0 0);
-	/* 55.6% clears 4.5:1 on white but measures 4.34:1 on the paper band, and the
-	   hero subhead sits on paper. 54.4% clears both: 4.98:1 white, 4.56:1 paper. */
-	--muted-foreground: oklch(54.4% 0 0);
+	/* --- Ink --- */
+	--foreground: #0a0a0a;
+	/* 4.89:1 on the canvas, 5.33:1 on white. #737373 measures 4.35:1 and fails. */
+	--muted-foreground: #6b6b6b;
 
-	/* - Accent -
-	   Indigo, h264. It holds its hue from L0.45 to L0.75 and is the most
-	   separable candidate from --destructive under protanopia and deuteranopia.
-	   5.52:1 on white. Both mode values are inside sRGB; the ceiling at L0.70
-	   is C0.156.
-	   Reserved for: links in body copy, the active route indicator, focus rings
-	   and active input borders, selection and drop targets, toggle-on, the
-	   primary chart series, and the announcement chip. Never a decorative tint.
-	   The filled commit action is near-black: blue highlights, black commits. */
-	--primary: oklch(0.52 0.2 264);
-	--primary-foreground: oklch(1 0 0);
+	/* --- Accent ---
+	   Electric violet, OKLCH h300 at L0.545. One step lighter fails the tint gate
+	   (4.44:1 on its own 10% tint over the canvas); this measures 4.53:1. */
+	--primary: #9000fb;
+	--primary-active: #7900d3;
+	--primary-foreground: #ffffff;
 
-	/* - Semantic -
-	   Status only, never decorative, and never carried by colour alone.
-	   These are darker than the usual shadcn set because they are used as TEXT
-	   and as a BORDER, not only as a fill. The reference values measured 3.03:1
-	   (success), 2.55:1 (warning), 3.75:1 (info) and 3.76:1 (destructive) as
-	   text on white. Contrast is symmetric, so one value clears both directions:
-	   white on the fill measures the same as the colour on white. */
-	--success: oklch(0.52 0.16 142.5);
-	--destructive: oklch(0.56 0.21 25.3);
-	--warning: oklch(0.56 0.16 43.2);
-	--info: oklch(0.52 0.09 184.7);
+	/* Brand panel ramp. Runs darker than the accent so the brightest point is the
+	   accent itself and white body copy clears 4.5:1 at every stop. */
+	--brand-panel-deep: #2f0a55;
+	--brand-panel-base: #4f0f8a;
+	--brand-panel-lift: #9000fb;
+	--brand-panel-grid: rgb(255 255 255 / 0.06);
 
-	/* The semantic hues are dark here, so their label is white. */
-	--success-foreground: oklch(1 0 0);
-	--destructive-foreground: oklch(1 0 0);
-	--warning-foreground: oklch(1 0 0);
-	--info-foreground: oklch(1 0 0);
+	/* Violet highlights, black commits. The filled commit action is never accent. */
+	--action: #0a0a0a;
+	--action-foreground: #ffffff;
 
-	/* - Feature-tag accents -
-	   One hue per tag, never two on one component. Rendered duotone: a
-	   translucent fill under a full-strength stroke, no tinted tile behind it. */
-	--tag-tangerine: oklch(64.6% 0.1943 41.1);
-	--tag-lavender: oklch(54.1% 0.2466 293);
-	--tag-green: oklch(62.7% 0.1699 149.2);
+	/* --- Semantic ---
+	   Darker than the usual shadcn set because they are used as text and border,
+	   not only as a fill. Contrast is symmetric, so one value clears both ways. */
+	--destructive: #c0242a;
+	--success: #0a7d47;
+	--warning: #8a5c00;
+	--info: #0060c9;
+	--destructive-foreground: #ffffff;
+	--success-foreground: #ffffff;
+	--warning-foreground: #ffffff;
+	--info-foreground: #ffffff;
+
+	--fixed-light: #ffffff;
+	--fixed-dark: #0a0a0a;
+
+	--dot-grid: rgb(10 10 10 / 0.07);
 }
 
 [data-theme="dark"],
 .dark {
 	color-scheme: dark;
 
-	--background: oklch(14.5% 0 0);
-	--card: oklch(14.5% 0 0);
-	--popover: oklch(14.5% 0 0);
-	--paper: oklch(18.5% 0 0);
+	--canvas: #0a0a0a;
+	--background: #0a0a0a;
+	/* Cards are raised in dark, not flat. No hairline reaches the 3:1 boundary
+	   floor on near-black (#404040 is only 1.91:1), so the surface separates. */
+	--card: #1c1c1c;
+	--popover: #1c1c1c;
+	--muted: #2a2a2a;
+	--paper: #2a2a2a;
 
-	--border-low: oklch(30% 0 0);
-	--border-strong: oklch(42% 0 0);
-	--border-control: oklch(55% 0 0); /* 3.11:1 on the card */
-	--input-surface: oklch(34% 0 0);
+	/* Solid neutrals, not white at low alpha, so a hairline is predictable on
+	   the canvas and on a raised card alike. */
+	--border: #303030;
+	--border-strong: #3d3d3d;
+	--border-control: #737373;
+	--input: #737373;
+	--placeholder: #737373;
 
-	--ink-strong: oklch(100% 0 0);
-	--foreground: oklch(96% 0 0);
-	--muted-foreground: oklch(68% 0 0);
+	--foreground: #fafafa;
+	--muted-foreground: #a1a1a1;
 
-	--primary: oklch(0.7 0.155 264);
-	--primary-foreground: oklch(0.16 0 0);
+	--primary: #b896f3;
+	--primary-active: #c3a7f5;
+	--primary-foreground: #0a0a0a;
 
-	/* Dark keeps the bright set: on a 14.5% canvas these already measure
-	   6.52 / 5.23 / 7.76 / 5.28 as text. Their label flips to near-black. */
-	--success: oklch(0.646 0.222 142.495);
-	--destructive: oklch(63.575% 0.20881 25.397);
-	--warning: oklch(0.73 0.18 43.19);
-	--info: oklch(0.6 0.118 184.704);
+	/* Panels do not change with the theme. */
+	--brand-panel-deep: #2f0a55;
+	--brand-panel-base: #4f0f8a;
+	--brand-panel-lift: #9000fb;
+	--brand-panel-grid: rgb(255 255 255 / 0.06);
 
-	--success-foreground: oklch(0.145 0 0);
-	--destructive-foreground: oklch(0.145 0 0);
-	--warning-foreground: oklch(0.145 0 0);
-	--info-foreground: oklch(0.145 0 0);
+	--action: #fafafa;
+	--action-foreground: #0a0a0a;
 
-	/* Lifted for a dark ground. The light-mode values sit at 54-64% L and go to
-	   mud against a 14.5% canvas. */
-	--tag-tangerine: oklch(74% 0.155 48);
-	--tag-lavender: oklch(74% 0.135 291);
-	--tag-green: oklch(75% 0.16 152);
+	--destructive: #ff6b61;
+	--success: #30d158;
+	--warning: #ff9f0a;
+	--info: #409cff;
+	--destructive-foreground: #0a0a0a;
+	--success-foreground: #0a0a0a;
+	--warning-foreground: #0a0a0a;
+	--info-foreground: #0a0a0a;
+
+	--fixed-light: #ffffff;
+	--fixed-dark: #0a0a0a;
+
+	--dot-grid: rgb(250 250 250 / 0.08);
 }
 
-/* Derived roles. Defined once; they follow whichever mode is active. */
+/* --- Brand presets ---
+   Each sibling product's accent, applied through data-brand on <html>. Every
+   pair clears 4.5:1 on white, the canvas, #0a0a0a, #1c1c1c and its own tint. */
+
+[data-brand="emerald"] {
+	--primary: #047857;
+	--primary-active: #065f46;
+	--brand-panel-deep: #022c22;
+	--brand-panel-base: #064e3b;
+	--brand-panel-lift: #047857;
+}
+
+[data-brand="teal"] {
+	--primary: #0f766e;
+	--primary-active: #115e59;
+	--brand-panel-deep: #042f2e;
+	--brand-panel-base: #134e4a;
+	--brand-panel-lift: #0f766e;
+}
+
+[data-brand="indigo"] {
+	--primary: #4338ca;
+	--primary-active: #3730a3;
+	--brand-panel-deep: #1e1b4b;
+	--brand-panel-base: #312e81;
+	--brand-panel-lift: #4338ca;
+}
+
+[data-theme="dark"][data-brand="emerald"],
+.dark[data-brand="emerald"] {
+	--primary: #34d399;
+	--primary-active: #10b981;
+}
+
+[data-theme="dark"][data-brand="teal"],
+.dark[data-brand="teal"] {
+	--primary: #2dd4bf;
+	--primary-active: #14b8a6;
+}
+
+[data-theme="dark"][data-brand="indigo"],
+.dark[data-brand="indigo"] {
+	--primary: #a5b4fc;
+	--primary-active: #818cf8;
+}
+
+/* Derived roles and legacy aliases. Defined once; they follow the active mode. */
 :root,
 [data-theme="light"],
 [data-theme="dark"],
 .dark {
 	--card-foreground: var(--foreground);
 	--popover-foreground: var(--foreground);
-	--secondary: var(--paper);
+	--secondary: var(--muted);
 	--secondary-foreground: var(--foreground);
-	--muted: var(--paper);
-	--accent: var(--paper);
+	--accent: var(--muted);
 	--accent-foreground: var(--foreground);
-	--border: var(--border-low);
-	--input: var(--border-control);
 	--ring: var(--primary);
+	--workspace: var(--card);
 
-	--sidebar: var(--background);
+	--sidebar: var(--canvas);
 	--sidebar-foreground: var(--foreground);
 	--sidebar-primary: var(--primary);
 	--sidebar-primary-foreground: var(--primary-foreground);
-	--sidebar-accent: var(--paper);
+	--sidebar-accent: var(--muted);
 	--sidebar-accent-foreground: var(--foreground);
-	--sidebar-border: var(--border-low);
+	--sidebar-border: var(--border);
 	--sidebar-ring: var(--primary);
 
-	/* Elevation is deliberately shallow. Borders define containers; these exist
-	   for the two moments the system allows: a 1px lift on a filled button, and
-	   a ring on a floating product mockup. */
-	--shadow-craft-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-	--shadow-craft-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-	--shadow-craft-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
-	--shadow-craft-xl: 0 20px 20px 0 rgba(0, 0, 0, 0.09);
-	--shadow-craft-floating: 0 0 0 4px color-mix(in srgb, var(--foreground) 6%, transparent);
-	--shadow-craft-inset:
-		inset 0 1px 0 0 color-mix(in srgb, var(--foreground) 6%, transparent),
-		inset 0 -1px 0 0 color-mix(in srgb, var(--foreground) 2%, transparent);
+	--shadow-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+	--shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+	--shadow-ring: 0 0 0 4px color-mix(in srgb, var(--foreground) 6%, transparent);
 
 	/* Legacy aliases. Deprecated: new work uses the canonical names above. They
-	   exist so /admin, /auth, /learn, /guides and /dev-tools keep rendering
-	   while they are migrated file by file. */
-	--canvas: var(--background);
-	--canvas-soft: var(--paper);
+	   keep the 313 unmigrated call sites rendering until their route moves. */
+	--canvas-soft: var(--muted);
 	--canvas-deep: var(--foreground);
 	--surface-card: var(--card);
-	--surface-strong: var(--paper);
+	--surface-strong: var(--muted);
 	--surface-dark: var(--foreground);
 	--surface-dark-elevated: var(--foreground);
-	--hairline: var(--border-low);
-	--hairline-soft: var(--border-low);
+	--hairline: var(--border);
+	--hairline-soft: var(--border);
 	--hairline-strong: var(--border-strong);
+	--border-low: var(--border);
 	--ink: var(--foreground);
+	--ink-strong: var(--foreground);
 	--body-text: var(--muted-foreground);
 	--body-strong: var(--foreground);
 	--muted-text: var(--muted-foreground);
 	--muted-soft: var(--muted-foreground);
+	--input-surface: var(--muted);
 	--on-dark: var(--background);
 	--on-dark-soft: var(--muted-foreground);
 	--on-primary: var(--primary-foreground);
-	--primary-active: var(--primary);
 	--tertiary: var(--muted-foreground);
 	--tertiary-foreground: var(--background);
-	--shadow-button: var(--shadow-craft-sm);
-	--shadow-elevation-1: var(--shadow-craft-sm);
-	--shadow-elevation-2: var(--shadow-craft-sm);
-	--shadow-elevation-3: var(--shadow-craft-md);
-	--shadow-soft-drop: var(--shadow-craft-sm);
-	--shadow-frame: var(--shadow-craft-floating);
+	--dark: var(--action);
+	--dark-foreground: var(--action-foreground);
 
-	/* Chart ramp. Primary first, then neutrals, then the tag hues. */
+	--shadow-craft-sm: var(--shadow-xs);
+	--shadow-craft-md: var(--shadow-md);
+	--shadow-craft-lg: var(--shadow-lg);
+	--shadow-craft-xl: var(--shadow-lg);
+	--shadow-craft-floating: var(--shadow-ring);
+	--shadow-craft-inset:
+		inset 0 1px 0 0 color-mix(in srgb, var(--foreground) 6%, transparent),
+		inset 0 -1px 0 0 color-mix(in srgb, var(--foreground) 2%, transparent);
+	--shadow-button: var(--shadow-xs);
+	--shadow-subtle: var(--shadow-xs);
+	--shadow-elevation-1: var(--shadow-xs);
+	--shadow-elevation-2: var(--shadow-sm);
+	--shadow-elevation-3: var(--shadow-md);
+	--shadow-soft-drop: var(--shadow-sm);
+	--shadow-frame: var(--shadow-ring);
+
 	--chart-1: var(--primary);
 	--chart-2: var(--foreground);
 	--chart-3: var(--muted-foreground);
-	--chart-4: var(--tag-tangerine);
-	--chart-5: var(--tag-green);
+	--chart-4: var(--info);
+	--chart-5: var(--success);
 }
 
 @theme inline {
-	/* - Shape -
-	   Five radii, plus the shell. Nothing else.
-	     6px   inputs
-	     12px  buttons and cards (.surface)
-	     16px  feature surfaces and mockups (.surface-lg)
-	     24px  the hero and closing-CTA shells
-	     9999  pills, badges, avatars */
-	--radius: 0.75rem;
-	--radius-xs: 0.25rem;
+	/* --- Shape ---
+	   6 inputs and chips, 8 buttons, 10 rows, 14 inputs and insets, 18 cards,
+	   22 bento and panels. Nest radii inward, never the reverse. */
+	--radius: 0.625rem;
+	--radius-xs: 0.375rem;
 	--radius-sm: 0.375rem;
 	--radius-md: 0.5rem;
-	--radius-lg: 0.75rem;
-	--radius-xl: 1rem;
-	--radius-2xl: 1.5rem;
-	--radius-xxl: 1.5rem;
-	--radius-3xl: 1.5rem;
+	--radius-lg: 0.625rem;
+	--radius-xl: 0.875rem;
+	--radius-2xl: 1.125rem;
+	--radius-3xl: 1.375rem;
+	--radius-4xl: 1.625rem;
 	--radius-pill: 9999px;
+	--radius-xxl: 1.125rem;
 	--radius-full: 9999px;
 
 	--color-transparent: transparent;
 	--color-current: currentColor;
 
+	--color-canvas: var(--canvas);
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
-	--color-ink-strong: var(--ink-strong);
-	--color-paper: var(--paper);
 	--color-card: var(--card);
 	--color-card-foreground: var(--card-foreground);
 	--color-popover: var(--popover);
 	--color-popover-foreground: var(--popover-foreground);
-	--color-primary: var(--primary);
-	--color-primary-foreground: var(--primary-foreground);
-	--color-secondary: var(--secondary);
-	--color-secondary-foreground: var(--secondary-foreground);
 	--color-muted: var(--muted);
 	--color-muted-foreground: var(--muted-foreground);
+	--color-paper: var(--paper);
+	--color-placeholder: var(--placeholder);
+	--color-workspace: var(--workspace);
+
+	--color-primary: var(--primary);
+	--color-primary-foreground: var(--primary-foreground);
+	--color-primary-active: var(--primary-active);
+	--color-secondary: var(--secondary);
+	--color-secondary-foreground: var(--secondary-foreground);
 	--color-accent: var(--accent);
 	--color-accent-foreground: var(--accent-foreground);
+
+	--color-action: var(--action);
+	--color-action-foreground: var(--action-foreground);
+	--color-brand-panel: var(--brand-panel-lift);
+	--color-fixed-light: var(--fixed-light);
+	--color-fixed-dark: var(--fixed-dark);
+
 	--color-destructive: var(--destructive);
 	--color-destructive-foreground: var(--destructive-foreground);
 	--color-success: var(--success);
@@ -288,16 +309,10 @@
 	--color-info-foreground: var(--info-foreground);
 
 	--color-border: var(--border);
-	--color-border-low: var(--border-low);
 	--color-border-strong: var(--border-strong);
 	--color-border-control: var(--border-control);
 	--color-input: var(--input);
-	--color-input-surface: var(--input-surface);
 	--color-ring: var(--ring);
-
-	--color-tag-tangerine: var(--tag-tangerine);
-	--color-tag-lavender: var(--tag-lavender);
-	--color-tag-green: var(--tag-green);
 
 	--color-chart-1: var(--chart-1);
 	--color-chart-2: var(--chart-2);
@@ -314,82 +329,119 @@
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-ring: var(--sidebar-ring);
 
-	/* Legacy colour aliases. Deprecated; see the token block above. */
-	--color-canvas: var(--canvas);
+	/* Legacy colour aliases. Deprecated; see the alias block above.
+	   --color-body and --color-body-strong stay absent on purpose: they generate
+	   `text-body` as a COLOUR, which silently beats the 16px size step. */
 	--color-canvas-soft: var(--canvas-soft);
 	--color-canvas-deep: var(--canvas-deep);
 	--color-surface-card: var(--surface-card);
 	--color-surface-strong: var(--surface-strong);
 	--color-surface-dark: var(--surface-dark);
 	--color-surface-dark-elevated: var(--surface-dark-elevated);
-	--color-ink: var(--ink);
-	/* `--color-body` and `--color-body-strong` are deliberately absent. They
-	   generated `text-body` / `text-body-strong` as COLOUR utilities, which
-	   collide with the `--text-body` size step: `text-body` silently painted
-	   muted grey instead of setting 16px, so every `size="lg"` button had grey
-	   label text on a near-white fill. Legacy call sites now use
-	   `text-muted-foreground` and `text-foreground` directly. */
-	--color-muted-ink: var(--muted-text);
-	--color-muted-soft: var(--muted-soft);
-	--color-on-dark: var(--on-dark);
-	--color-on-dark-soft: var(--on-dark-soft);
-	--color-on-primary: var(--on-primary);
-	--color-primary-active: var(--primary-active);
-	--color-tertiary: var(--tertiary);
-	--color-tertiary-foreground: var(--tertiary-foreground);
 	--color-hairline: var(--hairline);
 	--color-hairline-soft: var(--hairline-soft);
 	--color-hairline-strong: var(--hairline-strong);
+	--color-border-low: var(--border-low);
+	--color-ink: var(--ink);
+	--color-ink-strong: var(--ink-strong);
+	--color-muted-ink: var(--muted-text);
+	--color-muted-soft: var(--muted-soft);
+	--color-input-surface: var(--input-surface);
+	--color-on-dark: var(--on-dark);
+	--color-on-dark-soft: var(--on-dark-soft);
+	--color-on-primary: var(--on-primary);
+	--color-tertiary: var(--tertiary);
+	--color-tertiary-foreground: var(--tertiary-foreground);
+	--color-dark: var(--dark);
+	--color-dark-foreground: var(--dark-foreground);
 
-	/* - Fonts -
-	   Satoshi ships 400/500/700 with no 600. It draws h1 and h2 only; Inter
-	   handles everything at 30px and below, where its ss01/cv11 features keep a
-	   slight optical tighten. Geist Mono is scoped to code, package names and
-	   numeric UI. */
-	--font-display: "Satoshi", "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+	/* --- Fonts --- */
+	--font-heading: "Google Sans Variable", "Google Sans", ui-sans-serif, system-ui, sans-serif;
+	--font-display: var(--font-heading);
+	--font-logo: var(--font-heading);
 	--font-sans:
 		"Inter Variable", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
 		Roboto, "Helvetica Neue", Arial, sans-serif;
-	--font-mono: "Geist Mono Variable", ui-monospace, "SF Mono", Consolas, monospace;
-	--font-heading: var(--font-display);
+	--font-mono: "Source Code Pro Variable", ui-monospace, "SF Mono", Consolas, monospace;
 	--font-serif: var(--font-sans);
 
-	/* - Type -
-	   Ten steps, no ad-hoc px. 16px/1.5 is the canonical body. Line height rides
-	   along via Tailwind v4's `--text-*--line-height` pairing, so `text-body`
-	   sets both and no call site needs a leading- utility. */
-	--text-caption: 0.6875rem;
-	--text-caption--line-height: 1.5;
+	/* --- Type ---
+	   Ten roles. text-body is 16px because this property is reading-heavy.
+	   Line height rides along, so no call site needs a leading- utility. */
+	--text-caption: 0.75rem;
+	--text-caption--line-height: 1rem;
 	--text-body-sm: 0.875rem;
-	--text-body-sm--line-height: 1.43;
+	--text-body-sm--line-height: 1.25rem;
 	--text-body: 1rem;
-	--text-body--line-height: 1.5;
+	--text-body--line-height: 1.5rem;
 	--text-body-lg: 1.125rem;
-	--text-body-lg--line-height: 1.56;
+	--text-body-lg--line-height: 1.75rem;
+	--text-body-xl: 1.125rem;
+	--text-body-xl--line-height: 1.75rem;
 	--text-subheading: 1.25rem;
-	--text-subheading--line-height: 1.4;
+	--text-subheading--line-height: 1.75rem;
 	--text-heading-sm: 1.5rem;
-	--text-heading-sm--line-height: 1.33;
+	--text-heading-sm--line-height: 2rem;
 	--text-heading: 1.875rem;
-	--text-heading--line-height: 1.25;
+	--text-heading--line-height: 2.25rem;
 	--text-heading-lg: 2.25rem;
-	--text-heading-lg--line-height: 1.11;
+	--text-heading-lg--line-height: 2.5rem;
 	--text-display: 3rem;
-	--text-display--line-height: 1.04;
-	--text-display-lg: 3.75rem;
-	--text-display-lg--line-height: 1.02;
+	--text-display--line-height: 1;
+	--text-display-xl: 3.75rem;
+	--text-display-xl--line-height: 1;
 
-	/* Kept for the routes still on the old scale. Not for new work. */
-	--text-xs: 0.75rem;
+	/* Tailwind's own steps alias onto the roles one to one, so a raw size is a
+	   naming violation rather than a visual one. 7xl and up clamp to 60px. */
+	--text-xs: var(--text-caption);
+	--text-xs--line-height: 1rem;
+	--text-sm: var(--text-body-sm);
+	--text-sm--line-height: 1.25rem;
+	--text-base: var(--text-body);
+	--text-base--line-height: 1.5rem;
+	--text-lg: var(--text-body-lg);
+	--text-lg--line-height: 1.75rem;
+	--text-xl: var(--text-subheading);
+	--text-xl--line-height: 1.75rem;
+	--text-2xl: var(--text-heading-sm);
+	--text-2xl--line-height: 2rem;
+	--text-3xl: var(--text-heading);
+	--text-3xl--line-height: 2.25rem;
+	--text-4xl: var(--text-heading-lg);
+	--text-4xl--line-height: 2.5rem;
+	--text-5xl: var(--text-display);
+	--text-5xl--line-height: 1;
+	--text-6xl: var(--text-display-xl);
+	--text-6xl--line-height: 1;
+	--text-7xl: var(--text-display-xl);
+	--text-7xl--line-height: 1;
+	--text-8xl: var(--text-display-xl);
+	--text-8xl--line-height: 1;
+	--text-9xl: var(--text-display-xl);
+	--text-9xl--line-height: 1;
+
+	/* Legacy steps. Not for new work. */
 	--text-13: 0.8125rem;
-	--text-sm: 0.875rem;
+	--text-13--line-height: 1.25rem;
+	--text-display-lg: var(--text-display-xl);
+	--text-display-lg--line-height: 1;
 
 	--tracking-tight: -0.01em;
 
-	/* One ease. Snappy at the start, lands gently. Every transition on the site
-	   resolves through it — never a default curve. */
-	--ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+	/* One ease. --ease-craft is the family name, --ease-fluid the local alias. */
+	--ease-craft: cubic-bezier(0.32, 0.72, 0, 1);
+	--ease-fluid: var(--ease-craft);
 
+	--duration-hover: 200ms;
+	--duration-overlay-in: 200ms;
+	--duration-overlay-out: 150ms;
+	--duration-sheet: 300ms;
+
+	--shadow-xs: var(--shadow-xs);
+	--shadow-sm: var(--shadow-sm);
+	--shadow-md: var(--shadow-md);
+	--shadow-lg: var(--shadow-lg);
+	--shadow-ring: var(--shadow-ring);
 	--shadow-craft-sm: var(--shadow-craft-sm);
 	--shadow-craft-md: var(--shadow-craft-md);
 	--shadow-craft-lg: var(--shadow-craft-lg);
@@ -397,6 +449,7 @@
 	--shadow-craft-floating: var(--shadow-craft-floating);
 	--shadow-craft-inset: var(--shadow-craft-inset);
 	--shadow-button: var(--shadow-button);
+	--shadow-subtle: var(--shadow-subtle);
 	--shadow-frame: var(--shadow-frame);
 	--shadow-elevation-1: var(--shadow-elevation-1);
 	--shadow-elevation-2: var(--shadow-elevation-2);
@@ -404,14 +457,15 @@
 	--shadow-soft-drop: var(--shadow-soft-drop);
 
 	--width-app: var(--max-app-width, 1200px);
+	--spacing-app-content: min(1200px, 96vw);
 
-	--animate-fade-up: fade-up 0.5s var(--ease-fluid) both;
-	--animate-fade-in: fade-in 0.5s var(--ease-fluid) both;
+	--animate-fade-up: fade-up 0.5s var(--ease-craft) both;
+	--animate-fade-in: fade-in 0.5s var(--ease-craft) both;
 	--animate-marquee: marquee 36s linear infinite;
-	--animate-accordion-down: accordion-down 0.2s var(--ease-fluid);
-	--animate-accordion-up: accordion-up 0.2s var(--ease-fluid);
-	--animate-collapsible-down: collapsible-down 0.2s var(--ease-fluid);
-	--animate-collapsible-up: collapsible-up 0.2s var(--ease-fluid);
+	--animate-accordion-down: accordion-down 0.2s var(--ease-craft);
+	--animate-accordion-up: accordion-up 0.2s var(--ease-craft);
+	--animate-collapsible-down: collapsible-down 0.2s var(--ease-craft);
+	--animate-collapsible-up: collapsible-up 0.2s var(--ease-craft);
 
 	@keyframes fade-up {
 		from {
@@ -493,7 +547,7 @@
 	}
 
 	* {
-		@apply border-border-low outline-ring/50;
+		@apply border-border outline-ring;
 	}
 
 	html {
@@ -511,11 +565,11 @@
 		background: transparent;
 	}
 	html::-webkit-scrollbar-thumb {
-		background: color-mix(in srgb, var(--color-foreground) 12%, transparent);
+		background: color-mix(in srgb, var(--foreground) 12%, transparent);
 		border-radius: 999px;
 	}
 	html::-webkit-scrollbar-thumb:hover {
-		background: color-mix(in srgb, var(--color-foreground) 22%, transparent);
+		background: color-mix(in srgb, var(--foreground) 22%, transparent);
 	}
 
 	body {
@@ -530,30 +584,28 @@
 		--max-app-width: clamp(1024px, 75vw, 1200px);
 	}
 
-	/* Display type is Satoshi. 500 reads too light at display sizes, so h1 and
-	   h2 are Bold; at h3 size 700 is too heavy, so subheads take 500. */
 	h1,
-	h2 {
-		font-family: var(--font-display);
-		font-weight: 700;
-		letter-spacing: -0.01em;
-		@apply text-foreground;
-	}
-
-	h3 {
-		font-family: var(--font-display);
-		font-weight: 500;
-		letter-spacing: -0.008em;
-		@apply text-foreground;
-	}
-
+	h2,
+	h3,
 	h4,
 	h5,
 	h6 {
-		font-family: var(--font-sans);
-		font-weight: 600;
-		letter-spacing: -0.011em;
+		font-family: var(--font-heading);
 		@apply text-foreground;
+	}
+
+	h1,
+	h2 {
+		font-weight: 500;
+		letter-spacing: -0.02em;
+	}
+
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-weight: 600;
+		letter-spacing: -0.01em;
 	}
 
 	h1,
@@ -568,7 +620,7 @@
 		text-wrap: pretty;
 	}
 
-	a:has(href),
+	a[href],
 	button:not([disabled]),
 	[role="button"]:not([disabled]) {
 		cursor: pointer;
@@ -595,6 +647,10 @@
 		text-decoration: none;
 	}
 
+	::placeholder {
+		color: var(--placeholder);
+	}
+
 	*:autofill,
 	*:-webkit-autofill {
 		font: inherit;
@@ -602,66 +658,105 @@
 		box-shadow: 0 0 0 1000px var(--card) inset !important;
 		-webkit-text-fill-color: var(--foreground) !important;
 	}
-
-	@media (prefers-reduced-motion: reduce) {
-		*,
-		*::before,
-		*::after {
-			animation-duration: 0.01ms !important;
-			animation-iteration-count: 1 !important;
-			transition-duration: 0.01ms !important;
-		}
-	}
 }
 
 @layer utilities {
-	/* --- Border-first containers ---
+	/* --- Containers ---
 	   A container is a 1px hairline and a radius. No blur, no elevation. */
+	.panel-card {
+		background-color: var(--card);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-2xl);
+	}
+
 	.surface {
-		background-color: var(--color-card);
-		border: 1px solid var(--color-border-low);
-		border-radius: 0.75rem;
+		background-color: var(--card);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
 	}
 
 	.surface-lg {
-		background-color: var(--color-card);
-		border: 1px solid var(--color-border-low);
-		border-radius: 1rem;
+		background-color: var(--card);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-xl);
 	}
 
-	/* Tonal surface for nested panels and alternating bands. No border — the
-	   tone change is the separation. */
 	.surface-alt {
-		background-color: var(--color-paper);
-		border-radius: 1rem;
+		background-color: var(--muted);
+		border-radius: var(--radius-xl);
 	}
 
 	.pill {
-		background-color: var(--color-card);
-		border: 1px solid var(--color-border-low);
+		background-color: var(--card);
+		border: 1px solid var(--border);
 		border-radius: 9999px;
 	}
 
-	/* Product mockups are the one thing allowed to float. */
 	.mockup-frame {
-		background-color: var(--color-card);
-		border: 1px solid var(--color-border-low);
-		border-radius: 1rem;
-		box-shadow: var(--shadow-craft-floating);
+		background-color: var(--card);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-xl);
+		box-shadow: var(--shadow-ring);
+	}
+
+	/* --- The rail frame --- */
+	.rail-column {
+		width: min(95vw, 90rem);
+	}
+
+	@media (width >= 48rem) {
+		.rail-column {
+			width: min(90vw, 90rem);
+		}
+	}
+
+	@media (width >= 96rem) {
+		.rail-column {
+			width: min(85vw, 112.5rem);
+		}
+	}
+
+	.rail-dash {
+		border-style: dashed;
+		border-color: var(--border);
+	}
+
+	/* --- Brand panel ---
+	   Pure CSS from the accent, so it recolours with the preset. Worst white-on
+	   stop is 5.87:1; text-white/80 is 4.06:1 on the lift, so avoid it there. */
+	.panel-brand,
+	.panel-brand-tall {
+		color: var(--fixed-light);
+		background-color: var(--brand-panel-base);
+		background-image:
+			repeating-linear-gradient(90deg, transparent 0 79px, var(--brand-panel-grid) 79px 80px),
+			repeating-linear-gradient(0deg, transparent 0 79px, var(--brand-panel-grid) 79px 80px),
+			radial-gradient(120% 140% at 14% 6%, var(--brand-panel-lift) 0%, transparent 58%),
+			linear-gradient(
+				140deg,
+				var(--brand-panel-deep) 0%,
+				var(--brand-panel-base) 46%,
+				var(--brand-panel-lift) 100%
+			);
+	}
+
+	.pressable {
+		transition: transform var(--duration-hover) var(--ease-craft);
+	}
+
+	.pressable:active {
+		transform: scale(0.98);
+		transition-duration: 100ms;
 	}
 
 	/* --- Always-dark band ---
-	   Cannot use `bg-background`/`text-foreground` with a mid-page
-	   `data-theme="dark"`: Tailwind's @theme aliases resolve
-	   `--color-background: var(--background)` once, at :root, so a token
-	   overridden on an inner element never reaches the utility. It fails
-	   silently — nothing errors, the colour just never changes. Literal values
-	   are the only way a nested surface can flip. */
+	   Cannot use bg-background here: Tailwind resolves @theme aliases once at
+	   :root, so a token overridden on an inner element never reaches them. */
 	.band-dark {
-		--band-ink: oklch(96% 0 0);
-		--band-muted: oklch(72% 0 0);
-		--band-line: oklch(1 0 0 / 0.14);
-		background-color: oklch(14.5% 0 0);
+		--band-ink: #fafafa;
+		--band-muted: #a1a1a1;
+		--band-line: #303030;
+		background-color: #0a0a0a;
 		color: var(--band-ink);
 	}
 
@@ -669,8 +764,8 @@
 		color: var(--band-muted);
 	}
 
-	/* Split deliberately: a grid needs the line as a background (gap-px), a
-	   button needs it as a border. One class doing both fills the button. */
+	/* Split deliberately: a gap-px grid needs the line as a background, a button
+	   needs it as a border. One class doing both fills the button. */
 	.band-dark .band-rule {
 		border-color: var(--band-line);
 	}
@@ -680,26 +775,13 @@
 	}
 
 	.band-dark .band-surface {
-		background-color: oklch(14.5% 0 0);
+		background-color: #0a0a0a;
 	}
 
-	/* In dark mode the canvas is already 14.5%, so the band has to go lower or
-	   it stops reading as a band at all. */
-	:where(.dark, [data-theme="dark"]) .band-dark,
-	:where(.dark, [data-theme="dark"]) .band-dark .band-surface {
-		background-color: oklch(10.5% 0 0);
-	}
-
-	/* --- Texture ---
-	   The dotted grid is the only texture on the site, and it appears in exactly
-	   two places: the hero shell and the closing CTA shell that bookends it.
-	   Tinted off --foreground so it inverts with the theme instead of needing a
-	   second definition. */
-	.bg-dots {
-		background-image: radial-gradient(
-			color-mix(in srgb, var(--color-foreground) 9%, transparent) 1px,
-			transparent 1px
-		);
+	/* --- Texture --- */
+	.bg-dots,
+	.bg-dot-field {
+		background-image: radial-gradient(var(--dot-grid) 1px, transparent 1px);
 		background-size: 20px 20px;
 	}
 
@@ -725,25 +807,29 @@
 		scrollbar-width: none;
 	}
 
-	/* Legacy hairline helpers. Prefer border-border-low / border-border-strong. */
-	.hairline {
-		border: 1px solid var(--color-border-low);
-	}
-	.hairline-soft {
-		border: 1px solid var(--color-border-low);
-	}
-	.hairline-strong {
-		border: 1px solid var(--color-border-strong);
+	.scrollbar-subtle {
+		scrollbar-width: thin;
+		scrollbar-color: color-mix(in srgb, var(--foreground) 16%, transparent) transparent;
 	}
 
-	/* Retired. Neutralised rather than deleted so /dashboard-style routes that
-	   still compose with them resolve to the border-first surfaces. */
+	/* Legacy hairline helpers. Prefer border-border / border-border-strong. */
+	.hairline,
+	.hairline-soft {
+		border: 1px solid var(--border);
+	}
+
+	.hairline-strong {
+		border: 1px solid var(--border-strong);
+	}
+
+	/* Retired. Neutralised rather than deleted so routes still composing with
+	   them resolve to the border-first surfaces instead of breaking. */
 	.glass,
 	.glass-strong,
 	.glass-card,
 	.glass-chip {
-		background-color: var(--color-card);
-		border: 1px solid var(--color-border-low);
+		background-color: var(--card);
+		border: 1px solid var(--border);
 		box-shadow: none;
 		backdrop-filter: none;
 		-webkit-backdrop-filter: none;
@@ -759,79 +845,113 @@
 		padding-right: 1.5rem;
 	}
 
-	/* Tagline reveal. Words resolve one at a time in reading order. */
 	.reveal-word {
 		color: var(--muted-foreground);
-		transition: color 700ms var(--ease-fluid);
+		transition: color 700ms var(--ease-craft);
 	}
 
 	.reveal-word[data-lit="true"] {
 		color: var(--foreground);
 	}
 
-	/* Deprecated. Kept so /learn, /guides, /dev-tools and the static pages hold
-	   their hierarchy until they move to the ten-step scale. Not for new work. */
+	/* Deprecated display classes. Kept so unmigrated routes hold their
+	   hierarchy until they move to the role scale. Not for new work. */
 	.display-mega,
 	.display-xl {
-		font-family: var(--font-display);
-		font-weight: 700;
+		font-family: var(--font-heading);
+		font-weight: 500;
 		font-size: var(--text-heading-lg);
-		line-height: 1.11;
-		letter-spacing: -0.01em;
+		line-height: 2.5rem;
+		letter-spacing: -0.02em;
 		color: var(--foreground);
 		text-wrap: balance;
 	}
 
 	.display-lg {
-		font-family: var(--font-display);
-		font-weight: 700;
+		font-family: var(--font-heading);
+		font-weight: 500;
 		font-size: var(--text-heading);
-		line-height: 1.25;
-		letter-spacing: -0.01em;
+		line-height: 2.25rem;
+		letter-spacing: -0.02em;
 		color: var(--foreground);
 		text-wrap: balance;
 	}
 
 	.display-md {
-		font-family: var(--font-display);
-		font-weight: 500;
+		font-family: var(--font-heading);
+		font-weight: 600;
 		font-size: var(--text-heading-sm);
-		line-height: 1.33;
-		letter-spacing: -0.008em;
+		line-height: 2rem;
+		letter-spacing: -0.01em;
 		color: var(--foreground);
 	}
 
 	.display-sm {
-		font-family: var(--font-display);
-		font-weight: 500;
+		font-family: var(--font-heading);
+		font-weight: 600;
 		font-size: var(--text-subheading);
-		line-height: 1.4;
-		letter-spacing: -0.008em;
+		line-height: 1.75rem;
+		letter-spacing: -0.01em;
 		color: var(--foreground);
 	}
 
-	/* Sentence case, not uppercase. At 11px, uppercase plus letter-spacing costs
-	   legibility and reads as a tic when repeated down a page. */
+	/* Sentence case, not uppercase. At caption size, uppercase plus tracking
+	   costs legibility and reads as a tic when repeated down a page. */
 	.eyebrow,
 	.caption-uppercase {
 		font-family: var(--font-sans);
 		font-weight: 500;
 		font-size: var(--text-caption);
-		line-height: 1.5;
+		line-height: 1rem;
 		color: var(--muted-foreground);
 	}
 }
 
 @media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+
 	.reveal-word {
 		color: var(--foreground);
 		transition: none;
 	}
 
-	/* The global guard only collapses duration, which would snap the marquee
-	   track straight to its end frame. It needs an explicit kill. */
+	/* Collapsing duration snaps a looping track to its end frame rather than
+	   stopping it, so a loop needs an explicit kill. */
 	.animate-marquee {
 		animation: none;
+	}
+}
+
+@media (prefers-contrast: more) {
+	:root,
+	[data-theme="light"] {
+		--border: #a3a3a3;
+		--border-strong: #737373;
+	}
+
+	[data-theme="dark"],
+	.dark {
+		--border: #737373;
+		--border-strong: #a3a3a3;
+	}
+}
+
+@media (prefers-reduced-transparency: reduce) {
+	.panel-brand,
+	.panel-brand-tall {
+		background-image: none;
+		background-color: var(--brand-panel-base);
 	}
 }
 
@@ -839,7 +959,7 @@
 :not(pre) > code {
 	overflow-wrap: break-word;
 	border-radius: var(--radius-sm);
-	background-color: var(--paper);
+	background-color: var(--muted);
 	color: var(--foreground);
 	padding: 0.125rem 0.375rem;
 	font-family: var(--font-mono);
@@ -861,14 +981,11 @@
 }
 
 .nexo-mdx-editor .toolbar .button {
-	@apply border border-transparent bg-paper text-muted-foreground shadow-none hover:bg-background hover:text-foreground hover:shadow-none focus-within:border-primary;
+	@apply border border-transparent bg-muted text-muted-foreground shadow-none hover:bg-background hover:text-foreground hover:shadow-none focus-within:border-primary;
 }
 
-/* ---------------------------------------------------------------------------
- * Guide-step (gobyexample-style side-by-side layout)
- * Lives in the global stylesheet because the target elements (.docvia-code-block)
- * are injected by Docvia's renderer outside the Step component's template.
- * ------------------------------------------------------------------------- */
+/* Guide-step lives here because Docvia's renderer injects .docvia-code-block
+   outside the Step component's template. */
 
 .guide-step {
 	display: grid;
@@ -891,12 +1008,12 @@
 
 .guide-step__title {
 	grid-column: 1;
-	font-family: var(--font-display);
+	font-family: var(--font-heading);
 	color: var(--foreground);
 	font-size: var(--text-subheading);
-	line-height: 1.4;
-	font-weight: 500;
-	letter-spacing: -0.008em;
+	line-height: 1.75rem;
+	font-weight: 600;
+	letter-spacing: -0.01em;
 	margin: 0 0 0.25rem 0;
 }
 
@@ -919,7 +1036,7 @@
 	min-width: 0;
 	border-radius: var(--radius-lg);
 	overflow: hidden;
-	border: 1px solid var(--border-low);
+	border: 1px solid var(--border);
 }
 
 .guide-step > .guide-step__text > .docvia-code-block > pre {
@@ -943,13 +1060,13 @@
 	letter-spacing: 0.08em;
 	text-transform: uppercase;
 	color: var(--muted-foreground);
-	background: var(--paper);
+	background: var(--muted);
 	padding: 0.5rem 1rem;
-	border-bottom: 1px solid var(--border-low);
+	border-bottom: 1px solid var(--border);
 }
 
 .guide-step--output > .guide-step__text > .docvia-code-block > pre {
-	background: var(--paper) !important;
+	background: var(--muted) !important;
 	color: var(--foreground) !important;
 	font-family: var(--font-mono);
 }

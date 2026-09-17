@@ -9,7 +9,7 @@ let { children } = $props();
 </script>
 
 <div class="min-h-screen w-full bg-canvas lg:grid lg:grid-cols-[1.05fr_1fr]">
-	<!-- Editorial brand panel — pastel orbs drifting on canvas-soft. -->
+	<!-- Editorial brand panel: pastel orbs drifting on canvas-soft. -->
 	<aside
 		class="relative hidden h-full overflow-hidden bg-canvas-soft border-r border-hairline-soft lg:flex lg:flex-col lg:justify-between lg:p-12"
 	>
@@ -24,7 +24,7 @@ let { children } = $props();
 				Tools and writing<br />for the people who ship.
 			</p>
 			<p class="mt-4 text-base leading-relaxed text-muted-foreground">
-				A small studio of developer tools and technical writing — pick a tool, pick a guide, or
+				A small studio of developer tools and technical writing. Pick a tool, pick a guide, or
 				keep up on the work.
 			</p>
 		</div>

@@ -35,7 +35,7 @@ export function generateSlug(length = 8): string {
 }
 
 export function createSlug(text: string): string {
-	return slugify(text) + "-" + generateSlug();
+	return `${slugify(text)}-${generateSlug()}`;
 }
 export type RoutePattern = string | RegExp;
 

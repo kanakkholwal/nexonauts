@@ -12,7 +12,7 @@ export const devTools: DevTool[] = [
 		slug: "pdf-stripper",
 		title: "PDF Page Stripper",
 		description:
-			"Remove specific pages from a PDF, entirely in your browser. Powered by pdf-lib — no uploads.",
+			"Remove specific pages from a PDF, entirely in your browser. Powered by pdf-lib, no uploads.",
 		category: "Document Tools",
 		tags: ["pdf", "privacy"]
 	},
@@ -20,7 +20,7 @@ export const devTools: DevTool[] = [
 		slug: "image-to-webp-convertor",
 		title: "Image → WebP Convertor",
 		description:
-			"Convert PNG/JPEG to WebP locally. Adjust quality and download — no server round-trips.",
+			"Convert PNG/JPEG to WebP locally. Adjust quality and download, no server round-trips.",
 		category: "Image Tools",
 		tags: ["image", "webp", "compress"]
 	},

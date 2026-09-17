@@ -7,7 +7,7 @@ let { data } = $props();
 </script>
 
 <svelte:head>
-	<title>Learn by example — Nexonauts</title>
+	<title>Learn by example | Nexonauts</title>
 	<meta
 		name="description"
 		content="Short, self-contained programs that show one idea at a time, with the explanation right next to the code."

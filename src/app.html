@@ -9,25 +9,19 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="google-adsense-account" content="ca-pub-2219281381026289" />
 		<link rel="manifest" href="%sveltekit.assets%/manifest.webmanifest" />
-		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+		<!-- Matches --canvas in each mode, so browser chrome meets the page ground. -->
+		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f5" />
 		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0a" />
-		<link
-			rel="preload"
-			as="font"
-			type="font/woff2"
-			href="%sveltekit.assets%/fonts/Satoshi-Bold.woff2"
-			crossorigin
-		/>
 		<script>
 			// Stamp the theme before first paint so the page never flashes the wrong mode.
-			(function () {
+			(() => {
 				try {
-					var saved = localStorage.getItem("nx-theme");
-					var dark = saved
+					const saved = localStorage.getItem("nx-theme");
+					const dark = saved
 						? saved === "dark"
 						: window.matchMedia("(prefers-color-scheme: dark)").matches;
 					document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
-				} catch (e) {
+				} catch {
 					document.documentElement.setAttribute("data-theme", "light");
 				}
 			})();

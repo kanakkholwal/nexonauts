@@ -15,7 +15,7 @@ const contactSchema = z.object({
 
 export const load: PageServerLoad = async ({ locals }) => ({
 	meta: {
-		title: "Contact — Nexonauts",
+		title: "Contact | Nexonauts",
 		description: "Get in touch with the Nexonauts team."
 	},
 	defaults: {

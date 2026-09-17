@@ -71,13 +71,13 @@ const socials: SocialLink[] = [
 
 const contactBlocks = [
 	{ icon: Mail, label: "Email us", value: "support@nexonauts.com" },
-	{ icon: MessageCircle, label: "Live support", value: "Mon–Fri, 9am–5pm" },
+	{ icon: MessageCircle, label: "Live support", value: "Mon to Fri, 9am to 5pm" },
 	{ icon: MapPin, label: "Headquarters", value: "Worldwide" }
 ];
 </script>
 
 <svelte:head>
-	<title>Contact — Nexonauts</title>
+	<title>Contact | Nexonauts</title>
 	<meta
 		name="description"
 		content="Whether you have a question about features, pricing, or just want to say hello, our team is ready to answer."

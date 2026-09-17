@@ -3,67 +3,59 @@ import type { HTMLAnchorAttributes, HTMLButtonAttributes } from "svelte/elements
 import type { VariantProps } from "tailwind-variants";
 import { cn, tv, type WithElementRef } from "$lib/utils.js";
 
-/**
- * Button. See DESIGN.md §Components.
- *
- * Marketing CTAs use `variant="dark"` — the near-black fill. `--primary` is
- * reserved for links, focus and active state, so a blue button only appears
- * inside product chrome. Blue highlights, black commits.
- */
+/** Button. See .notes/DESIGN.md. Violet highlights, black commits: `default` is
+ *  the near-black commit action, `primary` the one brand action per view. */
 export const buttonVariants = tv({
 	base: [
 		"group/button inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap",
-		"font-sans font-medium select-none",
-		"border border-border/40 bg-clip-padding outline-none",
-		"ease-fluid transition-all duration-200 motion-reduce:transition-none",
-		// Full strength, not /50. A 50% ring composites to 1.70:1 on white, which
-		// is not a focus indicator. At full strength it measures 5.76:1 light and
-		// 7.29:1 dark, so 2px is enough and 3px would only shout.
-		"focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring",
+		"font-sans font-medium select-none border border-transparent bg-clip-padding outline-none",
+		"ease-craft transition-colors duration-200 motion-reduce:transition-none",
+		// Full strength, not /50: a 50% ring composites to 2.64:1 on white, under
+		// the 3:1 floor. At full strength it is 5.87:1 light and 8.20:1 dark.
+		"focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
 		"aria-invalid:border-destructive aria-invalid:ring-2 aria-invalid:ring-destructive",
-		"active:scale-[0.99]",
+		"active:scale-[0.98] motion-reduce:active:scale-100",
 		"disabled:pointer-events-none disabled:opacity-50",
 		"[&_svg]:pointer-events-none [&_svg]:shrink-0",
 		"[&_svg:not([class*='size-'])]:size-4"
 	].join(" "),
 	variants: {
 		variant: {
-			// Accent fill. Product chrome only, never a marketing CTA.
-			default:
-				"border-transparent bg-primary text-primary-foreground shadow-craft-sm hover:bg-primary/95",
-			// The commit action everywhere on the marketing surface.
-			dark: "border-transparent bg-foreground text-background shadow-craft-sm hover:bg-foreground/90",
-			// A button's border is the only thing identifying it, so it takes
-			// --border-control (3.64:1) rather than the decorative hairline, which
-			// measures 1.26:1 on white and would leave the control invisible.
-			outline: "border-border-control bg-card text-foreground hover:border-foreground",
-			// Neutral surface for secondary actions inside a card. It carries the
-			// control border too: a paper fill on a paper band measures 1.00:1, so
-			// without an edge the button is literally invisible there.
-			secondary:
-				"border-border-control bg-input-surface text-foreground hover:bg-border-low aria-expanded:bg-border-low",
-			// Nav and icon triggers.
+			// The commit action. Near-black, flipping to near-white in dark.
+			default: "bg-action text-action-foreground shadow-xs hover:bg-action/90",
+			// Accent fill. The page's brand action, at most one per view.
+			primary: "bg-primary text-primary-foreground shadow-xs hover:bg-primary-active",
+			// A button's edge is the only thing identifying it, so it takes
+			// --border-control (3.64:1), not the 1.26:1 decorative hairline.
+			outline: "border-border-control bg-card text-foreground hover:bg-muted",
 			ghost:
-				"border-transparent bg-transparent text-muted-foreground hover:bg-paper hover:text-foreground aria-expanded:bg-paper",
-			// Inline text action. The only variant that carries the accent as text.
-			link: "border-transparent bg-transparent text-primary underline-offset-4 hover:underline",
-			// Confirmations only. Hover flips to the solid fill rather than tinting
-			// the background: a 10% tint drops the label to 3.49:1 light and 3.68:1
-			// dark, while the flip holds 5.18:1 and 5.23:1.
+				"bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground aria-expanded:bg-muted",
+			// Fixed in both themes, for use on a brand panel.
+			ink: "bg-fixed-dark text-fixed-light shadow-xs hover:bg-fixed-dark/90",
+			light: "bg-fixed-light text-fixed-dark shadow-xs hover:bg-fixed-light/90",
+			// Confirmations only.
 			destructive:
-				"border-destructive bg-transparent text-destructive hover:bg-destructive hover:text-destructive-foreground focus-visible:border-destructive focus-visible:ring-destructive"
+				"bg-destructive text-destructive-foreground shadow-xs hover:bg-destructive/90 focus-visible:ring-destructive",
+			// --- Legacy aliases. Kept so unmigrated call sites keep working. ---
+			dark: "bg-action text-action-foreground shadow-xs hover:bg-action/90",
+			brand: "bg-primary text-primary-foreground shadow-xs hover:bg-primary-active",
+			secondary: "border-border-control bg-card text-foreground hover:bg-muted",
+			link: "bg-transparent text-primary underline-offset-4 hover:underline"
 		},
 		size: {
-			default: "h-9 rounded-lg px-5 py-2.5 text-body-sm",
-			xs: "h-7 gap-1.5 rounded-md px-2.5 text-xs [&_svg:not([class*='size-'])]:size-3",
-			sm: "h-8 gap-1.5 rounded-md px-3 text-xs [&_svg:not([class*='size-'])]:size-3.5",
-			md: "h-9 rounded-lg px-5 text-body-sm",
+			// 40 / 36 / 28. Controls that sit together share one height.
+			default: "h-10 rounded-md px-4 text-body-sm",
+			sm: "h-9 gap-1.5 rounded-md px-3 text-body-sm [&_svg:not([class*='size-'])]:size-3.5",
+			// Dense chips only, never a primary touch target.
+			xs: "h-7 gap-1.5 rounded-sm px-2.5 text-caption [&_svg:not([class*='size-'])]:size-3",
 			lg: "h-11 rounded-xl px-8 text-body",
-			icon: "size-9 rounded-lg",
-			"icon-sm": "size-8 rounded-md",
-			// Landing-page CTAs.
+			icon: "size-10 rounded-md",
+			"icon-sm": "size-9 rounded-md [&_svg:not([class*='size-'])]:size-3.5",
+			"icon-xs": "size-7 rounded-sm [&_svg:not([class*='size-'])]:size-3",
+			// --- Legacy aliases. ---
+			md: "h-10 rounded-md px-4 text-body-sm",
 			cta: "h-11 rounded-xl px-8 text-body",
-			"cta-sm": "h-8 gap-1.5 rounded-md px-3 text-xs [&_svg:not([class*='size-'])]:size-3.5"
+			"cta-sm": "h-9 gap-1.5 rounded-md px-3 text-body-sm [&_svg:not([class*='size-'])]:size-3.5"
 		}
 	},
 	defaultVariants: {
@@ -83,17 +75,17 @@ export type ButtonProps = WithElementRef<HTMLButtonAttributes> &
 </script>
 
 <script lang="ts">
-	let {
-		class: className,
-		variant = "default",
-		size = "default",
-		ref = $bindable(null),
-		href = undefined,
-		type = "button",
-		disabled,
-		children,
-		...restProps
-	}: ButtonProps = $props();
+let {
+	class: className,
+	variant = "default",
+	size = "default",
+	ref = $bindable(null),
+	href = undefined,
+	type = "button",
+	disabled,
+	children,
+	...restProps
+}: ButtonProps = $props();
 </script>
 
 {#if href}

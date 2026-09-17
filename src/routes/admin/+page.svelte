@@ -3,7 +3,7 @@ let { data } = $props();
 </script>
 
 <svelte:head>
-	<title>Admin — Nexonauts</title>
+	<title>Admin | Nexonauts</title>
 </svelte:head>
 
 <div class="my-5 space-y-2">

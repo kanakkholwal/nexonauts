@@ -6,6 +6,8 @@
 .pnp.js
 /temp
 /.vscode
+.notes
+scripts/
 yarn.lock
 # testing
 /coverage

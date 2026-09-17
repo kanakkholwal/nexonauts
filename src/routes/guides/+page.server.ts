@@ -15,11 +15,11 @@ export const load: PageServerLoad = async () => {
 	const pages = (
 		await Promise.all(
 			entries.map(async (entry) => {
-				// The root index.md represents /guides itself — exclude it from the list.
+				// The root index.md represents /guides itself, exclude it from the list.
 				if (entry.slugs.length === 0) return null;
 
 				// getPages() in dev mode through the Vite virtual module returns
-				// empty frontmatter — fetch the page directly to get real metadata.
+				// empty frontmatter, so fetch the page directly to get real metadata.
 				const page = await docs.getPage(entry.slugs);
 				const data = (page?.data ?? {}) as GuideFrontmatter;
 				if (data.draft) return null;

@@ -13,7 +13,7 @@ const siteName = appConfig.name;
 </script>
 
 <svelte:head>
-	<title>Copyright Disclaimer — {siteName}</title>
+	<title>Copyright Disclaimer | {siteName}</title>
 	<meta
 		name="description"
 		content="Copyright disclaimer, fair use statement, and DMCA compliance for {siteName}."
@@ -47,8 +47,8 @@ const siteName = appConfig.name;
 					</h3>
 					<p class="text-sm text-muted-foreground">
 						At <span class="font-medium text-ink">{siteName}</span>, we value intellectual
-						property rights and strive to uphold copyright laws. Content used on this platform —
-						images, graphics, and text — is sourced from various free resources such as Freepik,
+						property rights and strive to uphold copyright laws. Content used on this platform
+						(images, graphics, and text) is sourced from various free resources such as Freepik,
 						Pexels, and other similar platforms, where rights belong to their respective owners.
 					</p>
 				</div>

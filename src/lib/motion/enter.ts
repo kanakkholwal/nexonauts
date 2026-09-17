@@ -77,7 +77,7 @@ type RevealOptions = {
 
 /**
  * Fade-up used for every landing-page section reveal. Translate and opacity
- * only, driven off IntersectionObserver — never a scroll listener, never blur.
+ * only, driven off IntersectionObserver, never a scroll listener, never blur.
  */
 export function revealOnView(node: HTMLElement, options: RevealOptions = {}) {
 	const { y = 16, duration = 0.4, delay = 0 } = options;

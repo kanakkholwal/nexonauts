@@ -1,9 +1,9 @@
+import type { IconComponentProps } from "phosphor-svelte";
 import Code from "phosphor-svelte/lib/Code";
 import FileText from "phosphor-svelte/lib/FileText";
 import ImageSquare from "phosphor-svelte/lib/ImageSquare";
 import MagnifyingGlass from "phosphor-svelte/lib/MagnifyingGlass";
 import Wrench from "phosphor-svelte/lib/Wrench";
-import type { IconComponentProps } from "phosphor-svelte";
 import type { Component } from "svelte";
 
 type Icon = Component<IconComponentProps>;

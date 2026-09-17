@@ -15,7 +15,7 @@ let {
 	class={cn(
 		"relative inline-flex flex-1 items-center justify-center whitespace-nowrap gap-1.5 py-1.5 px-3.5 text-sm font-medium",
 		"font-sans tracking-[0.01em] text-muted-ink hover:text-ink",
-		"transition-all outline-none focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+		"transition-all outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
 		"disabled:pointer-events-none disabled:opacity-50",
 		"[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
 		// Default & pill: fill-on-active capsule

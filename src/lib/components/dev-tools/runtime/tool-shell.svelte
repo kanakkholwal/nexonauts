@@ -6,7 +6,7 @@ import { Button } from "$lib/components/ui/button";
 import { cn } from "$lib/utils";
 
 /**
- * ToolShell — the chrome every dev tool page shares.
+ * ToolShell: the chrome every dev tool page shares.
  *
  * `icon` accepts a glyph string (`icon="📄"`, `icon="&lt;/&gt;"`, rendered with
  * `{@html}` so entities work) or a component reference (`icon={ImageIcon}`).

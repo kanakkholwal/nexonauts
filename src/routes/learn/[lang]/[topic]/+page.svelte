@@ -16,14 +16,14 @@ const replyUrl = $derived(() => {
 	const fullUrl = `${appPage.url.origin}${appPage.url.pathname}`;
 	url.searchParams.set(
 		"text",
-		`Reading "${data.title}" — ${data.langName} by example on Nexonauts ${fullUrl}`
+		`Reading "${data.title}", ${data.langName} by example on Nexonauts ${fullUrl}`
 	);
 	return url.toString();
 });
 </script>
 
 <svelte:head>
-	<title>{data.title} — {data.langName} by example — Nexonauts</title>
+	<title>{data.title} | {data.langName} by example | Nexonauts</title>
 	{#if data.description}
 		<meta name="description" content={data.description} />
 	{/if}

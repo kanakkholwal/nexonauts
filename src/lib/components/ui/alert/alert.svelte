@@ -2,7 +2,7 @@
 import { tv, type VariantProps } from "tailwind-variants";
 
 /**
- * Alert — editorial inset notice.
+ * Alert: editorial inset notice.
  * Hairline border, soft tinted background, ink text.
  */
 export const alertVariants = tv({

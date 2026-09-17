@@ -13,7 +13,7 @@ function guideHref(slugs: string[]): string {
 </script>
 
 <svelte:head>
-	<title>Guides — Nexonauts</title>
+	<title>Guides | Nexonauts</title>
 	<meta
 		name="description"
 		content="Topic-by-topic walkthroughs of the languages, patterns, and tools we actually reach for."

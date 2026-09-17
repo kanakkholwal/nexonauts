@@ -5,7 +5,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	if (locals.session) redirect(303, "/admin");
 	return {
 		meta: {
-			title: "Sign In — Nexonauts",
+			title: "Sign In | Nexonauts",
 			description: "Admin access."
 		}
 	};

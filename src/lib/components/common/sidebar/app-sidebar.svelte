@@ -26,7 +26,7 @@ const links = $derived(getSideNavLinks(moderator, prefixPath));
 
 function isActive(href: string) {
 	if (href === `/${prefixPath}`) return page.url.pathname === href;
-	return page.url.pathname === href || page.url.pathname.startsWith(href + "/");
+	return page.url.pathname === href || page.url.pathname.startsWith(`${href}/`);
 }
 </script>
 

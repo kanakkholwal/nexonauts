@@ -8,7 +8,7 @@ export const load: PageServerLoad = async ({ params }) => {
 	return {
 		tool,
 		meta: {
-			title: `${tool.title} — Dev Tools`,
+			title: `${tool.title} | Dev Tools`,
 			description: tool.description.substring(0, 160)
 		}
 	};

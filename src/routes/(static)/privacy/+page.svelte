@@ -23,7 +23,7 @@ const sections = [
 </script>
 
 <svelte:head>
-	<title>Privacy Policy — {SITE}</title>
+	<title>Privacy Policy | {SITE}</title>
 	<meta name="description" content="How {SITE} collects, uses, and protects your information." />
 </svelte:head>
 

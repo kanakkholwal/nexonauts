@@ -149,8 +149,8 @@ function onDrop(event: DragEvent) {
 		<label
 			class={`relative flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center transition-all duration-300 ${
 				isDragover
-					? "border-primary bg-primary/5 ring-4 ring-primary/10"
-					: "border-muted-foreground/25 bg-card hover:border-primary/50 hover:bg-paper"
+					? "border-primary bg-primary/5"
+					: "border-border-control bg-card hover:border-primary hover:bg-muted"
 			}`}
 			ondragover={(event) => {
 				event.preventDefault();

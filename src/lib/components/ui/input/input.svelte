@@ -20,7 +20,7 @@ let {
 }: Props = $props();
 
 /**
- * Input — editorial text field.
+ * Input: editorial text field.
  *   - Surface-card background with hairline-strong border
  *   - 44px height (DESIGN.md text-input)
  *   - 8px radius (md)
@@ -28,14 +28,14 @@ let {
  *   - Inter at body-md, +0.16px tracking
  */
 const base = [
-	"flex h-11 w-full min-w-0 px-4 py-2 outline-none",
+	"flex h-10 w-full min-w-0 px-4 py-2 outline-none",
 	"font-sans text-sm tracking-[0.01em]",
 	"bg-card text-foreground placeholder:text-muted-soft",
-	"border border-hairline-strong rounded-md",
+	"border border-border-control rounded-xl",
 	"transition-[border-color,box-shadow] duration-150",
 	"focus-visible:border-primary focus-visible:shadow-[inset_0_0_0_1px_var(--primary)]",
 	"aria-invalid:border-destructive aria-invalid:focus-visible:shadow-[inset_0_0_0_1px_var(--destructive)]",
-	"disabled:bg-surface-strong disabled:text-muted-soft disabled:cursor-not-allowed disabled:opacity-70",
+	"disabled:bg-background disabled:text-muted-soft disabled:cursor-not-allowed disabled:opacity-70",
 	"file:inline-flex file:h-7 file:items-center file:rounded-pill file:border-0",
 	"file:bg-primary file:text-primary-foreground file:px-3 file:mr-3 file:text-xs file:font-medium",
 	"dark:bg-card/60"

@@ -12,7 +12,7 @@ const values = [
 	{
 		icon: Settings,
 		title: "Execution",
-		body: "From ideation to ship, we're focused on the steps that actually move work forward. No theatre, no busywork — just the next concrete thing.",
+		body: "From ideation to ship, we're focused on the steps that actually move work forward. No theatre, no busywork, just the next concrete thing.",
 		hue: "lavender" as const
 	},
 	{
@@ -31,7 +31,7 @@ const values = [
 </script>
 
 <svelte:head>
-	<title>About — Nexonauts</title>
+	<title>About | Nexonauts</title>
 	<meta
 		name="description"
 		content="Empowering developers, one innovation at a time. Built by a developer, for developers."
@@ -70,7 +70,7 @@ const values = [
 				</p>
 				<p>
 					There's no faceless corporation here. There's a toolset crafted with empathy for the
-					coding process — and a body of writing to match.
+					coding process, and a body of writing to match.
 				</p>
 			</div>
 
@@ -80,7 +80,7 @@ const values = [
 				<span aria-hidden="true" class="absolute left-0 top-4 bottom-4 w-1 rounded-full bg-ink"></span>
 				<Quote class="absolute right-4 top-4 size-7 text-hairline-strong" />
 				<p class="font-display text-2xl font-medium text-ink">
-					"I keep you informed at every step — and hold myself accountable for the results."
+					"I keep you informed at every step, and hold myself accountable for the results."
 				</p>
 			</aside>
 		</div>

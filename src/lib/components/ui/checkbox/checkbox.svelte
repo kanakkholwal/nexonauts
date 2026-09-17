@@ -17,7 +17,7 @@ let {
 	bind:ref
 	data-slot="checkbox"
 	class={cn(
-		"flex size-4 items-center justify-center rounded-xs border border-hairline-strong bg-card transition-colors outline-none data-checked:bg-primary data-checked:text-primary-foreground data-checked:border-primary aria-invalid:border-destructive focus-visible:ring-2 focus-visible:ring-ring/30 focus-visible:ring-offset-2 focus-visible:ring-offset-background aria-invalid:ring-2 aria-invalid:ring-destructive/30 group-has-disabled/field:opacity-50 peer relative shrink-0 after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
+		"flex size-4 items-center justify-center rounded-xs border border-border-control bg-card transition-colors outline-none data-checked:bg-primary data-checked:text-primary-foreground data-checked:border-primary aria-invalid:border-destructive focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background aria-invalid:ring-2 aria-invalid:ring-destructive group-has-disabled/field:opacity-50 peer relative shrink-0 after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
 		className
 	)}
 	bind:checked

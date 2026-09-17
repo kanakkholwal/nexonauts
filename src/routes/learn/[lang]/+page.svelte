@@ -10,7 +10,7 @@ let { data } = $props();
 </script>
 
 <svelte:head>
-	<title>{data.langName} by example — Nexonauts</title>
+	<title>{data.langName} by example | Nexonauts</title>
 	<meta
 		name="description"
 		content={`Short, focused ${data.langName} programs. One idea per page.`}

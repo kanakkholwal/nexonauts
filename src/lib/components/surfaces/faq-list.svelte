@@ -3,8 +3,7 @@ import Plus from "phosphor-svelte/lib/Plus";
 import * as Accordion from "$lib/components/ui/accordion";
 
 // One open at a time, first row open on load so the affordance reads without a
-// click. Hairline-divided rows, no card, no chevron column: plus-rotate is the
-// only affordance.
+// click. Plus-rotate is the only affordance: no card, no chevron column.
 let { items }: { items: Array<{ q: string; a: string }> } = $props();
 </script>
 

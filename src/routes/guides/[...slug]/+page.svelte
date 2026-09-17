@@ -19,7 +19,7 @@ const replyUrl = $derived(() => {
 </script>
 
 <svelte:head>
-	<title>{data.title} — Guides — Nexonauts</title>
+	<title>{data.title} | Guides | Nexonauts</title>
 	{#if data.description}
 		<meta name="description" content={data.description} />
 	{/if}

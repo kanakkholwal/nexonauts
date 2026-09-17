@@ -153,7 +153,7 @@ function isExternal(href: string): boolean {
 </header>
 
 <style>
-	/* Per-item stagger inside the open dropdown — pairs with the viewport's
+	/* Per-item stagger inside the open dropdown, pairs with the viewport's
 	   own fade+slide. Each item picks up its own --nav-delay via style="". */
 	.nav-item-in {
 		opacity: 0;

@@ -2,31 +2,30 @@ import crypto from "node:crypto";
 import { json } from "@sveltejs/kit";
 import type { RequestHandler } from "./$types";
 
+const MAX_LENGTH = 512;
+const ENCODINGS = new Set(["hex", "base64"]);
+
 export const GET: RequestHandler = async ({ url }) => {
+	// parseInt returns NaN for junk and randomBytes throws on NaN or a negative,
+	// so both bounds are checked before it is reached.
+	const length = Number.parseInt(url.searchParams.get("length") ?? "32", 10);
+	if (!Number.isInteger(length) || length < 1 || length > MAX_LENGTH) {
+		return json(
+			{ result: "fail", message: `length must be an integer between 1 and ${MAX_LENGTH}` },
+			{ status: 400 }
+		);
+	}
+
+	const encoding = url.searchParams.get("encoding") ?? "hex";
+	if (!ENCODINGS.has(encoding)) {
+		return json({ result: "fail", message: "encoding must be hex or base64" }, { status: 400 });
+	}
+
 	try {
-		const start = Date.now();
-		const length = parseInt(url.searchParams.get("length") ?? "32");
-		if (length > 512) throw new Error("Secret key length should be less than 512");
-
-		const encoding = url.searchParams.get("encoding") ?? "hex";
-		if (encoding !== "hex" && encoding !== "base64") {
-			throw new Error("Encoding should be either hex or base64");
-		}
-
 		const token = crypto.randomBytes(length).toString(encoding as "hex" | "base64");
-
-		return json(
-			{
-				result: "success",
-				message: `Time taken : ${(Date.now() - start) / 100}seconds`,
-				data: { token }
-			},
-			{ status: 200 }
-		);
-	} catch (err) {
-		return json(
-			{ result: "fail", message: err instanceof Error ? err.message : "Internal Server Error" },
-			{ status: 500 }
-		);
+		return json({ result: "success", data: { token } }, { status: 200 });
+	} catch {
+		// The internal message is never surfaced to the caller.
+		return json({ result: "fail", message: "Could not generate a token" }, { status: 500 });
 	}
 };

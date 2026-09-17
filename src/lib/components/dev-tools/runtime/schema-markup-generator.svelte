@@ -320,7 +320,7 @@ const productCode = $derived.by(() => {
           "priceCurrency": "${productOffers.priceCurrency}",
           "lowPrice": "${productOffers.lowPrice}",
           ${offerStr}
-      }${identifiers ? ",\n      " + identifiers : ""}
+      }${identifiers ? `,\n      ${identifiers}` : ""}
     }
 <\/script>`;
 });
@@ -410,7 +410,7 @@ function removeBreadcrumb(index: number) {
 
 <ToolShell
 	title="Schema Markup Generator"
-	description="Generate valid JSON-LD structured data for websites, breadcrumbs, people, articles, and products — all in your browser."
+	description="Generate valid JSON-LD structured data for websites, breadcrumbs, people, articles, and products, all in your browser."
 	icon={Braces}
 	category="SEO"
 	tags={["seo", "schema", "json-ld", "structured-data"]}
