@@ -49,7 +49,6 @@ export const FOOTER_LINKS = [
 		title: "Read",
 		links: [
 			{ title: "Package docs", href: "https://docs.nexonauts.com" },
-			{ title: "Dev tools", href: "/dev-tools" },
 			{ title: "Guides", href: "/guides" },
 			{ title: "Learn", href: "/learn" }
 		]

@@ -26,6 +26,9 @@ export function enterOnView(node: HTMLElement, options: EnterOptions = {}) {
 	const prefersReducedMotion =
 		typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+	// Missing IntersectionObserver must never leave a section stuck invisible.
+	if (typeof IntersectionObserver === "undefined") return {};
+
 	// Set initial state immediately so the element doesn't flash visible.
 	node.style.opacity = "0";
 	if (!prefersReducedMotion) {
@@ -84,6 +87,9 @@ export function revealOnView(node: HTMLElement, options: RevealOptions = {}) {
 
 	const reduced =
 		typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+	// Missing IntersectionObserver must never leave a section stuck invisible.
+	if (typeof IntersectionObserver === "undefined") return {};
 
 	node.style.opacity = "0";
 	if (!reduced) {
@@ -151,6 +157,57 @@ export function wordReveal(node: HTMLElement) {
 	return {
 		destroy() {
 			observer.disconnect();
+		}
+	};
+}
+
+type StaggerOptions = {
+	/** Selector for the children to reveal. Defaults to direct children. */
+	items?: string;
+	/** Gap between children in seconds. The standard is 60 to 80ms. */
+	step?: number;
+	/** Vertical offset in px at rest. Default 14. */
+	y?: number;
+};
+
+/**
+ * Reveals a list's children in reading order as the list enters view. One
+ * observer per list, so a call site never hand-rolls one.
+ */
+export function revealChildren(node: HTMLElement, options: StaggerOptions = {}) {
+	const { items, step = 0.07, y = 14 } = options;
+	const children = Array.from(
+		items ? node.querySelectorAll<HTMLElement>(items) : (node.children as HTMLCollectionOf<HTMLElement>)
+	);
+
+	const reduced =
+		typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+	// Missing IntersectionObserver must never leave a section stuck invisible.
+	if (typeof IntersectionObserver === "undefined") return {};
+
+	for (const child of children) {
+		child.style.opacity = "0";
+		if (!reduced) child.style.transform = `translateY(${y}px)`;
+	}
+
+	const stop = inView(
+		node,
+		() => {
+			children.forEach((child, i) => {
+				animate(
+					child,
+					reduced ? { opacity: 1 } : { opacity: 1, transform: "translateY(0px)" },
+					{ duration: reduced ? 0.2 : 0.5, delay: reduced ? 0 : i * step, ease: [...EASE_FLUID] }
+				);
+			});
+		},
+		{ amount: 0.1 }
+	);
+
+	return {
+		destroy() {
+			stop();
 		}
 	};
 }

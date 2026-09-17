@@ -25,8 +25,8 @@ function isExternal(href: string): boolean {
 					<span class="font-sans text-body-sm font-medium">{appConfig.name}</span>
 				</a>
 				<p class="mt-4 text-body-sm text-muted-foreground">
-					An umbrella for developer tools that do their work on your machine, plus the writing
-					that came out of building them.
+					An umbrella for developer tools that do their work on your machine, and never on
+					someone else's server.
 				</p>
 				<div class="mt-6 flex items-center gap-4">
 					<a

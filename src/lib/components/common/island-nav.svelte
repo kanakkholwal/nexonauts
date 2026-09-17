@@ -12,10 +12,9 @@ import { cn } from "$lib/utils";
 
 type Link = { title: string; href: string; external?: boolean };
 
+// Anchors only, and only ones the homepage still renders.
 const links: Link[] = [
 	{ title: "Products", href: "#products" },
-	{ title: "Packages", href: "#packages" },
-	{ title: "Writing", href: "#writing" },
 	{ title: "Questions", href: "#faq" }
 ];
 

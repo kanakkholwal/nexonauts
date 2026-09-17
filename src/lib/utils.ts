@@ -22,6 +22,8 @@ const twMergeConfig = {
 						"display",
 						"display-lg",
 						"display-xl",
+						"poster",
+						"poster-xl",
 						"13"
 					]
 				}

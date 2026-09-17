@@ -1,7 +1,7 @@
 <script lang="ts">
 import { appConfig } from "@/project.config";
 import { page } from "$app/state";
-import { ErrorState, RailFrame } from "$lib/components/site";
+import { ErrorState, SiteFrame } from "$lib/components/site";
 
 const copy: Record<number, { title: string; accent?: string; lede: string }> = {
 	404: {
@@ -37,7 +37,7 @@ const destinations = [
 	<meta name="robots" content="noindex" />
 </svelte:head>
 
-<RailFrame>
+<SiteFrame>
 	<ErrorState
 		status={page.status}
 		title={content.title}
@@ -46,4 +46,4 @@ const destinations = [
 		detail={page.error?.message}
 		{destinations}
 	/>
-</RailFrame>
+</SiteFrame>
