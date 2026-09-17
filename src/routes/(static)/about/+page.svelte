@@ -1,10 +1,10 @@
 <script lang="ts">
-import ArrowRight from "@lucide/svelte/icons/arrow-right";
-import BarChart3 from "@lucide/svelte/icons/bar-chart-3";
-import CheckCircle2 from "@lucide/svelte/icons/check-circle-2";
-import Quote from "@lucide/svelte/icons/quote";
-import Settings from "@lucide/svelte/icons/settings";
-import Terminal from "@lucide/svelte/icons/terminal";
+import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
+import BarChart3 from "@tabler/icons-svelte/icons/chart-bar";
+import CheckCircle2 from "@tabler/icons-svelte/icons/circle-check";
+import Quote from "@tabler/icons-svelte/icons/quote";
+import Settings from "@tabler/icons-svelte/icons/settings";
+import Terminal from "@tabler/icons-svelte/icons/terminal";
 import { Badge } from "$lib/components/ui/badge";
 import { Button } from "$lib/components/ui/button";
 

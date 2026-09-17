@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Renderer } from "@docvia/renderer-svelte";
-import ArrowLeft from "@lucide/svelte/icons/arrow-left";
+import ArrowLeft from "@tabler/icons-svelte/icons/arrow-left";
 import { page as appPage } from "$app/state";
 import Footer from "$lib/components/common/footer.svelte";
 import Navbar from "$lib/components/common/navbar.svelte";
@@ -29,7 +29,7 @@ const replyUrl = $derived(() => {
 	<Navbar />
 </header>
 
-<main class="mx-auto min-h-screen max-w-6xl px-6 pt-24 pb-20">
+<main id="main" class="mx-auto min-h-screen max-w-6xl px-6 pt-24 pb-20">
 	<a
 		href="/guides"
 		class={cn(

@@ -1,7 +1,7 @@
 <script lang="ts">
-import ArrowLeft from "@lucide/svelte/icons/arrow-left";
-import Loader2 from "@lucide/svelte/icons/loader-2";
-import Mail from "@lucide/svelte/icons/mail";
+import ArrowLeft from "@tabler/icons-svelte/icons/arrow-left";
+import Loader2 from "@tabler/icons-svelte/icons/loader-2";
+import Mail from "@tabler/icons-svelte/icons/mail";
 import { toast } from "svelte-sonner";
 import { z } from "zod";
 import { authClient } from "$lib/auth-client";

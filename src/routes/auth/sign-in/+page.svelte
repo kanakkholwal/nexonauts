@@ -1,7 +1,7 @@
 <script lang="ts">
-import Loader2 from "@lucide/svelte/icons/loader-2";
-import Lock from "@lucide/svelte/icons/lock";
-import Mail from "@lucide/svelte/icons/mail";
+import Loader2 from "@tabler/icons-svelte/icons/loader-2";
+import Lock from "@tabler/icons-svelte/icons/lock";
+import Mail from "@tabler/icons-svelte/icons/mail";
 import { toast } from "svelte-sonner";
 import { z } from "zod";
 import { goto } from "$app/navigation";

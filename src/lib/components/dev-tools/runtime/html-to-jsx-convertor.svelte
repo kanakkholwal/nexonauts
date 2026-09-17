@@ -1,11 +1,11 @@
 <script lang="ts">
-import Atom from "@lucide/svelte/icons/atom";
-import Check from "@lucide/svelte/icons/check";
-import Code2 from "@lucide/svelte/icons/code-2";
-import Copy from "@lucide/svelte/icons/copy";
-import Flame from "@lucide/svelte/icons/flame";
-import Trash2 from "@lucide/svelte/icons/trash-2";
-import Wand2 from "@lucide/svelte/icons/wand-2";
+import Atom from "@tabler/icons-svelte/icons/atom";
+import Check from "@tabler/icons-svelte/icons/check";
+import Code2 from "@tabler/icons-svelte/icons/code";
+import Copy from "@tabler/icons-svelte/icons/copy";
+import Flame from "@tabler/icons-svelte/icons/flame";
+import Trash2 from "@tabler/icons-svelte/icons/trash";
+import Wand2 from "@tabler/icons-svelte/icons/wand";
 import { toast } from "svelte-sonner";
 import { Button } from "$lib/components/ui/button";
 import { Input } from "$lib/components/ui/input";

@@ -1,21 +1,13 @@
 <script lang="ts">
-import ArrowLeft from "phosphor-svelte/lib/ArrowLeft";
-import type { Component, Snippet } from "svelte";
+import ArrowLeft from "@tabler/icons-svelte/icons/arrow-left";
+import type { Snippet } from "svelte";
 import { Container } from "$lib/components/surfaces";
 import { Button } from "$lib/components/ui/button";
+import type { IconComponent } from "$lib/icon";
 import { cn } from "$lib/utils";
 
-/**
- * ToolShell: the chrome every dev tool page shares.
- *
- * `icon` accepts a glyph string (`icon="📄"`, `icon="&lt;/&gt;"`, rendered with
- * `{@html}` so entities work) or a component reference (`icon={ImageIcon}`).
- * For custom SVG, pass `iconSnippet` instead.
- *
- * The header is one hairline row: back link and category above, title and
- * description below, the clear action on the right. No icon plate, no card.
- */
-type IconComponent = Component<{ class?: string; size?: number | string }>;
+/** ToolShell: the chrome every dev tool page shares. `icon` takes a glyph
+ *  string or a component; for custom SVG pass `iconSnippet` instead. */
 
 let {
 	title,
@@ -44,7 +36,7 @@ let {
 } = $props();
 
 const isStringIcon = $derived(typeof icon === "string");
-const IconComponent = $derived(!isStringIcon && icon ? (icon as IconComponent) : null);
+const GlyphComponent = $derived(!isStringIcon && icon ? (icon as IconComponent) : null);
 </script>
 
 <div class={cn("relative w-full", className)}>
@@ -67,8 +59,8 @@ const IconComponent = $derived(!isStringIcon && icon ? (icon as IconComponent) :
 							</span>
 						{:else if isStringIcon}
 							<span class="text-body leading-none">{@html icon}</span>
-						{:else if IconComponent}
-							<IconComponent class="size-4 text-muted-foreground" />
+						{:else if GlyphComponent}
+							<GlyphComponent class="size-4 text-muted-foreground" />
 						{/if}
 						{category}
 					</span>

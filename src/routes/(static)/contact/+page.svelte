@@ -1,12 +1,12 @@
 <script lang="ts">
-import Building2 from "@lucide/svelte/icons/building-2";
-import Globe from "@lucide/svelte/icons/globe";
-import Loader2 from "@lucide/svelte/icons/loader-2";
-import Mail from "@lucide/svelte/icons/mail";
-import MapPin from "@lucide/svelte/icons/map-pin";
-import MessageCircle from "@lucide/svelte/icons/message-circle";
-import Send from "@lucide/svelte/icons/send";
-import User from "@lucide/svelte/icons/user";
+import Building2 from "@tabler/icons-svelte/icons/building";
+import Globe from "@tabler/icons-svelte/icons/globe";
+import Loader2 from "@tabler/icons-svelte/icons/loader-2";
+import Mail from "@tabler/icons-svelte/icons/mail";
+import MapPin from "@tabler/icons-svelte/icons/map-pin";
+import MessageCircle from "@tabler/icons-svelte/icons/message-circle";
+import Send from "@tabler/icons-svelte/icons/send";
+import User from "@tabler/icons-svelte/icons/user";
 import { toast } from "svelte-sonner";
 import { enhance } from "$app/forms";
 import { Badge } from "$lib/components/ui/badge";

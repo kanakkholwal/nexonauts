@@ -1,9 +1,9 @@
 <script lang="ts">
-import AlertTriangle from "@lucide/svelte/icons/alert-triangle";
-import ArrowRight from "@lucide/svelte/icons/arrow-right";
-import Ban from "@lucide/svelte/icons/ban";
-import ScrollText from "@lucide/svelte/icons/scroll-text";
-import Shield from "@lucide/svelte/icons/shield";
+import AlertTriangle from "@tabler/icons-svelte/icons/alert-triangle";
+import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
+import Ban from "@tabler/icons-svelte/icons/ban";
+import ScrollText from "@tabler/icons-svelte/icons/file-text";
+import Shield from "@tabler/icons-svelte/icons/shield";
 import { appConfig } from "@/project.config";
 import { Alert } from "$lib/components/ui/alert";
 import { Badge } from "$lib/components/ui/badge";

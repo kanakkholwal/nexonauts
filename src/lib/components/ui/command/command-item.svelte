@@ -1,5 +1,5 @@
 <script lang="ts">
-import CheckIcon from "@lucide/svelte/icons/check";
+import CheckIcon from "@tabler/icons-svelte/icons/check";
 import { Command as CommandPrimitive } from "bits-ui";
 import { cn } from "$lib/utils.js";
 

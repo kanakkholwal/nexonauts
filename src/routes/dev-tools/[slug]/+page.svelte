@@ -1,6 +1,6 @@
 <script lang="ts">
-import ArrowLeft from "phosphor-svelte/lib/ArrowLeft";
-import ArrowRight from "phosphor-svelte/lib/ArrowRight";
+import ArrowLeft from "@tabler/icons-svelte/icons/arrow-left";
+import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
 import { appConfig } from "@/project.config";
 import { hasRuntimeDevTool, runtimeDevToolComponents } from "$lib/components/dev-tools/runtime";
 import { Container, Section, SectionLabel } from "$lib/components/surfaces";
@@ -97,7 +97,7 @@ const canonical = $derived(`${appConfig.url}/dev-tools/${data.tool.slug}`);
 						)}
 					>
 						<div class="flex items-center justify-between">
-							<Icon class="size-5 text-muted-foreground" weight="duotone" />
+							<Icon class="size-5 text-muted-foreground" />
 							<ArrowRight
 								class="ease-fluid size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
 							/>

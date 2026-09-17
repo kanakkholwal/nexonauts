@@ -8,6 +8,7 @@ let { children } = $props();
 <Navbar />
 
 <main
+  id="main"
   class="mx-auto mb-32 max-w-(--max-app-width) space-y-16 px-6 sm:px-8 md:mb-40 md:space-y-24"
 >
   {@render children()}

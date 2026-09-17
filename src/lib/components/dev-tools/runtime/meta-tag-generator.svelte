@@ -1,12 +1,12 @@
 <script lang="ts">
-import Check from "@lucide/svelte/icons/check";
-import Copy from "@lucide/svelte/icons/copy";
-import ImageIcon from "@lucide/svelte/icons/image";
-import LayoutTemplate from "@lucide/svelte/icons/layout-template";
-import MessageCircle from "@lucide/svelte/icons/message-circle";
-import Search from "@lucide/svelte/icons/search";
-import Share2 from "@lucide/svelte/icons/share-2";
-import Tags from "@lucide/svelte/icons/tags";
+import Check from "@tabler/icons-svelte/icons/check";
+import Copy from "@tabler/icons-svelte/icons/copy";
+import LayoutTemplate from "@tabler/icons-svelte/icons/layout";
+import MessageCircle from "@tabler/icons-svelte/icons/message-circle";
+import ImageIcon from "@tabler/icons-svelte/icons/photo";
+import Search from "@tabler/icons-svelte/icons/search";
+import Share2 from "@tabler/icons-svelte/icons/share-2";
+import Tags from "@tabler/icons-svelte/icons/tags";
 import { toast } from "svelte-sonner";
 import { Badge } from "$lib/components/ui/badge";
 import { Button } from "$lib/components/ui/button";

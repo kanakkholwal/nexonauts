@@ -1,10 +1,10 @@
 <script lang="ts">
-import Download from "@lucide/svelte/icons/download";
-import ImageIcon from "@lucide/svelte/icons/image";
-import Loader2 from "@lucide/svelte/icons/loader-2";
-import RefreshCw from "@lucide/svelte/icons/refresh-cw";
-import Upload from "@lucide/svelte/icons/upload";
-import XCircle from "@lucide/svelte/icons/x-circle";
+import XCircle from "@tabler/icons-svelte/icons/circle-x";
+import Download from "@tabler/icons-svelte/icons/download";
+import Loader2 from "@tabler/icons-svelte/icons/loader-2";
+import ImageIcon from "@tabler/icons-svelte/icons/photo";
+import RefreshCw from "@tabler/icons-svelte/icons/refresh";
+import Upload from "@tabler/icons-svelte/icons/upload";
 import { toast } from "svelte-sonner";
 import { Badge } from "$lib/components/ui/badge";
 import { Button } from "$lib/components/ui/button";

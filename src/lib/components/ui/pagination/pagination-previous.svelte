@@ -1,5 +1,5 @@
 <script lang="ts">
-import ChevronLeftIcon from "@lucide/svelte/icons/chevron-left";
+import ChevronLeftIcon from "@tabler/icons-svelte/icons/chevron-left";
 import type { ComponentProps } from "svelte";
 import { cn } from "$lib/utils.js";
 import { PaginationLink } from "./index.js";

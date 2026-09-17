@@ -1,13 +1,13 @@
 <script lang="ts">
-import AlertCircle from "@lucide/svelte/icons/alert-circle";
-import CheckCircle2 from "@lucide/svelte/icons/check-circle-2";
-import Download from "@lucide/svelte/icons/download";
-import FileText from "@lucide/svelte/icons/file-text";
-import Loader2 from "@lucide/svelte/icons/loader-2";
-import Package from "@lucide/svelte/icons/package";
-import RefreshCw from "@lucide/svelte/icons/refresh-cw";
-import Scissors from "@lucide/svelte/icons/scissors";
-import Upload from "@lucide/svelte/icons/upload";
+import AlertCircle from "@tabler/icons-svelte/icons/alert-circle";
+import CheckCircle2 from "@tabler/icons-svelte/icons/circle-check";
+import Download from "@tabler/icons-svelte/icons/download";
+import FileText from "@tabler/icons-svelte/icons/file-text";
+import Loader2 from "@tabler/icons-svelte/icons/loader-2";
+import Package from "@tabler/icons-svelte/icons/package";
+import RefreshCw from "@tabler/icons-svelte/icons/refresh";
+import Scissors from "@tabler/icons-svelte/icons/scissors";
+import Upload from "@tabler/icons-svelte/icons/upload";
 import JSZip from "jszip";
 import { PDFArray, PDFDict, PDFDocument, PDFName, PDFNumber } from "pdf-lib";
 import { Alert, AlertDescription, AlertTitle } from "$lib/components/ui/alert";

@@ -1,19 +1,18 @@
-import type { IconComponentProps } from "phosphor-svelte";
-import Code from "phosphor-svelte/lib/Code";
-import FileText from "phosphor-svelte/lib/FileText";
-import ImageSquare from "phosphor-svelte/lib/ImageSquare";
-import MagnifyingGlass from "phosphor-svelte/lib/MagnifyingGlass";
-import Wrench from "phosphor-svelte/lib/Wrench";
-import type { Component } from "svelte";
+import IconCode from "@tabler/icons-svelte/icons/code";
+import IconFileText from "@tabler/icons-svelte/icons/file-text";
+import IconPhoto from "@tabler/icons-svelte/icons/photo";
+import IconSearch from "@tabler/icons-svelte/icons/search";
+import IconTool from "@tabler/icons-svelte/icons/tool";
+import type { IconComponent } from "$lib/icon";
 
-type Icon = Component<IconComponentProps>;
+type Icon = IconComponent;
 
 /** One glyph per category, so a grid of nine tools is not nine identical marks. */
 const byCategory: Record<string, Icon> = {
-	"Document Tools": FileText,
-	"Image Tools": ImageSquare,
-	SEO: MagnifyingGlass,
-	"Web Tools": Code
+	"Document Tools": IconFileText,
+	"Image Tools": IconPhoto,
+	SEO: IconSearch,
+	"Web Tools": IconCode
 };
 
-export const categoryIcon = (category: string): Icon => byCategory[category] ?? Wrench;
+export const categoryIcon = (category: string): Icon => byCategory[category] ?? IconTool;

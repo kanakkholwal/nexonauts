@@ -1,7 +1,7 @@
 <script lang="ts">
-import ArrowRight from "phosphor-svelte/lib/ArrowRight";
-import MagnifyingGlass from "phosphor-svelte/lib/MagnifyingGlass";
-import Wrench from "phosphor-svelte/lib/Wrench";
+import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
+import MagnifyingGlass from "@tabler/icons-svelte/icons/search";
+import Wrench from "@tabler/icons-svelte/icons/tool";
 import { appConfig } from "@/project.config";
 import { Container, Reveal, Section, SectionLabel } from "$lib/components/surfaces";
 import { cn } from "$lib/utils";
@@ -141,7 +141,7 @@ const description =
 							)}
 						>
 							<div class="flex items-center justify-between">
-								<Icon class="size-5 text-muted-foreground" weight="duotone" />
+								<Icon class="size-5 text-muted-foreground" />
 								<ArrowRight
 									class="ease-fluid size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
 								/>

@@ -1,11 +1,11 @@
-import LayoutDashboard from "@lucide/svelte/icons/layout-dashboard";
-import type { Component } from "svelte";
+import LayoutDashboard from "@tabler/icons-svelte/icons/layout-dashboard";
+import type { IconComponent } from "$lib/icon";
 
 export type AllowedRole = "admin" | "user" | "*" | string;
 
 export type SidebarLink = {
 	title: string;
-	icon: Component<Record<string, unknown>>;
+	icon: IconComponent;
 	path: string;
 	allowed_roles: AllowedRole | AllowedRole[];
 	category: "none" | "metrics" | "action" | "view";

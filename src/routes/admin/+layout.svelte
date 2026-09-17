@@ -17,7 +17,7 @@ let { data, children } = $props();
 			user={data.session.user}
 			impersonatedBy={data.session.session?.impersonatedBy ?? null}
 		/>
-		<main class="content @container z-2 h-full min-h-screen space-y-10 p-4 px-2 md:p-6">
+		<main id="main" class="content @container z-2 h-full min-h-screen space-y-10 p-4 px-2 md:p-6">
 			{@render children()}
 		</main>
 	</Sidebar.Inset>

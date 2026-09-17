@@ -1,5 +1,5 @@
 <script lang="ts">
-import Plus from "phosphor-svelte/lib/Plus";
+import Plus from "@tabler/icons-svelte/icons/plus";
 import * as Accordion from "$lib/components/ui/accordion";
 
 // One open at a time, first row open on load so the affordance reads without a

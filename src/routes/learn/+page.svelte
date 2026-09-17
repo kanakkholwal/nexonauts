@@ -1,5 +1,5 @@
 <script lang="ts">
-import ArrowRight from "@lucide/svelte/icons/arrow-right";
+import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
 import Footer from "$lib/components/common/footer.svelte";
 import Navbar from "$lib/components/common/navbar.svelte";
 
@@ -16,7 +16,7 @@ let { data } = $props();
 
 <Navbar />
 
-<main class="relative isolate mx-auto min-h-screen max-w-4xl px-6 pt-24 pb-24">
+<main id="main" class="relative isolate mx-auto min-h-screen max-w-4xl px-6 pt-24 pb-24">
 
 	<div class="relative z-10 mb-16">
 		<p class="eyebrow text-muted-ink">Learn</p>

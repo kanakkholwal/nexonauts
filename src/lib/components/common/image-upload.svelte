@@ -1,6 +1,6 @@
 <script lang="ts">
-import LoaderCircle from "@lucide/svelte/icons/loader-circle";
-import Upload from "@lucide/svelte/icons/upload";
+import LoaderCircle from "@tabler/icons-svelte/icons/loader-2";
+import Upload from "@tabler/icons-svelte/icons/upload";
 import { toast } from "svelte-sonner";
 import { env } from "$env/dynamic/public";
 import { Button } from "$lib/components/ui/button";

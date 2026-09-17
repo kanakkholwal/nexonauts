@@ -1,6 +1,6 @@
 <script lang="ts">
-import ArrowRight from "@lucide/svelte/icons/arrow-right";
-import CalendarDays from "@lucide/svelte/icons/calendar-days";
+import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
+import CalendarDays from "@tabler/icons-svelte/icons/calendar-month";
 import { appConfig } from "@/project.config";
 import { Badge } from "$lib/components/ui/badge";
 import { Button } from "$lib/components/ui/button";

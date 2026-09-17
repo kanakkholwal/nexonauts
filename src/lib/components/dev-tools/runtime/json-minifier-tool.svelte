@@ -1,13 +1,13 @@
 <script lang="ts">
-import AlertCircle from "@lucide/svelte/icons/alert-circle";
-import ArrowRightLeft from "@lucide/svelte/icons/arrow-right-left";
-import Braces from "@lucide/svelte/icons/braces";
-import Check from "@lucide/svelte/icons/check";
-import Copy from "@lucide/svelte/icons/copy";
-import FileJson from "@lucide/svelte/icons/file-json";
-import Maximize2 from "@lucide/svelte/icons/maximize-2";
-import Minimize2 from "@lucide/svelte/icons/minimize-2";
-import Wand2 from "@lucide/svelte/icons/wand-2";
+import AlertCircle from "@tabler/icons-svelte/icons/alert-circle";
+import Braces from "@tabler/icons-svelte/icons/braces";
+import Check from "@tabler/icons-svelte/icons/check";
+import Copy from "@tabler/icons-svelte/icons/copy";
+import ArrowRightLeft from "@tabler/icons-svelte/icons/exchange";
+import FileJson from "@tabler/icons-svelte/icons/json";
+import Maximize2 from "@tabler/icons-svelte/icons/maximize";
+import Minimize2 from "@tabler/icons-svelte/icons/minimize";
+import Wand2 from "@tabler/icons-svelte/icons/wand";
 import { toast } from "svelte-sonner";
 import { Badge } from "$lib/components/ui/badge";
 import { Button } from "$lib/components/ui/button";

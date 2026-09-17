@@ -1,5 +1,5 @@
 <script lang="ts">
-import CheckIcon from "@lucide/svelte/icons/check";
+import CheckIcon from "@tabler/icons-svelte/icons/check";
 import { Select as SelectPrimitive } from "bits-ui";
 import { cn, type WithoutChild } from "$lib/utils.js";
 

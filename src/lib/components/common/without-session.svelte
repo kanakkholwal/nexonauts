@@ -1,5 +1,5 @@
 <script lang="ts">
-import ArrowRight from "@lucide/svelte/icons/arrow-right";
+import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
 import { page } from "$app/state";
 import { env } from "$env/dynamic/public";
 import { Button } from "$lib/components/ui/button";

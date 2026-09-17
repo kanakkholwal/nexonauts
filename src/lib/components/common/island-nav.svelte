@@ -1,8 +1,8 @@
 <script lang="ts">
-import ArrowUpRight from "phosphor-svelte/lib/ArrowUpRight";
-import GithubLogo from "phosphor-svelte/lib/GithubLogo";
-import List from "phosphor-svelte/lib/List";
-import X from "phosphor-svelte/lib/X";
+import ArrowUpRight from "@tabler/icons-svelte/icons/arrow-up-right";
+import GithubLogo from "@tabler/icons-svelte/icons/brand-github";
+import List from "@tabler/icons-svelte/icons/menu-2";
+import X from "@tabler/icons-svelte/icons/x";
 import { appConfig } from "@/project.config";
 import { page } from "$app/state";
 import ThemeToggle from "$lib/components/common/theme-toggle.svelte";

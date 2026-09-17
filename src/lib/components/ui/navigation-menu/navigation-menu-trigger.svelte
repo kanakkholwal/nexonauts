@@ -9,7 +9,7 @@ export const navigationMenuTriggerStyle = tv({
 
 <script lang="ts">
 	import { NavigationMenu as NavigationMenuPrimitive } from "bits-ui";
-	import ChevronDownIcon from '@lucide/svelte/icons/chevron-down';
+	import ChevronDownIcon from "@tabler/icons-svelte/icons/chevron-down";
 	let {
 		ref = $bindable(null),
 		class: className,

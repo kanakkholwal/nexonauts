@@ -1,7 +1,7 @@
 <script lang="ts">
+import ChevronDownIcon from "@tabler/icons-svelte/icons/chevron-down";
+import ChevronUpIcon from "@tabler/icons-svelte/icons/chevron-up";
 import { Accordion as AccordionPrimitive } from "bits-ui";
-import ChevronDownIcon from "phosphor-svelte/lib/CaretDown";
-import ChevronUpIcon from "phosphor-svelte/lib/CaretUp";
 import { cn, type WithoutChild } from "$lib/utils.js";
 
 let {

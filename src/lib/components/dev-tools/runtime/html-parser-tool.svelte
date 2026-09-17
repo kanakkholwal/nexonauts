@@ -1,11 +1,11 @@
 <script lang="ts">
-import ArrowRightLeft from "@lucide/svelte/icons/arrow-right-left";
-import Check from "@lucide/svelte/icons/check";
-import Code2 from "@lucide/svelte/icons/code-2";
-import CodeXml from "@lucide/svelte/icons/code-xml";
-import Copy from "@lucide/svelte/icons/copy";
-import FileCode from "@lucide/svelte/icons/file-code";
-import RefreshCcw from "@lucide/svelte/icons/refresh-ccw";
+import Check from "@tabler/icons-svelte/icons/check";
+import Code2 from "@tabler/icons-svelte/icons/code";
+import CodeXml from "@tabler/icons-svelte/icons/code";
+import Copy from "@tabler/icons-svelte/icons/copy";
+import ArrowRightLeft from "@tabler/icons-svelte/icons/exchange";
+import FileCode from "@tabler/icons-svelte/icons/file-code";
+import RefreshCcw from "@tabler/icons-svelte/icons/refresh";
 import { toast } from "svelte-sonner";
 import { Button } from "$lib/components/ui/button";
 import { Textarea } from "$lib/components/ui/textarea";

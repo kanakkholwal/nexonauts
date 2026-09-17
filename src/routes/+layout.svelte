@@ -13,6 +13,18 @@ beforeNavigate(() => nProgress.start());
 afterNavigate(() => nProgress.done());
 
 let { children } = $props();
+
+// Fades the pre-paint splash out, then takes it out of the DOM so the attribute
+// cannot make it reappear on a later render.
+$effect(() => {
+	const root = document.documentElement;
+	root.setAttribute("data-done", "");
+	const timer = setTimeout(() => {
+		document.getElementById("boot")?.remove();
+		root.removeAttribute("data-done");
+	}, 220);
+	return () => clearTimeout(timer);
+});
 </script>
 
 <svelte:head>
@@ -30,13 +42,5 @@ let { children } = $props();
 >
 	Skip to content
 </a>
-
-<!-- Column guides. Two hairlines at the content column's edges running the full
-     viewport height, so every section reads as sitting on one ruled page rather
-     than floating independently. -->
-<div
-	aria-hidden="true"
-	class="pointer-events-none fixed inset-y-0 left-1/2 -z-10 w-full max-w-6xl -translate-x-1/2 border-x border-border-low"
-></div>
 
 {@render children()}

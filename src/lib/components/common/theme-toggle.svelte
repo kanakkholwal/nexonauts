@@ -1,6 +1,6 @@
 <script lang="ts">
-import Moon from "phosphor-svelte/lib/Moon";
-import Sun from "phosphor-svelte/lib/Sun";
+import Moon from "@tabler/icons-svelte/icons/moon";
+import Sun from "@tabler/icons-svelte/icons/sun";
 import { theme } from "$lib/theme.svelte";
 import { cn } from "$lib/utils";
 

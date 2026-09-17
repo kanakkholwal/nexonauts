@@ -1,6 +1,6 @@
 <script lang="ts">
-import ArrowUpRight from "@lucide/svelte/icons/arrow-up-right";
-import MenuIcon from "@lucide/svelte/icons/menu";
+import ArrowUpRight from "@tabler/icons-svelte/icons/arrow-up-right";
+import MenuIcon from "@tabler/icons-svelte/icons/menu";
 import { appConfig } from "@/project.config";
 import Logo from "$lib/components/logo.svelte";
 import { Button, buttonVariants } from "$lib/components/ui/button";

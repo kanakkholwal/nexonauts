@@ -1,18 +1,18 @@
 <!-- @migration-task Error while migrating Svelte code: Can only bind to an Identifier or MemberExpression or a `{get, set}` pair
 https://svelte.dev/e/bind_invalid_expression -->
 <script lang="ts">
-import Braces from "@lucide/svelte/icons/braces";
-import Check from "@lucide/svelte/icons/check";
-import Copy from "@lucide/svelte/icons/copy";
-import FileText from "@lucide/svelte/icons/file-text";
-import Globe from "@lucide/svelte/icons/globe";
-import MapIcon from "@lucide/svelte/icons/map";
-import Plus from "@lucide/svelte/icons/plus";
-import Search from "@lucide/svelte/icons/search";
-import Settings2 from "@lucide/svelte/icons/settings-2";
-import ShoppingBag from "@lucide/svelte/icons/shopping-bag";
-import Trash2 from "@lucide/svelte/icons/trash-2";
-import User from "@lucide/svelte/icons/user";
+import Braces from "@tabler/icons-svelte/icons/braces";
+import Check from "@tabler/icons-svelte/icons/check";
+import Copy from "@tabler/icons-svelte/icons/copy";
+import FileText from "@tabler/icons-svelte/icons/file-text";
+import Globe from "@tabler/icons-svelte/icons/globe";
+import MapIcon from "@tabler/icons-svelte/icons/map";
+import Plus from "@tabler/icons-svelte/icons/plus";
+import Search from "@tabler/icons-svelte/icons/search";
+import Settings2 from "@tabler/icons-svelte/icons/settings-2";
+import ShoppingBag from "@tabler/icons-svelte/icons/shopping-bag";
+import Trash2 from "@tabler/icons-svelte/icons/trash";
+import User from "@tabler/icons-svelte/icons/user";
 import { toast } from "svelte-sonner";
 import { Button } from "$lib/components/ui/button";
 import { Input } from "$lib/components/ui/input";

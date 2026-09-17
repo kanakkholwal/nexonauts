@@ -1,6 +1,6 @@
 <script lang="ts">
-import ArrowLeft from "@lucide/svelte/icons/arrow-left";
-import ArrowRight from "@lucide/svelte/icons/arrow-right";
+import ArrowLeft from "@tabler/icons-svelte/icons/arrow-left";
+import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
 import Footer from "$lib/components/common/footer.svelte";
 import Navbar from "$lib/components/common/navbar.svelte";
 import { buttonVariants } from "$lib/components/ui/button";
@@ -21,7 +21,7 @@ let { data } = $props();
 	<Navbar />
 </header>
 
-<main class="mx-auto min-h-screen max-w-4xl px-6 pt-24 pb-20">
+<main id="main" class="mx-auto min-h-screen max-w-4xl px-6 pt-24 pb-20">
 	<a
 		href="/learn"
 		class={cn(

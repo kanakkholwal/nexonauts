@@ -1,5 +1,5 @@
 <script lang="ts">
-import ChevronRightIcon from "@lucide/svelte/icons/chevron-right";
+import ChevronRightIcon from "@tabler/icons-svelte/icons/chevron-right";
 import type { WithoutChildren } from "bits-ui";
 import { Button, type Props } from "$lib/components/ui/button/index.js";
 import { cn } from "$lib/utils.js";

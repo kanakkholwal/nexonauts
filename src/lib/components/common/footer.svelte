@@ -1,6 +1,6 @@
 <script lang="ts">
+import ArrowUpRight from "@tabler/icons-svelte/icons/arrow-up-right";
 import { FOOTER_LINKS } from "data/root";
-import ArrowUpRight from "phosphor-svelte/lib/ArrowUpRight";
 import { appConfig } from "@/project.config";
 import Logo from "$lib/components/logo.svelte";
 

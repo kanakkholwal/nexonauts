@@ -79,3 +79,6 @@ next-env.d.ts
 # amplify
 .amplify
 amplifyconfiguration*
+
+# Generated illustration proofs
+scripts/.render

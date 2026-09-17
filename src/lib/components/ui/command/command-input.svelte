@@ -1,5 +1,5 @@
 <script lang="ts">
-import SearchIcon from "@lucide/svelte/icons/search";
+import SearchIcon from "@tabler/icons-svelte/icons/search";
 import { Command as CommandPrimitive } from "bits-ui";
 import * as InputGroup from "$lib/components/ui/input-group/index.js";
 import { cn } from "$lib/utils.js";

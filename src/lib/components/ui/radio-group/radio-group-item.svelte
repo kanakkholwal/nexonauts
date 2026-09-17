@@ -1,5 +1,5 @@
 <script lang="ts">
-import CircleIcon from "@lucide/svelte/icons/circle";
+import CircleIcon from "@tabler/icons-svelte/icons/circle";
 import { RadioGroup as RadioGroupPrimitive } from "bits-ui";
 import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
 

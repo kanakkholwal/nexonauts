@@ -1,9 +1,9 @@
 <script lang="ts">
-import CircleCheckIcon from "@lucide/svelte/icons/circle-check";
-import InfoIcon from "@lucide/svelte/icons/info";
-import Loader2Icon from "@lucide/svelte/icons/loader-2";
-import OctagonXIcon from "@lucide/svelte/icons/octagon-x";
-import TriangleAlertIcon from "@lucide/svelte/icons/triangle-alert";
+import OctagonXIcon from "@tabler/icons-svelte/icons/alert-octagon";
+import TriangleAlertIcon from "@tabler/icons-svelte/icons/alert-triangle";
+import CircleCheckIcon from "@tabler/icons-svelte/icons/circle-check";
+import InfoIcon from "@tabler/icons-svelte/icons/info-circle";
+import Loader2Icon from "@tabler/icons-svelte/icons/loader-2";
 import { Toaster as Sonner, type ToasterProps as SonnerProps } from "svelte-sonner";
 
 let { ...restProps }: SonnerProps = $props();

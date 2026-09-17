@@ -1,5 +1,5 @@
 <script lang="ts">
-import ArrowLeft from "@lucide/svelte/icons/arrow-left";
+import ArrowLeft from "@tabler/icons-svelte/icons/arrow-left";
 import { appConfig } from "@/project.config";
 import Logo from "$lib/components/logo.svelte";
 import { buttonVariants } from "$lib/components/ui/button";
@@ -30,8 +30,11 @@ let { children } = $props();
 		</div>
 	</aside>
 
-	<!-- Right: centered form card on plain canvas. -->
-	<section class="relative flex min-h-screen flex-col items-center justify-center px-6 py-12 lg:p-12">
+	<!-- Right: centered form card on plain canvas. Carries the skip-link target. -->
+	<main
+		id="main"
+		class="relative flex min-h-screen flex-col items-center justify-center px-6 py-12 lg:p-12"
+	>
 		<div class="absolute top-6 left-6 lg:top-8 lg:left-8">
 			<a
 				href="/"
@@ -57,5 +60,5 @@ let { children } = $props();
 			<span class="mx-2">·</span>
 			<a href="/privacy" class="underline-offset-4 hover:underline">Privacy</a>
 		</div>
-	</section>
+	</main>
 </div>
