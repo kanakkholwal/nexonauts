@@ -4,9 +4,8 @@ import IconBrandGithub from "@tabler/icons-svelte/icons/brand-github";
 import { appConfig } from "@/project.config";
 import {
 	ClosingField,
-	FactStrip,
 	FaqRegister,
-	HeroSplit,
+	HeroStage,
 	NameRun,
 	SectionHead
 } from "$lib/components/home";
@@ -82,9 +81,7 @@ const description =
 </svelte:head>
 
 <SiteFrame rails={false} class="bg-background">
-	<HeroSplit />
-
-	<FactStrip items={["Free", "No account", "Nothing uploaded", "Public repositories"]} />
+	<HeroStage />
 
 	<section
 		id="products"

@@ -60,6 +60,13 @@
 	--field-muted: #f0e4fb;
 	--field-rule: color-mix(in oklch, var(--field) 72%, white);
 
+	/* The hero stage. Mode-invariant, so its ink cannot be --foreground and its
+	   muted ink cannot be --muted-foreground: both invert and would fail on it. */
+	--stage: #0a0a0a;
+	--stage-foreground: #f0f0f0;
+	--stage-muted: #a1a4a5;
+	--stage-rule: #292d30;
+
 	/* Violet highlights, black commits. The filled commit action is never accent. */
 	--action: #0a0a0a;
 	--action-foreground: #ffffff;
@@ -121,6 +128,11 @@
 	--field-foreground: #ffffff;
 	--field-muted: #f0e4fb;
 	--field-rule: color-mix(in oklch, var(--field) 72%, white);
+
+	--stage: #0a0a0a;
+	--stage-foreground: #f0f0f0;
+	--stage-muted: #a1a4a5;
+	--stage-rule: #292d30;
 
 	--action: #f0f0f0;
 	--action-foreground: #000000;
@@ -316,6 +328,10 @@
 	--color-field-foreground: var(--field-foreground);
 	--color-field-muted: var(--field-muted);
 	--color-field-rule: var(--field-rule);
+	--color-stage: var(--stage);
+	--color-stage-foreground: var(--stage-foreground);
+	--color-stage-muted: var(--stage-muted);
+	--color-stage-rule: var(--stage-rule);
 	--color-fixed-light: var(--fixed-light);
 	--color-fixed-dark: var(--fixed-dark);
 
