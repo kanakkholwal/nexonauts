@@ -92,11 +92,9 @@
 .dark {
 	color-scheme: dark;
 
-	/* Near black, and elevation climbs: background < muted < card. Measured in L*,
-	   #000 to #0b0b0c was a step of 1.4 and the bands were invisible; these are 3.3
-	   and 3.9. Neutral greys, no blue cast. */
-	--canvas: #08080a;
-	--background: #08080a;
+
+	--canvas: #151515;
+	--background: #151515;
 	--muted: #121214;
 	--card: #1a1a1d;
 	--popover: #1a1a1d;
