@@ -28,7 +28,8 @@ let { sections, children }: Props = $props();
 			</div>
 		</aside>
 
-		<div class="col-span-12 lg:col-span-9">
+		<!-- No base col-span: with no grid-cols below lg it spans 12 implicit tracks and overflows. -->
+		<div class="lg:col-span-9">
 			<div class="legal max-w-[68ch]">
 				{@render children()}
 			</div>

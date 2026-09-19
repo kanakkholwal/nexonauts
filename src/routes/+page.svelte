@@ -93,7 +93,9 @@ $effect(() => {
 			</div>
 			<dl class="flex flex-col gap-12 md:gap-16" data-motion="stands">
 				{#each stands as item (item.lead)}
-					<div class="grid gap-3 md:grid-cols-[minmax(0,18rem)_1fr] md:gap-12">
+					<div
+						class="grid gap-3 md:grid-cols-[minmax(0,18rem)_1fr] md:items-baseline md:gap-12"
+					>
 						<dt class="text-subheading font-medium text-balance text-foreground lg:text-heading">
 							{item.lead}
 						</dt>

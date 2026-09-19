@@ -13,7 +13,7 @@ let { class: className }: { class?: string } = $props();
 	aria-label={theme.current === "dark" ? "Switch to light theme" : "Switch to dark theme"}
 	class={cn(
 		"inline-flex size-9 shrink-0 items-center justify-center rounded-lg text-muted-foreground",
-		"transition-colors duration-200 ease-fluid hover:bg-paper hover:text-foreground",
+		"transition-colors duration-(--duration-ui) ease-(--ease-out) hover:bg-paper hover:text-foreground motion-reduce:transition-none",
 		"focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
 		className
 	)}

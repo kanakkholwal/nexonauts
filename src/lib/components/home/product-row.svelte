@@ -54,6 +54,7 @@ const label = $derived(`${ordinal} · ${product.name}`);
 				? "md:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]"
 				: "md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]"
 		)}
+		data-motion="row-grid"
 	>
 		<div class={cn("min-w-0", flip && "md:order-2")} data-motion="row-copy">
 			<p class="font-mono text-caption tracking-wider text-muted-foreground uppercase md:hidden">

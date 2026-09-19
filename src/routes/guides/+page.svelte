@@ -55,7 +55,7 @@ function guideHref(slugs: string[]): string {
 							{/if}
 						</div>
 						<ArrowRight
-							class="size-4 shrink-0 text-muted-foreground transition-all group-hover:text-foreground group-hover:translate-x-1"
+							class="size-4 shrink-0 text-muted-foreground transition-[color,transform] duration-(--duration-ui) ease-(--ease-out) group-hover:translate-x-0.5 group-hover:text-foreground motion-reduce:transition-none"
 						/>
 					</a>
 				</li>

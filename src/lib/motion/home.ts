@@ -19,7 +19,8 @@ type Scene = {
 	targets: gsap.TweenTarget;
 	from: (dir: Dir) => Vars;
 	to?: (dir: Dir) => Vars;
-	out?: (dir: Dir) => Vars;
+	/** Stays where it settled instead of leaving. For anything on a section's own edge. */
+	hold?: boolean;
 };
 
 // The resting value of every key a scene may start from. A scene declares only its start
@@ -48,10 +49,8 @@ const settle = (from: Vars): Vars => {
 	return to;
 };
 
-const LEAVE = (dir: Dir): Vars => ({ autoAlpha: 0, y: -26 * dir });
-
 // One arrival per product. Four screens of the same move would read as a template.
-type Move = { stage: Scene["from"]; stageOut: Scene["out"]; stageTo?: Vars; copy: Scene["from"] };
+type Move = { stage: Scene["from"]; stageTo?: Vars; copy: Scene["from"] };
 
 const ROW_MOVES: Move[] = [
 	{
@@ -63,28 +62,24 @@ const ROW_MOVES: Move[] = [
 			transformPerspective: 1100,
 			transformOrigin: "left center"
 		}),
-		stageOut: (d) => ({ rotationY: -10, y: -40 * d, autoAlpha: 0 }),
 		stageTo: { duration: 0.9 },
 		copy: (d) => ({ x: -36, y: 18 * d, autoAlpha: 0 })
 	},
 	{
 		// Wipe: uncovered from the edge the page is travelling toward, covered from the other.
 		stage: (d) => ({ clipPath: d > 0 ? "inset(0% 0% 100% 0%)" : "inset(100% 0% 0% 0%)" }),
-		stageOut: (d) => ({ clipPath: d > 0 ? "inset(100% 0% 0% 0%)" : "inset(0% 0% 100% 0%)" }),
 		stageTo: { duration: 0.95, ease: "power2.inOut" },
 		copy: (d) => ({ y: 34 * d, autoAlpha: 0 })
 	},
 	{
 		// Lift: it comes up under its own weight.
 		stage: (d) => ({ scale: 0.86, y: 70 * d, autoAlpha: 0 }),
-		stageOut: (d) => ({ scale: 0.94, y: -40 * d, autoAlpha: 0 }),
 		stageTo: { duration: 0.85 },
 		copy: (d) => ({ x: 32, y: 16 * d, autoAlpha: 0 })
 	},
 	{
 		// Deal: dropped onto the page off-square, then squared up.
 		stage: (d) => ({ y: 96 * d, rotate: 4 * d, transformOrigin: "50% 100%", autoAlpha: 0 }),
-		stageOut: (d) => ({ y: -50 * d, rotate: -3 * d, autoAlpha: 0 }),
 		stageTo: { duration: 0.85 },
 		copy: (d) => ({ y: 40 * d, autoAlpha: 0 })
 	}
@@ -108,14 +103,15 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 		const cleanups: Array<() => void> = [];
 		const managed: gsap.TweenTarget[] = [];
 
-		// Nothing plays until the reader has actually scrolled once. Without this, a section
-		// already on screen when motion mounts would animate over content that is already read.
+		// Nothing plays until the reader has scrolled once, or a section already on screen
+		// would animate. Capture phase: ScrollTrigger's own listener is attached first.
 		let armed = false;
 		const arm = () => {
 			armed = true;
 		};
-		window.addEventListener("scroll", arm, { once: true, passive: true });
-		cleanups.push(() => window.removeEventListener("scroll", arm));
+		const armOpts = { once: true, passive: true, capture: true } as const;
+		window.addEventListener("scroll", arm, armOpts);
+		cleanups.push(() => window.removeEventListener("scroll", arm, { capture: true }));
 
 		// A refresh re-measures every trigger, so anything parked in its exit state would
 		// stay invisible. Hand everything back to CSS and let the next crossing re-run it.
@@ -136,20 +132,21 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 			});
 		};
 
-		// An exit may only touch properties the entrance resets, or the next arrival leaves
-		// the element parked at an exit value. Filtering here makes that structural.
+		// A section leaves toward the pose its next arrival starts from, so an arrival never
+		// has to snap into place first. That snap was the flicker.
 		const leave = (scene: Scene, dir: Dir) => {
-			const restorable = new Set(Object.keys(scene.from(dir)));
-			const out: Vars = { duration: EXIT, ease: EASE_EXIT, overwrite: true };
-			for (const [key, value] of Object.entries((scene.out ?? LEAVE)(dir))) {
-				if (!(key in NEUTRAL) || restorable.has(key)) out[key] = value;
-			}
-			gsap.to(scene.targets, out);
+			if (scene.hold) return;
+			gsap.to(scene.targets, {
+				...scene.from(-dir as Dir),
+				duration: EXIT,
+				ease: EASE_EXIT,
+				overwrite: true
+			});
 		};
 
 		// One trigger per section drives every element in it, so a chapter arrives and
 		// leaves as a single move rather than as a handful of independent ones.
-		const conduct = (trigger: Element, scenes: Scene[], start = "top 78%") => {
+		const conduct = (trigger: Element, scenes: Scene[], start: string, end: string) => {
 			if (!scenes.length) return;
 			const run = (dir: Dir, mode: "in" | "out") => {
 				if (!armed) return;
@@ -158,7 +155,7 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 			const st = ScrollTrigger.create({
 				trigger,
 				start,
-				end: "bottom 22%",
+				end,
 				onEnter: () => run(1, "in"),
 				onEnterBack: () => run(-1, "in"),
 				onLeave: () => run(1, "out"),
@@ -207,13 +204,23 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 			const move = ROW_MOVES[Number(row.dataset.row) % ROW_MOVES.length];
 			const scenes: Scene[] = [];
 
+			// Held, and on the band rather than the content: the seam is drawn on the
+			// section's top edge and is still on screen when the trigger releases.
 			const seam = row.querySelector("[data-motion='row-seam']");
 			if (seam) {
-				scenes.push({
-					targets: seam,
-					from: (d) => ({ y: 24 * d, autoAlpha: 0 }),
-					to: () => ({ duration: 0.5 })
-				});
+				conduct(
+					row,
+					[
+						{
+							targets: seam,
+							from: (d) => ({ y: 24 * d, autoAlpha: 0 }),
+							to: () => ({ duration: 0.5 }),
+							hold: true
+						}
+					],
+					"top bottom",
+					"bottom top"
+				);
 			}
 
 			const lines = row.querySelectorAll("[data-motion='row-copy'] > *");
@@ -222,12 +229,7 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 					targets: lines,
 					from: move.copy,
 					// Reading order runs with the page: top down going down, bottom up coming back.
-					to: (d) => ({ stagger: { each: 0.06, from: d > 0 ? "start" : "end" } }),
-					out: (d) => ({
-						autoAlpha: 0,
-						y: -22 * d,
-						stagger: { each: 0.03, from: d > 0 ? "start" : "end" }
-					})
+					to: (d) => ({ stagger: { each: 0.06, from: d > 0 ? "start" : "end" } })
 				});
 			}
 
@@ -236,8 +238,7 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 				scenes.push({
 					targets: stage,
 					from: move.stage,
-					to: () => move.stageTo ?? {},
-					out: move.stageOut
+					to: () => move.stageTo ?? {}
 				});
 			}
 
@@ -248,12 +249,20 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 				scenes.push({
 					targets: strokes,
 					from: () => ({ drawSVG: "0%" }),
-					to: () => ({ duration: 0.9, stagger: 0.04, ease: "none" }),
-					out: () => ({ drawSVG: "0%" })
+					to: () => ({ duration: 0.9, stagger: 0.04, ease: "none" })
 				});
 			}
 
-			conduct(row, scenes, "top 72%");
+			// On the content, not the 90dvh band, so the start pose lands below the fold.
+			// The tail line still leaves enough on screen for the exit to read.
+			conduct(
+				row.querySelector("[data-motion='row-grid']") ?? row,
+				scenes,
+				// The grid's own top padding is what is on screen at this line, so the start
+				// pose lands before any content of it is visible and cannot be seen snapping.
+				"top 90%",
+				"bottom 18%"
+			);
 
 			// The band numeral rides past faster than the page, which is what makes a
 			// full-height section read as one rather than as padding.
@@ -316,13 +325,19 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 
 		// Section heads rise as their section enters, and drop back out behind the reader.
 		for (const group of q("[data-motion='head']")) {
-			conduct(group, [
-				{
-					targets: group.children,
-					from: (d) => ({ y: 16 * d, autoAlpha: 0 }),
-					to: (d) => ({ stagger: { each: 0.05, from: d > 0 ? "start" : "end" } })
-				}
-			]);
+			conduct(
+				group,
+				[
+					{
+						targets: group.children,
+						from: (d) => ({ y: 16 * d, autoAlpha: 0 }),
+						to: (d) => ({ stagger: { each: 0.05, from: d > 0 ? "start" : "end" } })
+					}
+				],
+				"top 82%",
+				// A heading is a few lines tall, so it may only leave once it is off screen.
+				"bottom top"
+			);
 		}
 
 		// The three statements light from half ink to full as they are read past. A scrub is
@@ -378,7 +393,8 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 				scenes.push({
 					targets: notch,
 					from: (d) => ({ y: 26 * d, autoAlpha: 0 }),
-					to: () => ({ duration: 0.5 })
+					to: () => ({ duration: 0.5 }),
+					hold: true
 				});
 			}
 			const cols = footer.querySelectorAll("[data-motion='footer-col']");
@@ -394,11 +410,10 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 				scenes.push({
 					targets: mark,
 					from: () => ({ drawSVG: "0%" }),
-					to: () => ({ duration: 1, ease: "none" }),
-					out: () => ({ drawSVG: "0%" })
+					to: () => ({ duration: 1, ease: "none" })
 				});
 			}
-			conduct(footer, scenes, "top 88%");
+			conduct(footer, scenes, "top 88%", "bottom top");
 
 			gsap.fromTo(
 				footer.querySelectorAll("[data-motion='footer-rule']"),

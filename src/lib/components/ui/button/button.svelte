@@ -3,13 +3,13 @@ import type { HTMLAnchorAttributes, HTMLButtonAttributes } from "svelte/elements
 import type { VariantProps } from "tailwind-variants";
 import { cn, tv, type WithElementRef } from "$lib/utils.js";
 
-/** Button. See .notes/DESIGN.md. Violet highlights, black commits: `default` is
+/** Button. See .notes/DESIGN.md. Accent highlights, black commits: `default` is
  *  the near-black commit action, `primary` the one brand action per view. */
 export const buttonVariants = tv({
 	base: [
 		"group/button inline-flex shrink-0 items-center justify-center gap-2 whitespace-nowrap",
 		"font-sans font-medium select-none border border-transparent bg-clip-padding outline-none",
-		"ease-craft transition-colors duration-200 motion-reduce:transition-none",
+		"ease-craft transition-[color,background-color,border-color,box-shadow,transform] duration-(--duration-ui) motion-reduce:transition-none",
 		// Full strength, not /50: a 50% ring composites to 2.64:1 on white, under
 		// the 3:1 floor. At full strength it is 5.87:1 light and 8.20:1 dark.
 		"focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
@@ -30,7 +30,7 @@ export const buttonVariants = tv({
 			outline: "border-border-control bg-card text-foreground hover:bg-muted",
 			ghost:
 				"bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground aria-expanded:bg-muted",
-			// Violet edge and violet ink, no fill. A highlight action, never a commit.
+			// Accent edge and accent ink, no fill. A highlight action, never a commit.
 			// Full-strength border because an edge is a control boundary at 3:1.
 			accent: "border-primary bg-transparent text-primary hover:bg-primary/10",
 			// Fixed in both themes, for use on a brand panel.
