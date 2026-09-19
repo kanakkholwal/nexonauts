@@ -1,191 +1,116 @@
 <script lang="ts">
-import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
-import CalendarDays from "@tabler/icons-svelte/icons/calendar-month";
 import { appConfig } from "@/project.config";
 import { PageHero } from "$lib/components/site";
-import { Badge } from "$lib/components/ui/badge";
-import { Button } from "$lib/components/ui/button";
+import LegalBody from "../legal-body.svelte";
 
 const SITE = appConfig.name;
 
 const sections = [
-	{ id: "collection", title: "Information We Collect" },
-	{ id: "usage", title: "How We Use Information" },
-	{ id: "logs", title: "Log Files" },
-	{ id: "cookies", title: "Cookies & Web Beacons" },
-	{ id: "advertising", title: "Advertising Partners" },
-	{ id: "third-party", title: "Third-Party Policies" },
-	{ id: "ccpa", title: "CCPA Privacy Rights" },
-	{ id: "gdpr", title: "GDPR Data Protection" },
-	{ id: "security", title: "Data Security" },
-	{ id: "updates", title: "Updates to Policy" },
-	{ id: "contact", title: "Contact Us" }
+	{ id: "short", title: "The short version" },
+	{ id: "site", title: "What this site collects" },
+	{ id: "browser", title: "What is stored in your browser" },
+	{ id: "third-party", title: "Third parties" },
+	{ id: "products", title: "The products" },
+	{ id: "rights", title: "Your rights" },
+	{ id: "changes", title: "Changes" },
+	{ id: "contact", title: "Contact" }
 ];
 </script>
 
 <svelte:head>
 	<title>Privacy Policy | {SITE}</title>
-	<meta name="description" content="How {SITE} collects, uses, and protects your information." />
+	<meta
+		name="description"
+		content="{SITE} runs no analytics and no advertising script. One key in your browser stores the theme. Nothing else is collected."
+	/>
 </svelte:head>
 
 <PageHero eyebrow="Legal" title="Privacy Policy" lede="Last updated 27 November 2025." />
 
-<section class="relative isolate mx-auto w-full max-w-page px-5 pt-16 sm:px-10 lg:px-14">
+<LegalBody {sections}>
+	<p class="lead">
+		This page is short because this site does little. It serves pages. It runs no analytics and
+		no advertising script, it has no sign-up, and it asks for nothing.
+	</p>
 
-	<div class="relative z-10 grid gap-12 lg:grid-cols-12">
-		<!-- TOC -->
-		<aside class="hidden lg:col-span-3 lg:block">
-			<div class="sticky top-24 space-y-2">
-				<p class="mb-4 pl-4 font-mono text-caption tracking-wider text-muted-foreground uppercase">On this page</p>
-				<nav class="border-l border-border">
-					{#each sections as section (section.id)}
-						<a
-							href={`#${section.id}`}
-							class="-ml-px block border-l-2 border-transparent py-2 pl-4 text-body-sm text-muted-foreground transition-all hover:border-ink hover:text-foreground"
-						>
-							{section.title}
-						</a>
-					{/each}
-				</nav>
-			</div>
-		</aside>
+	<section id="short">
+		<h2>The short version</h2>
+		<p>
+			{SITE} collects no personal information. There is no account to create, no form to fill in,
+			and no tracking script on any page. One key in your browser remembers whether you chose the
+			light or the dark theme, and that key never leaves your device.
+		</p>
+	</section>
 
-		<div class="col-span-12 lg:col-span-9">
-			<div
-				class="prose prose-zinc dark:prose-invert max-w-none
-					prose-headings:font-display prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-foreground prose-headings:scroll-mt-28
-					prose-h2:text-subheading prose-h3:text-subheading
-					prose-p:text-muted-foreground prose-p:
-					prose-a:text-foreground prose-a:underline-offset-4 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
-					prose-strong:text-foreground"
-			>
-				<p class="lead text-body-sm text-muted-foreground">
-					At <span class="font-medium text-foreground">{SITE}</span>, we take your privacy seriously. This
-					policy explains what we collect, how we use it, and how we protect it.
-				</p>
+	<section id="site">
+		<h2>What this site collects</h2>
+		<p>
+			Nothing that identifies you. Earlier versions of this page said otherwise, listing names,
+			phone numbers, company names and postal addresses. That was boilerplate, and it described a
+			site that does not exist. There is no contact form; getting in touch means booking a call or
+			sending an email, and in both cases you decide what to hand over.
+		</p>
+		<p>
+			The host that serves these pages keeps its own request logs, as every web server does. Those
+			logs are the host's, not ours, and we do not read, export or analyse them.
+		</p>
+	</section>
 
-				<hr class="my-10 border-border" />
+	<section id="browser">
+		<h2>What is stored in your browser</h2>
+		<p>
+			One <code>localStorage</code> key, <code>nx-theme</code>, holding the word
+			<code>light</code> or <code>dark</code>. It is written when you use the theme control in the
+			footer and read on your next visit so the page does not flash the wrong colour. Clearing
+			site data removes it.
+		</p>
+		<p>No cookies are set by this site.</p>
+	</section>
 
-				<section id="collection">
-					<h3>Information we collect</h3>
-					<p>
-						We collect personal information that is necessary for us to provide our services to
-						you. This includes the information you provide when you contact us, register for an
-						account, and use our services. We may ask for your name, email address, phone number,
-						company name, address, and other contact information.
-					</p>
-					<p>
-						We may also collect information about how you use our website and services, including
-						your IP address, browser type, internet service provider, date and time stamp,
-						referring/exit pages, and the number of clicks. We use this information to analyze
-						trends, administer the site, track user movements, and gather demographic information.
-					</p>
-				</section>
+	<section id="third-party">
+		<h2>Third parties</h2>
+		<p>
+			The HTML carries a Google AdSense ownership tag, which is a claim of who owns the domain and
+			loads nothing. <strong>No advertising or analytics script runs on this site today.</strong>
+			If that changes, this page changes first and the date at the top of it moves.
+		</p>
+		<p>
+			The typefaces and the product drawings are served from this domain, so no font or asset
+			request goes to anyone else.
+		</p>
+	</section>
 
-				<section id="usage">
-					<h3>How we use your information</h3>
-					<p>
-						We use the information we collect to provide, operate, and maintain our website,
-						improve and personalize your experience, develop new products and services, and
-						communicate with you directly or through our partners. We may also use your
-						information for customer service, fraud prevention, and marketing purposes.
-					</p>
-				</section>
+	<section id="products">
+		<h2>The products</h2>
+		<p>
+			Orbit, Recast, Glyphtex and Docvia each have their own site, their own policy and their own
+			behaviour. This page does not speak for them. Recast has an optional cloud tier with its own
+			account, and that tier has its own terms.
+		</p>
+	</section>
 
-				<section id="logs">
-					<h3>Log files</h3>
-					<p>
-						We use log files to track the use of our website. These files include information such
-						as your IP address, browser type, internet service provider, date and time stamp,
-						referring/exit pages, and the number of clicks. This information is used to analyze
-						trends, administer the site, track user movements, and gather demographic information.
-						This information is not linked to any personally identifiable information.
-					</p>
-				</section>
+	<section id="rights">
+		<h2>Your rights</h2>
+		<p>
+			Where you live may give you the right to ask what is held about you, to correct it, or to
+			have it deleted. Here the answer to the first question is nothing, so the other two have
+			nothing to act on. Ask anyway if you want it in writing.
+		</p>
+	</section>
 
-				<section id="cookies">
-					<h3>Cookies and web beacons</h3>
-					<p>
-						Like most websites, {SITE} uses cookies to store information about your preferences and
-						the pages you visit. Cookies are small data files that are stored on your device.
-					</p>
-				</section>
+	<section id="changes">
+		<h2>Changes</h2>
+		<p>
+			If what this site does changes, this page is updated before the change ships and the date at
+			the top moves with it.
+		</p>
+	</section>
 
-				<section id="advertising">
-					<h3>Our advertising partners</h3>
-					<p>
-						We work with third-party advertising partners, including Google, to serve ads to our
-						site visitors. These partners may use cookies and web beacons to collect information
-						about your browsing behavior on our website and other sites.
-					</p>
-				</section>
-
-				<section id="third-party">
-					<h3>Third-party privacy policies</h3>
-					<p>
-						Our privacy policy does not apply to third-party advertisers or websites. We advise
-						you to consult the privacy policies of these third-party ad servers for more
-						information about their practices.
-					</p>
-				</section>
-
-				<section id="ccpa">
-					<h3>CCPA privacy rights</h3>
-					<p>
-						Under the California Consumer Privacy Act (CCPA), California consumers have the right
-						to request disclosure, deletion, and opt-out of sale of their personal data collected
-						by a business.
-					</p>
-				</section>
-
-				<section id="gdpr">
-					<h3>GDPR data protection rights</h3>
-					<p>
-						Under the General Data Protection Regulation (GDPR), users have the right to access
-						their personal data and request that it be corrected or erased. We take data
-						protection seriously and will make every effort to respond to these requests in a
-						timely manner.
-					</p>
-				</section>
-
-				<section id="security">
-					<h3>Data security</h3>
-					<p>
-						We take the security of your personal information seriously and use industry-standard
-						practices to protect it from unauthorized access, disclosure, alteration, or
-						destruction.
-					</p>
-				</section>
-
-				<section id="updates">
-					<h3>Updates to this policy</h3>
-					<p>
-						We reserve the right to update this policy at any time. We encourage you to review
-						this policy periodically to stay informed about how we collect, use, and protect your
-						personal information.
-					</p>
-				</section>
-
-				<section id="contact" class="not-prose mt-14">
-					<div
-						class="flex flex-col items-start justify-between gap-5 rounded-card border border-border bg-muted p-8 sm:flex-row sm:items-center"
-					>
-						<div class="max-w-md">
-							<h3 class="font-display text-subheading font-medium tracking-tight text-foreground">
-								Still have questions?
-							</h3>
-							<p class="mt-2 text-body-sm text-muted-foreground">
-								If you have any questions or concerns about our privacy policy, please don't
-								hesitate to reach out.
-							</p>
-						</div>
-						<Button href="/contact" size="md">
-							Contact support
-							<ArrowRight class="size-4" />
-						</Button>
-					</div>
-				</section>
-			</div>
-		</div>
-	</div>
-</section>
+	<section id="contact">
+		<h2>Contact</h2>
+		<p>
+			Questions about this page go to <a href="/contact">the contact page</a>, which has a booking
+			link and an email address.
+		</p>
+	</section>
+</LegalBody>

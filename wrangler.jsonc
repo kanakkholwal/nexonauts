@@ -6,12 +6,12 @@
 		"binding": "ASSETS",
 		"directory": ".svelte-kit/cloudflare"
 	},
-	"compatibility_date": "2026-05-09",
+	"compatibility_date": "2026-06-07",
 	"compatibility_flags": ["nodejs_compat"],
 	"observability": {
 		"logs": {
-			"enabled": false,
-			"invocation_logs": true
+			"enabled": true
 		}
-	}
+	},
+	"routes": [{ "pattern": "nexonauts.com", "custom_domain": true }]
 }

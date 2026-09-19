@@ -1,15 +1,35 @@
 name: Deploy To Cloudflare Workers
 
 on:
-  # push:
-  #   branches:
-  #     - feat/sveltekit-migration
-  # #     - main
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 concurrency:
   group: deploy-cloudflare-workers-${{ github.ref }}
   cancel-in-progress: true
+
+env:
+  NODE_ENV: production
+  BASE_URL: "https://nexonauts.com"
+  PUBLIC_BASE_URL: "https://nexonauts.com"
+  PUBLIC_WEBSITE_URL: "https://nexonauts.com"
+  PUBLIC_WEBSITE_NAME: "Nexonauts"
+  BASE_MAIL_SERVER_URL: ${{ vars.BASE_MAIL_SERVER_URL }}
+  INTEGRATION_GITHUB_ID: ${{ secrets.INTEGRATION_GITHUB_ID }}
+  INTEGRATION_GITHUB_SECRET: ${{ secrets.INTEGRATION_GITHUB_SECRET }}
+  GOOGLE_ID: ${{ secrets.GOOGLE_ID }}
+  GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
+  MONGODB_URI: ${{ secrets.MONGODB_URI }}
+  BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+  SERVER_IDENTITY: ${{ secrets.SERVER_IDENTITY }}
+  CLOUDINARY_CLOUD_NAME: ${{ vars.CLOUDINARY_CLOUD_NAME }}
+  CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
+  CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+  GUMROAD_APP_ID: ${{ vars.GUMROAD_APP_ID }}
+  GUMROAD_APP_SECRET: ${{ secrets.GUMROAD_APP_SECRET }}
 
 jobs:
   deploy:
@@ -41,10 +61,10 @@ jobs:
         env:
           CF_PAGES: "1"
           NODE_ENV: production
-          BASE_URL: ${{ vars.BASE_URL }}
-          PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL || vars.BASE_URL }}
-          PUBLIC_WEBSITE_URL: ${{ vars.PUBLIC_WEBSITE_URL || vars.BASE_URL }}
-          PUBLIC_WEBSITE_NAME: ${{ vars.PUBLIC_WEBSITE_NAME }}
+          BASE_URL: ${{env.BASE_URL }}
+          PUBLIC_BASE_URL: ${{ env.PUBLIC_BASE_URL }}
+          PUBLIC_WEBSITE_URL: ${{ env.PUBLIC_WEBSITE_URL }}
+          PUBLIC_WEBSITE_NAME: ${{ env.PUBLIC_WEBSITE_NAME }}
           BASE_MAIL_SERVER_URL: ${{ vars.BASE_MAIL_SERVER_URL }}
           INTEGRATION_GITHUB_ID: ${{ secrets.INTEGRATION_GITHUB_ID }}
           INTEGRATION_GITHUB_SECRET: ${{ secrets.INTEGRATION_GITHUB_SECRET }}
@@ -59,7 +79,6 @@ jobs:
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
           GUMROAD_APP_ID: ${{ vars.GUMROAD_APP_ID }}
           GUMROAD_APP_SECRET: ${{ secrets.GUMROAD_APP_SECRET }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
       - name: Deploy Worker
         uses: cloudflare/wrangler-action@v3
@@ -68,25 +87,5 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: deploy
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          CF_PAGES: "1"
-          NODE_ENV: production
-          BASE_URL: ${{ vars.BASE_URL }}
-          PUBLIC_BASE_URL: ${{ vars.PUBLIC_BASE_URL || vars.BASE_URL }}
-          PUBLIC_WEBSITE_URL: ${{ vars.PUBLIC_WEBSITE_URL || vars.BASE_URL }}
-          PUBLIC_WEBSITE_NAME: ${{ vars.PUBLIC_WEBSITE_NAME }}
-          BASE_MAIL_SERVER_URL: ${{ vars.BASE_MAIL_SERVER_URL }}
-          INTEGRATION_GITHUB_ID: ${{ secrets.INTEGRATION_GITHUB_ID }}
-          INTEGRATION_GITHUB_SECRET: ${{ secrets.INTEGRATION_GITHUB_SECRET }}
-          GOOGLE_ID: ${{ secrets.GOOGLE_ID }}
-          GOOGLE_SECRET: ${{ secrets.GOOGLE_SECRET }}
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
-          JWT_SECRET: ${{ secrets.JWT_SECRET }}
-          SERVER_IDENTITY: ${{ secrets.SERVER_IDENTITY }}
-          CLOUDINARY_CLOUD_NAME: ${{ vars.CLOUDINARY_CLOUD_NAME }}
-          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
-          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
-          GUMROAD_APP_ID: ${{ vars.GUMROAD_APP_ID }}
-          GUMROAD_APP_SECRET: ${{ secrets.GUMROAD_APP_SECRET }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+         
