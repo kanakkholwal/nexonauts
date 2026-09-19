@@ -17,12 +17,12 @@ let {
 	class={cn(
 		"flex w-full field-sizing-content min-h-24 px-4 py-3 outline-none",
 		"font-sans text-sm leading-relaxed tracking-[0.01em]",
-		"bg-card text-foreground placeholder:text-muted-soft",
+		"bg-card text-foreground placeholder:text-muted-foreground",
 		"border border-border-control rounded-xl",
 		"transition-[border-color,box-shadow] duration-150",
 		"focus-visible:border-primary focus-visible:shadow-[inset_0_0_0_1px_var(--primary)]",
 		"aria-invalid:border-destructive aria-invalid:focus-visible:shadow-[inset_0_0_0_1px_var(--destructive)]",
-		"disabled:bg-background disabled:text-muted-soft disabled:cursor-not-allowed disabled:opacity-70",
+		"disabled:bg-background disabled:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-70",
 		"dark:bg-card/60",
 		className
 	)}

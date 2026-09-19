@@ -15,7 +15,7 @@ export const alertVariants = tv({
 	].join(" "),
 	variants: {
 		variant: {
-			default: "bg-paper text-foreground border-border-low",
+			default: "bg-paper text-foreground border-border",
 			info: "bg-info/8 text-info border-info/25",
 			success: "bg-success/10 text-success border-success/25",
 			warning: "bg-warning/10 text-warning border-warning/25",

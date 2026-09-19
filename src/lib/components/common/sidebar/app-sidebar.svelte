@@ -38,13 +38,13 @@ function isActive(href: string) {
 					{#snippet child({ props })}
 						<a href="/" {...props}>
 							<div
-								class="flex aspect-square size-8 items-center justify-center rounded-xl bg-surface-strong"
+								class="flex aspect-square size-8 items-center justify-center rounded-xl bg-muted"
 							>
 								<Logo class="size-5" />
 							</div>
 							<div class="grid flex-1 text-left text-sm leading-tight">
-								<span class="font-display text-base font-light tracking-tight truncate text-ink">{appConfig.name}</span>
-								<span class="truncate text-xs text-muted-ink">
+								<span class="font-display text-base font-light tracking-tight truncate text-foreground">{appConfig.name}</span>
+								<span class="truncate text-xs text-muted-foreground">
 									{appConfig.appDomain}
 								</span>
 							</div>
@@ -103,7 +103,7 @@ function isActive(href: string) {
 								/>
 							{:else}
 								<div
-									class="flex size-8 items-center justify-center rounded-full bg-surface-strong text-sm font-medium text-ink"
+									class="flex size-8 items-center justify-center rounded-full bg-muted text-sm font-medium text-foreground"
 								>
 									{user.name?.charAt(0).toUpperCase() ?? "?"}
 								</div>

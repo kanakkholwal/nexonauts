@@ -196,8 +196,8 @@ function onDrop(event: DragEvent) {
 
 			<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{#each images as img (img.id)}
-					<Card.Root class="group overflow-hidden border-border-low bg-card transition-[border-color] duration-200 hover:border-primary/50 hover: hover:shadow-primary/5">
-						<div class="relative aspect-video overflow-hidden border-b border-border-low bg-paper">
+					<Card.Root class="group overflow-hidden border-border bg-card transition-[border-color] duration-200 hover:border-primary/50 hover: hover:shadow-primary/5">
+						<div class="relative aspect-video overflow-hidden border-b border-border bg-paper">
 							<img
 								src={img.originalPreview}
 								alt={img.name}
@@ -251,7 +251,7 @@ function onDrop(event: DragEvent) {
 				{/each}
 			</div>
 
-			<div class="flex items-center justify-center gap-2 border-t border-border-low pt-8 text-center text-xs text-muted-foreground opacity-70">
+			<div class="flex items-center justify-center gap-2 border-t border-border pt-8 text-center text-xs text-muted-foreground opacity-70">
 				<RefreshCw class="size-3" />
 				All conversions happen locally in your browser. Nothing is uploaded.
 			</div>

@@ -12,6 +12,6 @@ let {
 <SheetPrimitive.Overlay
 	bind:ref
 	data-slot="sheet-overlay"
-	class={cn("bg-ink/30 supports-backdrop-filter:backdrop-blur-sm fixed inset-0 z-50", className)}
+	class={cn("bg-foreground/30 supports-backdrop-filter:backdrop-blur-sm fixed inset-0 z-50", className)}
 	{...restProps}
 />

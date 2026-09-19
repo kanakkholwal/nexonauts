@@ -63,8 +63,8 @@ function formatBytes(bytes: number) {
 	onClear={handleClear}
 >
 	<div class="grid min-h-[600px] gap-6 lg:grid-cols-2">
-		<div class="flex flex-col overflow-hidden rounded-xl border border-border-low bg-card">
-			<div class="flex h-12 items-center justify-between border-b border-border-low bg-paper px-4">
+		<div class="flex flex-col overflow-hidden rounded-xl border border-border bg-card">
+			<div class="flex h-12 items-center justify-between border-b border-border bg-paper px-4">
 				<div class="flex items-center gap-2 text-body-sm font-medium text-muted-foreground">
 					<FileCode2 class="size-4" />
 					Input HTML
@@ -72,7 +72,7 @@ function formatBytes(bytes: number) {
 				</div>
 			</div>
 			<Textarea bind:value={input} class="min-h-[420px] flex-1 resize-none rounded-none border-0 bg-transparent p-4 font-mono text-body-sm focus-visible:ring-0" spellcheck={false} placeholder="<main>Hello</main>" />
-			<div class="flex gap-3 border-t border-border-low bg-paper p-4">
+			<div class="flex gap-3 border-t border-border bg-paper p-4">
 				<Button class="flex-1 gap-2" onclick={handleMinify} disabled={!input}>
 					<Minimize2 class="size-4" />
 					Minify
@@ -84,8 +84,8 @@ function formatBytes(bytes: number) {
 			</div>
 		</div>
 
-		<div class="flex flex-col overflow-hidden rounded-xl border border-border-low bg-card">
-			<div class="flex h-12 items-center justify-between border-b border-border-low bg-paper px-4">
+		<div class="flex flex-col overflow-hidden rounded-xl border border-border bg-card">
+			<div class="flex h-12 items-center justify-between border-b border-border bg-paper px-4">
 				<div class="text-body-sm font-medium text-muted-foreground">
 					{mode === "minify" ? "Minified HTML" : mode === "prettify" ? "Beautified HTML" : "Output"}
 				</div>

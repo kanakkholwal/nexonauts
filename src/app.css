@@ -202,33 +202,6 @@
 	--shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 	--shadow-ring: 0 0 0 4px color-mix(in srgb, var(--foreground) 6%, transparent);
 
-	/* Legacy aliases. Deprecated: new work uses the canonical names above. They
-	   keep the 313 unmigrated call sites rendering until their route moves. */
-	--canvas-soft: var(--muted);
-	--canvas-deep: var(--foreground);
-	--surface-card: var(--card);
-	--surface-strong: var(--muted);
-	--surface-dark: var(--foreground);
-	--surface-dark-elevated: var(--foreground);
-	--hairline: var(--border);
-	--hairline-soft: var(--border);
-	--hairline-strong: var(--border-strong);
-	--border-low: var(--border);
-	--ink: var(--foreground);
-	--ink-strong: var(--foreground);
-	--body-text: var(--muted-foreground);
-	--body-strong: var(--foreground);
-	--muted-text: var(--muted-foreground);
-	--muted-soft: var(--muted-foreground);
-	--input-surface: var(--muted);
-	--on-dark: var(--background);
-	--on-dark-soft: var(--muted-foreground);
-	--on-primary: var(--primary-foreground);
-	--tertiary: var(--muted-foreground);
-	--tertiary-foreground: var(--background);
-	--dark: var(--action);
-	--dark-foreground: var(--action-foreground);
-
 	--shadow-craft-sm: var(--shadow-xs);
 	--shadow-craft-md: var(--shadow-md);
 	--shadow-craft-lg: var(--shadow-lg);
@@ -332,31 +305,9 @@
 	--color-sidebar-border: var(--sidebar-border);
 	--color-sidebar-ring: var(--sidebar-ring);
 
-	/* Legacy colour aliases. Deprecated; see the alias block above.
-	   --color-body and --color-body-strong stay absent on purpose: they generate
+	/* --color-body and --color-body-strong stay absent on purpose: they generate
 	   `text-body` as a COLOUR, which silently beats the 16px size step. */
-	--color-canvas-soft: var(--canvas-soft);
-	--color-canvas-deep: var(--canvas-deep);
-	--color-surface-card: var(--surface-card);
-	--color-surface-strong: var(--surface-strong);
-	--color-surface-dark: var(--surface-dark);
-	--color-surface-dark-elevated: var(--surface-dark-elevated);
-	--color-hairline: var(--hairline);
-	--color-hairline-soft: var(--hairline-soft);
-	--color-hairline-strong: var(--hairline-strong);
-	--color-border-low: var(--border-low);
-	--color-ink: var(--ink);
-	--color-ink-strong: var(--ink-strong);
 	--color-muted-ink: var(--muted-text);
-	--color-muted-soft: var(--muted-soft);
-	--color-input-surface: var(--input-surface);
-	--color-on-dark: var(--on-dark);
-	--color-on-dark-soft: var(--on-dark-soft);
-	--color-on-primary: var(--on-primary);
-	--color-tertiary: var(--tertiary);
-	--color-tertiary-foreground: var(--tertiary-foreground);
-	--color-dark: var(--dark);
-	--color-dark-foreground: var(--dark-foreground);
 
 	/* --- Fonts --- */
 	--font-heading: "Satoshi", ui-sans-serif, system-ui, sans-serif;

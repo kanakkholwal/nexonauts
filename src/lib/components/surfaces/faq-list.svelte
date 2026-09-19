@@ -10,7 +10,7 @@ let { items }: { items: Array<{ q: string; a: string }> } = $props();
 <Accordion.Root
 	type="single"
 	value={items[0]?.q}
-	class="divide-y divide-border-low border-y border-border-low"
+	class="divide-y divide-border border-y border-border"
 >
 	{#each items as item (item.q)}
 		<Accordion.Item value={item.q} class="group/faq border-b-0">

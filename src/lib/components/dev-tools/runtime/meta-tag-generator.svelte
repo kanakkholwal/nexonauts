@@ -111,9 +111,9 @@ function resetAll() {
 					</Tabs.List>
 				</div>
 
-				<div class="rounded-xl border border-border-low bg-card p-6">
+				<div class="rounded-xl border border-border bg-card p-6">
 					<Tabs.Content value="google" class="space-y-4">
-						<div class="flex items-center gap-2 border-b border-border-low pb-2">
+						<div class="flex items-center gap-2 border-b border-border pb-2">
 							<Search class="size-4 text-primary" />
 							<h3 class="font-semibold">Search Engine Optimization</h3>
 						</div>
@@ -137,7 +137,7 @@ function resetAll() {
 					</Tabs.Content>
 
 					<Tabs.Content value="og" class="space-y-4">
-						<div class="flex items-center gap-2 border-b border-border-low pb-2">
+						<div class="flex items-center gap-2 border-b border-border pb-2">
 							<LayoutTemplate class="size-4 text-primary" />
 							<h3 class="font-semibold">Open Graph</h3>
 						</div>
@@ -152,7 +152,7 @@ function resetAll() {
 					</Tabs.Content>
 
 					<Tabs.Content value="twitter" class="space-y-4">
-						<div class="flex items-center gap-2 border-b border-border-low pb-2">
+						<div class="flex items-center gap-2 border-b border-border pb-2">
 							<MessageCircle class="size-4 text-primary" />
 							<h3 class="font-semibold">Twitter Card</h3>
 						</div>
@@ -167,24 +167,24 @@ function resetAll() {
 		<div class="space-y-6 lg:col-span-5">
 			<div class="space-y-2">
 				<div class="text-body-sm font-semibold tracking-wider text-muted-foreground uppercase">Live Preview</div>
-				<div class="rounded-xl border border-border-low bg-card p-4 shadow-sm">
+				<div class="rounded-xl border border-border bg-card p-4 shadow-sm">
 					{#if activeTab === "google"}
-						<div class="rounded-lg border border-border-low bg-white p-4 font-sans text-black dark:bg-black dark:text-foreground">
+						<div class="rounded-lg border border-border bg-white p-4 font-sans text-black dark:bg-black dark:text-foreground">
 							<div class="text-xl font-medium text-foreground dark:text-foreground">{google.title}</div>
 							<div class="mt-1 text-body-sm text-muted-foreground">{og.url}</div>
 							<div class="mt-1 text-body-sm leading-relaxed text-muted-foreground dark:text-muted-foreground">{google.description}</div>
 						</div>
 					{:else if activeTab === "og"}
-						<div class="overflow-hidden rounded-lg border border-border-low">
+						<div class="overflow-hidden rounded-lg border border-border">
 							<div class="aspect-[1.91/1] bg-muted bg-cover bg-center" style={`background-image:url('${og.image}')`}></div>
-							<div class="border-t border-border-low bg-card p-3">
+							<div class="border-t border-border bg-card p-3">
 								<div class="mb-1 text-xs text-muted-foreground uppercase">{og.siteName}</div>
 								<div class="font-semibold">{og.title}</div>
 								<div class="text-xs text-muted-foreground">{og.description}</div>
 							</div>
 						</div>
 					{:else}
-						<div class="overflow-hidden rounded-xl border border-border-low bg-card">
+						<div class="overflow-hidden rounded-xl border border-border bg-card">
 							<div class="aspect-[1.91/1] bg-muted bg-cover bg-center" style={`background-image:url('${twitter.image}')`}></div>
 							<div class="p-3">
 								<div class="font-semibold">{twitter.title}</div>

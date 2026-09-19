@@ -47,9 +47,9 @@ $effect(() => {
 
 {#snippet browserFrame(url: string, rows: number)}
 	<div
-		class="flex h-full w-full flex-col overflow-hidden rounded-xl border border-border-low bg-card shadow-frame"
+		class="flex h-full w-full flex-col overflow-hidden rounded-xl border border-border bg-card shadow-frame"
 	>
-		<div class="flex shrink-0 items-center gap-2 border-b border-border-low px-3 py-2">
+		<div class="flex shrink-0 items-center gap-2 border-b border-border px-3 py-2">
 			<span class="size-2 rounded-full bg-border-strong"></span>
 			<span class="size-2 rounded-full bg-border-strong"></span>
 			<span class="size-2 rounded-full bg-border-strong"></span>
@@ -60,7 +60,7 @@ $effect(() => {
 		<div class="flex flex-1 flex-col gap-2 p-4">
 			{#each Array(rows) as _, r (r)}
 				<span
-					class="block h-2 rounded-full bg-border-low"
+					class="block h-2 rounded-full bg-border"
 					style="width: {[92, 74, 58, 84, 46, 68][r % 6]}%"
 				></span>
 			{/each}
@@ -117,7 +117,7 @@ $effect(() => {
 			style="animation-delay: {CARD_DELAY_BASE}ms"
 		>
 			<div
-				class="flex items-center gap-2 rounded-pill border border-border-low bg-card py-2 pr-3 pl-2 shadow-frame"
+				class="flex items-center gap-2 rounded-pill border border-border bg-card py-2 pr-3 pl-2 shadow-frame"
 			>
 				<span class="rounded-pill bg-background px-2 py-1 font-mono text-caption text-muted-foreground">
 					localhost
@@ -142,7 +142,7 @@ $effect(() => {
 							"inline-flex items-center rounded-pill px-3 py-2 text-caption font-medium whitespace-nowrap",
 							chip.active
 								? "bg-primary text-primary-foreground"
-								: "border border-border-low bg-card text-foreground"
+								: "border border-border bg-card text-foreground"
 						)}
 					>
 						{chip.label}
@@ -159,7 +159,7 @@ $effect(() => {
 			style="animation-delay: {CARD_DELAY_BASE + CARD_STAGGER * 2}ms"
 		>
 			<div
-				class="flex w-[216px] items-start justify-between rounded-xl border border-border-low bg-card p-3 shadow-frame"
+				class="flex w-[216px] items-start justify-between rounded-xl border border-border bg-card p-3 shadow-frame"
 			>
 				{#each [{ value: "4", label: "Apps" }, { value: "4", label: "Packages" }, { value: "0", label: "Uploads" }] as stat (stat.label)}
 					<div class="flex flex-col items-center gap-1">

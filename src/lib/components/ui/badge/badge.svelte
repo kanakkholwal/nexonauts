@@ -20,13 +20,13 @@ export const badgeVariants = tv({
 	variants: {
 		variant: {
 			// Neutral paper pill. The default everywhere.
-			default: "bg-paper text-foreground [a]:hover:bg-border-low",
+			default: "bg-paper text-foreground [a]:hover:bg-border",
 			// Solid ink: the rare attention-grabber. Matches the filled button.
 			solid: "bg-foreground text-background [a]:hover:bg-foreground/90",
 			// Outline: transparent with a visible control boundary.
 			outline: "border-border-control bg-transparent text-foreground [a]:hover:bg-paper",
 			// Secondary alias of default for shadcn parity.
-			secondary: "bg-paper text-foreground [a]:hover:bg-border-low",
+			secondary: "bg-paper text-foreground [a]:hover:bg-border",
 			// Ghost: invisible until hover.
 			ghost: "bg-transparent text-muted-foreground [a]:hover:bg-paper [a]:hover:text-foreground",
 			// Link-styled badge.

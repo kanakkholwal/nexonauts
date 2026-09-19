@@ -16,7 +16,7 @@ let {
 	class={cn(
 		"flex items-center gap-3 px-6 pt-4 pb-5",
 		"group-data-[size=sm]/card:px-5 group-data-[size=sm]/card:pb-4",
-		"border-t border-hairline-soft rounded-b-xl",
+		"border-t border-border rounded-b-xl",
 		className
 	)}
 	{...restProps}

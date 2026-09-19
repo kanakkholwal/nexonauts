@@ -446,7 +446,7 @@ function removeBreadcrumb(index: number) {
 					</Tabs.List>
 				</div>
 
-				<div class="rounded-xl border border-border-low bg-card p-6">
+				<div class="rounded-xl border border-border bg-card p-6">
 					<Tabs.Content value="website" class="space-y-8">
 						<div class="space-y-4">
 							<h3 class="border-b pb-2 text-lg font-semibold">Basic Identity</h3>
@@ -508,7 +508,7 @@ function removeBreadcrumb(index: number) {
 						<div class="space-y-4">
 							{#each breadcrumbs as item, index (index)}
 								<div
-									class="group relative rounded-xl border border-border-low bg-paper p-4 transition-colors hover:border-primary/30"
+									class="group relative rounded-xl border border-border bg-paper p-4 transition-colors hover:border-primary/30"
 								>
 									<div class="mb-4 flex items-center justify-between">
 										<span class="text-xs font-bold tracking-wider text-muted-foreground uppercase">
@@ -628,7 +628,7 @@ function removeBreadcrumb(index: number) {
 							</div>
 						</div>
 
-						<div class="flex items-center space-x-2 border-y border-border-low py-4">
+						<div class="flex items-center space-x-2 border-y border-border py-4">
 							<Switch id="isAmp" bind:checked={article.isAMP} />
 							<Label for="isAmp">Enable Extended Fields (AMP / Rich Snippet)</Label>
 						</div>
@@ -827,9 +827,9 @@ function removeBreadcrumb(index: number) {
 				</Button>
 			</div>
 
-			<div class="relative overflow-hidden rounded-xl border border-border-low bg-paper">
+			<div class="relative overflow-hidden rounded-xl border border-border bg-paper">
 				<div
-					class="absolute top-0 right-0 left-0 flex h-10 items-center gap-2 border-b border-border-low bg-paper px-4"
+					class="absolute top-0 right-0 left-0 flex h-10 items-center gap-2 border-b border-border bg-paper px-4"
 				>
 					<div class="size-3 rounded-full bg-destructive/10"></div>
 					<div class="size-3 rounded-full bg-yellow-500/80"></div>

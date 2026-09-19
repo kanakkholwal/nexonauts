@@ -18,7 +18,7 @@ let {
 	{value}
 	data-slot="select-item"
 	class={cn(
-		"relative flex w-full cursor-default items-center select-none gap-2 rounded-md py-1.5 pr-8 pl-2.5 text-sm outline-hidden text-foreground transition-colors focus:bg-surface-strong focus:text-ink data-highlighted:bg-surface-strong data-highlighted:text-ink data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
+		"relative flex w-full cursor-default items-center select-none gap-2 rounded-md py-1.5 pr-8 pl-2.5 text-sm outline-hidden text-foreground transition-colors focus:bg-muted focus:text-foreground data-highlighted:bg-muted data-highlighted:text-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
 		className
 	)}
 	{...restProps}

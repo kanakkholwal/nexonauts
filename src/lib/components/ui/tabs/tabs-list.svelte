@@ -5,9 +5,9 @@ export const tabsListVariants = tv({
 	base: "rounded-pill p-1 group-data-horizontal/tabs:h-9 data-[variant=line]:rounded-none data-[variant=line]:p-0 data-[variant=pill]:rounded-pill group/tabs-list text-muted-foreground inline-flex w-fit items-center justify-center group-data-[orientation=vertical]/tabs:h-fit group-data-[orientation=vertical]/tabs:flex-col",
 	variants: {
 		variant: {
-			default: "cn-tabs-list-variant-default bg-surface-strong",
-			pill: "cn-tabs-list-variant-pill bg-surface-strong",
-			line: "cn-tabs-list-variant-line gap-4 bg-transparent border-b border-hairline"
+			default: "cn-tabs-list-variant-default bg-muted",
+			pill: "cn-tabs-list-variant-pill bg-muted",
+			line: "cn-tabs-list-variant-line gap-4 bg-transparent border-b border-border"
 		}
 	},
 	defaultVariants: {

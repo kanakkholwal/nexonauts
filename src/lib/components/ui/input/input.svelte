@@ -21,7 +21,7 @@ let {
 
 /**
  * Input: editorial text field.
- *   - Surface-card background with hairline-strong border
+ *   - Card background with a --border-strong edge
  *   - 44px height (DESIGN.md text-input)
  *   - 8px radius (md)
  *   - Focus thickens border to 2px ink; no glow halo
@@ -30,12 +30,12 @@ let {
 const base = [
 	"flex h-10 w-full min-w-0 px-4 py-2 outline-none",
 	"font-sans text-sm tracking-[0.01em]",
-	"bg-card text-foreground placeholder:text-muted-soft",
+	"bg-card text-foreground placeholder:text-muted-foreground",
 	"border border-border-control rounded-xl",
 	"transition-[border-color,box-shadow] duration-150",
 	"focus-visible:border-primary focus-visible:shadow-[inset_0_0_0_1px_var(--primary)]",
 	"aria-invalid:border-destructive aria-invalid:focus-visible:shadow-[inset_0_0_0_1px_var(--destructive)]",
-	"disabled:bg-background disabled:text-muted-soft disabled:cursor-not-allowed disabled:opacity-70",
+	"disabled:bg-background disabled:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-70",
 	"file:inline-flex file:h-7 file:items-center file:rounded-pill file:border-0",
 	"file:bg-primary file:text-primary-foreground file:px-3 file:mr-3 file:text-xs file:font-medium",
 	"dark:bg-card/60"

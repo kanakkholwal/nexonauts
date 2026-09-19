@@ -41,11 +41,11 @@ const canonical = $derived(`${appConfig.url}/dev-tools/${data.tool.slug}`);
 	<!-- No interactive implementation yet. Say so plainly rather than dressing a
 	     migration note up as two cards of content. -->
 	{@const Icon = categoryIcon(data.tool.category)}
-	<div class="border-b border-border-low">
+	<div class="border-b border-border">
 		<Container class="pt-28 pb-10 md:pt-32 md:pb-12">
 			<a
 				href="/dev-tools"
-				class="ease-fluid inline-flex items-center gap-1.5 text-body-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
+				class="inline-flex items-center gap-1.5 text-body-sm font-medium text-muted-foreground transition-colors duration-200 hover:text-foreground"
 			>
 				<ArrowLeft class="size-3.5" />
 				All tools
@@ -53,7 +53,7 @@ const canonical = $derived(`${appConfig.url}/dev-tools/${data.tool.slug}`);
 
 			<div class="mt-6 max-w-xl">
 				<SectionLabel icon={Icon} label={data.tool.category} />
-				<h1 class="mt-4 text-balance text-heading text-ink-strong md:text-heading-lg">
+				<h1 class="mt-4 text-balance text-heading text-foreground md:text-heading-lg">
 					{data.tool.title}
 				</h1>
 				<p class="mt-3 text-pretty text-body-lg text-muted-foreground">
@@ -80,30 +80,30 @@ const canonical = $derived(`${appConfig.url}/dev-tools/${data.tool.slug}`);
 <!-- Related. Same hairline grid as the index, so a tool page ends in the
      catalogue rather than a dead end. -->
 {#if related.length}
-	<Section spacing="none" class="mx-auto max-w-6xl border-t border-border-low">
+	<Section spacing="none" class="mx-auto max-w-6xl border-t border-border">
 		<Container class="pt-12 pb-4">
 			<SectionLabel label="More tools" />
 		</Container>
 
 		<Container>
-			<div class="grid grid-cols-1 gap-px border-y border-border-low bg-border-low sm:grid-cols-3">
+			<div class="grid grid-cols-1 gap-px border-y border-border bg-border sm:grid-cols-3">
 				{#each related as tool (tool.slug)}
 					{@const Icon = categoryIcon(tool.category)}
 					<a
 						href="/dev-tools/{tool.slug}"
 						class={cn(
-							"group ease-fluid flex flex-col bg-background px-6 py-8 transition-colors duration-200",
+							"group flex flex-col bg-background px-6 py-8 transition-colors duration-(--duration-ui) ease-(--ease-out) motion-reduce:transition-none",
 							"hover:bg-paper focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
 						)}
 					>
 						<div class="flex items-center justify-between">
 							<Icon class="size-5 text-muted-foreground" />
 							<ArrowRight
-								class="ease-fluid size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+								class="size-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
 							/>
 						</div>
 						<p class="mt-6 text-caption text-muted-foreground">{tool.category}</p>
-						<h2 class="mt-1 font-display text-body font-medium text-foreground">{tool.title}</h2>
+						<h2 class="mt-1 font-heading text-body font-medium text-foreground">{tool.title}</h2>
 						<p class="mt-2 text-body-sm text-muted-foreground">{tool.description}</p>
 					</a>
 				{/each}
@@ -113,7 +113,7 @@ const canonical = $derived(`${appConfig.url}/dev-tools/${data.tool.slug}`);
 		<Container class="py-10">
 			<a
 				href="/dev-tools"
-				class="ease-fluid inline-flex items-center gap-1.5 text-body-sm font-medium text-primary underline-offset-4 transition-colors duration-200 hover:underline"
+				class="inline-flex items-center gap-1.5 text-body-sm font-medium text-primary underline-offset-4 transition-colors duration-200 hover:underline"
 			>
 				Browse all {devTools.length} tools
 				<ArrowRight class="size-3.5" />

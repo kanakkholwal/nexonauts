@@ -40,7 +40,7 @@ const GlyphComponent = $derived(!isStringIcon && icon ? (icon as IconComponent) 
 </script>
 
 <div class={cn("relative w-full", className)}>
-	<div class="border-b border-border-low">
+	<div class="border-b border-border">
 		<Container class="pt-28 pb-10 md:pt-32 md:pb-12">
 			<a
 				href="/dev-tools"
@@ -65,7 +65,7 @@ const GlyphComponent = $derived(!isStringIcon && icon ? (icon as IconComponent) 
 						{category}
 					</span>
 
-					<h1 class="mt-4 text-balance text-heading text-ink-strong md:text-heading-lg">
+					<h1 class="mt-4 text-balance text-heading text-foreground md:text-heading-lg">
 						{title}
 					</h1>
 					<p class="mt-3 text-pretty text-body-lg text-muted-foreground">

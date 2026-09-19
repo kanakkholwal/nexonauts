@@ -88,8 +88,8 @@ function formatBytes(bytes: number) {
 	onClear={handleClear}
 >
 	<div class="grid min-h-[600px] gap-6 lg:grid-cols-2">
-		<div class="flex flex-col overflow-hidden rounded-xl border border-border-low bg-card">
-			<div class="flex h-12 items-center justify-between border-b border-border-low bg-paper px-4">
+		<div class="flex flex-col overflow-hidden rounded-xl border border-border bg-card">
+			<div class="flex h-12 items-center justify-between border-b border-border bg-paper px-4">
 				<div class="flex items-center gap-2 text-body-sm font-medium text-muted-foreground">
 					<FileJson class="size-4" />
 					Input JSON
@@ -102,7 +102,7 @@ function formatBytes(bytes: number) {
 				class="min-h-[420px] flex-1 resize-none rounded-none border-0 bg-transparent p-4 font-mono text-body-sm leading-relaxed focus-visible:ring-0"
 				spellcheck={false}
 			/>
-			<div class="flex gap-3 border-t border-border-low bg-paper p-4">
+			<div class="flex gap-3 border-t border-border bg-paper p-4">
 				<Button class="flex-1 gap-2" onclick={handleMinify} disabled={!input}>
 					<Minimize2 class="size-4" />
 					Minify
@@ -114,13 +114,13 @@ function formatBytes(bytes: number) {
 			</div>
 		</div>
 
-		<div class="flex flex-col overflow-hidden rounded-xl border border-border-low bg-card">
-			<div class="flex h-12 items-center justify-between border-b border-border-low bg-paper px-4">
+		<div class="flex flex-col overflow-hidden rounded-xl border border-border bg-card">
+			<div class="flex h-12 items-center justify-between border-b border-border bg-paper px-4">
 				<div class="flex items-center gap-2 text-body-sm font-medium text-muted-foreground">
 					<Braces class="size-4" />
 					{error ? "Error" : mode === "minify" ? "Minified JSON" : mode === "prettify" ? "Beautified JSON" : "Output"}
 					{#if output && !error}
-						<Badge class="ml-2 border-border-low bg-paper text-caption text-foreground">
+						<Badge class="ml-2 border-border bg-paper text-caption text-foreground">
 							{formatBytes(outputSize)}
 						</Badge>
 					{/if}
@@ -158,7 +158,7 @@ function formatBytes(bytes: number) {
 				/>
 			{/if}
 			{#if output && !error && mode === "minify"}
-				<div class="flex h-10 items-center justify-end gap-4 border-t border-border-low bg-paper px-4 text-xs font-mono text-muted-foreground">
+				<div class="flex h-10 items-center justify-end gap-4 border-t border-border bg-paper px-4 text-xs font-mono text-muted-foreground">
 					<span class="flex items-center gap-1.5">
 						Original <span class="text-foreground">{formatBytes(inputSize)}</span>
 					</span>

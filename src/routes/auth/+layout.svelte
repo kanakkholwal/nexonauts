@@ -9,18 +9,18 @@ let { children } = $props();
 </script>
 
 <div class="min-h-screen w-full bg-canvas lg:grid lg:grid-cols-[1.05fr_1fr]">
-	<!-- Editorial brand panel: pastel orbs drifting on canvas-soft. -->
+	<!-- Editorial brand panel: pastel orbs drifting on the muted surface. -->
 	<aside
-		class="relative hidden h-full overflow-hidden bg-canvas-soft border-r border-hairline-soft lg:flex lg:flex-col lg:justify-between lg:p-12"
+		class="relative hidden h-full overflow-hidden bg-muted border-r border-border lg:flex lg:flex-col lg:justify-between lg:p-12"
 	>
 
-		<div class="relative z-10 inline-flex items-center gap-2.5 text-ink">
+		<div class="relative z-10 inline-flex items-center gap-2.5 text-foreground">
 			<Logo class="size-8" />
 			<span class="font-sans text-xl font-light tracking-wide">{appConfig.name}</span>
 		</div>
 
 		<div class="relative z-10 max-w-md">
-			<p class="display-md text-ink">
+			<p class="display-md text-foreground">
 				Tools and writing<br />for the people who ship.
 			</p>
 			<p class="mt-4 text-base leading-relaxed text-muted-foreground">
@@ -46,7 +46,7 @@ let { children } = $props();
 		</div>
 
 		<!-- Mobile-only brand row -->
-		<div class="mb-10 inline-flex items-center gap-2 text-ink lg:hidden">
+		<div class="mb-10 inline-flex items-center gap-2 text-foreground lg:hidden">
 			<Logo class="size-7" />
 			<span class="font-sans text-lg font-medium tracking-wide">{appConfig.name}</span>
 		</div>
@@ -55,7 +55,7 @@ let { children } = $props();
 			{@render children()}
 		</div>
 
-		<div class="absolute bottom-6 w-full text-center text-xs text-muted-ink">
+		<div class="absolute bottom-6 w-full text-center text-xs text-muted-foreground">
 			<a href="/tos" class="underline-offset-4 hover:underline">Terms</a>
 			<span class="mx-2">·</span>
 			<a href="/privacy" class="underline-offset-4 hover:underline">Privacy</a>

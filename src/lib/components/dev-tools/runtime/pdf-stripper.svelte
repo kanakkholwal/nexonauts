@@ -212,7 +212,7 @@ const processedCount = $derived(pdfFiles.filter((file) => file.result).length);
 						<ScrollArea class="h-72 w-full rounded-xl border border-border bg-paper">
 							<div class="space-y-2 p-3">
 								{#each pdfFiles as item (item.id)}
-									<div class="group flex items-center justify-between rounded-lg border border-border-low bg-card p-3 shadow-sm transition-colors hover:border-primary/50">
+									<div class="group flex items-center justify-between rounded-lg border border-border bg-card p-3 shadow-sm transition-colors hover:border-primary/50">
 										<div class="flex items-center gap-3 overflow-hidden">
 											<div class={`rounded-md p-2.5 ${item.result ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>
 												<FileText class="size-4" />

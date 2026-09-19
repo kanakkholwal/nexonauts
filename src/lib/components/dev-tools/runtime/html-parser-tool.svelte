@@ -64,23 +64,23 @@ function handleClear() {
 >
 	<div class="space-y-6">
 		<div class="flex items-center gap-3">
-			<div class="rounded-lg border border-border-low bg-card p-1">
+			<div class="rounded-lg border border-border bg-card p-1">
 				<Button size="sm" variant={mode === "encode" ? "secondary" : "ghost"} onclick={() => (mode = "encode")}>Encode</Button>
 				<Button size="sm" variant={mode === "decode" ? "secondary" : "ghost"} onclick={() => (mode = "decode")}>Decode</Button>
 			</div>
 		</div>
 
 		<div class="grid min-h-[600px] gap-6 lg:grid-cols-2">
-			<div class="flex flex-col overflow-hidden rounded-xl border border-border-low bg-card">
-				<div class="flex h-12 items-center border-b border-border-low bg-paper px-4 text-body-sm font-medium text-muted-foreground">
+			<div class="flex flex-col overflow-hidden rounded-xl border border-border bg-card">
+				<div class="flex h-12 items-center border-b border-border bg-paper px-4 text-body-sm font-medium text-muted-foreground">
 					<FileCode class="mr-2 size-4" />
 					{mode === "encode" ? "Raw HTML input" : "Escaped string input"}
 				</div>
 				<Textarea bind:value={input} class="min-h-[420px] flex-1 resize-none rounded-none border-0 bg-transparent p-4 font-mono text-body-sm focus-visible:ring-0" spellcheck={false} placeholder={mode === "encode" ? "<div>markup</div>" : "&lt;div&gt;markup&lt;/div&gt;"} />
 			</div>
 
-			<div class="flex flex-col overflow-hidden rounded-xl border border-border-low bg-card">
-				<div class="flex h-12 items-center justify-between border-b border-border-low bg-paper px-4">
+			<div class="flex flex-col overflow-hidden rounded-xl border border-border bg-card">
+				<div class="flex h-12 items-center justify-between border-b border-border bg-paper px-4">
 					<div class="flex items-center gap-2 text-body-sm font-medium text-muted-foreground">
 						<ArrowRightLeft class="size-4" />
 						{mode === "encode" ? "Escaped output" : "Decoded HTML"}
