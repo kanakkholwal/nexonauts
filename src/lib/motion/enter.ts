@@ -177,7 +177,9 @@ type StaggerOptions = {
 export function revealChildren(node: HTMLElement, options: StaggerOptions = {}) {
 	const { items, step = 0.07, y = 14 } = options;
 	const children = Array.from(
-		items ? node.querySelectorAll<HTMLElement>(items) : (node.children as HTMLCollectionOf<HTMLElement>)
+		items
+			? node.querySelectorAll<HTMLElement>(items)
+			: (node.children as HTMLCollectionOf<HTMLElement>)
 	);
 
 	const reduced =
@@ -195,11 +197,11 @@ export function revealChildren(node: HTMLElement, options: StaggerOptions = {}) 
 		node,
 		() => {
 			children.forEach((child, i) => {
-				animate(
-					child,
-					reduced ? { opacity: 1 } : { opacity: 1, transform: "translateY(0px)" },
-					{ duration: reduced ? 0.2 : 0.5, delay: reduced ? 0 : i * step, ease: [...EASE_FLUID] }
-				);
+				animate(child, reduced ? { opacity: 1 } : { opacity: 1, transform: "translateY(0px)" }, {
+					duration: reduced ? 0.2 : 0.5,
+					delay: reduced ? 0 : i * step,
+					ease: [...EASE_FLUID]
+				});
 			});
 		},
 		{ amount: 0.1 }

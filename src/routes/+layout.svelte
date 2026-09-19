@@ -1,11 +1,11 @@
 <script lang="ts">
-import "../app.css";
-import "../codebox.css";
-import nProgress from "nprogress";
 import { afterNavigate, beforeNavigate } from "$app/navigation";
 import { page } from "$app/state";
 import { Toaster } from "$lib/components/ui/sonner";
+import nProgress from "nprogress";
 import "nprogress/nprogress.css";
+import "../app.css";
+import "../codebox.css";
 
 nProgress.configure({ showSpinner: false, minimum: 0.16 });
 
@@ -35,12 +35,5 @@ $effect(() => {
 </svelte:head>
 
 <Toaster richColors closeButton position="top-right" />
-
-<a
-	href="#main"
-	class="sr-only rounded-lg bg-foreground px-3 py-2 text-body-sm font-medium text-background focus:not-sr-only focus:fixed focus:top-6 focus:left-6 focus:z-100"
->
-	Skip to content
-</a>
 
 {@render children()}

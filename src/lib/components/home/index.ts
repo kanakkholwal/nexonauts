@@ -1,9 +1,8 @@
-// Homepage-only language: one dark stage, flat fields cut hard against paper,
-// numbered registers, no rails. Nothing here is shared with the inner pages.
-export { default as ClosingField } from "./closing-field.svelte";
-export { default as FaqRegister } from "./faq-register.svelte";
-export { default as HeroObject } from "./hero-object.svelte";
-export { default as HeroStage } from "./hero-stage.svelte";
-export { default as NameRun } from "./name-run.svelte";
-export { default as RuledList } from "./ruled-list.svelte";
-export { default as SectionHead } from "./section-head.svelte";
+// Homepage-only compositions. Tokens, motion and the section rhythm are system level.
+export { default as Faq } from "./faq.svelte";
+export { default as Hero } from "./hero.svelte";
+export { default as LinkCards } from "./link-cards.svelte";
+export { default as ProductArt } from "./product-art.svelte";
+export { default as ProductRow } from "./product-row.svelte";
+export { default as ProductStrip } from "./product-strip.svelte";
+export { default as Stage } from "./stage.svelte";

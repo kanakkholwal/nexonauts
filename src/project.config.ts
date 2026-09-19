@@ -55,7 +55,9 @@ export const appConfig = {
 	},
 
 	flags: {
-		enableOgImage: false // Enable Open Graph image generation
+		enableOgImage: false, // Enable Open Graph image generation
+		// Homepage nav as a notched shelf cut into the hero frame. Presentation only.
+		notchedNav: false
 	}
 };
 

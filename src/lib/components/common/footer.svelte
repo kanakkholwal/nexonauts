@@ -1,96 +1,118 @@
 <script lang="ts">
 import ArrowUpRight from "@tabler/icons-svelte/icons/arrow-up-right";
-import { FOOTER_LINKS } from "data/root";
 import { appConfig } from "@/project.config";
 import Logo from "$lib/components/logo.svelte";
+import { Button } from "$lib/components/ui/button";
+import { shippedProducts } from "$lib/data/products";
+import { theme } from "$lib/theme.svelte";
 
 const year = new Date().getFullYear();
 
-function isExternal(href: string): boolean {
-	return /^https?:\/\//.test(href);
-}
+type Link = { title: string; href: string; external?: boolean };
+type Group = { title: string; links: Link[] };
+
+const groups: Group[] = [
+	{
+		title: "Products",
+		links: shippedProducts.map((p) => ({ title: p.name, href: p.href, external: true }))
+	},
+	{
+		title: "Learn",
+		links: [
+			{ title: "Lessons", href: "/learn" },
+			{ title: "Guides", href: "/guides" },
+			{ title: "Tools", href: "/dev-tools" },
+			{ title: "Docs", href: "https://docs.nexonauts.com", external: true }
+		]
+	},
+	{
+		title: appConfig.name,
+		links: [
+			{ title: "About", href: "/about" },
+			{ title: "Contact", href: "/contact" },
+			{ title: "Packages", href: "https://docs.nexonauts.com", external: true },
+			{ title: "GitHub", href: appConfig.socials.github, external: true }
+		]
+	}
+];
+
+const socials: Link[] = [
+	{ title: "GitHub", href: appConfig.socials.github, external: true },
+	{ title: "X", href: appConfig.socials.twitter, external: true },
+	{ title: "LinkedIn", href: appConfig.socials.linkedin, external: true }
+];
+
+const legal: Link[] = [
+	{ title: "Privacy", href: "/privacy" },
+	{ title: "Terms", href: "/tos" },
+	{ title: "Copyright", href: "/copyright" }
+];
+
+const linkClass =
+	"inline-flex items-center gap-1 rounded-sm text-body-sm text-muted-foreground transition-colors duration-(--duration-ui) ease-(--ease-out) hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none";
 </script>
 
-<!--
-  Footer per DESIGN.md §6 `footer`. Canvas background, body text,
-  brand block on the left + 5-column link list. Generous 64×48 padding,
-  hairline above the bottom row (see DESIGN.md).
--->
-<footer class="bg-background border-t border-border-low">
-	<div class="mx-auto max-w-(--max-app-width) px-6 py-16 sm:px-8 sm:py-20">
-		<div class="grid gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,2.4fr)]">
-			<div class="max-w-md">
-				<a href="/" class="inline-flex items-center gap-2 text-foreground">
-					<Logo class="size-5" />
-					<span class="font-sans text-body-sm font-medium">{appConfig.name}</span>
+<footer class="border-t border-border bg-background" data-motion="footer">
+	<div class="mx-auto w-full max-w-page px-4 sm:px-8 lg:px-10">
+		<div class="grid gap-8 py-10 sm:grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr] md:py-14">
+			<div class="sm:col-span-2 md:col-span-1" data-motion="footer-col">
+				<a
+					href="/"
+					class="inline-flex items-center gap-2.5 rounded-lg text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+				>
+					<Logo class="size-6" />
+					<span class="font-heading text-body-lg font-semibold">{appConfig.name}</span>
 				</a>
-				<p class="mt-4 text-body-sm text-muted-foreground">
-					An umbrella for developer tools that do their work on your machine, and never on
-					someone else's server.
+				<p class="mt-3 max-w-[30ch] text-body-sm text-muted-foreground">
+					A small lab that makes developer tools.
 				</p>
-				<div class="mt-6 flex items-center gap-4">
-					<a
-						href={appConfig.socials.twitter}
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label="X / Twitter"
-						class="text-muted-foreground transition-colors duration-200 ease-fluid hover:text-foreground"
-					>
-						<svg viewBox="0 0 24 24" fill="currentColor" class="size-3.5">
-							<path
-								d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
-							/>
-						</svg>
-					</a>
-					<a
-						href={appConfig.socials.github}
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label="GitHub"
-						class="text-muted-foreground transition-colors duration-200 ease-fluid hover:text-foreground"
-					>
-						<svg viewBox="0 0 24 24" fill="currentColor" class="size-3.5">
-							<path
-								d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-1.94c-3.2.69-3.88-1.54-3.88-1.54-.52-1.33-1.27-1.68-1.27-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.69 1.25 3.34.96.1-.74.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.18-3.1-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.16 1.18.92-.26 1.9-.39 2.88-.39s1.96.13 2.88.39c2.2-1.49 3.16-1.18 3.16-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.26 5.69.41.35.78 1.05.78 2.12v3.14c0 .3.21.66.79.55C20.21 21.39 23.5 17.08 23.5 12 23.5 5.65 18.35.5 12 .5z"
-							/>
-						</svg>
-					</a>
-				</div>
+				<ul class="mt-4 flex gap-4">
+					{#each socials as s (s.title)}
+						<li>
+							<a href={s.href} target="_blank" rel="noopener noreferrer" class={linkClass}>
+								{s.title}
+							</a>
+						</li>
+					{/each}
+				</ul>
 			</div>
 
-			<div class="grid grid-cols-2 gap-10 sm:grid-cols-3">
-				{#each FOOTER_LINKS as group (group.title)}
-					<div>
-						<h5 class="eyebrow mb-4 text-muted-foreground">{group.title}</h5>
-						<ul class="space-y-2">
-							{#each group.links as link (link.href)}
-								<li>
-									<a
-										href={link.href}
-										target={isExternal(link.href) ? "_blank" : undefined}
-										rel={isExternal(link.href) ? "noopener noreferrer" : undefined}
-										class="inline-flex items-center gap-1 text-body-sm text-muted-foreground transition-colors duration-200 ease-fluid hover:text-foreground"
-									>
-										{link.title}
-										{#if isExternal(link.href)}
-											<ArrowUpRight class="size-3.5" />
-										{/if}
-									</a>
-								</li>
-							{/each}
-						</ul>
-					</div>
-				{/each}
-			</div>
+			{#each groups as group (group.title)}
+				<div data-motion="footer-col">
+					<p class="text-body-sm font-medium text-foreground">{group.title}</p>
+					<ul class="mt-3 space-y-2">
+						{#each group.links as link (link.href + link.title)}
+							<li>
+								<a
+									href={link.href}
+									target={link.external ? "_blank" : undefined}
+									rel={link.external ? "noopener noreferrer" : undefined}
+									class={linkClass}
+								>
+									{link.title}
+									{#if link.external}
+										<ArrowUpRight class="size-3.5" aria-hidden="true" />
+									{/if}
+								</a>
+							</li>
+						{/each}
+					</ul>
+				</div>
+			{/each}
 		</div>
 
 		<div
-			class="mt-16 flex flex-col items-start justify-between gap-3 border-t border-border-low pt-8 sm:flex-row sm:items-center"
+			class="flex flex-col items-start gap-4 border-t border-border py-5 text-caption text-muted-foreground sm:flex-row sm:items-center sm:justify-between"
 		>
-			<p class="text-caption text-muted-foreground">
-				© {year}
-				<a href="/" class="text-foreground hover:underline">{appConfig.name}</a>. All rights reserved.
-			</p>
+			<p>&copy; {year} {appConfig.name}</p>
+			<ul class="flex gap-4">
+				{#each legal as link (link.href)}
+					<li><a href={link.href} class={linkClass}>{link.title}</a></li>
+				{/each}
+			</ul>
+			<Button variant="outline" size="sm" onclick={() => theme.toggle()}>
+				{theme.current === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+			</Button>
 		</div>
 	</div>
 </footer>

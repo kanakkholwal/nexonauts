@@ -22,13 +22,11 @@ const twMergeConfig = {
 						"display",
 						"display-lg",
 						"display-xl",
-						"poster",
-						"poster-xl",
 						"13"
 					]
 				}
 			],
-			rounded: [{ rounded: ["pill", "xxl"] }],
+			rounded: [{ rounded: ["pill", "xxl", "card", "stage"] }],
 			shadow: [
 				{
 					shadow: [

@@ -10,8 +10,8 @@
 		<meta name="google-adsense-account" content="ca-pub-2219281381026289" />
 		<link rel="manifest" href="%sveltekit.assets%/manifest.webmanifest" />
 		<!-- Matches --canvas in each mode, so browser chrome meets the page ground. -->
-		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#f5f5f5" />
-		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0a0a" />
+		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
+		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#000000" />
 		<script>
 			// Stamp the theme before first paint so the page never flashes the wrong mode.
 			(() => {
@@ -38,12 +38,12 @@
 				align-items: center;
 				justify-content: center;
 				gap: 1.5rem;
-				background: #f5f5f5;
+				background: #ffffff;
 				opacity: 0;
 				animation: boot-in 200ms ease 150ms forwards;
 			}
 			[data-theme="dark"] #boot {
-				background: #0a0a0a;
+				background: #000000;
 			}
 			#boot svg {
 				width: 44px;
