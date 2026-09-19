@@ -3,7 +3,7 @@ import { Renderer } from "@docvia/renderer-svelte";
 import ArrowLeft from "@tabler/icons-svelte/icons/arrow-left";
 import { page as appPage } from "$app/state";
 import Footer from "$lib/components/common/footer.svelte";
-import Navbar from "$lib/components/common/navbar.svelte";
+import IslandNav from "$lib/components/common/island-nav.svelte";
 import { buttonVariants } from "$lib/components/ui/button";
 import { guideRegistry } from "$lib/guides/registry";
 import { cn } from "$lib/utils";
@@ -26,7 +26,7 @@ const replyUrl = $derived(() => {
 </svelte:head>
 
 <header>
-	<Navbar />
+	<IslandNav />
 </header>
 
 <main id="main" class="mx-auto min-h-screen max-w-6xl px-6 pt-24 pb-20">

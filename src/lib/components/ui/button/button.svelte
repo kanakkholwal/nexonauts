@@ -30,6 +30,9 @@ export const buttonVariants = tv({
 			outline: "border-border-control bg-card text-foreground hover:bg-muted",
 			ghost:
 				"bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground aria-expanded:bg-muted",
+			// Violet edge and violet ink, no fill. A highlight action, never a commit.
+			// Full-strength border because an edge is a control boundary at 3:1.
+			accent: "border-primary bg-transparent text-primary hover:bg-primary/10",
 			// Fixed in both themes, for use on a brand panel.
 			ink: "bg-fixed-dark text-fixed-light shadow-xs hover:bg-fixed-dark/90",
 			light: "bg-fixed-light text-fixed-dark shadow-xs hover:bg-fixed-light/90",

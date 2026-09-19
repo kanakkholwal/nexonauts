@@ -542,7 +542,29 @@
 		scroll-behavior: smooth;
 		scrollbar-width: thin;
 		scrollbar-gutter: stable;
+		/* Lets height animate to and from `auto`, which the disclosure below needs. */
+		interpolate-size: allow-keywords;
 		@apply antialiased selection:bg-primary/20 selection:text-foreground;
+	}
+
+	/* Every <details> opens and closes on a curve instead of snapping. Browsers
+	   without ::details-content keep the instant native behaviour. */
+	@supports selector(::details-content) {
+		details::details-content {
+			block-size: 0;
+			overflow: hidden;
+			transition:
+				block-size var(--duration-enter) var(--ease-out),
+				content-visibility var(--duration-enter) var(--ease-out) allow-discrete;
+		}
+		details[open]::details-content {
+			block-size: auto;
+		}
+		@media (prefers-reduced-motion: reduce) {
+			details::details-content {
+				transition: none;
+			}
+		}
 	}
 
 	html::-webkit-scrollbar {

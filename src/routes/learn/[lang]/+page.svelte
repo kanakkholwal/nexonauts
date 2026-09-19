@@ -2,7 +2,7 @@
 import ArrowLeft from "@tabler/icons-svelte/icons/arrow-left";
 import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
 import Footer from "$lib/components/common/footer.svelte";
-import Navbar from "$lib/components/common/navbar.svelte";
+import IslandNav from "$lib/components/common/island-nav.svelte";
 import { buttonVariants } from "$lib/components/ui/button";
 import { cn } from "$lib/utils";
 
@@ -18,7 +18,7 @@ let { data } = $props();
 </svelte:head>
 
 <header>
-	<Navbar />
+	<IslandNav />
 </header>
 
 <main id="main" class="mx-auto min-h-screen max-w-4xl px-6 pt-24 pb-20">

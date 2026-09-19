@@ -1,8 +1,8 @@
 <script lang="ts">
+import nProgress from "nprogress";
 import { afterNavigate, beforeNavigate } from "$app/navigation";
 import { page } from "$app/state";
 import { Toaster } from "$lib/components/ui/sonner";
-import nProgress from "nprogress";
 import "nprogress/nprogress.css";
 import "../app.css";
 import "../codebox.css";

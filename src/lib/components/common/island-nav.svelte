@@ -3,7 +3,6 @@ import ArrowUpRight from "@tabler/icons-svelte/icons/arrow-up-right";
 import GithubLogo from "@tabler/icons-svelte/icons/brand-github";
 import { appConfig } from "@/project.config";
 import { page } from "$app/state";
-import ThemeToggle from "$lib/components/common/theme-toggle.svelte";
 import Logo from "$lib/components/logo.svelte";
 import { Button } from "$lib/components/ui/button";
 import { NotchedShelf } from "$lib/components/ui/notched-shelf";
@@ -26,9 +25,6 @@ const more: Link[] = [
 	{ title: "Tools", href: "/dev-tools", kind: "Small browser utilities" },
 	{ title: "Docs", href: "https://docs.nexonauts.com", external: true, kind: "Packages and notes" }
 ];
-
-// The notched shelf is a homepage-only variant behind a flag; other routes keep the bar.
-const notched = $derived(appConfig.flags.notchedNav && page.url.pathname === "/");
 
 let open = $state(false);
 let scrolled = $state(false);
@@ -127,17 +123,16 @@ $effect(() => {
 
 {#snippet actions()}
 	<div class="flex items-center justify-end gap-1.5">
-		<ThemeToggle />
 		<Button
 			href={appConfig.socials.github}
 			target="_blank"
 			rel="noopener noreferrer"
-			variant="outline"
+			variant="accent"
 			size="sm"
-			class="hidden md:inline-flex"
+			class="hidden rounded-full md:inline-flex"
 		>
 			<GithubLogo class="size-4" aria-hidden="true" />
-			GitHub
+			<span class="sr-only lg:not-sr-only">GitHub</span>
 		</Button>
 		<Button
 			variant="secondary"
@@ -152,32 +147,35 @@ $effect(() => {
 	</div>
 {/snippet}
 
-{#if notched}
-	<!-- Notched variant: the bar sits in a notch cut into the hero frame and slides down on load.
-	     Below md the wings do not fit, so the flat bar renders instead. -->
-	<div class="slide fixed inset-x-0 top-2 z-50 hidden md:block" data-motion="nav">
-		<NotchedShelf fill="text-background" class="h-16">
-			<nav aria-label="Primary" class="flex h-16 items-center gap-6 px-6">
+<!-- The nav on every public route. Below md the wings do not fit, so the bar renders there.
+     Two elements: GSAP owns the outer transform, the CSS entrance the inner one. -->
+<div class="fixed inset-x-0 top-2 z-50 hidden md:block" data-motion="nav-shelf">
+	<div class="slide">
+		<!-- One surface for the whole page. Matching whatever is behind it means vanishing on
+		     half the sections, so the shelf keeps the card surface and its hairline does the work. -->
+		<NotchedShelf fill="text-card" class="h-16">
+			<nav aria-label="Primary" class="flex h-16 items-center gap-4 px-5 lg:gap-6 lg:px-6">
 				{@render brand()}
 				{@render linkList()}
 				{@render actions()}
 			</nav>
 		</NotchedShelf>
 	</div>
-{/if}
+</div>
 
 <!-- Transparent over the hero, an edge once the page has moved. The rule is a
-     separate element so scroll can draw it; the class keeps it without JS. -->
+     separate element so scroll can draw it; the class keeps it without JS.
+     With the shelf on, this is the phone bar only: the shelf never gives way to it. -->
 <div
 	class={cn(
-		"fixed inset-x-0 top-0 z-50 transition-colors duration-(--duration-ui) ease-(--ease-out) motion-reduce:transition-none",
-		scrolled ? "bg-background/85 backdrop-blur-md" : "bg-transparent",
-		notched && "md:hidden"
+		"bg-card fixed inset-x-0 top-0 z-50 transition-colors duration-(--duration-ui) ease-(--ease-out) motion-reduce:transition-none",
+		scrolled ? " backdrop-blur-md" : "",
+		"md:hidden"
 	)}
-	data-motion={notched ? undefined : "nav"}
+	data-motion="nav"
 >
 	<nav
-		aria-label={notched ? "Primary, compact" : "Primary"}
+		aria-label="Primary, compact"
 		class="mx-auto grid h-16 w-full max-w-page grid-cols-[1fr_auto] items-center px-4 sm:px-8 md:grid-cols-[1fr_auto_1fr] lg:px-10"
 	>
 		{@render brand()}

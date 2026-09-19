@@ -7,14 +7,14 @@ type Props = { cards: Card[] };
 let { cards }: Props = $props();
 </script>
 
-<ul class="grid gap-3 md:grid-cols-3" data-motion="cards">
+<ul class="grid gap-4 md:grid-cols-3" data-motion="cards">
 	{#each cards as card (card.href)}
 		<li>
 			<a
 				href={card.href}
 				target={card.external ? "_blank" : undefined}
 				rel={card.external ? "noopener noreferrer" : undefined}
-				class="group flex h-full flex-col gap-1.5 rounded-card border border-border bg-card p-6 transition-[border-color,transform] duration-(--duration-ui) ease-(--ease-out) hover:border-border-control focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none motion-safe:hover:-translate-y-0.5"
+				class="group flex h-full flex-col gap-2 rounded-card border border-border bg-card p-7 md:p-8 transition-[border-color,transform] duration-(--duration-ui) ease-(--ease-out) hover:border-border-control focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none motion-safe:hover:-translate-y-0.5"
 			>
 				<span class="flex items-center justify-between font-heading text-heading-sm font-medium text-foreground">
 					{card.title}

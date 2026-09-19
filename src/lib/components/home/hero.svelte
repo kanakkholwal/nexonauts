@@ -2,17 +2,10 @@
 import IconChevronRight from "@tabler/icons-svelte/icons/chevron-right";
 import { appConfig } from "@/project.config";
 import { Button } from "$lib/components/ui/button";
-import { cn } from "$lib/utils";
-
-// With the notched nav the hero becomes a framed panel the bar is cut into.
-const framed = appConfig.flags.notchedNav;
 </script>
 
 <section
-	class={cn(
-		"relative isolate overflow-clip",
-		framed && "md:mx-2 md:mt-2 md:rounded-stage md:border md:border-border md:bg-card"
-	)}
+	class="relative isolate overflow-clip bg-muted"
 	data-motion="hero"
 >
 	<!-- Dark mode only: a soft beam and a glow, so true black reads as lit rather than empty. -->

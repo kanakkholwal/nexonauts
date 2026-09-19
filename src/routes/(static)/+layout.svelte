@@ -1,11 +1,11 @@
 <script lang="ts">
 import Footer from "$lib/components/common/footer.svelte";
-import Navbar from "$lib/components/common/navbar.svelte";
+import IslandNav from "$lib/components/common/island-nav.svelte";
 
 let { children } = $props();
 </script>
 
-<Navbar />
+<IslandNav />
 
 <main
   id="main"

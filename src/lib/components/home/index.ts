@@ -4,5 +4,4 @@ export { default as Hero } from "./hero.svelte";
 export { default as LinkCards } from "./link-cards.svelte";
 export { default as ProductArt } from "./product-art.svelte";
 export { default as ProductRow } from "./product-row.svelte";
-export { default as ProductStrip } from "./product-strip.svelte";
 export { default as Stage } from "./stage.svelte";

@@ -1,7 +1,7 @@
 <script lang="ts">
 import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
 import Footer from "$lib/components/common/footer.svelte";
-import Navbar from "$lib/components/common/navbar.svelte";
+import IslandNav from "$lib/components/common/island-nav.svelte";
 import { Badge } from "$lib/components/ui/badge";
 
 let { data } = $props();
@@ -20,7 +20,7 @@ function guideHref(slugs: string[]): string {
 	/>
 </svelte:head>
 
-<Navbar />
+<IslandNav />
 
 <main id="main" class="relative isolate mx-auto min-h-screen max-w-4xl px-6 pt-24 pb-24">
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
 import Footer from "$lib/components/common/footer.svelte";
-import Navbar from "$lib/components/common/navbar.svelte";
+import IslandNav from "$lib/components/common/island-nav.svelte";
 
 let { data } = $props();
 </script>
@@ -14,7 +14,7 @@ let { data } = $props();
 	/>
 </svelte:head>
 
-<Navbar />
+<IslandNav />
 
 <main id="main" class="relative isolate mx-auto min-h-screen max-w-4xl px-6 pt-24 pb-24">
 

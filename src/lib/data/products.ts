@@ -22,19 +22,6 @@ export type Product = {
 // Status is stated per product because it genuinely differs. Never soften it.
 export const products: Product[] = [
 	{
-		slug: "orbit",
-		name: "Orbit",
-		category: "PDF toolkit",
-		qualifier: "for the browser.",
-		line: "Merge, split, sign and compress without an upload. Each tool runs inside the page and saves back to your disk.",
-		kind: "PDF toolkit, browser",
-		runs: "Browser",
-		status: "Stable",
-		href: "https://orbit.nexonauts.com",
-		repo: "https://github.com/kanakkholwal/orbit",
-		actionLabel: "Open Orbit"
-	},
-	{
 		slug: "recast",
 		name: "Recast",
 		category: "Screen recorder",
@@ -46,6 +33,19 @@ export const products: Product[] = [
 		href: "https://recast.li",
 		repo: "https://github.com/kanakkholwal/recast",
 		actionLabel: "Get Recast"
+	},
+	{
+		slug: "orbit",
+		name: "Orbit",
+		category: "PDF toolkit",
+		qualifier: "for the browser.",
+		line: "Merge, split, sign and compress without an upload. Each tool runs inside the page and saves back to your disk.",
+		kind: "PDF toolkit, browser",
+		runs: "Browser",
+		status: "Stable",
+		href: "https://orbit.nexonauts.com",
+		repo: "https://github.com/kanakkholwal/orbit",
+		actionLabel: "Open Orbit"
 	},
 	{
 		slug: "glyphtex",

@@ -1,7 +1,7 @@
 <script lang="ts">
 import IconChevronRight from "@tabler/icons-svelte/icons/chevron-right";
 import { appConfig } from "@/project.config";
-import { Faq, Hero, LinkCards, ProductRow, ProductStrip } from "$lib/components/home";
+import { Faq, Hero, LinkCards, ProductRow } from "$lib/components/home";
 import { SiteFrame } from "$lib/components/site";
 import { Button } from "$lib/components/ui/button";
 import { products, shippedProducts } from "$lib/data/products";
@@ -121,77 +121,131 @@ $effect(() => {
 	<div bind:this={root}>
 		<Hero />
 
-		<ProductStrip products={shippedProducts} />
-
-		<div id="products" class="mx-auto w-full max-w-page scroll-mt-16 px-4 sm:px-8 lg:px-10">
-			{#each shippedProducts as product, i (product.slug)}
-				<ProductRow {product} flip={i % 2 === 1} />
-			{/each}
-			{#if specimen}
-				<p
-					class="border-t border-border py-7 font-mono text-caption tracking-wider text-muted-foreground uppercase"
+		<!-- Signpost. Tinted so the hero and this read as the opening, and so chapter one has
+		     a surface to notch out of. -->
+		<section
+			id="products"
+			class="scroll-mt-20 bg-muted"
+			aria-labelledby="products-title"
+			data-motion="signpost"
+		>
+			<div class="mx-auto w-full max-w-page px-5 py-16 sm:px-10 md:py-20 lg:px-14">
+				<span
+					class="block h-px w-full origin-left bg-border"
+					data-motion="rule"
+					aria-hidden="true"
+				></span>
+				<div
+					class="mt-8 flex flex-col gap-3 md:flex-row md:items-end md:justify-between"
+					data-motion="head"
 				>
-					{specimen.name}, a {specimen.category.toLowerCase()}, is {specimen.status.toLowerCase()}.
-				</p>
-			{/if}
-		</div>
-
-		<section class="mx-auto w-full max-w-page px-4 py-16 sm:px-8 md:py-24 lg:px-10" aria-labelledby="beyond-title">
-			<div class="mb-8 max-w-[62ch]" data-motion="head">
-				<h2 id="beyond-title" class="text-heading-lg font-medium lg:text-display">Beyond the products.</h2>
-				<p class="mt-3 text-body-lg text-pretty text-muted-foreground">
-					Nexonauts also publishes short lessons and guides written while building these, keeps
-					a set of small browser utilities, and documents its packages. Longer term it is
-					exploring AI tooling for developers and learning that goes beyond code.
-				</p>
+					<h2 id="products-title" class="text-heading-lg font-medium lg:text-display">
+						The products.
+					</h2>
+					<p class="max-w-[42ch] text-body-lg text-pretty text-muted-foreground">
+						One screen each, in the order they get used. Every one has its own site and repository.
+					</p>
+				</div>
 			</div>
-			<LinkCards cards={beyond} />
 		</section>
 
-		<section class="mx-auto w-full max-w-page px-4 pb-16 sm:px-8 md:pb-24 lg:px-10" aria-label="How it works">
-			<hr class="h-px border-0 bg-border" data-motion="rule" />
-			<dl class="grid gap-6 pt-8 md:grid-cols-3 md:gap-8" data-motion="facts">
+		<div>
+			{#each shippedProducts as product, i (product.slug)}
+				<ProductRow {product} index={i} flip={i % 2 === 1} />
+			{/each}
+		</div>
+
+		{#if specimen}
+			<p
+				class="mx-auto w-full max-w-page px-4 py-8 font-mono text-caption tracking-wider text-muted-foreground uppercase sm:px-8 lg:px-10"
+			>
+				{specimen.name}, a {specimen.category.toLowerCase()}, is {specimen.status.toLowerCase()}.
+			</p>
+		{/if}
+
+		<!-- No seam and no frame past here: the notch belongs to the product chapters. -->
+		<section
+			class="mx-auto flex min-h-[90dvh] w-full max-w-page flex-col justify-center px-4 py-24 sm:px-8 md:py-28 lg:px-10"
+			aria-labelledby="beyond-title"
+			data-motion="beyond"
+		>
+			<div class="max-w-[62ch]" data-motion="head">
+				<h2 id="beyond-title" class="text-heading-lg font-medium lg:text-display">
+					Beyond the products.
+				</h2>
+				<p class="mt-4 text-body-lg text-pretty text-muted-foreground">
+					Nexonauts also publishes short lessons and guides written while building these, keeps a set
+					of small browser utilities, and documents its packages. Longer term it is exploring AI
+					tooling for developers and learning that goes beyond code.
+				</p>
+			</div>
+			<div class="mt-14 md:mt-20">
+				<LinkCards cards={beyond} />
+			</div>
+		</section>
+
+		<section
+			class="mx-auto flex min-h-[80dvh] w-full max-w-page flex-col justify-center px-4 py-20 sm:px-8 md:py-28 lg:px-10"
+			aria-labelledby="how-title"
+		>
+			<h2 id="how-title" class="sr-only">How it works</h2>
+			<dl class="grid gap-12 md:grid-cols-3 md:gap-10" data-motion="facts">
 				{#each facts as fact (fact.title)}
 					<div>
-						<dt class="text-body font-medium text-foreground">{fact.title}</dt>
-						<dd class="mt-1.5 text-body-sm text-pretty text-muted-foreground">{fact.text}</dd>
+						<span
+							class="block h-px w-full origin-left bg-border"
+							data-motion="fact-rule"
+							aria-hidden="true"
+						></span>
+						<dt class="mt-6 text-subheading font-medium text-foreground lg:text-heading">
+							{fact.title}
+						</dt>
+						<dd class="mt-3 max-w-[38ch] text-body text-pretty text-muted-foreground">{fact.text}</dd>
 					</div>
 				{/each}
 			</dl>
 		</section>
 
-		<section id="faq" class="mx-auto w-full max-w-page scroll-mt-16 px-4 pb-16 sm:px-8 md:pb-24 lg:px-10" aria-labelledby="faq-title">
-			<div class="mb-8" data-motion="head">
+		<section
+			id="faq"
+			class="mx-auto flex min-h-[90dvh] w-full max-w-page scroll-mt-20 flex-col justify-center px-4 py-20 sm:px-8 md:py-28 lg:px-10"
+			aria-labelledby="faq-title"
+		>
+			<div class="mb-10" data-motion="head">
 				<h2 id="faq-title" class="text-heading-lg font-medium lg:text-display">Questions.</h2>
 			</div>
 			<Faq items={faqs} />
 		</section>
 
-		<section class="mx-auto w-full max-w-page px-4 pb-20 sm:px-8 md:pb-28 lg:px-10" aria-labelledby="closing-title">
-			<div
-				class="grid items-center gap-6 rounded-stage border border-border bg-card p-7 md:grid-cols-[1.2fr_1fr] md:p-12"
-				data-motion="closing"
+		<!-- Stays on the page surface: the footer notch has to rise into something it is not. -->
+		<section
+			class="mx-auto flex min-h-[60dvh] w-full max-w-page flex-col items-center justify-center px-4 py-24 text-center sm:px-8 md:py-32 lg:px-10"
+			aria-labelledby="closing-title"
+			data-motion="closing"
+		>
+			<h2
+				id="closing-title"
+				class="max-w-[16ch] text-display font-medium text-balance lg:text-display-xl"
+				data-motion="closing-line"
 			>
-				<div>
-					<h2 id="closing-title" class="text-heading font-medium lg:text-heading-lg">Start with a product.</h2>
-					<p class="mt-2 text-body-lg text-pretty text-muted-foreground">
-						Orbit opens in the browser and needs no install.
-					</p>
-				</div>
-				<div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5 md:justify-end">
-					<Button href="https://orbit.nexonauts.com" target="_blank" rel="noopener noreferrer" size="lg">
-						Open Orbit
-					</Button>
-					<a
-						href={appConfig.githubRepo}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="inline-flex h-11 items-center justify-center gap-1 rounded-md text-body-sm font-medium text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-					>
-						GitHub
-						<IconChevronRight class="size-4" aria-hidden="true" />
-					</a>
-				</div>
+				Start with a product.
+			</h2>
+			<p class="mt-5 max-w-[44ch] text-body-lg text-pretty text-muted-foreground">
+				Orbit opens in the browser and needs no install.
+			</p>
+			<div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
+				<Button href="https://orbit.nexonauts.com" target="_blank" rel="noopener noreferrer" size="lg">
+					Open Orbit
+				</Button>
+				<a
+					href={appConfig.githubRepo}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-flex h-11 items-center justify-center gap-1 rounded-md text-body-sm font-medium text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+				>
+					GitHub
+					<IconChevronRight class="size-4" aria-hidden="true" />
+				</a>
 			</div>
 		</section>
 	</div>
