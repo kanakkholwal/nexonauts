@@ -101,44 +101,46 @@ const linkClass =
 	</div>
 {/snippet}
 
-<!-- The nav on every public route. Below md the wings do not fit, so the bar renders there.
-     Two elements: GSAP owns the outer transform, the CSS entrance the inner one. -->
-<div class="fixed inset-x-0 top-0 z-50 hidden md:block" data-motion="nav-shelf">
-	<div class="slide">
-		<NotchedShelf fill="text-card" class="h-16">
-			<nav aria-label="Primary" class={("flex h-16 items-center gap-4 px-5 lg:gap-6 lg:px-6")}>
-				{@render brand()}
-				{@render linkList()}
-				{@render actions()}
-			</nav>
-		</NotchedShelf>
+<!-- One landmark for both shells. The breakpoint decides which subtree renders, and a
+     screen reader must still hear "Primary navigation" exactly once. -->
+<nav aria-label="Primary">
+	<!-- Below md the wings do not fit, so the bar renders there instead of the shelf.
+	     Two elements: GSAP owns the outer transform, the CSS entrance the inner one. -->
+	<div class="fixed inset-x-0 top-0 z-50 hidden md:block" data-motion="nav-shelf">
+		<div class="slide">
+			<NotchedShelf fill="text-card" class="h-16">
+				<div class="flex h-16 items-center gap-4 px-5 lg:gap-6 lg:px-6">
+					{@render brand()}
+					{@render linkList()}
+					{@render actions()}
+				</div>
+			</NotchedShelf>
+		</div>
 	</div>
-</div>
 
-<!-- Transparent over the hero, an edge once the page has moved. The rule is a
-     separate element so scroll can draw it; the class keeps it without JS.
-     With the shelf on, this is the phone bar only: the shelf never gives way to it. -->
-<div
-	class={cn(
-		"bg-card fixed inset-x-0 top-0 z-50 transition-colors duration-(--duration-ui) ease-(--ease-out) motion-reduce:transition-none",
-		scrolled ? " backdrop-blur-md" : "",
-		"md:hidden"
-	)}
-	data-motion="nav"
->
-	<nav
-		aria-label="Primary, compact"
-		class="mx-auto grid h-16 w-full max-w-page grid-cols-[1fr_auto] items-center px-4 sm:px-8 md:grid-cols-[1fr_auto_1fr] lg:px-10"
+	<!-- Transparent over the hero, an edge once the page has moved. The rule is a
+	     separate element so scroll can draw it; the class keeps it without JS. -->
+	<div
+		class={cn(
+			"bg-card fixed inset-x-0 top-0 z-50 transition-colors duration-(--duration-ui) ease-(--ease-out) motion-reduce:transition-none",
+			scrolled ? " backdrop-blur-md" : "",
+			"md:hidden"
+		)}
+		data-motion="nav"
 	>
-		{@render brand()}
-		{@render linkList()}
-		{@render actions()}
-	</nav>
-	<span
-		class={cn("block h-px w-full origin-left bg-border", scrolled ? "opacity-100" : "opacity-0")}
-		data-motion="nav-rule"
-		aria-hidden="true"
-	></span>
-</div>
+		<div
+			class="mx-auto grid h-16 w-full max-w-page grid-cols-[1fr_auto] items-center px-4 sm:px-8 md:grid-cols-[1fr_auto_1fr] lg:px-10"
+		>
+			{@render brand()}
+			{@render linkList()}
+			{@render actions()}
+		</div>
+		<span
+			class={cn("block h-px w-full origin-left bg-border", scrolled ? "opacity-100" : "opacity-0")}
+			data-motion="nav-rule"
+			aria-hidden="true"
+		></span>
+	</div>
+</nav>
 
 <NavSheet bind:open groups={menuGroups} links={navLinks} extras={sheetExtras} {pathname} />

@@ -15,7 +15,7 @@ let { sections, children }: Props = $props();
 				<p class="mb-4 pl-4 font-mono text-caption tracking-wider text-muted-foreground uppercase">
 					On this page
 				</p>
-				<nav class="border-l border-border">
+				<nav aria-label="On this page" class="border-l border-border">
 					{#each sections as section (section.id)}
 						<a
 							href="#{section.id}"

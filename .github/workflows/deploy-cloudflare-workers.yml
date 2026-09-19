@@ -23,9 +23,6 @@ env:
   BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
   JWT_SECRET: ${{ secrets.JWT_SECRET }}
   SERVER_IDENTITY: ${{ secrets.SERVER_IDENTITY }}
-  CLOUDINARY_CLOUD_NAME: ${{ vars.CLOUDINARY_CLOUD_NAME }}
-  CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
-  CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
 
 jobs:
   deploy:
@@ -67,9 +64,6 @@ jobs:
           BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
           JWT_SECRET: ${{ secrets.JWT_SECRET }}
           SERVER_IDENTITY: ${{ secrets.SERVER_IDENTITY }}
-          CLOUDINARY_CLOUD_NAME: ${{ vars.CLOUDINARY_CLOUD_NAME }}
-          CLOUDINARY_API_KEY: ${{ secrets.CLOUDINARY_API_KEY }}
-          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
 
       - name: Deploy Worker
         uses: cloudflare/wrangler-action@v3

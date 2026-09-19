@@ -73,9 +73,9 @@ $effect(() => {
 	<div bind:this={root}>
 		<Hero />
 
-
-
-		<div id="products" aria-labelledby="products-list">
+		<!-- A scroll target, nothing more. aria-labelledby pointed at an id that no longer
+		     exists, and aria-label on a generic div is ignored, so neither belongs here. -->
+		<div id="products">
 			{#each shippedProducts as product, i (product.slug)}
 				<ProductRow {product} index={i} flip={i % 2 === 1} />
 			{/each}

@@ -9,14 +9,9 @@ const envSchema = z.object({
 	GOOGLE_ID: z.string(),
 	GOOGLE_SECRET: z.string(),
 	JWT_SECRET: z.string().optional(),
-	BETTER_AUTH_SECRET: z.string().optional(),
 	BASE_MAIL_SERVER_URL: z.url(),
 	SERVER_IDENTITY: z.string().optional(),
-	MONGODB_URI: z.string(),
-	CLOUDINARY_CLOUD_NAME: z.string().optional(),
-	CLOUDINARY_API_KEY: z.string().optional(),
-	CLOUDINARY_API_SECRET: z.string().optional(),
-	GEMINI_API_KEY: z.string().optional()
+	MONGODB_URI: z.string()
 });
 
 const envRaw = {
@@ -27,15 +22,10 @@ const envRaw = {
 	GOOGLE_ID: privateEnv.GOOGLE_ID,
 	GOOGLE_SECRET: privateEnv.GOOGLE_SECRET,
 	JWT_SECRET: privateEnv.JWT_SECRET,
-	BETTER_AUTH_SECRET: privateEnv.BETTER_AUTH_SECRET,
 
 	BASE_MAIL_SERVER_URL: privateEnv.BASE_MAIL_SERVER_URL,
 	SERVER_IDENTITY: privateEnv.SERVER_IDENTITY,
-	MONGODB_URI: privateEnv.MONGODB_URI,
-	CLOUDINARY_CLOUD_NAME: privateEnv.CLOUDINARY_CLOUD_NAME,
-	CLOUDINARY_API_KEY: privateEnv.CLOUDINARY_API_KEY,
-	CLOUDINARY_API_SECRET: privateEnv.CLOUDINARY_API_SECRET,
-	GEMINI_API_KEY: privateEnv.GEMINI_API_KEY
+	MONGODB_URI: privateEnv.MONGODB_URI
 };
 
 const env = envSchema.parse(envRaw);
