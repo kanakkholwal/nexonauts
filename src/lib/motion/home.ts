@@ -86,49 +86,20 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 			);
 		}
 
-		// The shelf stays for the whole page and settles a little once it stops being
-		// a notch in the hero and becomes a thing floating over the content.
+		// The shelf sits flush with the viewport edge and settles by scale alone. Any y here
+		// opens a gap at the top, which is the thing the flush placement exists to avoid.
 		const shelf = document.querySelector<HTMLElement>("[data-motion='nav-shelf']");
 		if (shelf) {
 			gsap.to(shelf, {
-				y: -5,
-				scale: 0.978,
+				scale: 0.972,
 				transformOrigin: "50% 0%",
 				ease: "none",
 				scrollTrigger: { start: 0, end: 220, scrub: 0.4 }
 			});
 		}
 
-		// Hero: the light drifts with scroll and leans toward the pointer, so true
-		// black reads as a lit room rather than an empty one.
 		const hero = root.querySelector<HTMLElement>("[data-motion='hero']");
-		const beam = root.querySelector<HTMLElement>("[data-motion='light-beam']");
-		const glow = root.querySelector<HTMLElement>("[data-motion='light-glow']");
 		const copy = root.querySelector<HTMLElement>("[data-motion='hero-copy']");
-		if (hero && beam && glow) {
-			gsap.to(beam, {
-				xPercent: 14,
-				rotate: -3,
-				ease: "none",
-				scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 0.6 }
-			});
-			gsap.to(glow, {
-				yPercent: 30,
-				ease: "none",
-				scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 0.6 }
-			});
-			// quickTo keeps one tween alive per axis, so the pointer retargets it
-			// instead of stacking a new tween on every move.
-			const bx = gsap.quickTo(beam, "x", { duration: 0.8, ease: "power2.out" });
-			const gy = gsap.quickTo(glow, "y", { duration: 0.8, ease: "power2.out" });
-			const onMove = (e: PointerEvent) => {
-				const r = hero.getBoundingClientRect();
-				bx(((e.clientX - r.left) / r.width - 0.5) * 32);
-				gy(((e.clientY - r.top) / r.height - 0.5) * 24);
-			};
-			hero.addEventListener("pointermove", onMove, { passive: true });
-			cleanups.push(() => hero.removeEventListener("pointermove", onMove));
-		}
 		if (hero && copy) {
 			gsap.to(copy, {
 				yPercent: -8,
@@ -190,8 +161,9 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 			}
 		}
 
-		// Each illustration acts out its product on a loop, but only while on screen.
-		for (const svg of q("[data-art]")) {
+		// Chapter illustrations act their product out on a loop, but only while on screen.
+		// The hero canvas is excluded on purpose: a drifting wall of running timelines is noise.
+		for (const svg of q("[data-motion='row-art'] [data-art]")) {
 			const tl = createProductLoop(gsap, svg);
 			if (!tl) continue;
 			let started = false;
@@ -226,87 +198,49 @@ export async function mountHomeMotion(root: HTMLElement): Promise<() => void> {
 			reveal(group.children, { y: 12, autoAlpha: 0, stagger: 0.05 }, group);
 		}
 
-		// Beyond: the three cards are dealt out of a stack, which no other section does.
-		const cards = q("[data-motion='cards']")[0];
-		if (cards) {
-			reveal(
-				cards.children,
-				{
-					x: (i: number) => (1 - i) * 130,
-					rotate: (i: number) => (i - 1) * -5,
-					y: 50,
-					scale: 0.93,
-					autoAlpha: 0,
-					duration: 0.8,
-					stagger: 0.09
-				},
-				cards,
-				0.72
-			);
-		}
-
-		// FAQ items come in from alternating sides, so the list reads as a zip.
-		const faq = q("[data-motion='faq']")[0];
-		if (faq) {
-			reveal(
-				faq.children,
-				{ x: (i: number) => (i % 2 ? 44 : -44), autoAlpha: 0, stagger: 0.07 },
-				faq,
-				0.74
-			);
-		}
-
-		// Facts stay tied to the scrollbar, so the section keeps moving while it is read.
-		// The opacity floor keeps every line legible even if the scrub never completes.
-		const facts = q("[data-motion='facts']")[0];
-		if (facts) {
-			Array.from(facts.children).forEach((child, i) => {
+		// The three statements light from half ink to full as they are read past. It is the
+		// only scrub left on the page, so it does not compete with the chapter entrances.
+		const stands = q("[data-motion='stands']")[0];
+		if (stands) {
+			Array.from(stands.children).forEach((child, i) => {
 				gsap.fromTo(
 					child,
-					{ y: 60 + i * 26, opacity: 0.5 },
+					{ y: 48 + i * 22, opacity: 0.45 },
 					{
 						y: 0,
 						opacity: 1,
 						ease: "none",
-						scrollTrigger: { trigger: facts, start: "top bottom", end: "top 45%", scrub: 0.5 }
+						scrollTrigger: { trigger: child, start: "top bottom", end: "top 55%", scrub: 0.5 }
 					}
 				);
 			});
 		}
 
-		for (const line of q("[data-motion='fact-rule'], [data-motion='rule']")) {
+		for (const line of q("[data-motion='rule']")) {
 			gsap.fromTo(
 				line,
 				{ scaleX: 0, transformOrigin: "0 50%" },
 				{
 					scaleX: 1,
 					ease: "none",
-					scrollTrigger: { trigger: line, start: "top 92%", end: "top 62%", scrub: 0.4 }
+					scrollTrigger: { trigger: line, start: "top 94%", end: "top 66%", scrub: 0.4 }
 				}
 			);
 		}
 
-		// The closing line rises out of its own baseline, the only masked reveal on the page.
-		const closing = root.querySelector("[data-motion='closing']");
-		const closingLine = root.querySelector("[data-motion='closing-line']");
-		if (closing && closingLine) {
-			reveal(
-				closingLine,
-				{
-					clipPath: "inset(100% 0% 0% 0%)",
-					y: 40,
-					clearProps: "transform,clipPath",
-					duration: 0.9
-				},
-				closing,
-				0.7
-			);
-			reveal(
-				closing.querySelectorAll("[data-motion='closing-line'] ~ *"),
-				{ y: 24, autoAlpha: 0, stagger: 0.08 },
-				closing,
-				0.7
-			);
+		// The canvas leans toward the pointer. Its columns carry a CSS marquee, so the lean
+		// goes on the container: two transforms on one element and GSAP freezes the marquee.
+		const canvas = root.querySelector<HTMLElement>("[data-motion='hero-canvas']");
+		if (hero && canvas) {
+			const cx = gsap.quickTo(canvas, "x", { duration: 1, ease: "power2.out" });
+			const cy = gsap.quickTo(canvas, "y", { duration: 1, ease: "power2.out" });
+			const onCanvasMove = (e: PointerEvent) => {
+				const r = hero.getBoundingClientRect();
+				cx(((e.clientX - r.left) / r.width - 0.5) * -26);
+				cy(((e.clientY - r.top) / r.height - 0.5) * -18);
+			};
+			hero.addEventListener("pointermove", onCanvasMove, { passive: true });
+			cleanups.push(() => hero.removeEventListener("pointermove", onCanvasMove));
 		}
 
 		const footer = document.querySelector<HTMLElement>("[data-motion='footer']");

@@ -46,7 +46,6 @@ export const GET: RequestHandler = async () => {
 	const manualRoutes = [
 		{ path: "/", date: now },
 		{ path: "/contact", date: now },
-		{ path: "/about", date: now },
 		{ path: "/copyright", date: now },
 		{ path: "/pricing", date: now },
 		{ path: "/privacy", date: now },

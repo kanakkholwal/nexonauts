@@ -45,7 +45,7 @@ const replyUrl = $derived(() => {
 		<header class="mb-8 not-prose">
 			<h1 class="text-foreground text-4xl font-bold tracking-tight sm:text-5xl">{data.title}</h1>
 			{#if data.description}
-				<p class="text-muted-foreground mt-3 text-base">{data.description}</p>
+				<p class="text-muted-foreground mt-3 text-body">{data.description}</p>
 			{/if}
 		</header>
 
@@ -57,7 +57,7 @@ const replyUrl = $derived(() => {
 			href={replyUrl()}
 			target="_blank"
 			rel="noopener noreferrer"
-			class="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm transition-colors"
+			class="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-body-sm transition-colors"
 		>
 			Reply on X →
 		</a>

@@ -5,6 +5,7 @@ import Ban from "@tabler/icons-svelte/icons/ban";
 import ScrollText from "@tabler/icons-svelte/icons/file-text";
 import Shield from "@tabler/icons-svelte/icons/shield";
 import { appConfig } from "@/project.config";
+import { PageHero } from "$lib/components/site";
 import { Alert } from "$lib/components/ui/alert";
 import { Badge } from "$lib/components/ui/badge";
 import { Button } from "$lib/components/ui/button";
@@ -50,25 +51,23 @@ const definitions = [
 	<meta name="description" content="Terms of service governing the use of {SITE}." />
 </svelte:head>
 
-<section class="relative isolate overflow-hidden">
-	<div class="relative z-10 mb-12 max-w-3xl pt-20 sm:pt-24">
-		<Badge variant="default" size="md" class="mb-5">Legal agreement</Badge>
-		<h1 class="display-xl text-ink">Terms of Service</h1>
-		<p class="mt-4 text-sm text-muted-foreground">
-			Please read these terms carefully before using our platform. They outline the rules for the
-			use of <span class="font-medium text-ink">{SITE}</span>.
-		</p>
-	</div>
+<PageHero
+	eyebrow="Legal"
+	title="Terms of Service"
+	lede="The rules for using {SITE}. Worth reading before you rely on any of it."
+/>
+
+<section class="relative isolate mx-auto w-full max-w-page px-5 pt-16 sm:px-10 lg:px-14">
 
 	<div class="relative z-10 grid gap-12 lg:grid-cols-12">
 		<aside class="hidden lg:col-span-3 lg:block">
 			<div class="sticky top-24 space-y-2">
-				<p class="eyebrow mb-4 pl-4 text-muted-ink">Table of contents</p>
-				<nav class="border-l border-hairline">
+				<p class="mb-4 pl-4 font-mono text-caption tracking-wider text-muted-foreground uppercase">Table of contents</p>
+				<nav class="border-l border-border">
 					{#each sections as section (section.id)}
 						<a
 							href={`#${section.id}`}
-							class="-ml-px block border-l-2 border-transparent py-2 pl-4 text-sm text-muted-foreground transition-all hover:border-ink hover:text-ink"
+							class="-ml-px block border-l-2 border-transparent py-2 pl-4 text-body-sm text-muted-foreground transition-all hover:border-ink hover:text-foreground"
 						>
 							{section.title}
 						</a>
@@ -80,35 +79,35 @@ const definitions = [
 		<div class="col-span-12 lg:col-span-9">
 			<div
 				class="prose prose-zinc dark:prose-invert max-w-none
-					prose-headings:font-display prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-ink prose-headings:scroll-mt-28
-					prose-h2:text-2xl prose-h3:text-2xl prose-h4:text-2xl
+					prose-headings:font-display prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-foreground prose-headings:scroll-mt-28
+					prose-h2:text-subheading prose-h3:text-subheading prose-h4:text-subheading
 					prose-p:text-muted-foreground prose-p:
-					prose-a:text-ink prose-a:underline-offset-4 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
-					prose-strong:text-ink"
+					prose-a:text-foreground prose-a:underline-offset-4 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
+					prose-strong:text-foreground"
 			>
 				<section id="terms">
-					<p class="lead text-sm text-muted-foreground">
+					<p class="lead text-body-sm text-muted-foreground">
 						By accessing this website, we assume you accept these terms and conditions. Do not
 						continue to use {SITE} if you do not agree to all the terms and conditions stated on
 						this page.
 					</p>
 				</section>
 
-				<hr class="my-10 border-hairline" />
+				<hr class="my-10 border-border" />
 
 				<section id="definitions">
-					<div class="mb-4 flex items-center gap-2 text-ink">
+					<div class="mb-4 flex items-center gap-2 text-foreground">
 						<ScrollText class="size-5" />
 						<h3 class="m-0">Terminology</h3>
 					</div>
-					<p class="mb-5 text-sm text-muted-foreground">
+					<p class="mb-5 text-body-sm text-muted-foreground">
 						The following terminology applies to these Terms and Conditions, Privacy Statement,
 						and Disclaimer Notice and all Agreements:
 					</p>
 					<ul class="not-prose grid list-none gap-3 pl-0">
 						{#each definitions as def (def.term)}
-							<li class="rounded-xl border border-hairline bg-canvas-soft p-5 text-sm">
-								<span class="font-medium text-ink">{def.term}</span>
+							<li class="rounded-card border border-border bg-muted p-5 text-body-sm">
+								<span class="font-medium text-foreground">{def.term}</span>
 								<p class="mt-1 text-muted-foreground">{def.body}</p>
 							</li>
 						{/each}
@@ -133,7 +132,7 @@ const definitions = [
 					</p>
 
 					<div
-						class="not-prose mt-6 rounded-2xl border border-destructive/25 bg-destructive/5 p-6"
+						class="not-prose mt-6 rounded-card border border-destructive/25 bg-destructive/5 p-6"
 					>
 						<div class="mb-4 flex items-center gap-2 font-medium text-destructive">
 							<Ban class="size-5" />
@@ -141,7 +140,7 @@ const definitions = [
 						</div>
 						<ul class="space-y-2.5">
 							{#each prohibited as item (item)}
-								<li class="flex items-start gap-3 text-sm text-muted-foreground">
+								<li class="flex items-start gap-3 text-body-sm text-muted-foreground">
 									<span class="mt-1.5 inline-block size-1.5 shrink-0 rounded-full bg-destructive/60"></span>
 									{item}
 								</li>
@@ -168,9 +167,9 @@ const definitions = [
 
 				<section id="liability">
 					<h3>Content liability</h3>
-					<div class="not-prose flex items-start gap-4 rounded-2xl border border-hairline bg-canvas-soft p-6">
-						<Shield class="mt-1 size-6 shrink-0 text-ink" />
-						<p class="m-0 text-sm text-muted-foreground">
+					<div class="not-prose flex items-start gap-4 rounded-card border border-border bg-muted p-6">
+						<Shield class="mt-1 size-6 shrink-0 text-foreground" />
+						<p class="m-0 text-body-sm text-muted-foreground">
 							We shall not be held responsible for any content that appears on your website. You
 							agree to protect and defend us against all claims that arise on your website. No
 							link(s) should appear on any website that may be interpreted as libelous, obscene,
@@ -185,12 +184,12 @@ const definitions = [
 						<AlertTriangle />
 						<div class="space-y-2">
 							<p class="font-medium text-current">Legal disclaimer</p>
-							<p class="text-sm text-current/85">
+							<p class="text-body-sm text-current/85">
 								To the maximum extent permitted by applicable law, we exclude all
 								representations, warranties, and conditions relating to our website and the use
 								of this website. Nothing in this disclaimer will:
 							</p>
-							<ul class="mb-0 list-disc space-y-1 pl-5 text-sm text-current/85">
+							<ul class="mb-0 list-disc space-y-1 pl-5 text-body-sm text-current/85">
 								<li>Limit or exclude our or your liability for death or personal harm</li>
 								<li>
 									Limit or exclude our or your liability for fraud or fraudulent
@@ -207,13 +206,13 @@ const definitions = [
 
 				<section id="contact" class="not-prose mt-14">
 					<div
-						class="flex flex-col items-start justify-between gap-5 rounded-2xl border border-hairline bg-canvas-soft p-8 sm:flex-row sm:items-center"
+						class="flex flex-col items-start justify-between gap-5 rounded-card border border-border bg-muted p-8 sm:flex-row sm:items-center"
 					>
 						<div class="max-w-md">
-							<h3 class="font-display text-2xl font-medium tracking-tight text-ink">
+							<h3 class="font-display text-subheading font-medium tracking-tight text-foreground">
 								Questions about the terms?
 							</h3>
-							<p class="mt-2 text-sm text-muted-foreground">
+							<p class="mt-2 text-body-sm text-muted-foreground">
 								If you have any inquiries regarding our terms of service, please contact us.
 							</p>
 						</div>

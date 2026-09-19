@@ -2,6 +2,7 @@
 import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
 import Footer from "$lib/components/common/footer.svelte";
 import IslandNav from "$lib/components/common/island-nav.svelte";
+import { PageHero } from "$lib/components/site";
 
 let { data } = $props();
 </script>
@@ -16,21 +17,18 @@ let { data } = $props();
 
 <IslandNav />
 
-<main id="main" class="relative isolate mx-auto min-h-screen max-w-4xl px-6 pt-24 pb-24">
+<PageHero
+	eyebrow="Learn"
+	title="Learn by example"
+	lede="Short, self-contained programs. One idea per page, with the explanation beside the code and the output underneath."
+/>
 
-	<div class="relative z-10 mb-16">
-		<p class="eyebrow text-muted-ink">Learn</p>
-		<h1 class="display-xl mt-3 text-ink">Learn by example</h1>
-		<p class="mt-4 max-w-xl text-sm text-muted-foreground">
-			Short, self-contained programs. One idea per page. Explanation on the left, code on the right,
-			output at the bottom.
-		</p>
-	</div>
+<main id="main" class="relative isolate mx-auto min-h-screen max-w-4xl px-6 pt-16 pb-24">
 
 	{#if data.languages.length === 0}
-		<p class="text-sm text-muted-ink">No languages yet.</p>
+		<p class="text-body-sm text-muted-foreground">No languages yet.</p>
 	{:else}
-		<ul class="relative z-10 divide-y divide-hairline border-y border-hairline">
+		<ul class="relative z-10 divide-y divide-border border-y border-border">
 			{#each data.languages as lang (lang.code)}
 				<li>
 					<a
@@ -39,15 +37,15 @@ let { data } = $props();
 					>
 						<div>
 							<div class="flex items-baseline gap-3">
-								<h2 class="font-display text-2xl font-medium tracking-tight text-ink group-hover:text-foreground">{lang.name}</h2>
-								<span class="text-xs text-muted-ink"
+								<h2 class="font-display text-subheading font-medium tracking-tight text-foreground group-hover:text-foreground">{lang.name}</h2>
+								<span class="text-caption text-muted-foreground"
 									>{lang.topicCount} {lang.topicCount === 1 ? "topic" : "topics"}</span
 								>
 							</div>
-							<p class="mt-2 text-sm text-muted-foreground">{lang.tagline}</p>
+							<p class="mt-2 text-body-sm text-muted-foreground">{lang.tagline}</p>
 						</div>
 						<ArrowRight
-							class="size-4 shrink-0 text-muted-ink transition-all group-hover:text-ink group-hover:translate-x-1"
+							class="size-4 shrink-0 text-muted-foreground transition-all group-hover:text-foreground group-hover:translate-x-1"
 						/>
 					</a>
 				</li>

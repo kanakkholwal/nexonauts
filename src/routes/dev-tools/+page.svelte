@@ -3,6 +3,7 @@ import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
 import MagnifyingGlass from "@tabler/icons-svelte/icons/search";
 import Wrench from "@tabler/icons-svelte/icons/tool";
 import { appConfig } from "@/project.config";
+import { PageHero } from "$lib/components/site";
 import { Container, Reveal, Section, SectionLabel } from "$lib/components/surfaces";
 import { cn } from "$lib/utils";
 import { categoryIcon } from "./icons";
@@ -41,29 +42,15 @@ const description =
 	<meta property="og:description" content={description} />
 </svelte:head>
 
-<Section spacing="none" class="border-b border-border-low">
-	<Container class="pt-28 pb-14 md:pt-32 md:pb-16">
-		<div class="max-w-xl">
-			<Reveal>
-				<SectionLabel icon={Wrench} label="Dev tools" />
-			</Reveal>
-			<Reveal delay={60} class="mt-5">
-				<h1 class="text-balance text-heading-lg text-ink-strong md:text-display">
-					Small jobs, done in the tab
-				</h1>
-			</Reveal>
-			<Reveal delay={120} class="mt-4">
-				<p class="text-pretty text-body-lg text-muted-foreground">
-					Single purpose utilities for the work that interrupts real work. Nothing is uploaded.
-				</p>
-			</Reveal>
-		</div>
-	</Container>
-</Section>
+<PageHero
+	eyebrow="Dev tools"
+	title="Small jobs, done in the tab"
+	lede="Single purpose utilities for the work that interrupts real work. Each one runs in the page."
+/>
 
 <Section spacing="none" class="mx-auto max-w-6xl">
 	<!-- Filter rail. A hairline row, not a floating toolbar. -->
-	<Container class="flex flex-col gap-4 border-b border-border-low py-5 md:flex-row md:items-center">
+	<Container class="flex flex-col gap-4 border-b border-border py-5 md:flex-row md:items-center">
 		<label class="relative w-full md:max-w-xs">
 			<span class="sr-only">Search tools</span>
 			<MagnifyingGlass
@@ -128,7 +115,7 @@ const description =
 		{:else}
 			<!-- Hairline grid, the same one the homepage uses. -->
 			<div
-				class="grid grid-cols-1 gap-px border-b border-border-low bg-border-low sm:grid-cols-2 lg:grid-cols-3"
+				class="grid grid-cols-1 gap-px border-b border-border bg-border-low sm:grid-cols-2 lg:grid-cols-3"
 			>
 				{#each filtered as tool, i (tool.slug)}
 					{@const Icon = categoryIcon(tool.category)}

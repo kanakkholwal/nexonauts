@@ -47,14 +47,14 @@ const replyUrl = $derived(() => {
 
 	<article class="prose prose-zinc dark:prose-invert max-w-none">
 		<header class="not-prose mb-10">
-			<p class="text-muted-foreground text-xs font-semibold tracking-wide uppercase">
+			<p class="text-muted-foreground text-caption font-semibold tracking-wide uppercase">
 				{data.langName} by example
 			</p>
 			<h1 class="text-foreground mt-2 text-4xl font-bold tracking-tight sm:text-5xl">
 				{data.title}
 			</h1>
 			{#if data.description}
-				<p class="text-muted-foreground mt-3 text-base">{data.description}</p>
+				<p class="text-muted-foreground mt-3 text-body">{data.description}</p>
 			{/if}
 		</header>
 
@@ -68,7 +68,7 @@ const replyUrl = $derived(() => {
 			{#if data.prev}
 				<a
 					href={`/learn/${data.lang}/${data.prev.topicSlug}`}
-					class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-sm transition-colors"
+					class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-body-sm transition-colors"
 				>
 					<ArrowLeft class="size-4" />
 					<span class="truncate">{data.prev.title}</span>
@@ -79,7 +79,7 @@ const replyUrl = $derived(() => {
 			{#if data.next}
 				<a
 					href={`/learn/${data.lang}/${data.next.topicSlug}`}
-					class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-sm transition-colors"
+					class="text-muted-foreground hover:text-foreground group inline-flex items-center gap-2 text-body-sm transition-colors"
 				>
 					<span class="truncate">{data.next.title}</span>
 					<ArrowRight class="size-4" />
@@ -93,7 +93,7 @@ const replyUrl = $derived(() => {
 			href={replyUrl()}
 			target="_blank"
 			rel="noopener noreferrer"
-			class="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-sm transition-colors"
+			class="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 text-body-sm transition-colors"
 		>
 			Reply on X →
 		</a>

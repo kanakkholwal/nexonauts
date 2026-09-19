@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-@import "@fontsource-variable/google-sans";
 @import "@fontsource-variable/inter";
 @import "@fontsource-variable/source-code-pro";
 
@@ -8,6 +7,26 @@
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *, .dark, .dark *));
+
+/* Satoshi ships with the repo, so the heading face costs no third-party request. */
+@font-face {
+	font-family: "Satoshi";
+	src: url("/fonts/Satoshi-Regular.woff2") format("woff2");
+	font-weight: 400;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Satoshi";
+	src: url("/fonts/Satoshi-Medium.woff2") format("woff2");
+	font-weight: 500;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Satoshi";
+	src: url("/fonts/Satoshi-Bold.woff2") format("woff2");
+	font-weight: 700;
+	font-display: swap;
+}
 
 /* The Nexonauts Design Standard. See .notes/DESIGN.md for the measured contrast
    tables behind every value here. Never hardcode a hex in a component. */
@@ -40,10 +59,11 @@
 	--muted-foreground: #6b6b6b;
 
 	/* --- Accent ---
-	   Electric violet, OKLCH h300 at L0.545. One step lighter fails the tint gate
-	   (4.44:1 on its own 10% tint over the canvas); this measures 4.53:1. */
-	--primary: #9000fb;
-	--primary-active: #7900d3;
+	   Product blue. The literal brand blues all fail here: X #1DA1F2 is 2.83:1 on
+	   white, Framer #0099FF 3.00:1, Meta #0866FF 3.87:1 on its own tint. This is the
+	   nearest that clears: 5.97:1 on white, 4.72:1 on its own 10% tint. */
+	--primary: #0057e7;
+	--primary-active: #0046bc;
 	--primary-foreground: #ffffff;
 
 	/* Violet highlights, black commits. The filled commit action is never accent. */
@@ -72,33 +92,34 @@
 .dark {
 	color-scheme: dark;
 
-	/* True black, and surfaces separated by a graphite hairline rather than by a
-	   raised fill. Elevation in dark is a 1px border, never a shadow. */
-	--canvas: #000000;
-	--background: #000000;
-	--card: #050505;
-	--popover: #050505;
-	--muted: #0b0b0c;
-	--paper: #0e0e0e;
+	/* Near black, and elevation climbs: background < muted < card. Measured in L*,
+	   #000 to #0b0b0c was a step of 1.4 and the bands were invisible; these are 3.3
+	   and 3.9. Neutral greys, no blue cast. */
+	--canvas: #08080a;
+	--background: #08080a;
+	--muted: #121214;
+	--card: #1a1a1d;
+	--popover: #1a1a1d;
+	--paper: #212124;
 
 	/* Solid neutrals, not white at low alpha, so a hairline is predictable on
 	   the canvas and on a card alike. */
-	--border: #292d30;
-	--border-strong: #3a3f43;
-	--border-control: #6e727a;
-	--input: #6e727a;
-	--placeholder: #8b9095;
+	--border: #2b2b2f;
+	--border-strong: #3c3c42;
+	--border-control: #75757e;
+	--input: #75757e;
+	--placeholder: #8d8d95;
 
-	/* Bone white, not pure white: on true black, #ffffff at body size glares. */
-	--foreground: #f0f0f0;
-	--muted-foreground: #a1a4a5;
+	/* Bone white. On #000 this measured 18.4:1, which halates on OLED; here 16.5:1. */
+	--foreground: #e9e9ec;
+	--muted-foreground: #a3a3a9;
 
-	--primary: #baa7ff;
-	--primary-active: #cbbcff;
+	--primary: #7cb8ff;
+	--primary-active: #9acbff;
 	--primary-foreground: #000000;
 
-	--action: #f0f0f0;
-	--action-foreground: #000000;
+	--action: #e9e9ec;
+	--action-foreground: #08080a;
 
 	--destructive: #ff9592;
 	--success: #3ad389;
@@ -112,7 +133,7 @@
 	--fixed-light: #ffffff;
 	--fixed-dark: #0a0a0a;
 
-	--dot-grid: rgb(240 240 240 / 0.07);
+	--dot-grid: rgb(233 233 236 / 0.07);
 }
 
 /* --- Brand presets ---
@@ -338,7 +359,7 @@
 	--color-dark-foreground: var(--dark-foreground);
 
 	/* --- Fonts --- */
-	--font-heading: "Google Sans Variable", "Google Sans", ui-sans-serif, system-ui, sans-serif;
+	--font-heading: "Satoshi", ui-sans-serif, system-ui, sans-serif;
 	--font-display: var(--font-heading);
 	--font-logo: var(--font-heading);
 	--font-sans:

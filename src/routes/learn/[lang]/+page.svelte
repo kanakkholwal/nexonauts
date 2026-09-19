@@ -37,13 +37,13 @@ let { data } = $props();
 		<h1 class="text-foreground text-4xl font-bold tracking-tight sm:text-5xl">
 			{data.langName} by example
 		</h1>
-		<p class="text-muted-foreground mt-3 max-w-xl text-base">
+		<p class="text-muted-foreground mt-3 max-w-xl text-body">
 			Each topic is one program, broken into steps. Explanation on the left, code on the right.
 		</p>
 	</div>
 
 	{#if data.topics.length === 0}
-		<p class="text-muted-foreground text-sm">No topics yet.</p>
+		<p class="text-muted-foreground text-body-sm">No topics yet.</p>
 	{:else}
 		<ol class="divide-border divide-y border-y border-border">
 			{#each data.topics as topic, i (topic.topicSlug)}
@@ -54,14 +54,14 @@ let { data } = $props();
 					>
 						<div class="flex items-start gap-4">
 							<span
-								class="text-muted-foreground inline-flex size-7 shrink-0 items-center justify-center rounded-md border border-border text-xs font-medium tabular-nums"
+								class="text-muted-foreground inline-flex size-7 shrink-0 items-center justify-center rounded-md border border-border text-caption font-medium tabular-nums"
 							>
 								{i + 1}
 							</span>
 							<div>
-								<h2 class="text-foreground text-base font-semibold">{topic.title}</h2>
+								<h2 class="text-foreground text-body font-semibold">{topic.title}</h2>
 								{#if topic.description}
-									<p class="text-muted-foreground mt-1 text-sm">{topic.description}</p>
+									<p class="text-muted-foreground mt-1 text-body-sm">{topic.description}</p>
 								{/if}
 							</div>
 						</div>

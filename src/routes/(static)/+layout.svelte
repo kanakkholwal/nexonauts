@@ -7,10 +7,7 @@ let { children } = $props();
 
 <IslandNav />
 
-<main
-  id="main"
-  class="mx-auto mb-32 max-w-(--max-app-width) space-y-16 px-6 sm:px-8 md:mb-40 md:space-y-24"
->
-  {@render children()}
+<main id="main" class="mb-24 md:mb-32">
+	{@render children()}
 </main>
 <Footer />

@@ -1,42 +1,52 @@
 <script lang="ts">
-import IconChevronRight from "@tabler/icons-svelte/icons/chevron-right";
-import { appConfig } from "@/project.config";
+import IconArrowDown from "@tabler/icons-svelte/icons/arrow-down";
+import IconCheck from "@tabler/icons-svelte/icons/check";
 import { Button } from "$lib/components/ui/button";
+import HeroCanvas from "./hero-canvas.svelte";
 </script>
 
-<section
-	class="relative isolate overflow-clip bg-muted"
-	data-motion="hero"
->
-	<!-- Dark mode only: a soft beam and a glow, so true black reads as lit rather than empty. -->
-	<div class="light pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-		<div class="beam" data-motion="light-beam"></div>
-		<div class="glow" data-motion="light-glow"></div>
-	</div>
-
-	<div class="mx-auto w-full max-w-page px-4 pt-24 pb-8 sm:px-8 sm:pt-38 sm:pb-14 lg:px-10">
+<section class="relative isolate overflow-clip bg-muted" data-motion="hero">
+	<div
+		class="mx-auto grid w-full max-w-page items-center gap-12 px-5 pt-28 pb-16 sm:px-10 md:min-h-[88dvh] md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:gap-14 md:pt-32 md:pb-20 lg:px-14"
+	>
 		<div data-motion="hero-copy">
-			<h1
-				class="enter max-w-[14ch] text-heading-lg font-medium text-balance md:text-display lg:text-display-xl"
+			<span
+				class="enter flex w-fit -rotate-2 items-center gap-2 rounded-md border border-border p-0.5 pl-2.5 text-caption font-semibold text-foreground"
 			>
-				Nexonauts makes developer tools.
+				<span><span class="text-primary">Includes</span> four products</span>
+				<span class="rounded-sm border border-border bg-background p-1">
+					<IconCheck class="size-3.75" aria-hidden="true" />
+				</span>
+			</span>
+			<h1
+				class="enter mt-5 max-w-[16ch] text-heading-lg font-medium text-balance md:text-display lg:text-display-xl"
+			>
+				Developer tools that do their work
+				<span class="text-primary">on your machine</span>
 			</h1>
-			<p class="enter mt-5 max-w-[52ch] text-body-lg text-pretty text-muted-foreground">
-				A small lab behind Orbit, Recast, Glyphtex and Docvia. It also publishes guides on
-				what it learns while building them. Source on GitHub.
+			<p class="enter mt-5 max-w-[44ch] text-body-lg text-pretty text-muted-foreground">
+				Merge a PDF, record a demo, compile LaTeX, build your docs. Each one runs where you
+				already work.
 			</p>
-			<div class="enter mt-7 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
-				<Button href="#products" size="lg">See the products</Button>
-				<a
-					href={appConfig.githubRepo}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-flex h-11 items-center justify-center gap-1 rounded-md text-body-sm font-medium text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+			<div class="enter mt-7">
+				<Button
+					href="#products"
+					size="lg"
+					class="group/cta gap-2.5 rounded-md px-5 font-semibold"
 				>
-					GitHub
-					<IconChevronRight class="size-4" aria-hidden="true" />
-				</a>
+					See the products
+					<span
+						class="grid size-6 place-items-center rounded-sm bg-action-foreground/15 transition-transform duration-(--duration-ui) ease-(--ease-out) group-hover/cta:translate-y-0.5 motion-reduce:transition-none"
+						aria-hidden="true"
+					>
+						<IconArrowDown class="size-3.5" />
+					</span>
+				</Button>
 			</div>
+		</div>
+
+		<div class="max-md:hidden">
+			<HeroCanvas />
 		</div>
 	</div>
 </section>
@@ -55,6 +65,9 @@ import { Button } from "$lib/components/ui/button";
 		.enter:nth-child(3) {
 			transition-delay: 160ms;
 		}
+		.enter:nth-child(4) {
+			transition-delay: 240ms;
+		}
 		@starting-style {
 			.enter {
 				opacity: 0;
@@ -63,34 +76,4 @@ import { Button } from "$lib/components/ui/button";
 		}
 	}
 
-	.light {
-		display: none;
-	}
-	:global([data-theme="dark"]) .light {
-		display: block;
-	}
-	.beam {
-		position: absolute;
-		inset: -20% -10%;
-		background: linear-gradient(
-			112deg,
-			transparent 34%,
-			color-mix(in srgb, white 5%, transparent) 50%,
-			transparent 66%
-		);
-		will-change: transform;
-	}
-	.glow {
-		position: absolute;
-		top: -30%;
-		left: -10%;
-		width: 60%;
-		height: 90%;
-		background: radial-gradient(
-			ellipse at center,
-			color-mix(in srgb, white 7%, transparent) 0%,
-			transparent 62%
-		);
-		will-change: transform;
-	}
 </style>

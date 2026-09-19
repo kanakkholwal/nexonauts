@@ -9,4 +9,5 @@ export {
 	TaglineReveal
 } from "$lib/components/surfaces";
 export { default as ErrorState } from "./error-state.svelte";
+export { default as PageHero } from "./page-hero.svelte";
 export { default as SiteFrame } from "./site-frame.svelte";

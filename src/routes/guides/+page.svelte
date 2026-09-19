@@ -2,6 +2,7 @@
 import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
 import Footer from "$lib/components/common/footer.svelte";
 import IslandNav from "$lib/components/common/island-nav.svelte";
+import { PageHero } from "$lib/components/site";
 import { Badge } from "$lib/components/ui/badge";
 
 let { data } = $props();
@@ -22,20 +23,18 @@ function guideHref(slugs: string[]): string {
 
 <IslandNav />
 
-<main id="main" class="relative isolate mx-auto min-h-screen max-w-4xl px-6 pt-24 pb-24">
+<PageHero
+	eyebrow="Guides"
+	title="Longer-form walkthroughs"
+	lede="Written while building the products. Code on one side, why it works on the other."
+/>
 
-	<div class="relative z-10 mb-16">
-		<p class="eyebrow text-muted-ink">Guides</p>
-		<h1 class="display-xl mt-3 text-ink">Longer-form walkthroughs</h1>
-		<p class="mt-4 max-w-xl text-sm text-muted-foreground">
-			Code on one side, why-it-works on the other.
-		</p>
-	</div>
+<main id="main" class="relative isolate mx-auto min-h-screen max-w-4xl px-6 pt-16 pb-24">
 
 	{#if data.pages.length === 0}
-		<p class="text-sm text-muted-ink">No guides yet. Check back soon.</p>
+		<p class="text-body-sm text-muted-foreground">No guides yet. Check back soon.</p>
 	{:else}
-		<ul class="relative z-10 divide-y divide-hairline border-y border-hairline">
+		<ul class="relative z-10 divide-y divide-border border-y border-border">
 			{#each data.pages as page (page.slugs.join("/"))}
 				<li>
 					<a
@@ -43,9 +42,9 @@ function guideHref(slugs: string[]): string {
 						class="group flex items-center justify-between gap-6 py-6 transition-colors"
 					>
 						<div>
-							<h2 class="font-display text-2xl font-medium tracking-tight text-ink transition-colors group-hover:text-foreground">{page.title}</h2>
+							<h2 class="font-display text-subheading font-medium tracking-tight text-foreground transition-colors group-hover:text-foreground">{page.title}</h2>
 							{#if page.description}
-								<p class="mt-2 text-sm text-muted-foreground">{page.description}</p>
+								<p class="mt-2 text-body-sm text-muted-foreground">{page.description}</p>
 							{/if}
 							{#if page.tags.length > 0}
 								<div class="mt-3 flex flex-wrap gap-1.5">
@@ -56,7 +55,7 @@ function guideHref(slugs: string[]): string {
 							{/if}
 						</div>
 						<ArrowRight
-							class="size-4 shrink-0 text-muted-ink transition-all group-hover:text-ink group-hover:translate-x-1"
+							class="size-4 shrink-0 text-muted-foreground transition-all group-hover:text-foreground group-hover:translate-x-1"
 						/>
 					</a>
 				</li>

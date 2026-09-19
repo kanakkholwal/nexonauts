@@ -2,6 +2,7 @@
 import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
 import CalendarDays from "@tabler/icons-svelte/icons/calendar-month";
 import { appConfig } from "@/project.config";
+import { PageHero } from "$lib/components/site";
 import { Badge } from "$lib/components/ui/badge";
 import { Button } from "$lib/components/ui/button";
 
@@ -27,28 +28,20 @@ const sections = [
 	<meta name="description" content="How {SITE} collects, uses, and protects your information." />
 </svelte:head>
 
-<section class="relative isolate overflow-hidden">
+<PageHero eyebrow="Legal" title="Privacy Policy" lede="Last updated 27 November 2025." />
 
-	<!-- Header -->
-	<div class="relative z-10 mb-12 max-w-3xl pt-20 sm:pt-24">
-		<Badge variant="default" size="md" class="mb-5">Legal center</Badge>
-		<h1 class="display-xl text-ink">Privacy Policy</h1>
-		<div class="mt-4 inline-flex items-center gap-2 text-sm text-muted-ink">
-			<CalendarDays class="size-4" />
-			<span>Last updated: November 27, 2025</span>
-		</div>
-	</div>
+<section class="relative isolate mx-auto w-full max-w-page px-5 pt-16 sm:px-10 lg:px-14">
 
 	<div class="relative z-10 grid gap-12 lg:grid-cols-12">
 		<!-- TOC -->
 		<aside class="hidden lg:col-span-3 lg:block">
 			<div class="sticky top-24 space-y-2">
-				<p class="eyebrow mb-4 pl-4 text-muted-ink">On this page</p>
-				<nav class="border-l border-hairline">
+				<p class="mb-4 pl-4 font-mono text-caption tracking-wider text-muted-foreground uppercase">On this page</p>
+				<nav class="border-l border-border">
 					{#each sections as section (section.id)}
 						<a
 							href={`#${section.id}`}
-							class="-ml-px block border-l-2 border-transparent py-2 pl-4 text-sm text-muted-foreground transition-all hover:border-ink hover:text-ink"
+							class="-ml-px block border-l-2 border-transparent py-2 pl-4 text-body-sm text-muted-foreground transition-all hover:border-ink hover:text-foreground"
 						>
 							{section.title}
 						</a>
@@ -60,18 +53,18 @@ const sections = [
 		<div class="col-span-12 lg:col-span-9">
 			<div
 				class="prose prose-zinc dark:prose-invert max-w-none
-					prose-headings:font-display prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-ink prose-headings:scroll-mt-28
-					prose-h2:text-2xl prose-h3:text-2xl
+					prose-headings:font-display prose-headings:font-medium prose-headings:tracking-tight prose-headings:text-foreground prose-headings:scroll-mt-28
+					prose-h2:text-subheading prose-h3:text-subheading
 					prose-p:text-muted-foreground prose-p:
-					prose-a:text-ink prose-a:underline-offset-4 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
-					prose-strong:text-ink"
+					prose-a:text-foreground prose-a:underline-offset-4 prose-a:font-medium prose-a:no-underline hover:prose-a:underline
+					prose-strong:text-foreground"
 			>
-				<p class="lead text-sm text-muted-foreground">
-					At <span class="font-medium text-ink">{SITE}</span>, we take your privacy seriously. This
+				<p class="lead text-body-sm text-muted-foreground">
+					At <span class="font-medium text-foreground">{SITE}</span>, we take your privacy seriously. This
 					policy explains what we collect, how we use it, and how we protect it.
 				</p>
 
-				<hr class="my-10 border-hairline" />
+				<hr class="my-10 border-border" />
 
 				<section id="collection">
 					<h3>Information we collect</h3>
@@ -175,13 +168,13 @@ const sections = [
 
 				<section id="contact" class="not-prose mt-14">
 					<div
-						class="flex flex-col items-start justify-between gap-5 rounded-2xl border border-hairline bg-canvas-soft p-8 sm:flex-row sm:items-center"
+						class="flex flex-col items-start justify-between gap-5 rounded-card border border-border bg-muted p-8 sm:flex-row sm:items-center"
 					>
 						<div class="max-w-md">
-							<h3 class="font-display text-2xl font-medium tracking-tight text-ink">
+							<h3 class="font-display text-subheading font-medium tracking-tight text-foreground">
 								Still have questions?
 							</h3>
-							<p class="mt-2 text-sm text-muted-foreground">
+							<p class="mt-2 text-body-sm text-muted-foreground">
 								If you have any questions or concerns about our privacy policy, please don't
 								hesitate to reach out.
 							</p>

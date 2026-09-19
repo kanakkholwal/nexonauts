@@ -1,11 +1,10 @@
 <script lang="ts">
 import ArrowUpRight from "@tabler/icons-svelte/icons/arrow-up-right";
 import { appConfig } from "@/project.config";
+import ThemeToggle from "$lib/components/common/theme-toggle.svelte";
 import Logo from "$lib/components/logo.svelte";
-import { Button } from "$lib/components/ui/button";
 import { NotchedShelf } from "$lib/components/ui/notched-shelf";
 import { shippedProducts } from "$lib/data/products";
-import { theme } from "$lib/theme.svelte";
 
 const year = new Date().getFullYear();
 
@@ -47,8 +46,6 @@ const legal: Link[] = [
 
 const linkClass =
 	"inline-flex items-center gap-1 rounded-sm text-body-sm text-muted-foreground transition-colors duration-(--duration-ui) ease-(--ease-out) hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none motion-reduce:transition-none";
-const topClass =
-	"inline-flex h-11 items-center gap-2 rounded-full px-5 text-body-sm font-medium text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none";
 const headClass = "font-mono text-caption tracking-wider text-muted-foreground uppercase";
 </script>
 
@@ -67,34 +64,37 @@ const headClass = "font-mono text-caption tracking-wider text-muted-foreground u
 	</svg>
 {/snippet}
 
-<!-- A separate surface from the page, so the shelf motif can be cut back out of it.
-     No top border: the notch silhouette is the edge, and a rule would break across it. -->
-<footer class="relative mt-auto bg-muted" data-motion="footer">
-	<div class="pointer-events-none absolute inset-x-0 -top-11 z-10 hidden md:block">
+
+<footer class="relative mt-auto rounded-t-4xl bg-muted" data-motion="footer">
 		<div data-motion="footer-notch">
-			<NotchedShelf inverted fill="text-muted" class="h-11">
-				<a href="#main" class="{topClass} pointer-events-auto">
+			<NotchedShelf  fill="text-background">
+				<a
+					href="#main"
+					class="pointer-events-auto inline-flex  items-center gap-2 rounded-full px-5 text-body-sm font-medium text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+				>
 					{@render arrowUp()}
 					Back to top
 				</a>
 			</NotchedShelf>
-		</div>
 	</div>
 
 	<div class="mx-auto w-full max-w-page px-4 sm:px-8 lg:px-10">
-		<div class="grid gap-10 py-12 sm:grid-cols-2 md:grid-cols-[1.4fr_1.1fr_1fr_1fr] md:py-16">
-			<div class="sm:col-span-2 md:col-span-1" data-motion="footer-col">
+		<!-- The statement the rest of the site earns, at the size of a heading, not a caption. -->
+		<div class="grid gap-10 pt-16 pb-14 md:grid-cols-[1fr_1.5fr] md:gap-16 md:pt-24 md:pb-20">
+			<div data-motion="footer-col">
 				<a
 					href="/"
 					class="inline-flex items-center gap-2.5 rounded-lg text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
 				>
-					<Logo class="size-6" />
-					<span class="font-heading text-body-lg font-semibold">{appConfig.name}</span>
+					<Logo class="size-7" />
+					<span class="font-heading text-subheading font-semibold">{appConfig.name}</span>
 				</a>
-				<p class="mt-3 max-w-[32ch] text-body-sm text-pretty text-muted-foreground">
-					A small lab that makes developer tools, and writes about what it learns building them.
+				<p
+					class="mt-5 max-w-[24ch] text-lg font-medium text-balance text-foreground lg:text-heading-sm"
+				>
+					A small lab that makes developer tools.
 				</p>
-				<ul class="mt-5 flex flex-wrap gap-x-5 gap-y-2">
+				<ul class="mt-7 flex flex-wrap gap-x-6 gap-y-2">
 					{#each socials as s (s.title)}
 						<li>
 							<a href={s.href} target="_blank" rel="noopener noreferrer" class={linkClass}>
@@ -106,52 +106,54 @@ const headClass = "font-mono text-caption tracking-wider text-muted-foreground u
 				</ul>
 			</div>
 
-			<div data-motion="footer-col">
-				<p class={headClass}>Products</p>
-				<ul class="mt-3 space-y-3">
-					{#each shippedProducts as product (product.slug)}
-						<li>
-							<a
-								href={product.href}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="group block rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-							>
-								<span
-									class="inline-flex items-center gap-1 text-body-sm font-medium text-foreground"
-								>
-									{product.name}
-									<ArrowUpRight class="size-3.5" aria-hidden="true" />
-								</span>
-								<span class="block text-caption text-muted-foreground">{product.kind}</span>
-							</a>
-						</li>
-					{/each}
-				</ul>
-			</div>
-
-			{#each groups as group (group.title)}
-				<div data-motion="footer-col">
-					<p class={headClass}>{group.title}</p>
-					<ul class="mt-3 space-y-2.5">
-						{#each group.links as link (link.href + link.title)}
+			<div class="grid gap-8 sm:grid-cols-3" data-motion="footer-col">
+				<div>
+					<p class={headClass}>Products</p>
+					<ul class="mt-4 space-y-3">
+						{#each shippedProducts as product (product.slug)}
 							<li>
 								<a
-									href={link.href}
-									target={link.external ? "_blank" : undefined}
-									rel={link.external ? "noopener noreferrer" : undefined}
-									class={linkClass}
+									href={product.href}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="group block rounded-sm focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
 								>
-									{link.title}
-									{#if link.external}
+									<span
+										class="inline-flex items-center gap-1 text-body-sm font-medium text-foreground"
+									>
+										{product.name}
 										<ArrowUpRight class="size-3.5" aria-hidden="true" />
-									{/if}
+									</span>
+									<span class="block text-caption text-muted-foreground">{product.kind}</span>
 								</a>
 							</li>
 						{/each}
 					</ul>
 				</div>
-			{/each}
+
+				{#each groups as group (group.title)}
+					<div>
+						<p class={headClass}>{group.title}</p>
+						<ul class="mt-4 space-y-2.5">
+							{#each group.links as link (link.href + link.title)}
+								<li>
+									<a
+										href={link.href}
+										target={link.external ? "_blank" : undefined}
+										rel={link.external ? "noopener noreferrer" : undefined}
+										class={linkClass}
+									>
+										{link.title}
+										{#if link.external}
+											<ArrowUpRight class="size-3.5" aria-hidden="true" />
+										{/if}
+									</a>
+								</li>
+							{/each}
+						</ul>
+					</div>
+				{/each}
+			</div>
 		</div>
 
 		<span class="block h-px w-full origin-left bg-border" data-motion="footer-rule" aria-hidden="true"
@@ -166,11 +168,9 @@ const headClass = "font-mono text-caption tracking-wider text-muted-foreground u
 					<li><a href={link.href} class={linkClass}>{link.title}</a></li>
 				{/each}
 			</ul>
-			<div class="flex items-center gap-2">
-				<a href="#main" class="{linkClass} md:hidden">Back to top</a>
-				<Button variant="outline" size="sm" onclick={() => theme.toggle()}>
-					{theme.current === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-				</Button>
+			<div class="flex items-center gap-1">
+				<a href="#main" class="{linkClass} px-2 md:hidden">Back to top</a>
+				<ThemeToggle />
 			</div>
 		</div>
 	</div>

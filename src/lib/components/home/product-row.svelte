@@ -68,9 +68,6 @@ const label = $derived(`${ordinal} · ${product.name}`);
 				<span class="text-muted-foreground">{product.qualifier}</span>
 			</h2>
 			<p class="mt-4 max-w-[44ch] text-body-lg text-pretty text-muted-foreground">{product.line}</p>
-			<p class="mt-6 font-mono text-caption tracking-wider text-muted-foreground uppercase">
-				{product.runs} &middot; {product.status}
-			</p>
 			<div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-5">
 				<Button href={product.href} target="_blank" rel="noopener noreferrer" size="lg">
 					{product.actionLabel ?? `Open ${product.name}`}
