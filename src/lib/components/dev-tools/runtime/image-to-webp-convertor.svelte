@@ -147,7 +147,7 @@ function onDrop(event: DragEvent) {
 >
 	<div class="space-y-8">
 		<label
-			class={`relative flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center transition-all duration-300 ${
+			class={`relative flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed p-6 text-center transition-[border-color,background-color] duration-200 ${
 				isDragover
 					? "border-primary bg-primary/5"
 					: "border-border-control bg-card hover:border-primary hover:bg-muted"
@@ -196,12 +196,12 @@ function onDrop(event: DragEvent) {
 
 			<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 				{#each images as img (img.id)}
-					<Card.Root class="group overflow-hidden border-border-low bg-card transition-all duration-300 hover:border-primary/50 hover: hover:shadow-primary/5">
+					<Card.Root class="group overflow-hidden border-border-low bg-card transition-[border-color] duration-200 hover:border-primary/50 hover: hover:shadow-primary/5">
 						<div class="relative aspect-video overflow-hidden border-b border-border-low bg-paper">
 							<img
 								src={img.originalPreview}
 								alt={img.name}
-								class={`h-full w-full object-cover transition-transform duration-500 group-hover:scale-105 ${img.processing ? "blur-sm opacity-50" : ""}`}
+								class={`h-full w-full object-cover transition-transform duration-300 group-hover:scale-105 ${img.processing ? "blur-sm opacity-50" : ""}`}
 							/>
 
 							<button
