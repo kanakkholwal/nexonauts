@@ -92,10 +92,11 @@
 .dark {
 	color-scheme: dark;
 
-
+	/* muted sits below background, as it does in light mode. The recess is 3.4 L*:
+	   at 1.2 the full-bleed chapter alternation stopped reading at all. */
 	--canvas: #151515;
 	--background: #151515;
-	--muted: #121214;
+	--muted: #0c0c0e;
 	--card: #1a1a1d;
 	--popover: #1a1a1d;
 	--paper: #212124;
