@@ -1,25 +1,35 @@
 <script lang="ts">
-import CheckIcon from "@tabler/icons-svelte/icons/check";
 import { Command as CommandPrimitive } from "bits-ui";
-import { cn } from "$lib/utils.js";
+import { cn } from "$lib/cn";
 
 let {
-	ref = $bindable(null),
-	class: className,
 	children,
-	...restProps
-}: CommandPrimitive.ItemProps = $props();
+	value,
+	keywords = "",
+	class: classProp,
+	onSelect,
+	onclick,
+	...rest
+}: Omit<CommandPrimitive.ItemProps, "keywords" | "onSelect" | "value"> & {
+	value: string;
+	keywords?: string;
+	/** Fires on click or Enter, like cmdk. `onclick` is an alias. */
+	onSelect?: () => void;
+	onclick?: () => void;
+} = $props();
 </script>
 
 <CommandPrimitive.Item
-	bind:ref
+	{value}
+	keywords={keywords ? keywords.split(/\s+/) : undefined}
+	onSelect={onSelect ?? onclick}
 	data-slot="command-item"
 	class={cn(
-		"group/command-item data-selected:bg-muted data-selected:text-foreground data-selected:*:[svg]:text-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none in-data-[slot=dialog-content]:rounded-lg! data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-		className
+		"relative flex w-full items-center justify-between gap-3 rounded-lg px-2.5 py-2 text-left text-sm transition-colors",
+		"text-muted-foreground data-[selected]:text-foreground",
+		classProp,
 	)}
-	{...restProps}
+	{...rest}
 >
 	{@render children?.()}
-	<CheckIcon class="cn-command-item-indicator ml-auto opacity-0 group-has-[[data-slot=command-shortcut]]/command-item:hidden group-data-[checked=true]/command-item:opacity-100" />
 </CommandPrimitive.Item>

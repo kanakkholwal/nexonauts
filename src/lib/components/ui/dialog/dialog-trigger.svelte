@@ -1,11 +1,12 @@
 <script lang="ts">
 import { Dialog as DialogPrimitive } from "bits-ui";
+import { cn } from "$lib/cn";
 
-let {
-	ref = $bindable(null),
-	type = "button",
-	...restProps
-}: DialogPrimitive.TriggerProps = $props();
+let { class: classProp, ...rest }: DialogPrimitive.TriggerProps = $props();
 </script>
 
-<DialogPrimitive.Trigger bind:ref data-slot="dialog-trigger" {type} {...restProps} />
+<DialogPrimitive.Trigger
+	{...rest}
+	data-slot="dialog-trigger"
+	class={cn("inline-flex", classProp)}
+/>

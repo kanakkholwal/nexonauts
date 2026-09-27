@@ -1,29 +1,39 @@
 <script lang="ts">
-import ChevronRightIcon from "@tabler/icons-svelte/icons/chevron-right";
 import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
-import { cn } from "$lib/utils.js";
+import { cn } from "$lib/cn";
+import { menuItem } from "$lib/menu";
 
 let {
-	ref = $bindable(null),
-	class: className,
-	inset,
+	class: classProp,
+	inset = false,
 	children,
-	...restProps
-}: DropdownMenuPrimitive.SubTriggerProps & {
-	inset?: boolean;
-} = $props();
+	...rest
+}: DropdownMenuPrimitive.SubTriggerProps & { inset?: boolean } = $props();
 </script>
 
 <DropdownMenuPrimitive.SubTrigger
-	bind:ref
+	{...rest}
 	data-slot="dropdown-menu-sub-trigger"
-	data-inset={inset}
+	data-inset={inset || undefined}
 	class={cn(
-		"focus:bg-accent focus:text-accent-foreground data-open:bg-accent data-open:text-accent-foreground not-data-[variant=destructive]:focus:**:text-accent-foreground gap-1.5 rounded-md px-1.5 py-1 text-sm data-inset:pl-7 [&_svg:not([class*='size-'])]:size-4 flex cursor-default items-center outline-hidden select-none data-[inset]:pl-8 [&_svg]:pointer-events-none [&_svg]:shrink-0",
-		className
+		menuItem({ variant: "default" }),
+		"data-[state=open]:bg-foreground/[0.06]",
+		classProp,
 	)}
-	{...restProps}
 >
-	{@render children?.()}
-	<ChevronRightIcon class="ml-auto" />
+	<span class="min-w-0 flex-1 truncate text-left">{@render children?.()}</span>
+	<svg
+		viewBox="0 0 16 16"
+		fill="none"
+		aria-hidden="true"
+		class="ml-2 size-3.5 shrink-0 text-muted-foreground"
+	>
+		<path
+			d="m6 3.5 4.5 4.5L6 12.5"
+			stroke="currentColor"
+			stroke-width="1.5"
+			stroke-linecap="round"
+			stroke-linejoin="round"
+		/>
+	</svg>
 </DropdownMenuPrimitive.SubTrigger>

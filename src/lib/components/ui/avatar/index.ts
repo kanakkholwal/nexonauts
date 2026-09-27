@@ -1,22 +1,8 @@
-import Root from "./avatar.svelte";
-import Badge from "./avatar-badge.svelte";
-import Fallback from "./avatar-fallback.svelte";
-import Group from "./avatar-group.svelte";
-import GroupCount from "./avatar-group-count.svelte";
-import Image from "./avatar-image.svelte";
-
-export {
-	Badge,
-	Badge as AvatarBadge,
-	Fallback,
-	Fallback as AvatarFallback,
-	Group,
-	Group as AvatarGroup,
-	GroupCount,
-	GroupCount as AvatarGroupCount,
-	Image,
-	Image as AvatarImage,
-	Root,
-	//
-	Root as Avatar
-};
+export { default as Avatar } from "./avatar.svelte";
+export { default as AvatarFallback } from "./avatar-fallback.svelte";
+export { default as AvatarImage } from "./avatar-image.svelte";
+export { type AvatarContext } from "./context";
+export { avatar, type AvatarSize, type AvatarShape } from "./variants";
+export { default as Root } from "./avatar.svelte";
+export { default as Fallback } from "./avatar-fallback.svelte";
+export { default as Image } from "./avatar-image.svelte";

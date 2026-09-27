@@ -1,20 +1,12 @@
 <script lang="ts">
-import type { HTMLAttributes } from "svelte/elements";
-import { cn, type WithElementRef } from "$lib/utils.js";
+import { Select as SelectPrimitive } from "bits-ui";
+import { cn } from "$lib/cn";
 
-let {
-	ref = $bindable(null),
-	class: className,
-	children,
-	...restProps
-}: WithElementRef<HTMLAttributes<HTMLDivElement>> & {} = $props();
+let { class: classProp, ...rest }: SelectPrimitive.GroupHeadingProps = $props();
 </script>
 
-<div
-	bind:this={ref}
+<SelectPrimitive.GroupHeading
+	{...rest}
 	data-slot="select-label"
-	class={cn("text-muted-foreground px-1.5 py-1 text-xs", className)}
-	{...restProps}
->
-	{@render children?.()}
-</div>
+	class={cn("px-2.5 py-1.5 font-medium text-muted-foreground text-xs", classProp)}
+/>

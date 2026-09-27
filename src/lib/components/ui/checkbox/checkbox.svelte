@@ -1,39 +1,89 @@
 <script lang="ts">
-import CheckIcon from "@tabler/icons-svelte/icons/check";
-import MinusIcon from "@tabler/icons-svelte/icons/minus";
 import { Checkbox as CheckboxPrimitive } from "bits-ui";
-import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
+import { cn } from "$lib/cn";
+import { type CheckboxSize, checkbox } from "./variants";
+
+type Props = {
+	checked?: boolean;
+	indeterminate?: boolean;
+	disabled?: boolean;
+	size?: CheckboxSize;
+	label?: string;
+	description?: string;
+	"aria-label"?: string;
+	class?: string;
+	name?: string;
+};
 
 let {
-	ref = $bindable(null),
 	checked = $bindable(false),
 	indeterminate = $bindable(false),
-	class: className,
-	...restProps
-}: WithoutChildrenOrChild<CheckboxPrimitive.RootProps> = $props();
+	disabled = false,
+	size = "md",
+	label,
+	description,
+	"aria-label": ariaLabel,
+	class: classProp,
+	name,
+}: Props = $props();
+
+const frame = $derived(checkbox({ size }));
+const id = $props.id();
 </script>
 
-<CheckboxPrimitive.Root
-	bind:ref
-	data-slot="checkbox"
-	class={cn(
-		"flex size-4 items-center justify-center rounded-xs border border-border-control bg-card transition-colors outline-none data-checked:bg-primary data-checked:text-primary-foreground data-checked:border-primary aria-invalid:border-destructive focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background aria-invalid:ring-2 aria-invalid:ring-destructive group-has-disabled/field:opacity-50 peer relative shrink-0 after:absolute after:-inset-x-3 after:-inset-y-2 disabled:cursor-not-allowed disabled:opacity-50",
-		className
-	)}
-	bind:checked
-	bind:indeterminate
-	{...restProps}
->
-	{#snippet children({ checked, indeterminate })}
-		<div
-			data-slot="checkbox-indicator"
-			class="[&>svg]:size-3.5 grid place-content-center text-current transition-none"
-		>
-			{#if checked}
-				<CheckIcon  />
-			{:else if indeterminate}
-				<MinusIcon  />
+{#snippet control()}
+	<CheckboxPrimitive.Root
+		{id}
+		{name}
+		{disabled}
+		bind:checked
+		bind:indeterminate
+		aria-label={label ? undefined : ariaLabel}
+		data-slot="checkbox"
+		class={cn(frame.box(), !label && !description && classProp)}
+	>
+		{#snippet children({ checked: isChecked, indeterminate: isIndeterminate })}
+			{#if isIndeterminate}
+				<svg
+					viewBox="0 0 12 12"
+					fill="none"
+					aria-hidden="true"
+					class={cn("text-primary-foreground", frame.mark())}
+				>
+					<path d="M3 6h6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+				</svg>
+			{:else}
+				<svg
+					viewBox="0 0 12 12"
+					fill="none"
+					aria-hidden="true"
+					data-on={isChecked}
+					class={cn("checkbox-check text-primary-foreground", frame.mark())}
+				>
+					<path
+						d="M2.5 6.2 4.8 8.5 9.5 3.6"
+						stroke="currentColor"
+						stroke-width="1.8"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+					/>
+				</svg>
 			{/if}
-		</div>
-	{/snippet}
-</CheckboxPrimitive.Root>
+		{/snippet}
+	</CheckboxPrimitive.Root>
+{/snippet}
+
+<!-- Bare, so this can replace a shadcn checkbox; the wrapper only appears with a label. -->
+{#if label || description}
+	<div class={cn("inline-flex items-start gap-2.5", disabled && "opacity-50", classProp)}>
+		{@render control()}
+		<label for={id} class="cursor-pointer select-none">
+			{#if label}<span class={frame.text()}>{label}</span>{/if}
+			{#if description}
+				<span class="block text-muted-foreground text-xs leading-relaxed">{description}</span>
+			{/if}
+		</label>
+	</div>
+{:else}
+	{@render control()}
+{/if}

@@ -1,20 +1,19 @@
 <script lang="ts">
+import type { Snippet } from "svelte";
 import type { HTMLAttributes } from "svelte/elements";
-import { cn, type WithElementRef } from "$lib/utils.js";
+import { cn } from "$lib/cn";
 
 let {
-	ref = $bindable(null),
-	class: className,
 	children,
-	...restProps
-}: WithElementRef<HTMLAttributes<HTMLDivElement>> = $props();
+	class: classProp,
+	...rest
+}: { children?: Snippet; class?: string } & HTMLAttributes<HTMLDivElement> = $props();
 </script>
 
 <div
-	bind:this={ref}
+	{...rest}
 	data-slot="drawer-footer"
-	class={cn("gap-2 p-4 mt-auto flex flex-col", className)}
-	{...restProps}
+	class={cn("mt-auto flex flex-col gap-2 pt-5 sm:flex-row sm:justify-end", classProp)}
 >
 	{@render children?.()}
 </div>

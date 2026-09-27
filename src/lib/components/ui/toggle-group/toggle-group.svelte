@@ -1,77 +1,66 @@
-<!-- @migration-task Error while migrating Svelte code: Can only bind to an Identifier or MemberExpression or a `{get, set}` pair
-https://svelte.dev/e/bind_invalid_expression -->
-<script lang="ts" module>
-import { getContext, setContext } from "svelte";
-import type { VariantProps } from "tailwind-variants";
-import { toggleVariants } from "$lib/components/ui/toggle/index.js";
-
-type ToggleVariants = VariantProps<typeof toggleVariants>;
-
-interface ToggleGroupContext extends ToggleVariants {
-	spacing?: number;
-	orientation?: "horizontal" | "vertical";
-}
-
-export function setToggleGroupCtx(props: ToggleGroupContext) {
-	setContext("toggleGroup", props);
-}
-
-export function getToggleGroupCtx() {
-	return getContext<Required<ToggleGroupContext>>("toggleGroup");
-}
-</script>
-
 <script lang="ts">
-	import { ToggleGroup as ToggleGroupPrimitive } from "bits-ui";
-	import { cn } from "$lib/utils.js";
+import { ToggleGroup as ToggleGroupPrimitive } from "bits-ui";
+import type { Snippet } from "svelte";
+import { cn } from "$lib/cn";
+import { setToggleGroup, type ToggleGroupSize } from "./context";
 
-	let {
-		ref = $bindable(null),
-		value = $bindable(),
-		class: className,
-		size = "default",
-		spacing = 0,
-		orientation = "horizontal",
-		variant = "default",
-		...restProps
-	}: ToggleGroupPrimitive.RootProps &
-		ToggleVariants & {
-			spacing?: number;
-			orientation?: "horizontal" | "vertical";
-		} = $props();
+let {
+	children,
+	value = $bindable<string | string[]>(""),
+	type = "single",
+	size = "md",
+	disabled = false,
+	label = "Options",
+	class: classProp,
+	...rest
+}: {
+	children?: Snippet;
+	value?: string | string[];
+	type?: "single" | "multiple";
+	size?: ToggleGroupSize;
+	disabled?: boolean;
+	label?: string;
+	class?: string;
+} = $props();
 
-	setToggleGroupCtx({
-		get variant() {
-			return variant;
-		},
-		get size() {
-			return size;
-		},
-		get spacing() {
-			return spacing;
-		},
-		get orientation() {
-			return orientation;
-		},
-	});
+setToggleGroup({
+	get size() {
+		return size;
+	},
+});
+
+const rootClass = $derived(
+	cn(
+		"inline-flex items-center gap-0.5 rounded-xl border border-border bg-card p-1",
+		disabled && "opacity-50",
+		classProp,
+	),
+);
 </script>
 
-<!--
-Discriminated Unions + Destructing (required for bindable) do not
-get along, so we shut typescript up by casting `value` to `never`.
--->
-<ToggleGroupPrimitive.Root
-	bind:value={value as never}
-	bind:ref
-	{orientation}
-	data-slot="toggle-group"
-	data-variant={variant}
-	data-size={size}
-	data-spacing={spacing}
-	style={`--gap: ${spacing}`}
-	class={cn(
-		"rounded-lg data-[size=sm]:rounded-[min(var(--radius-md),10px)] group/toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-vertical:flex-col data-vertical:items-stretch",
-		className
-	)}
-	{...restProps}
-/>
+<!-- bits-ui's type/value form a discriminated union that can't narrow from a runtime variable. -->
+{#if type === "multiple"}
+	<ToggleGroupPrimitive.Root
+		type="multiple"
+		bind:value={value as string[]}
+		{disabled}
+		data-slot="toggle-group"
+		aria-label={label}
+		class={rootClass}
+		{...rest}
+	>
+		{@render children?.()}
+	</ToggleGroupPrimitive.Root>
+{:else}
+	<ToggleGroupPrimitive.Root
+		type="single"
+		bind:value={value as string}
+		{disabled}
+		data-slot="toggle-group"
+		aria-label={label}
+		class={rootClass}
+		{...rest}
+	>
+		{@render children?.()}
+	</ToggleGroupPrimitive.Root>
+{/if}

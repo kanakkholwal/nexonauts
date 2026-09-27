@@ -1,31 +1,26 @@
 <script lang="ts">
 import { LinkPreview as HoverCardPrimitive } from "bits-ui";
-import type { ComponentProps } from "svelte";
-import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
-import HoverCardPortal from "./hover-card-portal.svelte";
+import { ANCHORED } from "$lib/anchor";
+import { cn } from "$lib/cn";
 
 let {
-	ref = $bindable(null),
-	class: className,
+	class: classProp,
 	align = "center",
 	sideOffset = 4,
-	portalProps,
-	...restProps
-}: HoverCardPrimitive.ContentProps & {
-	portalProps?: WithoutChildrenOrChild<ComponentProps<typeof HoverCardPortal>>;
-} = $props();
+	...rest
+}: HoverCardPrimitive.ContentProps = $props();
 </script>
 
-<HoverCardPortal {...portalProps}>
+<HoverCardPrimitive.Portal>
 	<HoverCardPrimitive.Content
-		bind:ref
-		data-slot="hover-card-content"
 		{align}
 		{sideOffset}
+		{...rest}
+		data-slot="hover-card-content"
 		class={cn(
-			"data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 bg-popover text-popover-foreground w-64 rounded-lg p-2.5 text-sm shadow-md border border-border duration-100 z-50 origin-(--transform-origin) outline-hidden",
-			className
+			ANCHORED,
+			"static z-50 w-64 rounded-xl border border-border bg-popover p-3 text-sm shadow-2xl",
+			classProp,
 		)}
-		{...restProps}
 	/>
-</HoverCardPortal>
+</HoverCardPrimitive.Portal>

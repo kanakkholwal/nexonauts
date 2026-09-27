@@ -1,25 +1,46 @@
 <script lang="ts">
 import { Command as CommandPrimitive } from "bits-ui";
-import { cn } from "$lib/utils.js";
-
-export type CommandRootApi = CommandPrimitive.Root;
+import type { Snippet } from "svelte";
+import { cn } from "$lib/cn";
+import { getCommandDialogState, setCommand } from "./context";
+import { commandFrame } from "./variants";
 
 let {
-	api = $bindable(null),
-	ref = $bindable(null),
+	children,
 	value = $bindable(""),
-	class: className,
-	...restProps
-}: CommandPrimitive.RootProps & {
-	api?: CommandRootApi | null;
+	class: classProp,
+	...rest
+}: Omit<CommandPrimitive.RootProps, "value" | "onStateChange"> & {
+	value?: string;
 } = $props();
+
+let resultCount = $state(0);
+const dialogState = getCommandDialogState();
+const variant = $derived(dialogState?.variant ?? "default");
+
+setCommand({
+	get resultCount() {
+		return resultCount;
+	},
+	get activeValue() {
+		return value;
+	},
+});
 </script>
 
 <CommandPrimitive.Root
-	bind:this={api}
 	bind:value
-	bind:ref
+	onStateChange={(state) => {
+		resultCount = state.filtered.count;
+	}}
 	data-slot="command"
-	class={cn("bg-popover text-popover-foreground rounded-xl! p-1 flex size-full flex-col overflow-hidden", className)}
-	{...restProps}
-/>
+	data-variant={variant}
+	class={cn(
+		"relative flex min-h-0 flex-col overflow-hidden text-foreground",
+		commandFrame({ variant }).body(),
+		classProp,
+	)}
+	{...rest}
+>
+	{@render children?.()}
+</CommandPrimitive.Root>

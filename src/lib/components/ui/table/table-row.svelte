@@ -1,15 +1,20 @@
 <script lang="ts">
+import type { Snippet } from "svelte";
 import type { HTMLAttributes } from "svelte/elements";
-import { cn, type WithElementRef } from "$lib/utils.js";
+import { cn } from "$lib/cn";
+import { getDensity } from "./context";
+import { table } from "./variants";
 
 let {
-	ref = $bindable(null),
-	class: className,
 	children,
-	...restProps
-}: WithElementRef<HTMLAttributes<HTMLTableRowElement>> = $props();
+	class: className,
+	...rest
+}: { children?: Snippet } & HTMLAttributes<HTMLTableRowElement> = $props();
+
+const density = getDensity();
+const classes = $derived(table({ density: density() }));
 </script>
 
-<tr bind:this={ref} data-slot="table-row" class={cn("hover:bg-muted/50 data-[state=selected]:bg-muted border-b transition-colors", className)} {...restProps}>
+<tr data-slot="table-row" class={cn(classes.row(), className)} {...rest}>
 	{@render children?.()}
 </tr>

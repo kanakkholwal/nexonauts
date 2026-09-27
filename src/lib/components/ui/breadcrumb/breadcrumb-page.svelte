@@ -1,23 +1,15 @@
 <script lang="ts">
+import type { Snippet } from "svelte";
 import type { HTMLAttributes } from "svelte/elements";
-import { cn, type WithElementRef } from "$lib/utils.js";
+import { cn } from "$lib/cn";
 
 let {
-	ref = $bindable(null),
-	class: className,
 	children,
-	...restProps
-}: WithElementRef<HTMLAttributes<HTMLSpanElement>> = $props();
+	class: classProp,
+	...rest
+}: { children?: Snippet; class?: string } & HTMLAttributes<HTMLSpanElement> = $props();
 </script>
 
-<span
-	bind:this={ref}
-	data-slot="breadcrumb-page"
-	role="link"
-	aria-disabled="true"
-	aria-current="page"
-	class={cn("text-foreground font-normal", className)}
-	{...restProps}
->
+<span {...rest} data-slot="breadcrumb-page" aria-current="page" class={cn("font-medium text-foreground", classProp)}>
 	{@render children?.()}
 </span>

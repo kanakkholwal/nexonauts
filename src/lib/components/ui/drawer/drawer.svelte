@@ -1,12 +1,26 @@
 <script lang="ts">
-import { Drawer as DrawerPrimitive } from "vaul-svelte";
+import { Drawer } from "vaul-svelte";
+import { type DrawerDirection, setDrawer } from "./context";
+
+// vaul's props are a union keyed on snapPoints/fadeFromIndex, so they pass through whole.
+type Props = Drawer.RootProps & { direction?: DrawerDirection };
 
 let {
-	shouldScaleBackground = true,
+	children,
 	open = $bindable(false),
-	activeSnapPoint = $bindable(null),
-	...restProps
-}: DrawerPrimitive.RootProps = $props();
+	direction = "bottom",
+	dismissible = true,
+	shouldScaleBackground = false,
+	...rest
+}: Props = $props();
+
+setDrawer({
+	get direction() {
+		return direction;
+	},
+});
 </script>
 
-<DrawerPrimitive.Root {shouldScaleBackground} bind:open bind:activeSnapPoint {...restProps} />
+<Drawer.Root bind:open {direction} {dismissible} {shouldScaleBackground} {...rest}>
+	{@render children?.()}
+</Drawer.Root>

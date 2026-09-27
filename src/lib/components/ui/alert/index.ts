@@ -1,18 +1,7 @@
-import Root from "./alert.svelte";
-import Action from "./alert-action.svelte";
-import Description from "./alert-description.svelte";
-import Title from "./alert-title.svelte";
-
-export { type AlertVariant, alertVariants } from "./alert.svelte";
-
-export {
-	Action,
-	Action as AlertAction,
-	Description,
-	Description as AlertDescription,
-	Root,
-	//
-	Root as Alert,
-	Title,
-	Title as AlertTitle
-};
+export { default as Alert } from "./alert.svelte";
+export { default as AlertDescription } from "./alert-description.svelte";
+export { default as AlertTitle } from "./alert-title.svelte";
+export { alert, type AlertVariant, ALERT_ROLE, ALERT_ICON } from "./variants";
+export { default as Root } from "./alert.svelte";
+export { default as Description } from "./alert-description.svelte";
+export { default as Title } from "./alert-title.svelte";

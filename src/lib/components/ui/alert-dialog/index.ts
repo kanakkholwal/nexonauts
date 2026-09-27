@@ -1,40 +1,19 @@
-import Root from "./alert-dialog.svelte";
-import Action from "./alert-dialog-action.svelte";
-import Cancel from "./alert-dialog-cancel.svelte";
-import Content from "./alert-dialog-content.svelte";
-import Description from "./alert-dialog-description.svelte";
-import Footer from "./alert-dialog-footer.svelte";
-import Header from "./alert-dialog-header.svelte";
-import Media from "./alert-dialog-media.svelte";
-import Overlay from "./alert-dialog-overlay.svelte";
-import Portal from "./alert-dialog-portal.svelte";
-import Title from "./alert-dialog-title.svelte";
-import Trigger from "./alert-dialog-trigger.svelte";
-
-export {
-	Action,
-	Action as AlertDialogAction,
-	Cancel,
-	Cancel as AlertDialogCancel,
-	Content,
-	Content as AlertDialogContent,
-	Description,
-	Description as AlertDialogDescription,
-	Footer,
-	Footer as AlertDialogFooter,
-	Header,
-	Header as AlertDialogHeader,
-	Media,
-	Media as AlertDialogMedia,
-	Overlay,
-	Overlay as AlertDialogOverlay,
-	Portal,
-	Portal as AlertDialogPortal,
-	Root,
-	//
-	Root as AlertDialog,
-	Title,
-	Title as AlertDialogTitle,
-	Trigger,
-	Trigger as AlertDialogTrigger
-};
+export { default as AlertDialog } from "./alert-dialog.svelte";
+export { default as AlertDialogAction } from "./alert-dialog-action.svelte";
+export { default as AlertDialogCancel } from "./alert-dialog-cancel.svelte";
+export { default as AlertDialogContent } from "./alert-dialog-content.svelte";
+export { default as AlertDialogDescription } from "./alert-dialog-description.svelte";
+export { default as AlertDialogFooter } from "./alert-dialog-footer.svelte";
+export { default as AlertDialogHeader } from "./alert-dialog-header.svelte";
+export { default as AlertDialogTitle } from "./alert-dialog-title.svelte";
+export { default as AlertDialogTrigger } from "./alert-dialog-trigger.svelte";
+export { type AlertDialogContext } from "./context";
+export { default as Root } from "./alert-dialog.svelte";
+export { default as Action } from "./alert-dialog-action.svelte";
+export { default as Cancel } from "./alert-dialog-cancel.svelte";
+export { default as Content } from "./alert-dialog-content.svelte";
+export { default as Description } from "./alert-dialog-description.svelte";
+export { default as Footer } from "./alert-dialog-footer.svelte";
+export { default as Header } from "./alert-dialog-header.svelte";
+export { default as Title } from "./alert-dialog-title.svelte";
+export { default as Trigger } from "./alert-dialog-trigger.svelte";

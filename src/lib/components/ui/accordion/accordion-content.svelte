@@ -1,27 +1,28 @@
 <script lang="ts">
 import { Accordion as AccordionPrimitive } from "bits-ui";
-import { cn, type WithoutChild } from "$lib/utils.js";
+import type { Snippet } from "svelte";
+import { cn } from "$lib/cn";
 
 let {
-	ref = $bindable(null),
-	class: className,
 	children,
-	...restProps
-}: WithoutChild<AccordionPrimitive.ContentProps> = $props();
+	class: classProp,
+	...rest
+}: { children?: Snippet; class?: string } = $props();
 </script>
 
-<AccordionPrimitive.Content
-	bind:ref
-	data-slot="accordion-content"
-	class="data-open:animate-accordion-down data-closed:animate-accordion-up text-sm overflow-hidden"
-	{...restProps}
->
-	<div
-		class={cn(
-			"pt-0 pb-2.5 [&_a]:hover:text-foreground [&_a]:underline [&_a]:underline-offset-3 [&_p:not(:last-child)]:mb-4",
-			className
-		)}
-	>
-		{@render children?.()}
-	</div>
+<AccordionPrimitive.Content {...rest} forceMount>
+	{#snippet child({ props, open })}
+		<div
+			{...props}
+			inert={!open}
+			data-slot="accordion-content"
+			class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-[var(--duration-exit)] ease-[var(--ease-out)] data-[state=open]:grid-rows-[1fr] data-[state=open]:duration-[var(--duration-dropdown)] motion-reduce:transition-none"
+		>
+			<div class="overflow-hidden">
+				<div class={cn("px-4 pb-3 text-muted-foreground text-sm leading-relaxed", classProp)}>
+					{@render children?.()}
+				</div>
+			</div>
+		</div>
+	{/snippet}
 </AccordionPrimitive.Content>

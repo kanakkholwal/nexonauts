@@ -1,19 +1,8 @@
-import Root from "./tooltip.svelte";
-import Content from "./tooltip-content.svelte";
-import Portal from "./tooltip-portal.svelte";
-import Provider from "./tooltip-provider.svelte";
-import Trigger from "./tooltip-trigger.svelte";
-
-export {
-	Content,
-	Content as TooltipContent,
-	Portal,
-	Portal as TooltipPortal,
-	Provider,
-	Provider as TooltipProvider,
-	Root,
-	//
-	Root as Tooltip,
-	Trigger,
-	Trigger as TooltipTrigger
-};
+export { default as Tooltip } from "./tooltip.svelte";
+export { default as TooltipContent } from "./tooltip-content.svelte";
+export { default as TooltipProvider } from "./tooltip-provider.svelte";
+export { default as TooltipTrigger } from "./tooltip-trigger.svelte";
+export { default as Root } from "./tooltip.svelte";
+export { default as Content } from "./tooltip-content.svelte";
+export { default as Provider } from "./tooltip-provider.svelte";
+export { default as Trigger } from "./tooltip-trigger.svelte";

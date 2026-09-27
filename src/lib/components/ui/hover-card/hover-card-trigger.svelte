@@ -1,7 +1,12 @@
 <script lang="ts">
 import { LinkPreview as HoverCardPrimitive } from "bits-ui";
+import { cn } from "$lib/cn";
 
-let { ref = $bindable(null), ...restProps }: HoverCardPrimitive.TriggerProps = $props();
+let { class: classProp, ...rest }: HoverCardPrimitive.TriggerProps = $props();
 </script>
 
-<HoverCardPrimitive.Trigger bind:ref data-slot="hover-card-trigger" {...restProps} />
+<HoverCardPrimitive.Trigger
+	{...rest}
+	data-slot="hover-card-trigger"
+	class={cn("inline-flex", classProp)}
+/>

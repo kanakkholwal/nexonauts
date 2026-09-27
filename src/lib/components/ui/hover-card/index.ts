@@ -1,15 +1,6 @@
-import Root from "./hover-card.svelte";
-import Content from "./hover-card-content.svelte";
-import Portal from "./hover-card-portal.svelte";
-import Trigger from "./hover-card-trigger.svelte";
-
-export {
-	Content,
-	Content as HoverCardContent,
-	Portal,
-	Portal as HoverCardPortal,
-	Root,
-	Root as HoverCard,
-	Trigger,
-	Trigger as HoverCardTrigger
-};
+export { default as HoverCard } from "./hover-card.svelte";
+export { default as HoverCardContent } from "./hover-card-content.svelte";
+export { default as HoverCardTrigger } from "./hover-card-trigger.svelte";
+export { default as Root } from "./hover-card.svelte";
+export { default as Content } from "./hover-card-content.svelte";
+export { default as Trigger } from "./hover-card-trigger.svelte";

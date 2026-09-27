@@ -1,37 +1,23 @@
 <script lang="ts">
-import ChevronDownIcon from "@tabler/icons-svelte/icons/chevron-down";
 import { Select as SelectPrimitive } from "bits-ui";
-import { cn, type WithoutChild } from "$lib/utils.js";
+import { cn } from "$lib/cn";
 
-let {
-	ref = $bindable(null),
-	class: className,
-	children,
-	size = "default",
-	...restProps
-}: WithoutChild<SelectPrimitive.TriggerProps> & {
-	size?: "sm" | "default";
-} = $props();
+let { class: classProp, children, ...rest }: SelectPrimitive.TriggerProps = $props();
 </script>
 
 <SelectPrimitive.Trigger
-	bind:ref
+	{...rest}
 	data-slot="select-trigger"
-	data-size={size}
 	class={cn(
-		"flex w-fit items-center justify-between whitespace-nowrap gap-2 rounded-xl border border-border-control bg-card py-2 pr-2 pl-3.5 text-sm",
-		"font-sans tracking-[0.01em] text-foreground data-placeholder:text-muted-foreground",
-		"transition-[border-color,box-shadow] duration-150 outline-none select-none",
-		"focus-visible:border-primary focus-visible:shadow-[inset_0_0_0_1px_var(--primary)]",
-		"aria-invalid:border-destructive aria-invalid:focus-visible:shadow-[inset_0_0_0_1px_var(--destructive)]",
-		"disabled:cursor-not-allowed disabled:opacity-60",
-		"data-[size=default]:h-10 data-[size=sm]:h-9 data-[size=sm]:rounded-xl",
-		"*:data-[slot=select-value]:flex *:data-[slot=select-value]:gap-1.5 *:data-[slot=select-value]:items-center *:data-[slot=select-value]:line-clamp-1",
-		"[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
-		className
+		"inline-flex h-9 w-full items-center justify-between gap-2 rounded-lg border border-input bg-background px-3 text-foreground text-sm outline-none transition-colors",
+		"focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring",
+		"disabled:cursor-not-allowed disabled:opacity-50",
+		"[&>svg]:transition-[transform,scale,translate,rotate] [&>svg]:duration-[var(--duration-exit)] [&>svg]:ease-[var(--ease-out)] [&[data-state=open]>svg]:rotate-180 [&[data-state=open]>svg]:duration-[var(--duration-dropdown)] motion-reduce:[&>svg]:transition-none",
+		classProp,
 	)}
-	{...restProps}
 >
 	{@render children?.()}
-	<ChevronDownIcon class="text-muted-foreground size-4 pointer-events-none" />
+	<svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="size-3.5 shrink-0 text-muted-foreground">
+		<path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+	</svg>
 </SelectPrimitive.Trigger>

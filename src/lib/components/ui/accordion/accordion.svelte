@@ -1,21 +1,38 @@
-<!-- @migration-task Error while migrating Svelte code: Can only bind to an Identifier or MemberExpression or a `{get, set}` pair
-https://svelte.dev/e/bind_invalid_expression -->
 <script lang="ts">
 import { Accordion as AccordionPrimitive } from "bits-ui";
-import { cn } from "$lib/utils.js";
+import type { Snippet } from "svelte";
+import { cn } from "$lib/cn";
 
 let {
-	ref = $bindable(null),
+	children,
+	type = "single",
+	collapsible: _collapsible,
 	value = $bindable(),
-	class: className,
-	...restProps
-}: AccordionPrimitive.RootProps = $props();
+	onValueChange,
+	class: classProp,
+	...rest
+}: {
+	children?: Snippet;
+	type?: "single" | "multiple";
+	/** Ignored: bits-ui's single mode always allows closing the open item. Kept so
+	 * existing callers passing `collapsible={false}` still compile. */
+	collapsible?: boolean;
+	value?: string | string[];
+	onValueChange?: (value: string | string[]) => void;
+	class?: string;
+} = $props();
 </script>
 
 <AccordionPrimitive.Root
-	bind:ref
-	bind:value={value as never}
+	{...rest}
+	type={type as "single"}
+	bind:value={value as string}
+	onValueChange={onValueChange as (value: string) => void}
 	data-slot="accordion"
-	class={cn("cn-accordion flex w-full flex-col", className)}
-	{...restProps}
-/>
+	class={cn(
+		"divide-y divide-border overflow-hidden rounded-xl border border-border",
+		classProp,
+	)}
+>
+	{@render children?.()}
+</AccordionPrimitive.Root>

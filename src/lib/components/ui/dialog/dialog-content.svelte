@@ -1,50 +1,54 @@
 <script lang="ts">
-import XIcon from "@tabler/icons-svelte/icons/x";
 import { Dialog as DialogPrimitive } from "bits-ui";
-import type { ComponentProps, Snippet } from "svelte";
-import { Button } from "$lib/components/ui/button/index.js";
-import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
-import DialogPortal from "./dialog-portal.svelte";
-import * as Dialog from "./index.js";
+import type { Snippet } from "svelte";
+import { cn } from "$lib/cn";
+import { DIALOG_BACKDROP, DIALOG_PANEL, getDialog } from "./context";
+import { dialogFrame, dialogWidth } from "./variants";
 
-let {
-	ref = $bindable(null),
-	class: className,
-	portalProps,
-	children,
-	showCloseButton = true,
-	...restProps
-}: WithoutChildrenOrChild<DialogPrimitive.ContentProps> & {
-	portalProps?: WithoutChildrenOrChild<ComponentProps<typeof DialogPortal>>;
-	children: Snippet;
-	showCloseButton?: boolean;
-} = $props();
+let { children, class: classProp }: { children?: Snippet; class?: string } = $props();
+
+const dialog = getDialog();
 </script>
 
-<DialogPortal {...portalProps}>
-	<Dialog.Overlay />
+<DialogPrimitive.Portal>
+	<DialogPrimitive.Overlay data-slot="dialog-backdrop" class={DIALOG_BACKDROP} />
 	<DialogPrimitive.Content
-		bind:ref
 		data-slot="dialog-content"
+		data-variant={dialog.variant}
+		onInteractOutside={(event) => {
+			if (!dialog.dismissOnBackdrop) event.preventDefault();
+		}}
 		class={cn(
-			"bg-popover text-popover-foreground border border-border shadow-(--shadow-elevation-3)",
-			"data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95",
-			"grid max-w-[calc(100%-2rem)] gap-5 rounded-2xl p-6 text-sm duration-150 sm:max-w-md",
-			"fixed top-1/2 left-1/2 z-50 w-full -translate-x-1/2 -translate-y-1/2 outline-none",
-			className
+			DIALOG_PANEL,
+			dialogFrame({ variant: dialog.variant }).panel(),
+			"w-[min(32rem,calc(100vw-2rem))]",
+			dialogWidth({ size: dialog.size }),
+			classProp,
 		)}
-		{...restProps}
 	>
-		{@render children?.()}
-		{#if showCloseButton}
-			<DialogPrimitive.Close data-slot="dialog-close">
-				{#snippet child({ props })}
-					<Button variant="ghost" class="absolute top-2 right-2" size="icon-sm" {...props}>
-						<XIcon  />
-						<span class="sr-only">Close</span>
-					</Button>
-				{/snippet}
-			</DialogPrimitive.Close>
+		{#if dialog.variant === "framed"}
+			<!-- Inset frame: the body sits on a lighter surface, the footer in the rim below it. -->
+			<div class={cn(dialogFrame({ variant: dialog.variant }).body(), "p-5")}>
+				{@render children?.()}
+			</div>
+			{#if dialog.footer}
+				<div
+					data-slot="dialog-footer"
+					class={cn(dialogFrame({ variant: dialog.variant }).footer(), dialog.footer.class)}
+				>
+					{@render dialog.footer.children?.()}
+				</div>
+			{/if}
+		{:else}
+			{@render children?.()}
+			{#if dialog.footer}
+				<div
+					data-slot="dialog-footer"
+					class={cn(dialogFrame({ variant: dialog.variant }).footer(), dialog.footer.class)}
+				>
+					{@render dialog.footer.children?.()}
+				</div>
+			{/if}
 		{/if}
 	</DialogPrimitive.Content>
-</DialogPortal>
+</DialogPrimitive.Portal>

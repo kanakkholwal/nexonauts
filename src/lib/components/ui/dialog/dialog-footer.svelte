@@ -1,32 +1,16 @@
 <script lang="ts">
-import { Dialog as DialogPrimitive } from "bits-ui";
-import type { HTMLAttributes } from "svelte/elements";
-import { Button } from "$lib/components/ui/button/index.js";
-import { cn, type WithElementRef } from "$lib/utils.js";
+import type { Snippet } from "svelte";
+import { getDialog } from "./context";
 
-let {
-	ref = $bindable(null),
-	class: className,
-	children,
-	showCloseButton = false,
-	...restProps
-}: WithElementRef<HTMLAttributes<HTMLDivElement>> & {
-	showCloseButton?: boolean;
-} = $props();
+let { children, class: classProp }: { children?: Snippet; class?: string } = $props();
+
+const dialog = getDialog();
+
+// Rendered by DialogContent in the frame rim, so nothing is emitted here.
+$effect(() => {
+	dialog.footer = { children, class: classProp };
+	return () => {
+		dialog.footer = undefined;
+	};
+});
 </script>
-
-<div
-	bind:this={ref}
-	data-slot="dialog-footer"
-	class={cn("flex flex-col-reverse gap-2 pt-4 sm:flex-row sm:justify-end", className)}
-	{...restProps}
->
-	{@render children?.()}
-	{#if showCloseButton}
-		<DialogPrimitive.Close>
-			{#snippet child({ props })}
-				<Button variant="outline" {...props}>Close</Button>
-			{/snippet}
-		</DialogPrimitive.Close>
-	{/if}
-</div>

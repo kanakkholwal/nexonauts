@@ -1,19 +1,34 @@
 <script lang="ts">
 import { Tabs as TabsPrimitive } from "bits-ui";
-import { cn } from "$lib/utils.js";
+import { cn } from "$lib/cn";
+import { setTabs, type TabsSize, type TabsVariant } from "./context";
 
 let {
-	ref = $bindable(null),
+	children,
 	value = $bindable(""),
-	class: className,
-	...restProps
-}: TabsPrimitive.RootProps = $props();
+	variant = "pill",
+	size = "md",
+	class: classProp,
+	...rest
+}: Omit<TabsPrimitive.RootProps, "value"> & {
+	value?: string;
+	variant?: TabsVariant;
+	size?: TabsSize;
+} = $props();
+
+setTabs({
+	get value() {
+		return value;
+	},
+	get variant() {
+		return variant;
+	},
+	get size() {
+		return size;
+	},
+});
 </script>
 
-<TabsPrimitive.Root
-	bind:ref
-	bind:value
-	data-slot="tabs"
-	class={cn("gap-2 group/tabs flex data-[orientation=horizontal]:flex-col", className)}
-	{...restProps}
-/>
+<TabsPrimitive.Root bind:value data-slot="tabs" class={cn("flex flex-col", classProp)} {...rest}>
+	{@render children?.()}
+</TabsPrimitive.Root>

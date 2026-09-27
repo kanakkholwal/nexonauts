@@ -1,34 +1,17 @@
-import Root from "./sheet.svelte";
-import Close from "./sheet-close.svelte";
-import Content from "./sheet-content.svelte";
-import Description from "./sheet-description.svelte";
-import Footer from "./sheet-footer.svelte";
-import Header from "./sheet-header.svelte";
-import Overlay from "./sheet-overlay.svelte";
-import Portal from "./sheet-portal.svelte";
-import Title from "./sheet-title.svelte";
-import Trigger from "./sheet-trigger.svelte";
-
-export {
-	Close,
-	Close as SheetClose,
-	Content,
-	Content as SheetContent,
-	Description,
-	Description as SheetDescription,
-	Footer,
-	Footer as SheetFooter,
-	Header,
-	Header as SheetHeader,
-	Overlay,
-	Overlay as SheetOverlay,
-	Portal,
-	Portal as SheetPortal,
-	Root,
-	//
-	Root as Sheet,
-	Title,
-	Title as SheetTitle,
-	Trigger,
-	Trigger as SheetTrigger
-};
+export { default as Sheet } from "./sheet.svelte";
+export { default as SheetClose } from "./sheet-close.svelte";
+export { default as SheetContent } from "./sheet-content.svelte";
+export { default as SheetDescription } from "./sheet-description.svelte";
+export { default as SheetFooter } from "./sheet-footer.svelte";
+export { default as SheetHeader } from "./sheet-header.svelte";
+export { default as SheetTitle } from "./sheet-title.svelte";
+export { default as SheetTrigger } from "./sheet-trigger.svelte";
+export { sheetPanel, type SheetSide } from "./variants";
+export { default as Root } from "./sheet.svelte";
+export { default as Close } from "./sheet-close.svelte";
+export { default as Content } from "./sheet-content.svelte";
+export { default as Description } from "./sheet-description.svelte";
+export { default as Footer } from "./sheet-footer.svelte";
+export { default as Header } from "./sheet-header.svelte";
+export { default as Title } from "./sheet-title.svelte";
+export { default as Trigger } from "./sheet-trigger.svelte";

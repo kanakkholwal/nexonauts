@@ -1,15 +1,20 @@
 <script lang="ts">
+import type { Snippet } from "svelte";
 import type { HTMLThAttributes } from "svelte/elements";
-import { cn, type WithElementRef } from "$lib/utils.js";
+import { cn } from "$lib/cn";
+import { getDensity } from "./context";
+import { table } from "./variants";
 
 let {
-	ref = $bindable(null),
-	class: className,
 	children,
-	...restProps
-}: WithElementRef<HTMLThAttributes> = $props();
+	class: className,
+	...rest
+}: { children?: Snippet } & HTMLThAttributes = $props();
+
+const density = getDensity();
+const classes = $derived(table({ density: density() }));
 </script>
 
-<th bind:this={ref} data-slot="table-head" class={cn("text-foreground h-10 px-2 text-left align-middle font-medium whitespace-nowrap [&:has([role=checkbox])]:pr-0", className)} {...restProps}>
+<th data-slot="table-head" class={cn(classes.head(), className)} {...rest}>
 	{@render children?.()}
 </th>

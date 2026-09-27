@@ -1,17 +1,15 @@
 <script lang="ts">
 import { Accordion as AccordionPrimitive } from "bits-ui";
-import { cn } from "$lib/utils.js";
+import type { Snippet } from "svelte";
+import { cn } from "$lib/cn";
 
 let {
-	ref = $bindable(null),
-	class: className,
-	...restProps
-}: AccordionPrimitive.ItemProps = $props();
+	children,
+	class: classProp,
+	...rest
+}: { children?: Snippet; value: string; disabled?: boolean; class?: string } = $props();
 </script>
 
-<AccordionPrimitive.Item
-	bind:ref
-	data-slot="accordion-item"
-	class={cn("not-last:border-b", className)}
-	{...restProps}
-/>
+<AccordionPrimitive.Item {...rest} data-slot="accordion-item" class={cn(classProp)}>
+	{@render children?.()}
+</AccordionPrimitive.Item>

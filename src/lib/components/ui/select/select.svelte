@@ -1,13 +1,18 @@
-<!-- @migration-task Error while migrating Svelte code: Can only bind to an Identifier or MemberExpression or a `{get, set}` pair
-https://svelte.dev/e/bind_invalid_expression -->
 <script lang="ts">
 import { Select as SelectPrimitive } from "bits-ui";
 
 let {
 	open = $bindable(false),
-	value = $bindable(),
-	...restProps
-}: SelectPrimitive.RootProps = $props();
+	value = $bindable(""),
+	items = [],
+	type: _type,
+	...rest
+}: Omit<SelectPrimitive.RootProps, "type" | "value" | "onValueChange" | "items"> & {
+	value?: string;
+	items?: { value: string; label: string; disabled?: boolean }[];
+	/** Accepted so shadcn's `type="single"` call sites compile; this select is single-value. */
+	type?: "single";
+} = $props();
 </script>
 
-<SelectPrimitive.Root bind:open bind:value={value as never} {...restProps} />
+<SelectPrimitive.Root bind:open bind:value type="single" {items} {...rest} />

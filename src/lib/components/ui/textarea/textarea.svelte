@@ -1,31 +1,94 @@
 <script lang="ts">
 import type { HTMLTextareaAttributes } from "svelte/elements";
-import { cn, type WithElementRef, type WithoutChildren } from "$lib/utils.js";
+import { cn } from "$lib/cn";
+import { type TextareaSize, type TextareaVariant, textarea } from "./variants";
+
+type Props = {
+	value?: string;
+	class?: string;
+	rows?: number;
+	size?: TextareaSize;
+	variant?: TextareaVariant;
+	autoGrow?: boolean;
+	maxRows?: number;
+	invalid?: boolean;
+	label?: string;
+	description?: string;
+	maxlength?: number;
+	showCount?: boolean;
+	/** Bindable: the `<textarea>` element. */
+	ref?: HTMLTextAreaElement | null;
+} & Omit<HTMLTextareaAttributes, "rows" | "value" | "class" | "maxlength">;
 
 let {
+	value = $bindable(""),
 	ref = $bindable(null),
-	value = $bindable(),
-	class: className,
-	"data-slot": dataSlot = "textarea",
-	...restProps
-}: WithoutChildren<WithElementRef<HTMLTextareaAttributes>> = $props();
+	class: classProp,
+	rows = 3,
+	size = "md",
+	variant = "outline",
+	autoGrow = false,
+	maxRows = 10,
+	invalid = false,
+	label,
+	description,
+	maxlength,
+	showCount = false,
+	...rest
+}: Props = $props();
+
+const id = $props.id();
+const wrapped = $derived(Boolean(label || description || showCount));
+
+// Height follows content, never eases: easing lags behind the character just typed.
+$effect(() => {
+	void value;
+	const el = ref;
+	if (!autoGrow || !el) return;
+	const line = Number.parseFloat(getComputedStyle(el).lineHeight) || 20;
+	el.style.height = "auto";
+	el.style.height = `${Math.min(el.scrollHeight, line * maxRows)}px`;
+});
 </script>
 
-<textarea
-	bind:this={ref}
-	data-slot={dataSlot}
-	class={cn(
-		"flex w-full field-sizing-content min-h-24 px-4 py-3 outline-none",
-		"font-sans text-sm leading-relaxed tracking-[0.01em]",
-		"bg-card text-foreground placeholder:text-muted-foreground",
-		"border border-border-control rounded-xl",
-		"transition-[border-color,box-shadow] duration-150",
-		"focus-visible:border-primary focus-visible:shadow-[inset_0_0_0_1px_var(--primary)]",
-		"aria-invalid:border-destructive aria-invalid:focus-visible:shadow-[inset_0_0_0_1px_var(--destructive)]",
-		"disabled:bg-background disabled:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-70",
-		"dark:bg-card/60",
-		className
-	)}
-	bind:value
-	{...restProps}
-></textarea>
+{#snippet field()}
+	<textarea
+		{...rest}
+		{id}
+		{maxlength}
+		bind:this={ref}
+		bind:value
+		{rows}
+		aria-invalid={invalid || undefined}
+		aria-describedby={description ? `${id}-description` : undefined}
+		class={cn(textarea({ size, variant, autoGrow }), classProp)}
+	></textarea>
+{/snippet}
+
+<!-- Bare, so this can replace a shadcn textarea; the wrapper only appears with a label. -->
+{#if wrapped}
+	<div class="flex w-full flex-col gap-1.5">
+		{#if label}
+			<label for={id} class="font-medium text-foreground text-sm">{label}</label>
+		{/if}
+
+		{@render field()}
+
+		{#if description || showCount}
+			<div class="flex items-start justify-between gap-3">
+				{#if description}
+					<p id="{id}-description" class="text-muted-foreground text-xs leading-relaxed">
+						{description}
+					</p>
+				{/if}
+				{#if showCount}
+					<p class="ml-auto shrink-0 font-mono text-[11px] text-muted-foreground tabular-nums">
+						{value.length}{maxlength ? `/${maxlength}` : ""}
+					</p>
+				{/if}
+			</div>
+		{/if}
+	</div>
+{:else}
+	{@render field()}
+{/if}

@@ -1,4 +1,4 @@
-export type ProductSlug = "orbit" | "recast" | "glyphtex" | "docvia" | "specimen";
+export type ProductSlug = "orbit" | "recast" | "glyphtex" | "docvia" | "baby-ui" | "specimen";
 
 export type Product = {
 	slug: ProductSlug;
@@ -63,6 +63,17 @@ export const products: Product[] = [
 		href: "https://docvia.dev",
 		repo: "https://github.com/kanakkholwal/docvia",
 		actionLabel: "Open Docvia"
+	},
+	{
+		slug: "baby-ui",
+		name: "Baby UI",
+		category: "Component library",
+		qualifier: "for React and Svelte.",
+		line: "Animated, accessible components you install with the shadcn CLI and own as source. This site is built from them.",
+		kind: "Component library, React and Svelte",
+		href: "https://baby-ui.nexonauts.com",
+		repo: "https://github.com/kanakkholwal/baby-ui",
+		actionLabel: "Browse Baby UI"
 	},
 	{
 		slug: "specimen",

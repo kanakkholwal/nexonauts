@@ -1,20 +1,19 @@
 <script lang="ts">
 import { Avatar as AvatarPrimitive } from "bits-ui";
-import { cn } from "$lib/utils.js";
+import { cn } from "$lib/cn";
+import { getAvatar } from "./context";
 
-let {
-	ref = $bindable(null),
-	class: className,
-	...restProps
-}: AvatarPrimitive.FallbackProps = $props();
+let { children, class: classProp, ...rest }: AvatarPrimitive.FallbackProps = $props();
+
+const avatar = getAvatar();
 </script>
 
-<AvatarPrimitive.Fallback
-	bind:ref
-	data-slot="avatar-fallback"
-	class={cn(
-		"bg-muted text-muted-foreground rounded-full flex size-full items-center justify-center text-sm group-data-[size=sm]/avatar:text-xs",
-		className
-	)}
-	{...restProps}
-/>
+{#if avatar.status !== "loaded"}
+	<AvatarPrimitive.Fallback
+		data-slot="avatar-fallback"
+		class={cn("font-medium text-muted-foreground select-none", classProp)}
+		{...rest}
+	>
+		{@render children?.()}
+	</AvatarPrimitive.Fallback>
+{/if}

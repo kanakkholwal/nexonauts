@@ -1,32 +1,28 @@
 <script lang="ts">
-import ChevronDownIcon from "@tabler/icons-svelte/icons/chevron-down";
-import ChevronUpIcon from "@tabler/icons-svelte/icons/chevron-up";
 import { Accordion as AccordionPrimitive } from "bits-ui";
-import { cn, type WithoutChild } from "$lib/utils.js";
+import type { Snippet } from "svelte";
+import { cn } from "$lib/cn";
 
 let {
-	ref = $bindable(null),
-	class: className,
-	level = 3,
 	children,
-	...restProps
-}: WithoutChild<AccordionPrimitive.TriggerProps> & {
-	level?: AccordionPrimitive.HeaderProps["level"];
-} = $props();
+	class: classProp,
+	...rest
+}: { children?: Snippet; class?: string } = $props();
 </script>
 
-<AccordionPrimitive.Header {level} class="flex">
+<AccordionPrimitive.Header level={3} data-slot="accordion-header" class="flex">
 	<AccordionPrimitive.Trigger
+		{...rest}
 		data-slot="accordion-trigger"
-		bind:ref
 		class={cn(
-			"focus-visible:ring-ring focus-visible:border-ring focus-visible:after:border-ring **:data-[slot=accordion-trigger-icon]:text-muted-foreground rounded-lg py-2.5 text-left text-sm font-medium hover:underline focus-visible:ring-2 **:data-[slot=accordion-trigger-icon]:ml-auto **:data-[slot=accordion-trigger-icon]:size-4 group/accordion-trigger relative flex flex-1 items-start justify-between border border-transparent transition-[color,border-color] outline-none disabled:pointer-events-none disabled:opacity-50",
-			className
+			"flex flex-1 items-center justify-between gap-4 px-4 py-3 text-left font-medium text-foreground text-sm outline-none transition-colors hover:bg-foreground/[0.03] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset disabled:pointer-events-none disabled:opacity-50",
+			"[&>svg]:transition-[transform,scale,translate,rotate] [&>svg]:duration-[var(--duration-exit)] [&>svg]:ease-[var(--ease-out)] [&[data-state=open]>svg]:rotate-180 [&[data-state=open]>svg]:duration-[var(--duration-dropdown)] motion-reduce:[&>svg]:transition-none",
+			classProp,
 		)}
-		{...restProps}
 	>
 		{@render children?.()}
-		<ChevronDownIcon data-slot="accordion-trigger-icon" class="cn-accordion-trigger-icon pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden" />
-		<ChevronUpIcon data-slot="accordion-trigger-icon" class="cn-accordion-trigger-icon pointer-events-none hidden shrink-0 group-aria-expanded/accordion-trigger:inline" />
+		<svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="size-4 shrink-0 text-muted-foreground">
+			<path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+		</svg>
 	</AccordionPrimitive.Trigger>
 </AccordionPrimitive.Header>

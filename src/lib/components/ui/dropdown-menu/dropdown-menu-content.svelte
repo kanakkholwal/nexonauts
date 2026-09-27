@@ -1,31 +1,29 @@
 <script lang="ts">
 import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
-import type { ComponentProps } from "svelte";
-import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
-import DropdownMenuPortal from "./dropdown-menu-portal.svelte";
+import { stagger, UNFOLD } from "$lib/anchor";
+import { cn } from "$lib/cn";
+import { MENU_SURFACE } from "$lib/menu";
 
 let {
-	ref = $bindable(null),
+	class: classProp,
 	sideOffset = 4,
 	align = "start",
-	portalProps,
-	class: className,
-	...restProps
-}: DropdownMenuPrimitive.ContentProps & {
-	portalProps?: WithoutChildrenOrChild<ComponentProps<typeof DropdownMenuPortal>>;
-} = $props();
+	ref = $bindable(null),
+	...rest
+}: DropdownMenuPrimitive.ContentProps = $props();
+
+$effect(() => {
+	if (ref) stagger(ref.querySelectorAll<HTMLElement>("[role='menuitem']"));
+});
 </script>
 
-<DropdownMenuPortal {...portalProps}>
+<DropdownMenuPrimitive.Portal>
 	<DropdownMenuPrimitive.Content
 		bind:ref
-		data-slot="dropdown-menu-content"
 		{sideOffset}
 		{align}
-		class={cn(
-			"data-open:animate-in data-closed:animate-out data-closed:fade-out-0 data-open:fade-in-0 data-closed:zoom-out-95 data-open:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 bg-popover text-popover-foreground min-w-32 rounded-lg p-1 shadow-md border border-border duration-100 data-[side=inline-start]:slide-in-from-right-2 data-[side=inline-end]:slide-in-from-left-2 z-50 w-(--bits-dropdown-menu-anchor-width) overflow-x-hidden overflow-y-auto outline-none data-closed:overflow-hidden",
-			className
-		)}
-		{...restProps}
+		{...rest}
+		data-slot="dropdown-menu-content"
+		class={cn(UNFOLD, "static", MENU_SURFACE, classProp)}
 	/>
-</DropdownMenuPortal>
+</DropdownMenuPrimitive.Portal>

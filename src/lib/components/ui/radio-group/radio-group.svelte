@@ -1,19 +1,54 @@
 <script lang="ts">
 import { RadioGroup as RadioGroupPrimitive } from "bits-ui";
-import { cn } from "$lib/utils.js";
+import type { Snippet } from "svelte";
+import { cn } from "$lib/cn";
+import { setRadioGroupItemContext } from "./context";
+import {
+	type RadioOrientation,
+	type RadioSize,
+	type RadioVariant,
+	radioGroup,
+} from "./variants";
 
 let {
-	ref = $bindable(null),
-	class: className,
+	children,
 	value = $bindable(""),
-	...restProps
-}: RadioGroupPrimitive.RootProps = $props();
+	orientation = "vertical",
+	variant = "default",
+	size = "md",
+	disabled = false,
+	name,
+	class: classProp,
+	...rest
+}: {
+	children?: Snippet;
+	value?: string;
+	orientation?: RadioOrientation;
+	variant?: RadioVariant;
+	size?: RadioSize;
+	disabled?: boolean;
+	name?: string;
+	class?: string;
+} = $props();
+
+setRadioGroupItemContext({
+	get size() {
+		return size;
+	},
+	get variant() {
+		return variant;
+	},
+});
 </script>
 
 <RadioGroupPrimitive.Root
-	bind:ref
+	{...rest}
 	bind:value
+	{orientation}
+	{disabled}
+	{name}
 	data-slot="radio-group"
-	class={cn("grid gap-2 w-full", className)}
-	{...restProps}
-/>
+	class={cn(radioGroup({ orientation }).root(), disabled && "opacity-50", classProp)}
+>
+	{@render children?.()}
+</RadioGroupPrimitive.Root>

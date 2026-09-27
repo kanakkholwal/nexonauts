@@ -1,38 +1,46 @@
 <script lang="ts">
-import CheckIcon from "@tabler/icons-svelte/icons/check";
 import { Select as SelectPrimitive } from "bits-ui";
-import { cn, type WithoutChild } from "$lib/utils.js";
+import { UNFOLD_ITEM } from "$lib/anchor";
+import { cn } from "$lib/cn";
 
 let {
-	ref = $bindable(null),
-	class: className,
+	class: classProp,
 	value,
 	label,
 	children: childrenProp,
-	...restProps
-}: WithoutChild<SelectPrimitive.ItemProps> = $props();
+	...rest
+}: SelectPrimitive.ItemProps = $props();
 </script>
 
 <SelectPrimitive.Item
-	bind:ref
 	{value}
+	{label}
+	{...rest}
 	data-slot="select-item"
 	class={cn(
-		"relative flex w-full cursor-default items-center select-none gap-2 rounded-md py-1.5 pr-8 pl-2.5 text-sm outline-hidden text-foreground transition-colors focus:bg-muted focus:text-foreground data-highlighted:bg-muted data-highlighted:text-foreground data-disabled:pointer-events-none data-disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2",
-		className
+		UNFOLD_ITEM,
+		"flex w-full items-center justify-between gap-2 rounded-md px-2.5 py-1.5 text-left text-foreground text-sm outline-none transition-colors",
+		"data-highlighted:bg-foreground/[0.06]",
+		"data-disabled:pointer-events-none data-disabled:opacity-50",
+		classProp,
 	)}
-	{...restProps}
 >
 	{#snippet children({ selected, highlighted })}
-		<span class="absolute end-2 flex size-3.5 items-center justify-center">
-			{#if selected}
-				<CheckIcon class="cn-select-item-indicator-icon" />
-			{/if}
-		</span>
 		{#if childrenProp}
 			{@render childrenProp({ selected, highlighted })}
 		{:else}
 			{label || value}
+		{/if}
+		{#if selected}
+			<svg viewBox="0 0 14 14" fill="none" aria-hidden="true" class="size-3.5 shrink-0">
+				<path
+					d="M3 7.4 5.6 10 11 4.2"
+					stroke="currentColor"
+					stroke-width="1.6"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				/>
+			</svg>
 		{/if}
 	{/snippet}
 </SelectPrimitive.Item>

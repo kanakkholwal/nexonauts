@@ -1,20 +1,21 @@
 <script lang="ts">
-import ChevronRightIcon from "@tabler/icons-svelte/icons/chevron-right";
-import type { ComponentProps } from "svelte";
-import { cn } from "$lib/utils.js";
-import { PaginationLink } from "./index.js";
+import type { HTMLButtonAttributes } from "svelte/elements";
+import { cn } from "$lib/cn";
 
-type PaginationNextProps = ComponentProps<typeof PaginationLink>;
-
-let { class: className, ...restProps }: PaginationNextProps = $props();
+let { class: classProp, ...rest }: { class?: string } & HTMLButtonAttributes = $props();
 </script>
 
-<PaginationLink
-	aria-label="Go to next page"
-	size="default"
-	class={cn("pr-1.5!", className)}
-	{...restProps}
+<button
+	{...rest}
+	type="button"
+	data-slot="pagination-next"
+	aria-label="Next page"
+	class={cn(
+		"grid size-8 place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:text-foreground disabled:pointer-events-none disabled:opacity-40",
+		classProp,
+	)}
 >
-	<span class="cn-pagination-next-text hidden sm:block">Next</span>
-	<ChevronRightIcon data-icon="inline-end" />
-</PaginationLink>
+	<svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="size-3.5">
+		<path d="m6 4 4 4-4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+	</svg>
+</button>
