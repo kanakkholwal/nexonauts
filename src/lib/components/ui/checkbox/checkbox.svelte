@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Checkbox as CheckboxPrimitive } from "bits-ui";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 import { type CheckboxSize, checkbox } from "./variants";
 
 type Props = {

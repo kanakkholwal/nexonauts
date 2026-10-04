@@ -1,9 +1,9 @@
 <script lang="ts">
 import { ToggleGroup as ToggleGroupPrimitive } from "bits-ui";
 import type { Snippet } from "svelte";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 import { getToggleGroup } from "./context";
-import { toggleGroupItem } from "./variants";
+import { toggleGroup } from "./variants";
 
 let {
 	children: childrenProp,
@@ -18,7 +18,7 @@ const group = getToggleGroup();
 <ToggleGroupPrimitive.Item
 	{value}
 	data-slot="toggle-group-item"
-	class={cn(toggleGroupItem({ size: group.size }), classProp)}
+	class={cn(toggleGroup({ variant: group.variant, size: group.size }).item(), classProp)}
 	{...rest}
 >
 	{#snippet children()}

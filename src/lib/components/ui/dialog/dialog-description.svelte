@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Dialog as DialogPrimitive } from "bits-ui";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 
 let { class: classProp, ...rest }: DialogPrimitive.DescriptionProps = $props();
 </script>

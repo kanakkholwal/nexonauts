@@ -1,76 +1,101 @@
 <script lang="ts">
 import { DateFormatter, type DateValue, getLocalTimeZone } from "@internationalized/date";
-import type { ComponentProps } from "svelte";
-import type Calendar from "./calendar.svelte";
-import CalendarMonthSelect from "./calendar-month-select.svelte";
-import CalendarYearSelect from "./calendar-year-select.svelte";
+import type { Calendar as CalendarPrimitive } from "bits-ui";
+import { cn } from "$lib/cn.js";
+import { getCalendarChooser } from "./chooser-state.svelte";
+import { type CalendarCaptionLayout, calendar } from "./variants";
 
 let {
 	captionLayout,
-	months,
-	monthFormat,
-	years,
-	yearFormat,
+	monthFormat = "long",
+	yearFormat = "numeric",
 	month,
 	locale,
-	placeholder = $bindable(),
-	monthIndex = 0
+	monthIndex = 0,
 }: {
-	captionLayout: ComponentProps<typeof Calendar>["captionLayout"];
-	months: ComponentProps<typeof CalendarMonthSelect>["months"];
-	monthFormat: ComponentProps<typeof CalendarMonthSelect>["monthFormat"];
-	years: ComponentProps<typeof CalendarYearSelect>["years"];
-	yearFormat: ComponentProps<typeof CalendarYearSelect>["yearFormat"];
+	captionLayout: CalendarCaptionLayout;
+	monthFormat?: CalendarPrimitive.MonthSelectProps["monthFormat"];
+	yearFormat?: CalendarPrimitive.YearSelectProps["yearFormat"];
 	month: DateValue;
-	placeholder: DateValue | undefined;
 	locale: string;
-	monthIndex: number;
+	monthIndex?: number;
 } = $props();
 
-function formatYear(date: DateValue) {
-	const dateObj = date.toDate(getLocalTimeZone());
-	if (typeof yearFormat === "function") return yearFormat(dateObj.getFullYear());
-	return new DateFormatter(locale, { year: yearFormat }).format(dateObj);
-}
+const chooser = getCalendarChooser();
+const styles = calendar();
 
-function formatMonth(date: DateValue) {
-	const dateObj = date.toDate(getLocalTimeZone());
-	if (typeof monthFormat === "function") return monthFormat(dateObj.getMonth() + 1);
-	return new DateFormatter(locale, { month: monthFormat }).format(dateObj);
+const asDate = $derived(month.toDate(getLocalTimeZone()));
+const monthName = $derived(
+	typeof monthFormat === "function"
+		? monthFormat(month.month)
+		: new DateFormatter(locale, { month: monthFormat }).format(asDate),
+);
+const yearName = $derived(
+	typeof yearFormat === "function"
+		? yearFormat(month.year)
+		: new DateFormatter(locale, { year: yearFormat }).format(asDate),
+);
+// Only the first month opens the grids; the others keep a plain label.
+const chooses = $derived(captionLayout !== "label" && monthIndex === 0);
+
+let monthButton = $state<HTMLButtonElement>();
+let yearButton = $state<HTMLButtonElement>();
+
+// A closed grid takes the focused cell with it, so focus returns to the button that opened it.
+$effect(() => {
+	const from = chooser.closedFrom;
+	if (chooser.view !== "days" || !from || document.activeElement !== document.body)
+		return;
+	(from === "years" ? yearButton : monthButton)?.focus();
+});
+
+function toggle(view: "months" | "years") {
+	if (chooser.view === view) chooser.show("days", "zoom-in");
+	else chooser.show(view, "zoom-out");
 }
 </script>
 
-{#snippet MonthSelect()}
-	<CalendarMonthSelect
-		{months}
-		{monthFormat}
-		value={month.month}
-		onchange={(e) => {
-			if (!placeholder) return;
-			const v = Number.parseInt(e.currentTarget.value);
-			const newPlaceholder = placeholder.set({ month: v });
-			placeholder = newPlaceholder.subtract({ months: monthIndex });
-		}}
-	/>
+{#snippet chevron()}
+	<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+		<path d="m6 9 6 6 6-6" />
+	</svg>
 {/snippet}
 
-{#snippet YearSelect()}
-	<CalendarYearSelect {years} {yearFormat} value={month.year} />
-{/snippet}
-
-{#if captionLayout === "dropdown"}
-	{@render MonthSelect()}
-	{@render YearSelect()}
-{:else if captionLayout === "dropdown-months"}
-	{@render MonthSelect()}
-	{#if placeholder}
-		{formatYear(placeholder)}
-	{/if}
-{:else if captionLayout === "dropdown-years"}
-	{#if placeholder}
-		{formatMonth(placeholder)}
-	{/if}
-	{@render YearSelect()}
+{#if !chooses}
+	{#key month.toString()}
+		<span class={styles.heading()}>{monthName} {yearName}</span>
+	{/key}
 {:else}
-	{formatMonth(month)} {formatYear(month)}
+	{#if captionLayout !== "dropdown-years"}
+		<button
+			bind:this={monthButton}
+			type="button"
+			aria-expanded={chooser.view === "months"}
+			onclick={() => toggle("months")}
+			class={styles.captionButton()}
+		>
+			{#key month.month}
+				<span class={styles.captionText()}>{monthName}</span>
+			{/key}
+			{@render chevron()}
+		</button>
+	{:else}
+		<span class={styles.heading()}>{monthName}</span>
+	{/if}
+	{#if captionLayout !== "dropdown-months"}
+		<button
+			bind:this={yearButton}
+			type="button"
+			aria-expanded={chooser.view === "years"}
+			onclick={() => toggle("years")}
+			class={cn(styles.captionButton(), styles.captionYear())}
+		>
+			{#key month.year}
+				<span class={styles.captionText()}>{yearName}</span>
+			{/key}
+			{@render chevron()}
+		</button>
+	{:else}
+		<span class={styles.heading()}>{yearName}</span>
+	{/if}
 {/if}

@@ -1,33 +1,16 @@
-import * as FormPrimitive from "formsnap";
-import Button from "./form-button.svelte";
-import Description from "./form-description.svelte";
-import ElementField from "./form-element-field.svelte";
-import Field from "./form-field.svelte";
-import FieldErrors from "./form-field-errors.svelte";
-import Fieldset from "./form-fieldset.svelte";
-import Label from "./form-label.svelte";
-import Legend from "./form-legend.svelte";
-
-const Control = FormPrimitive.Control;
-
-export {
-	Button,
-	Button as FormButton,
-	Control,
-	Control as FormControl,
-	Description,
-	Description as FormDescription,
-	ElementField,
-	ElementField as FormElementField,
-	Field,
-	//
-	Field as FormField,
-	FieldErrors,
-	FieldErrors as FormFieldErrors,
-	Fieldset,
-	Fieldset as FormFieldset,
-	Label,
-	Label as FormLabel,
-	Legend,
-	Legend as FormLegend
-};
+export { default as Form } from "./form.svelte";
+export { default as FormButton } from "./form-button.svelte";
+export { default as FormControl } from "./form-control.svelte";
+export { default as FormDescription } from "./form-description.svelte";
+export { default as FormFieldErrors } from "./form-field-errors.svelte";
+export { default as FormField } from "./form-field.svelte";
+export { default as FormLabel } from "./form-label.svelte";
+export { type FormFieldContext } from "./context";
+export { form, type FormSpacing, type FormControlProps, type FormFieldMeta, formFieldState, formFieldIds } from "./variants";
+export { default as Root } from "./form.svelte";
+export { default as Button } from "./form-button.svelte";
+export { default as Control } from "./form-control.svelte";
+export { default as Description } from "./form-description.svelte";
+export { default as FieldErrors } from "./form-field-errors.svelte";
+export { default as Field } from "./form-field.svelte";
+export { default as Label } from "./form-label.svelte";

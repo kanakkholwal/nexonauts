@@ -1,9 +1,10 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
-import { cn } from "$lib/cn";
+import type { HTMLAttributes } from "svelte/elements";
+import { cn } from "$lib/cn.js";
 import { type BadgeSize, type BadgeVariant, badge } from "./variants";
 
-type Props = {
+type Props = Omit<HTMLAttributes<HTMLSpanElement>, "class" | "children"> & {
 	children?: Snippet;
 	class?: string;
 	variant?: BadgeVariant;
@@ -11,10 +12,22 @@ type Props = {
 	dot?: boolean;
 };
 
-let { children, class: classProp, variant, size, dot = false }: Props = $props();
+let {
+	children,
+	class: classProp,
+	variant = "default",
+	size = "md",
+	dot = false,
+	...rest
+}: Props = $props();
 </script>
 
-<span class={cn(badge({ variant, size }), classProp)} data-variant={variant}>
+<span
+	data-slot="badge"
+	data-variant={variant}
+	class={cn(badge({ variant, size }), classProp)}
+	{...rest}
+>
 	{#if dot}<span class="size-1.5 shrink-0 rounded-full bg-current"></span>{/if}
 	{@render children?.()}
 </span>

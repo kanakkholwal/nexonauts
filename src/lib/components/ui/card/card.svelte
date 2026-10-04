@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
 import type { HTMLAttributes } from "svelte/elements";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 import { type CardVariant, cardFrame } from "./variants";
 
 // Slot names and class shape follow shadcn-svelte, so this drops into an existing project.
@@ -19,7 +19,7 @@ let {
 } & HTMLAttributes<HTMLDivElement> = $props();
 
 const LIFT =
-	"transition-[transform,scale,translate,border-color] duration-200 ease-[var(--ease-out)] hover:-translate-y-0.5 hover:border-border-strong motion-reduce:hover:translate-y-0";
+	"transition-[transform,scale,translate,border-color] duration-(--duration-base) ease-[var(--ease-out)] hover:-translate-y-0.5 hover:border-border-strong motion-reduce:hover:translate-y-0";
 const frame = $derived(cardFrame({ variant }));
 </script>
 

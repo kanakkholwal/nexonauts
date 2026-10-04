@@ -1,20 +1,24 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
 import type { HTMLAttributes } from "svelte/elements";
-import { cn } from "$lib/cn";
-import { getDensity } from "./context";
+import { cn } from "$lib/cn.js";
+import { getTableStyle } from "./context";
 import { table } from "./variants";
 
 let {
+	ref = $bindable(null),
 	children,
 	class: className,
 	...rest
-}: { children?: Snippet } & HTMLAttributes<HTMLTableSectionElement> = $props();
+}: {
+	ref?: HTMLTableSectionElement | null;
+	children?: Snippet;
+} & HTMLAttributes<HTMLTableSectionElement> = $props();
 
-const density = getDensity();
-const classes = $derived(table({ density: density() }));
+const style = getTableStyle();
+const classes = $derived(table(style()));
 </script>
 
-<thead data-slot="table-header" class={cn(classes.header(), className)} {...rest}>
+<thead bind:this={ref} data-slot="table-header" class={cn(classes.header(), className)} {...rest}>
 	{@render children?.()}
 </thead>

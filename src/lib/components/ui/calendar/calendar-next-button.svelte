@@ -1,36 +1,28 @@
 <script lang="ts">
-import ChevronRightIcon from "@tabler/icons-svelte/icons/chevron-right";
-import { Calendar as CalendarPrimitive } from "bits-ui";
-import { type ButtonVariant, buttonVariants } from "$lib/components/ui/button/index.js";
-import { cn } from "$lib/utils.js";
+import { Calendar as Primitive } from "bits-ui";
+import { type ButtonVariant, button } from "$lib/components/ui/button/variants.js";
+import { cn } from "$lib/cn.js";
+import { calendar } from "./variants";
 
 let {
 	ref = $bindable(null),
-	class: className,
+	class: classProp,
 	children,
 	variant = "ghost",
-	...restProps
-}: CalendarPrimitive.NextButtonProps & {
-	variant?: ButtonVariant;
-} = $props();
+	...rest
+}: Primitive.NextButtonProps & { variant?: ButtonVariant } = $props();
 </script>
 
-{#snippet Fallback()}
-	<ChevronRightIcon class={cn("size-4", className)} />
-{/snippet}
-
-<CalendarPrimitive.NextButton
+<Primitive.NextButton
 	bind:ref
-	class={cn(
-		buttonVariants({ variant }),
-		"size-(--cell-size) bg-transparent p-0 select-none disabled:opacity-50 rtl:rotate-180",
-		className
-	)}
-	{...restProps}
+	class={cn(button({ variant, size: "icon" }), calendar().navButton(), classProp)}
+	{...rest}
 >
 	{#if children}
-		{@render children?.()}
+		{@render children()}
 	{:else}
-		{@render Fallback()}
+		<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="size-4">
+			<path d="m9 6 6 6-6 6" />
+		</svg>
 	{/if}
-</CalendarPrimitive.NextButton>
+</Primitive.NextButton>

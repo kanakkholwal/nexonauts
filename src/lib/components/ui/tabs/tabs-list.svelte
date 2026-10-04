@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Tabs as TabsPrimitive } from "bits-ui";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 import { getTabs } from "./context";
 import { tabsFrame } from "./variants";
 

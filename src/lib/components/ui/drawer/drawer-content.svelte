@@ -1,8 +1,7 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
 import { Drawer } from "vaul-svelte";
-import { cn } from "$lib/cn";
-import { DRAWER_CONTENT, getDrawer, HANDLE_BAR_SIDES, HANDLE_SIDES } from "./context";
+import { cn } from "$lib/cn.js";
 import { type DrawerVariant, drawerFrame } from "./variants";
 
 let {
@@ -19,43 +18,23 @@ let {
 	variant?: DrawerVariant;
 } & Omit<Drawer.ContentProps, "children"> = $props();
 
-const drawer = getDrawer();
 const frame = $derived(drawerFrame({ variant }));
 </script>
 
 <Drawer.Portal>
-	<Drawer.Overlay
-		data-slot="drawer-overlay"
-		class="fixed inset-0 z-50 bg-black/40 backdrop-blur-[2px]"
-	/>
+	<Drawer.Overlay data-slot="drawer-overlay" class={frame.overlay()} />
 	<!-- The frame is the rim (`framed`) or the surface itself (`default`). -->
 	<Drawer.Content
 		data-slot="drawer-content"
 		data-variant={variant}
-		class={cn(
-			"group/drawer fixed z-50 flex flex-col text-foreground",
-			frame.panel(),
-			DRAWER_CONTENT[drawer.direction],
-			classProp,
-		)}
+		class={cn(frame.panel(), classProp)}
 		{...rest}
 	>
 		{#if handle}
 			{#if variant === "framed"}
-				<Drawer.Handle
-					class={cn(
-						"shrink-0 cursor-grab! rounded-full! bg-muted-foreground/40! opacity-100! active:cursor-grabbing!",
-						HANDLE_SIDES[drawer.direction],
-					)}
-				/>
+				<Drawer.Handle class={frame.handle()} />
 			{:else}
-				<div
-					aria-hidden="true"
-					class={cn(
-						"shrink-0 cursor-grab rounded-full bg-muted active:cursor-grabbing",
-						HANDLE_BAR_SIDES[drawer.direction],
-					)}
-				></div>
+				<div aria-hidden="true" class={frame.handleBar()}></div>
 			{/if}
 		{/if}
 		<!-- data-vaul-no-drag: dragging should only start from the rail, not anywhere in the

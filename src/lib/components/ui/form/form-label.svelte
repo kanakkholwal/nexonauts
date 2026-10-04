@@ -1,24 +1,11 @@
 <script lang="ts">
-import * as FormPrimitive from "formsnap";
-import { Label } from "$lib/components/ui/label/index.js";
-import { cn, type WithoutChild } from "$lib/utils.js";
+import type { ComponentProps } from "svelte";
+import FieldLabel from "$lib/components/ui/field/field-label.svelte";
+import { getFormField } from "./context";
 
-let {
-	ref = $bindable(null),
-	children,
-	class: className,
-	...restProps
-}: WithoutChild<FormPrimitive.LabelProps> = $props();
+let { ref = $bindable(null), ...rest }: ComponentProps<typeof FieldLabel> = $props();
+
+const context = getFormField();
 </script>
 
-<FormPrimitive.Label {...restProps} bind:ref>
-	{#snippet child({ props })}
-		<Label
-			{...props}
-			data-slot="form-label"
-			class={cn("data-[fs-error]:text-destructive", className)}
-		>
-			{@render children?.()}
-		</Label>
-	{/snippet}
-</FormPrimitive.Label>
+<FieldLabel bind:ref for={context.ids.control} {...rest} />

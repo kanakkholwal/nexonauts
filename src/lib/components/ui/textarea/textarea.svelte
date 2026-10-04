@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { HTMLTextareaAttributes } from "svelte/elements";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 import { type TextareaSize, type TextareaVariant, textarea } from "./variants";
 
 type Props = {
@@ -37,7 +37,8 @@ let {
 	...rest
 }: Props = $props();
 
-const id = $props.id();
+const autoId = $props.id();
+const id = $derived(rest.id ?? autoId);
 const wrapped = $derived(Boolean(label || description || showCount));
 
 // Height follows content, never eases: easing lags behind the character just typed.
@@ -59,8 +60,8 @@ $effect(() => {
 		bind:this={ref}
 		bind:value
 		{rows}
-		aria-invalid={invalid || undefined}
-		aria-describedby={description ? `${id}-description` : undefined}
+		aria-invalid={invalid || rest["aria-invalid"] || undefined}
+		aria-describedby={description ? `${id}-description` : rest["aria-describedby"]}
 		class={cn(textarea({ size, variant, autoGrow }), classProp)}
 	></textarea>
 {/snippet}
@@ -82,7 +83,7 @@ $effect(() => {
 					</p>
 				{/if}
 				{#if showCount}
-					<p class="ml-auto shrink-0 font-mono text-[11px] text-muted-foreground tabular-nums">
+					<p class="ml-auto shrink-0 font-mono text-muted-foreground text-xs tabular-nums">
 						{value.length}{maxlength ? `/${maxlength}` : ""}
 					</p>
 				{/if}

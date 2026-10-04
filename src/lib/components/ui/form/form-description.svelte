@@ -1,17 +1,12 @@
 <script lang="ts">
-import * as FormPrimitive from "formsnap";
-import { cn, type WithoutChild } from "$lib/utils.js";
+import type { ComponentProps } from "svelte";
+import FieldDescription from "$lib/components/ui/field/field-description.svelte";
+import { getFormField } from "./context";
 
-let {
-	ref = $bindable(null),
-	class: className,
-	...restProps
-}: WithoutChild<FormPrimitive.DescriptionProps> = $props();
+let { ref = $bindable(null), ...rest }: ComponentProps<typeof FieldDescription> =
+	$props();
+
+const context = getFormField();
 </script>
 
-<FormPrimitive.Description
-	bind:ref
-	data-slot="form-description"
-	class={cn("text-muted-foreground text-sm", className)}
-	{...restProps}
-/>
+<FieldDescription bind:ref id={context.ids.description} {...rest} />

@@ -1,19 +1,16 @@
 <script lang="ts">
 import type { HTMLAttributes } from "svelte/elements";
-import { cn, type WithElementRef } from "$lib/utils.js";
+import { cn } from "$lib/cn.js";
+import { inputGroup } from "./variants";
 
 let {
 	ref = $bindable(null),
-	class: className,
+	class: classProp,
 	children,
-	...restProps
-}: WithElementRef<HTMLAttributes<HTMLSpanElement>> = $props();
+	...rest
+}: HTMLAttributes<HTMLSpanElement> & { ref?: HTMLSpanElement | null } = $props();
 </script>
 
-<span
-	bind:this={ref}
-	class={cn("text-muted-foreground gap-2 text-sm [&_svg:not([class*='size-'])]:size-4 flex items-center [&_svg]:pointer-events-none", className)}
-	{...restProps}
->
+<span bind:this={ref} class={cn(inputGroup().text(), classProp)} {...rest}>
 	{@render children?.()}
 </span>

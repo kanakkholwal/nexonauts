@@ -1,47 +1,39 @@
 <script lang="ts">
-import ChevronDownIcon from "@tabler/icons-svelte/icons/chevron-down";
-import { Calendar as CalendarPrimitive } from "bits-ui";
-import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
+import { Calendar as Primitive } from "bits-ui";
+import { cn } from "$lib/cn.js";
+import { calendar } from "./variants";
 
 let {
 	ref = $bindable(null),
-	class: className,
+	class: classProp,
 	value,
-	...restProps
-}: WithoutChildrenOrChild<CalendarPrimitive.YearSelectProps> = $props();
+	onchange,
+	...rest
+}: Omit<Primitive.YearSelectProps, "child" | "children"> = $props();
+
+const s = calendar();
 </script>
 
-<span
-	class={cn(
-		"has-focus:border-ring border-input has-focus:ring-ring relative flex rounded-md border shadow-xs has-focus:ring-2",
-		className
-	)}
->
-	<CalendarPrimitive.YearSelect
-		bind:ref
-		class="dark:bg-popover dark:text-popover-foreground absolute inset-0 opacity-0"
-		{...restProps}
-	>
+<!-- A native select under a styled label: platform pickers on touch, full keyboard support. -->
+<span class={cn(s.dropdown(), classProp)}>
+	<Primitive.YearSelect bind:ref class="absolute inset-0 bg-popover opacity-0" {...rest}>
 		{#snippet child({ props, yearItems, selectedYearItem })}
-			<select {...props} {value}>
-				{#each yearItems as yearItem (yearItem.value)}
+			<select {...props} {value} {onchange}>
+				{#each yearItems as item (item.value)}
 					<option
-						value={yearItem.value}
-						selected={value !== undefined
-							? yearItem.value === value
-							: yearItem.value === selectedYearItem.value}
+						value={item.value}
+						selected={value !== undefined ? item.value === value : item.value === selectedYearItem.value}
 					>
-						{yearItem.label}
+						{item.label}
 					</option>
 				{/each}
 			</select>
-			<span
-				class="[&>svg]:text-muted-foreground flex h-(--cell-size) items-center gap-1 rounded-md ps-2 pe-1 text-sm font-medium select-none [&>svg]:size-3.5"
-				aria-hidden="true"
-			>
+			<span class={s.dropdownLabel()} aria-hidden="true">
 				{yearItems.find((item) => item.value === value)?.label || selectedYearItem.label}
-				<ChevronDownIcon class={cn("size-4", className)} />
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="m6 9 6 6 6-6" />
+				</svg>
 			</span>
 		{/snippet}
-	</CalendarPrimitive.YearSelect>
+	</Primitive.YearSelect>
 </span>

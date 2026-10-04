@@ -2,20 +2,22 @@ import { tv, type VariantProps } from "tailwind-variants";
 
 export const slider = tv({
 	slots: {
-		root: "group/slider relative flex data-[orientation=horizontal]:w-full data-[orientation=horizontal]:flex-col data-[orientation=vertical]:h-full",
-		header: "mb-1 flex items-baseline justify-between gap-3 text-sm",
+		root: "group/slider relative flex data-[orientation=horizontal]:w-full data-[orientation=horizontal]:flex-col data-[orientation=vertical]:h-full data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-center",
+		// Vertical stacks the label over the value above the column instead of squeezing beside it.
+		header:
+			"mb-1 flex items-baseline justify-between gap-3 text-sm group-data-[orientation=vertical]/slider:mb-2 group-data-[orientation=vertical]/slider:flex-col group-data-[orientation=vertical]/slider:items-center group-data-[orientation=vertical]/slider:gap-0.5",
 		title: "text-muted-foreground",
 		value: "font-mono text-foreground text-xs tabular-nums",
 		control:
-			"relative flex touch-none select-none items-center data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:flex-col data-disabled:opacity-50",
+			"relative flex touch-none select-none items-center data-[orientation=horizontal]:w-full data-[orientation=vertical]:min-h-0 data-[orientation=vertical]:flex-1 data-[orientation=vertical]:flex-col data-disabled:opacity-50",
 		track:
 			"relative overflow-hidden rounded-full bg-input transition-[height,width] duration-(--duration-press) ease-(--ease-out) data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full motion-reduce:transition-none",
 		range:
 			"slider-glide rounded-full bg-primary data-[orientation=horizontal]:h-full data-[orientation=vertical]:w-full",
 		thumb:
-			"slider-glide block shrink-0 rounded-full border-primary bg-background shadow-sm outline-none hover:scale-[1.08] focus-visible:shadow-[0_0_0_4px_var(--ring)] active:scale-[1.15] data-[active]:scale-[1.15] data-[dragging]:scale-[1.15]",
+			"slider-glide block shrink-0 cursor-grab rounded-full border-primary bg-background shadow-sm outline-none focus-visible:shadow-[0_0_0_4px_var(--ring)] active:cursor-grabbing active:scale-90 data-[active]:scale-90 data-[dragging]:scale-90",
 		marks: "relative mt-2 h-4 w-full",
-		mark: "absolute top-0 flex -translate-x-1/2 flex-col items-center gap-1 text-[11px] text-muted-foreground tabular-nums",
+		mark: "absolute top-0 flex -translate-x-1/2 flex-col items-center gap-1 text-muted-foreground text-xs tabular-nums",
 		markDot: "size-1 rounded-full bg-muted-foreground/50",
 		markButton:
 			"rounded-sm outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring",
@@ -32,23 +34,29 @@ export const slider = tv({
 		rulerTick: "absolute bottom-0 flex -translate-x-1/2 flex-col items-center pb-[18px]",
 		rulerTickLine:
 			"w-px rounded-full bg-foreground/45 data-major:h-7 data-major:bg-foreground/70 h-3.5",
-		rulerTickLabel: "absolute bottom-0 text-[10px] text-muted-foreground tabular-nums",
+		rulerTickLabel: "absolute bottom-0 text-muted-foreground text-xs tabular-nums",
 		rulerNeedle: "hidden",
 	},
 	variants: {
 		variant: {
 			default: {},
-			// beUI's range slider: an inset fill under a thin pill handle.
+			// An inset fill under a thin pill handle; vertical fills from the bottom with the pill laid flat.
 			track: {
 				control:
 					"overflow-hidden rounded-lg bg-muted has-focus-visible:ring-4 has-focus-visible:ring-foreground/30 has-focus-visible:ring-inset",
-				track: "absolute inset-0 h-full rounded-none bg-transparent",
-				range:
-					"rounded-none rounded-l-lg bg-foreground/15 after:absolute after:inset-y-0 after:left-full after:w-1.5 after:rounded-r-lg after:bg-inherit",
+				track: "absolute inset-0 size-full rounded-none bg-transparent",
+				range: [
+					"rounded-none bg-foreground/15 after:absolute after:bg-inherit",
+					"group-data-[orientation=horizontal]/slider:rounded-l-lg group-data-[orientation=horizontal]/slider:after:inset-y-0 group-data-[orientation=horizontal]/slider:after:left-full group-data-[orientation=horizontal]/slider:after:w-1.5 group-data-[orientation=horizontal]/slider:after:rounded-r-lg",
+					"group-data-[orientation=vertical]/slider:rounded-b-lg group-data-[orientation=vertical]/slider:after:inset-x-0 group-data-[orientation=vertical]/slider:after:bottom-full group-data-[orientation=vertical]/slider:after:h-1.5 group-data-[orientation=vertical]/slider:after:rounded-t-lg",
+				],
 				thumb: [
-					"h-full w-5 cursor-grab border-0 bg-transparent shadow-none hover:scale-100 focus-visible:shadow-none active:scale-100 data-[active]:scale-100 data-[dragging]:scale-100 active:cursor-grabbing",
-					"before:absolute before:top-1/2 before:left-1/2 before:h-6 before:w-1 before:-translate-1/2 before:rounded-full before:bg-foreground",
-					"before:transition-[scale] before:duration-(--duration-press) before:ease-(--ease-out) data-[active]:before:scale-y-[1.35] data-[dragging]:before:scale-y-[1.35] motion-reduce:before:transition-none",
+					"cursor-grab border-0 bg-transparent shadow-none hover:scale-100 focus-visible:shadow-none active:scale-100 data-[active]:scale-100 data-[dragging]:scale-100 active:cursor-grabbing",
+					"group-data-[orientation=horizontal]/slider:h-full group-data-[orientation=horizontal]/slider:w-5 group-data-[orientation=vertical]/slider:h-5 group-data-[orientation=vertical]/slider:w-full",
+					"before:absolute before:top-1/2 before:left-1/2 before:-translate-1/2 before:rounded-full before:bg-foreground",
+					"group-data-[orientation=horizontal]/slider:before:h-6 group-data-[orientation=horizontal]/slider:before:w-1 group-data-[orientation=vertical]/slider:before:h-1 group-data-[orientation=vertical]/slider:before:w-6",
+					"before:transition-[scale] before:duration-(--duration-press) before:ease-(--ease-out) motion-reduce:before:transition-none",
+					"group-data-[orientation=horizontal]/slider:data-[active]:before:scale-y-[1.35] group-data-[orientation=horizontal]/slider:data-[dragging]:before:scale-y-[1.35] group-data-[orientation=vertical]/slider:data-[active]:before:scale-x-[1.35] group-data-[orientation=vertical]/slider:data-[dragging]:before:scale-x-[1.35]",
 				],
 			},
 			// The track variant with its label and value inside; the handle parts around the text.
@@ -62,7 +70,7 @@ export const slider = tv({
 				inlineLabel:
 					"absolute top-1/2 left-5 block max-w-[40%] -translate-y-1/2 truncate font-medium text-sm leading-5",
 				inlineValue:
-					"absolute top-1/2 right-5 block max-w-[40%] -translate-y-1/2 truncate font-semibold text-[13px] tabular-nums leading-[18px] tracking-tight",
+					"absolute top-1/2 right-5 block max-w-[40%] -translate-y-1/2 truncate font-semibold text-sm tabular-nums",
 				thumb: [
 					"h-full w-5 cursor-grab border-0 bg-transparent shadow-none hover:scale-100 focus-visible:shadow-none active:scale-100 data-[active]:scale-100 data-[dragging]:scale-100 active:cursor-grabbing",
 					"before:absolute before:top-1/2 before:left-1/2 before:h-6 before:w-1 before:-translate-1/2 before:rounded-full before:bg-foreground before:opacity-[calc(1-var(--slider-split,0))]",
@@ -70,9 +78,9 @@ export const slider = tv({
 					"before:transition-[opacity,scale] after:transition-[height] before:duration-(--duration-press) after:duration-(--duration-press) before:ease-(--ease-out) after:ease-(--ease-out) data-[active]:before:scale-y-[1.35] data-[dragging]:before:scale-y-[1.35] motion-reduce:before:transition-none motion-reduce:after:transition-none",
 				],
 			},
-			// A value bubble pops out of the thumb while it is dragged.
+			// A value bubble pops out of the thumb while it is dragged: above it, or right of it when vertical.
 			bubble: {
-				root: "pt-10",
+				root: "data-[orientation=horizontal]:pt-10 data-[orientation=vertical]:pr-16",
 				thumb:
 					"group/thumb size-5 border-2 border-foreground hover:scale-100 active:scale-125 data-[active]:scale-125 data-[dragging]:scale-125",
 				range: "bg-foreground",
@@ -84,6 +92,10 @@ export const slider = tv({
 					"group-data-[active]/thumb:translate-y-0 group-data-[active]/thumb:scale-80 group-data-[active]/thumb:opacity-100 group-data-[active]/thumb:duration-(--duration-dropdown)",
 					"group-data-[dragging]/thumb:translate-y-0 group-data-[dragging]/thumb:scale-80 group-data-[dragging]/thumb:opacity-100 group-data-[dragging]/thumb:duration-(--duration-dropdown)",
 					"motion-reduce:translate-y-0 motion-reduce:scale-80 motion-reduce:transition-opacity",
+					"group-data-[orientation=vertical]/slider:top-1/2 group-data-[orientation=vertical]/slider:bottom-auto group-data-[orientation=vertical]/slider:left-full group-data-[orientation=vertical]/slider:mb-0 group-data-[orientation=vertical]/slider:ml-2.5 group-data-[orientation=vertical]/slider:origin-left group-data-[orientation=vertical]/slider:-translate-x-2.5 group-data-[orientation=vertical]/slider:-translate-y-1/2",
+					"group-data-[orientation=vertical]/slider:group-data-[active]/thumb:translate-x-0 group-data-[orientation=vertical]/slider:group-data-[active]/thumb:-translate-y-1/2 group-data-[orientation=vertical]/slider:group-data-[dragging]/thumb:translate-x-0 group-data-[orientation=vertical]/slider:group-data-[dragging]/thumb:-translate-y-1/2",
+					"group-data-[orientation=vertical]/slider:motion-reduce:translate-x-0 group-data-[orientation=vertical]/slider:motion-reduce:-translate-y-1/2",
+					"group-data-[orientation=vertical]/slider:after:top-1/2 group-data-[orientation=vertical]/slider:after:left-0 group-data-[orientation=vertical]/slider:after:-translate-y-1/2",
 				],
 			},
 			// Thumbless: the whole pill is the control; a second copy of its text rides in the fill.
@@ -167,12 +179,54 @@ export const slider = tv({
 				thumb: "size-5 border-2",
 			},
 		},
-		{ variant: "bubble", size: "sm", class: { control: "h-9", track: "h-1.5" } },
-		{ variant: "bubble", size: "md", class: { control: "h-11", track: "h-2" } },
-		{ variant: "bubble", size: "lg", class: { control: "h-14", track: "h-2.5" } },
-		{ variant: ["track", "inline"], size: "sm", class: { control: "h-8" } },
-		{ variant: ["track", "inline"], size: "md", class: { control: "h-10" } },
-		{ variant: ["track", "inline"], size: "lg", class: { control: "h-12" } },
+		{
+			variant: "bubble",
+			size: "sm",
+			class: {
+				control: "data-[orientation=horizontal]:h-9 data-[orientation=vertical]:w-9",
+				track: "data-[orientation=horizontal]:h-1.5 data-[orientation=vertical]:w-1.5",
+			},
+		},
+		{
+			variant: "bubble",
+			size: "md",
+			class: {
+				control: "data-[orientation=horizontal]:h-11 data-[orientation=vertical]:w-11",
+				track: "data-[orientation=horizontal]:h-2 data-[orientation=vertical]:w-2",
+			},
+		},
+		{
+			variant: "bubble",
+			size: "lg",
+			class: {
+				control: "data-[orientation=horizontal]:h-14 data-[orientation=vertical]:w-14",
+				track: "data-[orientation=horizontal]:h-2.5 data-[orientation=vertical]:w-2.5",
+			},
+		},
+		{
+			variant: "track",
+			size: "sm",
+			class: {
+				control: "data-[orientation=horizontal]:h-8 data-[orientation=vertical]:w-8",
+			},
+		},
+		{
+			variant: "track",
+			size: "md",
+			class: {
+				control: "data-[orientation=horizontal]:h-10 data-[orientation=vertical]:w-10",
+			},
+		},
+		{
+			variant: "track",
+			size: "lg",
+			class: {
+				control: "data-[orientation=horizontal]:h-12 data-[orientation=vertical]:w-12",
+			},
+		},
+		{ variant: "inline", size: "sm", class: { control: "h-8" } },
+		{ variant: "inline", size: "md", class: { control: "h-10" } },
+		{ variant: "inline", size: "lg", class: { control: "h-12" } },
 		{ variant: "fluid", size: "sm", class: { control: "h-10" } },
 		{ variant: "fluid", size: "md", class: { control: "h-12" } },
 		{ variant: "fluid", size: "lg", class: { control: "h-14" } },

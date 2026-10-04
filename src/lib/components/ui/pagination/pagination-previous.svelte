@@ -1,8 +1,15 @@
 <script lang="ts">
 import type { HTMLButtonAttributes } from "svelte/elements";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
+import { type PaginationSize, pagination } from "./variants";
 
-let { class: classProp, ...rest }: { class?: string } & HTMLButtonAttributes = $props();
+let {
+	size = "md",
+	class: classProp,
+	...rest
+}: { size?: PaginationSize; class?: string } & HTMLButtonAttributes = $props();
+
+const s = $derived(pagination({ size }));
 </script>
 
 <button
@@ -10,12 +17,9 @@ let { class: classProp, ...rest }: { class?: string } & HTMLButtonAttributes = $
 	type="button"
 	data-slot="pagination-previous"
 	aria-label="Previous page"
-	class={cn(
-		"grid size-8 place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:text-foreground disabled:pointer-events-none disabled:opacity-40",
-		classProp,
-	)}
+	class={cn(s.link(), s.nav(), classProp)}
 >
-	<svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="size-3.5">
+	<svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
 		<path d="M10 4 6 8l4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
 	</svg>
 </button>

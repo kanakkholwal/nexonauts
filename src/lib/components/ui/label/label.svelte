@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
 import type { HTMLLabelAttributes } from "svelte/elements";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 
 let {
 	children,
@@ -33,5 +33,5 @@ let {
 	)}
 >
 	{@render children?.()}
-	{#if required}<span aria-hidden="true" class="text-[var(--destructive)]">*</span>{/if}
+	{#if required}<span aria-hidden="true" class="text-destructive-strong">*</span>{/if}
 </label>

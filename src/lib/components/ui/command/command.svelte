@@ -1,22 +1,27 @@
 <script lang="ts">
-import { Command as CommandPrimitive } from "bits-ui";
-import type { Snippet } from "svelte";
-import { cn } from "$lib/cn";
+import { Command as CommandPrimitive, computeCommandScore } from "bits-ui";
+import { cn } from "$lib/cn.js";
 import { getCommandDialogState, setCommand } from "./context";
-import { commandFrame } from "./variants";
+import { rankCommandMatch } from "./score";
+import { type CommandVariant, commandFrame } from "./variants";
 
 let {
 	children,
 	value = $bindable(""),
+	variant: variantProp,
+	filter = (item: string, search: string, keywords?: string[]) =>
+		rankCommandMatch(computeCommandScore(item, search, keywords), item, search),
 	class: classProp,
 	...rest
 }: Omit<CommandPrimitive.RootProps, "value" | "onStateChange"> & {
 	value?: string;
+	variant?: CommandVariant;
 } = $props();
 
 let resultCount = $state(0);
 const dialogState = getCommandDialogState();
-const variant = $derived(dialogState?.variant ?? "default");
+const variant = $derived(variantProp ?? dialogState?.variant ?? "default");
+const styles = $derived(commandFrame({ variant }));
 
 setCommand({
 	get resultCount() {
@@ -25,21 +30,24 @@ setCommand({
 	get activeValue() {
 		return value;
 	},
+	get variant() {
+		return variant;
+	},
+	get styles() {
+		return styles;
+	},
 });
 </script>
 
 <CommandPrimitive.Root
 	bind:value
+	{filter}
 	onStateChange={(state) => {
 		resultCount = state.filtered.count;
 	}}
 	data-slot="command"
 	data-variant={variant}
-	class={cn(
-		"relative flex min-h-0 flex-col overflow-hidden text-foreground",
-		commandFrame({ variant }).body(),
-		classProp,
-	)}
+	class={cn(styles.body(), classProp)}
 	{...rest}
 >
 	{@render children?.()}

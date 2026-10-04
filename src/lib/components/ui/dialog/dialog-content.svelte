@@ -1,17 +1,18 @@
 <script lang="ts">
 import { Dialog as DialogPrimitive } from "bits-ui";
 import type { Snippet } from "svelte";
-import { cn } from "$lib/cn";
-import { DIALOG_BACKDROP, DIALOG_PANEL, getDialog } from "./context";
+import { cn } from "$lib/cn.js";
+import { getDialog } from "./context";
 import { dialogFrame, dialogWidth } from "./variants";
 
 let { children, class: classProp }: { children?: Snippet; class?: string } = $props();
 
 const dialog = getDialog();
+const styles = $derived(dialogFrame({ variant: dialog.variant }));
 </script>
 
 <DialogPrimitive.Portal>
-	<DialogPrimitive.Overlay data-slot="dialog-backdrop" class={DIALOG_BACKDROP} />
+	<DialogPrimitive.Overlay data-slot="dialog-backdrop" class={styles.backdrop()} />
 	<DialogPrimitive.Content
 		data-slot="dialog-content"
 		data-variant={dialog.variant}
@@ -19,8 +20,8 @@ const dialog = getDialog();
 			if (!dialog.dismissOnBackdrop) event.preventDefault();
 		}}
 		class={cn(
-			DIALOG_PANEL,
-			dialogFrame({ variant: dialog.variant }).panel(),
+			styles.popup(),
+			styles.panel(),
 			"w-[min(32rem,calc(100vw-2rem))]",
 			dialogWidth({ size: dialog.size }),
 			classProp,
@@ -28,7 +29,7 @@ const dialog = getDialog();
 	>
 		{#if dialog.variant === "framed"}
 			<!-- Inset frame: the body sits on a lighter surface, the footer in the rim below it. -->
-			<div class={cn(dialogFrame({ variant: dialog.variant }).body(), "p-5")}>
+			<div class={styles.body()}>
 				{@render children?.()}
 			</div>
 			{#if dialog.footer}

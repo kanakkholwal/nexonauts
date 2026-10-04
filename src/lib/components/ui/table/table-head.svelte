@@ -1,8 +1,8 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
 import type { HTMLThAttributes } from "svelte/elements";
-import { cn } from "$lib/cn";
-import { getDensity } from "./context";
+import { cn } from "$lib/cn.js";
+import { getTableStyle } from "./context";
 import { table } from "./variants";
 
 let {
@@ -11,8 +11,8 @@ let {
 	...rest
 }: { children?: Snippet } & HTMLThAttributes = $props();
 
-const density = getDensity();
-const classes = $derived(table({ density: density() }));
+const style = getTableStyle();
+const classes = $derived(table(style()));
 </script>
 
 <th data-slot="table-head" class={cn(classes.head(), className)} {...rest}>

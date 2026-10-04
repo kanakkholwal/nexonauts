@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 import { getCommandDialogState } from "./context";
 
 let { children, class: classProp }: { children?: Snippet; class?: string } = $props();

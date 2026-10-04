@@ -1,7 +1,7 @@
 <script lang="ts">
 import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
-import { cn } from "$lib/cn";
-import { menuItem } from "$lib/menu";
+import { cn } from "$lib/cn.js";
+import { menu } from "$lib/menu.js";
 
 let {
 	class: classProp,
@@ -16,8 +16,7 @@ let {
 	data-slot="dropdown-menu-sub-trigger"
 	data-inset={inset || undefined}
 	class={cn(
-		menuItem({ variant: "default" }),
-		"data-[state=open]:bg-foreground/[0.06]",
+		menu().item(),
 		classProp,
 	)}
 >

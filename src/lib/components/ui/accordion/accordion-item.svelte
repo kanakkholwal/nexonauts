@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Accordion as AccordionPrimitive } from "bits-ui";
 import type { Snippet } from "svelte";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 
 let {
 	children,

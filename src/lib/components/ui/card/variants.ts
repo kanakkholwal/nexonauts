@@ -1,6 +1,6 @@
 import { tv, type VariantProps } from "tailwind-variants";
 
-/** `framed` wraps the body in the same inset rim as Dialog; `default` is the flat shadcn card. */
+/** `default` sits on the page with a border; `secondary` is the grey card step; `framed` adds Dialog's rim. */
 export const cardFrame = tv({
 	slots: {
 		root: "rounded-2xl border border-border",
@@ -8,7 +8,10 @@ export const cardFrame = tv({
 	},
 	variants: {
 		variant: {
-			default: { root: "bg-card", body: "" },
+			// The Lifted ladder makes --card a grey step, so the default card uses the page colour.
+			default: { root: "bg-background", body: "" },
+			secondary: { root: "border-transparent bg-card", body: "" },
+			ghost: { root: "border-transparent bg-transparent", body: "" },
 			framed: { root: "bg-background p-1", body: "rounded-[11px] bg-card" },
 		},
 	},

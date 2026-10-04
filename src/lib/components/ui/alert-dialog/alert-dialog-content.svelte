@@ -1,19 +1,19 @@
 <script lang="ts">
 import { AlertDialog as AlertDialogPrimitive } from "bits-ui";
 import type { Snippet } from "svelte";
-import { DIALOG_BACKDROP, DIALOG_PANEL } from "$lib/components/ui/dialog/context";
-import { dialogFrame } from "$lib/components/ui/dialog/variants";
-import { cn } from "$lib/cn";
+import { dialogFrame } from "$lib/components/ui/dialog/variants.js";
+import { cn } from "$lib/cn.js";
 import { getAlertDialog } from "./context";
 
 let { children, class: classProp }: { children?: Snippet; class?: string } = $props();
 
 const dialog = getAlertDialog();
+const styles = $derived(dialogFrame({ variant: dialog.variant }));
 let contentEl = $state<HTMLElement | null>(null);
 </script>
 
 <AlertDialogPrimitive.Portal>
-	<AlertDialogPrimitive.Overlay data-slot="alert-dialog-backdrop" class={DIALOG_BACKDROP} />
+	<AlertDialogPrimitive.Overlay data-slot="alert-dialog-backdrop" class={styles.backdrop()} />
 	<AlertDialogPrimitive.Content
 		bind:ref={contentEl}
 		data-slot="alert-dialog-content"
@@ -25,14 +25,14 @@ let contentEl = $state<HTMLElement | null>(null);
 				?.focus();
 		}}
 		class={cn(
-			DIALOG_PANEL,
-			dialogFrame({ variant: dialog.variant }).panel(),
+			styles.popup(),
+			styles.panel(),
 			"w-[min(26rem,calc(100vw-2rem))]",
 			classProp,
 		)}
 	>
 		{#if dialog.variant === "framed"}
-			<div class={cn(dialogFrame({ variant: dialog.variant }).body(), "p-5")}>
+			<div class={styles.body()}>
 				{@render children?.()}
 			</div>
 			{#if dialog.footer}

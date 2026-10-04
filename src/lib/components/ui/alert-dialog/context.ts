@@ -1,5 +1,5 @@
 import { createContext, type Snippet } from "svelte";
-import type { DialogVariant } from "$lib/components/ui/dialog/context";
+import type { DialogVariant } from "$lib/components/ui/dialog/context.js";
 
 export type AlertDialogContext = {
 	readonly variant: DialogVariant;

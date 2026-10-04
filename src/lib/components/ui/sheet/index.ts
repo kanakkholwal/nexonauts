@@ -6,7 +6,7 @@ export { default as SheetFooter } from "./sheet-footer.svelte";
 export { default as SheetHeader } from "./sheet-header.svelte";
 export { default as SheetTitle } from "./sheet-title.svelte";
 export { default as SheetTrigger } from "./sheet-trigger.svelte";
-export { sheetPanel, type SheetSide } from "./variants";
+export { sheet, type SheetVariant, type SheetSide } from "./variants";
 export { default as Root } from "./sheet.svelte";
 export { default as Close } from "./sheet-close.svelte";
 export { default as Content } from "./sheet-content.svelte";

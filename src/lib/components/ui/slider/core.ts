@@ -8,7 +8,13 @@ export const SLIDER_SINGLE_THUMB_VARIANTS: readonly SliderVariant[] = [
 	"ruler",
 ];
 
-/** Only `default` lays out vertically; every other variant renders horizontal. */
+/** Variants with a vertical layout; the rest carry text, bars or a scale and stay horizontal. */
+export const SLIDER_VERTICAL_VARIANTS: readonly SliderVariant[] = [
+	"default",
+	"track",
+	"bubble",
+];
+
 export function sliderLayout(
 	variant: SliderVariant,
 	orientation: "horizontal" | "vertical",
@@ -18,7 +24,7 @@ export function sliderLayout(
 		isRange && SLIDER_SINGLE_THUMB_VARIANTS.includes(variant) ? "track" : variant;
 	return {
 		variant: resolved,
-		orientation: resolved === "default" ? orientation : "horizontal",
+		orientation: SLIDER_VERTICAL_VARIANTS.includes(resolved) ? orientation : "horizontal",
 	};
 }
 

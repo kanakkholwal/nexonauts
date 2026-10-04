@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
 import { Drawer } from "vaul-svelte";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 
 let {
 	children,

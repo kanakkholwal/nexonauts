@@ -6,7 +6,7 @@ export { default as DrawerFooter } from "./drawer-footer.svelte";
 export { default as DrawerHeader } from "./drawer-header.svelte";
 export { default as DrawerTitle } from "./drawer-title.svelte";
 export { default as DrawerTrigger } from "./drawer-trigger.svelte";
-export { type DrawerDirection, type DrawerContext, DRAWER_CONTENT, HANDLE_SIDES, HANDLE_BAR_SIDES } from "./context";
+export { type DrawerDirection, type DrawerContext } from "./context";
 export { drawerFrame, type DrawerVariant } from "./variants";
 export { default as Root } from "./drawer.svelte";
 export { default as Close } from "./drawer-close.svelte";

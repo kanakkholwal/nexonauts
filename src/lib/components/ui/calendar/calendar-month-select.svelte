@@ -1,48 +1,39 @@
 <script lang="ts">
-import ChevronDownIcon from "@tabler/icons-svelte/icons/chevron-down";
-import { Calendar as CalendarPrimitive } from "bits-ui";
-import { cn, type WithoutChildrenOrChild } from "$lib/utils.js";
+import { Calendar as Primitive } from "bits-ui";
+import { cn } from "$lib/cn.js";
+import { calendar } from "./variants";
 
 let {
 	ref = $bindable(null),
-	class: className,
+	class: classProp,
 	value,
 	onchange,
-	...restProps
-}: WithoutChildrenOrChild<CalendarPrimitive.MonthSelectProps> = $props();
+	...rest
+}: Omit<Primitive.MonthSelectProps, "child" | "children"> = $props();
+
+const s = calendar();
 </script>
 
-<span
-	class={cn(
-		"has-focus:border-ring border-input has-focus:ring-ring relative flex rounded-md border shadow-xs has-focus:ring-2",
-		className
-	)}
->
-	<CalendarPrimitive.MonthSelect
-		bind:ref
-		class="bg-background dark:bg-popover dark:text-popover-foreground absolute inset-0 opacity-0"
-		{...restProps}
-	>
+<!-- A native select under a styled label: platform pickers on touch, full keyboard support. -->
+<span class={cn(s.dropdown(), classProp)}>
+	<Primitive.MonthSelect bind:ref class="absolute inset-0 bg-popover opacity-0" {...rest}>
 		{#snippet child({ props, monthItems, selectedMonthItem })}
 			<select {...props} {value} {onchange}>
-				{#each monthItems as monthItem (monthItem.value)}
+				{#each monthItems as item (item.value)}
 					<option
-						value={monthItem.value}
-						selected={value !== undefined
-							? monthItem.value === value
-							: monthItem.value === selectedMonthItem.value}
+						value={item.value}
+						selected={value !== undefined ? item.value === value : item.value === selectedMonthItem.value}
 					>
-						{monthItem.label}
+						{item.label}
 					</option>
 				{/each}
 			</select>
-			<span
-				class="[&>svg]:text-muted-foreground flex h-(--cell-size) items-center gap-1 rounded-md ps-2 pe-1 text-sm font-medium select-none [&>svg]:size-3.5"
-				aria-hidden="true"
-			>
+			<span class={s.dropdownLabel()} aria-hidden="true">
 				{monthItems.find((item) => item.value === value)?.label || selectedMonthItem.label}
-				<ChevronDownIcon class={cn("size-4", className)} />
+				<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="m6 9 6 6 6-6" />
+				</svg>
 			</span>
 		{/snippet}
-	</CalendarPrimitive.MonthSelect>
+	</Primitive.MonthSelect>
 </span>

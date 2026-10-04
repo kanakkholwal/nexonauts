@@ -17,6 +17,15 @@ export const radioGroup = tv({
 				label:
 					"rounded-xl border border-border bg-card px-3.5 py-3 transition-colors hover:border-border-strong has-checked:border-primary",
 			},
+			// Menu-style rows: the checked row is tinted, for pickers inside a popover.
+			list: {
+				root: "gap-0.5",
+				label: [
+					"w-full items-center rounded-md px-2 py-1.5 transition-colors hover:bg-foreground/[0.06]",
+					"has-data-checked:bg-foreground/[0.06] has-data-[state=checked]:bg-foreground/[0.06] has-data-checked:font-medium has-data-[state=checked]:font-medium",
+				],
+				ring: "mt-0",
+			},
 		},
 		size: {
 			sm: { label: "text-xs", ring: "size-3.5", dot: "size-1.5" },

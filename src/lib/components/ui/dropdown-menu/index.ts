@@ -1,4 +1,5 @@
 export { default as DropdownMenu } from "./dropdown-menu.svelte";
+export { default as DropdownMenuCheckboxItem } from "./dropdown-menu-checkbox-item.svelte";
 export { default as DropdownMenuContent } from "./dropdown-menu-content.svelte";
 export { default as DropdownMenuItem } from "./dropdown-menu-item.svelte";
 export { default as DropdownMenuLabel } from "./dropdown-menu-label.svelte";
@@ -9,6 +10,7 @@ export { default as DropdownMenuSubTrigger } from "./dropdown-menu-sub-trigger.s
 export { default as DropdownMenuSub } from "./dropdown-menu-sub.svelte";
 export { default as DropdownMenuTrigger } from "./dropdown-menu-trigger.svelte";
 export { default as Root } from "./dropdown-menu.svelte";
+export { default as CheckboxItem } from "./dropdown-menu-checkbox-item.svelte";
 export { default as Content } from "./dropdown-menu-content.svelte";
 export { default as Item } from "./dropdown-menu-item.svelte";
 export { default as Label } from "./dropdown-menu-label.svelte";

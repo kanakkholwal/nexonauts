@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Progress as ProgressPrimitive } from "bits-ui";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 import {
 	PROGRESS_RING,
 	type ProgressSize,

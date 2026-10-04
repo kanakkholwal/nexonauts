@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Slider as SliderPrimitive } from "bits-ui";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 import {
 	sliderInlineSplit,
 	sliderLayout,
@@ -51,7 +51,7 @@ let {
 	min?: number;
 	max?: number;
 	step?: number;
-	/** Only `default` supports vertical; the other variants render horizontal. */
+	/** `default`, `track` and `bubble` go vertical; the other variants render horizontal. */
 	orientation?: "horizontal" | "vertical";
 	/** Accessible name; also the header title when `showValue` is on. */
 	label?: string;

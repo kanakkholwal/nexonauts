@@ -7,7 +7,7 @@ export const tabsFrame = tv({
 			"relative z-10 inline-flex shrink-0 items-center justify-center whitespace-nowrap font-medium text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring",
 		// The sliding marker, measured from the active trigger.
 		indicator:
-			"pointer-events-none absolute left-0 transition-[transform,scale,translate,width] duration-[var(--duration-dropdown)] ease-[var(--ease-out)] motion-reduce:transition-none",
+			"pointer-events-none absolute left-0 transition-[transform,scale,translate,width] duration-(--duration-slow) ease-[var(--ease-drawer)] motion-reduce:transition-none",
 	},
 	variants: {
 		variant: {

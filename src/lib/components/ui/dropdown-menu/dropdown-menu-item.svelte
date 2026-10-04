@@ -1,8 +1,7 @@
 <script lang="ts">
 import { DropdownMenu as DropdownMenuPrimitive } from "bits-ui";
-import { UNFOLD_ITEM } from "$lib/anchor";
-import { cn } from "$lib/cn";
-import { menuItem } from "$lib/menu";
+import { cn } from "$lib/cn.js";
+import { menu } from "$lib/menu.js";
 
 let {
 	class: classProp,
@@ -21,5 +20,5 @@ const variant = $derived(destructive ? "destructive" : "default");
 	{...rest}
 	data-slot="dropdown-menu-item"
 	data-inset={inset || undefined}
-	class={cn(UNFOLD_ITEM, menuItem({ variant }), classProp)}
+	class={cn(menu({ variant }).item(), classProp)}
 />

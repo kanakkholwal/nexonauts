@@ -1,7 +1,7 @@
 <script lang="ts">
 import { Dialog as SheetPrimitive } from "bits-ui";
 import type { Snippet } from "svelte";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 
 let {
 	children,
@@ -15,7 +15,7 @@ let {
 	data-slot="sheet-close"
 	aria-label={children ? undefined : "Close"}
 	class={cn(
-		"grid size-8 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-card hover:text-foreground",
+		"grid size-8 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-foreground/[0.06] hover:text-foreground",
 		classProp,
 	)}
 >

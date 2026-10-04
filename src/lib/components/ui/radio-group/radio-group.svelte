@@ -1,7 +1,7 @@
 <script lang="ts">
 import { RadioGroup as RadioGroupPrimitive } from "bits-ui";
 import type { Snippet } from "svelte";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 import { setRadioGroupItemContext } from "./context";
 import {
 	type RadioOrientation,

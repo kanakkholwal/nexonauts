@@ -1,20 +1,21 @@
 <script lang="ts">
 import type { ComponentProps } from "svelte";
-import { Input } from "$lib/components/ui/input/index.js";
-import { cn } from "$lib/utils.js";
+import Input from "$lib/components/ui/input/input.svelte";
+import { cn } from "$lib/cn.js";
+import { inputGroup } from "./variants";
 
 let {
 	ref = $bindable(null),
-	value = $bindable(),
-	class: className,
-	...props
+	value = $bindable(""),
+	class: classProp,
+	...rest
 }: ComponentProps<typeof Input> = $props();
 </script>
 
 <Input
 	bind:ref
-	data-slot="input-group-control"
-	class={cn("rounded-none border-0 bg-transparent shadow-none ring-0 focus-visible:ring-0 disabled:bg-transparent aria-invalid:ring-0 dark:bg-transparent dark:disabled:bg-transparent flex-1", className)}
 	bind:value
-	{...props}
+	data-slot="input-group-control"
+	class={cn(inputGroup().control(), classProp)}
+	{...rest}
 />

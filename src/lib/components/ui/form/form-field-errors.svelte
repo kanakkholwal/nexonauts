@@ -1,30 +1,14 @@
 <script lang="ts">
-import * as FormPrimitive from "formsnap";
-import { cn, type WithoutChild } from "$lib/utils.js";
+import type { ComponentProps } from "svelte";
+import FieldError from "$lib/components/ui/field/field-error.svelte";
+import { getFormField } from "./context";
 
 let {
 	ref = $bindable(null),
-	class: className,
-	errorClasses,
-	children: childrenProp,
-	...restProps
-}: WithoutChild<FormPrimitive.FieldErrorsProps> & {
-	errorClasses?: string | undefined | null;
-} = $props();
+	...rest
+}: Omit<ComponentProps<typeof FieldError>, "errors"> = $props();
+
+const context = getFormField();
 </script>
 
-<FormPrimitive.FieldErrors
-	bind:ref
-	class={cn("text-destructive text-sm font-medium", className)}
-	{...restProps}
->
-	{#snippet children({ errors, errorProps })}
-		{#if childrenProp}
-			{@render childrenProp({ errors, errorProps })}
-		{:else}
-			{#each errors as error (error)}
-				<div {...errorProps} class={cn(errorClasses)}>{error}</div>
-			{/each}
-		{/if}
-	{/snippet}
-</FormPrimitive.FieldErrors>
+<FieldError bind:ref id={context.ids.errors} errors={context.errors} {...rest} />

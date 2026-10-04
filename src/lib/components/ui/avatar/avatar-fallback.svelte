@@ -1,6 +1,6 @@
 <script lang="ts">
 import { Avatar as AvatarPrimitive } from "bits-ui";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 import { getAvatar } from "./context";
 
 let { children, class: classProp, ...rest }: AvatarPrimitive.FallbackProps = $props();

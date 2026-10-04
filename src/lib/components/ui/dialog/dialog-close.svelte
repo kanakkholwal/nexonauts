@@ -1,23 +1,21 @@
 <script lang="ts">
 import { Dialog as DialogPrimitive } from "bits-ui";
 import type { Snippet } from "svelte";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
+import { dialogFrame } from "./variants";
 
 let {
 	children,
 	class: classProp,
 	...rest
 }: DialogPrimitive.CloseProps & { children?: Snippet } = $props();
-
-const ICON_ONLY =
-	"absolute top-3 right-3 grid size-8 place-items-center rounded-md text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring";
 </script>
 
 <DialogPrimitive.Close
 	{...rest}
 	data-slot="dialog-close"
 	aria-label={children ? undefined : "Close"}
-	class={cn(!children && ICON_ONLY, classProp)}
+	class={cn(!children && dialogFrame().close(), classProp)}
 >
 	{#if children}
 		{@render children()}

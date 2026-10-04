@@ -1,7 +1,8 @@
 <script lang="ts">
 import type { Snippet } from "svelte";
 import { Drawer } from "vaul-svelte";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
+import { drawerFrame } from "./variants";
 
 let {
 	children,
@@ -11,15 +12,12 @@ let {
 	Drawer.CloseProps,
 	"children"
 > = $props();
-
-const ICON_ONLY =
-	"absolute top-3 right-3 grid size-8 place-items-center rounded-md text-muted-foreground outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring";
 </script>
 
 <Drawer.Close
 	data-slot="drawer-close"
 	aria-label={children ? undefined : "Close"}
-	class={cn(!children && ICON_ONLY, classProp)}
+	class={cn(!children && drawerFrame().close(), classProp)}
 	{...rest}
 >
 	{#if children}

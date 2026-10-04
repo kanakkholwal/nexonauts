@@ -1,13 +1,14 @@
 <script lang="ts">
 import { Toggle as TogglePrimitive } from "bits-ui";
 import type { Snippet } from "svelte";
-import { cn } from "$lib/cn";
-import { type ToggleSize, toggleButton } from "./variants";
+import { cn } from "$lib/cn.js";
+import { type ToggleSize, type ToggleVariant, toggleButton } from "./variants";
 
 let {
 	children,
 	pressed = $bindable(false),
 	disabled = false,
+	variant = "default",
 	size = "md",
 	label,
 	class: classProp,
@@ -15,6 +16,7 @@ let {
 	children?: Snippet;
 	pressed?: boolean;
 	disabled?: boolean;
+	variant?: ToggleVariant;
 	size?: ToggleSize;
 	label?: string;
 	class?: string;
@@ -26,7 +28,8 @@ let {
 	{disabled}
 	aria-label={label}
 	data-slot="toggle"
-	class={cn(toggleButton({ size }), classProp)}
+	data-variant={variant}
+	class={cn(toggleButton({ variant, size }), classProp)}
 >
 	{@render children?.()}
 </TogglePrimitive.Root>

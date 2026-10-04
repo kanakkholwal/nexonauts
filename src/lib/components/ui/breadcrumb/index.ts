@@ -5,6 +5,8 @@ export { default as BreadcrumbLink } from "./breadcrumb-link.svelte";
 export { default as BreadcrumbList } from "./breadcrumb-list.svelte";
 export { default as BreadcrumbPage } from "./breadcrumb-page.svelte";
 export { default as BreadcrumbSeparator } from "./breadcrumb-separator.svelte";
+export { setBreadcrumbStyle, breadcrumbStyles } from "./context";
+export { breadcrumb, type BreadcrumbVariant, type BreadcrumbSize } from "./variants";
 export { default as Root } from "./breadcrumb.svelte";
 export { default as Ellipsis } from "./breadcrumb-ellipsis.svelte";
 export { default as Item } from "./breadcrumb-item.svelte";

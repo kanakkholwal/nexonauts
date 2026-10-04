@@ -9,6 +9,12 @@ export const toggleButton = tv({
 		"active:scale-[var(--press-scale)] disabled:pointer-events-none disabled:opacity-50",
 	],
 	variants: {
+		// shadcn's names: `outline` keeps a field-style border at rest, so it reads as a button.
+		variant: {
+			default: "",
+			outline:
+				"border-input hover:border-border-strong aria-pressed:border-border-strong",
+		},
 		size: {
 			sm: "h-7 min-w-7 px-2 text-xs",
 			md: "h-9 min-w-9 px-2.5 text-sm",
@@ -16,7 +22,8 @@ export const toggleButton = tv({
 			xl: "h-12 min-w-12 px-4 text-base",
 		},
 	},
-	defaultVariants: { size: "md" },
+	defaultVariants: { variant: "default", size: "md" },
 });
 
+export type ToggleVariant = NonNullable<VariantProps<typeof toggleButton>["variant"]>;
 export type ToggleSize = NonNullable<VariantProps<typeof toggleButton>["size"]>;

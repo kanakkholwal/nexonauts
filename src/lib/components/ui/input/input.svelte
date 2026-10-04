@@ -1,6 +1,6 @@
 <script lang="ts">
 import type { HTMLInputAttributes } from "svelte/elements";
-import { cn } from "$lib/cn";
+import { cn } from "$lib/cn.js";
 import { type InputSize, input } from "./variants";
 
 type Props = {
@@ -27,6 +27,6 @@ let {
 	data-slot="input"
 	{...rest}
 	bind:value
-	aria-invalid={invalid || undefined}
+	aria-invalid={invalid || rest["aria-invalid"] || undefined}
 	class={cn(input({ size }), classProp)}
 />

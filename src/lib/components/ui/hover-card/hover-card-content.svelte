@@ -1,7 +1,7 @@
 <script lang="ts">
 import { LinkPreview as HoverCardPrimitive } from "bits-ui";
-import { ANCHORED } from "$lib/anchor";
-import { cn } from "$lib/cn";
+import { ANCHORED } from "$lib/anchor.js";
+import { cn } from "$lib/cn.js";
 
 let {
 	class: classProp,
@@ -19,7 +19,7 @@ let {
 		data-slot="hover-card-content"
 		class={cn(
 			ANCHORED,
-			"static z-50 w-64 rounded-xl border border-border bg-popover p-3 text-sm shadow-2xl",
+			"static z-50 w-64 rounded-xl bg-popover p-3 text-sm shadow-(--overlay-shadow)",
 			classProp,
 		)}
 	/>

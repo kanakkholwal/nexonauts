@@ -1,16 +1,9 @@
 <script lang="ts">
-import { Calendar as CalendarPrimitive } from "bits-ui";
-import { cn } from "$lib/utils.js";
+import { Calendar as Primitive } from "bits-ui";
+import { cn } from "$lib/cn.js";
+import { calendar } from "./variants";
 
-let {
-	ref = $bindable(null),
-	class: className,
-	...restProps
-}: CalendarPrimitive.GridProps = $props();
+let { ref = $bindable(null), class: classProp, ...rest }: Primitive.GridProps = $props();
 </script>
 
-<CalendarPrimitive.Grid
-	bind:ref
-	class={cn("flex w-full border-collapse flex-col", className)}
-	{...restProps}
-/>
+<Primitive.Grid bind:ref class={cn(calendar().grid(), classProp)} {...rest} />
